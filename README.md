@@ -1,6 +1,6 @@
 # 🚗 V2X Collision Avoidance System
 
-**EECE25 – Embedded Systems Graduation Project**
+## EECE25 – Embedded Systems Graduation Project
 
 ## 📌 Overview
 
