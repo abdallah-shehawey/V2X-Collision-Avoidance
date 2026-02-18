@@ -1,6 +1,6 @@
-#include "BSW/BSW_interface.h"
-#include "BSW/BSW_config.h"
-#include "BSW/BSW_private.h"
+#include "../Inc/BSW/BSW_interface.h"
+#include "../Inc/BSW/BSW_config.h"
+#include "../Inc/BSW/BSW_private.h"
 
 /* ================= Simulation Variables ================= */
 static float BSW_LeftDistance = 100.0f;
@@ -24,6 +24,7 @@ void BSW_voidSetSimulatedData(float leftDist, float rightDist, unsigned char lef
   BSW_RightDistance = rightDist;
   BSW_LeftSignal = leftSignal;
   BSW_RightSignal = rightSignal;
+  
 }
 
 void BSW_voidUpdate(void)
@@ -89,5 +90,12 @@ static void BSW_voidSendWarning(BSW_RiskLevel_t level, unsigned char side)
   /*
   V2V_SendMessage(BSW_MSG);
   ADAS_NotifyBlindSpot(side, level);
+  */
+
+  /*
+  to not forget
+  in V2V recieve msg function it will know the system from struct msg.ID
+  then it will check the level and side to alert the driver
+  and will call BSW_voidActivateAlert function in recieve side also
   */
 }
