@@ -1,11 +1,12 @@
 #ifndef FCW_CONFIG_H
 #define FCW_CONFIG_H
 
-/* Distance thresholds (meters) */
-#define FCW_WARNING_DISTANCE  (10.0f)
-#define FCW_CRITICAL_DISTANCE (4.0f)
+/* TTC ---> Time To Collision */
+/* TTC thresholds (seconds) */
+#define FCW_WARNING_TTC (3.0f)
+#define FCW_CRITICAL_TTC (2.0f)
 
-/* Enable alerts */
+/* Enable systems */
 #define FCW_ENABLE_LED_ALERT 1
 #define FCW_ENABLE_BUZZER 1
 #define FCW_ENABLE_ADAS_REQUEST 1

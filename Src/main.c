@@ -20,6 +20,7 @@
 
 int main(void)
 {
-    /* Loop forever */
-	for(;;);
+  /* Loop forever */
+  for (;;)
+    ;
 }

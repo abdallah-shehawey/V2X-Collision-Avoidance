@@ -8,8 +8,9 @@ typedef enum
   FCW_CRITICAL
 } FCW_RiskLevel_t;
 
-/* Internal functions */
+/* Internal */
 static void FCW_voidCheckCollision(void);
+static float FCW_f32CalculateTTC(void);
 static void FCW_voidActivateAlert(FCW_RiskLevel_t level);
 static void FCW_voidSendWarning(FCW_RiskLevel_t level);
 

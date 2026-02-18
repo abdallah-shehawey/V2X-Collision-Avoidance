@@ -5,34 +5,63 @@
 /* ================= Simulation Variables ================= */
 static float FCW_FrontDistance = 100.0f;
 static float FCW_HostSpeed = 0.0f;
+static float FCW_FrontVehicleSpeed = 0.0f;
 /* ======================================================== */
 
-//  void FCW_voidSetSimulatedData(float frontDistance, float hostSpeed)
-//  {
-//    FCW_FrontDistance = frontDistance;
-//    FCW_HostSpeed = hostSpeed;
-//  }
+void FCW_voidInit(void)
+{
+  /* get data from sensors because the car may be stopped in any time */
+  // FCW_FrontDistance = 100.0f;
+  // FCW_HostSpeed = 0.0f;
+  // FCW_FrontVehicleSpeed = 0.0f;
+}
+
+// void FCW_voidSetSimulatedData(float frontDistance, float hostSpeed, float frontVehicleSpeed)
+// {
+//   FCW_FrontDistance = frontDistance;
+//   FCW_HostSpeed = hostSpeed;
+//   FCW_FrontVehicleSpeed = frontVehicleSpeed;
+// }
 
 void FCW_voidUpdate(void)
 {
+  // get data from sensors to update variables
+  // get FCW_FrontVehicleSpeed from srvice
   FCW_voidCheckCollision();
 }
 
-/* ================= Internal Logic ================= */
+/* ================= Core Logic ================= */
 
 static void FCW_voidCheckCollision(void)
 {
-  if (FCW_FrontDistance <= FCW_CRITICAL_DISTANCE)
+  float ttc = FCW_f32CalculateTTC();
+
+  if (ttc > 0) /* Valid TTC */
   {
-    FCW_voidActivateAlert(FCW_CRITICAL);
-    FCW_voidSendWarning(FCW_CRITICAL);
+    if (ttc <= FCW_CRITICAL_TTC)
+    {
+      FCW_voidActivateAlert(FCW_CRITICAL);
+      FCW_voidSendWarning(FCW_CRITICAL);
+    }
+    else if (ttc <= FCW_WARNING_TTC)
+    {
+      FCW_voidActivateAlert(FCW_WARNING);
+      FCW_voidSendWarning(FCW_WARNING);
+    }
   }
-  else if (FCW_FrontDistance <= FCW_WARNING_DISTANCE)
+}
+
+/* Calculate Time To Collision */
+static float FCW_f32CalculateTTC(void)
+{
+  float relativeSpeed = FCW_HostSpeed - FCW_FrontVehicleSpeed;
+
+  if (relativeSpeed <= 0.0f)
   {
-    FCW_voidActivateAlert(FCW_WARNING);
-    FCW_voidSendWarning(FCW_WARNING);
+    return -1.0f; /* No collision risk */
   }
-  /* else SAFE → no action */
+
+  return (FCW_FrontDistance / relativeSpeed);
 }
 
 static void FCW_voidActivateAlert(FCW_RiskLevel_t level)
@@ -61,11 +90,9 @@ static void FCW_voidActivateAlert(FCW_RiskLevel_t level)
 static void FCW_voidSendWarning(FCW_RiskLevel_t level)
 {
   /*
-Message Example:
     Module : FCW
+    TTC    : calculated
     Level  : WARNING / CRITICAL
-    Distance : FCW_FrontDistance
-    Speed    : FCW_HostSpeed
   */
 
   /*
