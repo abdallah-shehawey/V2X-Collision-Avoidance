@@ -17,10 +17,14 @@
  */
 
 #include <stdint.h>
-
+void func(void)
+{
+  static int x = 5;
+}
 int main(void)
 {
   /* Loop forever */
+  func();
   for (;;)
     ;
 }

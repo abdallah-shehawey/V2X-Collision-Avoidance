@@ -1,6 +1,19 @@
-#include "SDW_interface.h"
-#include "SDW_config.h"
-#include "SDW_private.h"
+/**
+ **===========================================================================**
+ **<<<<<<<<<<<<<<<<<<<<<<<<<<    SDW_program.c     >>>>>>>>>>>>>>>>>>>>>>>>>>>>>**
+ **                                                                           **
+ **                  Author : Abdallah Abdelmoemen Shehawey                   **
+ **                  Layer  : APP                                             **
+ **                  CPU    : Cortex-M4                                       **
+ **                  MCU    : NUCLEO-F446RE                                   **
+ **                  SW     : SDW                                             **
+ **                                                                           **
+ **===========================================================================**
+ */
+
+#include "../Inc/SDW/SDW_interface.h"
+#include "../Inc/SDW/SDW_config.h"
+#include "../Inc/SDW/SDW_private.h"
 
 /* ================= Simulation Variables ================= */
 static float SDW_FrontDist = 100.0f;
