@@ -25,6 +25,5 @@ int main(void)
 {
   /* Loop forever */
   func();
-  for (;;)
-    ;
+  for (;;);
 }

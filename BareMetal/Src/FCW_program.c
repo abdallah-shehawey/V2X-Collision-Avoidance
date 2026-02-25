@@ -11,9 +11,9 @@
  **===========================================================================**
  */
 
-#include "../Inc/FCW/FCW_interface.h"
-#include "../Inc/FCW/FCW_config.h"
-#include "../Inc/FCW/FCW_private.h"
+#include "../Inc/Application/FCW/FCW_interface.h"
+#include "../Inc/Application/FCW/FCW_config.h"
+#include "../Inc/Application/FCW/FCW_private.h"
 
 /* ================= Simulation Variables ================= */
 static float FCW_FrontDistance = 100.0f;

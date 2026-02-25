@@ -11,9 +11,9 @@
  **===========================================================================**
  */
 
-#include "DNPW_interface.h"
-#include "DNPW_config.h"
-#include "DNPW_private.h"
+#include "../Inc/Application/DNPW/DNPW_interface.h"
+#include "../Inc/Application/DNPW/DNPW_config.h"
+#include "../Inc/Application/DNPW/DNPW_private.h"
 
 /* ================= Simulation Variables ================= */
 static float DNPW_OppositeDistance = 200.0f;

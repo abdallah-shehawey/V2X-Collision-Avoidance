@@ -11,9 +11,9 @@
  **===========================================================================**
  */
 
-#include "../Inc/BSW/BSW_interface.h"
-#include "../Inc/BSW/BSW_config.h"
-#include "../Inc/BSW/BSW_private.h"
+#include "../Inc/Application/BSW/BSW_interface.h"
+#include "../Inc/Application/BSW/BSW_config.h"
+#include "../Inc/Application/BSW/BSW_private.h"
 
 /* ================= Simulation Variables ================= */
 static float BSW_LeftDistance = 100.0f;

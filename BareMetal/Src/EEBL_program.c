@@ -11,9 +11,9 @@
  **===========================================================================**
  */
 
-#include "../Inc/EEBL/EEBL_interface.h"
-#include "../Inc/EEBL/EEBL_config.h"
-#include "../Inc/EEBL/EEBL_private.h"
+#include "../Inc/Application/EEBL/EEBL_interface.h"
+#include "../Inc/Application/EEBL/EEBL_config.h"
+#include "../Inc/Application/EEBL/EEBL_private.h"
 
 /* ================= Simulation Variables ================= */
 static float EEBL_CurrentSpeed = 0.0f;

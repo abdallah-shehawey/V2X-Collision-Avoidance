@@ -11,9 +11,9 @@
  **===========================================================================**
  */
 
-#include "../Inc/SDW/SDW_interface.h"
-#include "../Inc/SDW/SDW_config.h"
-#include "../Inc/SDW/SDW_private.h"
+#include "../Inc/Application/SDW/SDW_interface.h"
+#include "../Inc/Application/SDW/SDW_config.h"
+#include "../Inc/Application/SDW/SDW_private.h"
 
 /* ================= Simulation Variables ================= */
 static float SDW_FrontDist = 100.0f;
