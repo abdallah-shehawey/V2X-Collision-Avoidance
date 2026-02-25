@@ -17,7 +17,7 @@
  */
 
 #include <stdint.h>
-#include "System.h"
+#include <System/System.h>
 void func(void)
 {
   static int x = 5;
