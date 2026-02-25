@@ -30,6 +30,23 @@ Traditional driving systems lack real-time awareness of surrounding vehicles, pe
 - Prepare the road for autonomous vehicles
 
 ---
+## 📁 Project Structure
+```
+Graduation-Project/
+├── BareMetal/        # STM32 (V2V – ADAS use cases)
+│   ├── Inc/          # Headers لكل subsystem (BSW, DNPW, FCW, ...)
+│   ├── Src/          # Implementation لكل subsystem
+│   └── Startup/     # Startup & linker scripts
+│
+├── RPI/              # High-level processing & networking
+│   ├── V2I/          # Vehicle-to-Infrastructure
+│   ├── V2N/          # Vehicle-to-Network (MQTT / Cloud)
+│   └── V2P/          # Vehicle-to-Pedestrian (Vision / AI)
+│
+└── README.md         # Main project documentation
+```
+
+---
 
 ## 🧠 System Architecture
 
