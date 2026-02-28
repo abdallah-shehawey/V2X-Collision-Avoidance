@@ -14,12 +14,12 @@
 #ifndef US_INTERFACE_H_
 #define US_INTERFACE_H_
 
-#include "../../LIB/STD_MACROS.h"
-#include "../../LIB/ErrTypes.h"
-#include "../../LIB/STM32F446xx.h"
+#include "STD_MACROS.h"
+#include "ErrTypes.h"
+#include "STM32F446xx.h"
 
-#include "../../MCAL/GPIO/GPIO_interface.h"
-#include "../../MCAL/TIM/TIM_interface.h"
+#include "GPIO_interface.h"
+#include "TIM_interface.h"
 /**************************************         Data Types
  * ******************************************/
 
