@@ -1,8 +1,7 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
-#include "../Inc/Drivers/HAL/LED/LED_interface.h"
-#include "../Inc/Drivers/HAL/BUZZ/BUZ_interface.h"
+
 
 /* 
  * ========================================================================================

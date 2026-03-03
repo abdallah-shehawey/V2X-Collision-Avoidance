@@ -13,13 +13,13 @@
 #define BUZ_CONFIG_H_
 
 /* Include needed files */
-#include "GPIO_interface.h"
+#include "../../MCAL/GPIO/GPIO_interface.h"
 
 /********************** Buzzer GPIO Configurations **********************/
 /* Default GPIO configurations for buzzer */
 #define BUZ_DEFAULT_PORT GPIO_PORTA
 #define BUZ_DEFAULT_PIN GPIO_PIN0
-#define BUZ_DEFAULT_STATE ACTIVE_HIGH
+#define BUZ_DEFAULT_STATE BUZ_ACTIVE_HIGH
 
 /* GPIO Mode Configuration */
 #define BUZ_GPIO_MODE GPIO_OUTPUT

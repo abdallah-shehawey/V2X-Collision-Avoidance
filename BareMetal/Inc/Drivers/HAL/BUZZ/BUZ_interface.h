@@ -12,14 +12,14 @@
 #ifndef BUZ_INTERFACE_H_
 #define BUZ_INTERFACE_H_
 
-#include "GPIO_interface.h"
-#include "ErrTypes.h"
+#include "../../MCAL/GPIO/GPIO_interface.h"
+#include "../../../Drivers/LIB/ErrTypes.h"
 
 
 typedef enum
 {
-  ACTIVE_LOW = 0,
-  ACTIVE_HIGH
+  BUZ_ACTIVE_LOW = 0,
+  BUZ_ACTIVE_HIGH
 } BUZ_ActiveState_t;
 
 /**

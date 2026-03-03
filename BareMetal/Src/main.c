@@ -17,14 +17,16 @@
  */
 
 #include <stdint.h>
-#include <System/System.h>
-void func(void)
-{
-  static int x = 5;
-}
+#include "System/System.h"
+
 int main(void)
 {
-  /* Loop forever */
-  func();
+  /* 1. Hardware Initialization */
+  System_setup();
+
+  /* 2. OS Initialization and start running tasks */
+  RTOS_setup();
+
+  /* 3. Should never be reached unless scheduler fails */
   for (;;);
 }

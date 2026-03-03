@@ -9,9 +9,9 @@
 **===========================================================================**
 */
 
-#include "BUZ_interface.h"
-#include "BUZ_private.h"
-#include "BUZ_config.h"
+#include "../Inc/Drivers/HAL/BUZZ/BUZ_interface.h"
+#include "../Inc/Drivers/HAL/BUZZ/BUZ_private.h"
+#include "../Inc/Drivers/HAL/BUZZ/BUZ_config.h"
 
 /**
  * @brief Initialize the buzzer pin
@@ -58,8 +58,7 @@ ErrorState_t BUZ_On(const BUZ_Config_t *BUZ_Configuration)
 
   if (BUZ_Configuration != NULL)
   {
-    /* Write the appropriate value based on active state */
-    GPIO_PinValue_t PinValue = (BUZ_Configuration->ActiveState == ACTIVE_HIGH) ? GPIO_PIN_HIGH : GPIO_PIN_LOW;
+    GPIO_PinValue_t PinValue = (BUZ_Configuration->ActiveState == BUZ_ACTIVE_HIGH) ? GPIO_PIN_HIGH : GPIO_PIN_LOW;
     Local_ErrorState = GPIO_enumWritePinVal(BUZ_Configuration->Port, BUZ_Configuration->Pin, PinValue);
   }
   else
@@ -80,7 +79,7 @@ ErrorState_t BUZ_Off(const BUZ_Config_t *BUZ_Configuration)
   if (BUZ_Configuration != NULL)
   {
     /* Write the appropriate value based on active state */
-    GPIO_PinValue_t PinValue = (BUZ_Configuration->ActiveState == ACTIVE_HIGH) ? GPIO_PIN_LOW : GPIO_PIN_HIGH;
+    GPIO_PinValue_t PinValue = (BUZ_Configuration->ActiveState == BUZ_ACTIVE_HIGH) ? GPIO_PIN_LOW : GPIO_PIN_HIGH;
     Local_ErrorState = GPIO_enumWritePinVal(BUZ_Configuration->Port, BUZ_Configuration->Pin, PinValue);
   }
   else
