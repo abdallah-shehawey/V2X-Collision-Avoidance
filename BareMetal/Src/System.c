@@ -1,3 +1,12 @@
+
+/**
+ ******************************************************************************
+ * @file           : System.c
+ * @author         : Abdallah Saleh
+ * @brief          : System initialization and RTOS setup
+ ******************************************************************************
+ **/
+
 #include "System/System.h"
 #include "../Inc/Drivers/MCAL/RCC/RCC_interface.h"
 #include "../Inc/Drivers/MCAL/GPIO/GPIO_interface.h"
@@ -27,12 +36,6 @@ void vApplicationIdleHook(void)
 
 
 /******************************************
- *  Tasks Prototypes                     *
- ******************************************/
-void vTask_Blinky(void *pvParameters);
-
-
-/******************************************
  *  System Initialization                *
  ******************************************/
 void System_setup(void)
@@ -57,24 +60,7 @@ void System_setup(void)
  ******************************************/
 void RTOS_setup(void)
 {
-  /* 1. Create System Tasks */
-  xTaskCreate(vTask_Blinky, "Blinky_Task", configMINIMAL_STACK_SIZE, NULL, 1, NULL);
-
-  /* 2. Start the Scheduler */
+  /* Start the RTOS Scheduler */
   vTaskStartScheduler();
-}
-
-
-/******************************************
- *  Tasks Implementation                 *
- ******************************************/
-void vTask_Blinky(void *pvParameters)
-{
-  for (;;)
-  {
-    /* Toggle LED to indicate RTOS is running and tick rate is correct */
-    LED_Toggle(&Test_LED);
-    vTaskDelay(pdMS_TO_TICKS(500)); 
-  }
 }
 
