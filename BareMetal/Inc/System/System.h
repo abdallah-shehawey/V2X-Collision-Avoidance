@@ -1,8 +1,17 @@
+
+/**
+ ******************************************************************************
+ * @file           : System.h
+ * @author         : Abdallah Saleh
+ * @brief          : System Header file
+ ******************************************************************************
+ **/
+
+
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
-#include "../Inc/Drivers/HAL/LED/LED_interface.h"
-#include "../Inc/Drivers/HAL/BUZZ/BUZ_interface.h"
+
 
 /* 
  * ========================================================================================
@@ -41,9 +50,27 @@
  * | Interface | Pin Mapping          | Status  | Description          |
  * |-----------|----------------------|---------|----------------------|
  * | USART2    | PA2(TX), PA3(RX)     | FREE ✅ | Debug / VCP          |
- * | USART1    | PA9(TX), PA10(RX)    | FREE ✅ | RPI Comm             |
- * | UART4     | PA0(TX), PA1(RX)     | FREE ✅ | DSRC Comm            |
+ * | USART1    | PA9(TX), PA10(RX)    | IN USE  | ESP-NOW (V2X Comm)   |
+ * | UART4     | PA0(TX), PA1(RX)     | IN USE  | Raspberry Pi Comm    |
  * 
+ * ========================================================================================
+ */
+
+/* 
+ * ========================================================================================
+ * 🧠 RTOS TASKS ARCHITECTURE & PRIORITIES (configMAX_PRIORITIES = 5)
+ * ========================================================================================
+ * 
+ * | Task Name            | Priority | Freq/Trigger | Description                                  |
+ * |----------------------|----------|--------------|----------------------------------------------|
+ * | [1] vTask_ESP_RX     | 4 (MAX)  | Event/ISR    | Reads incoming V2V/V2I msgs from ESP-NOW     |
+ * | [2] vTask_Sensors    | 3        | ~20-50 ms    | Updates MPU9250 speed & US Distances         |
+ * | [3] vTask_ADAS_Core  | 2        | ~50 ms       | Runs FCW, EEBL, SDW, BSW, DNPW logic         |
+ * | [4] vTask_ESP_TX     | 1        | ~100 ms      | Broadcasts host state/warnings to ESP-NOW    |
+ * | [5] vTask_RPi_TX     | 1        | ~200 ms      | Sends display data/warnings to Raspberry Pi  |
+ * | [6] vTask_Feedback   | 1        | Queue driven | Handles User Interface (LEDs, Buzzer)        |
+ * 
+ * NOTE: Priority 4 is the highest, 0 is the lowest (Idle task).
  * ========================================================================================
  */
 

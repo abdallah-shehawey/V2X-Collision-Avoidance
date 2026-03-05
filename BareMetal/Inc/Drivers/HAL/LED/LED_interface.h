@@ -14,8 +14,9 @@
 #ifndef LED_INTERFACE_H_
 #define LED_INTERFACE_H_
 
-#include "GPIO_interface.h"
-#include "ErrTypes.h"
+#include "../../MCAL/GPIO/GPIO_interface.h"
+#include "../../LIB/ErrTypes.h"
+
 
 typedef enum
 {

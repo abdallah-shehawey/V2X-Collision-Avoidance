@@ -11,13 +11,14 @@
  **===========================================================================**
  */
 
-#include "ErrTypes.h"
 
-#include "GPIO_interface.h"
+#include "../Inc/Drivers/LIB/ErrTypes.h"
 
-#include "LED_interface.h"
-#include "LED_config.h"
-#include "LED_private.h"
+#include "../Inc/Drivers/MCAL/GPIO/GPIO_interface.h"
+
+#include "../Inc/Drivers/HAL/LED/LED_interface.h"
+#include "../Inc/Drivers/HAL/LED/LED_config.h"
+#include "../Inc/Drivers/HAL/LED/LED_private.h"
 /*___________________________________________________________________________________________________________________*/
 
 /*

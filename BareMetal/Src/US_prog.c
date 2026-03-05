@@ -9,15 +9,15 @@
  */
 
 #include <stdint.h>
-#include "STM32F446xx.h"
-#include "STD_MACROS.h"
-#include "ErrTypes.h"
-#include "GPIO_interface.h"
-#include "TIM_interface.h"
-#include "TIM_private.h"
-#include "US_interface.h"
-#include "US_config.h"
-#include "US_private.h"
+#include "../Inc/Drivers/LIB/STM32F446xx.h"
+#include "../Inc/Drivers/LIB/STD_MACROS.h"
+#include "../Inc/Drivers/LIB/ErrTypes.h"
+#include "../Inc/Drivers/MCAL/GPIO/GPIO_interface.h"
+#include "../Inc/Drivers/MCAL/TIM/TIM_interface.h"
+#include "../Inc/Drivers/MCAL/TIM/TIM_private.h"
+#include "../Inc/Drivers/HAL/US/US_interface.h"
+#include "../Inc/Drivers/HAL/US/US_config.h"
+#include "../Inc/Drivers/HAL/US/US_private.h"
 
 static TIM_TypeDef *US_TIM_Array[TIM_TIMER_COUNT] = {TIM2, TIM3, TIM4, TIM5, TIM1, TIM8, TIM6, TIM7};
 
