@@ -1,81 +1,93 @@
 
 /**
  ******************************************************************************
- * @file           : System.h
+ * @file           : System.c
  * @author         : Abdallah Saleh
- * @brief          : System Header file
+ * @brief          : System initialization and RTOS setup
  ******************************************************************************
  **/
 
+#include "System/System.h"
+#include "../Inc/Drivers/MCAL/RCC/RCC_interface.h"
+#include "../Inc/Drivers/MCAL/GPIO/GPIO_interface.h"
+#include "../Inc/Drivers/HAL/LED/LED_interface.h"
+#include "../Inc/Drivers/HAL/BUZZ/BUZ_interface.h"
+#include "../Inc/Drivers/HAL/US/US_interface.h"
 
-#ifndef SYSTEM_H
-#define SYSTEM_H
+#include "FreeRTOS.h"
+#include "task.h"
+
+/******************************************
+ *  System Variables Required by FreeRTOS *
+ ******************************************/
+uint32_t SystemCoreClock = 16000000;
+
+/******************************************
+ *  Hardware Objects for Testing         *
+ ******************************************/
+LED_Config_t Test_LED = {GPIO_PORTA, GPIO_PIN5, ACTIVE_HIGH}; // Nucleo built-in LED (PA5)
+BUZ_Config_t V2X_Buzzer = {GPIO_PORTC, GPIO_PIN4, BUZ_ACTIVE_HIGH};
+
+US_Config_t FrontUS[3]; // The 3 front ultrasonic sensors
 
 
+/******************************************
+ *  FreeRTOS Hooks & Callbacks           *
+ ******************************************/
+void vApplicationIdleHook(void)
+{
+    /* Runs when OS has no tasks to execute */
+}
 
-/* 
- * ========================================================================================
- * 🚗 V2X HARDWARE WIRING MAPPING
- * ========================================================================================
- * 
- * 1. ULTRASONIC SENSORS (3 Front / 3 Back)
- * ----------------------------------------------------------------------------------------
- * | ID | Location       | Echo Pin | Trig Pin | Timer Channel | Note                     |
- * |----|----------------|----------|----------|---------------|--------------------------|
- * | S1 | FRONT LEFT     | PA15     | PB0      | TIM2_CH1      | UART-Friendly (Free PA0) |
- * | S2 | FRONT CENTER   | PB3      | PB1      | TIM2_CH2      | UART-Friendly (Free PA1) |
- * | S3 | FRONT RIGHT    | PB4      | PB2      | TIM3_CH1      | UART-Friendly (Free PA2) |
- * | S4 | BACK  LEFT     | PB5      | PB12     | TIM3_CH2      | UART-Friendly (Free PA3) |
- * | S5 | BACK  CENTER   | PC8      | PB13     | TIM3_CH3      |                          |
- * | S6 | BACK  RIGHT    | PC9      | PB14     | TIM3_CH4      |                          |
- * 
- * 2. MOTION SENSOR (MPU9250)
- * ----------------------------------------------------------------------------------------
- * | Sensor Type | SPI Signals           | Pins                | Mode / AF |
- * |-------------|-----------------------|---------------------|-----------|
- * | IMU (9-Axis)| SCK, MISO, MOSI       | PA5, PA6, PA7       | SPI1 - AF5|
- * 
- * 3. FEEDBACK SYSTEM
- * ----------------------------------------------------------------------------------------
- * | Component | Pin | Port  | Description      |
- * |-----------|-----|-------|------------------|
- * | LED 1     | PC0 | PORTC | Status Color 1   |
- * | LED 2     | PC1 | PORTC | Status Color 2   |
- * | LED 3     | PC2 | PORTC | Status Color 3   |
- * | LED 4     | PC3 | PORTC | Status Color 4   |
- * | BUZZER    | PC4 | PORTC | Warning Sound    |
- * 
- * 4. COMMUNICATION INTERFACES (UARTs)
- * ----------------------------------------------------------------------------------------
- * | Interface | Pin Mapping          | Status  | Description          |
- * |-----------|----------------------|---------|----------------------|
- * | USART2    | PA2(TX), PA3(RX)     | FREE ✅ | Debug / VCP          |
- * | USART1    | PA9(TX), PA10(RX)    | IN USE  | ESP-NOW (V2X Comm)   |
- * | UART4     | PA0(TX), PA1(RX)     | IN USE  | Raspberry Pi Comm    |
- * 
- * ========================================================================================
- */
 
-/* 
- * ========================================================================================
- * 🧠 RTOS TASKS ARCHITECTURE & PRIORITIES (configMAX_PRIORITIES = 5)
- * ========================================================================================
- * 
- * | Task Name            | Priority | Freq/Trigger | Description                                  |
- * |----------------------|----------|--------------|----------------------------------------------|
- * | [1] vTask_ESP_RX     | 4 (MAX)  | Event/ISR    | Reads incoming V2V/V2I msgs from ESP-NOW     |
- * | [2] vTask_Sensors    | 3        | ~20-50 ms    | Updates MPU9250 speed & US Distances         |
- * | [3] vTask_ADAS_Core  | 2        | ~50 ms       | Runs FCW, EEBL, SDW, BSW, DNPW logic         |
- * | [4] vTask_ESP_TX     | 1        | ~100 ms      | Broadcasts host state/warnings to ESP-NOW    |
- * | [5] vTask_RPi_TX     | 1        | ~200 ms      | Sends display data/warnings to Raspberry Pi  |
- * | [6] vTask_Feedback   | 1        | Queue driven | Handles User Interface (LEDs, Buzzer)        |
- * 
- * NOTE: Priority 4 is the highest, 0 is the lowest (Idle task).
- * ========================================================================================
- */
+/******************************************
+ *  System Initialization                *
+ ******************************************/
+void System_setup(void)
+{
+  // 1. Initialize System Clock (HSI 16MHz)
+  RCC_enumSetSysClk(RCC_HSI_CLK);
+  
+  // 2. Enable Peripheral Clocks
+  RCC_enumAHPPerSts(RCC_AHB1, RCC_GPIOAEN, RCC_PER_ON);
+  RCC_enumAHPPerSts(RCC_AHB1, RCC_GPIOBEN, RCC_PER_ON);
+  RCC_enumAHPPerSts(RCC_AHB1, RCC_GPIOCEN, RCC_PER_ON);
+  
+  /* Timers for Ultrasonics */
+  RCC_enumABPPerSts(RCC_APB1, RCC_TIM2EN,  RCC_PER_ON);
+  RCC_enumABPPerSts(RCC_APB1, RCC_TIM3EN,  RCC_PER_ON);
+  RCC_enumABPPerSts(RCC_APB1, RCC_TIM6EN,  RCC_PER_ON);
 
-/* Function Prototypes */
-void System_setup(void);
-void RTOS_setup(void);
+  
+  /**** Inti HAL ****/
+  // init actuators
+  LED_Init(&Test_LED);
+  BUZ_Init(&V2X_Buzzer);
+  
+  // inti Sensors
+  
+  /* FRONT SENSORS MAPPING:
+   * S1: TIM2 CH1 -> PA15 Echo, PB0 Trig (Left)
+   * S2: TIM2 CH2 -> PB3 Echo, PB1 Trig  (Center)
+   * S3: TIM3 CH1 -> PB4 Echo, PB2 Trig  (Right) 
+   */
+  FrontUS[0] = (US_Config_t){TIM_TIMER2, TIM_CHANNEL1, GPIO_PORTB, GPIO_PIN0, GPIO_PORTA, GPIO_PIN15};
+  US_vInit(&FrontUS[0]);
 
-#endif /* SYSTEM_H */
+  FrontUS[1] = (US_Config_t){TIM_TIMER2, TIM_CHANNEL2, GPIO_PORTB, GPIO_PIN1, GPIO_PORTB, GPIO_PIN3};
+  US_vInit(&FrontUS[1]);
+
+  FrontUS[2] = (US_Config_t){TIM_TIMER3, TIM_CHANNEL1, GPIO_PORTB, GPIO_PIN2, GPIO_PORTB, GPIO_PIN4};
+  US_vInit(&FrontUS[2]);
+}
+
+
+/******************************************
+ *  RTOS Initialization & Task Creation  *
+ ******************************************/
+void RTOS_setup(void)
+{
+  /* Start the RTOS Scheduler */
+  vTaskStartScheduler();
+}
+
