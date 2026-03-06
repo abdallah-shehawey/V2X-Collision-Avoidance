@@ -6,7 +6,7 @@
 #ifndef ERRTYPES_H_
 #define ERRTYPES_H_
 
-#define NULL    ((void *)0)
+#define NULL    0u
 
 #define ENABLE  1u
 #define DISABLE 0u

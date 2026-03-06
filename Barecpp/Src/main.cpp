@@ -5,17 +5,26 @@
  * @brief          : Main program body
  ******************************************************************************
  **/
-
+#include <iostream>
 #include <stdint.h>
-#include "System/System.h"
 
-#include "FreeRTOS.h"
-#include "task.h"
-#include "queue.h"
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
-#include "../Inc/Drivers/HAL/BUZZ/BUZ_interface.h"
-#include "../Inc/Drivers/HAL/US/US_interface.h"
-#include "../Inc/Drivers/HAL/MPU9250/MPU9250_interface.h"
+  #include "System/System.h"
+  #include "FreeRTOS.h"
+  #include "task.h"
+  #include "queue.h"
+
+  #include "../Inc/Drivers/HAL/BUZZ/BUZ_interface.h"
+  #include "../Inc/Drivers/HAL/US/US_interface.h"
+  #include "../Inc/Drivers/HAL/MPU9250/MPU9250_interface.h"
+
+#ifdef __cplusplus
+}
+#endif
 
 extern BUZ_Config_t V2X_Buzzer;
 extern US_Config_t FrontUS[3];
@@ -85,44 +94,44 @@ int main(void)
  */
 void vTask_Sensors(void *pvParameters)
 {
-  uint16_t tempDist = 0;
+  //  uint16_t tempDist = 0;
   for (;;)
   {
-    /* Read US1 (Left) */
-    if (US_u16ReadDistance_cm(&FrontUS[0], &tempDist) == OK) G_u16DistLeft = tempDist;
-    vTaskDelay(pdMS_TO_TICKS(10)); // Slight delay between reading sensors
-
-    /* Read US2 (Center) */
-    if (US_u16ReadDistance_cm(&FrontUS[1], &tempDist) == OK) G_u16DistCenter = tempDist;
-    vTaskDelay(pdMS_TO_TICKS(10));
-
-    /* Read US3 (Right) */
-    if (US_u16ReadDistance_cm(&FrontUS[2], &tempDist) == OK) G_u16DistRight = tempDist;
-    vTaskDelay(pdMS_TO_TICKS(10));
-
-    /* Read US4 (Back Left) */
-    if (US_u16ReadDistance_cm(&BackUS[0], &tempDist) == OK) G_u16DistBackLeft = tempDist;
-    vTaskDelay(pdMS_TO_TICKS(10));
-
-    /* Read US5 (Back Center) */
-    if (US_u16ReadDistance_cm(&BackUS[1], &tempDist) == OK) G_u16DistBackCenter = tempDist;
-    vTaskDelay(pdMS_TO_TICKS(10));
-
-    /* Read US6 (Back Right) */
-    if (US_u16ReadDistance_cm(&BackUS[2], &tempDist) == OK) G_u16DistBackRight = tempDist;
-    vTaskDelay(pdMS_TO_TICKS(10));
-
-    /* Add MPU9250 Read here when calibrated */
-    MPU9250_enumReadData(&G_stMPU9250_Data);
-    MPU9250_enumGetAttitude(&G_stMPU9250_Data, (float*)&G_fPitch, (float*)&G_fRoll);
-    MPU9250_enumGetHeading(&G_stMPU9250_Data, (float*)&G_fHeading);
-    /* Dt is approx 0.05 seconds (50 ms) for speed processing */
-    MPU9250_enumGetSpeed(&G_stMPU9250_Data, 0.05f, (float*)&G_fSpeed);
-    MPU9250_enumGetPosition(&G_stMPU9250_Data, G_fSpeed, G_fHeading, G_fPitch, 0.05f, &G_stMPU9250_Pos);
-    G_fAltitudeZ = G_stMPU9250_Pos.Z;
-
-    /* Overall Task Period ~ 50ms */
-    vTaskDelay(pdMS_TO_TICKS(20));
+    //    /* Read US1 (Left) */
+    //    if (US_u16ReadDistance_cm(&FrontUS[0], &tempDist) == OK) G_u16DistLeft = tempDist;
+    //    vTaskDelay(pdMS_TO_TICKS(10)); // Slight delay between reading sensors
+    //
+    //    /* Read US2 (Center) */
+    //    if (US_u16ReadDistance_cm(&FrontUS[1], &tempDist) == OK) G_u16DistCenter = tempDist;
+    //    vTaskDelay(pdMS_TO_TICKS(10));
+    //
+    //    /* Read US3 (Right) */
+    //    if (US_u16ReadDistance_cm(&FrontUS[2], &tempDist) == OK) G_u16DistRight = tempDist;
+    //    vTaskDelay(pdMS_TO_TICKS(10));
+    //
+    //    /* Read US4 (Back Left) */
+    //    if (US_u16ReadDistance_cm(&BackUS[0], &tempDist) == OK) G_u16DistBackLeft = tempDist;
+    //    vTaskDelay(pdMS_TO_TICKS(10));
+    //
+    //    /* Read US5 (Back Center) */
+    //    if (US_u16ReadDistance_cm(&BackUS[1], &tempDist) == OK) G_u16DistBackCenter = tempDist;
+    //    vTaskDelay(pdMS_TO_TICKS(10));
+    //
+    //    /* Read US6 (Back Right) */
+    //    if (US_u16ReadDistance_cm(&BackUS[2], &tempDist) == OK) G_u16DistBackRight = tempDist;
+    //    vTaskDelay(pdMS_TO_TICKS(10));
+    //
+    //    /* Add MPU9250 Read here when calibrated */
+    //    MPU9250_enumReadData(&G_stMPU9250_Data);
+    //    MPU9250_enumGetAttitude(&G_stMPU9250_Data, (float*)&G_fPitch, (float*)&G_fRoll);
+    //    MPU9250_enumGetHeading(&G_stMPU9250_Data, (float*)&G_fHeading);
+    //    /* Dt is approx 0.05 seconds (50 ms) for speed processing */
+    //    MPU9250_enumGetSpeed(&G_stMPU9250_Data, 0.05f, (float*)&G_fSpeed);
+    //    MPU9250_enumGetPosition(&G_stMPU9250_Data, G_fSpeed, G_fHeading, G_fPitch, 0.05f, &G_stMPU9250_Pos);
+    //    G_fAltitudeZ = G_stMPU9250_Pos.Z;
+    //
+    //    /* Overall Task Period ~ 50ms */
+    //    vTaskDelay(pdMS_TO_TICKS(20));
   }
 }
 
