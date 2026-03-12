@@ -76,6 +76,9 @@
  */
 
 /* Function Prototypes */
+#define DWT_CTRL            *((volatile uint32_t*)0xE0001000)
+void SEGGER_setup(void);
+
 void System_setup(void);
 void RTOS_setup(void);
 

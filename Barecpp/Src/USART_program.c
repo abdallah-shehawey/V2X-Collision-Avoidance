@@ -57,7 +57,7 @@ ErrorState_t USART_Init(USART_Config_t *ChannelConfig) {
       /* Configure Baud Rate */
       /* Integer calculation to avoid floating point issues */
       uint32_t PCLK = MAXIMUM_CLOCK; // Assuming 16MHz
-      uint32_t USARTDIV = 0;
+
 
       if (ChannelConfig->OverSampling == USART_OVERSAMPLING_16) {
         /* OSA=0 (16) -> DIV = PCLK / (16 * Baud) */
