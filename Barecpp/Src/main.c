@@ -17,6 +17,7 @@
 #include "../Inc/Drivers/HAL/BUZZ/BUZ_interface.h"
 #include "../Inc/Drivers/HAL/US/US_interface.h"
 #include "../Inc/Drivers/HAL/MPU9250/MPU9250_interface.h"
+#include "../Inc/Drivers/MCAL/USART/USART_intreface.h"
 
 extern BUZ_Config_t V2X_Buzzer;
 extern US_Config_t FrontUS[3];
@@ -40,22 +41,36 @@ volatile float G_fPitch = 0.0f;
 volatile float G_fRoll = 0.0f;
 volatile float G_fAltitudeZ = 0.0f;
 
+/* ================== V2X Data Frame ================== */
+typedef struct __attribute__((packed)) {
+    uint8_t  Sender_ID;
+    uint8_t  Target_ID;
+    float    Speed_ms;
+    float    Heading_deg;
+    float    Position_Z;
+    uint8_t  Vehicle_State; /* 0: Normal, 1: EEBL Active */
+} V2X_Message_t;
+
+QueueHandle_t G_xESP_RX_Queue;
+V2X_Message_t G_stIncomingV2XMsg;
+
 /* ================== Task Prototypes ================== */
 void vTask_Sensors(void *pvParameters);
 void vTask_ADAS_Core(void *pvParameters);
 void vTask_Feedback(void *pvParameters);
 
 /* Communication Tasks */
-void vTask_ESP_RX(void *pvParameters);
-void vTask_ESP_TX(void *pvParameters);
-void vTask_RPi_RX(void *pvParameters);
-void vTask_RPi_TX(void *pvParameters);
+void vTask_ESP_Comm(void *pvParameters);
+void vTask_RPi_Comm(void *pvParameters);
 
 int main(void)
 {
   /* 1. Hardware Initialization */
   System_setup();
   SEGGER_setup();
+
+  /* Create Queues */
+  G_xESP_RX_Queue = xQueueCreate(64, sizeof(uint8_t));
 
   /* 2. OS Tasks Creation */
   /* --- Core and Hardware Tasks --- */
@@ -64,13 +79,11 @@ int main(void)
   xTaskCreate(vTask_Feedback,  "Feedback_Task",configMINIMAL_STACK_SIZE,      NULL, 1, NULL);
 
   /* --- Communication Tasks --- */
-  /* Highest Priority: Emergency handling from ESP-NOW */
-  xTaskCreate(vTask_ESP_RX,    "ESP_RX_Task",  configMINIMAL_STACK_SIZE + 50, NULL, 4, NULL);
-  /* Regular Reception */
-  xTaskCreate(vTask_RPi_RX,    "RPi_RX_Task",  configMINIMAL_STACK_SIZE + 50, NULL, 2, NULL);
-  /* Regular Transmissions */
-  xTaskCreate(vTask_ESP_TX,    "ESP_TX_Task",  configMINIMAL_STACK_SIZE + 50, NULL, 1, NULL);
-  xTaskCreate(vTask_RPi_TX,    "RPi_TX_Task",  configMINIMAL_STACK_SIZE + 50, NULL, 1, NULL);
+  /* ESP Communication: High Priority for V2X Emergency handling */
+  xTaskCreate(vTask_ESP_Comm,  "ESP_Comm_Task",  configMINIMAL_STACK_SIZE + 100, NULL, 4, NULL);
+  
+  /* Raspberry Pi Communication: UI and Settings */
+  xTaskCreate(vTask_RPi_Comm,  "RPi_Comm_Task",  configMINIMAL_STACK_SIZE + 100, NULL, 2, NULL);
 
   /* 3. OS Initialization and start running tasks */
   RTOS_setup();
@@ -118,6 +131,7 @@ void vTask_Sensors(void *pvParameters)
     MPU9250_enumReadData(&G_stMPU9250_Data);
     MPU9250_enumGetAttitude(&G_stMPU9250_Data, (float*)&G_fPitch, (float*)&G_fRoll);
     MPU9250_enumGetHeading(&G_stMPU9250_Data, (float*)&G_fHeading);
+    
     /* Dt is approx 0.05 seconds (50 ms) for speed processing */
     MPU9250_enumGetSpeed(&G_stMPU9250_Data, 0.05f, (float*)&G_fSpeed);
     MPU9250_enumGetPosition(&G_stMPU9250_Data, G_fSpeed, G_fHeading, G_fPitch, 0.05f, &G_stMPU9250_Pos);
@@ -135,16 +149,6 @@ void vTask_ADAS_Core(void *pvParameters)
 {
   for (;;)
   {
-    /* Very basic logic for testing Phase 1 */
-    if (G_u16DistLeft <= 10 || G_u16DistCenter <= 10 || G_u16DistRight <= 10 ||
-        G_u16DistBackLeft <= 10 || G_u16DistBackCenter <= 10 || G_u16DistBackRight <= 10)
-    {
-      G_u8WarningState = 1; /* Danger! */
-    }
-    else
-    {
-      G_u8WarningState = 0; /* Safe */
-    }
 
     vTaskDelay(pdMS_TO_TICKS(50)); /* Evaluates every 50ms */
   }
@@ -157,74 +161,119 @@ void vTask_Feedback(void *pvParameters)
 {
   for (;;)
   {
-    if (G_u8WarningState == 1)
-    {
-      BUZ_On(&V2X_Buzzer);
-    }
-    else
-    {
-      BUZ_Off(&V2X_Buzzer);
-    }
+    
 
     /* Update UI frequently */
     vTaskDelay(pdMS_TO_TICKS(20));
   }
 }
 
-/* ================== Communication Tasks (Phase 2 & 3) ================== */
+
 
 /**
- * @brief Highest priority task - Waits on UART RX from ESP to process incoming Network alerts immediately.
+ * @brief Handles both RX and TX communication with ESP (V2X Network).
+ * TX: Periodically broadcasts system state.
+ * RX: Non-blocking check for incoming alerts via Queue from ISR.
  */
-void vTask_ESP_RX(void *pvParameters)
+void vTask_ESP_Comm(void *pvParameters)
 {
+  uint8_t txCounter = 0;
+  uint8_t rxByte;
+  uint8_t rxBuffer[sizeof(V2X_Message_t)];
+  uint8_t rxIndex = 0;
+
   for (;;)
   {
-    /* Block on an RX Semaphore / Queue in actual implementation */
+    /* 1. RX Processing */
+    while (xQueueReceive(G_xESP_RX_Queue, &rxByte, 0) == pdTRUE)
+    {
+      rxBuffer[rxIndex++] = rxByte;
 
+      /* When a full dataframe is received */
+      if (rxIndex >= sizeof(V2X_Message_t))
+      {
+        V2X_Message_t *pMsg = (V2X_Message_t*)rxBuffer;
+        
+        /* 0xFF is Broadcast, 0x01 is our vehicle ID */
+        if(pMsg->Target_ID == 0xFF || pMsg->Target_ID == 0x01)
+        {
+          G_stIncomingV2XMsg = *pMsg;
+          
+          /* EEBL Trigger */
+          if(G_stIncomingV2XMsg.Vehicle_State == 1) 
+          {
+             G_u8WarningState = 1; 
+          }
+        }
+        rxIndex = 0; /* Reset for next message */
+      }
+    }
 
-    vTaskDelay(pdMS_TO_TICKS(50)); /* Placeholder */
+    /* 2. TX Processing (e.g., Send every 100ms -> every 2nd loop) */
+    txCounter++;
+    if (txCounter >= 2)
+    {
+      txCounter = 0;
+      
+      V2X_Message_t txMsg = {
+          .Sender_ID = 0x01,
+          .Target_ID = 0xFF,
+          .Speed_ms = G_fSpeed,
+          .Heading_deg = G_fHeading,
+          .Position_Z = G_fAltitudeZ,
+          .Vehicle_State = G_u8WarningState 
+      };
+      
+      /* UART Transmit */
+      uint8_t *pData = (uint8_t*)&txMsg;
+      USART_Config_t tempConfig = {USART_CHANNEL1};
+      for (uint8_t i = 0; i < sizeof(V2X_Message_t); i++)
+      {
+        USART_enumTransmit(&tempConfig, pData[i]);
+      }
+    }
+
+    vTaskDelay(pdMS_TO_TICKS(50));
   }
 }
 
-/**
- * @brief Periodically formats current state (Speed, Distance, Direction, etc.) and sends via ESP-NOW.
- */
-void vTask_ESP_TX(void *pvParameters)
+/* ================== ISR callbacks ================== */
+void vESP_UART_RX_Callback(void)
 {
-  for (;;)
-  {
-    /* Construct Frame and UART Transmit to ESP */
-
-
-    vTaskDelay(pdMS_TO_TICKS(100)); /* Broadcast frequency (e.g. 10Hz) */
-  }
+    uint8_t rxData;
+    USART_Config_t tempConfig = {USART_CHANNEL1};
+    
+    if (USART_enumReceive(&tempConfig, &rxData) == OK)
+    {
+        BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+        xQueueSendFromISR(G_xESP_RX_Queue, &rxData, &xHigherPriorityTaskWoken);
+        portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+    }
 }
 
 /**
- * @brief Periodically formats system state bounds to be displayed on Raspberry Pi UI.
+ * @brief Handles both RX and TX communication with Raspberry Pi (UI Interface).
+ * TX: Periodically sends system state bounds to display.
+ * RX: Checks for settings or mode changes from the Pi.
  */
-void vTask_RPi_TX(void *pvParameters)
+void vTask_RPi_Comm(void *pvParameters)
 {
+  uint8_t txCounter = 0;
+
   for (;;)
   {
-    /* Construct Display Frame and UART Transmit to RPi */
-
-
-    vTaskDelay(pdMS_TO_TICKS(200)); /* Display update frequency (e.g. 5Hz) */
-  }
-}
-
-/**
- * @brief Periodically checks or waits for commands/settings from the Raspberry Pi.
- */
-void vTask_RPi_RX(void *pvParameters)
-{
-  for (;;)
-  {
+    /* 1. RX Processing (Non-Blocking) */
     /* Receive settings, mode changes, or ACKs from RPi */
 
+    /* 2. TX Processing (e.g., Send every 200ms -> every 2nd loop) */
+    txCounter++;
+    if (txCounter >= 2)
+    {
+      /* Construct Display Frame and UART Transmit to RPi */
+      txCounter = 0;
+    }
 
-    vTaskDelay(pdMS_TO_TICKS(100)); /* Check frequency */
+    vTaskDelay(pdMS_TO_TICKS(100)); /* Evaluates every 100ms */
   }
 }
+

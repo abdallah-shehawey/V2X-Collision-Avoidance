@@ -14,6 +14,7 @@
 #include "../Inc/Drivers/HAL/US/US_interface.h"
 #include "../Inc/Drivers/HAL/MPU9250/MPU9250_interface.h"
 #include "../Inc/Drivers/MCAL/USART/USART_intreface.h"
+#include "../Inc/Drivers/MCAL/NVIC/NVIC_interface.h"
 
 #include "FreeRTOS.h"
 #include "SEGGER_SYSVIEW.h"
@@ -33,7 +34,21 @@ US_Config_t FrontUS[3]; // The 3 front ultrasonic sensors
 US_Config_t BackUS[3];  // The 3 back ultrasonic sensors
 
 /* Communication Interfaces */
-USART_Config_t ESP_UART = {USART_CHANNEL1, 115200, USART_WORDLENGTH_8B, USART_STOPBITS_1, USART_PARITY_NONE, USART_MODE_TX_RX, UART_HWCONTROL_NONE, USART_OVERSAMPLING_16};
+extern void vESP_UART_RX_Callback(void);
+
+USART_Handle_t ESP_UART = {
+    .Channel = USART_CHANNEL1, 
+    .BaudRate = 115200, 
+    .WordLength = USART_WORDLENGTH_8B, 
+    .StopBits = USART_STOPBITS_1, 
+    .Parity = USART_PARITY_NONE, 
+    .Mode = USART_MODE_TX_RX, 
+    .HardwareFlowControl = UART_HWCONTROL_NONE, 
+    .OverSampling = USART_OVERSAMPLING_16,
+    .RXNEIE = USART_RXNEIE_EN, /* Enable RX Interrupt implicitly */
+    .pfnCallback = vESP_UART_RX_Callback
+};
+
 USART_Config_t RPi_UART = {USART_CHANNEL4, 115200, USART_WORDLENGTH_8B, USART_STOPBITS_1, USART_PARITY_NONE, USART_MODE_TX_RX, UART_HWCONTROL_NONE, USART_OVERSAMPLING_16};
 
 
@@ -61,26 +76,8 @@ void System_setup(void)
 	RCC_enumAHPPerSts(RCC_AHB1, RCC_GPIOBEN, RCC_PER_ON);
 	RCC_enumAHPPerSts(RCC_AHB1, RCC_GPIOCEN, RCC_PER_ON);
 
-	/* Timers for Ultrasonics */
-	RCC_enumABPPerSts(RCC_APB1, RCC_TIM2EN,  RCC_PER_ON);
-	RCC_enumABPPerSts(RCC_APB1, RCC_TIM3EN,  RCC_PER_ON);
-	RCC_enumABPPerSts(RCC_APB1, RCC_TIM6EN,  RCC_PER_ON);
-
-	/* MPU9250 SPI Enable */
+		/* MPU9250 SPI configuration */
 	RCC_enumABPPerSts(RCC_APB2, RCC_SPI1EN,  RCC_PER_ON);
-
-	/* UARTs Enable */
-	RCC_enumABPPerSts(RCC_APB2, RCC_USART1,  RCC_PER_ON); // ESP-NOW
-	RCC_enumABPPerSts(RCC_APB1, RCC_USART4EN, RCC_PER_ON); // Raspberry Pi
-
-
-	/**** Inti HAL ****/
-	// init actuators
-	BUZ_Init(&V2X_Buzzer);
-
-	// inti Sensors
-
-	// Setup SPI GPIO for MPU9250
 	GPIO_PinConfig_t SPI_Pins = {
 			.Port = GPIO_PORTA,
 			.Mode = GPIO_ALTFN,
@@ -94,33 +91,9 @@ void System_setup(void)
 	SPI_Pins.PinNum = GPIO_PIN7; GPIO_enumPinInit(&SPI_Pins);
 
 	MPU9250_enumInit();
-
-	/* Setup GPIO for ESP-NOW (USART1): PA9 (TX), PA10 (RX) -> AF7 */
-	GPIO_PinConfig_t U1_Pins = {
-			.Port = GPIO_PORTA,
-			.Mode = GPIO_ALTFN,
-			.Otype = GPIO_PUSH_PULL,
-			.Speed = GPIO_VERY_HIGH_SPEED,
-			.PullType = GPIO_NO_PULL,
-			.AlternateFunction = GPIO_AF7
-	};
-	U1_Pins.PinNum = GPIO_PIN9;  GPIO_enumPinInit(&U1_Pins);
-	U1_Pins.PinNum = GPIO_PIN10; GPIO_enumPinInit(&U1_Pins);
-	USART_Init(&ESP_UART);
-
-	/* Setup GPIO for Raspberry Pi (UART4): PA0 (TX), PA1 (RX) -> AF8 */
-	GPIO_PinConfig_t U4_Pins = {
-			.Port = GPIO_PORTA,
-			.Mode = GPIO_ALTFN,
-			.Otype = GPIO_PUSH_PULL,
-			.Speed = GPIO_VERY_HIGH_SPEED,
-			.PullType = GPIO_NO_PULL,
-			.AlternateFunction = GPIO_AF8
-	};
-	U4_Pins.PinNum = GPIO_PIN0; GPIO_enumPinInit(&U4_Pins);
-	U4_Pins.PinNum = GPIO_PIN1; GPIO_enumPinInit(&U4_Pins);
-	USART_Init(&RPi_UART);
-
+	/*Ultrasonics configuration*/
+	RCC_enumABPPerSts(RCC_APB1, RCC_TIM2EN,  RCC_PER_ON);
+	RCC_enumABPPerSts(RCC_APB1, RCC_TIM3EN,  RCC_PER_ON);
 	/* FRONT SENSORS MAPPING:
 	 * S1: TIM2 CH1 -> PA15 Echo, PB0 Trig (Left)
 	 * S2: TIM2 CH2 -> PB3 Echo, PB1 Trig  (Center)
@@ -148,6 +121,45 @@ void System_setup(void)
 
 	BackUS[2] = (US_Config_t){TIM_TIMER3, TIM_CHANNEL4, GPIO_PORTB, GPIO_PIN14, GPIO_PORTC, GPIO_PIN9};
 	US_vInit(&BackUS[2]);
+	RCC_enumABPPerSts(RCC_APB1, RCC_TIM6EN,  RCC_PER_ON);
+
+
+
+	/* ESP-NOW configuration */
+	RCC_enumABPPerSts(RCC_APB2, RCC_USART1,  RCC_PER_ON);
+	GPIO_PinConfig_t U1_Pins = {
+			.Port = GPIO_PORTA,
+			.Mode = GPIO_ALTFN,
+			.Otype = GPIO_PUSH_PULL,
+			.Speed = GPIO_VERY_HIGH_SPEED,
+			.PullType = GPIO_NO_PULL,
+			.AlternateFunction = GPIO_AF7
+	};
+	U1_Pins.PinNum = GPIO_PIN9;  GPIO_enumPinInit(&U1_Pins);
+	U1_Pins.PinNum = GPIO_PIN10; GPIO_enumPinInit(&U1_Pins);
+	
+	USART_InitIT(&ESP_UART);
+	NVIC_vEnableIRQ(NVIC_USART1);
+	
+	/* Raspberry Pi configuration */
+	RCC_enumABPPerSts(RCC_APB1, RCC_USART4EN, RCC_PER_ON); // Raspberry Pi
+	GPIO_PinConfig_t U4_Pins = {
+			.Port = GPIO_PORTA,
+			.Mode = GPIO_ALTFN,
+			.Otype = GPIO_PUSH_PULL,
+			.Speed = GPIO_VERY_HIGH_SPEED,
+			.PullType = GPIO_NO_PULL,
+			.AlternateFunction = GPIO_AF8
+	};
+	U4_Pins.PinNum = GPIO_PIN0; GPIO_enumPinInit(&U4_Pins);
+	U4_Pins.PinNum = GPIO_PIN1; GPIO_enumPinInit(&U4_Pins);
+	USART_Init(&RPi_UART);
+
+	
+	// init actuators
+	BUZ_Init(&V2X_Buzzer);
+
+
 }
 
 

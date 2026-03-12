@@ -14,8 +14,8 @@ extern "C"
 #endif
 
 #include "System/System.h"
-#include "SEGGER_SYSVIEW.h"
-#include "FreeRTOS.h"
+#include "../ThirdParty/SEGGER/SEGGER/SEGGER_SYSVIEW.h"
+#include "../ThirdParty/FreeRTOS/Source/include/FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
 
