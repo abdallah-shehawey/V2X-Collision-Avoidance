@@ -139,6 +139,7 @@ void System_setup(void)
 	U1_Pins.PinNum = GPIO_PIN10; GPIO_enumPinInit(&U1_Pins);
 	
 	USART_InitIT(&ESP_UART);
+	NVIC_vSetPriority(NVIC_USART1, 6); /* Safe for FreeRTOS (configMAX_SYSCALL_INTERRUPT_PRIORITY is 5) */
 	NVIC_vEnableIRQ(NVIC_USART1);
 	
 	/* Raspberry Pi configuration */

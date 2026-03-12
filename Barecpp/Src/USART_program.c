@@ -262,7 +262,7 @@ ErrorState_t USART_enumTransmit(USART_Config_t *ChannelConfig, uint8_t TX_Data)
     {
       USART_u8State[ChannelConfig->Channel] = BUSY;
 
-      while((USART_Channel[ChannelConfig->Channel]->SR & (1 << SR_TXE)) >> SR_TXE == 0 && (Local_u32TimeoutCounter != USART_u32TIMEOUT));
+      while(((USART_Channel[ChannelConfig->Channel]->SR & (1 << SR_TXE)) >> SR_TXE == 0) && (Local_u32TimeoutCounter != USART_u32TIMEOUT))
       {
         Local_u32TimeoutCounter++;
       }
@@ -382,6 +382,12 @@ ErrorState_t USART_enumReceive(USART_Config_t *ChannelConfig, uint8_t *RX_Data)
   }
   return Local_u8ErrorState;
 }
+
+uint8_t USART_ReceiveByteDirect(USART_Channel_t Channel)
+{
+    return (uint8_t)(USART_Channel[Channel]->DR);
+}
+
 /*==================================================================================================*/
 /**
  * @fn USART1_IRQHandler

@@ -14,6 +14,10 @@
 #ifndef _USART_INTERFACE_H_
 #define _USART_INTERFACE_H_
 
+#include "../../LIB/ErrTypes.h"
+#include <stdint.h>
+
+
 typedef enum
 {
   USART_CHANNEL1,
@@ -201,6 +205,14 @@ ErrorState_t USART_enumReceive(USART_Config_t *ChannelConfig, uint8_t *RX_Data);
  * @warning NULL pointer check is performed on input parameter
  */
 ErrorState_t USART_enumTransmitString(USART_Config_t *ChannelConfig, uint8_t *TX_Data);
+/*==================================================================================================*/
+/**
+ * @fn USART_ReceiveByteDirect
+ * @brief Directly read the data register without checking flags or busy state.
+ * @param Channel USART Channel to read from.
+ * @return uint8_t The received byte.
+ */
+uint8_t USART_ReceiveByteDirect(USART_Channel_t Channel);
 /*==================================================================================================*/
 
 #endif /* _USART_INTERFACE_H_ */

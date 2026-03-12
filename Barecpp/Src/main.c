@@ -7,6 +7,7 @@
  **/
 
 #include <stdint.h>
+#include <stdio.h>
 #include "System/System.h"
 
 #include "FreeRTOS.h"
@@ -62,6 +63,10 @@ void vTask_Feedback(void *pvParameters);
 /* Communication Tasks */
 void vTask_ESP_Comm(void *pvParameters);
 void vTask_RPi_Comm(void *pvParameters);
+
+/* ITM Retargeting for printf via SWV */
+
+
 
 int main(void)
 {
@@ -161,7 +166,14 @@ void vTask_Feedback(void *pvParameters)
 {
   for (;;)
   {
-    
+    if (G_u8WarningState == 1)
+    {
+      BUZ_On(&V2X_Buzzer);
+    }
+    else
+    {
+      BUZ_Off(&V2X_Buzzer);
+    }
 
     /* Update UI frequently */
     vTaskDelay(pdMS_TO_TICKS(20));
@@ -204,12 +216,16 @@ void vTask_ESP_Comm(void *pvParameters)
           {
              G_u8WarningState = 1; 
           }
+          else
+          {
+             G_u8WarningState = 0;
+          }
         }
         rxIndex = 0; /* Reset for next message */
       }
     }
 
-    /* 2. TX Processing (e.g., Send every 100ms -> every 2nd loop) */
+    /* 2. TX Processing (Send every 100ms -> every 2nd loop) */
     txCounter++;
     if (txCounter >= 2)
     {
@@ -237,12 +253,26 @@ void vTask_ESP_Comm(void *pvParameters)
   }
 }
 
+void vTask_RPi_Comm(void *pvParameters)
+{
+ 
+
+  for (;;)
+  {
+   
+
+    vTaskDelay(pdMS_TO_TICKS(100));
+  }
+}
+
+
 /* ================== ISR callbacks ================== */
 void vESP_UART_RX_Callback(void)
 {
     uint8_t rxData;
     USART_Config_t tempConfig = {USART_CHANNEL1};
     
+    /* Revert to standard Receive which checks busy state, as we are no longer in loopback */
     if (USART_enumReceive(&tempConfig, &rxData) == OK)
     {
         BaseType_t xHigherPriorityTaskWoken = pdFALSE;
@@ -250,30 +280,3 @@ void vESP_UART_RX_Callback(void)
         portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
     }
 }
-
-/**
- * @brief Handles both RX and TX communication with Raspberry Pi (UI Interface).
- * TX: Periodically sends system state bounds to display.
- * RX: Checks for settings or mode changes from the Pi.
- */
-void vTask_RPi_Comm(void *pvParameters)
-{
-  uint8_t txCounter = 0;
-
-  for (;;)
-  {
-    /* 1. RX Processing (Non-Blocking) */
-    /* Receive settings, mode changes, or ACKs from RPi */
-
-    /* 2. TX Processing (e.g., Send every 200ms -> every 2nd loop) */
-    txCounter++;
-    if (txCounter >= 2)
-    {
-      /* Construct Display Frame and UART Transmit to RPi */
-      txCounter = 0;
-    }
-
-    vTaskDelay(pdMS_TO_TICKS(100)); /* Evaluates every 100ms */
-  }
-}
-
