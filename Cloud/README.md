@@ -11,4 +11,4 @@ This directory contains the central backend logic responsible for managing traff
 1. Ensure the `paho-mqtt` library is installed in your Python environment.
 2. Run the main script using the following command:
    ```bash
-   python traffic_light_ambulance.py
+   python Intelligent_Gateway.py
