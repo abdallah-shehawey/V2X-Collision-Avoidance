@@ -133,28 +133,31 @@ ErrorState_t MPU9250_enumGetHeading(MPU9250_Data_t *D, float *h) {
 
 ErrorState_t MPU9250_enumGetSpeed(MPU9250_Data_t *D, float dt, float *s) {
   if (!D || !s) return NULL_POINTER;
+  
   float total_acc = sqrtf(D->AccelX*D->AccelX + D->AccelY*D->AccelY + D->AccelZ*D->AccelZ);
   /* Convert G to m/s^2 (1g = 9.80665 m/s^2) */
   float linear_acc_m_s2 = (total_acc - 1.0f) * 9.80665f;
 
-  /* High-Precision ZUPT Logic */
-  if (fabs(D->GyroX) < 1.0f && fabs(D->GyroY) < 1.0f && fabs(D->GyroZ) < 1.0f) {
-    if (fabs(linear_acc_m_s2) < 0.25f) { /* Stillness detected */
-      *s *= 0.85f; /* Rapid Deceleration */
-      if (fabs(*s) < 0.005f) *s = 0;
-      linear_acc_m_s2 = 0;
+  /* 1. Enhanced ZUPT Logic (Stillness Detection) */
+  /* If Gyro noise and Accel variation are below thresholds, force deceleration */
+  if (fabs(D->GyroX) < 1.5f && fabs(D->GyroY) < 1.5f && fabs(D->GyroZ) < 1.5f) {
+    if (fabs(linear_acc_m_s2) < 0.35f) { 
+      /* Apply strong damping to bleed off drift speed */
+      *s *= 0.70f; 
+      if (fabs(*s) < 0.05f) *s = 0.0f;
+      linear_acc_m_s2 = 0.0f;
     }
   }
 
-  /* Deadzone & Integration */
-  if (fabs(linear_acc_m_s2) < 0.15f) {
-    linear_acc_m_s2 = 0;
-    if (fabs(*s) > 0) *s *= 0.98f; /* Slow damping */
-  } else {
-    *s += linear_acc_m_s2 * dt;
+  /* 2. Deadzone to ignore sensor floor noise */
+  if (fabs(linear_acc_m_s2) < 0.20f) {
+      linear_acc_m_s2 = 0.0f;
   }
 
-  /* Clamp */
+  /* 3. Trapezoidal Integration */
+  *s += linear_acc_m_s2 * dt;
+
+  /* 4. Physical Limit: Speed cannot be negative in this integration model */
   if (*s < 0) *s = 0;
   if (*s < 0.015f) *s = 0; /* 1.5 cm/s clamp in meters */
 

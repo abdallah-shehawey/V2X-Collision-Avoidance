@@ -76,6 +76,10 @@ void System_setup(void)
 	RCC_enumAHPPerSts(RCC_AHB1, RCC_GPIOBEN, RCC_PER_ON);
 	RCC_enumAHPPerSts(RCC_AHB1, RCC_GPIOCEN, RCC_PER_ON);
 
+	//Timer6 for delay
+
+	RCC_enumABPPerSts(RCC_APB1, RCC_TIM6EN,  RCC_PER_ON);
+
 		/* MPU9250 SPI configuration */
 	RCC_enumABPPerSts(RCC_APB2, RCC_SPI1EN,  RCC_PER_ON);
 	GPIO_PinConfig_t SPI_Pins = {

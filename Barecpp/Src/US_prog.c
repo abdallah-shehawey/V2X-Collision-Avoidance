@@ -119,7 +119,8 @@ ErrorState_t US_vInit(const US_Config_t *pxSensor)
 ErrorState_t US_u16ReadDistance_cm(const US_Config_t *pxSensor, uint16_t *pu16Dist_cm)
 {
     uint32_t t1 = 0, t2 = 0, high_ticks = 0;
-    uint32_t Local_u32Timeout = 1000000; 
+    /* Optimized timeout for 16MHz: ~30,000 iterations is approx 25ms (max range) */
+    uint32_t Local_u32Timeout = 40000; 
     
     if (pxSensor == NULL || pu16Dist_cm == NULL) return NULL_POINTER;
 
@@ -127,38 +128,43 @@ ErrorState_t US_u16ReadDistance_cm(const US_Config_t *pxSensor, uint16_t *pu16Di
     uint32_t CCxIF_Mask = (1UL << (pxSensor->Channel + 1));
     uint32_t MaxVal = (pxSensor->Timer == TIM_TIMER2 || pxSensor->Timer == TIM_TIMER5) ? 0xFFFFFFFF : 0xFFFF;
 
-    /* 1. Prepare for Rising Edge (Channel-specific clearing) */
+    /* 1. Prepare for Rising Edge */
     TIM_vSetICPolarity(pxSensor->Timer, pxSensor->Channel, TIM_POLARITY_HIGH);
     TIMx->SR = ~CCxIF_Mask; 
     
     /* 2. Send Trigger */
     US_vSendTrigger(pxSensor);
 
-    /* 3. Wait for Rising Edge */
+    /* 3. Wait for Rising Edge - With Safety Timeout */
+    Local_u32Timeout = 100000; 
     while (!((TIMx->SR) & CCxIF_Mask) && --Local_u32Timeout);
     if (Local_u32Timeout == 0) return TIMEOUT_STATE;
+
     t1 = TIM_u32GetCaptureValue_Direct(TIMx, pxSensor->Channel);
 
     /* 4. Switch to Falling Edge and clear flag */
     TIM_vSetICPolarity(pxSensor->Timer, pxSensor->Channel, TIM_POLARITY_LOW);
     TIMx->SR = ~CCxIF_Mask; 
     
-    /* 5. Wait for Falling Edge */
-    Local_u32Timeout = 1000000;
+    /* 5. Wait for Falling Edge - With Safety Timeout */
+    Local_u32Timeout = 100000;
     while (!((TIMx->SR) & CCxIF_Mask) && --Local_u32Timeout);
+
     if (Local_u32Timeout == 0) return TIMEOUT_STATE;
+
     t2 = TIM_u32GetCaptureValue_Direct(TIMx, pxSensor->Channel);
 
-    /* 6. Distance Calculation (Handles wrap-around correctly for free-running timer) */
+    /* 6. Distance Calculation */
     if (t2 >= t1) {
         high_ticks = t2 - t1;
     } else {
         high_ticks = (MaxVal - t1) + t2 + 1;
     }
 
+    /* Convert to cm (ticks / 58) */
     *pu16Dist_cm = (uint16_t)(high_ticks / 58);
 
-    /* Cleanup: Reset flag and polarity */
+    /* Cleanup */
     TIMx->SR = ~CCxIF_Mask;
     TIM_vSetICPolarity(pxSensor->Timer, pxSensor->Channel, TIM_POLARITY_HIGH);
 

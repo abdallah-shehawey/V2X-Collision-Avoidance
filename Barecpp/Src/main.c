@@ -42,18 +42,10 @@ volatile float G_fPitch = 0.0f;
 volatile float G_fRoll = 0.0f;
 volatile float G_fAltitudeZ = 0.0f;
 
-/* ================== V2X Data Frame ================== */
-typedef struct __attribute__((packed)) {
-    uint8_t  Sender_ID;
-    uint8_t  Target_ID;
-    float    Speed_ms;
-    float    Heading_deg;
-    float    Position_Z;
-    uint8_t  Vehicle_State; /* 0: Normal, 1: EEBL Active */
-} V2X_Message_t;
 
 QueueHandle_t G_xESP_RX_Queue;
 V2X_Message_t G_stIncomingV2XMsg;
+
 
 /* ================== Task Prototypes ================== */
 void vTask_Sensors(void *pvParameters);
@@ -63,9 +55,6 @@ void vTask_Feedback(void *pvParameters);
 /* Communication Tasks */
 void vTask_ESP_Comm(void *pvParameters);
 void vTask_RPi_Comm(void *pvParameters);
-
-/* ITM Retargeting for printf via SWV */
-
 
 
 int main(void)
@@ -79,9 +68,10 @@ int main(void)
 
   /* 2. OS Tasks Creation */
   /* --- Core and Hardware Tasks --- */
-  xTaskCreate(vTask_Sensors,   "Sensors_Task", configMINIMAL_STACK_SIZE + 50, NULL, 3, NULL);
-  xTaskCreate(vTask_ADAS_Core, "ADAS_Task",    configMINIMAL_STACK_SIZE + 50, NULL, 2, NULL);
-  xTaskCreate(vTask_Feedback,  "Feedback_Task",configMINIMAL_STACK_SIZE,      NULL, 1, NULL);
+  xTaskCreate(vTask_Sensors,   "Sensors_Task", configMINIMAL_STACK_SIZE + 256, NULL, 3, NULL);
+  xTaskCreate(vTask_ADAS_Core, "ADAS_Task",    configMINIMAL_STACK_SIZE + 256, NULL, 2, NULL);
+  xTaskCreate(vTask_Feedback,  "Feedback_Task",configMINIMAL_STACK_SIZE + 64,  NULL, 1, NULL);
+
 
   /* --- Communication Tasks --- */
   /* ESP Communication: High Priority for V2X Emergency handling */
@@ -137,10 +127,11 @@ void vTask_Sensors(void *pvParameters)
     MPU9250_enumGetAttitude(&G_stMPU9250_Data, (float*)&G_fPitch, (float*)&G_fRoll);
     MPU9250_enumGetHeading(&G_stMPU9250_Data, (float*)&G_fHeading);
     
-    /* Dt is approx 0.05 seconds (50 ms) for speed processing */
-    MPU9250_enumGetSpeed(&G_stMPU9250_Data, 0.05f, (float*)&G_fSpeed);
-    MPU9250_enumGetPosition(&G_stMPU9250_Data, G_fSpeed, G_fHeading, G_fPitch, 0.05f, &G_stMPU9250_Pos);
+    /* Dt is approx 0.08 seconds (80 ms cycle) for speed processing */
+    MPU9250_enumGetSpeed(&G_stMPU9250_Data, 0.08f, (float*)&G_fSpeed);
+    MPU9250_enumGetPosition(&G_stMPU9250_Data, G_fSpeed, G_fHeading, G_fPitch, 0.08f, &G_stMPU9250_Pos);
     G_fAltitudeZ = G_stMPU9250_Pos.Z;
+
 
     /* Overall Task Period ~ 50ms */
     vTaskDelay(pdMS_TO_TICKS(20));
