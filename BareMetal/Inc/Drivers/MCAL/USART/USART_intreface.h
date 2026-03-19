@@ -14,6 +14,10 @@
 #ifndef _USART_INTERFACE_H_
 #define _USART_INTERFACE_H_
 
+#include "../../LIB/ErrTypes.h"
+#include <stdint.h>
+
+
 typedef enum
 {
   USART_CHANNEL1,
@@ -143,10 +147,6 @@ typedef struct
  * @return ErrorState_t OK if successful, error code otherwise
  *
  * @warning NULL pointer check is performed on input parameter
- * @example
- * USART_Config_t uart_cfg = {USART_CHANNEL1, 9600, USART_WORDLENGTH_8B, USART_STOPBITS_1,
- *                            USART_PARITY_NONE, USART_MODE_TX_RX, UART_HWCONTROL_NONE, USART_OVERSAMPLING_16};
- * USART_Init(&uart_cfg);
  */
 ErrorState_t USART_Init(USART_Config_t *ChannelConfig);
 /*==================================================================================================*/
@@ -161,7 +161,6 @@ ErrorState_t USART_Init(USART_Config_t *ChannelConfig);
  * @return ErrorState_t OK if successful, error code otherwise
  *
  * @warning NULL pointer check is performed on input parameter
- * @example USART_InitIT(&uart_handle);
  */
 ErrorState_t USART_InitIT(USART_Handle_t *ChannelHandle);
 /*==================================================================================================*/
@@ -169,15 +168,13 @@ ErrorState_t USART_InitIT(USART_Handle_t *ChannelHandle);
  * @fn USART_enumTransmit
  * @brief Initialize the USART peripheral with the provided configuration.
  *
- * This function transmits a single byte through the USART interface.
- * It uses polling to wait for the Transmit Data Register to be empty.
+ * This function configures all USART parameters including clock phase, polarity,
+ * master/slave mode, baud rate, data frame format, and other settings.
  *
  * @param ChannelConfig Pointer to the USART configuration structure
- * @param TX_Data Byte to transmit
  * @return ErrorState_t OK if successful, error code otherwise
  *
  * @warning NULL pointer check is performed on input parameter
- * @example USART_enumTransmit(&uart_cfg, 'A');
  */
 ErrorState_t USART_enumTransmit(USART_Config_t *ChannelConfig, uint8_t TX_Data);
 /*==================================================================================================*/
@@ -185,17 +182,13 @@ ErrorState_t USART_enumTransmit(USART_Config_t *ChannelConfig, uint8_t TX_Data);
  * @fn USART_enumReceive
  * @brief Initialize the USART peripheral with the provided configuration.
  *
- * This function receives a single byte through the USART interface.
- * It uses polling to wait for the Receive Data Register to be not empty.
+ * This function configures all USART parameters including clock phase, polarity,
+ * master/slave mode, baud rate, data frame format, and other settings.
  *
  * @param ChannelConfig Pointer to the USART configuration structure
- * @param RX_Data Pointer to store received byte
  * @return ErrorState_t OK if successful, error code otherwise
  *
  * @warning NULL pointer check is performed on input parameter
- * @example
- * uint8_t byte;
- * USART_enumReceive(&uart_cfg, &byte);
  */
 ErrorState_t USART_enumReceive(USART_Config_t *ChannelConfig, uint8_t *RX_Data);
 /*==================================================================================================*/
@@ -203,16 +196,23 @@ ErrorState_t USART_enumReceive(USART_Config_t *ChannelConfig, uint8_t *RX_Data);
  * @fn USART_enumTransmitString
  * @brief Initialize the USART peripheral with the provided configuration.
  *
- * This function transmits a null-terminated string through the USART interface.
+ * This function configures all USART parameters including clock phase, polarity,
+ * master/slave mode, baud rate, data frame format, and other settings.
  *
  * @param ChannelConfig Pointer to the USART configuration structure
- * @param TX_Data Pointer to string to transmit
  * @return ErrorState_t OK if successful, error code otherwise
  *
  * @warning NULL pointer check is performed on input parameter
- * @example USART_enumTransmitString(&uart_cfg, "Hello");
  */
 ErrorState_t USART_enumTransmitString(USART_Config_t *ChannelConfig, uint8_t *TX_Data);
+/*==================================================================================================*/
+/**
+ * @fn USART_ReceiveByteDirect
+ * @brief Directly read the data register without checking flags or busy state.
+ * @param Channel USART Channel to read from.
+ * @return uint8_t The received byte.
+ */
+uint8_t USART_ReceiveByteDirect(USART_Channel_t Channel);
 /*==================================================================================================*/
 
 #endif /* _USART_INTERFACE_H_ */

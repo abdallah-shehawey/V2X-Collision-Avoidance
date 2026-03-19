@@ -14,6 +14,11 @@
 #ifndef US_INTERFACE_H_
 #define US_INTERFACE_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 #include "../../LIB/STD_MACROS.h"
 #include "../../LIB/ErrTypes.h"
 #include "../../LIB/STM32F446xx.h"
@@ -42,12 +47,12 @@
  */
 typedef struct
 {
-    TIM_Num_t      Timer;     /* Timer instance (TIM_TIMER1..TIM_TIMER8)       */
-    TIM_Channel_t  Channel;   /* Timer Channel: TIM_CHANNEL1..TIM_CHANNEL4     */
-    GPIO_Port_t    TrigPort;  /* GPIO Port of TRIG pin                         */
-    GPIO_Pin_t     TrigPin;   /* GPIO Pin  of TRIG pin                         */
-    GPIO_Port_t    EchoPort;  /* GPIO Port of ECHO pin (Must match Timer AF)   */
-    GPIO_Pin_t     EchoPin;   /* GPIO Pin  of ECHO pin (Must match Timer AF)   */
+  TIM_Num_t      Timer;     /* Timer instance (TIM_TIMER1..TIM_TIMER8)       */
+  TIM_Channel_t  Channel;   /* Timer Channel: TIM_CHANNEL1..TIM_CHANNEL4     */
+  GPIO_Port_t    TrigPort;  /* GPIO Port of TRIG pin                         */
+  GPIO_Pin_t     TrigPin;   /* GPIO Pin  of TRIG pin                         */
+  GPIO_Port_t    EchoPort;  /* GPIO Port of ECHO pin (Must match Timer AF)   */
+  GPIO_Pin_t     EchoPin;   /* GPIO Pin  of ECHO pin (Must match Timer AF)   */
 } US_Config_t;
 
 /**************************************         Function Prototypes
@@ -90,5 +95,9 @@ ErrorState_t US_vInit(const US_Config_t *pxSensor);
  *   }
  */
 ErrorState_t US_u16ReadDistance_cm(const US_Config_t *pxSensor, uint16_t *pu16Dist_cm);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* US_INTERFACE_H_ */
