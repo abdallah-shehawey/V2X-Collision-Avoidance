@@ -94,7 +94,7 @@ static void FCW_voidActivateAlert(FCW_RiskLevel_t level)
   {
      /* Activate Front LEDs (e.g. PC0 and PC1 mapped in System.h) */
      /* For demonstration: Toggle or Turn On an initialized LED */
-     LED_On(&TaskLed); 
+     LED_TurnOn(&TaskLed);
   }
 #endif
 

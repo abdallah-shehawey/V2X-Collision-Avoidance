@@ -199,6 +199,6 @@ void RTOS_setup(void)
 void USART_RXCMP(void)
 {
   uint8_t byte;
-  USART_enumReceive(&ESP_UART, &byte);
+  USART_enumReceive((USART_Config_t*)&ESP_UART, &byte);
   DSRC_RxCallback(byte);
 }

@@ -129,13 +129,13 @@ void DSRC_SendNeighbor(Neighbor *n)
   memcpy(raw, n, sizeof(Neighbor));
   uint8_t chk = calc_checksum(raw, sizeof(Neighbor));
 
-  USART_enumTransmit(&USART_1, START_BYTE);
+  USART_enumTransmit((USART_Config_t*)&USART_1, START_BYTE);
   for (uint8_t i = 0; i < sizeof(Neighbor); i++)
   {
-    USART_enumTransmit(&USART_1, raw[i]);
+    USART_enumTransmit((USART_Config_t*)&USART_1, raw[i]);
   }
-  USART_enumTransmit(&USART_1, chk);
-  USART_enumTransmit(&USART_1, END_BYTE);
+  USART_enumTransmit((USART_Config_t*)&USART_1, chk);
+  USART_enumTransmit((USART_Config_t*)&USART_1, END_BYTE);
 }
 
 // call this in main loop to process received packets
