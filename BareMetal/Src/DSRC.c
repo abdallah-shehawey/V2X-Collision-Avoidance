@@ -129,7 +129,6 @@ void DSRC_SendNeighbor(Neighbor *n)
   memcpy(raw, n, sizeof(Neighbor));
   uint8_t chk = calc_checksum(raw, sizeof(Neighbor));
 
-<<<<<<< HEAD
   USART_enumTransmit((USART_Config_t*)&ESP_UART, START_BYTE);
   for (uint8_t i = 0; i < sizeof(Neighbor); i++)
   {
@@ -137,15 +136,6 @@ void DSRC_SendNeighbor(Neighbor *n)
   }
   USART_enumTransmit((USART_Config_t*)&ESP_UART, chk);
   USART_enumTransmit((USART_Config_t*)&ESP_UART, END_BYTE);
-=======
-  USART_enumTransmit((USART_Config_t*)&USART_1, START_BYTE);
-  for (uint8_t i = 0; i < sizeof(Neighbor); i++)
-  {
-    USART_enumTransmit((USART_Config_t*)&USART_1, raw[i]);
-  }
-  USART_enumTransmit((USART_Config_t*)&USART_1, chk);
-  USART_enumTransmit((USART_Config_t*)&USART_1, END_BYTE);
->>>>>>> b3d88525aeefcab7ecbf8e9d2ee9390d185b4581
 }
 
 // call this in main loop to process received packets
