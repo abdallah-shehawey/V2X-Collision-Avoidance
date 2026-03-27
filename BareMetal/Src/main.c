@@ -49,7 +49,13 @@ V2X_Message_t G_stIncomingV2XMsg;
 
 /* ================== Task Prototypes ================== */
 void vTask_Sensors(void *pvParameters);
-void vTask_ADAS_Core(void *pvParameters);
+/* ADAS Subsystem Tasks */
+void vTask_BSW (void *pvParameters);
+void vTask_DNPW(void *pvParameters);
+void vTask_EEBL(void *pvParameters);
+void vTask_FCW (void *pvParameters);
+void vTask_IMA (void *pvParameters);
+void vTask_SDW (void *pvParameters);
 void vTask_Feedback(void *pvParameters);
 
 /* Communication Tasks */
@@ -69,8 +75,15 @@ int main(void)
   /* 2. OS Tasks Creation */
   /* --- Core and Hardware Tasks --- */
   xTaskCreate(vTask_Sensors,   "Sensors_Task", configMINIMAL_STACK_SIZE + 256, NULL, 3, NULL);
-  xTaskCreate(vTask_ADAS_Core, "ADAS_Task",    configMINIMAL_STACK_SIZE + 256, NULL, 2, NULL);
-  xTaskCreate(vTask_Feedback,  "Feedback_Task",configMINIMAL_STACK_SIZE + 64,  NULL, 1, NULL);
+
+  /* ADAS Independent Subsystems */
+  xTaskCreate(vTask_EEBL,    "EEBL_Task",    configMINIMAL_STACK_SIZE + 128, NULL, 4, NULL); /* High Priority: Emergency braking */
+  xTaskCreate(vTask_FCW,     "FCW_Task",     configMINIMAL_STACK_SIZE + 128, NULL, 4, NULL); /* High Priority: Forward collision */
+  xTaskCreate(vTask_BSW,     "BSW_Task",     configMINIMAL_STACK_SIZE + 128, NULL, 3, NULL); /* Medium: Blind spot */
+  xTaskCreate(vTask_DNPW,    "DNPW_Task",    configMINIMAL_STACK_SIZE + 128, NULL, 3, NULL); /* Medium: Passing Warning */
+  xTaskCreate(vTask_SDW,     "SDW_Task",     configMINIMAL_STACK_SIZE + 128, NULL, 2, NULL); /* Low/Medium: Safe distance processing */
+  xTaskCreate(vTask_IMA,     "IMA_Task",     configMINIMAL_STACK_SIZE + 128, NULL, 2, NULL); /* Low/Medium: Intersection */
+  xTaskCreate(vTask_Feedback,"Feedback_Task",configMINIMAL_STACK_SIZE + 64,  NULL, 1, NULL);
 
 
   /* --- Communication Tasks --- */
@@ -139,14 +152,74 @@ void vTask_Sensors(void *pvParameters)
 }
 
 /**
- * @brief Evaluates risk based on sensor data.
+ * @brief ADAS: Blind Spot Warning Task
  */
-void vTask_ADAS_Core(void *pvParameters)
+void vTask_BSW(void *pvParameters)
 {
   for (;;)
   {
+    /* BSW Update Logic Here */
+    vTaskDelay(pdMS_TO_TICKS(50));
+  }
+}
 
-    vTaskDelay(pdMS_TO_TICKS(50)); /* Evaluates every 50ms */
+/**
+ * @brief ADAS: Do Not Pass Warning Task
+ */
+void vTask_DNPW(void *pvParameters)
+{
+  for (;;)
+  {
+    /* DNPW Update Logic Here */
+    vTaskDelay(pdMS_TO_TICKS(50));
+  }
+}
+
+/**
+ * @brief ADAS: Emergency Electronic Brake Light Task
+ */
+void vTask_EEBL(void *pvParameters)
+{
+  for (;;)
+  {
+    /* EEBL Update Logic Here */
+    vTaskDelay(pdMS_TO_TICKS(25)); /* Runs faster for quick emergency detection */
+  }
+}
+
+/**
+ * @brief ADAS: Forward Collision Warning Task
+ */
+void vTask_FCW(void *pvParameters)
+{
+  for (;;)
+  {
+    /* FCW Update Logic Here */
+    vTaskDelay(pdMS_TO_TICKS(25)); /* Runs faster for immediate collision threat */
+  }
+}
+
+/**
+ * @brief ADAS: Intersection Movement Assist Task
+ */
+void vTask_IMA(void *pvParameters)
+{
+  for (;;)
+  {
+    /* IMA Update Logic Here */
+    vTaskDelay(pdMS_TO_TICKS(50));
+  }
+}
+
+/**
+ * @brief ADAS: Safe Distance Warning Task
+ */
+void vTask_SDW(void *pvParameters)
+{
+  for (;;)
+  {
+    /* SDW Update Logic Here */
+    vTaskDelay(pdMS_TO_TICKS(50));
   }
 }
 

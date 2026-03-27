@@ -41,10 +41,10 @@
  * ----------------------------------------------------------------------------------------
  * | Component | Pin | Port  | Description      |
  * |-----------|-----|-------|------------------|
- * | LED 1     | PC0 | PORTC | Status Color 1   |
- * | LED 2     | PC1 | PORTC | Status Color 2   |
- * | LED 3     | PC2 | PORTC | Status Color 3   |
- * | LED 4     | PC3 | PORTC | Status Color 4   |
+ * | LED 1     | PC0 | PORTC | Status Color 1   | Front Right
+ * | LED 2     | PC1 | PORTC | Status Color 2   | Front Left
+ * | LED 3     | PC2 | PORTC | Status Color 3   | Back Right
+ * | LED 4     | PC3 | PORTC | Status Color 4   | Back Left
  * | BUZZER    | PC4 | PORTC | Warning Sound    |
  *
  * 4. COMMUNICATION INTERFACES (UARTs)

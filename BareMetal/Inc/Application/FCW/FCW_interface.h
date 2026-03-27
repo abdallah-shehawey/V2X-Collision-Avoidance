@@ -4,7 +4,4 @@
 void FCW_voidInit(void);
 void FCW_voidUpdate(void);
 
-// /* Simulation inputs */
-// void FCW_voidSetSimulatedData(float frontDistance, float hostSpeed, float frontVehicleSpeed);
-
 #endif

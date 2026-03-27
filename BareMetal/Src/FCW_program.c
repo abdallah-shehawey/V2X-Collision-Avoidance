@@ -15,31 +15,28 @@
 #include "../Inc/Application/FCW/FCW_config.h"
 #include "../Inc/Application/FCW/FCW_private.h"
 
-/* ================= Simulation Variables ================= */
-static float FCW_FrontDistance = 100.0f;
-static float FCW_HostSpeed = 0.0f;
-static float FCW_FrontVehicleSpeed = 0.0f;
-/* ======================================================== */
+
+#include "System/System.h"       /* For DSRC/V2X message structure if defined there */
+#include "../Inc/Drivers/HAL/BUZZ/BUZ_interface.h"
+#include "../Inc/Drivers/HAL/LED/LED_interface.h"
+
+extern volatile float G_fSpeed;                 /* Host vehicle speed from MPU9250 */
+extern volatile uint16_t G_u16DistCenter;       /* Front Center distance from Ultrasonic */
+extern V2X_Message_t G_stIncomingV2XMsg;        /* Incoming message from DSRC for Front Vehicle Speed */
+
+extern BUZ_Config_t V2X_Buzzer;
+extern LED_Config_t TaskLed; /* Example LED mapping; could be FrontRightLed, etc. */
+
 
 void FCW_voidInit(void)
 {
-  /* get data from sensors because the car may be stopped in any time */
-  // FCW_FrontDistance = 100.0f;
-  // FCW_HostSpeed = 0.0f;
-  // FCW_FrontVehicleSpeed = 0.0f;
+  /* Any necessary Initialization before the Scheduler runs */
+  /* Real data starts feeding in automatically from Sensor tasks */
 }
-
-// void FCW_voidSetSimulatedData(float frontDistance, float hostSpeed, float frontVehicleSpeed)
-// {
-//   FCW_FrontDistance = frontDistance;
-//   FCW_HostSpeed = hostSpeed;
-//   FCW_FrontVehicleSpeed = frontVehicleSpeed;
-// }
 
 void FCW_voidUpdate(void)
 {
-  // get data from sensors to update variables
-  // get FCW_FrontVehicleSpeed from srvice
+  /* Fetch latest data passively and evaluate collision */
   FCW_voidCheckCollision();
 }
 
@@ -49,7 +46,7 @@ static void FCW_voidCheckCollision(void)
 {
   float ttc = FCW_f32CalculateTTC();
 
-  if (ttc > 0) /* Valid TTC */
+  if (ttc > 0) /* Valid TTC calculated */
   {
     if (ttc <= FCW_CRITICAL_TTC)
     {
@@ -64,29 +61,47 @@ static void FCW_voidCheckCollision(void)
   }
 }
 
-/* Calculate Time To Collision */
+/* Calculate Time To Collision (TTC) using Real Data */
 static float FCW_f32CalculateTTC(void)
 {
-  float relativeSpeed = FCW_HostSpeed - FCW_FrontVehicleSpeed;
+  /* Fetch real speeds: Host Speed vs Target/Front vehicle speed */
+  /* Speed from MPU9250 is typically in m/s */
+  float host_speed = G_fSpeed;
+  
+  /* Assuming the incoming V2X message is from the vehicle directly ahead */
+  float front_speed = G_stIncomingV2XMsg.Speed_ms;  
+  
+  float relativeSpeed = host_speed - front_speed;
 
+  /* No collision risk if we are slower or at the same speed as the front vehicle */
   if (relativeSpeed <= 0.0f)
   {
-    return -1.0f; /* No collision risk */
+    return -1.0f; 
   }
 
-  return (FCW_FrontDistance / relativeSpeed);
+  /* Fetch real distance from Ultrasonic */
+  /* G_u16DistCenter is likely in cm. Convert to meters for TTC formula */
+  float distance_meters = (float)G_u16DistCenter / 100.0f;
+
+  return (distance_meters / relativeSpeed);
 }
 
+/* HardWare Alerts based on Risk Level */
 static void FCW_voidActivateAlert(FCW_RiskLevel_t level)
 {
 #if FCW_ENABLE_LED_ALERT
-  /* LED_FRONT_ON(); */
+  if (level == FCW_CRITICAL || level == FCW_WARNING)
+  {
+     /* Activate Front LEDs (e.g. PC0 and PC1 mapped in System.h) */
+     /* For demonstration: Toggle or Turn On an initialized LED */
+     LED_On(&TaskLed); 
+  }
 #endif
 
 #if FCW_ENABLE_BUZZER
   if (level == FCW_CRITICAL)
   {
-    /* BUZZER_ON(); */
+     BUZ_On(&V2X_Buzzer);
   }
 #endif
 
@@ -94,21 +109,22 @@ static void FCW_voidActivateAlert(FCW_RiskLevel_t level)
   if (level == FCW_CRITICAL)
   {
     /*
-      ADAS_RequestBrake();
+      ADAS_RequestBrake(); // AEB hook
     */
   }
 #endif
 }
 
+/* Broadcast Warning over DSRC */
 static void FCW_voidSendWarning(FCW_RiskLevel_t level)
 {
   /*
-    Module : FCW
-    TTC    : calculated
-    Level  : WARNING / CRITICAL
-  */
-
-  /*
-    V2V_SendMessage(FCW_MSG);
+    Construct a new DSRC warning packet:
+    WarningPacket.Sender_ID = OUR_ID;
+    WarningPacket.Target_ID = BROADCAST;
+    WarningPacket.Event     = FCW_EVENT;
+    WarningPacket.Severity  = level;
+    
+    UART_Transmit(&DSRC_UART, WarningPacket);
   */
 }
