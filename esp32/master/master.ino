@@ -83,7 +83,9 @@ void OnDataSent(const wifi_tx_info_t *info, esp_now_send_status_t status)
 void OnDataRecv(const esp_now_recv_info_t *info, const uint8_t *data, int len)
 {
   if (len < (int)sizeof(Neighbor))
+  {
     return;
+  }
 
   Neighbor n;
   memcpy(&n, data, sizeof(Neighbor));
