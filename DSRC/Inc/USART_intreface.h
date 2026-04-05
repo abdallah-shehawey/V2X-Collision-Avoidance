@@ -14,6 +14,7 @@
 #ifndef _USART_INTERFACE_H_
 #define _USART_INTERFACE_H_
 #include "ErrTypes.h"
+#include <stdint.h>
 
 typedef enum
 {
