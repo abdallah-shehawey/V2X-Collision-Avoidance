@@ -139,11 +139,13 @@ void DSRC_SendNeighbor(Neighbor *n)
 }
 
 // call this in main loop to process received packets
-void DSRC_Update(void)
+void DSRC_Update(uint32_t current_time)
 {
   Neighbor received;
   while (queue_pop(&received))
   {
+    /* Overwrite the network timestamp with our local exact reception time via TIM5 */
+    received.last_update = current_time;
     update_neighbor(&received);
   }
 }
@@ -152,7 +154,7 @@ void DSRC_RemoveStale(uint32_t current_time)
 {
   for (int i = neighbor_count - 1; i >= 0; i--)
   {
-    if (current_time - neighbor_table[i].last_update > NEIGHBOR_TIMEOUT)
+    if (current_time - neighbor_table[i].last_update >= NEIGHBOR_TIMEOUT)
     {
       for (uint8_t j = i; j < neighbor_count - 1; j++)
       {

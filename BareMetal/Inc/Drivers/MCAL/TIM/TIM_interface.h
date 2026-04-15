@@ -209,6 +209,15 @@ ErrorState_t TIM_vIC_Init(const TIM_ICConfig_t *pxICConfig);
 ErrorState_t TIM_u32GetCaptureValue(TIM_Num_t Copy_eTimer, TIM_Channel_t Copy_eChannel, uint32_t *pu32Value);
 
 /**
+ * @fn      TIM_u32GetCounterValue
+ * @brief   Get the current counter value from the CNT register.
+ * @param   Copy_eTimer: Timer Instance.
+ * @param   pu32Value: Pointer to store the counter value.
+ * @return  ErrorState_t: OK if successful.
+ */
+ErrorState_t TIM_u32GetCounterValue(TIM_Num_t Copy_eTimer, uint32_t *pu32Value);
+
+/**
  * @fn     TIM_vSetICPolarity
  * @brief  Set/Update Input Capture Polarity (Edge).
  * @param  Copy_eTimer: Timer Instance.

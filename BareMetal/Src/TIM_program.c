@@ -328,6 +328,17 @@ ErrorState_t TIM_u32GetCaptureValue(TIM_Num_t Copy_eTimer, TIM_Channel_t Copy_eC
     return Local_ErrorState;
 }
 
+ErrorState_t TIM_u32GetCounterValue(TIM_Num_t Copy_eTimer, uint32_t *pu32Value)
+{
+    ErrorState_t Local_ErrorState = OK;
+    if (Copy_eTimer >= TIM_TIMER_COUNT || pu32Value == NULL) return NOK;
+
+    TIM_TypeDef *TIMx = TIM_Instances[Copy_eTimer];
+    *pu32Value = TIMx->CNT;
+    
+    return Local_ErrorState;
+}
+
 ErrorState_t TIM_vSetICPolarity(TIM_Num_t Copy_eTimer, TIM_Channel_t Copy_eChannel, TIM_Polarity_t Copy_ePolarity)
 {
     ErrorState_t Local_ErrorState = OK;

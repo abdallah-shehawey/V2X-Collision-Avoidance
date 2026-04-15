@@ -16,13 +16,21 @@
 #include "queue.h"
 
 #include "../Inc/Drivers/HAL/BUZZ/BUZ_interface.h"
+#include "../Inc/Drivers/MCAL/TIM/TIM_interface.h"
 #include "../Inc/Drivers/HAL/US/US_interface.h"
 #include "../Inc/Drivers/HAL/MPU9250/MPU9250_interface.h"
+#include "../Inc/Drivers/HAL/LED/LED_interface.h"
+#include "../Inc/Drivers/HAL/L298N/L298N_interface.h"
 #include "../Inc/Drivers/MCAL/USART/USART_intreface.h"
+#include "../Inc/Application/FCW/FCW_interface.h"
+#include "../Inc/Application/DSRC/DSRC.h"
 
 extern BUZ_Config_t V2X_Buzzer;
 extern US_Config_t FrontUS[3];
 extern US_Config_t BackUS[3];
+extern L298N_MotorConfig_t RightMotor;
+extern L298N_MotorConfig_t LeftMotor;
+extern LED_Config_t FrontR_LED, FrontL_LED, BackR_LED, BackL_LED;
 
 /* ================== Global SWV Variables ================== */
 volatile uint16_t G_u16DistLeft = 0;
@@ -44,7 +52,6 @@ volatile float G_fAltitudeZ = 0.0f;
 
 
 QueueHandle_t G_xESP_RX_Queue;
-V2X_Message_t G_stIncomingV2XMsg;
 
 
 /* ================== Task Prototypes ================== */
@@ -83,8 +90,7 @@ int main(void)
   xTaskCreate(vTask_DNPW,    "DNPW_Task",    configMINIMAL_STACK_SIZE + 128, NULL, 3, NULL); /* Medium: Passing Warning */
   xTaskCreate(vTask_SDW,     "SDW_Task",     configMINIMAL_STACK_SIZE + 128, NULL, 2, NULL); /* Low/Medium: Safe distance processing */
   xTaskCreate(vTask_IMA,     "IMA_Task",     configMINIMAL_STACK_SIZE + 128, NULL, 2, NULL); /* Low/Medium: Intersection */
-  xTaskCreate(vTask_Feedback,"Feedback_Task",configMINIMAL_STACK_SIZE + 64,  NULL, 1, NULL);
-
+  xTaskCreate(vTask_Feedback,"Feedback_Task",configMINIMAL_STACK_SIZE + 128, NULL, 1, NULL); /* Low Priority: Hardware UI/Motors execution */
 
   /* --- Communication Tasks --- */
   /* ESP Communication: High Priority for V2X Emergency handling */
@@ -194,7 +200,7 @@ void vTask_FCW(void *pvParameters)
 {
   for (;;)
   {
-    /* FCW Update Logic Here */
+    FCW_voidUpdate(); 
     vTaskDelay(pdMS_TO_TICKS(25)); /* Runs faster for immediate collision threat */
   }
 }
@@ -224,98 +230,120 @@ void vTask_SDW(void *pvParameters)
 }
 
 /**
- * @brief Handles user feedback (Buzzer & LEDs).
+ * @brief Centralized Hardware Manager (Muscle).
+ * Executes commands decided by the ADAS logic (Brain).
  */
+
+
 void vTask_Feedback(void *pvParameters)
 {
   for (;;)
   {
-    if (G_u8WarningState == 1)
+    /* 1. Actuate Motors based on Central Intention */
+    switch (G_eMotorGlobalCommand)
     {
-      BUZ_On(&V2X_Buzzer);
-    }
-    else
-    {
-      BUZ_Off(&V2X_Buzzer);
+      case CMD_MOVE_FORWARD:
+        L298N_enumCarMoveForward(&RightMotor, &LeftMotor);
+        LED_TurnOff(&BackR_LED);
+        LED_TurnOff(&BackL_LED);
+        break;
+      case CMD_STOP:
+        L298N_enumCarStop(&RightMotor, &LeftMotor);
+        LED_TurnOn(&BackR_LED);
+        LED_TurnOn(&BackL_LED);
+        break;
+      case CMD_STEER_RIGHT:
+        L298N_enumCarMoveRight(&RightMotor, &LeftMotor);
+        LED_TurnOff(&BackR_LED);
+        LED_TurnOff(&BackL_LED);
+        break;
+      case CMD_STEER_LEFT:
+        L298N_enumCarMoveLeft(&RightMotor, &LeftMotor);
+        LED_TurnOff(&BackR_LED);
+        LED_TurnOff(&BackL_LED);
+        break;
     }
 
-    /* Update UI frequently */
-    vTaskDelay(pdMS_TO_TICKS(20));
+    /* 2. Actuate Feedback UI (Buzzer & LEDs) based on Risk Level */
+    if (G_u8SystemRiskLevel == 0) /* Safe */
+    {
+      BUZ_Off(&V2X_Buzzer);
+      LED_TurnOff(&FrontR_LED);
+      LED_TurnOff(&FrontL_LED);
+    }
+    else if (G_u8SystemRiskLevel == 1) /* Warning */
+    {
+      BUZ_On(&V2X_Buzzer);
+      LED_TurnOn(&FrontR_LED);
+      LED_TurnOn(&FrontL_LED);
+    }
+    else if (G_u8SystemRiskLevel == 2) /* Critical */
+    {
+      BUZ_On(&V2X_Buzzer);
+      LED_TurnOn(&FrontR_LED);
+      LED_TurnOn(&FrontL_LED);
+    }
+
+    /* Keep execution consistent */
+    vTaskDelay(pdMS_TO_TICKS(25));
   }
 }
 
 
-
 /**
- * @brief Handles both RX and TX communication with ESP (V2X Network).
- * TX: Periodically broadcasts system state.
- * RX: Non-blocking check for incoming alerts via Queue from ISR.
+ * @brief Handles both RX and TX communication with ESP (V2X Network) using DSRC foundation.
+ * TX: Periodically broadcasts system state via DSRC_SendNeighbor.
+ * RX: Feeds incoming bytes from ISR Queue to DSRC_RxCallback, then updates Neighbor Table.
  */
 void vTask_ESP_Comm(void *pvParameters)
 {
   uint8_t txCounter = 0;
   uint8_t rxByte;
-  uint8_t rxBuffer[sizeof(V2X_Message_t)];
-  uint8_t rxIndex = 0;
 
   for (;;)
   {
-    /* 1. RX Processing */
+    /* 1. RX Processing via DSRC */
+    /* Empty the freeRTOS queue and pass all new bytes to DSRC parser */
     while (xQueueReceive(G_xESP_RX_Queue, &rxByte, 0) == pdTRUE)
     {
-      rxBuffer[rxIndex++] = rxByte;
-
-      /* When a full dataframe is received */
-      if (rxIndex >= sizeof(V2X_Message_t))
-      {
-        V2X_Message_t *pMsg = (V2X_Message_t*)rxBuffer;
-        
-        /* 0xFF is Broadcast, 0x01 is our vehicle ID */
-        if(pMsg->Target_ID == 0xFF || pMsg->Target_ID == 0x01)
-        {
-          G_stIncomingV2XMsg = *pMsg;
-          
-          /* EEBL Trigger */
-          if(G_stIncomingV2XMsg.Vehicle_State == 1) 
-          {
-             G_u8WarningState = 1; 
-          }
-          else
-          {
-             G_u8WarningState = 0;
-          }
-        }
-        rxIndex = 0; /* Reset for next message */
-      }
+      DSRC_RxCallback(rxByte);
     }
+    
+    /* Read exact timestamp from TIM5 background counter */
+    uint32_t current_time_ms = 0;
+    TIM_u32GetCounterValue(TIM_TIMER5, &current_time_ms);
 
-    /* 2. TX Processing (Send every 100ms -> every 2nd loop) */
+    /* Update DSRC Neighbor Table with freshly parsed packets and our local timestamp */
+    DSRC_Update(current_time_ms);
+
+    /* 2. TX Processing via DSRC (Send every 100ms -> every 2nd loop of 50ms) */
     txCounter++;
     if (txCounter >= 2)
     {
       txCounter = 0;
       
-      V2X_Message_t txMsg = {
-          .Sender_ID = 0x01,
-          .Target_ID = 0xFF,
-          .Speed_ms = G_fSpeed,
-          .Heading_deg = G_fHeading,
-          .Position_Z = G_fAltitudeZ,
-          .Vehicle_State = G_u8WarningState 
+      /* Build our Host Vehicle data using the DSRC Neighbor struct */
+      Neighbor myState = {
+          .vehicle_id = VEHICLE_ID, /* From DSRC.h */
+          .pos_x = G_stMPU9250_Pos.X,
+          .pos_y = G_stMPU9250_Pos.Y,
+          .pos_z = G_stMPU9250_Pos.Z,
+          .speed = G_fSpeed,
+          .heading = G_fHeading,
+          .last_update = 0 /* Not used over network, strictly local reception timestamp! */
       };
       
-      /* UART Transmit */
-      uint8_t *pData = (uint8_t*)&txMsg;
-      USART_Config_t tempConfig = {USART_CHANNEL1};
-      for (uint8_t i = 0; i < sizeof(V2X_Message_t); i++)
-      {
-        USART_enumTransmit(&tempConfig, pData[i]);
-      }
+      /* Hand over to DSRC for Checksum calculation and UART transmission */
+      DSRC_SendNeighbor(&myState);
     }
+
+    /* Remove stale vehicles that haven't sent data in > 5000ms */
+    DSRC_RemoveStale(current_time_ms);
 
     vTaskDelay(pdMS_TO_TICKS(50));
   }
 }
+
 
 void vTask_RPi_Comm(void *pvParameters)
 {
@@ -333,14 +361,12 @@ void vTask_RPi_Comm(void *pvParameters)
 /* ================== ISR callbacks ================== */
 void vESP_UART_RX_Callback(void)
 {
-    uint8_t rxData;
-    USART_Config_t tempConfig = {USART_CHANNEL1};
-    
-    /* Revert to standard Receive which checks busy state, as we are no longer in loopback */
-    if (USART_enumReceive(&tempConfig, &rxData) == OK)
-    {
-        BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-        xQueueSendFromISR(G_xESP_RX_Queue, &rxData, &xHigherPriorityTaskWoken);
-        portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
-    }
+    /* Read exact byte directly from hardware Data Register (DR).
+     * This avoids any software busy-flag deadlocks when TX is transmitting simultaneously!
+     */
+    uint8_t rxData = USART_ReceiveByteDirect(USART_CHANNEL1);
+
+    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+    xQueueSendFromISR(G_xESP_RX_Queue, &rxData, &xHigherPriorityTaskWoken);
+    portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }

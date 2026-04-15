@@ -12,9 +12,12 @@
 #include "../Inc/Drivers/MCAL/GPIO/GPIO_interface.h"
 #include "../Inc/Drivers/HAL/BUZZ/BUZ_interface.h"
 #include "../Inc/Drivers/HAL/US/US_interface.h"
+#include "../Inc/Drivers/HAL/LED/LED_interface.h"
 #include "../Inc/Drivers/HAL/MPU9250/MPU9250_interface.h"
+#include "../Inc/Drivers/HAL/L298N/L298N_interface.h"
 #include "../Inc/Drivers/MCAL/USART/USART_intreface.h"
 #include "../Inc/Drivers/MCAL/NVIC/NVIC_interface.h"
+#include "../Inc/Drivers/MCAL/TIM/TIM_interface.h"
 #include "../Inc/Application/DSRC/DSRC.h"
 #include "FreeRTOS.h"
 #include "SEGGER_SYSVIEW.h"
@@ -25,10 +28,31 @@
  ******************************************/
 uint32_t SystemCoreClock = 16000000;
 
+/* Central Management Global Variables */
+volatile MotorCommand_t G_eMotorGlobalCommand = CMD_MOVE_FORWARD;
+volatile uint8_t G_u8SystemRiskLevel = 0;
+
 /******************************************
  *  Hardware Objects for Testing         *
  ******************************************/
 BUZ_Config_t V2X_Buzzer = {GPIO_PORTC, GPIO_PIN4, BUZ_ACTIVE_HIGH};
+LED_Config_t FrontR_LED = {GPIO_PORTC, GPIO_PIN0, ACTIVE_HIGH};
+LED_Config_t FrontL_LED = {GPIO_PORTC, GPIO_PIN1, ACTIVE_HIGH};
+LED_Config_t BackR_LED  = {GPIO_PORTC, GPIO_PIN2, ACTIVE_HIGH};
+LED_Config_t BackL_LED  = {GPIO_PORTC, GPIO_PIN3, ACTIVE_HIGH};
+
+/* Motors Configuration */
+L298N_MotorConfig_t RightMotor = {
+    .EN_Port = GPIO_PORTA, .EN_Pin = GPIO_PIN8,
+    .IN1_Port = GPIO_PORTC, .IN1_Pin = GPIO_PIN5,
+    .IN2_Port = GPIO_PORTC, .IN2_Pin = GPIO_PIN6
+};
+
+L298N_MotorConfig_t LeftMotor = {
+    .EN_Port = GPIO_PORTA, .EN_Pin = GPIO_PIN11,
+    .IN1_Port = GPIO_PORTB, .IN1_Pin = GPIO_PIN10,
+    .IN2_Port = GPIO_PORTB, .IN2_Pin = GPIO_PIN11
+};
 
 US_Config_t FrontUS[3]; // The 3 front ultrasonic sensors
 US_Config_t BackUS[3];  // The 3 back ultrasonic sensors
@@ -76,9 +100,19 @@ void System_setup(void)
 	RCC_enumAHPPerSts(RCC_AHB1, RCC_GPIOBEN, RCC_PER_ON);
 	RCC_enumAHPPerSts(RCC_AHB1, RCC_GPIOCEN, RCC_PER_ON);
 
-	//3.Enable Timer6 for delay
-
+	//3.Enable Timer6 for delay and Timer5 for Background Timestamping
 	RCC_enumABPPerSts(RCC_APB1, RCC_TIM6EN,  RCC_PER_ON);
+	RCC_enumABPPerSts(RCC_APB1, RCC_TIM5EN,  RCC_PER_ON);
+
+	/* Start TIM5 as a continuous 32-bit background counter (1ms tick) */
+	TIM_Config_t TIM5_Config = {
+		.Timer = TIM_TIMER5,
+		.Prescaler = 16000 - 1,
+		.AutoReloadValue = 0xFFFFFFFF,
+		.Mode = TIM_COUNTERMODE_UP
+	};
+	TIM_vInit(&TIM5_Config);
+	TIM_vStart(TIM_TIMER5);
 
 		/*                           *
 		 * MPU9250 SPI configuration *
@@ -171,7 +205,16 @@ void System_setup(void)
 	/*                *
 	 * init actuato   *
 	 *                */
-	BUZ_Init(&V2X_Buzzer);
+	/* Initialize LEDs */
+	LED_Init(&FrontR_LED);
+	LED_Init(&FrontL_LED);
+	LED_Init(&BackR_LED);
+	LED_Init(&BackL_LED);
+	/* Initialize Buzzer */
+    BUZ_Init(&V2X_Buzzer);
+    /* Initialize Motors */
+    L298N_enumInit(&RightMotor);
+    L298N_enumInit(&LeftMotor);
 
 	// DSRC init
 	DSRC_Init();
@@ -195,10 +238,4 @@ void RTOS_setup(void)
 }
 
 
-// ====== UART RX Interrupt ======
-void USART_RXCMP(void)
-{
-  uint8_t byte;
-  USART_enumReceive((USART_Config_t*)&ESP_UART, &byte);
-  DSRC_RxCallback(byte);
-}
+

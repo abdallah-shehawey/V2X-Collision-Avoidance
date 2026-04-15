@@ -28,6 +28,7 @@ typedef struct
   uint8_t vehicle_id;
   float pos_x;
   float pos_y;
+  float pos_z;
   float speed;
   float heading;
   uint32_t last_update;
@@ -36,7 +37,7 @@ typedef struct
 // ====== Public API ======
 void DSRC_Init(void);
 void DSRC_SendNeighbor(Neighbor *n);
-void DSRC_Update(void); // call in main loop
+void DSRC_Update(uint32_t current_time);
 void DSRC_RemoveStale(uint32_t current_time);
 uint8_t DSRC_GetCount(void);
 Neighbor *DSRC_GetTable(void);

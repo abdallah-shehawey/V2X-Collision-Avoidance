@@ -47,7 +47,18 @@
  * | LED 4     | PC3 | PORTC | Status Color 4   | Back Left
  * | BUZZER    | PC4 | PORTC | Warning Sound    |
  *
- * 4. COMMUNICATION INTERFACES (UARTs)
+ * 4. MOTORS (L298N Driver)
+ * ----------------------------------------------------------------------------------------
+ * | Component | Pin  | Port  | Description                 | Note                    |
+ * |-----------|------|-------|-----------------------------|-------------------------|
+ * | ENA       | PA8  | PORTA | PWM Speed Control (Motor A) | Optional (Tie to 5V)    |
+ * | IN1       | PC5  | PORTC | Motor A Direction 1         | Right Wheels Forward    |
+ * | IN2       | PC6  | PORTC | Motor A Direction 2         | Right Wheels Backward   |
+ * | IN3       | PB10 | PORTB | Motor B Direction 1         | Left Wheels Forward     |
+ * | IN4       | PB11 | PORTB | Motor B Direction 2         | Left Wheels Backward    |
+ * | ENB       | PA11 | PORTA | PWM Speed Control (Motor B) | Optional (Tie to 5V)    |
+ *
+ * 5. COMMUNICATION INTERFACES (UARTs)
  * ----------------------------------------------------------------------------------------
  * | Interface | Pin Mapping          | Status  | Description          |
  * |-----------|----------------------|---------|----------------------|
@@ -63,29 +74,35 @@
  * 🧠 RTOS TASKS ARCHITECTURE & PRIORITIES (configMAX_PRIORITIES = 5)
  * ========================================================================================
  *
- * | Task Name            | Priority | Freq/Trigger | Description                                  |
- * |----------------------|----------|--------------|----------------------------------------------|
- * | [1] vTask_ESP_RX     | 4 (MAX)  | Event/ISR    | Reads incoming V2V/V2I msgs from ESP-NOW     |
- * | [2] vTask_Sensors    | 3        | ~20-50 ms    | Updates MPU9250 speed & US Distances         |
- * | [3] vTask_ADAS_Core  | 2        | ~50 ms       | Runs FCW, EEBL, SDW, BSW, DNPW logic         |
- * | [4] vTask_RPi_RX     | 2        | Event/100 ms | Receives settings/commands from Raspberry Pi |
- * | [5] vTask_ESP_TX     | 1        | ~100 ms      | Broadcasts host state/warnings to ESP-NOW    |
- * | [6] vTask_RPi_TX     | 1        | ~200 ms      | Sends display data/warnings to Raspberry Pi  |
- * | [7] vTask_Feedback   | 1        | Queue driven | Handles User Interface (LEDs, Buzzer)        |
+ * | Task Name              | Priority | Stack (+base) | Freq      | Description                                  |
+ * |------------------------|----------|---------------|-----------|----------------------------------------------|
+ * | [1] vTask_EEBL         | 4 (MAX)  | +128          | ~25 ms    | Emergency Electronic Brake Light — fastest   |
+ * | [1] vTask_FCW          | 4 (MAX)  | +128          | ~25 ms    | Forward Collision Warning — fastest          |
+ * | [1] vTask_ESP_Comm     | 4 (MAX)  | +100          | ~50 ms    | ESP-NOW RX parsing + TX broadcast (combined) |
+ * | [2] vTask_Sensors      | 3        | +256          | ~80 ms    | 6× Ultrasonics + MPU9250 read cycle          |
+ * | [2] vTask_BSW          | 3        | +128          | ~50 ms    | Blind Spot Warning                           |
+ * | [2] vTask_DNPW         | 3        | +128          | ~50 ms    | Do Not Pass Warning                          |
+ * | [3] vTask_SDW          | 2        | +128          | ~50 ms    | Safe Distance Warning                        |
+ * | [3] vTask_IMA          | 2        | +128          | ~50 ms    | Intersection Movement Assist                 |
+ * | [3] vTask_RPi_Comm     | 2        | +100          | ~100 ms   | Raspberry Pi communication (RX + TX)         |
+ * | [4] vTask_Feedback     | 1 (LOW)  | +128          | ~25 ms    | Centralized actuator manager (Motors+LEDs+BUZ)|
  *
- * NOTE: Priority 4 is the highest, 0 is the lowest (Idle task).
+ * NOTE: Priority 4 is the highest user priority. Priority 0 is the FreeRTOS Idle task.
+ *       configMAX_SYSCALL_INTERRUPT_PRIORITY = 5  → NVIC_USART1 must be set to ≥ 6.
  * ========================================================================================
  */
 
-/* ================== V2X Data Frame ================== */
-typedef struct __attribute__((packed)) {
-    uint8_t  Sender_ID;
-    uint8_t  Target_ID;
-    float    Speed_ms;
-    float    Heading_deg;
-    float    Position_Z;
-    uint8_t  Vehicle_State; /* 0: Normal, 1: EEBL Active */
-} V2X_Message_t;
+/* ================== Global Intentions ================== */
+typedef enum {
+    CMD_MOVE_FORWARD = 0,
+    CMD_STOP = 1,
+    CMD_STEER_RIGHT = 2,
+    CMD_STEER_LEFT = 3
+} MotorCommand_t;
+
+/* Global variables for centralized management */
+extern volatile MotorCommand_t G_eMotorGlobalCommand;
+extern volatile uint8_t G_u8SystemRiskLevel; /* 0: Safe, 1: Warning, 2: Critical */
 
 /* Function Prototypes */
 #define DWT_CTRL            *((volatile uint32_t*)0xE0001000)
