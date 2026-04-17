@@ -6,8 +6,8 @@
  ******************************************************************************
  **/
 
-#include "../Inc/USART_intreface.h"
-#include "../Inc/DSRC.h"
+#include "USART_intreface.h"
+#include "DSRC.h"
 
 // ====== External USART handle from system ======
 extern USART_Handle_t USART_1;
