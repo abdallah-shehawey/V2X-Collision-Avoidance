@@ -9,9 +9,9 @@
 #ifndef DSRC_H
 #define DSRC_H
 
+#include <math.h>
 #include <stdint.h>
 #include <string.h>
-#include <math.h>
 
 // ====== Config ======
 #define MAX_NEIGHBORS 20
@@ -26,11 +26,13 @@
 typedef struct
 {
   uint8_t vehicle_id;
-  float pos_x;
-  float pos_y;
   float speed;
-  float heading;
+  float heading;       /* 0 to 360 degrees */
   uint32_t last_update;
+  uint8_t fcw_flag;    /* 0=Safe, 1=Warning, 2=Critical */
+  uint8_t eebl_flag;
+  uint8_t bsw_flag;
+  uint8_t dnpw_flag;
 } Neighbor;
 
 // ====== Public API ======

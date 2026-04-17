@@ -6,8 +6,8 @@
  ******************************************************************************
  **/
 
-#include "USART_intreface.h"
-#include "DSRC.h"
+#include "../Inc/USART_intreface.h"
+#include "../Inc/DSRC.h"
 
 // ====== External USART handle from system ======
 extern USART_Handle_t USART_1;
@@ -178,8 +178,12 @@ uint8_t DSRC_GetCount(void)
   for (uint8_t i = 0; i < count; i++)
   {
       table[i].vehicle_id;
-      table[i].pos_x;
       table[i].speed;
+      table[i].heading;
+      table[i].fcw_flag;
+      table[i].eebl_flag;
+      table[i].bsw_flag;
+      table[i].dnpw_flag;
       // etc...
   }
 */
