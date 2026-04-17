@@ -73,9 +73,7 @@ static void FCW_voidCheckCollision(void)
 	else
 	{
 		FCW_voidActivateAlert(FCW_SAFE);
-	}
 }
-
 /* Calculate Time To Collision (TTC) using real sensor + V2X data */
 static float FCW_f32CalculateTTC(void)
 {
