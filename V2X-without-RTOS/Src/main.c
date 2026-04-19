@@ -21,6 +21,7 @@
 #include "../Inc/SYSTIC_interface.h"
 #include "../Inc/System.h"
 #include "../Inc/FCW/FCW_interface.h"
+#include "../Inc/EEBL/EEBL_interface.h"
 
 // ====== Simulate Own Data ======
 static float sim_angle = 0.0f;
@@ -43,6 +44,7 @@ int main(void)
 {
   System_Init();
   FCW_voidInit();
+  EEBL_voidInit();
 
   while (1)
   {
@@ -51,6 +53,9 @@ int main(void)
 
     // run FCW (local detection + cooperative alert)
     FCW_voidUpdate();
+
+    // run EEBL (local-only: sudden braking + rear collision detection)
+    EEBL_voidUpdate();
 
     // send own data with local FCW flag attached
     Neighbor self = simulate_self(VEHICLE_ID);

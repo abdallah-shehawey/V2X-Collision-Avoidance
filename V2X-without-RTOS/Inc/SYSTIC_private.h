@@ -40,13 +40,6 @@
 #define CLK_SOURCE_AHB_DIV8 (0U) /**< Use processor clock divided by 8 */
 
 /**
- * @brief Generic enable/disable definitions
- */
-#define ENABLE  (1U)  /**< Enable a feature */
-#define DISABLE (0U) /**< Disable a feature */
-/** @} */
-
-/**
  * @defgroup SYSTIC_Private_Functions SysTick Private Functions
  * @brief Internal helper functions for SysTick operations
  * @{

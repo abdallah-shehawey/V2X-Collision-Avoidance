@@ -23,6 +23,10 @@
 /* Includes */
 #include <errno.h>
 #include <stdint.h>
+#include "../Inc/System.h"
+
+float US_Distances[US_SENSOR_COUNT];
+
 
 /**
  * Pointer to the current high watermark of the heap usage

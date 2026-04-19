@@ -21,7 +21,6 @@ typedef enum
 static FCW_Direction_t FCW_DetectDirection(float my_heading, float other_heading);
 static float FCW_CalcHeadingDiff(float h1, float h2);
 static float FCW_CalcTTC(float distance, float relative_speed);
-static void FCW_ProcessNeighbor(const Neighbor *neighbor);
 static void FCW_ActivateAlert(FCW_RiskLevel_t level);
 static void FCW_DeactivateAlert(void);
 static FCW_RiskLevel_t FCW_EvaluateRisk(float ttc);

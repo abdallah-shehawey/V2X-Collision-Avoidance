@@ -15,6 +15,7 @@
 #include "../Inc/FCW/FCW_config.h"
 #include "../Inc/FCW/FCW_private.h"
 #include "../Inc/DSRC.h"
+#include "../Inc/System.h"
 
 /* ============ Module State ============ */
 static float   FCW_HostSpeed   = 0.0f;
@@ -22,7 +23,7 @@ static float   FCW_HostHeading = 0.0f;
 static uint8_t FCW_CurrentFlag = 0; /* 0=Safe, 1=Warning, 2=Critical */
 
 /* Ultrasonic sensor distances (cm) — assumed updated externally */
-float US_Distances[FCW_US_SENSOR_COUNT];
+extern float US_Distances[US_SENSOR_COUNT];
 
 
 /* ============ Init ============ */
