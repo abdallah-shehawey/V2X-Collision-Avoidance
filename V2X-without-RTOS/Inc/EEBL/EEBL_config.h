@@ -8,8 +8,7 @@
 #define EEBL_WARNING_TTC  (3.0f)
 #define EEBL_CRITICAL_TTC (2.0f)
 
-/* Heading difference threshold for same-direction detection (degrees) */
-#define EEBL_SAME_HEADING_THRESHOLD (30.0f)
+/* Heading thresholds moved to System.h (shared by all safety modules) */
 
 /* Maximum rear detection range (cm) — beyond this, no vehicle behind */
 #define EEBL_MAX_DETECTION_RANGE (400.0f)

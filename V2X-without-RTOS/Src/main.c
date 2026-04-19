@@ -20,8 +20,8 @@
 #include "../Inc/DSRC.h"
 #include "../Inc/SYSTIC_interface.h"
 #include "../Inc/System.h"
-#include "../Inc/FCW/FCW_interface.h"
-#include "../Inc/EEBL/EEBL_interface.h"
+#include "../Inc/SafetyEngine/SafetyEngine_interface.h"
+#include "../Inc/FCW/FCW_interface.h" /* for FCW_u8GetFlag() */
 
 // ====== Simulate Own Data ======
 static float sim_angle = 0.0f;
@@ -43,19 +43,15 @@ Neighbor simulate_self(uint8_t id)
 int main(void)
 {
   System_Init();
-  FCW_voidInit();
-  EEBL_voidInit();
+  SafetyEngine_voidInit();
 
   while (1)
   {
-    // process received packets
+    // process received DSRC packets
     DSRC_Update();
 
-    // run FCW (local detection + cooperative alert)
-    FCW_voidUpdate();
-
-    // run EEBL (local-only: sudden braking + rear collision detection)
-    EEBL_voidUpdate();
+    // single-pass safety processing (FCW + EEBL in one loop)
+    SafetyEngine_voidUpdate();
 
     // send own data with local FCW flag attached
     Neighbor self = simulate_self(VEHICLE_ID);
@@ -65,3 +61,4 @@ int main(void)
     SYSTIC_vDelayMs(500);
   }
 }
+
