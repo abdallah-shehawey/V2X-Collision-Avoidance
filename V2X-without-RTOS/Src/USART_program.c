@@ -12,14 +12,12 @@
  */
 
 #include <stdint.h>
-#include "STM32F446xx.h"
+#include "../Inc/STM32F446xx.h"
 
-#include "ErrTypes.h"
-#include "STD_MACROS.h"
-
-#include "USART_config.h"
-#include "USART_private.h"
-#include "USART_intreface.h"
+#include "../Inc/ErrTypes.h"
+#include "../Inc/USART_config.h"
+#include "../Inc/USART_private.h"
+#include "../Inc/USART_intreface.h"
 
 /* Array of USART port register definitions for easy access */
 static USART_RegDef_t *USART_Channel[USART_CHANNEL_COUNT] = {MUSART1, MUSART2, MUSART3, MUSART4, MUSART5, MUSART6};
@@ -262,7 +260,7 @@ ErrorState_t USART_enumTransmit(const USART_Handle_t *ChannelConfig, uint8_t TX_
     {
       USART_u8State[ChannelConfig->Channel] = BUSY;
 
-      while((USART_Channel[ChannelConfig->Channel]->SR & (1 << SR_TXE)) >> SR_TXE == 0 && (Local_u32TimeoutCounter != USART_u32TIMEOUT));
+      while((USART_Channel[ChannelConfig->Channel]->SR & (1 << SR_TXE)) >> SR_TXE == 0 && (Local_u32TimeoutCounter != USART_u32TIMEOUT))
       {
         Local_u32TimeoutCounter++;
       }
