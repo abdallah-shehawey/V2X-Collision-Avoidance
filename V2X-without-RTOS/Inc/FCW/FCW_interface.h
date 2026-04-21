@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include "../DSRC.h"
-#include "../System.h"
+#include "../SafetyEngine/SafetyEngine_interface.h"
 
 /**
  * @brief Initialize the FCW module
@@ -33,7 +33,7 @@ void FCW_voidBeginCycle(void);
  * @brief Process one DSRC neighbor for FCW
  * @param n              Pointer to neighbor data
  * @param front_distance Front ultrasonic distance (cm)
- * @param dir            Pre-computed direction (from System_DetectDirection)
+ * @param dir            Pre-computed direction (from SafetyEngine_DetectDirection)
  */
 void FCW_voidProcessNeighbor(const Neighbor *n, float front_distance, Direction_t dir);
 

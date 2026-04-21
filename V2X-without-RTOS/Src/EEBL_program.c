@@ -16,6 +16,7 @@
 #include "../Inc/EEBL/EEBL_private.h"
 #include "../Inc/DSRC.h"
 #include "../Inc/System.h"
+#include "../Inc/SafetyEngine/SafetyEngine_interface.h"
 
 /* ============ Module State ============ */
 static float EEBL_PrevSpeed = 0.0f; /* Previous speed for deceleration detection */
@@ -96,8 +97,8 @@ void EEBL_voidProcessNeighbor(const Neighbor *n, float rear_distance, Direction_
     return;
   }
 
-  float ttc = System_CalcTTC(rear_distance, rel_speed);
-  RiskLevel_t level = System_EvaluateRisk(ttc, EEBL_WARNING_TTC, EEBL_CRITICAL_TTC);
+  float ttc = SafetyEngine_CalcTTC(rear_distance, rel_speed);
+  RiskLevel_t level = SafetyEngine_EvaluateRisk(ttc, EEBL_WARNING_TTC, EEBL_CRITICAL_TTC);
 
   if (level > EEBL_WorstLevel)
   {
@@ -138,7 +139,7 @@ void EEBL_voidUpdate(void)
 
   for (uint8_t i = 0; i < count; i++)
   {
-    Direction_t dir = System_DetectDirection(Host_Heading, table[i].heading);
+    Direction_t dir = SafetyEngine_DetectDirection(Host_Heading, table[i].heading);
     EEBL_voidProcessNeighbor(&table[i], rear_dist, dir);
   }
 

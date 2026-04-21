@@ -17,6 +17,76 @@
 #include "../Inc/DSRC.h"
 #include "../Inc/System.h"
 
+/* ============ Shared Direction Detection ============ */
+
+/**
+ * @brief Calculate absolute heading difference, normalized to [0, 180]
+ */
+static float CalcHeadingDiff(float h1, float h2)
+{
+  float diff = h1 - h2;
+
+  if (diff > 180.0f)
+  {
+    diff -= 360.0f;
+  }
+  if (diff < -180.0f)
+  {
+    diff += 360.0f;
+  }
+
+  return (diff < 0.0f) ? -diff : diff;
+}
+
+Direction_t SafetyEngine_DetectDirection(float my_heading, float other_heading)
+{
+  float diff = CalcHeadingDiff(my_heading, other_heading);
+
+  if (diff <= HEADING_SAME_THRESHOLD)
+  {
+    return DIR_SAME;
+  }
+
+  if (diff >= (180.0f - HEADING_OPPOSITE_THRESHOLD))
+  {
+    return DIR_OPPOSITE;
+  }
+
+  return DIR_UNKNOWN;
+}
+
+/* ============ Shared TTC & Risk Evaluation ============ */
+
+float SafetyEngine_CalcTTC(float distance, float relative_speed)
+{
+  if (relative_speed <= 0.0f)
+  {
+    return -1.0f;
+  }
+
+  return distance / relative_speed;
+}
+
+RiskLevel_t SafetyEngine_EvaluateRisk(float ttc, float warning_ttc, float critical_ttc)
+{
+  if (ttc < 0.0f)
+  {
+    return RISK_SAFE;
+  }
+
+  if (ttc <= critical_ttc)
+  {
+    return RISK_CRITICAL;
+  }
+
+  if (ttc <= warning_ttc)
+  {
+    return RISK_WARNING;
+  }
+
+  return RISK_SAFE;
+}
+
 /* ============ Init ============ */
 void SafetyEngine_voidInit(void)
 {
@@ -52,7 +122,7 @@ void SafetyEngine_voidUpdate(void)
   for (uint8_t i = 0; i < count; i++)
   {
     /* Compute direction ONCE per neighbor — shared by all modules */
-    Direction_t dir = System_DetectDirection(Host_Heading, table[i].heading);
+    Direction_t dir = SafetyEngine_DetectDirection(Host_Heading, table[i].heading);
 
     FCW_voidProcessNeighbor(&table[i], front_dist, dir);
     EEBL_voidProcessNeighbor(&table[i], rear_dist, dir);

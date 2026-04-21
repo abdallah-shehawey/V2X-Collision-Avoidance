@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include "../DSRC.h"
-#include "../System.h"
+#include "../SafetyEngine/SafetyEngine_interface.h"
 
 /**
  * @brief Initialize the EEBL module
@@ -28,7 +28,7 @@ void EEBL_voidBeginCycle(void);
  * @brief Process one DSRC neighbor for EEBL
  * @param n             Pointer to neighbor data
  * @param rear_distance Rear ultrasonic distance (cm)
- * @param dir           Pre-computed direction (from System_DetectDirection)
+ * @param dir           Pre-computed direction (from SafetyEngine_DetectDirection)
  */
 void EEBL_voidProcessNeighbor(const Neighbor *n, float rear_distance, Direction_t dir);
 

@@ -16,6 +16,7 @@
 #include "../Inc/FCW/FCW_private.h"
 #include "../Inc/DSRC.h"
 #include "../Inc/System.h"
+#include "../Inc/SafetyEngine/SafetyEngine_interface.h"
 
 /* ============ Module State ============ */
 static uint8_t    FCW_CurrentFlag = 0; /* 0=Safe, 1=Warning, 2=Critical */
@@ -75,8 +76,8 @@ void FCW_voidProcessNeighbor(const Neighbor *n, float front_distance, Direction_
 
   if (rel_speed > 0.0f && front_distance > 0.0f)
   {
-    float ttc = System_CalcTTC(front_distance, rel_speed);
-    RiskLevel_t level = System_EvaluateRisk(ttc, FCW_WARNING_TTC, FCW_CRITICAL_TTC);
+    float ttc = SafetyEngine_CalcTTC(front_distance, rel_speed);
+    RiskLevel_t level = SafetyEngine_EvaluateRisk(ttc, FCW_WARNING_TTC, FCW_CRITICAL_TTC);
 
     /* Track worst local risk → this becomes the DSRC broadcast flag */
     if (level > FCW_LocalWorst)
@@ -157,7 +158,7 @@ void FCW_voidUpdate(void)
 
   for (uint8_t i = 0; i < count; i++)
   {
-    Direction_t dir = System_DetectDirection(Host_Heading, table[i].heading);
+    Direction_t dir = SafetyEngine_DetectDirection(Host_Heading, table[i].heading);
     FCW_voidProcessNeighbor(&table[i], front_dist, dir);
   }
 
