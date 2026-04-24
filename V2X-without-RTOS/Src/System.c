@@ -7,10 +7,6 @@
 #include "../Inc/SYSTIC_interface.h"
 #include "../Inc/NVIC_interface.h"
 
-float US_Distances[US_SENSOR_COUNT];
-float Host_Speed   = 0.0f;
-float Host_Heading = 0.0f;
-
 // ====== USART ======
 USART_Handle_t USART_1 =
     {

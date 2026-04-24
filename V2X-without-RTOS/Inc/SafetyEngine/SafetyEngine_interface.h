@@ -24,7 +24,7 @@ typedef enum
 /* ====== Public API ====== */
 
 /**
- * @brief Initialize all safety modules (FCW, EEBL, etc.)
+ * @brief Initialize all safety modules (FCW, EEBL, BSW, etc.)
  */
 void SafetyEngine_voidInit(void);
 
