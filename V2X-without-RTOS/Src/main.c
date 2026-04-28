@@ -23,6 +23,7 @@
 #include "../Inc/SafetyEngine/SafetyEngine_interface.h"
 #include "../Inc/FCW/FCW_interface.h"  /* for FCW_u8GetFlag()  */
 #include "../Inc/DNPW/DNPW_interface.h" /* for DNPW_u8GetFlag() */
+#include "../Inc/IMA/IMA_interface.h"   /* for IMA_u8GetFlag()  */
 
 // ====== Simulate Own Data ======
 static float sim_angle = 0.0f;
@@ -58,6 +59,8 @@ int main(void)
     Neighbor self = simulate_self(VEHICLE_ID);
     self.fcw_flag  = FCW_u8GetFlag();
     self.dnpw_flag = DNPW_u8GetFlag();
+    self.ima_flag  = IMA_u8GetFlag();
+    self.distance_to_intersection = Host_DistToIntersection;
     DSRC_SendNeighbor(&self);
 
     SYSTIC_vDelayMs(500);

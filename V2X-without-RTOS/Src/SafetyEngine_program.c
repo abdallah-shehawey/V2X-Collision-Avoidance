@@ -16,12 +16,14 @@
 #include "../Inc/EEBL/EEBL_interface.h"
 #include "../Inc/BSW/BSW_interface.h"
 #include "../Inc/DNPW/DNPW_interface.h"
+#include "../Inc/IMA/IMA_interface.h"
 #include "../Inc/DSRC.h"
 #include "../Inc/System.h"
 
 float US_Distances[US_SENSOR_COUNT];
 float Host_Speed   = 0.0f;
 float Host_Heading = 0.0f;
+float Host_DistToIntersection = 0.0f;
 
 /* ============ Init ============ */
 void SafetyEngine_voidInit(void)
@@ -30,6 +32,7 @@ void SafetyEngine_voidInit(void)
   EEBL_voidInit();
   BSW_voidInit();
   DNPW_voidInit();
+  IMA_voidInit();
 }
 
 /* ============ Single-Pass Update ============ */
@@ -68,6 +71,7 @@ void SafetyEngine_voidUpdate(void)
   EEBL_voidBeginCycle();
   BSW_voidBeginCycle(left_dist, right_dist);
   DNPW_voidBeginCycle(front_dist);
+  IMA_voidBeginCycle();
 
   /* 2. Single pass over neighbor table */
   for (uint8_t i = 0; i < count; i++)
@@ -79,6 +83,7 @@ void SafetyEngine_voidUpdate(void)
     EEBL_voidProcessNeighbor(&table[i], rear_dist, dir);
     BSW_voidProcessNeighbor(&table[i], dir);
     DNPW_voidProcessNeighbor(&table[i], dir);
+    IMA_voidProcessNeighbor(&table[i], dir);
   }
 
   /* 3. End cycle for all modules */
@@ -86,6 +91,7 @@ void SafetyEngine_voidUpdate(void)
   EEBL_voidEndCycle();
   BSW_voidEndCycle();
   DNPW_voidEndCycle();
+  IMA_voidEndCycle();
 }
 
 /* ============ Shared Direction Detection ============ */
@@ -121,6 +127,11 @@ Direction_t SafetyEngine_DetectDirection(float my_heading, float other_heading)
   if (diff >= (180.0f - HEADING_OPPOSITE_THRESHOLD))
   {
     return DIR_OPPOSITE;
+  }
+
+  if (diff >= (90.0f - HEADING_CROSS_THRESHOLD) && diff <= (90.0f + HEADING_CROSS_THRESHOLD))
+  {
+    return DIR_CROSSING;
   }
 
   return DIR_UNKNOWN;

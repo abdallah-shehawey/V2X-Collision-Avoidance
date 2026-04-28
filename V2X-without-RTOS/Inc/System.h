@@ -18,6 +18,7 @@
 extern float US_Distances[US_SENSOR_COUNT];
 extern float Host_Speed;    /* Current speed (m/s)        */
 extern float Host_Heading;  /* Current heading (0-360°)   */
+extern float Host_DistToIntersection; /* Distance to nearest intersection (cm) */
 
 // ====== Forward Declaration ======
 void USART_RXCMP(void);

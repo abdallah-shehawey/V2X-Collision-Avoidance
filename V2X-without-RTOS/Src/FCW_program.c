@@ -70,7 +70,7 @@ void FCW_voidProcessNeighbor(const Neighbor *n, float front_distance, Direction_
   }
   else
   {
-    /* DIR_UNKNOWN → perpendicular or irrelevant, skip */
+    /* DIR_CROSSING and DIR_UNKNOWN → perpendicular/crossing and unknown traffic, skip for FCW */
     return;
   }
 

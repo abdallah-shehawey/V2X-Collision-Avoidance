@@ -5,11 +5,13 @@
 /* Heading threshold for direction classification (degrees) */
 #define HEADING_SAME_THRESHOLD     (30.0f)
 #define HEADING_OPPOSITE_THRESHOLD (30.0f)
+#define HEADING_CROSS_THRESHOLD    (30.0f)
 
 typedef enum
 {
   DIR_SAME,
   DIR_OPPOSITE,
+  DIR_CROSSING,
   DIR_UNKNOWN
 } Direction_t;
 
@@ -39,7 +41,7 @@ void SafetyEngine_voidUpdate(void);
  * @brief Detect direction relationship between two vehicles
  * @param my_heading     Host vehicle heading (0-360)
  * @param other_heading  Neighbor vehicle heading (0-360)
- * @return DIR_SAME, DIR_OPPOSITE, or DIR_UNKNOWN
+ * @return DIR_SAME, DIR_OPPOSITE, DIR_CROSSING, or DIR_UNKNOWN
  */
 Direction_t SafetyEngine_DetectDirection(float my_heading, float other_heading);
 
