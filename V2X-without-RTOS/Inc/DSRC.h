@@ -30,6 +30,7 @@ typedef struct
   float heading;       /* 0 to 360 degrees */
   uint32_t last_update;
   uint8_t fcw_flag;    /* 0=Safe, 1=Warning, 2=Critical */
+  uint8_t dnpw_flag;   /* 0=Safe, 1=Warning, 2=Critical */
 } Neighbor;
 
 // ====== Public API ======

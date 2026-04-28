@@ -21,7 +21,8 @@
 #include "../Inc/SYSTIC_interface.h"
 #include "../Inc/System.h"
 #include "../Inc/SafetyEngine/SafetyEngine_interface.h"
-#include "../Inc/FCW/FCW_interface.h" /* for FCW_u8GetFlag() */
+#include "../Inc/FCW/FCW_interface.h"  /* for FCW_u8GetFlag()  */
+#include "../Inc/DNPW/DNPW_interface.h" /* for DNPW_u8GetFlag() */
 
 // ====== Simulate Own Data ======
 static float sim_angle = 0.0f;
@@ -55,7 +56,8 @@ int main(void)
 
     // send own data with local FCW flag attached
     Neighbor self = simulate_self(VEHICLE_ID);
-    self.fcw_flag = FCW_u8GetFlag();
+    self.fcw_flag  = FCW_u8GetFlag();
+    self.dnpw_flag = DNPW_u8GetFlag();
     DSRC_SendNeighbor(&self);
 
     SYSTIC_vDelayMs(500);

@@ -15,6 +15,7 @@
 #include "../Inc/FCW/FCW_interface.h"
 #include "../Inc/EEBL/EEBL_interface.h"
 #include "../Inc/BSW/BSW_interface.h"
+#include "../Inc/DNPW/DNPW_interface.h"
 #include "../Inc/DSRC.h"
 #include "../Inc/System.h"
 
@@ -28,6 +29,7 @@ void SafetyEngine_voidInit(void)
   FCW_voidInit();
   EEBL_voidInit();
   BSW_voidInit();
+  DNPW_voidInit();
 }
 
 /* ============ Single-Pass Update ============ */
@@ -65,6 +67,7 @@ void SafetyEngine_voidUpdate(void)
   FCW_voidBeginCycle();
   EEBL_voidBeginCycle();
   BSW_voidBeginCycle(left_dist, right_dist);
+  DNPW_voidBeginCycle(front_dist);
 
   /* 2. Single pass over neighbor table */
   for (uint8_t i = 0; i < count; i++)
@@ -75,12 +78,14 @@ void SafetyEngine_voidUpdate(void)
     FCW_voidProcessNeighbor(&table[i], front_dist, dir);
     EEBL_voidProcessNeighbor(&table[i], rear_dist, dir);
     BSW_voidProcessNeighbor(&table[i], dir);
+    DNPW_voidProcessNeighbor(&table[i], dir);
   }
 
   /* 3. End cycle for all modules */
   FCW_voidEndCycle();
   EEBL_voidEndCycle();
   BSW_voidEndCycle();
+  DNPW_voidEndCycle();
 }
 
 /* ============ Shared Direction Detection ============ */
