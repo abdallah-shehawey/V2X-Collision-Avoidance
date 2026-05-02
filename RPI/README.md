@@ -1,1 +1,0 @@
-# System on Raspberry Pi
