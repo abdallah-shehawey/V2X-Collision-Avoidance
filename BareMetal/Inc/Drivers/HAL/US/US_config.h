@@ -42,6 +42,17 @@
 
 /*_______________________________________________________________________________*/
 /*
+ * Task-level Echo Timeout (milliseconds) — interrupt-driven driver.
+ * The reading task SLEEPS (vTask/semaphore) up to this long waiting for the
+ * IC interrupt to deliver both echo edges. This ALSO caps the effective max
+ * range: range_cm ≈ timeout_ms * 1000 / 58.
+ *   12ms ≈ 2.0m  → anything farther is reported as out-of-range (clear).
+ * Bounds the worst case (all 6 sensors timing out) to ~6*12 = 72ms.
+ */
+#define US_TASK_TIMEOUT_MS  12U
+
+/*_______________________________________________________________________________*/
+/*
  * Sound Speed Factor
  * Distance (cm) = Echo_pulse_us / 58
  * (Speed of sound ~340 m/s => 58 us/cm round-trip)

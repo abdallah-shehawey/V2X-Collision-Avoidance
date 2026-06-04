@@ -6,6 +6,10 @@
 #define FCW_WARNING_TTC  (3.0f)
 #define FCW_CRITICAL_TTC (2.0f)
 
+/* Side clearance for CRITICAL evasive steering (cm):
+ * a side is "clear" to steer into if its front-side US reads >= this value */
+#define FCW_SIDE_CLEAR_CM (50.0f)
+
 /* Heading thresholds moved to System.h (shared by all safety modules) */
 
 /* Enable systems */

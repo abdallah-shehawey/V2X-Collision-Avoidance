@@ -310,4 +310,34 @@ ErrorState_t TIM_vDisableInterrupt(TIM_Num_t Copy_eTimer);
  */
 ErrorState_t TIM_vSetCallback(TIM_Num_t Copy_eTimer, void (*pvCallback)(void));
 
+/**************************************  Input-Capture (CC) Interrupt API  ******/
+
+/**
+ * @fn      TIM_vEnableCCInterrupt
+ * @brief   Enable the Capture/Compare interrupt for a single channel (CCxIE).
+ * @param   Copy_eTimer:   Timer Instance.
+ * @param   Copy_eChannel: Channel (TIM_CHANNEL1..4).
+ * @return  ErrorState_t: OK if successful, NOK on invalid args.
+ * @note    Used by the interrupt-driven ultrasonic driver. The matching IRQ
+ *          (e.g. NVIC_TIM2/NVIC_TIM3) must be enabled separately.
+ */
+ErrorState_t TIM_vEnableCCInterrupt(TIM_Num_t Copy_eTimer, TIM_Channel_t Copy_eChannel);
+
+/**
+ * @fn      TIM_vDisableCCInterrupt
+ * @brief   Disable the Capture/Compare interrupt for a single channel (CCxIE).
+ */
+ErrorState_t TIM_vDisableCCInterrupt(TIM_Num_t Copy_eTimer, TIM_Channel_t Copy_eChannel);
+
+/**
+ * @fn      TIM_vSetCCCallback
+ * @brief   Register the Capture/Compare callback for a timer.
+ * @param   Copy_eTimer: Timer Instance.
+ * @param   pvCallback:  Called from ISR context with (timer, channel 0..3, captured CNT).
+ *                       Reading the CCRx inside the ISR already cleared the flag.
+ * @return  ErrorState_t: OK if successful.
+ */
+ErrorState_t TIM_vSetCCCallback(TIM_Num_t Copy_eTimer,
+                                void (*pvCallback)(TIM_Num_t Copy_eTimer, uint8_t Copy_u8Channel, uint32_t Copy_u32Capture));
+
 #endif /* TIM_INTERFACE_H_ */

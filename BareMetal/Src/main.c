@@ -25,6 +25,7 @@
 #include "../Inc/Drivers/HAL/L298N/L298N_interface.h"
 #include "../Inc/Drivers/MCAL/USART/USART_intreface.h"
 #include "../Inc/Application/FCW/FCW_interface.h"
+#include "../Inc/Application/FCW/FCW_config.h"
 #include "../Inc/Application/DNPW/DNPW_interface.h"
 #include "../Inc/Application/IMA/IMA_interface.h"
 #include "../Inc/Application/DSRC/DSRC.h"
@@ -45,11 +46,7 @@ SemaphoreHandle_t G_xNeighborTableMutex;
 
 
 /* ================== Task Prototypes ================== */
-void vTask_EEBL(void *pvParameters);
-void vTask_FCW(void *pvParameters);
-void vTask_BSW(void *pvParameters);
-void vTask_DNPW(void *pvParameters);
-void vTask_IMA(void *pvParameters);
+void vTask_SafetyEngine(void *pvParameters);
 void vTask_Sensors(void *pvParameters);
 void vTask_Feedback(void *pvParameters);
 
@@ -69,18 +66,18 @@ int main(void)
   G_xDataMutex = xSemaphoreCreateMutex();
   G_xNeighborTableMutex = xSemaphoreCreateMutex();
 
+  /* Initialize all ADAS modules (FCW/EEBL/BSW/DNPW/IMA) before scheduling */
+  SafetyEngine_voidInit();
+
   /* 2. OS Tasks Creation - Pipeline Architecture */
-  xTaskCreate(vTask_EEBL, "EEBL_Task", configMINIMAL_STACK_SIZE + 128, NULL, 4, NULL);
-  xTaskCreate(vTask_FCW, "FCW_Task", configMINIMAL_STACK_SIZE + 128, NULL, 4, NULL);
-  xTaskCreate(vTask_BSW, "BSW_Task", configMINIMAL_STACK_SIZE + 128, NULL, 4, NULL);
-  xTaskCreate(vTask_DNPW, "DNPW_Task", configMINIMAL_STACK_SIZE + 128, NULL, 4, NULL);
-  xTaskCreate(vTask_IMA, "IMA_Task", configMINIMAL_STACK_SIZE + 128, NULL, 4, NULL);
+  /* --- High Priority: single-pass ADAS brain + V2X communication --- */
+  xTaskCreate(vTask_SafetyEngine, "SafetyEngine_Task", configMINIMAL_STACK_SIZE + 256, NULL, 4, NULL);
+  xTaskCreate(vTask_ESP_Comm,     "ESP_Comm_Task",     configMINIMAL_STACK_SIZE + 128, NULL, 4, NULL);
   /* --- Medium Priority: Data Acquisition (priority 3 — US blocking preempted by priority 4) --- */
-  xTaskCreate(vTask_Sensors,      "Sensors_Task",  configMINIMAL_STACK_SIZE + 256, NULL, 3, NULL);
-  xTaskCreate(vTask_ESP_Comm,     "ESP_Comm_Task", configMINIMAL_STACK_SIZE + 128, NULL, 4, NULL);
+  xTaskCreate(vTask_Sensors,      "Sensors_Task",      configMINIMAL_STACK_SIZE + 256, NULL, 3, NULL);
   /* --- Low Priority: Actuator Execution & UI/RPi --- */
-  xTaskCreate(vTask_Feedback,     "Feedback_Task", configMINIMAL_STACK_SIZE + 128, NULL, 2, NULL);
-  xTaskCreate(vTask_RPi_Comm,     "RPi_Comm_Task", configMINIMAL_STACK_SIZE + 100, NULL, 1, NULL);
+  xTaskCreate(vTask_Feedback,     "Feedback_Task",     configMINIMAL_STACK_SIZE + 128, NULL, 2, NULL);
+  xTaskCreate(vTask_RPi_Comm,     "RPi_Comm_Task",     configMINIMAL_STACK_SIZE + 100, NULL, 1, NULL);
 
   /* 3. OS Initialization and start running tasks */
   RTOS_setup();
@@ -92,85 +89,85 @@ int main(void)
 
 /* ================== Task Implementations ================== */
 
-/* --- ADAS task stubs: empty for now, real logic added in the ADAS/SafetyEngine step --- */
-void vTask_EEBL(void *pvParameters)
+/**
+ * @brief Single-pass ADAS brain.
+ *
+ * Every 50ms: takes BOTH mutexes (neighbor table + host state), then
+ * SafetyEngine_voidUpdate() runs detection for ALL modules in one pass and
+ * aggregates the result into the centralized command channel
+ * (G_u8SystemRiskLevel + G_eMotorGlobalCommand) consumed by vTask_Feedback.
+ *
+ * Lock order: NeighborTable → Data. vTask_ESP_Comm takes them separately
+ * (never nested) and vTask_Sensors takes Data only → no deadlock possible.
+ */
+void vTask_SafetyEngine(void *pvParameters)
 {
-  for(;;) { vTaskDelay(pdMS_TO_TICKS(25)); }
-}
-void vTask_FCW(void *pvParameters)
-{
-  for(;;) { vTaskDelay(pdMS_TO_TICKS(25)); }
-}
-void vTask_BSW(void *pvParameters)
-{
-  for(;;) { vTaskDelay(pdMS_TO_TICKS(50)); }
-}
-void vTask_DNPW(void *pvParameters)
-{
-  for(;;) { vTaskDelay(pdMS_TO_TICKS(50)); }
-}
-void vTask_IMA(void *pvParameters)
-{
-  for(;;) { vTaskDelay(pdMS_TO_TICKS(50)); }
+  TickType_t xLastWakeTime = xTaskGetTickCount();
+
+  for(;;)
+  {
+    xSemaphoreTake(G_xNeighborTableMutex, portMAX_DELAY);
+    xSemaphoreTake(G_xDataMutex,          portMAX_DELAY);
+
+    SafetyEngine_voidUpdate();
+
+    xSemaphoreGive(G_xDataMutex);
+    xSemaphoreGive(G_xNeighborTableMutex);
+
+    vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(50));
+  }
 }
 
+/* Small rest after each full scan: gives lower-priority tasks guaranteed CPU
+ * and sets the minimum spacing between scans. The scan itself is adaptive —
+ * its length follows echo flight time (near objects → faster refresh). */
+#define SENSORS_CYCLE_GAP_MS  10U
+
 /**
- * @brief Reads one US sensor per cycle (round-robin) and MPU9250 every cycle.
+ * @brief Reads ALL 6 ultrasonics + MPU9250 every cycle, then a small gap.
  *
- * Period: fixed 50ms via vTaskDelayUntil — absorbs the variable US blocking time
- * (0–25ms per sensor) so the cycle is always 50ms regardless of echo timing.
- * Full US scan: 6 cycles × 50ms = 300ms.
+ * The US driver is interrupt-driven: the task SLEEPS during each echo flight
+ * (CPU free), so all 6 can be read back-to-back without hogging the CPU.
+ * Reads are sequential → no acoustic cross-talk.
  *
- * Speed stored as cm/s so ADAS TTC (distance_cm / speed_cm_s) yields seconds.
+ * Adaptive refresh: full scan ≈ sum of echo times (near objects → ~15-45ms,
+ * all out of range → ~72ms with the 2m cap). Much faster than the old 300ms.
+ *
+ * All values are computed into locals first, then published in ONE short mutex
+ * section. Speed stored as cm/s so ADAS TTC (distance_cm / speed_cm_s) = seconds.
  */
 void vTask_Sensors(void *pvParameters)
 {
-  static uint8_t           us_index       = 0;
   static float             local_speed_ms = 0.0f;
   static MPU9250_Position_t local_pos     = {0};
   MPU9250_Data_t  mpu_data               = {0};
 
-  TickType_t xLastWakeTime = xTaskGetTickCount();
-  TickType_t xPrevTick     = xLastWakeTime;
+  const US_Config_t *sensors[6] = {
+      &FrontUS[0], &FrontUS[1], &FrontUS[2],   /* L, C, R (front) */
+      &BackUS[0],  &BackUS[1],  &BackUS[2]      /* L, C, R (back)  */
+  };
+
+  TickType_t xPrevTick = xTaskGetTickCount();
 
   for(;;)
   {
-    /* ── Actual dt: time since task last woke (≈50ms in steady state) ── */
+    /* ── Actual dt since last cycle (variable: follows scan length) ── */
     TickType_t xNow = xTaskGetTickCount();
     float dt = (float)(xNow - xPrevTick) * 0.001f;   /* ms → seconds */
-    if (dt <= 0.0f) dt = 0.050f;                      /* guard: first run */
+    if (dt <= 0.0f) dt = 0.010f;                      /* guard: first run */
     xPrevTick = xNow;
 
-    /* ── Round-Robin US: one sensor per cycle (~25ms max blocking) ── */
-    uint16_t dist_raw  = 0;
-    float    dist_cm   = 400.0f;   /* default = out of range (US max ~400cm) */
-    ErrorState_t us_err;
-
-    if (us_index < 3)
-      us_err = US_u16ReadDistance_cm(&FrontUS[us_index],      &dist_raw);
-    else
-      us_err = US_u16ReadDistance_cm(&BackUS[us_index - 3],   &dist_raw);
-
-    if (us_err == OK)
-      dist_cm = (float)dist_raw;
-    /* TIMEOUT_STATE (no echo): dist_cm stays 400.0f — safe / clear */
-
-    xSemaphoreTake(G_xDataMutex, portMAX_DELAY);
-    switch (us_index)
+    /* ── Read ALL 6 ultrasonics into locals (task sleeps during each echo) ── */
+    float    us[6];
+    uint16_t raw;
+    for (uint8_t i = 0; i < 6; i++)
     {
-      case 0: G_stHostVehicleState.FrontLeftUS   = dist_cm; break;
-      case 1: G_stHostVehicleState.FrontCenterUS = dist_cm; break;
-      case 2: G_stHostVehicleState.FrontRightUS  = dist_cm; break;
-      case 3: G_stHostVehicleState.BackLeftUS    = dist_cm; break;
-      case 4: G_stHostVehicleState.BackCenterUS  = dist_cm; break;
-      case 5: G_stHostVehicleState.BackRightUS   = dist_cm; break;
-      default: break;
+      us[i] = 400.0f;   /* default = out of range / clear (no echo within 2m) */
+      if (US_u16ReadDistance_cm(sensors[i], &raw) == OK)
+        us[i] = (float)raw;
     }
-    xSemaphoreGive(G_xDataMutex);
 
-    us_index = (us_index + 1) % 6;
-
-    /* ── MPU9250: read and process every cycle ───────────────────── */
+    /* ── MPU9250: read and process into locals ── */
     MPU9250_enumReadData(&mpu_data);
 
     float pitch = 0.0f, roll = 0.0f, heading = 0.0f;
@@ -179,7 +176,14 @@ void vTask_Sensors(void *pvParameters)
     MPU9250_enumGetSpeed(&mpu_data, dt, &local_speed_ms);
     MPU9250_enumGetPosition(&mpu_data, local_speed_ms, heading, pitch, dt, &local_pos);
 
+    /* ── Publish everything in ONE short mutex section ── */
     xSemaphoreTake(G_xDataMutex, portMAX_DELAY);
+    G_stHostVehicleState.FrontLeftUS   = us[0];
+    G_stHostVehicleState.FrontCenterUS = us[1];
+    G_stHostVehicleState.FrontRightUS  = us[2];
+    G_stHostVehicleState.BackLeftUS    = us[3];
+    G_stHostVehicleState.BackCenterUS  = us[4];
+    G_stHostVehicleState.BackRightUS   = us[5];
     G_stHostVehicleState.Speed   = local_speed_ms * 100.0f;  /* m/s → cm/s */
     G_stHostVehicleState.Heading = heading;
     G_stHostVehicleState.Pitch   = pitch;
@@ -189,8 +193,8 @@ void vTask_Sensors(void *pvParameters)
     G_stHostVehicleState.PosZ    = local_pos.Z;
     xSemaphoreGive(G_xDataMutex);
 
-    /* ── Fixed 50ms period: max work ~27ms → ~23ms slack guaranteed ── */
-    vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(50));
+    /* ── Small adaptive gap (other tasks get CPU; sets min scan spacing) ── */
+    vTaskDelay(pdMS_TO_TICKS(SENSORS_CYCLE_GAP_MS));
   }
 }
 /**
@@ -203,6 +207,66 @@ void vTask_Feedback(void *pvParameters)
 {
   for(;;)
   {
+    /* General system flag (set by vTask_SafetyEngine): single-byte volatile
+     * → atomic read. 0 = all systems safe, >0 = at least one raised. */
+    if (G_u8SystemRiskLevel == 0)
+    {
+      /* ===== ALL SAFE: normal driving, no alerts ===== */
+      LED_TurnOff(&FrontR_LED);
+      LED_TurnOff(&FrontL_LED);
+      BUZ_Off(&V2X_Buzzer);
+      L298N_enumCarMoveForward(&RightMotor, &LeftMotor);
+      G_eMotorGlobalCommand = CMD_MOVE_FORWARD;
+    }
+    else
+    {
+      /* ===== NOT SAFE: inspect each system's own flag + severity ===== */
+
+      /* ---- FCW (front collision) ---- */
+      /* FCW_AlertLevel = confirmed alert (NOT the DSRC broadcast flag) */
+      uint8_t fcw = FCW_u8GetAlertLevel();
+
+      if (fcw >= 1)
+      {
+        /* WARNING or CRITICAL → front LEDs + buzzer */
+        LED_TurnOn(&FrontR_LED);
+        LED_TurnOn(&FrontL_LED);
+        BUZ_On(&V2X_Buzzer);
+      }
+
+      if (fcw >= 2)
+      {
+        /* CRITICAL → evasive maneuver based on front-side ultrasonic.
+         * Read the two side distances under the data mutex. */
+        float right, left;
+        xSemaphoreTake(G_xDataMutex, portMAX_DELAY);
+        right = G_stHostVehicleState.FrontRightUS;
+        left  = G_stHostVehicleState.FrontLeftUS;
+        xSemaphoreGive(G_xDataMutex);
+
+        if (right < FCW_SIDE_CLEAR_CM && left < FCW_SIDE_CLEAR_CM)
+        {
+          L298N_enumCarStop(&RightMotor, &LeftMotor);      /* both blocked */
+          G_eMotorGlobalCommand = CMD_STOP;
+        }
+        else if (right >= left)
+        {
+          L298N_enumCarMoveRight(&RightMotor, &LeftMotor); /* right wider/clear */
+          G_eMotorGlobalCommand = CMD_STEER_RIGHT;
+        }
+        else
+        {
+          L298N_enumCarMoveLeft(&RightMotor, &LeftMotor);  /* left wider/clear */
+          G_eMotorGlobalCommand = CMD_STEER_LEFT;
+        }
+      }
+      else
+      {
+        /* WARNING only → keep moving forward */
+        L298N_enumCarMoveForward(&RightMotor, &LeftMotor);
+        G_eMotorGlobalCommand = CMD_MOVE_FORWARD;
+      }
+    }
 
     /* Keep execution consistent */
     vTaskDelay(pdMS_TO_TICKS(25));

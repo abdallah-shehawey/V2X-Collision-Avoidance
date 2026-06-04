@@ -76,21 +76,32 @@
  *
  * | Task Name              | Priority | Stack (+base) | Freq               | Description                                   |
  * |------------------------|----------|---------------|--------------------|-----------------------------------------------|
- * | [1] vTask_EEBL         | 4 (MAX)  | +128          | ~25 ms             | Emergency Electronic Brake Light (stub)       |
- * | [1] vTask_FCW          | 4 (MAX)  | +128          | ~25 ms             | Forward Collision Warning (stub)              |
- * | [1] vTask_BSW          | 4 (MAX)  | +128          | ~50 ms             | Blind Spot Warning (stub)                     |
- * | [1] vTask_DNPW         | 4 (MAX)  | +128          | ~50 ms             | Do Not Pass Warning (stub)                    |
- * | [1] vTask_IMA          | 4 (MAX)  | +128          | ~50 ms             | Intersection Movement Assist (stub)           |
+ * | [1] vTask_SafetyEngine | 4 (MAX)  | +256          | ~50 ms             | Single-pass ADAS brain (FCW/EEBL/BSW/DNPW/IMA)|
+ * |                        |          |               |                    | + feedback aggregation → command channel      |
  * | [1] vTask_ESP_Comm     | 4 (MAX)  | +128          | ~10ms RX/100ms TX  | ESP-NOW V2X communication                     |
- * | [2] vTask_Sensors      | 3        | +256          | ~50 ms/cycle       | Round-Robin US (1/cycle, max 25ms) + MPU9250  |
+ * | [2] vTask_Sensors      | 3        | +256          | ~25-82 ms adaptive | All 6 US (interrupt, 2m cap) + MPU9250         |
  * | [3] vTask_Feedback     | 2        | +128          | ~25 ms             | Centralized actuator manager (Motors+LEDs+BUZ)|
  * | [4] vTask_RPi_Comm     | 1 (LOW)  | +100          | ~100 ms            | Raspberry Pi communication (RX + TX)          |
  *
  * NOTE: Priority 4 is the highest user priority. Priority 0 is the FreeRTOS Idle task.
  *       configMAX_SYSCALL_INTERRUPT_PRIORITY = 5  → NVIC_USART1 must be set to ≥ 6.
- *       vTask_Sensors uses vTaskDelayUntil(50ms): worst-case work ~27ms → 23ms slack.
- *       Full US scan = 6 cycles × 50ms = 300ms. Priority 3 ensures priority-4 tasks
- *       are always preemptable even during US busy-wait windows.
+ *       vTask_Sensors reads all 6 US per cycle (interrupt-driven: the task SLEEPS
+ *       during each echo, CPU free) + MPU, then a 10ms gap. Scan is adaptive:
+ *       near objects → ~25ms, all out-of-range → ~72ms (2m cap). Reads are
+ *       sequential → no acoustic cross-talk. Priority 3 (producer) sits below the
+ *       priority-4 ADAS/comm tasks but above the priority-2 Feedback consumer.
+ *
+ *       ADAS architecture = SINGLE-PASS, with a clean Brain/Muscle split:
+ *         • vTask_SafetyEngine (Brain, detection-only): runs all modules over the
+ *           neighbor table in ONE pass; each module raises its own flag. Then it
+ *           publishes the GENERAL flag G_u8SystemRiskLevel (= worst confirmed alert).
+ *           It makes NO movement decision. Holds both mutexes (NeighborTable → Data).
+ *         • vTask_Feedback (Muscle): reads G_u8SystemRiskLevel; if 0 drives forward,
+ *           else inspects per-module getters (e.g. FCW_u8GetAlertLevel) + side US to
+ *           decide LEDs / buzzer / motion. Sole driver of the actuators and the sole
+ *           writer of G_eMotorGlobalCommand. Takes G_xDataMutex only (to read US).
+ *       Lock usage: ESP_Comm takes the two mutexes separately, Sensors & Feedback take
+ *       Data only → deadlock-free.
  * ========================================================================================
  */
 

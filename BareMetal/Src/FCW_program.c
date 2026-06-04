@@ -129,15 +129,11 @@ void FCW_voidEndCycle(void)
    */
   FCW_CurrentFlag = (uint8_t)FCW_LocalWorst;
 
-  /* Activate or deactivate alert based on confirmed level */
-  if (FCW_AlertLevel > RISK_SAFE)
-  {
-    FCW_ActivateAlert(FCW_AlertLevel);
-  }
-  else
-  {
-    FCW_DeactivateAlert();
-  }
+  /*
+   * NOTE: This module no longer drives hardware directly.
+   * FCW_AlertLevel (the confirmed alert) is exposed via FCW_u8GetAlertLevel()
+   * and consumed by the SafetyEngine aggregation → vTask_Feedback.
+   */
 }
 
 /* ============================================================ */
@@ -165,50 +161,23 @@ void FCW_voidUpdate(void)
   FCW_voidEndCycle();
 }
 
-/* ============ Public Getter ============ */
+/* ============ Public Getters ============ */
+
+/**
+ * @brief Local detection flag — broadcast over DSRC so the opposite
+ *        vehicle can perform cooperative confirmation.
+ */
 uint8_t FCW_u8GetFlag(void)
 {
   return FCW_CurrentFlag;
 }
 
-/* ============================================================ */
-/* =================== Internal Functions ===================== */
-/* ============================================================ */
-
 /**
- * @brief Activate alerts (LED, Buzzer, ADAS) based on risk level
+ * @brief Confirmed alert level — drives the feedback (LED/Buzzer/Motor)
+ *        via the SafetyEngine aggregation. For DIR_OPPOSITE this is only
+ *        non-zero after both vehicles agree there is danger.
  */
-static void FCW_ActivateAlert(RiskLevel_t level)
+uint8_t FCW_u8GetAlertLevel(void)
 {
-#if FCW_ENABLE_LED_ALERT
-  /* LED_FRONT_ON(); */
-#endif
-
-#if FCW_ENABLE_BUZZER
-  if (level == RISK_CRITICAL)
-  {
-    /* BUZZER_ON(); */
-  }
-#endif
-
-#if FCW_ENABLE_ADAS_REQUEST
-  if (level == RISK_CRITICAL)
-  {
-    /* ADAS_RequestBrake(); */
-  }
-#endif
-}
-
-/**
- * @brief Deactivate all alerts when risk returns to SAFE
- */
-static void FCW_DeactivateAlert(void)
-{
-#if FCW_ENABLE_LED_ALERT
-  /* LED_FRONT_OFF(); */
-#endif
-
-#if FCW_ENABLE_BUZZER
-  /* BUZZER_OFF(); */
-#endif
+  return (uint8_t)FCW_AlertLevel;
 }

@@ -17,10 +17,18 @@ void FCW_voidInit(void);
 void FCW_voidUpdate(void);
 
 /**
- * @brief Get current FCW risk level (for DSRC flag broadcast)
+ * @brief Get current FCW risk level (for DSRC flag broadcast — local detection)
  * @return 0=Safe, 1=Warning, 2=Critical
  */
 uint8_t FCW_u8GetFlag(void);
+
+/**
+ * @brief Get the confirmed FCW alert level (for feedback: LED/Buzzer/Motor).
+ *        For opposite-direction traffic this is only set after cooperative
+ *        confirmation (both vehicles report danger).
+ * @return 0=Safe, 1=Warning, 2=Critical
+ */
+uint8_t FCW_u8GetAlertLevel(void);
 
 /* ===== Per-Neighbor API (used by SafetyEngine) ===== */
 

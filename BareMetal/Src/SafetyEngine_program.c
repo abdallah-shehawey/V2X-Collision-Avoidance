@@ -91,6 +91,22 @@ void SafetyEngine_voidUpdate(void)
   BSW_voidEndCycle();
   DNPW_voidEndCycle();
   IMA_voidEndCycle();
+
+  /* ===========================================================
+   * 4. Update the GENERAL system flag (detection state ONLY).
+   *    Each module already raised its own flag during EndCycle.
+   *    SafetyEngine is detection-only and makes NO movement decision —
+   *    that is entirely the job of vTask_Feedback.
+   *
+   *    G_u8SystemRiskLevel = worst confirmed alert across modules.
+   *    0 = all safe → Feedback drives forward.
+   *    >0 = at least one system raised → Feedback inspects the per-module
+   *         getters (e.g. FCW_u8GetAlertLevel) to decide the response.
+   *
+   *    NOTE: FCW only for now. As each module is wired into the feedback,
+   *    fold its confirmed alert here (worst-case wins).
+   * =========================================================== */
+  G_u8SystemRiskLevel = FCW_u8GetAlertLevel();
 }
 
 /* ============ Shared Direction Detection ============ */
