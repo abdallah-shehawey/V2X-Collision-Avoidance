@@ -31,6 +31,8 @@ uint32_t SystemCoreClock = 16000000;
 /* Central Management Global Variables */
 volatile MotorCommand_t G_eMotorGlobalCommand = CMD_MOVE_FORWARD;
 volatile uint8_t G_u8SystemRiskLevel = 0;
+HostVehicleState_t G_stHostVehicleState = {0};
+
 
 /******************************************
  *  Hardware Objects for Testing         *
@@ -60,16 +62,16 @@ US_Config_t BackUS[3];  // The 3 back ultrasonic sensors
 /* Communication Interfaces */
 extern void vESP_UART_RX_Callback(void);
 
-USART_Handle_t ESP_UART = {
+USART_Handle_t USART_1 = {
     .Channel = USART_CHANNEL1,
-    .BaudRate = 115200,
+    .BaudRate = 9600,
     .WordLength = USART_WORDLENGTH_8B,
     .StopBits = USART_STOPBITS_1,
     .Parity = USART_PARITY_NONE,
     .Mode = USART_MODE_TX_RX,
     .HardwareFlowControl = UART_HWCONTROL_NONE,
     .OverSampling = USART_OVERSAMPLING_16,
-    .RXNEIE = USART_RXNEIE_EN, /* Enable RX Interrupt implicitly */
+    .RXNEIE = USART_RXNEIE_EN,
     .pfnCallback = vESP_UART_RX_Callback
 };
 
@@ -181,7 +183,7 @@ void System_setup(void)
 	U1_Pins.PinNum = GPIO_PIN9;  GPIO_enumPinInit(&U1_Pins);
 	U1_Pins.PinNum = GPIO_PIN10; GPIO_enumPinInit(&U1_Pins);
 
-	USART_InitIT(&ESP_UART);
+	USART_InitIT(&USART_1);
 	NVIC_vSetPriority(NVIC_USART1, 6); /* Safe for FreeRTOS (configMAX_SYSCALL_INTERRUPT_PRIORITY is 5) */
 	NVIC_vEnableIRQ(NVIC_USART1);
 

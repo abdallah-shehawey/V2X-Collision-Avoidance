@@ -74,21 +74,23 @@
  * 🧠 RTOS TASKS ARCHITECTURE & PRIORITIES (configMAX_PRIORITIES = 5)
  * ========================================================================================
  *
- * | Task Name              | Priority | Stack (+base) | Freq      | Description                                  |
- * |------------------------|----------|---------------|-----------|----------------------------------------------|
- * | [1] vTask_EEBL         | 4 (MAX)  | +128          | ~25 ms    | Emergency Electronic Brake Light — fastest   |
- * | [1] vTask_FCW          | 4 (MAX)  | +128          | ~25 ms    | Forward Collision Warning — fastest          |
- * | [1] vTask_ESP_Comm     | 4 (MAX)  | +100          | ~50 ms    | ESP-NOW RX parsing + TX broadcast (combined) |
- * | [2] vTask_Sensors      | 3        | +256          | ~80 ms    | 6× Ultrasonics + MPU9250 read cycle          |
- * | [2] vTask_BSW          | 3        | +128          | ~50 ms    | Blind Spot Warning                           |
- * | [2] vTask_DNPW         | 3        | +128          | ~50 ms    | Do Not Pass Warning                          |
- * | [3] vTask_SDW          | 2        | +128          | ~50 ms    | Safe Distance Warning                        |
- * | [3] vTask_IMA          | 2        | +128          | ~50 ms    | Intersection Movement Assist                 |
- * | [3] vTask_RPi_Comm     | 2        | +100          | ~100 ms   | Raspberry Pi communication (RX + TX)         |
- * | [4] vTask_Feedback     | 1 (LOW)  | +128          | ~25 ms    | Centralized actuator manager (Motors+LEDs+BUZ)|
+ * | Task Name              | Priority | Stack (+base) | Freq               | Description                                   |
+ * |------------------------|----------|---------------|--------------------|-----------------------------------------------|
+ * | [1] vTask_EEBL         | 4 (MAX)  | +128          | ~25 ms             | Emergency Electronic Brake Light (stub)       |
+ * | [1] vTask_FCW          | 4 (MAX)  | +128          | ~25 ms             | Forward Collision Warning (stub)              |
+ * | [1] vTask_BSW          | 4 (MAX)  | +128          | ~50 ms             | Blind Spot Warning (stub)                     |
+ * | [1] vTask_DNPW         | 4 (MAX)  | +128          | ~50 ms             | Do Not Pass Warning (stub)                    |
+ * | [1] vTask_IMA          | 4 (MAX)  | +128          | ~50 ms             | Intersection Movement Assist (stub)           |
+ * | [1] vTask_ESP_Comm     | 4 (MAX)  | +128          | ~10ms RX/100ms TX  | ESP-NOW V2X communication                     |
+ * | [2] vTask_Sensors      | 3        | +256          | ~50 ms/cycle       | Round-Robin US (1/cycle, max 25ms) + MPU9250  |
+ * | [3] vTask_Feedback     | 2        | +128          | ~25 ms             | Centralized actuator manager (Motors+LEDs+BUZ)|
+ * | [4] vTask_RPi_Comm     | 1 (LOW)  | +100          | ~100 ms            | Raspberry Pi communication (RX + TX)          |
  *
  * NOTE: Priority 4 is the highest user priority. Priority 0 is the FreeRTOS Idle task.
  *       configMAX_SYSCALL_INTERRUPT_PRIORITY = 5  → NVIC_USART1 must be set to ≥ 6.
+ *       vTask_Sensors uses vTaskDelayUntil(50ms): worst-case work ~27ms → 23ms slack.
+ *       Full US scan = 6 cycles × 50ms = 300ms. Priority 3 ensures priority-4 tasks
+ *       are always preemptable even during US busy-wait windows.
  * ========================================================================================
  */
 
@@ -100,9 +102,32 @@ typedef enum {
     CMD_STEER_LEFT = 3
 } MotorCommand_t;
 
+/* Unified Sensor State Structure */
+typedef struct {
+    float FrontLeftUS;
+    float FrontCenterUS;
+    float FrontRightUS;
+    float BackLeftUS;
+    float BackCenterUS;
+    float BackRightUS;
+    
+    float Speed;
+    float Heading;
+    float Pitch;
+    float Roll;
+    float PosX;
+    float PosY;
+    float PosZ;
+    float DistToIntersection;
+} HostVehicleState_t;
+
 /* Global variables for centralized management */
 extern volatile MotorCommand_t G_eMotorGlobalCommand;
 extern volatile uint8_t G_u8SystemRiskLevel; /* 0: Safe, 1: Warning, 2: Critical */
+
+/* Unified Host Vehicle State */
+extern HostVehicleState_t G_stHostVehicleState;
+
 
 /* Function Prototypes */
 #define DWT_CTRL            *((volatile uint32_t*)0xE0001000)

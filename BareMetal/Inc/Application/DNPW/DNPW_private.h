@@ -1,15 +1,10 @@
 #ifndef DNPW_PRIVATE_H
 #define DNPW_PRIVATE_H
 
-typedef enum
-{
-  DNPW_SAFE = 0,
-  DNPW_WARNING,
-  DNPW_CRITICAL
-} DNPW_RiskLevel_t;
+#include "../SafetyEngine/SafetyEngine_interface.h"
 
-static float DNPW_f32CalculateOppositeTTC(void);
-static void DNPW_voidEvaluateRisk(void);
-static void DNPW_voidSendWarning(DNPW_RiskLevel_t level);
+/* Internal alert functions */
+static void DNPW_ActivateAlert(RiskLevel_t level);
+static void DNPW_DeactivateAlert(void);
 
 #endif

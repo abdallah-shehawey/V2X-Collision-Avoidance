@@ -110,14 +110,14 @@ ErrorState_t MPU9250_enumReadData(MPU9250_Data_t *D) {
   return OK;
 }
 
-ErrorState_t MPU9250_enumGetAttitude(MPU9250_Data_t *D, float *P, float *R) {
+ErrorState_t MPU9250_enumGetAttitude(MPU9250_Data_t *D, float dt, float *P, float *R) {
   if (!D || !P || !R) return NULL_POINTER;
   float accP = atan2f(-D->AccelX, sqrtf(D->AccelY*D->AccelY + D->AccelZ*D->AccelZ)) * (180.0f/M_PI);
   float accR = atan2f(D->AccelY, D->AccelZ) * (180.0f/M_PI);
 
   /* Fast Response Filter (0.95) for better Z tracking */
-      Filtered_Pitch = 0.95f * (Filtered_Pitch + D->GyroY * 0.01f) + 0.05f * accP;
-      Filtered_Roll  = 0.95f * (Filtered_Roll  + D->GyroX * 0.01f) + 0.05f * accR;
+      Filtered_Pitch = 0.95f * (Filtered_Pitch + D->GyroY * dt) + 0.05f * accP;
+      Filtered_Roll  = 0.95f * (Filtered_Roll  + D->GyroX * dt) + 0.05f * accR;
 
       *P = Filtered_Pitch; *R = Filtered_Roll;
       return OK;
@@ -189,6 +189,13 @@ ErrorState_t MPU9250_enumGetPosition(MPU9250_Data_t *D, float s, float h, float 
 
   /* Update Distance Z in Meters */
   pos->Z += Vert_Velocity_m_s * dt;
+
+  /* When stationary: bleed Z back toward 0 (reference point)
+   * Avoids drift accumulation — at 50ms cycles: ~5s to converge back to 0 */
+  if (total_gyro < 1.5f && fabs(Vert_Velocity_m_s) < 0.01f) {
+    pos->Z *= 0.98f;
+    if (fabs(pos->Z) < 0.005f) pos->Z = 0.0f;  /* snap at 5mm */
+  }
 
   pos->X = 0; pos->Y = 0;
   return OK;

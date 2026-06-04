@@ -70,10 +70,10 @@ ErrorState_t MPU9250_enumGetSpeed(MPU9250_Data_t *Copy_pData, float Copy_fDt, fl
 ErrorState_t MPU9250_enumGetPosition(MPU9250_Data_t *Copy_pData, float Copy_fSpeed, float Copy_fHeading, float Copy_fPitch, float Copy_fDt, MPU9250_Position_t *Copy_pPos);
 
 /**
- * @fn ErrorState_t MPU9250_enumGetAttitude(MPU9250_Data_t *Copy_pData, float *Copy_pfPitch, float *Copy_pfRoll)
+ * @fn ErrorState_t MPU9250_enumGetAttitude(MPU9250_Data_t *Copy_pData, float Copy_fDt, float *Copy_pfPitch, float *Copy_pfRoll)
  * @brief Calculates Pitch and Roll using a Complementary Filter.
- * @note This should be called with a constant time step (e.g., in a loop).
+ * @param Copy_fDt  Actual elapsed time since last call [seconds] — passed by caller for accuracy.
  */
-ErrorState_t MPU9250_enumGetAttitude(MPU9250_Data_t *Copy_pData, float *Copy_pfPitch, float *Copy_pfRoll);
+ErrorState_t MPU9250_enumGetAttitude(MPU9250_Data_t *Copy_pData, float Copy_fDt, float *Copy_pfPitch, float *Copy_pfRoll);
 
 #endif /* MPU9250_INTERFACE_H_ */

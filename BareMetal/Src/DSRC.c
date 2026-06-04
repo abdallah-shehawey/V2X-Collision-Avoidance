@@ -8,9 +8,11 @@
 
 #include "../Inc/Drivers/MCAL/USART/USART_intreface.h"
 #include "../Inc/Application/DSRC/DSRC.h"
+#include "FreeRTOS.h"
+#include "task.h"
 
 // ====== External USART handle from system ======
-extern USART_Handle_t ESP_UART;
+extern USART_Handle_t USART_1;
 
 // ====== Neighbor Table ======
 static Neighbor neighbor_table[MAX_NEIGHBORS];
@@ -80,12 +82,17 @@ static uint8_t queue_pop(Neighbor *out)
 // ============================================================
 static void update_neighbor(const Neighbor *msg)
 {
+  /* Stamp with LOCAL FreeRTOS tick so DSRC_RemoveStale compares apples to apples.
+   * The sender's last_update is from their own clock and is meaningless here. */
+  uint32_t local_time = (uint32_t)xTaskGetTickCount();
+
   // if exists → update only
   for (uint8_t i = 0; i < neighbor_count; i++)
   {
     if (neighbor_table[i].vehicle_id == msg->vehicle_id)
     {
       neighbor_table[i] = *msg;
+      neighbor_table[i].last_update = local_time;
       return;
     }
   }
@@ -93,7 +100,9 @@ static void update_neighbor(const Neighbor *msg)
   // not found → add
   if (neighbor_count < MAX_NEIGHBORS)
   {
-    neighbor_table[neighbor_count++] = *msg;
+    neighbor_table[neighbor_count] = *msg;
+    neighbor_table[neighbor_count].last_update = local_time;
+    neighbor_count++;
     return;
   }
 
@@ -109,6 +118,7 @@ static void update_neighbor(const Neighbor *msg)
     }
   }
   neighbor_table[oldest_i] = *msg;
+  neighbor_table[oldest_i].last_update = local_time;
 }
 
 // ============================================================
@@ -129,23 +139,21 @@ void DSRC_SendNeighbor(Neighbor *n)
   memcpy(raw, n, sizeof(Neighbor));
   uint8_t chk = calc_checksum(raw, sizeof(Neighbor));
 
-  USART_enumTransmit((USART_Config_t*)&ESP_UART, START_BYTE);
+  USART_enumTransmit((USART_Config_t*)&USART_1, START_BYTE);
   for (uint8_t i = 0; i < sizeof(Neighbor); i++)
   {
-    USART_enumTransmit((USART_Config_t*)&ESP_UART, raw[i]);
+    USART_enumTransmit((USART_Config_t*)&USART_1, raw[i]);
   }
-  USART_enumTransmit((USART_Config_t*)&ESP_UART, chk);
-  USART_enumTransmit((USART_Config_t*)&ESP_UART, END_BYTE);
+  USART_enumTransmit((USART_Config_t*)&USART_1, chk);
+  USART_enumTransmit((USART_Config_t*)&USART_1, END_BYTE);
 }
 
 // call this in main loop to process received packets
-void DSRC_Update(uint32_t current_time)
+void DSRC_Update(void)
 {
   Neighbor received;
   while (queue_pop(&received))
   {
-    /* Overwrite the network timestamp with our local exact reception time via TIM5 */
-    received.last_update = current_time;
     update_neighbor(&received);
   }
 }
@@ -154,7 +162,7 @@ void DSRC_RemoveStale(uint32_t current_time)
 {
   for (int i = neighbor_count - 1; i >= 0; i--)
   {
-    if (current_time - neighbor_table[i].last_update >= NEIGHBOR_TIMEOUT)
+    if (current_time - neighbor_table[i].last_update > NEIGHBOR_TIMEOUT)
     {
       for (uint8_t j = i; j < neighbor_count - 1; j++)
       {
@@ -180,8 +188,12 @@ uint8_t DSRC_GetCount(void)
   for (uint8_t i = 0; i < count; i++)
   {
       table[i].vehicle_id;
-      table[i].pos_x;
       table[i].speed;
+      table[i].heading;
+      table[i].fcw_flag;
+      table[i].eebl_flag;
+      table[i].bsw_flag;
+      table[i].dnpw_flag;
       // etc...
   }
 */
@@ -191,7 +203,9 @@ Neighbor *DSRC_GetTable(void)
   return neighbor_table;
 }
 
-// call this from USART_RXCMP interrupt
+// Feed one received byte into the parser state machine.
+// NOTE: call from task context (vTask_ESP_Comm), NOT from the ISR —
+// queue_push() below mutates the non-atomic rx_queue.
 void DSRC_RxCallback(uint8_t byte)
 {
   switch (parse_state)

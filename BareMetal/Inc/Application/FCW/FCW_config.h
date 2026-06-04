@@ -6,6 +6,8 @@
 #define FCW_WARNING_TTC  (3.0f)
 #define FCW_CRITICAL_TTC (2.0f)
 
+/* Heading thresholds moved to System.h (shared by all safety modules) */
+
 /* Enable systems */
 #define FCW_ENABLE_LED_ALERT    1
 #define FCW_ENABLE_BUZZER       1
