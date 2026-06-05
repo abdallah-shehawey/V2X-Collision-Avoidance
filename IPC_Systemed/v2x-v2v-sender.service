@@ -1,0 +1,31 @@
+[Unit]
+Description=V2X V2V UART Sender (RPi to STM32)
+Documentation=V2X Collision Avoidance System
+After=network.target v2x-hub.service v2x-v2p.service
+Requires=v2x-hub.service
+# يحتاج الـ hub، وينتظر الـ V2P عشان يلاقي بيانات جاهزة
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/v2x
+ExecStart=/usr/bin/python3 /home/pi/v2x/v2v_uart_sender.py
+
+ExecStartPre=/bin/sleep 6
+
+Restart=always
+RestartSec=5
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=v2x-v2v-sender
+
+# UART يحتاج الـ dialout group
+# تأكد إن الـ pi user في group dialout:
+#   sudo usermod -aG dialout pi
+SupplementaryGroups=dialout
+
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
