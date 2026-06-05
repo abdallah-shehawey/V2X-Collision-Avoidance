@@ -78,9 +78,13 @@ void SafetyEngine_voidUpdate(void)
   DNPW_voidEndCycle();
   IMA_voidEndCycle();
 
-  /* General flag: worst confirmed alert across all modules.
-   * FCW only now — fold other modules here as each gets wired into Feedback. */
-  G_u8SystemRiskLevel = FCW_u8GetAlertLevel();
+  /* General flags bitmap: one bit per active module.
+   * Feedback reads per-module getters for severity; this bitmap tells it WHO. */
+  uint8_t flags = 0;
+  if (FCW_u8GetAlertLevel()  > 0)                  flags |= SYSFLG_FCW;
+  if (EEBL_u8GetAlertLevel() > 0)                  flags |= SYSFLG_EEBL;
+  if (BSW_u8GetLeftFlag() || BSW_u8GetRightFlag()) flags |= SYSFLG_BSW;
+  G_u8SystemFlags = flags;
 }
 
 /* ============ Shared Direction Detection ============ */

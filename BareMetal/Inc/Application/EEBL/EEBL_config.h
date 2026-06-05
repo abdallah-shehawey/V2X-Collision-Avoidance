@@ -2,7 +2,7 @@
 #define EEBL_CONFIG_H
 
 /* Sudden braking detection threshold (speed difference, negative = braking) */
-#define EEBL_DECEL_THRESHOLD (-4.0f)
+#define EEBL_DECEL_THRESHOLD (-30.0f)
 
 /* TTC thresholds (seconds) */
 #define EEBL_WARNING_TTC  (3.0f)

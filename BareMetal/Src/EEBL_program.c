@@ -19,9 +19,7 @@
 #include "../Inc/Application/SafetyEngine/SafetyEngine_interface.h"
 
 /* ============ Module State ============ */
-static float EEBL_PrevSpeed = 0.0f; /* Previous speed for deceleration detection */
-
-/* Cycle state (set during BeginCycle, used during ProcessNeighbor) */
+static float       EEBL_PrevSpeed       = 0.0f;
 static uint8_t     EEBL_BrakingDetected = 0;
 static RiskLevel_t EEBL_WorstLevel      = RISK_SAFE;
 
@@ -51,7 +49,6 @@ void EEBL_voidBeginCycle(void)
   /* Save current speed for next cycle */
   EEBL_PrevSpeed = G_stHostVehicleState.Speed;
 
-  /* Reset worst level */
   EEBL_WorstLevel = RISK_SAFE;
 }
 
@@ -101,9 +98,7 @@ void EEBL_voidProcessNeighbor(const Neighbor *n, float rear_distance, Direction_
   RiskLevel_t level = SafetyEngine_EvaluateRisk(ttc, EEBL_WARNING_TTC, EEBL_CRITICAL_TTC);
 
   if (level > EEBL_WorstLevel)
-  {
     EEBL_WorstLevel = level;
-  }
 }
 
 /**
@@ -112,13 +107,14 @@ void EEBL_voidProcessNeighbor(const Neighbor *n, float rear_distance, Direction_
 void EEBL_voidEndCycle(void)
 {
   if (EEBL_WorstLevel > RISK_SAFE)
-  {
     EEBL_ActivateAlert(EEBL_WorstLevel);
-  }
   else
-  {
     EEBL_DeactivateAlert();
-  }
+}
+
+uint8_t EEBL_u8GetAlertLevel(void)
+{
+  return (uint8_t)EEBL_WorstLevel;
 }
 
 /* ============================================================ */

@@ -19,24 +19,15 @@
 
 /* ============ Module State ============ */
 static uint8_t     FCW_CurrentFlag = 0;       /* 0=Safe, 1=Warning, 2=Critical — DSRC broadcast */
-
-/* Persistent risk levels — NOT reset each cycle.
- * They latch upward when danger is found.
- * They return to SAFE only after FCW_ALERT_HOLD_CYCLES of continuous no-danger. */
 static RiskLevel_t FCW_LocalWorst  = RISK_SAFE;
-static uint8_t     FCW_LocalHold   = 0U;
-
 static RiskLevel_t FCW_AlertLevel  = RISK_SAFE;
-static uint8_t     FCW_AlertHold   = 0U;
 
 /* ============ Init ============ */
 void FCW_voidInit(void)
 {
   FCW_CurrentFlag = 0;
   FCW_LocalWorst  = RISK_SAFE;
-  FCW_LocalHold   = 0U;
   FCW_AlertLevel  = RISK_SAFE;
-  FCW_AlertHold   = 0U;
 }
 
 /* ============================================================ */
@@ -45,8 +36,8 @@ void FCW_voidInit(void)
 
 void FCW_voidBeginCycle(void)
 {
-  /* FCW_LocalWorst and FCW_AlertLevel are NOT reset here.
-   * They persist and are only cleared in EndCycle after the hold expires. */
+  FCW_LocalWorst = RISK_SAFE;
+  FCW_AlertLevel = RISK_SAFE;
 }
 
 void FCW_voidProcessNeighbor(const Neighbor *n, float front_distance, Direction_t dir)
@@ -54,72 +45,42 @@ void FCW_voidProcessNeighbor(const Neighbor *n, float front_distance, Direction_
   float rel_speed;
 
   if (dir == DIR_OPPOSITE)
-  {
     rel_speed = G_stHostVehicleState.Speed + n->speed;
-  }
   else if (dir == DIR_SAME)
-  {
     rel_speed = G_stHostVehicleState.Speed - n->speed;
-  }
   else
-  {
-    return;  /* DIR_CROSSING / DIR_UNKNOWN — not FCW's concern */
-  }
+    return;
 
   if (rel_speed > 0.0f && front_distance > 0.0f)
   {
     float ttc = SafetyEngine_CalcTTC(front_distance, rel_speed);
     RiskLevel_t level = SafetyEngine_EvaluateRisk(ttc, FCW_WARNING_TTC, FCW_CRITICAL_TTC);
 
-    /* LocalWorst: raise and reset hold timer whenever any danger is found */
     if (level > FCW_LocalWorst)
       FCW_LocalWorst = level;
 
-    if (level > RISK_SAFE)
-      FCW_LocalHold = FCW_ALERT_HOLD_CYCLES;
-
-    /* AlertLevel: SAME = immediate, OPPOSITE = cooperative confirmation */
     if (dir == DIR_OPPOSITE)
     {
       if (level > RISK_SAFE && n->fcw_flag > 0)
-      {
         if (level > FCW_AlertLevel)
           FCW_AlertLevel = level;
-        FCW_AlertHold = FCW_ALERT_HOLD_CYCLES;
-      }
     }
     else /* DIR_SAME */
     {
       if (level > FCW_AlertLevel)
         FCW_AlertLevel = level;
-
-      if (level > RISK_SAFE)
-        FCW_AlertHold = FCW_ALERT_HOLD_CYCLES;
     }
   }
 }
 
 void FCW_voidEndCycle(void)
 {
-  /* ── LocalWorst: decrement hold, clear when expired ── */
-  if (FCW_LocalHold > 0U)
-    FCW_LocalHold--;
-  else
-    FCW_LocalWorst = RISK_SAFE;
-
   FCW_CurrentFlag = (uint8_t)FCW_LocalWorst;
 
-  /* ── AlertLevel: decrement hold, clear when expired ── */
-  if (FCW_AlertHold > 0U)
-  {
-    FCW_AlertHold--;
+  if (FCW_AlertLevel > RISK_SAFE)
     FCW_ActivateAlert(FCW_AlertLevel);
-  }
-  else if (FCW_AlertLevel > RISK_SAFE)
-  {
-    FCW_AlertLevel = RISK_SAFE;
+  else
     FCW_DeactivateAlert();
-  }
 }
 
 /* ============================================================ */

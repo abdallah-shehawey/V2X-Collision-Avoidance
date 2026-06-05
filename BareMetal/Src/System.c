@@ -30,7 +30,7 @@ uint32_t SystemCoreClock = 16000000;
 
 /* Central Management Global Variables */
 volatile MotorCommand_t G_eMotorGlobalCommand = CMD_MOVE_FORWARD;
-volatile uint8_t G_u8SystemRiskLevel = 0;
+volatile uint8_t G_u8SystemFlags     = 0;
 HostVehicleState_t G_stHostVehicleState = {0};
 
 
@@ -85,6 +85,22 @@ USART_Config_t RPi_UART = {USART_CHANNEL4, 115200, USART_WORDLENGTH_8B, USART_ST
 void vApplicationIdleHook(void)
 {
 	/* Runs when OS has no tasks to execute */
+}
+
+void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName)
+{
+	(void)xTask;
+	(void)pcTaskName;
+	/* Stack overflow detected — halt for debugging */
+	taskDISABLE_INTERRUPTS();
+	for(;;);
+}
+
+void vApplicationMallocFailedHook(void)
+{
+	/* Heap exhausted — halt for debugging */
+	taskDISABLE_INTERRUPTS();
+	for(;;);
 }
 
 

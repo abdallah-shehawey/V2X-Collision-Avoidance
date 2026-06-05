@@ -1,4 +1,4 @@
---- FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c	2020-12-16 00:24:27.000000000 +0530
+--- FreeRTOS/portable/GCC/ARM_CM4F/port.c	2020-12-16 00:24:27.000000000 +0530
 +++ new/port.c	2021-02-04 18:10:05.142964000 +0530
 @@ -78,6 +78,7 @@
  #define portPRIORITY_GROUP_MASK               ( 0x07UL << 8UL )
@@ -113,7 +113,7 @@
      }
      portENABLE_INTERRUPTS();
  }
---- FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h	2020-12-16 00:24:27.000000000 +0530
+--- FreeRTOS/portable/GCC/ARM_CM4F/portmacro.h	2020-12-16 00:24:27.000000000 +0530
 +++ new/portmacro.h	2021-02-04 18:10:05.178951000 +0530
 @@ -90,7 +90,7 @@
  
@@ -124,7 +124,7 @@
      #define portYIELD_FROM_ISR( x )                     portEND_SWITCHING_ISR( x )
  /*-----------------------------------------------------------*/
  
---- FreeRTOS/Source/include/task.h	2020-12-16 00:24:27.000000000 +0530
+--- FreeRTOS/include/task.h	2020-12-16 00:24:27.000000000 +0530
 +++ new/task.h	2021-02-04 14:19:12.205010700 +0530
 @@ -1513,6 +1513,25 @@
  
@@ -152,7 +152,7 @@
   * <PRE>configSTACK_DEPTH_TYPE uxTaskGetStackHighWaterMark2( TaskHandle_t xTask );</PRE>
   *
   * INCLUDE_uxTaskGetStackHighWaterMark2 must be set to 1 in FreeRTOSConfig.h for
---- FreeRTOS/Source/include/portable.h	2021-02-04 18:32:35.603444600 +0530
+--- FreeRTOS/include/portable.h	2021-02-04 18:32:35.603444600 +0530
 +++ new/portable.h	2021-02-04 17:23:06.083461500 +0530
 @@ -207,6 +207,9 @@
                                      uint32_t ulStackDepth ) PRIVILEGED_FUNCTION;
@@ -164,7 +164,7 @@
  /* *INDENT-OFF* */
  #ifdef __cplusplus
      }
---- FreeRTOS/Source/include/FreeRTOS.h	2020-12-16 00:24:27.000000000 +0530
+--- FreeRTOS/include/FreeRTOS.h	2020-12-16 00:24:27.000000000 +0530
 +++ new/FreeRTOS.h	2021-02-04 14:16:48.901396600 +0530
 @@ -182,6 +182,10 @@
      #define INCLUDE_uxTaskGetStackHighWaterMark2    0
@@ -219,7 +219,7 @@
  #ifndef traceSTREAM_BUFFER_CREATE_FAILED
      #define traceSTREAM_BUFFER_CREATE_FAILED( xIsMessageBuffer )
  #endif
---- FreeRTOS/Source/tasks.c	2020-12-16 00:24:28.000000000 +0530
+--- FreeRTOS/tasks.c	2020-12-16 00:24:28.000000000 +0530
 +++ new/tasks.c	2021-02-04 18:30:34.406338500 +0530
 @@ -221,6 +221,17 @@
      taskRECORD_READY_PRIORITY( ( pxTCB )->uxPriority );                                                \

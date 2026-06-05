@@ -135,9 +135,19 @@ typedef struct {
     float DistToIntersection;
 } HostVehicleState_t;
 
+/* ── System module flags (bitmap) ──
+ * Each bit = one ADAS module has an active alert.
+ * SafetyEngine writes, vTask_Feedback reads.
+ * 0x00 = all safe. */
+#define SYSFLG_FCW   (1U << 0)   /* Forward Collision Warning        */
+#define SYSFLG_EEBL  (1U << 1)   /* Emergency Electronic Brake Light */
+#define SYSFLG_BSW   (1U << 2)   /* Blind Spot Warning               */
+#define SYSFLG_DNPW  (1U << 3)   /* Do Not Pass Warning              */
+#define SYSFLG_IMA   (1U << 4)   /* Intersection Movement Assist     */
+
 /* Global variables for centralized management */
 extern volatile MotorCommand_t G_eMotorGlobalCommand;
-extern volatile uint8_t G_u8SystemRiskLevel; /* 0: Safe, 1: Warning, 2: Critical */
+extern volatile uint8_t        G_u8SystemFlags; /* bitmap: 0 = all safe */
 
 /* Unified Host Vehicle State */
 extern HostVehicleState_t G_stHostVehicleState;

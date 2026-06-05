@@ -25,6 +25,8 @@
 #include "../Inc/Drivers/HAL/L298N/L298N_interface.h"
 #include "../Inc/Drivers/MCAL/USART/USART_intreface.h"
 #include "../Inc/Application/FCW/FCW_interface.h"
+#include "../Inc/Application/EEBL/EEBL_interface.h"
+#include "../Inc/Application/BSW/BSW_interface.h"
 #include "../Inc/Application/DNPW/DNPW_interface.h"
 #include "../Inc/Application/IMA/IMA_interface.h"
 #include "../Inc/Application/DSRC/DSRC.h"
@@ -57,6 +59,8 @@ void vTask_RPi_Comm(void *pvParameters);
 
 int main(void)
 {
+  /*for segger*/
+  vInitPrioGroupValue();
   /* 1. Hardware Initialization */
   System_setup();
   SEGGER_setup();
@@ -210,11 +214,13 @@ void vTask_Feedback(void *pvParameters)
 {
   for(;;)
   {
-    if (G_u8SystemRiskLevel == 0)
+    if (G_u8SystemFlags == 0)
     {
-      /* ── SAFE: normal driving ── */
+      /* ── SAFE: all alerts off, move forward ── */
       LED_TurnOff(&FrontR_LED);
       LED_TurnOff(&FrontL_LED);
+      LED_TurnOff(&BackR_LED);
+      LED_TurnOff(&BackL_LED);
       LED_TurnOff(&Interior_LED);
       BUZ_Off(&V2X_Buzzer);
       L298N_enumCarMoveForward(&RightMotor, &LeftMotor);
@@ -222,28 +228,31 @@ void vTask_Feedback(void *pvParameters)
     }
     else
     {
-      uint8_t fcw = FCW_u8GetAlertLevel();
+      /* Query only modules that raised their flag this cycle */
+      uint8_t fcw       = (G_u8SystemFlags & SYSFLG_FCW)  ? FCW_u8GetAlertLevel()  : 0;
+      uint8_t eebl      = (G_u8SystemFlags & SYSFLG_EEBL) ? EEBL_u8GetAlertLevel() : 0;
+      uint8_t bsw_left  = (G_u8SystemFlags & SYSFLG_BSW)  ? BSW_u8GetLeftFlag()    : 0;
+      uint8_t bsw_right = (G_u8SystemFlags & SYSFLG_BSW)  ? BSW_u8GetRightFlag()   : 0;
 
-      if (fcw == 1)
-      {
-        /* ── FCW WARNING: alert driver, keep moving ── */
-        LED_TurnOn(&FrontR_LED);
-        LED_TurnOn(&FrontL_LED);
-        LED_TurnOn(&Interior_LED);
-        BUZ_On(&V2X_Buzzer);
-        L298N_enumCarMoveForward(&RightMotor, &LeftMotor);
-        G_eMotorGlobalCommand = CMD_MOVE_FORWARD;
-      }
-      else if (fcw == 2)
-      {
-        /* ── FCW CRITICAL: alert + stop ── */
-        LED_TurnOn(&FrontR_LED);
-        LED_TurnOn(&FrontL_LED);
-        LED_TurnOn(&Interior_LED);
-        BUZ_On(&V2X_Buzzer);
-        L298N_enumCarStop(&RightMotor, &LeftMotor);
-        G_eMotorGlobalCommand = CMD_STOP;
-      }
+      /* ── FCW: forward threat → front LEDs ── */
+      if (fcw >= 1) { LED_TurnOn(&FrontR_LED);  LED_TurnOn(&FrontL_LED);  }
+      else          { LED_TurnOff(&FrontR_LED); LED_TurnOff(&FrontL_LED); }
+
+      /* ── BackR: EEBL rear threat OR BSW right blind-spot ── */
+      if (eebl >= 1 || bsw_right) { LED_TurnOn(&BackR_LED);  }
+      else                         { LED_TurnOff(&BackR_LED); }
+
+      /* ── BackL: EEBL rear threat OR BSW left blind-spot ── */
+      if (eebl >= 1 || bsw_left)  { LED_TurnOn(&BackL_LED);  }
+      else                         { LED_TurnOff(&BackL_LED); }
+
+      /* ── Interior + Buzzer: any active threat ── */
+      if (fcw >= 1 || eebl >= 1 || bsw_left || bsw_right) { LED_TurnOn(&Interior_LED);  BUZ_On(&V2X_Buzzer);  }
+      else                                                   { LED_TurnOff(&Interior_LED); BUZ_Off(&V2X_Buzzer); }
+
+      /* ── Motor: only FCW CRITICAL triggers a stop ── */
+      if (fcw == 2) { L298N_enumCarStop(&RightMotor, &LeftMotor);       G_eMotorGlobalCommand = CMD_STOP;         }
+      else          { L298N_enumCarMoveForward(&RightMotor, &LeftMotor); G_eMotorGlobalCommand = CMD_MOVE_FORWARD; }
     }
 
     vTaskDelay(pdMS_TO_TICKS(25));
