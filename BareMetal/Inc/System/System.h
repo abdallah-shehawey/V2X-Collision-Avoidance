@@ -96,10 +96,11 @@
  *           neighbor table in ONE pass; each module raises its own flag. Then it
  *           publishes the GENERAL flag G_u8SystemRiskLevel (= worst confirmed alert).
  *           It makes NO movement decision. Holds both mutexes (NeighborTable → Data).
- *         • vTask_Feedback (Muscle): reads G_u8SystemRiskLevel; if 0 drives forward,
- *           else inspects per-module getters (e.g. FCW_u8GetAlertLevel) + side US to
- *           decide LEDs / buzzer / motion. Sole driver of the actuators and the sole
- *           writer of G_eMotorGlobalCommand. Takes G_xDataMutex only (to read US).
+  *         • vTask_Feedback (Muscle): reads G_u8SystemRiskLevel; if 0 drives forward,
+ *           else inspects per-module getters (e.g. FCW_u8GetAlertLevel). WARNING →
+ *           front LEDs + buzzer; CRITICAL → also reverse if the rear is clear (min of
+ *           the 3 back US >= threshold) else stop. Sole driver of the actuators and
+ *           sole writer of G_eMotorGlobalCommand. Takes G_xDataMutex only (to read US).
  *       Lock usage: ESP_Comm takes the two mutexes separately, Sensors & Feedback take
  *       Data only → deadlock-free.
  * ========================================================================================
@@ -110,7 +111,8 @@ typedef enum {
     CMD_MOVE_FORWARD = 0,
     CMD_STOP = 1,
     CMD_STEER_RIGHT = 2,
-    CMD_STEER_LEFT = 3
+    CMD_STEER_LEFT = 3,
+    CMD_MOVE_BACKWARD = 4
 } MotorCommand_t;
 
 /* Unified Sensor State Structure */

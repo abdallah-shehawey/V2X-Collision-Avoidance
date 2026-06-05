@@ -25,12 +25,17 @@ static uint8_t    FCW_CurrentFlag = 0;  /* 0=Safe, 1=Warning, 2=Critical */
 static RiskLevel_t FCW_LocalWorst = RISK_SAFE;
 static RiskLevel_t FCW_AlertLevel = RISK_SAFE;
 
+/* Persistent history for local (US-only) closing-speed detection.
+ * Initialized high (>= FCW_LOCAL_MAX_CM) so the first cycle is skipped. */
+static float FCW_PrevFrontCm = 999.0f;
+
 /* ============ Init ============ */
 void FCW_voidInit(void)
 {
   FCW_CurrentFlag = 0;
   FCW_LocalWorst  = RISK_SAFE;
   FCW_AlertLevel  = RISK_SAFE;
+  FCW_PrevFrontCm = 999.0f;
 }
 
 /* ============================================================ */
@@ -115,6 +120,42 @@ void FCW_voidProcessNeighbor(const Neighbor *n, float front_distance, Direction_
       }
     }
   }
+}
+
+/**
+ * @brief Local (US-only) forward-obstacle detection — no V2X needed.
+ *
+ * Closing speed is derived from the change in front distance, so it fires
+ * whether WE drive toward an object or an object approaches a stopped car.
+ * Feeds the confirmed alert (FCW_AlertLevel) → feedback. It deliberately does
+ * NOT touch FCW_LocalWorst, so the cooperative DSRC broadcast stays clean.
+ */
+void FCW_voidProcessLocal(float front_distance, float dt)
+{
+  float prev = FCW_PrevFrontCm;
+  FCW_PrevFrontCm = front_distance;       /* always update history */
+
+  if (dt <= 0.0f) return;
+
+  /* Need a real object both now and last cycle (skips sentinel transitions) */
+  if (front_distance >= FCW_LOCAL_MAX_CM || prev >= FCW_LOCAL_MAX_CM) return;
+
+  float delta = prev - front_distance;            /* > 0 → getting closer */
+  if (delta <= FCW_LOCAL_DEADZONE_CM) return;     /* static / receding / noise */
+
+  float closing = delta / dt;                     /* cm/s */
+  float ttc     = SafetyEngine_CalcTTC(front_distance, closing);
+  RiskLevel_t level = SafetyEngine_EvaluateRisk(ttc, FCW_WARNING_TTC, FCW_CRITICAL_TTC);
+
+  /* Any locally-detected danger updates BOTH:
+   * - AlertLevel → immediate local reaction (this vehicle)
+   * - LocalWorst → broadcast via DSRC so an approaching V2X vehicle can
+   *   use it for cooperative confirmation (it sees my flag + its own danger) */
+  if (level > FCW_AlertLevel)
+    FCW_AlertLevel = level;
+
+  if (level > FCW_LocalWorst)
+    FCW_LocalWorst = level;
 }
 
 /**

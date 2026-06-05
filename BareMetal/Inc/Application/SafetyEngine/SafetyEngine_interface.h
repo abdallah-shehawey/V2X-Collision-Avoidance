@@ -32,10 +32,13 @@ void SafetyEngine_voidInit(void);
 
 /**
  * @brief Single-pass update over the DSRC neighbor table
- *        Processes FCW + EEBL (and future modules) in one loop.
+ *        Processes FCW + EEBL (and future modules) in one loop, plus FCW's
+ *        local (US-only) obstacle detection.
  *        Call this in the main loop instead of calling each module separately.
+ * @param dt Elapsed time since the last call (seconds) — used by US-based
+ *           closing-speed detection.
  */
-void SafetyEngine_voidUpdate(void);
+void SafetyEngine_voidUpdate(float dt);
 
 /**
  * @brief Detect direction relationship between two vehicles

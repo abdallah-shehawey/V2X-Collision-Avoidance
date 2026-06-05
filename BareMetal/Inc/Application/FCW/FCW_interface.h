@@ -46,6 +46,18 @@ void FCW_voidBeginCycle(void);
 void FCW_voidProcessNeighbor(const Neighbor *n, float front_distance, Direction_t dir);
 
 /**
+ * @brief Local (US-only) forward-obstacle detection — works WITHOUT V2X.
+ *        Derives closing speed from the change in front distance, so it reacts
+ *        whether the host moves toward an object OR an object approaches the host.
+ *        Updates the confirmed alert (drives feedback) only; does NOT touch the
+ *        cooperative DSRC broadcast flag. Call once per cycle, between
+ *        BeginCycle and EndCycle.
+ * @param front_distance Front-center ultrasonic distance (cm)
+ * @param dt             Elapsed time since last call (seconds)
+ */
+void FCW_voidProcessLocal(float front_distance, float dt);
+
+/**
  * @brief End cycle — set FCW flag and activate/deactivate alerts
  */
 void FCW_voidEndCycle(void);

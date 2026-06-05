@@ -43,7 +43,7 @@ void SafetyEngine_voidInit(void)
  *   2. For each neighbor → call ProcessNeighbor on all modules
  *   3. EndCycle → each module finalizes (set flags, activate alerts)
  */
-void SafetyEngine_voidUpdate(void)
+void SafetyEngine_voidUpdate(float dt)
 {
   Neighbor *table  = DSRC_GetTable();
   uint8_t count    = DSRC_GetCount();
@@ -84,6 +84,10 @@ void SafetyEngine_voidUpdate(void)
     DNPW_voidProcessNeighbor(&table[i], dir);
     IMA_voidProcessNeighbor(&table[i], dir);
   }
+
+  /* 2b. FCW local (US-only) obstacle detection — runs every cycle, no
+   *     neighbor required. Catches obstacles / non-V2X vehicles in front. */
+  FCW_voidProcessLocal(front_dist, dt);
 
   /* 3. End cycle for all modules */
   FCW_voidEndCycle();

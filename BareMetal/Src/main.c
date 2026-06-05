@@ -103,13 +103,20 @@ int main(void)
 void vTask_SafetyEngine(void *pvParameters)
 {
   TickType_t xLastWakeTime = xTaskGetTickCount();
+  TickType_t xPrevTick     = xLastWakeTime;
 
   for(;;)
   {
+    /* Actual dt for US closing-speed detection (≈50ms in steady state) */
+    TickType_t xNow = xTaskGetTickCount();
+    float dt = (float)(xNow - xPrevTick) * 0.001f;   /* ms → seconds */
+    if (dt <= 0.0f) dt = 0.050f;                      /* guard: first run */
+    xPrevTick = xNow;
+
     xSemaphoreTake(G_xNeighborTableMutex, portMAX_DELAY);
     xSemaphoreTake(G_xDataMutex,          portMAX_DELAY);
 
-    SafetyEngine_voidUpdate();
+    SafetyEngine_voidUpdate(dt);
 
     xSemaphoreGive(G_xDataMutex);
     xSemaphoreGive(G_xNeighborTableMutex);
@@ -142,9 +149,12 @@ void vTask_Sensors(void *pvParameters)
   static MPU9250_Position_t local_pos     = {0};
   MPU9250_Data_t  mpu_data               = {0};
 
+  /* Interleaved order: each pair is geographically distant (front↔back same side)
+   * → no two adjacent reads share an acoustic path → cross-talk eliminated. */
   const US_Config_t *sensors[6] = {
-      &FrontUS[0], &FrontUS[1], &FrontUS[2],   /* L, C, R (front) */
-      &BackUS[0],  &BackUS[1],  &BackUS[2]      /* L, C, R (back)  */
+      &FrontUS[0], &BackUS[0],   /* Left:   front then back  */
+      &FrontUS[1], &BackUS[1],   /* Center: front then back  */
+      &FrontUS[2], &BackUS[2]    /* Right:  front then back  */
   };
 
   TickType_t xPrevTick = xTaskGetTickCount();
@@ -179,10 +189,10 @@ void vTask_Sensors(void *pvParameters)
     /* ── Publish everything in ONE short mutex section ── */
     xSemaphoreTake(G_xDataMutex, portMAX_DELAY);
     G_stHostVehicleState.FrontLeftUS   = us[0];
-    G_stHostVehicleState.FrontCenterUS = us[1];
-    G_stHostVehicleState.FrontRightUS  = us[2];
-    G_stHostVehicleState.BackLeftUS    = us[3];
-    G_stHostVehicleState.BackCenterUS  = us[4];
+    G_stHostVehicleState.BackLeftUS    = us[1];
+    G_stHostVehicleState.FrontCenterUS = us[2];
+    G_stHostVehicleState.BackCenterUS  = us[3];
+    G_stHostVehicleState.FrontRightUS  = us[4];
     G_stHostVehicleState.BackRightUS   = us[5];
     G_stHostVehicleState.Speed   = local_speed_ms * 100.0f;  /* m/s → cm/s */
     G_stHostVehicleState.Heading = heading;
@@ -236,28 +246,28 @@ void vTask_Feedback(void *pvParameters)
 
       if (fcw >= 2)
       {
-        /* CRITICAL → evasive maneuver based on front-side ultrasonic.
-         * Read the two side distances under the data mutex. */
-        float right, left;
+        /* CRITICAL → reverse if the rear is clear, otherwise stop.
+         * "Rear clear" = min of the 3 back US sensors >= threshold. */
+        float bl, bc, br;
         xSemaphoreTake(G_xDataMutex, portMAX_DELAY);
-        right = G_stHostVehicleState.FrontRightUS;
-        left  = G_stHostVehicleState.FrontLeftUS;
+        bl = G_stHostVehicleState.BackLeftUS;
+        bc = G_stHostVehicleState.BackCenterUS;
+        br = G_stHostVehicleState.BackRightUS;
         xSemaphoreGive(G_xDataMutex);
 
-        if (right < FCW_SIDE_CLEAR_CM && left < FCW_SIDE_CLEAR_CM)
+        float back_min = bl;
+        if (bc < back_min) back_min = bc;
+        if (br < back_min) back_min = br;
+
+        if (back_min >= FCW_BEHIND_CLEAR_CM)
         {
-          L298N_enumCarStop(&RightMotor, &LeftMotor);      /* both blocked */
-          G_eMotorGlobalCommand = CMD_STOP;
-        }
-        else if (right >= left)
-        {
-          L298N_enumCarMoveRight(&RightMotor, &LeftMotor); /* right wider/clear */
-          G_eMotorGlobalCommand = CMD_STEER_RIGHT;
+          L298N_enumCarMoveBackward(&RightMotor, &LeftMotor);  /* rear clear → back away */
+          G_eMotorGlobalCommand = CMD_MOVE_BACKWARD;
         }
         else
         {
-          L298N_enumCarMoveLeft(&RightMotor, &LeftMotor);  /* left wider/clear */
-          G_eMotorGlobalCommand = CMD_STEER_LEFT;
+          L298N_enumCarStop(&RightMotor, &LeftMotor);          /* rear blocked → stop */
+          G_eMotorGlobalCommand = CMD_STOP;
         }
       }
       else
