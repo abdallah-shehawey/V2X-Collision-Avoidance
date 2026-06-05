@@ -38,10 +38,11 @@ HostVehicleState_t G_stHostVehicleState = {0};
  *  Hardware Objects for Testing         *
  ******************************************/
 BUZ_Config_t V2X_Buzzer = {GPIO_PORTC, GPIO_PIN4, BUZ_ACTIVE_HIGH};
-LED_Config_t FrontR_LED = {GPIO_PORTC, GPIO_PIN0, ACTIVE_HIGH};
-LED_Config_t FrontL_LED = {GPIO_PORTC, GPIO_PIN1, ACTIVE_HIGH};
-LED_Config_t BackR_LED  = {GPIO_PORTC, GPIO_PIN2, ACTIVE_HIGH};
-LED_Config_t BackL_LED  = {GPIO_PORTC, GPIO_PIN3, ACTIVE_HIGH};
+LED_Config_t FrontR_LED   = {GPIO_PORTC, GPIO_PIN0, ACTIVE_HIGH};
+LED_Config_t FrontL_LED   = {GPIO_PORTC, GPIO_PIN1, ACTIVE_HIGH};
+LED_Config_t BackR_LED    = {GPIO_PORTC, GPIO_PIN2, ACTIVE_HIGH};
+LED_Config_t BackL_LED    = {GPIO_PORTC, GPIO_PIN3, ACTIVE_HIGH};
+LED_Config_t Interior_LED = {GPIO_PORTC, GPIO_PIN7, ACTIVE_HIGH}; /* PC7 — driver dashboard */
 
 /* Motors Configuration */
 L298N_MotorConfig_t RightMotor = {
@@ -212,6 +213,7 @@ void System_setup(void)
 	LED_Init(&FrontL_LED);
 	LED_Init(&BackR_LED);
 	LED_Init(&BackL_LED);
+	LED_Init(&Interior_LED);
 	/* Initialize Buzzer */
     BUZ_Init(&V2X_Buzzer);
     /* Initialize Motors */

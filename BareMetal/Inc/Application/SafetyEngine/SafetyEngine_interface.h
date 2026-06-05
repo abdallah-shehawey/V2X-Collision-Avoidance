@@ -31,14 +31,11 @@ typedef enum
 void SafetyEngine_voidInit(void);
 
 /**
- * @brief Single-pass update over the DSRC neighbor table
- *        Processes FCW + EEBL (and future modules) in one loop, plus FCW's
- *        local (US-only) obstacle detection.
- *        Call this in the main loop instead of calling each module separately.
- * @param dt Elapsed time since the last call (seconds) — used by US-based
- *           closing-speed detection.
+ * @brief Single-pass update over the DSRC neighbor table.
+ *        Runs all safety modules (FCW/EEBL/BSW/DNPW/IMA) and aggregates
+ *        the result into G_u8SystemRiskLevel for vTask_Feedback to consume.
  */
-void SafetyEngine_voidUpdate(float dt);
+void SafetyEngine_voidUpdate(void);
 
 /**
  * @brief Detect direction relationship between two vehicles

@@ -45,6 +45,7 @@
  * | LED 2     | PC1 | PORTC | Status Color 2   | Front Left
  * | LED 3     | PC2 | PORTC | Status Color 3   | Back Right
  * | LED 4     | PC3 | PORTC | Status Color 4   | Back Left
+ * | LED 5     | PC7 | PORTC | Interior Driver Alert (dashboard) |
  * | BUZZER    | PC4 | PORTC | Warning Sound    |
  *
  * 4. MOTORS (L298N Driver)
@@ -140,6 +141,10 @@ extern volatile uint8_t G_u8SystemRiskLevel; /* 0: Safe, 1: Warning, 2: Critical
 
 /* Unified Host Vehicle State */
 extern HostVehicleState_t G_stHostVehicleState;
+
+/* Hardware objects — defined in System.c, used across tasks */
+#include "../Drivers/HAL/LED/LED_interface.h"
+extern LED_Config_t FrontR_LED, FrontL_LED, BackR_LED, BackL_LED, Interior_LED;
 
 
 /* Function Prototypes */

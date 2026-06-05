@@ -37,47 +37,34 @@ void SafetyEngine_voidInit(void)
 }
 
 /* ============ Single-Pass Update ============ */
-/*
- * Flow:
- *   1. BeginCycle → each module resets its accumulators
- *   2. For each neighbor → call ProcessNeighbor on all modules
- *   3. EndCycle → each module finalizes (set flags, activate alerts)
- */
-void SafetyEngine_voidUpdate(float dt)
+void SafetyEngine_voidUpdate(void)
 {
   Neighbor *table  = DSRC_GetTable();
   uint8_t count    = DSRC_GetCount();
 
-  /* 1. Read from the unified HostVehicleState (already protected by Mutex in main.c) */
   Host_Speed   = G_stHostVehicleState.Speed;
   Host_Heading = G_stHostVehicleState.Heading;
-  /* Host_DistToIntersection could also be read here if mapped in HostVehicleState_t */
 
   float front_dist = G_stHostVehicleState.FrontCenterUS;
   float rear_dist  = G_stHostVehicleState.BackCenterUS;
   float left_dist  = G_stHostVehicleState.FrontLeftUS;
   float right_dist = G_stHostVehicleState.FrontRightUS;
 
-  /* Use min of front+rear sensor per side for BSW */
   float left_rear  = G_stHostVehicleState.BackLeftUS;
   float right_rear = G_stHostVehicleState.BackRightUS;
-  if (left_rear < left_dist)   { left_dist  = left_rear;  }
-  if (right_rear < right_dist) { right_dist = right_rear; }
+  if (left_rear  < left_dist)  left_dist  = left_rear;
+  if (right_rear < right_dist) right_dist = right_rear;
 
-
-  /* 1. Begin cycle for all modules */
+  /* Single pass: all modules share the same neighbor loop */
   FCW_voidBeginCycle();
   EEBL_voidBeginCycle();
   BSW_voidBeginCycle(left_dist, right_dist);
   DNPW_voidBeginCycle(front_dist);
   IMA_voidBeginCycle();
 
-  /* 2. Single pass over neighbor table */
   for (uint8_t i = 0; i < count; i++)
   {
-    /* Compute direction ONCE per neighbor — shared by all modules */
     Direction_t dir = SafetyEngine_DetectDirection(Host_Heading, table[i].heading);
-
     FCW_voidProcessNeighbor(&table[i], front_dist, dir);
     EEBL_voidProcessNeighbor(&table[i], rear_dist, dir);
     BSW_voidProcessNeighbor(&table[i], dir);
@@ -85,31 +72,14 @@ void SafetyEngine_voidUpdate(float dt)
     IMA_voidProcessNeighbor(&table[i], dir);
   }
 
-  /* 2b. FCW local (US-only) obstacle detection — runs every cycle, no
-   *     neighbor required. Catches obstacles / non-V2X vehicles in front. */
-  FCW_voidProcessLocal(front_dist, dt);
-
-  /* 3. End cycle for all modules */
   FCW_voidEndCycle();
   EEBL_voidEndCycle();
   BSW_voidEndCycle();
   DNPW_voidEndCycle();
   IMA_voidEndCycle();
 
-  /* ===========================================================
-   * 4. Update the GENERAL system flag (detection state ONLY).
-   *    Each module already raised its own flag during EndCycle.
-   *    SafetyEngine is detection-only and makes NO movement decision —
-   *    that is entirely the job of vTask_Feedback.
-   *
-   *    G_u8SystemRiskLevel = worst confirmed alert across modules.
-   *    0 = all safe → Feedback drives forward.
-   *    >0 = at least one system raised → Feedback inspects the per-module
-   *         getters (e.g. FCW_u8GetAlertLevel) to decide the response.
-   *
-   *    NOTE: FCW only for now. As each module is wired into the feedback,
-   *    fold its confirmed alert here (worst-case wins).
-   * =========================================================== */
+  /* General flag: worst confirmed alert across all modules.
+   * FCW only now — fold other modules here as each gets wired into Feedback. */
   G_u8SystemRiskLevel = FCW_u8GetAlertLevel();
 }
 

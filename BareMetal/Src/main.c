@@ -25,7 +25,6 @@
 #include "../Inc/Drivers/HAL/L298N/L298N_interface.h"
 #include "../Inc/Drivers/MCAL/USART/USART_intreface.h"
 #include "../Inc/Application/FCW/FCW_interface.h"
-#include "../Inc/Application/FCW/FCW_config.h"
 #include "../Inc/Application/DNPW/DNPW_interface.h"
 #include "../Inc/Application/IMA/IMA_interface.h"
 #include "../Inc/Application/DSRC/DSRC.h"
@@ -36,7 +35,8 @@ extern US_Config_t FrontUS[3];
 extern US_Config_t BackUS[3];
 extern L298N_MotorConfig_t RightMotor;
 extern L298N_MotorConfig_t LeftMotor;
-extern LED_Config_t FrontR_LED, FrontL_LED, BackR_LED, BackL_LED;
+/* LEDs: FrontR=PC0, FrontL=PC1, BackR=PC2, BackL=PC3, Interior(driver)=PC7 */
+extern LED_Config_t FrontR_LED, FrontL_LED, BackR_LED, BackL_LED, Interior_LED;
 
 
 QueueHandle_t G_xESP_RX_Queue;
@@ -103,20 +103,13 @@ int main(void)
 void vTask_SafetyEngine(void *pvParameters)
 {
   TickType_t xLastWakeTime = xTaskGetTickCount();
-  TickType_t xPrevTick     = xLastWakeTime;
 
   for(;;)
   {
-    /* Actual dt for US closing-speed detection (≈50ms in steady state) */
-    TickType_t xNow = xTaskGetTickCount();
-    float dt = (float)(xNow - xPrevTick) * 0.001f;   /* ms → seconds */
-    if (dt <= 0.0f) dt = 0.050f;                      /* guard: first run */
-    xPrevTick = xNow;
-
     xSemaphoreTake(G_xNeighborTableMutex, portMAX_DELAY);
     xSemaphoreTake(G_xDataMutex,          portMAX_DELAY);
 
-    SafetyEngine_voidUpdate(dt);
+    SafetyEngine_voidUpdate();
 
     xSemaphoreGive(G_xDataMutex);
     xSemaphoreGive(G_xNeighborTableMutex);
@@ -217,68 +210,42 @@ void vTask_Feedback(void *pvParameters)
 {
   for(;;)
   {
-    /* General system flag (set by vTask_SafetyEngine): single-byte volatile
-     * → atomic read. 0 = all systems safe, >0 = at least one raised. */
     if (G_u8SystemRiskLevel == 0)
     {
-      /* ===== ALL SAFE: normal driving, no alerts ===== */
+      /* ── SAFE: normal driving ── */
       LED_TurnOff(&FrontR_LED);
       LED_TurnOff(&FrontL_LED);
+      LED_TurnOff(&Interior_LED);
       BUZ_Off(&V2X_Buzzer);
       L298N_enumCarMoveForward(&RightMotor, &LeftMotor);
       G_eMotorGlobalCommand = CMD_MOVE_FORWARD;
     }
     else
     {
-      /* ===== NOT SAFE: inspect each system's own flag + severity ===== */
-
-      /* ---- FCW (front collision) ---- */
-      /* FCW_AlertLevel = confirmed alert (NOT the DSRC broadcast flag) */
       uint8_t fcw = FCW_u8GetAlertLevel();
 
-      if (fcw >= 1)
+      if (fcw == 1)
       {
-        /* WARNING or CRITICAL → front LEDs + buzzer */
+        /* ── FCW WARNING: alert driver, keep moving ── */
         LED_TurnOn(&FrontR_LED);
         LED_TurnOn(&FrontL_LED);
+        LED_TurnOn(&Interior_LED);
         BUZ_On(&V2X_Buzzer);
-      }
-
-      if (fcw >= 2)
-      {
-        /* CRITICAL → reverse if the rear is clear, otherwise stop.
-         * "Rear clear" = min of the 3 back US sensors >= threshold. */
-        float bl, bc, br;
-        xSemaphoreTake(G_xDataMutex, portMAX_DELAY);
-        bl = G_stHostVehicleState.BackLeftUS;
-        bc = G_stHostVehicleState.BackCenterUS;
-        br = G_stHostVehicleState.BackRightUS;
-        xSemaphoreGive(G_xDataMutex);
-
-        float back_min = bl;
-        if (bc < back_min) back_min = bc;
-        if (br < back_min) back_min = br;
-
-        if (back_min >= FCW_BEHIND_CLEAR_CM)
-        {
-          L298N_enumCarMoveBackward(&RightMotor, &LeftMotor);  /* rear clear → back away */
-          G_eMotorGlobalCommand = CMD_MOVE_BACKWARD;
-        }
-        else
-        {
-          L298N_enumCarStop(&RightMotor, &LeftMotor);          /* rear blocked → stop */
-          G_eMotorGlobalCommand = CMD_STOP;
-        }
-      }
-      else
-      {
-        /* WARNING only → keep moving forward */
         L298N_enumCarMoveForward(&RightMotor, &LeftMotor);
         G_eMotorGlobalCommand = CMD_MOVE_FORWARD;
       }
+      else if (fcw == 2)
+      {
+        /* ── FCW CRITICAL: alert + stop ── */
+        LED_TurnOn(&FrontR_LED);
+        LED_TurnOn(&FrontL_LED);
+        LED_TurnOn(&Interior_LED);
+        BUZ_On(&V2X_Buzzer);
+        L298N_enumCarStop(&RightMotor, &LeftMotor);
+        G_eMotorGlobalCommand = CMD_STOP;
+      }
     }
 
-    /* Keep execution consistent */
     vTaskDelay(pdMS_TO_TICKS(25));
   }
 }

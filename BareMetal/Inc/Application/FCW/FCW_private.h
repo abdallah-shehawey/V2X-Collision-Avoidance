@@ -1,8 +1,8 @@
 #ifndef FCW_PRIVATE_H
 #define FCW_PRIVATE_H
 
-#include "../SafetyEngine/SafetyEngine_interface.h"
-/* FCW no longer drives hardware directly; feedback is centralized in
- * vTask_Feedback via the SafetyEngine aggregation. No private functions remain. */
 
+/* Internal functions (only alert functions remain module-specific) */
+static void FCW_ActivateAlert(RiskLevel_t level);
+static void FCW_DeactivateAlert(void);
 #endif
