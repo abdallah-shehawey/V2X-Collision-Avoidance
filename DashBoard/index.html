@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>V2X Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app">
+
+    <!-- ===================== Header ===================== -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-logo">V2X</div>
+        <div>
+          <h1 class="brand-title">V2X Collision Avoidance</h1>
+          <span class="brand-sub" id="vehicleTag">Vehicle #--</span>
+        </div>
+      </div>
+      <div class="conn" id="conn"><i class="conn-dot"></i> connecting…</div>
+    </header>
+
+    <main class="layout">
+
+      <!-- ===================== Top stage ===================== -->
+      <section class="stage">
+
+        <!-- ---------- Left column: Speed / Temp / Weather ---------- -->
+        <div class="side-col">
+
+          <!-- Speed -->
+          <div class="card stat speed-card">
+            <div class="stat-label">Speed</div>
+            <div class="speedo">
+              <svg viewBox="0 0 200 200">
+                <circle class="speedo-track" cx="100" cy="100" r="84"/>
+                <circle class="speedo-value" id="speedoValue" cx="100" cy="100" r="84"/>
+              </svg>
+              <div class="speedo-center">
+                <strong id="speedValue">--</strong>
+                <small>km/h</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vehicle temperature -->
+          <div class="card stat temp-card" id="tempCard">
+            <div class="stat-label">Engine Temp</div>
+            <div class="stat-main">
+              <svg class="stat-ic" viewBox="0 0 24 24" fill="none">
+                <path d="M10 14.8V5a2 2 0 1 1 4 0v9.8a4 4 0 1 1-4 0Z"
+                      stroke="currentColor" stroke-width="1.6"/>
+                <circle cx="12" cy="17" r="1.8" fill="currentColor"/>
+              </svg>
+              <div class="stat-readout">
+                <strong id="vehTemp">--</strong><span class="unit">°C</span>
+              </div>
+            </div>
+            <div class="stat-bar"><i id="tempBar"></i></div>
+          </div>
+
+          <!-- Weather -->
+          <div class="card stat weather-card">
+            <div class="stat-label">Weather</div>
+            <div class="stat-main">
+              <div class="stat-ic weather-ic" id="weatherIcon"></div>
+              <div class="stat-readout">
+                <strong id="weatherTemp">--</strong><span class="unit">°C</span>
+                <div class="stat-sub" id="weatherCond">--</div>
+              </div>
+            </div>
+            <div class="weather-meta">
+              <span>💧 <b id="weatherHum">--</b>%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ---------- Center: top-down car + ultrasonic ---------- -->
+        <div class="card car-card">
+          <div class="road" id="road"></div>
+          <svg class="car-top" viewBox="0 0 240 384" aria-hidden="true">
+            <defs>
+              <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#262a31"/>
+                <stop offset="0.5" stop-color="#171a20"/>
+                <stop offset="1" stop-color="#22262d"/>
+              </linearGradient>
+              <radialGradient id="roofGrad" cx="0.5" cy="0.4" r="0.7">
+                <stop offset="0" stop-color="#2c313a"/>
+                <stop offset="1" stop-color="#15171c"/>
+              </radialGradient>
+            </defs>
+
+            <!-- wheels -->
+            <rect x="52"  y="104" width="16" height="40" rx="7" fill="#0a0b0e"/>
+            <rect x="172" y="104" width="16" height="40" rx="7" fill="#0a0b0e"/>
+            <rect x="52"  y="240" width="16" height="40" rx="7" fill="#0a0b0e"/>
+            <rect x="172" y="240" width="16" height="40" rx="7" fill="#0a0b0e"/>
+
+            <!-- body -->
+            <path d="M120 60
+                     C 92 60 70 70 70 104
+                     L 70 286 C 70 312 90 322 120 322
+                     C 150 322 170 312 170 286
+                     L 170 104 C 170 70 148 60 120 60 Z"
+                  fill="url(#bodyGrad)" stroke="#3a3f49" stroke-width="1.5"/>
+
+            <!-- roof / cabin -->
+            <rect x="84" y="150" width="72" height="120" rx="22" fill="url(#roofGrad)"/>
+            <!-- windshield -->
+            <path d="M86 150 Q120 120 154 150 L150 162 Q120 142 90 162 Z" fill="#0c0e12"/>
+            <!-- rear window -->
+            <path d="M88 268 Q120 290 152 268 L150 258 Q120 276 90 258 Z" fill="#0c0e12"/>
+
+            <!-- side mirrors -->
+            <rect x="60" y="158" width="12" height="9" rx="3" fill="#22262d"/>
+            <rect x="168" y="158" width="12" height="9" rx="3" fill="#22262d"/>
+
+            <!-- headlights -->
+            <rect x="82"  y="62" width="22" height="8" rx="4" fill="#bfe3ff" opacity="0.85"/>
+            <rect x="136" y="62" width="22" height="8" rx="4" fill="#bfe3ff" opacity="0.85"/>
+            <!-- tail lights -->
+            <rect x="80"  y="312" width="26" height="7" rx="3.5" fill="#ff3b30"/>
+            <rect x="134" y="312" width="26" height="7" rx="3.5" fill="#ff3b30"/>
+
+            <!-- ============ Ultrasonic sensor waves ============ -->
+            <!-- FRONT (open upward) -->
+            <g class="sensor" id="sn-frontLeft">
+              <path d="M76 64 Q86 50 96 64"/><path d="M70 64 Q86 38 102 64"/><path d="M64 64 Q86 26 108 64"/>
+            </g>
+            <g class="sensor" id="sn-front">
+              <path d="M110 62 Q120 48 130 62"/><path d="M104 62 Q120 36 136 62"/><path d="M98 62 Q120 24 142 62"/>
+            </g>
+            <g class="sensor" id="sn-frontRight">
+              <path d="M144 64 Q154 50 164 64"/><path d="M138 64 Q154 38 170 64"/><path d="M132 64 Q154 26 176 64"/>
+            </g>
+            <!-- REAR (open downward) -->
+            <g class="sensor" id="sn-rearLeft">
+              <path d="M76 320 Q86 334 96 320"/><path d="M70 320 Q86 346 102 320"/><path d="M64 320 Q86 358 108 320"/>
+            </g>
+            <g class="sensor" id="sn-rear">
+              <path d="M110 322 Q120 336 130 322"/><path d="M104 322 Q120 348 136 322"/><path d="M98 322 Q120 360 142 322"/>
+            </g>
+            <g class="sensor" id="sn-rearRight">
+              <path d="M144 320 Q154 334 164 320"/><path d="M138 320 Q154 346 170 320"/><path d="M132 320 Q154 358 176 320"/>
+            </g>
+
+            <!-- distance labels -->
+            <text class="dist" id="dist-frontLeft"  x="62"  y="18">--</text>
+            <text class="dist" id="dist-front"      x="120" y="14">--</text>
+            <text class="dist" id="dist-frontRight" x="178" y="18">--</text>
+            <text class="dist" id="dist-rearLeft"   x="62"  y="376">--</text>
+            <text class="dist" id="dist-rear"       x="120" y="380">--</text>
+            <text class="dist" id="dist-rearRight"  x="178" y="376">--</text>
+          </svg>
+        </div>
+
+        <!-- ---------- Right column: Heading + Attitude ---------- -->
+        <div class="side-col">
+          <div class="card stat compass-card">
+            <div class="stat-label">Heading</div>
+            <div class="compass">
+              <div class="compass-ring">
+                <span class="c-n">N</span><span class="c-e">E</span>
+                <span class="c-s">S</span><span class="c-w">W</span>
+                <div class="compass-needle" id="compassNeedle"></div>
+                <div class="compass-hub"></div>
+              </div>
+            </div>
+            <div class="compass-read"><strong id="headingValue">--°</strong> <span id="headingDir">--</span></div>
+          </div>
+
+          <div class="card stat attitude-card">
+            <div class="stat-label">Attitude</div>
+            <div class="horizon">
+              <div class="horizon-inner" id="horizon">
+                <div class="sky"></div>
+                <div class="ground"></div>
+                <div class="horizon-line"></div>
+                <div class="pitch-ladder">
+                  <span style="top:20%">10</span>
+                  <span style="top:35%">5</span>
+                  <span style="top:65%">5</span>
+                  <span style="top:80%">10</span>
+                </div>
+              </div>
+              <div class="horizon-mark"></div>
+              <div class="horizon-bezel"></div>
+            </div>
+            <div class="attitude-read">
+              <div>Pitch <strong id="pitchValue">--°</strong></div>
+              <div>Roll <strong id="rollValue">--°</strong></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== Lower row ===================== -->
+      <section class="lower">
+
+        <!-- Event log -->
+        <div class="card panel log-card">
+          <div class="panel-title">Event Log</div>
+          <ul class="event-list" id="eventList"></ul>
+        </div>
+
+        <!-- Risk level + ADAS status -->
+        <div class="card panel risk-card">
+          <div class="panel-title">Overall Risk Level</div>
+          <div class="risk-body">
+            <div class="risk-gauge" id="riskGaugeBox">
+              <svg viewBox="0 0 180 104">
+                <path class="risk-track" d="M16 92 A 74 74 0 0 1 164 92"/>
+                <path class="risk-value" id="riskGauge" d="M16 92 A 74 74 0 0 1 164 92"/>
+              </svg>
+              <div class="risk-center">
+                <strong id="riskLevel">--</strong>
+                <small id="riskSub">--</small>
+              </div>
+            </div>
+            <div class="adas-grid" id="adasGrid"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===================== Toast Container ===================== -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- ===================== Critical Popup Overlay ===================== -->
+    <div id="criticalOverlay" class="critical-overlay" style="display:none">
+      <div class="critical-popup">
+        <div class="critical-icon">⚠</div>
+        <div class="critical-title" id="criticalTitle">CRITICAL ALERT</div>
+        <div class="critical-msg" id="criticalMsg"></div>
+        <div class="critical-system" id="criticalSystem"></div>
+      </div>
+    </div>
+
+    <!-- ===================== Sponsors ===================== -->
+    <footer class="sponsors">
+      <span class="sponsors-label">Supported by</span>
+      <img src="Logo/logo_TMC_png.png" alt="Tech Makers Challenge" />
+      <img src="Logo/buddies_Logo.png" alt="Entrepreneur Buddies" />
+      <img src="Logo/3333710_eitesal-new.png" alt="EITESAL" />
+      <img src="Logo/logo_الاكاديمية.png" alt="Academy" />
+    </footer>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
