@@ -26,134 +26,99 @@
       <!-- ===================== Top stage ===================== -->
       <section class="stage">
 
-        <!-- ---------- Left column: Speed / Temp / Weather ---------- -->
-        <div class="side-col">
+        <!-- ---------- Left column: Speed + Temp tiles, Weather ---------- -->
+        <div class="side-col side-left">
 
-          <!-- Speed -->
-          <div class="card stat speed-card">
-            <div class="stat-label">Speed</div>
-            <div class="speedo">
-              <svg viewBox="0 0 200 200">
-                <circle class="speedo-track" cx="100" cy="100" r="84"/>
-                <circle class="speedo-value" id="speedoValue" cx="100" cy="100" r="84"/>
-              </svg>
-              <div class="speedo-center">
-                <strong id="speedValue">--</strong>
-                <small>km/h</small>
+          <div class="tile-row">
+            <!-- Speed -->
+            <div class="card stat speed-tile">
+              <div class="stat-label">Speed</div>
+              <div class="speedo">
+                <svg viewBox="0 0 200 200">
+                  <circle class="speedo-track" cx="100" cy="100" r="84"/>
+                  <circle class="speedo-value" id="speedoValue" cx="100" cy="100" r="84"/>
+                </svg>
+                <div class="speedo-center">
+                  <strong id="speedValue">--</strong>
+                  <small>km/h</small>
+                </div>
               </div>
+            </div>
+
+            <!-- Engine temperature -->
+            <div class="card stat temp-tile" id="tempCard">
+              <div class="stat-label">Engine</div>
+              <div class="temp-icon" id="tempIcon"></div>
+              <div class="temp-read"><strong id="vehTemp">--</strong><span class="unit">°C</span></div>
+              <div class="temp-state" id="tempState">--</div>
             </div>
           </div>
 
-          <!-- Vehicle temperature -->
-          <div class="card stat temp-card" id="tempCard">
-            <div class="stat-label">Engine Temp</div>
-            <div class="stat-main">
-              <svg class="stat-ic" viewBox="0 0 24 24" fill="none">
-                <path d="M10 14.8V5a2 2 0 1 1 4 0v9.8a4 4 0 1 1-4 0Z"
-                      stroke="currentColor" stroke-width="1.6"/>
-                <circle cx="12" cy="17" r="1.8" fill="currentColor"/>
-              </svg>
-              <div class="stat-readout">
-                <strong id="vehTemp">--</strong><span class="unit">°C</span>
-              </div>
-            </div>
-            <div class="stat-bar"><i id="tempBar"></i></div>
-          </div>
-
-          <!-- Weather -->
+          <!-- Weather (live + forecast) -->
           <div class="card stat weather-card">
-            <div class="stat-label">Weather</div>
-            <div class="stat-main">
-              <div class="stat-ic weather-ic" id="weatherIcon"></div>
-              <div class="stat-readout">
-                <strong id="weatherTemp">--</strong><span class="unit">°C</span>
-                <div class="stat-sub" id="weatherCond">--</div>
+            <div class="stat-label">Weather <span class="wx-city" id="wxCity"></span></div>
+            <div class="wx-now">
+              <div class="wx-ic" id="weatherIcon"></div>
+              <div class="wx-main">
+                <div class="wx-temp"><strong id="weatherTemp">--</strong><span class="unit">°C</span></div>
+                <div class="wx-cond" id="weatherCond">--</div>
               </div>
+              <div class="wx-hum">💧 <b id="weatherHum">--</b>%</div>
             </div>
-            <div class="weather-meta">
-              <span>💧 <b id="weatherHum">--</b>%</span>
-            </div>
+            <div class="wx-forecast" id="forecast"></div>
           </div>
         </div>
 
-        <!-- ---------- Center: top-down car + ultrasonic ---------- -->
+        <!-- ---------- Center: car image + ultrasonic spotlights ---------- -->
         <div class="card car-card">
-          <div class="road" id="road"></div>
-          <svg class="car-top" viewBox="0 0 240 384" aria-hidden="true">
+          <div class="road" id="road">
+            <div class="road-plane">
+              <div class="lane lane-left"></div>
+              <div class="lane lane-center"></div>
+              <div class="lane lane-right"></div>
+            </div>
+            <div class="road-fade"></div>
+          </div>
+          <div class="car-stage">
+          <!-- ultrasonic radar field: rings + 6 colored sectors around the car -->
+          <svg class="beams" viewBox="0 0 400 360" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
             <defs>
-              <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#262a31"/>
-                <stop offset="0.5" stop-color="#171a20"/>
-                <stop offset="1" stop-color="#22262d"/>
-              </linearGradient>
-              <radialGradient id="roofGrad" cx="0.5" cy="0.4" r="0.7">
-                <stop offset="0" stop-color="#2c313a"/>
-                <stop offset="1" stop-color="#15171c"/>
+              <radialGradient id="gSafe" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="172">
+                <stop offset="0.06" stop-color="#2ecc71" stop-opacity="0.45"/><stop offset="0.55" stop-color="#2ecc71" stop-opacity="0.16"/><stop offset="1" stop-color="#2ecc71" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="gWarn" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="172">
+                <stop offset="0.06" stop-color="#f5a623" stop-opacity="0.75"/><stop offset="0.55" stop-color="#f5a623" stop-opacity="0.32"/><stop offset="1" stop-color="#f5a623" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="gCrit" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="172">
+                <stop offset="0.06" stop-color="#ff4d4f" stop-opacity="0.9"/><stop offset="0.55" stop-color="#ff4d4f" stop-opacity="0.42"/><stop offset="1" stop-color="#ff4d4f" stop-opacity="0"/>
               </radialGradient>
             </defs>
 
-            <!-- wheels -->
-            <rect x="52"  y="104" width="16" height="40" rx="7" fill="#0a0b0e"/>
-            <rect x="172" y="104" width="16" height="40" rx="7" fill="#0a0b0e"/>
-            <rect x="52"  y="240" width="16" height="40" rx="7" fill="#0a0b0e"/>
-            <rect x="172" y="240" width="16" height="40" rx="7" fill="#0a0b0e"/>
+            <!-- field laid flat on the ground (vertical squash = perspective) -->
+            <g class="field" transform="translate(200 192) scale(1 0.5)">
+              <ellipse class="car-shadow" cx="0" cy="0" rx="56" ry="44"/>
 
-            <!-- body -->
-            <path d="M120 60
-                     C 92 60 70 70 70 104
-                     L 70 286 C 70 312 90 322 120 322
-                     C 150 322 170 312 170 286
-                     L 170 104 C 170 70 148 60 120 60 Z"
-                  fill="url(#bodyGrad)" stroke="#3a3f49" stroke-width="1.5"/>
+              <!-- 6 directional sectors: front 0/±45, rear 180/±45 -->
+              <g class="sensor" id="sn-front"      transform="rotate(0)"><path class="beam" d="M-7.2 -18.7 L-61.6 -160.6 A172 172 0 0 1 61.6 -160.6 L7.2 -18.7 A20 20 0 0 0 -7.2 -18.7 Z"/></g>
+              <g class="sensor" id="sn-frontLeft"  transform="rotate(-45)"><path class="beam" d="M-7.2 -18.7 L-61.6 -160.6 A172 172 0 0 1 61.6 -160.6 L7.2 -18.7 A20 20 0 0 0 -7.2 -18.7 Z"/></g>
+              <g class="sensor" id="sn-frontRight" transform="rotate(45)"><path class="beam" d="M-7.2 -18.7 L-61.6 -160.6 A172 172 0 0 1 61.6 -160.6 L7.2 -18.7 A20 20 0 0 0 -7.2 -18.7 Z"/></g>
+              <g class="sensor" id="sn-rear"       transform="rotate(180)"><path class="beam" d="M-7.2 -18.7 L-61.6 -160.6 A172 172 0 0 1 61.6 -160.6 L7.2 -18.7 A20 20 0 0 0 -7.2 -18.7 Z"/></g>
+              <g class="sensor" id="sn-rearLeft"   transform="rotate(225)"><path class="beam" d="M-7.2 -18.7 L-61.6 -160.6 A172 172 0 0 1 61.6 -160.6 L7.2 -18.7 A20 20 0 0 0 -7.2 -18.7 Z"/></g>
+              <g class="sensor" id="sn-rearRight"  transform="rotate(135)"><path class="beam" d="M-7.2 -18.7 L-61.6 -160.6 A172 172 0 0 1 61.6 -160.6 L7.2 -18.7 A20 20 0 0 0 -7.2 -18.7 Z"/></g>
 
-            <!-- roof / cabin -->
-            <rect x="84" y="150" width="72" height="120" rx="22" fill="url(#roofGrad)"/>
-            <!-- windshield -->
-            <path d="M86 150 Q120 120 154 150 L150 162 Q120 142 90 162 Z" fill="#0c0e12"/>
-            <!-- rear window -->
-            <path d="M88 268 Q120 290 152 268 L150 258 Q120 276 90 258 Z" fill="#0c0e12"/>
-
-            <!-- side mirrors -->
-            <rect x="60" y="158" width="12" height="9" rx="3" fill="#22262d"/>
-            <rect x="168" y="158" width="12" height="9" rx="3" fill="#22262d"/>
-
-            <!-- headlights -->
-            <rect x="82"  y="62" width="22" height="8" rx="4" fill="#bfe3ff" opacity="0.85"/>
-            <rect x="136" y="62" width="22" height="8" rx="4" fill="#bfe3ff" opacity="0.85"/>
-            <!-- tail lights -->
-            <rect x="80"  y="312" width="26" height="7" rx="3.5" fill="#ff3b30"/>
-            <rect x="134" y="312" width="26" height="7" rx="3.5" fill="#ff3b30"/>
-
-            <!-- ============ Ultrasonic sensor waves ============ -->
-            <!-- FRONT (open upward) -->
-            <g class="sensor" id="sn-frontLeft">
-              <path d="M76 64 Q86 50 96 64"/><path d="M70 64 Q86 38 102 64"/><path d="M64 64 Q86 26 108 64"/>
+              <!-- concentric radar rings -->
+              <circle class="ring" r="48"  style="stroke-opacity:.55"/>
+              <circle class="ring" r="80"  style="stroke-opacity:.42"/>
+              <circle class="ring" r="112" style="stroke-opacity:.30"/>
+              <circle class="ring" r="144" style="stroke-opacity:.20"/>
+              <circle class="ring" r="172" style="stroke-opacity:.12"/>
+              <!-- animated sonar pulses -->
+              <circle class="ring sonar" r="172"/>
+              <circle class="ring sonar d2" r="172"/>
             </g>
-            <g class="sensor" id="sn-front">
-              <path d="M110 62 Q120 48 130 62"/><path d="M104 62 Q120 36 136 62"/><path d="M98 62 Q120 24 142 62"/>
-            </g>
-            <g class="sensor" id="sn-frontRight">
-              <path d="M144 64 Q154 50 164 64"/><path d="M138 64 Q154 38 170 64"/><path d="M132 64 Q154 26 176 64"/>
-            </g>
-            <!-- REAR (open downward) -->
-            <g class="sensor" id="sn-rearLeft">
-              <path d="M76 320 Q86 334 96 320"/><path d="M70 320 Q86 346 102 320"/><path d="M64 320 Q86 358 108 320"/>
-            </g>
-            <g class="sensor" id="sn-rear">
-              <path d="M110 322 Q120 336 130 322"/><path d="M104 322 Q120 348 136 322"/><path d="M98 322 Q120 360 142 322"/>
-            </g>
-            <g class="sensor" id="sn-rearRight">
-              <path d="M144 320 Q154 334 164 320"/><path d="M138 320 Q154 346 170 320"/><path d="M132 320 Q154 358 176 320"/>
-            </g>
-
-            <!-- distance labels -->
-            <text class="dist" id="dist-frontLeft"  x="62"  y="18">--</text>
-            <text class="dist" id="dist-front"      x="120" y="14">--</text>
-            <text class="dist" id="dist-frontRight" x="178" y="18">--</text>
-            <text class="dist" id="dist-rearLeft"   x="62"  y="376">--</text>
-            <text class="dist" id="dist-rear"       x="120" y="380">--</text>
-            <text class="dist" id="dist-rearRight"  x="178" y="376">--</text>
           </svg>
+          <img class="car-img" src="Logo/car.png" alt="vehicle" />
+          </div>
         </div>
 
         <!-- ---------- Right column: Heading + Attitude ---------- -->

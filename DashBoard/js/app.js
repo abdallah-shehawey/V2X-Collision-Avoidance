@@ -3,16 +3,14 @@
 //  Reads ALL vehicle values from data.json (single source of
 //  truth). data.json is updated by server.py (simulation now,
 //  STM-over-UART later). The UI just polls the file & renders.
+//  Weather is fetched live from Open-Meteo (falls back to data.json).
 //
 //  ADAS flag meaning:
-//    flag 0 -> safe (no alert)
-//    flag 1 -> WARNING  -> toast + warning beep + log
-//    flag 2 -> CRITICAL -> fullscreen popup + alarm + log
+//    flag 0 -> safe   |  flag 1 -> WARNING  |  flag 2 -> CRITICAL
 // ============================================================
 
 const POLL_MS = 1000;
 
-// ADAS warnings: [key in data.adas, abbreviation, full name]
 const WARNINGS = [
   ["eebl", "EEBL", "Emergency Electronic Brake Light"],
   ["fcw",  "FCW",  "Forward Collision Warning"],
@@ -20,8 +18,6 @@ const WARNINGS = [
   ["dnpw", "DNPW", "Do Not Pass Warning"],
   ["ima",  "IMA",  "Intersection Movement Assist"],
 ];
-
-// Messages for critical popup
 const CRITICAL_MESSAGES = {
   eebl: "Vehicle ahead is hard braking!\nReduce speed immediately!",
   fcw:  "Collision imminent!\nBrake now!",
@@ -43,33 +39,58 @@ const NEAR_CM  = 120;   // < this -> caution (yellow)
 const CLOSE_CM = 50;    // < this -> danger  (red)
 const RANGE_CM = 250;   // > this -> nothing detected
 
+// Default weather location (used if data.json has no weather.lat/lon)
+const WX_LAT = 30.0444, WX_LON = 31.2357, WX_CITY = "Cairo";
+
 const COMPASS_DIRS = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
 const $ = (id) => document.getElementById(id);
 const ARC_LEN  = 396;   // speedometer arc length
-const RISK_ARC = 232;   // risk gauge arc length (pi * r, r=74)
+const RISK_ARC = 232;   // risk gauge arc length
 
 // ==================== Inline SVG icons ====================
+function svg(p) {
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+}
 const ADAS_ICONS = {
-  fcw:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="12" width="14" height="7" rx="2"/><path d="M7 12l1.6-4h6.8L17 12"/><path d="M12 2v3M9 3.5l1.4 2.2M15 3.5l-1.4 2.2"/></svg>`,
-  eebl: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v6"/><circle cx="12" cy="16.4" r="0.7" fill="currentColor" stroke="none"/></svg>`,
-  bsw:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="4" width="8" height="16" rx="2.5"/><path d="M5 9c-1.1 1-1.1 5 0 6M19 9c1.1 1 1.1 5 0 6"/></svg>`,
-  dnpw: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="6" width="6" height="12" rx="1.5"/><rect x="14.5" y="6" width="6" height="12" rx="1.5"/><path d="M12 3v18" stroke-dasharray="2.5 2.5"/></svg>`,
-  ima:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18"/><path d="M9.5 8.5L12 6l2.5 2.5M9.5 15.5L12 18l2.5-2.5"/></svg>`,
+  fcw:  svg(`<rect x="5" y="12" width="14" height="7" rx="2"/><path d="M7 12l1.6-4h6.8L17 12"/><path d="M12 2v3M9 3.5l1.4 2.2M15 3.5l-1.4 2.2"/>`),
+  eebl: svg(`<circle cx="12" cy="12" r="9"/><path d="M12 7v6"/><circle cx="12" cy="16.4" r="0.7" fill="currentColor" stroke="none"/>`),
+  bsw:  svg(`<rect x="8" y="4" width="8" height="16" rx="2.5"/><path d="M5 9c-1.1 1-1.1 5 0 6M19 9c1.1 1 1.1 5 0 6"/>`),
+  dnpw: svg(`<rect x="3.5" y="6" width="6" height="12" rx="1.5"/><rect x="14.5" y="6" width="6" height="12" rx="1.5"/><path d="M12 3v18" stroke-dasharray="2.5 2.5"/>`),
+  ima:  svg(`<path d="M12 3v18M3 12h18"/><path d="M9.5 8.5L12 6l2.5 2.5M9.5 15.5L12 18l2.5-2.5"/>`),
 };
 
-function weatherIcon(cond) {
+// engine-temp state icons
+const TEMP_SVG = {
+  cold:   { color: "#4aa6ff", svg: svg(`<path d="M12 2v20"/><path d="M4.5 7l15 10M19.5 7l-15 10"/><path d="M9.5 3.5L12 6l2.5-2.5M9.5 20.5L12 18l2.5 2.5"/><path d="M3.2 11.3l3.2-.9-.9-3.2M20.8 11.3l-3.2-.9.9-3.2M3.2 12.7l3.2.9-.9 3.2M20.8 12.7l-3.2.9.9 3.2"/>`) },
+  normal: { color: "#2ecc71", svg: svg(`<path d="M10 14.8V5a2 2 0 1 1 4 0v9.8a4 4 0 1 1-4 0Z"/><circle cx="12" cy="17" r="1.6" fill="currentColor" stroke="none"/>`) },
+  hot:    { color: "#ff4d4f", svg: svg(`<path d="M12 2c1 3.5 4.5 5 4.5 9a4.5 4.5 0 1 1-9 0c0-1.7.7-2.9 1.5-3.9.3 1.7 1.5 2.2 1.5 2.2.7-2.5-1-4.7.5-7.3Z"/>`) },
+};
+
+// weather icons (by simple key)
+const WX_SVG = {
+  clear:   { color: "#f5a623", svg: svg(`<circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M19.4 4.6l-1.8 1.8M6.4 17.6l-1.8 1.8"/>`) },
+  cloud:   { color: "#9aa3b2", svg: svg(`<path d="M7 18a4 4 0 0 1 0-8 5 5 0 0 1 9.6-1.3A3.5 3.5 0 0 1 17.5 18Z"/>`) },
+  rain:    { color: "#4aa6ff", svg: svg(`<path d="M7 15a4 4 0 0 1 0-8 5 5 0 0 1 9.6-1.3A3.5 3.5 0 0 1 17.5 15Z"/><path d="M8 18l-1 2.5M12 18l-1 2.5M16 18l-1 2.5"/>`) },
+  snow:    { color: "#9fd2ff", svg: svg(`<path d="M7 15a4 4 0 0 1 0-8 5 5 0 0 1 9.6-1.3A3.5 3.5 0 0 1 17.5 15Z"/><path d="M9 19v.01M12 20.5v.01M15 19v.01"/>`) },
+  thunder: { color: "#7c5cff", svg: svg(`<path d="M7 14a4 4 0 0 1 0-8 5 5 0 0 1 9.6-1.3A3.5 3.5 0 0 1 17.5 14"/><path d="M12 12l-2 4h3l-2 4"/>`) },
+};
+function wmoToKey(code) {
+  if (code === 0) return { key: "clear",   label: "Clear" };
+  if (code <= 3)  return { key: "cloud",   label: "Cloudy" };
+  if (code <= 48) return { key: "cloud",   label: "Fog" };
+  if (code <= 67) return { key: "rain",    label: "Rain" };
+  if (code <= 77) return { key: "snow",    label: "Snow" };
+  if (code <= 82) return { key: "rain",    label: "Showers" };
+  if (code <= 86) return { key: "snow",    label: "Snow" };
+  return { key: "thunder", label: "Storm" };
+}
+function condToKey(cond) {
   const c = (cond || "").toLowerCase();
-  const s = (p) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
-  if (c.includes("rain") || c.includes("drizzle"))
-    return { color: "#4aa6ff", svg: s(`<path d="M7 15a4 4 0 0 1 0-8 5 5 0 0 1 9.6-1.3A3.5 3.5 0 0 1 17.5 15Z"/><path d="M8 18l-1 2.5M12 18l-1 2.5M16 18l-1 2.5"/>`) };
-  if (c.includes("thunder") || c.includes("storm"))
-    return { color: "#7c5cff", svg: s(`<path d="M7 14a4 4 0 0 1 0-8 5 5 0 0 1 9.6-1.3A3.5 3.5 0 0 1 17.5 14"/><path d="M12 12l-2 4h3l-2 4"/>`) };
-  if (c.includes("snow"))
-    return { color: "#9fd2ff", svg: s(`<path d="M7 15a4 4 0 0 1 0-8 5 5 0 0 1 9.6-1.3A3.5 3.5 0 0 1 17.5 15Z"/><path d="M9 19v.01M12 20.5v.01M15 19v.01"/>`) };
-  if (c.includes("cloud") || c.includes("overcast") || c.includes("fog") || c.includes("mist"))
-    return { color: "#8b93a1", svg: s(`<path d="M7 18a4 4 0 0 1 0-8 5 5 0 0 1 9.6-1.3A3.5 3.5 0 0 1 17.5 18Z"/>`) };
-  // default: clear / sunny
-  return { color: "#f5a623", svg: s(`<circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M19.4 4.6l-1.8 1.8M6.4 17.6l-1.8 1.8"/>`) };
+  if (c.includes("rain") || c.includes("drizzle")) return "rain";
+  if (c.includes("thunder") || c.includes("storm")) return "thunder";
+  if (c.includes("snow")) return "snow";
+  if (c.includes("cloud") || c.includes("fog") || c.includes("mist") || c.includes("overcast")) return "cloud";
+  return "clear";
 }
 
 // ==================== Audio (Web Audio API) ====================
@@ -81,8 +102,7 @@ function getAudioCtx() {
 function playWarningBeep() {
   try {
     const ctx = getAudioCtx();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
+    const osc = ctx.createOscillator(), gain = ctx.createGain();
     osc.connect(gain); gain.connect(ctx.destination);
     osc.type = "triangle";
     osc.frequency.setValueAtTime(880, ctx.currentTime);
@@ -97,8 +117,7 @@ function playErrorAlarm() {
   try {
     const ctx = getAudioCtx();
     for (let i = 0; i < 4; i++) {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
+      const osc = ctx.createOscillator(), gain = ctx.createGain();
       osc.connect(gain); gain.connect(ctx.destination);
       osc.type = "square";
       const t = ctx.currentTime + i * 0.25;
@@ -114,7 +133,6 @@ function playErrorAlarm() {
 const activeToasts = new Map();
 function showToast(key, name) {
   if (activeToasts.has(key)) return;
-  const container = $("toastContainer");
   const el = document.createElement("div");
   el.className = "toast";
   el.innerHTML = `
@@ -124,7 +142,7 @@ function showToast(key, name) {
       <div class="toast-desc">Warning detected — monitor situation</div>
     </div>
     <button class="toast-close" onclick="this.parentElement.classList.add('toast-out'); setTimeout(() => this.parentElement.remove(), 300)">✕</button>`;
-  container.appendChild(el);
+  $("toastContainer").appendChild(el);
   activeToasts.set(key, el);
   playWarningBeep();
 }
@@ -136,8 +154,7 @@ function removeToast(key) {
 }
 
 // ==================== Critical Popup ====================
-let activeCritical = null;
-let criticalSoundInterval = null;
+let activeCritical = null, criticalSoundInterval = null;
 function showCritical(key, name) {
   if (activeCritical === key) return;
   activeCritical = key;
@@ -158,9 +175,7 @@ function hideCritical() {
 
 // ==================== Event Log ====================
 const MAX_EVENTS = 40;
-function nowTime() {
-  return new Date().toLocaleTimeString("en-GB", { hour12: false });
-}
+const nowTime = () => new Date().toLocaleTimeString("en-GB", { hour12: false });
 function addEvent(msg, level) {
   const list = $("eventList");
   const li = document.createElement("li");
@@ -180,10 +195,7 @@ function buildAdasGrid() {
     const card = document.createElement("div");
     card.className = "adas-card safe";
     card.id = `adas-${key}`;
-    card.innerHTML = `
-      <div class="adas-name">${abbr}</div>
-      <div class="adas-ic">${ADAS_ICONS[key]}</div>
-      <div class="adas-status">SAFE</div>`;
+    card.innerHTML = `<div class="adas-name">${abbr}</div><div class="adas-ic">${ADAS_ICONS[key]}</div><div class="adas-status">SAFE</div>`;
     grid.appendChild(card);
   }
 }
@@ -200,50 +212,40 @@ function updateAdasGrid(adas) {
 }
 
 // ==================== Alert + event logic ====================
-const prevStates = {};      // adas flag transitions
-const prevSensor = {};      // ultrasonic state transitions
-
+const prevStates = {}, prevSensor = {};
 function processAlerts(adas) {
   let highestCritKey = null, highestCritName = null;
-
   for (const [key, abbr, name] of WARNINGS) {
     const flag = adas[key] || 0;
     const prev = prevStates[key] || 0;
-
     if (flag === 1) showToast(key, `${abbr} — ${name}`);
     else if (prev === 1) removeToast(key);
-
     if (flag !== prev) {
       if (flag === 2)      addEvent(`${abbr} Triggered`, "crit");
       else if (flag === 1) addEvent(`${abbr} Warning`, "warn");
       else                 addEvent(`${abbr} Cleared`, "safe");
     }
-
     if (flag === 2 && !highestCritKey) { highestCritKey = key; highestCritName = `${abbr} — ${name}`; }
     prevStates[key] = flag;
   }
-
   if (highestCritKey) { removeToast(highestCritKey); showCritical(highestCritKey, highestCritName); }
   else hideCritical();
 }
 
-// returns the worst sensor state seen this tick: "clear" | "near" | "close"
+// drive the ultrasonic spotlight beams; returns worst state seen
 function processUltrasonic(ultra) {
   let worst = "clear";
   for (const [key, label] of SENSORS) {
     const cm = ultra && ultra[key] != null ? ultra[key] : RANGE_CM + 1;
     let state = "off";
-    if (cm < CLOSE_CM)      state = "close";
-    else if (cm < NEAR_CM)  state = "near";
+    if (cm < CLOSE_CM)       state = "close";
+    else if (cm < NEAR_CM)   state = "near";
     else if (cm <= RANGE_CM) state = "clear";
 
     const g = $(`sn-${key}`);
-    if (g) g.setAttribute("class", state === "off" ? "sensor" : `sensor ${state}`);
-
-    const txt = $(`dist-${key}`);
-    if (txt) {
-      txt.textContent = cm > RANGE_CM ? "—" : `${Math.round(cm)}`;
-      txt.style.fill = state === "close" ? "var(--crit)" : state === "near" ? "var(--warn)" : "var(--muted)";
+    if (g) {
+      g.classList.remove("clear", "near", "close");
+      if (state !== "off") g.classList.add(state);
     }
 
     if (state === "close" && prevSensor[key] !== "close") addEvent(`${label} Obstacle`, "crit");
@@ -259,12 +261,10 @@ function processUltrasonic(ultra) {
 function updateRisk(adas, ultraWorst) {
   const anyCrit = WARNINGS.some(([k]) => (adas[k] || 0) === 2) || ultraWorst === "close";
   const anyWarn = WARNINGS.some(([k]) => (adas[k] || 0) === 1) || ultraWorst === "near";
-
   let label, sub, color, frac;
   if (anyCrit)      { label = "DANGER";  sub = "High Risk";   color = "var(--crit)"; frac = 0.92; }
   else if (anyWarn) { label = "WARNING"; sub = "Medium Risk"; color = "var(--warn)"; frac = 0.55; }
   else              { label = "SECURE";  sub = "Low Risk";    color = "var(--safe)"; frac = 0.16; }
-
   const arc = $("riskGauge");
   arc.style.strokeDasharray = `${(frac * RISK_ARC).toFixed(1)} ${RISK_ARC}`;
   arc.style.stroke = color;
@@ -273,12 +273,73 @@ function updateRisk(adas, ultraWorst) {
   $("riskSub").textContent = sub;
 }
 
+// ==================== Weather (live Open-Meteo + fallback) ====================
+let wxLive = null, wxLoc = null;
+
+function setWxIcon(el, key) {
+  const ic = WX_SVG[key] || WX_SVG.clear;
+  el.innerHTML = ic.svg;
+  el.style.color = ic.color;
+}
+
+async function fetchWeather(lat, lon, city) {
+  try {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}`
+      + `&current=temperature_2m,relative_humidity_2m,weather_code`
+      + `&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=4`;
+    const r = await fetch(url, { cache: "no-store" });
+    if (!r.ok) throw new Error(r.status);
+    wxLive = await r.json();
+    renderWeatherLive(city);
+  } catch (_) { /* keep data.json fallback already shown */ }
+}
+
+function renderWeatherLive(city) {
+  if (!wxLive) return;
+  const cur = wxLive.current;
+  const w = wmoToKey(cur.weather_code);
+  $("wxCity").textContent = city || WX_CITY;
+  $("weatherTemp").textContent = Math.round(cur.temperature_2m);
+  $("weatherCond").textContent = w.label;
+  $("weatherHum").textContent = Math.round(cur.relative_humidity_2m);
+  setWxIcon($("weatherIcon"), w.key);
+
+  const d = wxLive.daily;
+  const out = [];
+  for (let i = 0; i < d.time.length && i < 4; i++) {
+    const dd = wmoToKey(d.weather_code[i]);
+    const name = i === 0 ? "Today" : new Date(d.time[i]).toLocaleDateString("en-US", { weekday: "short" });
+    const hi = Math.round(d.temperature_2m_max[i]);
+    const lo = Math.round(d.temperature_2m_min[i]);
+    const ic = WX_SVG[dd.key] || WX_SVG.clear;
+    out.push(`<div class="wx-day"><div class="d-name">${name}</div>`
+      + `<div class="d-ic" style="color:${ic.color}">${ic.svg}</div>`
+      + `<div class="d-temp">${hi}°<span class="lo"> / ${lo}°</span></div></div>`);
+  }
+  $("forecast").innerHTML = out.join("");
+}
+
+function renderWeatherFallback(w) {
+  if (wxLive || !w) return;   // live data wins once available
+  $("wxCity").textContent = w.city || WX_CITY;
+  if (w.tempC != null)    $("weatherTemp").textContent = Math.round(w.tempC);
+  if (w.humidity != null) $("weatherHum").textContent = Math.round(w.humidity);
+  $("weatherCond").textContent = w.condition || "--";
+  setWxIcon($("weatherIcon"), condToKey(w.condition));
+}
+
+function maybeFetchWeather(w) {
+  const lat = w && w.lat != null ? w.lat : WX_LAT;
+  const lon = w && w.lon != null ? w.lon : WX_LON;
+  const city = w && w.city ? w.city : WX_CITY;
+  const loc = `${lat},${lon}`;
+  if (loc !== wxLoc) { wxLoc = loc; fetchWeather(lat, lon, city); }
+}
+
 // ==================== Render ====================
 function render(d) {
-  // Header
   $("vehicleTag").textContent = `Vehicle #${d.meta.vehicleId}`;
 
-  // Alerts + events
   processAlerts(d.adas);
   updateAdasGrid(d.adas);
   const ultraWorst = processUltrasonic(d.ultrasonic || {});
@@ -291,39 +352,31 @@ function render(d) {
   $("speedValue").textContent = Math.round(speed);
   $("speedoValue").style.strokeDasharray = `${(frac * ARC_LEN).toFixed(1)} 528`;
 
-  // Car motion (road scroll speed scales with km/h)
+  // Car motion (road scroll scales with km/h)
   const road = $("road");
   if (speed > 0.5) {
     road.classList.add("moving");
-    road.style.setProperty("--road-speed", `${Math.max(0.18, 9 / speed).toFixed(2)}s`);
+    road.style.setProperty("--road-speed", `${Math.max(0.25, 14 / speed).toFixed(2)}s`);
   } else {
     road.classList.remove("moving");
   }
 
-  // Engine temperature
+  // Engine temperature + state icon
   const temp = d.drive.vehicleTempC;
   if (temp != null) {
     $("vehTemp").textContent = Math.round(temp);
-    const tcard = $("tempCard");
-    const bar = $("tempBar");
-    const tFrac = Math.max(0, Math.min(1, (temp - 40) / 80)); // 40..120 °C
-    bar.style.width = `${(tFrac * 100).toFixed(0)}%`;
-    if (temp >= 105)     { tcard.className = "card stat temp-card hot";  bar.style.background = "var(--crit)"; }
-    else if (temp >= 95) { tcard.className = "card stat temp-card warm"; bar.style.background = "var(--warn)"; }
-    else                 { tcard.className = "card stat temp-card";      bar.style.background = "var(--accent)"; }
+    const st = temp < 70 ? "cold" : temp >= 105 ? "hot" : "normal";
+    $("tempCard").className = `card stat temp-tile ${st}`;
+    $("tempState").textContent = st;
+    const ti = TEMP_SVG[st];
+    const iconEl = $("tempIcon");
+    iconEl.innerHTML = ti.svg;
+    iconEl.style.color = ti.color;
   }
 
-  // Weather
-  const w = d.weather;
-  if (w) {
-    $("weatherTemp").textContent = Math.round(w.tempC);
-    $("weatherCond").textContent = w.condition || "--";
-    $("weatherHum").textContent = w.humidity != null ? Math.round(w.humidity) : "--";
-    const ic = weatherIcon(w.condition);
-    const iconEl = $("weatherIcon");
-    iconEl.innerHTML = ic.svg;
-    iconEl.style.color = ic.color;
-  }
+  // Weather (live preferred, data.json fallback)
+  maybeFetchWeather(d.weather);
+  renderWeatherFallback(d.weather);
 
   // Heading / compass
   const hdg = ((d.drive.heading % 360) + 360) % 360;
@@ -362,3 +415,4 @@ async function poll() {
 buildAdasGrid();
 poll();
 setInterval(poll, POLL_MS);
+setInterval(() => { if (wxLoc) { const [la, lo] = wxLoc.split(","); fetchWeather(la, lo, $("wxCity").textContent); } }, 600000);
