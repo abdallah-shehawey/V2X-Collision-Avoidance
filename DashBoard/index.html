@@ -45,9 +45,9 @@
               </div>
             </div>
 
-            <!-- Engine temperature -->
+            <!-- Cabin temperature -->
             <div class="card stat temp-tile" id="tempCard">
-              <div class="stat-label">Engine</div>
+              <div class="stat-label">Cabin</div>
               <div class="temp-icon" id="tempIcon"></div>
               <div class="temp-read"><strong id="vehTemp">--</strong><span class="unit">°C</span></div>
               <div class="temp-state" id="tempState">--</div>
@@ -95,8 +95,8 @@
             </defs>
 
             <!-- field laid flat on the ground (vertical squash = perspective) -->
-            <g class="field" transform="translate(200 192) scale(1 0.5)">
-              <ellipse class="car-shadow" cx="0" cy="0" rx="56" ry="44"/>
+            <g class="field" transform="translate(200 215) scale(1 0.7)">
+              <ellipse class="car-shadow" cx="0" cy="0" rx="95" ry="75"/>
 
               <!-- 6 directional sectors: front 0/±45, rear 180/±45 -->
               <g class="sensor" id="sn-front"      transform="rotate(0)"><path class="beam" d="M-7.2 -18.7 L-61.6 -160.6 A172 172 0 0 1 61.6 -160.6 L7.2 -18.7 A20 20 0 0 0 -7.2 -18.7 Z"/></g>
@@ -106,12 +106,6 @@
               <g class="sensor" id="sn-rearLeft"   transform="rotate(225)"><path class="beam" d="M-7.2 -18.7 L-61.6 -160.6 A172 172 0 0 1 61.6 -160.6 L7.2 -18.7 A20 20 0 0 0 -7.2 -18.7 Z"/></g>
               <g class="sensor" id="sn-rearRight"  transform="rotate(135)"><path class="beam" d="M-7.2 -18.7 L-61.6 -160.6 A172 172 0 0 1 61.6 -160.6 L7.2 -18.7 A20 20 0 0 0 -7.2 -18.7 Z"/></g>
 
-              <!-- concentric radar rings -->
-              <circle class="ring" r="48"  style="stroke-opacity:.55"/>
-              <circle class="ring" r="80"  style="stroke-opacity:.42"/>
-              <circle class="ring" r="112" style="stroke-opacity:.30"/>
-              <circle class="ring" r="144" style="stroke-opacity:.20"/>
-              <circle class="ring" r="172" style="stroke-opacity:.12"/>
               <!-- animated sonar pulses -->
               <circle class="ring sonar" r="172"/>
               <circle class="ring sonar d2" r="172"/>

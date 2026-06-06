@@ -1,13 +1,13 @@
 /* ===================== Theme tokens ===================== */
 :root {
-  --bg:        #07080b;
-  --bg-2:      #0d0f15;
-  --panel:     rgba(20, 22, 28, 0.66);
-  --panel-2:   #161922;
-  --stroke:    rgba(255, 255, 255, 0.08);
-  --stroke-2:  rgba(255, 255, 255, 0.14);
-  --text:      #f3f5f9;
-  --muted:     #8b93a1;
+  --bg:        #000000;
+  --bg-2:      #050505;
+  --panel:     rgba(10, 10, 10, 0.80);
+  --panel-2:   #0a0a0a;
+  --stroke:    rgba(255, 255, 255, 0.07);
+  --stroke-2:  rgba(255, 255, 255, 0.12);
+  --text:      #e8eaed;
+  --muted:     #6b7280;
   --accent:    #4aa6ff;
   --accent-2:  #7c5cff;
   --safe:      #2ecc71;
@@ -26,11 +26,7 @@ html { background: var(--bg); }
 body {
   height: 100%;
   overflow: hidden;
-  background:
-    radial-gradient(900px 600px at 14% -12%, rgba(74,166,255,.12), transparent 60%),
-    radial-gradient(900px 700px at 100% 0%, rgba(124,92,255,.12), transparent 55%),
-    radial-gradient(900px 800px at 50% 130%, rgba(255,55,40,.07), transparent 60%),
-    linear-gradient(180deg, var(--bg-2), var(--bg));
+  background: #000000;
   color: var(--text);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -48,12 +44,12 @@ body {
 
 /* ===================== Cards ===================== */
 .card {
-  background: var(--panel);
-  border: 1px solid var(--stroke);
+  background: rgba(8, 8, 8, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: var(--radius);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 16px 44px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.04);
+  box-shadow: 0 8px 32px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.03);
 }
 
 /* ===================== Header ===================== */
@@ -61,8 +57,8 @@ body {
   flex-shrink: 0;
   display: flex; align-items: center; justify-content: space-between; gap: 20px;
   padding: clamp(8px, 1vh, 14px) clamp(16px, 1.6vw, 26px);
-  background: var(--panel);
-  border: 1px solid var(--stroke);
+  background: rgba(6, 6, 6, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: var(--radius);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -173,26 +169,26 @@ body {
 .car-card {
   position: relative; min-height: 0; overflow: hidden;
   display: grid; place-items: center;
-  background: radial-gradient(85% 80% at 50% 36%, #0c0f15, #050608 72%);
+  background: radial-gradient(85% 80% at 50% 58%, #0a0a0a, #000000 72%);
 }
 /* radar field fills the panel; the (small, far) car sits at its centre */
 .beams { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
 .car-img {
   position: absolute; left: 50%; top: 50%; z-index: 3;
-  transform: translate(-50%, -56%);    /* centre on the radar field, sit back on the road */
-  width: 30%; height: auto; object-fit: contain;
+  transform: translate(-50%, -30%);    /* sit further back on the road, toward the viewer */
+  width: 50%; height: auto; object-fit: contain;
   filter: drop-shadow(0 8px 16px rgba(0,0,0,.6));
 }
 
 /* perspective road that recedes into the distance (matches the 3/4 rear view) */
 .road {
   position: absolute; inset: 0; z-index: 1; border-radius: inherit; overflow: hidden;
-  perspective: 300px; perspective-origin: 50% 34%;
+  perspective: 300px; perspective-origin: 50% 24%;
 }
 .road-plane {
   position: absolute; left: 50%; bottom: -4%; width: 150%; height: 130%;
   transform: translateX(-50%) rotateX(80deg); transform-origin: 50% 100%;
-  background: radial-gradient(120% 90% at 50% 100%, #15181f 0%, #0a0c11 55%, #06070a 80%);
+  background: radial-gradient(120% 90% at 50% 100%, #111111 0%, #080808 55%, #030303 80%);
 }
 .lane { position: absolute; top: 0; bottom: 0; }
 .lane-left  { left: 30%;  width: 7px; background: linear-gradient(to top, rgba(255,255,255,.45), rgba(255,255,255,.05)); }
@@ -206,7 +202,7 @@ body {
 .road.moving .lane-center { animation-play-state: running; }
 @keyframes roadflow { from { background-position-y: 0; } to { background-position-y: 90px; } }
 /* fade the far end into the dark background (distance haze) */
-.road-fade { position: absolute; inset: 0; background: linear-gradient(to top, transparent 22%, rgba(6,7,10,.65) 60%, #06070a 82%); }
+.road-fade { position: absolute; inset: 0; background: linear-gradient(to top, transparent 22%, rgba(0,0,0,.75) 60%, #000000 82%); }
 
 /* ultrasonic radar field */
 .car-shadow { fill: rgba(0,0,0,.55); filter: blur(7px); }
@@ -227,9 +223,9 @@ body {
 .compass { position: relative; flex: 1; min-height: 0; aspect-ratio: 1; max-height: 100%; margin: 2px auto 0; }
 .compass-ring {
   position: absolute; inset: 0; border-radius: 50%;
-  border: 2px solid var(--stroke-2);
-  background: radial-gradient(circle at 50% 40%, #1b1f27, #0f1116);
-  box-shadow: inset 0 0 28px rgba(0,0,0,.55);
+  border: 2px solid rgba(255,255,255,.10);
+  background: radial-gradient(circle at 50% 40%, #111111, #050505);
+  box-shadow: inset 0 0 28px rgba(0,0,0,.8);
 }
 .compass-ring span { position: absolute; font-size: clamp(11px, 1vw, 15px); color: var(--muted); font-weight: 800; left: 50%; transform: translateX(-50%); }
 .c-n { top: 7px; color: var(--accent) !important; }
@@ -312,7 +308,7 @@ body {
 
 /* ===================== Toast Notifications ===================== */
 .toast-container { position: fixed; top: 22px; right: 22px; z-index: 900; display: flex; flex-direction: column; gap: 12px; pointer-events: none; }
-.toast { pointer-events: auto; display: flex; align-items: center; gap: 14px; background: rgba(22, 25, 31, 0.94); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(245,166,35,0.25); border-left: 4px solid var(--warn); border-radius: 16px; padding: 14px 22px; min-width: 320px; max-width: 440px; box-shadow: 0 8px 32px rgba(0,0,0,0.45); animation: toast-in 0.4s cubic-bezier(0.16, 1, 0.3, 1); transition: opacity 0.3s, transform 0.3s; }
+.toast { pointer-events: auto; display: flex; align-items: center; gap: 14px; background: rgba(8, 8, 8, 0.97); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(245,166,35,0.25); border-left: 4px solid var(--warn); border-radius: 16px; padding: 14px 22px; min-width: 320px; max-width: 440px; box-shadow: 0 8px 32px rgba(0,0,0,0.8); animation: toast-in 0.4s cubic-bezier(0.16, 1, 0.3, 1); transition: opacity 0.3s, transform 0.3s; }
 .toast.toast-out { opacity: 0; transform: translateX(30px); }
 .toast-icon { font-size: 24px; flex-shrink: 0; animation: toast-shake 0.5s ease-in-out; }
 .toast-body { flex: 1; }
@@ -324,8 +320,8 @@ body {
 @keyframes toast-shake { 0%,100% { transform: rotate(0deg); } 20% { transform: rotate(-8deg); } 40% { transform: rotate(8deg); } 60% { transform: rotate(-5deg); } 80% { transform: rotate(5deg); } }
 
 /* ===================== Critical Popup Overlay ===================== */
-.critical-overlay { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; background: rgba(8,8,12,0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); animation: overlay-in 0.3s ease; }
-.critical-popup { background: rgba(20, 22, 28, 0.96); border: 2px solid rgba(255,77,79,0.4); border-radius: 26px; padding: clamp(34px, 3.6vw, 58px) clamp(40px, 4.2vw, 68px); text-align: center; max-width: 600px; width: 90%; box-shadow: 0 0 60px rgba(255,77,79,0.15), 0 0 120px rgba(255,77,79,0.06), 0 24px 64px rgba(0,0,0,0.5); animation: popup-pulse 1.5s ease-in-out infinite; }
+.critical-overlay { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.92); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); animation: overlay-in 0.3s ease; }
+.critical-popup { background: rgba(5, 5, 5, 0.98); border: 2px solid rgba(255,77,79,0.4); border-radius: 26px; padding: clamp(34px, 3.6vw, 58px) clamp(40px, 4.2vw, 68px); text-align: center; max-width: 600px; width: 90%; box-shadow: 0 0 60px rgba(255,77,79,0.15), 0 0 120px rgba(255,77,79,0.06), 0 24px 64px rgba(0,0,0,0.9); animation: popup-pulse 1.5s ease-in-out infinite; }
 .critical-icon { font-size: clamp(58px, 5.4vw, 82px); margin-bottom: 16px; animation: icon-pulse 0.8s ease-in-out infinite alternate; }
 .critical-title { font-size: clamp(28px, 2.8vw, 40px); font-weight: 800; color: var(--crit); letter-spacing: 2px; margin-bottom: 14px; text-shadow: 0 0 20px rgba(255,77,79,0.5); }
 .critical-msg { font-size: clamp(16px, 1.4vw, 21px); color: var(--text); margin-bottom: 10px; line-height: 1.5; white-space: pre-line; }
@@ -335,7 +331,7 @@ body {
 @keyframes icon-pulse { from { transform: scale(1); } to { transform: scale(1.15); } }
 
 /* ===================== Sponsors ===================== */
-.sponsors { flex-shrink: 0; display: flex; align-items: center; justify-content: center; gap: clamp(16px, 2vw, 38px); flex-wrap: wrap; padding: clamp(8px, 1vh, 14px) clamp(16px, 1.6vw, 26px); background: var(--panel); border: 1px solid var(--stroke); border-radius: var(--radius); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+.sponsors { flex-shrink: 0; display: flex; align-items: center; justify-content: center; gap: clamp(16px, 2vw, 38px); flex-wrap: wrap; padding: clamp(8px, 1vh, 14px) clamp(16px, 1.6vw, 26px); background: rgba(5, 5, 5, 0.95); border: 1px solid rgba(255,255,255,.05); border-radius: var(--radius); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
 .sponsors-label { color: var(--muted); font-size: clamp(11px, .9vw, 14px); text-transform: uppercase; letter-spacing: 1px; }
 .sponsors img { height: clamp(30px, 2.8vw, 46px); width: auto; object-fit: contain; background: #fff; padding: 6px 12px; border-radius: 10px; opacity: .92; transition: opacity .2s, transform .2s; }
 .sponsors img:hover { opacity: 1; transform: translateY(-2px); }

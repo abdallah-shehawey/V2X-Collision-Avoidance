@@ -129,6 +129,39 @@ function playErrorAlarm() {
   } catch (_) {}
 }
 
+// ==================== Ultrasonic proximity beep ====================
+let usSoundInterval = null;
+let usBeepState = "safe";
+
+function playUSBeep(type) {
+  try {
+    const ctx = getAudioCtx();
+    const osc = ctx.createOscillator(), gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type = "sine";
+    const dur = type === "close" ? 0.11 : 0.09;
+    const freq = type === "close" ? 1200 : 880;
+    const vol  = type === "close" ? 0.28 : 0.16;
+    osc.frequency.setValueAtTime(freq, ctx.currentTime);
+    gain.gain.setValueAtTime(vol, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + dur);
+    osc.start(ctx.currentTime); osc.stop(ctx.currentTime + dur);
+  } catch (_) {}
+}
+
+function setUSBeepState(state) {
+  if (state === usBeepState) return;
+  usBeepState = state;
+  if (usSoundInterval) { clearInterval(usSoundInterval); usSoundInterval = null; }
+  if (state === "close") {
+    playUSBeep("close");
+    usSoundInterval = setInterval(() => playUSBeep("close"), 220);
+  } else if (state === "near") {
+    playUSBeep("near");
+    usSoundInterval = setInterval(() => playUSBeep("near"), 700);
+  }
+}
+
 // ==================== Toast Notifications ====================
 const activeToasts = new Map();
 function showToast(key, name) {
@@ -254,6 +287,7 @@ function processUltrasonic(ultra) {
     if (state === "close") worst = "close";
     else if (state === "near" && worst !== "close") worst = "near";
   }
+  setUSBeepState(worst === "close" ? "close" : worst === "near" ? "near" : "safe");
   return worst;
 }
 
@@ -361,13 +395,14 @@ function render(d) {
     road.classList.remove("moving");
   }
 
-  // Engine temperature + state icon
+  // Cabin temperature + state icon
   const temp = d.drive.vehicleTempC;
   if (temp != null) {
     $("vehTemp").textContent = Math.round(temp);
-    const st = temp < 70 ? "cold" : temp >= 105 ? "hot" : "normal";
+    // Cabin comfort zones: < 18 = cold, 18-28 = comfortable, > 28 = hot
+    const st = temp < 18 ? "cold" : temp > 28 ? "hot" : "normal";
     $("tempCard").className = `card stat temp-tile ${st}`;
-    $("tempState").textContent = st;
+    $("tempState").textContent = st === "normal" ? "comfort" : st;
     const ti = TEMP_SVG[st];
     const iconEl = $("tempIcon");
     iconEl.innerHTML = ti.svg;
