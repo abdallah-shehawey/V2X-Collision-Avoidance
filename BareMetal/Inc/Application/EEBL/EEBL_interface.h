@@ -17,6 +17,12 @@ void EEBL_voidInit(void);
  */
 void EEBL_voidUpdate(void);
 
+/**
+ * @brief Get confirmed EEBL alert level (with hysteresis)
+ * @return 0=Safe, 1=Warning, 2=Critical
+ */
+uint8_t EEBL_u8GetAlertLevel(void);
+
 /* ===== Per-Neighbor API (used by SafetyEngine) ===== */
 
 /**

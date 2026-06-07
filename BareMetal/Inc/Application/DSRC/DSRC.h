@@ -31,7 +31,6 @@ typedef struct
   uint32_t last_update;
   uint8_t fcw_flag;    /* 0=Safe, 1=Warning, 2=Critical */
   uint8_t dnpw_flag;   /* 0=Safe, 1=Warning, 2=Critical */
-  float distance_to_intersection; /* Distance to nearest intersection (cm), 0 = not near */
   uint8_t ima_flag;    /* 0=Safe, 1=Warning, 2=Critical */
 } Neighbor;
 

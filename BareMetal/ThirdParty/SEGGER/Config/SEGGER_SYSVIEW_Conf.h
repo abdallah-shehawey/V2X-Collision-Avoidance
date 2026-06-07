@@ -87,10 +87,11 @@ Additional information:
 #endif
 
 
-/*********************************************************************
-* TODO: Add your defines here.                                       *
-**********************************************************************
-*/
+/* POST_MORTEM_MODE = 1: continuous circular buffer recording.
+ * Events are recorded without a live host connection.
+ * Export the full RTT buffer (4096 bytes) from the debugger at any time,
+ * then open the .SVdat file in SEGGER SystemView for offline analysis. */
+#define SEGGER_SYSVIEW_POST_MORTEM_MODE   1
 
 
 #endif  // SEGGER_SYSVIEW_CONF_H

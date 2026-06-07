@@ -31,9 +31,9 @@ typedef enum
 void SafetyEngine_voidInit(void);
 
 /**
- * @brief Single-pass update over the DSRC neighbor table
- *        Processes FCW + EEBL (and future modules) in one loop.
- *        Call this in the main loop instead of calling each module separately.
+ * @brief Single-pass update over the DSRC neighbor table.
+ *        Runs all safety modules (FCW/EEBL/BSW/DNPW/IMA) and aggregates
+ *        the result into the G_u8SystemFlags bitmap for vTask_Feedback to consume.
  */
 void SafetyEngine_voidUpdate(void);
 

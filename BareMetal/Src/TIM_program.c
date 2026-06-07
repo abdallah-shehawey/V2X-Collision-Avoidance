@@ -18,6 +18,13 @@
 static TIM_TypeDef *TIM_Instances[TIM_TIMER_COUNT] = {TIM2, TIM3, TIM4, TIM5, TIM1, TIM8, TIM6, TIM7};
 static void (*TIM_Callbacks[TIM_TIMER_COUNT])(void) = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 
+/* Input-Capture (CC) callbacks — invoked from the timer IRQ with channel + captured value */
+static void (*TIM_CC_Callbacks[TIM_TIMER_COUNT])(TIM_Num_t, uint8_t, uint32_t) =
+    {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+
+/* Dispatch any pending+enabled CC flags of TIMx to the registered CC callback */
+static void TIM_voidHandleCC(TIM_TypeDef *TIMx, TIM_Num_t Copy_eTimer);
+
 /* Define Default Clock if not defined */
 #ifndef TIM_CLOCK_FREQ
 #define TIM_CLOCK_FREQ 16000000UL
@@ -517,9 +524,63 @@ ErrorState_t TIM_vSetCallback(TIM_Num_t Copy_eTimer, void (*pvCallback)(void))
     return Local_ErrorState;
 }
 
+/**************************************  Input-Capture (CC) Interrupt API  ******/
+
+ErrorState_t TIM_vEnableCCInterrupt(TIM_Num_t Copy_eTimer, TIM_Channel_t Copy_eChannel)
+{
+    if (Copy_eTimer >= TIM_TIMER_COUNT || Copy_eChannel > TIM_CHANNEL4) return NOK;
+    /* CCxIE bit = CC1IE(1) + channel index (0..3) */
+    SET_BIT(TIM_Instances[Copy_eTimer]->DIER, (TIM_DIER_CC1IE + (uint8_t)Copy_eChannel));
+    return OK;
+}
+
+ErrorState_t TIM_vDisableCCInterrupt(TIM_Num_t Copy_eTimer, TIM_Channel_t Copy_eChannel)
+{
+    if (Copy_eTimer >= TIM_TIMER_COUNT || Copy_eChannel > TIM_CHANNEL4) return NOK;
+    CLR_BIT(TIM_Instances[Copy_eTimer]->DIER, (TIM_DIER_CC1IE + (uint8_t)Copy_eChannel));
+    return OK;
+}
+
+ErrorState_t TIM_vSetCCCallback(TIM_Num_t Copy_eTimer,
+                                void (*pvCallback)(TIM_Num_t, uint8_t, uint32_t))
+{
+    if (Copy_eTimer >= TIM_TIMER_COUNT || pvCallback == NULL) return NOK;
+    TIM_CC_Callbacks[Copy_eTimer] = pvCallback;
+    return OK;
+}
+
+/* Reading CCRx clears the corresponding CCxIF flag automatically (RM0390). */
+static void TIM_voidHandleCC(TIM_TypeDef *TIMx, TIM_Num_t Copy_eTimer)
+{
+    void (*cb)(TIM_Num_t, uint8_t, uint32_t) = TIM_CC_Callbacks[Copy_eTimer];
+    uint32_t sr   = TIMx->SR;
+    uint32_t dier = TIMx->DIER;
+
+    if ((sr & (1u << TIM_SR_CC1IF)) && (dier & (1u << TIM_DIER_CC1IE)))
+    {
+        uint32_t cap = TIMx->CCR1;
+        if (cb) cb(Copy_eTimer, 0u, cap);
+    }
+    if ((sr & (1u << TIM_SR_CC2IF)) && (dier & (1u << TIM_DIER_CC2IE)))
+    {
+        uint32_t cap = TIMx->CCR2;
+        if (cb) cb(Copy_eTimer, 1u, cap);
+    }
+    if ((sr & (1u << TIM_SR_CC3IF)) && (dier & (1u << TIM_DIER_CC3IE)))
+    {
+        uint32_t cap = TIMx->CCR3;
+        if (cb) cb(Copy_eTimer, 2u, cap);
+    }
+    if ((sr & (1u << TIM_SR_CC4IF)) && (dier & (1u << TIM_DIER_CC4IE)))
+    {
+        uint32_t cap = TIMx->CCR4;
+        if (cb) cb(Copy_eTimer, 3u, cap);
+    }
+}
+
 void TIM2_IRQHandler(void)
 {
-    if (READ_BIT(TIM2->SR, TIM_SR_UIF))
+    if (READ_BIT(TIM2->DIER, TIM_DIER_UIE) && READ_BIT(TIM2->SR, TIM_SR_UIF))
     {
         CLR_BIT(TIM2->SR, TIM_SR_UIF);
         if (TIM_Callbacks[TIM_TIMER2] != NULL)
@@ -527,11 +588,12 @@ void TIM2_IRQHandler(void)
             TIM_Callbacks[TIM_TIMER2]();
         }
     }
+    TIM_voidHandleCC(TIM2, TIM_TIMER2);
 }
 
 void TIM3_IRQHandler(void)
 {
-    if (READ_BIT(TIM3->SR, TIM_SR_UIF))
+    if (READ_BIT(TIM3->DIER, TIM_DIER_UIE) && READ_BIT(TIM3->SR, TIM_SR_UIF))
     {
         CLR_BIT(TIM3->SR, TIM_SR_UIF);
         if (TIM_Callbacks[TIM_TIMER3] != NULL)
@@ -539,6 +601,7 @@ void TIM3_IRQHandler(void)
             TIM_Callbacks[TIM_TIMER3]();
         }
     }
+    TIM_voidHandleCC(TIM3, TIM_TIMER3);
 }
 
 void TIM4_IRQHandler(void)

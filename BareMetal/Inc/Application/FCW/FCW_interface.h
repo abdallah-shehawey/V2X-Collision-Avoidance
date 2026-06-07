@@ -22,6 +22,13 @@ void FCW_voidUpdate(void);
  */
 uint8_t FCW_u8GetFlag(void);
 
+/**
+ * @brief Get the confirmed alert level — feeds the SYSFLG_FCW bit in G_u8SystemFlags.
+ *        For OPPOSITE direction: only set after cooperative confirmation.
+ * @return 0=Safe, 1=Warning, 2=Critical
+ */
+uint8_t FCW_u8GetAlertLevel(void);
+
 /* ===== Per-Neighbor API (used by SafetyEngine) ===== */
 
 /**

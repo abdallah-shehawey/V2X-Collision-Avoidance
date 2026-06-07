@@ -85,7 +85,10 @@ ErrorState_t US_vInit(const US_Config_t *pxSensor);
  *                        NOK if invalid parameters.
  *
  * @note    - Effective range: ~2 cm to ~400 cm.
- *          - This function is BLOCKING.
+ *          - Interrupt-driven: the calling task SLEEPS on a semaphore while the
+ *            echo is in flight (CPU is free for other tasks), then the IC ISR
+ *            wakes it with the result. MUST be called from a task context.
+ *          - Not reentrant: one measurement at a time (sequential by design).
  *
  * @example
  *   uint16_t dist;

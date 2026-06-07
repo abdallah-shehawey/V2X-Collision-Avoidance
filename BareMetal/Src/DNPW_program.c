@@ -19,122 +19,97 @@
 #include "../Inc/Application/SafetyEngine/SafetyEngine_interface.h"
 
 /* ============ Module State ============ */
-static uint8_t DNPW_CurrentFlag = 0; /* 0=Safe, 1=Warning, 2=Critical */
+static uint8_t     DNPW_CurrentFlag      = 0;         /* 0=Safe, 1=Warning, 2=Critical — DSRC broadcast */
 
-/* Cycle accumulators (reset in BeginCycle, used in ProcessNeighbor/EndCycle) */
-static uint8_t    DNPW_OppositeDetected = 0; /* DSRC: at least one opposite-dir neighbor */
-static uint8_t    DNPW_FrontVehicle     = 0; /* US: vehicle ahead (considering overtaking) */
-static RiskLevel_t DNPW_WorstRisk       = RISK_SAFE; /* Worst TTC risk from opposite neighbors */
-static float      DNPW_FrontDist        = 0.0f; /* Front US distance (saved from BeginCycle) */
+/* Cycle accumulators */
+static uint8_t     DNPW_FrontVehicle     = 0;         /* FrontCenterUS: car to overtake is ahead */
+static uint8_t     DNPW_LeftBlocked      = 0;         /* FrontLeftUS: overtaking lane is occupied */
+static uint8_t     DNPW_OppositeDetected = 0;         /* DSRC: at least one opposite-dir neighbor */
+static RiskLevel_t DNPW_WorstRisk        = RISK_SAFE; /* Worst TTC from opposite neighbors */
+static float       DNPW_FrontDist        = 0.0f;
 
 /* ============ Init ============ */
 void DNPW_voidInit(void)
 {
-  DNPW_CurrentFlag     = 0;
+  DNPW_CurrentFlag      = 0;
+  DNPW_FrontVehicle     = 0;
+  DNPW_LeftBlocked      = 0;
   DNPW_OppositeDetected = 0;
-  DNPW_FrontVehicle    = 0;
-  DNPW_WorstRisk       = RISK_SAFE;
-  DNPW_FrontDist       = 0.0f;
+  DNPW_WorstRisk        = RISK_SAFE;
+  DNPW_FrontDist        = 0.0f;
 }
 
 /* ============================================================ */
 /* ============ Per-Neighbor API (for SafetyEngine) ============ */
 /* ============================================================ */
 
-/**
- * @brief Begin a new DNPW processing cycle
- *
- *  Step 1: Check if there is a vehicle ahead (front US gate)
- *  Step 2: Reset DSRC accumulators
- *
- * @param front_dist Front ultrasonic distance (cm)
- */
-void DNPW_voidBeginCycle(float front_dist)
+void DNPW_voidBeginCycle(float front_dist, float left_dist)
 {
-  /* Save front distance for TTC calculation in ProcessNeighbor */
   DNPW_FrontDist = front_dist;
 
-  /* Gate: is there a vehicle ahead? (driver is behind someone, considering overtaking) */
-  if (front_dist > 0.0f && front_dist < DNPW_FRONT_THRESHOLD)
-  {
-    DNPW_FrontVehicle = 1;
-  }
-  else
-  {
-    DNPW_FrontVehicle = 0;
-  }
+  /* Gate 1: car to overtake detected ahead */
+  DNPW_FrontVehicle = (front_dist > 0.0f && front_dist < DNPW_FRONT_THRESHOLD) ? 1U : 0U;
 
-  /* Reset DSRC accumulators */
+  /* Gate 2a: overtaking lane blocked by local obstacle */
+  DNPW_LeftBlocked  = (left_dist  > 0.0f && left_dist  < DNPW_LEFT_THRESHOLD)  ? 1U : 0U;
+
+  /* Reset DSRC accumulator */
   DNPW_OppositeDetected = 0;
   DNPW_WorstRisk        = RISK_SAFE;
 }
 
-/**
- * @brief Process one DSRC neighbor for DNPW
- *
- * Only opposite-direction neighbors matter for DNPW:
- *   - If heading is opposite → oncoming traffic
- *   - Compute relative_speed = my_speed + other_speed (closing speeds add)
- *   - Compute TTC using front distance (space needed to pass)
- *   - Track worst risk level across all opposite neighbors
- *
- * @param n   Pointer to neighbor data
- * @param dir Pre-computed direction (from SafetyEngine_DetectDirection)
- */
 void DNPW_voidProcessNeighbor(const Neighbor *n, Direction_t dir)
 {
-  /* Only opposite-direction vehicles are an overtaking threat */
   if (dir != DIR_OPPOSITE)
-  {
     return;
-  }
 
-  /* Mark that at least one opposite vehicle exists */
+  /* Gate 2b: oncoming traffic exists */
   DNPW_OppositeDetected = 1;
 
-  /* Calculate closing speed (opposite = speeds add up) */
   float rel_speed = G_stHostVehicleState.Speed + n->speed;
-
   if (rel_speed > 0.0f && DNPW_FrontDist > 0.0f)
   {
     float ttc = SafetyEngine_CalcTTC(DNPW_FrontDist, rel_speed);
     RiskLevel_t level = SafetyEngine_EvaluateRisk(ttc, DNPW_WARNING_TTC, DNPW_CRITICAL_TTC);
-
-    /* Track worst risk across all opposite neighbors (conservative) */
     if (level > DNPW_WorstRisk)
-    {
       DNPW_WorstRisk = level;
-    }
   }
 }
 
-/**
- * @brief End cycle — apply 3-gate decision logic
- *
- * DNPW alert triggers ONLY when ALL three conditions are true:
- *   1. Front vehicle exists  (you're behind someone, considering overtaking)
- *   2. Opposite vehicle detected  (oncoming traffic via DSRC)
- *   3. TTC risk > SAFE  (not enough time/distance to safely pass)
- *
- * This conservative approach prevents false alarms:
- *   - No car ahead → no reason to overtake → no warning
- *   - No oncoming car → safe to pass → no warning
- *   - Plenty of time → safe to pass → no warning
- */
 void DNPW_voidEndCycle(void)
 {
-  /* 3-Gate Decision */
-  if (DNPW_FrontVehicle && DNPW_OppositeDetected && (DNPW_WorstRisk > RISK_SAFE))
+  /* Gate 1: must have a car ahead to want to overtake */
+  if (!DNPW_FrontVehicle)
   {
-    /* Update flag for DSRC broadcast */
-    DNPW_CurrentFlag = (uint8_t)DNPW_WorstRisk;
+    DNPW_CurrentFlag = 0;
+    DNPW_DeactivateAlert();
+    return;
+  }
 
-    /* Activate alert */
-    DNPW_ActivateAlert(DNPW_WorstRisk);
+  /* Gate 2: left lane blocked OR oncoming car — at least one is enough */
+  RiskLevel_t alert = RISK_SAFE;
+
+  if (DNPW_LeftBlocked)
+  {
+    /* Overtaking lane physically occupied — at minimum WARNING */
+    alert = RISK_WARNING;
+  }
+
+  if (DNPW_OppositeDetected)
+  {
+    /* Oncoming car: use TTC severity, but at least WARNING even if TTC is large */
+    RiskLevel_t opp = (DNPW_WorstRisk > RISK_SAFE) ? DNPW_WorstRisk : RISK_WARNING;
+    if (opp > alert) alert = opp;
+  }
+
+  if (alert > RISK_SAFE)
+  {
+    DNPW_CurrentFlag = (uint8_t)alert;
+    DNPW_ActivateAlert(alert);
   }
   else
   {
-    /* All clear — safe to pass or no overtaking scenario */
+    /* Both clear — safe to overtake */
     DNPW_CurrentFlag = 0;
     DNPW_DeactivateAlert();
   }
@@ -144,17 +119,14 @@ void DNPW_voidEndCycle(void)
 /* ============ Standalone Update (wrapper) =================== */
 /* ============================================================ */
 
-/**
- * @brief Standalone DNPW update — iterates neighbor table internally
- *        Equivalent to calling BeginCycle + ProcessNeighbor(all) + EndCycle
- */
 void DNPW_voidUpdate(void)
 {
-  Neighbor *table  = DSRC_GetTable();
-  uint8_t count    = DSRC_GetCount();
-  float front_dist = G_stHostVehicleState.FrontCenterUS;
+  Neighbor *table   = DSRC_GetTable();
+  uint8_t count     = DSRC_GetCount();
+  float front_dist  = G_stHostVehicleState.FrontCenterUS;
+  float left_dist   = G_stHostVehicleState.FrontLeftUS;
 
-  DNPW_voidBeginCycle(front_dist);
+  DNPW_voidBeginCycle(front_dist, left_dist);
 
   for (uint8_t i = 0; i < count; i++)
   {
@@ -175,37 +147,22 @@ uint8_t DNPW_u8GetFlag(void)
 /* =================== Internal Functions ===================== */
 /* ============================================================ */
 
-/**
- * @brief Activate DNPW alert — warn driver NOT to overtake
- */
 static void DNPW_ActivateAlert(RiskLevel_t level)
 {
 #if DNPW_ENABLE_LED_ALERT
   /* LED_DNPW_ON(); */
-  /* LCD_Print("! DO NOT PASS - Oncoming vehicle"); */
 #endif
-
 #if DNPW_ENABLE_BUZZER
-  if (level == RISK_CRITICAL)
-  {
-    /* BUZZER_CONTINUOUS(); */
-  }
-  else
-  {
-    /* BUZZER_SHORT_BEEP(); */
-  }
+  if (level == RISK_CRITICAL) { /* BUZZER_CONTINUOUS(); */ }
+  else                         { /* BUZZER_SHORT_BEEP(); */ }
 #endif
 }
 
-/**
- * @brief Deactivate DNPW alert — safe to pass
- */
 static void DNPW_DeactivateAlert(void)
 {
 #if DNPW_ENABLE_LED_ALERT
   /* LED_DNPW_OFF(); */
 #endif
-
 #if DNPW_ENABLE_BUZZER
   /* BUZZER_OFF(); */
 #endif

@@ -30,7 +30,7 @@ uint32_t SystemCoreClock = 16000000;
 
 /* Central Management Global Variables */
 volatile MotorCommand_t G_eMotorGlobalCommand = CMD_MOVE_FORWARD;
-volatile uint8_t G_u8SystemRiskLevel = 0;
+volatile uint8_t G_u8SystemFlags     = 0;
 HostVehicleState_t G_stHostVehicleState = {0};
 
 
@@ -38,10 +38,11 @@ HostVehicleState_t G_stHostVehicleState = {0};
  *  Hardware Objects for Testing         *
  ******************************************/
 BUZ_Config_t V2X_Buzzer = {GPIO_PORTC, GPIO_PIN4, BUZ_ACTIVE_HIGH};
-LED_Config_t FrontR_LED = {GPIO_PORTC, GPIO_PIN0, ACTIVE_HIGH};
-LED_Config_t FrontL_LED = {GPIO_PORTC, GPIO_PIN1, ACTIVE_HIGH};
-LED_Config_t BackR_LED  = {GPIO_PORTC, GPIO_PIN2, ACTIVE_HIGH};
-LED_Config_t BackL_LED  = {GPIO_PORTC, GPIO_PIN3, ACTIVE_HIGH};
+LED_Config_t FrontR_LED   = {GPIO_PORTC, GPIO_PIN0, ACTIVE_HIGH};
+LED_Config_t FrontL_LED   = {GPIO_PORTC, GPIO_PIN1, ACTIVE_HIGH};
+LED_Config_t BackR_LED    = {GPIO_PORTC, GPIO_PIN2, ACTIVE_HIGH};
+LED_Config_t BackL_LED    = {GPIO_PORTC, GPIO_PIN3, ACTIVE_HIGH};
+LED_Config_t Interior_LED = {GPIO_PORTC, GPIO_PIN7, ACTIVE_HIGH}; /* PC7 — driver dashboard */
 
 /* Motors Configuration */
 L298N_MotorConfig_t RightMotor = {
@@ -53,7 +54,7 @@ L298N_MotorConfig_t RightMotor = {
 L298N_MotorConfig_t LeftMotor = {
     .EN_Port = GPIO_PORTA, .EN_Pin = GPIO_PIN11,
     .IN1_Port = GPIO_PORTB, .IN1_Pin = GPIO_PIN10,
-    .IN2_Port = GPIO_PORTB, .IN2_Pin = GPIO_PIN11
+    .IN2_Port = GPIO_PORTB, .IN2_Pin = GPIO_PIN15  /* was PB11 — not bonded on LQFP64 (F446RE) */
 };
 
 US_Config_t FrontUS[3]; // The 3 front ultrasonic sensors
@@ -64,7 +65,8 @@ extern void vESP_UART_RX_Callback(void);
 
 USART_Handle_t USART_1 = {
     .Channel = USART_CHANNEL1,
-    .BaudRate = 9600,
+    .BaudRate = 115200,   /* was 9600 — 12x faster TX, cuts the ~20ms DSRC send to ~1.6ms.
+                             ESP firmware MUST also be set to 115200 or V2X won't link. */
     .WordLength = USART_WORDLENGTH_8B,
     .StopBits = USART_STOPBITS_1,
     .Parity = USART_PARITY_NONE,
@@ -84,6 +86,22 @@ USART_Config_t RPi_UART = {USART_CHANNEL4, 115200, USART_WORDLENGTH_8B, USART_ST
 void vApplicationIdleHook(void)
 {
 	/* Runs when OS has no tasks to execute */
+}
+
+void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName)
+{
+	(void)xTask;
+	(void)pcTaskName;
+	/* Stack overflow detected — halt for debugging */
+	taskDISABLE_INTERRUPTS();
+	for(;;);
+}
+
+void vApplicationMallocFailedHook(void)
+{
+	/* Heap exhausted — halt for debugging */
+	taskDISABLE_INTERRUPTS();
+	for(;;);
 }
 
 
@@ -212,6 +230,7 @@ void System_setup(void)
 	LED_Init(&FrontL_LED);
 	LED_Init(&BackR_LED);
 	LED_Init(&BackL_LED);
+	LED_Init(&Interior_LED);
 	/* Initialize Buzzer */
     BUZ_Init(&V2X_Buzzer);
     /* Initialize Motors */

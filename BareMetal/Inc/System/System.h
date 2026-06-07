@@ -45,6 +45,7 @@
  * | LED 2     | PC1 | PORTC | Status Color 2   | Front Left
  * | LED 3     | PC2 | PORTC | Status Color 3   | Back Right
  * | LED 4     | PC3 | PORTC | Status Color 4   | Back Left
+ * | LED 5     | PC7 | PORTC | Interior Driver Alert (dashboard) |
  * | BUZZER    | PC4 | PORTC | Warning Sound    |
  *
  * 4. MOTORS (L298N Driver)
@@ -55,7 +56,7 @@
  * | IN1       | PC5  | PORTC | Motor A Direction 1         | Right Wheels Forward    |
  * | IN2       | PC6  | PORTC | Motor A Direction 2         | Right Wheels Backward   |
  * | IN3       | PB10 | PORTB | Motor B Direction 1         | Left Wheels Forward     |
- * | IN4       | PB11 | PORTB | Motor B Direction 2         | Left Wheels Backward    |
+ * | IN4       | PB15 | PORTB | Motor B Direction 2         | Left Wheels Backward    |
  * | ENB       | PA11 | PORTA | PWM Speed Control (Motor B) | Optional (Tie to 5V)    |
  *
  * 5. COMMUNICATION INTERFACES (UARTs)
@@ -76,21 +77,33 @@
  *
  * | Task Name              | Priority | Stack (+base) | Freq               | Description                                   |
  * |------------------------|----------|---------------|--------------------|-----------------------------------------------|
- * | [1] vTask_EEBL         | 4 (MAX)  | +128          | ~25 ms             | Emergency Electronic Brake Light (stub)       |
- * | [1] vTask_FCW          | 4 (MAX)  | +128          | ~25 ms             | Forward Collision Warning (stub)              |
- * | [1] vTask_BSW          | 4 (MAX)  | +128          | ~50 ms             | Blind Spot Warning (stub)                     |
- * | [1] vTask_DNPW         | 4 (MAX)  | +128          | ~50 ms             | Do Not Pass Warning (stub)                    |
- * | [1] vTask_IMA          | 4 (MAX)  | +128          | ~50 ms             | Intersection Movement Assist (stub)           |
+ * | [1] vTask_SafetyEngine | 4 (MAX)  | +256          | ~50 ms             | Single-pass ADAS brain (FCW/EEBL/BSW/DNPW/IMA)|
+ * |                        |          |               |                    | + feedback aggregation → command channel      |
  * | [1] vTask_ESP_Comm     | 4 (MAX)  | +128          | ~10ms RX/100ms TX  | ESP-NOW V2X communication                     |
- * | [2] vTask_Sensors      | 3        | +256          | ~50 ms/cycle       | Round-Robin US (1/cycle, max 25ms) + MPU9250  |
+ * | [2] vTask_Sensors      | 3        | +256          | ~25-82 ms adaptive | All 6 US (interrupt, 2m cap) + MPU9250         |
  * | [3] vTask_Feedback     | 2        | +128          | ~25 ms             | Centralized actuator manager (Motors+LEDs+BUZ)|
  * | [4] vTask_RPi_Comm     | 1 (LOW)  | +100          | ~100 ms            | Raspberry Pi communication (RX + TX)          |
  *
  * NOTE: Priority 4 is the highest user priority. Priority 0 is the FreeRTOS Idle task.
  *       configMAX_SYSCALL_INTERRUPT_PRIORITY = 5  → NVIC_USART1 must be set to ≥ 6.
- *       vTask_Sensors uses vTaskDelayUntil(50ms): worst-case work ~27ms → 23ms slack.
- *       Full US scan = 6 cycles × 50ms = 300ms. Priority 3 ensures priority-4 tasks
- *       are always preemptable even during US busy-wait windows.
+ *       vTask_Sensors reads all 6 US per cycle (interrupt-driven: the task SLEEPS
+ *       during each echo, CPU free) + MPU, then a 10ms gap. Scan is adaptive:
+ *       near objects → ~25ms, all out-of-range → ~72ms (2m cap). Reads are
+ *       sequential → no acoustic cross-talk. Priority 3 (producer) sits below the
+ *       priority-4 ADAS/comm tasks but above the priority-2 Feedback consumer.
+ *
+ *       ADAS architecture = SINGLE-PASS, with a clean Brain/Muscle split:
+ *         • vTask_SafetyEngine (Brain, detection-only): runs all modules over the
+ *           neighbor table in ONE pass; each module raises its own flag. Then it
+ *           publishes the GENERAL bitmap G_u8SystemFlags (one bit per active module).
+ *           It makes NO movement decision. Holds both mutexes (NeighborTable → Data).
+ *         • vTask_Feedback (Muscle): reads G_u8SystemFlags; if 0 drives forward with
+ *           everything off, else buzzer + interior LED ON (general driver alert) and
+ *           inspects per-module getters for external indicators (FCW → front LEDs,
+ *           EEBL/BSW → back LEDs) and motor (FCW CRITICAL → stop). Sole driver of the
+ *           actuators and sole writer of G_eMotorGlobalCommand. Takes G_xDataMutex only.
+ *       Lock usage: ESP_Comm takes the two mutexes separately, Sensors & Feedback take
+ *       Data only → deadlock-free.
  * ========================================================================================
  */
 
@@ -99,7 +112,8 @@ typedef enum {
     CMD_MOVE_FORWARD = 0,
     CMD_STOP = 1,
     CMD_STEER_RIGHT = 2,
-    CMD_STEER_LEFT = 3
+    CMD_STEER_LEFT = 3,
+    CMD_MOVE_BACKWARD = 4
 } MotorCommand_t;
 
 /* Unified Sensor State Structure */
@@ -118,15 +132,42 @@ typedef struct {
     float PosX;
     float PosY;
     float PosZ;
-    float DistToIntersection;
 } HostVehicleState_t;
+
+/* ── System module flags (bitmap) ──
+ * Each bit = one ADAS module has an active alert.
+ * SafetyEngine writes, vTask_Feedback reads.
+ * 0x00 = all safe. */
+#define SYSFLG_FCW   (1U << 0)   /* Forward Collision Warning        */
+#define SYSFLG_EEBL  (1U << 1)   /* Emergency Electronic Brake Light */
+#define SYSFLG_BSW   (1U << 2)   /* Blind Spot Warning               */
+#define SYSFLG_DNPW  (1U << 3)   /* Do Not Pass Warning              */
+#define SYSFLG_IMA   (1U << 4)   /* Intersection Movement Assist     */
+
+/* ── RPi telemetry packet ──
+ * Sent every 100ms via UART4.
+ * Protocol: START(0xAA) | sys_flags | speed_f32 | heading_f32 | checksum | END(0x55)
+ * Checksum = XOR of all payload bytes (sys_flags + 4 speed bytes + 4 heading bytes). */
+typedef struct __attribute__((packed))
+{
+  uint8_t  start;       /* 0xAA */
+  uint8_t  sys_flags;   /* SYSFLG_* bitmap */
+  float    speed;       /* cm/s */
+  float    heading;     /* degrees 0-360 */
+  uint8_t  checksum;    /* XOR of sys_flags+speed+heading bytes */
+  uint8_t  end;         /* 0x55 */
+} RPi_Packet_t;
 
 /* Global variables for centralized management */
 extern volatile MotorCommand_t G_eMotorGlobalCommand;
-extern volatile uint8_t G_u8SystemRiskLevel; /* 0: Safe, 1: Warning, 2: Critical */
+extern volatile uint8_t        G_u8SystemFlags; /* bitmap: 0 = all safe */
 
 /* Unified Host Vehicle State */
 extern HostVehicleState_t G_stHostVehicleState;
+
+/* Hardware objects — defined in System.c, used across tasks */
+#include "../Drivers/HAL/LED/LED_interface.h"
+extern LED_Config_t FrontR_LED, FrontL_LED, BackR_LED, BackL_LED, Interior_LED;
 
 
 /* Function Prototypes */

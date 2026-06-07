@@ -20,11 +20,9 @@
 #include "../Inc/Application/DSRC/DSRC.h"
 #include "../Inc/System/System.h"
 
-/* We keep Host_Speed, Host_Heading, and Host_DistToIntersection as globals
-   so the ADAS modules can access them directly during ProcessNeighbor. */
+/* Shared globals read by ADAS modules during ProcessNeighbor */
 float Host_Speed   = 0.0f;
 float Host_Heading = 0.0f;
-float Host_DistToIntersection = 0.0f;
 
 /* ============ Init ============ */
 void SafetyEngine_voidInit(void)
@@ -37,47 +35,34 @@ void SafetyEngine_voidInit(void)
 }
 
 /* ============ Single-Pass Update ============ */
-/*
- * Flow:
- *   1. BeginCycle → each module resets its accumulators
- *   2. For each neighbor → call ProcessNeighbor on all modules
- *   3. EndCycle → each module finalizes (set flags, activate alerts)
- */
 void SafetyEngine_voidUpdate(void)
 {
   Neighbor *table  = DSRC_GetTable();
   uint8_t count    = DSRC_GetCount();
 
-  /* 1. Read from the unified HostVehicleState (already protected by Mutex in main.c) */
   Host_Speed   = G_stHostVehicleState.Speed;
   Host_Heading = G_stHostVehicleState.Heading;
-  /* Host_DistToIntersection could also be read here if mapped in HostVehicleState_t */
 
   float front_dist = G_stHostVehicleState.FrontCenterUS;
   float rear_dist  = G_stHostVehicleState.BackCenterUS;
   float left_dist  = G_stHostVehicleState.FrontLeftUS;
   float right_dist = G_stHostVehicleState.FrontRightUS;
 
-  /* Use min of front+rear sensor per side for BSW */
   float left_rear  = G_stHostVehicleState.BackLeftUS;
   float right_rear = G_stHostVehicleState.BackRightUS;
-  if (left_rear < left_dist)   { left_dist  = left_rear;  }
-  if (right_rear < right_dist) { right_dist = right_rear; }
+  if (left_rear  < left_dist)  left_dist  = left_rear;
+  if (right_rear < right_dist) right_dist = right_rear;
 
-
-  /* 1. Begin cycle for all modules */
+  /* Single pass: all modules share the same neighbor loop */
   FCW_voidBeginCycle();
   EEBL_voidBeginCycle();
   BSW_voidBeginCycle(left_dist, right_dist);
-  DNPW_voidBeginCycle(front_dist);
+  DNPW_voidBeginCycle(front_dist, G_stHostVehicleState.FrontLeftUS);
   IMA_voidBeginCycle();
 
-  /* 2. Single pass over neighbor table */
   for (uint8_t i = 0; i < count; i++)
   {
-    /* Compute direction ONCE per neighbor — shared by all modules */
     Direction_t dir = SafetyEngine_DetectDirection(Host_Heading, table[i].heading);
-
     FCW_voidProcessNeighbor(&table[i], front_dist, dir);
     EEBL_voidProcessNeighbor(&table[i], rear_dist, dir);
     BSW_voidProcessNeighbor(&table[i], dir);
@@ -85,12 +70,21 @@ void SafetyEngine_voidUpdate(void)
     IMA_voidProcessNeighbor(&table[i], dir);
   }
 
-  /* 3. End cycle for all modules */
   FCW_voidEndCycle();
   EEBL_voidEndCycle();
   BSW_voidEndCycle();
   DNPW_voidEndCycle();
   IMA_voidEndCycle();
+
+  /* General flags bitmap: one bit per active module.
+   * Feedback reads per-module getters for severity; this bitmap tells it WHO. */
+  uint8_t flags = 0;
+  if (FCW_u8GetAlertLevel()  > 0)                  flags |= SYSFLG_FCW;
+  if (EEBL_u8GetAlertLevel() > 0)                  flags |= SYSFLG_EEBL;
+  if (BSW_u8GetLeftFlag() || BSW_u8GetRightFlag()) flags |= SYSFLG_BSW;
+  if (DNPW_u8GetFlag() > 0)                       flags |= SYSFLG_DNPW;
+  if (IMA_u8GetFlag()  > 0)                       flags |= SYSFLG_IMA;
+  G_u8SystemFlags = flags;
 }
 
 /* ============ Shared Direction Detection ============ */
