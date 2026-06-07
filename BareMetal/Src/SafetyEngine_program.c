@@ -20,11 +20,9 @@
 #include "../Inc/Application/DSRC/DSRC.h"
 #include "../Inc/System/System.h"
 
-/* We keep Host_Speed, Host_Heading, and Host_DistToIntersection as globals
-   so the ADAS modules can access them directly during ProcessNeighbor. */
+/* Shared globals read by ADAS modules during ProcessNeighbor */
 float Host_Speed   = 0.0f;
 float Host_Heading = 0.0f;
-float Host_DistToIntersection = 0.0f;
 
 /* ============ Init ============ */
 void SafetyEngine_voidInit(void)
@@ -59,7 +57,7 @@ void SafetyEngine_voidUpdate(void)
   FCW_voidBeginCycle();
   EEBL_voidBeginCycle();
   BSW_voidBeginCycle(left_dist, right_dist);
-  DNPW_voidBeginCycle(front_dist);
+  DNPW_voidBeginCycle(front_dist, G_stHostVehicleState.FrontLeftUS);
   IMA_voidBeginCycle();
 
   for (uint8_t i = 0; i < count; i++)
@@ -84,6 +82,8 @@ void SafetyEngine_voidUpdate(void)
   if (FCW_u8GetAlertLevel()  > 0)                  flags |= SYSFLG_FCW;
   if (EEBL_u8GetAlertLevel() > 0)                  flags |= SYSFLG_EEBL;
   if (BSW_u8GetLeftFlag() || BSW_u8GetRightFlag()) flags |= SYSFLG_BSW;
+  if (DNPW_u8GetFlag() > 0)                       flags |= SYSFLG_DNPW;
+  if (IMA_u8GetFlag()  > 0)                       flags |= SYSFLG_IMA;
   G_u8SystemFlags = flags;
 }
 

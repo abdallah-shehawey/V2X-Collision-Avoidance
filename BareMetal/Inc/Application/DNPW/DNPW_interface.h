@@ -25,10 +25,11 @@ uint8_t DNPW_u8GetFlag(void);
 /* ===== Per-Neighbor API (used by SafetyEngine) ===== */
 
 /**
- * @brief Begin a new processing cycle — save front distance, reset accumulators
- * @param front_dist Front ultrasonic distance (cm)
+ * @brief Begin a new processing cycle — save distances, reset accumulators
+ * @param front_dist Front-center US distance (cm) — detects car to overtake
+ * @param left_dist  Front-left  US distance (cm) — detects if overtaking lane is blocked
  */
-void DNPW_voidBeginCycle(float front_dist);
+void DNPW_voidBeginCycle(float front_dist, float left_dist);
 
 /**
  * @brief Process one DSRC neighbor for DNPW

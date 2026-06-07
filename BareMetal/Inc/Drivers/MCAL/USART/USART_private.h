@@ -39,6 +39,11 @@
 
 #define MAXIMUM_CLOCK               16000000UL
 
-#define USART_u32TIMEOUT            10000UL
+/* Busy-wait safety net for TXE/RXNE. At 115200 baud one byte = ~87us; worst-case
+ * legit wait is ~1 byte-time. 3000 iterations gives >=4x margin even under -O3
+ * while bounding a genuinely-stuck transfer to <2ms (vs ~6ms at 10000).
+ * NOTE: only safe with fast UARTs (>=115200). At 9600 baud a byte needs ~1ms
+ * and this would be too low — raise it back if any channel drops to a slow baud. */
+#define USART_u32TIMEOUT            3000UL
 
 #endif /* _USART_PRIVATE_H_  */

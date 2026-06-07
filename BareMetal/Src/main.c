@@ -32,7 +32,8 @@
 #include "../Inc/Application/DSRC/DSRC.h"
 #include "../Inc/Application/SafetyEngine/SafetyEngine_interface.h"
 
-extern BUZ_Config_t V2X_Buzzer;
+extern BUZ_Config_t      V2X_Buzzer;
+extern USART_Config_t    RPi_UART;
 extern US_Config_t FrontUS[3];
 extern US_Config_t BackUS[3];
 extern L298N_MotorConfig_t RightMotor;
@@ -99,7 +100,7 @@ int main(void)
  * Every 50ms: takes BOTH mutexes (neighbor table + host state), then
  * SafetyEngine_voidUpdate() runs detection for ALL modules in one pass and
  * aggregates the result into the centralized command channel
- * (G_u8SystemRiskLevel + G_eMotorGlobalCommand) consumed by vTask_Feedback.
+ * (G_u8SystemFlags bitmap) consumed by vTask_Feedback.
  *
  * Lock order: NeighborTable → Data. vTask_ESP_Comm takes them separately
  * (never nested) and vTask_Sensors takes Data only → no deadlock possible.
@@ -228,30 +229,33 @@ void vTask_Feedback(void *pvParameters)
     }
     else
     {
-      /* Query only modules that raised their flag this cycle */
+      /* ── GENERAL response: ANY active system warns the driver ──
+       * We reach this branch only because G_u8SystemFlags != 0, i.e. at least
+       * one module raised an alert → buzzer + interior LED ON unconditionally.
+       * This is also the FULL response for DNPW and IMA (no external LEDs). */
+      LED_TurnOn(&Interior_LED);
+      BUZ_On(&V2X_Buzzer);
+
+      /* ── PER-SYSTEM external indicators ── */
       uint8_t fcw       = (G_u8SystemFlags & SYSFLG_FCW)  ? FCW_u8GetAlertLevel()  : 0;
       uint8_t eebl      = (G_u8SystemFlags & SYSFLG_EEBL) ? EEBL_u8GetAlertLevel() : 0;
       uint8_t bsw_left  = (G_u8SystemFlags & SYSFLG_BSW)  ? BSW_u8GetLeftFlag()    : 0;
       uint8_t bsw_right = (G_u8SystemFlags & SYSFLG_BSW)  ? BSW_u8GetRightFlag()   : 0;
 
-      /* ── FCW: forward threat → front LEDs ── */
+      /* FCW: forward threat → front LEDs */
       if (fcw >= 1) { LED_TurnOn(&FrontR_LED);  LED_TurnOn(&FrontL_LED);  }
       else          { LED_TurnOff(&FrontR_LED); LED_TurnOff(&FrontL_LED); }
 
-      /* ── BackR: EEBL rear threat OR BSW right blind-spot ── */
+      /* BackR: EEBL rear threat OR BSW right blind-spot */
       if (eebl >= 1 || bsw_right) { LED_TurnOn(&BackR_LED);  }
-      else                         { LED_TurnOff(&BackR_LED); }
+      else                        { LED_TurnOff(&BackR_LED); }
 
-      /* ── BackL: EEBL rear threat OR BSW left blind-spot ── */
+      /* BackL: EEBL rear threat OR BSW left blind-spot */
       if (eebl >= 1 || bsw_left)  { LED_TurnOn(&BackL_LED);  }
-      else                         { LED_TurnOff(&BackL_LED); }
+      else                        { LED_TurnOff(&BackL_LED); }
 
-      /* ── Interior + Buzzer: any active threat ── */
-      if (fcw >= 1 || eebl >= 1 || bsw_left || bsw_right) { LED_TurnOn(&Interior_LED);  BUZ_On(&V2X_Buzzer);  }
-      else                                                   { LED_TurnOff(&Interior_LED); BUZ_Off(&V2X_Buzzer); }
-
-      /* ── Motor: only FCW CRITICAL triggers a stop ── */
-      if (fcw == 2) { L298N_enumCarStop(&RightMotor, &LeftMotor);       G_eMotorGlobalCommand = CMD_STOP;         }
+      /* ── Motor: only FCW CRITICAL stops the car ── */
+      if (fcw == 2) { L298N_enumCarStop(&RightMotor, &LeftMotor);        G_eMotorGlobalCommand = CMD_STOP;         }
       else          { L298N_enumCarMoveForward(&RightMotor, &LeftMotor); G_eMotorGlobalCommand = CMD_MOVE_FORWARD; }
     }
 
@@ -310,7 +314,6 @@ void vTask_ESP_Comm(void *pvParameters)
       xSemaphoreTake(G_xDataMutex, portMAX_DELAY);
       my_data.speed                    = G_stHostVehicleState.Speed;
       my_data.heading                  = G_stHostVehicleState.Heading;
-      my_data.distance_to_intersection = G_stHostVehicleState.DistToIntersection;
       xSemaphoreGive(G_xDataMutex);
 
       /* ADAS flags are atomic uint8 reads — no mutex needed */
@@ -326,11 +329,38 @@ void vTask_ESP_Comm(void *pvParameters)
 
 void vTask_RPi_Comm(void *pvParameters)
 {
+  TickType_t xLastWakeTime = xTaskGetTickCount();
+
   for (;;)
   {
-   
+    RPi_Packet_t pkt;
 
-    vTaskDelay(pdMS_TO_TICKS(100));
+    /* Read shared state under mutex */
+    xSemaphoreTake(G_xDataMutex, portMAX_DELAY);
+    pkt.speed   = G_stHostVehicleState.Speed;
+    pkt.heading = G_stHostVehicleState.Heading;
+    xSemaphoreGive(G_xDataMutex);
+
+    /* G_u8SystemFlags is volatile uint8 — atomic read, no mutex needed */
+    pkt.sys_flags = G_u8SystemFlags;
+
+    /* Frame */
+    pkt.start = 0xAAU;
+    pkt.end   = 0x55U;
+
+    /* Checksum: XOR over sys_flags + 4 speed bytes + 4 heading bytes */
+    const uint8_t *p = (const uint8_t *)&pkt.sys_flags;
+    uint8_t csum = 0;
+    for (uint8_t i = 0; i < (1u + sizeof(float) + sizeof(float)); i++)
+      csum ^= p[i];
+    pkt.checksum = csum;
+
+    /* Send packet byte by byte */
+    const uint8_t *raw = (const uint8_t *)&pkt;
+    for (uint8_t i = 0; i < sizeof(RPi_Packet_t); i++)
+      USART_enumTransmit(&RPi_UART, raw[i]);
+
+    vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(100));
   }
 }
 

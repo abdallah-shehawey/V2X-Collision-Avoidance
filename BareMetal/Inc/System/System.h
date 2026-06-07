@@ -56,7 +56,7 @@
  * | IN1       | PC5  | PORTC | Motor A Direction 1         | Right Wheels Forward    |
  * | IN2       | PC6  | PORTC | Motor A Direction 2         | Right Wheels Backward   |
  * | IN3       | PB10 | PORTB | Motor B Direction 1         | Left Wheels Forward     |
- * | IN4       | PB11 | PORTB | Motor B Direction 2         | Left Wheels Backward    |
+ * | IN4       | PB15 | PORTB | Motor B Direction 2         | Left Wheels Backward    |
  * | ENB       | PA11 | PORTA | PWM Speed Control (Motor B) | Optional (Tie to 5V)    |
  *
  * 5. COMMUNICATION INTERFACES (UARTs)
@@ -95,13 +95,13 @@
  *       ADAS architecture = SINGLE-PASS, with a clean Brain/Muscle split:
  *         • vTask_SafetyEngine (Brain, detection-only): runs all modules over the
  *           neighbor table in ONE pass; each module raises its own flag. Then it
- *           publishes the GENERAL flag G_u8SystemRiskLevel (= worst confirmed alert).
+ *           publishes the GENERAL bitmap G_u8SystemFlags (one bit per active module).
  *           It makes NO movement decision. Holds both mutexes (NeighborTable → Data).
-  *         • vTask_Feedback (Muscle): reads G_u8SystemRiskLevel; if 0 drives forward,
- *           else inspects per-module getters (e.g. FCW_u8GetAlertLevel). WARNING →
- *           front LEDs + buzzer; CRITICAL → also reverse if the rear is clear (min of
- *           the 3 back US >= threshold) else stop. Sole driver of the actuators and
- *           sole writer of G_eMotorGlobalCommand. Takes G_xDataMutex only (to read US).
+ *         • vTask_Feedback (Muscle): reads G_u8SystemFlags; if 0 drives forward with
+ *           everything off, else buzzer + interior LED ON (general driver alert) and
+ *           inspects per-module getters for external indicators (FCW → front LEDs,
+ *           EEBL/BSW → back LEDs) and motor (FCW CRITICAL → stop). Sole driver of the
+ *           actuators and sole writer of G_eMotorGlobalCommand. Takes G_xDataMutex only.
  *       Lock usage: ESP_Comm takes the two mutexes separately, Sensors & Feedback take
  *       Data only → deadlock-free.
  * ========================================================================================
@@ -132,7 +132,6 @@ typedef struct {
     float PosX;
     float PosY;
     float PosZ;
-    float DistToIntersection;
 } HostVehicleState_t;
 
 /* ── System module flags (bitmap) ──
@@ -144,6 +143,20 @@ typedef struct {
 #define SYSFLG_BSW   (1U << 2)   /* Blind Spot Warning               */
 #define SYSFLG_DNPW  (1U << 3)   /* Do Not Pass Warning              */
 #define SYSFLG_IMA   (1U << 4)   /* Intersection Movement Assist     */
+
+/* ── RPi telemetry packet ──
+ * Sent every 100ms via UART4.
+ * Protocol: START(0xAA) | sys_flags | speed_f32 | heading_f32 | checksum | END(0x55)
+ * Checksum = XOR of all payload bytes (sys_flags + 4 speed bytes + 4 heading bytes). */
+typedef struct __attribute__((packed))
+{
+  uint8_t  start;       /* 0xAA */
+  uint8_t  sys_flags;   /* SYSFLG_* bitmap */
+  float    speed;       /* cm/s */
+  float    heading;     /* degrees 0-360 */
+  uint8_t  checksum;    /* XOR of sys_flags+speed+heading bytes */
+  uint8_t  end;         /* 0x55 */
+} RPi_Packet_t;
 
 /* Global variables for centralized management */
 extern volatile MotorCommand_t G_eMotorGlobalCommand;

@@ -33,7 +33,7 @@ void SafetyEngine_voidInit(void);
 /**
  * @brief Single-pass update over the DSRC neighbor table.
  *        Runs all safety modules (FCW/EEBL/BSW/DNPW/IMA) and aggregates
- *        the result into G_u8SystemRiskLevel for vTask_Feedback to consume.
+ *        the result into the G_u8SystemFlags bitmap for vTask_Feedback to consume.
  */
 void SafetyEngine_voidUpdate(void);
 

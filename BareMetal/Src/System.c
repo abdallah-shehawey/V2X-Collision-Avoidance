@@ -54,7 +54,7 @@ L298N_MotorConfig_t RightMotor = {
 L298N_MotorConfig_t LeftMotor = {
     .EN_Port = GPIO_PORTA, .EN_Pin = GPIO_PIN11,
     .IN1_Port = GPIO_PORTB, .IN1_Pin = GPIO_PIN10,
-    .IN2_Port = GPIO_PORTB, .IN2_Pin = GPIO_PIN11
+    .IN2_Port = GPIO_PORTB, .IN2_Pin = GPIO_PIN15  /* was PB11 — not bonded on LQFP64 (F446RE) */
 };
 
 US_Config_t FrontUS[3]; // The 3 front ultrasonic sensors
@@ -65,7 +65,8 @@ extern void vESP_UART_RX_Callback(void);
 
 USART_Handle_t USART_1 = {
     .Channel = USART_CHANNEL1,
-    .BaudRate = 9600,
+    .BaudRate = 115200,   /* was 9600 — 12x faster TX, cuts the ~20ms DSRC send to ~1.6ms.
+                             ESP firmware MUST also be set to 115200 or V2X won't link. */
     .WordLength = USART_WORDLENGTH_8B,
     .StopBits = USART_STOPBITS_1,
     .Parity = USART_PARITY_NONE,
