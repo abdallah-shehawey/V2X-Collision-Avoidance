@@ -23,7 +23,7 @@ void FCW_voidUpdate(void);
 uint8_t FCW_u8GetFlag(void);
 
 /**
- * @brief Get the confirmed alert level — feeds the SYSFLG_FCW bit in G_u8SystemFlags.
+ * @brief Get the confirmed alert level — feeds the FCW field in G_u16SystemFlags.
  *        For OPPOSITE direction: only set after cooperative confirmation.
  * @return 0=Safe, 1=Warning, 2=Critical
  */
