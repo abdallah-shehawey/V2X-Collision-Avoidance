@@ -107,8 +107,6 @@
  * ========================================================================================
  */
 
-/* NOTE: Motor control moved to the Raspberry Pi. The STM32 no longer drives
- * the motors — it only detects and reports status. (MotorCommand_t removed.) */
 
 /* Unified Sensor State Structure */
 typedef struct {
@@ -172,28 +170,27 @@ typedef struct {
 /* status (0/1/2) of one module from the packed word */
 #define SYS_GET(flags, pos)   (((flags) >> (pos)) & SYS_MASK)
 
-/* ── RPi telemetry packet (sent every 100ms via UART4) ──
- * Frame: START(0xAA) | payload | END(0x55)   (no checksum)
- * sys_flags is the 2-bits-per-module status word documented above. */
+/* ── RPi telemetry packet ──
+ * Sent every 100ms via UART4.
+ * Protocol: START(0xAA) | sys_flags | speed_f32 | heading_f32 | 6×US_f32 | END(0x55) */
 typedef struct __attribute__((packed))
 {
-  uint8_t  start;        /* 0xAA frame start                         */
-  uint16_t sys_flags;    /* 2 bits/module: 00 safe, 01 warn, 10 crit */
-  float    FrontLeftUS;  /* cm */
-  float    FrontCenterUS;/* cm */
-  float    FrontRightUS; /* cm */
-  float    BackLeftUS;   /* cm */
-  float    BackCenterUS; /* cm */
-  float    BackRightUS;  /* cm */
+  uint8_t  start;        /* 0xAA */
+  uint8_t  sys_flags;    /* SYSFLG_* bitmap */
   float    speed;        /* cm/s */
   float    heading;      /* degrees 0-360 */
-  float    pitch;        /* degrees */
-  float    roll;         /* degrees */
-  uint8_t  end;          /* 0x55 frame end */
+  float    front_left;   /* ultrasonic distance [cm] */
+  float    front_center;
+  float    front_right;
+  float    back_left;
+  float    back_center;
+  float    back_right;
+  uint8_t  end;          /* 0x55 */
 } RPi_Packet_t;
 
-/* Global status word — SafetyEngine writes, Feedback & RPi read. 0 = all safe. */
-extern volatile uint16_t G_u16SystemFlags;
+/* Global variables for centralized management */
+
+extern volatile uint8_t        G_u8SystemFlags; /* bitmap: 0 = all safe */
 
 /* Unified Host Vehicle State */
 extern HostVehicleState_t G_stHostVehicleState;
