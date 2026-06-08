@@ -176,7 +176,7 @@ typedef struct {
 typedef struct __attribute__((packed))
 {
   uint8_t  start;        /* 0xAA */
-  uint8_t  sys_flags;    /* SYSFLG_* bitmap */
+  uint16_t  sys_flags;    /* SYSFLG_* bitmap */
   float    speed;        /* cm/s */
   float    heading;      /* degrees 0-360 */
   float    front_left;   /* ultrasonic distance [cm] */
@@ -190,7 +190,7 @@ typedef struct __attribute__((packed))
 
 /* Global variables for centralized management */
 
-extern volatile uint8_t        G_u8SystemFlags; /* bitmap: 0 = all safe */
+extern volatile uint16_t        G_u16SystemFlags; /* bitmap: 0 = all safe */
 
 /* Unified Host Vehicle State */
 extern HostVehicleState_t G_stHostVehicleState;
