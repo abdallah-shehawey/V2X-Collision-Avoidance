@@ -22,11 +22,8 @@
 #include "../Inc/Drivers/HAL/US/US_interface.h"
 #include "../Inc/Drivers/HAL/MPU9250/MPU9250_interface.h"
 #include "../Inc/Drivers/HAL/LED/LED_interface.h"
-#include "../Inc/Drivers/HAL/L298N/L298N_interface.h"
 #include "../Inc/Drivers/MCAL/USART/USART_intreface.h"
 #include "../Inc/Application/FCW/FCW_interface.h"
-#include "../Inc/Application/EEBL/EEBL_interface.h"
-#include "../Inc/Application/BSW/BSW_interface.h"
 #include "../Inc/Application/DNPW/DNPW_interface.h"
 #include "../Inc/Application/IMA/IMA_interface.h"
 #include "../Inc/Application/DSRC/DSRC.h"
@@ -36,8 +33,7 @@ extern BUZ_Config_t      V2X_Buzzer;
 extern USART_Config_t    RPi_UART;
 extern US_Config_t FrontUS[3];
 extern US_Config_t BackUS[3];
-extern L298N_MotorConfig_t RightMotor;
-extern L298N_MotorConfig_t LeftMotor;
+/* Motors are driven by the Raspberry Pi — no L298N on the STM32 */
 /* LEDs: FrontR=PC0, FrontL=PC1, BackR=PC2, BackL=PC3, Interior(driver)=PC7 */
 extern LED_Config_t FrontR_LED, FrontL_LED, BackR_LED, BackL_LED, Interior_LED;
 
@@ -99,8 +95,8 @@ int main(void)
  *
  * Every 50ms: takes BOTH mutexes (neighbor table + host state), then
  * SafetyEngine_voidUpdate() runs detection for ALL modules in one pass and
- * aggregates the result into the centralized command channel
- * (G_u8SystemFlags bitmap) consumed by vTask_Feedback.
+ * aggregates the result into the G_u16SystemFlags status word (2 bits/module)
+ * consumed by vTask_Feedback and vTask_RPi_Comm.
  *
  * Lock order: NeighborTable → Data. vTask_ESP_Comm takes them separately
  * (never nested) and vTask_Sensors takes Data only → no deadlock possible.
@@ -215,48 +211,37 @@ void vTask_Feedback(void *pvParameters)
 {
   for(;;)
   {
-    if (G_u8SystemFlags == 0)
+    uint16_t flags = G_u16SystemFlags;
+
+    if (flags == 0)
     {
-      /* ── SAFE: all alerts off, move forward ── */
+      /* ── SAFE: everything off (motors handled by the Raspberry Pi) ── */
       LED_TurnOff(&FrontR_LED);
       LED_TurnOff(&FrontL_LED);
       LED_TurnOff(&BackR_LED);
       LED_TurnOff(&BackL_LED);
       LED_TurnOff(&Interior_LED);
       BUZ_Off(&V2X_Buzzer);
-      L298N_enumCarMoveForward(&RightMotor, &LeftMotor);
-      G_eMotorGlobalCommand = CMD_MOVE_FORWARD;
     }
     else
     {
-      /* ── GENERAL response: ANY active system warns the driver ──
-       * We reach this branch only because G_u8SystemFlags != 0, i.e. at least
-       * one module raised an alert → buzzer + interior LED ON unconditionally.
-       * This is also the FULL response for DNPW and IMA (no external LEDs). */
+      /* ── GENERAL alert: ANY active system → buzzer + interior LED ──
+       * This is also the FULL response for BSW and DNPW (no external LEDs). */
       LED_TurnOn(&Interior_LED);
       BUZ_On(&V2X_Buzzer);
 
-      /* ── PER-SYSTEM external indicators ── */
-      uint8_t fcw       = (G_u8SystemFlags & SYSFLG_FCW)  ? FCW_u8GetAlertLevel()  : 0;
-      uint8_t eebl      = (G_u8SystemFlags & SYSFLG_EEBL) ? EEBL_u8GetAlertLevel() : 0;
-      uint8_t bsw_left  = (G_u8SystemFlags & SYSFLG_BSW)  ? BSW_u8GetLeftFlag()    : 0;
-      uint8_t bsw_right = (G_u8SystemFlags & SYSFLG_BSW)  ? BSW_u8GetRightFlag()   : 0;
+      /* Per-module status (0/1/2) from the packed word */
+      uint8_t fcw  = SYS_GET(flags, SYS_FCW_POS);
+      uint8_t eebl = SYS_GET(flags, SYS_EEBL_POS);
+      uint8_t ima  = SYS_GET(flags, SYS_IMA_POS);
 
-      /* FCW: forward threat → front LEDs */
-      if (fcw >= 1) { LED_TurnOn(&FrontR_LED);  LED_TurnOn(&FrontL_LED);  }
-      else          { LED_TurnOff(&FrontR_LED); LED_TurnOff(&FrontL_LED); }
+      /* Front LEDs: FCW or IMA (forward threats) */
+      if (fcw || ima) { LED_TurnOn(&FrontR_LED);  LED_TurnOn(&FrontL_LED);  }
+      else            { LED_TurnOff(&FrontR_LED); LED_TurnOff(&FrontL_LED); }
 
-      /* BackR: EEBL rear threat OR BSW right blind-spot */
-      if (eebl >= 1 || bsw_right) { LED_TurnOn(&BackR_LED);  }
-      else                        { LED_TurnOff(&BackR_LED); }
-
-      /* BackL: EEBL rear threat OR BSW left blind-spot */
-      if (eebl >= 1 || bsw_left)  { LED_TurnOn(&BackL_LED);  }
-      else                        { LED_TurnOff(&BackL_LED); }
-
-      /* ── Motor: only FCW CRITICAL stops the car ── */
-      if (fcw == 2) { L298N_enumCarStop(&RightMotor, &LeftMotor);        G_eMotorGlobalCommand = CMD_STOP;         }
-      else          { L298N_enumCarMoveForward(&RightMotor, &LeftMotor); G_eMotorGlobalCommand = CMD_MOVE_FORWARD; }
+      /* Back LEDs: EEBL (rear threat) */
+      if (eebl) { LED_TurnOn(&BackR_LED);  LED_TurnOn(&BackL_LED);  }
+      else      { LED_TurnOff(&BackR_LED); LED_TurnOff(&BackL_LED); }
     }
 
     vTaskDelay(pdMS_TO_TICKS(25));
@@ -335,29 +320,30 @@ void vTask_RPi_Comm(void *pvParameters)
   {
     RPi_Packet_t pkt;
 
-    /* Read shared state under mutex */
+    /* Snapshot host state under mutex */
     xSemaphoreTake(G_xDataMutex, portMAX_DELAY);
-    pkt.speed   = G_stHostVehicleState.Speed;
-    pkt.heading = G_stHostVehicleState.Heading;
+    pkt.FrontLeftUS   = G_stHostVehicleState.FrontLeftUS;
+    pkt.FrontCenterUS = G_stHostVehicleState.FrontCenterUS;
+    pkt.FrontRightUS  = G_stHostVehicleState.FrontRightUS;
+    pkt.BackLeftUS    = G_stHostVehicleState.BackLeftUS;
+    pkt.BackCenterUS  = G_stHostVehicleState.BackCenterUS;
+    pkt.BackRightUS   = G_stHostVehicleState.BackRightUS;
+    pkt.speed         = G_stHostVehicleState.Speed;
+    pkt.heading       = G_stHostVehicleState.Heading;
+    pkt.pitch         = G_stHostVehicleState.Pitch;
+    pkt.roll          = G_stHostVehicleState.Roll;
     xSemaphoreGive(G_xDataMutex);
 
-    /* G_u8SystemFlags is volatile uint8 — atomic read, no mutex needed */
-    pkt.sys_flags = G_u8SystemFlags;
+    /* 16-bit status word — atomic read, no mutex needed */
+    pkt.sys_flags = G_u16SystemFlags;
 
-    /* Frame */
+    /* Framing (no checksum) */
     pkt.start = 0xAAU;
     pkt.end   = 0x55U;
 
-    /* Checksum: XOR over sys_flags + 4 speed bytes + 4 heading bytes */
-    const uint8_t *p = (const uint8_t *)&pkt.sys_flags;
-    uint8_t csum = 0;
-    for (uint8_t i = 0; i < (1u + sizeof(float) + sizeof(float)); i++)
-      csum ^= p[i];
-    pkt.checksum = csum;
-
-    /* Send packet byte by byte */
+    /* Send the whole frame byte by byte */
     const uint8_t *raw = (const uint8_t *)&pkt;
-    for (uint8_t i = 0; i < sizeof(RPi_Packet_t); i++)
+    for (uint16_t i = 0; i < sizeof(RPi_Packet_t); i++)
       USART_enumTransmit(&RPi_UART, raw[i]);
 
     vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(100));

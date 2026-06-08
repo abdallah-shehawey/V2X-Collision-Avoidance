@@ -48,7 +48,8 @@
  * | LED 5     | PC7 | PORTC | Interior Driver Alert (dashboard) |
  * | BUZZER    | PC4 | PORTC | Warning Sound    |
  *
- * 4. MOTORS (L298N Driver)
+ * 4. MOTORS (L298N Driver)  ⚠️ NOW CONTROLLED BY THE RASPBERRY PI — NOT THE STM32.
+ *    The pins below are FREE on the STM32; kept here only as historical reference.
  * ----------------------------------------------------------------------------------------
  * | Component | Pin  | Port  | Description                 | Note                    |
  * |-----------|------|-------|-----------------------------|-------------------------|
@@ -81,8 +82,8 @@
  * |                        |          |               |                    | + feedback aggregation → command channel      |
  * | [1] vTask_ESP_Comm     | 4 (MAX)  | +128          | ~10ms RX/100ms TX  | ESP-NOW V2X communication                     |
  * | [2] vTask_Sensors      | 3        | +256          | ~25-82 ms adaptive | All 6 US (interrupt, 2m cap) + MPU9250         |
- * | [3] vTask_Feedback     | 2        | +128          | ~25 ms             | Centralized actuator manager (Motors+LEDs+BUZ)|
- * | [4] vTask_RPi_Comm     | 1 (LOW)  | +100          | ~100 ms            | Raspberry Pi communication (RX + TX)          |
+ * | [3] vTask_Feedback     | 2        | +128          | ~25 ms             | Alert manager (LEDs + Buzzer; motors on RPi)  |
+ * | [4] vTask_RPi_Comm     | 1 (LOW)  | +100          | ~100 ms            | Raspberry Pi telemetry TX (status + sensors)  |
  *
  * NOTE: Priority 4 is the highest user priority. Priority 0 is the FreeRTOS Idle task.
  *       configMAX_SYSCALL_INTERRUPT_PRIORITY = 5  → NVIC_USART1 must be set to ≥ 6.
@@ -95,26 +96,19 @@
  *       ADAS architecture = SINGLE-PASS, with a clean Brain/Muscle split:
  *         • vTask_SafetyEngine (Brain, detection-only): runs all modules over the
  *           neighbor table in ONE pass; each module raises its own flag. Then it
- *           publishes the GENERAL bitmap G_u8SystemFlags (one bit per active module).
+ *           publishes the GENERAL bitmap G_u16SystemFlags (one bit per active module).
  *           It makes NO movement decision. Holds both mutexes (NeighborTable → Data).
- *         • vTask_Feedback (Muscle): reads G_u8SystemFlags; if 0 drives forward with
- *           everything off, else buzzer + interior LED ON (general driver alert) and
- *           inspects per-module getters for external indicators (FCW → front LEDs,
- *           EEBL/BSW → back LEDs) and motor (FCW CRITICAL → stop). Sole driver of the
- *           actuators and sole writer of G_eMotorGlobalCommand. Takes G_xDataMutex only.
+ *         • vTask_Feedback (Muscle): reads G_u16SystemFlags; if 0 everything off,
+ *           else buzzer + interior LED ON (general alert) + external LEDs by module
+ *           (FCW||IMA → front LEDs, EEBL → back LEDs; BSW/DNPW = alert only).
+ *           NO motor control — the Raspberry Pi drives the motors from the telemetry.
  *       Lock usage: ESP_Comm takes the two mutexes separately, Sensors & Feedback take
  *       Data only → deadlock-free.
  * ========================================================================================
  */
 
-/* ================== Global Intentions ================== */
-typedef enum {
-    CMD_MOVE_FORWARD = 0,
-    CMD_STOP = 1,
-    CMD_STEER_RIGHT = 2,
-    CMD_STEER_LEFT = 3,
-    CMD_MOVE_BACKWARD = 4
-} MotorCommand_t;
+/* NOTE: Motor control moved to the Raspberry Pi. The STM32 no longer drives
+ * the motors — it only detects and reports status. (MotorCommand_t removed.) */
 
 /* Unified Sensor State Structure */
 typedef struct {
@@ -134,33 +128,72 @@ typedef struct {
     float PosZ;
 } HostVehicleState_t;
 
-/* ── System module flags (bitmap) ──
- * Each bit = one ADAS module has an active alert.
- * SafetyEngine writes, vTask_Feedback reads.
- * 0x00 = all safe. */
-#define SYSFLG_FCW   (1U << 0)   /* Forward Collision Warning        */
-#define SYSFLG_EEBL  (1U << 1)   /* Emergency Electronic Brake Light */
-#define SYSFLG_BSW   (1U << 2)   /* Blind Spot Warning               */
-#define SYSFLG_DNPW  (1U << 3)   /* Do Not Pass Warning              */
-#define SYSFLG_IMA   (1U << 4)   /* Intersection Movement Assist     */
+/* ════════════════════════════════════════════════════════════════════════
+ *  G_u16SystemFlags — system status word (2 bits per ADAS module)
+ * ════════════════════════════════════════════════════════════════════════
+ *  SafetyEngine writes it; vTask_Feedback and vTask_RPi_Comm read it.
+ *  Each module occupies 2 bits:
+ *        0b00 = SAFE      (no hazard)
+ *        0b01 = WARNING   (caution — slow down)
+ *        0b10 = CRITICAL  (danger — stop)
+ *
+ *  Bit layout (uint16_t):
+ *        bits  1:0  → FCW   (Forward Collision Warning)
+ *        bits  3:2  → EEBL  (Emergency Electronic Brake Light)
+ *        bits  5:4  → BSW   (Blind Spot Warning)        [WARNING only]
+ *        bits  7:6  → DNPW  (Do Not Pass Warning)
+ *        bits  9:8  → IMA   (Intersection Movement Assist)
+ *        bits 15:10 → reserved (0)
+ *
+ *  0x0000 = everything safe.
+ *  Extract one module:  status = (G_u16SystemFlags >> SYS_xxx_POS) & SYS_MASK
+ *
+ *  Worked examples (binary grouped as IMA|DNPW|BSW|EEBL|FCW):
+ *     0x0001  00 00 00 00 01  → FCW  WARNING
+ *     0x0002  00 00 00 00 10  → FCW  CRITICAL
+ *     0x0004  00 00 00 01 00  → EEBL WARNING
+ *     0x0010  00 00 01 00 00  → BSW  WARNING
+ *     0x0040  00 01 00 00 00  → DNPW WARNING
+ *     0x0100  01 00 00 00 00  → IMA  WARNING
+ *     0x0006  00 00 00 01 10  → FCW CRITICAL + EEBL WARNING
+ *     0x0101  01 00 00 00 01  → FCW WARNING  + IMA WARNING
+ * ════════════════════════════════════════════════════════════════════════ */
+#define SYS_SAFE       0x0u
+#define SYS_WARNING    0x1u
+#define SYS_CRITICAL   0x2u
+#define SYS_MASK       0x3u      /* 2-bit field mask */
 
-/* ── RPi telemetry packet ──
- * Sent every 100ms via UART4.
- * Protocol: START(0xAA) | sys_flags | speed_f32 | heading_f32 | checksum | END(0x55)
- * Checksum = XOR of all payload bytes (sys_flags + 4 speed bytes + 4 heading bytes). */
+#define SYS_FCW_POS    0u
+#define SYS_EEBL_POS   2u
+#define SYS_BSW_POS    4u
+#define SYS_DNPW_POS   6u
+#define SYS_IMA_POS    8u
+
+/* status (0/1/2) of one module from the packed word */
+#define SYS_GET(flags, pos)   (((flags) >> (pos)) & SYS_MASK)
+
+/* ── RPi telemetry packet (sent every 100ms via UART4) ──
+ * Frame: START(0xAA) | payload | END(0x55)   (no checksum)
+ * sys_flags is the 2-bits-per-module status word documented above. */
 typedef struct __attribute__((packed))
 {
-  uint8_t  start;       /* 0xAA */
-  uint8_t  sys_flags;   /* SYSFLG_* bitmap */
-  float    speed;       /* cm/s */
-  float    heading;     /* degrees 0-360 */
-  uint8_t  checksum;    /* XOR of sys_flags+speed+heading bytes */
-  uint8_t  end;         /* 0x55 */
+  uint8_t  start;        /* 0xAA frame start                         */
+  uint16_t sys_flags;    /* 2 bits/module: 00 safe, 01 warn, 10 crit */
+  float    FrontLeftUS;  /* cm */
+  float    FrontCenterUS;/* cm */
+  float    FrontRightUS; /* cm */
+  float    BackLeftUS;   /* cm */
+  float    BackCenterUS; /* cm */
+  float    BackRightUS;  /* cm */
+  float    speed;        /* cm/s */
+  float    heading;      /* degrees 0-360 */
+  float    pitch;        /* degrees */
+  float    roll;         /* degrees */
+  uint8_t  end;          /* 0x55 frame end */
 } RPi_Packet_t;
 
-/* Global variables for centralized management */
-extern volatile MotorCommand_t G_eMotorGlobalCommand;
-extern volatile uint8_t        G_u8SystemFlags; /* bitmap: 0 = all safe */
+/* Global status word — SafetyEngine writes, Feedback & RPi read. 0 = all safe. */
+extern volatile uint16_t G_u16SystemFlags;
 
 /* Unified Host Vehicle State */
 extern HostVehicleState_t G_stHostVehicleState;

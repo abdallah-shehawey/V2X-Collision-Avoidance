@@ -76,15 +76,18 @@ void SafetyEngine_voidUpdate(void)
   DNPW_voidEndCycle();
   IMA_voidEndCycle();
 
-  /* General flags bitmap: one bit per active module.
-   * Feedback reads per-module getters for severity; this bitmap tells it WHO. */
-  uint8_t flags = 0;
-  if (FCW_u8GetAlertLevel()  > 0)                  flags |= SYSFLG_FCW;
-  if (EEBL_u8GetAlertLevel() > 0)                  flags |= SYSFLG_EEBL;
-  if (BSW_u8GetLeftFlag() || BSW_u8GetRightFlag()) flags |= SYSFLG_BSW;
-  if (DNPW_u8GetFlag() > 0)                       flags |= SYSFLG_DNPW;
-  if (IMA_u8GetFlag()  > 0)                       flags |= SYSFLG_IMA;
-  G_u8SystemFlags = flags;
+  /* Status word: 2 bits per module (00 safe / 01 warning / 10 critical).
+   * RiskLevel maps directly: SAFE=0, WARNING=1, CRITICAL=2. BSW is binary
+   * (blind-spot present → WARNING). */
+  uint8_t bsw = (BSW_u8GetLeftFlag() || BSW_u8GetRightFlag()) ? SYS_WARNING : SYS_SAFE;
+
+  uint16_t flags = 0;
+  flags |= ((uint16_t)(FCW_u8GetAlertLevel()  & SYS_MASK)) << SYS_FCW_POS;
+  flags |= ((uint16_t)(EEBL_u8GetAlertLevel() & SYS_MASK)) << SYS_EEBL_POS;
+  flags |= ((uint16_t)(bsw                    & SYS_MASK)) << SYS_BSW_POS;
+  flags |= ((uint16_t)(DNPW_u8GetFlag()       & SYS_MASK)) << SYS_DNPW_POS;
+  flags |= ((uint16_t)(IMA_u8GetFlag()        & SYS_MASK)) << SYS_IMA_POS;
+  G_u16SystemFlags = flags;
 }
 
 /* ============ Shared Direction Detection ============ */

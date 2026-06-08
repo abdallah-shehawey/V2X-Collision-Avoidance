@@ -14,7 +14,6 @@
 #include "../Inc/Drivers/HAL/US/US_interface.h"
 #include "../Inc/Drivers/HAL/LED/LED_interface.h"
 #include "../Inc/Drivers/HAL/MPU9250/MPU9250_interface.h"
-#include "../Inc/Drivers/HAL/L298N/L298N_interface.h"
 #include "../Inc/Drivers/MCAL/USART/USART_intreface.h"
 #include "../Inc/Drivers/MCAL/NVIC/NVIC_interface.h"
 #include "../Inc/Drivers/MCAL/TIM/TIM_interface.h"
@@ -29,8 +28,7 @@
 uint32_t SystemCoreClock = 16000000;
 
 /* Central Management Global Variables */
-volatile MotorCommand_t G_eMotorGlobalCommand = CMD_MOVE_FORWARD;
-volatile uint8_t G_u8SystemFlags     = 0;
+volatile uint16_t G_u16SystemFlags = 0;   /* 2 bits/module status word (see System.h) */
 HostVehicleState_t G_stHostVehicleState = {0};
 
 
@@ -44,18 +42,7 @@ LED_Config_t BackR_LED    = {GPIO_PORTC, GPIO_PIN2, ACTIVE_HIGH};
 LED_Config_t BackL_LED    = {GPIO_PORTC, GPIO_PIN3, ACTIVE_HIGH};
 LED_Config_t Interior_LED = {GPIO_PORTC, GPIO_PIN7, ACTIVE_HIGH}; /* PC7 — driver dashboard */
 
-/* Motors Configuration */
-L298N_MotorConfig_t RightMotor = {
-    .EN_Port = GPIO_PORTA, .EN_Pin = GPIO_PIN8,
-    .IN1_Port = GPIO_PORTC, .IN1_Pin = GPIO_PIN5,
-    .IN2_Port = GPIO_PORTC, .IN2_Pin = GPIO_PIN6
-};
-
-L298N_MotorConfig_t LeftMotor = {
-    .EN_Port = GPIO_PORTA, .EN_Pin = GPIO_PIN11,
-    .IN1_Port = GPIO_PORTB, .IN1_Pin = GPIO_PIN10,
-    .IN2_Port = GPIO_PORTB, .IN2_Pin = GPIO_PIN15  /* was PB11 — not bonded on LQFP64 (F446RE) */
-};
+/* Motors are driven by the Raspberry Pi now — no L298N config on the STM32. */
 
 US_Config_t FrontUS[3]; // The 3 front ultrasonic sensors
 US_Config_t BackUS[3];  // The 3 back ultrasonic sensors
@@ -233,9 +220,7 @@ void System_setup(void)
 	LED_Init(&Interior_LED);
 	/* Initialize Buzzer */
     BUZ_Init(&V2X_Buzzer);
-    /* Initialize Motors */
-    L298N_enumInit(&RightMotor);
-    L298N_enumInit(&LeftMotor);
+    /* Motors initialized/driven by the Raspberry Pi — nothing to init here */
 
 	// DSRC init
 	DSRC_Init();
