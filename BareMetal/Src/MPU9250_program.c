@@ -19,6 +19,7 @@
 /* Global State */
 static float Accel_Offset[3] = {0, 0, 0};
 static float Gyro_Offset[3]  = {0, 0, 0};
+static float Mag_ASA[3]      = {1.0f, 1.0f, 1.0f}; /* AK8963 factory sensitivity adjust */
 static float Filtered_Pitch = 0, Filtered_Roll = 0, Filtered_Heading = 0;
 static float Vert_Velocity_m_s = 0; 
 volatile uint8_t MPU9250_ID = 0; /* Visible ID for debugging */
@@ -52,12 +53,41 @@ static uint8_t MPU9250_u8ReadReg(uint8_t reg) {
 }
 
 static void MPU9250_vInitMag(void) {
-  MPU9250_vWriteReg(0x37, 0x02); TIM_vDelayMs(MPU9250_DELAY_TIMER, 10);
-  MPU9250_vWriteReg(0x6A, 0x20); MPU9250_vWriteReg(0x24, 0x0D);
-  MPU9250_vWriteReg(I2C_SLV0_ADDR, 0x0C); MPU9250_vWriteReg(I2C_SLV0_REG,  0x0A);
-  MPU9250_vWriteReg(I2C_SLV0_DO,   0x16); MPU9250_vWriteReg(I2C_SLV0_CTRL, 0x81);
+  /* SPI-only (I2C_IF_DIS) + enable internal I2C master @400kHz, no bypass */
+  MPU9250_vWriteReg(0x37, 0x00); TIM_vDelayMs(MPU9250_DELAY_TIMER, 10);
+  MPU9250_vWriteReg(0x6A, 0x30); MPU9250_vWriteReg(0x24, 0x0D);
+
+  /* Point SLV0 at the AK8963's CNTL1 register for the mode writes below */
+  MPU9250_vWriteReg(I2C_SLV0_ADDR, 0x0C); /* AK8963 I2C addr, write */
+  MPU9250_vWriteReg(I2C_SLV0_REG,  0x0A); /* CNTL1 */
+
+  /* Power down, then enter Fuse ROM access mode to expose the ASA bytes */
+  MPU9250_vWriteReg(I2C_SLV0_DO, 0x00); MPU9250_vWriteReg(I2C_SLV0_CTRL, 0x81);
   TIM_vDelayMs(MPU9250_DELAY_TIMER, 10);
-  MPU9250_vWriteReg(I2C_SLV0_ADDR, 0x8C); MPU9250_vWriteReg(I2C_SLV0_REG,  0x03);
+  MPU9250_vWriteReg(I2C_SLV0_DO, 0x0F); MPU9250_vWriteReg(I2C_SLV0_CTRL, 0x81);
+  TIM_vDelayMs(MPU9250_DELAY_TIMER, 10);
+
+  /* Read the 3 factory sensitivity bytes (ASAX/Y/Z) from AK8963 reg 0x10 */
+  MPU9250_vWriteReg(I2C_SLV0_ADDR, 0x8C); /* AK8963 I2C addr, read */
+  MPU9250_vWriteReg(I2C_SLV0_REG,  0x10); /* ASAX */
+  MPU9250_vWriteReg(I2C_SLV0_CTRL, 0x83); /* enable, 3 bytes */
+  TIM_vDelayMs(MPU9250_DELAY_TIMER, 10);
+  uint8_t asax = MPU9250_u8ReadReg(0x49); /* EXT_SENS_DATA_00 */
+  uint8_t asay = MPU9250_u8ReadReg(0x4A);
+  uint8_t asaz = MPU9250_u8ReadReg(0x4B);
+  if (asax) Mag_ASA[0] = (float)(asax - 128) / 256.0f + 1.0f;
+  if (asay) Mag_ASA[1] = (float)(asay - 128) / 256.0f + 1.0f;
+  if (asaz) Mag_ASA[2] = (float)(asaz - 128) / 256.0f + 1.0f;
+
+  /* Power down again, then start continuous mode 2 (100Hz), 16-bit output */
+  MPU9250_vWriteReg(I2C_SLV0_ADDR, 0x0C); MPU9250_vWriteReg(I2C_SLV0_REG, 0x0A);
+  MPU9250_vWriteReg(I2C_SLV0_DO, 0x00); MPU9250_vWriteReg(I2C_SLV0_CTRL, 0x81);
+  TIM_vDelayMs(MPU9250_DELAY_TIMER, 10);
+  MPU9250_vWriteReg(I2C_SLV0_DO, 0x16); MPU9250_vWriteReg(I2C_SLV0_CTRL, 0x81);
+  TIM_vDelayMs(MPU9250_DELAY_TIMER, 10);
+
+  /* Now stream 7 bytes (HXL..HZH + ST2) from AK8963 reg 0x03 every cycle */
+  MPU9250_vWriteReg(I2C_SLV0_ADDR, 0x8C); MPU9250_vWriteReg(I2C_SLV0_REG, 0x03);
   MPU9250_vWriteReg(I2C_SLV0_CTRL, 0x87);
 }
 
@@ -104,9 +134,9 @@ ErrorState_t MPU9250_enumReadData(MPU9250_Data_t *D) {
   D->GyroX = ((float)((int16_t)((buffer[8]<<8)|buffer[9])) - Gyro_Offset[0]) / 131.0f;
   D->GyroY = ((float)((int16_t)((buffer[10]<<8)|buffer[11])) - Gyro_Offset[1]) / 131.0f;
   D->GyroZ = ((float)((int16_t)((buffer[12]<<8)|buffer[13])) - Gyro_Offset[2]) / 131.0f;
-  D->MagX = (float)((int16_t)((buffer[15]<<8)|buffer[14]));
-  D->MagY = (float)((int16_t)((buffer[17]<<8)|buffer[16]));
-  D->MagZ = (float)((int16_t)((buffer[19]<<8)|buffer[18]));
+  D->MagX = (float)((int16_t)((buffer[15]<<8)|buffer[14])) * Mag_ASA[0];
+  D->MagY = (float)((int16_t)((buffer[17]<<8)|buffer[16])) * Mag_ASA[1];
+  D->MagZ = (float)((int16_t)((buffer[19]<<8)|buffer[18])) * Mag_ASA[2];
   return OK;
 }
 
