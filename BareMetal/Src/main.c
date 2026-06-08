@@ -36,15 +36,13 @@ extern BUZ_Config_t      V2X_Buzzer;
 extern USART_Config_t    RPi_UART;
 extern US_Config_t FrontUS[3];
 extern US_Config_t BackUS[3];
-extern L298N_MotorConfig_t RightMotor;
-extern L298N_MotorConfig_t LeftMotor;
 /* LEDs: FrontR=PC0, FrontL=PC1, BackR=PC2, BackL=PC3, Interior(driver)=PC7 */
 extern LED_Config_t FrontR_LED, FrontL_LED, BackR_LED, BackL_LED, Interior_LED;
 
 
-QueueHandle_t G_xESP_RX_Queue;
-SemaphoreHandle_t G_xDataMutex;
-SemaphoreHandle_t G_xNeighborTableMutex;
+QueueHandle_t G_xESP_RX_Queue;        // queue for ESP32 communication
+SemaphoreHandle_t G_xDataMutex;           // for data protection (G_stHostVehicleState and G_u8SystemFlags)
+SemaphoreHandle_t G_xNeighborTableMutex;  // for neighbor table protection (neighbor_table)
 
 
 
@@ -67,9 +65,9 @@ int main(void)
   SEGGER_setup();
 
   /* Create Queues & Mutexes */
-  G_xESP_RX_Queue = xQueueCreate(256, sizeof(uint8_t));
-  G_xDataMutex = xSemaphoreCreateMutex();
-  G_xNeighborTableMutex = xSemaphoreCreateMutex();
+  G_xESP_RX_Queue = xQueueCreate(256, sizeof(uint8_t)); // 256 element queue (byte)
+  G_xDataMutex = xSemaphoreCreateMutex();                 // for data protection (G_stHostVehicleState and G_u8SystemFlags)
+  G_xNeighborTableMutex = xSemaphoreCreateMutex();        // for neighbor table protection (neighbor_table)
 
   /* Initialize all ADAS modules (FCW/EEBL/BSW/DNPW/IMA) before scheduling */
   SafetyEngine_voidInit();
@@ -82,7 +80,7 @@ int main(void)
   xTaskCreate(vTask_Sensors,      "Sensors_Task",      configMINIMAL_STACK_SIZE + 256, NULL, 3, NULL);
   /* --- Low Priority: Actuator Execution & UI/RPi --- */
   xTaskCreate(vTask_Feedback,     "Feedback_Task",     configMINIMAL_STACK_SIZE + 128, NULL, 2, NULL);
-  xTaskCreate(vTask_RPi_Comm,     "RPi_Comm_Task",     configMINIMAL_STACK_SIZE + 100, NULL, 1, NULL);
+  xTaskCreate(vTask_RPi_Comm,     "RPi_Comm_Task",     configMINIMAL_STACK_SIZE + 256, NULL, 1, NULL);
 
   /* 3. OS Initialization and start running tasks */
   RTOS_setup();
@@ -155,7 +153,7 @@ void vTask_Sensors(void *pvParameters)
       &FrontUS[2], &BackUS[2]    /* Right:  front then back  */
   };
 
-  TickType_t xPrevTick = xTaskGetTickCount();
+  TickType_t xPrevTick = xTaskGetTickCount(); // Time since last cycle
 
   for(;;)
   {
@@ -170,7 +168,7 @@ void vTask_Sensors(void *pvParameters)
     uint16_t raw;
     for (uint8_t i = 0; i < 6; i++)
     {
-      us[i] = 400.0f;   /* default = out of range / clear (no echo within 2m) */
+    //  us[i] = 400.0f;   /* default = out of range / clear (no echo within 2m) */
       if (US_u16ReadDistance_cm(sensors[i], &raw) == OK)
         us[i] = (float)raw;
     }
@@ -224,8 +222,7 @@ void vTask_Feedback(void *pvParameters)
       LED_TurnOff(&BackL_LED);
       LED_TurnOff(&Interior_LED);
       BUZ_Off(&V2X_Buzzer);
-      L298N_enumCarMoveForward(&RightMotor, &LeftMotor);
-      G_eMotorGlobalCommand = CMD_MOVE_FORWARD;
+
     }
     else
     {
@@ -253,10 +250,6 @@ void vTask_Feedback(void *pvParameters)
       /* BackL: EEBL rear threat OR BSW left blind-spot */
       if (eebl >= 1 || bsw_left)  { LED_TurnOn(&BackL_LED);  }
       else                        { LED_TurnOff(&BackL_LED); }
-
-      /* ── Motor: only FCW CRITICAL stops the car ── */
-      if (fcw == 2) { L298N_enumCarStop(&RightMotor, &LeftMotor);        G_eMotorGlobalCommand = CMD_STOP;         }
-      else          { L298N_enumCarMoveForward(&RightMotor, &LeftMotor); G_eMotorGlobalCommand = CMD_MOVE_FORWARD; }
     }
 
     vTaskDelay(pdMS_TO_TICKS(25));
@@ -331,34 +324,36 @@ void vTask_RPi_Comm(void *pvParameters)
 {
   TickType_t xLastWakeTime = xTaskGetTickCount();
 
+  char line[96];
+
   for (;;)
   {
-    RPi_Packet_t pkt;
+    float spd, hdg, fl, fc, fr, bl, bc, br;
+    uint8_t flags;
 
     /* Read shared state under mutex */
     xSemaphoreTake(G_xDataMutex, portMAX_DELAY);
-    pkt.speed   = G_stHostVehicleState.Speed;
-    pkt.heading = G_stHostVehicleState.Heading;
+    spd = G_stHostVehicleState.Speed;
+    hdg = G_stHostVehicleState.Heading;
+    fl  = G_stHostVehicleState.FrontLeftUS;
+    fc  = G_stHostVehicleState.FrontCenterUS;
+    fr  = G_stHostVehicleState.FrontRightUS;
+    bl  = G_stHostVehicleState.BackLeftUS;
+    bc  = G_stHostVehicleState.BackCenterUS;
+    br  = G_stHostVehicleState.BackRightUS;
     xSemaphoreGive(G_xDataMutex);
 
     /* G_u8SystemFlags is volatile uint8 — atomic read, no mutex needed */
-    pkt.sys_flags = G_u8SystemFlags;
+    flags = G_u8SystemFlags;
 
-    /* Frame */
-    pkt.start = 0xAAU;
-    pkt.end   = 0x55U;
+    /* ASCII CSV line — contains NO 0x00 bytes, so it survives the UART link that
+     * was losing the binary packet's zero-runs. '\n'-delimited, trivial to parse.
+     * Format: T,speed,heading,FL,FC,FR,BL,BC,BR,flags\n */
+    snprintf(line, sizeof(line),
+             "T,%.1f,%.1f,%.0f,%.0f,%.0f,%.0f,%.0f,%.0f,%u\n",
+             spd, hdg, fl, fc, fr, bl, bc, br, (unsigned)flags);
 
-    /* Checksum: XOR over sys_flags + 4 speed bytes + 4 heading bytes */
-    const uint8_t *p = (const uint8_t *)&pkt.sys_flags;
-    uint8_t csum = 0;
-    for (uint8_t i = 0; i < (1u + sizeof(float) + sizeof(float)); i++)
-      csum ^= p[i];
-    pkt.checksum = csum;
-
-    /* Send packet byte by byte */
-    const uint8_t *raw = (const uint8_t *)&pkt;
-    for (uint8_t i = 0; i < sizeof(RPi_Packet_t); i++)
-      USART_enumTransmit(&RPi_UART, raw[i]);
+    USART_enumTransmitString(&RPi_UART, (uint8_t *)line);
 
     vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(100));
   }

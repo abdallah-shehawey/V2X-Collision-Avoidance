@@ -29,7 +29,7 @@
 uint32_t SystemCoreClock = 16000000;
 
 /* Central Management Global Variables */
-volatile MotorCommand_t G_eMotorGlobalCommand = CMD_MOVE_FORWARD;
+
 volatile uint8_t G_u8SystemFlags     = 0;
 HostVehicleState_t G_stHostVehicleState = {0};
 
@@ -44,21 +44,8 @@ LED_Config_t BackR_LED    = {GPIO_PORTC, GPIO_PIN2, ACTIVE_HIGH};
 LED_Config_t BackL_LED    = {GPIO_PORTC, GPIO_PIN3, ACTIVE_HIGH};
 LED_Config_t Interior_LED = {GPIO_PORTC, GPIO_PIN7, ACTIVE_HIGH}; /* PC7 — driver dashboard */
 
-/* Motors Configuration */
-L298N_MotorConfig_t RightMotor = {
-    .EN_Port = GPIO_PORTA, .EN_Pin = GPIO_PIN8,
-    .IN1_Port = GPIO_PORTC, .IN1_Pin = GPIO_PIN5,
-    .IN2_Port = GPIO_PORTC, .IN2_Pin = GPIO_PIN6
-};
-
-L298N_MotorConfig_t LeftMotor = {
-    .EN_Port = GPIO_PORTA, .EN_Pin = GPIO_PIN11,
-    .IN1_Port = GPIO_PORTB, .IN1_Pin = GPIO_PIN10,
-    .IN2_Port = GPIO_PORTB, .IN2_Pin = GPIO_PIN15  /* was PB11 — not bonded on LQFP64 (F446RE) */
-};
-
-US_Config_t FrontUS[3]; // The 3 front ultrasonic sensors
-US_Config_t BackUS[3];  // The 3 back ultrasonic sensors
+US_Config_t FrontUS[3];
+US_Config_t BackUS[3];
 
 /* Communication Interfaces */
 extern void vESP_UART_RX_Callback(void);
@@ -205,20 +192,17 @@ void System_setup(void)
 	NVIC_vSetPriority(NVIC_USART1, 6); /* Safe for FreeRTOS (configMAX_SYSCALL_INTERRUPT_PRIORITY is 5) */
 	NVIC_vEnableIRQ(NVIC_USART1);
 
-	/*                            *
-	 * Raspberry Pi configuration *
-	 *                            */
-	RCC_enumABPPerSts(RCC_APB1, RCC_USART4EN, RCC_PER_ON); // Raspberry Pi
-	GPIO_PinConfig_t U4_Pins = {
+	RCC_enumABPPerSts(RCC_APB1, RCC_USART2EN, RCC_PER_ON); // Redirect to USB (USART2 VCP)
+	GPIO_PinConfig_t U2_Pins = {
 			.Port = GPIO_PORTA,
 			.Mode = GPIO_ALTFN,
 			.Otype = GPIO_PUSH_PULL,
 			.Speed = GPIO_VERY_HIGH_SPEED,
 			.PullType = GPIO_NO_PULL,
-			.AlternateFunction = GPIO_AF8
+			.AlternateFunction = GPIO_AF7
 	};
-	U4_Pins.PinNum = GPIO_PIN0; GPIO_enumPinInit(&U4_Pins);
-	U4_Pins.PinNum = GPIO_PIN1; GPIO_enumPinInit(&U4_Pins);
+	U2_Pins.PinNum = GPIO_PIN2; GPIO_enumPinInit(&U2_Pins);
+	U2_Pins.PinNum = GPIO_PIN3; GPIO_enumPinInit(&U2_Pins);
 	USART_Init(&RPi_UART);
 
 
@@ -233,10 +217,6 @@ void System_setup(void)
 	LED_Init(&Interior_LED);
 	/* Initialize Buzzer */
     BUZ_Init(&V2X_Buzzer);
-    /* Initialize Motors */
-    L298N_enumInit(&RightMotor);
-    L298N_enumInit(&LeftMotor);
-
 	// DSRC init
 	DSRC_Init();
 }

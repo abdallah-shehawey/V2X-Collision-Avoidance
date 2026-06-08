@@ -107,14 +107,6 @@
  * ========================================================================================
  */
 
-/* ================== Global Intentions ================== */
-typedef enum {
-    CMD_MOVE_FORWARD = 0,
-    CMD_STOP = 1,
-    CMD_STEER_RIGHT = 2,
-    CMD_STEER_LEFT = 3,
-    CMD_MOVE_BACKWARD = 4
-} MotorCommand_t;
 
 /* Unified Sensor State Structure */
 typedef struct {
@@ -146,20 +138,24 @@ typedef struct {
 
 /* ── RPi telemetry packet ──
  * Sent every 100ms via UART4.
- * Protocol: START(0xAA) | sys_flags | speed_f32 | heading_f32 | checksum | END(0x55)
- * Checksum = XOR of all payload bytes (sys_flags + 4 speed bytes + 4 heading bytes). */
+ * Protocol: START(0xAA) | sys_flags | speed_f32 | heading_f32 | 6×US_f32 | END(0x55) */
 typedef struct __attribute__((packed))
 {
-  uint8_t  start;       /* 0xAA */
-  uint8_t  sys_flags;   /* SYSFLG_* bitmap */
-  float    speed;       /* cm/s */
-  float    heading;     /* degrees 0-360 */
-  uint8_t  checksum;    /* XOR of sys_flags+speed+heading bytes */
-  uint8_t  end;         /* 0x55 */
+  uint8_t  start;        /* 0xAA */
+  uint8_t  sys_flags;    /* SYSFLG_* bitmap */
+  float    speed;        /* cm/s */
+  float    heading;      /* degrees 0-360 */
+  float    front_left;   /* ultrasonic distance [cm] */
+  float    front_center;
+  float    front_right;
+  float    back_left;
+  float    back_center;
+  float    back_right;
+  uint8_t  end;          /* 0x55 */
 } RPi_Packet_t;
 
 /* Global variables for centralized management */
-extern volatile MotorCommand_t G_eMotorGlobalCommand;
+
 extern volatile uint8_t        G_u8SystemFlags; /* bitmap: 0 = all safe */
 
 /* Unified Host Vehicle State */
