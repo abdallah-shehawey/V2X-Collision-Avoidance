@@ -78,41 +78,26 @@ void DNPW_voidProcessNeighbor(const Neighbor *n, Direction_t dir)
 
 void DNPW_voidEndCycle(void)
 {
-  /* Gate 1: must have a car ahead to want to overtake */
-  if (!DNPW_FrontVehicle)
+  /* DNPW only fires in a real "about to overtake into danger" scenario, which
+   * needs BOTH:
+   *   1. a vehicle ahead to overtake   → front ultrasonic sees something close
+   *   2. oncoming traffic in the other lane → DSRC reports an OPPOSITE-direction
+   *      neighbor (a car we may not see with our own sensors)
+   * If either is missing, passing isn't the situation → SAFE. */
+  if (!DNPW_FrontVehicle || !DNPW_OppositeDetected)
   {
     DNPW_CurrentFlag = 0;
     DNPW_DeactivateAlert();
     return;
   }
 
-  /* Gate 2: left lane blocked OR oncoming car — at least one is enough */
-  RiskLevel_t alert = RISK_SAFE;
+  /* Car ahead + oncoming car → WARNING ("do not pass").
+   * If the overtaking lane (front-LEFT ultrasonic) is ALSO physically blocked,
+   * passing is even more dangerous → escalate to CRITICAL. */
+  RiskLevel_t alert = DNPW_LeftBlocked ? RISK_CRITICAL : RISK_WARNING;
 
-  if (DNPW_LeftBlocked)
-  {
-    /* Overtaking lane physically occupied — at minimum WARNING */
-    alert = RISK_WARNING;
-  }
-
-  if (DNPW_OppositeDetected)
-  {
-    /* Oncoming car: use TTC severity, but at least WARNING even if TTC is large */
-    RiskLevel_t opp = (DNPW_WorstRisk > RISK_SAFE) ? DNPW_WorstRisk : RISK_WARNING;
-    if (opp > alert) alert = opp;
-  }
-
-  if (alert > RISK_SAFE)
-  {
-    DNPW_CurrentFlag = (uint8_t)alert;
-    DNPW_ActivateAlert(alert);
-  }
-  else
-  {
-    /* Both clear — safe to overtake */
-    DNPW_CurrentFlag = 0;
-    DNPW_DeactivateAlert();
-  }
+  DNPW_CurrentFlag = (uint8_t)alert;
+  DNPW_ActivateAlert(alert);
 }
 
 /* ============================================================ */

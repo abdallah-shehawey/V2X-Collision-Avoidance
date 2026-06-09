@@ -24,6 +24,8 @@
 #include "../Inc/Drivers/HAL/LED/LED_interface.h"
 #include "../Inc/Drivers/MCAL/USART/USART_intreface.h"
 #include "../Inc/Application/FCW/FCW_interface.h"
+#include "../Inc/Application/EEBL/EEBL_interface.h"
+#include "../Inc/Application/BSW/BSW_interface.h"
 #include "../Inc/Application/DNPW/DNPW_interface.h"
 #include "../Inc/Application/IMA/IMA_interface.h"
 #include "../Inc/Application/DSRC/DSRC.h"
@@ -38,7 +40,7 @@ extern LED_Config_t FrontR_LED, FrontL_LED, BackR_LED, BackL_LED, Interior_LED;
 
 
 QueueHandle_t G_xESP_RX_Queue;        // queue for ESP32 communication
-SemaphoreHandle_t G_xDataMutex;           // for data protection (G_stHostVehicleState and G_u8SystemFlags)
+SemaphoreHandle_t G_xDataMutex;           // for data protection (G_stHostVehicleState and G_u16SystemFlags)
 SemaphoreHandle_t G_xNeighborTableMutex;  // for neighbor table protection (neighbor_table)
 
 
@@ -63,7 +65,7 @@ int main(void)
 
   /* Create Queues & Mutexes */
   G_xESP_RX_Queue = xQueueCreate(256, sizeof(uint8_t)); // 256 element queue (byte)
-  G_xDataMutex = xSemaphoreCreateMutex();                 // for data protection (G_stHostVehicleState and G_u8SystemFlags)
+  G_xDataMutex = xSemaphoreCreateMutex();                 // for data protection (G_stHostVehicleState and G_u16SystemFlags)
   G_xNeighborTableMutex = xSemaphoreCreateMutex();        // for neighbor table protection (neighbor_table)
 
   /* Initialize all ADAS modules (FCW/EEBL/BSW/DNPW/IMA) before scheduling */
@@ -165,7 +167,7 @@ void vTask_Sensors(void *pvParameters)
     uint16_t raw;
     for (uint8_t i = 0; i < 6; i++)
     {
-    //  us[i] = 400.0f;   /* default = out of range / clear (no echo within 2m) */
+      us[i] = 400.0f;   /* default = out of range / clear (no echo within 2m) */
       if (US_u16ReadDistance_cm(sensors[i], &raw) == OK)
         us[i] = (float)raw;
     }
@@ -201,51 +203,54 @@ void vTask_Sensors(void *pvParameters)
   }
 }
 /**
- * @brief Centralized Hardware Manager (Muscle).
- * Executes commands decided by the ADAS logic (Brain).
+ * @brief Alert manager (the "Muscle"): drives the LEDs + buzzer from the ADAS
+ *        status word. It makes NO decision of its own — it only renders the
+ *        severity that vTask_SafetyEngine already published. (Motors are driven
+ *        by the Raspberry Pi, not here.)
+ *
+ * Reads G_u16SystemFlags (2 bits/module: 00 safe / 01 warning / 10 critical) and
+ * maps it to the actuators exactly as agreed:
+ *   • all safe (word == 0)        → everything OFF.
+ *   • ANY alert (warning or crit) → interior dashboard LED + buzzer ON.
+ *   • FCW  == CRITICAL            → additionally the FRONT LEDs.
+ *   • EEBL == CRITICAL            → additionally the REAR  LEDs.
+ *   • everything else (BSW/DNPW/IMA, or FCW/EEBL at WARNING) adds no extra LED —
+ *     the interior LED + buzzer is their full response.
  */
-
-
 void vTask_Feedback(void *pvParameters)
 {
   for(;;)
   {
-    uint16_t flags = G_u8SystemFlags;
+    /* Single atomic read of the volatile status word (uint16 read is atomic on M4). */
+    uint16_t flags = G_u16SystemFlags;
 
     if (flags == 0)
     {
-      /* ── SAFE: everything off (motors handled by the Raspberry Pi) ── */
+      /* ── ALL SAFE: no hazard from any module → silence everything ── */
       LED_TurnOff(&FrontR_LED);
       LED_TurnOff(&FrontL_LED);
       LED_TurnOff(&BackR_LED);
       LED_TurnOff(&BackL_LED);
       LED_TurnOff(&Interior_LED);
       BUZ_Off(&V2X_Buzzer);
-
     }
     else
     {
-      /* ── GENERAL alert: ANY active system → buzzer + interior LED ──
-       * This is also the FULL response for BSW and DNPW (no external LEDs). */
+      /* ── ANY alert (any module, warning OR critical) → warn the driver ── */
       LED_TurnOn(&Interior_LED);
       BUZ_On(&V2X_Buzzer);
 
-      /* Per-module status (0/1/2) from the packed word */
-      uint8_t fcw  = SYS_GET(flags, SYS_FCW_POS);
-      uint8_t eebl = SYS_GET(flags, SYS_EEBL_POS);
-      uint8_t ima  = SYS_GET(flags, SYS_IMA_POS);
+      /* FCW CRITICAL → front LEDs (imminent forward collision). */
+      if (SYS_GET(flags, SYS_FCW_POS) == SYS_CRITICAL)
+      { LED_TurnOn(&FrontR_LED);  LED_TurnOn(&FrontL_LED);  }
+      else
+      { LED_TurnOff(&FrontR_LED); LED_TurnOff(&FrontL_LED); }
 
-      /* Front LEDs: FCW or IMA (forward threats) */
-      if (fcw || ima) { LED_TurnOn(&FrontR_LED);  LED_TurnOn(&FrontL_LED);  }
-      else            { LED_TurnOff(&FrontR_LED); LED_TurnOff(&FrontL_LED); }
-
-      /* BackR: EEBL rear threat OR BSW right blind-spot */
-      if (eebl >= 1 || bsw_right) { LED_TurnOn(&BackR_LED);  }
-      else                        { LED_TurnOff(&BackR_LED); }
-
-      /* BackL: EEBL rear threat OR BSW left blind-spot */
-      if (eebl >= 1 || bsw_left)  { LED_TurnOn(&BackL_LED);  }
-      else                        { LED_TurnOff(&BackL_LED); }
+      /* EEBL CRITICAL → rear LEDs (hard braking → warn the car behind). */
+      if (SYS_GET(flags, SYS_EEBL_POS) == SYS_CRITICAL)
+      { LED_TurnOn(&BackR_LED);  LED_TurnOn(&BackL_LED);  }
+      else
+      { LED_TurnOff(&BackR_LED); LED_TurnOff(&BackL_LED); }
     }
 
     vTaskDelay(pdMS_TO_TICKS(25));
@@ -324,13 +329,15 @@ void vTask_RPi_Comm(void *pvParameters)
 
   for (;;)
   {
-    float spd, hdg, fl, fc, fr, bl, bc, br;
-    uint8_t flags;
+    float spd, hdg, pit, rol, fl, fc, fr, bl, bc, br;
+    uint16_t flags;
 
-    /* Snapshot host state under mutex */
+    /* Read shared state under mutex */
     xSemaphoreTake(G_xDataMutex, portMAX_DELAY);
     spd = G_stHostVehicleState.Speed;
     hdg = G_stHostVehicleState.Heading;
+    pit = G_stHostVehicleState.Pitch;
+    rol = G_stHostVehicleState.Roll;
     fl  = G_stHostVehicleState.FrontLeftUS;
     fc  = G_stHostVehicleState.FrontCenterUS;
     fr  = G_stHostVehicleState.FrontRightUS;
@@ -339,15 +346,16 @@ void vTask_RPi_Comm(void *pvParameters)
     br  = G_stHostVehicleState.BackRightUS;
     xSemaphoreGive(G_xDataMutex);
 
-    /* G_u8SystemFlags is volatile uint8 — atomic read, no mutex needed */
-    flags = G_u8SystemFlags;
+    /* 16-bit ADAS status word (2 bits/module) — volatile read is atomic, no mutex.
+     * The RPi decodes each module via (flags >> SYS_xxx_POS) & 0x3. */
+    flags = G_u16SystemFlags;
 
     /* ASCII CSV line — contains NO 0x00 bytes, so it survives the UART link that
      * was losing the binary packet's zero-runs. '\n'-delimited, trivial to parse.
-     * Format: T,speed,heading,FL,FC,FR,BL,BC,BR,flags\n */
+     * Format: T,speed,heading,pitch,roll,FL,FC,FR,BL,BC,BR,flags\n */
     snprintf(line, sizeof(line),
-             "T,%.1f,%.1f,%.0f,%.0f,%.0f,%.0f,%.0f,%.0f,%u\n",
-             spd, hdg, fl, fc, fr, bl, bc, br, (unsigned)flags);
+             "T,%.1f,%.1f,%.1f,%.1f,%.0f,%.0f,%.0f,%.0f,%.0f,%.0f,%u\n",
+             spd, hdg, pit, rol, fl, fc, fr, bl, bc, br, (unsigned)flags);
 
     USART_enumTransmitString(&RPi_UART, (uint8_t *)line);
 
@@ -362,7 +370,7 @@ void vESP_UART_RX_Callback(void)
     /* Read exact byte directly from hardware Data Register (DR).
      * This avoids any software busy-flag deadlocks when TX is transmitting simultaneously!
      */
-    uint8_t rxData = USART_ReceiveByteDirect(USART_CHANNEL1);
+    uint8_t rxData = USART_ReceiveByteDirect(USART_CHANNEL1); /* ESP/DSRC on USART1 */
 
     BaseType_t xHigherPriorityTaskWoken = pdFALSE;
     xQueueSendFromISR(G_xESP_RX_Queue, &rxData, &xHigherPriorityTaskWoken);

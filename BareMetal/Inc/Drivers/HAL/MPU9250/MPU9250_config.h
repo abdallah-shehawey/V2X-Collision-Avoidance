@@ -25,4 +25,16 @@
 /* Timer for delays (TIM_TIMER6 or TIM_TIMER7 recommended) */
 #define MPU9250_DELAY_TIMER    TIM_TIMER6
 
+/* ====== Magnetometer hard-iron auto-calibration (continuous) ====== */
+/* Minimum field span (raw counts x ASA) required on BOTH axes before the
+ * running min/max is trusted to compute the hard-iron offset. Until the car
+ * has turned enough to exceed this, heading falls back to the raw (uncorrected)
+ * reading. Raise it if a noisy/near-stationary span yields a bad offset. */
+#define MPU9250_MAG_MIN_SPAN   (60.0f)
+
+/* Per-sample inward relaxation of the running extremes (raw counts). Lets a
+ * one-off spike decay out over time and keeps the calibration "live" instead
+ * of latching forever. Keep small so real turning refreshes faster than decay. */
+#define MPU9250_MAG_DECAY      (0.02f)
+
 #endif /* MPU9250_CONFIG_H_ */

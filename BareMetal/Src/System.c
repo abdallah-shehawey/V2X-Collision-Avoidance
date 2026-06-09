@@ -29,7 +29,9 @@ uint32_t SystemCoreClock = 16000000;
 
 /* Central Management Global Variables */
 
-volatile uint8_t G_u8SystemFlags     = 0;
+/* System-wide ADAS status word: 16-bit, 2 bits per module
+ * (00 = safe, 01 = warning, 10 = critical). Full layout in System.h. */
+volatile uint16_t  G_u16SystemFlags     = 0;
 HostVehicleState_t G_stHostVehicleState = {0};
 
 
@@ -63,7 +65,7 @@ USART_Handle_t USART_1 = {
     .pfnCallback = vESP_UART_RX_Callback
 };
 
-USART_Config_t RPi_UART = {USART_CHANNEL2, 115200, USART_WORDLENGTH_8B, USART_STOPBITS_1, USART_PARITY_NONE, USART_MODE_TX_RX, UART_HWCONTROL_NONE, USART_OVERSAMPLING_16};
+USART_Config_t RPi_UART = {USART_CHANNEL4, 115200, USART_WORDLENGTH_8B, USART_STOPBITS_1, USART_PARITY_NONE, USART_MODE_TX_RX, UART_HWCONTROL_NONE, USART_OVERSAMPLING_16};
 
 
 /******************************************
@@ -172,10 +174,11 @@ void System_setup(void)
 	BackUS[2] = (US_Config_t){TIM_TIMER3, TIM_CHANNEL4, GPIO_PORTB, GPIO_PIN14, GPIO_PORTC, GPIO_PIN9};
 	US_vInit(&BackUS[2]);
 
-	/*                           *
-	 * ESP-NOW configuration     *
-	 *                           */
-	RCC_enumABPPerSts(RCC_APB2, RCC_USART1,  RCC_PER_ON);
+	/*                                          *
+	 * ESP-NOW / DSRC (V2X) on USART1 (PA9/PA10) *
+	 *   Interrupt-driven RX (vESP_UART_RX_Callback) + polled TX.  *
+	 *                                          */
+	RCC_enumABPPerSts(RCC_APB2, RCC_USART1, RCC_PER_ON);
 	GPIO_PinConfig_t U1_Pins = {
 			.Port = GPIO_PORTA,
 			.Mode = GPIO_ALTFN,
@@ -184,25 +187,29 @@ void System_setup(void)
 			.PullType = GPIO_NO_PULL,
 			.AlternateFunction = GPIO_AF7
 	};
-	U1_Pins.PinNum = GPIO_PIN9;  GPIO_enumPinInit(&U1_Pins);
-	U1_Pins.PinNum = GPIO_PIN10; GPIO_enumPinInit(&U1_Pins);
+	U1_Pins.PinNum = GPIO_PIN9;  GPIO_enumPinInit(&U1_Pins);  /* USART1 TX (PA9)  */
+	U1_Pins.PinNum = GPIO_PIN10; GPIO_enumPinInit(&U1_Pins);  /* USART1 RX (PA10) */
 
-	USART_InitIT(&USART_1);
+	USART_InitIT(&USART_1);                  /* USART_1.Channel == CHANNEL1 */
 	NVIC_vSetPriority(NVIC_USART1, 6); /* Safe for FreeRTOS (configMAX_SYSCALL_INTERRUPT_PRIORITY is 5) */
 	NVIC_vEnableIRQ(NVIC_USART1);
 
-	RCC_enumABPPerSts(RCC_APB1, RCC_USART2EN, RCC_PER_ON); // Redirect to USB (USART2 VCP)
-	GPIO_PinConfig_t U2_Pins = {
+	/*                                          *
+	 * Raspberry Pi telemetry on UART4 (PA0/PA1) *
+	 *   Polled TX only (ASCII telemetry line every 100ms).       *
+	 *                                          */
+	RCC_enumABPPerSts(RCC_APB1, RCC_USART4EN, RCC_PER_ON);
+	GPIO_PinConfig_t U4_Pins = {
 			.Port = GPIO_PORTA,
 			.Mode = GPIO_ALTFN,
 			.Otype = GPIO_PUSH_PULL,
 			.Speed = GPIO_VERY_HIGH_SPEED,
 			.PullType = GPIO_NO_PULL,
-			.AlternateFunction = GPIO_AF7
+			.AlternateFunction = GPIO_AF8
 	};
-	U2_Pins.PinNum = GPIO_PIN2; GPIO_enumPinInit(&U2_Pins);
-	U2_Pins.PinNum = GPIO_PIN3; GPIO_enumPinInit(&U2_Pins);
-	USART_Init(&RPi_UART);
+	U4_Pins.PinNum = GPIO_PIN0; GPIO_enumPinInit(&U4_Pins);  /* UART4 TX (PA0) */
+	U4_Pins.PinNum = GPIO_PIN1; GPIO_enumPinInit(&U4_Pins);  /* UART4 RX (PA1) */
+	USART_Init(&RPi_UART);                    /* RPi_UART.Channel == CHANNEL4 */
 
 
 	/*                *
