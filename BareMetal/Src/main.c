@@ -211,7 +211,7 @@ void vTask_Feedback(void *pvParameters)
 {
   for(;;)
   {
-    uint16_t flags = G_u16SystemFlags;
+    uint16_t flags = G_u8SystemFlags;
 
     if (flags == 0)
     {
