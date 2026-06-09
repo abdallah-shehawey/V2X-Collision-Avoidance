@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 """
-uart.py — Receive DSRC packets from the STM32 over UART (Raspberry Pi 5).
+uart.py — Receive host-vehicle telemetry from the STM32 over UART (Raspberry Pi 5).
 
-Frame the STM32 sends (V2X-without-RTOS):
-    [0xAA] [Neighbor struct = 28 bytes] [XOR checksum] [0x55]
+Frame the STM32 sends (RPi_Packet_t, __attribute__((packed)), NO checksum):
+    [0xAA] [sys_flags u16] [10x float32] [0x55]   = 44 bytes total
+    payload between start/end = sys_flags + 10 floats = 42 bytes
 
 Event-driven, NO polling: listen() does a BLOCKING read, so the kernel puts the
 thread to sleep until a byte arrives (~0% CPU) and wakes it the instant it does —
 the userspace equivalent of a UART RX interrupt. Every valid frame fires your
 callback.
 
-Wiring (3.3V only):  Pi TXD(pin14)->STM32 RX(PA10),  Pi RXD(pin15)->STM32 TX(PA9),  GND<->GND
+Wiring (3.3V only):  Pi TXD(pin14)->STM32 RX,  Pi RXD(pin15)->STM32 TX,  GND<->GND
 """
 
 import struct
@@ -29,34 +30,49 @@ BAUDRATE = 120000
 START_BYTE = 0xAA
 END_BYTE = 0x55
 
-# Neighbor struct layout on the STM32 (Cortex-M4, little-endian, default padding).
-# '<' = little-endian, no auto-align; 'Nx' = N C padding bytes. Total = 28 bytes.
-#   B vehicle_id @0 | 3x | f speed @4 | f heading @8 | I last_update @12
-#   | B fcw_flag @16 | B dnpw_flag @17 | 2x | f distance_to_intersection @20
-#   | B ima_flag @24 | 3x
-NEIGHBOR_FMT = "<B3xffIBB2xfB3x"
-NEIGHBOR_SIZE = struct.calcsize(NEIGHBOR_FMT)  # = 28
-NEIGHBOR_FIELDS = ("vehicle_id", "speed", "heading", "last_update",
-                   "fcw_flag", "dnpw_flag", "distance_to_intersection", "ima_flag")
+# Payload layout = everything between start and end of RPi_Packet_t.
+# The C struct is __attribute__((packed)) on a little-endian Cortex-M, so '<'
+# (little-endian, no auto-align) maps 1:1 with no padding bytes.
+#   H sys_flags @0 | f FrontLeftUS @2 | f FrontCenterUS @6 | f FrontRightUS @10
+#   | f BackLeftUS @14 | f BackCenterUS @18 | f BackRightUS @22 | f speed @26
+#   | f heading @30 | f pitch @34 | f roll @38   -> 42 bytes
+PACKET_FMT = "<H10f"
+PACKET_SIZE = struct.calcsize(PACKET_FMT)  # = 42
+PACKET_FIELDS = ("sys_flags",
+                 "FrontLeftUS", "FrontCenterUS", "FrontRightUS",
+                 "BackLeftUS", "BackCenterUS", "BackRightUS",
+                 "speed", "heading", "pitch", "roll")
+
+# ── sys_flags decode (G_u16SystemFlags) ──────────────────────────────────
+# 2 bits per ADAS module:  0b00 SAFE | 0b01 WARNING | 0b10 CRITICAL
+# Bit positions inside the u16 (listed low->high; bits 15:10 reserved):
+SYS_MASK = 0b11
+SYS_MODULE_POS = (
+    ("FCW",  0),   # bits 1:0  Forward Collision Warning
+    ("EEBL", 2),   # bits 3:2  Emergency Electronic Brake Light
+    ("BSW",  4),   # bits 5:4  Blind Spot Warning (WARNING only)
+    ("DNPW", 6),   # bits 7:6  Do Not Pass Warning
+    ("IMA",  8),   # bits 9:8  Intersection Movement Assist
+)
+SYS_STATUS = {0: "SAFE", 1: "WARNING", 2: "CRITICAL", 3: "INVALID"}
 
 
-def _xor(data):
-    chk = 0
-    for b in data:
-        chk ^= b
-    return chk
+def decode_sys_flags(flags):
+    """Split the 16-bit status word into {module: 'SAFE'|'WARNING'|'CRITICAL'}."""
+    return {name: SYS_STATUS[(flags >> pos) & SYS_MASK]
+            for name, pos in SYS_MODULE_POS}
 
 
-class DsrcParser:
+class PacketParser:
     """Feed bytes one at a time; returns a packet dict when a valid frame
-    completes (checksum OK), else None. Same state machine as DSRC_RxCallback."""
+    completes (start + 42-byte payload + end), else None. No checksum — the
+    STM32 sends none, the 0xAA/0x55 framing is the only validity check."""
 
-    WAIT_START, READ_DATA, READ_CHECKSUM, READ_END = range(4)
+    WAIT_START, READ_DATA, READ_END = range(3)
 
     def __init__(self):
         self.state = self.WAIT_START
         self.buf = bytearray()
-        self.checksum = 0
 
     def feed(self, byte):
         if self.state == self.WAIT_START:
@@ -65,16 +81,15 @@ class DsrcParser:
                 self.state = self.READ_DATA
         elif self.state == self.READ_DATA:
             self.buf.append(byte)
-            if len(self.buf) >= NEIGHBOR_SIZE:
-                self.state = self.READ_CHECKSUM
-        elif self.state == self.READ_CHECKSUM:
-            self.checksum = byte
-            self.state = self.READ_END
+            if len(self.buf) >= PACKET_SIZE:
+                self.state = self.READ_END
         elif self.state == self.READ_END:
             self.state = self.WAIT_START
-            if byte == END_BYTE and _xor(self.buf) == self.checksum:
-                values = struct.unpack(NEIGHBOR_FMT, bytes(self.buf))
-                return dict(zip(NEIGHBOR_FIELDS, values))
+            if byte == END_BYTE:
+                values = struct.unpack(PACKET_FMT, bytes(self.buf))
+                packet: dict = dict(zip(PACKET_FIELDS, values))
+                packet["status"] = decode_sys_flags(packet["sys_flags"])
+                return packet
         return None
 
 
@@ -84,7 +99,7 @@ def listen(on_packet, port=PORT, baudrate=BAUDRATE):
     no CPU spent while idle. This is the interrupt-style receive."""
     ser = serial.Serial(port, baudrate, timeout=None)  # timeout=None -> blocking
     ser.reset_input_buffer()
-    parser = DsrcParser()
+    parser = PacketParser()
     while True:
         byte = ser.read(1)            # <-- sleeps here (0% CPU) until a byte arrives
         packet = parser.feed(byte[0])
@@ -97,15 +112,6 @@ def start_listening(on_packet, port=PORT, baudrate=BAUDRATE):
     t = threading.Thread(target=listen, args=(on_packet, port, baudrate), daemon=True)
     t.start()
     return t
-
-
-def send_neighbor(ser, vehicle_id, speed, heading, last_update,
-                  fcw_flag, dnpw_flag, distance_to_intersection, ima_flag):
-    """Build and send one DSRC frame (start + struct + checksum + end)."""
-    raw = struct.pack(NEIGHBOR_FMT, vehicle_id, speed, heading, last_update,
-                      fcw_flag, dnpw_flag, distance_to_intersection, ima_flag)
-    ser.write(bytes([START_BYTE]) + raw + bytes([_xor(raw), END_BYTE]))
-    ser.flush()
 
 
 if __name__ == "__main__":
