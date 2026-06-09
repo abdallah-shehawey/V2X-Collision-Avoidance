@@ -107,8 +107,14 @@
  * ========================================================================================
  */
 
-/* NOTE: Motor control moved to the Raspberry Pi. The STM32 no longer drives
- * the motors — it only detects and reports status. (MotorCommand_t removed.) */
+/* ================== Global Intentions ================== */
+typedef enum {
+    CMD_MOVE_FORWARD = 0,
+    CMD_STOP = 1,
+    CMD_STEER_RIGHT = 2,
+    CMD_STEER_LEFT = 3,
+    CMD_MOVE_BACKWARD = 4
+} MotorCommand_t;
 
 /* Unified Sensor State Structure */
 typedef struct {
