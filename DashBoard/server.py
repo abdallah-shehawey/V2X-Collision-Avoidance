@@ -3,11 +3,13 @@
 V2X Dashboard - static web server.
 
 This server ONLY serves the dashboard files. It never changes any value.
-The browser reads `data.json` live (polls every ~1s), so:
+The browser subscribes to `/events` (Server-Sent Events). The server watches
+`data.json` and PUSHES the new content the instant the file changes, so the
+dashboard updates with near-zero latency (no 1s polling delay), and:
 
   * TEST MODE  (now):   YOU edit data.json by hand and save it. The dashboard
-                        updates within ~1 second. This is how you confirm the
-                        whole chain works before the hardware is connected.
+                        updates the instant you save. This is how you confirm
+                        the whole chain works before the hardware is connected.
 
   * AUTO MODE  (later): a separate process reads the STM over UART and writes
                         the SAME data.json. The dashboard does not change at
@@ -19,8 +21,10 @@ Run:
 Then open the printed URL (e.g. http://localhost:8000).
 """
 
+import json
 import os
 import socket
+import time
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
@@ -31,12 +35,65 @@ PORT = 8000
 
 class Handler(SimpleHTTPRequestHandler):
     def end_headers(self):
-        # never cache data.json so polling always sees your latest edit
+        # never cache data.json so the dashboard always sees the latest edit
         self.send_header("Cache-Control", "no-store")
         super().end_headers()
 
     def log_message(self, *args):
         pass  # keep the console quiet
+
+    def do_GET(self):
+        if self.path.split("?")[0] == "/events":
+            self.stream_events()
+        else:
+            super().do_GET()
+
+    @staticmethod
+    def read_compact():
+        # read data.json, validate it, return it as ONE line (SSE-safe).
+        # returns None if the file is missing or mid-write (invalid JSON).
+        try:
+            with open(DATA_FILE, "rb") as f:
+                data = json.load(f)
+            return json.dumps(data, ensure_ascii=False).encode("utf-8")
+        except (OSError, ValueError):
+            return None
+
+    def stream_events(self):
+        # Server-Sent Events: watch data.json's mtime and push the new
+        # content the instant it changes. The os.stat poll is local & cheap;
+        # the network only carries data when the file actually changes.
+        self.send_response(200)
+        self.send_header("Content-Type", "text/event-stream")
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("Connection", "keep-alive")
+        self.end_headers()
+        last_mtime = None
+        last_payload = None
+        ticks = 0
+        try:
+            while True:
+                try:
+                    mtime = os.path.getmtime(DATA_FILE)
+                except OSError:
+                    mtime = None
+                payload = None
+                if mtime is not None and mtime != last_mtime:
+                    payload = self.read_compact()
+                    last_mtime = mtime
+                if payload is not None and payload != last_payload:
+                    self.wfile.write(b"data: " + payload + b"\n\n")
+                    self.wfile.flush()
+                    last_payload = payload
+                elif ticks % 150 == 0:
+                    # keep-alive comment (~every 15s): also detects a
+                    # disconnected client so this thread can exit.
+                    self.wfile.write(b": ping\n\n")
+                    self.wfile.flush()
+                ticks += 1
+                time.sleep(0.1)
+        except (BrokenPipeError, ConnectionResetError):
+            pass  # client closed the tab; end this stream thread
 
 
 def lan_ip():

@@ -2,14 +2,14 @@
 //  V2X Dashboard - front-end
 //  Reads ALL vehicle values from data.json (single source of
 //  truth). data.json is updated by server.py (simulation now,
-//  STM-over-UART later). The UI just polls the file & renders.
+//  STM-over-UART later). The UI subscribes to /events (Server-Sent
+//  Events): the server pushes new data the instant the file changes,
+//  so updates appear with near-zero latency (no polling delay).
 //  Weather is fetched live from Open-Meteo (falls back to data.json).
 //
 //  ADAS flag meaning:
 //    flag 0 -> safe   |  flag 1 -> WARNING  |  flag 2 -> CRITICAL
 // ============================================================
-
-const POLL_MS = 1000;
 
 const WARNINGS = [
   ["eebl", "EEBL", "Emergency Electronic Brake Light"],
@@ -436,18 +436,20 @@ function setConn(state, text) {
   el.innerHTML = `<i class="conn-dot"></i> ${text}`;
 }
 
-async function poll() {
-  try {
-    const res = await fetch(`data.json?t=${Date.now()}`, { cache: "no-store" });
-    if (!res.ok) throw new Error(res.status);
-    render(await res.json());
-    setConn("ok", "live");
-  } catch (e) {
-    setConn("err", "no data");
-  }
+// Subscribe to the server's Server-Sent Events stream. The server pushes
+// data.json the instant it changes, so there is no polling delay.
+// EventSource reconnects on its own if the connection drops.
+function connectStream() {
+  const es = new EventSource("/events");
+  es.onmessage = (e) => {
+    try {
+      render(JSON.parse(e.data));
+      setConn("ok", "live");
+    } catch (_) { /* ignore a malformed frame; next push will be clean */ }
+  };
+  es.onerror = () => setConn("err", "no data");
 }
 
 buildAdasGrid();
-poll();
-setInterval(poll, POLL_MS);
+connectStream();
 setInterval(() => { if (wxLoc) { const [la, lo] = wxLoc.split(","); fetchWeather(la, lo, $("wxCity").textContent); } }, 600000);
