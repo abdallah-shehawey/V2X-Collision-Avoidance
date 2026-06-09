@@ -28,7 +28,8 @@
 uint32_t SystemCoreClock = 16000000;
 
 /* Central Management Global Variables */
-volatile uint16_t G_u16SystemFlags = 0;   /* 2 bits/module status word (see System.h) */
+
+volatile uint8_t G_u8SystemFlags     = 0;
 HostVehicleState_t G_stHostVehicleState = {0};
 
 
@@ -64,7 +65,7 @@ USART_Handle_t USART_1 = {
     .pfnCallback = vESP_UART_RX_Callback
 };
 
-USART_Config_t RPi_UART = {USART_CHANNEL4, 115200, USART_WORDLENGTH_8B, USART_STOPBITS_1, USART_PARITY_NONE, USART_MODE_TX_RX, UART_HWCONTROL_NONE, USART_OVERSAMPLING_16};
+USART_Config_t RPi_UART = {USART_CHANNEL2, 115200, USART_WORDLENGTH_8B, USART_STOPBITS_1, USART_PARITY_NONE, USART_MODE_TX_RX, UART_HWCONTROL_NONE, USART_OVERSAMPLING_16};
 
 
 /******************************************
@@ -192,20 +193,17 @@ void System_setup(void)
 	NVIC_vSetPriority(NVIC_USART1, 6); /* Safe for FreeRTOS (configMAX_SYSCALL_INTERRUPT_PRIORITY is 5) */
 	NVIC_vEnableIRQ(NVIC_USART1);
 
-	/*                            *
-	 * Raspberry Pi configuration *
-	 *                            */
-	RCC_enumABPPerSts(RCC_APB1, RCC_USART4EN, RCC_PER_ON); // Raspberry Pi
-	GPIO_PinConfig_t U4_Pins = {
+	RCC_enumABPPerSts(RCC_APB1, RCC_USART2EN, RCC_PER_ON); // Redirect to USB (USART2 VCP)
+	GPIO_PinConfig_t U2_Pins = {
 			.Port = GPIO_PORTA,
 			.Mode = GPIO_ALTFN,
 			.Otype = GPIO_PUSH_PULL,
 			.Speed = GPIO_VERY_HIGH_SPEED,
 			.PullType = GPIO_NO_PULL,
-			.AlternateFunction = GPIO_AF8
+			.AlternateFunction = GPIO_AF7
 	};
-	U4_Pins.PinNum = GPIO_PIN0; GPIO_enumPinInit(&U4_Pins);
-	U4_Pins.PinNum = GPIO_PIN1; GPIO_enumPinInit(&U4_Pins);
+	U2_Pins.PinNum = GPIO_PIN2; GPIO_enumPinInit(&U2_Pins);
+	U2_Pins.PinNum = GPIO_PIN3; GPIO_enumPinInit(&U2_Pins);
 	USART_Init(&RPi_UART);
 
 

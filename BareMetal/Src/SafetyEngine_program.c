@@ -87,7 +87,7 @@ void SafetyEngine_voidUpdate(void)
   flags |= ((uint16_t)(bsw                    & SYS_MASK)) << SYS_BSW_POS;
   flags |= ((uint16_t)(DNPW_u8GetFlag()       & SYS_MASK)) << SYS_DNPW_POS;
   flags |= ((uint16_t)(IMA_u8GetFlag()        & SYS_MASK)) << SYS_IMA_POS;
-  G_u16SystemFlags = flags;
+  G_u8SystemFlags = flags;
 }
 
 /* ============ Shared Direction Detection ============ */
