@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>V2X Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── V2X Row (V2N + V2P side by side) ─────────────────────── */
+    .v2x-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .v2x-row .card { flex: 1 1 300px; min-width: 280px; }
+
+    /* ── V2N Card ──────────────────────────────────────────────── */
+    .v2n-emergency {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255,77,79,.18); border: 1px solid var(--crit);
+      border-radius: 8px; padding: 6px 12px; margin-bottom: 10px;
+      font-size: .82rem; font-weight: 600; color: var(--crit);
+      animation: pulse-border 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse-border {
+      0%,100% { border-color: var(--crit); box-shadow: 0 0 0 0 rgba(255,77,79,.3); }
+      50%      { border-color: #ff8080;    box-shadow: 0 0 0 6px rgba(255,77,79,0); }
+    }
+    .v2n-emergency-icon { font-size: 1.1rem; }
+
+    .v2n-body { display: flex; gap: 14px; align-items: flex-start; flex-wrap: wrap; }
+
+    /* traffic light pillar */
+    .traffic-light-wrap { display: flex; align-items: center; gap: 12px; }
+    .traffic-light {
+      background: #1a1a1a; border-radius: 14px; padding: 10px 8px;
+      display: flex; flex-direction: column; gap: 8px;
+      border: 2px solid #333; box-shadow: inset 0 2px 8px rgba(0,0,0,.5);
+    }
+    .tl-bulb {
+      width: 36px; height: 36px; border-radius: 50%;
+      opacity: .15; transition: opacity .4s, box-shadow .4s;
+    }
+    .tl-red    { background: #ff4d4f; }
+    .tl-yellow { background: #f5a623; }
+    .tl-green  { background: #2ecc71; }
+    .tl-bulb[style*="opacity: 1"], .tl-bulb[style*="opacity:1"] {
+      box-shadow: 0 0 14px 4px currentColor;
+    }
+    .tl-info { display: flex; flex-direction: column; gap: 4px; }
+    .tl-state-label { font-size: 1.3rem; font-weight: 700; letter-spacing: .05em; }
+    .tl-countdown   { font-size: 1.8rem; font-weight: 800; color: var(--text-2); }
+
+    /* ambulance info rows */
+    .amb-card  { flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 140px; }
+    .amb-row   { display: flex; justify-content: space-between; align-items: center;
+                 font-size: .78rem; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
+    .amb-key   { color: var(--text-2); }
+    .amb-val   { font-weight: 600; }
+
+    /* ── V2P Card ──────────────────────────────────────────────── */
+    .v2p-body    { display: flex; gap: 16px; flex-wrap: wrap; }
+    .v2p-section { flex: 1 1 140px; display: flex; flex-direction: column; gap: 8px; }
+    .v2p-sec-title { font-size: .72rem; text-transform: uppercase; letter-spacing: .1em;
+                     color: var(--text-2); margin-bottom: 2px; }
+
+    .v2p-ped-row  { display: flex; align-items: center; gap: 12px; }
+    .v2p-big-num  { font-size: 2.8rem; font-weight: 800; line-height: 1; color: var(--text); }
+    .v2p-ped-sub  { display: flex; flex-direction: column; gap: 3px; font-size: .78rem; color: var(--text-2); }
+
+    .v2p-alert-wrap { display: flex; align-items: center; gap: 8px; }
+    .v2p-light-row  { display: flex; align-items: center; gap: 8px; }
+    .v2p-alert-label { font-size: .72rem; color: var(--text-2); }
+    .v2p-alert-badge {
+      font-size: .75rem; font-weight: 700; padding: 2px 10px; border-radius: 20px;
+      border: 1px solid currentColor;
+    }
+    .v2p-alert-badge.none    { color: var(--safe); }
+    .v2p-alert-badge.caution { color: var(--warn); }
+    .v2p-alert-badge.danger  { color: var(--crit); animation: pulse-border 1s ease-in-out infinite; }
+    .v2p-light-val { font-size: .9rem; font-weight: 700; }
+
+    .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .vs-item { display: flex; flex-direction: column; gap: 1px; }
+    .vs-key  { font-size: .68rem; color: var(--text-2); text-transform: uppercase; }
+    .vs-val  { font-size: .88rem; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="app">
+
+    <!-- ===================== Header ===================== -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-logo">V2X</div>
+        <div>
+          <h1 class="brand-title">V2X Collision Avoidance</h1>
+          <span class="brand-sub" id="vehicleTag">Vehicle #--</span>
+        </div>
+      </div>
+      <div class="conn" id="conn"><i class="conn-dot"></i> connecting…</div>
+    </header>
+
+    <main class="layout">
+
+      <!-- ===================== Top stage ===================== -->
+      <section class="stage">
+
+        <!-- ---------- Left column: Speed + Temp tiles, Weather ---------- -->
+        <div class="side-col side-left">
+
+          <div class="tile-row">
+            <!-- Speed -->
+            <div class="card stat speed-tile">
+              <div class="stat-label">Speed</div>
+              <div class="speedo">
+                <svg viewBox="0 0 200 200">
+                  <circle class="speedo-track" cx="100" cy="100" r="84"/>
+                  <circle class="speedo-value" id="speedoValue" cx="100" cy="100" r="84"/>
+                </svg>
+                <div class="speedo-center">
+                  <strong id="speedValue">--</strong>
+                  <small>km/h</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cabin temperature -->
+            <div class="card stat temp-tile" id="tempCard">
+              <div class="stat-label">Cabin</div>
+              <div class="temp-icon" id="tempIcon"></div>
+              <div class="temp-read"><strong id="vehTemp">--</strong><span class="unit">°C</span></div>
+              <div class="temp-state" id="tempState">--</div>
+            </div>
+          </div>
+
+          <!-- Weather (live + forecast) -->
+          <div class="card stat weather-card">
+            <div class="stat-label">Weather <span class="wx-city" id="wxCity"></span></div>
+            <div class="wx-now">
+              <div class="wx-ic" id="weatherIcon"></div>
+              <div class="wx-main">
+                <div class="wx-temp"><strong id="weatherTemp">--</strong><span class="unit">°C</span></div>
+                <div class="wx-cond" id="weatherCond">--</div>
+              </div>
+              <div class="wx-hum">💧 <b id="weatherHum">--</b>%</div>
+            </div>
+            <div class="wx-forecast" id="forecast"></div>
+          </div>
+        </div>
+
+        <!-- ---------- Center: car image + ultrasonic spotlights ---------- -->
+        <div class="card car-card">
+          <div class="road" id="road">
+            <div class="road-plane">
+              <div class="lane lane-left"></div>
+              <div class="lane lane-center"></div>
+              <div class="lane lane-right"></div>
+            </div>
+            <div class="road-fade"></div>
+          </div>
+          <div class="car-stage">
+          <!-- ultrasonic radar field: rings + 6 colored sectors around the car -->
+          <svg class="beams" viewBox="0 0 400 360" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <defs>
+              <radialGradient id="gSafe" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="172">
+                <stop offset="0.06" stop-color="#2ecc71" stop-opacity="0.45"/><stop offset="0.55" stop-color="#2ecc71" stop-opacity="0.16"/><stop offset="1" stop-color="#2ecc71" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="gWarn" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="172">
+                <stop offset="0.06" stop-color="#f5a623" stop-opacity="0.75"/><stop offset="0.55" stop-color="#f5a623" stop-opacity="0.32"/><stop offset="1" stop-color="#f5a623" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="gCrit" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="172">
+                <stop offset="0.06" stop-color="#ff4d4f" stop-opacity="0.9"/><stop offset="0.55" stop-color="#ff4d4f" stop-opacity="0.42"/><stop offset="1" stop-color="#ff4d4f" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+
+            <!-- field laid flat on the ground (vertical squash = perspective) -->
+            <g class="field" transform="translate(200 215) scale(1 0.7)">
+              <ellipse class="car-shadow" cx="0" cy="0" rx="95" ry="75"/>
+
+              <!-- 6 directional sectors: front 0/±45, rear 180/±45 -->
+              <g class="sensor" id="sn-front"      transform="rotate(0)"><path class="beam" d="M-7.2 -18.7 L-61.6 -160.6 A172 172 0 0 1 61.6 -160.6 L7.2 -18.7 A20 20 0 0 0 -7.2 -18.7 Z"/></g>
+              <g class="sensor" id="sn-frontLeft"  transform="rotate(-45)"><path class="beam" d="M-7.2 -18.7 L-61.6 -160.6 A172 172 0 0 1 61.6 -160.6 L7.2 -18.7 A20 20 0 0 0 -7.2 -18.7 Z"/></g>
+              <g class="sensor" id="sn-frontRight" transform="rotate(45)"><path class="beam" d="M-7.2 -18.7 L-61.6 -160.6 A172 172 0 0 1 61.6 -160.6 L7.2 -18.7 A20 20 0 0 0 -7.2 -18.7 Z"/></g>
+              <g class="sensor" id="sn-rear"       transform="rotate(180)"><path class="beam" d="M-7.2 -18.7 L-61.6 -160.6 A172 172 0 0 1 61.6 -160.6 L7.2 -18.7 A20 20 0 0 0 -7.2 -18.7 Z"/></g>
+              <g class="sensor" id="sn-rearLeft"   transform="rotate(225)"><path class="beam" d="M-7.2 -18.7 L-61.6 -160.6 A172 172 0 0 1 61.6 -160.6 L7.2 -18.7 A20 20 0 0 0 -7.2 -18.7 Z"/></g>
+              <g class="sensor" id="sn-rearRight"  transform="rotate(135)"><path class="beam" d="M-7.2 -18.7 L-61.6 -160.6 A172 172 0 0 1 61.6 -160.6 L7.2 -18.7 A20 20 0 0 0 -7.2 -18.7 Z"/></g>
+
+              <!-- animated sonar pulses -->
+              <circle class="ring sonar" r="172"/>
+              <circle class="ring sonar d2" r="172"/>
+            </g>
+          </svg>
+          <img class="car-img" src="Logo/car.png" alt="vehicle" />
+          </div>
+        </div>
+
+        <!-- ---------- Right column: Heading + Attitude ---------- -->
+        <div class="side-col">
+          <div class="card stat compass-card">
+            <div class="stat-label">Heading</div>
+            <div class="compass">
+              <div class="compass-ring">
+                <span class="c-n">N</span><span class="c-e">E</span>
+                <span class="c-s">S</span><span class="c-w">W</span>
+                <div class="compass-needle" id="compassNeedle"></div>
+                <div class="compass-hub"></div>
+              </div>
+            </div>
+            <div class="compass-read"><strong id="headingValue">--°</strong> <span id="headingDir">--</span></div>
+          </div>
+
+          <div class="card stat attitude-card">
+            <div class="stat-label">Attitude</div>
+            <div class="horizon">
+              <div class="horizon-inner" id="horizon">
+                <div class="sky"></div>
+                <div class="ground"></div>
+                <div class="horizon-line"></div>
+                <div class="pitch-ladder">
+                  <span style="top:20%">10</span>
+                  <span style="top:35%">5</span>
+                  <span style="top:65%">5</span>
+                  <span style="top:80%">10</span>
+                </div>
+              </div>
+              <div class="horizon-mark"></div>
+              <div class="horizon-bezel"></div>
+            </div>
+            <div class="attitude-read">
+              <div>Pitch <strong id="pitchValue">--°</strong></div>
+              <div>Roll <strong id="rollValue">--°</strong></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== Lower row ===================== -->
+      <section class="lower">
+
+        <!-- Event log -->
+        <div class="card panel log-card">
+          <div class="panel-title">Event Log</div>
+          <ul class="event-list" id="eventList"></ul>
+        </div>
+
+        <!-- Risk level + ADAS status -->
+        <div class="card panel risk-card">
+          <div class="panel-title">Overall Risk Level</div>
+          <div class="risk-body">
+            <div class="risk-gauge" id="riskGaugeBox">
+              <svg viewBox="0 0 180 104">
+                <path class="risk-track" d="M16 92 A 74 74 0 0 1 164 92"/>
+                <path class="risk-value" id="riskGauge" d="M16 92 A 74 74 0 0 1 164 92"/>
+              </svg>
+              <div class="risk-center">
+                <strong id="riskLevel">--</strong>
+                <small id="riskSub">--</small>
+              </div>
+            </div>
+            <div class="adas-grid" id="adasGrid"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== V2N + V2P Row ===================== -->
+      <section class="lower v2x-row">
+
+        <!-- ── V2N: Traffic Light + Ambulance ─────────────────── -->
+        <div class="card panel v2n-card">
+          <div class="panel-title">V2N — Smart Traffic Light</div>
+
+          <!-- Emergency banner (hidden when no emergency) -->
+          <div id="v2n-emergency" class="v2n-emergency" style="display:none">
+            <span class="v2n-emergency-icon">🚨</span>
+            <span id="v2n-emergency-msg">EMERGENCY</span>
+          </div>
+
+          <div class="v2n-body">
+
+            <!-- Traffic light bulbs -->
+            <div class="traffic-light-wrap">
+              <div class="traffic-light">
+                <div class="tl-bulb tl-red"    id="tl-red"></div>
+                <div class="tl-bulb tl-yellow" id="tl-yellow"></div>
+                <div class="tl-bulb tl-green"  id="tl-green"></div>
+              </div>
+              <div class="tl-info">
+                <div class="tl-state-label" id="tl-label">RED</div>
+                <div class="tl-countdown"   id="tl-countdown">--</div>
+              </div>
+            </div>
+
+            <!-- Closest / ambulance vehicle info -->
+            <div class="amb-card">
+              <div class="amb-row"><span class="amb-key">Type</span>    <span id="amb-type"  class="amb-val">--</span></div>
+              <div class="amb-row"><span class="amb-key">Plate&nbsp;ID</span><span id="amb-id" class="amb-val">--</span></div>
+              <div class="amb-row"><span class="amb-key">Distance</span><span id="amb-dist"  class="amb-val">--</span></div>
+              <div class="amb-row"><span class="amb-key">Zone</span>    <span id="amb-count" class="amb-val">--</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── V2P: Pedestrian + Vehicle Sensing ──────────────── -->
+        <div class="card panel v2p-card">
+          <div class="panel-title">V2P — Pedestrian &amp; Vehicle Sensing</div>
+
+          <div class="v2p-body">
+
+            <!-- Pedestrians -->
+            <div class="v2p-section">
+              <div class="v2p-sec-title">Pedestrians</div>
+              <div class="v2p-ped-row">
+                <div class="v2p-big-num" id="v2p-ped-count">0</div>
+                <div class="v2p-ped-sub">
+                  <div id="v2p-ped-moving">0 moving</div>
+                  <div id="v2p-ped-safe">✔ Crossing Safe</div>
+                </div>
+              </div>
+              <div class="v2p-alert-wrap">
+                <span class="v2p-alert-label">Alert</span>
+                <span id="v2p-alert" class="v2p-alert-badge none">CLEAR</span>
+              </div>
+              <div class="v2p-light-row">
+                <span class="v2p-alert-label">Light</span>
+                <span id="v2p-light" class="v2p-light-val">RED</span>
+              </div>
+            </div>
+
+            <!-- Vehicle sensing from V2P camera -->
+            <div class="v2p-section">
+              <div class="v2p-sec-title">Vehicle Sensing (Camera)</div>
+              <div class="vs-grid">
+                <div class="vs-item"><span class="vs-key">Speed</span>  <span id="vs-speed"  class="vs-val">-- km/h</span></div>
+                <div class="vs-item"><span class="vs-key">Cars</span>   <span id="vs-cars"   class="vs-val">0</span></div>
+                <div class="vs-item"><span class="vs-key">Bikes</span>  <span id="vs-bikes"  class="vs-val">0</span></div>
+                <div class="vs-item"><span class="vs-key">Front</span>  <span id="vs-front"  class="vs-val">clear</span></div>
+                <div class="vs-item"><span class="vs-key">Brake</span>  <span id="vs-brake"  class="vs-val">Normal</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+    <!-- ===================== Toast Container ===================== -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- ===================== Critical Popup Overlay ===================== -->
+    <div id="criticalOverlay" class="critical-overlay" style="display:none">
+      <div class="critical-popup">
+        <div class="critical-icon">⚠</div>
+        <div class="critical-title" id="criticalTitle">CRITICAL ALERT</div>
+        <div class="critical-msg" id="criticalMsg"></div>
+        <div class="critical-system" id="criticalSystem"></div>
+      </div>
+    </div>
+
+    <!-- ===================== Sponsors ===================== -->
+    <footer class="sponsors">
+      <span class="sponsors-label">Supported by</span>
+      <img src="Logo/logo_TMC_png.png" alt="Tech Makers Challenge" />
+      <img src="Logo/buddies_Logo.png" alt="Entrepreneur Buddies" />
+      <img src="Logo/3333710_eitesal-new.png" alt="EITESAL" />
+      <img src="Logo/logo_الاكاديمية.png" alt="Academy" />
+    </footer>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

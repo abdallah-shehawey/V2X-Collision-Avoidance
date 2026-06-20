@@ -1,0 +1,27 @@
+[Unit]
+Description=V2X Traffic Light Simulator
+Documentation=V2X Collision Avoidance System
+After=network.target v2x-hub.service
+Requires=v2x-hub.service
+# ينتظر الـ hub يشتغل قبل ما يبدأ
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/v2x
+ExecStart=/usr/bin/python3 /home/pi/v2x/traffic_light.py
+
+# انتظر شوية عشان الـ hub يكون جاهز قبل ما الـ node تتصل
+ExecStartPre=/bin/sleep 2
+
+Restart=always
+RestartSec=5
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=v2x-traffic-light
+
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
