@@ -6,46 +6,45 @@ from picamera2 import Picamera2
 from collections import deque, defaultdict
 
 print("=" * 60)
-print("🚗 V2P SYSTEM - WITH PEDESTRIAN INTENT DETECTION")
+print("V2P SYSTEM - PEDESTRIAN INTENT DETECTION")
 print("=" * 60)
 
 # ============================================================
 # 1. Settings & Configuration
 # ============================================================
-MODEL_PATH = "yolov8n.onnx"
-CONF_THRESH = 0.30
+MODEL_PATH       = "model2.onnx"
+CONF_THRESH      = 0.30
 MODEL_INPUT_SIZE = 640
 FRAME_W, FRAME_H = 640, 480
 
-# COCO class IDs we care about
 TARGET_CLASSES = {
     0: "person",
+    1: "bicycle",
     2: "car",
     3: "motorcycle",
-    1: "bicycle",
 }
 
-# Intent thresholds
-SPEED_THRESHOLD_FAST   = 6.0   # px/frame — jogging / rushing
-SPEED_THRESHOLD_SLOW   = 1.5   # px/frame — nearly standing still
-CROSSING_ZONE_RATIO    = 0.35  # bottom 35% of frame = road zone
-APPROACH_FRAMES        = 5     # how many frames to check trajectory
+SPEED_THRESHOLD_FAST = 6.0
+SPEED_THRESHOLD_SLOW = 1.5
+CROSSING_ZONE_RATIO  = 0.35
+APPROACH_FRAMES      = 5
+
+FRAME_AREA        = FRAME_W * FRAME_H
+PROXIMITY_DANGER  = 0.10
+PROXIMITY_WARNING = 0.05
+PROXIMITY_SAFE    = 0.02
 
 # ============================================================
-# 2. Simple centroid tracker
+# 2. Centroid Tracker
 # ============================================================
 class CentroidTracker:
-    """
-    Lightweight tracker that assigns stable IDs to detections
-    by matching closest centroids frame-to-frame.
-    """
     def __init__(self, max_disappeared=20, max_distance=80):
-        self.next_id       = 0
-        self.objects       = {}          # id -> centroid
-        self.disappeared   = {}          # id -> frames missing
-        self.max_dis       = max_disappeared
-        self.max_dist      = max_distance
-        self.history       = defaultdict(lambda: deque(maxlen=30))  # id -> centroid history
+        self.next_id     = 0
+        self.objects     = {}
+        self.disappeared = {}
+        self.max_dis     = max_disappeared
+        self.max_dist    = max_distance
+        self.history     = defaultdict(lambda: deque(maxlen=30))
 
     def register(self, cx, cy):
         self.objects[self.next_id]     = (cx, cy)
@@ -56,13 +55,8 @@ class CentroidTracker:
     def deregister(self, obj_id):
         del self.objects[obj_id]
         del self.disappeared[obj_id]
-        # keep history a little while for debug
 
     def update(self, rects):
-        """
-        rects: list of (x1, y1, x2, y2, class_id)
-        returns: dict {obj_id: (cx, cy, x1, y1, x2, y2, class_id)}
-        """
         if len(rects) == 0:
             for obj_id in list(self.disappeared):
                 self.disappeared[obj_id] += 1
@@ -83,13 +77,11 @@ class CentroidTracker:
             obj_ids   = list(self.objects.keys())
             obj_cents = list(self.objects.values())
 
-            # Compute distance matrix
             D = np.zeros((len(obj_cents), len(input_centroids)))
             for r, (ox, oy) in enumerate(obj_cents):
                 for c, (ix, iy) in enumerate(input_centroids):
                     D[r, c] = np.sqrt((ox - ix)**2 + (oy - iy)**2)
 
-            # Greedy matching: smallest distances first
             rows = D.min(axis=1).argsort()
             cols = D.argmin(axis=1)[rows]
 
@@ -107,12 +99,10 @@ class CentroidTracker:
                 used_rows.add(row)
                 used_cols.add(col)
 
-            # Register unmatched new detections
             for col in range(len(input_centroids)):
                 if col not in used_cols:
                     self.register(*input_centroids[col])
 
-            # Mark missing objects
             for row in range(len(obj_cents)):
                 if row not in used_rows:
                     obj_id = obj_ids[row]
@@ -120,12 +110,10 @@ class CentroidTracker:
                     if self.disappeared[obj_id] > self.max_dis:
                         self.deregister(obj_id)
 
-        # Build result map
         result = {}
         for i, (x1, y1, x2, y2, class_id) in enumerate(rects):
             cx = int((x1 + x2) / 2)
             cy = int((y1 + y2) / 2)
-            # Find which object ID was assigned to this centroid
             for obj_id, (ox, oy) in self.objects.items():
                 if ox == cx and oy == cy:
                     result[obj_id] = (cx, cy, x1, y1, x2, y2, class_id)
@@ -137,61 +125,57 @@ class CentroidTracker:
 # 3. Intent Analyzer
 # ============================================================
 def analyze_intent(obj_id, history, class_id):
-    """
-    Analyzes motion history to estimate pedestrian intent.
-    Returns (intent_label, risk_level, color)
-        intent_label : short description string
-        risk_level   : "HIGH" | "MED" | "LOW"
-        color        : BGR tuple
-    """
-    if class_id != 0:          # only analyze persons
+    if class_id != 0:
         return None, "LOW", (0, 255, 0)
 
     pts = list(history[obj_id])
     if len(pts) < 3:
         return "Observing", "LOW", (0, 255, 0)
 
-    # --- Speed (pixels per frame, smoothed over last N frames) ---
-    recent = pts[-APPROACH_FRAMES:] if len(pts) >= APPROACH_FRAMES else pts
-    dists  = [np.sqrt((recent[i][0]-recent[i-1][0])**2 +
-                      (recent[i][1]-recent[i-1][1])**2)
-              for i in range(1, len(recent))]
+    recent    = pts[-APPROACH_FRAMES:] if len(pts) >= APPROACH_FRAMES else pts
+    dists     = [np.sqrt((recent[i][0]-recent[i-1][0])**2 +
+                         (recent[i][1]-recent[i-1][1])**2)
+                 for i in range(1, len(recent))]
     avg_speed = np.mean(dists) if dists else 0.0
 
-    # --- Direction vector (net displacement over recent frames) ---
     dx = pts[-1][0] - pts[max(0, len(pts)-APPROACH_FRAMES)][0]
     dy = pts[-1][1] - pts[max(0, len(pts)-APPROACH_FRAMES)][1]
 
-    # Positive dy = moving DOWN = toward road (camera is above)
     moving_toward_road = dy > 3
+    cy_now             = pts[-1][1]
+    in_road_zone       = cy_now > FRAME_H * (1 - CROSSING_ZONE_RATIO)
+    moving_laterally   = abs(dx) > abs(dy) * 0.8
 
-    # --- Position: is person already in road zone? ---
-    cy_now = pts[-1][1]
-    in_road_zone = cy_now > FRAME_H * (1 - CROSSING_ZONE_RATIO)
-
-    # --- Lateral motion (left-right crossing) ---
-    moving_laterally = abs(dx) > abs(dy) * 0.8
-
-    # ---- Decision tree ----
     if in_road_zone and avg_speed > SPEED_THRESHOLD_FAST:
-        return "⚠️ CROSSING FAST", "HIGH", (0, 0, 255)
-
+        return "CROSSING FAST", "HIGH", (0, 0, 255)
     if in_road_zone and moving_laterally:
-        return "⚠️ CROSSING", "HIGH", (0, 0, 255)
-
+        return "CROSSING", "HIGH", (0, 0, 255)
     if moving_toward_road and avg_speed > SPEED_THRESHOLD_SLOW:
-        return "🟡 Approaching", "MED", (0, 165, 255)
-
+        return "Approaching", "MED", (0, 165, 255)
     if avg_speed < SPEED_THRESHOLD_SLOW:
-        return "🟢 Standing", "LOW", (0, 255, 0)
-
-    return "🟢 Walking", "LOW", (0, 200, 100)
+        return "Standing", "LOW", (0, 255, 0)
+    return "Walking", "LOW", (0, 200, 100)
 
 
 # ============================================================
-# 4. Camera Initialization
+# 4. Proximity Estimator
 # ============================================================
-print("\n📷 Opening camera...")
+def estimate_proximity(x1, y1, x2, y2):
+    box_area = (x2 - x1) * (y2 - y1)
+    ratio    = box_area / FRAME_AREA
+
+    if ratio >= PROXIMITY_DANGER:
+        return ratio, "DANGER",  "TOO CLOSE!", (0, 0, 255)
+    elif ratio >= PROXIMITY_WARNING:
+        return ratio, "WARNING", "CLOSE",      (0, 165, 255)
+    else:
+        return ratio, "SAFE",    "",            (0, 220, 0)
+
+
+# ============================================================
+# 5. Camera Initialization
+# ============================================================
+print("\nOpening camera...")
 picam2 = Picamera2()
 config = picam2.create_preview_configuration(
     main={"format": "RGB888", "size": (FRAME_W, FRAME_H)},
@@ -200,12 +184,12 @@ config = picam2.create_preview_configuration(
 picam2.configure(config)
 picam2.start()
 time.sleep(1)
-print("✅ Camera ready!")
+print("Camera ready!")
 
 # ============================================================
-# 5. Model Loading
+# 6. Model Loading
 # ============================================================
-print(f"\n📦 Loading model: {MODEL_PATH}")
+print(f"\nLoading model: {MODEL_PATH}")
 opts = ort.SessionOptions()
 opts.intra_op_num_threads = 2
 session = ort.InferenceSession(
@@ -213,33 +197,31 @@ session = ort.InferenceSession(
     providers=["CPUExecutionProvider"]
 )
 input_name = session.get_inputs()[0].name
-print("✅ Model loaded!")
+print("Model loaded!")
 
 # ============================================================
-# 6. Tracker init
+# 7. Tracker Init
 # ============================================================
 tracker = CentroidTracker(max_disappeared=25, max_distance=100)
 
 # ============================================================
-# 7. Runtime Loop
+# 8. Runtime Loop
 # ============================================================
 frame_count  = 0
 skip_frames  = 2
-fps = fps_counter = 0
+fps          = 0
+fps_counter  = 0
 fps_time     = time.time()
-
-# Stats preserved across skipped frames
 last_stats   = {"cars": 0, "persons": 0, "bikes": 0}
 last_objects = {}
 
-print("\n🎥 System ready! Press 'q' to stop\n")
+print("\nSystem ready! Press 'q' to stop\n")
 
 try:
     while True:
         rgb_frame = picam2.capture_array()
         frame_count += 1
 
-        # FPS counter
         fps_counter += 1
         if time.time() - fps_time >= 1.0:
             fps         = fps_counter
@@ -249,20 +231,14 @@ try:
         frame = cv2.cvtColor(rgb_frame, cv2.COLOR_RGB2BGR)
 
         if frame_count % skip_frames == 0:
-            # ---- Preprocess ----
             blob = cv2.resize(rgb_frame, (MODEL_INPUT_SIZE, MODEL_INPUT_SIZE))
             blob = blob.astype(np.float32) / 255.0
             blob = blob.transpose(2, 0, 1)[np.newaxis, ...]
 
-            # ---- Inference ----
             outputs = session.run(None, {input_name: blob})
-            preds   = np.squeeze(outputs[0]).T   # (8400, 84)
+            preds   = np.squeeze(outputs[0]).T
 
-            # ---- Decode detections ----
-            raw_boxes   = []
-            raw_scores  = []
-            raw_classes = []
-
+            raw_boxes, raw_scores, raw_classes = [], [], []
             scale_x = FRAME_W / MODEL_INPUT_SIZE
             scale_y = FRAME_H / MODEL_INPUT_SIZE
 
@@ -280,7 +256,6 @@ try:
                     raw_scores.append(score)
                     raw_classes.append(class_id)
 
-            # ---- NMS ----
             rects_for_tracker = []
             if raw_boxes:
                 indices = cv2.dnn.NMSBoxes(raw_boxes, raw_scores, CONF_THRESH, 0.4)
@@ -288,29 +263,24 @@ try:
                     for i in indices.flatten():
                         x1, y1, wb, hb = raw_boxes[i]
                         x2, y2 = x1 + wb, y1 + hb
-                        x1 = max(0, x1); y1 = max(0, y1)
+                        x1 = max(0, x1);       y1 = max(0, y1)
                         x2 = min(FRAME_W, x2); y2 = min(FRAME_H, y2)
-                        rects_for_tracker.append(
-                            (x1, y1, x2, y2, raw_classes[i])
-                        )
+                        rects_for_tracker.append((x1, y1, x2, y2, raw_classes[i]))
 
-            # ---- Update tracker ----
-            tracked = tracker.update(rects_for_tracker)
+            tracked      = tracker.update(rects_for_tracker)
             last_objects = tracked
 
-            # ---- Count stats ----
-            cars_count    = sum(1 for v in tracked.values() if v[6] == 2)
-            persons_count = sum(1 for v in tracked.values() if v[6] == 0)
-            bikes_count   = sum(1 for v in tracked.values() if v[6] in (1, 3))
-            last_stats    = {"cars": cars_count, "persons": persons_count, "bikes": bikes_count}
+            last_stats = {
+                "cars":    sum(1 for v in tracked.values() if v[6] == 2),
+                "persons": sum(1 for v in tracked.values() if v[6] == 0),
+                "bikes":   sum(1 for v in tracked.values() if v[6] in (1, 3)),
+            }
 
-        # ---- Draw tracked objects ----
-        high_risk_alert = False
+        warnings_list = []
 
         for obj_id, (cx, cy, x1, y1, x2, y2, class_id) in last_objects.items():
             class_name = TARGET_CLASSES[class_id]
 
-            # Base color by class
             if class_name == "car":
                 color = (0, 0, 255)
             elif class_name == "person":
@@ -318,77 +288,135 @@ try:
             else:
                 color = (255, 100, 0)
 
-            # Intent analysis (persons only)
+            ratio, prox_level, prox_label, prox_color = estimate_proximity(
+                x1, y1, x2, y2
+            )
+            prox_pct = f"{ratio*100:.1f}%"
+
+            if prox_level == "DANGER":
+                color = (0, 0, 255)
+                warnings_list.append((
+                    f"! TOO CLOSE: {class_name} #{obj_id} ({prox_pct})",
+                    (0, 0, 255)
+                ))
+            elif prox_level == "WARNING":
+                if class_name != "person":
+                    color = (0, 165, 255)
+                warnings_list.append((
+                    f"~ CLOSE: {class_name} #{obj_id} ({prox_pct})",
+                    (0, 165, 255)
+                ))
+
+            if class_id in (1, 2, 3):
+                cy_obj = (y1 + y2) // 2
+                if cy_obj > FRAME_H * (1 - CROSSING_ZONE_RATIO):
+                    zone_msgs = {
+                        2: (f"! CAR IN ROAD ZONE (#{obj_id})",        (0, 0, 255)),
+                        3: (f"! MOTORCYCLE IN ROAD (#{obj_id})",      (0, 100, 255)),
+                        1: (f"! BICYCLE IN ROAD (#{obj_id})",         (0, 140, 255)),
+                    }
+                    warnings_list.append(zone_msgs[class_id])
+                    color = (0, 0, 255)
+
             intent_label, risk_level, intent_color = analyze_intent(
                 obj_id, tracker.history, class_id
             )
 
-            if risk_level == "HIGH":
-                color          = intent_color
-                high_risk_alert = True
-            elif risk_level == "MED":
-                color = intent_color
+            if class_id == 0:
+                if risk_level == "HIGH":
+                    color = intent_color
+                    warnings_list.append(
+                        (f"! PERSON CROSSING (#{obj_id})", (0, 0, 255))
+                    )
+                elif risk_level == "MED":
+                    color = intent_color
+                    warnings_list.append(
+                        (f"~ Person Approaching (#{obj_id})", (0, 165, 255))
+                    )
 
-            # Bounding box
-            cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
+            thickness = 3 if prox_level == "DANGER" or risk_level == "HIGH" else 2
+            cv2.rectangle(frame, (x1, y1), (x2, y2), color, thickness)
 
-            # ID + class label
-            label = f"#{obj_id} {class_name}"
-            cv2.putText(frame, label, (x1, y1 - 22),
+            cv2.putText(frame, f"#{obj_id} {class_name}",
+                        (x1, max(y1 - 22, 12)),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
 
-            # Intent label (persons only)
+            if prox_level != "SAFE":
+                cv2.putText(frame, prox_label,
+                            (x2 + 4, (y1 + y2) // 2),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.45, prox_color, 2)
+
             if intent_label:
-                cv2.putText(frame, intent_label, (x1, y1 - 6),
+                cv2.putText(frame, intent_label,
+                            (x1, max(y1 - 6, 22)),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.45, intent_color, 2)
 
-            # Draw motion trail
+            bar_x  = min(x2 + 2, FRAME_W - 8)
+            bar_h  = y2 - y1
+            fill_h = int(bar_h * min(ratio / PROXIMITY_DANGER, 1.0))
+            cv2.rectangle(frame, (bar_x, y1), (bar_x + 5, y2), (80, 80, 80), -1)
+            cv2.rectangle(frame, (bar_x, y2 - fill_h), (bar_x + 5, y2), prox_color, -1)
+
             hist = list(tracker.history[obj_id])
             for k in range(1, len(hist)):
-                alpha = k / len(hist)
+                alpha       = k / len(hist)
                 trail_color = tuple(int(c * alpha) for c in color)
                 cv2.line(frame, hist[k-1], hist[k], trail_color, 1)
 
-        # ---- Crossing-zone line ----
         zone_y = int(FRAME_H * (1 - CROSSING_ZONE_RATIO))
         cv2.line(frame, (0, zone_y), (FRAME_W, zone_y), (0, 200, 200), 1)
         cv2.putText(frame, "-- Road Zone --", (5, zone_y - 5),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 200, 200), 1)
 
-        # ---- HUD overlay ----
-        if high_risk_alert:
+        if warnings_list:
+            panel_h = 30 + len(warnings_list) * 28
             overlay = frame.copy()
-            cv2.rectangle(overlay, (0, 0), (FRAME_W, FRAME_H), (0, 0, 200), -1)
-            frame = cv2.addWeighted(overlay, 0.12, frame, 0.88, 0)
-            cv2.putText(frame, "⚠️  PEDESTRIAN CROSSING ALERT",
-                        (60, FRAME_H - 15),
-                        cv2.FONT_HERSHEY_DUPLEX, 0.7, (0, 0, 255), 2)
+            cv2.rectangle(overlay,
+                          (0, FRAME_H - panel_h),
+                          (FRAME_W, FRAME_H),
+                          (20, 20, 20), -1)
+            frame = cv2.addWeighted(overlay, 0.6, frame, 0.4, 0)
 
-        cv2.putText(frame, f"Cars: {last_stats['cars']}",    (10, 30),
+            if any(w[1] == (0, 0, 255) for w in warnings_list):
+                flash = frame.copy()
+                cv2.rectangle(flash, (0, 0), (FRAME_W, FRAME_H), (0, 0, 180), -1)
+                frame = cv2.addWeighted(flash, 0.12, frame, 0.88, 0)
+
+            cv2.putText(frame, "DRIVER ALERTS:",
+                        (10, FRAME_H - panel_h + 20),
+                        cv2.FONT_HERSHEY_DUPLEX, 0.55, (255, 255, 255), 1)
+
+            for idx, (warn_text, warn_color) in enumerate(warnings_list):
+                y_pos = FRAME_H - panel_h + 20 + (idx + 1) * 28
+                cv2.rectangle(frame, (8, y_pos - 14), (18, y_pos - 4), warn_color, -1)
+                cv2.putText(frame, warn_text, (24, y_pos - 3),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.55, warn_color, 2)
+
+        cv2.putText(frame, f"Cars: {last_stats['cars']}",       (10, 30),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
         cv2.putText(frame, f"Persons: {last_stats['persons']}", (10, 55),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
-        cv2.putText(frame, f"Bikes: {last_stats['bikes']}",  (10, 80),
+        cv2.putText(frame, f"Bikes: {last_stats['bikes']}",     (10, 80),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 100, 0), 2)
-        cv2.putText(frame, f"FPS: {fps}",                    (10, 105),
+        cv2.putText(frame, f"FPS: {fps}",                       (10, 105),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
 
         print(
-            f"\r🚗 Cars:{last_stats['cars']} | "
-            f"👤 Persons:{last_stats['persons']} | "
-            f"🏍️ Bikes:{last_stats['bikes']} | "
+            f"\rCars:{last_stats['cars']} | "
+            f"Persons:{last_stats['persons']} | "
+            f"Bikes:{last_stats['bikes']} | "
             f"FPS:{fps}",
             end=""
         )
 
-        cv2.imshow("V2P System - Intent Detection", frame)
+        cv2.imshow("V2P System", frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
 except KeyboardInterrupt:
-    print("\n\n🛑 Stopped by user")
+    print("\n\nStopped by user.")
 
 finally:
     picam2.stop()
     cv2.destroyAllWindows()
-    print(f"\n✅ Done. Total frames: {frame_count}")
+    print(f"\nDone. Total frames: {frame_count}")
