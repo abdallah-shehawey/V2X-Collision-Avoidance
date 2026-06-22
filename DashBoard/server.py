@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 V2X Dashboard - static web server.
 
