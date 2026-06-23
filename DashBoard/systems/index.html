@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>أنظمة V2V — شرح مصوّر</title>
+  <style>
+    :root{
+      --bg:#000; --panel:rgba(8,8,8,.92); --stroke:rgba(255,255,255,.08);
+      --text:#e8eaed; --muted:#8b93a0; --accent:#4aa6ff; --purple:#7c5cff;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      background:radial-gradient(120% 90% at 50% 0%,#0e1016,#000 70%);
+      color:var(--text);min-height:100vh;
+      font-family:'Noto Sans Arabic','Segoe UI',system-ui,sans-serif;
+      padding:clamp(18px,3vw,48px);
+    }
+    header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:8px}
+    h1{font-size:clamp(24px,3vw,40px);font-weight:800;letter-spacing:-.5px}
+    .sub{color:var(--muted);font-size:clamp(14px,1.4vw,18px);margin-top:6px;max-width:60ch}
+    .badge{
+      font-family:'Segoe UI',sans-serif;font-weight:800;font-size:14px;color:var(--accent);
+      border:1px solid rgba(74,166,255,.4);background:rgba(74,166,255,.1);
+      padding:8px 16px;border-radius:999px;
+    }
+    .grid{
+      margin-top:28px;display:grid;gap:clamp(16px,2vw,26px);
+      grid-template-columns:repeat(auto-fill,minmax(min(100%,440px),1fr));
+    }
+    .card{
+      background:var(--panel);border:1px solid var(--stroke);border-radius:20px;
+      overflow:hidden;cursor:pointer;transition:transform .18s,border-color .18s,box-shadow .18s;
+    }
+    .card:hover{transform:translateY(-4px);border-color:rgba(74,166,255,.45);
+      box-shadow:0 18px 50px rgba(0,0,0,.7)}
+    .card img{display:block;width:100%;height:auto;background:#000}
+    .meta{padding:14px 18px 18px}
+    .meta .ar{font-size:20px;font-weight:800}
+    .meta .en{color:var(--muted);font-family:'Segoe UI',sans-serif;font-size:13px;margin-top:3px}
+    .hint{color:var(--muted);font-size:13px;margin-top:18px;text-align:center}
+    /* fullscreen viewer for presenting */
+    #viewer{
+      position:fixed;inset:0;background:rgba(0,0,0,.96);display:none;
+      align-items:center;justify-content:center;z-index:50;
+    }
+    #viewer.on{display:flex}
+    #viewer img{max-width:96vw;max-height:92vh;border-radius:12px}
+    .nav{position:fixed;top:0;bottom:0;width:18vw;border:0;background:transparent;
+      cursor:pointer;color:rgba(255,255,255,.25);font-size:48px;transition:color .15s}
+    .nav:hover{color:#fff}
+    .nav.prev{right:0}.nav.next{left:0}
+    .close{position:fixed;top:18px;left:18px;border:0;background:rgba(255,255,255,.08);
+      color:#fff;width:46px;height:46px;border-radius:12px;font-size:22px;cursor:pointer}
+    .count{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+      color:var(--muted);font-family:'Segoe UI',sans-serif;font-size:14px}
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>أنظمة V2V — شرح مصوّر</h1>
+      <p class="sub">خمس صور توضيحية لأنظمة الأمان اللي بتشتغل بالاتصال بين السيارات (Vehicle-to-Vehicle).
+        اضغط على أي صورة تكبر ملء الشاشة للعرض، واستخدم الأسهم ← → للتنقل.</p>
+    </div>
+    <span class="badge">V2V · DSRC</span>
+  </header>
+
+  <div class="grid" id="grid"></div>
+  <p class="hint">الصور متوفرة كـ SVG (متجهية — تكبر من غير ما تبوّظ) و PNG عالية الجودة في مجلد <code>png/</code>.</p>
+
+  <div id="viewer">
+    <button class="close" onclick="closeView()">✕</button>
+    <button class="nav prev" onclick="step(-1)">‹</button>
+    <img id="big" src="" alt="" />
+    <button class="nav next" onclick="step(1)">›</button>
+    <div class="count" id="count"></div>
+  </div>
+
+  <script>
+    const items = [
+      {f:"fcw",  ar:"تحذير الاصطدام الأمامي",            en:"FCW — Forward Collision Warning"},
+      {f:"eebl", ar:"إضاءة الفرامل الإلكترونية الطارئة", en:"EEBL — Emergency Electronic Brake Light"},
+      {f:"bsw",  ar:"تحذير النقطة العمياء",              en:"BSW — Blind Spot Warning"},
+      {f:"dnpw", ar:"تحذير عدم التجاوز",                 en:"DNPW — Do Not Pass Warning"},
+      {f:"ima",  ar:"مساعد الحركة عند التقاطعات",        en:"IMA — Intersection Movement Assist"},
+    ];
+    const grid = document.getElementById('grid');
+    items.forEach((it,i)=>{
+      const c=document.createElement('div');c.className='card';c.onclick=()=>openView(i);
+      c.innerHTML=`<img src="${it.f}.svg" alt="${it.ar}" loading="lazy">
+        <div class="meta"><div class="ar">${it.ar}</div><div class="en">${it.en}</div></div>`;
+      grid.appendChild(c);
+    });
+    let cur=0;
+    const viewer=document.getElementById('viewer'), big=document.getElementById('big'), count=document.getElementById('count');
+    function openView(i){cur=i;render();viewer.classList.add('on')}
+    function closeView(){viewer.classList.remove('on')}
+    function step(d){cur=(cur+d+items.length)%items.length;render()}
+    function render(){big.src=items[cur].f+'.svg';big.alt=items[cur].ar;count.textContent=`${cur+1} / ${items.length} — ${items[cur].ar}`}
+    document.addEventListener('keydown',e=>{
+      if(!viewer.classList.contains('on'))return;
+      if(e.key==='Escape')closeView();
+      if(e.key==='ArrowRight')step(-1);   // RTL: right = previous
+      if(e.key==='ArrowLeft')step(1);
+    });
+    viewer.addEventListener('click',e=>{if(e.target===viewer)closeView()});
+  </script>
+</body>
+</html>

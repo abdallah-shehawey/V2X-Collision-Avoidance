@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Traffic Light Simulation</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="scene">
+    <h1>Traffic Light Simulation</h1>
+
+    <div class="traffic-light">
+      <div class="pole"></div>
+      <div class="box">
+        <div class="light red"></div>
+        <div class="light yellow"></div>
+        <div class="light green"></div>
+      </div>
+    </div>
+
+    <p class="status" id="status">STOP</p>
+  </div>
+
+  <script>
+    // Keep the status label text in sync with the 9s CSS cycle.
+    const status = document.getElementById("status");
+    const cycle = 9000; // ms — must match --cycle in style.css
+    const start = performance.now();
+
+    function update(now) {
+      const t = ((now - start) % cycle) / cycle; // 0..1 through the cycle
+      let text;
+      if (t < 0.33)       text = "STOP";          // red
+      else if (t < 0.45)  text = "GET READY";     // red + yellow
+      else if (t < 0.78)  text = "GO";            // green
+      else                text = "SLOW DOWN";     // yellow
+      status.textContent = text;
+      requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  </script>
+</body>
+</html>
