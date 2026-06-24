@@ -3,8 +3,10 @@
 
 #include "../System.h"
 
-/* Internal functions (only alert functions remain module-specific) */
-static void EEBL_ActivateAlert(RiskLevel_t level);
-static void EEBL_DeactivateAlert(void);
+/* Internal functions */
+static float       EEBL_SafeDistance(void);
+static RiskLevel_t EEBL_EvaluateGap(float rear_distance);
+static void        EEBL_ActivateAlert(RiskLevel_t level);
+static void        EEBL_DeactivateAlert(void);
 
 #endif

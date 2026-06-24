@@ -46,20 +46,34 @@ void SafetyEngine_voidUpdate(void);
 Direction_t SafetyEngine_DetectDirection(float my_heading, float other_heading);
 
 /**
- * @brief Calculate Time To Collision
- * @param distance        Distance to obstacle (cm)
- * @param relative_speed  Relative closing speed
- * @return TTC in seconds, or -1.0 if no collision risk
- */
-float SafetyEngine_CalcTTC(float distance, float relative_speed);
-
-/**
- * @brief Evaluate risk level based on TTC value
- * @param ttc          Time to collision (seconds)
- * @param warning_ttc  TTC threshold for warning level
- * @param critical_ttc TTC threshold for critical level
+ * @brief Evaluate risk from a "lower value = higher risk" metric.
+ *        Used by IMA for time-gap/delay thresholds. FCW/EEBL/DNPW have
+ *        moved to the distance-based model (see AssessDistanceRisk).
+ * @param value        Metric to evaluate (e.g. delay/time-gap in seconds)
+ * @param warning_thr  Threshold for warning level
+ * @param critical_thr Threshold for critical level
  * @return RISK_SAFE, RISK_WARNING, or RISK_CRITICAL
  */
-RiskLevel_t SafetyEngine_EvaluateRisk(float ttc, float warning_ttc, float critical_ttc);
+RiskLevel_t SafetyEngine_EvaluateRisk(float value, float warning_thr, float critical_thr);
+
+/**
+ * @brief Assess collision risk from host speed and a measured distance.
+ *
+ * Distance-based model (replaces TTC/relative-speed across all modules):
+ *   safe_dist_cm  = host_speed(m/s) * dist_per_ms   (floored at min_dist)
+ *   distance >= safe_dist               -> RISK_SAFE
+ *   crit*safe <= distance < safe_dist   -> RISK_WARNING
+ *   distance < crit*safe                -> RISK_CRITICAL
+ *
+ * @param host_speed   Host vehicle speed (m/s, from MPU)
+ * @param distance     Measured distance to the object (cm, from ultrasonic)
+ * @param dist_per_ms  cm of safe gap per 1 m/s of host speed (module-tuned)
+ * @param min_dist     Minimum safe-distance floor (cm)
+ * @param crit_ratio   Fraction of safe distance below which risk is CRITICAL
+ * @return RISK_SAFE, RISK_WARNING, or RISK_CRITICAL
+ */
+RiskLevel_t SafetyEngine_AssessDistanceRisk(float host_speed, float distance,
+                                            float dist_per_ms, float min_dist,
+                                            float crit_ratio);
 
 #endif

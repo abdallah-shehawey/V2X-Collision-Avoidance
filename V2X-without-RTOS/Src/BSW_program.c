@@ -6,7 +6,7 @@
  **                  Layer  : APP                                             **
  **                  CPU    : Cortex-M4                                       **
  **                  MCU    : NUCLEO-F446RE                                   **
- **                  SW     : BSW (Blind Spot Warning)                        **
+ **                  SW     : BSW (Cooperative Blind Spot Warning)            **
  **                                                                           **
  **===========================================================================**
  */
@@ -20,20 +20,25 @@
 
 /* ============ Module State ============ */
 
-/* Flags for DSRC broadcast */
-static uint8_t BSW_LeftFlag = 0;
-static uint8_t BSW_RightFlag = 0;
+/* Sender flag broadcast over DSRC: 0=None, 1=LEFT, 2=RIGHT (this car's own side) */
+static uint8_t BSW_SenderFlag = BSW_FLAG_NONE;
 
-/* Cycle accumulators */
-static uint8_t BSW_SameDirectionExists = 0; /* DSRC: at least one same-dir neighbor */
-static float BSW_LeftDist = 0.0f;           /* Side US distances (from SafetyEngine) */
-static float BSW_RightDist = 0.0f;
+/* Cycle distances (latched in BeginCycle) */
+static float BSW_FrontLeft  = 0.0f;
+static float BSW_FrontRight = 0.0f;
+static float BSW_RearLeft   = 0.0f;
+static float BSW_RearRight  = 0.0f;
+
+/* Receiver-side alert decision (set during ProcessNeighbor) */
+static uint8_t BSW_AlertLeft  = 0;
+static uint8_t BSW_AlertRight = 0;
 
 /* ============ Init ============ */
 void BSW_voidInit(void)
 {
-  BSW_LeftFlag = 0;
-  BSW_RightFlag = 0;
+  BSW_SenderFlag = BSW_FLAG_NONE;
+  BSW_AlertLeft  = 0;
+  BSW_AlertRight = 0;
 }
 
 /* ============================================================ */
@@ -43,72 +48,81 @@ void BSW_voidInit(void)
 /**
  * @brief Begin a new BSW processing cycle
  *
- *  Save side US distances and reset DSRC accumulator.
- *
- * @param left_dist   Min of front-left and rear-left US distance (cm)
- * @param right_dist  Min of front-right and rear-right US distance (cm)
+ *  - Latch the four side distances.
+ *  - SENDER role: decide our own bsw_flag from the FRONT-side sensors
+ *    (a car alongside-ahead of us → we broadcast that side).
+ *  - Reset the receiver-side alert accumulators.
  */
-void BSW_voidBeginCycle(float left_dist, float right_dist)
+void BSW_voidBeginCycle(float front_left, float front_right,
+                        float rear_left, float rear_right)
 {
-  /* Save distances for EndCycle */
-  BSW_LeftDist = left_dist;
-  BSW_RightDist = right_dist;
+  BSW_FrontLeft  = front_left;
+  BSW_FrontRight = front_right;
+  BSW_RearLeft   = rear_left;
+  BSW_RearRight  = rear_right;
 
-  /* Reset DSRC accumulator */
-  BSW_SameDirectionExists = 0;
+  /* ---- Sender: detect a vehicle alongside-ahead using FRONT-side US ---- */
+  /* Left takes priority if both are present (single-byte flag). */
+  if (front_left > 0.0f && front_left < BSW_SIDE_THRESHOLD)
+  {
+    BSW_SenderFlag = BSW_FLAG_LEFT;
+  }
+  else if (front_right > 0.0f && front_right < BSW_SIDE_THRESHOLD)
+  {
+    BSW_SenderFlag = BSW_FLAG_RIGHT;
+  }
+  else
+  {
+    BSW_SenderFlag = BSW_FLAG_NONE;
+  }
+
+  /* ---- Receiver: reset per-side alert accumulators ---- */
+  BSW_AlertLeft  = 0;
+  BSW_AlertRight = 0;
 }
 
 /**
- * @brief Process one DSRC neighbor for BSW
+ * @brief Process one DSRC neighbor for BSW (receiver role)
  *
- * Step 1 (DSRC gate): Is there a vehicle going in the same direction?
- *        If yes → set flag. BSW will check US in EndCycle.
- *        If not same direction → ignore (not a blind-spot threat).
+ * A neighbor that saw a car on its FRONT side broadcasts bsw_flag. The car it
+ * saw sits BEHIND it on the MIRRORED side, so we check the opposite rear:
+ *   sender LEFT  (front-left)  -> check our REAR-RIGHT
+ *   sender RIGHT (front-right) -> check our REAR-LEFT
+ * If something is there, we are the car in that neighbor's blind spot.
  */
 void BSW_voidProcessNeighbor(const Neighbor *n, Direction_t dir)
 {
-  (void)n; /* vehicle_id not used currently */
+  (void)dir; /* blind-spot pairing is resolved by the mirrored side check */
 
-  /* Only same-direction vehicles are blind-spot candidates */
-  if (dir == DIR_SAME)
+  if (n->bsw_flag == BSW_FLAG_LEFT)
   {
-    BSW_SameDirectionExists = 1;
+    /* Sender saw us on its left → we are on its rear → check our rear-right */
+    if (BSW_RearRight > 0.0f && BSW_RearRight < BSW_SIDE_THRESHOLD)
+    {
+      BSW_AlertRight = 1;
+    }
+  }
+  else if (n->bsw_flag == BSW_FLAG_RIGHT)
+  {
+    /* Sender saw us on its right → check our rear-left */
+    if (BSW_RearLeft > 0.0f && BSW_RearLeft < BSW_SIDE_THRESHOLD)
+    {
+      BSW_AlertLeft = 1;
+    }
   }
 }
 
 /**
- * @brief End cycle — combine DSRC + US and decide alerts
+ * @brief End cycle — activate/deactivate alerts (receiver role)
  *
- * Logic:
- *   1. DSRC says there's a same-direction vehicle nearby? (gate)
- *   2. If yes → check US sensors:
- *      - Left US  < threshold → vehicle on left  → alert left
- *      - Right US < threshold → vehicle on right → alert right
- *   3. If no same-direction vehicle → no blind-spot risk → clear alerts
+ * The sender flag (BSW_SenderFlag) is already set in BeginCycle and is read
+ * by BSW_u8GetFlag() for the DSRC broadcast. The alert shown on THIS car is
+ * the receiver decision confirmed against a neighbor's broadcast.
  */
 void BSW_voidEndCycle(void)
 {
-  /* Reset flags */
-  BSW_LeftFlag = 0;
-  BSW_RightFlag = 0;
-
-  /* Gate: no same-direction vehicle from DSRC → no blind-spot risk */
-  if (!BSW_SameDirectionExists)
+  if (BSW_AlertLeft)
   {
-    BSW_DeactivateAlert(BSW_LEFT);
-    BSW_DeactivateAlert(BSW_RIGHT);
-    return;
-  }
-
-  /*
-   * DSRC confirmed a same-direction vehicle exists.
-   * Now check US sensors to determine WHICH side.
-   */
-
-  /* -------- LEFT SIDE -------- */
-  if (BSW_LeftDist > 0.0f && BSW_LeftDist < BSW_SIDE_THRESHOLD)
-  {
-    BSW_LeftFlag = 1;
     BSW_ActivateAlert(BSW_LEFT);
   }
   else
@@ -116,10 +130,8 @@ void BSW_voidEndCycle(void)
     BSW_DeactivateAlert(BSW_LEFT);
   }
 
-  /* -------- RIGHT SIDE -------- */
-  if (BSW_RightDist > 0.0f && BSW_RightDist < BSW_SIDE_THRESHOLD)
+  if (BSW_AlertRight)
   {
-    BSW_RightFlag = 1;
     BSW_ActivateAlert(BSW_RIGHT);
   }
   else
@@ -141,21 +153,8 @@ void BSW_voidUpdate(void)
   Neighbor *table = DSRC_GetTable();
   uint8_t count = DSRC_GetCount();
 
-  /* Compute min side distances (same logic as SafetyEngine) */
-  float left_dist = US_Distances[US_FRONT_LEFT];
-  float right_dist = US_Distances[US_FRONT_RIGHT];
-  float left_rear = US_Distances[US_REAR_LEFT];
-  float right_rear = US_Distances[US_REAR_RIGHT];
-  if (left_rear < left_dist)
-  {
-    left_dist = left_rear;
-  }
-  if (right_rear < right_dist)
-  {
-    right_dist = right_rear;
-  }
-
-  BSW_voidBeginCycle(left_dist, right_dist);
+  BSW_voidBeginCycle(US_Distances[US_FRONT_LEFT], US_Distances[US_FRONT_RIGHT],
+                     US_Distances[US_REAR_LEFT],  US_Distances[US_REAR_RIGHT]);
 
   for (uint8_t i = 0; i < count; i++)
   {
@@ -166,15 +165,10 @@ void BSW_voidUpdate(void)
   BSW_voidEndCycle();
 }
 
-/* ============ Public Getters ============ */
-uint8_t BSW_u8GetLeftFlag(void)
+/* ============ Public Getter ============ */
+uint8_t BSW_u8GetFlag(void)
 {
-  return BSW_LeftFlag;
-}
-
-uint8_t BSW_u8GetRightFlag(void)
-{
-  return BSW_RightFlag;
+  return BSW_SenderFlag;
 }
 
 /* ============================================================ */
@@ -190,12 +184,12 @@ static void BSW_ActivateAlert(uint8_t side)
   if (side == BSW_LEFT)
   {
     /* LED_LEFT_ON(); */
-    /* LCD_Print("! Vehicle on LEFT - Don't change lane"); */
+    /* LCD_Print("! Vehicle in LEFT blind spot"); */
   }
   else if (side == BSW_RIGHT)
   {
     /* LED_RIGHT_ON(); */
-    /* LCD_Print("! Vehicle on RIGHT - Don't change lane"); */
+    /* LCD_Print("! Vehicle in RIGHT blind spot"); */
   }
   else
   {

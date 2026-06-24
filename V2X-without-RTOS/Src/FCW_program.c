@@ -22,8 +22,8 @@
 static uint8_t    FCW_CurrentFlag = 0; /* 0=Safe, 1=Warning, 2=Critical */
 
 /* Cycle accumulators (set during BeginCycle, used during ProcessNeighbor) */
-static RiskLevel_t FCW_LocalWorst = RISK_SAFE;
-static RiskLevel_t FCW_AlertLevel = RISK_SAFE;
+static RiskLevel_t FCW_LocalWorst = RISK_SAFE; /* local front-US risk → DSRC flag */
+static RiskLevel_t FCW_AlertLevel = RISK_SAFE; /* confirmed risk → drives the alert */
 
 /* ============ Init ============ */
 void FCW_voidInit(void)
@@ -38,81 +38,60 @@ void FCW_voidInit(void)
 /* ============================================================ */
 
 /**
- * @brief Begin a new processing cycle — reset accumulators
+ * @brief Begin a new processing cycle
+ *
+ * Local FCW detection is purely distance-based and needs no neighbor data,
+ * so we compute it here from the host speed and front ultrasonic distance.
+ *   - FCW_LocalWorst  → broadcast as fcw_flag (so others can confirm)
+ *   - FCW_AlertLevel  → for a vehicle AHEAD in the SAME direction the local
+ *                       detection is enough to alert immediately.
+ *                       For oncoming (opposite) traffic the alert waits for
+ *                       cooperative confirmation in ProcessNeighbor.
+ *
+ * @param front_distance Front ultrasonic distance (cm)
  */
-void FCW_voidBeginCycle(void)
+void FCW_voidBeginCycle(float front_distance)
 {
-  FCW_LocalWorst = RISK_SAFE;
-  FCW_AlertLevel = RISK_SAFE;
+  FCW_LocalWorst = SafetyEngine_AssessDistanceRisk(Host_Speed, front_distance,
+                                                   FCW_SAFE_DIST_PER_MS,
+                                                   FCW_MIN_SAFE_DISTANCE,
+                                                   FCW_CRITICAL_RATIO);
+
+  /* Local detection drives the alert on its own (object directly ahead).
+   * Opposite-direction cooperative checks can only raise it further. */
+  FCW_AlertLevel = FCW_LocalWorst;
 }
 
 /**
  * @brief Process one DSRC neighbor for FCW
  *
- * Uses pre-computed direction from SafetyEngine.
- * Updates both:
- *   - local_worst → for DSRC flag broadcast (always set)
- *   - alert_level → cooperative for opposite dir, local for same dir
+ * The local risk is already computed in BeginCycle (distance-based).
+ * Here we only add cooperative confirmation for ONCOMING traffic:
+ * if we detect danger ahead AND an opposite-direction neighbor also
+ * reports an FCW flag, keep/raise the alert. Same-direction and
+ * crossing/unknown neighbors need no extra processing.
  */
 void FCW_voidProcessNeighbor(const Neighbor *n, float front_distance, Direction_t dir)
 {
-  float rel_speed;
+  (void)front_distance; /* local risk already assessed in BeginCycle */
 
-  if (dir == DIR_OPPOSITE)
+  /* Cooperative confirmation only applies to oncoming traffic */
+  if (dir != DIR_OPPOSITE)
   {
-    /* Both approaching → speeds add up */
-    rel_speed = Host_Speed + n->speed;
-  }
-  else if (dir == DIR_SAME)
-  {
-    /* Following → closing speed = difference */
-    rel_speed = Host_Speed - n->speed;
-  }
-  else
-  {
-    /* DIR_CROSSING and DIR_UNKNOWN → perpendicular/crossing and unknown traffic, skip for FCW */
     return;
   }
 
-  if (rel_speed > 0.0f && front_distance > 0.0f)
+  /*
+   * Cooperative Confirmation (opposite direction):
+   * Trust a cooperative alert only when BOTH vehicles see danger.
+   * Our own flag (FCW_LocalWorst) is broadcast, so the oncoming car can
+   * confirm us next cycle; here we check that it has also reported one.
+   */
+  if (FCW_LocalWorst > RISK_SAFE && n->fcw_flag > 0)
   {
-    float ttc = SafetyEngine_CalcTTC(front_distance, rel_speed);
-    RiskLevel_t level = SafetyEngine_EvaluateRisk(ttc, FCW_WARNING_TTC, FCW_CRITICAL_TTC);
-
-    /* Track worst local risk → this becomes the DSRC broadcast flag */
-    if (level > FCW_LocalWorst)
+    if (FCW_LocalWorst > FCW_AlertLevel)
     {
-      FCW_LocalWorst = level;
-    }
-
-    /* Alert decision depends on direction */
-    if (dir == DIR_OPPOSITE)
-    {
-      /*
-       * Cooperative Confirmation (opposite direction):
-       * Only trigger alert if BOTH vehicles detect danger.
-       * My flag will be broadcast (local_worst), so the other
-       * vehicle sees it next cycle. Here we check if the other
-       * vehicle has also reported danger.
-       */
-      if (level > RISK_SAFE && n->fcw_flag > 0)
-      {
-        if (level > FCW_AlertLevel)
-        {
-          FCW_AlertLevel = level;
-        }
-      }
-    }
-    else /* DIR_SAME */
-    {
-      /*
-       * Local detection only (same direction):
-       * No cooperative confirmation needed.
-       */
-      if (level > FCW_AlertLevel)
-      {
-        FCW_AlertLevel = level;
-      }
+      FCW_AlertLevel = FCW_LocalWorst;
     }
   }
 }
@@ -154,7 +133,7 @@ void FCW_voidUpdate(void)
   uint8_t count    = DSRC_GetCount();
   float front_dist = US_Distances[US_FRONT];
 
-  FCW_voidBeginCycle();
+  FCW_voidBeginCycle(front_dist);
 
   for (uint8_t i = 0; i < count; i++)
   {
