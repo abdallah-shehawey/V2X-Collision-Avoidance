@@ -25,9 +25,10 @@ uint8_t FCW_u8GetFlag(void);
 /* ===== Per-Neighbor API (used by SafetyEngine) ===== */
 
 /**
- * @brief Begin a new processing cycle — reset accumulators
+ * @brief Begin a new processing cycle — compute local distance-based risk
+ * @param front_distance Front ultrasonic distance (cm)
  */
-void FCW_voidBeginCycle(void);
+void FCW_voidBeginCycle(float front_distance);
 
 /**
  * @brief Process one DSRC neighbor for FCW

@@ -7,13 +7,10 @@
  ******************************************************************************
  **/
 
-
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
 #include <stdint.h>
-
-
 
 /*
  * ========================================================================================
@@ -35,7 +32,7 @@
  * ----------------------------------------------------------------------------------------
  * | Sensor Type | SPI Signals           | Pins                | Mode / AF |
  * |-------------|-----------------------|---------------------|-----------|
- * | IMU (9-Axis)| SCK, MISO(ADO), MOSI(SDA)       | PA5, PA6, PA7       | SPI1 - AF5|
+ * | IMU (9-Axis)| SCK, MISذO(ADO), MOSI(SDA)       | PA5, PA6, PA7       | SPI1 - AF5|
  *
  * 3. FEEDBACK SYSTEM
  * ----------------------------------------------------------------------------------------
@@ -48,25 +45,16 @@
  * | LED 5     | PC7 | PORTC | Interior Driver Alert (dashboard) |
  * | BUZZER    | PC4 | PORTC | Warning Sound    |
  *
- * 4. MOTORS (L298N Driver)  ⚠️ NOW CONTROLLED BY THE RASPBERRY PI — NOT THE STM32.
- *    The pins below are FREE on the STM32; kept here only as historical reference.
- * ----------------------------------------------------------------------------------------
- * | Component | Pin  | Port  | Description                 | Note                    |
- * |-----------|------|-------|-----------------------------|-------------------------|
- * | ENA       | PA8  | PORTA | PWM Speed Control (Motor A) | Optional (Tie to 5V)    |
- * | IN1       | PC5  | PORTC | Motor A Direction 1         | Right Wheels Forward    |
- * | IN2       | PC6  | PORTC | Motor A Direction 2         | Right Wheels Backward   |
- * | IN3       | PB10 | PORTB | Motor B Direction 1         | Left Wheels Forward     |
- * | IN4       | PB15 | PORTB | Motor B Direction 2         | Left Wheels Backward    |
- * | ENB       | PA11 | PORTA | PWM Speed Control (Motor B) | Optional (Tie to 5V)    |
+ * NOTE: There is NO motor driver on the STM32 — the Raspberry Pi drives the
+ *       motors using the telemetry this firmware sends. No motor pins are used.
  *
- * 5. COMMUNICATION INTERFACES (UARTs)
+ * 4. COMMUNICATION INTERFACES (UARTs)
  * ----------------------------------------------------------------------------------------
- * | Interface | Pin Mapping          | Status  | Description          |
- * |-----------|----------------------|---------|----------------------|
- * | USART2    | PA2(TX), PA3(RX)     | FREE ✅ | Debug / VCP          |
- * | USART1    | PA9(TX), PA10(RX)    | IN USE  | ESP-NOW (V2X Comm)   |
- * | UART4     | PA0(TX), PA1(RX)     | IN USE  | Raspberry Pi Comm    |
+ * | Interface | Pin Mapping          | Status  | Description                 |
+ * |-----------|----------------------|---------|-----------------------------|
+ * | USART1    | PA9(TX), PA10(RX)    | IN USE  | ESP-NOW (V2X Comm)          |
+ * | USART2    | PA2(TX), PA3(RX)     | IN USE  | Raspberry Pi telemetry (USB VCP) |
+ * | UART4     | PA0(TX), PA1(RX)     | FREE ✅ | (was RPi; now on USART2)    |
  *
  * ========================================================================================
  */
@@ -95,43 +83,35 @@
  *
  *       ADAS architecture = SINGLE-PASS, with a clean Brain/Muscle split:
  *         • vTask_SafetyEngine (Brain, detection-only): runs all modules over the
- *           neighbor table in ONE pass; each module raises its own flag. Then it
- *           publishes the GENERAL bitmap G_u16SystemFlags (one bit per active module).
- *           It makes NO movement decision. Holds both mutexes (NeighborTable → Data).
- *         • vTask_Feedback (Muscle): reads G_u16SystemFlags; if 0 everything off,
- *           else buzzer + interior LED ON (general alert) + external LEDs by module
- *           (FCW||IMA → front LEDs, EEBL → back LEDs; BSW/DNPW = alert only).
+ *           neighbor table in ONE pass; each module reports its risk level. Then it
+ *           publishes G_u16SystemFlags (2 bits/module: 00 safe / 01 warning / 10 crit).
+ *           It makes NO actuator decision. Holds both mutexes (NeighborTable → Data).
+ *         • vTask_Feedback (Muscle): reads G_u16SystemFlags; if 0 → everything off.
+ *           Any alert → interior LED + buzzer ON. Additionally: FCW CRITICAL → front
+ *           LEDs, EEBL CRITICAL → rear LEDs. All other states add no external LED.
  *           NO motor control — the Raspberry Pi drives the motors from the telemetry.
  *       Lock usage: ESP_Comm takes the two mutexes separately, Sensors & Feedback take
  *       Data only → deadlock-free.
  * ========================================================================================
  */
 
-/* ================== Global Intentions ================== */
-typedef enum {
-    CMD_MOVE_FORWARD = 0,
-    CMD_STOP = 1,
-    CMD_STEER_RIGHT = 2,
-    CMD_STEER_LEFT = 3,
-    CMD_MOVE_BACKWARD = 4
-} MotorCommand_t;
-
 /* Unified Sensor State Structure */
-typedef struct {
-    float FrontLeftUS;
-    float FrontCenterUS;
-    float FrontRightUS;
-    float BackLeftUS;
-    float BackCenterUS;
-    float BackRightUS;
-    
-    float Speed;
-    float Heading;
-    float Pitch;
-    float Roll;
-    float PosX;
-    float PosY;
-    float PosZ;
+typedef struct
+{
+  float FrontLeftUS;
+  float FrontCenterUS;
+  float FrontRightUS;
+  float BackLeftUS;
+  float BackCenterUS;
+  float BackRightUS;
+
+  float Speed;
+  float Heading;
+  float Pitch;
+  float Roll;
+  float PosX;
+  float PosY;
+  float PosZ;
 } HostVehicleState_t;
 
 /* ════════════════════════════════════════════════════════════════════════
@@ -164,41 +144,41 @@ typedef struct {
  *     0x0006  00 00 00 01 10  → FCW CRITICAL + EEBL WARNING
  *     0x0101  01 00 00 00 01  → FCW WARNING  + IMA WARNING
  * ════════════════════════════════════════════════════════════════════════ */
-#define SYS_SAFE       0x0u
-#define SYS_WARNING    0x1u
-#define SYS_CRITICAL   0x2u
-#define SYS_MASK       0x3u      /* 2-bit field mask */
+#define SYS_SAFE 0x0u
+#define SYS_WARNING 0x1u
+#define SYS_CRITICAL 0x2u
+#define SYS_MASK 0x3u /* 2-bit field mask */
 
-#define SYS_FCW_POS    0u
-#define SYS_EEBL_POS   2u
-#define SYS_BSW_POS    4u
-#define SYS_DNPW_POS   6u
-#define SYS_IMA_POS    8u
+#define SYS_FCW_POS 0u
+#define SYS_EEBL_POS 2u
+#define SYS_BSW_POS 4u
+#define SYS_DNPW_POS 6u
+#define SYS_IMA_POS 8u
 
 /* status (0/1/2) of one module from the packed word */
-#define SYS_GET(flags, pos)   (((flags) >> (pos)) & SYS_MASK)
+#define SYS_GET(flags, pos) (((flags) >> (pos)) & SYS_MASK)
 
 /* ── RPi telemetry packet ──
  * Sent every 100ms via UART4.
  * Protocol: START(0xAA) | sys_flags | speed_f32 | heading_f32 | 6×US_f32 | END(0x55) */
 typedef struct __attribute__((packed))
 {
-  uint8_t  start;        /* 0xAA */
-  uint8_t  sys_flags;    /* SYSFLG_* bitmap */
-  float    speed;        /* cm/s */
-  float    heading;      /* degrees 0-360 */
-  float    front_left;   /* ultrasonic distance [cm] */
-  float    front_center;
-  float    front_right;
-  float    back_left;
-  float    back_center;
-  float    back_right;
-  uint8_t  end;          /* 0x55 */
+  uint8_t start;      /* 0xAA */
+  uint16_t sys_flags; /* G_u16SystemFlags: 2 bits/module (00/01/10) */
+  float speed;        /* cm/s */
+  float heading;      /* degrees 0-360 */
+  float front_left;   /* ultrasonic distance [cm] */
+  float front_center;
+  float front_right;
+  float back_left;
+  float back_center;
+  float back_right;
+  uint8_t end; /* 0x55 */
 } RPi_Packet_t;
 
 /* Global variables for centralized management */
 
-extern volatile uint8_t        G_u8SystemFlags; /* bitmap: 0 = all safe */
+extern volatile uint16_t G_u16SystemFlags; /* 2 bits/module; 0 = all safe */
 
 /* Unified Host Vehicle State */
 extern HostVehicleState_t G_stHostVehicleState;
@@ -207,9 +187,8 @@ extern HostVehicleState_t G_stHostVehicleState;
 #include "../Drivers/HAL/LED/LED_interface.h"
 extern LED_Config_t FrontR_LED, FrontL_LED, BackR_LED, BackL_LED, Interior_LED;
 
-
 /* Function Prototypes */
-#define DWT_CTRL            *((volatile uint32_t*)0xE0001000)
+#define DWT_CTRL *((volatile uint32_t *)0xE0001000)
 
 void SEGGER_setup(void);
 

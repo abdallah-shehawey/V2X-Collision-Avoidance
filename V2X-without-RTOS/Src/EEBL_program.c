@@ -59,14 +59,19 @@ void EEBL_voidBeginCycle(void)
  * @brief Process one DSRC neighbor for EEBL
  *
  * Uses pre-computed direction from SafetyEngine.
+ * Risk is based purely on the host's own speed (safe-distance model),
+ * NOT on relative speed. Once the host brakes suddenly, any vehicle behind
+ * that is closer than the speed-dependent safe distance is flagged.
+ *
  * Skips immediately if:
  *   - Not same direction
  *   - Not braking (gate from BeginCycle)
  *   - Rear distance out of range
- *   - Neighbor is not closing in
  */
 void EEBL_voidProcessNeighbor(const Neighbor *n, float rear_distance, Direction_t dir)
 {
+  (void)n; /* Neighbor speed no longer used — gap is judged by host speed only */
+
   /* Only care about same-direction vehicles */
   if (dir != DIR_SAME)
   {
@@ -85,20 +90,7 @@ void EEBL_voidProcessNeighbor(const Neighbor *n, float rear_distance, Direction_
     return;
   }
 
-  /*
-   * Relative speed: other vehicle is faster → closing in on us
-   * (We are braking, they haven't yet)
-   */
-  float rel_speed = n->speed - Host_Speed;
-
-  if (rel_speed <= 0.0f)
-  {
-    /* Other vehicle is slower or same speed → no rear collision risk */
-    return;
-  }
-
-  float ttc = SafetyEngine_CalcTTC(rear_distance, rel_speed);
-  RiskLevel_t level = SafetyEngine_EvaluateRisk(ttc, EEBL_WARNING_TTC, EEBL_CRITICAL_TTC);
+  RiskLevel_t level = EEBL_EvaluateGap(rear_distance);
 
   if (level > EEBL_WorstLevel)
   {
@@ -149,6 +141,49 @@ void EEBL_voidUpdate(void)
 /* ============================================================ */
 /* =================== Internal Functions ===================== */
 /* ============================================================ */
+
+/**
+ * @brief Compute the speed-dependent safe distance (cm) from host speed.
+ *        Linear model: safe_cm = speed(m/s) * EEBL_SAFE_DIST_PER_MS.
+ *        Clamped to a minimum floor so a near-stopped car still has a gap
+ *        (and to stay above the ultrasonic's reliable near limit).
+ */
+static float EEBL_SafeDistance(void)
+{
+  float safe = Host_Speed * EEBL_SAFE_DIST_PER_MS;
+
+  if (safe < EEBL_MIN_SAFE_DISTANCE)
+  {
+    safe = EEBL_MIN_SAFE_DISTANCE;
+  }
+
+  return safe;
+}
+
+/**
+ * @brief Evaluate rear-gap risk by comparing the actual rear distance
+ *        against the speed-dependent safe distance.
+ *          distance >= safe              -> RISK_SAFE
+ *          crit*safe <= distance < safe  -> RISK_WARNING
+ *          distance < crit*safe          -> RISK_CRITICAL
+ */
+static RiskLevel_t EEBL_EvaluateGap(float rear_distance)
+{
+  float safe_dist     = EEBL_SafeDistance();
+  float critical_dist = safe_dist * EEBL_CRITICAL_RATIO;
+
+  if (rear_distance < critical_dist)
+  {
+    return RISK_CRITICAL;
+  }
+
+  if (rear_distance < safe_dist)
+  {
+    return RISK_WARNING;
+  }
+
+  return RISK_SAFE;
+}
 
 /**
  * @brief Activate rear alerts (LED, Buzzer) based on risk level

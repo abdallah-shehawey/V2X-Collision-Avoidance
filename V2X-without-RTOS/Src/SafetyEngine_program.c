@@ -50,16 +50,12 @@ void SafetyEngine_voidUpdate(void)
   uint8_t count    = DSRC_GetCount();
 
   /* Read all US distances ONCE per cycle */
-  float front_dist = US_Distances[US_FRONT];
-  float rear_dist  = US_Distances[US_REAR];
-  float left_dist  = US_Distances[US_FRONT_LEFT];
-  float right_dist = US_Distances[US_FRONT_RIGHT];
-
-  /* Use min of front+rear sensor per side for BSW */
-  float left_rear  = US_Distances[US_REAR_LEFT];
-  float right_rear = US_Distances[US_REAR_RIGHT];
-  if (left_rear < left_dist)   { left_dist  = left_rear;  }
-  if (right_rear < right_dist) { right_dist = right_rear; }
+  float front_dist  = US_Distances[US_FRONT];
+  float rear_dist   = US_Distances[US_REAR];
+  float front_left  = US_Distances[US_FRONT_LEFT];
+  float front_right = US_Distances[US_FRONT_RIGHT];
+  float rear_left   = US_Distances[US_REAR_LEFT];
+  float rear_right  = US_Distances[US_REAR_RIGHT];
 
   /* Read host vehicle data (from sensors/modules) */
   /* HostSpeed   = ...get from speedometer... */
@@ -67,9 +63,9 @@ void SafetyEngine_voidUpdate(void)
 
 
   /* 1. Begin cycle for all modules */
-  FCW_voidBeginCycle();
+  FCW_voidBeginCycle(front_dist);
   EEBL_voidBeginCycle();
-  BSW_voidBeginCycle(left_dist, right_dist);
+  BSW_voidBeginCycle(front_left, front_right, rear_left, rear_right);
   DNPW_voidBeginCycle(front_dist);
   IMA_voidBeginCycle();
 
@@ -137,31 +133,59 @@ Direction_t SafetyEngine_DetectDirection(float my_heading, float other_heading)
   return DIR_UNKNOWN;
 }
 
-/* ============ Shared TTC & Risk Evaluation ============ */
-
-float SafetyEngine_CalcTTC(float distance, float relative_speed)
+/* ============ Shared Threshold Risk Evaluation ============ */
+/*
+ * Generic "lower value = higher risk" evaluator.
+ * Still used by IMA for time-gap/delay thresholds. FCW/EEBL/DNPW have
+ * moved to the distance-based model below and no longer call this.
+ */
+RiskLevel_t SafetyEngine_EvaluateRisk(float value, float warning_thr, float critical_thr)
 {
-  if (relative_speed <= 0.0f)
-  {
-    return -1.0f;
-  }
-
-  return distance / relative_speed;
-}
-
-RiskLevel_t SafetyEngine_EvaluateRisk(float ttc, float warning_ttc, float critical_ttc)
-{
-  if (ttc < 0.0f)
+  if (value < 0.0f)
   {
     return RISK_SAFE;
   }
 
-  if (ttc <= critical_ttc)
+  if (value <= critical_thr)
   {
     return RISK_CRITICAL;
   }
 
-  if (ttc <= warning_ttc)
+  if (value <= warning_thr)
+  {
+    return RISK_WARNING;
+  }
+
+  return RISK_SAFE;
+}
+
+/* ============ Shared Distance-Based Risk Assessment ============ */
+
+RiskLevel_t SafetyEngine_AssessDistanceRisk(float host_speed, float distance,
+                                            float dist_per_ms, float min_dist,
+                                            float crit_ratio)
+{
+  /* No valid distance reading → nothing in range → safe */
+  if (distance <= 0.0f)
+  {
+    return RISK_SAFE;
+  }
+
+  /* Speed-dependent safe gap, floored so a near-stopped car still has a gap */
+  float safe_dist = host_speed * dist_per_ms;
+  if (safe_dist < min_dist)
+  {
+    safe_dist = min_dist;
+  }
+
+  float critical_dist = safe_dist * crit_ratio;
+
+  if (distance < critical_dist)
+  {
+    return RISK_CRITICAL;
+  }
+
+  if (distance < safe_dist)
   {
     return RISK_WARNING;
   }
