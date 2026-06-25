@@ -5,9 +5,9 @@ Requires=v2x-hub.service
 
 [Service]
 Type=simple
-User=pi
-WorkingDirectory=/home/rpi/v2x
-ExecStart=/usr/bin/python3 /home/rpi/v2x/V2P.py
+User=rpi
+WorkingDirectory=/home/rpi/V2X-Collision-Avoidance
+ExecStart=/usr/bin/python3 /home/rpi/V2X-Collision-Avoidance/V2P.py
 Restart=always
 RestartSec=5
 ExecStartPre=/bin/sleep 4

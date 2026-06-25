@@ -18,7 +18,7 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 # ── 2. مسار الكود (غيّره لو الكود في مكان تاني) ─────────────
-V2X_DIR="/home/rpi/v2x"
+V2X_DIR="/home/rpi/V2X-Collision-Avoidance"
 
 echo "=================================================="
 echo "  V2X systemd Services Installer"

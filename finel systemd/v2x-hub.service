@@ -7,9 +7,9 @@ Before=v2x-dashboard-bridge.service v2x-car-client.service v2x-v2p.service v2x-s
 
 [Service]
 Type=simple
-User=pi
-WorkingDirectory=/home/rpi/v2x
-ExecStart=/usr/bin/python3 /home/rpi/v2x/hub_.py
+User=rpi
+WorkingDirectory=/home/rpi/V2X-Collision-Avoidance
+ExecStart=/usr/bin/python3 /home/rpi/V2X-Collision-Avoidance/hub_.py
 # لو وقع، ابدأه تاني بعد 3 ثواني
 Restart=always
 RestartSec=3

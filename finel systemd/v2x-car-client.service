@@ -6,9 +6,9 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-User=pi
-WorkingDirectory=/home/pi/v2x
-ExecStart=/usr/bin/python3 /home/rpi/v2x/Car_client.py
+User=rpi
+WorkingDirectory=/home/rpi/V2X-Collision-Avoidance
+ExecStart=/usr/bin/python3 /home/rpi/V2X-Collision-Avoidance/Car_client.py
 Restart=always
 RestartSec=5
 # ننتظر شوية قبل أول تشغيل عشان الـ hub يبقى جاهز
