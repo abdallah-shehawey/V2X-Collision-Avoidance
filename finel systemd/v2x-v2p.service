@@ -1,0 +1,21 @@
+[Unit]
+Description=V2X V2P System (Camera + Pedestrian Detection)
+After=network.target v2x-hub.service v2x-car-client.service
+Requires=v2x-hub.service
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/rpi/v2x
+ExecStart=/usr/bin/python3 /home/rpi/v2x/V2P.py
+Restart=always
+RestartSec=5
+ExecStartPre=/bin/sleep 4
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=v2x-v2p
+# V2P بيحتاج الكاميرا — ديه بتتشغل مع الـ boot
+# لو الكاميرا مش جاهزة هيعيد تاني بعد كده
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,18 @@
+[Unit]
+Description=V2X Dashboard Bridge (IPC Hub → data.json)
+After=network.target v2x-hub.service
+Requires=v2x-hub.service
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/rpi/v2x
+ExecStart=/usr/bin/python3 /home/rpi/v2x/dashboard_bridge.py
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=v2x-dashboard-bridge
+
+[Install]
+WantedBy=multi-user.target
