@@ -7,13 +7,10 @@
  ******************************************************************************
  **/
 
-
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
 #include <stdint.h>
-
-
 
 /*
  * ========================================================================================
@@ -35,7 +32,7 @@
  * ----------------------------------------------------------------------------------------
  * | Sensor Type | SPI Signals           | Pins                | Mode / AF |
  * |-------------|-----------------------|---------------------|-----------|
- * | IMU (9-Axis)| SCK, MISO(ADO), MOSI(SDA)       | PA5, PA6, PA7       | SPI1 - AF5|
+ * | IMU (9-Axis)| SCK, MISذO(ADO), MOSI(SDA)       | PA5, PA6, PA7       | SPI1 - AF5|
  *
  * 3. FEEDBACK SYSTEM
  * ----------------------------------------------------------------------------------------
@@ -98,23 +95,23 @@
  * ========================================================================================
  */
 
-
 /* Unified Sensor State Structure */
-typedef struct {
-    float FrontLeftUS;
-    float FrontCenterUS;
-    float FrontRightUS;
-    float BackLeftUS;
-    float BackCenterUS;
-    float BackRightUS;
-    
-    float Speed;
-    float Heading;
-    float Pitch;
-    float Roll;
-    float PosX;
-    float PosY;
-    float PosZ;
+typedef struct
+{
+  float FrontLeftUS;
+  float FrontCenterUS;
+  float FrontRightUS;
+  float BackLeftUS;
+  float BackCenterUS;
+  float BackRightUS;
+
+  float Speed;
+  float Heading;
+  float Pitch;
+  float Roll;
+  float PosX;
+  float PosY;
+  float PosZ;
 } HostVehicleState_t;
 
 /* ════════════════════════════════════════════════════════════════════════
@@ -147,41 +144,41 @@ typedef struct {
  *     0x0006  00 00 00 01 10  → FCW CRITICAL + EEBL WARNING
  *     0x0101  01 00 00 00 01  → FCW WARNING  + IMA WARNING
  * ════════════════════════════════════════════════════════════════════════ */
-#define SYS_SAFE       0x0u
-#define SYS_WARNING    0x1u
-#define SYS_CRITICAL   0x2u
-#define SYS_MASK       0x3u      /* 2-bit field mask */
+#define SYS_SAFE 0x0u
+#define SYS_WARNING 0x1u
+#define SYS_CRITICAL 0x2u
+#define SYS_MASK 0x3u /* 2-bit field mask */
 
-#define SYS_FCW_POS    0u
-#define SYS_EEBL_POS   2u
-#define SYS_BSW_POS    4u
-#define SYS_DNPW_POS   6u
-#define SYS_IMA_POS    8u
+#define SYS_FCW_POS 0u
+#define SYS_EEBL_POS 2u
+#define SYS_BSW_POS 4u
+#define SYS_DNPW_POS 6u
+#define SYS_IMA_POS 8u
 
 /* status (0/1/2) of one module from the packed word */
-#define SYS_GET(flags, pos)   (((flags) >> (pos)) & SYS_MASK)
+#define SYS_GET(flags, pos) (((flags) >> (pos)) & SYS_MASK)
 
 /* ── RPi telemetry packet ──
  * Sent every 100ms via UART4.
  * Protocol: START(0xAA) | sys_flags | speed_f32 | heading_f32 | 6×US_f32 | END(0x55) */
 typedef struct __attribute__((packed))
 {
-  uint8_t  start;        /* 0xAA */
-  uint16_t sys_flags;    /* G_u16SystemFlags: 2 bits/module (00/01/10) */
-  float    speed;        /* cm/s */
-  float    heading;      /* degrees 0-360 */
-  float    front_left;   /* ultrasonic distance [cm] */
-  float    front_center;
-  float    front_right;
-  float    back_left;
-  float    back_center;
-  float    back_right;
-  uint8_t  end;          /* 0x55 */
+  uint8_t start;      /* 0xAA */
+  uint16_t sys_flags; /* G_u16SystemFlags: 2 bits/module (00/01/10) */
+  float speed;        /* cm/s */
+  float heading;      /* degrees 0-360 */
+  float front_left;   /* ultrasonic distance [cm] */
+  float front_center;
+  float front_right;
+  float back_left;
+  float back_center;
+  float back_right;
+  uint8_t end; /* 0x55 */
 } RPi_Packet_t;
 
 /* Global variables for centralized management */
 
-extern volatile uint16_t       G_u16SystemFlags; /* 2 bits/module; 0 = all safe */
+extern volatile uint16_t G_u16SystemFlags; /* 2 bits/module; 0 = all safe */
 
 /* Unified Host Vehicle State */
 extern HostVehicleState_t G_stHostVehicleState;
@@ -190,9 +187,8 @@ extern HostVehicleState_t G_stHostVehicleState;
 #include "../Drivers/HAL/LED/LED_interface.h"
 extern LED_Config_t FrontR_LED, FrontL_LED, BackR_LED, BackL_LED, Interior_LED;
 
-
 /* Function Prototypes */
-#define DWT_CTRL            *((volatile uint32_t*)0xE0001000)
+#define DWT_CTRL *((volatile uint32_t *)0xE0001000)
 
 void SEGGER_setup(void);
 
