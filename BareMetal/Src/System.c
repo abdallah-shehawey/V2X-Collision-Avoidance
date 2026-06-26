@@ -34,6 +34,10 @@ uint32_t SystemCoreClock = 16000000;
 volatile uint16_t  G_u16SystemFlags     = 0;
 HostVehicleState_t G_stHostVehicleState = {0};
 
+/* Distance to nearest intersection (cm), 0 = not near. Used by IMA and broadcast
+ * over DSRC; set by whatever provides intersection geometry (map/RPi). */
+float Host_DistToIntersection = 0.0f;
+
 
 /******************************************
  *  Hardware Objects for Testing         *

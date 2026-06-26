@@ -183,6 +183,10 @@ extern volatile uint16_t G_u16SystemFlags; /* 2 bits/module; 0 = all safe */
 /* Unified Host Vehicle State */
 extern HostVehicleState_t G_stHostVehicleState;
 
+/* Distance to nearest intersection (cm), 0 = not near. Read by IMA and broadcast
+ * over DSRC. Set by whatever provides intersection geometry (map/RPi). */
+extern float Host_DistToIntersection;
+
 /* Hardware objects — defined in System.c, used across tasks */
 #include "../Drivers/HAL/LED/LED_interface.h"
 extern LED_Config_t FrontR_LED, FrontL_LED, BackR_LED, BackL_LED, Interior_LED;

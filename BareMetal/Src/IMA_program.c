@@ -18,16 +18,14 @@
 #include "../Inc/System/System.h"
 #include "../Inc/Application/SafetyEngine/SafetyEngine_interface.h"
 
-/* ============ Module State ============ */
-static uint8_t     IMA_CurrentFlag      = 0;         /* 0=Safe, 1=Warning — DSRC broadcast */
-static uint8_t     IMA_CrossingDetected = 0;         /* At least one crossing-dir neighbor */
-static uint8_t     IMA_IShouldWait      = 0;         /* Other vehicle is faster → I yield */
+/* ============ Module State (cycle accumulators) ============ */
+static uint8_t     IMA_CrossingDetected = 0; /* At least one crossing-dir neighbor */
+static uint8_t     IMA_IShouldWait      = 0; /* Other vehicle is faster → I yield   */
 static RiskLevel_t IMA_WorstRisk        = RISK_SAFE;
 
 /* ============ Init ============ */
 void IMA_voidInit(void)
 {
-  IMA_CurrentFlag      = 0;
   IMA_CrossingDetected = 0;
   IMA_IShouldWait      = 0;
   IMA_WorstRisk        = RISK_SAFE;
@@ -37,6 +35,10 @@ void IMA_voidInit(void)
 /* ============ Per-Neighbor API (for SafetyEngine) ============ */
 /* ============================================================ */
 
+/**
+ * @brief Begin a new IMA processing cycle — reset accumulators.
+ *        IMA reads Host_Speed from the shared globals.
+ */
 void IMA_voidBeginCycle(void)
 {
   IMA_CrossingDetected = 0;
@@ -44,92 +46,47 @@ void IMA_voidBeginCycle(void)
   IMA_WorstRisk        = RISK_SAFE;
 }
 
-void IMA_voidProcessNeighbor(const Neighbor *n, Direction_t dir)
+/**
+ * @brief Process one crossing-direction DSRC neighbor for IMA.
+ *
+ * Priority rule: higher speed = right of way. If the other vehicle is faster (or
+ * equal) the host yields → WARNING. If the host is faster it passes first → no
+ * alert. The SafetyEngine only dispatches crossing-direction neighbors here.
+ *
+ * @param n Pointer to neighbor data
+ */
+void IMA_voidProcessNeighbor(const Neighbor *n)
 {
-  /* Gate: only crossing traffic matters at intersections */
-  if (dir != DIR_CROSSING)
-    return;
-
   /* A crossing vehicle is detected */
   IMA_CrossingDetected = 1;
 
-  /*
-   * Priority rule: higher speed = right of way.
-   * If other vehicle is faster (or equal) → I yield.
-   * If I am faster → I pass first, no alert.
-   */
-  if (G_stHostVehicleState.Speed > n->speed)
-    return; /* I have priority — no alert */
+  /* If the host is faster, it has priority and needs no warning. */
+  if (Host_Speed > n->speed)
+  {
+    return;
+  }
 
-  /* Other is faster or equal → I should yield */
+  /* Other is faster or equal → the host should yield. */
   IMA_IShouldWait = 1;
 
-  /* WARNING: cross traffic has priority */
   if (RISK_WARNING > IMA_WorstRisk)
+  {
     IMA_WorstRisk = RISK_WARNING;
-}
-
-void IMA_voidEndCycle(void)
-{
-  if (IMA_CrossingDetected && IMA_IShouldWait)
-  {
-    IMA_CurrentFlag = (uint8_t)IMA_WorstRisk;
-    IMA_ActivateAlert(IMA_WorstRisk);
   }
-  else
-  {
-    IMA_CurrentFlag = 0;
-    IMA_DeactivateAlert();
-  }
-}
-
-/* ============================================================ */
-/* ============ Standalone Update (wrapper) =================== */
-/* ============================================================ */
-
-void IMA_voidUpdate(void)
-{
-  Neighbor *table = DSRC_GetTable();
-  uint8_t count   = DSRC_GetCount();
-
-  IMA_voidBeginCycle();
-
-  for (uint8_t i = 0; i < count; i++)
-  {
-    Direction_t dir = SafetyEngine_DetectDirection(G_stHostVehicleState.Heading, table[i].heading);
-    IMA_voidProcessNeighbor(&table[i], dir);
-  }
-
-  IMA_voidEndCycle();
 }
 
 /* ============ Public Getter ============ */
+
+/**
+ * @brief Current IMA flag. Warns only when a crossing vehicle is near and the
+ *        host must yield.
+ * @return 0=Safe, 1=Warning, 2=Critical
+ */
 uint8_t IMA_u8GetFlag(void)
 {
-  return IMA_CurrentFlag;
-}
-
-/* ============================================================ */
-/* =================== Internal Functions ===================== */
-/* ============================================================ */
-
-static void IMA_ActivateAlert(RiskLevel_t level)
-{
-  (void)level;
-#if IMA_ENABLE_LED_ALERT
-  /* LED_IMA_ON(); */
-#endif
-#if IMA_ENABLE_BUZZER
-  /* BUZZER_SHORT_BEEP(); */
-#endif
-}
-
-static void IMA_DeactivateAlert(void)
-{
-#if IMA_ENABLE_LED_ALERT
-  /* LED_IMA_OFF(); */
-#endif
-#if IMA_ENABLE_BUZZER
-  /* BUZZER_OFF(); */
-#endif
+  if (IMA_CrossingDetected && IMA_IShouldWait && IMA_WorstRisk > RISK_SAFE)
+  {
+    return (uint8_t)IMA_WorstRisk;
+  }
+  return 0;
 }

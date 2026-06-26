@@ -190,10 +190,9 @@ uint8_t DSRC_GetCount(void)
       table[i].vehicle_id;
       table[i].speed;
       table[i].heading;
-      table[i].fcw_flag;
-      table[i].eebl_flag;
+      table[i].fcw_headon_flag;
       table[i].bsw_flag;
-      table[i].dnpw_flag;
+      table[i].ima_flag;
       // etc...
   }
 */

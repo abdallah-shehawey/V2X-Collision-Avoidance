@@ -1,25 +1,24 @@
 #ifndef EEBL_CONFIG_H
 #define EEBL_CONFIG_H
 
-/* Sudden braking detection threshold (cm/s drop per 50ms SafetyEngine cycle).
- * -20 cm/s/cycle ≈ -4 m/s² — a deliberate hard brake at prototype scale.
- * TUNE against the MPU speed-noise floor observed during Stage 4 testing:
- * raise the magnitude if noise causes false triggers. */
-#define EEBL_DECEL_THRESHOLD (-20.0f)
+/*
+ * EEBL detects a sudden brake, then rates the rear gap using the shared cycle
+ * safe/critical distances (SafetyEngine_SafeDist / CriticalDist). The only
+ * EEBL-specific tuning is the braking threshold below.
+ *
+ * Host_Speed is in m/s (the SafetyEngine converts G_stHostVehicleState.Speed
+ * from cm/s to m/s once per cycle); distances are in cm. Numbers are tuned for
+ * the prototype's 0..5 m/s range — re-tune on the real car.
+ */
 
-/* TTC thresholds (seconds) — rear collision is imminent at short range */
-#define EEBL_WARNING_TTC  (1.5f)
-#define EEBL_CRITICAL_TTC (0.8f)
+/*
+ * Sudden-braking threshold (m/s per cycle, negative = braking): the drop in
+ * speed between two consecutive cycles. At ~5 m/s top speed, a -0.20 m/s step
+ * is a clear braking event. Smaller magnitude = more sensitive.
+ */
+#define EEBL_DECEL_THRESHOLD (-0.20f)
 
-/* Heading thresholds moved to System.h (shared by all safety modules) */
-
-/* Maximum rear detection range (cm). In a 2m arena, only a car within ~1m behind
- * is an imminent rear threat. Also < the 400 "no-echo" sentinel so empty rear
- * (and the far wall ~2m) are correctly rejected. */
-#define EEBL_MAX_DETECTION_RANGE (100.0f)
-
-/* Alerts enable */
-#define EEBL_ENABLE_LED_ALERT 1
-#define EEBL_ENABLE_BUZZER    1
+/* Alerts (LED/buzzer) are handled outside this module — it only computes the
+ * risk level, exposed via EEBL_u8GetFlag(). */
 
 #endif

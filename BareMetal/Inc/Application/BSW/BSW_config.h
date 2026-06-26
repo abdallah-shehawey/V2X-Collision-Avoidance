@@ -1,16 +1,22 @@
 #ifndef BSW_CONFIG_H
 #define BSW_CONFIG_H
 
-/* ====== Distance Threshold ====== */
-/* Object in blind spot if side US < this value (cm).
- * 50cm ≈ adjacent lane for a 20cm-wide car; rejects the arena side walls
- * (≥~85cm when driving center) and the 400cm no-echo sentinel.
- * NOTE: keep the car roughly centered during BSW tests so a near wall
- * doesn't read as a side vehicle. */
-#define BSW_SIDE_THRESHOLD (50.0f)
+/*
+ * ====== Cooperative Blind-Spot Model ======
+ * SENDER:   uses its FRONT-side ultrasonics (front-left / front-right) to
+ *           detect a car alongside-ahead of it, and broadcasts bsw_flag as a
+ *           bitmask (bit0=LEFT, bit1=RIGHT) of the side(s) it saw.
+ * RECEIVER: for each side bit set, checks the OPPOSITE REAR sensor (sender
+ *           LEFT -> my rear-right, sender RIGHT -> my rear-left). If something
+ *           is there, this car sits in the sender's blind spot -> raise BSW on
+ *           that side. Both bits are handled independently.
+ */
 
-/* ====== Alerts ====== */
-#define BSW_ENABLE_LED_ALERT 1
-#define BSW_ENABLE_BUZZER    1
+/* Object present if a side ultrasonic reads < this distance (cm) */
+#define BSW_SIDE_THRESHOLD (80.0f)
+
+/* Alerts (LED/buzzer) are handled outside this module — it only computes the
+ * sender flag and the receiver-side blind-spot result, exposed via
+ * BSW_u8GetFlag() and BSW_u8GetBlindSpot(). */
 
 #endif

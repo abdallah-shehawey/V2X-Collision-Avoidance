@@ -23,10 +23,9 @@
 #include "../Inc/Drivers/HAL/MPU9250/MPU9250_interface.h"
 #include "../Inc/Drivers/HAL/LED/LED_interface.h"
 #include "../Inc/Drivers/MCAL/USART/USART_intreface.h"
-#include "../Inc/Application/FCW/FCW_interface.h"
+#include "../Inc/Application/FCW_DNPW/FCW_DNPW_interface.h"
 #include "../Inc/Application/EEBL/EEBL_interface.h"
 #include "../Inc/Application/BSW/BSW_interface.h"
-#include "../Inc/Application/DNPW/DNPW_interface.h"
 #include "../Inc/Application/IMA/IMA_interface.h"
 #include "../Inc/Application/DSRC/DSRC.h"
 #include "../Inc/Application/SafetyEngine/SafetyEngine_interface.h"
@@ -339,10 +338,16 @@ void vTask_ESP_Comm(void *pvParameters)
       my_data.heading                  = G_stHostVehicleState.Heading;
       xSemaphoreGive(G_xDataMutex);
 
-      /* ADAS flags are atomic uint8 reads — no mutex needed */
-      my_data.fcw_flag  = FCW_u8GetFlag();
-      my_data.dnpw_flag = DNPW_u8GetFlag();
-      my_data.ima_flag  = IMA_u8GetFlag();
+      /* Cooperative flags broadcast so other cars can use them. Atomic uint8/
+       * float reads of the last SafetyEngine cycle's results — no mutex needed.
+       *   fcw_headon_flag : head-on candidate (0/1) for the oncoming car to confirm
+       *   bsw_flag        : my own front side(s) seeing a car (bit0=L, bit1=R)
+       *   ima_flag        : intersection movement assist (0/1/2)
+       *   distance_to_intersection : for the neighbors' IMA geometry */
+      my_data.fcw_headon_flag         = FCW_GetHeadonFlag();
+      my_data.bsw_flag                = BSW_u8GetFlag();
+      my_data.ima_flag                = IMA_u8GetFlag();
+      my_data.distance_to_intersection = Host_DistToIntersection;
 
       DSRC_SendNeighbor(&my_data);
     }

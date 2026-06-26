@@ -19,9 +19,9 @@
 #include "../Inc/Application/SafetyEngine/SafetyEngine_interface.h"
 
 /* ============ Module State ============ */
-static float       EEBL_PrevSpeed       = 0.0f;
-static uint8_t     EEBL_BrakingDetected = 0;
-static RiskLevel_t EEBL_WorstLevel      = RISK_SAFE;
+static float       EEBL_PrevSpeed       = 0.0f;      /* previous-cycle speed, for braking detection */
+static uint8_t     EEBL_BrakingDetected = 0;         /* sudden-brake gate (set in BeginCycle)        */
+static RiskLevel_t EEBL_WorstLevel      = RISK_SAFE; /* worst risk this cycle (read via getter)      */
 
 /* ============ Init ============ */
 void EEBL_voidInit(void)
@@ -36,143 +36,56 @@ void EEBL_voidInit(void)
 /* ============================================================ */
 
 /**
- * @brief Begin a new EEBL processing cycle
- *        Checks braking gate and resets accumulators.
- *        If not braking suddenly, ProcessNeighbor will skip all neighbors.
+ * @brief Start a new cycle: set the sudden-braking gate and reset the result.
+ *        While not braking, ProcessNeighbor skips every neighbor.
  */
 void EEBL_voidBeginCycle(void)
 {
-  /* Detect sudden braking */
-  float decel = G_stHostVehicleState.Speed - EEBL_PrevSpeed;
+  /* Sudden braking = a drop in speed since the last cycle. */
+  float decel = Host_Speed - EEBL_PrevSpeed;
   EEBL_BrakingDetected = (decel <= EEBL_DECEL_THRESHOLD) ? 1U : 0U;
 
-  /* Save current speed for next cycle */
-  EEBL_PrevSpeed = G_stHostVehicleState.Speed;
-
+  EEBL_PrevSpeed  = Host_Speed;
   EEBL_WorstLevel = RISK_SAFE;
 }
 
 /**
- * @brief Process one DSRC neighbor for EEBL
+ * @brief Evaluate one same-direction neighbor against the rear gap.
  *
- * Uses pre-computed direction from SafetyEngine.
- * Skips immediately if:
- *   - Not same direction
- *   - Not braking (gate from BeginCycle)
- *   - Rear distance out of range
- *   - Neighbor is not closing in
+ * Risk depends on the host's own speed (the cycle safe/critical gaps), not on
+ * relative speed: a sudden brake with a vehicle close behind raises a warning.
+ * Keeps the worst severity across the cycle.
+ *
+ * @param rear_distance Rear ultrasonic distance (cm)
  */
-void EEBL_voidProcessNeighbor(const Neighbor *n, float rear_distance, Direction_t dir)
+void EEBL_voidProcessNeighbor(float rear_distance)
 {
-  /* Only care about same-direction vehicles */
-  if (dir != DIR_SAME)
-  {
-    return;
-  }
-
-  /* Gate: skip if not braking */
   if (!EEBL_BrakingDetected)
   {
     return;
   }
 
-  /* Gate: skip if no vehicle behind or out of range */
-  if (rear_distance <= 0.0f || rear_distance > EEBL_MAX_DETECTION_RANGE)
+  /* Nothing behind, or beyond the safe gap (which is RISK_SAFE anyway). */
+  if (rear_distance <= 0.0f || rear_distance >= SafetyEngine_SafeDist)
   {
     return;
   }
 
-  /*
-   * Relative speed: other vehicle is faster → closing in on us
-   * (We are braking, they haven't yet)
-   */
-  float rel_speed = n->speed - G_stHostVehicleState.Speed;
-
-  if (rel_speed <= 0.0f)
-  {
-    /* Other vehicle is slower or same speed → no rear collision risk */
-    return;
-  }
-
-  float ttc = SafetyEngine_CalcTTC(rear_distance, rel_speed);
-  RiskLevel_t level = SafetyEngine_EvaluateRisk(ttc, EEBL_WARNING_TTC, EEBL_CRITICAL_TTC);
+  RiskLevel_t level = (rear_distance < SafetyEngine_CriticalDist) ? RISK_CRITICAL : RISK_WARNING;
 
   if (level > EEBL_WorstLevel)
+  {
     EEBL_WorstLevel = level;
+  }
 }
+
+/* ============ Public Getter ============ */
 
 /**
- * @brief End cycle — activate/deactivate alerts based on results
+ * @brief Get current EEBL risk level (LED/buzzer handled by the caller).
+ * @return 0=Safe, 1=Warning, 2=Critical
  */
-void EEBL_voidEndCycle(void)
-{
-  if (EEBL_WorstLevel > RISK_SAFE)
-    EEBL_ActivateAlert(EEBL_WorstLevel);
-  else
-    EEBL_DeactivateAlert();
-}
-
-uint8_t EEBL_u8GetAlertLevel(void)
+uint8_t EEBL_u8GetFlag(void)
 {
   return (uint8_t)EEBL_WorstLevel;
-}
-
-/* ============================================================ */
-/* ============ Standalone Update (wrapper) =================== */
-/* ============================================================ */
-
-/**
- * @brief Standalone EEBL update — iterates neighbor table internally
- *        Equivalent to calling BeginCycle + ProcessNeighbor(all) + EndCycle
- */
-void EEBL_voidUpdate(void)
-{
-  Neighbor *table = DSRC_GetTable();
-  uint8_t count   = DSRC_GetCount();
-  float rear_dist = G_stHostVehicleState.BackCenterUS;
-
-  EEBL_voidBeginCycle();
-
-  for (uint8_t i = 0; i < count; i++)
-  {
-    Direction_t dir = SafetyEngine_DetectDirection(G_stHostVehicleState.Heading, table[i].heading);
-    EEBL_voidProcessNeighbor(&table[i], rear_dist, dir);
-  }
-
-  EEBL_voidEndCycle();
-}
-
-/* ============================================================ */
-/* =================== Internal Functions ===================== */
-/* ============================================================ */
-
-/**
- * @brief Activate rear alerts (LED, Buzzer) based on risk level
- */
-static void EEBL_ActivateAlert(RiskLevel_t level)
-{
-#if EEBL_ENABLE_LED_ALERT
-  /* LED_REAR_ON(); — activate rear brake/hazard LEDs */
-#endif
-
-#if EEBL_ENABLE_BUZZER
-  if (level == RISK_CRITICAL)
-  {
-    /* BUZZER_ON(); */
-  }
-#endif
-}
-
-/**
- * @brief Deactivate all EEBL alerts
- */
-static void EEBL_DeactivateAlert(void)
-{
-#if EEBL_ENABLE_LED_ALERT
-  /* LED_REAR_OFF(); */
-#endif
-
-#if EEBL_ENABLE_BUZZER
-  /* BUZZER_OFF(); */
-#endif
 }
