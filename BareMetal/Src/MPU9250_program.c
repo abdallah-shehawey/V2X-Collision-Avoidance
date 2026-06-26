@@ -20,11 +20,10 @@
 static float Accel_Offset[3] = {0, 0, 0};
 static float Gyro_Offset[3]  = {0, 0, 0};
 static float Mag_ASA[3]      = {1.0f, 1.0f, 1.0f}; /* AK8963 factory sensitivity adjust */
-/* Continuous hard-iron auto-calibration: running field extremes + bias offset */
-static float Mag_MinX = 1.0e9f, Mag_MaxX = -1.0e9f;
-static float Mag_MinY = 1.0e9f, Mag_MaxY = -1.0e9f;
-static float Mag_OffX = 0.0f,   Mag_OffY = 0.0f;
+/* Hard-iron bias from the boot-time rotation calibration (frozen after cal) */
+static float Mag_OffX = 0.0f, Mag_OffY = 0.0f;
 static float Filtered_Pitch = 0, Filtered_Roll = 0, Filtered_Heading = 0;
+static uint8_t Heading_Init = 0;   /* seed the fused heading on the first call */
 static float Vert_Velocity_m_s = 0; 
 volatile uint8_t MPU9250_ID = 0; /* Visible ID for debugging */
 
@@ -174,38 +173,76 @@ ErrorState_t MPU9250_enumGetAttitude(MPU9250_Data_t *D, float dt, float *P, floa
       return OK;
 }
 
-ErrorState_t MPU9250_enumGetHeading(MPU9250_Data_t *D, float *h) {
-  if (!D || !h) return NULL_POINTER;
+/* ============ Boot-time hard-iron calibration ============
+ * Collect the magnetometer field extremes while the vehicle is rotated ~360°,
+ * then freeze the hard-iron bias = midpoint of each axis' swing. Runs once at
+ * startup so the heading is repeatable afterwards (no live "moving target"). */
+ErrorState_t MPU9250_enumCalibrateMag(void)
+{
+  float minX = 1.0e9f, maxX = -1.0e9f;
+  float minY = 1.0e9f, maxY = -1.0e9f;
+  MPU9250_Data_t d;
 
-  /* ── Continuous hard-iron auto-calibration ──
-   * Track the running min/max of the (ASA-corrected) horizontal field as the
-   * vehicle turns; the hard-iron bias is the midpoint of each axis' swing.
-   * The estimate sharpens automatically the more the car turns. */
-  if (D->MagX < Mag_MinX) Mag_MinX = D->MagX;
-  if (D->MagX > Mag_MaxX) Mag_MaxX = D->MagX;
-  if (D->MagY < Mag_MinY) Mag_MinY = D->MagY;
-  if (D->MagY > Mag_MaxY) Mag_MaxY = D->MagY;
-
-  /* Relax the extremes inward slightly so a one-off spike decays out over time
-   * and the calibration stays "live" rather than latching forever. */
-  Mag_MaxX -= MPU9250_MAG_DECAY; Mag_MinX += MPU9250_MAG_DECAY;
-  Mag_MaxY -= MPU9250_MAG_DECAY; Mag_MinY += MPU9250_MAG_DECAY;
-
-  /* Trust the offset only once the field span on BOTH axes is wide enough to
-   * mean the car has actually turned. Until then the offset keeps its last
-   * good value (0 at startup -> raw, uncorrected heading as a safe fallback). */
-  if ((Mag_MaxX - Mag_MinX) > MPU9250_MAG_MIN_SPAN &&
-      (Mag_MaxY - Mag_MinY) > MPU9250_MAG_MIN_SPAN) {
-    Mag_OffX = 0.5f * (Mag_MaxX + Mag_MinX);
-    Mag_OffY = 0.5f * (Mag_MaxY + Mag_MinY);
+  uint16_t samples = (uint16_t)(MPU9250_MAGCAL_DURATION_MS / MPU9250_MAGCAL_SAMPLE_MS);
+  for (uint16_t i = 0; i < samples; i++)
+  {
+    if (MPU9250_enumReadData(&d) == OK)
+    {
+      if (d.MagX < minX) minX = d.MagX;
+      if (d.MagX > maxX) maxX = d.MagX;
+      if (d.MagY < minY) minY = d.MagY;
+      if (d.MagY > maxY) maxY = d.MagY;
+    }
+    TIM_vDelayMs(MPU9250_DELAY_TIMER, MPU9250_MAGCAL_SAMPLE_MS);
   }
 
+  /* Accept only if the car actually turned (wide span on BOTH axes). */
+  if ((maxX - minX) > MPU9250_MAG_MIN_SPAN && (maxY - minY) > MPU9250_MAG_MIN_SPAN)
+  {
+    Mag_OffX = 0.5f * (maxX + minX);
+    Mag_OffY = 0.5f * (maxY + minY);
+    Heading_Init = 0;   /* re-seed the fused heading from the new reference */
+    return OK;
+  }
+  return NOK;   /* not enough rotation → offsets left unchanged */
+}
+
+ErrorState_t MPU9250_enumGetHeading(MPU9250_Data_t *D, float dt, float *h) {
+  if (!D || !h) return NULL_POINTER;
+
+  /* Absolute heading from the magnetometer with the frozen hard-iron bias
+   * removed (sensor assumed ~level — flat-arena use). */
   float mx = D->MagX - Mag_OffX;
   float my = D->MagY - Mag_OffY;
-  float rawH = atan2f(my, mx) * (180.0f/M_PI);
-  if(rawH < 0) rawH += 360.0f;
-  Filtered_Heading = 0.9f * Filtered_Heading + 0.1f * rawH;
-  *h = Filtered_Heading; return OK;
+  float magH = atan2f(my, mx) * (180.0f/M_PI);
+  if (magH < 0.0f) magH += 360.0f;
+
+  /* Seed on the first call so we lock onto the absolute heading immediately
+   * instead of slowly ramping in from 0. */
+  if (!Heading_Init)
+  {
+    Filtered_Heading = magH;
+    Heading_Init = 1;
+    *h = magH;
+    return OK;
+  }
+
+  /* Complementary filter: GyroZ gives the fast, motor-noise-immune yaw change;
+   * the magnetometer slowly corrects long-term gyro drift. Wrap-aware so the
+   * 360°→0° seam is handled correctly. */
+  float gyro_pred = Filtered_Heading + (MPU9250_GYROZ_SIGN * D->GyroZ * dt);
+
+  float diff = magH - gyro_pred;
+  if (diff >  180.0f) diff -= 360.0f;
+  if (diff < -180.0f) diff += 360.0f;
+
+  Filtered_Heading = gyro_pred + (1.0f - MPU9250_HEADING_ALPHA) * diff;
+
+  if (Filtered_Heading >= 360.0f) Filtered_Heading -= 360.0f;
+  if (Filtered_Heading <    0.0f) Filtered_Heading += 360.0f;
+
+  *h = Filtered_Heading;
+  return OK;
 }
 
 ErrorState_t MPU9250_enumGetSpeed(MPU9250_Data_t *D, float dt, float *s) {

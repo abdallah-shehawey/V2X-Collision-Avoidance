@@ -223,6 +223,30 @@ void System_setup(void)
 	LED_Init(&Interior_LED);
 	/* Initialize Buzzer */
     BUZ_Init(&V2X_Buzzer);
+
+	/* ── Magnetometer hard-iron calibration (boot-time rotation) ──
+	 * One short beep + interior LED ON = "rotate the car ~360° NOW".
+	 * Keep turning until the LED goes off (~12s). Then:
+	 *   two short beeps = calibration OK
+	 *   one long  beep  = not enough rotation → power-cycle and retry.
+	 * NOTE: runs BEFORE the IWDG is started (in main), so the long window
+	 *       cannot trip the watchdog. */
+	BUZ_On(&V2X_Buzzer);  TIM_vDelayMs(TIM_TIMER6, 400);  BUZ_Off(&V2X_Buzzer);
+	LED_TurnOn(&Interior_LED);
+
+	if (MPU9250_enumCalibrateMag() == OK)
+	{
+		LED_TurnOff(&Interior_LED);
+		BUZ_On(&V2X_Buzzer); TIM_vDelayMs(TIM_TIMER6, 150); BUZ_Off(&V2X_Buzzer);
+		TIM_vDelayMs(TIM_TIMER6, 120);
+		BUZ_On(&V2X_Buzzer); TIM_vDelayMs(TIM_TIMER6, 150); BUZ_Off(&V2X_Buzzer);
+	}
+	else
+	{
+		LED_TurnOff(&Interior_LED);
+		BUZ_On(&V2X_Buzzer); TIM_vDelayMs(TIM_TIMER6, 1000); BUZ_Off(&V2X_Buzzer);
+	}
+
 	// DSRC init
 	DSRC_Init();
 }

@@ -52,10 +52,23 @@ ErrorState_t MPU9250_enumInit(void);
 ErrorState_t MPU9250_enumReadData(MPU9250_Data_t *Copy_pData);
 
 /**
- * @fn ErrorState_t MPU9250_enumGetHeading(MPU9250_Data_t *Copy_pData, float *Copy_pfHeading)
- * @brief Calculates the 2D heading from magnetometer data.
+ * @fn ErrorState_t MPU9250_enumGetHeading(MPU9250_Data_t *Copy_pData, float Copy_fDt, float *Copy_pfHeading)
+ * @brief Fused 2D heading: magnetometer (hard-iron corrected) + GyroZ via a
+ *        wrap-aware complementary filter. Requires MPU9250_enumCalibrateMag()
+ *        to have run for an accurate absolute reference.
+ * @param Copy_fDt  Elapsed time since the last call [seconds].
  */
-ErrorState_t MPU9250_enumGetHeading(MPU9250_Data_t *Copy_pData, float *Copy_pfHeading);
+ErrorState_t MPU9250_enumGetHeading(MPU9250_Data_t *Copy_pData, float Copy_fDt, float *Copy_pfHeading);
+
+/**
+ * @fn ErrorState_t MPU9250_enumCalibrateMag(void)
+ * @brief Boot-time hard-iron calibration. Rotate the vehicle ~360° during the
+ *        window (length = MPU9250_MAGCAL_DURATION_MS); computes & freezes the
+ *        magnetometer X/Y bias offsets.
+ * @return OK if enough rotation was seen (offsets applied),
+ *         NOK if the field span was too small (offsets left unchanged).
+ */
+ErrorState_t MPU9250_enumCalibrateMag(void);
 
 /**
  * @fn ErrorState_t MPU9250_enumGetSpeed(MPU9250_Data_t *Copy_pData, float Copy_fDt, float *Copy_pfSpeed)

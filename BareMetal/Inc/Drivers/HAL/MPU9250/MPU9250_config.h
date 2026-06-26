@@ -25,16 +25,28 @@
 /* Timer for delays (TIM_TIMER6 or TIM_TIMER7 recommended) */
 #define MPU9250_DELAY_TIMER    TIM_TIMER6
 
-/* ====== Magnetometer hard-iron auto-calibration (continuous) ====== */
-/* Minimum field span (raw counts x ASA) required on BOTH axes before the
- * running min/max is trusted to compute the hard-iron offset. Until the car
- * has turned enough to exceed this, heading falls back to the raw (uncorrected)
- * reading. Raise it if a noisy/near-stationary span yields a bad offset. */
-#define MPU9250_MAG_MIN_SPAN   (60.0f)
+/* ====== Magnetometer hard-iron calibration (boot-time rotation) ====== */
+/* Length of the boot calibration window. Rotate the car a full ~360° (one or
+ * two slow turns) during it. Lower it for quick bench testing. */
+#define MPU9250_MAGCAL_DURATION_MS  (12000U)
 
-/* Per-sample inward relaxation of the running extremes (raw counts). Lets a
- * one-off spike decay out over time and keeps the calibration "live" instead
- * of latching forever. Keep small so real turning refreshes faster than decay. */
-#define MPU9250_MAG_DECAY      (0.02f)
+/* Magnetometer poll period inside the calibration window (ms). */
+#define MPU9250_MAGCAL_SAMPLE_MS    (20U)
+
+/* Minimum field span (raw counts x ASA) required on BOTH axes to ACCEPT the
+ * calibration — proves the car actually turned. If the measured span is below
+ * this the cal is rejected (offsets left unchanged) and the caller is told. */
+#define MPU9250_MAG_MIN_SPAN        (60.0f)
+
+/* ====== Heading fusion (complementary filter: GyroZ + magnetometer) ====== */
+/* Gyro weight per update. τ ≈ dt·α/(1−α); at dt≈50ms, 0.98 → ~2.5s mag pull-in.
+ * Higher = smoother & more motor-noise-immune, but slower to correct drift. */
+#define MPU9250_HEADING_ALPHA       (0.98f)
+
+/* Sign of the GyroZ contribution. The gyro yaw-rate sign MUST match the
+ * direction the magnetometer heading increases, or the two fight each other.
+ * TEST: rotate the car steadily one way; if the fused heading diverges from the
+ * raw magnetometer heading instead of tracking it, flip this to (-1.0f). */
+#define MPU9250_GYROZ_SIGN          (+1.0f)
 
 #endif /* MPU9250_CONFIG_H_ */
