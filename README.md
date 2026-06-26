@@ -33,7 +33,7 @@ Traditional driving systems lack real-time awareness of surrounding vehicles, pe
 ## 📁 Project Structure
 ```
 Graduation-Project/
-├── BareMetal/        # STM32 (V2V – ADAS use cases)
+├── V2V-STM32/        # STM32 (V2V – ADAS use cases)
 │   ├── Inc/          # Headers لكل subsystem (BSW, DNPW, FCW, ...)
 │   ├── Src/          # Implementation لكل subsystem
 │   └── Startup/     # Startup & linker scripts
