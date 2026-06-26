@@ -10,8 +10,7 @@
 #define IMA_WARNING_DELAY  (4.0f)
 #define IMA_CRITICAL_DELAY (2.0f)
 
-/* ====== Alerts ====== */
-#define IMA_ENABLE_LED_ALERT 1
-#define IMA_ENABLE_BUZZER    1
+/* Alerts (LED/buzzer) are handled outside this module — it only computes the
+ * risk level, exposed via IMA_u8GetFlag(). */
 
 #endif

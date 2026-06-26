@@ -18,10 +18,7 @@
 #include "../Inc/System.h"
 #include "../Inc/SafetyEngine/SafetyEngine_interface.h"
 
-/* ============ Module State ============ */
-static uint8_t IMA_CurrentFlag = 0; /* 0=Safe, 1=Warning, 2=Critical */
-
-/* Cycle accumulators (reset in BeginCycle, used in ProcessNeighbor/EndCycle) */
+/* ============ Module State (cycle accumulators) ============ */
 static uint8_t     IMA_CrossingDetected = 0; /* At least one crossing-dir neighbor near intersection */
 static uint8_t     IMA_IShouldWait      = 0; /* Host vehicle should yield (other is faster) */
 static RiskLevel_t IMA_WorstRisk        = RISK_SAFE; /* Worst risk across all crossing neighbors */
@@ -29,10 +26,9 @@ static RiskLevel_t IMA_WorstRisk        = RISK_SAFE; /* Worst risk across all cr
 /* ============ Init ============ */
 void IMA_voidInit(void)
 {
-  IMA_CurrentFlag     = 0;
   IMA_CrossingDetected = 0;
-  IMA_IShouldWait     = 0;
-  IMA_WorstRisk       = RISK_SAFE;
+  IMA_IShouldWait      = 0;
+  IMA_WorstRisk        = RISK_SAFE;
 }
 
 /* ============================================================ */
@@ -55,25 +51,15 @@ void IMA_voidBeginCycle(void)
 
 /**
  * @brief Process one DSRC neighbor for IMA
+ * The faster vehicle has priority and passes first; if the host is the slower
+ * one it must yield, and its time-to-intersection grades the risk. Only
+ * crossing neighbors with both vehicles near the intersection are considered.
  *
- * Decision flow (per the flowchart):
- *   Gate 1: Is this a crossing vehicle? (not same road)
- *   Gate 2: Are BOTH vehicles near the intersection? (< 20m each)
- *   Priority: Compare speeds → faster vehicle passes first
- *   Risk: Compute delay (time to reach intersection) → evaluate risk
- *
- * @param n   Pointer to neighbor data
- * @param dir Pre-computed direction (from SafetyEngine_DetectDirection)
+ * @param n Pointer to neighbor data
  */
-void IMA_voidProcessNeighbor(const Neighbor *n, Direction_t dir)
+void IMA_voidProcessNeighbor(const Neighbor *n)
 {
-  /* Gate 1: Only crossing traffic is relevant for IMA */
-  if (dir != DIR_CROSSING)
-  {
-    return;
-  }
-
-  /* Gate 2: Both vehicles must be near the intersection */
+  /* Both vehicles must be near the intersection. */
   if (Host_DistToIntersection <= 0.0f || Host_DistToIntersection > IMA_INTERSECTION_RANGE)
   {
     return;
@@ -83,156 +69,45 @@ void IMA_voidProcessNeighbor(const Neighbor *n, Direction_t dir)
     return;
   }
 
-  /* Crossing vehicle near intersection confirmed */
   IMA_CrossingDetected = 1;
 
-  /* ---- Priority Decision: who passes first? ---- */
-  float delay;
-
+  /* Faster vehicle passes first: if the host is faster, it has priority and
+   * needs no warning. */
   if (Host_Speed > n->speed)
   {
-    /*
-     * I am faster → I pass first → other should wait.
-     * Compute other's delay (time for OTHER to reach intersection).
-     * No alert needed for me.
-     */
-    if (n->speed > 0.0f)
-    {
-      delay = n->distance_to_intersection / n->speed;
-    }
-    else
-    {
-      /* Other vehicle is stopped → no collision risk from their side */
-      return;
-    }
-
-    /* Even though I pass first, evaluate if it's still tight */
-    RiskLevel_t level = SafetyEngine_EvaluateRisk(delay, IMA_WARNING_DELAY, IMA_CRITICAL_DELAY);
-    (void)level; /* I pass first — no alert for me, but track for flag */
+    return;
   }
-  else
+
+  /* Host must yield. A stopped host can't collide; otherwise grade the risk by
+   * its time-to-intersection and keep the worst across crossing neighbors. */
+  IMA_IShouldWait = 1;
+
+  if (Host_Speed <= 0.0f)
   {
-    /*
-     * Other is faster (or equal speed) → I should wait.
-     * Compute MY delay (time for ME to reach intersection).
-     * This is the dangerous case — I need a warning.
-     */
-    IMA_IShouldWait = 1;
-
-    if (Host_Speed > 0.0f)
-    {
-      delay = Host_DistToIntersection / Host_Speed;
-    }
-    else
-    {
-      /* I am stopped → safe, no collision */
-      return;
-    }
-
-    RiskLevel_t level = SafetyEngine_EvaluateRisk(delay, IMA_WARNING_DELAY, IMA_CRITICAL_DELAY);
-
-    /* Track worst risk across all crossing neighbors (conservative) */
-    if (level > IMA_WorstRisk)
-    {
-      IMA_WorstRisk = level;
-    }
+    return;
   }
-}
 
-/**
- * @brief End cycle — apply decision logic
- *
- * IMA alert triggers ONLY when ALL conditions are true:
- *   1. Crossing vehicle detected near intersection
- *   2. I should wait (other vehicle has priority / is faster)
- *   3. Risk level > SAFE (I'm approaching too fast)
- *
- * If I'm the faster vehicle, no alert — I pass first.
- */
-void IMA_voidEndCycle(void)
-{
-  if (IMA_CrossingDetected && IMA_IShouldWait && (IMA_WorstRisk > RISK_SAFE))
+  float delay = Host_DistToIntersection / Host_Speed;
+  RiskLevel_t level = SafetyEngine_EvaluateRisk(delay, IMA_WARNING_DELAY, IMA_CRITICAL_DELAY);
+
+  if (level > IMA_WorstRisk)
   {
-    /* Update flag for DSRC broadcast */
-    IMA_CurrentFlag = (uint8_t)IMA_WorstRisk;
-
-    /* Activate alert — "WAIT - CROSS TRAFFIC" */
-    IMA_ActivateAlert(IMA_WorstRisk);
+    IMA_WorstRisk = level;
   }
-  else
-  {
-    /* All clear — no intersection collision risk */
-    IMA_CurrentFlag = 0;
-    IMA_DeactivateAlert();
-  }
-}
-
-/* ============================================================ */
-/* ============ Standalone Update (wrapper) =================== */
-/* ============================================================ */
-
-/**
- * @brief Standalone IMA update — iterates neighbor table internally
- *        Equivalent to calling BeginCycle + ProcessNeighbor(all) + EndCycle
- */
-void IMA_voidUpdate(void)
-{
-  Neighbor *table = DSRC_GetTable();
-  uint8_t count   = DSRC_GetCount();
-
-  IMA_voidBeginCycle();
-
-  for (uint8_t i = 0; i < count; i++)
-  {
-    Direction_t dir = SafetyEngine_DetectDirection(Host_Heading, table[i].heading);
-    IMA_voidProcessNeighbor(&table[i], dir);
-  }
-
-  IMA_voidEndCycle();
 }
 
 /* ============ Public Getter ============ */
+
+/**
+ * @brief Current IMA risk level. Warns only when a crossing vehicle is near,
+ *        the host must yield, and the approach is risky.
+ * @return 0=Safe, 1=Warning, 2=Critical
+ */
 uint8_t IMA_u8GetFlag(void)
 {
-  return IMA_CurrentFlag;
-}
-
-/* ============================================================ */
-/* =================== Internal Functions ===================== */
-/* ============================================================ */
-
-/**
- * @brief Activate IMA alert — warn driver to WAIT for cross traffic
- */
-static void IMA_ActivateAlert(RiskLevel_t level)
-{
-#if IMA_ENABLE_LED_ALERT
-  /* LED_IMA_ON(); */
-  /* LCD_Print("! WAIT - CROSS TRAFFIC at intersection"); */
-#endif
-
-#if IMA_ENABLE_BUZZER
-  if (level == RISK_CRITICAL)
+  if (IMA_CrossingDetected && IMA_IShouldWait && IMA_WorstRisk > RISK_SAFE)
   {
-    /* BUZZER_CONTINUOUS(); */
+    return (uint8_t)IMA_WorstRisk;
   }
-  else
-  {
-    /* BUZZER_SHORT_BEEP(); */
-  }
-#endif
-}
-
-/**
- * @brief Deactivate IMA alert — intersection is clear
- */
-static void IMA_DeactivateAlert(void)
-{
-#if IMA_ENABLE_LED_ALERT
-  /* LED_IMA_OFF(); */
-#endif
-
-#if IMA_ENABLE_BUZZER
-  /* BUZZER_OFF(); */
-#endif
+  return 0;
 }

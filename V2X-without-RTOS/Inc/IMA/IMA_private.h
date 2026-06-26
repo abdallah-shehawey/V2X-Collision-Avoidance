@@ -1,10 +1,7 @@
 #ifndef IMA_PRIVATE_H
 #define IMA_PRIVATE_H
 
-#include "../SafetyEngine/SafetyEngine_interface.h"
-
-/* Internal alert functions */
-static void IMA_ActivateAlert(RiskLevel_t level);
-static void IMA_DeactivateAlert(void);
+/* No module-private functions: the risk uses SafetyEngine helpers, and the
+ * LED/buzzer is driven outside this module. */
 
 #endif

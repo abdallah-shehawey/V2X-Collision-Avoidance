@@ -23,6 +23,21 @@ typedef enum
   RISK_CRITICAL
 } RiskLevel_t;
 
+/* ====== Shared Safe-Distance Model ======
+ * Speed-dependent gap shared by the distance-based modules (Local FCW + EEBL):
+ *
+ *   safe_cm = Host_Speed(m/s) * SAFE_DIST_PER_MS   (floored at MIN_SAFE_DISTANCE)
+ *   crit_cm = safe_cm * CRITICAL_RATIO
+ *
+ * Calibration (prototype top speed ~5 m/s): @ 2 m/s -> 70 cm => PER_MS = 35. */
+#define SAFE_DIST_PER_MS   (35.0f)
+#define MIN_SAFE_DISTANCE  (30.0f)
+#define CRITICAL_RATIO     (0.6f)
+
+/* Safe/critical gaps (cm) for the current cycle. Read-only for the modules. */
+extern float SafetyEngine_SafeDist;
+extern float SafetyEngine_CriticalDist;
+
 /* ====== Public API ====== */
 
 /**
@@ -31,9 +46,8 @@ typedef enum
 void SafetyEngine_voidInit(void);
 
 /**
- * @brief Single-pass update over the DSRC neighbor table
- *        Processes FCW + EEBL (and future modules) in one loop.
- *        Call this in the main loop instead of calling each module separately.
+ * @brief Run all safety modules in one pass over the DSRC neighbor table.
+ *        Call this once per main-loop iteration.
  */
 void SafetyEngine_voidUpdate(void);
 
@@ -47,8 +61,7 @@ Direction_t SafetyEngine_DetectDirection(float my_heading, float other_heading);
 
 /**
  * @brief Evaluate risk from a "lower value = higher risk" metric.
- *        Used by IMA for time-gap/delay thresholds. FCW/EEBL/DNPW have
- *        moved to the distance-based model (see AssessDistanceRisk).
+ *        Used by IMA for time-gap/delay thresholds.
  * @param value        Metric to evaluate (e.g. delay/time-gap in seconds)
  * @param warning_thr  Threshold for warning level
  * @param critical_thr Threshold for critical level
@@ -59,7 +72,6 @@ RiskLevel_t SafetyEngine_EvaluateRisk(float value, float warning_thr, float crit
 /**
  * @brief Assess collision risk from host speed and a measured distance.
  *
- * Distance-based model (replaces TTC/relative-speed across all modules):
  *   safe_dist_cm  = host_speed(m/s) * dist_per_ms   (floored at min_dist)
  *   distance >= safe_dist               -> RISK_SAFE
  *   crit*safe <= distance < safe_dist   -> RISK_WARNING
