@@ -334,7 +334,9 @@ void vTask_ESP_Comm(void *pvParameters)
 
       Neighbor my_data = {0};
       my_data.vehicle_id = VEHICLE_ID;
-      my_data.last_update = (uint32_t)xTaskGetTickCount();
+      /* last_update is intentionally left 0: the receiver overwrites it with its
+       * OWN local FreeRTOS tick in update_neighbor() (a sender's clock is
+       * meaningless to us), so transmitting it would only waste bytes. */
 
       /* Read host state AND the cooperative ADAS flags under the SAME mutex, so
        * the broadcast packet is one consistent snapshot of the last SafetyEngine
