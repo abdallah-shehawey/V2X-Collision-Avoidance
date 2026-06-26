@@ -30,6 +30,7 @@
 #include "../Inc/Application/IMA/IMA_interface.h"
 #include "../Inc/Application/DSRC/DSRC.h"
 #include "../Inc/Application/SafetyEngine/SafetyEngine_interface.h"
+#include "../Inc/Drivers/MCAL/IWDG/IWDG_interface.h"
 
 extern BUZ_Config_t      V2X_Buzzer;
 extern USART_Config_t    RPi_UART;
@@ -44,6 +45,17 @@ SemaphoreHandle_t G_xDataMutex;           // for data protection (G_stHostVehicl
 SemaphoreHandle_t G_xNeighborTableMutex;  // for neighbor table protection (neighbor_table)
 
 
+/* ================== Watchdog heartbeats ==================
+ * Each monitored task bumps its own slot every loop. vTask_Watchdog refreshes
+ * the IWDG ONLY while EVERY slot keeps advancing; if any task stalls (hard
+ * fault, stack-overflow halt, infinite loop, ISR storm, or starvation) its slot
+ * freezes → the refresh stops → the IWDG hardware-resets the MCU. */
+enum { HB_SAFETY = 0, HB_SENSORS, HB_ESP, HB_FEEDBACK, HB_RPI, HB_COUNT };
+volatile uint32_t G_au32Heartbeat[HB_COUNT] = {0};
+
+#define WDG_TIMEOUT_MS        2000U   /* IWDG hardware reset timeout (LSI-backed) */
+#define WDG_CHECK_PERIOD_MS    300U   /* how often the monitor verifies + kicks   */
+
 
 /* ================== Task Prototypes ================== */
 void vTask_SafetyEngine(void *pvParameters);
@@ -53,6 +65,9 @@ void vTask_Feedback(void *pvParameters);
 /* Communication Tasks */
 void vTask_ESP_Comm(void *pvParameters);
 void vTask_RPi_Comm(void *pvParameters);
+
+/* Reliability */
+void vTask_Watchdog(void *pvParameters);
 
 
 int main(void)
@@ -80,6 +95,12 @@ int main(void)
   /* --- Low Priority: Actuator Execution & UI/RPi --- */
   xTaskCreate(vTask_Feedback,     "Feedback_Task",     configMINIMAL_STACK_SIZE + 128, NULL, 2, NULL);
   xTaskCreate(vTask_RPi_Comm,     "RPi_Comm_Task",     configMINIMAL_STACK_SIZE + 256, NULL, 1, NULL);
+  /* --- Lowest Priority: liveness monitor → kicks the IWDG (must run last) --- */
+  xTaskCreate(vTask_Watchdog,     "Watchdog_Task",     configMINIMAL_STACK_SIZE,       NULL, 1, NULL);
+
+  /* Start the independent watchdog LAST, just before the scheduler. From here
+   * the IWDG must be kicked within WDG_TIMEOUT_MS or the MCU hardware-resets. */
+  IWDG_voidInit(WDG_TIMEOUT_MS);
 
   /* 3. OS Initialization and start running tasks */
   RTOS_setup();
@@ -108,6 +129,8 @@ void vTask_SafetyEngine(void *pvParameters)
 
   for(;;)
   {
+    G_au32Heartbeat[HB_SAFETY]++;
+
     xSemaphoreTake(G_xNeighborTableMutex, portMAX_DELAY);
     xSemaphoreTake(G_xDataMutex,          portMAX_DELAY);
 
@@ -156,6 +179,8 @@ void vTask_Sensors(void *pvParameters)
 
   for(;;)
   {
+    G_au32Heartbeat[HB_SENSORS]++;
+
     /* ── Actual dt since last cycle (variable: follows scan length) ── */
     TickType_t xNow = xTaskGetTickCount();
     float dt = (float)(xNow - xPrevTick) * 0.001f;   /* ms → seconds */
@@ -167,7 +192,7 @@ void vTask_Sensors(void *pvParameters)
     uint16_t raw;
     for (uint8_t i = 0; i < 6; i++)
     {
-      us[i] = 400.0f;   /* default = out of range / clear (no echo within 2m) */
+      us[i] = 400.0f;   /* default = out of range / clear (no echo within 4m) */
       if (US_u16ReadDistance_cm(sensors[i], &raw) == OK)
         us[i] = (float)raw;
     }
@@ -221,6 +246,8 @@ void vTask_Feedback(void *pvParameters)
 {
   for(;;)
   {
+    G_au32Heartbeat[HB_FEEDBACK]++;
+
     /* Single atomic read of the volatile status word (uint16 read is atomic on M4). */
     uint16_t flags = G_u16SystemFlags;
 
@@ -272,11 +299,13 @@ void vTask_ESP_Comm(void *pvParameters)
 
   for(;;)
   {
+    G_au32Heartbeat[HB_ESP]++;
+
     /* ── RX: event-driven byte processing ───────────────────────── */
-    uint8_t byte;
-    if (xQueueReceive(G_xESP_RX_Queue, &byte, pdMS_TO_TICKS(10)) == pdTRUE)
+    uint8_t byte; //  Buffer to hold received byte from ESP32
+    if (xQueueReceive(G_xESP_RX_Queue, &byte, pdMS_TO_TICKS(10)) == pdTRUE) // Waits for 10ms for a byte to be received
     {
-      DSRC_RxCallback(byte);
+      DSRC_RxCallback(byte); // Calls the callback function to process the received byte
 
       /* Drain every remaining byte without blocking */
       while (xQueueReceive(G_xESP_RX_Queue, &byte, 0) == pdTRUE)
@@ -329,6 +358,8 @@ void vTask_RPi_Comm(void *pvParameters)
 
   for (;;)
   {
+    G_au32Heartbeat[HB_RPI]++;
+
     float spd, hdg, pit, rol, fl, fc, fr, bl, bc, br;
     uint16_t flags;
 
@@ -360,6 +391,47 @@ void vTask_RPi_Comm(void *pvParameters)
     USART_enumTransmitString(&RPi_UART, (uint8_t *)line);
 
     vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(100));
+  }
+}
+
+
+/**
+ * @brief Liveness monitor + watchdog kicker (lowest priority).
+ *
+ * Every WDG_CHECK_PERIOD_MS it snapshots every task's heartbeat. It refreshes
+ * the IWDG ONLY if ALL of them advanced since the last check. If any task
+ * stalled — hard fault / stack-overflow halt / infinite loop / ISR storm /
+ * starvation — its heartbeat freezes, the refresh is skipped, and the IWDG
+ * hardware-resets the MCU after WDG_TIMEOUT_MS. Transient stalls shorter than
+ * the IWDG timeout are tolerated (the next healthy check kicks the dog again).
+ *
+ * Runs at the LOWEST user priority so that CPU starvation by ANY other task
+ * also stops the kicks. The task is self-covering: if IT hangs, no kicks → reset.
+ */
+void vTask_Watchdog(void *pvParameters)
+{
+  uint32_t snapshot[HB_COUNT];
+  for (uint8_t i = 0; i < HB_COUNT; i++)
+    snapshot[i] = G_au32Heartbeat[i];
+
+  IWDG_voidRefresh();   /* initial kick so the window starts clean */
+
+  TickType_t xLastWake = xTaskGetTickCount();
+  for (;;)
+  {
+    vTaskDelayUntil(&xLastWake, pdMS_TO_TICKS(WDG_CHECK_PERIOD_MS));
+
+    uint8_t all_alive = 1;
+    for (uint8_t i = 0; i < HB_COUNT; i++)
+    {
+      if (G_au32Heartbeat[i] == snapshot[i]) all_alive = 0;  /* this task stalled */
+      snapshot[i] = G_au32Heartbeat[i];
+    }
+
+    /* Kick the dog only while EVERY monitored task is still advancing.
+     * If any stalled, deliberately skip the refresh → IWDG resets the MCU. */
+    if (all_alive)
+      IWDG_voidRefresh();
   }
 }
 

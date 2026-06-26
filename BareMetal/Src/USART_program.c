@@ -385,6 +385,12 @@ ErrorState_t USART_enumReceive(USART_Config_t *ChannelConfig, uint8_t *RX_Data)
 
 uint8_t USART_ReceiveByteDirect(USART_Channel_t Channel)
 {
+    /* Read SR THEN DR: this exact sequence also clears the ORE (overrun) flag.
+     * Reading DR alone would leave a set ORE asserting the RXNE interrupt line
+     * forever → an ISR storm that starves every task. Reading SR first makes
+     * the overrun self-clearing on the next received byte. */
+    volatile uint32_t Local_u32Status = USART_Channel[Channel]->SR;
+    (void)Local_u32Status;
     return (uint8_t)(USART_Channel[Channel]->DR);
 }
 
