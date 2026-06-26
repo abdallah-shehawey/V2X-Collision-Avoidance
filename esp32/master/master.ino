@@ -11,14 +11,19 @@
 #define VEHICLE_ID 1
 
 // ====== Struct ======
-typedef struct
+// MUST match the STM32 Neighbor struct byte-for-byte (V2V-STM32/Inc/Application/DSRC/DSRC.h).
+// The ESP only forwards raw bytes between UART and ESP-NOW, so field order/size/types
+// have to be identical or the STM32 will misread every packet.
+typedef struct __attribute__((packed))
 {
-  uint8_t vehicle_id;
-  float pos_x;
-  float pos_y;
-  float speed;
-  float heading;
+  uint8_t  vehicle_id;
+  float    speed;
+  float    heading;                  /* 0 to 360 degrees */
   uint32_t last_update;
+  uint8_t  fcw_headon_flag;          /* cooperative head-on candidate: 0/1 */
+  uint8_t  bsw_flag;                 /* sender front side(s): bit0=LEFT, bit1=RIGHT */
+  float    distance_to_intersection; /* distance to nearest intersection (cm), 0 = not near */
+  uint8_t  ima_flag;                 /* 0=Safe, 1=Warning, 2=Critical */
 } Neighbor;
 
 // ============================================================
@@ -98,11 +103,12 @@ void OnDataRecv(const esp_now_recv_info_t *info, const uint8_t *data, int len)
   // print received data from ESP-NOW
   Serial.println("====== [ESP-NOW RX] ======");
   Serial.printf("Vehicle ID : %d\n", n.vehicle_id);
-  Serial.printf("Pos X      : %.2f\n", n.pos_x);
-  Serial.printf("Pos Y      : %.2f\n", n.pos_y);
   Serial.printf("Speed      : %.2f\n", n.speed);
   Serial.printf("Heading    : %.2f\n", n.heading);
-  Serial.printf("Last Update: %lu\n", n.last_update);
+  Serial.printf("FCW Head-on: %d\n", n.fcw_headon_flag);
+  Serial.printf("BSW Flag   : %d\n", n.bsw_flag);
+  Serial.printf("Dist Inter : %.2f\n", n.distance_to_intersection);
+  Serial.printf("IMA Flag   : %d\n", n.ima_flag);
   Serial.println("==========================");
 
   // forward to STM32 via UART
@@ -147,11 +153,12 @@ void parse_byte(uint8_t byte)
         // print received data from STM32
         Serial.println("====== [UART RX] ======");
         Serial.printf("Vehicle ID : %d\n", n.vehicle_id);
-        Serial.printf("Pos X      : %.2f\n", n.pos_x);
-        Serial.printf("Pos Y      : %.2f\n", n.pos_y);
         Serial.printf("Speed      : %.2f\n", n.speed);
         Serial.printf("Heading    : %.2f\n", n.heading);
-        Serial.printf("Last Update: %lu\n", n.last_update);
+        Serial.printf("FCW Head-on: %d\n", n.fcw_headon_flag);
+        Serial.printf("BSW Flag   : %d\n", n.bsw_flag);
+        Serial.printf("Dist Inter : %.2f\n", n.distance_to_intersection);
+        Serial.printf("IMA Flag   : %d\n", n.ima_flag);
         Serial.println("=======================");
 
         // forward to other ESP32 via ESP-NOW
@@ -178,7 +185,7 @@ void parse_byte(uint8_t byte)
 void setup()
 {
   Serial.begin(115200);
-  Serial1.begin(9600, SERIAL_8N1, RXD1, TXD1);
+  Serial1.begin(115200, SERIAL_8N1, RXD1, TXD1);  /* MUST match STM32 USART1 (115200) */
 
   WiFi.mode(WIFI_STA);
   WiFi.disconnect();

@@ -23,7 +23,11 @@
 #define QUEUE_SIZE 10
 
 // ====== Struct ======
-typedef struct
+// Wire format shared with the ESP firmware (esp32/master, esp32/slave). It is
+// transmitted as raw bytes over UART/ESP-NOW, so it MUST be packed (no implicit
+// padding) and IDENTICAL on every side. Packed → 21 bytes exactly; any field
+// reorder/resize must be mirrored in the ESP .ino structs.
+typedef struct __attribute__((packed))
 {
   uint8_t vehicle_id;
   float speed;
