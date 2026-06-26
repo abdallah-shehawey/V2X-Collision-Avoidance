@@ -34,8 +34,12 @@ uint32_t SystemCoreClock = 16000000;
 volatile uint16_t  G_u16SystemFlags     = 0;
 HostVehicleState_t G_stHostVehicleState = {0};
 
-/* Distance to nearest intersection (cm), 0 = not near. Used by IMA and broadcast
- * over DSRC; set by whatever provides intersection geometry (map/RPi). */
+/* Distance to nearest intersection (cm), 0 = not near. Broadcast over DSRC for
+ * the neighbors' IMA geometry.
+ * NOTE: currently a stub — no source writes it yet, so it is always broadcast as
+ * 0. The local IMA logic does NOT depend on it (it decides on relative speed),
+ * so IMA still works. Wire a source here (map/RPi intersection geometry) before
+ * any consumer relies on the broadcast value being non-zero. */
 float Host_DistToIntersection = 0.0f;
 
 

@@ -174,17 +174,15 @@ void vTask_Sensors(void *pvParameters)
       &FrontUS[2], &BackUS[2]    /* Right:  front then back  */
   };
 
-  TickType_t xPrevTick = xTaskGetTickCount(); // Time since last cycle
+  /* Timestamp of the PREVIOUS MPU sample. dt is measured right around the MPU
+   * read (not at loop top), so it is the true interval between two consecutive
+   * IMU samples — independent of the variable-length ultrasonic scan that runs
+   * in between. This keeps the attitude/heading/speed/position integration exact. */
+  TickType_t xPrevMpuTick = xTaskGetTickCount();
 
   for(;;)
   {
     G_au32Heartbeat[HB_SENSORS]++;
-
-    /* ── Actual dt since last cycle (variable: follows scan length) ── */
-    TickType_t xNow = xTaskGetTickCount();
-    float dt = (float)(xNow - xPrevTick) * 0.001f;   /* ms → seconds */
-    if (dt <= 0.0f) dt = 0.010f;                      /* guard: first run */
-    xPrevTick = xNow;
 
     /* ── Read ALL 6 ultrasonics into locals (task sleeps during each echo) ── */
     float    us[6];
@@ -195,6 +193,12 @@ void vTask_Sensors(void *pvParameters)
       if (US_u16ReadDistance_cm(sensors[i], &raw) == OK)
         us[i] = (float)raw;
     }
+
+    /* ── dt = interval since the previous MPU sample (measured at the read) ── */
+    TickType_t xNow = xTaskGetTickCount();
+    float dt = (float)(xNow - xPrevMpuTick) * 0.001f;  /* ms → seconds */
+    if (dt <= 0.0f) dt = 0.010f;                        /* guard: first run */
+    xPrevMpuTick = xNow;
 
     /* ── MPU9250: read and process into locals ── */
     MPU9250_enumReadData(&mpu_data);
@@ -332,22 +336,23 @@ void vTask_ESP_Comm(void *pvParameters)
       my_data.vehicle_id = VEHICLE_ID;
       my_data.last_update = (uint32_t)xTaskGetTickCount();
 
-      /* Read host state under mutex */
-      xSemaphoreTake(G_xDataMutex, portMAX_DELAY);
-      my_data.speed                    = G_stHostVehicleState.Speed;
-      my_data.heading                  = G_stHostVehicleState.Heading;
-      xSemaphoreGive(G_xDataMutex);
-
-      /* Cooperative flags broadcast so other cars can use them. Atomic uint8/
-       * float reads of the last SafetyEngine cycle's results — no mutex needed.
+      /* Read host state AND the cooperative ADAS flags under the SAME mutex, so
+       * the broadcast packet is one consistent snapshot of the last SafetyEngine
+       * cycle. vTask_SafetyEngine writes these module statics while holding
+       * G_xDataMutex, so taking it here closes the race — notably IMA_u8GetFlag(),
+       * which reads three statics and is NOT atomic.
        *   fcw_headon_flag : head-on candidate (0/1) for the oncoming car to confirm
        *   bsw_flag        : my own front side(s) seeing a car (bit0=L, bit1=R)
        *   ima_flag        : intersection movement assist (0/1/2)
        *   distance_to_intersection : for the neighbors' IMA geometry */
-      my_data.fcw_headon_flag         = FCW_GetHeadonFlag();
-      my_data.bsw_flag                = BSW_u8GetFlag();
-      my_data.ima_flag                = IMA_u8GetFlag();
+      xSemaphoreTake(G_xDataMutex, portMAX_DELAY);
+      my_data.speed                    = G_stHostVehicleState.Speed;
+      my_data.heading                  = G_stHostVehicleState.Heading;
+      my_data.fcw_headon_flag          = FCW_GetHeadonFlag();
+      my_data.bsw_flag                 = BSW_u8GetFlag();
+      my_data.ima_flag                 = IMA_u8GetFlag();
       my_data.distance_to_intersection = Host_DistToIntersection;
+      xSemaphoreGive(G_xDataMutex);
 
       DSRC_SendNeighbor(&my_data);
     }
