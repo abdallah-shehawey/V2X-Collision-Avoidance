@@ -11,7 +11,7 @@
 USART_Handle_t USART_1 =
     {
         .Channel = USART_CHANNEL1,
-        .BaudRate = 9600,
+        .BaudRate = 115200,
         .WordLength = USART_WORDLENGTH_8B,
         .StopBits = USART_STOPBITS_1,
         .Parity = USART_PARITY_NONE,

@@ -3,10 +3,7 @@
 
 #include "../System.h"
 
-/* Internal functions */
-static float       EEBL_SafeDistance(void);
-static RiskLevel_t EEBL_EvaluateGap(float rear_distance);
-static void        EEBL_ActivateAlert(RiskLevel_t level);
-static void        EEBL_DeactivateAlert(void);
+/* No module-private functions: the safe/critical gap comes from the
+ * SafetyEngine and the LED/buzzer is driven by the caller. */
 
 #endif

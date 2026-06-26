@@ -11,16 +11,18 @@
 void BSW_voidInit(void);
 
 /**
- * @brief Standalone BSW update (iterates neighbor table internally)
- *        Use this OR the BeginCycle/ProcessNeighbor/EndCycle API, not both.
- */
-void BSW_voidUpdate(void);
-
-/**
- * @brief Get current BSW flag to broadcast over DSRC (sender's own side).
- * @return 0=None, 1=object on my LEFT (front-left), 2=object on my RIGHT (front-right)
+ * @brief Get current BSW flag to broadcast over DSRC (sender's own front side(s)).
+ * @return bit0 = LEFT, bit1 = RIGHT (0=none, 1=LEFT, 2=RIGHT, 3=both)
  */
 uint8_t BSW_u8GetFlag(void);
+
+/**
+ * @brief Get the receiver-side blind-spot result for THIS car (which side has
+ *        a vehicle in the blind spot). The LED/buzzer is driven elsewhere by
+ *        the caller — this module only computes the result.
+ * @return bit0 = LEFT, bit1 = RIGHT (0=none, 1=LEFT, 2=RIGHT, 3=both)
+ */
+uint8_t BSW_u8GetBlindSpot(void);
 
 /* ===== Per-Neighbor API (used by SafetyEngine) ===== */
 
@@ -41,17 +43,12 @@ void BSW_voidBeginCycle(float front_left, float front_right,
 /**
  * @brief Process one DSRC neighbor for BSW (receiver role)
  *
- * If the neighbor broadcasts a bsw_flag, check the OPPOSITE rear side to see
- * whether this car is the one sitting in that neighbor's blind spot.
+ * For each side bit the neighbor broadcasts, check our mirrored rear sensor to
+ * see whether this car sits in that neighbor's blind spot. The bits are tested
+ * independently, so a both-sides flag runs both checks.
  *
  * @param n   Pointer to neighbor data
- * @param dir Pre-computed direction (from SafetyEngine_DetectDirection)
  */
-void BSW_voidProcessNeighbor(const Neighbor *n, Direction_t dir);
-
-/**
- * @brief End cycle — finalize sender flag and activate/deactivate alerts
- */
-void BSW_voidEndCycle(void);
+void BSW_voidProcessNeighbor(const Neighbor *n);
 
 #endif
