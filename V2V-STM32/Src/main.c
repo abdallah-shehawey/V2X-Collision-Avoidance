@@ -201,7 +201,7 @@ void vTask_Sensors(void *pvParameters)
 
     float pitch = 0.0f, roll = 0.0f, heading = 0.0f;
     MPU9250_enumGetAttitude(&mpu_data, dt, &pitch, &roll);
-    MPU9250_enumGetHeading(&mpu_data, &heading);
+    MPU9250_enumGetHeading(&mpu_data, dt, &heading);
     MPU9250_enumGetSpeed(&mpu_data, dt, &local_speed_ms);
     MPU9250_enumGetPosition(&mpu_data, local_speed_ms, heading, pitch, dt, &local_pos);
 
