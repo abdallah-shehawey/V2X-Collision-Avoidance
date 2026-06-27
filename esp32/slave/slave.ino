@@ -167,12 +167,24 @@ void parse_byte(uint8_t byte)
       {
         Serial.printf("[ERR] Checksum mismatch! got 0x%02X expected 0x%02X\n", rx_checksum, calc_checksum(rx_buf, sizeof(Neighbor)));
       }
+      parse_state = WAIT_START;
     }
     else
     {
       Serial.println("[ERR] Bad END byte");
+      // Resync: the framing slipped. If THIS byte is a START_BYTE, it is most
+      // likely the real start of the next packet, so begin reading from here
+      // instead of waiting for the next 0xAA (which could fall inside payload).
+      if (byte == START_BYTE)
+      {
+        rx_idx = 0;
+        parse_state = READ_DATA;
+      }
+      else
+      {
+        parse_state = WAIT_START;
+      }
     }
-    parse_state = WAIT_START;
     break;
   }
 }
@@ -183,6 +195,10 @@ void parse_byte(uint8_t byte)
 void setup()
 {
   Serial.begin(115200);
+  // Enlarge the UART1 RX FIFO/ring buffer BEFORE begin(). The default (256B) can
+  // overflow and silently drop bytes while loop() is busy (e.g. ESP-NOW TX or
+  // Serial prints), which truncated DSRC frames and broke every END/checksum.
+  Serial1.setRxBufferSize(1024);
   Serial1.begin(115200, SERIAL_8N1, RXD1, TXD1);  /* MUST match STM32 USART1 (115200) */
 
   WiFi.mode(WIFI_STA);

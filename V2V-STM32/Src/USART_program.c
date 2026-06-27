@@ -258,30 +258,41 @@ ErrorState_t USART_enumTransmit(USART_Config_t *ChannelConfig, uint8_t TX_Data)
   }
   else
   {
-    if (USART_u8State[ChannelConfig->Channel] == IDLE)
+    /* Wait until TXE (data register empty), write the byte, then wait until TC
+     * (transmission complete) before returning.
+     *
+     * Why wait for TC and not just TXE: with a TXE-only blocking write, back-to-
+     * back bytes (and especially long 0x00 runs in the DSRC packet — speed=0,
+     * last_update=0, dist=0) were dropped on the wire. The ESP saw zero-runs one
+     * byte short (a 4-zero field arriving as 3), truncating every frame so the
+     * END/checksum always failed. (The RPi path already worked around the SAME
+     * link by sending ASCII with no 0x00 bytes.) Waiting for TC guarantees each
+     * byte — including its stop bit — fully shifts out before the next is loaded,
+     * which makes the binary stream survive intact.
+     *
+     * The timeout is a stuck-hardware escape ONLY; USART_u32TIMEOUT is sized so
+     * it cannot expire during a legitimate byte transfer. */
+    while ((((USART_Channel[ChannelConfig->Channel]->SR & (1 << SR_TXE)) >> SR_TXE) == 0) && (Local_u32TimeoutCounter < USART_u32TIMEOUT))
     {
-      USART_u8State[ChannelConfig->Channel] = BUSY;
+      Local_u32TimeoutCounter++;
+    }
 
-      while(((USART_Channel[ChannelConfig->Channel]->SR & (1 << SR_TXE)) >> SR_TXE == 0) && (Local_u32TimeoutCounter != USART_u32TIMEOUT))
-      {
-        Local_u32TimeoutCounter++;
-      }
-
-      if (Local_u32TimeoutCounter == USART_u32TIMEOUT)
-      {
-        Local_u8ErrorState = TIMEOUT_STATE;
-      }
-      else
-      {
-        /* Store Data */
-        USART_Channel[ChannelConfig->Channel]->DR = TX_Data;
-      }
-
-      USART_u8State[ChannelConfig->Channel] = IDLE;
+    if (Local_u32TimeoutCounter >= USART_u32TIMEOUT)
+    {
+      Local_u8ErrorState = TIMEOUT_STATE;
     }
     else
     {
-      Local_u8ErrorState = BUSY_STATE;
+      /* Store Data */
+      USART_Channel[ChannelConfig->Channel]->DR = TX_Data;
+
+      /* Wait for Transmission Complete so the byte fully leaves the shift
+       * register (with its stop bit) before the next DR write can clobber it. */
+      Local_u32TimeoutCounter = 0;
+      while ((((USART_Channel[ChannelConfig->Channel]->SR & (1 << SR_TC)) >> SR_TC) == 0) && (Local_u32TimeoutCounter < USART_u32TIMEOUT))
+      {
+        Local_u32TimeoutCounter++;
+      }
     }
   }
   return Local_u8ErrorState;

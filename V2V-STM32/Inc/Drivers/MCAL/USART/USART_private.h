@@ -21,6 +21,7 @@
 #define USART_CHANNEL_COUNT         6U
 
 #define SR_TXE                      7U
+#define SR_TC                       6U
 #define SR_RXNE                     5U
 
 #define CR1_IDLEIE                  4U
@@ -39,11 +40,14 @@
 
 #define MAXIMUM_CLOCK               16000000UL
 
-/* Busy-wait safety net for TXE/RXNE. Sized so the wait never expires during a
- * legit byte transfer at the slowest baud in use. RPi UART4 runs at 57600
- * (one byte = ~174us), so this must comfortably exceed that. 20000 iterations
- * covers baud rates down to ~19200 even under -O3, while still bounding a
- * genuinely-stuck transfer. */
-#define USART_u32TIMEOUT            20000UL
+/* Busy-wait safety net for TXE/RXNE. This is a stuck-hardware bound ONLY and
+ * must NEVER expire during a legitimate byte transfer. The previous value
+ * (20000) was far too small: under load it expired mid-stream while TXE was
+ * still 0, so USART_enumTransmit dropped the byte silently and the DSRC frame
+ * arrived truncated (the ESP saw 14-20 bytes/packet instead of 23, failing
+ * every END/checksum). One byte @115200 = ~87us; @57600 = ~174us. Sized to
+ * cover many milliseconds of wait even under -O3 so a real transfer always
+ * completes, while still escaping a genuinely-dead peripheral. */
+#define USART_u32TIMEOUT            2000000UL
 
 #endif /* _USART_PRIVATE_H_  */
