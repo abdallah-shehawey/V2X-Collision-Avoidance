@@ -25,39 +25,51 @@
 
 /*_______________________________________________________________________________*/
 /*
+ * Settle time before the trigger (microseconds)
+ * TRIG is driven LOW for this long before the HIGH pulse to guarantee a clean
+ * edge (no glitch from a previous measurement).
+ */
+#define US_TRIG_SETTLE_US   2U
+
+/*_______________________________________________________________________________*/
+/*
  * Trigger Pulse Duration (microseconds)
- * HC-SR04 requires a minimum 10us HIGH pulse on TRIG pin.
- * Do NOT change this unless using a different ultrasonic module.
+ * HC-SR04 requires a minimum 10us HIGH pulse on TRIG pin (datasheet).
+ * Do NOT lower this below 10us.
  */
-#define US_TRIG_PULSE_US    50U
+#define US_TRIG_PULSE_US    10U
 
 /*_______________________________________________________________________________*/
 /*
- * Measurement Timeout (microseconds)
- * Maximum time to wait for ECHO response.
- * HC-SR04 max range ~4m => ~23200us round-trip.
- * Set to 25000us (25ms) as safe timeout.
+ * Maximum range (centimeters).
+ * HC-SR04 useful range is ~2..400 cm. Any echo that decodes to a larger
+ * distance is treated as out-of-range (object lost) and reported as a timeout.
+ * This is the SINGLE source of truth for "max range":
+ *   - it clamps the decoded distance in the IC ISR, and
+ *   - it derives the task-level echo timeout below.
  */
-#define US_TIMEOUT_US       25000U
-
-/*_______________________________________________________________________________*/
-/*
- * Task-level Echo Timeout (milliseconds) — interrupt-driven driver.
- * The reading task SLEEPS (vTask/semaphore) up to this long waiting for the
- * IC interrupt to deliver both echo edges. This ALSO caps the effective max
- * range: range_cm ≈ timeout_ms * 1000 / 58.
- *   12ms ≈ 2.0m  → anything farther is reported as out-of-range (clear).
- * Bounds the worst case (all 6 sensors timing out) to ~6*12 = 72ms.
- */
-#define US_TASK_TIMEOUT_MS  12U
+#define US_MAX_RANGE_CM     400U
 
 /*_______________________________________________________________________________*/
 /*
  * Sound Speed Factor
  * Distance (cm) = Echo_pulse_us / 58
- * (Speed of sound ~340 m/s => 58 us/cm round-trip)
+ * (Speed of sound ~343 m/s => ~58 us/cm round-trip)
  */
 #define US_SOUND_SPEED_FACTOR    58U
+
+/*_______________________________________________________________________________*/
+/*
+ * Task-level Echo Timeout (milliseconds) — interrupt-driven driver.
+ * The reading task SLEEPS (vTask/semaphore) up to this long waiting for the
+ * IC interrupt to deliver both echo edges. It is DERIVED from US_MAX_RANGE_CM so
+ * the timeout and the range clamp can never drift apart:
+ *   timeout_ms = ceil(MAX_RANGE_CM * 58us/cm / 1000) + 1ms slack
+ *              = ceil(400 * 58 / 1000) + 1 = 24 + 1 = 25ms  → full 4m range.
+ * Worst case (all 6 sensors out of range) ≈ 6 * 25 = 150ms per scan.
+ */
+#define US_TASK_TIMEOUT_MS  \
+    ((((US_MAX_RANGE_CM * US_SOUND_SPEED_FACTOR) + 999U) / 1000U) + 1U)
 
 /*_______________________________________________________________________________*/
 /*

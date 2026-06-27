@@ -14,7 +14,8 @@
 #ifndef US_PRIVATE_H_
 #define US_PRIVATE_H_
 
-/* Private helper: send a 10us trigger pulse on the TRIG pin */
+/* Private helper: send the HC-SR04 trigger pulse on the TRIG pin
+ * (US_TRIG_SETTLE_US low, then US_TRIG_PULSE_US high). */
 static void US_vSendTrigger(const US_Config_t *pxSensor);
 
 #endif /* US_PRIVATE_H_ */

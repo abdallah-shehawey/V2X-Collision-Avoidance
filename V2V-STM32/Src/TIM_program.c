@@ -606,7 +606,7 @@ void TIM3_IRQHandler(void)
 
 void TIM4_IRQHandler(void)
 {
-    if (READ_BIT(TIM4->SR, TIM_SR_UIF))
+    if (READ_BIT(TIM4->DIER, TIM_DIER_UIE) && READ_BIT(TIM4->SR, TIM_SR_UIF))
     {
         CLR_BIT(TIM4->SR, TIM_SR_UIF);
         if (TIM_Callbacks[TIM_TIMER4] != NULL)
@@ -614,11 +614,12 @@ void TIM4_IRQHandler(void)
             TIM_Callbacks[TIM_TIMER4]();
         }
     }
+    TIM_voidHandleCC(TIM4, TIM_TIMER4);
 }
 
 void TIM5_IRQHandler(void)
 {
-    if (READ_BIT(TIM5->SR, TIM_SR_UIF))
+    if (READ_BIT(TIM5->DIER, TIM_DIER_UIE) && READ_BIT(TIM5->SR, TIM_SR_UIF))
     {
         CLR_BIT(TIM5->SR, TIM_SR_UIF);
         if (TIM_Callbacks[TIM_TIMER5] != NULL)
@@ -626,6 +627,7 @@ void TIM5_IRQHandler(void)
             TIM_Callbacks[TIM_TIMER5]();
         }
     }
+    TIM_voidHandleCC(TIM5, TIM_TIMER5);
 }
 
 /**

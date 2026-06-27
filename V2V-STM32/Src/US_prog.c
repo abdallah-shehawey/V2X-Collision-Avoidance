@@ -67,11 +67,12 @@ static uint8_t US_u8NvicIrqForTimer(TIM_Num_t Copy_eTimer);
 
 static void US_vSendTrigger(const US_Config_t *pxSensor)
 {
+    /* Settle LOW for a clean edge, then a 10us HIGH pulse (HC-SR04 datasheet). */
     GPIO_enumWritePinVal(pxSensor->TrigPort, pxSensor->TrigPin, GPIO_PIN_LOW);
-    TIM_vDelayUs(TIM_TIMER6, 40);
+    TIM_vDelayUs(TIM_TIMER6, US_TRIG_SETTLE_US);
 
     GPIO_enumWritePinVal(pxSensor->TrigPort, pxSensor->TrigPin, GPIO_PIN_HIGH);
-    TIM_vDelayUs(TIM_TIMER6, 20);
+    TIM_vDelayUs(TIM_TIMER6, US_TRIG_PULSE_US);
 
     GPIO_enumWritePinVal(pxSensor->TrigPort, pxSensor->TrigPin, GPIO_PIN_LOW);
 }
@@ -117,7 +118,14 @@ static void US_CC_Handler(TIM_Num_t Copy_eTimer, uint8_t Copy_u8Channel, uint32_
                             ? (Copy_u32Capture - US_Active.t1)
                             : ((US_Active.maxval - US_Active.t1) + Copy_u32Capture + 1u);
 
-        US_Active.dist_cm = (uint16_t)(high / US_SOUND_SPEED_FACTOR);
+        /* Decode µs → cm and clamp to the sensor's useful range. A spurious long
+         * echo (reflection / no object) would otherwise truncate into a bogus
+         * 16-bit value; clamping keeps it as a clean "max range / out of range". */
+        uint32_t dist = high / US_SOUND_SPEED_FACTOR;
+        if (dist > US_MAX_RANGE_CM)
+            dist = US_MAX_RANGE_CM;
+
+        US_Active.dist_cm = (uint16_t)dist;
         US_Active.phase = US_PHASE_DONE;
 
         /* Done — silence this channel and wake the task */

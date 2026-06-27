@@ -155,7 +155,7 @@ void vTask_SafetyEngine(void *pvParameters)
  * Reads are sequential → no acoustic cross-talk.
  *
  * Adaptive refresh: full scan ≈ sum of echo times (near objects → ~15-45ms,
- * all out of range → ~72ms with the 2m cap). Much faster than the old 300ms.
+ * all out of range → ~150ms with the 4m cap). Much faster than the old 300ms.
  *
  * All values are computed into locals first, then published in ONE short mutex
  * section. Speed stored as cm/s so ADAS TTC (distance_cm / speed_cm_s) = seconds.
