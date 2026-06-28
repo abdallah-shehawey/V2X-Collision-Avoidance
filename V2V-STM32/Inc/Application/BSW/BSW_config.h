@@ -12,8 +12,9 @@
  *           that side. Both bits are handled independently.
  */
 
-/* Object present if a side ultrasonic reads < this distance (cm) */
-#define BSW_SIDE_THRESHOLD (80.0f)
+/* Object present if a side ultrasonic reads < this distance (cm).
+ * Prototype scale: small car in a tight corridor -> 25 cm. */
+#define BSW_SIDE_THRESHOLD (25.0f)
 
 /* Alerts (LED/buzzer) are handled outside this module — it only computes the
  * sender flag and the receiver-side blind-spot result, exposed via

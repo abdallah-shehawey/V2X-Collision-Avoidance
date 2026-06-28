@@ -296,14 +296,19 @@ def _open_uart(port=UART_PORT, baudrate=UART_BAUD):
 _stm_lock = threading.Lock()
 _stm_seq = 0           # bumped on every packet → cheap change-detection for SSE
 
+# ── Prototype distance scale ──────────────────────────────────────────────
+# Real-car prototype operates in a small room / corridor; sensor range is ~60cm
+# "clear".  Use 60 as the neutral default (not 400) so the dashboard shows a
+# realistic "clear" reading even before the STM32 connects.
+US_CLEAR_DEFAULT = 60   # cm — reported when no object detected / STM32 offline
+
 # Initial live state used until the FIRST UART packet arrives (or while the STM32
-# is disconnected). These are the same neutral defaults the values used to have
-# in data.json — speed/attitude at 0, all ultrasonics "clear" at 400cm, all ADAS
-# modules SAFE (0) — so the dashboard renders fine with no STM32 attached.
+# is disconnected).  All ultrasonics start at US_CLEAR_DEFAULT; all ADAS SAFE(0).
 _stm_state = {
     "drive":      {"speedKmh": 0, "heading": 0, "pitch": 0, "roll": 0},
-    "ultrasonic": {"front": 400, "frontLeft": 400, "frontRight": 400,
-                   "rear": 400, "rearLeft": 400, "rearRight": 400},
+    "ultrasonic": {"front": US_CLEAR_DEFAULT, "frontLeft": US_CLEAR_DEFAULT,
+                   "frontRight": US_CLEAR_DEFAULT, "rear": US_CLEAR_DEFAULT,
+                   "rearLeft": US_CLEAR_DEFAULT, "rearRight": US_CLEAR_DEFAULT},
     "adas":       {"fcw": 0, "eebl": 0, "bsw": 0, "dnpw": 0, "ima": 0},
 }
 
@@ -318,11 +323,79 @@ US_MAP = {
     "BackRightUS":   "rearRight",
 }
 
+# ── Median filter (N=3) per US channel ───────────────────────────────────
+# Keep a ring-buffer of the last 3 raw readings per sensor.  Return the
+# "nearest-pair median": sort the 3 values, then return the average of the
+# two that are closest together — this kills single-sample spikes while
+# staying responsive to real distance changes.
+_US_BUFSIZE = 3
+_us_buf: dict = {key: [] for key in US_MAP}   # raw ring-buffer per STM32 key
+
+def _median_filter(key: str, raw: float) -> float:
+    """Push one raw reading into the ring-buffer for *key* and return the
+    nearest-pair median.  Falls back to the raw value until the buffer fills."""
+    buf = _us_buf[key]
+    buf.append(raw)
+    if len(buf) > _US_BUFSIZE:
+        buf.pop(0)
+    if len(buf) < 2:
+        return raw
+    s = sorted(buf)
+    if len(s) == 2:
+        return (s[0] + s[1]) / 2.0
+    # 3 values: pick the pair with the smallest gap, return their mean
+    d01, d12 = s[1] - s[0], s[2] - s[1]
+    return (s[0] + s[1]) / 2.0 if d01 <= d12 else (s[1] + s[2]) / 2.0
+
+# ── Terminal-only change tracking ────────────────────────────────────────
+# Print a US value or sys_flags only when it actually changes; avoids
+# terminal spam while still giving real-time visibility.
+_last_printed_us:    dict = {}   # dash_key → last printed value
+_last_printed_flags: int  = -1  # -1 = never printed
+
+
+# Numeric status labels for terminal printing
+_STATUS_LABEL = {0: "SAFE", 1: "WARNING", 2: "CRITICAL", 3: "INVALID"}
+
+
+def _print_us_changes(filtered: dict) -> None:
+    """Print each US dash_key only when its (filtered) value changes."""
+    global _last_printed_us
+    for dash_key, val in filtered.items():
+        rounded = round(val, 1)
+        if _last_printed_us.get(dash_key) != rounded:
+            _last_printed_us[dash_key] = rounded
+            print(f"[US] {dash_key:<12} = {rounded:6.1f} cm")
+
+
+def _print_flags_changes(flags: int) -> None:
+    """Print sys_flags breakdown only when flags change."""
+    global _last_printed_flags
+    if flags == _last_printed_flags:
+        return
+    _last_printed_flags = flags
+    decoded = decode_sys_flags(flags)
+    labels = "  ".join(f"{m.upper()}:{_STATUS_LABEL[v]}" for m, v in decoded.items())
+    print(f"[FLAGS] 0x{flags:04X}  →  {labels}")
+
 
 def _packet_to_state(p: dict) -> dict:
     """Turn one parsed telemetry packet into the host-vehicle sections exactly as
     the dashboard expects them (drive/ultrasonic/adas). v2n/v2p are NOT here —
-    they come from the file."""
+    they come from the file.
+
+    Also applies the per-channel median filter and prints changed values to the
+    terminal (US readings + sys_flags), without touching the dashboard at all."""
+    # Apply median filter to each US channel
+    filtered_us = {
+        dash_key: _median_filter(stm_key, p[stm_key])
+        for stm_key, dash_key in US_MAP.items()
+    }
+
+    # Terminal prints — only when values actually change
+    _print_us_changes(filtered_us)
+    _print_flags_changes(int(p["sys_flags"]))
+
     return {
         "drive": {
             "speedKmh": p["speed"] * 0.036,   # cm/s → km/h
@@ -330,7 +403,7 @@ def _packet_to_state(p: dict) -> dict:
             "pitch":    p["pitch"],
             "roll":     p["roll"],
         },
-        "ultrasonic": {dash_key: p[stm_key] for stm_key, dash_key in US_MAP.items()},
+        "ultrasonic": filtered_us,
         "adas": decode_sys_flags(int(p["sys_flags"])),
     }
 
@@ -385,8 +458,46 @@ def start_uart_reader():
     return t
 
 
+def _apply_vehicle_id() -> None:
+    """Set meta.vehicleId in data.json based on the detected RPi model.
+
+    RPi 5  → vehicleId = 1
+    RPi 4  → vehicleId = 2
+    Unknown → vehicleId unchanged (don't touch the file)
+
+    Uses the same atomic read→modify→write pattern as the rest of the codebase
+    so it never clobbers unrelated keys written by dashboard_bridge.py.
+    """
+    # RPi model → vehicle ID mapping (mirrors the UART baud-path selection)
+    model_to_id = {5: 1, 4: 2}
+    vehicle_id = model_to_id.get(_RPI_MODEL)
+    if vehicle_id is None:
+        print(f"[init] RPi model unknown ({_RPI_MODEL}); vehicleId not changed")
+        return
+
+    try:
+        try:
+            with open(DATA_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except (OSError, ValueError):
+            data = {}
+
+        data.setdefault("meta", {})["vehicleId"] = vehicle_id
+
+        tmp = DATA_FILE + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+            f.write("\n")
+        os.replace(tmp, DATA_FILE)
+
+        print(f"[init] RPi {_RPI_MODEL} detected → vehicleId = {vehicle_id}")
+    except Exception as exc:
+        print(f"[init] could not write vehicleId ({exc})")
+
+
 def main():
-    # Start the STM32 → data.json reader first, then serve the dashboard.
+    # Apply vehicle ID to data.json first (RPi4→2, RPi5→1), then start UART reader.
+    _apply_vehicle_id()
     start_uart_reader()
 
     handler = partial(Handler, directory=HERE)
