@@ -297,10 +297,10 @@ _stm_lock = threading.Lock()
 _stm_seq = 0           # bumped on every packet → cheap change-detection for SSE
 
 # ── Prototype distance scale ──────────────────────────────────────────────
-# Real-car prototype operates in a small room / corridor; sensor range is ~60cm
-# "clear".  Use 60 as the neutral default (not 400) so the dashboard shows a
+# Real-car prototype operates in a small room / corridor; sensor range is ~20cm
+# "clear".  Use 20 as the neutral default (not 400) so the dashboard shows a
 # realistic "clear" reading even before the STM32 connects.
-US_CLEAR_DEFAULT = 60   # cm — reported when no object detected / STM32 offline
+US_CLEAR_DEFAULT = 20   # cm — reported when no object detected / STM32 offline
 
 # Initial live state used until the FIRST UART packet arrives (or while the STM32
 # is disconnected).  All ultrasonics start at US_CLEAR_DEFAULT; all ADAS SAFE(0).

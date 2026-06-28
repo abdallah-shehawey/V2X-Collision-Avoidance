@@ -29,13 +29,14 @@ typedef enum
  *   safe_cm = Host_Speed(m/s) * SAFE_DIST_PER_MS   (floored at MIN_SAFE_DISTANCE)
  *   crit_cm = safe_cm * CRITICAL_RATIO
  *
- * Prototype scale (small car, top speed ~0.5 m/s, corridor distances ~30-60 cm):
- *   @ 0.5 m/s -> safe = max(0.5*20, 15) = 15 cm  [warning zone: 15-40 cm]
- *   Dashboard thresholds: SAFE=40cm  WARNING=20cm  CRITICAL=10cm
+ * Prototype scale (small car, top speed ~0.5 m/s, corridor distances ~10-20 cm):
+ *   @ 0.5 m/s -> safe = max(0.5*20, 15) = 15 cm  [warning zone: 10-15 cm]
+ *   crit = safe * 0.667 = 10 cm  (the system minimum distance)
+ *   Dashboard thresholds: SAFE=15cm  WARNING=10cm  CRITICAL=10cm
  *   -> Use MIN_SAFE_DISTANCE as the dominant floor. */
-#define SAFE_DIST_PER_MS   (20.0f)   /* cm of safe gap per 1 m/s (prototype) */
-#define MIN_SAFE_DISTANCE  (40.0f)   /* floor: SAFE zone  >= 40 cm            */
-#define CRITICAL_RATIO     (0.5f)    /* CRITICAL below 50% of safe_dist       */
+#define SAFE_DIST_PER_MS   (20.0f)    /* cm of safe gap per 1 m/s (prototype) */
+#define MIN_SAFE_DISTANCE  (15.0f)    /* floor: SAFE zone  >= 15 cm           */
+#define CRITICAL_RATIO     (0.667f)   /* CRITICAL below ~67% -> crit = 10 cm   */
 
 /* ====== Shared Host Vehicle Data ======
  * Latched once per cycle by SafetyEngine_voidUpdate() from G_stHostVehicleState,

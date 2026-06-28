@@ -35,9 +35,9 @@ const SENSORS = [
   ["rearLeft",   "Rear-L"],
   ["rearRight",  "Rear-R"],
 ];
-const NEAR_CM  = 40;    // < this -> caution (yellow)  [prototype: ~40 cm]
-const CLOSE_CM = 20;    // < this -> danger  (red)     [prototype: ~20 cm]
-const RANGE_CM = 60;    // > this -> nothing detected  [prototype: ~60 cm clear]
+const NEAR_CM  = 15;    // < this -> caution (yellow)  [prototype: ~15 cm]
+const CLOSE_CM = 10;    // < this -> danger  (red)     [prototype: ~10 cm = min]
+const RANGE_CM = 20;    // > this -> nothing detected  [prototype: ~20 cm clear]
 
 // Default weather location (used if data.json has no weather.lat/lon)
 const WX_LAT = 30.0444, WX_LON = 31.2357, WX_CITY = "Cairo";

@@ -13,8 +13,8 @@
  */
 
 /* Object present if a side ultrasonic reads < this distance (cm).
- * Prototype scale: small car in a tight corridor -> 25 cm. */
-#define BSW_SIDE_THRESHOLD (25.0f)
+ * Prototype scale: small car in a tight corridor -> 10 cm (system minimum). */
+#define BSW_SIDE_THRESHOLD (10.0f)
 
 /* Alerts (LED/buzzer) are handled outside this module — it only computes the
  * sender flag and the receiver-side blind-spot result, exposed via

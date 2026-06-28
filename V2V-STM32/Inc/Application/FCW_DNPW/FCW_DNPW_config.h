@@ -21,7 +21,7 @@
 
 /* Front-vehicle presence gate (cm): closer than this counts as "vehicle
  * ahead", the boolean that distinguishes the scenarios above.
- * Prototype scale: small car in a corridor -> 60 cm. */
-#define FCW_DNPW_FRONT_THRESHOLD   (60.0f)
+ * Prototype scale: small car in a corridor -> 20 cm. */
+#define FCW_DNPW_FRONT_THRESHOLD   (20.0f)
 
 #endif
