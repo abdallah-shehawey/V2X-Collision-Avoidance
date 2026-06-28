@@ -2,19 +2,30 @@
 """
 uart.py — Receive host-vehicle telemetry from the STM32 over UART (Raspberry Pi 5).
 
-Frame the STM32 sends (RPi_Packet_t, __attribute__((packed)), NO checksum):
-    [0xAA] [sys_flags u16] [10x float32] [0x55]   = 44 bytes total
-    payload between start/end = sys_flags + 10 floats = 42 bytes
+The STM32 sends an ASCII, '\\n'-delimited CSV line every 100ms (it switched away
+from the old binary 0xAA..0x55 packet because that packet's zero-bytes were being
+lost on this UART link). One line looks like:
 
-Event-driven, NO polling: listen() does a BLOCKING read, so the kernel puts the
-thread to sleep until a byte arrives (~0% CPU) and wakes it the instant it does —
-the userspace equivalent of a UART RX interrupt. Every valid frame fires your
-callback.
+    T,speed,heading,pitch,roll,FL,FC,FR,BL,BC,BR,flags\\n
+    T,0.0,215.8,0.1,0.0,17,10,22,29,63,18,0
 
-Wiring (3.3V only):  Pi TXD(pin14)->STM32 RX,  Pi RXD(pin15)->STM32 TX,  GND<->GND
+    field 0  : "T"     line marker
+    field 1  : speed   cm/s
+    field 2  : heading degrees 0-360
+    field 3  : pitch   degrees
+    field 4  : roll    degrees
+    fields 5-10 : FrontLeft, FrontCenter, FrontRight, BackLeft, BackCenter,
+                  BackRight ultrasonic distances [cm]
+    field 11 : flags   G_u16SystemFlags (2 bits/module), as an unsigned int
+
+Event-driven, NO polling: listen() does a BLOCKING readline(), so the kernel puts
+the thread to sleep until a line arrives (~0% CPU) and wakes it the instant the
+'\\n' shows up. Every valid line fires your callback.
+
+Wiring (3.3V only):  Pi RXD(pin10/GPIO15) <- STM32 TX,  GND <-> GND
+(Pi TXD->STM32 RX only needed if the Pi ever talks back; this is RX-only.)
 """
 
-import struct
 import threading
 
 import serial  # pyserial
@@ -27,21 +38,14 @@ PORT = "/dev/ttyAMA0"
 # center ~120k. Set the Pi to the center for max margin until the STM32 is fixed.
 BAUDRATE = 120000
 
-START_BYTE = 0xAA
-END_BYTE = 0x55
+LINE_MARKER = "T"
 
-# Payload layout = everything between start and end of RPi_Packet_t.
-# The C struct is __attribute__((packed)) on a little-endian Cortex-M, so '<'
-# (little-endian, no auto-align) maps 1:1 with no padding bytes.
-#   H sys_flags @0 | f FrontLeftUS @2 | f FrontCenterUS @6 | f FrontRightUS @10
-#   | f BackLeftUS @14 | f BackCenterUS @18 | f BackRightUS @22 | f speed @26
-#   | f heading @30 | f pitch @34 | f roll @38   -> 42 bytes
-PACKET_FMT = "<H10f"
-PACKET_SIZE = struct.calcsize(PACKET_FMT)  # = 42
-PACKET_FIELDS = ("sys_flags",
+# CSV column order, matching the firmware's snprintf in main.c. The first column
+# is the "T" marker and is consumed separately, so this lists columns 1..11.
+PACKET_FIELDS = ("speed", "heading", "pitch", "roll",
                  "FrontLeftUS", "FrontCenterUS", "FrontRightUS",
                  "BackLeftUS", "BackCenterUS", "BackRightUS",
-                 "speed", "heading", "pitch", "roll")
+                 "sys_flags")
 
 # ── sys_flags decode (G_u16SystemFlags) ──────────────────────────────────
 # 2 bits per ADAS module:  0b00 SAFE | 0b01 WARNING | 0b10 CRITICAL
@@ -63,46 +67,35 @@ def decode_sys_flags(flags):
             for name, pos in SYS_MODULE_POS}
 
 
-class PacketParser:
-    """Feed bytes one at a time; returns a packet dict when a valid frame
-    completes (start + 42-byte payload + end), else None. No checksum — the
-    STM32 sends none, the 0xAA/0x55 framing is the only validity check."""
-
-    WAIT_START, READ_DATA, READ_END = range(3)
-
-    def __init__(self):
-        self.state = self.WAIT_START
-        self.buf = bytearray()
-
-    def feed(self, byte):
-        if self.state == self.WAIT_START:
-            if byte == START_BYTE:
-                self.buf = bytearray()
-                self.state = self.READ_DATA
-        elif self.state == self.READ_DATA:
-            self.buf.append(byte)
-            if len(self.buf) >= PACKET_SIZE:
-                self.state = self.READ_END
-        elif self.state == self.READ_END:
-            self.state = self.WAIT_START
-            if byte == END_BYTE:
-                values = struct.unpack(PACKET_FMT, bytes(self.buf))
-                packet: dict = dict(zip(PACKET_FIELDS, values))
-                packet["status"] = decode_sys_flags(packet["sys_flags"])
-                return packet
+def parse_line(line):
+    """Parse one CSV telemetry line into a packet dict, or return None if the line
+    is malformed (wrong marker, wrong column count, or a non-numeric field).
+    No checksum — the STM32 sends none; structure is the only validity check."""
+    parts = line.strip().split(",")
+    # marker + 11 values
+    if len(parts) != len(PACKET_FIELDS) + 1 or parts[0] != LINE_MARKER:
         return None
+    try:
+        # all values are floats except sys_flags which is an integer bitfield
+        values = [float(p) for p in parts[1:-1]]
+        values.append(int(parts[-1]))
+    except ValueError:
+        return None
+    packet = dict(zip(PACKET_FIELDS, values))
+    packet["status"] = decode_sys_flags(packet["sys_flags"])
+    return packet
 
 
 def listen(on_packet, port=PORT, baudrate=BAUDRATE):
-    """Block on the UART forever, calling on_packet(dict) for every valid frame.
-    The read() below sleeps the thread in the kernel until data arrives — no polling,
-    no CPU spent while idle. This is the interrupt-style receive."""
+    """Block on the UART forever, calling on_packet(dict) for every valid line.
+    readline() below sleeps the thread in the kernel until a '\\n' arrives — no
+    polling, no CPU spent while idle. This is the interrupt-style receive."""
     ser = serial.Serial(port, baudrate, timeout=None)  # timeout=None -> blocking
     ser.reset_input_buffer()
-    parser = PacketParser()
     while True:
-        byte = ser.read(1)            # <-- sleeps here (0% CPU) until a byte arrives
-        packet = parser.feed(byte[0])
+        raw = ser.readline()           # <-- sleeps here (0% CPU) until '\n' arrives
+        line = raw.decode("ascii", "ignore")
+        packet = parse_line(line)
         if packet is not None:
             on_packet(packet)
 
@@ -114,9 +107,28 @@ def start_listening(on_packet, port=PORT, baudrate=BAUDRATE):
     return t
 
 
+def _print_packet(p):
+    """Print one packet with each field on its own line (stacked, not inline)."""
+    print("[uart] RX:")
+    print(f"  speed   = {p['speed']}")
+    print(f"  heading = {p['heading']}")
+    print(f"  pitch   = {p['pitch']}")
+    print(f"  roll    = {p['roll']}")
+    print(f"  FL      = {p['FrontLeftUS']}")
+    print(f"  FC      = {p['FrontCenterUS']}")
+    print(f"  FR      = {p['FrontRightUS']}")
+    print(f"  BL      = {p['BackLeftUS']}")
+    print(f"  BC      = {p['BackCenterUS']}")
+    print(f"  BR      = {p['BackRightUS']}")
+    print(f"  flags   = {p['sys_flags']}")
+    for module, state in p["status"].items():
+        print(f"    {module:<5}= {state}")
+    print("-" * 30)
+
+
 if __name__ == "__main__":
     print(f"[uart] listening on {PORT} @ {BAUDRATE} baud (Ctrl+C to stop)")
     try:
-        listen(lambda p: print("[uart] RX:", p))
+        listen(_print_packet)
     except KeyboardInterrupt:
         pass
