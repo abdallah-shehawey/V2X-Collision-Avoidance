@@ -24,15 +24,37 @@ the thread to sleep until a line arrives (~0% CPU) and wakes it the instant the
 
 Wiring (3.3V only):  Pi RXD(pin10/GPIO15) <- STM32 TX,  GND <-> GND
 (Pi TXD->STM32 RX only needed if the Pi ever talks back; this is RX-only.)
+RPi4: GPIO UART = /dev/ttyS0 (/dev/serial0). Enable with: sudo raspi-config -> Interface -> Serial.
 """
 
 import threading
+import os
 
 import serial  # pyserial
 
-# On Raspberry Pi 5 the GPIO14/15 UART (pins 8/10) is /dev/ttyAMA0 (RP1 UART0).
-# NOTE: /dev/serial0 here points to the Bluetooth UART, NOT the header pins.
+
+def _detect_rpi_model():
+    """Return 4, 5, or 0 (unknown) by reading /proc/device-tree/model."""
+    try:
+        with open("/proc/device-tree/model", "r") as f:
+            model = f.read()
+        if "Raspberry Pi 5" in model:
+            return 5
+        if "Raspberry Pi 4" in model:
+            return 4
+    except OSError:
+        pass
+    return 0
+
+
+_RPI_MODEL = _detect_rpi_model()
+
+# RPi5: ttyAMA0 is the GPIO UART natively.
+# RPi4: after dtoverlay=disable-bt in /boot/firmware/config.txt, PL011 is freed
+#        from Bluetooth and appears as ttyAMA0 on GPIO14/15 (pins 8/10).
+# Both boards end up using /dev/ttyAMA0 — the difference is the baud-setting method.
 PORT = "/dev/ttyAMA0"
+
 # The STM32 firmware is *configured* for 9600 but actually transmits at ~120000
 # (baud-calc bug on its side). Measured working window on the wire: 116.5k-124k,
 # center ~120k. Set the Pi to the center for max margin until the STM32 is fixed.
@@ -86,11 +108,46 @@ def parse_line(line):
     return packet
 
 
+def _open_serial_rpi4(port, baudrate):
+    """Open serial port on RPi4 with a non-standard baud rate using termios2.
+    PL011 (ttyAMA0) supports arbitrary rates via BOTHER/TCSETS2, unlike mini-UART.
+
+    struct termios2 layout (little-endian, 44 bytes):
+        offset  0  c_iflag   uint32
+        offset  4  c_oflag   uint32
+        offset  8  c_cflag   uint32   <- clear CBAUD bits, OR in BOTHER
+        offset 12  c_lflag   uint32
+        offset 16  c_line    uint8
+        offset 17  c_cc[19]  19 bytes
+        offset 36  c_ispeed  uint32   <- exact input baud
+        offset 40  c_ospeed  uint32   <- exact output baud
+    """
+    import fcntl, struct
+    TCGETS2 = 0x802C542A
+    TCSETS2 = 0x402C542B
+    BOTHER  = 0o010000
+    CBAUD   = 0o010017
+
+    ser = serial.Serial(port, 9600, timeout=None)        # open at any valid rate first
+    buf = bytearray(fcntl.ioctl(ser.fd, TCGETS2, bytes(44)))
+    cflag = struct.unpack_from('<I', buf, 8)[0]
+    cflag = (cflag & ~CBAUD) | BOTHER
+    struct.pack_into('<I', buf, 8, cflag)                # c_cflag
+    struct.pack_into('<I', buf, 36, baudrate)            # c_ispeed
+    struct.pack_into('<I', buf, 40, baudrate)            # c_ospeed
+    fcntl.ioctl(ser.fd, TCSETS2, bytes(buf))
+    return ser
+
+
 def listen(on_packet, port=PORT, baudrate=BAUDRATE):
     """Block on the UART forever, calling on_packet(dict) for every valid line.
     readline() below sleeps the thread in the kernel until a '\\n' arrives — no
     polling, no CPU spent while idle. This is the interrupt-style receive."""
-    ser = serial.Serial(port, baudrate, timeout=None)  # timeout=None -> blocking
+    if _RPI_MODEL == 4:
+        ser = _open_serial_rpi4(port, baudrate)
+    else:
+        # RPi5 (and unknown): pyserial handles the baud rate directly
+        ser = serial.Serial(port, baudrate, timeout=None)
     ser.reset_input_buffer()
     while True:
         raw = ser.readline()           # <-- sleeps here (0% CPU) until '\n' arrives
