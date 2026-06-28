@@ -26,7 +26,6 @@ WARN   = "#f5a623"
 CRIT   = "#ff4d4f"
 ROAD   = "#1a1c22"
 
-AR = "'Noto Sans Arabic','Vazirmatn','Segoe UI',sans-serif"
 EN = "'Segoe UI','Noto Sans Arabic',sans-serif"
 
 
@@ -216,19 +215,19 @@ def double_yellow_h(y):
             f'<line x1="-60" y1="{y+4}" x2="{W+60}" y2="{y+4}" stroke="#caa63c" stroke-width="4"/>')
 
 
-def label(x, y, text, size=22, color=TEXT, anchor="middle", weight=700, font=AR, rtl=True):
-    # NOTE: no direction="rtl" — with text-anchor="end" it shifts the anchor to the
-    # wrong (left) edge and overflows. The HarfBuzz shaper lays Arabic out RTL anyway.
+def label(x, y, text, size=22, color=TEXT, anchor="middle", weight=700, font=EN, rtl=False):
+    # `rtl` is kept for call-site compatibility but unused now that all on-scene
+    # text is English (left-to-right). text-anchor alone controls alignment.
     return (f'<text x="{x}" y="{y}" font-family="{font}" font-size="{size}" '
             f'font-weight="{weight}" fill="{color}" text-anchor="{anchor}">{text}</text>')
 
 
 def tag(cx, cy, text, color=TEXT, bg="rgba(0,0,0,0.55)"):
-    w = 26 + len(text) * 11
+    w = 26 + len(text) * 10
     return (f'<g transform="translate({cx},{cy})">'
             f'<rect x="{-w/2}" y="-18" width="{w}" height="32" rx="16" fill="{bg}" '
             f'stroke="{color}" stroke-opacity="0.45" stroke-width="1.5"/>'
-            f'<text x="0" y="4" font-family="{AR}" font-size="18" font-weight="700" '
+            f'<text x="0" y="4" font-family="{EN}" font-size="18" font-weight="700" '
             f'fill="{color}" text-anchor="middle">{text}</text></g>')
 
 
@@ -245,7 +244,7 @@ def chip(x, text, color):
 # ====================================================================
 #  Frame (header + scene + caption)
 # ====================================================================
-def frame(acro, name_en, title_ar, scene, desc_ar, chips):
+def frame(acro, name_en, title, scene, desc, chips):
     cx = 44
     chip_svg = []
     for txt, col in chips:
@@ -262,7 +261,7 @@ def frame(acro, name_en, title_ar, scene, desc_ar, chips):
   <!-- header -->
   <text x="44" y="70" font-family="{EN}" font-size="50" font-weight="900" fill="{ACCENT}">{acro}</text>
   <text x="46" y="100" font-family="{EN}" font-size="19" font-weight="600" fill="{MUTED}">{name_en}</text>
-  {label(W-44, 78, title_ar, size=44, color=TEXT, anchor="end", weight=800)}
+  {label(W-44, 78, title, size=40, color=TEXT, anchor="end", weight=800, font=EN, rtl=False)}
   <line x1="44" y1="120" x2="{W-44}" y2="120" stroke="{ACCENT}" stroke-opacity="0.25" stroke-width="2"/>
 
   <!-- scene -->
@@ -271,8 +270,8 @@ def frame(acro, name_en, title_ar, scene, desc_ar, chips):
   <!-- caption -->
   <rect x="14" y="862" width="{W-28}" height="{H-862-14}" rx="22"
         fill="rgba(6,8,12,0.85)" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1.5"/>
-  <text x="{W-44}" y="906" font-family="{AR}" font-size="25" font-weight="600"
-        fill="{TEXT}" direction="rtl" text-anchor="start">{desc_ar}</text>
+  <text x="44" y="906" font-family="{EN}" font-size="23" font-weight="600"
+        fill="{TEXT}" text-anchor="start">{desc}</text>
   {''.join(chip_svg)}
 </svg>"""
 
@@ -298,13 +297,13 @@ def scene_fcw():
     # TTC distance arrow
     s.append(f'<line x1="{host_x+80}" y1="{y+78}" x2="{lead_x-80}" y2="{y+78}" stroke="{WARN}" '
              f'stroke-width="3" marker-start="url(#arrowW)" marker-end="url(#arrowW)"/>')
-    s.append(label((host_x+lead_x)//2, y+108, "زمن الاصطدام TTC", size=20, color=WARN))
-    s.append(tag(host_x, y+150, "سيارتك", ACCENT))
-    s.append(tag(lead_x, y+150, "السيارة الأمامية", CRIT))
+    s.append(label((host_x+lead_x)//2, y+108, "Time To Collision (TTC)", size=20, color=WARN, font=EN, rtl=False))
+    s.append(tag(host_x, y+150, "Your car", ACCENT))
+    s.append(tag(lead_x, y+150, "Lead vehicle", CRIT))
     return frame(
-        "FCW", "Forward Collision Warning", "تحذير الاصطدام الأمامي",
+        "FCW", "Forward Collision Warning", "Forward Collision Warning",
         "".join(s),
-        "بيحسب زمن الاصطدام (TTC) مع السيارة اللي قدامك في نفس الحارة، ولو قرب من الحد بينذرك صوت وضوء قبل الاصطدام.",
+        "Computes the time-to-collision (TTC) with the vehicle ahead in your lane; if it drops below the threshold it alerts you with sound and light before impact.",
         [("TTC ≤ 3s  Warning", WARN), ("TTC ≤ 2s  Critical", CRIT),
          ("same direction", ACCENT), ("V2V · DSRC", PURPLE)])
 
@@ -320,16 +319,16 @@ def scene_eebl():
     s.append(car(host_x, y, 0, "host"))
     s.append(truck(truck_x, y, 0))
     s.append(car(lead_x, y, 0, "threat", brake=True))
-    s.append(label(truck_x, y+8, "رؤية محجوبة", size=18, color=MUTED))
+    s.append(label(truck_x, y+8, "Blocked view", size=18, color=MUTED, font=EN, rtl=False))
     s.append(burst(lead_x-118, y-86, CRIT, r=28))
-    s.append(label(lead_x, y-150, "فرملة مفاجئة", size=22, color=CRIT))
-    s.append(tag(host_x, y+150, "سيارتك", ACCENT))
-    s.append(tag(truck_x, y+170, "شاحنة بتحجب الرؤية", MUTED))
-    s.append(tag(lead_x, y+150, "بتفرمل بقوة", CRIT))
+    s.append(label(lead_x, y-150, "Sudden braking", size=22, color=CRIT, font=EN, rtl=False))
+    s.append(tag(host_x, y+150, "Your car", ACCENT))
+    s.append(tag(truck_x, y+170, "Truck blocking the view", MUTED))
+    s.append(tag(lead_x, y+150, "Braking hard", CRIT))
     return frame(
-        "EEBL", "Emergency Electronic Brake Light", "إضاءة الفرامل الإلكترونية الطارئة",
+        "EEBL", "Emergency Electronic Brake Light", "Emergency Electronic Brake Light",
         "".join(s),
-        "السيارة اللي قدام لما تفرمل فجأة (تباطؤ أكبر من الحد) بتبثّ تحذير عبر V2V، فتوصلك حتى لو الرؤية محجوبة بشاحنة.",
+        "When the vehicle ahead brakes suddenly (deceleration above the threshold) it broadcasts a warning over V2V, so it reaches you even if a truck blocks your view.",
         [("decel > 4 m/s²", WARN), ("TTC ≤ 3s / 2s", CRIT),
          ("works without line-of-sight", ACCENT), ("V2V · DSRC", PURPLE)])
 
@@ -347,20 +346,20 @@ def scene_bsw():
     s.append(f'<polygon points="{host_x-30},{host_y-40} {host_x-300},{host_y-40} '
              f'{host_x-300},{host_y-220} {host_x-30},{host_y-150}" '
              f'fill="none" stroke="{WARN}" stroke-opacity="0.55" stroke-dasharray="8 8" stroke-width="2"/>')
-    s.append(label(host_x-165, host_y-130, "النقطة العمياء", size=22, color=WARN))
+    s.append(label(host_x-165, host_y-130, "Blind spot", size=22, color=WARN, font=EN, rtl=False))
     s.append(broadcast(other_x, other_y, rings=(54, 96, 142)))
     s.append(car(other_x, other_y, 0, "threat"))
     s.append(car(host_x, host_y, 0, "host"))
     # side-distance marker
     s.append(f'<line x1="{host_x-60}" y1="{host_y-40}" x2="{host_x-60}" y2="{other_y+40}" '
              f'stroke="{WARN}" stroke-width="3" marker-start="url(#arrowW)" marker-end="url(#arrowW)"/>')
-    s.append(label(host_x-50, (host_y+other_y)//2, "< 150 سم", size=18, color=WARN, anchor="start"))
-    s.append(tag(host_x+30, host_y+140, "سيارتك", ACCENT))
-    s.append(tag(other_x, other_y-180, "سيارة في النقطة العمياء", CRIT))
+    s.append(label(host_x-50, (host_y+other_y)//2, "< 150 cm", size=18, color=WARN, anchor="start", font=EN, rtl=False))
+    s.append(tag(host_x+30, host_y+140, "Your car", ACCENT))
+    s.append(tag(other_x, other_y-180, "Car in the blind spot", CRIT))
     return frame(
-        "BSW", "Blind Spot Warning", "تحذير النقطة العمياء",
+        "BSW", "Blind Spot Warning", "Blind Spot Warning",
         "".join(s),
-        "بيكتشف سيارة ماشية بنفس اتجاهك وموجودة في النقطة العمياء جنبك (أقل من ١٥٠ سم) وينبهك قبل ما تغيّر الحارة.",
+        "Detects a car travelling in your direction that sits in your side blind spot (closer than 150 cm) and warns you before you change lanes.",
         [("side < 150 cm", WARN), ("same direction", ACCENT),
          ("left / right side", SAFE), ("V2V · DSRC", PURPLE)])
 
@@ -372,8 +371,8 @@ def scene_dnpw():
     host_x, host_y = 360, 600           # your lane (heading right →)
     slow_x, slow_y = 820, 600
     onc_x, onc_y = 1230, 380            # oncoming lane (heading left ←)
-    s.append(label(120, 250, "← الاتجاه المعاكس", size=20, color=MUTED, anchor="start"))
-    s.append(label(120, 745, "اتجاهك →", size=20, color=MUTED, anchor="start"))
+    s.append(label(120, 250, "← Oncoming direction", size=20, color=MUTED, anchor="start", font=EN, rtl=False))
+    s.append(label(120, 745, "Your direction →", size=20, color=MUTED, anchor="start", font=EN, rtl=False))
     s.append(broadcast(onc_x, onc_y, rings=(56, 104, 158, 214)))
     # intended overtake path swinging into the oncoming lane
     s.append(f'<path d="M {host_x+86} {host_y-30} C {slow_x-120} {host_y-60}, '
@@ -385,14 +384,14 @@ def scene_dnpw():
     s.append(car(slow_x, slow_y, 0, "neutral"))
     s.append(car(onc_x, onc_y, 180, "threat"))
     s.append(burst((slow_x+onc_x)//2, 470, CRIT, r=30))
-    s.append(label((slow_x+onc_x)//2, 415, "ممنوع التجاوز", size=24, color=CRIT))
-    s.append(tag(host_x, host_y+140, "سيارتك", ACCENT))
-    s.append(tag(slow_x, slow_y+140, "سيارة بطيئة قدامك", MUTED))
-    s.append(tag(onc_x, onc_y-160, "سيارة قادمة عكسك", CRIT))
+    s.append(label((slow_x+onc_x)//2, 415, "Do not pass", size=24, color=CRIT, font=EN, rtl=False))
+    s.append(tag(host_x, host_y+140, "Your car", ACCENT))
+    s.append(tag(slow_x, slow_y+140, "Slow car ahead", MUTED))
+    s.append(tag(onc_x, onc_y-160, "Oncoming car", CRIT))
     return frame(
-        "DNPW", "Do Not Pass Warning", "تحذير عدم التجاوز",
+        "DNPW", "Do Not Pass Warning", "Do Not Pass Warning",
         "".join(s),
-        "وانت بتفكر تتجاوز السيارة اللي قدامك، بيكتشف سيارة قادمة في الاتجاه المعاكس ويحسب TTC وينذرك متعدّيش.",
+        "As you consider overtaking the car ahead, it detects an oncoming car in the opposite direction, computes the TTC, and warns you not to pass.",
         [("TTC ≤ 6s  Warning", WARN), ("TTC ≤ 4s  Critical", CRIT),
          ("opposite direction", ACCENT), ("V2V · DSRC", PURPLE)])
 
@@ -412,19 +411,19 @@ def scene_ima():
     # 20 m proximity gate
     s.append(f'<circle cx="{cxv}" cy="{cyh}" r="250" fill="none" stroke="{WARN}" '
              f'stroke-opacity="0.4" stroke-dasharray="4 12" stroke-width="3"/>')
-    s.append(label(cxv, iy0-22, "نطاق ٢٠ متر من التقاطع", size=18, color=WARN))
+    s.append(label(cxv, iy0-22, "20 m range from the intersection", size=18, color=WARN, font=EN, rtl=False))
     host_x, host_y = cxv, 820          # approaching from bottom, heading up
     cross_x, cross_y = 300, cyh        # crossing from left, heading right
     s.append(broadcast(cross_x, cross_y, rings=(54, 100, 150, 206, 270)))
     s.append(car(cross_x, cross_y, 0, "threat"))
     s.append(car(host_x, host_y, -90, "host"))
     s.append(burst(cxv, cyh, CRIT, r=38))
-    s.append(tag(host_x, host_y+135, "سيارتك", ACCENT))
-    s.append(tag(cross_x, cross_y-150, "سيارة من اتجاه عرضي", CRIT))
+    s.append(tag(host_x, host_y+135, "Your car", ACCENT))
+    s.append(tag(cross_x, cross_y-150, "Car from a crossing direction", CRIT))
     return frame(
-        "IMA", "Intersection Movement Assist", "مساعد الحركة عند التقاطعات",
+        "IMA", "Intersection Movement Assist", "Intersection Movement Assist",
         "".join(s),
-        "عند الاقتراب من تقاطع (خلال ٢٠ متر) بيكتشف سيارة قادمة من اتجاه عرضي ويحسب زمن الوصول وينذرك بخطر التصادم.",
+        "When approaching an intersection (within 20 m) it detects a car coming from a crossing direction, computes the time to arrival, and warns you of a collision risk.",
         [("within 20 m", WARN), ("delay ≤ 4s / 2s", CRIT),
          ("crossing direction", ACCENT), ("V2V · DSRC", PURPLE)])
 

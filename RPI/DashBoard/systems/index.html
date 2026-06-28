@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>أنظمة V2V — شرح مصوّر</title>
+  <title>V2V Systems — Illustrated Guide</title>
   <style>
     :root{
       --bg:#000; --panel:rgba(8,8,8,.92); --stroke:rgba(255,255,255,.08);
@@ -13,7 +13,7 @@
     body{
       background:radial-gradient(120% 90% at 50% 0%,#0e1016,#000 70%);
       color:var(--text);min-height:100vh;
-      font-family:'Noto Sans Arabic','Segoe UI',system-ui,sans-serif;
+      font-family:'Segoe UI','Noto Sans Arabic',system-ui,sans-serif;
       padding:clamp(18px,3vw,48px);
     }
     header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:8px}
@@ -36,7 +36,7 @@
       box-shadow:0 18px 50px rgba(0,0,0,.7)}
     .card img{display:block;width:100%;height:auto;background:#000}
     .meta{padding:14px 18px 18px}
-    .meta .ar{font-size:20px;font-weight:800}
+    .meta .acro{font-size:20px;font-weight:800}
     .meta .en{color:var(--muted);font-family:'Segoe UI',sans-serif;font-size:13px;margin-top:3px}
     .hint{color:var(--muted);font-size:13px;margin-top:18px;text-align:center}
     /* fullscreen viewer for presenting */
@@ -59,15 +59,15 @@
 <body>
   <header>
     <div>
-      <h1>أنظمة V2V — شرح مصوّر</h1>
-      <p class="sub">خمس صور توضيحية لأنظمة الأمان اللي بتشتغل بالاتصال بين السيارات (Vehicle-to-Vehicle).
-        اضغط على أي صورة تكبر ملء الشاشة للعرض، واستخدم الأسهم ← → للتنقل.</p>
+      <h1>V2V Systems — Illustrated Guide</h1>
+      <p class="sub">Five illustrations of the safety systems that work over Vehicle-to-Vehicle communication.
+        Click any image to open it fullscreen for presenting, and use the ← → arrows to navigate.</p>
     </div>
     <span class="badge">V2V · DSRC</span>
   </header>
 
   <div class="grid" id="grid"></div>
-  <p class="hint">الصور متوفرة كـ SVG (متجهية — تكبر من غير ما تبوّظ) و PNG عالية الجودة في مجلد <code>png/</code>.</p>
+  <p class="hint">The images are available as SVG (vector — scales without quality loss) and high-quality PNG in the <code>png/</code> folder.</p>
 
   <div id="viewer">
     <button class="close" onclick="closeView()">✕</button>
@@ -79,17 +79,17 @@
 
   <script>
     const items = [
-      {f:"fcw",  ar:"تحذير الاصطدام الأمامي",            en:"FCW — Forward Collision Warning"},
-      {f:"eebl", ar:"إضاءة الفرامل الإلكترونية الطارئة", en:"EEBL — Emergency Electronic Brake Light"},
-      {f:"bsw",  ar:"تحذير النقطة العمياء",              en:"BSW — Blind Spot Warning"},
-      {f:"dnpw", ar:"تحذير عدم التجاوز",                 en:"DNPW — Do Not Pass Warning"},
-      {f:"ima",  ar:"مساعد الحركة عند التقاطعات",        en:"IMA — Intersection Movement Assist"},
+      {f:"fcw",  acro:"FCW",  en:"Forward Collision Warning"},
+      {f:"eebl", acro:"EEBL", en:"Emergency Electronic Brake Light"},
+      {f:"bsw",  acro:"BSW",  en:"Blind Spot Warning"},
+      {f:"dnpw", acro:"DNPW", en:"Do Not Pass Warning"},
+      {f:"ima",  acro:"IMA",  en:"Intersection Movement Assist"},
     ];
     const grid = document.getElementById('grid');
     items.forEach((it,i)=>{
       const c=document.createElement('div');c.className='card';c.onclick=()=>openView(i);
-      c.innerHTML=`<img src="${it.f}.svg" alt="${it.ar}" loading="lazy">
-        <div class="meta"><div class="ar">${it.ar}</div><div class="en">${it.en}</div></div>`;
+      c.innerHTML=`<img src="${it.f}.svg" alt="${it.en}" loading="lazy">
+        <div class="meta"><div class="acro">${it.acro}</div><div class="en">${it.en}</div></div>`;
       grid.appendChild(c);
     });
     let cur=0;
@@ -97,12 +97,12 @@
     function openView(i){cur=i;render();viewer.classList.add('on')}
     function closeView(){viewer.classList.remove('on')}
     function step(d){cur=(cur+d+items.length)%items.length;render()}
-    function render(){big.src=items[cur].f+'.svg';big.alt=items[cur].ar;count.textContent=`${cur+1} / ${items.length} — ${items[cur].ar}`}
+    function render(){big.src=items[cur].f+'.svg';big.alt=items[cur].en;count.textContent=`${cur+1} / ${items.length} — ${items[cur].en}`}
     document.addEventListener('keydown',e=>{
       if(!viewer.classList.contains('on'))return;
       if(e.key==='Escape')closeView();
-      if(e.key==='ArrowRight')step(-1);   // RTL: right = previous
-      if(e.key==='ArrowLeft')step(1);
+      if(e.key==='ArrowLeft')step(-1);    // LTR: left = previous
+      if(e.key==='ArrowRight')step(1);
     });
     viewer.addEventListener('click',e=>{if(e.target===viewer)closeView()});
   </script>

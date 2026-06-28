@@ -2,10 +2,11 @@ from gpiozero import PWMOutputDevice, DigitalOutputDevice
 from time import sleep
 
 # =============================================================
-#  حركة ثعبانية (Snake) بأبطأ سرعة ممكنة.
-#  العربية بتمشي قدّام وتلف يمين/شمال بالتبادل عن طريق
-#  إن عجلة تبطّأ والتانية تسرّع، فتعمل تمايل زي الثعبان.
-#  شغّله:  /usr/bin/python3 motor_test.py
+#  Snake motion at the slowest possible speed.
+#  The car moves forward and weaves right/left alternately by
+#  slowing one wheel while speeding up the other, so it sways
+#  like a snake.
+#  Run it:  /usr/bin/python3 motor_test.py
 # =============================================================
 
 # Motor A
@@ -18,12 +19,12 @@ ENB = PWMOutputDevice(19)
 IN3 = DigitalOutputDevice(27)
 IN4 = DigitalOutputDevice(22)
 
-# ----------------- إعدادات السرعة -----------------
-BASE   = 0.30   # أبطأ سرعة ثابتة بعد ما العربية تتحرك (عدّلها لو وقفت)
-SLOW   = 0.18   # سرعة العجلة البطيئة وقت اللفّة
-KICK   = 0.70   # دفعة بداية عشان المحركات تبدأ تلف (تتغلب على الاحتكاك)
-KICK_T = 0.25   # مدة دفعة البداية بالثواني
-TURN_T = 0.8    # مدة كل لفّة (يمين/شمال) بالثواني
+# ----------------- Speed settings -----------------
+BASE   = 0.30   # slowest steady speed once the car is moving (tune up if it stalls)
+SLOW   = 0.18   # speed of the slowed wheel during a turn
+KICK   = 0.70   # startup kick so the motors start spinning (overcome friction)
+KICK_T = 0.25   # kick duration in seconds
+TURN_T = 0.8    # duration of each turn (right/left) in seconds
 
 
 def motor_a(on, speed=0.9):
@@ -49,24 +50,24 @@ def motor_b(on, speed=0.9):
 
 
 def kickstart():
-    """دفعة بداية قصيرة عشان المحركات تبدأ من السكون."""
+    """Short startup kick so the motors break away from standstill."""
     motor_a(True, KICK)
     motor_b(True, KICK)
     sleep(KICK_T)
 
 
 try:
-    print(">>> Snake mode - أبطأ سرعة + تمايل ثعباني")
+    print(">>> Snake mode - slowest speed + snake-like weaving")
     kickstart()
 
     while True:
-        # لفّة لليمين: العجلة اليمين تبطّأ
+        # turn right: slow down the right wheel
         print("    turn right")
         motor_a(True, BASE)
         motor_b(True, SLOW)
         sleep(TURN_T)
 
-        # لفّة للشمال: العجلة الشمال تبطّأ
+        # turn left: slow down the left wheel
         print("    turn left")
         motor_a(True, SLOW)
         motor_b(True, BASE)

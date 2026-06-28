@@ -2,10 +2,10 @@ from gpiozero import PWMOutputDevice, DigitalOutputDevice
 from time import sleep
 
 # =============================================================
-#  L298N Motor Driver على Raspberry Pi
+#  L298N Motor Driver on Raspberry Pi
 #  Motor A:  ENA=GPIO18, IN1=GPIO23, IN2=GPIO24
 #  Motor B:  ENB=GPIO19, IN3=GPIO27, IN4=GPIO22
-#  شغّله بالـ system python:  /usr/bin/python3 car.py
+#  Run it with the system python:  /usr/bin/python3 car.py
 # =============================================================
 
 # Motor A
