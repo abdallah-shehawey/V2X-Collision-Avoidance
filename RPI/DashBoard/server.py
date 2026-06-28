@@ -360,24 +360,13 @@ def _median_filter(key: str, raw: float) -> float:
     return (s[0] + s[1]) / 2.0 if d01 <= d12 else (s[1] + s[2]) / 2.0
 
 # ── Terminal-only change tracking ────────────────────────────────────────
-# Print a US value or sys_flags only when it actually changes; avoids
-# terminal spam while still giving real-time visibility.
-_last_printed_us:    dict = {}   # dash_key → last printed value
-_last_printed_flags: int  = -1  # -1 = never printed
+# Print sys_flags only when it actually changes; avoids terminal spam while
+# still giving real-time visibility.
+_last_printed_flags: int = -1  # -1 = never printed
 
 
 # Numeric status labels for terminal printing
 _STATUS_LABEL = {0: "SAFE", 1: "WARNING", 2: "CRITICAL", 3: "INVALID"}
-
-
-def _print_us_changes(filtered: dict) -> None:
-    """Print each US dash_key only when its (filtered) value changes."""
-    global _last_printed_us
-    for dash_key, val in filtered.items():
-        rounded = round(val, 1)
-        if _last_printed_us.get(dash_key) != rounded:
-            _last_printed_us[dash_key] = rounded
-            print(f"[US] {dash_key:<12} = {rounded:6.1f} cm")
 
 
 def _print_flags_changes(flags: int) -> None:
@@ -396,16 +385,15 @@ def _packet_to_state(p: dict) -> dict:
     the dashboard expects them (drive/ultrasonic/adas). v2n/v2p are NOT here —
     they come from the file.
 
-    Also applies the per-channel median filter and prints changed values to the
-    terminal (US readings + sys_flags), without touching the dashboard at all."""
+    Also applies the per-channel median filter and prints sys_flags to the
+    terminal only when it changes, without touching the dashboard at all."""
     # Apply median filter to each US channel
     filtered_us = {
         dash_key: _median_filter(stm_key, p[stm_key])
         for stm_key, dash_key in US_MAP.items()
     }
 
-    # Terminal prints — only when values actually change
-    _print_us_changes(filtered_us)
+    # Terminal print — only when flags actually change
     _print_flags_changes(int(p["sys_flags"]))
 
     return {
