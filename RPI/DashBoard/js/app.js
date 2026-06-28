@@ -238,8 +238,11 @@ function updateAdasGrid(adas) {
     const card = $(`adas-${key}`);
     if (!card) continue;
     const status = card.querySelector(".adas-status");
+    // flag: 0 SAFE | 1 WARNING | 2 CRITICAL | 3 INVALID (bad/no reading).
+    // INVALID must NOT look like SAFE — surface it in the warn style instead.
     if (flag === 2)      { card.className = "adas-card crit"; status.textContent = "ACTIVE"; }
     else if (flag === 1) { card.className = "adas-card warn"; status.textContent = "WARNING"; }
+    else if (flag === 3) { card.className = "adas-card warn"; status.textContent = "INVALID"; }
     else                 { card.className = "adas-card safe"; status.textContent = "SAFE"; }
   }
 }
@@ -256,6 +259,7 @@ function processAlerts(adas) {
     if (flag !== prev) {
       if (flag === 2)      addEvent(`${abbr} Triggered`, "crit");
       else if (flag === 1) addEvent(`${abbr} Warning`, "warn");
+      else if (flag === 3) addEvent(`${abbr} Invalid Reading`, "warn");
       else                 addEvent(`${abbr} Cleared`, "safe");
     }
     if (flag === 2 && !highestCritKey) { highestCritKey = key; highestCritName = `${abbr} — ${name}`; }

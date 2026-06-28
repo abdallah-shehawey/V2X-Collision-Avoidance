@@ -331,9 +331,21 @@ US_MAP = {
 _US_BUFSIZE = 3
 _us_buf: dict = {key: [] for key in US_MAP}   # raw ring-buffer per STM32 key
 
+def _reset_us_buffers() -> None:
+    """Clear every per-channel ring-buffer. Called whenever the link (re)opens
+    so stale pre-disconnect readings can't blend with fresh ones."""
+    for buf in _us_buf.values():
+        buf.clear()
+
 def _median_filter(key: str, raw: float) -> float:
     """Push one raw reading into the ring-buffer for *key* and return the
-    nearest-pair median.  Falls back to the raw value until the buffer fills."""
+    nearest-pair median.  Falls back to the raw value until the buffer fills.
+
+    A real, sustained jump (object moved fast) shows up as two consecutive
+    readings far from the oldest one: in that case the nearest pair is the two
+    NEW samples, so the filter follows the move after one sample instead of
+    latching onto the stale value — while a lone spike (one outlier) is still
+    rejected because it never forms the closest pair."""
     buf = _us_buf[key]
     buf.append(raw)
     if len(buf) > _US_BUFSIZE:
@@ -427,6 +439,7 @@ def uart_reader_loop():
     while True:
         try:
             ser = _open_uart()
+            _reset_us_buffers()   # drop any stale readings from before a drop
             print(f"[uart] reading {UART_PORT} @ {UART_BAUD} baud "
                   f"(RPi model {_RPI_MODEL or '?'}) → live (in-memory)")
         except Exception as exc:
