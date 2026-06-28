@@ -31,7 +31,7 @@ uint32_t SystemCoreClock = 16000000;
 
 /* System-wide ADAS status word: 16-bit, 2 bits per module
  * (00 = safe, 01 = warning, 10 = critical). Full layout in System.h. */
-volatile uint16_t  G_u16SystemFlags     = 0;
+volatile uint16_t G_u16SystemFlags = 0;
 HostVehicleState_t G_stHostVehicleState = {0};
 
 /* Distance to nearest intersection (cm), 0 = not near. Broadcast over DSRC for
@@ -42,15 +42,14 @@ HostVehicleState_t G_stHostVehicleState = {0};
  * any consumer relies on the broadcast value being non-zero. */
 float Host_DistToIntersection = 0.0f;
 
-
 /******************************************
  *  Hardware Objects for Testing         *
  ******************************************/
 BUZ_Config_t V2X_Buzzer = {GPIO_PORTC, GPIO_PIN4, BUZ_ACTIVE_HIGH};
-LED_Config_t FrontR_LED   = {GPIO_PORTC, GPIO_PIN0, ACTIVE_HIGH};
-LED_Config_t FrontL_LED   = {GPIO_PORTC, GPIO_PIN1, ACTIVE_HIGH};
-LED_Config_t BackR_LED    = {GPIO_PORTC, GPIO_PIN2, ACTIVE_HIGH};
-LED_Config_t BackL_LED    = {GPIO_PORTC, GPIO_PIN3, ACTIVE_HIGH};
+LED_Config_t FrontR_LED = {GPIO_PORTC, GPIO_PIN0, ACTIVE_HIGH};
+LED_Config_t FrontL_LED = {GPIO_PORTC, GPIO_PIN1, ACTIVE_HIGH};
+LED_Config_t BackR_LED = {GPIO_PORTC, GPIO_PIN2, ACTIVE_HIGH};
+LED_Config_t BackL_LED = {GPIO_PORTC, GPIO_PIN3, ACTIVE_HIGH};
 LED_Config_t Interior_LED = {GPIO_PORTC, GPIO_PIN7, ACTIVE_HIGH}; /* PC7 — driver dashboard */
 
 US_Config_t FrontUS[3];
@@ -59,22 +58,27 @@ US_Config_t BackUS[3];
 /* Communication Interfaces */
 extern void vESP_UART_RX_Callback(void);
 
-USART_Handle_t USART_1 = {
-    .Channel = USART_CHANNEL1,
-    .BaudRate = 115200,   /* was 9600 — 12x faster TX, cuts the ~20ms DSRC send to ~1.6ms.
-                             ESP firmware MUST also be set to 115200 or V2X won't link. */
-    .WordLength = USART_WORDLENGTH_8B,
-    .StopBits = USART_STOPBITS_1,
-    .Parity = USART_PARITY_NONE,
-    .Mode = USART_MODE_TX_RX,
-    .HardwareFlowControl = UART_HWCONTROL_NONE,
-    .OverSampling = USART_OVERSAMPLING_16,
-    .RXNEIE = USART_RXNEIE_EN,
-    .pfnCallback = vESP_UART_RX_Callback
-};
+USART_Handle_t  USART_1 = {
+		.Channel = USART_CHANNEL1,
+		.BaudRate = 115200,
+		.WordLength = USART_WORDLENGTH_8B,
+		.StopBits = USART_STOPBITS_1,
+		.Parity = USART_PARITY_NONE,
+		.Mode = USART_MODE_TX_RX,
+		.HardwareFlowControl = UART_HWCONTROL_NONE,
+		.OverSampling = USART_OVERSAMPLING_16,
+		.RXNEIE = USART_RXNEIE_EN,
+		.pfnCallback = vESP_UART_RX_Callback};
 
-USART_Config_t RPi_UART = {USART_CHANNEL4, 115200, USART_WORDLENGTH_8B, USART_STOPBITS_1, USART_PARITY_NONE, USART_MODE_TX_RX, UART_HWCONTROL_NONE, USART_OVERSAMPLING_16};
-
+USART_Config_t RPi_UART = {
+		.Channel = USART_CHANNEL4,
+		.BaudRate = 115200,
+		.WordLength = USART_WORDLENGTH_8B,
+		.StopBits = USART_STOPBITS_1,
+		.Parity = USART_PARITY_NONE,
+		.Mode = USART_MODE_TX_RX,
+		.HardwareFlowControl = UART_HWCONTROL_NONE,
+		.OverSampling = USART_OVERSAMPLING_16};
 
 /******************************************
  *  FreeRTOS Hooks & Callbacks           *
@@ -90,23 +94,23 @@ void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName)
 	(void)pcTaskName;
 	/* Stack overflow detected — halt for debugging */
 	taskDISABLE_INTERRUPTS();
-	for(;;);
+	for (;;)
+		;
 }
 
 void vApplicationMallocFailedHook(void)
 {
 	/* Heap exhausted — halt for debugging */
 	taskDISABLE_INTERRUPTS();
-	for(;;);
+	for (;;)
+		;
 }
-
 
 /******************************************
  *  System Initialization                *
  ******************************************/
 void System_setup(void)
 {
-
 
 	// 1. Initialize System Clock (HSI 16MHz)
 	RCC_enumSetSysClk(RCC_HSI_CLK);
@@ -116,44 +120,45 @@ void System_setup(void)
 	RCC_enumAHPPerSts(RCC_AHB1, RCC_GPIOBEN, RCC_PER_ON);
 	RCC_enumAHPPerSts(RCC_AHB1, RCC_GPIOCEN, RCC_PER_ON);
 
-	//3.Enable Timer6 for delay and Timer5 for Background Timestamping
-	RCC_enumABPPerSts(RCC_APB1, RCC_TIM6EN,  RCC_PER_ON);
-	RCC_enumABPPerSts(RCC_APB1, RCC_TIM5EN,  RCC_PER_ON);
+	// 3.Enable Timer6 for delay and Timer5 for Background Timestamping
+	RCC_enumABPPerSts(RCC_APB1, RCC_TIM6EN, RCC_PER_ON);
+	RCC_enumABPPerSts(RCC_APB1, RCC_TIM5EN, RCC_PER_ON);
 
 	/* Start TIM5 as a continuous 32-bit background counter (1ms tick) */
 	TIM_Config_t TIM5_Config = {
-		.Timer = TIM_TIMER5,
-		.Prescaler = 16000 - 1,
-		.AutoReloadValue = 0xFFFFFFFF,
-		.Mode = TIM_COUNTERMODE_UP
-	};
+			.Timer = TIM_TIMER5,
+			.Prescaler = 16000 - 1,
+			.AutoReloadValue = 0xFFFFFFFF,
+			.Mode = TIM_COUNTERMODE_UP};
 	TIM_vInit(&TIM5_Config);
 	TIM_vStart(TIM_TIMER5);
 
-		/*                           *
-		 * MPU9250 SPI configuration *
-		 *                           */
-	RCC_enumABPPerSts(RCC_APB2, RCC_SPI1EN,  RCC_PER_ON);
+	/*                           *
+	 * MPU9250 SPI configuration *
+	 *                           */
+	RCC_enumABPPerSts(RCC_APB2, RCC_SPI1EN, RCC_PER_ON);
 	GPIO_PinConfig_t SPI_Pins = {
 			.Port = GPIO_PORTA,
 			.Mode = GPIO_ALTFN,
 			.Otype = GPIO_PUSH_PULL,
 			.Speed = GPIO_VERY_HIGH_SPEED,
 			.PullType = GPIO_NO_PULL,
-			.AlternateFunction = GPIO_AF5
-	};
-	SPI_Pins.PinNum = GPIO_PIN5; GPIO_enumPinInit(&SPI_Pins);
-	SPI_Pins.PinNum = GPIO_PIN6; GPIO_enumPinInit(&SPI_Pins);
-	SPI_Pins.PinNum = GPIO_PIN7; GPIO_enumPinInit(&SPI_Pins);
+			.AlternateFunction = GPIO_AF5};
+	SPI_Pins.PinNum = GPIO_PIN5;
+	GPIO_enumPinInit(&SPI_Pins);
+	SPI_Pins.PinNum = GPIO_PIN6;
+	GPIO_enumPinInit(&SPI_Pins);
+	SPI_Pins.PinNum = GPIO_PIN7;
+	GPIO_enumPinInit(&SPI_Pins);
 
 	MPU9250_enumInit();
 
-	    /*                           *
-		 * Ultrasonics configuration *
-		 *                           */
+	/*                           *
+	 * Ultrasonics configuration *
+	 *                           */
 
-	RCC_enumABPPerSts(RCC_APB1, RCC_TIM2EN,  RCC_PER_ON);
-	RCC_enumABPPerSts(RCC_APB1, RCC_TIM3EN,  RCC_PER_ON);
+	RCC_enumABPPerSts(RCC_APB1, RCC_TIM2EN, RCC_PER_ON);
+	RCC_enumABPPerSts(RCC_APB1, RCC_TIM3EN, RCC_PER_ON);
 	/* FRONT SENSORS MAPPING:
 	 * S1: TIM2 CH1 -> PA15 Echo, PB0 Trig (Left)
 	 * S2: TIM2 CH2 -> PB3 Echo, PB1 Trig  (Center)
@@ -193,12 +198,13 @@ void System_setup(void)
 			.Otype = GPIO_PUSH_PULL,
 			.Speed = GPIO_VERY_HIGH_SPEED,
 			.PullType = GPIO_NO_PULL,
-			.AlternateFunction = GPIO_AF7
-	};
-	U1_Pins.PinNum = GPIO_PIN9;  GPIO_enumPinInit(&U1_Pins);  /* USART1 TX (PA9)  */
-	U1_Pins.PinNum = GPIO_PIN10; GPIO_enumPinInit(&U1_Pins);  /* USART1 RX (PA10) */
+			.AlternateFunction = GPIO_AF7};
+	U1_Pins.PinNum = GPIO_PIN9;
+	GPIO_enumPinInit(&U1_Pins); /* USART1 TX (PA9)  */
+	U1_Pins.PinNum = GPIO_PIN10;
+	GPIO_enumPinInit(&U1_Pins); /* USART1 RX (PA10) */
 
-	USART_InitIT(&USART_1);                  /* USART_1.Channel == CHANNEL1 */
+	USART_InitIT(&USART_1);						 /* USART_1.Channel == CHANNEL1 */
 	NVIC_vSetPriority(NVIC_USART1, 6); /* Safe for FreeRTOS (configMAX_SYSCALL_INTERRUPT_PRIORITY is 5) */
 	NVIC_vEnableIRQ(NVIC_USART1);
 
@@ -213,12 +219,12 @@ void System_setup(void)
 			.Otype = GPIO_PUSH_PULL,
 			.Speed = GPIO_VERY_HIGH_SPEED,
 			.PullType = GPIO_NO_PULL,
-			.AlternateFunction = GPIO_AF8
-	};
-	U4_Pins.PinNum = GPIO_PIN0; GPIO_enumPinInit(&U4_Pins);  /* UART4 TX (PA0) */
-	U4_Pins.PinNum = GPIO_PIN1; GPIO_enumPinInit(&U4_Pins);  /* UART4 RX (PA1) */
-	USART_Init(&RPi_UART);                    /* RPi_UART.Channel == CHANNEL4 */
-
+			.AlternateFunction = GPIO_AF8};
+	U4_Pins.PinNum = GPIO_PIN0;
+	GPIO_enumPinInit(&U4_Pins); /* UART4 TX (PA0) */
+	U4_Pins.PinNum = GPIO_PIN1;
+	GPIO_enumPinInit(&U4_Pins); /* UART4 RX (PA1) */
+	USART_Init(&RPi_UART);			/* RPi_UART.Channel == CHANNEL4 */
 
 	/*                *
 	 * init actuato   *
@@ -230,7 +236,7 @@ void System_setup(void)
 	LED_Init(&BackL_LED);
 	LED_Init(&Interior_LED);
 	/* Initialize Buzzer */
-    BUZ_Init(&V2X_Buzzer);
+	BUZ_Init(&V2X_Buzzer);
 
 	/* ── Magnetometer hard-iron calibration (boot-time rotation) ──
 	 * One short beep + interior LED ON = "rotate the car ~360° NOW".
@@ -239,26 +245,33 @@ void System_setup(void)
 	 *   one long  beep  = not enough rotation → power-cycle and retry.
 	 * NOTE: runs BEFORE the IWDG is started (in main), so the long window
 	 *       cannot trip the watchdog. */
-	BUZ_On(&V2X_Buzzer);  TIM_vDelayMs(TIM_TIMER6, 400);  BUZ_Off(&V2X_Buzzer);
+	BUZ_On(&V2X_Buzzer);
+	TIM_vDelayMs(TIM_TIMER6, 400);
+	BUZ_Off(&V2X_Buzzer);
 	LED_TurnOn(&Interior_LED);
 
 	if (MPU9250_enumCalibrateMag() == OK)
 	{
 		LED_TurnOff(&Interior_LED);
-		BUZ_On(&V2X_Buzzer); TIM_vDelayMs(TIM_TIMER6, 150); BUZ_Off(&V2X_Buzzer);
+		BUZ_On(&V2X_Buzzer);
+		TIM_vDelayMs(TIM_TIMER6, 150);
+		BUZ_Off(&V2X_Buzzer);
 		TIM_vDelayMs(TIM_TIMER6, 120);
-		BUZ_On(&V2X_Buzzer); TIM_vDelayMs(TIM_TIMER6, 150); BUZ_Off(&V2X_Buzzer);
+		BUZ_On(&V2X_Buzzer);
+		TIM_vDelayMs(TIM_TIMER6, 150);
+		BUZ_Off(&V2X_Buzzer);
 	}
 	else
 	{
 		LED_TurnOff(&Interior_LED);
-		BUZ_On(&V2X_Buzzer); TIM_vDelayMs(TIM_TIMER6, 1000); BUZ_Off(&V2X_Buzzer);
+		BUZ_On(&V2X_Buzzer);
+		TIM_vDelayMs(TIM_TIMER6, 1000);
+		BUZ_Off(&V2X_Buzzer);
 	}
 
 	// DSRC init
 	DSRC_Init();
 }
-
 
 /******************************************
  *  RTOS Initialization & Task Creation  *
@@ -275,6 +288,3 @@ void RTOS_setup(void)
 	/* Start the RTOS Scheduler */
 	vTaskStartScheduler();
 }
-
-
-

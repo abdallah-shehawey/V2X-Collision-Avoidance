@@ -52,7 +52,8 @@ static volatile struct
     uint32_t maxval; /* timer wrap value (0xFFFF or 0xFFFFFFFF) */
     uint32_t t1;     /* rising-edge timestamp */
     US_Phase_t phase;
-    uint16_t dist_cm; /* result, valid when phase == US_PHASE_DONE */
+    uint8_t valid;    /* 0 = result is out-of-range/garbage, 1 = a real echo was timed */
+    uint16_t dist_cm; /* result, valid when phase == US_PHASE_DONE && valid */
 } US_Active;
 
 static SemaphoreHandle_t US_xDoneSem = NULL; /* given by ISR on completion */
@@ -118,14 +119,22 @@ static void US_CC_Handler(TIM_Num_t Copy_eTimer, uint8_t Copy_u8Channel, uint32_
                             ? (Copy_u32Capture - US_Active.t1)
                             : ((US_Active.maxval - US_Active.t1) + Copy_u32Capture + 1u);
 
-        /* Decode µs → cm and clamp to the sensor's useful range. A spurious long
-         * echo (reflection / no object) would otherwise truncate into a bogus
-         * 16-bit value; clamping keeps it as a clean "max range / out of range". */
+        /* Decode µs → cm. An echo longer than the sensor's useful range means
+         * "no object within range": report it as OUT-OF-RANGE (valid = 0) instead
+         * of silently clamping a bogus long/wrapped pulse to a fake 400cm reading
+         * — clamping is what made a lost echo masquerade as a solid 400cm fix and
+         * made the reading flap between a real distance and 400. */
         uint32_t dist = high / US_SOUND_SPEED_FACTOR;
-        if (dist > US_MAX_RANGE_CM)
-            dist = US_MAX_RANGE_CM;
-
-        US_Active.dist_cm = (uint16_t)dist;
+        if (dist == 0u || dist > US_MAX_RANGE_CM)
+        {
+            US_Active.valid = 0u;            /* out of range / spurious */
+            US_Active.dist_cm = US_MAX_RANGE_CM;
+        }
+        else
+        {
+            US_Active.valid = 1u;            /* a real, in-range echo */
+            US_Active.dist_cm = (uint16_t)dist;
+        }
         US_Active.phase = US_PHASE_DONE;
 
         /* Done — silence this channel and wake the task */
@@ -188,7 +197,7 @@ ErrorState_t US_vInit(const US_Config_t *pxSensor)
 
     /* 3. Configure ICU Channel (rising edge, capture enabled; CC interrupt stays OFF) */
     TIM_ICConfig_t IC_Cfg = {
-        .Timer = pxSensor->Timer, .Channel = pxSensor->Channel, .Selection = TIM_IC_SELECTION_DIRECT_TI, .Prescaler = TIM_IC_PSC_DIV1, .Polarity = TIM_POLARITY_HIGH, .Filter = 2 /* minimal filter for stability */
+        .Timer = pxSensor->Timer, .Channel = pxSensor->Channel, .Selection = TIM_IC_SELECTION_DIRECT_TI, .Prescaler = TIM_IC_PSC_DIV1, .Polarity = TIM_POLARITY_HIGH, .Filter = 0xF /* max digital filter: reject glitches that fake an early rising edge → bogus 400cm */
     };
     TIM_vIC_Init(&IC_Cfg);
 
@@ -240,10 +249,16 @@ ErrorState_t US_u16ReadDistance_cm(const US_Config_t *pxSensor, uint16_t *pu16Di
     US_Active.channel = ch;
     US_Active.maxval = (pxSensor->Timer == TIM_TIMER2 || pxSensor->Timer == TIM_TIMER5) ? 0xFFFFFFFFu : 0xFFFFu;
     US_Active.phase = US_PHASE_RISING;
+    US_Active.valid = 0u;
 
-    /* Arm rising edge → clear any stale capture flag → enable CC interrupt */
+    /* Arm rising edge → clear ONLY this channel's stale capture flag → enable CC IRQ.
+     * TIM SR flags are "rc_w0": writing 0 clears, writing 1 leaves untouched. So to
+     * clear just CCxIF we write all-ones EXCEPT that bit (~mask). The old code wrote
+     * ~(1<<(ch+1)) which is the same intent, but built the bit from a raw shift; use
+     * the named CCxIF position and a clear comment so it can't be misread as "write
+     * the whole register". */
     TIM_vSetICPolarity(pxSensor->Timer, pxSensor->Channel, TIM_POLARITY_HIGH);
-    TIMx->SR = ~(1UL << (ch + 1)); /* clear this channel's CCxIF */
+    TIMx->SR = ~(1UL << (TIM_SR_CC1IF + ch)); /* clear this channel's CCxIF only */
     TIM_vEnableCCInterrupt(pxSensor->Timer, pxSensor->Channel);
 
     /* Fire the trigger pulse */
@@ -252,6 +267,12 @@ ErrorState_t US_u16ReadDistance_cm(const US_Config_t *pxSensor, uint16_t *pu16Di
     /* Sleep until the ISR delivers both edges, or until the echo window expires */
     if (xSemaphoreTake(US_xDoneSem, pdMS_TO_TICKS(US_TASK_TIMEOUT_MS)) == pdTRUE && US_Active.phase == US_PHASE_DONE)
     {
+        /* An out-of-range / spurious echo (valid==0) is reported like "no object"
+         * so the caller's default (400 / clear) kicks in, instead of returning a
+         * fake solid 400cm reading that flaps against the real distance. */
+        if (!US_Active.valid)
+            return TIMEOUT_STATE;
+
         *pu16Dist_cm = US_Active.dist_cm;
         return OK;
     }
