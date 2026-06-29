@@ -44,15 +44,15 @@
  * Inputs (front object + severity) are latched in BeginCycle; the result flags
  * are kept up to date as neighbors arrive, so no getter recomputes anything.
  */
-static uint8_t     FCW_DNPW_FcwObject = 0;         /* object inside the FCW front gate (40 cm, wider)    */
-static uint8_t     FCW_DNPW_FrontObject = 0;       /* object inside the DNPW/head-on front gate (20 cm)  */
-static uint8_t     FCW_DNPW_FrontRightNear = 0;    /* car alongside on the right (front-right gate)      */
+static uint8_t FCW_DNPW_FcwObject = 0;                  /* object inside the FCW front gate (40 cm, wider)    */
+static uint8_t FCW_DNPW_FrontObject = 0;                /* object inside the DNPW/head-on front gate (20 cm)  */
+static uint8_t FCW_DNPW_FrontLeftNear = 0;              /* oncoming car alongside on the left (front-left gate)*/
 static RiskLevel_t FCW_DNPW_FrontSeverity = RISK_SAFE;  /* same-direction severity, latched per cycle     */
 static RiskLevel_t FCW_DNPW_HeadonSeverity = RISK_SAFE; /* head-on severity: gaps doubled for closing speed */
 
 static RiskLevel_t FCW_DNPW_FrontFlag = RISK_SAFE; /* [result] forward collision, same lane (0/1/2)    */
-static uint8_t     FCW_DNPW_HeadonFlag = 0;        /* [result] head-on candidate, broadcast (0/1)       */
-static uint8_t     FCW_DNPW_HeadonConfirmed = 0;   /* [result] confirmed head-on severity (0/1/2)       */
+static uint8_t FCW_DNPW_HeadonFlag = 0;            /* [result] head-on candidate, broadcast (0/1)       */
+static uint8_t FCW_DNPW_HeadonConfirmed = 0;       /* [result] confirmed head-on severity (0/1/2)       */
 static RiskLevel_t FCW_DNPW_DnpwFlag = RISK_SAFE;  /* [result] do-not-pass severity (0/1/2)             */
 
 /* ============ Init ============ */
@@ -60,7 +60,7 @@ void FCW_DNPW_voidInit(void)
 {
   FCW_DNPW_FcwObject = 0;
   FCW_DNPW_FrontObject = 0;
-  FCW_DNPW_FrontRightNear = 0;
+  FCW_DNPW_FrontLeftNear = 0;
   FCW_DNPW_FrontSeverity = RISK_SAFE;
   FCW_DNPW_HeadonSeverity = RISK_SAFE;
   FCW_DNPW_FrontFlag = RISK_SAFE;
@@ -75,20 +75,20 @@ void FCW_DNPW_voidInit(void)
 
 /**
  * @brief Start a new cycle: latch the front distances and reset the signals.
- * @param front_distance       Front-center ultrasonic distance (cm)
- * @param front_right_distance Front-right ultrasonic distance (cm)
+ * @param front_distance      Front-center ultrasonic distance (cm)
+ * @param front_left_distance Front-left ultrasonic distance (cm)
  */
-void FCW_DNPW_voidBeginCycle(float front_distance, float front_right_distance)
+void FCW_DNPW_voidBeginCycle(float front_distance, float front_left_distance)
 {
   /* Two front gates (not yet known to be a vehicle — a neighbor confirms later):
    *   - FCW gate (wider, 40 cm) feeds the same-lane forward collision: warn earlier.
    *   - DNPW/head-on gate (nearer, 20 cm) feeds the oncoming/overtaking case. */
-  FCW_DNPW_FcwObject   = (front_distance > 0.0f && front_distance < FCW_FRONT_THRESHOLD)  ? 1U : 0U;
+  FCW_DNPW_FcwObject = (front_distance > 0.0f && front_distance < FCW_FRONT_THRESHOLD) ? 1U : 0U;
   FCW_DNPW_FrontObject = (front_distance > 0.0f && front_distance < DNPW_FRONT_THRESHOLD) ? 1U : 0U;
 
-  /* A car alongside on the right (overtaking side) escalates a DNPW to CRITICAL. */
-  FCW_DNPW_FrontRightNear =
-      (front_right_distance > 0.0f && front_right_distance < DNPW_FRONT_RIGHT_CRITICAL) ? 1U : 0U;
+  /* The oncoming car alongside on the LEFT (overtaking side) escalates a DNPW to
+   * CRITICAL: to pass we pull out left, so the car we must not pass is on our left. */
+  FCW_DNPW_FrontLeftNear = (front_left_distance > 0.0f && front_left_distance < DNPW_FRONT_LEFT_CRITICAL) ? 1U : 0U;
 
   /* Latch the distance-based severity once. Two severities: a same-direction
    * collision closes at the speed difference, but a head-on closes at the sum of
@@ -156,21 +156,22 @@ void FCW_DNPW_voidProcessOppositeDirection(const Neighbor *n)
   else if (!FCW_DNPW_HeadonConfirmed)
   {
     /* Oncoming is in another lane: overtaking risk. WARNING by default, CRITICAL
-     * when the front-right sensor reads a near object (a car alongside). */
-    FCW_DNPW_DnpwFlag = FCW_DNPW_FrontRightNear ? RISK_CRITICAL : RISK_WARNING;
+     * when the front-left sensor reads a near object (the oncoming car alongside
+     * on the overtaking side). */
+    FCW_DNPW_DnpwFlag = FCW_DNPW_FrontLeftNear ? RISK_CRITICAL : RISK_WARNING;
   }
 }
 
 /* ============ Public Getters (return the ready results) ============ */
 
 /** @brief Forward collision, same lane. @return 0=Safe, 1=Warning, 2=Critical */
-uint8_t FCW_GetFrontFlag(void)      { return (uint8_t)FCW_DNPW_FrontFlag; }
+uint8_t FCW_GetFrontFlag(void) { return (uint8_t)FCW_DNPW_FrontFlag; }
 
 /** @brief Head-on candidate, broadcast over DSRC. @return 0/1 */
-uint8_t FCW_GetHeadonFlag(void)     { return FCW_DNPW_HeadonFlag; }
+uint8_t FCW_GetHeadonFlag(void) { return FCW_DNPW_HeadonFlag; }
 
 /** @brief Confirmed head-on collision. @return 0=Safe, else severity (1/2) */
 uint8_t FCW_GetHeadonConfirmed(void) { return FCW_DNPW_HeadonConfirmed; }
 
 /** @brief Do-not-pass (oncoming in another lane). @return 0=Safe, 1=Warning, 2=Critical */
-uint8_t DNPW_GetFlag(void)          { return (uint8_t)FCW_DNPW_DnpwFlag; }
+uint8_t DNPW_GetFlag(void) { return (uint8_t)FCW_DNPW_DnpwFlag; }

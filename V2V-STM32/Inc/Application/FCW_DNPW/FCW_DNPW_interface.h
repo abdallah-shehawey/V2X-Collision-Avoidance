@@ -23,11 +23,12 @@ void FCW_DNPW_voidInit(void);
 /**
  * @brief Begin a cycle: latch the front distances and reset the signals.
  *        The SafetyEngine sets the cycle safe/critical gaps beforehand.
- * @param front_distance       Front-center ultrasonic distance (cm)
- * @param front_right_distance Front-right ultrasonic distance (cm), used to
- *                             escalate DNPW to CRITICAL when a car is alongside
+ * @param front_distance      Front-center ultrasonic distance (cm)
+ * @param front_left_distance Front-left ultrasonic distance (cm), used to
+ *                            escalate DNPW to CRITICAL when the oncoming car is
+ *                            alongside on the overtaking (left) side
  */
-void FCW_DNPW_voidBeginCycle(float front_distance, float front_right_distance);
+void FCW_DNPW_voidBeginCycle(float front_distance, float front_left_distance);
 
 /**
  * @brief Feed one same-direction neighbor (confirms a vehicle is ahead).

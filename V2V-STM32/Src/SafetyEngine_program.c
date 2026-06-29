@@ -72,7 +72,7 @@ void SafetyEngine_voidUpdate(void)
   SafetyEngine_CriticalDist = SafetyEngine_SafeDist * CRITICAL_RATIO;
 
   /* 1. Begin cycle */
-  FCW_DNPW_voidBeginCycle(front_dist, front_right);
+  FCW_DNPW_voidBeginCycle(front_dist, front_left);
   EEBL_voidBeginCycle();
   BSW_voidBeginCycle(front_left, front_right, rear_left, rear_right);
   IMA_voidBeginCycle();

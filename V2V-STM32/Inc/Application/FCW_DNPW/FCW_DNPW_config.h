@@ -26,8 +26,9 @@
 #define FCW_FRONT_THRESHOLD        (40.0f)  /* FCW front gate: warn earlier      */
 #define DNPW_FRONT_THRESHOLD       (20.0f)  /* DNPW + head-on front gate: nearer */
 
-/* DNPW escalation gate (cm): when DNPW fires, a near front-right reading (a car
- * alongside on the overtaking side) raises the DNPW severity to CRITICAL. */
-#define DNPW_FRONT_RIGHT_CRITICAL  (20.0f)
+/* DNPW escalation gate (cm): when DNPW fires, a near front-left reading raises the
+ * DNPW severity to CRITICAL. The overtaking car pulls out to the LEFT, so the
+ * oncoming car it must not pass shows up on its front-LEFT sensor. */
+#define DNPW_FRONT_LEFT_CRITICAL  (20.0f)
 
 #endif
