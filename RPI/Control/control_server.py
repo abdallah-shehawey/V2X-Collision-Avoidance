@@ -177,6 +177,17 @@ class Handler(SimpleHTTPRequestHandler):
     def log_message(self, *args):
         pass  # quiet
 
+    def handle(self):
+        # The phone opens/closes lots of short-lived connections (every held-arrow
+        # POST, tab switches, Wi-Fi blips). When it drops one mid-request the kernel
+        # raises ConnectionResetError/BrokenPipeError — harmless, but socketserver
+        # would dump a full traceback for each. Swallow them so the console stays
+        # readable; anything else still propagates.
+        try:
+            super().handle()
+        except (ConnectionResetError, BrokenPipeError, ConnectionAbortedError):
+            pass
+
     def end_headers(self):
         self.send_header("Cache-Control", "no-store")
         super().end_headers()
