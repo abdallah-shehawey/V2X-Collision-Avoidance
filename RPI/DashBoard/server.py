@@ -33,6 +33,7 @@ import os
 import socket
 import threading
 import time
+from collections import Counter
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
@@ -359,25 +360,76 @@ def _median_filter(key: str, raw: float) -> float:
     d01, d12 = s[1] - s[0], s[2] - s[1]
     return (s[0] + s[1]) / 2.0 if d01 <= d12 else (s[1] + s[2]) / 2.0
 
+# ── Majority-vote (mode) filter per ADAS module ───────────────────────────
+# Keep a ring-buffer of the last N decoded severities per module and report the
+# most-frequent value (mode). A lone glitch (one bad sample) can never out-vote
+# the stable ones, so transient false WARNINGs are debounced. On a tie (no clear
+# winner) we KEEP the last stable decision instead of flipping. Same ring-buffer
+# + reset-on-reconnect pattern as the ultrasonic median filter above.
+_FLAGS_BUFSIZE = 5
+_MODULE_NAMES = tuple(name for name, _ in SYS_MODULE_POS)  # fcw,eebl,bsw,dnpw,ima
+_flags_buf: dict = {name: [] for name in _MODULE_NAMES}    # decoded samples/module
+_flags_stable: dict = {name: 0 for name in _MODULE_NAMES}  # last accepted value
+
+# Only 0/1/2 are legal severities (firmware RiskLevel_t: SAFE/WARNING/CRITICAL).
+# Each module is 2 bits wide, so a decoded 3 (0b11) is a flipped UART bit — drop
+# it: never buffer it, never let it vote, never show it on the dashboard.
+_VALID_SEVERITIES = (0, 1, 2)
+
+
+def _reset_flags_buffers() -> None:
+    """Clear every per-module vote buffer (link re-opened → drop stale votes).
+    The last-stable values are left as-is so the dashboard keeps the last known
+    state across a brief reconnect."""
+    for buf in _flags_buf.values():
+        buf.clear()
+
+
+def _vote_flags(decoded: dict) -> dict:
+    """Push each module's freshly-decoded severity into its ring-buffer and
+    return the debounced severities. Per module: the mode of the last
+    _FLAGS_BUFSIZE samples wins; on a tie we keep that module's last stable
+    value. An illegal severity (3) is discarded — not buffered — so a corrupt
+    sample can neither vote nor surface. Falls back to the last stable value
+    (0 until the first valid sample) while the buffer is empty."""
+    result = {}
+    for name in _MODULE_NAMES:
+        sev = decoded[name]
+        buf = _flags_buf[name]
+        if sev in _VALID_SEVERITIES:          # ignore corrupt 3 entirely
+            buf.append(sev)
+            if len(buf) > _FLAGS_BUFSIZE:
+                buf.pop(0)
+        if buf:
+            top = Counter(buf).most_common()  # [(value, n), …] sorted by n desc
+            if len(top) == 1 or top[0][1] > top[1][1]:
+                _flags_stable[name] = top[0][0]   # clear winner → accept
+            # else: tie → keep _flags_stable[name] unchanged
+        result[name] = _flags_stable[name]    # last stable (0 until first sample)
+    return result
+
+
 # ── Terminal-only change tracking ────────────────────────────────────────
-# Print sys_flags only when it actually changes; avoids terminal spam while
-# still giving real-time visibility.
-_last_printed_flags: int = -1  # -1 = never printed
+# Print the voted severities only when they actually change; avoids terminal
+# spam while still giving real-time visibility.
+_last_printed_flags = None  # tuple of last-printed severities; None = never printed
 
 
 # Numeric status labels for terminal printing
 _STATUS_LABEL = {0: "SAFE", 1: "WARNING", 2: "CRITICAL", 3: "INVALID"}
 
 
-def _print_flags_changes(flags: int) -> None:
-    """Print sys_flags breakdown only when flags change."""
+def _print_flags_changes(voted: dict) -> None:
+    """Print the debounced (voted) module severities, only when they change.
+    Mirrors exactly what the dashboard shows — not the raw line — so a glitch
+    rejected by the vote filter never appears here either."""
     global _last_printed_flags
-    if flags == _last_printed_flags:
+    key = tuple(voted[name] for name in _MODULE_NAMES)
+    if key == _last_printed_flags:
         return
-    _last_printed_flags = flags
-    decoded = decode_sys_flags(flags)
-    labels = "  ".join(f"{m.upper()}:{_STATUS_LABEL[v]}" for m, v in decoded.items())
-    print(f"[FLAGS] 0x{flags:04X}  →  {labels}")
+    _last_printed_flags = key
+    labels = "  ".join(f"{m.upper()}:{_STATUS_LABEL[v]}" for m, v in voted.items())
+    print(f"[FLAGS] {labels}")
 
 
 def _packet_to_state(p: dict) -> dict:
@@ -385,16 +437,19 @@ def _packet_to_state(p: dict) -> dict:
     the dashboard expects them (drive/ultrasonic/adas). v2n/v2p are NOT here —
     they come from the file.
 
-    Also applies the per-channel median filter and prints sys_flags to the
-    terminal only when it changes, without touching the dashboard at all."""
+    Also applies the per-channel median filter (ultrasonic) and the per-module
+    majority-vote filter (adas), and prints the voted severities to the terminal
+    only when they change, without touching the dashboard at all."""
     # Apply median filter to each US channel
     filtered_us = {
         dash_key: _median_filter(stm_key, p[stm_key])
         for stm_key, dash_key in US_MAP.items()
     }
 
-    # Terminal print — only when flags actually change
-    _print_flags_changes(int(p["sys_flags"]))
+    # Debounce the ADAS severities with the majority-vote filter (kills the
+    # transient false WARNING/CRITICAL glitches), then report + print the result.
+    voted = _vote_flags(decode_sys_flags(int(p["sys_flags"])))
+    _print_flags_changes(voted)   # terminal mirrors the dashboard, only on change
 
     return {
         "drive": {
@@ -404,7 +459,7 @@ def _packet_to_state(p: dict) -> dict:
             "roll":     p["roll"],
         },
         "ultrasonic": filtered_us,
-        "adas": decode_sys_flags(int(p["sys_flags"])),
+        "adas": voted,
     }
 
 
@@ -427,7 +482,8 @@ def uart_reader_loop():
     while True:
         try:
             ser = _open_uart()
-            _reset_us_buffers()   # drop any stale readings from before a drop
+            _reset_us_buffers()      # drop any stale US readings from before a drop
+            _reset_flags_buffers()   # and stale ADAS votes
             print(f"[uart] reading {UART_PORT} @ {UART_BAUD} baud "
                   f"(RPi model {_RPI_MODEL or '?'}) → live (in-memory)")
         except Exception as exc:
