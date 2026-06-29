@@ -163,9 +163,25 @@ function setUSBeepState(state) {
 }
 
 // ==================== Toast Notifications ====================
-const activeToasts = new Map();
+// A toast lives only while its warning keeps being re-asserted. It clears
+// itself automatically — no manual close needed — in two ways:
+//   1. The instant a fresh update reports the warning gone, processAlerts
+//      calls removeToast() and it slides out in 300ms.
+//   2. A watchdog timer: every time the warning is re-asserted we re-arm a
+//      timeout. If the data simply stops being pushed (the producer goes
+//      silent while the flag is stuck at 1, so no new render ever arrives),
+//      the timer still fires on its own and the toast clears instead of
+//      lingering forever.
+const activeToasts = new Map();   // key -> { el, timer }
+const TOAST_AUTO_MS = 4000;       // self-clear if the cause isn't re-asserted within this
+
 function showToast(key, name) {
-  if (activeToasts.has(key)) return;
+  const existing = activeToasts.get(key);
+  if (existing) {                 // already up: just keep the watchdog alive
+    clearTimeout(existing.timer);
+    existing.timer = setTimeout(() => removeToast(key), TOAST_AUTO_MS);
+    return;
+  }
   const el = document.createElement("div");
   el.className = "toast";
   el.innerHTML = `
@@ -174,21 +190,30 @@ function showToast(key, name) {
       <div class="toast-title">${name}</div>
       <div class="toast-desc">Warning detected — monitor situation</div>
     </div>
-    <button class="toast-close" onclick="this.parentElement.classList.add('toast-out'); setTimeout(() => this.parentElement.remove(), 300)">✕</button>`;
+    <button class="toast-close" onclick="removeToast('${key}')">✕</button>`;
   $("toastContainer").appendChild(el);
-  activeToasts.set(key, el);
+  activeToasts.set(key, { el, timer: setTimeout(() => removeToast(key), TOAST_AUTO_MS) });
   playWarningBeep();
 }
 function removeToast(key) {
-  const el = activeToasts.get(key);
-  if (!el) return;
-  el.classList.add("toast-out");
-  setTimeout(() => { el.remove(); activeToasts.delete(key); }, 300);
+  const entry = activeToasts.get(key);
+  if (!entry) return;
+  clearTimeout(entry.timer);
+  activeToasts.delete(key);
+  entry.el.classList.add("toast-out");
+  setTimeout(() => entry.el.remove(), 300);
 }
 
 // ==================== Critical Popup ====================
-let activeCritical = null, criticalSoundInterval = null;
+// Same self-clearing watchdog as the toasts: the overlay stays only while the
+// critical alert keeps being re-asserted. If a fresh update reports it gone,
+// processAlerts calls hideCritical() immediately; if the data simply stops
+// arriving, the watchdog timer below hides it instead of leaving it stuck.
+let activeCritical = null, criticalSoundInterval = null, criticalTimer = null;
+const CRITICAL_AUTO_MS = 4000;    // self-clear if the danger isn't re-asserted within this
 function showCritical(key, name) {
+  if (criticalTimer) clearTimeout(criticalTimer);
+  criticalTimer = setTimeout(hideCritical, CRITICAL_AUTO_MS);   // re-arm watchdog
   if (activeCritical === key) return;
   activeCritical = key;
   $("criticalTitle").textContent = "CRITICAL ALERT";
@@ -200,6 +225,7 @@ function showCritical(key, name) {
   criticalSoundInterval = setInterval(playErrorAlarm, 2000);
 }
 function hideCritical() {
+  if (criticalTimer) { clearTimeout(criticalTimer); criticalTimer = null; }
   if (!activeCritical) return;
   activeCritical = null;
   $("criticalOverlay").style.display = "none";
@@ -255,7 +281,7 @@ function processAlerts(adas) {
     const flag = adas[key] || 0;
     const prev = prevStates[key] || 0;
     if (flag === 1) showToast(key, `${abbr} — ${name}`);
-    else if (prev === 1) removeToast(key);
+    else removeToast(key);   // any non-warning state clears it right away (no-op if not shown)
     if (flag !== prev) {
       if (flag === 2)      addEvent(`${abbr} Triggered`, "crit");
       else if (flag === 1) addEvent(`${abbr} Warning`, "warn");
