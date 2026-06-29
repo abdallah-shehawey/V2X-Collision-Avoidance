@@ -104,12 +104,12 @@ void SafetyEngine_voidUpdate(void)
   /* 3. Aggregate the modules' results into the 16-bit status word.
    *    2 bits per module (00 safe / 01 warning / 10 critical); RiskLevel maps
    *    directly. FCW = worst of the local front collision and a confirmed
-   *    head-on; BSW is binary (a blind-spot present → WARNING). */
+   *    head-on; BSW is distance-graded (WARNING < 30cm, CRITICAL < 20cm). */
   uint8_t fcw_front  = FCW_GetFrontFlag();        /* 0/1/2 */
   uint8_t fcw_headon = FCW_GetHeadonConfirmed();  /* 0/1/2 */
   uint8_t fcw  = (fcw_headon > fcw_front) ? fcw_headon : fcw_front;
   uint8_t dnpw = DNPW_GetFlag() ? SYS_WARNING : SYS_SAFE;
-  uint8_t bsw  = BSW_u8GetBlindSpot() ? SYS_WARNING : SYS_SAFE;
+  uint8_t bsw  = BSW_u8GetSeverity();             /* 0=safe/1=warning/2=critical */
 
   uint16_t flags = 0;
   flags |= ((uint16_t)(fcw                & SYS_MASK)) << SYS_FCW_POS;

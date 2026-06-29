@@ -24,6 +24,13 @@ uint8_t BSW_u8GetFlag(void);
  */
 uint8_t BSW_u8GetBlindSpot(void);
 
+/**
+ * @brief Get the receiver-side blind-spot SEVERITY for THIS car (worst side),
+ *        graded by how close the car behind us is.
+ * @return 0 = safe, 1 = warning (< BSW_SIDE_THRESHOLD), 2 = critical (< BSW_SIDE_CRITICAL)
+ */
+uint8_t BSW_u8GetSeverity(void);
+
 /* ===== Per-Neighbor API (used by SafetyEngine) ===== */
 
 /**

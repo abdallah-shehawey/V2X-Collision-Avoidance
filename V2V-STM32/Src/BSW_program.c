@@ -29,9 +29,18 @@ static float BSW_FrontRight = 0.0f;
 static float BSW_RearLeft   = 0.0f;
 static float BSW_RearRight  = 0.0f;
 
-/* Receiver-side alert decision (set during ProcessNeighbor) */
+/* Receiver-side alert severity per side (set during ProcessNeighbor):
+ * 0 = safe, 1 = warning (< BSW_SIDE_THRESHOLD), 2 = critical (< BSW_SIDE_CRITICAL). */
 static uint8_t BSW_AlertLeft  = 0;
 static uint8_t BSW_AlertRight = 0;
+
+/* Map a measured rear-side distance to a BSW severity level. */
+static uint8_t BSW_u8DistToSeverity(float dist)
+{
+  if (dist <= 0.0f || dist >= BSW_SIDE_THRESHOLD) return 0;  /* clear / out of band */
+  if (dist < BSW_SIDE_CRITICAL)                   return 2;  /* critical            */
+  return 1;                                                  /* warning             */
+}
 
 /* ============ Init ============ */
 void BSW_voidInit(void)
@@ -89,19 +98,17 @@ void BSW_voidBeginCycle(float front_left, float front_right, float rear_left, fl
  */
 void BSW_voidProcessNeighbor(const Neighbor *n)
 {
+  /* Severity scales with how close the car behind us is on the mirrored side.
+   * Keep the worst across neighbors that map to the same rear sensor. */
   if (n->bsw_flag & BSW_FLAG_LEFT)
   {
-    if (BSW_RearRight > 0.0f && BSW_RearRight < BSW_SIDE_THRESHOLD)
-    {
-      BSW_AlertRight = 1;
-    }
+    uint8_t sev = BSW_u8DistToSeverity(BSW_RearRight);
+    if (sev > BSW_AlertRight) BSW_AlertRight = sev;
   }
   if (n->bsw_flag & BSW_FLAG_RIGHT)
   {
-    if (BSW_RearLeft > 0.0f && BSW_RearLeft < BSW_SIDE_THRESHOLD)
-    {
-      BSW_AlertLeft = 1;
-    }
+    uint8_t sev = BSW_u8DistToSeverity(BSW_RearLeft);
+    if (sev > BSW_AlertLeft) BSW_AlertLeft = sev;
   }
 }
 
@@ -126,4 +133,14 @@ uint8_t BSW_u8GetFlag(void)
 uint8_t BSW_u8GetBlindSpot(void)
 {
   return (uint8_t)((BSW_AlertLeft ? 0x01U : 0x00U) | (BSW_AlertRight ? 0x02U : 0x00U));
+}
+
+/**
+ * @brief Get the receiver-side blind-spot SEVERITY for THIS car — the worst of
+ *        the two sides. Distance-graded: closer car behind → higher severity.
+ * @return 0 = safe, 1 = warning (< BSW_SIDE_THRESHOLD), 2 = critical (< BSW_SIDE_CRITICAL)
+ */
+uint8_t BSW_u8GetSeverity(void)
+{
+  return (BSW_AlertLeft > BSW_AlertRight) ? BSW_AlertLeft : BSW_AlertRight;
 }
