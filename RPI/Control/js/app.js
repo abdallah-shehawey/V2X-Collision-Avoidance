@@ -20,11 +20,19 @@
   const DIR_NAME  = { F: "FORWARD", B: "REVERSE", L: "LEFT", R: "RIGHT", S: "IDLE" };
   const GEAR_OF   = { 0.15: 1, 0.30: 2, 0.50: 3, 0.75: 4, 1.00: 5 };
 
+  // Holding an arrow is a long-press, which on Chrome/Android pops the browser's
+  // "Download / Share / Print" menu and can also start a text selection — both
+  // steal the gesture mid-drive. CSS (-webkit-touch-callout) doesn't cover Chrome
+  // Android, so kill the events outright (these aren't passive, so preventDefault sticks).
+  document.addEventListener("contextmenu", (e) => e.preventDefault());
+  document.addEventListener("selectstart", (e) => e.preventDefault());
+  document.addEventListener("dragstart", (e) => e.preventDefault());
+
   // ── state ──────────────────────────────────────────────────────────
   let speed       = 0.22;         // current commanded speed (0.15..1.0)
   let heldDir     = "S";          // direction currently held by a finger
   let repeatTimer = null;         // setInterval handle while a direction is held
-  let online      = true;         // last known link state (to update UI on change)
+  let online      = null;         // last known link state (null = unknown → first probe always paints)
 
   // ── DOM ────────────────────────────────────────────────────────────
   const $ = (s) => document.querySelector(s);
