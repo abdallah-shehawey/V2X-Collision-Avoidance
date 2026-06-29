@@ -21,11 +21,13 @@ void FCW_DNPW_voidInit(void);
 /* ===== Per-Neighbor API (used by SafetyEngine) ===== */
 
 /**
- * @brief Begin a cycle: latch the front distance and reset the signals.
+ * @brief Begin a cycle: latch the front distances and reset the signals.
  *        The SafetyEngine sets the cycle safe/critical gaps beforehand.
- * @param front_distance Front ultrasonic distance (cm)
+ * @param front_distance       Front-center ultrasonic distance (cm)
+ * @param front_right_distance Front-right ultrasonic distance (cm), used to
+ *                             escalate DNPW to CRITICAL when a car is alongside
  */
-void FCW_DNPW_voidBeginCycle(float front_distance);
+void FCW_DNPW_voidBeginCycle(float front_distance, float front_right_distance);
 
 /**
  * @brief Feed one same-direction neighbor (confirms a vehicle is ahead).
@@ -61,8 +63,9 @@ uint8_t FCW_GetHeadonConfirmed(void);
 
 /**
  * @brief Do-Not-Pass flag (candidate but the oncoming car is in another lane).
- *        Presence only — no severity (the front distance is not the oncoming car).
- * @return 0=no warning, 1=do not pass
+ *        Graded: WARNING by default, CRITICAL when the front-right sensor reads a
+ *        near object (a car alongside on the overtaking side).
+ * @return 0=Safe, 1=Warning, 2=Critical
  */
 uint8_t DNPW_GetFlag(void);
 
