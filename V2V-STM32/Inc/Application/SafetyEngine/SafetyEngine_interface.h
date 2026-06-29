@@ -2,10 +2,13 @@
 #define SAFETYENGINE_INTERFACE_H
 
 /* ====== Direction Detection ====== */
-/* Heading threshold for direction classification (degrees) */
-#define HEADING_SAME_THRESHOLD     (30.0f)
-#define HEADING_OPPOSITE_THRESHOLD (30.0f)
-#define HEADING_CROSS_THRESHOLD    (30.0f)
+/* Heading threshold for direction classification (degrees). Widened from 30° to
+ * 40° to tolerate the heading error between the two vehicles' magnetometers, so a
+ * real SAME/OPPOSITE/CROSSING pair is not misclassified as UNKNOWN when their
+ * reported headings disagree by up to ~40°. */
+#define HEADING_SAME_THRESHOLD     (40.0f)
+#define HEADING_OPPOSITE_THRESHOLD (40.0f)
+#define HEADING_CROSS_THRESHOLD    (40.0f)
 
 typedef enum
 {
