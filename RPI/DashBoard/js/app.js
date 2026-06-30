@@ -76,9 +76,20 @@ const SENSORS = [
   ["rearLeft",   "Rear-L"],
   ["rearRight",  "Rear-R"],
 ];
-const NEAR_CM  = 15;    // < this -> caution (yellow)  [prototype: ~15 cm]
-const CLOSE_CM = 10;    // < this -> danger  (red)     [prototype: ~10 cm = min]
-const RANGE_CM = 20;    // > this -> nothing detected  [prototype: ~20 cm clear]
+// Per-sensor distance bands (cm), mirrored from the STM32 firmware so the beam
+// colours light up at the same distance the ADAS modules actually trigger:
+//   • front      -> FCW   (FCW_FRONT_THRESHOLD 40 / DNPW_FRONT_THRESHOLD 20)
+//   • rear       -> EEBL  (SafetyEngine MIN_SAFE_DISTANCE 15 / *CRITICAL_RATIO 10)
+//   • 4 corners  -> BSW   (BSW_SIDE_THRESHOLD 30 / BSW_SIDE_CRITICAL 20)
+// near = WARNING gate (yellow), close = CRITICAL gate (red), range = max shown.
+const US_BANDS = {
+  front:      { near: 40, close: 20, range: 40 },
+  rear:       { near: 15, close: 10, range: 20 },
+  frontLeft:  { near: 30, close: 20, range: 30 },
+  frontRight: { near: 30, close: 20, range: 30 },
+  rearLeft:   { near: 30, close: 20, range: 30 },
+  rearRight:  { near: 30, close: 20, range: 30 },
+};
 
 // Default weather location (used if data.json has no weather.lat/lon)
 const WX_LAT = 30.0444, WX_LON = 31.2357, WX_CITY = "Cairo";
@@ -363,11 +374,12 @@ function processAlerts(adas) {
 function processUltrasonic(ultra) {
   let worst = "clear";
   for (const [key, label] of SENSORS) {
-    const cm = ultra && ultra[key] != null ? ultra[key] : RANGE_CM + 1;
+    const band = US_BANDS[key];
+    const cm = ultra && ultra[key] != null ? ultra[key] : band.range + 1;
     let state = "off";
-    if (cm < CLOSE_CM)       state = "close";
-    else if (cm < NEAR_CM)   state = "near";
-    else if (cm <= RANGE_CM) state = "clear";
+    if (cm < band.close)       state = "close";
+    else if (cm < band.near)   state = "near";
+    else if (cm <= band.range) state = "clear";
 
     const g = $(`sn-${key}`);
     if (g) {
