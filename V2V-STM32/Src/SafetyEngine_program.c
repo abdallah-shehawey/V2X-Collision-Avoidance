@@ -72,7 +72,7 @@ void SafetyEngine_voidUpdate(void)
   SafetyEngine_CriticalDist = SafetyEngine_SafeDist * CRITICAL_RATIO;
 
   /* 1. Begin cycle */
-  FCW_DNPW_voidBeginCycle(front_dist);
+  FCW_DNPW_voidBeginCycle(front_dist, front_left);
   EEBL_voidBeginCycle();
   BSW_voidBeginCycle(front_left, front_right, rear_left, rear_right);
   IMA_voidBeginCycle();
@@ -108,7 +108,7 @@ void SafetyEngine_voidUpdate(void)
   uint8_t fcw_front  = FCW_GetFrontFlag();        /* 0/1/2 */
   uint8_t fcw_headon = FCW_GetHeadonConfirmed();  /* 0/1/2 */
   uint8_t fcw  = (fcw_headon > fcw_front) ? fcw_headon : fcw_front;
-  uint8_t dnpw = DNPW_GetFlag() ? SYS_WARNING : SYS_SAFE;
+  uint8_t dnpw = DNPW_GetFlag();                  /* 0=safe/1=warning/2=critical (front-right escalates) */
   uint8_t bsw  = BSW_u8GetSeverity();             /* 0=safe/1=warning/2=critical */
 
   uint16_t flags = 0;
