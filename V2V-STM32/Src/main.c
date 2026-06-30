@@ -366,7 +366,7 @@ void vTask_RPi_Comm(void *pvParameters)
 {
   TickType_t xLastWakeTime = xTaskGetTickCount();
 
-  char line[96];
+  char line[112];
 
   for (;;)
   {
@@ -374,8 +374,11 @@ void vTask_RPi_Comm(void *pvParameters)
 
     float spd, hdg, pit, rol, fl, fc, fr, bl, bc, br;
     uint16_t flags;
+    uint8_t bsw_sides;
 
-    /* Read shared state under mutex */
+    /* Read shared state under mutex. The BSW per-side severity is computed from
+     * statics that vTask_SafetyEngine writes while holding G_xDataMutex, so read
+     * it here under the SAME lock to get a consistent snapshot. */
     xSemaphoreTake(G_xDataMutex, portMAX_DELAY);
     spd = G_stHostVehicleState.Speed;
     hdg = G_stHostVehicleState.Heading;
@@ -387,6 +390,7 @@ void vTask_RPi_Comm(void *pvParameters)
     bl  = G_stHostVehicleState.BackLeftUS;
     bc  = G_stHostVehicleState.BackCenterUS;
     br  = G_stHostVehicleState.BackRightUS;
+    bsw_sides = BSW_u8GetSidesSeverity();
     xSemaphoreGive(G_xDataMutex);
 
     /* 16-bit ADAS status word (2 bits/module) — volatile read is atomic, no mutex.
@@ -395,10 +399,14 @@ void vTask_RPi_Comm(void *pvParameters)
 
     /* ASCII CSV line — contains NO 0x00 bytes, so it survives the UART link that
      * was losing the binary packet's zero-runs. '\n'-delimited, trivial to parse.
-     * Format: T,speed,heading,pitch,roll,FL,FC,FR,BL,BC,BR,flags\n */
+     * Format: T,speed,heading,pitch,roll,FL,FC,FR,BL,BC,BR,flags,bsw_sides\n
+     * bsw_sides: bits 1:0 = LEFT blind-spot severity, bits 3:2 = RIGHT (0/1/2).
+     * The aggregated BSW severity already lives inside `flags`; this extra column
+     * only carries WHICH side(s) so the RPi can say left / right / both. */
     snprintf(line, sizeof(line),
-             "T,%.1f,%.1f,%.1f,%.1f,%.0f,%.0f,%.0f,%.0f,%.0f,%.0f,%u\n",
-             spd, hdg, pit, rol, fl, fc, fr, bl, bc, br, (unsigned)flags);
+             "T,%.1f,%.1f,%.1f,%.1f,%.0f,%.0f,%.0f,%.0f,%.0f,%.0f,%u,%u\n",
+             spd, hdg, pit, rol, fl, fc, fr, bl, bc, br,
+             (unsigned)flags, (unsigned)bsw_sides);
 
     USART_enumTransmitString(&RPi_UART, (uint8_t *)line);
 
