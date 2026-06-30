@@ -95,7 +95,7 @@ function svg(p) {
 const ADAS_ICONS = {
   fcw:  svg(`<rect x="5" y="12" width="14" height="7" rx="2"/><path d="M7 12l1.6-4h6.8L17 12"/><path d="M12 2v3M9 3.5l1.4 2.2M15 3.5l-1.4 2.2"/>`),
   eebl: svg(`<circle cx="12" cy="12" r="9"/><path d="M12 7v6"/><circle cx="12" cy="16.4" r="0.7" fill="currentColor" stroke="none"/>`),
-  bsw:  svg(`<rect x="8" y="4" width="8" height="16" rx="2.5"/><path d="M5 9c-1.1 1-1.1 5 0 6M19 9c1.1 1 1.1 5 0 6"/>`),
+  bsw:  svg(`<rect x="8" y="4" width="8" height="16" rx="2.5"/><path class="bsw-wave bsw-left" d="M5 9c-1.1 1-1.1 5 0 6"/><path class="bsw-wave bsw-right" d="M19 9c1.1 1 1.1 5 0 6"/>`),
   dnpw: svg(`<rect x="3.5" y="6" width="6" height="12" rx="1.5"/><rect x="14.5" y="6" width="6" height="12" rx="1.5"/><path d="M12 3v18" stroke-dasharray="2.5 2.5"/>`),
   ima:  svg(`<path d="M12 3v18M3 12h18"/><path d="M9.5 8.5L12 6l2.5 2.5M9.5 15.5L12 18l2.5-2.5"/>`),
 };
@@ -319,6 +319,13 @@ function updateAdasGrid(adas) {
     else if (flag === 1) { card.className = "adas-card warn"; status.textContent = "WARNING"; }
     else if (flag === 3) { card.className = "adas-card warn"; status.textContent = "INVALID"; }
     else                 { card.className = "adas-card safe"; status.textContent = "SAFE"; }
+    // BSW: highlight the wave on the side the threat is on, so left vs right is
+    // readable at a glance. side-* drives the wave colour via CSS.
+    if (key === "bsw") {
+      const active = flag === 1 || flag === 2;
+      const side = active ? (adas.bswSide || "both") : "none";
+      card.setAttribute("data-side", side);
+    }
   }
 }
 

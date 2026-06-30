@@ -306,6 +306,15 @@ body {
 .adas-card.crit .adas-ic, .adas-card.crit .adas-status { color: var(--crit); }
 @keyframes adas-blink { 0%,100% { box-shadow: 0 0 12px rgba(255,77,79,.12); } 50% { box-shadow: 0 0 22px rgba(255,77,79,.3); } }
 
+/* BSW side indicator: the wave on the threat side glows in the accent colour
+   while the quiet side dims, so left vs right reads instantly. */
+.adas-card .bsw-wave { transition: stroke .25s, opacity .25s; }
+.adas-card[data-side="left"]  .bsw-right,
+.adas-card[data-side="right"] .bsw-left { opacity: .25; }
+.adas-card[data-side="left"]  .bsw-left,
+.adas-card[data-side="right"] .bsw-right,
+.adas-card[data-side="both"]  .bsw-wave { stroke: var(--accent); filter: drop-shadow(0 0 4px var(--accent)); }
+
 /* ===================== Toast Notifications ===================== */
 .toast-container { position: fixed; top: 22px; right: 22px; z-index: 900; display: flex; flex-direction: column; gap: 12px; pointer-events: none; }
 .toast { pointer-events: auto; display: flex; align-items: center; gap: 14px; background: rgba(8, 8, 8, 0.97); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(245,166,35,0.25); border-left: 4px solid var(--warn); border-radius: 16px; padding: 14px 22px; min-width: 320px; max-width: 440px; box-shadow: 0 8px 32px rgba(0,0,0,0.8); animation: toast-in 0.4s cubic-bezier(0.16, 1, 0.3, 1); transition: opacity 0.3s, transform 0.3s; }
