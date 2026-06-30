@@ -58,10 +58,26 @@ class Handler(SimpleHTTPRequestHandler):
         pass  # keep the console quiet
 
     def do_GET(self):
-        if self.path.split("?")[0] == "/events":
+        path = self.path.split("?")[0]
+        if path == "/events":
             self.stream_events()
+        elif path == "/adas":
+            self.send_adas()
         else:
             super().do_GET()
+
+    def send_adas(self):
+        """Expose the live ADAS state as JSON so the control server (:8001) can
+        block forbidden moves on a CRITICAL — FCW critical → no forward, BSW
+        critical → no turn into the flagged side. The body is the same dict the
+        dashboard sees: {fcw,eebl,bsw,dnpw,ima,bswSide}."""
+        with _stm_lock:
+            body = json.dumps(_stm_state["adas"]).encode("utf-8")
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
 
     @staticmethod
     def read_merged():
@@ -197,11 +213,14 @@ UART_BAUD = 120000
 LINE_MARKER = "T"
 
 # CSV column order matching the firmware's snprintf in main.c. Column 0 is the
-# "T" marker, consumed separately, so this lists columns 1..11.
+# "T" marker, consumed separately, so this lists columns 1..12.
+#   …,sys_flags,bsw_sides   — bsw_sides is the per-side BSW severity (bits 1:0
+#   LEFT, bits 3:2 RIGHT) so we can report left / right / both. Change one side,
+#   change the other — this list MUST match the firmware's CSV exactly.
 PACKET_FIELDS = ("speed", "heading", "pitch", "roll",
                  "FrontLeftUS", "FrontCenterUS", "FrontRightUS",
                  "BackLeftUS", "BackCenterUS", "BackRightUS",
-                 "sys_flags")
+                 "sys_flags", "bsw_sides")
 
 # ── sys_flags decode (G_u16SystemFlags) ──────────────────────────────────
 # 2 bits per ADAS module: 0b00 SAFE | 0b01 WARNING | 0b10 CRITICAL.
@@ -222,6 +241,26 @@ def decode_sys_flags(flags):
     return {name: (flags >> pos) & SYS_MASK for name, pos in SYS_MODULE_POS}
 
 
+def decode_bsw_sides(bsw_sides):
+    """Unpack the per-side BSW byte (bits 1:0 LEFT severity, bits 3:2 RIGHT) into
+    (left_severity, right_severity), each 0=safe / 1=warning / 2=critical."""
+    return (bsw_sides & SYS_MASK, (bsw_sides >> 2) & SYS_MASK)
+
+
+def bsw_side_label(left_sev, right_sev):
+    """Which side(s) the blind-spot alert is on → 'left' | 'right' | 'both' |
+    None (no side active). Used by the dashboard text and the control server's
+    motion-block, so a BSW alert can say WHICH side to keep clear."""
+    left, right = left_sev > 0, right_sev > 0
+    if left and right:
+        return "both"
+    if left:
+        return "left"
+    if right:
+        return "right"
+    return None
+
+
 def parse_line(line):
     """Parse one CSV telemetry line into a packet dict, or return None if the
     line is malformed (wrong marker, wrong column count, or non-numeric field).
@@ -230,9 +269,11 @@ def parse_line(line):
     if len(parts) != len(PACKET_FIELDS) + 1 or parts[0] != LINE_MARKER:
         return None
     try:
-        # all values are floats except sys_flags which is an integer bitfield
-        values = [float(p) for p in parts[1:-1]]
-        values.append(int(parts[-1]))
+        # all values are floats except the trailing two integer bitfields
+        # (sys_flags, bsw_sides)
+        values = [float(p) for p in parts[1:-2]]
+        values.append(int(parts[-2]))   # sys_flags
+        values.append(int(parts[-1]))   # bsw_sides
     except ValueError:
         return None
     return dict(zip(PACKET_FIELDS, values))
@@ -298,10 +339,10 @@ _stm_lock = threading.Lock()
 _stm_seq = 0           # bumped on every packet → cheap change-detection for SSE
 
 # ── Prototype distance scale ──────────────────────────────────────────────
-# Real-car prototype operates in a small room / corridor; sensor range is ~20cm
-# "clear".  Use 20 as the neutral default (not 400) so the dashboard shows a
-# realistic "clear" reading even before the STM32 connects.
-US_CLEAR_DEFAULT = 20   # cm — reported when no object detected / STM32 offline
+# Real-car prototype operates in a small room / corridor.  The default must sit
+# ABOVE the widest dashboard WARNING gate (front = 40 cm) so a "no object /
+# STM32 offline" reading renders as clear, not a stuck yellow beam.
+US_CLEAR_DEFAULT = 50   # cm — reported when no object detected / STM32 offline
 
 # Initial live state used until the FIRST UART packet arrives (or while the STM32
 # is disconnected).  All ultrasonics start at US_CLEAR_DEFAULT; all ADAS SAFE(0).
@@ -310,7 +351,8 @@ _stm_state = {
     "ultrasonic": {"front": US_CLEAR_DEFAULT, "frontLeft": US_CLEAR_DEFAULT,
                    "frontRight": US_CLEAR_DEFAULT, "rear": US_CLEAR_DEFAULT,
                    "rearLeft": US_CLEAR_DEFAULT, "rearRight": US_CLEAR_DEFAULT},
-    "adas":       {"fcw": 0, "eebl": 0, "bsw": 0, "dnpw": 0, "ima": 0},
+    "adas":       {"fcw": 0, "eebl": 0, "bsw": 0, "dnpw": 0, "ima": 0,
+                   "bswSide": None},
 }
 
 # STM32 ultrasonic names → data.json "ultrasonic" keys. The two CENTER sensors
@@ -450,6 +492,12 @@ def _packet_to_state(p: dict) -> dict:
     # transient false WARNING/CRITICAL glitches), then report + print the result.
     voted = _vote_flags(decode_sys_flags(int(p["sys_flags"])))
     _print_flags_changes(voted)   # terminal mirrors the dashboard, only on change
+
+    # Which blind-spot side is active. Only surface a side while the debounced
+    # BSW severity says there IS an alert, so a corrupt bsw_sides byte can't paint
+    # a side with no aggregated warning behind it.
+    left_sev, right_sev = decode_bsw_sides(int(p["bsw_sides"]))
+    voted["bswSide"] = bsw_side_label(left_sev, right_sev) if voted["bsw"] else None
 
     return {
         "drive": {

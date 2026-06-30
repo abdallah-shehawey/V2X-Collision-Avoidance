@@ -31,6 +31,20 @@ rotate to **landscape**, and tap **☀** once to keep the screen awake.
 Pin map / motor logic is identical to `../keyboard_control.py`
 (Motor A: ENA=18, IN1=23, IN2=24 · Motor B: ENB=19, IN3=27, IN4=22).
 
+## ADAS safety guard
+
+The server polls the telemetry DashBoard's `/adas` endpoint (`:8000`) and refuses
+the dangerous move when the V2V firmware raises a **CRITICAL**:
+
+- **FCW critical** → **forward (▲) is blocked** (downgraded to stop).
+- **BSW critical** → the **turn into the flagged blind-spot side** is blocked
+  (◄ for a left alert, ► for a right alert, both for a both-sides alert).
+
+The block happens before the motors are driven, so it holds no matter what the
+phone sends. The poll is best-effort: if the DashBoard is down it **fails open**
+(ordinary driving is never blocked), and the `/cmd` reply carries a `blocked`
+field (e.g. `"FCW"`, `"BSW-LEFT"`) when a move was refused.
+
 ## Files
 
 | file | what |

@@ -18,13 +18,54 @@ const WARNINGS = [
   ["dnpw", "DNPW", "Do Not Pass Warning"],
   ["ima",  "IMA",  "Intersection Movement Assist"],
 ];
-const CRITICAL_MESSAGES = {
-  eebl: "Vehicle ahead is hard braking!\nReduce speed immediately!",
-  fcw:  "Collision imminent!\nBrake now!",
-  bsw:  "Vehicle detected in blind spot!\nDo not change lane!",
-  dnpw: "Oncoming traffic detected!\nDo not overtake!",
-  ima:  "Cross traffic at intersection!\nStop immediately!",
+
+// Per-module wording, matched to what each V2V module actually detects on this
+// car (see V2V-STM32 SafetyEngine):
+//   • FCW  = a vehicle ahead in the SAME direction (forward collision).
+//   • DNPW = an ONCOMING vehicle (opposite direction) — overtaking risk.
+//   • EEBL = a vehicle ahead braking hard (V2X brake-light broadcast).
+//   • BSW  = a vehicle in this car's blind spot (side resolved at runtime).
+//   • IMA  = crossing traffic at an intersection.
+// `cause` is the short "why" line shown under the critical alert; `desc` is the
+// one-liner on the warning toast. BSW is handled dynamically (depends on side).
+const ALERT_INFO = {
+  fcw:  { cause: "Vehicle ahead in your lane",
+          desc:  "Vehicle ahead in your lane — keep your distance",
+          crit:  "Vehicle ahead in your lane!\nBrake now — collision risk!" },
+  dnpw: { cause: "Oncoming vehicle ahead",
+          desc:  "Oncoming vehicle — do not overtake",
+          crit:  "Oncoming vehicle ahead!\nDo NOT overtake — stay in your lane!" },
+  eebl: { cause: "Vehicle ahead braking hard",
+          desc:  "Vehicle ahead braking — be ready to slow",
+          crit:  "Vehicle ahead is braking hard!\nReduce speed immediately!" },
+  ima:  { cause: "Crossing traffic at intersection",
+          desc:  "Crossing traffic ahead — approach with care",
+          crit:  "Crossing vehicle at the intersection!\nYield and stop!" },
+  // bsw filled in per-side by bswInfo()
 };
+
+// Map a blind-spot side ("left" | "right" | "both" | null) to BSW wording.
+function bswInfo(side) {
+  const where = side === "both" ? "BOTH blind spots"
+              : side === "right" ? "your RIGHT blind spot"
+              : side === "left"  ? "your LEFT blind spot"
+              : "your blind spot";
+  const noTurn = side === "both" ? "do not change lane either way"
+               : side === "right" ? "do not move right"
+               : side === "left"  ? "do not move left"
+               : "do not change lane";
+  return {
+    cause: `Vehicle in ${where}`,
+    desc:  `Vehicle in ${where} — ${noTurn}`,
+    crit:  `Vehicle in ${where}!\n${noTurn.charAt(0).toUpperCase()}${noTurn.slice(1)}!`,
+  };
+}
+
+// Resolve the wording for a module given the current adas snapshot (only BSW
+// needs the snapshot, for its side).
+function alertInfo(key, adas) {
+  return key === "bsw" ? bswInfo(adas && adas.bswSide) : ALERT_INFO[key];
+}
 
 // Ultrasonic sensors: [key in data.ultrasonic, short label]
 const SENSORS = [
@@ -35,9 +76,20 @@ const SENSORS = [
   ["rearLeft",   "Rear-L"],
   ["rearRight",  "Rear-R"],
 ];
-const NEAR_CM  = 15;    // < this -> caution (yellow)  [prototype: ~15 cm]
-const CLOSE_CM = 10;    // < this -> danger  (red)     [prototype: ~10 cm = min]
-const RANGE_CM = 20;    // > this -> nothing detected  [prototype: ~20 cm clear]
+// Per-sensor distance bands (cm), mirrored from the STM32 firmware so the beam
+// colours light up at the same distance the ADAS modules actually trigger:
+//   • front      -> FCW   (FCW_FRONT_THRESHOLD 40 / DNPW_FRONT_THRESHOLD 20)
+//   • rear       -> EEBL  (SafetyEngine MIN_SAFE_DISTANCE 15 / *CRITICAL_RATIO 10)
+//   • 4 corners  -> BSW   (BSW_SIDE_THRESHOLD 30 / BSW_SIDE_CRITICAL 20)
+// near = WARNING gate (yellow), close = CRITICAL gate (red), range = max shown.
+const US_BANDS = {
+  front:      { near: 40, close: 20, range: 40 },
+  rear:       { near: 15, close: 10, range: 20 },
+  frontLeft:  { near: 30, close: 20, range: 30 },
+  frontRight: { near: 30, close: 20, range: 30 },
+  rearLeft:   { near: 30, close: 20, range: 30 },
+  rearRight:  { near: 30, close: 20, range: 30 },
+};
 
 // Default weather location (used if data.json has no weather.lat/lon)
 const WX_LAT = 30.0444, WX_LON = 31.2357, WX_CITY = "Cairo";
@@ -54,7 +106,7 @@ function svg(p) {
 const ADAS_ICONS = {
   fcw:  svg(`<rect x="5" y="12" width="14" height="7" rx="2"/><path d="M7 12l1.6-4h6.8L17 12"/><path d="M12 2v3M9 3.5l1.4 2.2M15 3.5l-1.4 2.2"/>`),
   eebl: svg(`<circle cx="12" cy="12" r="9"/><path d="M12 7v6"/><circle cx="12" cy="16.4" r="0.7" fill="currentColor" stroke="none"/>`),
-  bsw:  svg(`<rect x="8" y="4" width="8" height="16" rx="2.5"/><path d="M5 9c-1.1 1-1.1 5 0 6M19 9c1.1 1 1.1 5 0 6"/>`),
+  bsw:  svg(`<rect x="8" y="4" width="8" height="16" rx="2.5"/><path class="bsw-wave bsw-left" d="M5 9c-1.1 1-1.1 5 0 6"/><path class="bsw-wave bsw-right" d="M19 9c1.1 1 1.1 5 0 6"/>`),
   dnpw: svg(`<rect x="3.5" y="6" width="6" height="12" rx="1.5"/><rect x="14.5" y="6" width="6" height="12" rx="1.5"/><path d="M12 3v18" stroke-dasharray="2.5 2.5"/>`),
   ima:  svg(`<path d="M12 3v18M3 12h18"/><path d="M9.5 8.5L12 6l2.5 2.5M9.5 15.5L12 18l2.5-2.5"/>`),
 };
@@ -175,22 +227,25 @@ function setUSBeepState(state) {
 const activeToasts = new Map();   // key -> { el, timer }
 const TOAST_AUTO_MS = 4000;       // self-clear if the cause isn't re-asserted within this
 
-function showToast(key, name) {
+function showToast(key, name, desc) {
   const existing = activeToasts.get(key);
-  if (existing) {                 // already up: just keep the watchdog alive
+  if (existing) {                 // already up: keep the watchdog alive + refresh text
     clearTimeout(existing.timer);
     existing.timer = setTimeout(() => removeToast(key), TOAST_AUTO_MS);
+    const d = existing.el.querySelector(".toast-desc");
+    if (d && desc) d.textContent = desc;   // BSW side may have changed
     return;
   }
   const el = document.createElement("div");
   el.className = "toast";
   el.innerHTML = `
-    <span class="toast-icon">⚠️</span>
+    <span class="toast-icon">${ADAS_ICONS[key] || "⚠️"}</span>
     <div class="toast-body">
       <div class="toast-title">${name}</div>
-      <div class="toast-desc">Warning detected — monitor situation</div>
+      <div class="toast-desc"></div>
     </div>
     <button class="toast-close" onclick="removeToast('${key}')">✕</button>`;
+  el.querySelector(".toast-desc").textContent = desc || "Warning detected — monitor situation";
   $("toastContainer").appendChild(el);
   activeToasts.set(key, { el, timer: setTimeout(() => removeToast(key), TOAST_AUTO_MS) });
   playWarningBeep();
@@ -211,14 +266,24 @@ function removeToast(key) {
 // arriving, the watchdog timer below hides it instead of leaving it stuck.
 let activeCritical = null, criticalSoundInterval = null, criticalTimer = null;
 const CRITICAL_AUTO_MS = 4000;    // self-clear if the danger isn't re-asserted within this
-function showCritical(key, name) {
+function showCritical(key, name, info, adas) {
   if (criticalTimer) clearTimeout(criticalTimer);
   criticalTimer = setTimeout(hideCritical, CRITICAL_AUTO_MS);   // re-arm watchdog
+  // Always refresh the text (the BSW side can change while the alert is held);
+  // only the one-time setup (icon swap, alarm) is gated on a new key.
+  const abbr = (WARNINGS.find(([k]) => k === key) || [])[1] || key.toUpperCase();
+  $("criticalTitle").textContent = `${abbr} — ${name}`;
+  $("criticalMsg").textContent = (info && info.crit) || `${name} — Critical danger!`;
+  $("criticalSystem").textContent = (info && info.cause) || name;
+  const iconEl = $("criticalIcon");
+  if (iconEl) {
+    iconEl.innerHTML = ADAS_ICONS[key] || "⚠";
+    // BSW: highlight the wave on the threat side, same as the ADAS grid.
+    if (key === "bsw") iconEl.setAttribute("data-side", (adas && adas.bswSide) || "both");
+    else iconEl.removeAttribute("data-side");
+  }
   if (activeCritical === key) return;
   activeCritical = key;
-  $("criticalTitle").textContent = "CRITICAL ALERT";
-  $("criticalMsg").textContent = CRITICAL_MESSAGES[key] || `${name} — Critical danger!`;
-  $("criticalSystem").textContent = name;
   $("criticalOverlay").style.display = "flex";
   playErrorAlarm();
   if (criticalSoundInterval) clearInterval(criticalSoundInterval);
@@ -270,17 +335,25 @@ function updateAdasGrid(adas) {
     else if (flag === 1) { card.className = "adas-card warn"; status.textContent = "WARNING"; }
     else if (flag === 3) { card.className = "adas-card warn"; status.textContent = "INVALID"; }
     else                 { card.className = "adas-card safe"; status.textContent = "SAFE"; }
+    // BSW: highlight the wave on the side the threat is on, so left vs right is
+    // readable at a glance. side-* drives the wave colour via CSS.
+    if (key === "bsw") {
+      const active = flag === 1 || flag === 2;
+      const side = active ? (adas.bswSide || "both") : "none";
+      card.setAttribute("data-side", side);
+    }
   }
 }
 
 // ==================== Alert + event logic ====================
 const prevStates = {}, prevSensor = {};
 function processAlerts(adas) {
-  let highestCritKey = null, highestCritName = null;
+  let highestCritKey = null, highestCritName = null, highestCritInfo = null;
   for (const [key, abbr, name] of WARNINGS) {
     const flag = adas[key] || 0;
     const prev = prevStates[key] || 0;
-    if (flag === 1) showToast(key, `${abbr} — ${name}`);
+    const info = alertInfo(key, adas);   // per-module wording (BSW resolves side)
+    if (flag === 1) showToast(key, `${abbr} — ${name}`, info && info.desc);
     else removeToast(key);   // any non-warning state clears it right away (no-op if not shown)
     if (flag !== prev) {
       if (flag === 2)      addEvent(`${abbr} Triggered`, "crit");
@@ -288,10 +361,12 @@ function processAlerts(adas) {
       else if (flag === 3) addEvent(`${abbr} Invalid Reading`, "warn");
       else                 addEvent(`${abbr} Cleared`, "safe");
     }
-    if (flag === 2 && !highestCritKey) { highestCritKey = key; highestCritName = `${abbr} — ${name}`; }
+    if (flag === 2 && !highestCritKey) {
+      highestCritKey = key; highestCritName = name; highestCritInfo = info;
+    }
     prevStates[key] = flag;
   }
-  if (highestCritKey) { removeToast(highestCritKey); showCritical(highestCritKey, highestCritName); }
+  if (highestCritKey) { removeToast(highestCritKey); showCritical(highestCritKey, highestCritName, highestCritInfo, adas); }
   else hideCritical();
 }
 
@@ -299,11 +374,12 @@ function processAlerts(adas) {
 function processUltrasonic(ultra) {
   let worst = "clear";
   for (const [key, label] of SENSORS) {
-    const cm = ultra && ultra[key] != null ? ultra[key] : RANGE_CM + 1;
+    const band = US_BANDS[key];
+    const cm = ultra && ultra[key] != null ? ultra[key] : band.range + 1;
     let state = "off";
-    if (cm < CLOSE_CM)       state = "close";
-    else if (cm < NEAR_CM)   state = "near";
-    else if (cm <= RANGE_CM) state = "clear";
+    if (cm < band.close)       state = "close";
+    else if (cm < band.near)   state = "near";
+    else if (cm <= band.range) state = "clear";
 
     const g = $(`sn-${key}`);
     if (g) {

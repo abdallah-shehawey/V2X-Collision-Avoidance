@@ -144,3 +144,15 @@ uint8_t BSW_u8GetSeverity(void)
 {
   return (BSW_AlertLeft > BSW_AlertRight) ? BSW_AlertLeft : BSW_AlertRight;
 }
+
+/**
+ * @brief Get the receiver-side blind-spot severity PER SIDE, packed into one
+ *        byte so the Raspberry Pi can distinguish LEFT from RIGHT (the worst-of
+ *        getter above collapses both sides into a single number).
+ * @return (BSW_AlertLeft & 0x3) | ((BSW_AlertRight & 0x3) << 2)
+ *         bits 1:0 = LEFT severity (0/1/2), bits 3:2 = RIGHT severity (0/1/2)
+ */
+uint8_t BSW_u8GetSidesSeverity(void)
+{
+  return (uint8_t)((BSW_AlertLeft & 0x3U) | ((BSW_AlertRight & 0x3U) << 2));
+}

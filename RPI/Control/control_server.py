@@ -30,6 +30,7 @@ import os
 import socket
 import threading
 import time
+import urllib.request
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
@@ -53,6 +54,19 @@ MAX_SPEED     = 1.00
 KICK          = 0.70   # brief full-ish kick to break away from standstill
 KICK_T        = 0.12   # kick duration (s)
 IDLE_T        = 0.30   # stop the car if no command arrives for this long (watchdog)
+
+# ───────────────────────── ADAS safety guard ─────────────────────────────
+# The telemetry DashBoard (:8000) owns the live V2V state. We poll its /adas
+# endpoint and, on a CRITICAL, refuse the dangerous move so the car can't drive
+# into the hazard the firmware already flagged:
+#   • FCW critical            → block FORWARD ("F")
+#   • BSW critical on a side  → block the TURN into that side ("L" / "R")
+# The poll is best-effort: if the dashboard is down or slow we fail OPEN (no
+# restriction) so ordinary driving never depends on it.
+ADAS_URL      = "http://127.0.0.1:8000/adas"
+ADAS_POLL_S   = 0.15   # how often to refresh the ADAS snapshot
+ADAS_TIMEOUT  = 0.3    # per-request timeout (short — never stall a drive command)
+SYS_CRITICAL  = 2      # matches the firmware RiskLevel_t / sys_flags encoding
 
 
 # ───────────────────────── Motor layer (L298N) ───────────────────────────
@@ -138,6 +152,47 @@ _state = {"dir": "S", "speed": SPEED_DEFAULT, "last": 0.0}
 motors = Motors()
 
 
+# ───────────────────────── ADAS snapshot (from :8000) ─────────────────────
+# Latest ADAS state polled from the dashboard. Empty until the first successful
+# poll (and reset to empty on failure) → fail OPEN: no critical means no block.
+_adas_lock = threading.Lock()
+_adas: dict = {}
+
+
+def adas_poll_loop():
+    """Refresh the ADAS snapshot from the dashboard every ADAS_POLL_S. Best-effort:
+    any error (dashboard down, timeout, bad JSON) clears the snapshot so we fall
+    back to unrestricted driving instead of getting stuck on a stale CRITICAL."""
+    while True:
+        try:
+            with urllib.request.urlopen(ADAS_URL, timeout=ADAS_TIMEOUT) as r:
+                data = json.loads(r.read() or b"{}")
+            snap = data if isinstance(data, dict) else {}
+        except Exception:
+            snap = {}            # fail open — never let a dead link block driving
+        with _adas_lock:
+            _adas.clear()
+            _adas.update(snap)
+        time.sleep(ADAS_POLL_S)
+
+
+def blocked_reason(direction):
+    """Return a short reason string if the ADAS state forbids *direction* right
+    now, else None. FCW critical blocks forward; BSW critical blocks the turn
+    into the flagged blind-spot side."""
+    with _adas_lock:
+        fcw  = _adas.get("fcw", 0)
+        bsw  = _adas.get("bsw", 0)
+        side = _adas.get("bswSide")
+    if direction == "F" and fcw == SYS_CRITICAL:
+        return "FCW"
+    if direction == "L" and bsw == SYS_CRITICAL and side in ("left", "both"):
+        return "BSW-LEFT"
+    if direction == "R" and bsw == SYS_CRITICAL and side in ("right", "both"):
+        return "BSW-RIGHT"
+    return None
+
+
 def _clamp_speed(v):
     try:
         v = float(v)
@@ -147,14 +202,25 @@ def _clamp_speed(v):
 
 
 def set_command(direction, speed=None):
-    """Update the active command and drive the motors immediately."""
+    """Update the active command and drive the motors immediately. If the ADAS
+    state forbids the requested direction (FCW/BSW critical), it is downgraded to
+    a STOP before it ever reaches the motors. Returns the block reason (or None)."""
+    direction = direction if direction in ("F", "B", "L", "R", "S") else "S"
+
+    # ADAS override: a critical hazard turns the dangerous move into a stop so
+    # the car physically can't drive into it, no matter what the phone sends.
+    blocked = blocked_reason(direction)
+    if blocked:
+        direction = "S"
+
     with _state_lock:
         if speed is not None:
             _state["speed"] = _clamp_speed(speed)
-        _state["dir"] = direction if direction in ("F", "B", "L", "R", "S") else "S"
+        _state["dir"] = direction
         _state["last"] = time.time()
         d, s = _state["dir"], _state["speed"]
     motors.apply(d, s)
+    return blocked
 
 
 def watchdog_loop():
@@ -220,10 +286,10 @@ class Handler(SimpleHTTPRequestHandler):
         path = self.path.split("?")[0]
         data = self._read_json()
         if path == "/cmd":
-            set_command(str(data.get("dir", "S")), data.get("speed"))
+            blocked = set_command(str(data.get("dir", "S")), data.get("speed"))
             with _state_lock:
                 self._send_json({"ok": True, "dir": _state["dir"],
-                                 "speed": _state["speed"]})
+                                 "speed": _state["speed"], "blocked": blocked})
         elif path == "/speed":
             set_command(_state["dir"], data.get("speed"))
             with _state_lock:
@@ -245,6 +311,7 @@ def lan_ip():
 
 def main():
     threading.Thread(target=watchdog_loop, daemon=True).start()
+    threading.Thread(target=adas_poll_loop, daemon=True).start()  # ADAS safety guard
 
     handler = partial(Handler, directory=HERE)
     server = ThreadingHTTPServer(("0.0.0.0", PORT), handler)

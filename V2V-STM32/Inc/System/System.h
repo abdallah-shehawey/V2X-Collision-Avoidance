@@ -158,9 +158,24 @@ typedef struct
 /* status (0/1/2) of one module from the packed word */
 #define SYS_GET(flags, pos) (((flags) >> (pos)) & SYS_MASK)
 
-/* ── RPi telemetry packet ──
- * Sent every 100ms via UART4.
- * Protocol: START(0xAA) | sys_flags | speed_f32 | heading_f32 | 6×US_f32 | END(0x55) */
+/* ── RPi telemetry ──
+ * Sent every 100ms by vTask_RPi_Comm as an ASCII, '\n'-delimited CSV line (the
+ * old binary 0xAA..0x55 packet was dropped because its zero-bytes were lost on
+ * the UART link). The RPi parser (server.py PACKET_FIELDS) must match this
+ * column order EXACTLY — change one side, change the other.
+ *
+ *   T,speed,heading,pitch,roll,FL,FC,FR,BL,BC,BR,flags,bsw_sides\n
+ *
+ *     speed              cm/s
+ *     heading            degrees 0-360
+ *     pitch, roll        degrees
+ *     FL..BR             6 ultrasonic distances [cm]
+ *     flags              G_u16SystemFlags: 2 bits/module (00 safe/01 warn/10 crit)
+ *     bsw_sides          per-side BSW severity: bits 1:0 LEFT, bits 3:2 RIGHT
+ *                        (lets the RPi report left / right / both — the
+ *                         aggregated BSW severity is already inside `flags`)
+ *
+ * The struct below is the legacy binary layout, kept for reference only. */
 typedef struct __attribute__((packed))
 {
   uint8_t start;      /* 0xAA */

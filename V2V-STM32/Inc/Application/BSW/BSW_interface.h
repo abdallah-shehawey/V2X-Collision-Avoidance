@@ -31,6 +31,15 @@ uint8_t BSW_u8GetBlindSpot(void);
  */
 uint8_t BSW_u8GetSeverity(void);
 
+/**
+ * @brief Get the receiver-side blind-spot severity PER SIDE, packed so the
+ *        Raspberry Pi can tell LEFT from RIGHT (BSW_u8GetSeverity only gives
+ *        the worst of the two and loses the side).
+ * @return byte = (left_severity & 0x3) | ((right_severity & 0x3) << 2)
+ *         bits 1:0 = LEFT severity (0/1/2), bits 3:2 = RIGHT severity (0/1/2)
+ */
+uint8_t BSW_u8GetSidesSeverity(void);
+
 /* ===== Per-Neighbor API (used by SafetyEngine) ===== */
 
 /**
