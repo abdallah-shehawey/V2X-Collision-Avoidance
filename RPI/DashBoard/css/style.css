@@ -307,13 +307,14 @@ body {
 @keyframes adas-blink { 0%,100% { box-shadow: 0 0 12px rgba(255,77,79,.12); } 50% { box-shadow: 0 0 22px rgba(255,77,79,.3); } }
 
 /* BSW side indicator: the wave on the threat side glows in the accent colour
-   while the quiet side dims, so left vs right reads instantly. */
-.adas-card .bsw-wave { transition: stroke .25s, opacity .25s; }
-.adas-card[data-side="left"]  .bsw-right,
-.adas-card[data-side="right"] .bsw-left { opacity: .25; }
-.adas-card[data-side="left"]  .bsw-left,
-.adas-card[data-side="right"] .bsw-right,
-.adas-card[data-side="both"]  .bsw-wave { stroke: var(--accent); filter: drop-shadow(0 0 4px var(--accent)); }
+   while the quiet side dims, so left vs right reads instantly. Applies to both
+   the ADAS grid card and the critical popup icon (anything with data-side). */
+.bsw-wave { transition: stroke .25s, opacity .25s; }
+[data-side="left"]  .bsw-right,
+[data-side="right"] .bsw-left { opacity: .25; }
+[data-side="left"]  .bsw-left,
+[data-side="right"] .bsw-right,
+[data-side="both"]  .bsw-wave { stroke: var(--accent); filter: drop-shadow(0 0 4px var(--accent)); }
 
 /* ===================== Toast Notifications ===================== */
 .toast-container { position: fixed; top: 22px; right: 22px; z-index: 900; display: flex; flex-direction: column; gap: 12px; pointer-events: none; }

@@ -255,7 +255,7 @@ function removeToast(key) {
 // arriving, the watchdog timer below hides it instead of leaving it stuck.
 let activeCritical = null, criticalSoundInterval = null, criticalTimer = null;
 const CRITICAL_AUTO_MS = 4000;    // self-clear if the danger isn't re-asserted within this
-function showCritical(key, name, info) {
+function showCritical(key, name, info, adas) {
   if (criticalTimer) clearTimeout(criticalTimer);
   criticalTimer = setTimeout(hideCritical, CRITICAL_AUTO_MS);   // re-arm watchdog
   // Always refresh the text (the BSW side can change while the alert is held);
@@ -265,7 +265,12 @@ function showCritical(key, name, info) {
   $("criticalMsg").textContent = (info && info.crit) || `${name} — Critical danger!`;
   $("criticalSystem").textContent = (info && info.cause) || name;
   const iconEl = $("criticalIcon");
-  if (iconEl) iconEl.innerHTML = ADAS_ICONS[key] || "⚠";
+  if (iconEl) {
+    iconEl.innerHTML = ADAS_ICONS[key] || "⚠";
+    // BSW: highlight the wave on the threat side, same as the ADAS grid.
+    if (key === "bsw") iconEl.setAttribute("data-side", (adas && adas.bswSide) || "both");
+    else iconEl.removeAttribute("data-side");
+  }
   if (activeCritical === key) return;
   activeCritical = key;
   $("criticalOverlay").style.display = "flex";
@@ -350,7 +355,7 @@ function processAlerts(adas) {
     }
     prevStates[key] = flag;
   }
-  if (highestCritKey) { removeToast(highestCritKey); showCritical(highestCritKey, highestCritName, highestCritInfo); }
+  if (highestCritKey) { removeToast(highestCritKey); showCritical(highestCritKey, highestCritName, highestCritInfo, adas); }
   else hideCritical();
 }
 
