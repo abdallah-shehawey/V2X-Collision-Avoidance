@@ -17,11 +17,9 @@
 #include "semphr.h"
 
 
-#include "../Inc/Drivers/HAL/BUZZ/BUZ_interface.h"
 #include "../Inc/Drivers/MCAL/TIM/TIM_interface.h"
 #include "../Inc/Drivers/HAL/US/US_interface.h"
 #include "../Inc/Drivers/HAL/MPU9250/MPU9250_interface.h"
-#include "../Inc/Drivers/HAL/LED/LED_interface.h"
 #include "../Inc/Drivers/MCAL/USART/USART_intreface.h"
 #include "../Inc/Application/FCW_DNPW/FCW_DNPW_interface.h"
 #include "../Inc/Application/EEBL/EEBL_interface.h"
@@ -31,12 +29,9 @@
 #include "../Inc/Application/SafetyEngine/SafetyEngine_interface.h"
 #include "../Inc/Drivers/MCAL/IWDG/IWDG_interface.h"
 
-extern BUZ_Config_t      V2X_Buzzer;
 extern USART_Config_t    RPi_UART;
 extern US_Config_t FrontUS[3];
 extern US_Config_t BackUS[3];
-/* LEDs: FrontR=PC0, FrontL=PC1, BackR=PC2, BackL=PC3, Interior(driver)=PC7 */
-extern LED_Config_t FrontR_LED, FrontL_LED, BackR_LED, BackL_LED, Interior_LED;
 
 
 QueueHandle_t G_xESP_RX_Queue;        // queue for ESP32 communication
@@ -49,7 +44,7 @@ SemaphoreHandle_t G_xNeighborTableMutex;  // for neighbor table protection (neig
  * the IWDG ONLY while EVERY slot keeps advancing; if any task stalls (hard
  * fault, stack-overflow halt, infinite loop, ISR storm, or starvation) its slot
  * freezes → the refresh stops → the IWDG hardware-resets the MCU. */
-enum { HB_SAFETY = 0, HB_SENSORS, HB_ESP, HB_FEEDBACK, HB_RPI, HB_COUNT };
+enum { HB_SAFETY = 0, HB_SENSORS, HB_ESP, HB_RPI, HB_COUNT };
 volatile uint32_t G_au32Heartbeat[HB_COUNT] = {0};
 
 #define WDG_TIMEOUT_MS        2000U   /* IWDG hardware reset timeout (LSI-backed) */
@@ -59,7 +54,6 @@ volatile uint32_t G_au32Heartbeat[HB_COUNT] = {0};
 /* ================== Task Prototypes ================== */
 void vTask_SafetyEngine(void *pvParameters);
 void vTask_Sensors(void *pvParameters);
-void vTask_Feedback(void *pvParameters);
 
 /* Communication Tasks */
 void vTask_ESP_Comm(void *pvParameters);
@@ -91,9 +85,8 @@ int main(void)
   xTaskCreate(vTask_ESP_Comm,     "ESP_Comm_Task",     configMINIMAL_STACK_SIZE + 128, NULL, 4, NULL);
   /* --- Medium Priority: Data Acquisition (priority 3 — US blocking preempted by priority 4) --- */
   xTaskCreate(vTask_Sensors,      "Sensors_Task",      configMINIMAL_STACK_SIZE + 256, NULL, 3, NULL);
-  /* --- Low Priority: Actuator Execution & UI/RPi --- */
-  xTaskCreate(vTask_Feedback,     "Feedback_Task",     configMINIMAL_STACK_SIZE + 128, NULL, 2, NULL);
-  xTaskCreate(vTask_RPi_Comm,     "RPi_Comm_Task",     configMINIMAL_STACK_SIZE + 256, NULL, 1, NULL);
+  /* --- Low Priority: Raspberry Pi telemetry --- */
+  xTaskCreate(vTask_RPi_Comm,     "RPi_Comm_Task",     configMINIMAL_STACK_SIZE + 256, NULL, 2, NULL);
   /* --- Lowest Priority: liveness monitor → kicks the IWDG (must run last) --- */
   xTaskCreate(vTask_Watchdog,     "Watchdog_Task",     configMINIMAL_STACK_SIZE,       NULL, 1, NULL);
 
@@ -117,7 +110,7 @@ int main(void)
  * Every 50ms: takes BOTH mutexes (neighbor table + host state), then
  * SafetyEngine_voidUpdate() runs detection for ALL modules in one pass and
  * aggregates the result into the G_u16SystemFlags status word (2 bits/module)
- * consumed by vTask_Feedback and vTask_RPi_Comm.
+ * consumed by vTask_RPi_Comm (telemetry) and broadcast by vTask_ESP_Comm.
  *
  * Lock order: NeighborTable → Data. vTask_ESP_Comm takes them separately
  * (never nested) and vTask_Sensors takes Data only → no deadlock possible.
@@ -228,62 +221,6 @@ void vTask_Sensors(void *pvParameters)
 
     /* ── Small adaptive gap (other tasks get CPU; sets min scan spacing) ── */
     vTaskDelay(pdMS_TO_TICKS(SENSORS_CYCLE_GAP_MS));
-  }
-}
-/**
- * @brief Alert manager (the "Muscle"): drives the LEDs + buzzer from the ADAS
- *        status word. It makes NO decision of its own — it only renders the
- *        severity that vTask_SafetyEngine already published. (Motors are driven
- *        by the Raspberry Pi, not here.)
- *
- * Reads G_u16SystemFlags (2 bits/module: 00 safe / 01 warning / 10 critical) and
- * maps it to the actuators exactly as agreed:
- *   • all safe (word == 0)        → everything OFF.
- *   • ANY alert (warning or crit) → interior dashboard LED + buzzer ON.
- *   • FCW  == CRITICAL            → additionally the FRONT LEDs.
- *   • EEBL == CRITICAL            → additionally the REAR  LEDs.
- *   • everything else (BSW/DNPW/IMA, or FCW/EEBL at WARNING) adds no extra LED —
- *     the interior LED + buzzer is their full response.
- */
-void vTask_Feedback(void *pvParameters)
-{
-  for(;;)
-  {
-    G_au32Heartbeat[HB_FEEDBACK]++;
-
-    /* Single atomic read of the volatile status word (uint16 read is atomic on M4). */
-    uint16_t flags = G_u16SystemFlags;
-
-    if (flags == 0)
-    {
-      /* ── ALL SAFE: no hazard from any module → silence everything ── */
-      LED_TurnOff(&FrontR_LED);
-      LED_TurnOff(&FrontL_LED);
-      LED_TurnOff(&BackR_LED);
-      LED_TurnOff(&BackL_LED);
-      LED_TurnOff(&Interior_LED);
-      BUZ_Off(&V2X_Buzzer);
-    }
-    else
-    {
-      /* ── ANY alert (any module, warning OR critical) → warn the driver ── */
-      LED_TurnOn(&Interior_LED);
-      BUZ_On(&V2X_Buzzer);
-
-      /* FCW CRITICAL → front LEDs (imminent forward collision). */
-      if (SYS_GET(flags, SYS_FCW_POS) == SYS_CRITICAL)
-      { LED_TurnOn(&FrontR_LED);  LED_TurnOn(&FrontL_LED);  }
-      else
-      { LED_TurnOff(&FrontR_LED); LED_TurnOff(&FrontL_LED); }
-
-      /* EEBL CRITICAL → rear LEDs (hard braking → warn the car behind). */
-      if (SYS_GET(flags, SYS_EEBL_POS) == SYS_CRITICAL)
-      { LED_TurnOn(&BackR_LED);  LED_TurnOn(&BackL_LED);  }
-      else
-      { LED_TurnOff(&BackR_LED); LED_TurnOff(&BackL_LED); }
-    }
-
-    vTaskDelay(pdMS_TO_TICKS(25));
   }
 }
 

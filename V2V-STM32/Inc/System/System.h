@@ -67,11 +67,11 @@
  * | Task Name              | Priority | Stack (+base) | Freq               | Description                                   |
  * |------------------------|----------|---------------|--------------------|-----------------------------------------------|
  * | [1] vTask_SafetyEngine | 4 (MAX)  | +256          | ~50 ms             | Single-pass ADAS brain (FCW/EEBL/BSW/DNPW/IMA)|
- * |                        |          |               |                    | + feedback aggregation → command channel      |
+ * |                        |          |               |                    | + flags aggregation → G_u16SystemFlags        |
  * | [1] vTask_ESP_Comm     | 4 (MAX)  | +128          | ~10ms RX/100ms TX  | ESP-NOW V2X communication                     |
  * | [2] vTask_Sensors      | 3        | +256          | ~25-82 ms adaptive | All 6 US (interrupt, 2m cap) + MPU9250         |
- * | [3] vTask_Feedback     | 2        | +128          | ~25 ms             | Alert manager (LEDs + Buzzer; motors on RPi)  |
- * | [4] vTask_RPi_Comm     | 1 (LOW)  | +100          | ~100 ms            | Raspberry Pi telemetry TX (status + sensors)  |
+ * | [3] vTask_RPi_Comm     | 2        | +256          | ~100 ms            | Raspberry Pi telemetry TX (status + sensors)  |
+ * | [4] vTask_Watchdog     | 1 (LOW)  | minimal       | ~300 ms            | Liveness monitor → kicks the IWDG             |
  *
  * NOTE: Priority 4 is the highest user priority. Priority 0 is the FreeRTOS Idle task.
  *       configMAX_SYSCALL_INTERRUPT_PRIORITY = 5  → NVIC_USART1 must be set to ≥ 6.
@@ -79,18 +79,16 @@
  *       during each echo, CPU free) + MPU, then a 10ms gap. Scan is adaptive:
  *       near objects → ~25ms, all out-of-range → ~72ms (2m cap). Reads are
  *       sequential → no acoustic cross-talk. Priority 3 (producer) sits below the
- *       priority-4 ADAS/comm tasks but above the priority-2 Feedback consumer.
+ *       priority-4 ADAS/comm tasks but above the priority-2 RPi_Comm consumer.
  *
- *       ADAS architecture = SINGLE-PASS, with a clean Brain/Muscle split:
+ *       ADAS architecture = SINGLE-PASS (detection-only brain):
  *         • vTask_SafetyEngine (Brain, detection-only): runs all modules over the
  *           neighbor table in ONE pass; each module reports its risk level. Then it
  *           publishes G_u16SystemFlags (2 bits/module: 00 safe / 01 warning / 10 crit).
  *           It makes NO actuator decision. Holds both mutexes (NeighborTable → Data).
- *         • vTask_Feedback (Muscle): reads G_u16SystemFlags; if 0 → everything off.
- *           Any alert → interior LED + buzzer ON. Additionally: FCW CRITICAL → front
- *           LEDs, EEBL CRITICAL → rear LEDs. All other states add no external LED.
- *           NO motor control — the Raspberry Pi drives the motors from the telemetry.
- *       Lock usage: ESP_Comm takes the two mutexes separately, Sensors & Feedback take
+ *       The status word is consumed by vTask_RPi_Comm (telemetry) and broadcast by
+ *       vTask_ESP_Comm; the Raspberry Pi renders alerts and drives the motors.
+ *       Lock usage: ESP_Comm takes the two mutexes separately, Sensors & RPi_Comm take
  *       Data only → deadlock-free.
  * ========================================================================================
  */
@@ -117,7 +115,7 @@ typedef struct
 /* ════════════════════════════════════════════════════════════════════════
  *  G_u16SystemFlags — system status word (2 bits per ADAS module)
  * ════════════════════════════════════════════════════════════════════════
- *  SafetyEngine writes it; vTask_Feedback and vTask_RPi_Comm read it.
+ *  SafetyEngine writes it; vTask_RPi_Comm reads it (broadcast by vTask_ESP_Comm).
  *  Each module occupies 2 bits:
  *        0b00 = SAFE      (no hazard)
  *        0b01 = WARNING   (caution — slow down)

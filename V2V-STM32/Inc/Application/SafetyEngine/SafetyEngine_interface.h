@@ -54,8 +54,8 @@ void SafetyEngine_voidInit(void);
 /**
  * @brief Single-pass update over the DSRC neighbor table.
  *        Runs all safety modules in ONE pass and aggregates the result into the
- *        G_u16SystemFlags status word (2 bits/module) for vTask_Feedback and
- *        vTask_RPi_Comm to consume.
+ *        G_u16SystemFlags status word (2 bits/module) for vTask_RPi_Comm to
+ *        consume (and vTask_ESP_Comm to broadcast).
  */
 void SafetyEngine_voidUpdate(void);
 
