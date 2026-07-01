@@ -39,11 +39,11 @@ Publishes:
                 2 = LEFT  zone (128–256 px)
             lead_car_collision_flag : int
                 0 = normal (no risk)
-                1 = collision risk — a lead car is stopped in the
-                    crossing zone despite the light saying GO (or
-                    about to change), AND it's too close (DANGER
-                    proximity) — i.e. it's stopped wrong and close
-                    enough that a rear-end collision is plausible
+                1 = WARNING — a lead car is stopped in the crossing zone
+                    despite the light saying GO (or about to change),
+                    at a moderate ("close") distance
+                2 = DANGER  — same wrong-stop situation, but "too close" —
+                    a rear-end collision is plausible
 
     "motorcycle_alert"
         Emitted only when a motorcycle is in the crossing zone with
@@ -182,8 +182,8 @@ def _publish_v2p_frame(pedestrian_flag: int, position_flag: int,
     position_flag   : int
         0 = no one in a critical zone, 1 = RIGHT zone, 2 = LEFT zone
     lead_car_collision_flag : int
-        0 = normal, 1 = a wrongly-stopped lead car is close enough to
-            pose a real collision risk
+        0 = normal, 1 = WARNING (wrongly-stopped lead car at moderate
+            distance), 2 = DANGER (wrongly-stopped lead car too close)
     """
     _ipc.publish("v2p_frame", {
         "pedestrian_flag":          pedestrian_flag,
@@ -733,15 +733,27 @@ try:
                 elif CAR_TRAFFIC_LIGHT == "GREEN":
                     add_warning(warnings_dict, obj_id, "CROSSING",
                                 f"! Car Stopped on GREEN - Check Road! (#{obj_id})", (0,0,200), pos_label)
-                    # Stopped wrong (light says GO) AND close enough to be a
-                    # real rear-end risk → collision flag.
+                    # Stopped wrong (light says GO) — grade the risk by how
+                    # close it is: DANGER → 2, WARNING → 1, else stays 0.
                     if prox_level == "DANGER":
-                        frame_lead_car_flag = 1
+                        lead_car_this = 2
+                    elif prox_level == "WARNING":
+                        lead_car_this = 1
+                    else:
+                        lead_car_this = 0
+                    if lead_car_this > frame_lead_car_flag:
+                        frame_lead_car_flag = lead_car_this
                 elif CAR_TRAFFIC_LIGHT in ("AMBER", "YELLOW"):
                     add_warning(warnings_dict, obj_id, "APPROACHING",
                                 f"~ Car Stopped on AMBER. Prepare. (#{obj_id})", (0,165,255), pos_label)
                     if prox_level == "DANGER":
-                        frame_lead_car_flag = 1
+                        lead_car_this = 2
+                    elif prox_level == "WARNING":
+                        lead_car_this = 1
+                    else:
+                        lead_car_this = 0
+                    if lead_car_this > frame_lead_car_flag:
+                        frame_lead_car_flag = lead_car_this
 
             if class_id == 0 and ("CROSSING" in str(intent_label)
                                   or (y1+y2)//2 > zone_y):

@@ -28,8 +28,9 @@ data.json fields written (matching the dashboard spec in the screenshots)
     "pedestrian":          int  — 0=safe, 1=standing near, 2=crossing(warning)
     "position":            int  — 0=no one, 1=RIGHT, 2=LEFT
     "motorcycleCollision":  int  — 0=no risk, 1=collision risk
-    "leadCarCollision":     int  — 0=normal, 1=collision risk (a lead car
-                                   stopped wrong and too close)
+    "leadCarCollision":     int  — 0=normal, 1=WARNING (stopped wrong,
+                                   moderate distance), 2=DANGER (stopped
+                                   wrong, too close)
 }
 
 NOTE: "ambulance", "crossingFlag" and "distanceToLightM" are no longer
@@ -172,8 +173,9 @@ def _on_v2p_frame(topic: str, payload: dict, sender: str) -> None:
 
     lead_car_collision_flag:
         0 = normal
-        1 = a lead car is stopped wrong (light says GO) and close enough
-            (DANGER proximity) to be a real rear-end collision risk
+        1 = WARNING — lead car stopped wrong (light says GO), moderate
+            distance
+        2 = DANGER  — lead car stopped wrong, too close (real risk)
     """
     try:
         pedestrian_flag = int(payload.get("pedestrian_flag", 0))
@@ -237,7 +239,7 @@ def main() -> None:
     print("  v2p.pedestrian     : 0=safe | 1=near | 2=crossing")
     print("  v2p.position       : 0=no one | 1=RIGHT | 2=LEFT")
     print("  v2p.motorcycleCollision: 0=ok | 1=risk")
-    print("  v2p.leadCarCollision   : 0=ok | 1=risk (lead car stopped wrong + close)")
+    print("  v2p.leadCarCollision   : 0=ok | 1=WARNING | 2=DANGER (stopped wrong)")
     print("=" * 60)
 
     node = IPCNode(NODE_NAME)
