@@ -10,6 +10,12 @@
 #define ESPNOW_CHANNEL 6
 #define VEHICLE_ID 2
 
+// Set to 1 only when debugging with the serial monitor. At 115200 baud a full ~10-line
+// per-packet dump takes ~30 ms of blocking time — inside OnDataRecv (Wi-Fi task) and
+// loop() that is exactly what overflowed the UART RX buffer (papered over with
+// setRxBufferSize(1024)). Keep it 0 in release: one short line per packet.
+#define DEBUG_VERBOSE 0
+
 // ====== Struct ======
 // MUST match the STM32 Neighbor struct byte-for-byte (V2V-STM32/Inc/Application/DSRC/DSRC.h).
 // The ESP only forwards raw bytes between UART and ESP-NOW, so field order/size/types
@@ -82,7 +88,9 @@ void send_espnow(Neighbor *n)
 // ============================================================
 void OnDataSent(const wifi_tx_info_t *info, esp_now_send_status_t status)
 {
+#if DEBUG_VERBOSE
   Serial.println(status == ESP_NOW_SEND_SUCCESS ? "[ESP-NOW] TX: OK" : "[ESP-NOW] TX: FAIL");
+#endif
 }
 
 void OnDataRecv(const esp_now_recv_info_t *info, const uint8_t *data, int len)
@@ -99,6 +107,7 @@ void OnDataRecv(const esp_now_recv_info_t *info, const uint8_t *data, int len)
     return;
   }
   // print received data from ESP-NOW
+#if DEBUG_VERBOSE
   Serial.println("====== [ESP-NOW RX] ======");
   Serial.printf("Vehicle ID : %d\n", n.vehicle_id);
   Serial.printf("Speed      : %.2f\n", n.speed);
@@ -108,10 +117,15 @@ void OnDataRecv(const esp_now_recv_info_t *info, const uint8_t *data, int len)
   Serial.printf("Dist Inter : %.2f\n", n.distance_to_intersection);
   Serial.printf("IMA Flag   : %d\n", n.ima_flag);
   Serial.println("==========================");
+#else
+  Serial.printf("[ESP-NOW RX] id=%d spd=%.1f\n", n.vehicle_id, n.speed);
+#endif
 
   // forward to STM32 via UART
   send_to_stm32(&n);
+#if DEBUG_VERBOSE
   Serial.println("[UART] Forwarded to STM32");
+#endif
 }
 
 void parse_byte(uint8_t byte)
@@ -149,6 +163,7 @@ void parse_byte(uint8_t byte)
         memcpy(&n, rx_buf, sizeof(Neighbor));
 
         // print received data from STM32
+#if DEBUG_VERBOSE
         Serial.println("====== [UART RX] ======");
         Serial.printf("Vehicle ID : %d\n", n.vehicle_id);
         Serial.printf("Speed      : %.2f\n", n.speed);
@@ -158,10 +173,15 @@ void parse_byte(uint8_t byte)
         Serial.printf("Dist Inter : %.2f\n", n.distance_to_intersection);
         Serial.printf("IMA Flag   : %d\n", n.ima_flag);
         Serial.println("=======================");
+#else
+        Serial.printf("[UART RX] id=%d spd=%.1f\n", n.vehicle_id, n.speed);
+#endif
 
         // forward to other ESP32 via ESP-NOW
         send_espnow(&n);
+#if DEBUG_VERBOSE
         Serial.println("[ESP-NOW] Forwarded");
+#endif
       }
       else
       {

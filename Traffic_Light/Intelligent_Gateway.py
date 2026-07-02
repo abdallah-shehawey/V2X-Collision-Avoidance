@@ -11,18 +11,20 @@ import json
 import threading
 import time
 
+# Shared, env-overridable connection + identity config (single source of truth).
+# Fixes the startup NameError (BROKER/PORT/USERNAME/PASSWORD were never defined here)
+# and the AMBULANCE_ID drift ("REX" here vs "T4RR" in the cameras).
+from v2x_config import BROKER, PORT, USERNAME, PASSWORD, AMBULANCE_ID
+
 
 # ============================================================
 # MQTT TOPICS
 # ============================================================
-CAMERA_TOPIC          = "v2n/camera/detection"         
-CAMERA_DETECTION_TOPIC= "v2n/camera/vehicle_data"      
+CAMERA_TOPIC          = "v2n/camera/detection"
+CAMERA_DETECTION_TOPIC= "v2n/camera/vehicle_data"
 TRAFFIC_TOPIC         = "v2n/traffic/light/state"
 VEHICLE_TOPIC         = "v2n/vehicle/presence"
 PROCESSED_TOPIC       = "V2X/zone1/traffic/processed"
-
-# Unique hardware identification for prioritized vehicles
-AMBULANCE_ID = "REX"
 
 # ============================================================
 # GLOBAL SHARED RUNTIME STATE
@@ -62,22 +64,32 @@ def cleanup_registry():
     while True:
         time.sleep(2)
         current_time = int(time.time())
+
+        # Phase 1 — registry mutation under registry_lock ONLY.
+        # We must NOT take state_lock while holding registry_lock here: cleanup takes
+        # registry_lock first, but process_and_publish() takes state_lock first, so
+        # nesting them in this thread would create an ABBA deadlock. Collect now,
+        # update shared state after the lock is released.
         with registry_lock:
-            to_delete = []
-            for pid, data in vehicle_registry.items():
-                if current_time - data.get("last_seen", 0) > 5:
-                    to_delete.append(pid)
-            
+            to_delete = [
+                pid for pid, data in vehicle_registry.items()
+                if current_time - data.get("last_seen", 0) > 5
+            ]
             for pid in to_delete:
                 print(f"🧹 Clearing stale vehicle data: {pid}")
                 vehicle_registry.pop(pid, None)
-                if pid == AMBULANCE_ID:
-                    with state_lock:
-                        camera_ambulance = False
-        
-        if not vehicle_registry:
-            with state_lock:
-                camera_ambulance = False
+
+            # Derive the emergency flag purely from what the camera currently sees.
+            # This makes it impossible to stay latched ON after the ambulance record
+            # expires while normal cars keep the registry non-empty.
+            any_ambulance = any(
+                (pid == AMBULANCE_ID) or data.get("is_ambulance")
+                for pid, data in vehicle_registry.items()
+            )
+
+        # Phase 2 — shared-state update under state_lock ONLY (registry_lock released).
+        with state_lock:
+            camera_ambulance = any_ambulance
 
 
 def traffic_light_watchdog():
@@ -159,21 +171,23 @@ def process_and_publish():
 
         # Handle active priority preemption logging and alerting
         if is_emergency:
-            emergency_plate = None
+            # Report the AMBULANCE's own plate + distance, not whichever vehicle
+            # happens to be closest to the camera (a nearer normal car would otherwise
+            # make the warning read "AMBULANCE at 3 m" while it is actually 40 m away).
+            emergency_plate, emergency_dist = None, None
             with registry_lock:
-                if AMBULANCE_ID in vehicle_registry:
-                    emergency_plate = AMBULANCE_ID
-                else:
-                    for pid, data in vehicle_registry.items():
-                        if data.get("is_ambulance"):
-                            emergency_plate = pid
-                            break
+                for pid, data in vehicle_registry.items():
+                    if pid == AMBULANCE_ID or data.get("is_ambulance"):
+                        emergency_plate = pid
+                        emergency_dist  = data.get("distance_m")
+                        break
 
-            if closest and closest.get("distance_m") is not None:
-                dist_val = closest["distance_m"]
-                output["warning"] = f"🚨 AMBULANCE APPROACHING [{emergency_plate or AMBULANCE_ID}] at {dist_val}m! NORMAL CARS MUST STOP! 🚨"
+            if emergency_dist is not None:
+                output["warning"] = (f"🚨 AMBULANCE APPROACHING [{emergency_plate}] "
+                                     f"at {emergency_dist}m! NORMAL CARS MUST STOP! 🚨")
             else:
-                output["warning"] = f"🚨 AMBULANCE APPROACHING [{emergency_plate or AMBULANCE_ID}]! NORMAL CARS MUST STOP! 🚨"
+                output["warning"] = (f"🚨 AMBULANCE APPROACHING [{emergency_plate or AMBULANCE_ID}]! "
+                                     f"NORMAL CARS MUST STOP! 🚨")
 
         client.publish(PROCESSED_TOPIC, json.dumps(output))
         print(f"📤 Forwarded -> state:{latest_state} | code:{latest_transition_code} | time:{latest_time}s | emergency:{is_emergency}")
@@ -228,13 +242,19 @@ def on_message(client, userdata, msg):
 
         # Handle binary legacy classification feeds
         elif msg.topic == CAMERA_TOPIC:
-            if "Ambulance verified" in payload_str or "ambulance" in payload_str.lower():
-                with state_lock:
-                    camera_confirmed = True
-                print(f"📸 [Gateway AI-Log] Legacy Camera confirmed Ambulance!")
-            else:
-                with state_lock:
-                    camera_confirmed = False
+            # Only an explicit positive phrase confirms an ambulance. A bare substring
+            # match on "ambulance" also fires on "no ambulance", "ambulance cleared",
+            # "searching for ambulance", etc. — any of which would wrongly latch the
+            # junction into emergency preemption.
+            p = payload_str.lower()
+            POSITIVE_PHRASES = ("ambulance verified", "ambulance detected", "ambulance confirmed")
+            NEGATIVE_HINTS   = ("no ambulance", "not ambulance", "cleared")
+            is_positive = (any(s in p for s in POSITIVE_PHRASES)
+                           and not any(s in p for s in NEGATIVE_HINTS))
+            with state_lock:
+                camera_confirmed = is_positive
+            if is_positive:
+                print("📸 [Gateway AI-Log] Legacy Camera confirmed Ambulance!")
             process_and_publish()
 
         # Handle state broadcast synchronizations received from the RSU Traffic Light Controller

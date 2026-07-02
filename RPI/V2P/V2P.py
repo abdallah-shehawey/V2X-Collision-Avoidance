@@ -243,6 +243,9 @@ class CentroidTracker:
         self.objects.pop(obj_id, None)
         self.objects_bbox.pop(obj_id, None)
         self.disappeared.pop(obj_id, None)
+        # history is keyed by the same ids and has no other cleanup path — drop it too,
+        # otherwise every object that ever crossed the camera leaks a deque forever.
+        self.history.pop(obj_id, None)
 
     def compute_iou(self, boxA: tuple, boxB: tuple) -> float:
         xA = max(boxA[0], boxB[0]);  yA = max(boxA[1], boxB[1])
@@ -552,6 +555,10 @@ time.sleep(1)
 print("Camera ready!")
 
 print(f"\nLoading ONNX model: {MODEL_PATH}")
+# The model is a large binary that is easy to lose (a 0-byte placeholder is committed
+# in git). Fail loudly and clearly instead of with a cryptic protobuf error.
+if not os.path.exists(MODEL_PATH) or os.path.getsize(MODEL_PATH) == 0:
+    sys.exit(f"[V2P] FATAL: {MODEL_PATH} is missing or empty — copy the real model first.")
 opts = ort.SessionOptions()
 # ★ OPTIMIZED: use 4 threads instead of 2 for better performance on Pi 5
 opts.intra_op_num_threads = 4
@@ -568,8 +575,11 @@ tracker = CentroidTracker(max_disappeared=25, max_distance=100)
 # 9. Runtime State
 # ============================================================
 frame_count  = 0
-# ★ OPTIMIZED: process every frame instead of skipping (skip_frames = 1)
-skip_frames  = 1
+# Infer at ~10 Hz and draw at full FPS (the overlay reuses last_objects between
+# inferences). Running the detector on every frame makes the Pi inference-bound —
+# real FPS drops and the intent analyzer sees jerky, unevenly-spaced motion.
+# Tune with the on-screen FPS counter.
+skip_frames  = 3
 fps          = 0
 fps_counter  = 0
 fps_time     = time.time()
@@ -588,6 +598,7 @@ print("=" * 60 + "\n")
 # 10. Main Loop (UPDATED with LEFT/RIGHT in terminal)
 # ============================================================
 _prev_moto_flag = 0    # track previous motorcycle flag to avoid redundant publishes
+_prev_v2p_frame = None  # track previous (ped, pos, lead) tuple — publish only on change
 
 try:
     while True:
@@ -717,8 +728,19 @@ try:
             # ── Motorcycle collision check ────────────────────────────
             if class_id == 3:   # motorcycle
                 in_zone = (y1+y2)//2 > zone_y
-                if in_zone and prox_level == "DANGER" and risk_level == "HIGH":
-                    frame_moto_flag = 1
+                if in_zone and prox_level == "DANGER":
+                    # A motorcycle in the crossing zone at DANGER proximity is the risk
+                    # scenario. Base it on motion the bike can actually have (tracker
+                    # speed); the old `risk_level == "HIGH"` check was dead code because
+                    # analyze_intent() returns "LOW" for every non-person class.
+                    pts = list(tracker.history[obj_id])
+                    moving = False
+                    if len(pts) >= 3:
+                        seg = [math.hypot(pts[i][0]-pts[i-1][0], pts[i][1]-pts[i-1][1])
+                               for i in range(1, len(pts))]
+                        moving = (sum(seg[-3:]) / min(3, len(seg))) > 1.0
+                    if moving:
+                        frame_moto_flag = 1
 
             # ── V2I Traffic Light Logic ──────────────────────────────
             hist = list(tracker.history[obj_id])
@@ -808,8 +830,14 @@ try:
                 tc    = tuple(int(c * alpha) for c in color)
                 cv2.line(frame, pts_hist[k-1], pts_hist[k], tc, 1)
 
-        # ── Publish to IPC hub (once per frame after processing all objects) ──
-        _publish_v2p_frame(frame_ped_flag, frame_pos_flag, frame_lead_car_flag)
+        # ── Publish to IPC hub (only when a flag actually changed) ──
+        # These flags change a few times per minute, not ~30×/second. Publishing every
+        # frame floods the hub and makes dashboard_bridge rewrite data.json to the SD
+        # card at frame rate. Send deltas only.
+        _v2p_now = (frame_ped_flag, frame_pos_flag, frame_lead_car_flag)
+        if _v2p_now != _prev_v2p_frame:
+            _prev_v2p_frame = _v2p_now
+            _publish_v2p_frame(*_v2p_now)
 
         if frame_moto_flag != _prev_moto_flag:
             _publish_motorcycle_alert(frame_moto_flag)

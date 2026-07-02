@@ -50,9 +50,11 @@ import os
 
 SOCKET_PATH = "/tmp/v2x_test.sock"
 
-# Maps each client name to its connection object.
-# Example: {"traffic_light_sim": <socket>, "v2p_camera": <socket>}
-clients: dict[str, socket.socket] = {}
+# Maps each client name to (connection, write_lock). The per-connection lock serializes
+# every write to that socket — its own acks and pub frames delivered by other threads —
+# so concurrent writes can never interleave and corrupt a client's JSON stream.
+# Example: {"traffic_light_sim": (<socket>, <Lock>), "v2p_camera": (<socket>, <Lock>)}
+clients: dict[str, tuple[socket.socket, threading.Lock]] = {}
 
 # Topic registry: maps topic name to the set of subscriber names.
 # Example: {"traffic_light": {"v2p_camera", "adas"}, "vehicle_data": {"adas"}}
@@ -78,6 +80,9 @@ def handle_client(conn: socket.socket) -> None:
     """
     client_name: str | None = None
     buffer = ""
+    # One write-lock for THIS connection, shared with every other thread that may
+    # deliver a frame to it (stored alongside the socket in `clients`).
+    conn_lock = threading.Lock()
 
     try:
         while True:
@@ -103,9 +108,9 @@ def handle_client(conn: socket.socket) -> None:
                 if cmd == "register":
                     client_name = msg["name"]
                     with lock:
-                        clients[client_name] = conn
+                        clients[client_name] = (conn, conn_lock)
                     print(f"[HUB] registered  : {client_name}")
-                    _send(conn, {"ok": True, "name": client_name})
+                    _send(conn, {"ok": True, "name": client_name}, conn_lock)
 
                 # ──────────────────────────────────────────────────────
                 # subscribe: add client to the topic's subscriber set
@@ -115,7 +120,7 @@ def handle_client(conn: socket.socket) -> None:
                     with lock:
                         topics.setdefault(topic, set()).add(client_name)
                     print(f"[HUB] subscribe   : {client_name} -> topic '{topic}'")
-                    _send(conn, {"ok": True, "subscribed": topic})
+                    _send(conn, {"ok": True, "subscribed": topic}, conn_lock)
 
                 # ──────────────────────────────────────────────────────
                 # publish: fan out to every subscriber of the topic
@@ -129,22 +134,26 @@ def handle_client(conn: socket.socket) -> None:
 
                     if not subscribers:
                         print(f"[HUB] publish     : '{topic}' — no subscribers")
-                        _send(conn, {"ok": True, "delivered_to": 0})
+                        _send(conn, {"ok": True, "delivered_to": 0}, conn_lock)
                         continue
 
-                    frame = json.dumps({
+                    frame_bytes = (json.dumps({
                         "topic": topic,
                         "data":  data,
                         "from":  client_name,
-                    }) + "\n"
+                    }) + "\n").encode("utf-8")
 
                     dead = set()
                     for subscriber_name in subscribers:
                         with lock:
-                            sub_conn = clients.get(subscriber_name)
-                        if sub_conn:
+                            entry = clients.get(subscriber_name)
+                        if entry:
+                            sub_conn, sub_lock = entry
                             try:
-                                sub_conn.sendall(frame.encode("utf-8"))
+                                # Serialize writes to this subscriber's socket so a frame
+                                # from another publisher thread cannot interleave with ours.
+                                with sub_lock:
+                                    sub_conn.sendall(frame_bytes)
                                 print(
                                     f"[HUB] deliver     : "
                                     f"'{topic}' -> {subscriber_name}"
@@ -162,7 +171,7 @@ def handle_client(conn: socket.socket) -> None:
                     _send(conn, {
                         "ok":          True,
                         "delivered_to": len(subscribers) - len(dead),
-                    })
+                    }, conn_lock)
 
     except (ConnectionResetError, BrokenPipeError, json.JSONDecodeError) as exc:
         print(f"[HUB] client error ({client_name}): {exc}")
@@ -178,15 +187,23 @@ def handle_client(conn: socket.socket) -> None:
 
 
 # ──────────────────────────────────────────────────────────────────────────────
-def _send(conn: socket.socket, obj: dict) -> None:
+def _send(conn: socket.socket, obj: dict,
+          wlock: "threading.Lock | None" = None) -> None:
     """
     Serialize *obj* to a newline-terminated JSON frame and write it.
 
     sendall() -> sys_send() in a loop — guarantees all bytes are written
-    to the kernel buffer even if it was temporarily full.
+    to the kernel buffer even if it was temporarily full. When *wlock* (the
+    connection's write-lock) is provided, the write is serialized against
+    concurrent deliveries to the same socket.
     """
+    data = (json.dumps(obj) + "\n").encode("utf-8")
     try:
-        conn.sendall((json.dumps(obj) + "\n").encode("utf-8"))
+        if wlock is not None:
+            with wlock:
+                conn.sendall(data)
+        else:
+            conn.sendall(data)
     except (BrokenPipeError, OSError):
         pass
 

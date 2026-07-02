@@ -22,23 +22,29 @@ print("="*60)
 # ============================================================
 # MQTT SERVER NETWORKING CONFIGURATION
 # ============================================================
-BROKER   = "2b6738facfbf40f1a86ba770618ae8a6.s1.eu.hivemq.cloud"
-PORT     = 8883
-USERNAME = "v2n_admin"
-PASSWORD = "V2n@2026!"
+# Shared broker + ambulance identity (single source of truth, env-overridable).
+from v2x_config import BROKER, PORT, USERNAME, PASSWORD, AMBULANCE_ID
 CAMERA_DETECTION_TOPIC = "v2n/camera/vehicle_data"
 
-AMBULANCE_ID = "T4RR"
+
+def _on_connect(client, userdata, flags, reason_code, properties=None):
+    # Authentication is confirmed here (in CONNACK), not by connect() returning.
+    if reason_code == 0:
+        print("✅ MQTT connected & authenticated.")
+    else:
+        print(f"❌ MQTT auth/connect failed: {reason_code}")
+
 
 mqtt_client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 mqtt_client.username_pw_set(USERNAME, PASSWORD)
 mqtt_client.tls_set(cert_reqs=ssl.CERT_REQUIRED)
+mqtt_client.on_connect = _on_connect
 
 try:
     print("🌐 Connecting to HiveMQ Cloud Server...")
     mqtt_client.connect(BROKER, PORT, 60)
     mqtt_client.loop_start()
-    print("✅ Successfully connected to MQTT Broker!")
+    print("🌐 MQTT connecting … (result reported by callback)")
 except Exception as e:
     print(f"❌ MQTT Connection Failed: {e}")
     print("⚠️ Script will execute locally without edge cloud sync capabilities.")

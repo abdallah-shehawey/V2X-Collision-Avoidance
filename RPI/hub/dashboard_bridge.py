@@ -75,6 +75,16 @@ TOPIC_MOTO_ALERT = "motorcycle_alert"
 
 _file_lock = threading.Lock()
 
+# Cross-process file lock so this bridge and server.py (which also writes data.json at
+# startup) can't clobber each other. fcntl is POSIX-only; on the Pi it is present, and
+# on a non-Linux dev box we simply fall back to the in-process thread lock.
+try:
+    import fcntl
+except ImportError:
+    fcntl = None
+
+LOCK_FILE = DATA_FILE + ".lock"
+
 
 # ─────────────────────────────────────────────────────────────
 # data.json helpers
@@ -88,19 +98,39 @@ def _load_data() -> dict:
 
 
 def _save_data(data: dict) -> None:
-    """Atomic write: tmp file → os.replace → real file."""
-    tmp = DATA_FILE + ".tmp"
+    """Atomic write: unique tmp file → os.replace → real file.
+
+    The tmp name includes the PID so two processes never open the SAME tmp path at
+    once (which would interleave bytes and race the two os.replace calls).
+    """
+    tmp = f"{DATA_FILE}.{os.getpid()}.tmp"
     with open(tmp, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
     os.replace(tmp, DATA_FILE)
 
 
 def _update_data(mutate) -> None:
-    """Thread-safe read → mutate → write."""
+    """Read → mutate → write, guarded by the thread lock AND (on POSIX) an
+    inter-process flock, and skipping the disk write when nothing actually changed.
+
+    Skipping unchanged writes cuts SD-card wear and SSE churn massively: the flags
+    change a few times per minute, not ~30–40×/second.
+    """
     with _file_lock:
-        data = _load_data()
-        mutate(data)
-        _save_data(data)
+        lk = None
+        if fcntl is not None:
+            lk = open(LOCK_FILE, "w")
+            fcntl.flock(lk, fcntl.LOCK_EX)   # blocks the other PROCESS, not just threads
+        try:
+            data = _load_data()
+            before = json.dumps(data, sort_keys=True)
+            mutate(data)
+            if json.dumps(data, sort_keys=True) != before:
+                _save_data(data)
+        finally:
+            if lk is not None:
+                fcntl.flock(lk, fcntl.LOCK_UN)
+                lk.close()
 
 
 # ─────────────────────────────────────────────────────────────

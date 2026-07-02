@@ -16,10 +16,8 @@ import ssl
 # ============================================================
 # 🌐 MQTT SERVER CONFIGURATION
 # ============================================================
-BROKER         = "2b6738facfbf40f1a86ba770618ae8a6.s1.eu.hivemq.cloud"
-PORT           = 8883
-USERNAME       = "v2n_admin"
-PASSWORD       = "V2n@2026!"
+# Shared broker config (single source of truth, env-overridable).
+from v2x_config import BROKER, PORT, USERNAME, PASSWORD
 TRAFFIC_TOPIC  = "v2n/traffic/light/state"
 
 # ============================================================
@@ -190,7 +188,10 @@ class TrafficLightGUI:
         if reason_code == 0:
             self.mqtt_connected = True
             self.set_connection_status(True)
-            self._publish_state()        
+            # This callback runs on paho's network thread; _publish_state() touches
+            # Tk widgets (code_label), which is not thread-safe. Hop back to the Tk
+            # main loop, same pattern as set_connection_status().
+            self.root.after(0, self._publish_state)
         else:
             self.mqtt_connected = False
             self.set_connection_status(False, f"⚠️ Auth Failed (code {reason_code})")
@@ -316,7 +317,9 @@ class TrafficLightGUI:
         if not self.simulation_active:
             return
         state, duration = self.SIM_SEQUENCE[self.sim_index % len(self.SIM_SEQUENCE)]
-        self._apply_update(state, duration)
+        # Only set the phase here; _sim_tick is the single place that publishes, so a
+        # phase change is no longer sent twice back-to-back.
+        self.state = (state or "RED").upper()
         self._sim_tick(duration)
 
     def _sim_tick(self, remaining):
@@ -328,9 +331,11 @@ class TrafficLightGUI:
         self._apply_update(self.state, remaining)
         if remaining <= 0:
             self.sim_index += 1
-            self.root.after(700, self._run_sim_step)
+            # No artificial 700 ms dead time: each phase now lasts exactly its
+            # configured duration, so the remaining_time the cars read matches reality.
+            self.sim_after_id = self.root.after(0, self._run_sim_step)
         else:
-            self.root.after(1000, lambda: self._sim_tick(remaining - 1))
+            self.sim_after_id = self.root.after(1000, lambda: self._sim_tick(remaining - 1))
 
     def _on_close(self):
         """

@@ -75,6 +75,12 @@ ADAS_POLL_S   = 0.15   # how often to refresh the ADAS snapshot
 ADAS_TIMEOUT  = 0.3    # per-request timeout (short — never stall a drive command)
 SYS_CRITICAL  = 2      # matches the firmware RiskLevel_t / sys_flags encoding
 
+# Optional shared-secret for the drive endpoints. Unset (default) → open, which is fine
+# for a supervised demo on a private network. On a shared university Wi-Fi, export
+# V2X_CTRL_TOKEN and have the controller send it as the "X-Auth" header so a random
+# person on the same network can't drive the car.
+CTRL_TOKEN    = os.environ.get("V2X_CTRL_TOKEN", "")
+
 # Smart-system flag values (see the dashboard's data.json spec)
 TL_STOP       = 2      # v2n.trafficLight: red light / not enough time to cross
 PED_CROSSING  = 2      # v2p.pedestrian: pedestrians actually crossing the road
@@ -193,7 +199,8 @@ def blocked_reason(direction):
     """Return a short reason string if the safety state forbids *direction*
     right now, else None. Forward is blocked by any frontal hazard (FCW
     critical, AI lead-car danger, red light, crossing pedestrians, motorcycle
-    risk); turns are blocked into a flagged blind-spot / V2P hazard side."""
+    risk); reverse is blocked by a critical rear obstacle; turns are blocked
+    into a flagged blind-spot / V2P hazard side."""
     with _adas_lock:
         fcw  = _adas.get("fcw", 0)
         bsw  = _adas.get("bsw", 0)
@@ -203,6 +210,7 @@ def blocked_reason(direction):
         pos  = _adas.get("position", 0)
         mcy  = _adas.get("motorcycleCollision", 0)
         lca  = _adas.get("leadCarCollision", 0)
+        rear = _adas.get("rearObstacle", 0)
     if direction == "F":
         if fcw == SYS_CRITICAL:
             return "FCW"
@@ -214,6 +222,11 @@ def blocked_reason(direction):
             return "PEDESTRIANS"
         if mcy:
             return "MOTORCYCLE"
+    if direction == "B":
+        # Reverse was previously never safety-blocked even though the car has rear
+        # ultrasonic sensors — a pedestrian/obstacle behind the car could not stop it.
+        if rear == SYS_CRITICAL:
+            return "REAR-OBSTACLE"
     if direction == "L":
         if bsw == SYS_CRITICAL and side in ("left", "both"):
             return "BSW-LEFT"
@@ -318,6 +331,10 @@ class Handler(SimpleHTTPRequestHandler):
 
     def do_POST(self):
         path = self.path.split("?")[0]
+        # Optional auth: when a token is configured, every drive command must carry it.
+        if CTRL_TOKEN and self.headers.get("X-Auth") != CTRL_TOKEN:
+            self._send_json({"ok": False, "error": "unauthorized"}, 403)
+            return
         data = self._read_json()
         if path == "/cmd":
             blocked = set_command(str(data.get("dir", "S")), data.get("speed"))

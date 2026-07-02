@@ -199,6 +199,19 @@ function getAudioCtx() {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   return audioCtx;
 }
+
+// Browser autoplay policy: an AudioContext created outside a user gesture starts in the
+// "suspended" state and produces NO sound — so on a freshly opened kiosk dashboard every
+// alarm/beep would be silent until someone happens to click the page. Resume it (and
+// prime it) on the first real user interaction, then stop listening.
+function unlockAudio() {
+  const ctx = getAudioCtx();
+  if (ctx.state === "suspended") ctx.resume();
+  document.removeEventListener("pointerdown", unlockAudio);
+  document.removeEventListener("keydown", unlockAudio);
+}
+document.addEventListener("pointerdown", unlockAudio);
+document.addEventListener("keydown", unlockAudio);
 function playWarningBeep() {
   try {
     const ctx = getAudioCtx();

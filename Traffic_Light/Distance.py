@@ -24,23 +24,30 @@ print("="*60)
 # ============================================================
 # 🌐 MQTT SERVER CONFIGURATION (HiveMQ Cloud)
 # ============================================================
-BROKER   = "2b6738facfbf40f1a86ba770618ae8a6.s1.eu.hivemq.cloud"
-PORT     = 8883
-USERNAME = "v2n_admin"
-PASSWORD = "V2n@2026!"
+# Shared broker + ambulance identity (single source of truth, env-overridable).
+from v2x_config import BROKER, PORT, USERNAME, PASSWORD, AMBULANCE_ID
 CAMERA_DETECTION_TOPIC = "v2n/camera/vehicle_data"
 
-AMBULANCE_ID = "T4RR"
+
+def _on_connect(client, userdata, flags, reason_code, properties=None):
+    # Authentication is confirmed here (in CONNACK), not by connect() returning.
+    # Without this, a wrong password still prints "connected" and publishes into the void.
+    if reason_code == 0:
+        print("✅ MQTT connected & authenticated.")
+    else:
+        print(f"❌ MQTT auth/connect failed: {reason_code}")
+
 
 mqtt_client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 mqtt_client.username_pw_set(USERNAME, PASSWORD)
 mqtt_client.tls_set(cert_reqs=ssl.CERT_REQUIRED)
+mqtt_client.on_connect = _on_connect
 
 try:
     print("🌐 Connecting to HiveMQ Cloud Server...")
     mqtt_client.connect(BROKER, PORT, 60)
     mqtt_client.loop_start()
-    print("✅ Successfully connected to MQTT Broker!")
+    print("🌐 MQTT connecting … (result reported by callback)")
 except Exception as e:
     print(f"❌ MQTT Connection Failed: {e}")
 
@@ -60,6 +67,9 @@ height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
 output_path = 'processed_output.mp4'
 out = cv2.VideoWriter(output_path, cv2.VideoWriter_fourcc(*'mp4v'), fps, (width, height))
+# The loop replays the video forever for continuous MQTT publishing, but we only
+# record ONE pass to disk — otherwise processed_output.mp4 grows until the SD card fills.
+recording = True
 
 car_detector = YOLO('yolov8n.pt')
 reader = easyocr.Reader(['en'], gpu=False, verbose=False)
@@ -73,6 +83,7 @@ MIN_CAR_WIDTH = 150
 # ============================================================
 FOCAL_LENGTH = 700          # Camera focal length constant (approx. equivalent to a 4mm lens)
 KNOWN_PLATE_WIDTH = 0.45    # Standard physical license plate width in meters (45 cm)
+MIN_OCR_CONF = 0.35         # Minimum EasyOCR confidence to accept a read (matches dis&AI_camera.py)
 
 def calculate_distance(plate_width_px, focal_length=FOCAL_LENGTH, known_width=KNOWN_PLATE_WIDTH):
     """
@@ -100,6 +111,10 @@ try:
         ret, frame = cap.read()
         if not ret:
             print("\n🔄 Video ended. Restarting loop...")
+            if recording:
+                recording = False
+                out.release()   # first full pass recorded — stop growing the file
+                print(f"💾 Recording finished: {output_path}")
             cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
             ret, frame = cap.read()
             if not ret:
@@ -112,7 +127,8 @@ try:
         # ============================================================
         if pause_mode:
             pause_frames_remaining -= 1
-            out.write(frame)
+            if recording:
+                out.write(frame)
             if pause_frames_remaining <= 0:
                 pause_mode = False
                 print("🔓 Camera processing resumed.")
@@ -148,7 +164,10 @@ try:
 
                             for (bbox, text, conf) in ocr_results:
                                 cleaned = re.sub(r'[^A-Z0-9]', '', text.upper().replace(' ', ''))
-                                if len(cleaned) >= 4:
+                                # Use the REAL OCR confidence returned by EasyOCR and drop
+                                # low-confidence noise, instead of faking a score from the
+                                # string length (which reported 80–95% for any garbage read).
+                                if len(cleaned) >= 4 and conf >= MIN_OCR_CONF:
                                     # Deduce physical bounding metric width parameters
                                     x_coords = [point[0] for point in bbox]
                                     plate_width_px = max(x_coords) - min(x_coords)
@@ -157,7 +176,7 @@ try:
                                     if plate_width_px < 10:
                                         continue
 
-                                    confidence = min(95, 60 + len(cleaned) * 5)
+                                    confidence = round(conf * 100)
                                     distance = calculate_distance(plate_width_px)
                                     distance_text = f"{distance:.2f}m" if distance != float('inf') else "Unknown"
                                     is_ambulance = (cleaned == AMBULANCE_ID)
@@ -207,7 +226,8 @@ try:
                                     # Conclude nested iterations upon successful structural processing
                                     break
 
-        out.write(frame)
+        if recording:
+            out.write(frame)
 
 except KeyboardInterrupt:
     print("\n🛑 Stopped by user.")

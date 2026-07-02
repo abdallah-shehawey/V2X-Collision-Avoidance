@@ -88,6 +88,13 @@ class Handler(SimpleHTTPRequestHandler):
         ({fcw,eebl,bsw,dnpw,ima,bswSide}); the smart flags are merged in flat."""
         with _stm_lock:
             merged = dict(_stm_state["adas"])
+            us = _stm_state["ultrasonic"]
+            rear_min = min(us.get("rear",      US_CLEAR_DEFAULT),
+                           us.get("rearLeft",  US_CLEAR_DEFAULT),
+                           us.get("rearRight", US_CLEAR_DEFAULT))
+        # Expose a rear-obstacle severity so the control server can block reverse
+        # (2 = CRITICAL, matching the firmware RiskLevel_t encoding).
+        merged["rearObstacle"] = 2 if rear_min < REAR_CRITICAL_CM else 0
         merged.update(_smart_flags())
         body = json.dumps(merged).encode("utf-8")
         self.send_response(200)
@@ -412,6 +419,7 @@ _stm_seq = 0           # bumped on every packet → cheap change-detection for S
 # the hub instead of duplicating the UART read elsewhere.
 _ipc_node = IPCNode("uart_bridge")
 _ipc_connected = False
+_last_pub_speed = None   # last speed published on "vehicle_speed" — publish only on change
 
 
 def _connect_ipc_hub() -> None:
@@ -429,6 +437,7 @@ def _connect_ipc_hub() -> None:
 # ABOVE the widest dashboard WARNING gate (front = 40 cm) so a "no object /
 # STM32 offline" reading renders as clear, not a stuck yellow beam.
 US_CLEAR_DEFAULT = 50   # cm — reported when no object detected / STM32 offline
+REAR_CRITICAL_CM = 10   # cm — any rear ultrasonic closer than this → block reverse
 
 # Initial live state used until the FIRST UART packet arrives (or while the STM32
 # is disconnected).  All ultrasonics start at US_CLEAR_DEFAULT; all ADAS SAFE(0).
@@ -613,6 +622,7 @@ def uart_reader_loop():
 
     Resilient: if the port can't be opened (STM32 not connected yet) or drops,
     it logs and retries every 2s instead of killing the whole server."""
+    global _last_pub_speed
     while True:
         try:
             ser = _open_uart()
@@ -634,13 +644,16 @@ def uart_reader_loop():
                     state = _packet_to_state(packet)
                     _publish_state(state)
                     if _ipc_connected:
-                        try:
-                            _ipc_node.publish(
-                                "vehicle_speed",
-                                {"speed_kmh": state["drive"]["speedKmh"]},
-                            )
-                        except Exception as exc:
-                            print(f"[uart] IPC publish failed: {exc}")
+                        # Publish only when the speed actually changed. The UART runs at
+                        # ~10 Hz; republishing an unchanged speed makes Car_client rebuild
+                        # a full v2n_frame and the bridge rewrite data.json every packet.
+                        speed = round(state["drive"]["speedKmh"], 1)
+                        if speed != _last_pub_speed:
+                            _last_pub_speed = speed
+                            try:
+                                _ipc_node.publish("vehicle_speed", {"speed_kmh": speed})
+                            except Exception as exc:
+                                print(f"[uart] IPC publish failed: {exc}")
         except (serial.SerialException, OSError) as exc:
             print(f"[uart] link error ({exc}); reopening in 2s…")
             try:
@@ -676,19 +689,37 @@ def _apply_vehicle_id() -> None:
         return
 
     try:
+        # Cross-process lock (same lock file the bridge uses) around the whole
+        # read→modify→write, plus a unique tmp name, so this one-shot write can't
+        # race the bridge's data.json writer (interleaved tmp / lost update).
+        _fcntl = None
+        _lk = None
         try:
-            with open(DATA_FILE, "r", encoding="utf-8") as f:
-                data = json.load(f)
-        except (OSError, ValueError):
-            data = {}
+            import fcntl as _fcntl
+            _lk = open(DATA_FILE + ".lock", "w")
+            _fcntl.flock(_lk, _fcntl.LOCK_EX)
+        except (ImportError, OSError):
+            _fcntl = None
 
-        data.setdefault("meta", {})["vehicleId"] = vehicle_id
+        try:
+            try:
+                with open(DATA_FILE, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+            except (OSError, ValueError):
+                data = {}
 
-        tmp = DATA_FILE + ".tmp"
-        with open(tmp, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
-            f.write("\n")
-        os.replace(tmp, DATA_FILE)
+            data.setdefault("meta", {})["vehicleId"] = vehicle_id
+
+            tmp = f"{DATA_FILE}.{os.getpid()}.tmp"
+            with open(tmp, "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+                f.write("\n")
+            os.replace(tmp, DATA_FILE)
+        finally:
+            if _lk is not None:
+                if _fcntl is not None:
+                    _fcntl.flock(_lk, _fcntl.LOCK_UN)
+                _lk.close()
 
         print(f"[init] RPi {_RPI_MODEL} detected → vehicleId = {vehicle_id}")
     except Exception as exc:

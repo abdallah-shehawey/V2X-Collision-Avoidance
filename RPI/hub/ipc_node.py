@@ -70,6 +70,16 @@ class IPCNode:
         # Multiple callbacks per topic are supported.
         self._callbacks: dict[str, list] = {}
 
+        # Serializes writes: some clients publish from two threads (MQTT + IPC), and
+        # sendall() can split a frame into several writes — without this lock two frames
+        # can interleave on the wire and the hub's json.loads() fails.
+        self._send_lock = threading.Lock()
+
+        # Bytes read by _recv_one() past the first newline are kept here so the
+        # background _recv_loop() starts from them instead of dropping a delivered frame
+        # that shared a TCP segment with an ack.
+        self._rx_buf = b""
+
     # ──────────────────────────────────────────────────────────────────────
     def connect(self, retries: int = 8) -> bool:
         """
@@ -152,7 +162,24 @@ class IPCNode:
         topic : str    Name of the topic (e.g. "vehicle_data").
         data  : dict   Payload — any JSON-serializable dictionary.
         """
-        self._send_raw({"cmd": "publish", "topic": topic, "data": data})
+        frame = {"cmd": "publish", "topic": topic, "data": data}
+        try:
+            self._send_raw(frame)
+        except (BrokenPipeError, OSError, AttributeError):
+            # Hub gone (crashed/restarted). Try one quick reconnect + re-subscribe so a
+            # hub restart degrades gracefully (drop this frame) instead of raising
+            # BrokenPipeError up into the caller's main loop and killing the process.
+            if self.connect(retries=1):
+                for t in list(self._callbacks):
+                    try:
+                        self._send_raw({"cmd": "subscribe", "topic": t})
+                    except OSError:
+                        pass
+                self.start_listening()
+                try:
+                    self._send_raw(frame)
+                except OSError:
+                    pass
 
     # ──────────────────────────────────────────────────────────────────────
     def start_listening(self) -> None:
@@ -178,7 +205,9 @@ class IPCNode:
         from the stream, and dispatches them to registered callbacks.
         Exits cleanly when the hub closes the connection.
         """
-        buf = ""
+        # Start from any bytes _recv_one() read past the last ack's newline.
+        buf = self._rx_buf.decode("utf-8", errors="ignore")
+        self._rx_buf = b""
         while True:
             try:
                 # sys_recv(): block in kernel until data is available
@@ -224,24 +253,31 @@ class IPCNode:
         Serialize *obj* and write it as a newline-terminated frame.
 
         sendall() -> sys_send() loop — all bytes are guaranteed to reach
-        the kernel buffer.
+        the kernel buffer. The write is serialized by _send_lock so frames
+        from concurrent publisher threads cannot interleave on the wire.
         """
-        self.sock.sendall((json.dumps(obj) + "\n").encode("utf-8"))
+        data = (json.dumps(obj) + "\n").encode("utf-8")
+        with self._send_lock:
+            self.sock.sendall(data)
 
     def _recv_one(self, timeout: float = 3.0) -> dict | None:
         """
         Read exactly one JSON frame synchronously (used during connect
         and subscribe to wait for the ack before continuing).
+
+        Any bytes received after the frame's newline are retained in
+        self._rx_buf so a frame that shared a TCP segment with the ack is
+        not thrown away.
         """
         self.sock.settimeout(timeout)
         try:
-            buf = b""
-            while b"\n" not in buf:
+            while b"\n" not in self._rx_buf:
                 chunk = self.sock.recv(512)
                 if not chunk:
                     return None
-                buf += chunk
+                self._rx_buf += chunk
             self.sock.settimeout(None)
-            return json.loads(buf.split(b"\n")[0])
+            line, self._rx_buf = self._rx_buf.split(b"\n", 1)   # keep the remainder
+            return json.loads(line)
         except (socket.timeout, json.JSONDecodeError):
             return None

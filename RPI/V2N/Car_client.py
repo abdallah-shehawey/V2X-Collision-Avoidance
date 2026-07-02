@@ -229,7 +229,10 @@ def on_message(client, userdata, msg):
         _publish_v2n_frame()
 
         # ── Console display ──────────────────────────────────────────
-        os.system('cls' if os.name == 'nt' else 'clear')
+        # Pure ANSI clear (home + erase screen) — no subprocess spawned per message,
+        # and harmless when stdout is a log file under run_all.sh (os.system('clear')
+        # both forked a shell every packet and wrote garbage escapes into the log).
+        print("\033[H\033[2J", end="")
         crossing     = _compute_crossing_flag(_distance_m, _speed_kmh,
                                               _remaining_time, _light_state)
         traffic_flag = _compute_traffic_flag(_light_state, _is_emergency, crossing)
