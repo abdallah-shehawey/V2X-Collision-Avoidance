@@ -1,13 +1,13 @@
 [Unit]
-Description=V2X Dashboard Web Server (serves index.html + data.json)
+Description=V2X Dashboard Web Server - serves index.html/data.json over HTTP and reads STM32 telemetry over UART
 After=network.target v2x-hub.service v2x-dashboard-bridge.service
 Requires=v2x-hub.service
 
 [Service]
 Type=simple
-User=pi
-WorkingDirectory=/home/rpi/v2x
-ExecStart=/usr/bin/python3 /home/rpi/v2x/server.py
+User=rpi
+WorkingDirectory=/home/rpi/V2X-Collision-Avoidance/RPI
+ExecStart=/usr/bin/python3 /home/rpi/V2X-Collision-Avoidance/RPI/server.py
 Restart=always
 RestartSec=5
 StandardOutput=journal

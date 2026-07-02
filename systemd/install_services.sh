@@ -1,31 +1,31 @@
-
+#!/bin/bash
 # =============================================================
 #  V2X — Install & Enable All systemd Services
-#  شغّل السكريبت ده مرة واحدة على الراسبري باي
-#  بعدها كل الأكواد هتشتغل تلقائي مع كل boot
+#  Run this script once on the Raspberry Pi.
+#  After that, every process starts automatically on every boot.
 #
 #  Usage:
 #      chmod +x install_services.sh
 #      sudo ./install_services.sh
 # =============================================================
 
-set -e   # وقف لو أي أمر وقع
+set -e   # stop immediately if any command fails
 
-# ── 1. تأكد إن السكريبت شغال بـ root ────────────────────────
+# ── 1. Make sure the script is running as root ──────────────
 if [ "$EUID" -ne 0 ]; then
     echo "❌  Run with sudo:  sudo ./install_services.sh"
     exit 1
 fi
 
-# ── 2. مسار الكود (غيّره لو الكود في مكان تاني) ─────────────
-V2X_DIR="/home/rpi/v2x"
+# ── 2. Code directory (change if your code lives elsewhere) ─
+V2X_DIR="/home/rpi/V2X-Collision-Avoidance/RPI"
 
 echo "=================================================="
 echo "  V2X systemd Services Installer"
 echo "  Code directory: $V2X_DIR"
 echo "=================================================="
 
-# ── 3. تأكد إن المسار موجود ──────────────────────────────────
+# ── 3. Make sure the directory exists ────────────────────────
 if [ ! -d "$V2X_DIR" ]; then
     echo "❌  Directory $V2X_DIR not found."
     echo "    Create it first:  mkdir -p $V2X_DIR"
@@ -33,9 +33,9 @@ if [ ! -d "$V2X_DIR" ]; then
     exit 1
 fi
 
-# ── 4. تأكد إن الملفات الأساسية موجودة ──────────────────────
+# ── 4. Make sure all required files are present ─────────────
 REQUIRED_FILES=(
-    "hub_.py"
+    "hub.py"
     "dashboard_bridge.py"
     "Car_client.py"
     "V2P.py"
@@ -58,7 +58,7 @@ fi
 
 echo "✅  All required Python files found."
 
-# ── 5. نسخ الـ service files لـ systemd ──────────────────────
+# ── 5. Copy the service files to systemd ─────────────────────
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SERVICE_FILES=(
     "v2x-hub.service"
@@ -80,12 +80,12 @@ for svc in "${SERVICE_FILES[@]}"; do
     echo "    ✅  $svc"
 done
 
-# ── 6. إعادة تحميل systemd ───────────────────────────────────
+# ── 6. Reload systemd ─────────────────────────────────────────
 echo ""
 echo "🔄  Reloading systemd daemon ..."
 systemctl daemon-reload
 
-# ── 7. تفعيل الـ services (تشتغل مع كل boot) ────────────────
+# ── 7. Enable services (auto-start on every boot) ────────────
 echo ""
 echo "🔗  Enabling services (auto-start on boot) ..."
 for svc in "${SERVICE_FILES[@]}"; do
@@ -93,7 +93,7 @@ for svc in "${SERVICE_FILES[@]}"; do
     echo "    ✅  enabled: $svc"
 done
 
-# ── 8. تشغيلهم دلوقتي بالترتيب ──────────────────────────────
+# ── 8. Start them now, in the correct order ──────────────────
 echo ""
 echo "🚀  Starting services in order ..."
 
@@ -116,7 +116,7 @@ start_and_check "v2x-car-client.service"        4
 start_and_check "v2x-v2p.service"               4
 start_and_check "v2x-server.service"            2
 
-# ── 9. ملخص الحالة ───────────────────────────────────────────
+# ── 9. Status summary ─────────────────────────────────────────
 echo ""
 echo "=================================================="
 echo "  STATUS SUMMARY"

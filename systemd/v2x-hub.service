@@ -1,0 +1,22 @@
+[Unit]
+Description=V2X IPC Hub (Pub/Sub Broker) - central message router for all V2X processes
+# Must start before every other V2X service, right after networking is up.
+After=network.target
+# All other services depend on this one being up first.
+Before=v2x-dashboard-bridge.service v2x-car-client.service v2x-v2p.service v2x-server.service
+
+[Service]
+Type=simple
+User=rpi
+WorkingDirectory=/home/rpi/V2X-Collision-Avoidance/RPI
+ExecStart=/usr/bin/python3 /home/rpi/V2X-Collision-Avoidance/RPI/hub.py
+# Restart automatically if it crashes.
+Restart=always
+RestartSec=3
+# Send stdout/stderr to the systemd journal.
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=v2x-hub
+
+[Install]
+WantedBy=multi-user.target

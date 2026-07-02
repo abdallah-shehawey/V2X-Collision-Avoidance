@@ -1,0 +1,20 @@
+[Unit]
+Description=V2X Dashboard Bridge - forwards IPC Hub frames (v2n/v2p) into data.json for the web dashboard
+After=network.target v2x-hub.service
+Requires=v2x-hub.service
+
+[Service]
+Type=simple
+User=rpi
+WorkingDirectory=/home/rpi/V2X-Collision-Avoidance/RPI
+ExecStart=/usr/bin/python3 /home/rpi/V2X-Collision-Avoidance/RPI/dashboard_bridge.py
+Restart=always
+RestartSec=5
+# Give the hub a moment to finish starting up first.
+ExecStartPre=/bin/sleep 2
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=v2x-dashboard-bridge
+
+[Install]
+WantedBy=multi-user.target

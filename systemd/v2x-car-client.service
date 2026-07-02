@@ -1,17 +1,17 @@
 [Unit]
-Description=V2X Car Client (MQTT Cloud + IPC Hub)
+Description=V2X Car Client (OBU) - bridges HiveMQ Cloud (V2N/V2I traffic data) with the local IPC Hub
 After=network-online.target v2x-hub.service v2x-dashboard-bridge.service
 Requires=v2x-hub.service
 Wants=network-online.target
 
 [Service]
 Type=simple
-User=pi
-WorkingDirectory=/home/pi/v2x
-ExecStart=/usr/bin/python3 /home/rpi/v2x/Car_client.py
+User=rpi
+WorkingDirectory=/home/rpi/V2X-Collision-Avoidance/RPI
+ExecStart=/usr/bin/python3 /home/rpi/V2X-Collision-Avoidance/RPI/Car_client.py
 Restart=always
 RestartSec=5
-# ننتظر شوية قبل أول تشغيل عشان الـ hub يبقى جاهز
+# Wait a bit before the first start so the hub is ready.
 ExecStartPre=/bin/sleep 2
 StandardOutput=journal
 StandardError=journal

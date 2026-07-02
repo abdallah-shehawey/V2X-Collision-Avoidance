@@ -1,0 +1,21 @@
+[Unit]
+Description=V2X V2P System - camera-based pedestrian/motorcycle detection, publishes alerts to the IPC Hub
+After=network.target v2x-hub.service v2x-car-client.service
+Requires=v2x-hub.service
+
+[Service]
+Type=simple
+User=rpi
+WorkingDirectory=/home/rpi/V2X-Collision-Avoidance/RPI
+ExecStart=/usr/bin/python3 /home/rpi/V2X-Collision-Avoidance/RPI/V2P.py
+Restart=always
+RestartSec=5
+# V2P needs the camera, which also comes up at boot — give it time to be ready.
+# If the camera still isn't ready, this service will retry automatically.
+ExecStartPre=/bin/sleep 4
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=v2x-v2p
+
+[Install]
+WantedBy=multi-user.target
