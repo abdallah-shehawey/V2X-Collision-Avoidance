@@ -28,6 +28,8 @@ data.json fields written (matching the dashboard spec in the screenshots)
     "pedestrian":          int  — 0=safe, 1=standing near, 2=crossing(warning)
     "position":            int  — 0=no one, 1=RIGHT, 2=LEFT
     "motorcycleCollision":  int  — 0=no risk, 1=collision risk
+}
+"ai": {
     "leadCarCollision":     int  — 0=normal, 1=WARNING (stopped wrong,
                                    moderate distance), 2=DANGER (stopped
                                    wrong, too close)
@@ -163,7 +165,7 @@ def _on_v2p_frame(topic: str, payload: dict, sender: str) -> None:
     Handle v2p_frame from V2P.py.
 
     Writes data["v2p"]["pedestrian"], data["v2p"]["position"], and
-    data["v2p"]["leadCarCollision"].
+    data["ai"]["leadCarCollision"].
 
     pedestrian_flag encoding (dashboard spec from screenshot):
         0 = آمن       (safe — no pedestrian in zone)
@@ -186,9 +188,12 @@ def _on_v2p_frame(topic: str, payload: dict, sender: str) -> None:
 
         def mutate(data: dict) -> None:
             v2p = data.setdefault("v2p", {})
-            v2p["pedestrian"]      = pedestrian_flag
-            v2p["position"]        = position
-            v2p["leadCarCollision"] = lead_car_flag
+            v2p["pedestrian"] = pedestrian_flag
+            v2p["position"]   = position
+            # leadCarCollision lives in the "ai" section — the dashboard and
+            # /adas read ai.leadCarCollision first, so writing it under v2p
+            # would be masked by the ai default.
+            data.setdefault("ai", {})["leadCarCollision"] = lead_car_flag
 
         _update_data(mutate)
         print(
