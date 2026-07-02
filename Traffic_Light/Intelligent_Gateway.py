@@ -11,13 +11,6 @@ import json
 import threading
 import time
 
-# ============================================================
-# SERVER CONFIGURATION (HiveMQ Cloud)
-# ============================================================
-BROKER   = "2b6738facfbf40f1a86ba770618ae8a6.s1.eu.hivemq.cloud"
-PORT     = 8883
-USERNAME = "v2n_admin"
-PASSWORD = "V2n@2026!"
 
 # ============================================================
 # MQTT TOPICS
