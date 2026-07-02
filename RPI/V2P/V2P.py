@@ -70,6 +70,8 @@ Startup order
     4. V2P.py              (this file — subscribes then publishes)
 """
 
+import os
+import sys
 import cv2
 import numpy as np
 import time
@@ -79,6 +81,10 @@ import onnxruntime as ort
 from picamera2 import Picamera2
 from collections import deque, defaultdict
 
+_HERE = os.path.dirname(os.path.abspath(__file__))
+
+# ipc_node lives in the shared hub/ folder
+sys.path.insert(0, os.path.join(_HERE, "..", "hub"))
 from ipc_node import IPCNode
 
 print("=" * 60)
@@ -88,7 +94,7 @@ print("=" * 60)
 # ============================================================
 # 1. Settings & Configuration (OPTIMIZED)
 # ============================================================
-MODEL_PATH       = "model2.onnx"
+MODEL_PATH       = os.path.join(_HERE, "model2.onnx")
 CONF_THRESH      = 0.25          # ★ OPTIMIZED: reduced from 0.30 for better detection
 MODEL_INPUT_SIZE = 640
 FRAME_W, FRAME_H = 640, 480

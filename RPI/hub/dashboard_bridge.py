@@ -64,7 +64,8 @@ from ipc_node import IPCNode
 NODE_NAME = "dashboard_bridge"
 
 HERE      = os.path.dirname(os.path.abspath(__file__))
-DATA_FILE = os.path.join(HERE, "data.json")
+# data.json lives in the DashBoard folder (served by DashBoard/server.py)
+DATA_FILE = os.path.abspath(os.path.join(HERE, "..", "DashBoard", "data.json"))
 
 TOPIC_V2N_FRAME  = "v2n_frame"
 TOPIC_V2P_FRAME  = "v2p_frame"

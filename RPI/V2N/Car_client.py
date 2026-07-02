@@ -66,8 +66,12 @@ transition_flag encoding (forwarded unchanged from trafic_light.py)
 import paho.mqtt.client as mqtt
 import ssl
 import json
+import os
+import sys
 import threading
 
+# ipc_node lives in the shared hub/ folder
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "hub"))
 from ipc_node import IPCNode
 
 # ============================================================
@@ -225,7 +229,6 @@ def on_message(client, userdata, msg):
         _publish_v2n_frame()
 
         # ── Console display ──────────────────────────────────────────
-        import os
         os.system('cls' if os.name == 'nt' else 'clear')
         crossing     = _compute_crossing_flag(_distance_m, _speed_kmh,
                                               _remaining_time, _light_state)

@@ -38,6 +38,7 @@ Then open the printed URL (e.g. http://localhost:8000).
 import json
 import os
 import socket
+import sys
 import threading
 import time
 from collections import Counter
@@ -46,9 +47,12 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
 import serial  # pyserial — needed for the UART reader thread
 
+HERE = os.path.dirname(os.path.abspath(__file__))
+
+# ipc_node lives in the shared hub/ folder
+sys.path.insert(0, os.path.join(HERE, "..", "hub"))
 from ipc_node import IPCNode  # publishes vehicle_speed to the hub for Car_client.py
 
-HERE = os.path.dirname(os.path.abspath(__file__))
 DATA_FILE = os.path.join(HERE, "data.json")
 PORT = 8000
 
