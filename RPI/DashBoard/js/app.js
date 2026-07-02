@@ -67,6 +67,49 @@ function alertInfo(key, adas) {
   return key === "bsw" ? bswInfo(adas && adas.bswSide) : ALERT_INFO[key];
 }
 
+// ==================== Smart systems (V2N / V2P / AI) ====================
+// Flags written into data.json by the gateway / AI-camera bridge:
+//   v2n.trafficLight        0 no signal | 1 GO (green / emergency) | 2 STOP (red)
+//   v2p.pedestrian          0 clear | 1 nearby (warning toast) | 2 crossing (critical)
+//   v2p.position            0 none  | 1 hazard on the RIGHT | 2 hazard on the LEFT
+//   v2p.motorcycleCollision 0 clear | 1 motorcycle collision risk (warning toast)
+//   ai.leadCarCollision     0 clear | 1 stopped ahead (warning toast)
+//                           | 2 stopped very close (critical)
+// Warning toasts for these systems stack on the LEFT edge of the screen; the
+// V2V/ADAS toasts keep the RIGHT edge. These systems do NOT use the full-screen
+// popup (that stays exclusive to the V2V modules) — a critical here shows the
+// red card + hazard marker + risk gauge and LOOPS THE ALARM SOUND instead.
+const SMART_ORDER = ["tl", "ped", "mcy", "lca"];
+const SMART_NAMES = {
+  tl:  ["T-LIGHT",    "Traffic Light"],
+  ped: ["PEDESTRIAN", "Pedestrian Detection"],
+  mcy: ["MOTORCYCLE", "Motorcycle Collision"],
+  lca: ["LEAD CAR",   "AI Lead Car Watch"],
+};
+const SMART_INFO = {
+  lca: { desc: "Lead car stopped ahead — keep your distance" },
+  mcy: { desc: "Motorcycle collision risk — keep clear" },
+};
+
+// Normalize the smart-system flags out of a data.json snapshot (all optional —
+// missing sections / nulls read as 0 so an old bridge can't break the render).
+function smartState(d) {
+  const v2n = d.v2n || {}, v2p = d.v2p || {}, ai = d.ai || {};
+  return {
+    tl:      v2n.trafficLight || 0,
+    ped:     v2p.pedestrian || 0,
+    pedSide: v2p.position || 0,                        // 0 none | 1 right | 2 left
+    mcy:     v2p.motorcycleCollision || 0,
+    lca:     (ai.leadCarCollision != null ? ai.leadCarCollision
+              : v2p.leadCarCollision) || 0,            // accept either home
+  };
+}
+
+// Side wording for v2p.position.
+function pedSideName(pos) {
+  return pos === 1 ? "right" : pos === 2 ? "left" : null;
+}
+
 // Ultrasonic sensors: [key in data.ultrasonic, short label]
 const SENSORS = [
   ["front",      "Front"],
@@ -109,6 +152,11 @@ const ADAS_ICONS = {
   bsw:  svg(`<rect x="8" y="4" width="8" height="16" rx="2.5"/><path class="bsw-wave bsw-left" d="M5 9c-1.1 1-1.1 5 0 6"/><path class="bsw-wave bsw-right" d="M19 9c1.1 1 1.1 5 0 6"/>`),
   dnpw: svg(`<rect x="3.5" y="6" width="6" height="12" rx="1.5"/><rect x="14.5" y="6" width="6" height="12" rx="1.5"/><path d="M12 3v18" stroke-dasharray="2.5 2.5"/>`),
   ima:  svg(`<path d="M12 3v18M3 12h18"/><path d="M9.5 8.5L12 6l2.5 2.5M9.5 15.5L12 18l2.5-2.5"/>`),
+  // smart systems (V2N / V2P / AI) — same registry so toasts & popups find them
+  tl:   svg(`<rect x="8.5" y="2.5" width="7" height="19" rx="3.5"/><circle cx="12" cy="7" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="17" r="1.5"/>`),
+  ped:  svg(`<circle cx="12" cy="4.5" r="2"/><path d="M12 6.5v6M12 12.5l-3 6.5M12 12.5l3 6.5M12 8.5l-4 2.5M12 8.5l4 2.5"/>`),
+  mcy:  svg(`<circle cx="5" cy="17" r="2.8"/><circle cx="19" cy="17" r="2.8"/><path d="M5 17l2.8-5.5h4.4l2.8 5.5M12.2 11.5l3.6-2.8h2M7.8 11.5H5.2"/>`),
+  lca:  svg(`<rect x="5" y="5" width="14" height="7" rx="2"/><path d="M7 5l1.6-3h6.8L17 5"/><path d="M12 22v-3M9 20.5l1.4-2.2M15 20.5l-1.4-2.2"/>`),
 };
 
 // engine-temp state icons
@@ -227,13 +275,15 @@ function setUSBeepState(state) {
 const activeToasts = new Map();   // key -> { el, timer }
 const TOAST_AUTO_MS = 4000;       // self-clear if the cause isn't re-asserted within this
 
-function showToast(key, name, desc) {
+// side: "right" (default) = V2V/ADAS stack · "left" = V2N/V2P/AI stack, so the
+// two families of warnings never pile up in the same corner.
+function showToast(key, name, desc, side) {
   const existing = activeToasts.get(key);
   if (existing) {                 // already up: keep the watchdog alive + refresh text
     clearTimeout(existing.timer);
     existing.timer = setTimeout(() => removeToast(key), TOAST_AUTO_MS);
     const d = existing.el.querySelector(".toast-desc");
-    if (d && desc) d.textContent = desc;   // BSW side may have changed
+    if (d && desc) d.textContent = desc;   // BSW / V2P side may have changed
     return;
   }
   const el = document.createElement("div");
@@ -246,7 +296,7 @@ function showToast(key, name, desc) {
     </div>
     <button class="toast-close" onclick="removeToast('${key}')">✕</button>`;
   el.querySelector(".toast-desc").textContent = desc || "Warning detected — monitor situation";
-  $("toastContainer").appendChild(el);
+  $(side === "left" ? "toastContainerLeft" : "toastContainer").appendChild(el);
   activeToasts.set(key, { el, timer: setTimeout(() => removeToast(key), TOAST_AUTO_MS) });
   playWarningBeep();
 }
@@ -345,9 +395,220 @@ function updateAdasGrid(adas) {
   }
 }
 
+// ==================== Smart systems grid (V2N / V2P / AI) ====================
+function buildSmartGrid() {
+  const grid = $("smartGrid");
+  if (!grid) return;
+  grid.innerHTML = "";
+  for (const key of SMART_ORDER) {
+    const card = document.createElement("div");
+    card.className = "adas-card off";
+    card.id = `smart-${key}`;
+    card.innerHTML = `<div class="adas-name">${SMART_NAMES[key][0]}</div><div class="adas-ic">${ADAS_ICONS[key]}</div><div class="adas-status">--</div>`;
+    grid.appendChild(card);
+  }
+}
+
+// Per-card visual state. Only touches the DOM when a card actually changes so
+// the 10Hz SSE stream never causes needless style recalcs (keeps the UI lag-free).
+const _smartPrev = {};
+function setSmartCard(key, cls, statusText) {
+  const stamp = `${cls}|${statusText}`;
+  if (_smartPrev[key] === stamp) return;
+  _smartPrev[key] = stamp;
+  const card = $(`smart-${key}`);
+  if (!card) return;
+  card.className = `adas-card ${cls}`;
+  card.querySelector(".adas-status").textContent = statusText;
+}
+
+function updateSmartGrid(sys) {
+  // V2N traffic light: not a hazard scale — GO is green, STOP is steady red.
+  if (sys.tl === 1)      setSmartCard("tl", "go",   "GO");
+  else if (sys.tl === 2) setSmartCard("tl", "stop", "STOP");
+  else                   setSmartCard("tl", "off",  "NO SIGNAL");
+
+  // V2P pedestrians (+ which side the hazard is on, from v2p.position):
+  // nearby = warning (orange, like the toast), crossing = critical (red)
+  const side = pedSideName(sys.pedSide);
+  const sideTag = side ? ` · ${side === "right" ? "R" : "L"}` : "";
+  if (sys.ped === 2)      setSmartCard("ped", "crit", `CROSSING${sideTag}`);
+  else if (sys.ped === 1) setSmartCard("ped", "warn", `NEARBY${sideTag}`);
+  else                    setSmartCard("ped", "safe", "CLEAR");
+
+  // V2P motorcycle collision risk (binary)
+  setSmartCard("mcy", sys.mcy ? "warn" : "safe", sys.mcy ? "RISK" : "SAFE");
+
+  // AI lead-car watch (front camera): 1 warning, 2 imminent collision
+  if (sys.lca === 2)      setSmartCard("lca", "crit", "DANGER");
+  else if (sys.lca === 1) setSmartCard("lca", "warn", "WARNING");
+  else                    setSmartCard("lca", "safe", "SAFE");
+}
+
+// ==================== AI-detected objects around the car ====================
+// Visual markers on the center car view: a pedestrian standing on the road
+// side / crossing in front, a motorcycle ahead, and the lead car the AI camera
+// is watching. Orange = warning, red = danger; the side follows v2p.position.
+function buildHazards() {
+  $("hzPed").innerHTML = ADAS_ICONS.ped;
+  $("hzMcy").innerHTML = ADAS_ICONS.mcy;
+  $("hzLca").innerHTML = ADAS_ICONS.lca;
+}
+
+// Class-guarded setter, same idea as setSmartCard: the 10Hz stream only touches
+// the DOM when a marker's state actually changes.
+const _hazardPrev = {};
+function setHazard(id, cls) {
+  if (_hazardPrev[id] === cls) return;
+  _hazardPrev[id] = cls;
+  const el = $(id);
+  if (el) el.className = cls;
+}
+
+function updateHazards(sys) {
+  const side = pedSideName(sys.pedSide);
+
+  // pedestrian, always standing still: nearby → beside the white edge line on
+  // the flagged side; crossing → mid-road shifted toward the flagged side
+  if (sys.ped === 2) {
+    const spot = side === "right" ? "mid-right" : side === "left" ? "mid-left" : "mid";
+    setHazard("hzPed", `hazard hz-ped on crit ${spot}`);
+  } else if (sys.ped === 1) {
+    setHazard("hzPed", `hazard hz-ped on warn ${side === "left" ? "pos-left" : "pos-right"}`);
+  } else {
+    setHazard("hzPed", "hazard hz-ped");
+  }
+
+  // motorcycle ahead (binary risk flag)
+  setHazard("hzMcy", sys.mcy ? "hazard hz-mcy on warn" : "hazard hz-mcy");
+
+  // lead car: warning far ahead, danger slides in close to the car
+  if (sys.lca === 2)      setHazard("hzLca", "hazard hz-lca on crit close");
+  else if (sys.lca === 1) setHazard("hzLca", "hazard hz-lca on warn");
+  else                    setHazard("hzLca", "hazard hz-lca");
+}
+
 // ==================== Alert + event logic ====================
 const prevStates = {}, prevSensor = {};
-function processAlerts(adas) {
+
+// Smart-system critical SOUND: these systems intentionally have no full-screen
+// popup (the red card + hazard marker + risk gauge carry the visuals), but a
+// critical must still be heard — loop the alarm while lca/ped report level 2.
+// Same self-clearing watchdog pattern as the popup: if the data feed goes
+// silent while the flag is stuck, the sound stops on its own.
+let smartCritOn = false, smartCritInterval = null, smartCritTimer = null;
+const SMART_CRIT_AUTO_MS = 4000;
+function setSmartCritSound(active) {
+  if (active) {
+    clearTimeout(smartCritTimer);
+    smartCritTimer = setTimeout(() => setSmartCritSound(false), SMART_CRIT_AUTO_MS);
+    if (!smartCritOn) {
+      smartCritOn = true;
+      playErrorAlarm();
+      smartCritInterval = setInterval(playErrorAlarm, 2000);
+    }
+  } else {
+    if (smartCritTimer) { clearTimeout(smartCritTimer); smartCritTimer = null; }
+    if (smartCritInterval) { clearInterval(smartCritInterval); smartCritInterval = null; }
+    smartCritOn = false;
+  }
+}
+
+// ==================== Traffic Light warning sound ====================
+// Plays a two-tone descending beep that loops every 1.2 s while tl === 2 (STOP/red).
+// Stops automatically when the light clears or the feed goes silent.
+let tlWarnOn = false, tlWarnInterval = null, tlWarnTimer = null;
+const TL_WARN_AUTO_MS = 4000;
+function playTLWarnBeep() {
+  try {
+    const ctx = getAudioCtx();
+    // First tone: high pitch
+    const osc1 = ctx.createOscillator(), g1 = ctx.createGain();
+    osc1.connect(g1); g1.connect(ctx.destination);
+    osc1.type = "triangle";
+    osc1.frequency.setValueAtTime(1050, ctx.currentTime);
+    g1.gain.setValueAtTime(0.28, ctx.currentTime);
+    g1.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.18);
+    osc1.start(ctx.currentTime); osc1.stop(ctx.currentTime + 0.18);
+    // Second tone: low pitch (descending — "stop" feel)
+    const osc2 = ctx.createOscillator(), g2 = ctx.createGain();
+    osc2.connect(g2); g2.connect(ctx.destination);
+    osc2.type = "triangle";
+    osc2.frequency.setValueAtTime(700, ctx.currentTime + 0.22);
+    g2.gain.setValueAtTime(0.22, ctx.currentTime + 0.22);
+    g2.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.42);
+    osc2.start(ctx.currentTime + 0.22); osc2.stop(ctx.currentTime + 0.42);
+  } catch (_) {}
+}
+function setTLWarnSound(active) {
+  if (active) {
+    clearTimeout(tlWarnTimer);
+    tlWarnTimer = setTimeout(() => setTLWarnSound(false), TL_WARN_AUTO_MS);
+    if (!tlWarnOn) {
+      tlWarnOn = true;
+      playTLWarnBeep();
+      tlWarnInterval = setInterval(playTLWarnBeep, 1200);
+    }
+  } else {
+    if (tlWarnTimer)    { clearTimeout(tlWarnTimer);      tlWarnTimer    = null; }
+    if (tlWarnInterval) { clearInterval(tlWarnInterval);  tlWarnInterval = null; }
+    tlWarnOn = false;
+  }
+}
+
+// Toasts + event-log entries + sounds for the smart systems. Same ladder as
+// the V2V modules — warning (1) → toast (with its beep), critical (2) → alarm
+// loop — except the toasts stack on the LEFT edge so they never mix with the
+// V2V ones on the right, and criticals never open the popup.
+function processSmartAlerts(sys) {
+  const side = pedSideName(sys.pedSide);
+
+  // AI lead car: 1 = warning toast, 2 = critical (alarm below)
+  if (sys.lca === 1) showToast("lca", "AI — Lead Car Watch", SMART_INFO.lca.desc, "left");
+  else removeToast("lca");
+
+  // Pedestrians: 1 nearby = warning toast, 2 crossing = critical (alarm below)
+  if (sys.ped === 1) {
+    showToast("ped", "V2P — Pedestrians",
+              `Pedestrians near the road${side ? ` (${side})` : ""} — stay alert`, "left");
+  } else removeToast("ped");
+
+  if (sys.mcy === 1) showToast("mcy", "V2P — Motorcycle", SMART_INFO.mcy.desc, "left");
+  else removeToast("mcy");
+
+  // Traffic light STOP sound — looping warning beep while red
+  setTLWarnSound(sys.tl === 2);
+
+  // critical alarm sound (no popup for these systems)
+  setSmartCritSound(sys.lca === 2 || sys.ped === 2);
+
+  // Event log — one entry per state change, mirroring the ADAS wording
+  const changed = (key, flag, msgs) => {
+    if ((prevStates[key] || 0) !== flag && msgs[flag]) addEvent(...msgs[flag]);
+    prevStates[key] = flag;
+  };
+  changed("tl", sys.tl, {
+    0: ["Traffic Light — No Signal", "safe"],
+    1: ["Traffic Light — GO (road open)", "safe"],
+    2: ["Traffic Light — STOP (red)", "crit"],
+  });
+  changed("ped", sys.ped, {
+    0: ["Pedestrians Cleared", "safe"],
+    1: [`Pedestrians Nearby${side ? ` (${side})` : ""}`, "warn"],
+    2: [`Pedestrians Crossing${side ? ` (${side})` : ""}`, "crit"],
+  });
+  changed("mcy", sys.mcy, {
+    0: ["Motorcycle Risk Cleared", "safe"],
+    1: ["Motorcycle Collision Risk", "warn"],
+  });
+  changed("lca", sys.lca, {
+    0: ["Lead Car Cleared", "safe"],
+    1: ["Lead Car Stopped Ahead", "warn"],
+    2: ["Lead Car DANGER — Very Close", "crit"],
+  });
+}
+
+function processAlerts(adas, sys) {
   let highestCritKey = null, highestCritName = null, highestCritInfo = null;
   for (const [key, abbr, name] of WARNINGS) {
     const flag = adas[key] || 0;
@@ -366,6 +627,9 @@ function processAlerts(adas) {
     }
     prevStates[key] = flag;
   }
+  // Smart systems: toasts + events + their own sounds. They never open the
+  // popup — the full-screen overlay stays exclusive to the V2V modules.
+  processSmartAlerts(sys);
   if (highestCritKey) { removeToast(highestCritKey); showCritical(highestCritKey, highestCritName, highestCritInfo, adas); }
   else hideCritical();
 }
@@ -398,9 +662,11 @@ function processUltrasonic(ultra) {
 }
 
 // ==================== Overall risk ====================
-function updateRisk(adas, ultraWorst) {
-  const anyCrit = WARNINGS.some(([k]) => (adas[k] || 0) === 2) || ultraWorst === "close";
-  const anyWarn = WARNINGS.some(([k]) => (adas[k] || 0) === 1) || ultraWorst === "near";
+function updateRisk(adas, ultraWorst, sys) {
+  const anyCrit = WARNINGS.some(([k]) => (adas[k] || 0) === 2) || ultraWorst === "close"
+    || sys.lca === 2 || sys.ped === 2;
+  const anyWarn = WARNINGS.some(([k]) => (adas[k] || 0) === 1) || ultraWorst === "near"
+    || sys.lca === 1 || sys.ped === 1 || sys.mcy === 1;
   let label, sub, color, frac;
   if (anyCrit)      { label = "DANGER";  sub = "High Risk";   color = "var(--crit)"; frac = 0.92; }
   else if (anyWarn) { label = "WARNING"; sub = "Medium Risk"; color = "var(--warn)"; frac = 0.55; }
@@ -480,10 +746,13 @@ function maybeFetchWeather(w) {
 function render(d) {
   $("vehicleTag").textContent = `Vehicle #${d.meta.vehicleId}`;
 
-  processAlerts(d.adas);
+  const sys = smartState(d);           // V2N / V2P / AI flags (missing → 0)
+  processAlerts(d.adas, sys);
   updateAdasGrid(d.adas);
+  updateSmartGrid(sys);
+  updateHazards(sys);
   const ultraWorst = processUltrasonic(d.ultrasonic || {});
-  updateRisk(d.adas, ultraWorst);
+  updateRisk(d.adas, ultraWorst, sys);
 
   // Speedometer
   const speed = d.drive.speedKmh;
@@ -557,5 +826,7 @@ function connectStream() {
 }
 
 buildAdasGrid();
+buildSmartGrid();
+buildHazards();
 connectStream();
 setInterval(() => { if (wxLoc) { const [la, lo] = wxLoc.split(","); fetchWeather(la, lo, $("wxCity").textContent); } }, 600000);

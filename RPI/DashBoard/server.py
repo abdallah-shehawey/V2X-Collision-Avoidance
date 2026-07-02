@@ -67,12 +67,16 @@ class Handler(SimpleHTTPRequestHandler):
             super().do_GET()
 
     def send_adas(self):
-        """Expose the live ADAS state as JSON so the control server (:8001) can
-        block forbidden moves on a CRITICAL — FCW critical → no forward, BSW
-        critical → no turn into the flagged side. The body is the same dict the
-        dashboard sees: {fcw,eebl,bsw,dnpw,ima,bswSide}."""
+        """Expose the live safety state as JSON so the control server (:8001) can
+        block forbidden moves — FCW critical → no forward, BSW critical → no turn
+        into the flagged side, plus the smart-system flags (v2n/v2p/ai from
+        data.json): red light / crossing pedestrians / motorcycle risk / AI
+        lead-car danger. The V2V part is the same dict the dashboard sees
+        ({fcw,eebl,bsw,dnpw,ima,bswSide}); the smart flags are merged in flat."""
         with _stm_lock:
-            body = json.dumps(_stm_state["adas"]).encode("utf-8")
+            merged = dict(_stm_state["adas"])
+        merged.update(_smart_flags())
+        body = json.dumps(merged).encode("utf-8")
         self.send_response(200)
         self.send_header("Content-Type", "application/json")
         self.send_header("Content-Length", str(len(body)))
@@ -157,6 +161,57 @@ def lan_ip():
         return ip
     except Exception:
         return "127.0.0.1"
+
+
+# ──────────────────────────────────────────────────────────────────────
+#  Smart-system flags (v2n / v2p / ai) for the /adas endpoint.
+#
+#  The control server polls /adas every ~150ms; re-parsing data.json on every
+#  poll would be wasted work, so the parsed flags are cached and refreshed only
+#  when the file's mtime changes (same cheap change-detection the SSE loop uses).
+#  A missing/mid-write file keeps the last good flags → one bad read can never
+#  flip the car's safety guard.
+# ──────────────────────────────────────────────────────────────────────
+SMART_DEFAULTS = {
+    "trafficLight": 0,          # v2n: 0 no signal | 1 GO | 2 STOP
+    "pedestrian": 0,            # v2p: 0 clear | 1 nearby | 2 crossing
+    "position": 0,              # v2p: 0 none | 1 hazard RIGHT | 2 hazard LEFT
+    "motorcycleCollision": 0,   # v2p: 0 clear | 1 collision risk
+    "leadCarCollision": 0,      # ai : 0 clear | 1 warning | 2 imminent
+}
+_smart_lock = threading.Lock()
+_smart_cache = {"mtime": None, "flags": dict(SMART_DEFAULTS)}
+
+
+def _smart_flags():
+    """Return the current v2n/v2p/ai flags from data.json (cached by mtime)."""
+    try:
+        mtime = os.path.getmtime(DATA_FILE)
+    except OSError:
+        return dict(SMART_DEFAULTS)
+
+    with _smart_lock:
+        if mtime != _smart_cache["mtime"]:
+            try:
+                with open(DATA_FILE, "rb") as f:
+                    data = json.load(f)
+            except (OSError, ValueError):
+                return dict(_smart_cache["flags"])  # mid-write → keep last good
+            v2n = data.get("v2n") or {}
+            v2p = data.get("v2p") or {}
+            ai = data.get("ai") or {}
+            lead = ai.get("leadCarCollision")
+            if lead is None:                       # accept either home for the flag
+                lead = v2p.get("leadCarCollision")
+            _smart_cache["flags"] = {
+                "trafficLight":        v2n.get("trafficLight") or 0,
+                "pedestrian":          v2p.get("pedestrian") or 0,
+                "position":            v2p.get("position") or 0,
+                "motorcycleCollision": v2p.get("motorcycleCollision") or 0,
+                "leadCarCollision":    lead or 0,
+            }
+            _smart_cache["mtime"] = mtime
+        return dict(_smart_cache["flags"])
 
 
 # ======================================================================

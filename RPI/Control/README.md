@@ -31,19 +31,31 @@ rotate to **landscape**, and tap **☀** once to keep the screen awake.
 Pin map / motor logic is identical to `../keyboard_control.py`
 (Motor A: ENA=18, IN1=23, IN2=24 · Motor B: ENB=19, IN3=27, IN4=22).
 
-## ADAS safety guard
+## Safety guard (ADAS + V2N / V2P / AI)
 
 The server polls the telemetry DashBoard's `/adas` endpoint (`:8000`) and refuses
-the dangerous move when the V2V firmware raises a **CRITICAL**:
+any move the safety state flags as dangerous:
+
+**V2V (STM32 firmware, CRITICAL only):**
 
 - **FCW critical** → **forward (▲) is blocked** (downgraded to stop).
 - **BSW critical** → the **turn into the flagged blind-spot side** is blocked
   (◄ for a left alert, ► for a right alert, both for a both-sides alert).
 
+**Smart systems (v2n / v2p / ai flags relayed through the DashBoard):**
+
+- **AI lead-car DANGER** (`leadCarCollision = 2`) → forward blocked.
+- **Red light / road closed** (`trafficLight = 2`) → forward blocked.
+- **Pedestrians crossing** (`pedestrian = 2`) → forward blocked.
+- **Motorcycle collision risk** (`motorcycleCollision = 1`) → forward blocked.
+- **V2P side hazard** (`position = 1` right / `2` left) → the turn into that
+  side is blocked.
+
 The block happens before the motors are driven, so it holds no matter what the
 phone sends. The poll is best-effort: if the DashBoard is down it **fails open**
 (ordinary driving is never blocked), and the `/cmd` reply carries a `blocked`
-field (e.g. `"FCW"`, `"BSW-LEFT"`) when a move was refused.
+field (e.g. `"FCW"`, `"RED-LIGHT"`, `"V2P-LEFT"`) when a move was refused — the
+phone shows it as a red **BLOCKED** banner with a short vibration.
 
 ## Files
 

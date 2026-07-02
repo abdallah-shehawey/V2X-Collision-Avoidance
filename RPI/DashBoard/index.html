@@ -112,6 +112,15 @@
             </g>
           </svg>
           <img class="car-img" src="Logo/car.png" alt="vehicle" />
+
+          <!-- AI-detected objects around the car (V2P / AI camera): a standing or
+               crossing pedestrian, a motorcycle, and the lead car ahead. JS fills
+               the icons and toggles visibility/side per the live flags. -->
+          <div class="hazard-layer" aria-hidden="true">
+            <div class="hazard hz-lca" id="hzLca"></div>
+            <div class="hazard hz-mcy" id="hzMcy"></div>
+            <div class="hazard hz-ped" id="hzPed"></div>
+          </div>
           </div>
         </div>
 
@@ -181,11 +190,19 @@
             <div class="adas-grid" id="adasGrid"></div>
           </div>
         </div>
+
+        <!-- V2N / V2P / AI smart systems (traffic light, pedestrians, AI camera) -->
+        <div class="card panel smart-card">
+          <div class="panel-title">V2N · V2P · AI</div>
+          <div class="smart-grid" id="smartGrid"></div>
+        </div>
       </section>
     </main>
 
-    <!-- ===================== Toast Container ===================== -->
+    <!-- ===================== Toast Containers ===================== -->
+    <!-- right stack: V2V (ADAS) warnings · left stack: V2N / V2P / AI warnings -->
     <div id="toastContainer" class="toast-container"></div>
+    <div id="toastContainerLeft" class="toast-container toast-container-left"></div>
 
     <!-- ===================== Critical Popup Overlay ===================== -->
     <div id="criticalOverlay" class="critical-overlay" style="display:none">

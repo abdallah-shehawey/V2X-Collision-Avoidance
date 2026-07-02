@@ -6,6 +6,9 @@ no car screen required.
 **Shows only real project data:**
 
 - **ADAS safety warnings** — EEBL, FCW, BSW, DNPW, IMA (Safe / Warning / Critical)
+- **V2N · V2P · AI smart systems** — traffic light (GO/STOP), pedestrian
+  detection (nearby / crossing + side), motorcycle collision risk, and the AI
+  camera's lead-car watch (warning / danger)
 - **Speed + heading + attitude** — from the MPU9250 (speedometer, compass, pitch/roll)
 - **Engine temperature + weather** — stat tiles on the left
 - **6 ultrasonic sensors** — top-down car view; each sensor shows live distance

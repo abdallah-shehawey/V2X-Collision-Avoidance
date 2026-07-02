@@ -218,6 +218,48 @@ body {
 .sensor.close .beam { fill: url(#gCrit); opacity: 1; animation: beampulse .8s ease-in-out infinite; }
 @keyframes beampulse { 0%,100% { opacity: .6; } 50% { opacity: 1; } }
 
+/* ── AI-detected objects around the car (V2P / AI camera) ──
+   Markers float on the road plane around the car image: orange = warning,
+   red = danger. Hidden (scaled down + transparent) until their flag fires,
+   and they slide between positions when the hazard side changes. */
+.hazard-layer { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+.hazard {
+  position: absolute; width: clamp(30px, 3.2vw, 52px); height: clamp(30px, 3.2vw, 52px);
+  opacity: 0; transform: translate(-50%, -50%) scale(.4);
+  transition: opacity .3s ease, transform .3s ease, color .3s ease, left .4s ease, top .4s ease;
+  filter: drop-shadow(0 0 10px currentColor);
+}
+.hazard svg { width: 100%; height: 100%; }
+/* soft ground shadow under each marker */
+.hazard::after {
+  content: ""; position: absolute; left: 50%; bottom: -14%;
+  width: 80%; height: 20%; transform: translateX(-50%);
+  background: radial-gradient(50% 50% at 50% 50%, rgba(0,0,0,.55), transparent 70%);
+}
+.hazard.on   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.hazard.warn { color: var(--warn); }
+.hazard.crit { color: var(--crit); animation: hz-pulse .9s ease-in-out infinite; }
+@keyframes hz-pulse {
+  0%, 100% { filter: drop-shadow(0 0 6px currentColor); }
+  50%      { filter: drop-shadow(0 0 16px currentColor); }
+}
+
+/* lead car ahead: warning sits far up the road, danger slides in close */
+.hz-lca       { left: 50%; top: 15%; }
+.hz-lca.close { top: 27%; }
+
+/* motorcycle: ahead, offset to the side so it never overlaps the lead car */
+.hz-mcy { left: 66%; top: 26%; }
+
+/* pedestrian — always standing still:
+   nearby   → right beside the road's white edge line on the flagged side
+   crossing → mid-road, shifted toward the flagged side (center if unknown) */
+.hz-ped.pos-right { left: 70%; top: 54%; }
+.hz-ped.pos-left  { left: 30%; top: 54%; }
+.hz-ped.mid       { left: 50%; top: 32%; }
+.hz-ped.mid-right { left: 58%; top: 32%; }
+.hz-ped.mid-left  { left: 42%; top: 32%; }
+
 /* ===================== Compass ===================== */
 .compass-card { align-items: center; }
 .compass { position: relative; flex: 1; min-height: 0; aspect-ratio: 1; max-height: 100%; margin: 2px auto 0; }
@@ -264,7 +306,7 @@ body {
 .attitude-read strong { color: var(--text); font-size: clamp(15px, 1.4vw, 22px); font-weight: 700; margin-left: 4px; }
 
 /* ===================== Lower row ===================== */
-.lower { min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.9fr); gap: clamp(8px, 1vw, 16px); }
+.lower { min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr) minmax(0, .95fr); gap: clamp(8px, 1vw, 16px); }
 .panel { min-height: 0; padding: clamp(12px, 1.3vw, 20px); display: flex; flex-direction: column; overflow: hidden; }
 .panel-title { color: var(--accent); font-size: clamp(11px, .95vw, 14px); text-transform: uppercase; letter-spacing: 2px; font-weight: 800; margin-bottom: 10px; flex-shrink: 0; }
 
@@ -306,6 +348,20 @@ body {
 .adas-card.crit .adas-ic, .adas-card.crit .adas-status { color: var(--crit); }
 @keyframes adas-blink { 0%,100% { box-shadow: 0 0 12px rgba(255,77,79,.12); } 50% { box-shadow: 0 0 22px rgba(255,77,79,.3); } }
 
+/* ===================== Smart systems (V2N / V2P / AI) ===================== */
+/* Same card language as the ADAS grid, in a 2×2 panel of its own. */
+.smart-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: clamp(6px, .7vw, 12px); }
+/* extra states beyond safe/warn/crit: */
+.adas-card.off { border-color: var(--stroke); }
+.adas-card.off .adas-ic, .adas-card.off .adas-status { color: var(--muted); }
+.adas-card.notice { border-color: rgba(74,166,255,.45); box-shadow: 0 0 16px rgba(74,166,255,.10); }
+.adas-card.notice .adas-ic, .adas-card.notice .adas-status { color: var(--accent); }
+.adas-card.go { border-color: rgba(46,204,113,.5); box-shadow: 0 0 18px rgba(46,204,113,.16); }
+.adas-card.go .adas-ic, .adas-card.go .adas-status { color: var(--safe); }
+/* STOP = steady red (a red light is a state, not a blinking emergency) */
+.adas-card.stop { border-color: rgba(255,77,79,.55); box-shadow: 0 0 18px rgba(255,77,79,.18); }
+.adas-card.stop .adas-ic, .adas-card.stop .adas-status { color: var(--crit); }
+
 /* BSW side indicator: the wave on the threat side glows in the accent colour
    while the quiet side dims, so left vs right reads instantly. Applies to both
    the ADAS grid card and the critical popup icon (anything with data-side). */
@@ -329,6 +385,13 @@ body {
 .toast-close:hover { color: var(--text); }
 @keyframes toast-in { from { opacity: 0; transform: translateX(60px) scale(0.95); } to { opacity: 1; transform: translateX(0) scale(1); } }
 @keyframes toast-shake { 0%,100% { transform: rotate(0deg); } 20% { transform: rotate(-8deg); } 40% { transform: rotate(8deg); } 60% { transform: rotate(-5deg); } 80% { transform: rotate(5deg); } }
+
+/* Left stack (V2N / V2P / AI): mirror of the right one — accent bar on the
+   right edge, slides in from and out to the LEFT. */
+.toast-container-left { right: auto; left: 22px; }
+.toast-container-left .toast { border-left: 1px solid rgba(245,166,35,0.25); border-right: 4px solid var(--warn); animation-name: toast-in-left; }
+.toast-container-left .toast.toast-out { transform: translateX(-30px); }
+@keyframes toast-in-left { from { opacity: 0; transform: translateX(-60px) scale(0.95); } to { opacity: 1; transform: translateX(0) scale(1); } }
 
 /* ===================== Critical Popup Overlay ===================== */
 .critical-overlay { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.92); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); animation: overlay-in 0.3s ease; }
