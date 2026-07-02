@@ -23,6 +23,13 @@ The v2n / v2p sections are written by dashboard_bridge.py, NOT here. The reader
 uses the exact same read → modify → atomic-replace pattern (and a lock) so the
 two writers never clobber each other.
 
+  3) BRIDGE the host vehicle's speed to the IPC hub. Every valid UART packet
+     also gets its speedKmh published to the hub on the "vehicle_speed" topic,
+     so Car_client.py (which has no direct UART access) can pick it up and use
+     it for its own crossing-time calculation. If the hub isn't running yet
+     this is skipped — the rest of the server keeps working normally, it's
+     just that Car_client will fall back to speed = 0.
+
 Run:
     python3 server.py
 Then open the printed URL (e.g. http://localhost:8000).
@@ -31,6 +38,7 @@ Then open the printed URL (e.g. http://localhost:8000).
 import json
 import os
 import socket
+import sys
 import threading
 import time
 from collections import Counter
@@ -40,6 +48,11 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 import serial  # pyserial — needed for the UART reader thread
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+
+# ipc_node lives in the shared hub/ folder
+sys.path.insert(0, os.path.join(HERE, "..", "hub"))
+from ipc_node import IPCNode  # publishes vehicle_speed to the hub for Car_client.py
+
 DATA_FILE = os.path.join(HERE, "data.json")
 PORT = 8000
 
@@ -393,6 +406,24 @@ def _open_uart(port=UART_PORT, baudrate=UART_BAUD):
 _stm_lock = threading.Lock()
 _stm_seq = 0           # bumped on every packet → cheap change-detection for SSE
 
+# ── IPC hub link — publishes vehicle_speed for Car_client.py ──────────────
+# server.py is the only process with direct UART access, but Car_client.py
+# needs the live speed to compute its crossing-time check. We push it over
+# the hub instead of duplicating the UART read elsewhere.
+_ipc_node = IPCNode("uart_bridge")
+_ipc_connected = False
+
+
+def _connect_ipc_hub() -> None:
+    """Connect to the hub once at startup (non-fatal if it isn't running)."""
+    global _ipc_connected
+    _ipc_connected = _ipc_node.connect()
+    if _ipc_connected:
+        print("[uart] connected to IPC hub — publishing vehicle_speed")
+    else:
+        print("[uart] IPC hub unreachable — vehicle_speed will not be "
+              "published (Car_client speed will default to 0)")
+
 # ── Prototype distance scale ──────────────────────────────────────────────
 # Real-car prototype operates in a small room / corridor.  The default must sit
 # ABOVE the widest dashboard WARNING gate (front = 40 cm) so a "no object /
@@ -600,7 +631,16 @@ def uart_reader_loop():
                 line = raw.decode("ascii", "ignore")
                 packet = parse_line(line)
                 if packet is not None:
-                    _publish_state(_packet_to_state(packet))
+                    state = _packet_to_state(packet)
+                    _publish_state(state)
+                    if _ipc_connected:
+                        try:
+                            _ipc_node.publish(
+                                "vehicle_speed",
+                                {"speed_kmh": state["drive"]["speedKmh"]},
+                            )
+                        except Exception as exc:
+                            print(f"[uart] IPC publish failed: {exc}")
         except (serial.SerialException, OSError) as exc:
             print(f"[uart] link error ({exc}); reopening in 2s…")
             try:
@@ -656,8 +696,10 @@ def _apply_vehicle_id() -> None:
 
 
 def main():
-    # Apply vehicle ID to data.json first (RPi4→2, RPi5→1), then start UART reader.
+    # Apply vehicle ID to data.json first (RPi4→2, RPi5→1), then connect to the
+    # IPC hub (so vehicle_speed can be published) and start the UART reader.
     _apply_vehicle_id()
+    _connect_ipc_hub()
     start_uart_reader()
 
     handler = partial(Handler, directory=HERE)
