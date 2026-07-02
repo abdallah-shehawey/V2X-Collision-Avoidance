@@ -4,8 +4,6 @@
 #include "esp_wifi.h"
 
 #define ESPNOW_CHANNEL 6
-// MAC of the master node to spy on. Leave all-zero to print packets from ANY sender.
-uint8_t MASTER_MAC[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
 // ====== Struct ======
 // MUST match the STM32 Neighbor struct byte-for-byte (V2V-STM32/Inc/Application/DSRC/DSRC.h).
@@ -26,19 +24,6 @@ typedef struct __attribute__((packed))
 // ====== Globals ======
 uint8_t broadcast_addr[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
-// Returns true only if every byte of MASTER_MAC is zero (i.e. no filter set).
-static bool master_mac_is_any()
-{
-  for (uint8_t i = 0; i < 6; i++)
-  {
-    if (MASTER_MAC[i] != 0x00)
-    {
-      return false;
-    }
-  }
-  return true;
-}
-
 // ============================================================
 // ESP-NOW Callbacks
 // ============================================================
@@ -49,14 +34,7 @@ void OnDataRecv(const esp_now_recv_info_t *info, const uint8_t *data, int len)
     return;
   }
 
-  // Only spy on the master: skip anything not coming from MASTER_MAC
-  // (unless MASTER_MAC is all-zero, meaning "listen to everyone").
-  if (!master_mac_is_any() &&
-      memcmp(info->src_addr, MASTER_MAC, 6) != 0)
-  {
-    return;
-  }
-
+  // Sniffer: print every vehicle that transmits, no MAC/ID filtering.
   Neighbor n;
   memcpy(&n, data, sizeof(Neighbor));
 
@@ -103,16 +81,7 @@ void setup()
   esp_now_add_peer(&peer);
 
   Serial.printf("sizeof(Neighbor) = %d\n", sizeof(Neighbor));
-  if (master_mac_is_any())
-  {
-    Serial.println("V2V Sniffer Ready - listening to ALL senders");
-  }
-  else
-  {
-    Serial.printf("V2V Sniffer Ready - spying on %02X:%02X:%02X:%02X:%02X:%02X\n",
-                  MASTER_MAC[0], MASTER_MAC[1], MASTER_MAC[2],
-                  MASTER_MAC[3], MASTER_MAC[4], MASTER_MAC[5]);
-  }
+  Serial.println("V2V Sniffer Ready - listening to ALL vehicles");
 }
 
 void loop()
