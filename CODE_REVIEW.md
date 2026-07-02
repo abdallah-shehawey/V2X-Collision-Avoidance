@@ -43,6 +43,8 @@ Severity legend:
 | 26 | 🔵 | esp32/Storing_algorithm.cpp | Test overwrites its own test data — doesn't test what the comment claims |
 | 27 | 🔵 | RPI/Control/control_server.py | Reverse ("B") is never safety-blocked; no auth on the drive endpoint |
 | 28 | 🔵 | RPI/run_all.sh | `wait` waits for *all* children (incl. `tail`), not "any child" as the comment says |
+| 29 | 🟠 | RPI/DashBoard/js/app.js | Every alarm/beep is **silent** until the page is tapped once (browser autoplay policy) |
+| 30 | 🟡 | server.py + dashboard_bridge.py | Two processes write data.json through the **same** `.tmp` path with no cross-process lock |
 
 ---
 
@@ -1013,6 +1015,89 @@ done
 
 ---
 
+## Issue 29 — Dashboard alarms are silent until the page is tapped once (autoplay policy)
+
+**File:** `RPI/DashBoard/js/app.js` (`getAudioCtx()` and every `play*` function).
+
+Chrome/Firefox block audio that was not initiated by a user gesture. `getAudioCtx()` creates the `AudioContext` lazily on the **first beep**, which is always triggered by an SSE update — never by a click — so the context is born in the `suspended` state and stays there. Result: the critical alarm loop, the toast beeps, the ultrasonic proximity beeps, and the traffic-light STOP beep are all **completely silent** until someone happens to click/tap the page (and even then, nothing calls `resume()`, so on Chrome they stay silent forever).
+
+On a safety dashboard this is the worst kind of failure: the red popup appears, but the alarm that is supposed to grab the driver's attention never sounds — and it works fine on the developer's machine (where you've clicked the page a hundred times), then fails on demo day on a freshly opened kiosk screen.
+
+**Old code (current — broken):**
+```javascript
+let audioCtx = null;
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;   // created outside a user gesture → state === "suspended" → silent
+}
+```
+
+**New code (fixed):** resume the context on the first user gesture, and surface a one-time "tap to enable sound" hint until that happens:
+```javascript
+let audioCtx = null;
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+// Autoplay policy: an AudioContext created outside a user gesture starts
+// "suspended" and never produces sound. Unlock it on the first interaction.
+function unlockAudio() {
+  const ctx = getAudioCtx();
+  if (ctx.state === "suspended") ctx.resume();
+  document.removeEventListener("pointerdown", unlockAudio);
+  document.removeEventListener("keydown", unlockAudio);
+}
+document.addEventListener("pointerdown", unlockAudio);
+document.addEventListener("keydown", unlockAudio);
+```
+Optionally show a small banner while `ctx.state === "suspended"` ("🔇 tap anywhere to enable alarms") so the operator knows sound is not armed yet.
+
+**Why:** the demo procedure must not depend on someone remembering to click the page. One gesture listener makes the first accidental tap arm all alarms permanently.
+
+---
+
+## Issue 30 — Two processes write `data.json` via the SAME `.tmp` file, with no cross-process lock
+
+**Files:** `RPI/DashBoard/server.py` (`_apply_vehicle_id()`), `RPI/hub/dashboard_bridge.py` (`_save_data()` / `_update_data()`).
+
+The bridge is documented as "the ONLY writer to data.json" — but `server.py` also writes it once at startup (to set `meta.vehicleId`). Both writers:
+
+1. use the **identical** temp path `data.json.tmp` (`DATA_FILE + ".tmp"`), and
+2. do read → modify → `os.replace` with only a **thread**-level lock (`_file_lock` protects threads inside the bridge process, not against the other process).
+
+Two failure modes when `server.py` starts while the bridge is writing (with the bridge currently writing 30–40×/s — Issue 16 — a collision at startup is not exotic):
+
+- **Corrupted/failed replace:** both processes open the same `data.json.tmp` in `"w"` at once → interleaved bytes; then two `os.replace` calls race — the second one can raise `FileNotFoundError` (tmp already moved) or move a half-written file into place.
+- **Lost update:** server reads the file (old v2p flags) → bridge writes fresh flags → server replaces the file with old-flags + vehicleId. Today the next frame (~30 ms later) repairs it; **after the Issue 16 fix (publish-on-change) the stale flag persists until that flag next changes** — i.e. fixing Issue 16 makes this race stickier, so fix them together.
+
+**New code (fixed):** give each process a unique tmp name, and route the one-shot vehicleId write through the same guarded pattern:
+```python
+# in BOTH writers — unique tmp per process, atomic replace stays atomic:
+tmp = f"{DATA_FILE}.{os.getpid()}.tmp"
+with open(tmp, "w", encoding="utf-8") as f:
+    json.dump(data, f, ensure_ascii=False, indent=2)
+os.replace(tmp, DATA_FILE)
+```
+plus an inter-process lock around the read-modify-replace so updates can't be lost:
+```python
+import fcntl
+
+LOCK_FILE = DATA_FILE + ".lock"
+
+def _locked_update(mutate) -> None:
+    with open(LOCK_FILE, "w") as lk:
+        fcntl.flock(lk, fcntl.LOCK_EX)      # blocks the other process, not just threads
+        data = _load_data()
+        mutate(data)
+        _save_data(data)                     # unique-tmp version above
+```
+(Cleaner long-term: `server.py` shouldn't touch the file at all — publish `{"vehicleId": …}` on a hub topic and let the bridge, the single writer, persist it.)
+
+**Why:** "atomic replace" only protects readers from partial files; it does nothing about two writers racing each other through the same tmp path. One `flock` + unique tmp names closes both holes with ~6 lines.
+
+---
+
 # Additional observations (no action required, worth knowing)
 
 - **`Intelligent_Gateway.py` `car_counter = (car_counter + 1) % 10`** — "density" silently wraps 9 → 0 and never decreases when cars leave. If density matters for the dashboard, derive it from `len(vehicle_registry)` instead of an ever-incrementing counter.
@@ -1022,15 +1107,18 @@ done
 - **`Traffic_light_GUI.py` pause/resume** restarts from `sim_index = 0` (always RED) rather than resuming the paused phase — decide if that's intended UX.
 - **Dashboard `render()`** trusts `d.meta` / `d.drive` to exist; a hand-edited `data.json` missing a section throws in the SSE handler (caught, but the frame is skipped). A `d = {meta:{}, drive:{}, ...d}` merge would make TEST MODE hand-editing safer.
 - **paho `reason_code == 0`** works but the v2 API prefers `reason_code.is_failure` checks — more explicit with MQTT v5 reason codes.
+- **`Car_client.py` console block** (`on_message`, after `_publish_v2n_frame()`) reads `_distance_m`/`_speed_kmh`/… **without** `_state_lock` — worst case a display line mixes values from two packets. Harmless (display only), but grab the lock once and copy, like `_publish_v2n_frame` already does.
+- **`control_server.py` `Motors._kick()`** sleeps `KICK_T` (120 ms) while holding `self._lock`, so a concurrent STOP command waits up to 120 ms before the motors actually stop. Same order of magnitude as the watchdog (`IDLE_T` 300 ms), fine for the prototype — just don't lengthen `KICK_T` without remembering this.
+- **Dashboard `updateRisk()`** ignores `trafficLight == STOP`: a red light plays the warning sound and turns the T-LIGHT card red, but the risk gauge can still read "SECURE". Decide whether a red light should count as at least Medium Risk for consistency.
 
 ---
 
 # Recommended fix order (action plan)
 
 1. **Make it run at all:** Issue 1 (NameError), Issue 25 (credentials/env), Issue 22 (empty model guard).
-2. **Make it safe/correct:** Issue 2 (deadlock), Issue 3 (motorcycle dead code), Issues 4+5 (ambulance latch), Issue 6 (false trigger), Issue 12+14 (socket corruption), Issue 8 (Tk thread).
+2. **Make it safe/correct:** Issue 2 (deadlock), Issue 3 (motorcycle dead code), Issues 4+5 (ambulance latch), Issue 6 (false trigger), Issue 12+14 (socket corruption), Issue 8 (Tk thread), Issue 29 (silent alarms).
 3. **Make it honest:** Issue 21 (fake "connected"), Issue 7 (wrong distance in warning), Issue 11 (fake confidence), Issue 9 (timing drift).
-4. **Make it fast/durable:** Issue 16 (publish-on-change — biggest single win), Issue 17 (skip_frames), Issue 15 (leak), Issue 10 (disk fill), Issues 18–19 (console churn), Issue 20 (hub reconnect).
+4. **Make it fast/durable:** Issue 16 (publish-on-change — biggest single win) **together with Issue 30** (data.json write race — the Issue 16 fix makes it stickier), Issue 17 (skip_frames), Issue 15 (leak), Issue 10 (disk fill), Issues 18–19 (console churn), Issue 20 (hub reconnect).
 5. **Make it maintainable:** Issues 23, 24, 26, 27, 28.
 
 *Report generated by an automated full-codebase review; every issue above was verified against the actual source (line numbers refer to the current `main` branch).*
