@@ -224,3 +224,38 @@ html, body {
   box-shadow: 0 0 18px rgba(15,179,214,.5);
 }
 .gear:active { transform: scale(.96); }
+
+/* ───────────── Safety block banner ─────────────
+   Pops over the top bar while the server refuses the held move (ADAS/V2N/V2P/AI
+   guard). Red, loud, and self-hiding — it only lives while the block is fresh. */
+.block-banner {
+  position: fixed;
+  top: calc(env(safe-area-inset-top) + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  background: rgba(255, 84, 112, .14);
+  border: 1px solid var(--danger);
+  color: var(--danger);
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 0 26px rgba(255,84,112,.35), var(--shadow);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: block-pulse 1s ease-in-out infinite;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.block-banner[hidden] { display: none; }
+.block-icon { font-size: 16px; }
+@keyframes block-pulse {
+  0%, 100% { box-shadow: 0 0 18px rgba(255,84,112,.25), var(--shadow); }
+  50%      { box-shadow: 0 0 32px rgba(255,84,112,.55), var(--shadow); }
+}

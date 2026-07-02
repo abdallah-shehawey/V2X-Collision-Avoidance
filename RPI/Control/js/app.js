@@ -71,9 +71,49 @@
     statusTxt.textContent = up ? "Connected" : "Reconnecting…";
   }
 
+  // ── safety block banner ────────────────────────────────────────────
+  // The server answers every /cmd with "blocked": null, or a short reason code
+  // when the safety guard (ADAS / V2N / V2P / AI) refused the move and stopped
+  // the car instead. Surface it big and red so the driver knows the car said no.
+  const BLOCK_LABEL = {
+    "FCW":         "vehicle ahead",
+    "LEAD-CAR":    "lead car stopped ahead",
+    "RED-LIGHT":   "red light",
+    "PEDESTRIANS": "pedestrians crossing",
+    "MOTORCYCLE":  "motorcycle risk",
+    "BSW-LEFT":    "blind spot · left",
+    "BSW-RIGHT":   "blind spot · right",
+    "V2P-LEFT":    "hazard · left side",
+    "V2P-RIGHT":   "hazard · right side",
+  };
+  const blockBanner = $("#block-banner");
+  const blockText   = $("#block-text");
+  let blockShown = null;     // reason currently on screen (null = hidden)
+  let blockTimer = null;     // watchdog: hide if the block stops being re-asserted
+
+  function showBlocked(reason) {
+    if (!reason) { hideBlocked(); return; }
+    // watchdog: held-arrow posts re-assert every REPEAT_MS; if they stop
+    // (finger lifted mid-block, link lost) the banner clears on its own.
+    clearTimeout(blockTimer);
+    blockTimer = setTimeout(hideBlocked, 900);
+    if (blockShown === reason) return;
+    blockShown = reason;
+    blockText.textContent = `BLOCKED — ${BLOCK_LABEL[reason] || reason}`;
+    blockBanner.hidden = false;
+    if (navigator.vibrate) navigator.vibrate([70, 40, 70]);   // haptic "no"
+  }
+  function hideBlocked() {
+    clearTimeout(blockTimer);
+    blockTimer = null;
+    blockShown = null;
+    blockBanner.hidden = true;
+  }
+
   // ── driving ────────────────────────────────────────────────────────
-  function sendCmd(dir) {
-    post("/cmd", { dir, speed });
+  async function sendCmd(dir) {
+    const res = await post("/cmd", { dir, speed });
+    showBlocked(res && res.blocked);
   }
 
   function startHold(dir) {

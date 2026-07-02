@@ -56,17 +56,30 @@ KICK_T        = 0.12   # kick duration (s)
 IDLE_T        = 0.30   # stop the car if no command arrives for this long (watchdog)
 
 # ───────────────────────── ADAS safety guard ─────────────────────────────
-# The telemetry DashBoard (:8000) owns the live V2V state. We poll its /adas
-# endpoint and, on a CRITICAL, refuse the dangerous move so the car can't drive
-# into the hazard the firmware already flagged:
-#   • FCW critical            → block FORWARD ("F")
-#   • BSW critical on a side  → block the TURN into that side ("L" / "R")
+# The telemetry DashBoard (:8000) owns the live safety state. We poll its /adas
+# endpoint and refuse any move it flags as dangerous, so the car physically
+# can't drive into a hazard the sensors already reported:
+#   V2V (STM32 firmware, CRITICAL only):
+#     • FCW critical            → block FORWARD ("F")
+#     • BSW critical on a side  → block the TURN into that side ("L" / "R")
+#   Smart systems (v2n/v2p/ai flags relayed by the dashboard):
+#     • AI lead-car DANGER (2)  → block FORWARD (imminent collision)
+#     • trafficLight STOP (2)   → block FORWARD (red light / road closed)
+#     • pedestrian CROSSING (2) → block FORWARD
+#     • motorcycleCollision (1) → block FORWARD
+#     • position RIGHT/LEFT     → block the TURN into the flagged side
 # The poll is best-effort: if the dashboard is down or slow we fail OPEN (no
 # restriction) so ordinary driving never depends on it.
 ADAS_URL      = "http://127.0.0.1:8000/adas"
 ADAS_POLL_S   = 0.15   # how often to refresh the ADAS snapshot
 ADAS_TIMEOUT  = 0.3    # per-request timeout (short — never stall a drive command)
 SYS_CRITICAL  = 2      # matches the firmware RiskLevel_t / sys_flags encoding
+
+# Smart-system flag values (see the dashboard's data.json spec)
+TL_STOP       = 2      # v2n.trafficLight: red light / not enough time to cross
+PED_CROSSING  = 2      # v2p.pedestrian: pedestrians actually crossing the road
+POS_RIGHT     = 1      # v2p.position: hazard on the right side
+POS_LEFT      = 2      # v2p.position: hazard on the left side
 
 
 # ───────────────────────── Motor layer (L298N) ───────────────────────────
@@ -177,19 +190,40 @@ def adas_poll_loop():
 
 
 def blocked_reason(direction):
-    """Return a short reason string if the ADAS state forbids *direction* right
-    now, else None. FCW critical blocks forward; BSW critical blocks the turn
-    into the flagged blind-spot side."""
+    """Return a short reason string if the safety state forbids *direction*
+    right now, else None. Forward is blocked by any frontal hazard (FCW
+    critical, AI lead-car danger, red light, crossing pedestrians, motorcycle
+    risk); turns are blocked into a flagged blind-spot / V2P hazard side."""
     with _adas_lock:
         fcw  = _adas.get("fcw", 0)
         bsw  = _adas.get("bsw", 0)
         side = _adas.get("bswSide")
-    if direction == "F" and fcw == SYS_CRITICAL:
-        return "FCW"
-    if direction == "L" and bsw == SYS_CRITICAL and side in ("left", "both"):
-        return "BSW-LEFT"
-    if direction == "R" and bsw == SYS_CRITICAL and side in ("right", "both"):
-        return "BSW-RIGHT"
+        tl   = _adas.get("trafficLight", 0)
+        ped  = _adas.get("pedestrian", 0)
+        pos  = _adas.get("position", 0)
+        mcy  = _adas.get("motorcycleCollision", 0)
+        lca  = _adas.get("leadCarCollision", 0)
+    if direction == "F":
+        if fcw == SYS_CRITICAL:
+            return "FCW"
+        if lca == SYS_CRITICAL:
+            return "LEAD-CAR"
+        if tl == TL_STOP:
+            return "RED-LIGHT"
+        if ped == PED_CROSSING:
+            return "PEDESTRIANS"
+        if mcy:
+            return "MOTORCYCLE"
+    if direction == "L":
+        if bsw == SYS_CRITICAL and side in ("left", "both"):
+            return "BSW-LEFT"
+        if pos == POS_LEFT:
+            return "V2P-LEFT"
+    if direction == "R":
+        if bsw == SYS_CRITICAL and side in ("right", "both"):
+            return "BSW-RIGHT"
+        if pos == POS_RIGHT:
+            return "V2P-RIGHT"
     return None
 
 
