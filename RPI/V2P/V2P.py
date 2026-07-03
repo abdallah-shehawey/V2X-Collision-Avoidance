@@ -95,7 +95,7 @@ print("=" * 60)
 # 1. Settings & Configuration (OPTIMIZED)
 # ============================================================
 MODEL_PATH       = os.path.join(_HERE, "model2.onnx")
-CONF_THRESH      = 0.25          # ★ OPTIMIZED: reduced from 0.30 for better detection
+CONF_THRESH      = 0.40          # ★ OPTIMIZED: reduced from 0.30 for better detection
 MODEL_INPUT_SIZE = 640
 FRAME_W, FRAME_H = 640, 480
 
@@ -569,7 +569,7 @@ tracker = CentroidTracker(max_disappeared=25, max_distance=100)
 # ============================================================
 frame_count  = 0
 # ★ OPTIMIZED: process every frame instead of skipping (skip_frames = 1)
-skip_frames  = 1
+skip_frames  = 3
 fps          = 0
 fps_counter  = 0
 fps_time     = time.time()
