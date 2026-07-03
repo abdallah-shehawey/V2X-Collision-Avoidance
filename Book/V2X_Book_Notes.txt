@@ -1,0 +1,324 @@
+================================================================================
+  V2X GRADUATION PROJECT — BOOK CONTENT GUIDE
+  All sections below are ready to copy-paste into the Word document.
+  Each section states: WHERE TO INSERT and WHAT TO DELETE.
+================================================================================
+
+
+================================================================================
+  SECTION A — LIBRARIES & PACKAGES
+  INSERT IN: Chapter 4, add a new subsection titled "Development Tools and Libraries"
+  DELETE FROM BOOK: nothing — this is new content
+================================================================================
+
+4.X  Development Tools and Libraries
+------------------------------------------------------------------------------
+
+4.X.1  ESP32 (Arduino Framework)
+
+The ESP32-S3 firmware is developed using the Arduino framework with the
+Espressif ESP32 board package (version 3.x). All required libraries are
+bundled within the board package; no additional library installation is needed.
+
+Table X.1 — ESP32 Libraries Used
++---------------------+-------------------------------------------------------+
+| Library             | Purpose                                               |
++---------------------+-------------------------------------------------------+
+| Arduino.h           | Core framework: Serial, delay(), millis(), data types |
+| WiFi.h              | WiFi station/AP management; sets channel for ESP-NOW  |
+| esp_now.h           | ESP-NOW protocol: broadcast, receive callback, send   |
+| esp_wifi.h          | Low-level WiFi: esp_wifi_set_channel() for channel 6  |
++---------------------+-------------------------------------------------------+
+
+4.X.2  Raspberry Pi 4 (Python 3)
+
+The Raspberry Pi software is written in Python 3. Two external packages
+must be installed; all other dependencies are part of the Python standard
+library.
+
+Installation:
+  pip3 install pyserial
+  pip3 install gpiozero
+
+Table X.2 — Raspberry Pi Libraries Used
++---------------------+------------------+------------------------------------+
+| Library             | Source           | Purpose                            |
++---------------------+------------------+------------------------------------+
+| gpiozero            | pip3 install     | PWM and digital motor control      |
+|                     |                  | via L298N H-bridge on GPIO pins    |
+| serial (pyserial)   | pip3 install     | UART communication with STM32      |
+|                     |                  | at 120000 baud on /dev/ttyAMA0     |
+| json                | standard library | Read and write data.json for the   |
+|                     |                  | dashboard                          |
+| threading           | standard library | Background UART listener thread    |
+| os                  | standard library | File path handling                 |
+| time                | standard library | Timing and sleep                   |
+| socket              | standard library | Local IPC communication            |
+| http.server         | standard library | Web server for the dashboard       |
+| fcntl, struct       | standard library | Custom baud-rate via termios2      |
++---------------------+------------------+------------------------------------+
+
+
+================================================================================
+  SECTION B — V2V SYSTEM EXPLANATION (FreeRTOS Tasks)
+  INSERT IN: Chapter 4, under "Software Architecture" or "Task Overview"
+  DELETE FROM BOOK: any placeholder or incomplete task description in Ch4
+================================================================================
+
+4.X  STM32 Real-Time Software Architecture
+------------------------------------------------------------------------------
+
+The STM32F446RE runs FreeRTOS with six concurrent tasks. Each task has a
+fixed priority and period. The safety-critical tasks (SafetyEngine and ESP
+communication) share the highest priority to guarantee deterministic timing.
+
+Table X.3 — FreeRTOS Task Summary
++---------------------+----------+--------------+----------------------------------------------+
+| Task                | Priority | Period       | Responsibility                               |
++---------------------+----------+--------------+----------------------------------------------+
+| vTask_SafetyEngine  | 4 (HIGH) | 50 ms        | Runs all five ADAS algorithms in one pass    |
+|                     |          |              | over the neighbour table and writes the      |
+|                     |          |              | 16-bit G_u16SystemFlags register             |
+| vTask_ESP_Comm      | 4 (HIGH) | TX: 100 ms   | Receives raw bytes from UART1 ISR, passes    |
+|                     |          | RX: event    | them to the DSRC parser, and broadcasts the  |
+|                     |          |              | local Neighbor struct via ESP-NOW every 100ms|
+| vTask_Sensors       | 3        | ~35 ms       | Reads six HC-SR04 sensors (interrupt-driven) |
+|                     |          |              | and the MPU9250 IMU over SPI                 |
+| vTask_RPi_Comm      | 1        | 100 ms       | Formats and sends a CSV line to the RPi      |
+|                     |          |              | via UART4 every 100 ms                       |
+| vTask_Watchdog      | 1 (LOW)  | 300 ms       | Checks that every task is alive; triggers    |
+|                     |          |              | IWDG hardware reset if any task stalls       |
++---------------------+----------+--------------+----------------------------------------------+
+
+4.X.1  System Flags Register (G_u16SystemFlags)
+
+ADAS results are communicated between tasks through a shared 16-bit register.
+Two bits encode the alert level for each module:
+  0 = SAFE,  1 = WARNING,  2 = CRITICAL
+
+Table X.4 — G_u16SystemFlags Bit Layout
++--------------+--------+-------------------------------------------+
+| Module       | Bits   | Possible Values                           |
++--------------+--------+-------------------------------------------+
+| FCW          | 1 : 0  | 0 = Safe, 1 = Warning, 2 = Critical       |
+| EEBL         | 3 : 2  | 0 = Safe, 1 = Warning, 2 = Critical       |
+| BSW          | 5 : 4  | 0 = Safe, 1 = Warning                     |
+| DNPW         | 7 : 6  | 0 = Safe, 1 = Warning                     |
+| IMA          | 9 : 8  | 0 = Safe, 1 = Warning, 2 = Critical       |
++--------------+--------+-------------------------------------------+
+
+4.X.2  SafetyEngine Single-Pass Algorithm
+
+Every 50 ms the SafetyEngine performs one pass over the neighbour table
+(up to 20 entries, 2-second timeout per entry). For each neighbour, the
+relative heading determines the scenario:
+
+  Same direction (heading difference <= 30 deg):
+    FCW checks the front distance. EEBL checks rear deceleration rate.
+    BSW checks the side sensor reading for a blind-spot vehicle.
+
+  Opposite direction (heading difference >= 150 deg):
+    FCW head-on check or DNPW overtaking-forbidden check.
+
+  Crossing paths (heading difference ~90 deg, tolerance +/- 30 deg):
+    IMA compares approach speeds and distance to the intersection point.
+
+All five results are packed into G_u16SystemFlags at the end of the pass.
+
+4.X.3  ESP32 Wireless Bridge
+
+The ESP32-S3 acts as a wireless bridge only; it performs no ADAS logic.
+
+  - Receives a 21-byte Neighbor struct from STM32 over UART1 (115200 baud)
+    framed with 0xAA start byte, 0x55 end byte, and XOR checksum.
+  - Broadcasts the struct to all nearby vehicles over ESP-NOW
+    (2.4 GHz, channel 6, broadcast address FF:FF:FF:FF:FF:FF, latency <2 ms).
+  - Receives ESP-NOW frames from other vehicles, validates the checksum, and
+    forwards valid frames to STM32 over UART1.
+
+4.X.4  STM32-to-RPi Data Format
+
+The STM32 sends one CSV line to the Raspberry Pi every 100 ms over UART4:
+
+  T,speed,heading,pitch,roll,FL,FC,FR,BL,BC,BR,flags
+
+  T         packet marker character
+  speed     vehicle speed in cm/s
+  heading   compass heading 0 to 360 degrees
+  pitch     pitch angle in degrees
+  roll      roll angle in degrees
+  FL FC FR  front-left, front-center, front-right ultrasonic reading [cm]
+  BL BC BR  back-left, back-center, back-right ultrasonic reading [cm]
+  flags     G_u16SystemFlags as a decimal integer
+
+
+================================================================================
+  SECTION C — DISTANCE THRESHOLDS (CODE vs REAL WORLD)
+  INSERT IN: Chapter 4, under the ADAS parameters section
+  DELETE FROM BOOK: any vague or placeholder distance descriptions
+================================================================================
+
+4.X  ADAS Parameter Calibration
+------------------------------------------------------------------------------
+
+All thresholds were tuned for the prototype scale (maximum speed ~5 m/s =
+18 km/h). The table below lists each parameter, its coded value, and its
+real-world interpretation.
+
+Table X.5 — ADAS Distance Parameters
++-------------------------+---------------+--------------------------------------------------+
+| Parameter               | Value in Code | Real-World Meaning                               |
++-------------------------+---------------+--------------------------------------------------+
+| SAFE_DIST_PER_MS        | 35 cm/(m/s)   | Safe following gap = speed (m/s) x 35 cm.       |
+|                         |               | At 3 m/s (10.8 km/h) the safe gap is 105 cm.    |
+| MIN_SAFE_DISTANCE       | 30 cm         | Minimum safe gap regardless of speed (floor)     |
+| CRITICAL_RATIO          | 0.6           | Alert is CRITICAL when gap < 60 % of safe gap   |
+| FCW_FRONT_THRESHOLD     | 300 cm (3 m)  | FCW activates only when obstacle is within 3 m   |
+| BSW_SIDE_THRESHOLD      | 80 cm         | Blind-spot alert when side sensor reads < 80 cm  |
+| EEBL_DECEL_THRESHOLD    | -0.20 m/s     | EEBL triggers when speed drops 0.20 m/s in one  |
+|                         | per 50 ms     | 50 ms cycle, equal to 4 m/s^2 deceleration      |
+| NEIGHBOR_TIMEOUT        | 2000 ms       | Neighbour removed if no frame received for 2 s   |
+| HC-SR04 Max Range       | 400 cm        | Readings above 400 cm are treated as clear       |
++-------------------------+---------------+--------------------------------------------------+
+
+Table X.6 — Safe Distance at Different Speeds
++---------------+--------------+-------------+------------------------------+
+| Speed (m/s)   | Speed (km/h) | Safe Gap    | Critical Gap (60% of safe)   |
++---------------+--------------+-------------+------------------------------+
+| < 0.86        | < 3 km/h     | 30 cm (min) | 18 cm                        |
+| 1.0           | 3.6 km/h     | 35 cm       | 21 cm                        |
+| 2.0           | 7.2 km/h     | 70 cm       | 42 cm                        |
+| 3.0           | 10.8 km/h    | 105 cm      | 63 cm                        |
+| 5.0           | 18 km/h      | 175 cm      | 105 cm                       |
+| > 11.4        | > 41 km/h    | > 400 cm    | Sensor saturates             |
++---------------+--------------+-------------+------------------------------+
+
+Note: For full-scale vehicles, SAFE_DIST_PER_MS would be scaled up and
+ultrasonic sensors would be replaced by LiDAR or RADAR.
+
+
+================================================================================
+  SECTION D — DASHBOARD AS FEEDBACK SYSTEM (REPLACES LEDs AND BUZZER)
+  INSERT IN: Chapter 5 (RPi Software), add section "5.X  ADAS Alert Dashboard"
+  DELETE FROM BOOK: any paragraph that describes LEDs or Buzzer as the alert output
+================================================================================
+
+5.X  ADAS Alert Dashboard
+------------------------------------------------------------------------------
+
+The system uses a web-based dashboard running on the Raspberry Pi as the
+primary driver feedback interface. Physical LEDs and a buzzer were evaluated
+in early prototyping but replaced by the dashboard to deliver richer,
+multi-channel information without additional hardware components.
+
+The dashboard consists of three software components:
+
+  server.py
+    An HTTP server that serves the dashboard HTML page and pushes live
+    updates to the browser via Server-Sent Events (SSE).
+
+  uart_to_dashboard.py
+    Reads the CSV data stream from the STM32 over UART, decodes the system
+    flags, and writes the current state to data.json every 100 ms.
+
+  data.json
+    A shared JSON file holding the current state of all subsystems. Fields:
+    drive (speed, heading, pitch, roll), ultrasonic (six sensor readings),
+    adas (alert level 0/1/2 for each of the five modules).
+
+5.X.1  Dashboard Reactions per ADAS Module
+
+Table X.7 — Dashboard Alert Behaviour
++----------+------------+------------------------------------------------------+
+| Module   | Level      | Dashboard Reaction                                   |
++----------+------------+------------------------------------------------------+
+| FCW      | WARNING    | FCW indicator turns orange — "Slow Down"             |
+|          | CRITICAL   | FCW indicator turns red — "BRAKE!" + audio alert    |
+| EEBL     | WARNING    | EEBL indicator turns orange — "Car Ahead Braking"   |
+|          | CRITICAL   | EEBL indicator turns red — "STOP - Emergency Brake" |
+| BSW      | WARNING    | BSW indicator turns orange — "Blind Spot"           |
+| DNPW     | WARNING    | DNPW indicator turns orange — "Do Not Pass"         |
+| IMA      | WARNING    | IMA indicator turns orange — "Yield at Intersection"|
+|          | CRITICAL   | IMA indicator turns red — "STOP - Intersection"     |
++----------+------------+------------------------------------------------------+
+
+
+================================================================================
+  SECTION E — VEHICLE CONTROL (MOTOR STOP / SLOW ON ADAS ALERTS)
+  INSERT IN: Chapter 5 (RPi Software), add "5.X  Autonomous Safety Response"
+  DELETE FROM BOOK: nothing — this is new content
+================================================================================
+
+5.X  Autonomous Safety Response
+------------------------------------------------------------------------------
+
+In addition to visual dashboard alerts, the system applies direct motor
+control on the Raspberry Pi in response to ADAS flags. This allows the
+prototype vehicle to react autonomously to collision threats.
+
+The safety_motor_control.py script reads G_u16SystemFlags from the UART
+stream every 50 ms and applies the following response policy:
+
+Table X.8 — Motor Control Response Policy
++----------+------------+------------------+-----------------------------------------+
+| Module   | Level      | Motor Action     | Reason                                  |
++----------+------------+------------------+-----------------------------------------+
+| FCW      | WARNING    | Reduce speed     | Obstacle detected close ahead           |
+| FCW      | CRITICAL   | Full stop        | Imminent front collision                |
+| EEBL     | WARNING    | Reduce speed     | Vehicle ahead is decelerating           |
+| EEBL     | CRITICAL   | Full stop        | Emergency braking event ahead           |
+| IMA      | WARNING    | Reduce speed     | Crossing conflict approaching           |
+| IMA      | CRITICAL   | Full stop        | Imminent intersection collision         |
+| BSW      | WARNING    | No motor action  | Dashboard alert only; stopping in a     |
+|          |            |                  | blind-spot lane creates a new hazard    |
+| DNPW     | WARNING    | No motor action  | Dashboard alert only; oncoming traffic  |
+|          |            |                  | makes stopping in that lane dangerous   |
+| ALL SAFE | --         | Normal speed     | No threat detected                      |
++----------+------------+------------------+-----------------------------------------+
+
+Motor speed levels:
+  Normal speed  : 80 % PWM duty cycle
+  Reduced speed : 35 % PWM duty cycle
+  Full stop     : Motor enable line disabled
+
+
+================================================================================
+  SECTION F — CODE CHANGE REFERENCE (DEVELOPER ONLY, DO NOT COPY INTO BOOK)
+================================================================================
+
+FILES TO MODIFY:
+
+  V2V-STM32/Src/main.c
+    Delete line  20  #include BUZ_interface.h
+    Delete line  24  #include LED_interface.h
+    Delete line  34  extern BUZ_Config_t V2X_Buzzer;
+    Delete line  39  extern LED_Config_t FrontR_LED, FrontL_LED, ...
+    Edit   line  52  remove HB_FEEDBACK from the heartbeat enum
+    Delete line  62  void vTask_Feedback(void *pvParameters); prototype
+    Delete line  95  xTaskCreate(vTask_Feedback, ...) call
+    Delete lines 248-287  entire vTask_Feedback function body
+
+  V2V-STM32/Src/System.c
+    Delete line  13  #include BUZ_interface.h
+    Delete line  15  #include LED_interface.h
+    Delete lines 48-53  BUZ_Config_t and all five LED_Config_t object definitions
+    Delete lines 232-239  LED_Init() and BUZ_Init() calls inside System_setup()
+    Delete lines 248-270  BUZ/LED calls inside magnetometer calibration sequence
+
+  V2V-STM32/Inc/System/System.h
+    Delete  #include LED_interface.h
+    Delete  extern LED_Config_t FrontR_LED, FrontL_LED, BackR_LED, BackL_LED, Interior_LED;
+
+NEW FILES TO CREATE ON RASPBERRY PI:
+
+  RPI/DashBoard/uart_to_dashboard.py
+    Reads UART via uart.py, writes data.json adas / drive / ultrasonic fields.
+    Run alongside server.py.
+
+  RPI/safety_motor_control.py
+    Reads UART via uart.py, applies motor stop or slow based on decoded flags.
+    Run alongside keyboard_control.py as a safety override layer.
+
+================================================================================
+  END
+================================================================================
