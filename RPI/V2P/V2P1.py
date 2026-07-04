@@ -540,7 +540,62 @@ def draw_radar(frame: np.ndarray, objects: dict) -> np.ndarray:
 # ============================================================
 _connect_hub()   # connect to IPC hub before starting the camera
 
-print("\nOpening camera …")
+# ============================================================
+# 8b. Threaded Camera Capture (fixes stutter)
+# ============================================================
+class CameraStream:
+    """
+    Grabs frames from Picamera2 in a dedicated background thread and
+    always keeps only the SINGLE most-recent frame available.
+
+    Why this fixes the stuttering video
+    ------------------------------------
+    Before this change, the main loop called picam2.capture_array()
+    directly, then ran ONNX inference + drawing on that same thread
+    before looping back to grab the next frame. Whenever a processing
+    cycle (especially an inference frame) took longer than the camera's
+    frame interval, frames piled up in the camera's internal buffer.
+    The next capture_array() call would then return a STALE buffered
+    frame instead of the current one, so the video appeared to freeze
+    and then jump — classic stutter.
+
+    By continuously capturing in a separate thread and overwriting a
+    single shared "latest frame" slot, the main loop is decoupled from
+    the raw camera frame rate: it always reads whatever is newest right
+    now (never queued backlog), and it never blocks on the camera while
+    it's busy drawing overlays or running the model.
+    """
+
+    def __init__(self, camera) -> None:
+        self.camera    = camera
+        self._lock     = threading.Lock()
+        self._frame    = None
+        self._running  = True
+        self._thread   = threading.Thread(target=self._update, daemon=True)
+
+    def start(self) -> "CameraStream":
+        self._thread.start()
+        # Block briefly until the first real frame arrives.
+        while self._frame is None:
+            time.sleep(0.01)
+        return self
+
+    def _update(self) -> None:
+        while self._running:
+            arr = self.camera.capture_array()
+            with self._lock:
+                self._frame = arr
+
+    def read(self):
+        with self._lock:
+            return None if self._frame is None else self._frame.copy()
+
+    def stop(self) -> None:
+        self._running = False
+        self._thread.join(timeout=1.0)
+
+
+
 picam2 = Picamera2()
 config = picam2.create_preview_configuration(
     # NOTE: Picamera2/libcamera has a well-known quirk where "RGB888"
@@ -559,6 +614,11 @@ picam2.configure(config)
 picam2.start()
 time.sleep(1)
 print("Camera ready!")
+
+# Start the background capture thread (see CameraStream docstring above
+# for why this fixes the stutter).
+cam_stream = CameraStream(picam2).start()
+print("Camera stream thread started!")
 
 print(f"\nLoading ONNX model: {MODEL_PATH}")
 opts = ort.SessionOptions()
@@ -600,9 +660,11 @@ _prev_moto_flag = 0    # track previous motorcycle flag to avoid redundant publi
 
 try:
     while True:
-        # With format="BGR888", capture_array() already returns data in
-        # the byte order OpenCV expects — no color conversion needed.
-        frame = picam2.capture_array()
+        # Read the latest frame from the background capture thread —
+        # never blocks, never returns a stale/backlogged frame.
+        frame = cam_stream.read()
+        if frame is None:
+            continue
         frame_count += 1
 
         fps_counter += 1
@@ -909,6 +971,7 @@ except KeyboardInterrupt:
 finally:
     _publish_v2p_frame(0, 0, 0)          # clear hub state on exit
     _publish_motorcycle_alert(0)
+    cam_stream.stop()
     picam2.stop()
     cv2.destroyAllWindows()
     print(f"\nDone. Total frames: {frame_count}")
