@@ -16,7 +16,7 @@
 // ====== Config ======
 #define MAX_NEIGHBORS 20
 #define NEIGHBOR_TIMEOUT 2000 /* ms (ticks @1000Hz): purge a neighbor after 2s of silence */
-#define VEHICLE_ID 1
+#define VEHICLE_ID 2
 #define START_BYTE 0xAA
 #define END_BYTE 0x55
 #define PACKET_SIZE (1 + sizeof(Neighbor) + 1 + 1)

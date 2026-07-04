@@ -89,10 +89,12 @@ Additional information:
 
 /* POST_MORTEM_MODE = 1: continuous circular buffer recording.
  * Events are recorded without a live host connection.
- * Export the full RTT buffer (4096 bytes) from the debugger at any time,
+ * Export the full RTT buffer from the debugger at any time,
  * then open the .SVdat file in SEGGER SystemView for offline analysis. */
 #define SEGGER_SYSVIEW_POST_MORTEM_MODE   1
 
+// Increased buffer size to 16KB to prevent buffer overflow (Error -140)
+#define SEGGER_SYSVIEW_RTT_BUFFER_SIZE    16384
 
 #endif  // SEGGER_SYSVIEW_CONF_H
 
