@@ -19,11 +19,9 @@ Connections to the IPC Hub
 Subscribes:
     "v2n_frame"
         Published by Car_client.py.  V2P reads only:
-            traffic_flag  (int, unified encoding: 0=no light, 1=GO, 2=STOP)
+            traffic_flag  (int: 0=GREEN, 1=YELLOW, 2=RED, 3=UNKNOWN)
         V2P converts this back to a string for its internal logic
-        ("GREEN" for GO, "RED" for STOP/no-light — the RED/YELLOW
-        distinction from before is no longer available since it's now
-        folded into the single STOP value).
+        ("GREEN" / "YELLOW" / "RED" / "AMBER").
 
 Publishes:
     "v2p_frame"
@@ -33,17 +31,10 @@ Publishes:
                 0 = no pedestrian in road zone or clear
                 1 = pedestrian detected near crossing zone
                 2 = pedestrian actively crossing (HIGH intent)
-            position_flag   : int
-                0 = no one in a critical zone
-                1 = RIGHT zone (384–512 px)
-                2 = LEFT  zone (128–256 px)
-            lead_car_collision_flag : int
-                0 = normal (no risk)
-                1 = WARNING — a lead car is stopped in the crossing zone
-                    despite the light saying GO (or about to change),
-                    at a moderate ("close") distance
-                2 = DANGER  — same wrong-stop situation, but "too close" —
-                    a rear-end collision is plausible
+            position_flag   : int | None
+                0 = pedestrian/vehicle is in LEFT zone  (128–256 px)
+                1 = pedestrian/vehicle is in RIGHT zone (384–512 px)
+                None = centre / extreme edge (not a critical zone)
 
     "motorcycle_alert"
         Emitted only when a motorcycle is in the crossing zone with
@@ -61,6 +52,30 @@ inside the existing V2I logic block:
     Car stationary at AMBER→  "Car Stopped on AMBER — Prepare"
     Pedestrian crossing + WALK       → "Pedestrian Legally Crossing"
     Pedestrian crossing + DONT_WALK  → "JAYWALKING ON RED!"
+
+Crossing flag (crossingFlag)
+-----------------------------
+V2P does NOT compute the crossing flag itself — that is Car_client's job.
+V2P simply reacts to the traffic state for its own warning logic and
+forwards it in the hub frame so V2P data and traffic data are co-located
+for downstream consumers.
+
+pedestrian_flag encoding (published to hub)
+--------------------------------------------
+    0  — no person detected in road zone
+    1  — person detected, approaching or standing near zone
+    2  — person actively crossing (CROSSING / CROSSING FAST intent)
+
+position_flag encoding (published to hub)
+------------------------------------------
+    0  — LEFT zone  (cx in 128–256 px column)
+    1  — RIGHT zone (cx in 384–512 px column)
+    None — centre or extreme edge
+
+motorcycle_collision_flag (published to hub)
+---------------------------------------------
+    0  — no motorcycle risk
+    1  — motorcycle in crossing zone + DANGER proximity + HIGH intent
 
 Startup order
 -------------
@@ -81,21 +96,54 @@ import onnxruntime as ort
 from picamera2 import Picamera2
 from collections import deque, defaultdict
 
+# ipc_node lives in the shared hub/ folder (RPI/hub/), not next to this file
+# (RPI/V2P/) — insert it on the path the same way Car_client.py does.
 _HERE = os.path.dirname(os.path.abspath(__file__))
-
-# ipc_node lives in the shared hub/ folder
 sys.path.insert(0, os.path.join(_HERE, "..", "hub"))
 from ipc_node import IPCNode
+
+# ── LCD support ──────────────────────────────────────────────────────────────
+try:
+    from RPLCD.i2c import CharLCD
+    lcd = CharLCD(i2c_expander='PCF8574', address=0x27,
+                  port=1, cols=16, rows=2, dotsize=8)
+    lcd.clear()
+    lcd.write_string("V2P System")
+    lcd.crlf()
+    lcd.write_string("Starting...")
+    LCD_AVAILABLE = True
+except Exception:
+    LCD_AVAILABLE = False
+    print("[LCD] Not found or RPLCD not installed — LCD output disabled.")
+
+_lcd_last_text = ""
+
+def lcd_show(line1: str, line2: str = "") -> None:
+    """Write the top-priority warning to the 16×2 LCD (debounced)."""
+    global _lcd_last_text
+    text = line1 + line2
+    if not LCD_AVAILABLE or text == _lcd_last_text:
+        return
+    try:
+        lcd.clear()
+        lcd.write_string(line1[:16])
+        if line2:
+            lcd.crlf()
+            lcd.write_string(line2[:16])
+        _lcd_last_text = text
+    except Exception:
+        pass
+
 
 print("=" * 60)
 print("V2P SYSTEM - RASPBERRY PI (Proximity Fix + LEFT/RIGHT Zones)")
 print("=" * 60)
 
 # ============================================================
-# 1. Settings & Configuration (OPTIMIZED)
+# 1. Settings & Configuration
 # ============================================================
 MODEL_PATH       = os.path.join(_HERE, "model2.onnx")
-CONF_THRESH      = 0.25          # ★ OPTIMIZED: reduced from 0.30 for better detection
+CONF_THRESH      = 0.40
 MODEL_INPUT_SIZE = 640
 FRAME_W, FRAME_H = 640, 480
 
@@ -139,10 +187,11 @@ _CAR_TL_FLAG     = 2          # default STOP (traffic_flag int: 0=no light,1=GO,
 _CAR_TL_STR      = "RED"      # human-readable string for V2I logic
 _PED_TL_STR      = "DONT_WALK"
 
-# Unified traffic_flag → human string (V2I logic uses "GREEN"/"RED").
-# 0 (no light) defaults to the safe/conservative "RED" behaviour, same as
-# the initial default above. The old RED-vs-YELLOW distinction is gone
-# now that both fold into the single STOP value (2).
+# traffic_flag (from Car_client.py's unified encoding) → human string used by
+# the V2I warning logic below.
+#   0 = no light / unknown  → treat as RED (safe default, no "go-ahead")
+#   1 = GO                  → GREEN  (crossing is safe / ambulance passing)
+#   2 = STOP                → RED    (red/yellow, or green but not enough time)
 _TL_FLAG_TO_STR = {0: "RED", 1: "GREEN", 2: "RED"}
 _TL_STR_TO_PED  = {"GREEN": "WALK", "RED": "DONT_WALK"}
 
@@ -155,7 +204,7 @@ def _on_v2n_frame(topic: str, data: dict, sender: str) -> None:
     the V2I warning logic.  All other v2n fields are ignored by V2P.
     """
     global _CAR_TL_FLAG, _CAR_TL_STR, _PED_TL_STR
-    flag = int(data.get("traffic_flag", 2))   # default RED
+    flag = int(data.get("traffic_flag", 2))   # default STOP
     car_str = _TL_FLAG_TO_STR.get(flag, "RED")
     ped_str = _TL_STR_TO_PED.get(car_str, "DONT_WALK")
     with _tl_lock:
@@ -177,9 +226,9 @@ def _connect_hub() -> None:
 
 # ── Helper: publish v2p_frame ────────────────────────────────────────────────
 def _publish_v2p_frame(pedestrian_flag: int, position_flag: int,
-                       lead_car_collision_flag: int = 0) -> None:
+                       lead_car_flag: int = 0) -> None:
     """
-    Publish pedestrian detection + lead-car-collision results to the hub.
+    Publish pedestrian detection results to the IPC hub.
 
     Parameters
     ----------
@@ -187,14 +236,15 @@ def _publish_v2p_frame(pedestrian_flag: int, position_flag: int,
         0 = clear, 1 = detected near zone, 2 = actively crossing
     position_flag   : int
         0 = no one in a critical zone, 1 = RIGHT zone, 2 = LEFT zone
-    lead_car_collision_flag : int
-        0 = normal, 1 = WARNING (wrongly-stopped lead car at moderate
-            distance), 2 = DANGER (wrongly-stopped lead car too close)
+        (matches dashboard_bridge.py's pass-through mapping exactly)
+    lead_car_flag   : int
+        0 = normal, 1 = WARNING (lead car stopped wrong, moderate distance),
+        2 = DANGER (lead car stopped wrong, too close)
     """
     _ipc.publish("v2p_frame", {
-        "pedestrian_flag":          pedestrian_flag,
-        "position_flag":            position_flag,
-        "lead_car_collision_flag":  lead_car_collision_flag,
+        "pedestrian_flag":         pedestrian_flag,
+        "position_flag":           position_flag,
+        "lead_car_collision_flag": lead_car_flag,
     })
 
 
@@ -429,20 +479,15 @@ def estimate_distance_meters(class_id: int, y1: int, y2: int):
 
 
 # ============================================================
-# 6. Warning Deduplication (UPDATED to support position label)
+# 6. Warning Deduplication
 # ============================================================
 def add_warning(warnings_dict: dict, obj_id: int, key: str,
-                text: str, color: tuple, pos_label: str = None) -> None:
-    """
-    Keep only the highest-priority warning per tracked object ID.
-    If pos_label is provided, it is appended to the warning text.
-    """
+                text: str, color: tuple, pos_label: str | None = None) -> None:
+    """Keep only the highest-priority warning per tracked object ID.
+    If pos_label is given (e.g. "LEFT ~3.2m"), it's appended in brackets."""
     new_pri = WARN_PRIORITY.get(key, 0)
-    
-    # Append position label to text if provided and not None
     if pos_label:
         text = f"{text} [{pos_label}]"
-        
     if obj_id not in warnings_dict or new_pri > warnings_dict[obj_id][0]:
         warnings_dict[obj_id] = (new_pri, text, color)
 
@@ -456,18 +501,20 @@ def get_position_flag(cx: int) -> int:
 
     Zones (640 px wide frame divided into 5 equal sections of 128 px):
         0–128      : far left  (ignored)
-        128–256    : LEFT zone   → flag 2
+        128–256    : LEFT zone  → flag 2
         256–384    : centre     (ignored)
-        384–512    : RIGHT zone  → flag 1
+        384–512    : RIGHT zone → flag 1
         512–640    : far right  (ignored)
 
-    Returns 0 (no one / not in a critical zone), 1 (RIGHT), or 2 (LEFT).
+    Returns 0 (no one in a critical zone), 1 (RIGHT), or 2 (LEFT) — this
+    matches dashboard_bridge.py's _map_position(), which passes these
+    values straight through to data.json.
     """
     if 128 <= cx < 256:
         return 2    # LEFT
     if 384 <= cx < 512:
         return 1    # RIGHT
-    return 0        # no one in a critical zone
+    return 0        # none
 
 
 def get_position_label(cx: int, x1: int, y1: int,
@@ -536,25 +583,33 @@ def draw_radar(frame: np.ndarray, objects: dict) -> np.ndarray:
 
 
 # ============================================================
-# 8. Camera & Model Initialisation (OPTIMIZED)
+# 8. Camera & Model Initialisation
 # ============================================================
 _connect_hub()   # connect to IPC hub before starting the camera
 
 print("\nOpening camera …")
-picam2 = Picamera2()
-config = picam2.create_preview_configuration(
-    main={"format": "RGB888", "size": (FRAME_W, FRAME_H)},
-    controls={"FrameRate": 30}
-)
-picam2.configure(config)
-picam2.start()
-time.sleep(1)
-print("Camera ready!")
+try:
+    picam2 = Picamera2()
+    config = picam2.create_preview_configuration(
+        main={"format": "RGB888", "size": (FRAME_W, FRAME_H)},
+        controls={
+            "FrameRate": 30,
+            "AwbEnable": True,
+            "AwbMode": 0,
+        }
+    )
+    picam2.configure(config)
+    picam2.start()
+    time.sleep(1)
+    print("Camera ready!")
+except RuntimeError as e:
+    print(f"\nERROR: Cannot open camera — {e}")
+    print("Fix: run  sudo pkill -f picamera2  then retry.")
+    sys.exit(1)
 
 print(f"\nLoading ONNX model: {MODEL_PATH}")
 opts = ort.SessionOptions()
-# ★ OPTIMIZED: use 4 threads instead of 2 for better performance on Pi 5
-opts.intra_op_num_threads = 4
+opts.intra_op_num_threads = 2
 session = ort.InferenceSession(
     MODEL_PATH, sess_options=opts,
     providers=["CPUExecutionProvider"]
@@ -568,8 +623,7 @@ tracker = CentroidTracker(max_disappeared=25, max_distance=100)
 # 9. Runtime State
 # ============================================================
 frame_count  = 0
-# ★ OPTIMIZED: process every frame instead of skipping (skip_frames = 1)
-skip_frames  = 1
+skip_frames  = 3
 fps          = 0
 fps_counter  = 0
 fps_time     = time.time()
@@ -585,7 +639,7 @@ print("  [Q] → Quit")
 print("=" * 60 + "\n")
 
 # ============================================================
-# 10. Main Loop (UPDATED with LEFT/RIGHT in terminal)
+# 10. Main Loop
 # ============================================================
 _prev_moto_flag = 0    # track previous motorcycle flag to avoid redundant publishes
 
@@ -658,18 +712,15 @@ try:
         warnings_dict = {}
 
         # Accumulators for hub publishing (reset each frame)
-        frame_ped_flag       = 0      # highest pedestrian flag seen this frame
-        frame_pos_flag       = 0      # position flag of highest-risk pedestrian
-        frame_moto_flag      = 0      # motorcycle collision flag
-        frame_lead_car_flag  = 0      # wrongly-stopped lead car collision flag
+        frame_ped_flag  = 0      # highest pedestrian flag seen this frame
+        frame_pos_flag  = 0      # position of highest-risk pedestrian (0=none)
+        frame_moto_flag = 0      # 1 if ANY motorcycle is visible this frame
+        frame_lead_flag = 0      # lead-car-stopped-wrong flag (0/1/2)
 
         for obj_id, (cx, cy, x1, y1, x2, y2, class_id) in last_objects.items():
             cname = TARGET_CLASSES[class_id]
             color = (0,255,0) if cname=="person" else ((0,0,255) if cname=="car"
                     else (255,100,0))
-            
-            # ── Compute position label early for all objects ─────────
-            pos_label = get_position_label(cx, x1, y1, x2, y2, class_id)
 
             # ── Proximity ────────────────────────────────────────────
             ratio, prox_level, prox_label, prox_color = estimate_proximity(
@@ -680,12 +731,12 @@ try:
             if prox_level == "DANGER":
                 color = (0, 0, 255)
                 add_warning(warnings_dict, obj_id, "TOO_CLOSE",
-                            f"! TOO CLOSE: {cname} #{obj_id} {dist_str}", (0,0,255), pos_label)
+                            f"! TOO CLOSE: {cname} #{obj_id} {dist_str}", (0,0,255))
             elif prox_level == "WARNING":
                 if cname != "person":
                     color = (0, 165, 255)
                 add_warning(warnings_dict, obj_id, "CLOSE",
-                            f"~ CLOSE: {cname} #{obj_id} {dist_str}", (0,165,255), pos_label)
+                            f"~ CLOSE: {cname} #{obj_id} {dist_str}", (0,165,255))
 
             # ── Intent (persons only) ─────────────────────────────────
             intent_label, risk_level, intent_color = analyze_intent(
@@ -708,17 +759,18 @@ try:
                 if risk_level == "HIGH":
                     color = intent_color
                     add_warning(warnings_dict, obj_id, "CROSSING",
-                                f"! PERSON CROSSING (#{obj_id})", (0,0,255), pos_label)
+                                f"! PERSON CROSSING (#{obj_id})", (0,0,255))
                 elif risk_level == "MED":
                     color = intent_color
                     add_warning(warnings_dict, obj_id, "APPROACHING",
-                                f"~ Person Approaching (#{obj_id})", (0,165,255), pos_label)
+                                f"~ Person Approaching (#{obj_id})", (0,165,255))
 
-            # ── Motorcycle collision check ────────────────────────────
+            # ── Motorcycle presence check ─────────────────────────────
+            # Just detect whether a motorcycle is visible at all — no
+            # relation to danger/proximity/intent anymore (that used to
+            # gate this to DANGER+HIGH only; now it's a plain presence flag).
             if class_id == 3:   # motorcycle
-                in_zone = (y1+y2)//2 > zone_y
-                if in_zone and prox_level == "DANGER" and risk_level == "HIGH":
-                    frame_moto_flag = 1
+                frame_moto_flag = 1
 
             # ── V2I Traffic Light Logic ──────────────────────────────
             hist = list(tracker.history[obj_id])
@@ -735,41 +787,28 @@ try:
             if class_id == 2 and is_stationary and (y1+y2)//2 > zone_y:
                 if CAR_TRAFFIC_LIGHT == "RED":
                     add_warning(warnings_dict, obj_id, "CLOSE",
-                                f"! Lead Car at RED Light. Safe Stop. (#{obj_id})", (0,0,255), pos_label)
+                                f"! Lead Car at RED Light. Safe Stop. (#{obj_id})", (0,0,255))
                 elif CAR_TRAFFIC_LIGHT == "GREEN":
                     add_warning(warnings_dict, obj_id, "CROSSING",
-                                f"! Car Stopped on GREEN - Check Road! (#{obj_id})", (0,0,200), pos_label)
-                    # Stopped wrong (light says GO) — grade the risk by how
-                    # close it is: DANGER → 2, WARNING → 1, else stays 0.
-                    if prox_level == "DANGER":
-                        lead_car_this = 2
-                    elif prox_level == "WARNING":
-                        lead_car_this = 1
-                    else:
-                        lead_car_this = 0
-                    if lead_car_this > frame_lead_car_flag:
-                        frame_lead_car_flag = lead_car_this
+                                f"! Car Stopped on GREEN - Check Road! (#{obj_id})", (0,0,200))
+                    # Lead car stopped even though the light says GO — flag
+                    # it for the dashboard's ai.leadCarCollision: DANGER if
+                    # too close, otherwise just a WARNING.
+                    frame_lead_flag = max(frame_lead_flag, 2 if prox_level == "DANGER" else 1)
                 elif CAR_TRAFFIC_LIGHT in ("AMBER", "YELLOW"):
                     add_warning(warnings_dict, obj_id, "APPROACHING",
-                                f"~ Car Stopped on AMBER. Prepare. (#{obj_id})", (0,165,255), pos_label)
-                    if prox_level == "DANGER":
-                        lead_car_this = 2
-                    elif prox_level == "WARNING":
-                        lead_car_this = 1
-                    else:
-                        lead_car_this = 0
-                    if lead_car_this > frame_lead_car_flag:
-                        frame_lead_car_flag = lead_car_this
+                                f"~ Car Stopped on AMBER. Prepare. (#{obj_id})", (0,165,255))
+                    frame_lead_flag = max(frame_lead_flag, 2 if prox_level == "DANGER" else 1)
 
             if class_id == 0 and ("CROSSING" in str(intent_label)
                                   or (y1+y2)//2 > zone_y):
                 if PED_TRAFFIC_LIGHT == "WALK":
                     add_warning(warnings_dict, obj_id, "CROSSING",
                                 f"! Pedestrian Legally Crossing. Yield. (#{obj_id})",
-                                (0,165,255), pos_label)
+                                (0,165,255))
                 elif PED_TRAFFIC_LIGHT == "DONT_WALK":
                     add_warning(warnings_dict, obj_id, "EMERGENCY",
-                                f"!! JAYWALKING ON RED! (#{obj_id})", (0,0,255), pos_label)
+                                f"!! JAYWALKING ON RED! (#{obj_id})", (0,0,255))
 
             # ── Draw bounding box and overlays ───────────────────────
             thickness = 3 if prox_level == "DANGER" or risk_level == "HIGH" else 2
@@ -788,7 +827,7 @@ try:
                             (x1, max(y1-6, 22)),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.45, intent_color, 2)
 
-            # Draw position label on frame if exists
+            pos_label = get_position_label(cx, x1, y1, x2, y2, class_id)
             if pos_label is not None:
                 cv2.putText(frame, pos_label,
                             (x1, min(y2+16, FRAME_H-4)),
@@ -809,7 +848,7 @@ try:
                 cv2.line(frame, pts_hist[k-1], pts_hist[k], tc, 1)
 
         # ── Publish to IPC hub (once per frame after processing all objects) ──
-        _publish_v2p_frame(frame_ped_flag, frame_pos_flag, frame_lead_car_flag)
+        _publish_v2p_frame(frame_ped_flag, frame_pos_flag, frame_lead_flag)
 
         if frame_moto_flag != _prev_moto_flag:
             _publish_motorcycle_alert(frame_moto_flag)
@@ -826,6 +865,16 @@ try:
         # ── Driver alerts panel ──────────────────────────────────────
         warnings_list = [(txt, clr) for (_, txt, clr) in
                          sorted(warnings_dict.values(), key=lambda x: -x[0])]
+
+        # LCD: show highest-priority warning
+        if warnings_list:
+            top_text = warnings_list[0][0].lstrip("!~ ").strip()
+            if len(top_text) <= 16:
+                lcd_show(top_text)
+            else:
+                lcd_show(top_text[:16], top_text[16:32])
+        else:
+            lcd_show("V2P System", "  All Clear  ")
 
         if warnings_list:
             panel_h = 30 + len(warnings_list) * 28
@@ -864,7 +913,6 @@ try:
         cv2.putText(frame, f"Ped Signal: {PED_TRAFFIC_LIGHT}", (FRAME_W-200, 52),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,0), 2)
 
-        # Terminal output now includes LEFT/RIGHT via the warnings list
         print(f"\rCars:{last_stats['cars']} | "
               f"Persons:{last_stats['persons']} | "
               f"Bikes:{last_stats['bikes']} | "
@@ -894,8 +942,11 @@ except KeyboardInterrupt:
     print("\n\nStopped by user.")
 
 finally:
-    _publish_v2p_frame(0, 0, 0)          # clear hub state on exit
+    _publish_v2p_frame(0, 0, 0)           # clear hub state on exit
     _publish_motorcycle_alert(0)
     picam2.stop()
+    if LCD_AVAILABLE:
+        lcd.clear()
+        lcd.write_string("System Off")
     cv2.destroyAllWindows()
     print(f"\nDone. Total frames: {frame_count}")

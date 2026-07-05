@@ -1,0 +1,40 @@
+[Unit]
+Description=V2X V2P System - camera-based pedestrian/motorcycle detection, shows a live preview window and publishes alerts to the IPC Hub
+# Needs the graphical desktop to be up (cv2.imshow needs a real display),
+# not just multi-user.target.
+After=graphical.target v2x-hub.service v2x-car-client.service
+Wants=graphical.target
+Requires=v2x-hub.service
+
+[Service]
+Type=simple
+User=rpi
+Group=rpi
+WorkingDirectory=/home/rpi/V2X-Collision-Avoidance/RPI/V2P
+
+# ── Display access ──────────────────────────────────────────────────────
+# cv2.imshow() opens a real window, so this service needs the SAME display
+# the desktop session (the one you see over RealVNC/WayVNC) is using.
+# These are the standard values for the Raspberry Pi OS desktop with the
+# default first user (uid 1000) auto-logged in. If the window still fails
+# to open, log into the desktop over VNC, open a terminal there and run:
+#     echo $DISPLAY
+#     echo $XDG_RUNTIME_DIR
+#     echo $WAYLAND_DISPLAY
+# then replace the three values below with whatever those commands print.
+Environment=DISPLAY=:0
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+Environment=WAYLAND_DISPLAY=wayland-0
+Environment=XAUTHORITY=/home/rpi/.Xauthority
+
+# Give the desktop session + camera driver a moment to finish coming up.
+ExecStartPre=/bin/sleep 6
+ExecStart=/usr/bin/python3 /home/rpi/V2X-Collision-Avoidance/RPI/V2P/V2P.py
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=v2x-v2p
+
+[Install]
+WantedBy=graphical.target
