@@ -93,8 +93,7 @@ ipc = IPCNode("car_display")
 # Shared state
 # ============================================================
 _state_lock      = threading.Lock()
-
-_speed_kmh       = 0.0
+_speed_kmh       = 120
 _distance_m      = None
 _remaining_time  = 0
 _light_state     = "RED"
