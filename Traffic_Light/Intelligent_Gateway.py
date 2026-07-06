@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Author: Eng. Amira
 Date: June 2026
@@ -10,6 +9,16 @@ import ssl
 import json
 import threading
 import time
+
+
+
+# ============================================================
+# MQTT SERVER CONFIGURATION (HiveMQ Cloud)
+# ============================================================
+BROKER         = "2b6738facfbf40f1a86ba770618ae8a6.s1.eu.hivemq.cloud"
+PORT           = 8883
+USERNAME       = "v2n_admin"
+PASSWORD       = "V2n@2026!"
 
 
 # ============================================================
@@ -148,7 +157,7 @@ def process_and_publish():
             "density"          : car_counter,
             "closest_vehicle": {
                 "plate_id"  : closest["plate_id"]   if closest else "NONE", 
-                "distance_m": closest["distance_m"] if closest else -1      
+                "distance_m": closest["distance_m"] if closest else  "NONE" 
             },
             "nearby_count"   : len(nearby_vehicles)
         }
