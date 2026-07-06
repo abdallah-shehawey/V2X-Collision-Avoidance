@@ -15,11 +15,11 @@
 /* Object present if a side ultrasonic reads < this distance (cm).
  * Prototype scale: small car in a tight corridor -> 30 cm tuned best.
  * This is the WARNING band: a neighbor inside this distance raises BSW WARNING. */
-#define BSW_SIDE_THRESHOLD (30.0f)
+#define BSW_SIDE_THRESHOLD (60.0f)
 
 /* Closer than this (cm) escalates the receiver-side blind-spot alert to CRITICAL.
  * Must be < BSW_SIDE_THRESHOLD: [CRITICAL, THRESHOLD) = warning, [0, CRITICAL) = critical. */
-#define BSW_SIDE_CRITICAL  (20.0f)
+#define BSW_SIDE_CRITICAL  (40.0f)
 
 /* Alerts (LED/buzzer) are handled outside this module — it only computes the
  * sender flag and the receiver-side blind-spot result, exposed via
