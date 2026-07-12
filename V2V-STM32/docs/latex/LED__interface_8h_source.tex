@@ -1,0 +1,60 @@
+\doxysection{LED\+\_\+interface.\+h}
+\hypertarget{LED__interface_8h_source}{}\label{LED__interface_8h_source}\index{Inc/Drivers/HAL/LED/LED\_interface.h@{Inc/Drivers/HAL/LED/LED\_interface.h}}
+\doxymbox{\hyperlink{LED__interface_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00014}00014\ \textcolor{preprocessor}{\#ifndef\ LED\_INTERFACE\_H\_}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00015}00015\ \textcolor{preprocessor}{\#define\ LED\_INTERFACE\_H\_}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{GPIO__interface_8h}{../../MCAL/GPIO/GPIO\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00018}00018\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{ErrTypes_8h}{../../LIB/ErrTypes.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00021}\doxymbox{\hyperlink{LED__interface_8h_a59d24514299cc1e14e907d084535e845}{00021}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00022}00022\ \{}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00023}\doxymbox{\hyperlink{LED__interface_8h_a59d24514299cc1e14e907d084535e845a43ad983a1a6a3c04a137ec0471cdfe85}{00023}}\ \ \ \doxymbox{\hyperlink{LED__interface_8h_a59d24514299cc1e14e907d084535e845a43ad983a1a6a3c04a137ec0471cdfe85}{ACTIVE\_LOW}}\ =\ 0,}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00024}\doxymbox{\hyperlink{LED__interface_8h_a59d24514299cc1e14e907d084535e845afe240f1952811db0c18b4355fb28190f}{00024}}\ \ \ \doxymbox{\hyperlink{LED__interface_8h_a59d24514299cc1e14e907d084535e845afe240f1952811db0c18b4355fb28190f}{ACTIVE\_HIGH}}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00025}00025\ \}\ \doxymbox{\hyperlink{LED__interface_8h_a59d24514299cc1e14e907d084535e845}{LED\_ActiveState\_t}};}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00027}00027\ \textcolor{comment}{/*\ LED\ Configuration\ Structure\ */}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00028}\doxymbox{\hyperlink{structLED__Config__t}{00028}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00029}00029\ \{}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00030}\doxymbox{\hyperlink{structLED__Config__t_a9a6ec5acd8ad6330c8ea4fbd8e6904f5}{00030}}\ \ \ \doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ \doxymbox{\hyperlink{structLED__Config__t_a9a6ec5acd8ad6330c8ea4fbd8e6904f5}{PortName}};\ \textcolor{comment}{/*\ GPIO\ Port\ (PORTA\ to\ PORTH)\ */}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00031}\doxymbox{\hyperlink{structLED__Config__t_a7e866577221817fba36f18afa94438e9}{00031}}\ \ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\_Pin\_t}}\ \doxymbox{\hyperlink{structLED__Config__t_a7e866577221817fba36f18afa94438e9}{PinNumber}};\ \textcolor{comment}{/*\ GPIO\ Pin\ Number\ (PIN0\ to\ PIN15)\ */}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00032}\doxymbox{\hyperlink{structLED__Config__t_a569c6b77190bc29ef3c64bea8fb8b1c9}{00032}}\ \ \ \doxymbox{\hyperlink{LED__interface_8h_a59d24514299cc1e14e907d084535e845}{LED\_ActiveState\_t}}\ \doxymbox{\hyperlink{structLED__Config__t_a569c6b77190bc29ef3c64bea8fb8b1c9}{ActiveState}};\ \textcolor{comment}{/*\ LED\ Active\ State\ (ACTIVE\_HIGH\ or\ ACTIVE\_LOW)\ */}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00033}00033\ \}\ \doxymbox{\hyperlink{structLED__Config__t}{LED\_Config\_t}};}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00035}00035\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00036}00036\ \textcolor{comment}{\ *\ @brief\ \ :\ Initialize\ LED\ pin\ as\ output}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00037}00037\ \textcolor{comment}{\ *\ @param\ \ :\ LED\_Configuration\ -\/\ Structure\ containing\ LED\ configuration}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00038}00038\ \textcolor{comment}{\ *\ @return\ :\ ErrorState\_t\ -\/\ Error\ state\ (ERROR\_OK\ if\ successful,\ ERROR\_NOK\ if\ error)}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00039}00039\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00040}00040\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{LED__interface_8h_a332224917c43c9232229ad1d349501e4}{LED\_Init}}(\doxymbox{\hyperlink{structLED__Config__t}{LED\_Config\_t}}\ *LED\_Configuration);}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00042}00042\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00043}00043\ \textcolor{comment}{\ *\ @brief\ \ :\ Turn\ LED\ on}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00044}00044\ \textcolor{comment}{\ *\ @param\ \ :\ LED\_Configuration\ -\/\ Structure\ containing\ LED\ configuration}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00045}00045\ \textcolor{comment}{\ *\ @return\ :\ ErrorState\_t\ -\/\ Error\ state\ (ERROR\_OK\ if\ successful,\ ERROR\_NOK\ if\ error)}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00046}00046\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00047}00047\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{LED__interface_8h_aa4c69b1b0028cbaebddb177443aa022a}{LED\_TurnOn}}(\doxymbox{\hyperlink{structLED__Config__t}{LED\_Config\_t}}\ *LED\_Configuration);}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00049}00049\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00050}00050\ \textcolor{comment}{\ *\ @brief\ \ :\ Turn\ LED\ off}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00051}00051\ \textcolor{comment}{\ *\ @param\ \ :\ LED\_Configuration\ -\/\ Structure\ containing\ LED\ configuration}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00052}00052\ \textcolor{comment}{\ *\ @return\ :\ ErrorState\_t\ -\/\ Error\ state\ (ERROR\_OK\ if\ successful,\ ERROR\_NOK\ if\ error)}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00053}00053\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00054}00054\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{LED__interface_8h_ab3011d692cf858177af7261a76b1a654}{LED\_TurnOff}}(\doxymbox{\hyperlink{structLED__Config__t}{LED\_Config\_t}}\ *LED\_Configuration);}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00056}00056\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00057}00057\ \textcolor{comment}{\ *\ @brief\ \ :\ Toggle\ LED\ state}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00058}00058\ \textcolor{comment}{\ *\ @param\ \ :\ LED\_Configuration\ -\/\ Structure\ containing\ LED\ configuration}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00059}00059\ \textcolor{comment}{\ *\ @return\ :\ ErrorState\_t\ -\/\ Error\ state\ (ERROR\_OK\ if\ successful,\ ERROR\_NOK\ if\ error)}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00060}00060\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00061}00061\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{LED__interface_8h_afeefd0dfa8d890b751881b215366b63b}{LED\_Toggle}}(\doxymbox{\hyperlink{structLED__Config__t}{LED\_Config\_t}}\ *LED\_Configuration);}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00063}00063\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ LED\_INTERFACE\_H\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{LED__interface_8h_source_l00065}00065\ \textcolor{comment}{//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\ \ \ \ END\ \ \ \ >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>}}
+
+\end{DoxyCode}

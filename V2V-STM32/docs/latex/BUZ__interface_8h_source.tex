@@ -1,0 +1,37 @@
+\doxysection{BUZ\+\_\+interface.\+h}
+\hypertarget{BUZ__interface_8h_source}{}\label{BUZ__interface_8h_source}\index{Inc/Drivers/HAL/BUZZ/BUZ\_interface.h@{Inc/Drivers/HAL/BUZZ/BUZ\_interface.h}}
+\doxymbox{\hyperlink{BUZ__interface_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00012}00012\ \textcolor{preprocessor}{\#ifndef\ BUZ\_INTERFACE\_H\_}}
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00013}00013\ \textcolor{preprocessor}{\#define\ BUZ\_INTERFACE\_H\_}}
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{GPIO__interface_8h}{../../MCAL/GPIO/GPIO\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00016}00016\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{ErrTypes_8h}{../../../Drivers/LIB/ErrTypes.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00019}\doxymbox{\hyperlink{BUZ__interface_8h_a30707334c70b434fa4f7145542ee6b3a}{00019}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00020}00020\ \{}
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00021}\doxymbox{\hyperlink{BUZ__interface_8h_a30707334c70b434fa4f7145542ee6b3aa2818587f18a7a3b9373c88bc5c165eaa}{00021}}\ \ \ \doxymbox{\hyperlink{BUZ__interface_8h_a30707334c70b434fa4f7145542ee6b3aa2818587f18a7a3b9373c88bc5c165eaa}{BUZ\_ACTIVE\_LOW}}\ =\ 0,}
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00022}\doxymbox{\hyperlink{BUZ__interface_8h_a30707334c70b434fa4f7145542ee6b3aa21de853225ec138e5f029eccbbb87397}{00022}}\ \ \ \doxymbox{\hyperlink{BUZ__interface_8h_a30707334c70b434fa4f7145542ee6b3aa21de853225ec138e5f029eccbbb87397}{BUZ\_ACTIVE\_HIGH}}}
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00023}00023\ \}\ \doxymbox{\hyperlink{BUZ__interface_8h_a30707334c70b434fa4f7145542ee6b3a}{BUZ\_ActiveState\_t}};}
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00028}\doxymbox{\hyperlink{structBUZ__Config__t}{00028}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00029}00029\ \{}
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00030}\doxymbox{\hyperlink{structBUZ__Config__t_aee32e26b6531412ccbe879c667b65b2f}{00030}}\ \ \ \doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ \doxymbox{\hyperlink{structBUZ__Config__t_aee32e26b6531412ccbe879c667b65b2f}{Port}};\ \textcolor{comment}{/*\ GPIO\ Port\ (PORTA\ to\ PORTH)\ */}}
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00031}\doxymbox{\hyperlink{structBUZ__Config__t_a0f92704234d6d41557959b250f271987}{00031}}\ \ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\_Pin\_t}}\ \doxymbox{\hyperlink{structBUZ__Config__t_a0f92704234d6d41557959b250f271987}{Pin}};\ \ \ \textcolor{comment}{/*\ GPIO\ Pin\ (PIN0\ to\ PIN15)\ */}}
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00032}\doxymbox{\hyperlink{structBUZ__Config__t_ad353577f1afb89c9608c5e1158efb5b8}{00032}}\ \ \ \doxymbox{\hyperlink{BUZ__interface_8h_a30707334c70b434fa4f7145542ee6b3a}{BUZ\_ActiveState\_t}}\ \doxymbox{\hyperlink{structBUZ__Config__t_ad353577f1afb89c9608c5e1158efb5b8}{ActiveState}};\ \textcolor{comment}{/*\ ACTIVE\_HIGH\ or\ ACTIVE\_LOW\ */}}
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00033}00033\ \}\ \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\_Config\_t}};}
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00040}00040\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{BUZ__interface_8h_a0c7b752c3600f97490293a1555c2919f}{BUZ\_Init}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\_Config\_t}}\ *Config);}
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00047}00047\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{BUZ__interface_8h_ad67714c41d2239985e57f277550de66a}{BUZ\_On}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\_Config\_t}}\ *Config);}
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00054}00054\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{BUZ__interface_8h_ac1ad879da00fa3cfbbaac731ef952ca6}{BUZ\_Off}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\_Config\_t}}\ *Config);}
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00061}00061\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{BUZ__interface_8h_a502c816a1a5e902652973e0317f68b29}{BUZ\_Toggle}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\_Config\_t}}\ *Config);}
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{BUZ__interface_8h_source_l00063}00063\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ BUZ\_INTERFACE\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

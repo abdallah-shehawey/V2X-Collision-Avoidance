@@ -1,0 +1,318 @@
+\doxysection{MPU9250\+\_\+program.\+c}
+\hypertarget{MPU9250__program_8c_source}{}\label{MPU9250__program_8c_source}\index{Src/MPU9250\_program.c@{Src/MPU9250\_program.c}}
+\doxymbox{\hyperlink{MPU9250__program_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{MPU9250__interface_8h}{../Inc/Drivers/HAL/MPU9250/MPU9250\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{MPU9250__private_8h}{../Inc/Drivers/HAL/MPU9250/MPU9250\_private.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{MPU9250__config_8h}{../Inc/Drivers/HAL/MPU9250/MPU9250\_config.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SPI__interface_8h}{../Inc/Drivers/MCAL/SPI/SPI\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{GPIO__interface_8h}{../Inc/Drivers/MCAL/GPIO/GPIO\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{TIM__interface_8h}{../Inc/Drivers/MCAL/TIM/TIM\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <math.h>}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00015}00015\ \textcolor{preprocessor}{\#ifndef\ M\_PI}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00016}\doxymbox{\hyperlink{MPU9250__program_8c_ae71449b1cc6e6250b91f539153a7a0d3}{00016}}\ \textcolor{preprocessor}{\#define\ M\_PI\ 3.14159265358979323846f}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00017}00017\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00019}00019\ \textcolor{comment}{/*\ Global\ State\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00020}00020\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ Accel\_Offset[3]\ =\ \{0,\ 0,\ 0\};}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00021}00021\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ Gyro\_Offset[3]\ \ =\ \{0,\ 0,\ 0\};}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00022}00022\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ Mag\_ASA[3]\ \ \ \ \ \ =\ \{1.0f,\ 1.0f,\ 1.0f\};\ \textcolor{comment}{/*\ AK8963\ factory\ sensitivity\ adjust\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00023}00023\ \textcolor{comment}{/*\ Hard-\/iron\ bias\ from\ the\ boot-\/time\ rotation\ calibration\ (frozen\ after\ cal)\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00024}00024\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ Mag\_OffX\ =\ 0.0f,\ Mag\_OffY\ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00025}00025\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ Filtered\_Pitch\ =\ 0,\ Filtered\_Roll\ =\ 0,\ Filtered\_Heading\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00026}00026\ \textcolor{keyword}{static}\ uint8\_t\ Heading\_Init\ =\ 0;\ \ \ \textcolor{comment}{/*\ seed\ the\ fused\ heading\ on\ the\ first\ call\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00027}00027\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ Vert\_Velocity\_m\_s\ =\ 0;\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00028}\doxymbox{\hyperlink{MPU9250__program_8c_ab42bbf6ae5c9f42067d65b65417eb69f}{00028}}\ \textcolor{keyword}{volatile}\ uint8\_t\ \doxymbox{\hyperlink{MPU9250__program_8c_ab42bbf6ae5c9f42067d65b65417eb69f}{MPU9250\_ID}}\ =\ 0;\ \textcolor{comment}{/*\ Visible\ ID\ for\ debugging\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00030}00030\ \textcolor{comment}{/*\ SPI\ Config\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00031}00031\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{structSPI__Config__t}{SPI\_Config\_t}}\ MPU9250\_SPI\ =\ \{}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00032}00032\ \ \ \ \ .Channel\ =\ \doxymbox{\hyperlink{MPU9250__config_8h_ab37fb1e677db2f2d4a411c7fa5471582}{MPU9250\_SPI\_CHANNEL}},\ .CPHA\ =\ \doxymbox{\hyperlink{SPI__interface_8h_a78da88ed6e4be342886ae4e703454ff9a828367148114bfd4488ce259bcb4171d}{SPI\_CPHA\_2EDGE}},\ .CPOL\ =\ \doxymbox{\hyperlink{SPI__interface_8h_a34beb9edf30f0d6974c2819a941cc423a17ee2099baebd6220fc708036eddea09}{SPI\_CPOL\_HIGH}},}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00033}00033\ \ \ \ \ .Mode\ =\ \doxymbox{\hyperlink{SPI__interface_8h_af7f50e71bd6a06e32909cef3ba77610dae68a8adf6e5b67a7bdbe9526b15dae99}{SPI\_MODE\_MASTER}},\ .BaudRatePrescaler\ =\ \doxymbox{\hyperlink{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70aafb59a9b68c2bd0da97d9352d2a7c223}{SPI\_BAUDRATEPRESCALER\_64}},}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00034}00034\ \ \ \ \ .SPE\ =\ \doxymbox{\hyperlink{SPI__interface_8h_a1db03ac197283574fffbb48a4afee6a8a29b7aac99dd1ca39efe89d857b558d0a}{SPI\_SPE\_EN}},\ .BFIRST\ =\ \doxymbox{\hyperlink{SPI__interface_8h_a3d2f4422f306ed3231341372d1b241f2a3fa35f661bf7fbb96c05ff70827553be}{SPI\_MSBFIRST}},\ .NSS\_MAN\ =\ \doxymbox{\hyperlink{SPI__interface_8h_adbe1555d537053eec05421b9c0a1b5c2a4871d5bdcf01bf25ffce4da1b5f387fb}{SPI\_NSS\_SOFTWARE}},}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00035}00035\ \ \ \ \ .NSSI\_MODE\ =\ \doxymbox{\hyperlink{SPI__interface_8h_a1c45faac8557e06760a44075984eb7ffad3ed938d3769125d0486116dd63479fc}{SPI\_NSSI\_NOT\_SELECT}},\ \textcolor{comment}{/*\ Fixed\ Master\ Mode\ Fault\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00036}00036\ \ \ \ \ .DFF\ =\ \doxymbox{\hyperlink{SPI__interface_8h_ab4199e1038cc90f9ba060af300e29a7ca77b5cfca09bdb76f00599cad3ab634dc}{SPI\_DFF\_8BIT}},\ .CRC\_MODE\ =\ \doxymbox{\hyperlink{SPI__interface_8h_a2b022b50caa9c05983f85788edaac92aa350ab723d3767e8cb9f2d05cd289bc3a}{SPI\_CRCDIS}}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00037}00037\ \};}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00039}00039\ \textcolor{comment}{/*\ Helpers\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00040}00040\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ MPU9250\_vSelect(\textcolor{keywordtype}{void})\ \ \ \{\ \doxymbox{\hyperlink{GPIO__interface_8h_ab8efebd278bcf731012c238a3f69fb5c}{GPIO\_enumWritePinVal}}(\doxymbox{\hyperlink{MPU9250__config_8h_ae9a84707f27c348f8b3be6afebe3e81e}{MPU9250\_CS\_PORT}},\ \doxymbox{\hyperlink{MPU9250__config_8h_acda4019666ca12c31828d1d9500d95a2}{MPU9250\_CS\_PIN}},\ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8a15615df0be390aa56563c157ddb5454e}{GPIO\_PIN\_LOW}});\ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00041}00041\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ MPU9250\_vDeselect(\textcolor{keywordtype}{void})\ \{\ \doxymbox{\hyperlink{GPIO__interface_8h_ab8efebd278bcf731012c238a3f69fb5c}{GPIO\_enumWritePinVal}}(\doxymbox{\hyperlink{MPU9250__config_8h_ae9a84707f27c348f8b3be6afebe3e81e}{MPU9250\_CS\_PORT}},\ \doxymbox{\hyperlink{MPU9250__config_8h_acda4019666ca12c31828d1d9500d95a2}{MPU9250\_CS\_PIN}},\ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8acef36245ca64f0574b6a3381d607ee23}{GPIO\_PIN\_HIGH}});\ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00043}00043\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ MPU9250\_vWriteReg(uint8\_t\ reg,\ uint8\_t\ data)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00044}00044\ \ \ uint16\_t\ d;\ MPU9250\_vSelect();}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00045}00045\ \ \ \doxymbox{\hyperlink{SPI__interface_8h_a09703b6224fb5ab17478e4f7e309e734}{SPI\_enumTrancieve}}(\&MPU9250\_SPI,\ (uint16\_t)reg,\ \&d);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00046}00046\ \ \ \doxymbox{\hyperlink{SPI__interface_8h_a09703b6224fb5ab17478e4f7e309e734}{SPI\_enumTrancieve}}(\&MPU9250\_SPI,\ (uint16\_t)data,\ \&d);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00047}00047\ \ \ MPU9250\_vDeselect();}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00048}00048\ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00050}00050\ \textcolor{keyword}{static}\ uint8\_t\ MPU9250\_u8ReadReg(uint8\_t\ reg)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00051}00051\ \ \ uint16\_t\ val;\ MPU9250\_vSelect();}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00052}00052\ \ \ \doxymbox{\hyperlink{SPI__interface_8h_a09703b6224fb5ab17478e4f7e309e734}{SPI\_enumTrancieve}}(\&MPU9250\_SPI,\ (uint16\_t)(reg\ |\ 0x80),\ \&val);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00053}00053\ \ \ \doxymbox{\hyperlink{SPI__interface_8h_a09703b6224fb5ab17478e4f7e309e734}{SPI\_enumTrancieve}}(\&MPU9250\_SPI,\ 0x00,\ \&val);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00054}00054\ \ \ MPU9250\_vDeselect();}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00055}00055\ \ \ \textcolor{keywordflow}{return}\ (uint8\_t)val;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00056}00056\ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00058}00058\ \textcolor{comment}{/*\ Read\ one\ AK8963\ register\ through\ the\ MPU9250\ internal\ I2C\ master.}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00059}00059\ \textcolor{comment}{\ *\ The\ fetched\ byte\ lands\ in\ EXT\_SENS\_DATA\_00\ once\ the\ master\ completes.\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00060}00060\ \textcolor{keyword}{static}\ uint8\_t\ MPU9250\_u8ReadMagReg(uint8\_t\ reg)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00061}00061\ \ \ MPU9250\_vWriteReg(\doxymbox{\hyperlink{MPU9250__private_8h_a614db921c27f375c632960a7f34999a4}{I2C\_SLV0\_ADDR}},\ 0x80\ |\ \doxymbox{\hyperlink{MPU9250__private_8h_a1e6b15b0945c167f55f5e2cfd2c60d5a}{AK8963\_ADDR}});\ \textcolor{comment}{/*\ AK8963\ addr,\ read\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00062}00062\ \ \ MPU9250\_vWriteReg(\doxymbox{\hyperlink{MPU9250__private_8h_a0553d56ecccd0fc8008505e712a9b075}{I2C\_SLV0\_REG}},\ \ reg);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00063}00063\ \ \ MPU9250\_vWriteReg(\doxymbox{\hyperlink{MPU9250__private_8h_ad6fb6553534b0b9e9715db3e5a04ebca}{I2C\_SLV0\_CTRL}},\ 0x81);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ enable,\ 1\ byte\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00064}00064\ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a06dd9df822ed8f4c5635901b770230ea}{TIM\_vDelayMs}}(\doxymbox{\hyperlink{MPU9250__config_8h_ab47f5236c3e559be3208494c14372364}{MPU9250\_DELAY\_TIMER}},\ 10);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00065}00065\ \ \ \textcolor{keywordflow}{return}\ MPU9250\_u8ReadReg(\doxymbox{\hyperlink{MPU9250__private_8h_aa6580b929fcb8b3e29fe45b73180d2bd}{EXT\_SENS\_DATA\_00}});}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00066}00066\ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00068}00068\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ MPU9250\_vInitMag(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00069}00069\ \ \ \textcolor{comment}{/*\ SPI-\/only\ (I2C\_IF\_DIS)\ +\ enable\ internal\ I2C\ master\ @400kHz,\ no\ bypass\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00070}00070\ \ \ MPU9250\_vWriteReg(0x37,\ 0x00);\ \doxymbox{\hyperlink{TIM__interface_8h_a06dd9df822ed8f4c5635901b770230ea}{TIM\_vDelayMs}}(\doxymbox{\hyperlink{MPU9250__config_8h_ab47f5236c3e559be3208494c14372364}{MPU9250\_DELAY\_TIMER}},\ 10);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00071}00071\ \ \ MPU9250\_vWriteReg(0x6A,\ 0x30);\ MPU9250\_vWriteReg(0x24,\ 0x0D);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00073}00073\ \ \ \textcolor{comment}{/*\ ──\ Read\ factory\ sensitivity\ adjustment\ (ASA)\ from\ the\ AK8963\ fuse\ ROM\ ──}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00074}00074\ \textcolor{comment}{\ \ \ *\ Sequence\ per\ datasheet:\ power-\/down\ -\/>\ fuse-\/ROM\ access\ -\/>\ read\ ASA\ -\/>}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00075}00075\ \textcolor{comment}{\ \ \ *\ power-\/down.\ Applied\ per-\/axis\ as\ a\ scale\ in\ MPU9250\_enumReadData.\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00076}00076\ \ \ MPU9250\_vWriteReg(\doxymbox{\hyperlink{MPU9250__private_8h_a614db921c27f375c632960a7f34999a4}{I2C\_SLV0\_ADDR}},\ \doxymbox{\hyperlink{MPU9250__private_8h_a1e6b15b0945c167f55f5e2cfd2c60d5a}{AK8963\_ADDR}});\ \ \ \textcolor{comment}{/*\ AK8963\ addr,\ write\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00077}00077\ \ \ MPU9250\_vWriteReg(\doxymbox{\hyperlink{MPU9250__private_8h_a0553d56ecccd0fc8008505e712a9b075}{I2C\_SLV0\_REG}},\ \ \doxymbox{\hyperlink{MPU9250__private_8h_a9049064347064927059f71ea3843f986}{AK8963\_CNTL}});\ \ \ \textcolor{comment}{/*\ CNTL1\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00078}00078\ \ \ MPU9250\_vWriteReg(\doxymbox{\hyperlink{MPU9250__private_8h_a2f0f1237e987597a4405b9deeefeb6f5}{I2C\_SLV0\_DO}},\ \ \ 0x00);\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ power-\/down\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00079}00079\ \ \ MPU9250\_vWriteReg(\doxymbox{\hyperlink{MPU9250__private_8h_ad6fb6553534b0b9e9715db3e5a04ebca}{I2C\_SLV0\_CTRL}},\ 0x81);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00080}00080\ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a06dd9df822ed8f4c5635901b770230ea}{TIM\_vDelayMs}}(\doxymbox{\hyperlink{MPU9250__config_8h_ab47f5236c3e559be3208494c14372364}{MPU9250\_DELAY\_TIMER}},\ 10);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00082}00082\ \ \ MPU9250\_vWriteReg(\doxymbox{\hyperlink{MPU9250__private_8h_a2f0f1237e987597a4405b9deeefeb6f5}{I2C\_SLV0\_DO}},\ \ \ 0x0F);\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ fuse-\/ROM\ access\ mode\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00083}00083\ \ \ MPU9250\_vWriteReg(\doxymbox{\hyperlink{MPU9250__private_8h_ad6fb6553534b0b9e9715db3e5a04ebca}{I2C\_SLV0\_CTRL}},\ 0x81);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00084}00084\ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a06dd9df822ed8f4c5635901b770230ea}{TIM\_vDelayMs}}(\doxymbox{\hyperlink{MPU9250__config_8h_ab47f5236c3e559be3208494c14372364}{MPU9250\_DELAY\_TIMER}},\ 10);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00086}00086\ \ \ uint8\_t\ asa\_x\ =\ MPU9250\_u8ReadMagReg(\doxymbox{\hyperlink{MPU9250__private_8h_a66032b6572950d4fb7044420a6beeee2}{AK8963\_ASAX}});}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00087}00087\ \ \ uint8\_t\ asa\_y\ =\ MPU9250\_u8ReadMagReg(\doxymbox{\hyperlink{MPU9250__private_8h_a02f4a8ec6ef7533b43b75c839ca2547d}{AK8963\_ASAY}});}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00088}00088\ \ \ uint8\_t\ asa\_z\ =\ MPU9250\_u8ReadMagReg(\doxymbox{\hyperlink{MPU9250__private_8h_ad7807198e6ed02af5748886428078868}{AK8963\_ASAZ}});}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00089}00089\ \ \ Mag\_ASA[0]\ =\ ((float)asa\_x\ -\/\ 128.0f)\ /\ 256.0f\ +\ 1.0f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00090}00090\ \ \ Mag\_ASA[1]\ =\ ((float)asa\_y\ -\/\ 128.0f)\ /\ 256.0f\ +\ 1.0f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00091}00091\ \ \ Mag\_ASA[2]\ =\ ((float)asa\_z\ -\/\ 128.0f)\ /\ 256.0f\ +\ 1.0f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00093}00093\ \ \ MPU9250\_vWriteReg(\doxymbox{\hyperlink{MPU9250__private_8h_a614db921c27f375c632960a7f34999a4}{I2C\_SLV0\_ADDR}},\ \doxymbox{\hyperlink{MPU9250__private_8h_a1e6b15b0945c167f55f5e2cfd2c60d5a}{AK8963\_ADDR}});\ \ \ \textcolor{comment}{/*\ back\ to\ write\ mode\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00094}00094\ \ \ MPU9250\_vWriteReg(\doxymbox{\hyperlink{MPU9250__private_8h_a0553d56ecccd0fc8008505e712a9b075}{I2C\_SLV0\_REG}},\ \ \doxymbox{\hyperlink{MPU9250__private_8h_a9049064347064927059f71ea3843f986}{AK8963\_CNTL}});}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00095}00095\ \ \ MPU9250\_vWriteReg(\doxymbox{\hyperlink{MPU9250__private_8h_a2f0f1237e987597a4405b9deeefeb6f5}{I2C\_SLV0\_DO}},\ \ \ 0x00);\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ power-\/down\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00096}00096\ \ \ MPU9250\_vWriteReg(\doxymbox{\hyperlink{MPU9250__private_8h_ad6fb6553534b0b9e9715db3e5a04ebca}{I2C\_SLV0\_CTRL}},\ 0x81);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00097}00097\ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a06dd9df822ed8f4c5635901b770230ea}{TIM\_vDelayMs}}(\doxymbox{\hyperlink{MPU9250__config_8h_ab47f5236c3e559be3208494c14372364}{MPU9250\_DELAY\_TIMER}},\ 10);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00099}00099\ \ \ \textcolor{comment}{/*\ Put\ the\ AK8963\ straight\ into\ continuous\ mode\ 2\ (100\ Hz),\ 16-\/bit\ output}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00100}00100\ \textcolor{comment}{\ \ \ *\ (CNTL1\ =\ 0x16)\ via\ the\ internal\ I2C\ master.\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00101}00101\ \ \ MPU9250\_vWriteReg(\doxymbox{\hyperlink{MPU9250__private_8h_a614db921c27f375c632960a7f34999a4}{I2C\_SLV0\_ADDR}},\ 0x0C);\ \textcolor{comment}{/*\ AK8963\ I2C\ addr,\ write\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00102}00102\ \ \ MPU9250\_vWriteReg(\doxymbox{\hyperlink{MPU9250__private_8h_a0553d56ecccd0fc8008505e712a9b075}{I2C\_SLV0\_REG}},\ \ 0x0A);\ \textcolor{comment}{/*\ CNTL1\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00103}00103\ \ \ MPU9250\_vWriteReg(\doxymbox{\hyperlink{MPU9250__private_8h_a2f0f1237e987597a4405b9deeefeb6f5}{I2C\_SLV0\_DO}},\ \ \ 0x16);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00104}00104\ \ \ MPU9250\_vWriteReg(\doxymbox{\hyperlink{MPU9250__private_8h_ad6fb6553534b0b9e9715db3e5a04ebca}{I2C\_SLV0\_CTRL}},\ 0x81);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00105}00105\ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a06dd9df822ed8f4c5635901b770230ea}{TIM\_vDelayMs}}(\doxymbox{\hyperlink{MPU9250__config_8h_ab47f5236c3e559be3208494c14372364}{MPU9250\_DELAY\_TIMER}},\ 10);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00107}00107\ \ \ \textcolor{comment}{/*\ Stream\ 7\ bytes\ (HXL..HZH\ +\ ST2)\ from\ AK8963\ reg\ 0x03\ every\ sample.}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00108}00108\ \textcolor{comment}{\ \ \ *\ ST2\ MUST\ be\ in\ the\ read\ or\ the\ AK8963\ latches\ and\ stops\ updating.\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00109}00109\ \ \ MPU9250\_vWriteReg(\doxymbox{\hyperlink{MPU9250__private_8h_a614db921c27f375c632960a7f34999a4}{I2C\_SLV0\_ADDR}},\ 0x8C);\ \textcolor{comment}{/*\ AK8963\ I2C\ addr,\ read\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00110}00110\ \ \ MPU9250\_vWriteReg(\doxymbox{\hyperlink{MPU9250__private_8h_a0553d56ecccd0fc8008505e712a9b075}{I2C\_SLV0\_REG}},\ \ 0x03);\ \textcolor{comment}{/*\ HXL\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00111}00111\ \ \ MPU9250\_vWriteReg(\doxymbox{\hyperlink{MPU9250__private_8h_ad6fb6553534b0b9e9715db3e5a04ebca}{I2C\_SLV0\_CTRL}},\ 0x87);\ \textcolor{comment}{/*\ enable,\ 7\ bytes\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00112}00112\ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00114}\doxymbox{\hyperlink{MPU9250__interface_8h_a152f5e09dbda831d60bc3d5241d714ad}{00114}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{MPU9250__program_8c_a152f5e09dbda831d60bc3d5241d714ad}{MPU9250\_enumInit}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00115}00115\ \ \ \doxymbox{\hyperlink{structGPIO__PinConfig__t}{GPIO\_PinConfig\_t}}\ CS\ =\ \{.Port=\doxymbox{\hyperlink{MPU9250__config_8h_ae9a84707f27c348f8b3be6afebe3e81e}{MPU9250\_CS\_PORT}},\ .PinNum=\doxymbox{\hyperlink{MPU9250__config_8h_acda4019666ca12c31828d1d9500d95a2}{MPU9250\_CS\_PIN}},\ .Mode=\doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26aa248e73c1faee9c6f072fd91569cf516}{GPIO\_OUTPUT}},\ .Speed=\doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71af7087f6e3a0ec17c4e20a95a42e694f1}{GPIO\_VERY\_HIGH\_SPEED}}\};}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00116}00116\ \ \ \doxymbox{\hyperlink{GPIO__interface_8h_a2a5e7c89bc6bb7103d96334a8481ea9b}{GPIO\_enumPinInit}}(\&CS);\ MPU9250\_vDeselect();}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00117}00117\ \ \ \doxymbox{\hyperlink{SPI__interface_8h_a4b6f9d4ba67bb037ab88265f09945a33}{SPI\_enumInit}}(\&MPU9250\_SPI);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00119}00119\ \ \ MPU9250\_vWriteReg(0x6B,\ 0x80);\ \doxymbox{\hyperlink{TIM__interface_8h_a06dd9df822ed8f4c5635901b770230ea}{TIM\_vDelayMs}}(\doxymbox{\hyperlink{MPU9250__config_8h_ab47f5236c3e559be3208494c14372364}{MPU9250\_DELAY\_TIMER}},\ 150);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00120}00120\ \ \ MPU9250\_vWriteReg(0x6B,\ 0x01);\ \doxymbox{\hyperlink{TIM__interface_8h_a06dd9df822ed8f4c5635901b770230ea}{TIM\_vDelayMs}}(\doxymbox{\hyperlink{MPU9250__config_8h_ab47f5236c3e559be3208494c14372364}{MPU9250\_DELAY\_TIMER}},\ 50);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00121}00121\ \ \ MPU9250\_vWriteReg(0x1A,\ 0x03);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00123}00123\ \ \ \doxymbox{\hyperlink{MPU9250__program_8c_ab42bbf6ae5c9f42067d65b65417eb69f}{MPU9250\_ID}}\ =\ MPU9250\_u8ReadReg(0x75);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00124}00124\ \ \ MPU9250\_vInitMag();}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00125}00125\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00126}00126\ \ \ \textcolor{keywordtype}{float}\ sum[6]\ =\ \{0\};}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00127}00127\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<400;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00128}00128\ \ \ \ \ uint8\_t\ b[14];\ uint16\_t\ v;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00129}00129\ \ \ \ \ MPU9250\_vSelect();\ \doxymbox{\hyperlink{SPI__interface_8h_a09703b6224fb5ab17478e4f7e309e734}{SPI\_enumTrancieve}}(\&MPU9250\_SPI,\ 0xBB,\ \&v);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00130}00130\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j=0;\ j<14;\ j++)\ \{\ \doxymbox{\hyperlink{SPI__interface_8h_a09703b6224fb5ab17478e4f7e309e734}{SPI\_enumTrancieve}}(\&MPU9250\_SPI,\ 0,\ \&v);\ b[j]=(uint8\_t)v;\ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00131}00131\ \ \ \ \ MPU9250\_vDeselect();}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00132}00132\ \ \ \ \ sum[0]\ +=\ (int16\_t)((b[0]<<8)|b[1]);\ sum[1]\ +=\ (int16\_t)((b[2]<<8)|b[3]);\ sum[2]\ +=\ (int16\_t)((b[4]<<8)|b[5]);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00133}00133\ \ \ \ \ sum[3]\ +=\ (int16\_t)((b[8]<<8)|b[9]);\ sum[4]\ +=\ (int16\_t)((b[10]<<8)|b[11]);\ sum[5]\ +=\ (int16\_t)((b[12]<<8)|b[13]);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00134}00134\ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a06dd9df822ed8f4c5635901b770230ea}{TIM\_vDelayMs}}(\doxymbox{\hyperlink{MPU9250__config_8h_ab47f5236c3e559be3208494c14372364}{MPU9250\_DELAY\_TIMER}},\ 2);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00135}00135\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00136}00136\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<2;\ i++)\ Accel\_Offset[i]\ =\ sum[i]/400.0f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00137}00137\ \ \ Accel\_Offset[2]\ =\ (sum[2]/400.0f)\ -\/\ 16384.0f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00138}00138\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<3;\ i++)\ Gyro\_Offset[i]\ \ =\ sum[i+3]/400.0f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00140}00140\ \ \ MPU9250\_SPI.BaudRatePrescaler\ =\ \doxymbox{\hyperlink{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70ac17363d731112d1c6f778f917d473e8a}{SPI\_BAUDRATEPRESCALER\_4}};}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00141}00141\ \ \ \doxymbox{\hyperlink{SPI__interface_8h_a4b6f9d4ba67bb037ab88265f09945a33}{SPI\_enumInit}}(\&MPU9250\_SPI);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00142}00142\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00143}00143\ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00145}\doxymbox{\hyperlink{MPU9250__interface_8h_a2ab617d57393d2b689a5b0ad9769d40d}{00145}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{MPU9250__program_8c_a022452767b3c6ead71407af8db33696f}{MPU9250\_enumReadData}}(\doxymbox{\hyperlink{structMPU9250__Data__t}{MPU9250\_Data\_t}}\ *D)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00146}00146\ \ \ \textcolor{keywordflow}{if}\ (!D)\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00147}00147\ \ \ uint8\_t\ buffer[21];\ uint16\_t\ val;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00148}00148\ \ \ MPU9250\_vSelect();\ \doxymbox{\hyperlink{SPI__interface_8h_a09703b6224fb5ab17478e4f7e309e734}{SPI\_enumTrancieve}}(\&MPU9250\_SPI,\ 0xBB,\ \&val);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00149}00149\ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;\ i<21;\ i++)\ \{\ \doxymbox{\hyperlink{SPI__interface_8h_a09703b6224fb5ab17478e4f7e309e734}{SPI\_enumTrancieve}}(\&MPU9250\_SPI,\ 0,\ \&val);\ buffer[i]\ =\ (uint8\_t)val;\ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00150}00150\ \ \ MPU9250\_vDeselect();}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00151}00151\ \ \ D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a0847b8c4ee83cb47a048534b6c8144ed}{AccelX}}\ =\ ((float)((int16\_t)((buffer[0]<<8)|buffer[1]))\ -\/\ Accel\_Offset[0])\ /\ 16384.0f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00152}00152\ \ \ D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a5480b2d87c0b736b31324ffee108c163}{AccelY}}\ =\ ((float)((int16\_t)((buffer[2]<<8)|buffer[3]))\ -\/\ Accel\_Offset[1])\ /\ 16384.0f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00153}00153\ \ \ D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a926e46afa81b71e780029a34e12b8e72}{AccelZ}}\ =\ ((float)((int16\_t)((buffer[4]<<8)|buffer[5]))\ -\/\ Accel\_Offset[2])\ /\ 16384.0f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00154}00154\ \ \ D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_af89bb9a4d0bb2069d16b58da52644c18}{GyroX}}\ =\ ((float)((int16\_t)((buffer[8]<<8)|buffer[9]))\ -\/\ Gyro\_Offset[0])\ /\ 131.0f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00155}00155\ \ \ D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_abf2ecc6b9e6b5fa527d95910ed462f05}{GyroY}}\ =\ ((float)((int16\_t)((buffer[10]<<8)|buffer[11]))\ -\/\ Gyro\_Offset[1])\ /\ 131.0f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00156}00156\ \ \ D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a9d4c1a7dd7f15c37b8aa6f889e51473c}{GyroZ}}\ =\ ((float)((int16\_t)((buffer[12]<<8)|buffer[13]))\ -\/\ Gyro\_Offset[2])\ /\ 131.0f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00157}00157\ \ \ D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a9849271d2ef8b8f88aff631e271eb476}{MagX}}\ =\ (float)((int16\_t)((buffer[15]<<8)|buffer[14]))\ *\ Mag\_ASA[0];}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00158}00158\ \ \ D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a0a7207be1b739fcddff2a66b89f5eea6}{MagY}}\ =\ (float)((int16\_t)((buffer[17]<<8)|buffer[16]))\ *\ Mag\_ASA[1];}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00159}00159\ \ \ D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a20742597c430644fb7a28b602bec9f31}{MagZ}}\ =\ (float)((int16\_t)((buffer[19]<<8)|buffer[18]))\ *\ Mag\_ASA[2];}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00160}00160\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00161}00161\ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00163}\doxymbox{\hyperlink{MPU9250__interface_8h_afcf26cc0fdba049b9a485ed9e5650b96}{00163}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{MPU9250__program_8c_a7377b0518b8d538d0fe9ee7f617c2a05}{MPU9250\_enumGetAttitude}}(\doxymbox{\hyperlink{structMPU9250__Data__t}{MPU9250\_Data\_t}}\ *D,\ \textcolor{keywordtype}{float}\ dt,\ \textcolor{keywordtype}{float}\ *P,\ \textcolor{keywordtype}{float}\ *R)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00164}00164\ \ \ \textcolor{keywordflow}{if}\ (!D\ ||\ !P\ ||\ !R)\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00165}00165\ \ \ \textcolor{keywordtype}{float}\ accP\ =\ atan2f(-\/D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a0847b8c4ee83cb47a048534b6c8144ed}{AccelX}},\ sqrtf(D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a5480b2d87c0b736b31324ffee108c163}{AccelY}}*D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a5480b2d87c0b736b31324ffee108c163}{AccelY}}\ +\ D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a926e46afa81b71e780029a34e12b8e72}{AccelZ}}*D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a926e46afa81b71e780029a34e12b8e72}{AccelZ}}))\ *\ (180.0f/\doxymbox{\hyperlink{MPU9250__program_8c_ae71449b1cc6e6250b91f539153a7a0d3}{M\_PI}});}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00166}00166\ \ \ \textcolor{keywordtype}{float}\ accR\ =\ atan2f(D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a5480b2d87c0b736b31324ffee108c163}{AccelY}},\ D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a926e46afa81b71e780029a34e12b8e72}{AccelZ}})\ *\ (180.0f/\doxymbox{\hyperlink{MPU9250__program_8c_ae71449b1cc6e6250b91f539153a7a0d3}{M\_PI}});}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00167}00167\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00168}00168\ \ \ \textcolor{comment}{/*\ Fast\ Response\ Filter\ (0.95)\ for\ better\ Z\ tracking\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00169}00169\ \ \ \ \ \ \ Filtered\_Pitch\ =\ 0.95f\ *\ (Filtered\_Pitch\ +\ D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_abf2ecc6b9e6b5fa527d95910ed462f05}{GyroY}}\ *\ dt)\ +\ 0.05f\ *\ accP;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00170}00170\ \ \ \ \ \ \ Filtered\_Roll\ \ =\ 0.95f\ *\ (Filtered\_Roll\ \ +\ D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_af89bb9a4d0bb2069d16b58da52644c18}{GyroX}}\ *\ dt)\ +\ 0.05f\ *\ accR;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00171}00171\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00172}00172\ \ \ \ \ \ \ *P\ =\ Filtered\_Pitch;\ *R\ =\ Filtered\_Roll;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00173}00173\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00174}00174\ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00176}00176\ \textcolor{comment}{/*\ ============\ Boot-\/time\ hard-\/iron\ calibration\ ============}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00177}00177\ \textcolor{comment}{\ *\ Collect\ the\ magnetometer\ field\ extremes\ while\ the\ vehicle\ is\ rotated\ \string~360°,}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00178}00178\ \textcolor{comment}{\ *\ then\ freeze\ the\ hard-\/iron\ bias\ =\ midpoint\ of\ each\ axis'\ swing.\ Runs\ once\ at}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00179}00179\ \textcolor{comment}{\ *\ startup\ so\ the\ heading\ is\ repeatable\ afterwards\ (no\ live\ "{}moving\ target"{}).\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00180}\doxymbox{\hyperlink{MPU9250__interface_8h_ae6d18356fb8c1619afbb6021d986abea}{00180}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{MPU9250__program_8c_ae6d18356fb8c1619afbb6021d986abea}{MPU9250\_enumCalibrateMag}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00181}00181\ \{}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00182}00182\ \ \ \textcolor{keywordtype}{float}\ minX\ =\ 1.0e9f,\ maxX\ =\ -\/1.0e9f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00183}00183\ \ \ \textcolor{keywordtype}{float}\ minY\ =\ 1.0e9f,\ maxY\ =\ -\/1.0e9f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00184}00184\ \ \ \doxymbox{\hyperlink{structMPU9250__Data__t}{MPU9250\_Data\_t}}\ d;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00186}00186\ \ \ uint16\_t\ samples\ =\ (uint16\_t)(\doxymbox{\hyperlink{MPU9250__config_8h_aef19ab7bc44d9f0a0539f8f2d93c6120}{MPU9250\_MAGCAL\_DURATION\_MS}}\ /\ \doxymbox{\hyperlink{MPU9250__config_8h_adf1960101390d5c997e7669062fbde93}{MPU9250\_MAGCAL\_SAMPLE\_MS}});}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00187}00187\ \ \ \textcolor{keywordflow}{for}\ (uint16\_t\ i\ =\ 0;\ i\ <\ samples;\ i++)}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00188}00188\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00189}00189\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{MPU9250__program_8c_a022452767b3c6ead71407af8db33696f}{MPU9250\_enumReadData}}(\&d)\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}})}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00190}00190\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00191}00191\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (d.\doxymbox{\hyperlink{structMPU9250__Data__t_a9849271d2ef8b8f88aff631e271eb476}{MagX}}\ <\ minX)\ minX\ =\ d.\doxymbox{\hyperlink{structMPU9250__Data__t_a9849271d2ef8b8f88aff631e271eb476}{MagX}};}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00192}00192\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (d.\doxymbox{\hyperlink{structMPU9250__Data__t_a9849271d2ef8b8f88aff631e271eb476}{MagX}}\ >\ maxX)\ maxX\ =\ d.\doxymbox{\hyperlink{structMPU9250__Data__t_a9849271d2ef8b8f88aff631e271eb476}{MagX}};}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00193}00193\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (d.\doxymbox{\hyperlink{structMPU9250__Data__t_a0a7207be1b739fcddff2a66b89f5eea6}{MagY}}\ <\ minY)\ minY\ =\ d.\doxymbox{\hyperlink{structMPU9250__Data__t_a0a7207be1b739fcddff2a66b89f5eea6}{MagY}};}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00194}00194\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (d.\doxymbox{\hyperlink{structMPU9250__Data__t_a0a7207be1b739fcddff2a66b89f5eea6}{MagY}}\ >\ maxY)\ maxY\ =\ d.\doxymbox{\hyperlink{structMPU9250__Data__t_a0a7207be1b739fcddff2a66b89f5eea6}{MagY}};}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00195}00195\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00196}00196\ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a06dd9df822ed8f4c5635901b770230ea}{TIM\_vDelayMs}}(\doxymbox{\hyperlink{MPU9250__config_8h_ab47f5236c3e559be3208494c14372364}{MPU9250\_DELAY\_TIMER}},\ \doxymbox{\hyperlink{MPU9250__config_8h_adf1960101390d5c997e7669062fbde93}{MPU9250\_MAGCAL\_SAMPLE\_MS}});}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00197}00197\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00198}00198\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00199}00199\ \ \ \textcolor{comment}{/*\ Accept\ only\ if\ the\ car\ actually\ turned\ (wide\ span\ on\ BOTH\ axes).\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00200}00200\ \ \ \textcolor{keywordflow}{if}\ ((maxX\ -\/\ minX)\ >\ \doxymbox{\hyperlink{MPU9250__config_8h_ac368b845d39d5d5dfafd34fbc1747410}{MPU9250\_MAG\_MIN\_SPAN}}\ \&\&\ (maxY\ -\/\ minY)\ >\ \doxymbox{\hyperlink{MPU9250__config_8h_ac368b845d39d5d5dfafd34fbc1747410}{MPU9250\_MAG\_MIN\_SPAN}})}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00201}00201\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00202}00202\ \ \ \ \ Mag\_OffX\ =\ 0.5f\ *\ (maxX\ +\ minX);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00203}00203\ \ \ \ \ Mag\_OffY\ =\ 0.5f\ *\ (maxY\ +\ minY);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00204}00204\ \ \ \ \ Heading\_Init\ =\ 0;\ \ \ \textcolor{comment}{/*\ re-\/seed\ the\ fused\ heading\ from\ the\ new\ reference\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00205}00205\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00206}00206\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00207}00207\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};\ \ \ \textcolor{comment}{/*\ not\ enough\ rotation\ →\ offsets\ left\ unchanged\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00208}00208\ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00209}00209\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00210}\doxymbox{\hyperlink{MPU9250__interface_8h_a4bd71fee1d8605a1a9e26bbb7a5b008b}{00210}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{MPU9250__program_8c_a26ddeda4d58b13e547711d40807346dc}{MPU9250\_enumGetHeading}}(\doxymbox{\hyperlink{structMPU9250__Data__t}{MPU9250\_Data\_t}}\ *D,\ \textcolor{keywordtype}{float}\ dt,\ \textcolor{keywordtype}{float}\ *h)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00211}00211\ \ \ \textcolor{keywordflow}{if}\ (!D\ ||\ !h)\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00212}00212\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00213}00213\ \ \ \textcolor{comment}{/*\ Absolute\ heading\ from\ the\ magnetometer\ with\ the\ frozen\ hard-\/iron\ bias}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00214}00214\ \textcolor{comment}{\ \ \ *\ removed\ (sensor\ assumed\ \string~level\ —\ flat-\/arena\ use).\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00215}00215\ \ \ \textcolor{keywordtype}{float}\ mx\ =\ D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a9849271d2ef8b8f88aff631e271eb476}{MagX}}\ -\/\ Mag\_OffX;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00216}00216\ \ \ \textcolor{keywordtype}{float}\ my\ =\ D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a0a7207be1b739fcddff2a66b89f5eea6}{MagY}}\ -\/\ Mag\_OffY;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00217}00217\ \ \ \textcolor{keywordtype}{float}\ magH\ =\ atan2f(my,\ mx)\ *\ (180.0f/\doxymbox{\hyperlink{MPU9250__program_8c_ae71449b1cc6e6250b91f539153a7a0d3}{M\_PI}});}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00218}00218\ \ \ \textcolor{keywordflow}{if}\ (magH\ <\ 0.0f)\ magH\ +=\ 360.0f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00219}00219\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00220}00220\ \ \ \textcolor{comment}{/*\ Seed\ on\ the\ first\ call\ so\ we\ lock\ onto\ the\ absolute\ heading\ immediately}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00221}00221\ \textcolor{comment}{\ \ \ *\ instead\ of\ slowly\ ramping\ in\ from\ 0.\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00222}00222\ \ \ \textcolor{keywordflow}{if}\ (!Heading\_Init)}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00223}00223\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00224}00224\ \ \ \ \ Filtered\_Heading\ =\ magH;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00225}00225\ \ \ \ \ Heading\_Init\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00226}00226\ \ \ \ \ *h\ =\ magH;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00227}00227\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00228}00228\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00229}00229\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00230}00230\ \ \ \textcolor{comment}{/*\ Complementary\ filter:\ GyroZ\ gives\ the\ fast,\ motor-\/noise-\/immune\ yaw\ change;}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00231}00231\ \textcolor{comment}{\ \ \ *\ the\ magnetometer\ slowly\ corrects\ long-\/term\ gyro\ drift.\ Wrap-\/aware\ so\ the}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00232}00232\ \textcolor{comment}{\ \ \ *\ 360°→0°\ seam\ is\ handled\ correctly.\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00233}00233\ \ \ \textcolor{keywordtype}{float}\ gyro\_pred\ =\ Filtered\_Heading\ +\ (\doxymbox{\hyperlink{MPU9250__config_8h_a003047f11f906d55b43a4922e61ab551}{MPU9250\_GYROZ\_SIGN}}\ *\ D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a9d4c1a7dd7f15c37b8aa6f889e51473c}{GyroZ}}\ *\ dt);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00234}00234\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00235}00235\ \ \ \textcolor{keywordtype}{float}\ diff\ =\ magH\ -\/\ gyro\_pred;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00236}00236\ \ \ \textcolor{keywordflow}{if}\ (diff\ >\ \ 180.0f)\ diff\ -\/=\ 360.0f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00237}00237\ \ \ \textcolor{keywordflow}{if}\ (diff\ <\ -\/180.0f)\ diff\ +=\ 360.0f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00238}00238\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00239}00239\ \ \ Filtered\_Heading\ =\ gyro\_pred\ +\ (1.0f\ -\/\ \doxymbox{\hyperlink{MPU9250__config_8h_a48e78568f16e0c878d4c677585afcd00}{MPU9250\_HEADING\_ALPHA}})\ *\ diff;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00240}00240\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00241}00241\ \ \ \textcolor{keywordflow}{if}\ (Filtered\_Heading\ >=\ 360.0f)\ Filtered\_Heading\ -\/=\ 360.0f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00242}00242\ \ \ \textcolor{keywordflow}{if}\ (Filtered\_Heading\ <\ \ \ \ 0.0f)\ Filtered\_Heading\ +=\ 360.0f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00243}00243\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00244}00244\ \ \ *h\ =\ Filtered\_Heading;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00245}00245\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00246}00246\ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00247}00247\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00248}\doxymbox{\hyperlink{MPU9250__interface_8h_afa7a847f26b23259cc89bf6a8f86b706}{00248}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{MPU9250__program_8c_aa5879429ed27ae3012b8dfafdecacbb8}{MPU9250\_enumGetSpeed}}(\doxymbox{\hyperlink{structMPU9250__Data__t}{MPU9250\_Data\_t}}\ *D,\ \textcolor{keywordtype}{float}\ dt,\ \textcolor{keywordtype}{float}\ *s)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00249}00249\ \ \ \textcolor{keywordflow}{if}\ (!D\ ||\ !s)\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00250}00250\ \ \ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00251}00251\ \ \ \textcolor{keywordtype}{float}\ total\_acc\ =\ sqrtf(D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a0847b8c4ee83cb47a048534b6c8144ed}{AccelX}}*D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a0847b8c4ee83cb47a048534b6c8144ed}{AccelX}}\ +\ D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a5480b2d87c0b736b31324ffee108c163}{AccelY}}*D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a5480b2d87c0b736b31324ffee108c163}{AccelY}}\ +\ D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a926e46afa81b71e780029a34e12b8e72}{AccelZ}}*D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a926e46afa81b71e780029a34e12b8e72}{AccelZ}});}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00252}00252\ \ \ \textcolor{comment}{/*\ Convert\ G\ to\ m/s\string^2\ (1g\ =\ 9.80665\ m/s\string^2)\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00253}00253\ \ \ \textcolor{keywordtype}{float}\ linear\_acc\_m\_s2\ =\ (total\_acc\ -\/\ 1.0f)\ *\ 9.80665f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00254}00254\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00255}00255\ \ \ \textcolor{comment}{/*\ 1.\ Enhanced\ ZUPT\ Logic\ (Stillness\ Detection)\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00256}00256\ \ \ \textcolor{comment}{/*\ If\ Gyro\ noise\ and\ Accel\ variation\ are\ below\ thresholds,\ force\ deceleration\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00257}00257\ \ \ \textcolor{keywordflow}{if}\ (fabs(D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_af89bb9a4d0bb2069d16b58da52644c18}{GyroX}})\ <\ 1.5f\ \&\&\ fabs(D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_abf2ecc6b9e6b5fa527d95910ed462f05}{GyroY}})\ <\ 1.5f\ \&\&\ fabs(D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a9d4c1a7dd7f15c37b8aa6f889e51473c}{GyroZ}})\ <\ 1.5f)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00258}00258\ \ \ \ \ \textcolor{keywordflow}{if}\ (fabs(linear\_acc\_m\_s2)\ <\ 0.35f)\ \{\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00259}00259\ \ \ \ \ \ \ \textcolor{comment}{/*\ Apply\ strong\ damping\ to\ bleed\ off\ drift\ speed\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00260}00260\ \ \ \ \ \ \ *s\ *=\ 0.70f;\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00261}00261\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (fabs(*s)\ <\ 0.05f)\ *s\ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00262}00262\ \ \ \ \ \ \ linear\_acc\_m\_s2\ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00263}00263\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00264}00264\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00265}00265\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00266}00266\ \ \ \textcolor{comment}{/*\ 2.\ Deadzone\ to\ ignore\ sensor\ floor\ noise\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00267}00267\ \ \ \textcolor{keywordflow}{if}\ (fabs(linear\_acc\_m\_s2)\ <\ 0.20f)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00268}00268\ \ \ \ \ \ \ linear\_acc\_m\_s2\ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00269}00269\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00270}00270\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00271}00271\ \ \ \textcolor{comment}{/*\ 3.\ Trapezoidal\ Integration\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00272}00272\ \ \ *s\ +=\ linear\_acc\_m\_s2\ *\ dt;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00273}00273\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00274}00274\ \ \ \textcolor{comment}{/*\ 4.\ Physical\ Limit:\ Speed\ cannot\ be\ negative\ in\ this\ integration\ model\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00275}00275\ \ \ \textcolor{keywordflow}{if}\ (*s\ <\ 0)\ *s\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00276}00276\ \ \ \textcolor{keywordflow}{if}\ (*s\ <\ 0.015f)\ *s\ =\ 0;\ \textcolor{comment}{/*\ 1.5\ cm/s\ clamp\ in\ meters\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00277}00277\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00278}00278\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00279}00279\ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00280}00280\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00281}\doxymbox{\hyperlink{MPU9250__interface_8h_a2c21fb3025bdca19293a1951dd08fadc}{00281}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{MPU9250__program_8c_a7c3bf491aef8f2bd61d33decb7bb8e52}{MPU9250\_enumGetPosition}}(\doxymbox{\hyperlink{structMPU9250__Data__t}{MPU9250\_Data\_t}}\ *D,\ \textcolor{keywordtype}{float}\ s,\ \textcolor{keywordtype}{float}\ h,\ \textcolor{keywordtype}{float}\ pit,\ \textcolor{keywordtype}{float}\ dt,\ \doxymbox{\hyperlink{structMPU9250__Position__t}{MPU9250\_Position\_t}}\ *pos)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00282}00282\ \ \ \textcolor{keywordflow}{if}\ (!D\ ||\ !pos)\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00283}00283\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00284}00284\ \ \ \textcolor{keywordtype}{float}\ radP\ =\ Filtered\_Pitch\ *\ (\doxymbox{\hyperlink{MPU9250__program_8c_ae71449b1cc6e6250b91f539153a7a0d3}{M\_PI}}/180.0f);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00285}00285\ \ \ \textcolor{keywordtype}{float}\ radR\ =\ Filtered\_Roll\ *\ (\doxymbox{\hyperlink{MPU9250__program_8c_ae71449b1cc6e6250b91f539153a7a0d3}{M\_PI}}/180.0f);}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00286}00286\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00287}00287\ \ \ \textcolor{comment}{/*\ Gravity-\/Compensated\ World\ Acceleration\ in\ m/s\string^2\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00288}00288\ \ \ \textcolor{keywordtype}{float}\ az\_world\ =\ (D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a926e46afa81b71e780029a34e12b8e72}{AccelZ}}\ *\ cosf(radP)\ *\ cosf(radR))\ -\/\ (D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a0847b8c4ee83cb47a048534b6c8144ed}{AccelX}}\ *\ sinf(radP))\ +\ (D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a5480b2d87c0b736b31324ffee108c163}{AccelY}}\ *\ sinf(radR)\ *\ cosf(radP))\ -\/\ 1.0f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00289}00289\ \ \ \textcolor{keywordtype}{float}\ az\_m\_s2\ =\ az\_world\ *\ 9.80665f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00290}00290\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00291}00291\ \ \ \textcolor{comment}{/*\ Smart\ Vertical\ Stillness\ Detection\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00292}00292\ \ \ \textcolor{keywordtype}{float}\ total\_gyro\ =\ fabs(D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_af89bb9a4d0bb2069d16b58da52644c18}{GyroX}})\ +\ fabs(D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_abf2ecc6b9e6b5fa527d95910ed462f05}{GyroY}})\ +\ fabs(D-\/>\doxymbox{\hyperlink{structMPU9250__Data__t_a9d4c1a7dd7f15c37b8aa6f889e51473c}{GyroZ}});}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00293}00293\ \ \ \textcolor{keywordflow}{if}\ (total\_gyro\ <\ 1.5f\ \&\&\ fabs(az\_m\_s2)\ <\ 0.35f)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00294}00294\ \ \ \ \ az\_m\_s2\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00295}00295\ \ \ \ \ Vert\_Velocity\_m\_s\ *=\ 0.75f;\ \textcolor{comment}{/*\ Snap\ speed\ to\ zero\ when\ stationary\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00296}00296\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00297}00297\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00298}00298\ \ \ \textcolor{comment}{/*\ Leaky\ Integration\ to\ fix\ the\ Negative\ Drifting\ Issue\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00299}00299\ \ \ \textcolor{keywordflow}{if}\ (fabs(az\_m\_s2)\ >\ 0.20f)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00300}00300\ \ \ \ \ Vert\_Velocity\_m\_s\ +=\ az\_m\_s2\ *\ dt;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00301}00301\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00302}00302\ \ \ Vert\_Velocity\_m\_s\ *=\ 0.97f;\ \textcolor{comment}{/*\ Continuous\ bleed\ to\ stabilize\ at\ rest\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00303}00303\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00304}00304\ \ \ \textcolor{comment}{/*\ Update\ Distance\ Z\ in\ Meters\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00305}00305\ \ \ pos-\/>\doxymbox{\hyperlink{structMPU9250__Position__t_a557b1c4e849f5179709d40e81cef5b9c}{Z}}\ +=\ Vert\_Velocity\_m\_s\ *\ dt;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00306}00306\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00307}00307\ \ \ \textcolor{comment}{/*\ When\ stationary:\ bleed\ Z\ back\ toward\ 0\ (reference\ point)}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00308}00308\ \textcolor{comment}{\ \ \ *\ Avoids\ drift\ accumulation\ —\ at\ 50ms\ cycles:\ \string~5s\ to\ converge\ back\ to\ 0\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00309}00309\ \ \ \textcolor{keywordflow}{if}\ (total\_gyro\ <\ 1.5f\ \&\&\ fabs(Vert\_Velocity\_m\_s)\ <\ 0.01f)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00310}00310\ \ \ \ \ pos-\/>\doxymbox{\hyperlink{structMPU9250__Position__t_a557b1c4e849f5179709d40e81cef5b9c}{Z}}\ *=\ 0.98f;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00311}00311\ \ \ \ \ \textcolor{keywordflow}{if}\ (fabs(pos-\/>\doxymbox{\hyperlink{structMPU9250__Position__t_a557b1c4e849f5179709d40e81cef5b9c}{Z}})\ <\ 0.005f)\ pos-\/>\doxymbox{\hyperlink{structMPU9250__Position__t_a557b1c4e849f5179709d40e81cef5b9c}{Z}}\ =\ 0.0f;\ \ \textcolor{comment}{/*\ snap\ at\ 5mm\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00312}00312\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00313}00313\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00314}00314\ \ \ pos-\/>\doxymbox{\hyperlink{structMPU9250__Position__t_a4fe225ef27b2b7f0ee9e0b7a3064f0b6}{X}}\ =\ 0;\ pos-\/>\doxymbox{\hyperlink{structMPU9250__Position__t_aa624e2c5eac7ac1586329d0dd06d43a4}{Y}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00315}00315\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{MPU9250__program_8c_source_l00316}00316\ \}}
+
+\end{DoxyCode}

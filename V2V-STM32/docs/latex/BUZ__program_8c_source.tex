@@ -1,0 +1,95 @@
+\doxysection{BUZ\+\_\+program.\+c}
+\hypertarget{BUZ__program_8c_source}{}\label{BUZ__program_8c_source}\index{Src/BUZ\_program.c@{Src/BUZ\_program.c}}
+\doxymbox{\hyperlink{BUZ__program_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{BUZ__interface_8h}{../Inc/Drivers/HAL/BUZZ/BUZ\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{BUZ__private_8h}{../Inc/Drivers/HAL/BUZZ/BUZ\_private.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{BUZ__config_8h}{../Inc/Drivers/HAL/BUZZ/BUZ\_config.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00019}\doxymbox{\hyperlink{BUZ__interface_8h_a0c7b752c3600f97490293a1555c2919f}{00019}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{BUZ__program_8c_aee43f9ae5f162980c0e95c9a96694e4a}{BUZ\_Init}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\_Config\_t}}\ *BUZ\_Configuration)}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00020}00020\ \{}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00021}00021\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00023}00023\ \ \ \textcolor{keywordflow}{if}\ (BUZ\_Configuration\ !=\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00024}00024\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00025}00025\ \ \ \ \ \textcolor{comment}{/*\ Create\ GPIO\ pin\ configuration\ */}}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00026}00026\ \ \ \ \ \doxymbox{\hyperlink{structGPIO__PinConfig__t}{GPIO\_PinConfig\_t}}\ PinConfig\ =}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00027}00027\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ .Port\ =\ BUZ\_Configuration-\/>\doxymbox{\hyperlink{structBUZ__Config__t_aee32e26b6531412ccbe879c667b65b2f}{Port}},}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ .PinNum\ =\ BUZ\_Configuration-\/>\doxymbox{\hyperlink{structBUZ__Config__t_a0f92704234d6d41557959b250f271987}{Pin}},}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ .Mode\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26aa248e73c1faee9c6f072fd91569cf516}{GPIO\_OUTPUT}},}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ .Otype\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_a6470c88cd80e5ef53ac53602e73207f0a2ede6e0f1b50e67e840a93701323c775}{GPIO\_PUSH\_PULL}},}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ .Speed\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71a83efc1b373fff74ccc8ff155acb523bb}{GPIO\_MEDIUM\_SPEED}},}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ .PullType\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_af3291f1e475675bffc656c9f0c4c7399aa528b4821b033fe90e0b186ada74fa10}{GPIO\_NO\_PULL}}\};}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00035}00035\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ GPIO\ pin\ */}}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00036}00036\ \ \ \ \ Local\_ErrorState\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_a2a5e7c89bc6bb7103d96334a8481ea9b}{GPIO\_enumPinInit}}(\&PinConfig);}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00038}00038\ \ \ \ \ \textcolor{comment}{/*\ Set\ initial\ state\ to\ OFF\ */}}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00039}00039\ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_ErrorState\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}})}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00040}00040\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00041}00041\ \ \ \ \ \ \ Local\_ErrorState\ =\ \doxymbox{\hyperlink{BUZ__program_8c_a6ea5cda725dca71e4c638f57f43eecd7}{BUZ\_Off}}(BUZ\_Configuration);}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00042}00042\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00043}00043\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00044}00044\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00045}00045\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00046}00046\ \ \ \ \ Local\_ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00047}00047\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00049}00049\ \ \ \textcolor{keywordflow}{return}\ Local\_ErrorState;}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00050}00050\ \}}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00055}\doxymbox{\hyperlink{BUZ__interface_8h_ad67714c41d2239985e57f277550de66a}{00055}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{BUZ__program_8c_ab7f7f6ad4821bcc1ce356a6912597511}{BUZ\_On}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\_Config\_t}}\ *BUZ\_Configuration)}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00056}00056\ \{}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00057}00057\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00059}00059\ \ \ \textcolor{keywordflow}{if}\ (BUZ\_Configuration\ !=\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00060}00060\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00061}00061\ \ \ \ \ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\_PinValue\_t}}\ PinValue\ =\ (BUZ\_Configuration-\/>\doxymbox{\hyperlink{structBUZ__Config__t_ad353577f1afb89c9608c5e1158efb5b8}{ActiveState}}\ ==\ \doxymbox{\hyperlink{BUZ__interface_8h_a30707334c70b434fa4f7145542ee6b3aa21de853225ec138e5f029eccbbb87397}{BUZ\_ACTIVE\_HIGH}})\ ?\ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8acef36245ca64f0574b6a3381d607ee23}{GPIO\_PIN\_HIGH}}\ :\ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8a15615df0be390aa56563c157ddb5454e}{GPIO\_PIN\_LOW}};}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00062}00062\ \ \ \ \ Local\_ErrorState\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_ab8efebd278bcf731012c238a3f69fb5c}{GPIO\_enumWritePinVal}}(BUZ\_Configuration-\/>\doxymbox{\hyperlink{structBUZ__Config__t_aee32e26b6531412ccbe879c667b65b2f}{Port}},\ BUZ\_Configuration-\/>\doxymbox{\hyperlink{structBUZ__Config__t_a0f92704234d6d41557959b250f271987}{Pin}},\ PinValue);}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00063}00063\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00064}00064\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00065}00065\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00066}00066\ \ \ \ \ Local\_ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00067}00067\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00069}00069\ \ \ \textcolor{keywordflow}{return}\ Local\_ErrorState;}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00070}00070\ \}}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00075}\doxymbox{\hyperlink{BUZ__interface_8h_ac1ad879da00fa3cfbbaac731ef952ca6}{00075}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{BUZ__program_8c_a6ea5cda725dca71e4c638f57f43eecd7}{BUZ\_Off}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\_Config\_t}}\ *BUZ\_Configuration)}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00076}00076\ \{}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00077}00077\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00079}00079\ \ \ \textcolor{keywordflow}{if}\ (BUZ\_Configuration\ !=\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00080}00080\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00081}00081\ \ \ \ \ \textcolor{comment}{/*\ Write\ the\ appropriate\ value\ based\ on\ active\ state\ */}}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00082}00082\ \ \ \ \ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\_PinValue\_t}}\ PinValue\ =\ (BUZ\_Configuration-\/>\doxymbox{\hyperlink{structBUZ__Config__t_ad353577f1afb89c9608c5e1158efb5b8}{ActiveState}}\ ==\ \doxymbox{\hyperlink{BUZ__interface_8h_a30707334c70b434fa4f7145542ee6b3aa21de853225ec138e5f029eccbbb87397}{BUZ\_ACTIVE\_HIGH}})\ ?\ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8a15615df0be390aa56563c157ddb5454e}{GPIO\_PIN\_LOW}}\ :\ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8acef36245ca64f0574b6a3381d607ee23}{GPIO\_PIN\_HIGH}};}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00083}00083\ \ \ \ \ Local\_ErrorState\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_ab8efebd278bcf731012c238a3f69fb5c}{GPIO\_enumWritePinVal}}(BUZ\_Configuration-\/>\doxymbox{\hyperlink{structBUZ__Config__t_aee32e26b6531412ccbe879c667b65b2f}{Port}},\ BUZ\_Configuration-\/>\doxymbox{\hyperlink{structBUZ__Config__t_a0f92704234d6d41557959b250f271987}{Pin}},\ PinValue);}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00084}00084\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00085}00085\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00086}00086\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00087}00087\ \ \ \ \ Local\_ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00088}00088\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00090}00090\ \ \ \textcolor{keywordflow}{return}\ Local\_ErrorState;}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00091}00091\ \}}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00096}\doxymbox{\hyperlink{BUZ__interface_8h_a502c816a1a5e902652973e0317f68b29}{00096}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{BUZ__program_8c_aaee2a85a84cc58a2be5fa0e7c32e5837}{BUZ\_Toggle}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\_Config\_t}}\ *BUZ\_Configuration)}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00097}00097\ \{}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00098}00098\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00100}00100\ \ \ \textcolor{keywordflow}{if}\ (BUZ\_Configuration\ !=\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00101}00101\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00102}00102\ \ \ \ \ Local\_ErrorState\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_aacd1fe5ce0d15fd5040c41745409ca20}{GPIO\_enumTogPinVal}}(BUZ\_Configuration-\/>\doxymbox{\hyperlink{structBUZ__Config__t_aee32e26b6531412ccbe879c667b65b2f}{Port}},\ BUZ\_Configuration-\/>\doxymbox{\hyperlink{structBUZ__Config__t_a0f92704234d6d41557959b250f271987}{Pin}});}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00103}00103\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00104}00104\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00105}00105\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00106}00106\ \ \ \ \ Local\_ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00107}00107\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00109}00109\ \ \ \textcolor{keywordflow}{return}\ Local\_ErrorState;}
+\DoxyCodeLine{\Hypertarget{BUZ__program_8c_source_l00110}00110\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,56 @@
+\doxysection{DSRC.\+h}
+\hypertarget{DSRC_8h_source}{}\label{DSRC_8h_source}\index{Inc/Application/DSRC/DSRC.h@{Inc/Application/DSRC/DSRC.h}}
+\doxymbox{\hyperlink{DSRC_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00001}\doxymbox{\hyperlink{DSRC_8h_ab898071398b359603a35c202e9c65f3b}{00001}}\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00009}00009\ \textcolor{preprocessor}{\#ifndef\ DSRC\_H}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00010}00010\ \textcolor{preprocessor}{\#define\ DSRC\_H}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <math.h>}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00016}00016\ \textcolor{comment}{//\ ======\ Config\ ======}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00017}\doxymbox{\hyperlink{DSRC_8h_a2b1d39159e4114f433745f15a201c93c}{00017}}\ \textcolor{preprocessor}{\#define\ MAX\_NEIGHBORS\ 20}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00018}\doxymbox{\hyperlink{DSRC_8h_a545233ea05ce2ada1c14377954bb8931}{00018}}\ \textcolor{preprocessor}{\#define\ NEIGHBOR\_TIMEOUT\ 2000\ }\textcolor{comment}{/*\ ms\ (ticks\ @1000Hz):\ purge\ a\ neighbor\ after\ 2s\ of\ silence\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00019}\doxymbox{\hyperlink{DSRC_8h_a9dd026e05b86378bf84c82c84dd193bf}{00019}}\ \textcolor{preprocessor}{\#define\ VEHICLE\_ID\ 2}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00020}\doxymbox{\hyperlink{DSRC_8h_a30d2043ca397843e08c43ade3aaee5b2}{00020}}\ \textcolor{preprocessor}{\#define\ START\_BYTE\ 0xAA}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00021}\doxymbox{\hyperlink{DSRC_8h_a5126c1e2dc63cec63fc73710e48a9b5d}{00021}}\ \textcolor{preprocessor}{\#define\ END\_BYTE\ 0x55}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00022}\doxymbox{\hyperlink{DSRC_8h_aebdc7d8ca8e25ed8efc90bb88ef7ef5b}{00022}}\ \textcolor{preprocessor}{\#define\ PACKET\_SIZE\ (1\ +\ sizeof(Neighbor)\ +\ 1\ +\ 1)}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00023}\doxymbox{\hyperlink{DSRC_8h_a142810068f1b99cd93d3fc9f0e160e02}{00023}}\ \textcolor{preprocessor}{\#define\ QUEUE\_SIZE\ 10}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00025}00025\ \textcolor{comment}{//\ ======\ Struct\ ======}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00026}00026\ \textcolor{comment}{//\ Wire\ format\ shared\ with\ the\ ESP\ firmware\ (esp32/master,\ esp32/slave).\ It\ is}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00027}00027\ \textcolor{comment}{//\ transmitted\ as\ raw\ bytes\ over\ UART/ESP-\/NOW,\ so\ it\ MUST\ be\ packed\ (no\ implicit}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00028}00028\ \textcolor{comment}{//\ padding)\ and\ IDENTICAL\ on\ every\ side.\ Packed\ →\ 21\ bytes\ exactly;\ any\ field}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00029}00029\ \textcolor{comment}{//\ reorder/resize\ must\ be\ mirrored\ in\ the\ ESP\ .ino\ structs.}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00030}00030\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{DSRC_8h_ab898071398b359603a35c202e9c65f3b}{\_\_attribute\_\_}}((packed))}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00031}00031\ \{}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00032}00032\ \ \ uint8\_t\ vehicle\_id;}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00033}00033\ \ \ \textcolor{keywordtype}{float}\ speed;}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00034}00034\ \ \ \textcolor{keywordtype}{float}\ heading;\ \ \ \ \ \ \ \textcolor{comment}{/*\ 0\ to\ 360\ degrees\ */}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00035}00035\ \ \ uint32\_t\ last\_update;}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00036}00036\ \ \ uint8\_t\ fcw\_headon\_flag;\ \textcolor{comment}{/*\ cooperative\ head-\/on\ candidate\ (front\ vehicle\ +\ opposite\ neighbor):\ 0/1\ */}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00037}00037\ \ \ uint8\_t\ bsw\_flag;\ \ \ \ \textcolor{comment}{/*\ sender's\ front\ side(s):\ bit0=LEFT,\ bit1=RIGHT\ (0=none,1,2,3=both)\ */}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00038}00038\ \ \ \textcolor{keywordtype}{float}\ distance\_to\_intersection;\ \textcolor{comment}{/*\ distance\ to\ nearest\ intersection\ (cm),\ 0\ =\ not\ near\ */}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00039}00039\ \ \ uint8\_t\ ima\_flag;\ \ \ \ \textcolor{comment}{/*\ 0=Safe,\ 1=Warning,\ 2=Critical\ */}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00040}\doxymbox{\hyperlink{DSRC_8h_ac818f2e1224a1e513913a85019953e14}{00040}}\ \}\ \doxymbox{\hyperlink{DSRC_8h_ac818f2e1224a1e513913a85019953e14}{Neighbor}};}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00042}00042\ \textcolor{comment}{//\ ======\ Public\ API\ ======}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00043}00043\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{DSRC_8h_adad268979d4c4038075346292651c8af}{DSRC\_Init}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00044}00044\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{DSRC_8h_aded740c50de5ea4cf786939e10ace2d9}{DSRC\_SendNeighbor}}(\doxymbox{\hyperlink{DSRC_8h_ac818f2e1224a1e513913a85019953e14}{Neighbor}}\ *n);}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00045}00045\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{DSRC_8h_ac40e63c7c7041cacb1f60a1d4d710abb}{DSRC\_Update}}(\textcolor{keywordtype}{void});\ \textcolor{comment}{//\ call\ in\ main\ loop}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00046}00046\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{DSRC_8h_aa38784384016c34bf5e63add1930104b}{DSRC\_RemoveStale}}(uint32\_t\ current\_time);}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00047}00047\ uint8\_t\ \doxymbox{\hyperlink{DSRC_8h_a15d8d8dc4459f83b2aa2519119d037d0}{DSRC\_GetCount}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00048}00048\ \doxymbox{\hyperlink{DSRC_8h_ac818f2e1224a1e513913a85019953e14}{Neighbor}}\ *\doxymbox{\hyperlink{DSRC_8h_a76299bf71b1e2dc13baac26c6c4228c4}{DSRC\_GetTable}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00050}00050\ \textcolor{comment}{//\ ======\ UART\ RX\ Callback\ —\ feed\ ONE\ received\ byte\ into\ the\ parser\ ======}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00051}00051\ \textcolor{comment}{//\ IMPORTANT:\ call\ from\ TASK\ context\ (vTask\_ESP\_Comm),\ NOT\ from\ the\ ISR.}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00052}00052\ \textcolor{comment}{//\ It\ touches\ the\ non-\/atomic\ internal\ rx\_queue;\ calling\ it\ from\ an\ ISR}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00053}00053\ \textcolor{comment}{//\ while\ the\ task\ also\ calls\ it\ creates\ a\ data\ race.}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00054}00054\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{DSRC_8h_a8f2c7037352677729c777df880fefd1b}{DSRC\_RxCallback}}(uint8\_t\ \textcolor{keywordtype}{byte});}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00056}00056\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ DSRC\_H}}
+
+\end{DoxyCode}

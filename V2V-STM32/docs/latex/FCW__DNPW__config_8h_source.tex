@@ -1,0 +1,40 @@
+\doxysection{FCW\+\_\+\+DNPW\+\_\+config.\+h}
+\hypertarget{FCW__DNPW__config_8h_source}{}\label{FCW__DNPW__config_8h_source}\index{Inc/Application/FCW\_DNPW/FCW\_DNPW\_config.h@{Inc/Application/FCW\_DNPW/FCW\_DNPW\_config.h}}
+\doxymbox{\hyperlink{FCW__DNPW__config_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ FCW\_DNPW\_CONFIG\_H}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ FCW\_DNPW\_CONFIG\_H}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00004}00004\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00005}00005\ \textcolor{comment}{\ *\ ======\ Cooperative\ FCW\ +\ DNPW\ Model\ ======}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00006}00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00007}00007\ \textcolor{comment}{\ *\ FCW\ and\ DNPW\ share\ the\ same\ cooperative\ inputs,\ so\ they\ live\ in\ one\ pipeline:}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00008}00008\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00009}00009\ \textcolor{comment}{\ *\ \ \ -\/\ FrontObject\ \ \ \ :\ front\ ultrasonic\ sees\ something\ ahead}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00010}00010\ \textcolor{comment}{\ *\ \ \ -\/\ Oncoming\ \ \ \ \ \ \ :\ a\ neighbor\ is\ heading\ opposite\ to\ us\ (DSRC\ heading)}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00011}00011\ \textcolor{comment}{\ *\ \ \ -\/\ OncomingHeadon\ :\ that\ oncoming\ neighbor's\ broadcast\ fcw\_headon\_flag}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00012}00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00013}00013\ \textcolor{comment}{\ *\ Decision\ (the\ oncoming\ car's\ head-\/on\ flag\ is\ read\ only\ when\ one\ exists):}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00014}00014\ \textcolor{comment}{\ *\ \ \ FrontObject,\ no\ oncoming\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/>\ local\ FCW}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00015}00015\ \textcolor{comment}{\ *\ \ \ FrontObject\ +\ oncoming\ +\ its\ headon\ \ \ \ \ \ -\/>\ cooperative\ head-\/on\ FCW}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00016}00016\ \textcolor{comment}{\ *\ \ \ FrontObject\ +\ oncoming\ +\ no\ its\ headon\ \ \ -\/>\ DNPW\ (overtaking)}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00017}00017\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00018}00018\ \textcolor{comment}{\ *\ Severity\ comes\ from\ the\ shared\ cycle\ gaps\ (SafetyEngine\_SafeDist\ /}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00019}00019\ \textcolor{comment}{\ *\ CriticalDist)\ against\ the\ front\ distance.}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00020}00020\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00022}00022\ \textcolor{comment}{/*\ Front-\/vehicle\ presence\ gates\ (cm):\ closer\ than\ this\ counts\ as\ "{}vehicle}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00023}00023\ \textcolor{comment}{\ *\ ahead"{}.\ FCW\ warns\ earlier\ (farther)\ than\ the\ oncoming/overtaking\ case,\ so\ it}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00024}00024\ \textcolor{comment}{\ *\ has\ the\ wider\ gate;\ DNPW\ +\ head-\/on\ share\ the\ nearer\ gate.}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00025}00025\ \textcolor{comment}{\ *\ Prototype\ scale:\ small\ car\ in\ a\ corridor.\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00026}\doxymbox{\hyperlink{FCW__DNPW__config_8h_a62efb4f170f9fe499586d377133fa412}{00026}}\ \textcolor{preprocessor}{\#define\ FCW\_FRONT\_THRESHOLD\ \ \ \ \ \ \ \ (80.0f)\ \ }\textcolor{comment}{/*\ FCW\ front\ gate:\ warn\ earlier\ \ \ \ \ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00027}\doxymbox{\hyperlink{FCW__DNPW__config_8h_a1f9edf3bbe77d932d8881a76d853ee6d}{00027}}\ \textcolor{preprocessor}{\#define\ DNPW\_FRONT\_THRESHOLD\ \ \ \ \ \ \ (40.0f)\ \ }\textcolor{comment}{/*\ DNPW\ +\ head-\/on\ front\ gate:\ nearer\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00029}00029\ \textcolor{comment}{/*\ DNPW\ escalation\ gate\ (cm):\ when\ DNPW\ fires,\ a\ near\ front-\/left\ reading\ raises\ the}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00030}00030\ \textcolor{comment}{\ *\ DNPW\ severity\ to\ CRITICAL.\ The\ overtaking\ car\ pulls\ out\ to\ the\ LEFT,\ so\ the}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00031}00031\ \textcolor{comment}{\ *\ oncoming\ car\ it\ must\ not\ pass\ shows\ up\ on\ its\ front-\/LEFT\ sensor.\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00032}\doxymbox{\hyperlink{FCW__DNPW__config_8h_a434f5b4f70cfa6ddea3651a08b646ccd}{00032}}\ \textcolor{preprocessor}{\#define\ DNPW\_FRONT\_LEFT\_CRITICAL\ \ (40.0f)}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__config_8h_source_l00034}00034\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

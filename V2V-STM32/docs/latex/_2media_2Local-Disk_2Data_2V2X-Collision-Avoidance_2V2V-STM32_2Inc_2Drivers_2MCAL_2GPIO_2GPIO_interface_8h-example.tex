@@ -1,0 +1,445 @@
+\doxysection{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+GPIO/\+\+GPIO\+\_\+interface.\+h}
+\hypertarget{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2GPIO_2GPIO_interface_8h-example}{}\label{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2GPIO_2GPIO_interface_8h-example}\doxylink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t} val; GPIO\+\_\+enum\+Read\+Pin\+Val(\+GPIO\+\_\+\+PORTA, GPIO\+\_\+\+PIN5, \&val);
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#ifndef\ GPIO\_INTERFACE\_H\_}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ GPIO\_INTERFACE\_H\_}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}../../LIB/ErrTypes.h"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/**************************\ Port\ Definitions\ **************************/}}
+\DoxyCodeLine{\textcolor{comment}{/********************************}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @port\_t\ enum:}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief:\ GPIO\ port\ selection}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param:\ PORTA,\ PORTB,\ PORTC,\ PORTD,\ PORTE,\ PORTF,\ PORTG,\ PORTH}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @return:\ GPIO\ port\ selection}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24a0d36b47f173bbc4bdced28d8a54fe4ac}{GPIO\_PORTA}}\ =\ 0,\ \textcolor{comment}{/*\ GPIO\ Port\ A\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24a258a8ca8e34cedcfba339d2463ae0c2a}{GPIO\_PORTB}},\ \ \ \ \ \textcolor{comment}{/*\ GPIO\ Port\ B\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24a3266325667899f8d82c0624c493fda51}{GPIO\_PORTC}},\ \ \ \ \ \textcolor{comment}{/*\ GPIO\ Port\ C\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24a4db7e328496cabe7a12e3879f7be8e39}{GPIO\_PORTD}},\ \ \ \ \ \textcolor{comment}{/*\ GPIO\ Port\ D\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24ae00a95999282684e3c5d713937bc74e3}{GPIO\_PORTE}},\ \ \ \ \ \textcolor{comment}{/*\ GPIO\ Port\ E\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24a5dc105023eaf57bc980a4372ae35b94f}{GPIO\_PORTF}},\ \ \ \ \ \textcolor{comment}{/*\ GPIO\ Port\ F\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24add0f532a6de2309badc195f0c3445461}{GPIO\_PORTG}},\ \ \ \ \ \textcolor{comment}{/*\ GPIO\ Port\ G\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24a637ffefd47a9b23a71e91070289107d5}{GPIO\_PORTH}}\ \ \ \ \ \ \textcolor{comment}{/*\ GPIO\ Port\ H\ */}}
+\DoxyCodeLine{\}\ \doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/**************************\ Pin\ Definitions\ **************************/}}
+\DoxyCodeLine{\textcolor{comment}{/********************************}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @pin\_t\ enum:}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief:\ GPIO\ pin\ selection}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param:\ PIN0,\ PIN1,\ PIN2,\ PIN3,\ PIN4,\ PIN5,\ PIN6,\ PIN7,\ PIN8,\ PIN9,\ PIN10,}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ PIN11,\ PIN12,\ PIN13,\ PIN14,\ PIN15}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @return:\ GPIO\ pin\ selection}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14adb75bcba02ec80bb4a9773718438047d}{GPIO\_PIN0}}\ =\ 0,\ \textcolor{comment}{/*\ GPIO\ Pin\ 0\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14aa829aa9e491c03d6a8227d518b7fc8eb}{GPIO\_PIN1}},\ \ \ \ \ \textcolor{comment}{/*\ GPIO\ Pin\ 1\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14a57cb1d6a79365503d4134ae99f5251f7}{GPIO\_PIN2}},\ \ \ \ \ \textcolor{comment}{/*\ GPIO\ Pin\ 2\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14aff3e33054e363ddc891e9397e2b2f6d0}{GPIO\_PIN3}},\ \ \ \ \ \textcolor{comment}{/*\ GPIO\ Pin\ 3\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14a088dbea6be5692ef5375d1710404ad46}{GPIO\_PIN4}},\ \ \ \ \ \textcolor{comment}{/*\ GPIO\ Pin\ 4\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14ab3360105a3459dae07b5018c48ae30af}{GPIO\_PIN5}},\ \ \ \ \ \textcolor{comment}{/*\ GPIO\ Pin\ 5\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14a870953062f7dbc2a62c12e8cd5098202}{GPIO\_PIN6}},\ \ \ \ \ \textcolor{comment}{/*\ GPIO\ Pin\ 6\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14a0e9e1e2434aae274eb04b81c09fe1318}{GPIO\_PIN7}},\ \ \ \ \ \textcolor{comment}{/*\ GPIO\ Pin\ 7\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14a451abbd2d09eb906813528a1ceccdd03}{GPIO\_PIN8}},\ \ \ \ \ \textcolor{comment}{/*\ GPIO\ Pin\ 8\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14a9291e04714ca677327b6127613118479}{GPIO\_PIN9}},\ \ \ \ \ \textcolor{comment}{/*\ GPIO\ Pin\ 9\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14aa580d85c9461cac143b5833b833136d9}{GPIO\_PIN10}},\ \ \ \ \textcolor{comment}{/*\ GPIO\ Pin\ 10\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14ae075539bfaca840c120f221d6a49d387}{GPIO\_PIN11}},\ \ \ \ \textcolor{comment}{/*\ GPIO\ Pin\ 11\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14ae54732352207a6d40be8d329384af84d}{GPIO\_PIN12}},\ \ \ \ \textcolor{comment}{/*\ GPIO\ Pin\ 12\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14ad2bef71fe3398625395bad5506ac7a52}{GPIO\_PIN13}},\ \ \ \ \textcolor{comment}{/*\ GPIO\ Pin\ 13\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14a3277e5ef8a20fd1372dbddf7ad7c1a17}{GPIO\_PIN14}},\ \ \ \ \textcolor{comment}{/*\ GPIO\ Pin\ 14\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14a50c973b5b9de3dad1fd24d662238ca67}{GPIO\_PIN15}}\ \ \ \ \ \textcolor{comment}{/*\ GPIO\ Pin\ 15\ */}}
+\DoxyCodeLine{\}\ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\_Pin\_t}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/**************************\ Mode\ Definitions\ **************************/}}
+\DoxyCodeLine{\textcolor{comment}{/********************************}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @Mode\_t\ enum:}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief:\ GPIO\ mode\ selection}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param:\ INPUT,\ OUTPUT,\ ALTFN,\ ANALOG}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @return:\ GPIO\ mode\ selection}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26aa1ea38ffc304a6c32480a65b5fec7302}{GPIO\_INPUT}}\ =\ 0,\ \textcolor{comment}{/*\ Input\ Mode\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26aa248e73c1faee9c6f072fd91569cf516}{GPIO\_OUTPUT}},\ \ \ \ \textcolor{comment}{/*\ Output\ Mode\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26afce5a104125420d39288661fe5b1d695}{GPIO\_ALTFN}},\ \ \ \ \ \textcolor{comment}{/*\ Alternate\ Function\ Mode\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26ae8bd62cf000e751ffdce5a9de1c0dcc0}{GPIO\_ANALOG}}\ \ \ \ \ \textcolor{comment}{/*\ Analog\ Mode\ */}}
+\DoxyCodeLine{\}\ \doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26}{GPIO\_Mode\_t}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/**************************\ Output\ Type\ Definitions\ **************************/}}
+\DoxyCodeLine{\textcolor{comment}{/********************************}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @OutputType\_t\ enum:}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief:\ GPIO\ output\ type\ selection}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param:\ PUSH\_PULL,\ OPEN\_DRAIN}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @return:\ GPIO\ output\ type\ selection}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a6470c88cd80e5ef53ac53602e73207f0a2ede6e0f1b50e67e840a93701323c775}{GPIO\_PUSH\_PULL}}\ =\ 0,\ \textcolor{comment}{/*\ Push-\/Pull\ Output\ Type\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a6470c88cd80e5ef53ac53602e73207f0a5b0c623028002305892a4558ef0a6222}{GPIO\_OPEN\_DRAIN}}\ \ \ \ \ \textcolor{comment}{/*\ Open-\/Drain\ Output\ Type\ */}}
+\DoxyCodeLine{\}\ \doxymbox{\hyperlink{GPIO__interface_8h_a6470c88cd80e5ef53ac53602e73207f0}{GPIO\_OutputType\_t}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/**************************\ Nibble\ Type\ Definitions\ **************************/}}
+\DoxyCodeLine{\textcolor{comment}{/********************************}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @NibbleType\_t\ enum:}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief:\ GPIO\ nibble\ type\ selection}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param:\ LOW\_NIBBLE,\ HIGH\_NIBBLE}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @return:\ GPIO\ nibble\ type\ selection}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a6d1105e456335fcdc96b3d600c821c9ba34e08cc87834add55cd2aec05fa5cf78}{GPIO\_LOW\_NIBBLE}},\ \textcolor{comment}{/*\ Low\ Nibble\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a6d1105e456335fcdc96b3d600c821c9ba6ceb8c56cc69d3e6f032c0b9e2568b67}{GPIO\_HIGH\_NIBBLE}}\ \textcolor{comment}{/*\ High\ Nibble\ */}}
+\DoxyCodeLine{\}\ \doxymbox{\hyperlink{GPIO__interface_8h_a6d1105e456335fcdc96b3d600c821c9b}{GPIO\_NibbleType\_t}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/**************************\ Output\ Speed\ Definitions\ **************************/}}
+\DoxyCodeLine{\textcolor{comment}{/********************************}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @OutputSpeed\_t\ enum:}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief:\ GPIO\ output\ speed\ selection}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param:\ LOW\_SPEED,\ MEDIUM\_SPEED,\ HIGH\_SPEED,\ VERY\_HIGH\_SPEED}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @return:\ GPIO\ output\ speed\ selection}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71adad1d99afc424c9903c2116308da5778}{GPIO\_LOW\_SPEED}}\ =\ 0,\ \ \textcolor{comment}{/*\ Low\ Speed\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71a83efc1b373fff74ccc8ff155acb523bb}{GPIO\_MEDIUM\_SPEED}},\ \ \ \textcolor{comment}{/*\ Medium\ Speed\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71adb3d95caeba959c63a9709ca19a9cd04}{GPIO\_HIGH\_SPEED}},\ \ \ \ \ \textcolor{comment}{/*\ High\ Speed\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71af7087f6e3a0ec17c4e20a95a42e694f1}{GPIO\_VERY\_HIGH\_SPEED}}\ \textcolor{comment}{/*\ Very\ High\ Speed\ */}}
+\DoxyCodeLine{\}\ \doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71}{GPIO\_OutputSpeed\_t}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/**************************\ Pull-\/up/Pull-\/down\ Definitions}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ **************************/}}
+\DoxyCodeLine{\textcolor{comment}{/********************************}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @PullUpDown\_t\ enum:}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief:\ GPIO\ pull-\/up/pull-\/down\ selection}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param:\ NO\_PULL,\ PULL\_UP,\ PULL\_DOWN}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @return:\ GPIO\ pull-\/up/pull-\/down\ selection}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_af3291f1e475675bffc656c9f0c4c7399aa528b4821b033fe90e0b186ada74fa10}{GPIO\_NO\_PULL}}\ =\ 0,\ \textcolor{comment}{/*\ No\ Pull-\/up\ or\ Pull-\/down\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_af3291f1e475675bffc656c9f0c4c7399ae7d1b2a9078939dd744dd9a7cd61d9df}{GPIO\_PULL\_UP}},\ \ \ \ \ \textcolor{comment}{/*\ Pull-\/up\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_af3291f1e475675bffc656c9f0c4c7399a93970a9b4ab92816371682f4e537a8e2}{GPIO\_PULL\_DOWN}}\ \ \ \ \textcolor{comment}{/*\ Pull-\/down\ */}}
+\DoxyCodeLine{\}\ \doxymbox{\hyperlink{GPIO__interface_8h_af3291f1e475675bffc656c9f0c4c7399}{GPIO\_PullUpDown\_t}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/**************************\ Alternate\ Function\ Definitions}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ **************************/}}
+\DoxyCodeLine{\textcolor{comment}{/********************************}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @AlternateFunction\_t\ enum:}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief:\ GPIO\ alternate\ function\ selection}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param:\ AF0,\ AF1,\ AF2,\ AF3,\ AF4,\ AF5,\ AF6,\ AF7,\ AF8,\ AF9,\ AF10,\ AF11,\ AF12,}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ AF13,\ AF14,\ AF15}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @return:\ GPIO\ alternate\ function\ selection}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad4b5b539106097ea7ee4b71e93a45bdda87ca1e0df0502682e4a49533809ddcbc}{GPIO\_AF0}}\ =\ 0,\ \textcolor{comment}{/*\ Alternate\ Function\ 0\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad4b5b539106097ea7ee4b71e93a45bdda0ef8189f5ce80052d8c80cde9ea8a4ef}{GPIO\_AF1}},\ \ \ \ \ \textcolor{comment}{/*\ Alternate\ Function\ 1\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad4b5b539106097ea7ee4b71e93a45bdda115d1f06f5d9bb1d760ffc38b2d8c7d3}{GPIO\_AF2}},\ \ \ \ \ \textcolor{comment}{/*\ Alternate\ Function\ 2\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad4b5b539106097ea7ee4b71e93a45bdda6ee7ecdedade2eea2ba6459bd8f794f2}{GPIO\_AF3}},\ \ \ \ \ \textcolor{comment}{/*\ Alternate\ Function\ 3\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad4b5b539106097ea7ee4b71e93a45bdda34f938f8d7f13c07233e265a2a9134ca}{GPIO\_AF4}},\ \ \ \ \ \textcolor{comment}{/*\ Alternate\ Function\ 4\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad4b5b539106097ea7ee4b71e93a45bdda22966ec392207510a9861fe3c26cfeab}{GPIO\_AF5}},\ \ \ \ \ \textcolor{comment}{/*\ Alternate\ Function\ 5\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad4b5b539106097ea7ee4b71e93a45bdda4d0453c14e75bca3327ee60f9e3fb00f}{GPIO\_AF6}},\ \ \ \ \ \textcolor{comment}{/*\ Alternate\ Function\ 6\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad4b5b539106097ea7ee4b71e93a45bddab9977fcdc662307e4df15ab3435d5087}{GPIO\_AF7}},\ \ \ \ \ \textcolor{comment}{/*\ Alternate\ Function\ 7\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad4b5b539106097ea7ee4b71e93a45bdda38152bf620eb4ed1debc6c2351ad3db0}{GPIO\_AF8}},\ \ \ \ \ \textcolor{comment}{/*\ Alternate\ Function\ 8\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad4b5b539106097ea7ee4b71e93a45bdda5e721ad608ffd1e0530bc3d266a877d5}{GPIO\_AF9}},\ \ \ \ \ \textcolor{comment}{/*\ Alternate\ Function\ 9\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad4b5b539106097ea7ee4b71e93a45bdda502b67e92ad83116b3067b02862c39a9}{GPIO\_AF10}},\ \ \ \ \textcolor{comment}{/*\ Alternate\ Function\ 10\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad4b5b539106097ea7ee4b71e93a45bddad955dd2b1f56ee5176621b076b82c6f1}{GPIO\_AF11}},\ \ \ \ \textcolor{comment}{/*\ Alternate\ Function\ 11\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad4b5b539106097ea7ee4b71e93a45bddaab0d7792752ef7856d12b1919241f29c}{GPIO\_AF12}},\ \ \ \ \textcolor{comment}{/*\ Alternate\ Function\ 12\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad4b5b539106097ea7ee4b71e93a45bddac990d86e2a6c957d4bf2d72772b55ec4}{GPIO\_AF13}},\ \ \ \ \textcolor{comment}{/*\ Alternate\ Function\ 13\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad4b5b539106097ea7ee4b71e93a45bdda661b593043b2fbe70e380b0b227ddbb4}{GPIO\_AF14}},\ \ \ \ \textcolor{comment}{/*\ Alternate\ Function\ 14\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad4b5b539106097ea7ee4b71e93a45bdda23f57b0577422fa3d049deb151493e0c}{GPIO\_AF15}}\ \ \ \ \ \textcolor{comment}{/*\ Alternate\ Function\ 15\ */}}
+\DoxyCodeLine{\}\ \doxymbox{\hyperlink{GPIO__interface_8h_ad4b5b539106097ea7ee4b71e93a45bdd}{GPIO\_AlternateFunction\_t}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/**************************\ Pin\ Value\ Definitions\ **************************/}}
+\DoxyCodeLine{\textcolor{comment}{/********************************}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @PinValue\_t\ enum:}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief:\ GPIO\ pin\ value\ selection}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param:\ PIN\_LOW,\ PIN\_HIGH}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @return:\ GPIO\ pin\ value\ selection}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8a15615df0be390aa56563c157ddb5454e}{GPIO\_PIN\_LOW}}\ =\ 0,\ \textcolor{comment}{/*\ Pin\ Low\ Value\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8acef36245ca64f0574b6a3381d607ee23}{GPIO\_PIN\_HIGH}}\ \ \ \ \ \textcolor{comment}{/*\ Pin\ High\ Value\ */}}
+\DoxyCodeLine{\}\ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\_PinValue\_t}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/**************************\ Pin\ Configuration\ Structure}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ **************************/}}
+\DoxyCodeLine{\textcolor{comment}{/********************************}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @PinConfig\_t\ struct:}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief:\ GPIO\ pin\ configuration\ structure}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param:\ Port,\ PinNum,\ Mode,\ Otype,\ Speed,\ PullType,\ AlternateFunction}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @return:\ GPIO\ pin\ configuration\ structure}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ Port;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ GPIO\ Port\ Selection\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\_Pin\_t}}\ PinNum;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ GPIO\ Pin\ Number\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26}{GPIO\_Mode\_t}}\ Mode;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ GPIO\ Mode\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a6470c88cd80e5ef53ac53602e73207f0}{GPIO\_OutputType\_t}}\ Otype;\ \ \ \ \textcolor{comment}{/*\ Output\ Type\ (if\ configured\ as\ output)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71}{GPIO\_OutputSpeed\_t}}\ Speed;\ \ \ \textcolor{comment}{/*\ Output\ Speed\ (if\ configured\ as\ output)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_af3291f1e475675bffc656c9f0c4c7399}{GPIO\_PullUpDown\_t}}\ PullType;\ \textcolor{comment}{/*\ Pull-\/up/Pull-\/down\ Configuration\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad4b5b539106097ea7ee4b71e93a45bdd}{GPIO\_AlternateFunction\_t}}}
+\DoxyCodeLine{\ \ \ \ \ \ AlternateFunction;\ \textcolor{comment}{/*\ Alternate\ Function\ (if\ in\ AF\ mode)\ */}}
+\DoxyCodeLine{\}\ \doxymbox{\hyperlink{structGPIO__PinConfig__t}{GPIO\_PinConfig\_t}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/**************************\ Port\ Half\ Definitions\ **************************/}}
+\DoxyCodeLine{\textcolor{comment}{/********************************}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @PortHalf\_t\ enum:}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief:\ GPIO\ port\ half\ selection}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param:\ PORT\_FIRST\_HALF,\ PORT\_SECOND\_HALF}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @return:\ GPIO\ port\ half\ selection}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad4ea6c990a6034958a26738897bed6a8a1ed6a1ac32c251080a3c03f986557b88}{PORT\_FIRST\_HALF}}\ =\ 0,\ \textcolor{comment}{/*\ Pins\ 0-\/7\ of\ the\ GPIO\ Port\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad4ea6c990a6034958a26738897bed6a8add2bcec24206230b1e7ad954888aeb17}{PORT\_SECOND\_HALF}}\ \ \ \ \ \textcolor{comment}{/*\ Pins\ 8-\/15\ of\ the\ GPIO\ Port\ */}}
+\DoxyCodeLine{\}\ \doxymbox{\hyperlink{GPIO__interface_8h_ad4ea6c990a6034958a26738897bed6a8}{GPIO\_PortHalf\_t}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/**************************\ Port\ Half\ Configuration\ Structure}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ **************************/}}
+\DoxyCodeLine{\textcolor{comment}{/********************************}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @GPIO\_Port8BitsConfig\_t\ struct:}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief:\ GPIO\ port\ 8-\/bits\ configuration\ structure}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param:\ Port,\ StartPin,\ Mode,\ Otype,\ Speed,\ PullType}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @return:\ GPIO\ port\ 8-\/bits\ configuration\ structure}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ Port;\ \ \ \ \textcolor{comment}{/*\ GPIO\ Port\ Selection\ (PORTA\ to\ PORTH)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\_Pin\_t}}\ StartPin;\ \textcolor{comment}{/*\ Starting\ Pin\ Number\ (PIN0\ to\ PIN12)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26}{GPIO\_Mode\_t}}\ Mode;\ \ \ \ \textcolor{comment}{/*\ GPIO\ Mode\ Selection\ (INPUT,\ OUTPUT,\ etc.)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a6470c88cd80e5ef53ac53602e73207f0}{GPIO\_OutputType\_t}}}
+\DoxyCodeLine{\ \ \ \ \ \ Otype;\ \textcolor{comment}{/*\ GPIO\ Output\ Type\ Selection\ (PUSH\_PULL\ or\ OPEN\_DRAIN)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71}{GPIO\_OutputSpeed\_t}}}
+\DoxyCodeLine{\ \ \ \ \ \ Speed;\ \textcolor{comment}{/*\ GPIO\ Output\ Speed\ Selection\ (LOW\_SPEED\ to\ VERY\_HIGH\_SPEED)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_af3291f1e475675bffc656c9f0c4c7399}{GPIO\_PullUpDown\_t}}}
+\DoxyCodeLine{\ \ \ \ \ \ PullType;\ \textcolor{comment}{/*\ GPIO\ Pull\ Configuration\ (NO\_PULL,\ PULL\_UP\ or\ PULL\_DOWN)\ */}}
+\DoxyCodeLine{\}\ \doxymbox{\hyperlink{structGPIO__8PinsConfig__t}{GPIO\_8PinsConfig\_t}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/**************************\ Port\ 4-\/Bits\ Configuration\ Structure}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ **************************/}}
+\DoxyCodeLine{\textcolor{comment}{/********************************}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @GPIO\_Port4BitsConfig\_t\ struct:}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief:\ GPIO\ port\ 4-\/bits\ configuration\ structure}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param:\ Port,\ StartPin,\ Mode,\ Otype,\ Speed,\ PullType}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @return:\ GPIO\ port\ 4-\/bits\ configuration\ structure}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ Port;\ \ \ \ \textcolor{comment}{/*\ GPIO\ Port\ Selection\ (PORTA\ to\ PORTH)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\_Pin\_t}}\ StartPin;\ \textcolor{comment}{/*\ Starting\ Pin\ Number\ (PIN0\ to\ PIN12)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26}{GPIO\_Mode\_t}}\ Mode;\ \ \ \ \textcolor{comment}{/*\ GPIO\ Mode\ Selection\ (INPUT,\ OUTPUT)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a6470c88cd80e5ef53ac53602e73207f0}{GPIO\_OutputType\_t}}}
+\DoxyCodeLine{\ \ \ \ \ \ Otype;\ \textcolor{comment}{/*\ GPIO\ Output\ Type\ Selection\ (PUSH\_PULL\ or\ OPEN\_DRAIN)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71}{GPIO\_OutputSpeed\_t}}}
+\DoxyCodeLine{\ \ \ \ \ \ Speed;\ \textcolor{comment}{/*\ GPIO\ Output\ Speed\ Selection\ (LOW\_SPEED\ to\ VERY\_HIGH\_SPEED)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_af3291f1e475675bffc656c9f0c4c7399}{GPIO\_PullUpDown\_t}}}
+\DoxyCodeLine{\ \ \ \ \ \ PullType;\ \textcolor{comment}{/*\ GPIO\ Pull\ Configuration\ (NO\_PULL,\ PULL\_UP\ or\ PULL\_DOWN)\ */}}
+\DoxyCodeLine{\}\ \doxymbox{\hyperlink{structGPIO__4PinsConfig__t}{GPIO\_4PinsConfig\_t}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/**************************\ Low\ Nibble\ Configuration\ Structure}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ **************************/}}
+\DoxyCodeLine{\textcolor{comment}{/********************************}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @GPIO\_LowNibbleConfig\_t\ struct:}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief:\ GPIO\ port\ low\ nibble\ configuration\ structure}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param:\ Port,\ Mode,\ Otype,\ Speed,\ PullType}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @return:\ GPIO\ port\ low\ nibble\ configuration\ structure}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ Port;\ \ \ \ \textcolor{comment}{/*\ GPIO\ Port\ Selection\ (PORTA\ to\ PORTH)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\_Pin\_t}}\ StartPin;\ \textcolor{comment}{/*\ Make\ it\ Zero*/}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26}{GPIO\_Mode\_t}}\ Mode;\ \ \ \ \textcolor{comment}{/*\ GPIO\ Mode\ Selection\ (INPUT,\ OUTPUT)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a6470c88cd80e5ef53ac53602e73207f0}{GPIO\_OutputType\_t}}}
+\DoxyCodeLine{\ \ \ \ \ \ Otype;\ \textcolor{comment}{/*\ GPIO\ Output\ Type\ Selection\ (PUSH\_PULL\ or\ OPEN\_DRAIN)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71}{GPIO\_OutputSpeed\_t}}}
+\DoxyCodeLine{\ \ \ \ \ \ Speed;\ \textcolor{comment}{/*\ GPIO\ Output\ Speed\ Selection\ (LOW\_SPEED\ to\ VERY\_HIGH\_SPEED)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_af3291f1e475675bffc656c9f0c4c7399}{GPIO\_PullUpDown\_t}}}
+\DoxyCodeLine{\ \ \ \ \ \ PullType;\ \textcolor{comment}{/*\ GPIO\ Pull\ Configuration\ (NO\_PULL,\ PULL\_UP\ or\ PULL\_DOWN)\ */}}
+\DoxyCodeLine{\}\ \doxymbox{\hyperlink{structGPIO__LowNibbleConfig__t}{GPIO\_LowNibbleConfig\_t}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/**************************\ High\ Nibble\ Configuration\ Structure}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ **************************/}}
+\DoxyCodeLine{\textcolor{comment}{/********************************}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @GPIO\_HighNibbleConfig\_t\ struct:}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief:\ GPIO\ port\ high\ nibble\ configuration\ structure}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param:\ Port,\ Mode,\ Otype,\ Speed,\ PullType}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @return:\ GPIO\ port\ high\ nibble\ configuration\ structure}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ Port;\ \ \ \ \textcolor{comment}{/*\ GPIO\ Port\ Selection\ (PORTA\ to\ PORTH)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\_Pin\_t}}\ StartPin;\ \textcolor{comment}{/*\ Make\ it\ 4*/}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26}{GPIO\_Mode\_t}}\ Mode;\ \ \ \ \textcolor{comment}{/*\ GPIO\ Mode\ Selection\ (INPUT,\ OUTPUT)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a6470c88cd80e5ef53ac53602e73207f0}{GPIO\_OutputType\_t}}}
+\DoxyCodeLine{\ \ \ \ \ \ Otype;\ \textcolor{comment}{/*\ GPIO\ Output\ Type\ Selection\ (PUSH\_PULL\ or\ OPEN\_DRAIN)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71}{GPIO\_OutputSpeed\_t}}}
+\DoxyCodeLine{\ \ \ \ \ \ Speed;\ \textcolor{comment}{/*\ GPIO\ Output\ Speed\ Selection\ (LOW\_SPEED\ to\ VERY\_HIGH\_SPEED)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_af3291f1e475675bffc656c9f0c4c7399}{GPIO\_PullUpDown\_t}}}
+\DoxyCodeLine{\ \ \ \ \ \ PullType;\ \textcolor{comment}{/*\ GPIO\ Pull\ Configuration\ (NO\_PULL,\ PULL\_UP\ or\ PULL\_DOWN)\ */}}
+\DoxyCodeLine{\}\ \doxymbox{\hyperlink{structGPIO__HighNibbleConfig__t}{GPIO\_HighNibbleConfig\_t}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/**************************\ Byte\ Configuration\ Structure}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ **************************/}}
+\DoxyCodeLine{\textcolor{comment}{/********************************}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @GPIO\_ByteConfig\_t\ struct:}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief:\ GPIO\ port\ byte\ configuration\ structure}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param:\ Port,\ Mode,\ Otype,\ Speed,\ PullType}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @return:\ GPIO\ port\ byte\ configuration\ structure}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ Port;\ \ \ \ \textcolor{comment}{/*\ GPIO\ Port\ Selection\ (PORTA\ to\ PORTH)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\_Pin\_t}}\ StartPin;\ \textcolor{comment}{/*\ Make\ it\ Zero*/}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26}{GPIO\_Mode\_t}}\ Mode;\ \ \ \ \textcolor{comment}{/*\ GPIO\ Mode\ Selection\ (INPUT,\ OUTPUT)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a6470c88cd80e5ef53ac53602e73207f0}{GPIO\_OutputType\_t}}}
+\DoxyCodeLine{\ \ \ \ \ \ Otype;\ \textcolor{comment}{/*\ GPIO\ Output\ Type\ Selection\ (PUSH\_PULL\ or\ OPEN\_DRAIN)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71}{GPIO\_OutputSpeed\_t}}}
+\DoxyCodeLine{\ \ \ \ \ \ Speed;\ \textcolor{comment}{/*\ GPIO\ Output\ Speed\ Selection\ (LOW\_SPEED\ to\ VERY\_HIGH\_SPEED)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_af3291f1e475675bffc656c9f0c4c7399}{GPIO\_PullUpDown\_t}}}
+\DoxyCodeLine{\ \ \ \ \ \ PullType;\ \textcolor{comment}{/*\ GPIO\ Pull\ Configuration\ (NO\_PULL,\ PULL\_UP\ or\ PULL\_DOWN)\ */}}
+\DoxyCodeLine{\}\ \doxymbox{\hyperlink{structGPIO__ByteConfig__t}{GPIO\_ByteConfig\_t}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/**************************\ Half\ Port\ Configuration\ Structure}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ **************************/}}
+\DoxyCodeLine{\textcolor{comment}{/********************************}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @GPIO\_PortConfig\_t\ struct:}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief:\ GPIO\ port\ configuration\ structure}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param:\ Port,\ Mode,\ Otype,\ Speed,\ PullType}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @return:\ GPIO\ port\ configuration\ structure}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ Port;\ \ \ \ \textcolor{comment}{/*\ GPIO\ Port\ Selection\ (PORTA\ to\ PORTH)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\_Pin\_t}}\ StartPin;\ \textcolor{comment}{/*\ Make\ it\ Zero*/}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26}{GPIO\_Mode\_t}}\ Mode;\ \ \ \ \textcolor{comment}{/*\ GPIO\ Mode\ Selection\ (INPUT,\ OUTPUT)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a6470c88cd80e5ef53ac53602e73207f0}{GPIO\_OutputType\_t}}}
+\DoxyCodeLine{\ \ \ \ \ \ Otype;\ \textcolor{comment}{/*\ GPIO\ Output\ Type\ Selection\ (PUSH\_PULL\ or\ OPEN\_DRAIN)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71}{GPIO\_OutputSpeed\_t}}}
+\DoxyCodeLine{\ \ \ \ \ \ Speed;\ \textcolor{comment}{/*\ GPIO\ Output\ Speed\ Selection\ (LOW\_SPEED\ to\ VERY\_HIGH\_SPEED)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_af3291f1e475675bffc656c9f0c4c7399}{GPIO\_PullUpDown\_t}}}
+\DoxyCodeLine{\ \ \ \ \ \ PullType;\ \textcolor{comment}{/*\ GPIO\ Pull\ Configuration\ (NO\_PULL,\ PULL\_UP\ or\ PULL\_DOWN)\ */}}
+\DoxyCodeLine{\}\ \doxymbox{\hyperlink{structGPIO__HalfPortConfig__t}{GPIO\_HalfPortConfig\_t}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/**************************\ Port\ Configuration\ Structure}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ **************************/}}
+\DoxyCodeLine{\textcolor{comment}{/********************************}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @GPIO\_PortConfig\_t\ struct:}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief:\ GPIO\ port\ configuration\ structure}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param:\ Port,\ Mode,\ Otype,\ Speed,\ PullType}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @return:\ GPIO\ port\ configuration\ structure}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ Port;\ \ \ \ \textcolor{comment}{/*\ GPIO\ Port\ Selection\ (PORTA\ to\ PORTH)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\_Pin\_t}}\ StartPin;\ \textcolor{comment}{/*\ NOTE\ :\ Don't\ Change\ it\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26}{GPIO\_Mode\_t}}\ Mode;\ \ \ \ \textcolor{comment}{/*\ GPIO\ Mode\ Selection\ (INPUT,\ OUTPUT)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_a6470c88cd80e5ef53ac53602e73207f0}{GPIO\_OutputType\_t}}}
+\DoxyCodeLine{\ \ \ \ \ \ Otype;\ \textcolor{comment}{/*\ GPIO\ Output\ Type\ Selection\ (PUSH\_PULL\ or\ OPEN\_DRAIN)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71}{GPIO\_OutputSpeed\_t}}}
+\DoxyCodeLine{\ \ \ \ \ \ Speed;\ \textcolor{comment}{/*\ GPIO\ Output\ Speed\ Selection\ (LOW\_SPEED\ to\ VERY\_HIGH\_SPEED)\ */}}
+\DoxyCodeLine{\ \ \doxymbox{\hyperlink{GPIO__interface_8h_af3291f1e475675bffc656c9f0c4c7399}{GPIO\_PullUpDown\_t}}}
+\DoxyCodeLine{\ \ \ \ \ \ PullType;\ \textcolor{comment}{/*\ GPIO\ Pull\ Configuration\ (NO\_PULL,\ PULL\_UP\ or\ PULL\_DOWN)\ */}}
+\DoxyCodeLine{\}\ \doxymbox{\hyperlink{structGPIO__PortConfig__t}{GPIO\_PortConfig\_t}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/**************************\ Function\ Prototypes\ **************************/}}
+\DoxyCodeLine{\textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @fn\ \ \ \ \ GPIO\_enumPinInit}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief\ :\ Initializes\ GPIO\ pin\ configuration}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param\ :\ PinConfig[in]:\ Pointer\ to\ pin\ configuration\ structure}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @retval\ GPIO\_ErrorState:\ GPIO\_OK\ if\ successful,\ GPIO\_NOK\ if\ error}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @example}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ GPIO\_PinConfig\_t\ PinCfg\ =\ \{GPIO\_PORTA,\ GPIO\_PIN5,\ GPIO\_OUTPUT,\ GPIO\_PUSH\_PULL,\ GPIO\_MEDIUM\_SPEED,\ GPIO\_NO\_PULL\};}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ GPIO\_enumPinInit(\&PinCfg);}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_a2a5e7c89bc6bb7103d96334a8481ea9b}{GPIO\_enumPinInit}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structGPIO__PinConfig__t}{GPIO\_PinConfig\_t}}\ *PinConfig);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @fn\ \ \ \ \ GPIO\_enumLowNibbleInit}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief\ :\ Initializes\ GPIO\ pin\ configuration}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param\ :\ PinConfig[in]:\ Pointer\ to\ pin\ configuration\ structure}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @retval\ GPIO\_ErrorState:\ GPIO\_OK\ if\ successful,\ GPIO\_NOK\ if\ error}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_ace91b940fa22755a89e086016721f8aa}{GPIO\_enumLowNibbleInit}}(\doxymbox{\hyperlink{structGPIO__LowNibbleConfig__t}{GPIO\_LowNibbleConfig\_t}}\ *LowNibbleConfig);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @fn\ \ \ \ \ GPIO\_enumHighNibbleInit}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief\ :\ Initializes\ GPIO\ pin\ configuration}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param\ :\ PinConfig[in]:\ Pointer\ to\ pin\ configuration\ structure}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @retval\ GPIO\_ErrorState:\ GPIO\_OK\ if\ successful,\ GPIO\_NOK\ if\ error}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_af5bb58748b4f2cf70c674d9566b63a97}{GPIO\_enumHighNibbleInit}}(\doxymbox{\hyperlink{structGPIO__HighNibbleConfig__t}{GPIO\_HighNibbleConfig\_t}}\ *HighNibbleConfig);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @fn\ \ \ \ \ GPIO\_enumByteInit}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief\ :\ Initializes\ GPIO\ pin\ configuration}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param\ :\ PinConfig[in]:\ Pointer\ to\ pin\ configuration\ structure}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @retval\ GPIO\_ErrorState:\ GPIO\_OK\ if\ successful,\ GPIO\_NOK\ if\ error}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_a593d4ac1bc1d7198c9c3d56d05e23a07}{GPIO\_enumByteInit}}(\doxymbox{\hyperlink{structGPIO__ByteConfig__t}{GPIO\_ByteConfig\_t}}\ *ByteConfig);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @fn\ \ \ \ \ GPIO\_enumHalfPortInit}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief\ :\ Initializes\ GPIO\ pin\ configuration}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param\ :\ PinConfig[in]:\ Pointer\ to\ pin\ configuration\ structure}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @retval\ GPIO\_ErrorState:\ GPIO\_OK\ if\ successful,\ GPIO\_NOK\ if\ error}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_a47aacfc99199904d2956173186b94d7f}{GPIO\_enumHalfPortInit}}(\doxymbox{\hyperlink{structGPIO__HalfPortConfig__t}{GPIO\_HalfPortConfig\_t}}\ *HalfPortConfig);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @fn\ \ \ \ \ GPIO\_enumPortInit}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @brief\ :\ Initializes\ GPIO\ pin\ configuration}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @param\ :\ PinConfig[in]:\ Pointer\ to\ pin\ configuration\ structure}}
+\DoxyCodeLine{\textcolor{comment}{\ *\ @retval\ GPIO\_ErrorState:\ GPIO\_OK\ if\ successful,\ GPIO\_NOK\ if\ error}}
+\DoxyCodeLine{\textcolor{comment}{\ */}}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_a2c01501f7ac9ed6dc2c172776c9203fa}{GPIO\_enumPortInit}}(\doxymbox{\hyperlink{structGPIO__PortConfig__t}{GPIO\_PortConfig\_t}}\ *PortConfig);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_a0e3f73a3160885bf15f427e9e894f2de}{GPIO\_enumPort8PinsInit}}(\doxymbox{\hyperlink{structGPIO__8PinsConfig__t}{GPIO\_8PinsConfig\_t}}\ *GPIO\_8PinsConfig);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_a87a110f35c3bd9d61a84e5dee20df70d}{GPIO\_enumWrite8PinsVal}}(\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ Port,\ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\_Pin\_t}}\ StartPin,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ Value);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_a5df6200f9c0d12a785ab2086f7e441ff}{GPIO\_enumWrite4PinsVal}}(\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ Port,\ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\_Pin\_t}}\ StartPin,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ Value);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_ab8efebd278bcf731012c238a3f69fb5c}{GPIO\_enumWritePinVal}}(\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ Port,\ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\_Pin\_t}}\ PinNum,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\_PinValue\_t}}\ PinVal);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_a3f0a533051c125627062a50e8a38fded}{GPIO\_enumReadPinVal}}(\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ Port,\ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\_Pin\_t}}\ PinNum,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\_PinValue\_t}}\ *PinVal);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_aacd1fe5ce0d15fd5040c41745409ca20}{GPIO\_enumTogPinVal}}(\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ Port,\ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\_Pin\_t}}\ PinNum);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_a50576e5cecad40f4fa820bdacf2c270a}{GPIO\_enumPort4PinsInit}}(\doxymbox{\hyperlink{structGPIO__4PinsConfig__t}{GPIO\_4PinsConfig\_t}}\ *GPIO\_4PinsConfig);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_a4456597da20f47afdce69e0a87b6ef21}{GPIO\_enumRead4PinsVal}}(\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ Port,\ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\_Pin\_t}}\ StartPin,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ *PinsValue);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_ab9623ca12f3b7738af049c3bbb858359}{GPIO\_enumRead8PinsVal}}(\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ Port,\ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\_Pin\_t}}\ StartPin,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ *PinsValue);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_aceac4c116796951c90c5ec500e6eb602}{GPIO\_enumWriteLowNibbleVal}}(\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ port,\ uint8\_t\ Copy\_u8Val,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\_PinValue\_t}}\ PinsVal);}
+\DoxyCodeLine{\textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_ab099300bf9c8765081d9e1d79f8325cb}{GPIO\_enumWriteHighNibbleVal}}(\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ port,\ uint8\_t\ Copy\_u8Val,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\_PinValue\_t}}\ PinsVal);}
+\DoxyCodeLine{\textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_ab7a2804415a4ada1da55f247f7d251aa}{GPIO\_enumWriteByteVal}}(\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ port,\ uint8\_t\ Copy\_u8Val,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\_PinValue\_t}}\ PinsVal);}
+\DoxyCodeLine{\textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_a3e3bfad526b91ab38ea3fdb971d015a7}{GPIO\_enumWriteHalfWordVal}}(\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ port,\ uint16\_t\ Copy\_u16Val,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\_PinValue\_t}}\ PinsVal);}
+\DoxyCodeLine{\textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_aad5061927697c0d2f8f99c6aa146c605}{GPIO\_enumWritePortVal}}(\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ port,\ uint16\_t\ Copy\_u16Val,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\_PinValue\_t}}\ PinsVal);}
+\DoxyCodeLine{\textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_aa9ab64bad7421597169c43d8bd3e16e3}{GPIO\_enumReadLowNibbleVal}}(\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ port,\ uint8\_t\ *LowNibbleVal);}
+\DoxyCodeLine{\textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_ab0614709e608d60a6da511e6382c5448}{GPIO\_enumReadHighNibbleVal}}(\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ port,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ *HighNibbleVal);}
+\DoxyCodeLine{\textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_a1a62e3dea2ba83b5492640e9f8f88bcf}{GPIO\_enumReadByteVal}}(\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ port,\ uint8\_t\ *ByteVal);}
+\DoxyCodeLine{\textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_adccafed2049928790efb22602bfcef67}{GPIO\_enumReadHalfPortVal}}(\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ port,\ uint16\_t\ *HalfPortVal);}
+\DoxyCodeLine{\textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{GPIO__interface_8h_a518fc2c707c44cdc8a356ba08d27f4a6}{GPIO\_enumReadPortVal}}(\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ port,\ uint32\_t\ *PortVal);}
+\DoxyCodeLine{\textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ GPIO\_INTERFACE\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCodeInclude}
+ 

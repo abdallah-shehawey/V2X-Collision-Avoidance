@@ -1,0 +1,41 @@
+\doxysection{SCB\+\_\+program.\+c}
+\hypertarget{SCB__program_8c_source}{}\label{SCB__program_8c_source}\index{Src/SCB\_program.c@{Src/SCB\_program.c}}
+\doxymbox{\hyperlink{SCB__program_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{ErrTypes_8h}{../Inc/Drivers/LIB/ErrTypes.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SCB__interface_8h}{../Inc/Drivers/MCAL/SCB/SCB\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00018}00018\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SCB__private_8h}{../Inc/Drivers/MCAL/SCB/SCB\_private.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00019}00019\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SCB__config_8h}{../Inc/Drivers/MCAL/SCB/SCB\_config.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00021}00021\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h}{../Inc/Drivers/LIB/STM32F446xx.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00023}\doxymbox{\hyperlink{SCB__interface_8h_aed1f54e4a731be8ec0d97a4d8517a57e}{00023}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{SCB__program_8c_aed1f54e4a731be8ec0d97a4d8517a57e}{SCB\_vSetPriorityGrouping}}(uint8\_t\ Copy\_u8PriorityGrouping)}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00024}00024\ \{}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00025}00025\ \ \ uint8\_t\ local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00026}00026\ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8PriorityGrouping\ >\ \doxymbox{\hyperlink{SCB__private_8h_ab513f93009579856a20b2b105f7f34f1}{SCB\_MAX\_PRIORITY\_GROUPING}})}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00027}00027\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00028}00028\ \ \ \ \ local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00029}00029\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00030}00030\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00031}00031\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00032}00032\ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_ad64f4ba7787546fc107c2c2993554e91}{MSCB}}-\/>AIRCR\ =\ \doxymbox{\hyperlink{SCB__private_8h_a50a045146cf2dec3fc38e7ad0fca3f35}{AIRCR\_VECTKEY}}\ |\ (Copy\_u8PriorityGrouping\ <<\ 8);}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00033}00033\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00034}00034\ \ \ \textcolor{keywordflow}{return}\ local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00035}00035\ \}}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00037}\doxymbox{\hyperlink{SCB__interface_8h_a93f514700ccf00d08dbdcff7f1224eb2}{00037}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{SCB__program_8c_a93f514700ccf00d08dbdcff7f1224eb2}{SystemInit}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00038}00038\ \{}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00039}00039\ \ \ \ \ \textcolor{comment}{/*\ Enable\ FPU\ (Full\ access\ to\ CP10\ and\ CP11)\ */}}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00040}00040\ \ \ \ \ \textcolor{comment}{/*\ Access\ Control\ Register\ (CPACR)\ address:\ 0xE000ED88\ */}}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00041}00041\ \ \ \ \ \textcolor{keyword}{volatile}\ uint32\_t\ *Local\_p32CPACR\ =\ (uint32\_t\ *)0xE000ED88;}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00042}00042\ \ \ \ \ *Local\_p32CPACR\ |=\ ((3UL\ <<\ 10*2)\ |\ (3UL\ <<\ 11*2));}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00043}00043\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00044}00044\ \ \ \ \ \textcolor{comment}{/*\ Optional:\ Force\ NVIC\ State\ reset\ to\ avoid\ unpredictable\ behavior\ after\ reset\ */}}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00045}00045\ \ \ \ \ \textcolor{comment}{/*\ Handled\ by\ startup\ usually,\ but\ extra\ safety\ */}}
+\DoxyCodeLine{\Hypertarget{SCB__program_8c_source_l00046}00046\ \}}
+
+\end{DoxyCode}

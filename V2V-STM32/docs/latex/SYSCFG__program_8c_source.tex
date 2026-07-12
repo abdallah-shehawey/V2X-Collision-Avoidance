@@ -1,0 +1,32 @@
+\doxysection{SYSCFG\+\_\+program.\+c}
+\hypertarget{SYSCFG__program_8c_source}{}\label{SYSCFG__program_8c_source}\index{Src/SYSCFG\_program.c@{Src/SYSCFG\_program.c}}
+\doxymbox{\hyperlink{SYSCFG__program_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h}{../Inc/Drivers/LIB/STM32F446xx.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{STD__MACROS_8h}{../Inc/Drivers/LIB/STD\_MACROS.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00018}00018\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{ErrTypes_8h}{../Inc/Drivers/LIB/ErrTypes.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00020}00020\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SYSCFG__private_8h}{../Inc/Drivers/MCAL/SYSCFG/SYSCFG\_private.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00021}00021\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SYSCFG__config_8h}{../Inc/Drivers/MCAL/SYSCFG/SYSCFG\_config.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00022}00022\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SYSCFG__interface_8h}{../Inc/Drivers/MCAL/SYSCFG/SYSCFG\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00042}\doxymbox{\hyperlink{SYSCFG__interface_8h_ae89860feecf5f8fa39db3d67b9ebe08a}{00042}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{SYSCFG__program_8c_ae89860feecf5f8fa39db3d67b9ebe08a}{SYSCFG\_vSetEXTIConfig}}(\doxymbox{\hyperlink{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6db}{SYSCFG\_EXTI\_t}}\ Copy\_u8EXTI,\ \doxymbox{\hyperlink{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219}{SYSCFG\_Port\_t}}\ Copy\_u8Port)}
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00043}00043\ \{}
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00044}00044\ \ \ \textcolor{comment}{/*\ Calculate\ register\ number\ (0-\/3)\ based\ on\ EXTI\ line\ number\ */}}
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00045}00045\ \ \ uint8\_t\ Local\_u8RegNum\ =\ Copy\_u8EXTI\ /\ \doxymbox{\hyperlink{SYSCFG__private_8h_a6c05ce4b718c5501c935c0e4b071d03c}{EXTI\_CTRL\_REG\_LINEBITS}};}
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00047}00047\ \ \ \textcolor{comment}{/*\ Calculate\ bit\ position\ within\ register\ (0-\/12)\ */}}
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00048}00048\ \ \ uint8\_t\ Local\_u8BitNum\ =\ (Copy\_u8EXTI\ \%\ \doxymbox{\hyperlink{SYSCFG__private_8h_a6c05ce4b718c5501c935c0e4b071d03c}{EXTI\_CTRL\_REG\_LINEBITS}})\ *\ \doxymbox{\hyperlink{SYSCFG__private_8h_a6c05ce4b718c5501c935c0e4b071d03c}{EXTI\_CTRL\_REG\_LINEBITS}};}
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00050}00050\ \ \ \textcolor{comment}{/*\ Clear\ current\ port\ mapping\ for\ this\ EXTI\ line\ */}}
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00051}00051\ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a531c08f5a73855527d044114a066fbb4}{MSYSCFG}}-\/>EXTICR[Local\_u8RegNum]\ \&=\ \string~(\doxymbox{\hyperlink{SYSCFG__private_8h_a6d80a0cf729edb26a0b3b044c7c06bde}{EXTI\_CTRL\_REG\_MASK}}\ <<\ Local\_u8BitNum);}
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00053}00053\ \ \ \textcolor{comment}{/*\ Set\ new\ port\ mapping\ for\ this\ EXTI\ line\ */}}
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00054}00054\ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a531c08f5a73855527d044114a066fbb4}{MSYSCFG}}-\/>EXTICR[Local\_u8RegNum]\ |=\ (Copy\_u8Port\ <<\ Local\_u8BitNum);}
+\DoxyCodeLine{\Hypertarget{SYSCFG__program_8c_source_l00055}00055\ \}}
+
+\end{DoxyCode}

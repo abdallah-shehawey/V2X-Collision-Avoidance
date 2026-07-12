@@ -1,0 +1,95 @@
+\doxysection{MPU9250\+\_\+private.\+h}
+\hypertarget{MPU9250__private_8h_source}{}\label{MPU9250__private_8h_source}\index{Inc/Drivers/HAL/MPU9250/MPU9250\_private.h@{Inc/Drivers/HAL/MPU9250/MPU9250\_private.h}}
+\doxymbox{\hyperlink{MPU9250__private_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00007}00007\ \textcolor{preprocessor}{\#ifndef\ MPU9250\_PRIVATE\_H\_}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00008}00008\ \textcolor{preprocessor}{\#define\ MPU9250\_PRIVATE\_H\_}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00010}00010\ \textcolor{comment}{/*\ MPU9250\ Registers\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00011}\doxymbox{\hyperlink{MPU9250__private_8h_afbca39272b9691b037268612593d36ea}{00011}}\ \textcolor{preprocessor}{\#define\ SELF\_TEST\_X\_GYRO\ 0x00}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00012}\doxymbox{\hyperlink{MPU9250__private_8h_a4589b391b79cd75e09d08c4465ff95d6}{00012}}\ \textcolor{preprocessor}{\#define\ SELF\_TEST\_Y\_GYRO\ 0x01}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00013}\doxymbox{\hyperlink{MPU9250__private_8h_a7d36169280ef7d539e6535693fa54663}{00013}}\ \textcolor{preprocessor}{\#define\ SELF\_TEST\_Z\_GYRO\ 0x02}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00014}\doxymbox{\hyperlink{MPU9250__private_8h_a514afe64ef4e94fd792f0e01e66cf682}{00014}}\ \textcolor{preprocessor}{\#define\ SELF\_TEST\_X\_ACCEL\ 0x0D}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00015}\doxymbox{\hyperlink{MPU9250__private_8h_a9dba24f56a63a23b71ece8ebafbe46e1}{00015}}\ \textcolor{preprocessor}{\#define\ SELF\_TEST\_Y\_ACCEL\ 0x0E}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00016}\doxymbox{\hyperlink{MPU9250__private_8h_a89faa3ca314423fc7876d1df8c62f848}{00016}}\ \textcolor{preprocessor}{\#define\ SELF\_TEST\_Z\_ACCEL\ 0x0F}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00017}\doxymbox{\hyperlink{MPU9250__private_8h_a2dff8273af3bfe1bb8d2565df1f1444d}{00017}}\ \textcolor{preprocessor}{\#define\ XG\_OFFSET\_H\ \ \ \ \ \ 0x13}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00018}\doxymbox{\hyperlink{MPU9250__private_8h_a0e3a6dea62584e862fe3c9132268618d}{00018}}\ \textcolor{preprocessor}{\#define\ XG\_OFFSET\_L\ \ \ \ \ \ 0x14}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00019}\doxymbox{\hyperlink{MPU9250__private_8h_aa7f7aa074a4b54f24a17e375d1a27104}{00019}}\ \textcolor{preprocessor}{\#define\ YG\_OFFSET\_H\ \ \ \ \ \ 0x15}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00020}\doxymbox{\hyperlink{MPU9250__private_8h_af3d02481e1360d65052560bb6434437d}{00020}}\ \textcolor{preprocessor}{\#define\ YG\_OFFSET\_L\ \ \ \ \ \ 0x16}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00021}\doxymbox{\hyperlink{MPU9250__private_8h_a542c8677b03c7426f0446b211994d0b8}{00021}}\ \textcolor{preprocessor}{\#define\ ZG\_OFFSET\_H\ \ \ \ \ \ 0x17}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00022}\doxymbox{\hyperlink{MPU9250__private_8h_a8fc858d1bdf91b2ef0ec26050766d7dd}{00022}}\ \textcolor{preprocessor}{\#define\ ZG\_OFFSET\_L\ \ \ \ \ \ 0x18}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00023}\doxymbox{\hyperlink{MPU9250__private_8h_a7119c37e38b6736096ea1565459043ba}{00023}}\ \textcolor{preprocessor}{\#define\ SMPLRT\_DIV\ \ \ \ \ \ \ 0x19}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00024}\doxymbox{\hyperlink{MPU9250__private_8h_a76ea3cf49247a07c54b3db005a3c7f57}{00024}}\ \textcolor{preprocessor}{\#define\ CONFIG\ \ \ \ \ \ \ \ \ \ \ 0x1A}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00025}\doxymbox{\hyperlink{MPU9250__private_8h_ac57e8c3192c859321b447c07089f20f0}{00025}}\ \textcolor{preprocessor}{\#define\ GYRO\_CONFIG\ \ \ \ \ \ 0x1B}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00026}\doxymbox{\hyperlink{MPU9250__private_8h_ab7336e26f8947086e41a375f1e1e74d4}{00026}}\ \textcolor{preprocessor}{\#define\ ACCEL\_CONFIG\ \ \ \ \ 0x1C}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00027}\doxymbox{\hyperlink{MPU9250__private_8h_aecbf5cd71bd0e677bf19d2e855323794}{00027}}\ \textcolor{preprocessor}{\#define\ ACCEL\_CONFIG2\ \ \ \ 0x1D}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00028}\doxymbox{\hyperlink{MPU9250__private_8h_a4a2dc75c2a0588814cb466b0db1bca8b}{00028}}\ \textcolor{preprocessor}{\#define\ LP\_ACCEL\_ODR\ \ \ \ \ 0x1E}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00029}\doxymbox{\hyperlink{MPU9250__private_8h_a81d6e49ec67e620570d1662f170b0900}{00029}}\ \textcolor{preprocessor}{\#define\ WOM\_THR\ \ \ \ \ \ \ \ \ \ 0x1F}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00030}\doxymbox{\hyperlink{MPU9250__private_8h_a53954ec7f9dc790f00548da08ccd5ed6}{00030}}\ \textcolor{preprocessor}{\#define\ FIFO\_EN\ \ \ \ \ \ \ \ \ \ 0x23}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00031}\doxymbox{\hyperlink{MPU9250__private_8h_a24bc05247067ad9f0479f5a6d49c6412}{00031}}\ \textcolor{preprocessor}{\#define\ I2C\_MST\_CTRL\ \ \ \ \ 0x24}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00032}\doxymbox{\hyperlink{MPU9250__private_8h_a614db921c27f375c632960a7f34999a4}{00032}}\ \textcolor{preprocessor}{\#define\ I2C\_SLV0\_ADDR\ \ \ \ 0x25}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00033}\doxymbox{\hyperlink{MPU9250__private_8h_a0553d56ecccd0fc8008505e712a9b075}{00033}}\ \textcolor{preprocessor}{\#define\ I2C\_SLV0\_REG\ \ \ \ \ 0x26}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00034}\doxymbox{\hyperlink{MPU9250__private_8h_ad6fb6553534b0b9e9715db3e5a04ebca}{00034}}\ \textcolor{preprocessor}{\#define\ I2C\_SLV0\_CTRL\ \ \ \ 0x27}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00035}\doxymbox{\hyperlink{MPU9250__private_8h_adeef906221a363d4489cf0a51d7f03b6}{00035}}\ \textcolor{preprocessor}{\#define\ I2C\_SLV1\_ADDR\ \ \ \ 0x28}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00036}\doxymbox{\hyperlink{MPU9250__private_8h_a33d12ea757eeb8ef10aa501f6c68ba3d}{00036}}\ \textcolor{preprocessor}{\#define\ I2C\_SLV1\_REG\ \ \ \ \ 0x29}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00037}\doxymbox{\hyperlink{MPU9250__private_8h_a6857f4e255988b5aae9d570dec2a06c8}{00037}}\ \textcolor{preprocessor}{\#define\ I2C\_SLV1\_CTRL\ \ \ \ 0x2A}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00038}\doxymbox{\hyperlink{MPU9250__private_8h_a2f0f1237e987597a4405b9deeefeb6f5}{00038}}\ \textcolor{preprocessor}{\#define\ I2C\_SLV0\_DO\ \ \ \ \ \ 0x63}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00039}\doxymbox{\hyperlink{MPU9250__private_8h_aa6580b929fcb8b3e29fe45b73180d2bd}{00039}}\ \textcolor{preprocessor}{\#define\ EXT\_SENS\_DATA\_00\ 0x49}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00040}\doxymbox{\hyperlink{MPU9250__private_8h_a8498e646190e00d95ddd95af4d6a093a}{00040}}\ \textcolor{preprocessor}{\#define\ I2C\_MST\_STATUS\ \ \ 0x36}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00041}\doxymbox{\hyperlink{MPU9250__private_8h_ab00fdfba66092d2d869031629c092dad}{00041}}\ \textcolor{preprocessor}{\#define\ INT\_PIN\_CFG\ \ \ \ \ \ 0x37}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00042}\doxymbox{\hyperlink{MPU9250__private_8h_abf7a56466fd6203663685a04448c9185}{00042}}\ \textcolor{preprocessor}{\#define\ INT\_ENABLE\ \ \ \ \ \ \ 0x38}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00043}\doxymbox{\hyperlink{MPU9250__private_8h_a62cba161837810295654c3cc2de959a6}{00043}}\ \textcolor{preprocessor}{\#define\ INT\_STATUS\ \ \ \ \ \ \ 0x3A}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00045}00045\ \textcolor{comment}{/*\ Data\ Registers\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00046}\doxymbox{\hyperlink{MPU9250__private_8h_a94b93aa4aabbe7caec7884ddb46b531b}{00046}}\ \textcolor{preprocessor}{\#define\ ACCEL\_XOUT\_H\ \ \ \ \ 0x3B}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00047}\doxymbox{\hyperlink{MPU9250__private_8h_a47679c25e1689ee0401959e33e05a761}{00047}}\ \textcolor{preprocessor}{\#define\ ACCEL\_XOUT\_L\ \ \ \ \ 0x3C}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00048}\doxymbox{\hyperlink{MPU9250__private_8h_a26d680f52fbdaa0623d16292e9c40d4c}{00048}}\ \textcolor{preprocessor}{\#define\ ACCEL\_YOUT\_H\ \ \ \ \ 0x3D}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00049}\doxymbox{\hyperlink{MPU9250__private_8h_ad7a92304bd1dd3755068380b51319a93}{00049}}\ \textcolor{preprocessor}{\#define\ ACCEL\_YOUT\_L\ \ \ \ \ 0x3E}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00050}\doxymbox{\hyperlink{MPU9250__private_8h_a44d84761605d984a0de060640f4c57da}{00050}}\ \textcolor{preprocessor}{\#define\ ACCEL\_ZOUT\_H\ \ \ \ \ 0x3F}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00051}\doxymbox{\hyperlink{MPU9250__private_8h_a36e02bfb24518b6c425d9c3411c8d720}{00051}}\ \textcolor{preprocessor}{\#define\ ACCEL\_ZOUT\_L\ \ \ \ \ 0x40}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00052}\doxymbox{\hyperlink{MPU9250__private_8h_ae8c4c28fe604535a3a57d0536c6e8175}{00052}}\ \textcolor{preprocessor}{\#define\ TEMP\_OUT\_H\ \ \ \ \ \ \ 0x41}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00053}\doxymbox{\hyperlink{MPU9250__private_8h_a7fe4a13198c0b3d8cf09802e7247fd2c}{00053}}\ \textcolor{preprocessor}{\#define\ TEMP\_OUT\_L\ \ \ \ \ \ \ 0x42}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00054}\doxymbox{\hyperlink{MPU9250__private_8h_a0016198ccf5ca2b7f41d7a23e6554373}{00054}}\ \textcolor{preprocessor}{\#define\ GYRO\_XOUT\_H\ \ \ \ \ \ 0x43}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00055}\doxymbox{\hyperlink{MPU9250__private_8h_af07374691962c7531539cfcd36aa1c4b}{00055}}\ \textcolor{preprocessor}{\#define\ GYRO\_XOUT\_L\ \ \ \ \ \ 0x44}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00056}\doxymbox{\hyperlink{MPU9250__private_8h_a0970193c5ba295a66f057c017663adf1}{00056}}\ \textcolor{preprocessor}{\#define\ GYRO\_YOUT\_H\ \ \ \ \ \ 0x45}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00057}\doxymbox{\hyperlink{MPU9250__private_8h_af2403ccc9042c6a869278a7c211a396d}{00057}}\ \textcolor{preprocessor}{\#define\ GYRO\_YOUT\_L\ \ \ \ \ \ 0x46}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00058}\doxymbox{\hyperlink{MPU9250__private_8h_ac0fcd61ece1f100c02494fc94f0b0dad}{00058}}\ \textcolor{preprocessor}{\#define\ GYRO\_ZOUT\_H\ \ \ \ \ \ 0x47}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00059}\doxymbox{\hyperlink{MPU9250__private_8h_a5466aa6a32d0b17e834ef9792e7f415d}{00059}}\ \textcolor{preprocessor}{\#define\ GYRO\_ZOUT\_L\ \ \ \ \ \ 0x48}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00061}00061\ \textcolor{comment}{/*\ Magnetometer\ registers\ (AK8963)\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00062}\doxymbox{\hyperlink{MPU9250__private_8h_a1e6b15b0945c167f55f5e2cfd2c60d5a}{00062}}\ \textcolor{preprocessor}{\#define\ AK8963\_ADDR\ \ \ \ \ \ 0x0C}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00063}\doxymbox{\hyperlink{MPU9250__private_8h_a3826ec24a009126367fedb2422d092b1}{00063}}\ \textcolor{preprocessor}{\#define\ AK8963\_WHO\_AM\_I\ \ 0x00}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00064}\doxymbox{\hyperlink{MPU9250__private_8h_a0037cda572379e26ecad5030c64aaf10}{00064}}\ \textcolor{preprocessor}{\#define\ AK8963\_ST1\ \ \ \ \ \ \ 0x02}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00065}\doxymbox{\hyperlink{MPU9250__private_8h_a35260c212eacc1f2808af33bdc55c8fa}{00065}}\ \textcolor{preprocessor}{\#define\ AK8963\_XOUT\_L\ \ \ \ 0x03}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00066}\doxymbox{\hyperlink{MPU9250__private_8h_acd2458bce11a9ed1710ae816050c2d13}{00066}}\ \textcolor{preprocessor}{\#define\ AK8963\_XOUT\_H\ \ \ \ 0x04}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00067}\doxymbox{\hyperlink{MPU9250__private_8h_af7eff9c50ed2700781b4161699829e69}{00067}}\ \textcolor{preprocessor}{\#define\ AK8963\_YOUT\_L\ \ \ \ 0x05}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00068}\doxymbox{\hyperlink{MPU9250__private_8h_a2c78e17f8f5d96c2d6f82b81358bde6c}{00068}}\ \textcolor{preprocessor}{\#define\ AK8963\_YOUT\_H\ \ \ \ 0x06}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00069}\doxymbox{\hyperlink{MPU9250__private_8h_ad3625cb250d1202b43b44a4d2b0a6c2e}{00069}}\ \textcolor{preprocessor}{\#define\ AK8963\_ZOUT\_L\ \ \ \ 0x07}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00070}\doxymbox{\hyperlink{MPU9250__private_8h_a8e0a7c22a104aa2fb77a01518d0aaa74}{00070}}\ \textcolor{preprocessor}{\#define\ AK8963\_ZOUT\_H\ \ \ \ 0x08}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00071}\doxymbox{\hyperlink{MPU9250__private_8h_ad740f9c857e0ffc7c474f9b9cb2e7d6b}{00071}}\ \textcolor{preprocessor}{\#define\ AK8963\_ST2\ \ \ \ \ \ \ 0x09}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00072}\doxymbox{\hyperlink{MPU9250__private_8h_a9049064347064927059f71ea3843f986}{00072}}\ \textcolor{preprocessor}{\#define\ AK8963\_CNTL\ \ \ \ \ \ 0x0A}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00073}\doxymbox{\hyperlink{MPU9250__private_8h_a66032b6572950d4fb7044420a6beeee2}{00073}}\ \textcolor{preprocessor}{\#define\ AK8963\_ASAX\ \ \ \ \ \ 0x10}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00074}\doxymbox{\hyperlink{MPU9250__private_8h_a02f4a8ec6ef7533b43b75c839ca2547d}{00074}}\ \textcolor{preprocessor}{\#define\ AK8963\_ASAY\ \ \ \ \ \ 0x11}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00075}\doxymbox{\hyperlink{MPU9250__private_8h_ad7807198e6ed02af5748886428078868}{00075}}\ \textcolor{preprocessor}{\#define\ AK8963\_ASAZ\ \ \ \ \ \ 0x12}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00077}00077\ \textcolor{comment}{/*\ Control\ Registers\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00078}\doxymbox{\hyperlink{MPU9250__private_8h_abd9eebb35aad7616fe0414952e2d477d}{00078}}\ \textcolor{preprocessor}{\#define\ USER\_CTRL\ \ \ \ \ \ \ \ 0x6A}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00079}\doxymbox{\hyperlink{MPU9250__private_8h_a96169eb207e721c1546cea9ffd8a35e4}{00079}}\ \textcolor{preprocessor}{\#define\ PWR\_MGMT\_1\ \ \ \ \ \ \ 0x6B}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00080}\doxymbox{\hyperlink{MPU9250__private_8h_a23cfbcfd19dc88eb631309970f138e65}{00080}}\ \textcolor{preprocessor}{\#define\ PWR\_MGMT\_2\ \ \ \ \ \ \ 0x6C}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00081}\doxymbox{\hyperlink{MPU9250__private_8h_a9fcb9e460d175bfc7ab4d80bf788b43a}{00081}}\ \textcolor{preprocessor}{\#define\ WHO\_AM\_I\ \ \ \ \ \ \ \ \ 0x75}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00083}00083\ \textcolor{comment}{/*\ Bit\ definitions\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00084}\doxymbox{\hyperlink{MPU9250__private_8h_a9349ad443a8bbd5be084ea1d6925cdc7}{00084}}\ \textcolor{preprocessor}{\#define\ PWR\_RESET\ \ \ \ \ \ \ \ 0x80}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00085}\doxymbox{\hyperlink{MPU9250__private_8h_a37c31deb5f9bfb1a36fb54d5769e93f1}{00085}}\ \textcolor{preprocessor}{\#define\ CLOCK\_SEL\_PLL\ \ \ \ 0x01}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00086}\doxymbox{\hyperlink{MPU9250__private_8h_a6638690f11487686a5ad203aff444ae2}{00086}}\ \textcolor{preprocessor}{\#define\ I2C\_IF\_DIS\ \ \ \ \ \ \ 0x10}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00087}\doxymbox{\hyperlink{MPU9250__private_8h_acb5b7cc1d39ba9199cef1d5c676db667}{00087}}\ \textcolor{preprocessor}{\#define\ I2C\_MST\_EN\ \ \ \ \ \ \ 0x20}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00089}00089\ \textcolor{comment}{/*\ Sensitivities\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00090}\doxymbox{\hyperlink{MPU9250__private_8h_a3022d5e5387dfbf2ed4b80a587b08ca2}{00090}}\ \textcolor{preprocessor}{\#define\ ACCEL\_SENS\_2G\ \ \ \ 16384.0f}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00091}\doxymbox{\hyperlink{MPU9250__private_8h_a763555a07ac8afb9614649becdee67d5}{00091}}\ \textcolor{preprocessor}{\#define\ GYRO\_SENS\_250\ \ \ \ 131.0f}}
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__private_8h_source_l00093}00093\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ MPU9250\_PRIVATE\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

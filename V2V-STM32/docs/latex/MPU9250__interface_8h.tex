@@ -1,0 +1,262 @@
+\doxysection{Inc/\+\+Drivers/\+\+HAL/\+\+MPU9250/\+\+MPU9250\+\_\+interface.h File Reference}
+\hypertarget{MPU9250__interface_8h}{}\label{MPU9250__interface_8h}\index{Inc/Drivers/HAL/MPU9250/MPU9250\_interface.h@{Inc/Drivers/HAL/MPU9250/MPU9250\_interface.h}}
+
+
+Header file for MPU9250 IMU driver.  
+
+
+{\ttfamily \+\#include "{}../\+../\+\+LIB/\+\+Err\+Types.\+h"{}}\newline
+Include dependency graph for MPU9250\+\_\+interface.\+h:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=221pt]{MPU9250__interface_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{MPU9250__interface_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structMPU9250__Data__t}{MPU9250\+\_\+\+Data\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure to hold processed 9-\/axis sensor data and temperature. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structMPU9250__Position__t}{MPU9250\+\_\+\+Position\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure to hold 3D spatial coordinates. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{MPU9250__interface_8h_a152f5e09dbda831d60bc3d5241d714ad}{MPU9250\+\_\+enum\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the MPU9250 sensor and its internal I2C master. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{MPU9250__interface_8h_a2ab617d57393d2b689a5b0ad9769d40d}{MPU9250\+\_\+enum\+Read\+Data}} (\doxymbox{\hyperlink{structMPU9250__Data__t}{MPU9250\+\_\+\+Data\+\_\+t}} \texorpdfstring{$\ast$}{*}Copy\+\_\+p\+Data)
+\begin{DoxyCompactList}\small\item\em Reads all sensor data (Accel, Gyro, Mag, Temp) in a single burst. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{MPU9250__interface_8h_a4bd71fee1d8605a1a9e26bbb7a5b008b}{MPU9250\+\_\+enum\+Get\+Heading}} (\doxymbox{\hyperlink{structMPU9250__Data__t}{MPU9250\+\_\+\+Data\+\_\+t}} \texorpdfstring{$\ast$}{*}Copy\+\_\+p\+Data, float Copy\+\_\+f\+Dt, float \texorpdfstring{$\ast$}{*}Copy\+\_\+pf\+Heading)
+\begin{DoxyCompactList}\small\item\em Fused 2D heading:\+ magnetometer (hard-\/iron corrected) + GyroZ via a wrap-\/aware complementary filter. Requires \doxylink{MPU9250__interface_8h_ae6d18356fb8c1619afbb6021d986abea}{MPU9250\+\_\+enum\+Calibrate\+Mag()} to have run for an accurate absolute reference. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{MPU9250__interface_8h_ae6d18356fb8c1619afbb6021d986abea}{MPU9250\+\_\+enum\+Calibrate\+Mag}} (void)
+\begin{DoxyCompactList}\small\item\em Boot-\/time hard-\/iron calibration. Rotate the vehicle \texorpdfstring{$\sim$}{\string~}360° during the window (length = MPU9250\+\_\+\+MAGCAL\+\_\+\+DURATION\+\_\+\+MS); computes \& freezes the magnetometer X/\+Y bias offsets. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{MPU9250__interface_8h_afa7a847f26b23259cc89bf6a8f86b706}{MPU9250\+\_\+enum\+Get\+Speed}} (\doxymbox{\hyperlink{structMPU9250__Data__t}{MPU9250\+\_\+\+Data\+\_\+t}} \texorpdfstring{$\ast$}{*}Copy\+\_\+p\+Data, float Copy\+\_\+f\+Dt, float \texorpdfstring{$\ast$}{*}Copy\+\_\+pf\+Speed)
+\begin{DoxyCompactList}\small\item\em Estimates forward speed with gravity compensation. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{MPU9250__interface_8h_a2c21fb3025bdca19293a1951dd08fadc}{MPU9250\+\_\+enum\+Get\+Position}} (\doxymbox{\hyperlink{structMPU9250__Data__t}{MPU9250\+\_\+\+Data\+\_\+t}} \texorpdfstring{$\ast$}{*}Copy\+\_\+p\+Data, float Copy\+\_\+f\+Speed, float Copy\+\_\+f\+Heading, float Copy\+\_\+f\+Pitch, float Copy\+\_\+f\+Dt, \doxymbox{\hyperlink{structMPU9250__Position__t}{MPU9250\+\_\+\+Position\+\_\+t}} \texorpdfstring{$\ast$}{*}Copy\+\_\+p\+Pos)
+\begin{DoxyCompactList}\small\item\em Updates position using Dead Reckoning and Gravity Compensation. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{MPU9250__interface_8h_afcf26cc0fdba049b9a485ed9e5650b96}{MPU9250\+\_\+enum\+Get\+Attitude}} (\doxymbox{\hyperlink{structMPU9250__Data__t}{MPU9250\+\_\+\+Data\+\_\+t}} \texorpdfstring{$\ast$}{*}Copy\+\_\+p\+Data, float Copy\+\_\+f\+Dt, float \texorpdfstring{$\ast$}{*}Copy\+\_\+pf\+Pitch, float \texorpdfstring{$\ast$}{*}Copy\+\_\+pf\+Roll)
+\begin{DoxyCompactList}\small\item\em Calculates Pitch and Roll using a Complementary Filter. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file for MPU9250 IMU driver. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Saleh 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2026-\/02-\/24 
+\end{DoxyDate}
+
+
+Definition in file \doxymbox{\hyperlink{MPU9250__interface_8h_source}{MPU9250\+\_\+interface.\+h}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{MPU9250__interface_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{MPU9250__interface_8h_ae6d18356fb8c1619afbb6021d986abea}\index{MPU9250\_interface.h@{MPU9250\_interface.h}!MPU9250\_enumCalibrateMag@{MPU9250\_enumCalibrateMag}}
+\index{MPU9250\_enumCalibrateMag@{MPU9250\_enumCalibrateMag}!MPU9250\_interface.h@{MPU9250\_interface.h}}
+\doxysubsubsection{\texorpdfstring{MPU9250\_enumCalibrateMag()}{MPU9250\_enumCalibrateMag()}}
+{\footnotesize\ttfamily \label{MPU9250__interface_8h_ae6d18356fb8c1619afbb6021d986abea} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} MPU9250\+\_\+enum\+Calibrate\+Mag (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Boot-\/time hard-\/iron calibration. Rotate the vehicle \texorpdfstring{$\sim$}{\string~}360° during the window (length = MPU9250\+\_\+\+MAGCAL\+\_\+\+DURATION\+\_\+\+MS); computes \& freezes the magnetometer X/\+Y bias offsets. 
+
+\begin{DoxyReturn}{Returns}
+OK if enough rotation was seen (offsets applied), NOK if the field span was too small (offsets left unchanged). 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__program_8c_source_l00180}{180}} of file \doxymbox{\hyperlink{MPU9250__program_8c_source}{MPU9250\+\_\+program.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{MPU9250__interface_8h_ae6d18356fb8c1619afbb6021d986abea_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{MPU9250__interface_8h_ae6d18356fb8c1619afbb6021d986abea_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{MPU9250__interface_8h_afcf26cc0fdba049b9a485ed9e5650b96}\index{MPU9250\_interface.h@{MPU9250\_interface.h}!MPU9250\_enumGetAttitude@{MPU9250\_enumGetAttitude}}
+\index{MPU9250\_enumGetAttitude@{MPU9250\_enumGetAttitude}!MPU9250\_interface.h@{MPU9250\_interface.h}}
+\doxysubsubsection{\texorpdfstring{MPU9250\_enumGetAttitude()}{MPU9250\_enumGetAttitude()}}
+{\footnotesize\ttfamily \label{MPU9250__interface_8h_afcf26cc0fdba049b9a485ed9e5650b96} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} MPU9250\+\_\+enum\+Get\+Attitude (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structMPU9250__Data__t}{MPU9250\+\_\+\+Data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+p\+Data}{, }\item[{float}]{Copy\+\_\+f\+Dt}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+pf\+Pitch}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+pf\+Roll}{}\end{DoxyParamCaption})}
+
+
+
+Calculates Pitch and Roll using a Complementary Filter. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+f\+Dt} & Actual elapsed time since last call \+[seconds]\+ — passed by caller for accuracy. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__program_8c_source_l00163}{163}} of file \doxymbox{\hyperlink{MPU9250__program_8c_source}{MPU9250\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{MPU9250__interface_8h_afcf26cc0fdba049b9a485ed9e5650b96_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{MPU9250__interface_8h_a4bd71fee1d8605a1a9e26bbb7a5b008b}\index{MPU9250\_interface.h@{MPU9250\_interface.h}!MPU9250\_enumGetHeading@{MPU9250\_enumGetHeading}}
+\index{MPU9250\_enumGetHeading@{MPU9250\_enumGetHeading}!MPU9250\_interface.h@{MPU9250\_interface.h}}
+\doxysubsubsection{\texorpdfstring{MPU9250\_enumGetHeading()}{MPU9250\_enumGetHeading()}}
+{\footnotesize\ttfamily \label{MPU9250__interface_8h_a4bd71fee1d8605a1a9e26bbb7a5b008b} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} MPU9250\+\_\+enum\+Get\+Heading (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structMPU9250__Data__t}{MPU9250\+\_\+\+Data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+p\+Data}{, }\item[{float}]{Copy\+\_\+f\+Dt}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+pf\+Heading}{}\end{DoxyParamCaption})}
+
+
+
+Fused 2D heading:\+ magnetometer (hard-\/iron corrected) + GyroZ via a wrap-\/aware complementary filter. Requires \doxylink{MPU9250__interface_8h_ae6d18356fb8c1619afbb6021d986abea}{MPU9250\+\_\+enum\+Calibrate\+Mag()} to have run for an accurate absolute reference. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+f\+Dt} & Elapsed time since the last call \+[seconds]\+. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__program_8c_source_l00210}{210}} of file \doxymbox{\hyperlink{MPU9250__program_8c_source}{MPU9250\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{MPU9250__interface_8h_a4bd71fee1d8605a1a9e26bbb7a5b008b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{MPU9250__interface_8h_a2c21fb3025bdca19293a1951dd08fadc}\index{MPU9250\_interface.h@{MPU9250\_interface.h}!MPU9250\_enumGetPosition@{MPU9250\_enumGetPosition}}
+\index{MPU9250\_enumGetPosition@{MPU9250\_enumGetPosition}!MPU9250\_interface.h@{MPU9250\_interface.h}}
+\doxysubsubsection{\texorpdfstring{MPU9250\_enumGetPosition()}{MPU9250\_enumGetPosition()}}
+{\footnotesize\ttfamily \label{MPU9250__interface_8h_a2c21fb3025bdca19293a1951dd08fadc} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} MPU9250\+\_\+enum\+Get\+Position (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structMPU9250__Data__t}{MPU9250\+\_\+\+Data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+p\+Data}{, }\item[{float}]{Copy\+\_\+f\+Speed}{, }\item[{float}]{Copy\+\_\+f\+Heading}{, }\item[{float}]{Copy\+\_\+f\+Pitch}{, }\item[{float}]{Copy\+\_\+f\+Dt}{, }\item[{\doxymbox{\hyperlink{structMPU9250__Position__t}{MPU9250\+\_\+\+Position\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+p\+Pos}{}\end{DoxyParamCaption})}
+
+
+
+Updates position using Dead Reckoning and Gravity Compensation. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__program_8c_source_l00281}{281}} of file \doxymbox{\hyperlink{MPU9250__program_8c_source}{MPU9250\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{MPU9250__interface_8h_a2c21fb3025bdca19293a1951dd08fadc_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{MPU9250__interface_8h_afa7a847f26b23259cc89bf6a8f86b706}\index{MPU9250\_interface.h@{MPU9250\_interface.h}!MPU9250\_enumGetSpeed@{MPU9250\_enumGetSpeed}}
+\index{MPU9250\_enumGetSpeed@{MPU9250\_enumGetSpeed}!MPU9250\_interface.h@{MPU9250\_interface.h}}
+\doxysubsubsection{\texorpdfstring{MPU9250\_enumGetSpeed()}{MPU9250\_enumGetSpeed()}}
+{\footnotesize\ttfamily \label{MPU9250__interface_8h_afa7a847f26b23259cc89bf6a8f86b706} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} MPU9250\+\_\+enum\+Get\+Speed (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structMPU9250__Data__t}{MPU9250\+\_\+\+Data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+p\+Data}{, }\item[{float}]{Copy\+\_\+f\+Dt}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+pf\+Speed}{}\end{DoxyParamCaption})}
+
+
+
+Estimates forward speed with gravity compensation. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__program_8c_source_l00248}{248}} of file \doxymbox{\hyperlink{MPU9250__program_8c_source}{MPU9250\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{MPU9250__interface_8h_afa7a847f26b23259cc89bf6a8f86b706_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{MPU9250__interface_8h_a152f5e09dbda831d60bc3d5241d714ad}\index{MPU9250\_interface.h@{MPU9250\_interface.h}!MPU9250\_enumInit@{MPU9250\_enumInit}}
+\index{MPU9250\_enumInit@{MPU9250\_enumInit}!MPU9250\_interface.h@{MPU9250\_interface.h}}
+\doxysubsubsection{\texorpdfstring{MPU9250\_enumInit()}{MPU9250\_enumInit()}}
+{\footnotesize\ttfamily \label{MPU9250__interface_8h_a152f5e09dbda831d60bc3d5241d714ad} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} MPU9250\+\_\+enum\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initializes the MPU9250 sensor and its internal I2C master. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__program_8c_source_l00114}{114}} of file \doxymbox{\hyperlink{MPU9250__program_8c_source}{MPU9250\+\_\+program.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{MPU9250__interface_8h_a152f5e09dbda831d60bc3d5241d714ad_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{MPU9250__interface_8h_a152f5e09dbda831d60bc3d5241d714ad_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{MPU9250__interface_8h_a2ab617d57393d2b689a5b0ad9769d40d}\index{MPU9250\_interface.h@{MPU9250\_interface.h}!MPU9250\_enumReadData@{MPU9250\_enumReadData}}
+\index{MPU9250\_enumReadData@{MPU9250\_enumReadData}!MPU9250\_interface.h@{MPU9250\_interface.h}}
+\doxysubsubsection{\texorpdfstring{MPU9250\_enumReadData()}{MPU9250\_enumReadData()}}
+{\footnotesize\ttfamily \label{MPU9250__interface_8h_a2ab617d57393d2b689a5b0ad9769d40d} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} MPU9250\+\_\+enum\+Read\+Data (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structMPU9250__Data__t}{MPU9250\+\_\+\+Data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+p\+Data}{}\end{DoxyParamCaption})}
+
+
+
+Reads all sensor data (Accel, Gyro, Mag, Temp) in a single burst. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__program_8c_source_l00145}{145}} of file \doxymbox{\hyperlink{MPU9250__program_8c_source}{MPU9250\+\_\+program.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{MPU9250__interface_8h_a2ab617d57393d2b689a5b0ad9769d40d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{MPU9250__interface_8h_a2ab617d57393d2b689a5b0ad9769d40d_icgraph}
+\end{center}
+\end{figure}

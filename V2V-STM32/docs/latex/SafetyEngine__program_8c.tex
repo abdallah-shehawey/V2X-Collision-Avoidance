@@ -1,0 +1,241 @@
+\doxysection{Src/\+\+Safety\+Engine\+\_\+program.c File Reference}
+\hypertarget{SafetyEngine__program_8c}{}\label{SafetyEngine__program_8c}\index{Src/SafetyEngine\_program.c@{Src/SafetyEngine\_program.c}}
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Application/\+\+Safety\+Engine/\+\+Safety\+Engine\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Application/\+\+FCW\+\_\+\+DNPW/\+\+FCW\+\_\+\+DNPW\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Application/\+\+EEBL/\+\+EEBL\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Application/\+\+BSW/\+\+BSW\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Application/\+\+IMA/\+\+IMA\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Application/\+\+DSRC/\+\+DSRC.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+System/\+\+System.\+h"{}}\newline
+Include dependency graph for Safety\+Engine\+\_\+program.\+c:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{SafetyEngine__program_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{SafetyEngine__program_8c_ad87fdbbd1376c4cebfa69a906cfbe556}{Safety\+Engine\+\_\+void\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize all safety modules (FCW/\+\+DNPW, EEBL, BSW, IMA). \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{SafetyEngine__program_8c_a7b6c12632534a82b4357a73306667157}{Safety\+Engine\+\_\+void\+Update}} (void)
+\begin{DoxyCompactList}\small\item\em Single-\/pass update over the DSRC neighbor table. Runs all safety modules in ONE pass and aggregates the result into the G\+\_\+u16\+System\+Flags status word (2 bits/\+module) for v\+Task\+\_\+\+Feedback and v\+Task\+\_\+\+RPi\+\_\+\+Comm to consume. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{SafetyEngine__interface_8h_a2e9ec086ba61b35cfc2439306cdfdd70}{Direction\+\_\+t}} \doxymbox{\hyperlink{SafetyEngine__program_8c_ab7dae45d16fd67e39cae94350eb6d0f7}{Safety\+Engine\+\_\+\+Detect\+Direction}} (float my\+\_\+heading, float other\+\_\+heading)
+\begin{DoxyCompactList}\small\item\em Detect direction relationship between two vehicles. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} \doxymbox{\hyperlink{SafetyEngine__program_8c_a7e73033d8b868fa66e2090ca79150677}{Safety\+Engine\+\_\+\+Evaluate\+Risk}} (float value, float warning\+\_\+thr, float critical\+\_\+thr)
+\begin{DoxyCompactList}\small\item\em Evaluate risk from a "{}lower value = higher risk"{} metric. Used by IMA for time-\/gap/\+delay thresholds. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} \doxymbox{\hyperlink{SafetyEngine__program_8c_aff42a93f5f7c50d14d779e142010ae71}{Safety\+Engine\+\_\+\+Assess\+Distance\+Risk}} (float host\+\_\+speed, float distance, float dist\+\_\+per\+\_\+ms, float min\+\_\+dist, float crit\+\_\+ratio)
+\begin{DoxyCompactList}\small\item\em Assess collision risk from host speed and a measured distance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+float \doxymbox{\hyperlink{SafetyEngine__program_8c_a16174df02da93c0fc96432a4bc1de57b}{Host\+\_\+\+Speed}} = 0.\+0f
+\item 
+float \doxymbox{\hyperlink{SafetyEngine__program_8c_afb1ff5cedbd39f1a8b81a25a7dcdb171}{Host\+\_\+\+Heading}} = 0.\+0f
+\item 
+float \doxymbox{\hyperlink{SafetyEngine__program_8c_a2d869610528b06238c15ab8fb160304f}{Safety\+Engine\+\_\+\+Safe\+Dist}} = 0.\+0f
+\item 
+float \doxymbox{\hyperlink{SafetyEngine__program_8c_a414ebc77c31778b0d2f7371abdbd2d19}{Safety\+Engine\+\_\+\+Critical\+Dist}} = 0.\+0f
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{SafetyEngine__program_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{SafetyEngine__program_8c_aff42a93f5f7c50d14d779e142010ae71}\index{SafetyEngine\_program.c@{SafetyEngine\_program.c}!SafetyEngine\_AssessDistanceRisk@{SafetyEngine\_AssessDistanceRisk}}
+\index{SafetyEngine\_AssessDistanceRisk@{SafetyEngine\_AssessDistanceRisk}!SafetyEngine\_program.c@{SafetyEngine\_program.c}}
+\doxysubsubsection{\texorpdfstring{SafetyEngine\_AssessDistanceRisk()}{SafetyEngine\_AssessDistanceRisk()}}
+{\footnotesize\ttfamily \label{SafetyEngine__program_8c_aff42a93f5f7c50d14d779e142010ae71} 
+\doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} Safety\+Engine\+\_\+\+Assess\+Distance\+Risk (\begin{DoxyParamCaption}\item[{float}]{host\+\_\+speed}{, }\item[{float}]{distance}{, }\item[{float}]{dist\+\_\+per\+\_\+ms}{, }\item[{float}]{min\+\_\+dist}{, }\item[{float}]{crit\+\_\+ratio}{}\end{DoxyParamCaption})}
+
+
+
+Assess collision risk from host speed and a measured distance. 
+
+safe\+\_\+dist\+\_\+cm = host\+\_\+speed(m/\+s) \texorpdfstring{$\ast$}{*} dist\+\_\+per\+\_\+ms (floored at min\+\_\+dist) distance \texorpdfstring{$>$}{>}= safe\+\_\+dist -\/\texorpdfstring{$>$}{>} RISK\+\_\+\+SAFE crit\texorpdfstring{$\ast$}{*}safe \texorpdfstring{$<$}{<}= distance \texorpdfstring{$<$}{<} safe\+\_\+dist -\/\texorpdfstring{$>$}{>} RISK\+\_\+\+WARNING distance \texorpdfstring{$<$}{<} crit\texorpdfstring{$\ast$}{*}safe -\/\texorpdfstring{$>$}{>} RISK\+\_\+\+CRITICAL
+
+
+\begin{DoxyParams}{Parameters}
+{\em host\+\_\+speed} & Host vehicle speed (m/\+s, from MPU) \\
+\hline
+{\em distance} & Measured distance to the object (cm, from ultrasonic) \\
+\hline
+{\em dist\+\_\+per\+\_\+ms} & cm of safe gap per 1 m/\+s of host speed (module-\/tuned) \\
+\hline
+{\em min\+\_\+dist} & Minimum safe-\/distance floor (cm) \\
+\hline
+{\em crit\+\_\+ratio} & Fraction of safe distance below which risk is CRITICAL \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+RISK\+\_\+\+SAFE, RISK\+\_\+\+WARNING, or RISK\+\_\+\+CRITICAL 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00195}{195}} of file \doxymbox{\hyperlink{SafetyEngine__program_8c_source}{Safety\+Engine\+\_\+program.\+c}}.
+
+\Hypertarget{SafetyEngine__program_8c_ab7dae45d16fd67e39cae94350eb6d0f7}\index{SafetyEngine\_program.c@{SafetyEngine\_program.c}!SafetyEngine\_DetectDirection@{SafetyEngine\_DetectDirection}}
+\index{SafetyEngine\_DetectDirection@{SafetyEngine\_DetectDirection}!SafetyEngine\_program.c@{SafetyEngine\_program.c}}
+\doxysubsubsection{\texorpdfstring{SafetyEngine\_DetectDirection()}{SafetyEngine\_DetectDirection()}}
+{\footnotesize\ttfamily \label{SafetyEngine__program_8c_ab7dae45d16fd67e39cae94350eb6d0f7} 
+\doxymbox{\hyperlink{SafetyEngine__interface_8h_a2e9ec086ba61b35cfc2439306cdfdd70}{Direction\+\_\+t}} Safety\+Engine\+\_\+\+Detect\+Direction (\begin{DoxyParamCaption}\item[{float}]{my\+\_\+heading}{, }\item[{float}]{other\+\_\+heading}{}\end{DoxyParamCaption})}
+
+
+
+Detect direction relationship between two vehicles. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em my\+\_\+heading} & Host vehicle heading (0-\/360) \\
+\hline
+{\em other\+\_\+heading} & Neighbor vehicle heading (0-\/360) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+DIR\+\_\+\+SAME, DIR\+\_\+\+OPPOSITE, DIR\+\_\+\+CROSSING, or DIR\+\_\+\+UNKNOWN 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00146}{146}} of file \doxymbox{\hyperlink{SafetyEngine__program_8c_source}{Safety\+Engine\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{SafetyEngine__program_8c_ab7dae45d16fd67e39cae94350eb6d0f7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{SafetyEngine__program_8c_a7e73033d8b868fa66e2090ca79150677}\index{SafetyEngine\_program.c@{SafetyEngine\_program.c}!SafetyEngine\_EvaluateRisk@{SafetyEngine\_EvaluateRisk}}
+\index{SafetyEngine\_EvaluateRisk@{SafetyEngine\_EvaluateRisk}!SafetyEngine\_program.c@{SafetyEngine\_program.c}}
+\doxysubsubsection{\texorpdfstring{SafetyEngine\_EvaluateRisk()}{SafetyEngine\_EvaluateRisk()}}
+{\footnotesize\ttfamily \label{SafetyEngine__program_8c_a7e73033d8b868fa66e2090ca79150677} 
+\doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} Safety\+Engine\+\_\+\+Evaluate\+Risk (\begin{DoxyParamCaption}\item[{float}]{value}{, }\item[{float}]{warning\+\_\+thr}{, }\item[{float}]{critical\+\_\+thr}{}\end{DoxyParamCaption})}
+
+
+
+Evaluate risk from a "{}lower value = higher risk"{} metric. Used by IMA for time-\/gap/\+delay thresholds. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & Metric to evaluate (e.\+g. delay/\+time-\/gap in seconds) \\
+\hline
+{\em warning\+\_\+thr} & Threshold for warning level \\
+\hline
+{\em critical\+\_\+thr} & Threshold for critical level \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+RISK\+\_\+\+SAFE, RISK\+\_\+\+WARNING, or RISK\+\_\+\+CRITICAL 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00173}{173}} of file \doxymbox{\hyperlink{SafetyEngine__program_8c_source}{Safety\+Engine\+\_\+program.\+c}}.
+
+\Hypertarget{SafetyEngine__program_8c_ad87fdbbd1376c4cebfa69a906cfbe556}\index{SafetyEngine\_program.c@{SafetyEngine\_program.c}!SafetyEngine\_voidInit@{SafetyEngine\_voidInit}}
+\index{SafetyEngine\_voidInit@{SafetyEngine\_voidInit}!SafetyEngine\_program.c@{SafetyEngine\_program.c}}
+\doxysubsubsection{\texorpdfstring{SafetyEngine\_voidInit()}{SafetyEngine\_voidInit()}}
+{\footnotesize\ttfamily \label{SafetyEngine__program_8c_ad87fdbbd1376c4cebfa69a906cfbe556} 
+void Safety\+Engine\+\_\+void\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initialize all safety modules (FCW/\+\+DNPW, EEBL, BSW, IMA). 
+
+
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00033}{33}} of file \doxymbox{\hyperlink{SafetyEngine__program_8c_source}{Safety\+Engine\+\_\+program.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{SafetyEngine__program_8c_ad87fdbbd1376c4cebfa69a906cfbe556_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=279pt]{SafetyEngine__program_8c_ad87fdbbd1376c4cebfa69a906cfbe556_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{SafetyEngine__program_8c_a7b6c12632534a82b4357a73306667157}\index{SafetyEngine\_program.c@{SafetyEngine\_program.c}!SafetyEngine\_voidUpdate@{SafetyEngine\_voidUpdate}}
+\index{SafetyEngine\_voidUpdate@{SafetyEngine\_voidUpdate}!SafetyEngine\_program.c@{SafetyEngine\_program.c}}
+\doxysubsubsection{\texorpdfstring{SafetyEngine\_voidUpdate()}{SafetyEngine\_voidUpdate()}}
+{\footnotesize\ttfamily \label{SafetyEngine__program_8c_a7b6c12632534a82b4357a73306667157} 
+void Safety\+Engine\+\_\+void\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Single-\/pass update over the DSRC neighbor table. Runs all safety modules in ONE pass and aggregates the result into the G\+\_\+u16\+System\+Flags status word (2 bits/\+module) for v\+Task\+\_\+\+Feedback and v\+Task\+\_\+\+RPi\+\_\+\+Comm to consume. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{49}} of file \doxymbox{\hyperlink{SafetyEngine__program_8c_source}{Safety\+Engine\+\_\+program.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{SafetyEngine__program_8c_a7b6c12632534a82b4357a73306667157_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{SafetyEngine__program_8c_a7b6c12632534a82b4357a73306667157_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-var-members}
+\Hypertarget{SafetyEngine__program_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{SafetyEngine__program_8c_afb1ff5cedbd39f1a8b81a25a7dcdb171}\index{SafetyEngine\_program.c@{SafetyEngine\_program.c}!Host\_Heading@{Host\_Heading}}
+\index{Host\_Heading@{Host\_Heading}!SafetyEngine\_program.c@{SafetyEngine\_program.c}}
+\doxysubsubsection{\texorpdfstring{Host\_Heading}{Host\_Heading}}
+{\footnotesize\ttfamily \label{SafetyEngine__program_8c_afb1ff5cedbd39f1a8b81a25a7dcdb171} 
+float Host\+\_\+\+Heading = 0.\+0f}
+
+
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00025}{25}} of file \doxymbox{\hyperlink{SafetyEngine__program_8c_source}{Safety\+Engine\+\_\+program.\+c}}.
+
+\Hypertarget{SafetyEngine__program_8c_a16174df02da93c0fc96432a4bc1de57b}\index{SafetyEngine\_program.c@{SafetyEngine\_program.c}!Host\_Speed@{Host\_Speed}}
+\index{Host\_Speed@{Host\_Speed}!SafetyEngine\_program.c@{SafetyEngine\_program.c}}
+\doxysubsubsection{\texorpdfstring{Host\_Speed}{Host\_Speed}}
+{\footnotesize\ttfamily \label{SafetyEngine__program_8c_a16174df02da93c0fc96432a4bc1de57b} 
+float Host\+\_\+\+Speed = 0.\+0f}
+
+===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} \doxylink{SafetyEngine__program_8c}{Safety\+Engine\+\_\+program.\+c} \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Abdelmoemen Shehawey \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ APP \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} CPU :\+ Cortex-\/\+M4 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} MCU :\+ NUCLEO-\/\+F446\+RE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SW :\+ V2X Safety Engine (Single-\/\+Pass) \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} 
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00024}{24}} of file \doxymbox{\hyperlink{SafetyEngine__program_8c_source}{Safety\+Engine\+\_\+program.\+c}}.
+
+\Hypertarget{SafetyEngine__program_8c_a414ebc77c31778b0d2f7371abdbd2d19}\index{SafetyEngine\_program.c@{SafetyEngine\_program.c}!SafetyEngine\_CriticalDist@{SafetyEngine\_CriticalDist}}
+\index{SafetyEngine\_CriticalDist@{SafetyEngine\_CriticalDist}!SafetyEngine\_program.c@{SafetyEngine\_program.c}}
+\doxysubsubsection{\texorpdfstring{SafetyEngine\_CriticalDist}{SafetyEngine\_CriticalDist}}
+{\footnotesize\ttfamily \label{SafetyEngine__program_8c_a414ebc77c31778b0d2f7371abdbd2d19} 
+float Safety\+Engine\+\_\+\+Critical\+Dist = 0.\+0f}
+
+
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00030}{30}} of file \doxymbox{\hyperlink{SafetyEngine__program_8c_source}{Safety\+Engine\+\_\+program.\+c}}.
+
+\Hypertarget{SafetyEngine__program_8c_a2d869610528b06238c15ab8fb160304f}\index{SafetyEngine\_program.c@{SafetyEngine\_program.c}!SafetyEngine\_SafeDist@{SafetyEngine\_SafeDist}}
+\index{SafetyEngine\_SafeDist@{SafetyEngine\_SafeDist}!SafetyEngine\_program.c@{SafetyEngine\_program.c}}
+\doxysubsubsection{\texorpdfstring{SafetyEngine\_SafeDist}{SafetyEngine\_SafeDist}}
+{\footnotesize\ttfamily \label{SafetyEngine__program_8c_a2d869610528b06238c15ab8fb160304f} 
+float Safety\+Engine\+\_\+\+Safe\+Dist = 0.\+0f}
+
+
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00029}{29}} of file \doxymbox{\hyperlink{SafetyEngine__program_8c_source}{Safety\+Engine\+\_\+program.\+c}}.
+

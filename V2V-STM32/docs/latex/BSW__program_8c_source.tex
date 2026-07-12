@@ -1,0 +1,112 @@
+\doxysection{BSW\+\_\+program.\+c}
+\hypertarget{BSW__program_8c_source}{}\label{BSW__program_8c_source}\index{Src/BSW\_program.c@{Src/BSW\_program.c}}
+\doxymbox{\hyperlink{BSW__program_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{BSW__config_8h}{../Inc/Application/BSW/BSW\_config.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{BSW__interface_8h}{../Inc/Application/BSW/BSW\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00016}00016\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{BSW__private_8h}{../Inc/Application/BSW/BSW\_private.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{DSRC_8h}{../Inc/Application/DSRC/DSRC.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00018}00018\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SafetyEngine__interface_8h}{../Inc/Application/SafetyEngine/SafetyEngine\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00019}00019\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{System_8h}{../Inc/System/System.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00021}00021\ \textcolor{comment}{/*\ ============\ Module\ State\ ============\ */}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00023}00023\ \textcolor{comment}{/*\ Sender\ flag\ broadcast\ over\ DSRC\ (this\ car's\ own\ side):\ bit0=LEFT,\ bit1=RIGHT\ */}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00024}00024\ \textcolor{keyword}{static}\ uint8\_t\ BSW\_SenderFlag\ =\ \doxymbox{\hyperlink{BSW__private_8h_a18c269d0ae92da9ebc825eade6e72972}{BSW\_FLAG\_NONE}};}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00026}00026\ \textcolor{comment}{/*\ Cycle\ distances\ (latched\ in\ BeginCycle)\ */}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00027}00027\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ BSW\_FrontLeft\ \ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00028}00028\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ BSW\_FrontRight\ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00029}00029\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ BSW\_RearLeft\ \ \ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00030}00030\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ BSW\_RearRight\ \ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00032}00032\ \textcolor{comment}{/*\ Receiver-\/side\ alert\ severity\ per\ side\ (set\ during\ ProcessNeighbor):}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00033}00033\ \textcolor{comment}{\ *\ 0\ =\ safe,\ 1\ =\ warning\ (<\ BSW\_SIDE\_THRESHOLD),\ 2\ =\ critical\ (<\ BSW\_SIDE\_CRITICAL).\ */}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00034}00034\ \textcolor{keyword}{static}\ uint8\_t\ BSW\_AlertLeft\ \ =\ 0;}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00035}00035\ \textcolor{keyword}{static}\ uint8\_t\ BSW\_AlertRight\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00037}00037\ \textcolor{comment}{/*\ Map\ a\ measured\ rear-\/side\ distance\ to\ a\ BSW\ severity\ level.\ */}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00038}00038\ \textcolor{keyword}{static}\ uint8\_t\ BSW\_u8DistToSeverity(\textcolor{keywordtype}{float}\ dist)}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00039}00039\ \{}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00040}00040\ \ \ \textcolor{keywordflow}{if}\ (dist\ <=\ 0.0f\ ||\ dist\ >=\ \doxymbox{\hyperlink{BSW__config_8h_aeb97789f4baf3ec92a8a71924b6271e9}{BSW\_SIDE\_THRESHOLD}})\ \textcolor{keywordflow}{return}\ 0;\ \ \textcolor{comment}{/*\ clear\ /\ out\ of\ band\ */}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00041}00041\ \ \ \textcolor{keywordflow}{if}\ (dist\ <\ \doxymbox{\hyperlink{BSW__config_8h_a8b6f2ee7e091070e69743e594090dc95}{BSW\_SIDE\_CRITICAL}})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 2;\ \ \textcolor{comment}{/*\ critical\ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00042}00042\ \ \ \textcolor{keywordflow}{return}\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ warning\ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00043}00043\ \}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00045}00045\ \textcolor{comment}{/*\ ============\ Init\ ============\ */}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00046}\doxymbox{\hyperlink{BSW__interface_8h_a9f03e569a421d0df764a8e87d671eea4}{00046}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{BSW__program_8c_a9f03e569a421d0df764a8e87d671eea4}{BSW\_voidInit}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00047}00047\ \{}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00048}00048\ \ \ BSW\_SenderFlag\ =\ \doxymbox{\hyperlink{BSW__private_8h_a18c269d0ae92da9ebc825eade6e72972}{BSW\_FLAG\_NONE}};}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00049}00049\ \ \ BSW\_AlertLeft\ \ =\ 0;}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00050}00050\ \ \ BSW\_AlertRight\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00051}00051\ \}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00053}00053\ \textcolor{comment}{/*\ ============================================================\ */}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00054}00054\ \textcolor{comment}{/*\ ============\ Per-\/Neighbor\ API\ (for\ SafetyEngine)\ ============\ */}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00055}00055\ \textcolor{comment}{/*\ ============================================================\ */}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00065}\doxymbox{\hyperlink{BSW__interface_8h_ae07233e2631a1dc55b95b7933e9b9801}{00065}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{BSW__program_8c_ae07233e2631a1dc55b95b7933e9b9801}{BSW\_voidBeginCycle}}(\textcolor{keywordtype}{float}\ front\_left,\ \textcolor{keywordtype}{float}\ front\_right,\ \textcolor{keywordtype}{float}\ rear\_left,\ \textcolor{keywordtype}{float}\ rear\_right)}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00066}00066\ \{}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00067}00067\ \ \ BSW\_FrontLeft\ \ =\ front\_left;}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00068}00068\ \ \ BSW\_FrontRight\ =\ front\_right;}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00069}00069\ \ \ BSW\_RearLeft\ \ \ =\ rear\_left;}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00070}00070\ \ \ BSW\_RearRight\ \ =\ rear\_right;}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00072}00072\ \ \ \textcolor{comment}{/*\ -\/-\/-\/-\/\ Sender:\ front-\/side\ detection,\ one\ bit\ per\ side\ (no\ priority)\ -\/-\/-\/-\/\ */}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00073}00073\ \ \ BSW\_SenderFlag\ =\ \doxymbox{\hyperlink{BSW__private_8h_a18c269d0ae92da9ebc825eade6e72972}{BSW\_FLAG\_NONE}};}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00075}00075\ \ \ \textcolor{keywordflow}{if}\ (front\_left\ >\ 0.0f\ \&\&\ front\_left\ <\ \doxymbox{\hyperlink{BSW__config_8h_aeb97789f4baf3ec92a8a71924b6271e9}{BSW\_SIDE\_THRESHOLD}})}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00076}00076\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00077}00077\ \ \ \ \ BSW\_SenderFlag\ |=\ \doxymbox{\hyperlink{BSW__private_8h_ac4b9a0f4dad1a7da8f8b2755ea949324}{BSW\_FLAG\_LEFT}};}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00078}00078\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00079}00079\ \ \ \textcolor{keywordflow}{if}\ (front\_right\ >\ 0.0f\ \&\&\ front\_right\ <\ \doxymbox{\hyperlink{BSW__config_8h_aeb97789f4baf3ec92a8a71924b6271e9}{BSW\_SIDE\_THRESHOLD}})}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00080}00080\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00081}00081\ \ \ \ \ BSW\_SenderFlag\ |=\ \doxymbox{\hyperlink{BSW__private_8h_a2a98a8ddcc7848d71962dfcc5bba2a18}{BSW\_FLAG\_RIGHT}};}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00082}00082\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00084}00084\ \ \ \textcolor{comment}{/*\ -\/-\/-\/-\/\ Receiver:\ reset\ per-\/side\ alert\ accumulators\ -\/-\/-\/-\/\ */}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00085}00085\ \ \ BSW\_AlertLeft\ \ =\ 0;}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00086}00086\ \ \ BSW\_AlertRight\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00087}00087\ \}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00099}\doxymbox{\hyperlink{BSW__interface_8h_a92af4dc1c402accc0ef30daa8d798e00}{00099}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{BSW__program_8c_a92af4dc1c402accc0ef30daa8d798e00}{BSW\_voidProcessNeighbor}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{DSRC_8h_ac818f2e1224a1e513913a85019953e14}{Neighbor}}\ *n)}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00100}00100\ \{}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00101}00101\ \ \ \textcolor{comment}{/*\ Severity\ scales\ with\ how\ close\ the\ car\ behind\ us\ is\ on\ the\ mirrored\ side.}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00102}00102\ \textcolor{comment}{\ \ \ *\ Keep\ the\ worst\ across\ neighbors\ that\ map\ to\ the\ same\ rear\ sensor.\ */}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00103}00103\ \ \ \textcolor{keywordflow}{if}\ (n-\/>bsw\_flag\ \&\ \doxymbox{\hyperlink{BSW__private_8h_ac4b9a0f4dad1a7da8f8b2755ea949324}{BSW\_FLAG\_LEFT}})}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00104}00104\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00105}00105\ \ \ \ \ uint8\_t\ sev\ =\ BSW\_u8DistToSeverity(BSW\_RearRight);}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00106}00106\ \ \ \ \ \textcolor{keywordflow}{if}\ (sev\ >\ BSW\_AlertRight)\ BSW\_AlertRight\ =\ sev;}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00107}00107\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00108}00108\ \ \ \textcolor{keywordflow}{if}\ (n-\/>bsw\_flag\ \&\ \doxymbox{\hyperlink{BSW__private_8h_a2a98a8ddcc7848d71962dfcc5bba2a18}{BSW\_FLAG\_RIGHT}})}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00109}00109\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00110}00110\ \ \ \ \ uint8\_t\ sev\ =\ BSW\_u8DistToSeverity(BSW\_RearLeft);}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00111}00111\ \ \ \ \ \textcolor{keywordflow}{if}\ (sev\ >\ BSW\_AlertLeft)\ BSW\_AlertLeft\ =\ sev;}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00112}00112\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00113}00113\ \}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00115}00115\ \textcolor{comment}{/*\ ============\ Public\ Getters\ ============\ */}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00121}\doxymbox{\hyperlink{BSW__interface_8h_ad2e4d7ccf9588f4cdeecfd471430ec7c}{00121}}\ uint8\_t\ \doxymbox{\hyperlink{BSW__program_8c_ad2e4d7ccf9588f4cdeecfd471430ec7c}{BSW\_u8GetFlag}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00122}00122\ \{}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00123}00123\ \ \ \textcolor{keywordflow}{return}\ BSW\_SenderFlag;}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00124}00124\ \}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00125}00125\ }
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00133}\doxymbox{\hyperlink{BSW__interface_8h_ac814a5d4310e3e00b8700df5af59858d}{00133}}\ uint8\_t\ \doxymbox{\hyperlink{BSW__program_8c_ac814a5d4310e3e00b8700df5af59858d}{BSW\_u8GetBlindSpot}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00134}00134\ \{}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00135}00135\ \ \ \textcolor{keywordflow}{return}\ (uint8\_t)((BSW\_AlertLeft\ ?\ 0x01U\ :\ 0x00U)\ |\ (BSW\_AlertRight\ ?\ 0x02U\ :\ 0x00U));}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00136}00136\ \}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00143}\doxymbox{\hyperlink{BSW__interface_8h_a78f44c9528e62f99efcefaa8d779a6a2}{00143}}\ uint8\_t\ \doxymbox{\hyperlink{BSW__program_8c_a78f44c9528e62f99efcefaa8d779a6a2}{BSW\_u8GetSeverity}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00144}00144\ \{}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00145}00145\ \ \ \textcolor{keywordflow}{return}\ (BSW\_AlertLeft\ >\ BSW\_AlertRight)\ ?\ BSW\_AlertLeft\ :\ BSW\_AlertRight;}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00146}00146\ \}}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00155}\doxymbox{\hyperlink{BSW__interface_8h_adf8eecd88222e0b29db5aaffe7af235d}{00155}}\ uint8\_t\ \doxymbox{\hyperlink{BSW__program_8c_adf8eecd88222e0b29db5aaffe7af235d}{BSW\_u8GetSidesSeverity}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00156}00156\ \{}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00157}00157\ \ \ \textcolor{keywordflow}{return}\ (uint8\_t)((BSW\_AlertLeft\ \&\ 0x3U)\ |\ ((BSW\_AlertRight\ \&\ 0x3U)\ <<\ 2));}
+\DoxyCodeLine{\Hypertarget{BSW__program_8c_source_l00158}00158\ \}}
+
+\end{DoxyCode}

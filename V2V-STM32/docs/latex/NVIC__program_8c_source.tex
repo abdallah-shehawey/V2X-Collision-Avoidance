@@ -1,0 +1,107 @@
+\doxysection{NVIC\+\_\+program.\+c}
+\hypertarget{NVIC__program_8c_source}{}\label{NVIC__program_8c_source}\index{Src/NVIC\_program.c@{Src/NVIC\_program.c}}
+\doxymbox{\hyperlink{NVIC__program_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{ErrTypes_8h}{../Inc/Drivers/LIB/ErrTypes.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{NVIC__interface_8h}{../Inc/Drivers/MCAL/NVIC/NVIC\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00016}00016\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{NVIC__private_8h}{../Inc/Drivers/MCAL/NVIC/NVIC\_private.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{NVIC__config_8h}{../Inc/Drivers/MCAL/NVIC/NVIC\_config.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00019}00019\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h}{../Inc/Drivers/LIB/STM32F446xx.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00020}00020\ \textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00037}\doxymbox{\hyperlink{NVIC__interface_8h_a85d98abbd23523e4abf16cc4b4501431}{00037}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{NVIC__program_8c_a85d98abbd23523e4abf16cc4b4501431}{NVIC\_vEnableIRQ}}(uint8\_t\ Copy\_u8IRQNumber)}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00038}00038\ \{}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00039}00039\ \ \ uint8\_t\ local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00040}00040\ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8IRQNumber\ <=\ \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ad49a77d7dca5d08a25664adbeaf958a0}{NVIC\_FMPI2C1\_ER}})}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00041}00041\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00042}00042\ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a5592a87b609cf093eb988459b69071ce}{MNVIC}}-\/>ISER[(((uint32\_t)Copy\_u8IRQNumber)\ >>\ 5UL)]\ =\ (uint32\_t)(1UL\ <<\ (((uint32\_t)Copy\_u8IRQNumber)\ \&\ 0x1FUL));}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00043}00043\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00044}00044\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00045}00045\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00046}00046\ \ \ \ \ local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00047}00047\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00048}00048\ \ \ \textcolor{keywordflow}{return}\ local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00049}00049\ \}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00056}\doxymbox{\hyperlink{NVIC__interface_8h_a8d97ac945c4d8195e2d4c5de802dd747}{00056}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{NVIC__program_8c_a8d97ac945c4d8195e2d4c5de802dd747}{NVIC\_vDisableIRQ}}(uint8\_t\ Copy\_u8IRQNumber)}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00057}00057\ \{}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00058}00058\ \ \ uint8\_t\ local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00059}00059\ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8IRQNumber\ <=\ \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ad49a77d7dca5d08a25664adbeaf958a0}{NVIC\_FMPI2C1\_ER}})}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00060}00060\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00061}00061\ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a5592a87b609cf093eb988459b69071ce}{MNVIC}}-\/>ICER[(((uint32\_t)Copy\_u8IRQNumber)\ >>\ 5UL)]\ =\ (uint32\_t)(1UL\ <<\ (((uint32\_t)Copy\_u8IRQNumber)\ \&\ 0x1FUL));}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00062}00062\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00063}00063\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00064}00064\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00065}00065\ \ \ \ \ local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00066}00066\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00067}00067\ \ \ \textcolor{keywordflow}{return}\ local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00068}00068\ \}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00075}\doxymbox{\hyperlink{NVIC__interface_8h_ae356a904164941f246e6603db421e081}{00075}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{NVIC__program_8c_ae356a904164941f246e6603db421e081}{NVIC\_vSetPendingFlag}}(uint8\_t\ Copy\_u8IRQNumber)}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00076}00076\ \{}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00077}00077\ \ \ uint8\_t\ local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00078}00078\ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8IRQNumber\ <=\ \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ad49a77d7dca5d08a25664adbeaf958a0}{NVIC\_FMPI2C1\_ER}})}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00079}00079\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00080}00080\ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a5592a87b609cf093eb988459b69071ce}{MNVIC}}-\/>ISPR[(((uint32\_t)Copy\_u8IRQNumber)\ >>\ 5UL)]\ =\ (uint32\_t)(1UL\ <<\ (((uint32\_t)Copy\_u8IRQNumber)\ \&\ 0x1FUL));}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00081}00081\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00082}00082\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00083}00083\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00084}00084\ \ \ \ \ local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00085}00085\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00086}00086\ \ \ \textcolor{keywordflow}{return}\ local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00087}00087\ \}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00094}\doxymbox{\hyperlink{NVIC__interface_8h_a4ef3db3ed7f9fd593fc38ab943c6e228}{00094}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{NVIC__program_8c_a4ef3db3ed7f9fd593fc38ab943c6e228}{NVIC\_vClearPendingFlag}}(uint8\_t\ Copy\_u8IRQNumber)}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00095}00095\ \{}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00096}00096\ \ \ uint8\_t\ local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00097}00097\ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8IRQNumber\ <=\ \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ad49a77d7dca5d08a25664adbeaf958a0}{NVIC\_FMPI2C1\_ER}})}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00098}00098\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00099}00099\ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a5592a87b609cf093eb988459b69071ce}{MNVIC}}-\/>ICPR[(((uint32\_t)Copy\_u8IRQNumber)\ >>\ 5UL)]\ =\ (uint32\_t)(1UL\ <<\ (((uint32\_t)Copy\_u8IRQNumber)\ \&\ 0x1FUL));}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00100}00100\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00101}00101\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00102}00102\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00103}00103\ \ \ \ \ local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00104}00104\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00105}00105\ \ \ \textcolor{keywordflow}{return}\ local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00106}00106\ \}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00114}\doxymbox{\hyperlink{NVIC__interface_8h_aee982de5e4f7bd4192063d4ca975f3c4}{00114}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{NVIC__program_8c_aee982de5e4f7bd4192063d4ca975f3c4}{NVIC\_vGetActiveFlag}}(uint8\_t\ Copy\_u8IRQNumber,\ uint8\_t\ *Copy\_pu8Flag)}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00115}00115\ \{}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00116}00116\ \ \ uint8\_t\ local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00117}00117\ \ \ \textcolor{keywordflow}{if}\ (Copy\_pu8Flag\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00118}00118\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00119}00119\ \ \ \ \ local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00120}00120\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00121}00121\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00122}00122\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00123}00123\ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8IRQNumber\ <=\ \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ad49a77d7dca5d08a25664adbeaf958a0}{NVIC\_FMPI2C1\_ER}})}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00124}00124\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00125}00125\ \ \ \ \ \ \ *Copy\_pu8Flag\ =\ (\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a5592a87b609cf093eb988459b69071ce}{MNVIC}}-\/>IABR[(((uint32\_t)Copy\_u8IRQNumber)\ >>\ 5UL)]\ >>\ (((uint32\_t)Copy\_u8IRQNumber)\ \&\ 0x1FUL))\ \&\ 1;}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00126}00126\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00127}00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00128}00128\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00129}00129\ \ \ \ \ \ \ local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00130}00130\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00131}00131\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00132}00132\ \ \ \textcolor{keywordflow}{return}\ local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00133}00133\ \}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00141}\doxymbox{\hyperlink{NVIC__interface_8h_adacfc2d410ead15ca25830190e615000}{00141}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{NVIC__program_8c_adacfc2d410ead15ca25830190e615000}{NVIC\_vSetPriority}}(uint8\_t\ Copy\_u8IRQNumber,\ uint8\_t\ Copy\_u8Priority)}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00142}00142\ \{}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00143}00143\ \ \ uint8\_t\ local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00144}00144\ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8IRQNumber\ <=\ \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ad49a77d7dca5d08a25664adbeaf958a0}{NVIC\_FMPI2C1\_ER}}\ \&\&\ Copy\_u8Priority\ <=\ 15)}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00145}00145\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00146}00146\ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a5592a87b609cf093eb988459b69071ce}{MNVIC}}-\/>IPR[Copy\_u8IRQNumber]\ =\ Copy\_u8Priority\ <<\ 4;}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00147}00147\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00148}00148\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00149}00149\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00150}00150\ \ \ \ \ local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00151}00151\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00152}00152\ \ \ \textcolor{keywordflow}{return}\ local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{NVIC__program_8c_source_l00153}00153\ \}}
+
+\end{DoxyCode}

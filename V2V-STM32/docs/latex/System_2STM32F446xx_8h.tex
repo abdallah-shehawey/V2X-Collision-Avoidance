@@ -1,0 +1,1042 @@
+\doxysection{Inc/\+\+System/\+\+STM32\+F446xx.h File Reference}
+\hypertarget{System_2STM32F446xx_8h}{}\label{System_2STM32F446xx_8h}\index{Inc/System/STM32F446xx.h@{Inc/System/STM32F446xx.h}}
+{\ttfamily \+\#include $<$stdint.\+h$>$}\newline
+Include dependency graph for STM32\+F446xx.\+h:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{System_2STM32F446xx_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structSYSTIC__RegDef__t}{SYSTIC\+\_\+\+Reg\+Def\+\_\+t}}
+\item 
+struct \doxymbox{\hyperlink{structGPIO__REGDEF__t}{GPIO\+\_\+\+REGDEF\+\_\+t}}
+\item 
+struct \doxymbox{\hyperlink{structDMA__STREAM__REGDEF__t}{DMA\+\_\+\+STREAM\+\_\+\+REGDEF\+\_\+t}}
+\item 
+struct \doxymbox{\hyperlink{structDMA__REGDEF__t}{DMA\+\_\+\+REGDEF\+\_\+t}}
+\item 
+struct \doxymbox{\hyperlink{structRCC__RegDef__t}{RCC\+\_\+\+Reg\+Def\+\_\+t}}
+\item 
+struct \doxymbox{\hyperlink{structSPI__RegDef__t}{SPI\+\_\+\+Reg\+Def\+\_\+t}}
+\item 
+struct \doxymbox{\hyperlink{structNVIC__RegDef__t}{NVIC\+\_\+\+Reg\+Def\+\_\+t}}
+\item 
+struct \doxymbox{\hyperlink{structSCB__RegDef__t}{SCB\+\_\+\+Reg\+Def\+\_\+t}}
+\item 
+struct \doxymbox{\hyperlink{structSYSCFG__RegDef__t}{SYSCFG\+\_\+\+Reg\+Def\+\_\+t}}
+\item 
+struct \doxymbox{\hyperlink{structEXTI__RegDef__t}{EXTI\+\_\+\+Reg\+Def\+\_\+t}}
+\item 
+struct \doxymbox{\hyperlink{structUSART__RegDef__t}{USART\+\_\+\+Reg\+Def\+\_\+t}}
+\item 
+struct \doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_af6863e7094aca292453684fa2af16686}{FLASH\+\_\+\+BASEADDR}}~0x08000000\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_acce5bcdd78719c9f4a53cfc4ca0f6f42}{SRAM\+\_\+\+BASEADDR}}~0x20000000\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a548ca9ecc4b62f701800110d155a05dc}{ROM\+\_\+\+BASEADDR}}~0x1\+FFF0000\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a01d5d6d14e5ddc3602597f71315ef112}{NVIC\+\_\+\+BASEADDR}}~0\+XE000\+E100\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_afd26e1e406073dbe90566bacb7f55cd9}{SCB\+\_\+\+BASEADDR}}~0\+XE000\+ED00\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a3e615727451fa1abc89e436a7158d4aa}{GPIOA\+\_\+\+BASEADDR}}~0\+X40020000\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a583cafe206b45c6e3507b0493b96bdf0}{GPIOB\+\_\+\+BASEADDR}}~0\+X40020400\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a05e89040a5ad3c3e5f5bbd62b434512b}{GPIOC\+\_\+\+BASEADDR}}~0\+X40020800\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a807336d6c75feb8d0e943d618b5eaf26}{GPIOD\+\_\+\+BASEADDR}}~0\+X40020\+C00\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_ac248e8d8a7113113481c2abb31d7660a}{GPIOE\+\_\+\+BASEADDR}}~0\+X40021000\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a5f0323ec1e9720a76beebf3081bad9dc}{GPIOF\+\_\+\+BASEADDR}}~0\+X40021400\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a90f006630c69a7540d8b0b1c0073f3d2}{GPIOG\+\_\+\+BASEADDR}}~0\+X40021800\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a63f9598aea50d8c995a9037578bb0907}{GPIOH\+\_\+\+BASEADDR}}~0\+X40021\+C00\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a89610f202a9f78bcc85f76c5ba52d009}{RCC\+\_\+\+BASEADDR}}~0x40023800\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a489420976747e7bcf241e2a9bb6cd138}{DMA1\+\_\+\+BASEADDR}}~0\+X40026000\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_ac3883cd723aa62055a055104bb3f6890}{DMA2\+\_\+\+BASEADDR}}~0\+X40026400\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a9e2d543dd90e725020d1f4b2ae3a0cdc}{USART2\+\_\+\+BASEADDR}}~0x40004400\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a44b4b63dcc1dedbd81fc2679c1d6c357}{USART3\+\_\+\+BASEADDR}}~0x40004800\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a98f7a7a89ed0a98037caa7bd82d027e7}{USART4\+\_\+\+BASEADDR}}~0x40004\+C00\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a0fe016bdc6241abe115bb3a5b6f01c29}{USART5\+\_\+\+BASEADDR}}~0x40005000\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a52fc929735639d70b44dea7885bb01ff}{SPI2\+\_\+\+BASEADDR}}~0\+X40003800\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_ada16cf23d6a91088c447de485b616ed8}{SPI3\+\_\+\+BASEADDR}}~0\+X40003\+C00\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_ad389e516cff9dd84a9b04685b391b8fe}{SYSCFG\+\_\+\+BASEADDR}}~0\+X40013800\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a9ce143f4fc043361dc774d877c672f0d}{EXTI\+\_\+\+BASEADDR}}~0\+X40013\+C00\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a4ccf21b5f54c80b031bff13956af2018}{USART1\+\_\+\+BASEADDR}}~0\+X40011000\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a849c1342a2b7b4126c4a3b638c903c29}{USART6\+\_\+\+BASEADDR}}~0\+X40011400\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a64992f19fed3a459eb91f519c06b3427}{SPI1\+\_\+\+BASEADDR}}~0\+X40013000\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a8370319e63d6c3a62ce4f0539ebe2b68}{SPI4\+\_\+\+BASEADDR}}~0\+X40013400\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a3afdbef526b79ce12092b3d70f232328}{SYSTIC\+\_\+\+BASEADDR}}~0\+XE000\+E010\+UL
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}~((\doxymbox{\hyperlink{structSYSTIC__RegDef__t}{SYSTIC\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a3afdbef526b79ce12092b3d70f232328}{SYSTIC\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a979d8bdf1fee96914aa697664b3cc1ce}{MDMA1}}~((\doxymbox{\hyperlink{structDMA__REGDEF__t}{DMA\+\_\+\+REGDEF\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a489420976747e7bcf241e2a9bb6cd138}{DMA1\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a23dba18604da608d963a7d0d2f2e07a8}{MDMA2}}~((\doxymbox{\hyperlink{structDMA__REGDEF__t}{DMA\+\_\+\+REGDEF\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_ac3883cd723aa62055a055104bb3f6890}{DMA2\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_aef26793e8da8ae0f978071e519b95a98}{MSPI1}}~((\doxymbox{\hyperlink{structSPI__RegDef__t}{SPI\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a64992f19fed3a459eb91f519c06b3427}{SPI1\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a3a0b50a712a207cfe1591e042e354b40}{MSPI2}}~((\doxymbox{\hyperlink{structSPI__RegDef__t}{SPI\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a52fc929735639d70b44dea7885bb01ff}{SPI2\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a5176ad296ec37851a317895e592225c8}{MSPI3}}~((\doxymbox{\hyperlink{structSPI__RegDef__t}{SPI\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_ada16cf23d6a91088c447de485b616ed8}{SPI3\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_aba6db3bf8d7ccd3f31795fcff7bd17a1}{MSPI4}}~((\doxymbox{\hyperlink{structSPI__RegDef__t}{SPI\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a8370319e63d6c3a62ce4f0539ebe2b68}{SPI4\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a5592a87b609cf093eb988459b69071ce}{MNVIC}}~((\doxymbox{\hyperlink{structNVIC__RegDef__t}{NVIC\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a01d5d6d14e5ddc3602597f71315ef112}{NVIC\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_af6850b06a42624be83a68462a7be5e12}{MGPIOA}}~((\doxymbox{\hyperlink{structGPIO__REGDEF__t}{GPIO\+\_\+\+REGDEF\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a3e615727451fa1abc89e436a7158d4aa}{GPIOA\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_abe05d406fedc633b59c450f2a33b2daf}{MGPIOB}}~((\doxymbox{\hyperlink{structGPIO__REGDEF__t}{GPIO\+\_\+\+REGDEF\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a583cafe206b45c6e3507b0493b96bdf0}{GPIOB\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a86afa157c87ffee58eadc07c173acd3d}{MGPIOC}}~((\doxymbox{\hyperlink{structGPIO__REGDEF__t}{GPIO\+\_\+\+REGDEF\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a05e89040a5ad3c3e5f5bbd62b434512b}{GPIOC\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_aa8e1edc7576e162af0842453dcca1f83}{MGPIOD}}~((\doxymbox{\hyperlink{structGPIO__REGDEF__t}{GPIO\+\_\+\+REGDEF\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a807336d6c75feb8d0e943d618b5eaf26}{GPIOD\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_ac06cc433a06b25055ff908e11cf37d44}{MGPIOE}}~((\doxymbox{\hyperlink{structGPIO__REGDEF__t}{GPIO\+\_\+\+REGDEF\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_ac248e8d8a7113113481c2abb31d7660a}{GPIOE\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a012e799ad11bc8bc642b351d1f38653e}{MGPIOF}}~((\doxymbox{\hyperlink{structGPIO__REGDEF__t}{GPIO\+\_\+\+REGDEF\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a5f0323ec1e9720a76beebf3081bad9dc}{GPIOF\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_ad803338b64ed6061cf02a3690ceccd3e}{MGPIOG}}~((\doxymbox{\hyperlink{structGPIO__REGDEF__t}{GPIO\+\_\+\+REGDEF\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a90f006630c69a7540d8b0b1c0073f3d2}{GPIOG\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a8bd94bebe51f97e4e077768972e16324}{MGPIOH}}~((\doxymbox{\hyperlink{structGPIO__REGDEF__t}{GPIO\+\_\+\+REGDEF\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a63f9598aea50d8c995a9037578bb0907}{GPIOH\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}~((\doxymbox{\hyperlink{structRCC__RegDef__t}{RCC\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a89610f202a9f78bcc85f76c5ba52d009}{RCC\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_ad64f4ba7787546fc107c2c2993554e91}{MSCB}}~((\doxymbox{\hyperlink{structSCB__RegDef__t}{SCB\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_afd26e1e406073dbe90566bacb7f55cd9}{SCB\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a531c08f5a73855527d044114a066fbb4}{MSYSCFG}}~((\doxymbox{\hyperlink{structSYSCFG__RegDef__t}{SYSCFG\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_ad389e516cff9dd84a9b04685b391b8fe}{SYSCFG\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_ade59853bea97901ef8816f8d8623cdf2}{MEXTI}}~((\doxymbox{\hyperlink{structEXTI__RegDef__t}{EXTI\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a9ce143f4fc043361dc774d877c672f0d}{EXTI\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_aedcc55b2b529aaf2b86136929704f0ea}{MUSART1}}~((\doxymbox{\hyperlink{structUSART__RegDef__t}{USART\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a4ccf21b5f54c80b031bff13956af2018}{USART1\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a018e2195978a9cc353c790033d1c7a0a}{MUSART2}}~((\doxymbox{\hyperlink{structUSART__RegDef__t}{USART\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a9e2d543dd90e725020d1f4b2ae3a0cdc}{USART2\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_abe2a71d95cee15a1aa29fd73426458dc}{MUSART3}}~((\doxymbox{\hyperlink{structUSART__RegDef__t}{USART\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a44b4b63dcc1dedbd81fc2679c1d6c357}{USART3\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_aaef3695b9d2a750bc616b20ba7d93dc9}{MUSART4}}~((\doxymbox{\hyperlink{structUSART__RegDef__t}{USART\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a98f7a7a89ed0a98037caa7bd82d027e7}{USART4\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_ae3fa87ee6d44f18319fad998888b6cbb}{MUSART5}}~((\doxymbox{\hyperlink{structUSART__RegDef__t}{USART\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a0fe016bdc6241abe115bb3a5b6f01c29}{USART5\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a258613d2640e98dc10dd39944e6d87a5}{MUSART6}}~((\doxymbox{\hyperlink{structUSART__RegDef__t}{USART\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a849c1342a2b7b4126c4a3b638c903c29}{USART6\+\_\+\+BASEADDR}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_af8aa324ca5011b8173ab16585ed7324a}{TIM1\+\_\+\+BASE}}~(0x40010000\+UL)
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a00d0fe6ad532ab32f0f81cafca8d3aa5}{TIM2\+\_\+\+BASE}}~(0x40000000\+UL)
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_af0c34a518f87e1e505cd2332e989564a}{TIM3\+\_\+\+BASE}}~(0x40000400\+UL)
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a56e2d44b0002f316527b8913866a370d}{TIM4\+\_\+\+BASE}}~(0x40000800\+UL)
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a3e1671477190d065ba7c944558336d7e}{TIM5\+\_\+\+BASE}}~(0x40000\+C00\+UL)
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a8268ec947929f192559f28c6bf7d1eac}{TIM6\+\_\+\+BASE}}~(0x40001000\+UL)
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a0ebf54364c6a2be6eb19ded6b18b6387}{TIM7\+\_\+\+BASE}}~(0x40001400\+UL)
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a5b72f698b7a048a6f9fcfe2efe5bc1db}{TIM8\+\_\+\+BASE}}~(0x40010400\+UL)
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a92ae902be7902560939223dd765ece08}{TIM9\+\_\+\+BASE}}~(0x40014000\+UL)
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a3eff32f3801db31fb4b61d5618cad54a}{TIM10\+\_\+\+BASE}}~(0x40014400\+UL)
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a3a4a06bb84c703084f0509e105ffaf1d}{TIM11\+\_\+\+BASE}}~(0x40014800\+UL)
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a33dea32fadbaecea161c2ef7927992fd}{TIM12\+\_\+\+BASE}}~(0x40001800\+UL)
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_ad20f79948e9359125a40bbf6ed063590}{TIM13\+\_\+\+BASE}}~(0x40001\+C00\+UL)
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a862855347d6e1d92730dfe17ee8e90b8}{TIM14\+\_\+\+BASE}}~(0x40002000\+UL)
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a2e87451fea8dc9380056d3cfc5ed81fb}{TIM1}}~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_af8aa324ca5011b8173ab16585ed7324a}{TIM1\+\_\+\+BASE}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a3cfac9f2e43673f790f8668d48b4b92b}{TIM2}}~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a00d0fe6ad532ab32f0f81cafca8d3aa5}{TIM2\+\_\+\+BASE}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a61ee4c391385607d7af432b63905fcc9}{TIM3}}~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_af0c34a518f87e1e505cd2332e989564a}{TIM3\+\_\+\+BASE}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a91a09bad8bdc7a1cb3d85cf49c94c8ec}{TIM4}}~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a56e2d44b0002f316527b8913866a370d}{TIM4\+\_\+\+BASE}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a5125ff6a23a2ed66e2e19bd196128c14}{TIM5}}~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a3e1671477190d065ba7c944558336d7e}{TIM5\+\_\+\+BASE}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_ac7b4ed55f9201b498b38c962cca97314}{TIM6}}~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a8268ec947929f192559f28c6bf7d1eac}{TIM6\+\_\+\+BASE}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a49267c49946fd61db6af8b49bcf16394}{TIM7}}~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a0ebf54364c6a2be6eb19ded6b18b6387}{TIM7\+\_\+\+BASE}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a9a3660400b17735e91331f256095810e}{TIM8}}~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a5b72f698b7a048a6f9fcfe2efe5bc1db}{TIM8\+\_\+\+BASE}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_af52b4b4c36110a0addfa98059f54a50e}{TIM9}}~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a92ae902be7902560939223dd765ece08}{TIM9\+\_\+\+BASE}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a46b2ad3f5f506f0f8df0d2ec3e767267}{TIM10}}~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a3eff32f3801db31fb4b61d5618cad54a}{TIM10\+\_\+\+BASE}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_acfd11ef966c7165f57e2cebe0abc71ad}{TIM11}}~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a3a4a06bb84c703084f0509e105ffaf1d}{TIM11\+\_\+\+BASE}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a2397f8a0f8e7aa10cf8e8c049e431e53}{TIM12}}~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a33dea32fadbaecea161c2ef7927992fd}{TIM12\+\_\+\+BASE}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a5a959a833074d59bf6cc7fb437c65b18}{TIM13}}~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_ad20f79948e9359125a40bbf6ed063590}{TIM13\+\_\+\+BASE}})
+\item 
+\+\#define \doxymbox{\hyperlink{System_2STM32F446xx_8h_a2dd30f46fad69dd73e1d8941a43daffe}{TIM14}}~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a862855347d6e1d92730dfe17ee8e90b8}{TIM14\+\_\+\+BASE}})
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{System_2STM32F446xx_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{System_2STM32F446xx_8h_a489420976747e7bcf241e2a9bb6cd138}\index{STM32F446xx.h@{STM32F446xx.h}!DMA1\_BASEADDR@{DMA1\_BASEADDR}}
+\index{DMA1\_BASEADDR@{DMA1\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{DMA1\_BASEADDR}{DMA1\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a489420976747e7bcf241e2a9bb6cd138} 
+\+\#define DMA1\+\_\+\+BASEADDR~0\+X40026000\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00048}{48}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_ac3883cd723aa62055a055104bb3f6890}\index{STM32F446xx.h@{STM32F446xx.h}!DMA2\_BASEADDR@{DMA2\_BASEADDR}}
+\index{DMA2\_BASEADDR@{DMA2\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{DMA2\_BASEADDR}{DMA2\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_ac3883cd723aa62055a055104bb3f6890} 
+\+\#define DMA2\+\_\+\+BASEADDR~0\+X40026400\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00049}{49}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a9ce143f4fc043361dc774d877c672f0d}\index{STM32F446xx.h@{STM32F446xx.h}!EXTI\_BASEADDR@{EXTI\_BASEADDR}}
+\index{EXTI\_BASEADDR@{EXTI\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{EXTI\_BASEADDR}{EXTI\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a9ce143f4fc043361dc774d877c672f0d} 
+\+\#define EXTI\+\_\+\+BASEADDR~0\+X40013\+C00\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00069}{69}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_af6863e7094aca292453684fa2af16686}\index{STM32F446xx.h@{STM32F446xx.h}!FLASH\_BASEADDR@{FLASH\_BASEADDR}}
+\index{FLASH\_BASEADDR@{FLASH\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{FLASH\_BASEADDR}{FLASH\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_af6863e7094aca292453684fa2af16686} 
+\+\#define FLASH\+\_\+\+BASEADDR~0x08000000\+UL}
+
+===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} STM32\+F446xx.\+h \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Abdelmoemen Shehawey \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ LIB \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} CPU :\+ Cortex-\/\+M4 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} MCU :\+ NUCLEO-\/\+F446\+RE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SWC :\+ STM32\+F446xx \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} 
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00021}{21}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a3e615727451fa1abc89e436a7158d4aa}\index{STM32F446xx.h@{STM32F446xx.h}!GPIOA\_BASEADDR@{GPIOA\_BASEADDR}}
+\index{GPIOA\_BASEADDR@{GPIOA\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{GPIOA\_BASEADDR}{GPIOA\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a3e615727451fa1abc89e436a7158d4aa} 
+\+\#define GPIOA\+\_\+\+BASEADDR~0\+X40020000\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00035}{35}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a583cafe206b45c6e3507b0493b96bdf0}\index{STM32F446xx.h@{STM32F446xx.h}!GPIOB\_BASEADDR@{GPIOB\_BASEADDR}}
+\index{GPIOB\_BASEADDR@{GPIOB\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{GPIOB\_BASEADDR}{GPIOB\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a583cafe206b45c6e3507b0493b96bdf0} 
+\+\#define GPIOB\+\_\+\+BASEADDR~0\+X40020400\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00036}{36}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a05e89040a5ad3c3e5f5bbd62b434512b}\index{STM32F446xx.h@{STM32F446xx.h}!GPIOC\_BASEADDR@{GPIOC\_BASEADDR}}
+\index{GPIOC\_BASEADDR@{GPIOC\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{GPIOC\_BASEADDR}{GPIOC\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a05e89040a5ad3c3e5f5bbd62b434512b} 
+\+\#define GPIOC\+\_\+\+BASEADDR~0\+X40020800\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00037}{37}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a807336d6c75feb8d0e943d618b5eaf26}\index{STM32F446xx.h@{STM32F446xx.h}!GPIOD\_BASEADDR@{GPIOD\_BASEADDR}}
+\index{GPIOD\_BASEADDR@{GPIOD\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{GPIOD\_BASEADDR}{GPIOD\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a807336d6c75feb8d0e943d618b5eaf26} 
+\+\#define GPIOD\+\_\+\+BASEADDR~0\+X40020\+C00\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00038}{38}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_ac248e8d8a7113113481c2abb31d7660a}\index{STM32F446xx.h@{STM32F446xx.h}!GPIOE\_BASEADDR@{GPIOE\_BASEADDR}}
+\index{GPIOE\_BASEADDR@{GPIOE\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{GPIOE\_BASEADDR}{GPIOE\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_ac248e8d8a7113113481c2abb31d7660a} 
+\+\#define GPIOE\+\_\+\+BASEADDR~0\+X40021000\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00039}{39}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a5f0323ec1e9720a76beebf3081bad9dc}\index{STM32F446xx.h@{STM32F446xx.h}!GPIOF\_BASEADDR@{GPIOF\_BASEADDR}}
+\index{GPIOF\_BASEADDR@{GPIOF\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{GPIOF\_BASEADDR}{GPIOF\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a5f0323ec1e9720a76beebf3081bad9dc} 
+\+\#define GPIOF\+\_\+\+BASEADDR~0\+X40021400\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00040}{40}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a90f006630c69a7540d8b0b1c0073f3d2}\index{STM32F446xx.h@{STM32F446xx.h}!GPIOG\_BASEADDR@{GPIOG\_BASEADDR}}
+\index{GPIOG\_BASEADDR@{GPIOG\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{GPIOG\_BASEADDR}{GPIOG\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a90f006630c69a7540d8b0b1c0073f3d2} 
+\+\#define GPIOG\+\_\+\+BASEADDR~0\+X40021800\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00041}{41}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a63f9598aea50d8c995a9037578bb0907}\index{STM32F446xx.h@{STM32F446xx.h}!GPIOH\_BASEADDR@{GPIOH\_BASEADDR}}
+\index{GPIOH\_BASEADDR@{GPIOH\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{GPIOH\_BASEADDR}{GPIOH\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a63f9598aea50d8c995a9037578bb0907} 
+\+\#define GPIOH\+\_\+\+BASEADDR~0\+X40021\+C00\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00042}{42}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a979d8bdf1fee96914aa697664b3cc1ce}\index{STM32F446xx.h@{STM32F446xx.h}!MDMA1@{MDMA1}}
+\index{MDMA1@{MDMA1}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MDMA1}{MDMA1}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a979d8bdf1fee96914aa697664b3cc1ce} 
+\+\#define MDMA1~((\doxymbox{\hyperlink{structDMA__REGDEF__t}{DMA\+\_\+\+REGDEF\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a489420976747e7bcf241e2a9bb6cd138}{DMA1\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00127}{127}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a23dba18604da608d963a7d0d2f2e07a8}\index{STM32F446xx.h@{STM32F446xx.h}!MDMA2@{MDMA2}}
+\index{MDMA2@{MDMA2}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MDMA2}{MDMA2}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a23dba18604da608d963a7d0d2f2e07a8} 
+\+\#define MDMA2~((\doxymbox{\hyperlink{structDMA__REGDEF__t}{DMA\+\_\+\+REGDEF\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_ac3883cd723aa62055a055104bb3f6890}{DMA2\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00128}{128}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_ade59853bea97901ef8816f8d8623cdf2}\index{STM32F446xx.h@{STM32F446xx.h}!MEXTI@{MEXTI}}
+\index{MEXTI@{MEXTI}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MEXTI}{MEXTI}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_ade59853bea97901ef8816f8d8623cdf2} 
+\+\#define MEXTI~((\doxymbox{\hyperlink{structEXTI__RegDef__t}{EXTI\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a9ce143f4fc043361dc774d877c672f0d}{EXTI\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00300}{300}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_af6850b06a42624be83a68462a7be5e12}\index{STM32F446xx.h@{STM32F446xx.h}!MGPIOA@{MGPIOA}}
+\index{MGPIOA@{MGPIOA}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MGPIOA}{MGPIOA}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_af6850b06a42624be83a68462a7be5e12} 
+\+\#define MGPIOA~((\doxymbox{\hyperlink{structGPIO__REGDEF__t}{GPIO\+\_\+\+REGDEF\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a3e615727451fa1abc89e436a7158d4aa}{GPIOA\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00232}{232}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_abe05d406fedc633b59c450f2a33b2daf}\index{STM32F446xx.h@{STM32F446xx.h}!MGPIOB@{MGPIOB}}
+\index{MGPIOB@{MGPIOB}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MGPIOB}{MGPIOB}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_abe05d406fedc633b59c450f2a33b2daf} 
+\+\#define MGPIOB~((\doxymbox{\hyperlink{structGPIO__REGDEF__t}{GPIO\+\_\+\+REGDEF\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a583cafe206b45c6e3507b0493b96bdf0}{GPIOB\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00233}{233}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a86afa157c87ffee58eadc07c173acd3d}\index{STM32F446xx.h@{STM32F446xx.h}!MGPIOC@{MGPIOC}}
+\index{MGPIOC@{MGPIOC}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MGPIOC}{MGPIOC}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a86afa157c87ffee58eadc07c173acd3d} 
+\+\#define MGPIOC~((\doxymbox{\hyperlink{structGPIO__REGDEF__t}{GPIO\+\_\+\+REGDEF\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a05e89040a5ad3c3e5f5bbd62b434512b}{GPIOC\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00234}{234}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_aa8e1edc7576e162af0842453dcca1f83}\index{STM32F446xx.h@{STM32F446xx.h}!MGPIOD@{MGPIOD}}
+\index{MGPIOD@{MGPIOD}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MGPIOD}{MGPIOD}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_aa8e1edc7576e162af0842453dcca1f83} 
+\+\#define MGPIOD~((\doxymbox{\hyperlink{structGPIO__REGDEF__t}{GPIO\+\_\+\+REGDEF\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a807336d6c75feb8d0e943d618b5eaf26}{GPIOD\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00235}{235}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_ac06cc433a06b25055ff908e11cf37d44}\index{STM32F446xx.h@{STM32F446xx.h}!MGPIOE@{MGPIOE}}
+\index{MGPIOE@{MGPIOE}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MGPIOE}{MGPIOE}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_ac06cc433a06b25055ff908e11cf37d44} 
+\+\#define MGPIOE~((\doxymbox{\hyperlink{structGPIO__REGDEF__t}{GPIO\+\_\+\+REGDEF\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_ac248e8d8a7113113481c2abb31d7660a}{GPIOE\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00236}{236}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a012e799ad11bc8bc642b351d1f38653e}\index{STM32F446xx.h@{STM32F446xx.h}!MGPIOF@{MGPIOF}}
+\index{MGPIOF@{MGPIOF}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MGPIOF}{MGPIOF}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a012e799ad11bc8bc642b351d1f38653e} 
+\+\#define MGPIOF~((\doxymbox{\hyperlink{structGPIO__REGDEF__t}{GPIO\+\_\+\+REGDEF\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a5f0323ec1e9720a76beebf3081bad9dc}{GPIOF\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00237}{237}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_ad803338b64ed6061cf02a3690ceccd3e}\index{STM32F446xx.h@{STM32F446xx.h}!MGPIOG@{MGPIOG}}
+\index{MGPIOG@{MGPIOG}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MGPIOG}{MGPIOG}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_ad803338b64ed6061cf02a3690ceccd3e} 
+\+\#define MGPIOG~((\doxymbox{\hyperlink{structGPIO__REGDEF__t}{GPIO\+\_\+\+REGDEF\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a90f006630c69a7540d8b0b1c0073f3d2}{GPIOG\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00238}{238}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a8bd94bebe51f97e4e077768972e16324}\index{STM32F446xx.h@{STM32F446xx.h}!MGPIOH@{MGPIOH}}
+\index{MGPIOH@{MGPIOH}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MGPIOH}{MGPIOH}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a8bd94bebe51f97e4e077768972e16324} 
+\+\#define MGPIOH~((\doxymbox{\hyperlink{structGPIO__REGDEF__t}{GPIO\+\_\+\+REGDEF\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a63f9598aea50d8c995a9037578bb0907}{GPIOH\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00239}{239}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a5592a87b609cf093eb988459b69071ce}\index{STM32F446xx.h@{STM32F446xx.h}!MNVIC@{MNVIC}}
+\index{MNVIC@{MNVIC}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MNVIC}{MNVIC}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a5592a87b609cf093eb988459b69071ce} 
+\+\#define MNVIC~((\doxymbox{\hyperlink{structNVIC__RegDef__t}{NVIC\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a01d5d6d14e5ddc3602597f71315ef112}{NVIC\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00227}{227}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}\index{STM32F446xx.h@{STM32F446xx.h}!MRCC@{MRCC}}
+\index{MRCC@{MRCC}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MRCC}{MRCC}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc} 
+\+\#define MRCC~((\doxymbox{\hyperlink{structRCC__RegDef__t}{RCC\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a89610f202a9f78bcc85f76c5ba52d009}{RCC\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00244}{244}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_ad64f4ba7787546fc107c2c2993554e91}\index{STM32F446xx.h@{STM32F446xx.h}!MSCB@{MSCB}}
+\index{MSCB@{MSCB}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MSCB}{MSCB}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_ad64f4ba7787546fc107c2c2993554e91} 
+\+\#define MSCB~((\doxymbox{\hyperlink{structSCB__RegDef__t}{SCB\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_afd26e1e406073dbe90566bacb7f55cd9}{SCB\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00272}{272}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_aef26793e8da8ae0f978071e519b95a98}\index{STM32F446xx.h@{STM32F446xx.h}!MSPI1@{MSPI1}}
+\index{MSPI1@{MSPI1}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MSPI1}{MSPI1}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_aef26793e8da8ae0f978071e519b95a98} 
+\+\#define MSPI1~((\doxymbox{\hyperlink{structSPI__RegDef__t}{SPI\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a64992f19fed3a459eb91f519c06b3427}{SPI1\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00204}{204}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a3a0b50a712a207cfe1591e042e354b40}\index{STM32F446xx.h@{STM32F446xx.h}!MSPI2@{MSPI2}}
+\index{MSPI2@{MSPI2}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MSPI2}{MSPI2}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a3a0b50a712a207cfe1591e042e354b40} 
+\+\#define MSPI2~((\doxymbox{\hyperlink{structSPI__RegDef__t}{SPI\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a52fc929735639d70b44dea7885bb01ff}{SPI2\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00205}{205}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a5176ad296ec37851a317895e592225c8}\index{STM32F446xx.h@{STM32F446xx.h}!MSPI3@{MSPI3}}
+\index{MSPI3@{MSPI3}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MSPI3}{MSPI3}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a5176ad296ec37851a317895e592225c8} 
+\+\#define MSPI3~((\doxymbox{\hyperlink{structSPI__RegDef__t}{SPI\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_ada16cf23d6a91088c447de485b616ed8}{SPI3\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00206}{206}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_aba6db3bf8d7ccd3f31795fcff7bd17a1}\index{STM32F446xx.h@{STM32F446xx.h}!MSPI4@{MSPI4}}
+\index{MSPI4@{MSPI4}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MSPI4}{MSPI4}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_aba6db3bf8d7ccd3f31795fcff7bd17a1} 
+\+\#define MSPI4~((\doxymbox{\hyperlink{structSPI__RegDef__t}{SPI\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a8370319e63d6c3a62ce4f0539ebe2b68}{SPI4\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00207}{207}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a531c08f5a73855527d044114a066fbb4}\index{STM32F446xx.h@{STM32F446xx.h}!MSYSCFG@{MSYSCFG}}
+\index{MSYSCFG@{MSYSCFG}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MSYSCFG}{MSYSCFG}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a531c08f5a73855527d044114a066fbb4} 
+\+\#define MSYSCFG~((\doxymbox{\hyperlink{structSYSCFG__RegDef__t}{SYSCFG\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_ad389e516cff9dd84a9b04685b391b8fe}{SYSCFG\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00287}{287}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}\index{STM32F446xx.h@{STM32F446xx.h}!MSYSTIC@{MSYSTIC}}
+\index{MSYSTIC@{MSYSTIC}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MSYSTIC}{MSYSTIC}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07} 
+\+\#define MSYSTIC~((\doxymbox{\hyperlink{structSYSTIC__RegDef__t}{SYSTIC\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a3afdbef526b79ce12092b3d70f232328}{SYSTIC\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00094}{94}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_aedcc55b2b529aaf2b86136929704f0ea}\index{STM32F446xx.h@{STM32F446xx.h}!MUSART1@{MUSART1}}
+\index{MUSART1@{MUSART1}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MUSART1}{MUSART1}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_aedcc55b2b529aaf2b86136929704f0ea} 
+\+\#define MUSART1~((\doxymbox{\hyperlink{structUSART__RegDef__t}{USART\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a4ccf21b5f54c80b031bff13956af2018}{USART1\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00318}{318}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a018e2195978a9cc353c790033d1c7a0a}\index{STM32F446xx.h@{STM32F446xx.h}!MUSART2@{MUSART2}}
+\index{MUSART2@{MUSART2}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MUSART2}{MUSART2}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a018e2195978a9cc353c790033d1c7a0a} 
+\+\#define MUSART2~((\doxymbox{\hyperlink{structUSART__RegDef__t}{USART\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a9e2d543dd90e725020d1f4b2ae3a0cdc}{USART2\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00319}{319}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_abe2a71d95cee15a1aa29fd73426458dc}\index{STM32F446xx.h@{STM32F446xx.h}!MUSART3@{MUSART3}}
+\index{MUSART3@{MUSART3}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MUSART3}{MUSART3}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_abe2a71d95cee15a1aa29fd73426458dc} 
+\+\#define MUSART3~((\doxymbox{\hyperlink{structUSART__RegDef__t}{USART\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a44b4b63dcc1dedbd81fc2679c1d6c357}{USART3\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00320}{320}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_aaef3695b9d2a750bc616b20ba7d93dc9}\index{STM32F446xx.h@{STM32F446xx.h}!MUSART4@{MUSART4}}
+\index{MUSART4@{MUSART4}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MUSART4}{MUSART4}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_aaef3695b9d2a750bc616b20ba7d93dc9} 
+\+\#define MUSART4~((\doxymbox{\hyperlink{structUSART__RegDef__t}{USART\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a98f7a7a89ed0a98037caa7bd82d027e7}{USART4\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00321}{321}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_ae3fa87ee6d44f18319fad998888b6cbb}\index{STM32F446xx.h@{STM32F446xx.h}!MUSART5@{MUSART5}}
+\index{MUSART5@{MUSART5}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MUSART5}{MUSART5}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_ae3fa87ee6d44f18319fad998888b6cbb} 
+\+\#define MUSART5~((\doxymbox{\hyperlink{structUSART__RegDef__t}{USART\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a0fe016bdc6241abe115bb3a5b6f01c29}{USART5\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00322}{322}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a258613d2640e98dc10dd39944e6d87a5}\index{STM32F446xx.h@{STM32F446xx.h}!MUSART6@{MUSART6}}
+\index{MUSART6@{MUSART6}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{MUSART6}{MUSART6}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a258613d2640e98dc10dd39944e6d87a5} 
+\+\#define MUSART6~((\doxymbox{\hyperlink{structUSART__RegDef__t}{USART\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a849c1342a2b7b4126c4a3b638c903c29}{USART6\+\_\+\+BASEADDR}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00323}{323}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a01d5d6d14e5ddc3602597f71315ef112}\index{STM32F446xx.h@{STM32F446xx.h}!NVIC\_BASEADDR@{NVIC\_BASEADDR}}
+\index{NVIC\_BASEADDR@{NVIC\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{NVIC\_BASEADDR}{NVIC\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a01d5d6d14e5ddc3602597f71315ef112} 
+\+\#define NVIC\+\_\+\+BASEADDR~0\+XE000\+E100\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00027}{27}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a89610f202a9f78bcc85f76c5ba52d009}\index{STM32F446xx.h@{STM32F446xx.h}!RCC\_BASEADDR@{RCC\_BASEADDR}}
+\index{RCC\_BASEADDR@{RCC\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{RCC\_BASEADDR}{RCC\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a89610f202a9f78bcc85f76c5ba52d009} 
+\+\#define RCC\+\_\+\+BASEADDR~0x40023800\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00044}{44}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a548ca9ecc4b62f701800110d155a05dc}\index{STM32F446xx.h@{STM32F446xx.h}!ROM\_BASEADDR@{ROM\_BASEADDR}}
+\index{ROM\_BASEADDR@{ROM\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{ROM\_BASEADDR}{ROM\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a548ca9ecc4b62f701800110d155a05dc} 
+\+\#define ROM\+\_\+\+BASEADDR~0x1\+FFF0000\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00023}{23}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_afd26e1e406073dbe90566bacb7f55cd9}\index{STM32F446xx.h@{STM32F446xx.h}!SCB\_BASEADDR@{SCB\_BASEADDR}}
+\index{SCB\_BASEADDR@{SCB\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{SCB\_BASEADDR}{SCB\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_afd26e1e406073dbe90566bacb7f55cd9} 
+\+\#define SCB\+\_\+\+BASEADDR~0\+XE000\+ED00\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00031}{31}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a64992f19fed3a459eb91f519c06b3427}\index{STM32F446xx.h@{STM32F446xx.h}!SPI1\_BASEADDR@{SPI1\_BASEADDR}}
+\index{SPI1\_BASEADDR@{SPI1\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{SPI1\_BASEADDR}{SPI1\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a64992f19fed3a459eb91f519c06b3427} 
+\+\#define SPI1\+\_\+\+BASEADDR~0\+X40013000\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00072}{72}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a52fc929735639d70b44dea7885bb01ff}\index{STM32F446xx.h@{STM32F446xx.h}!SPI2\_BASEADDR@{SPI2\_BASEADDR}}
+\index{SPI2\_BASEADDR@{SPI2\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{SPI2\_BASEADDR}{SPI2\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a52fc929735639d70b44dea7885bb01ff} 
+\+\#define SPI2\+\_\+\+BASEADDR~0\+X40003800\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00062}{62}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_ada16cf23d6a91088c447de485b616ed8}\index{STM32F446xx.h@{STM32F446xx.h}!SPI3\_BASEADDR@{SPI3\_BASEADDR}}
+\index{SPI3\_BASEADDR@{SPI3\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{SPI3\_BASEADDR}{SPI3\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_ada16cf23d6a91088c447de485b616ed8} 
+\+\#define SPI3\+\_\+\+BASEADDR~0\+X40003\+C00\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00063}{63}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a8370319e63d6c3a62ce4f0539ebe2b68}\index{STM32F446xx.h@{STM32F446xx.h}!SPI4\_BASEADDR@{SPI4\_BASEADDR}}
+\index{SPI4\_BASEADDR@{SPI4\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{SPI4\_BASEADDR}{SPI4\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a8370319e63d6c3a62ce4f0539ebe2b68} 
+\+\#define SPI4\+\_\+\+BASEADDR~0\+X40013400\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00073}{73}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_acce5bcdd78719c9f4a53cfc4ca0f6f42}\index{STM32F446xx.h@{STM32F446xx.h}!SRAM\_BASEADDR@{SRAM\_BASEADDR}}
+\index{SRAM\_BASEADDR@{SRAM\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{SRAM\_BASEADDR}{SRAM\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_acce5bcdd78719c9f4a53cfc4ca0f6f42} 
+\+\#define SRAM\+\_\+\+BASEADDR~0x20000000\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00022}{22}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_ad389e516cff9dd84a9b04685b391b8fe}\index{STM32F446xx.h@{STM32F446xx.h}!SYSCFG\_BASEADDR@{SYSCFG\_BASEADDR}}
+\index{SYSCFG\_BASEADDR@{SYSCFG\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{SYSCFG\_BASEADDR}{SYSCFG\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_ad389e516cff9dd84a9b04685b391b8fe} 
+\+\#define SYSCFG\+\_\+\+BASEADDR~0\+X40013800\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00068}{68}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a3afdbef526b79ce12092b3d70f232328}\index{STM32F446xx.h@{STM32F446xx.h}!SYSTIC\_BASEADDR@{SYSTIC\_BASEADDR}}
+\index{SYSTIC\_BASEADDR@{SYSTIC\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{SYSTIC\_BASEADDR}{SYSTIC\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a3afdbef526b79ce12092b3d70f232328} 
+\+\#define SYSTIC\+\_\+\+BASEADDR~0\+XE000\+E010\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00081}{81}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a2e87451fea8dc9380056d3cfc5ed81fb}\index{STM32F446xx.h@{STM32F446xx.h}!TIM1@{TIM1}}
+\index{TIM1@{TIM1}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM1}{TIM1}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a2e87451fea8dc9380056d3cfc5ed81fb} 
+\+\#define TIM1~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_af8aa324ca5011b8173ab16585ed7324a}{TIM1\+\_\+\+BASE}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00370}{370}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a46b2ad3f5f506f0f8df0d2ec3e767267}\index{STM32F446xx.h@{STM32F446xx.h}!TIM10@{TIM10}}
+\index{TIM10@{TIM10}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM10}{TIM10}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a46b2ad3f5f506f0f8df0d2ec3e767267} 
+\+\#define TIM10~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a3eff32f3801db31fb4b61d5618cad54a}{TIM10\+\_\+\+BASE}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00379}{379}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a3eff32f3801db31fb4b61d5618cad54a}\index{STM32F446xx.h@{STM32F446xx.h}!TIM10\_BASE@{TIM10\_BASE}}
+\index{TIM10\_BASE@{TIM10\_BASE}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM10\_BASE}{TIM10\_BASE}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a3eff32f3801db31fb4b61d5618cad54a} 
+\+\#define TIM10\+\_\+\+BASE~(0x40014400\+UL)}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00336}{336}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_acfd11ef966c7165f57e2cebe0abc71ad}\index{STM32F446xx.h@{STM32F446xx.h}!TIM11@{TIM11}}
+\index{TIM11@{TIM11}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM11}{TIM11}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_acfd11ef966c7165f57e2cebe0abc71ad} 
+\+\#define TIM11~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a3a4a06bb84c703084f0509e105ffaf1d}{TIM11\+\_\+\+BASE}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00380}{380}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a3a4a06bb84c703084f0509e105ffaf1d}\index{STM32F446xx.h@{STM32F446xx.h}!TIM11\_BASE@{TIM11\_BASE}}
+\index{TIM11\_BASE@{TIM11\_BASE}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM11\_BASE}{TIM11\_BASE}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a3a4a06bb84c703084f0509e105ffaf1d} 
+\+\#define TIM11\+\_\+\+BASE~(0x40014800\+UL)}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00337}{337}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a2397f8a0f8e7aa10cf8e8c049e431e53}\index{STM32F446xx.h@{STM32F446xx.h}!TIM12@{TIM12}}
+\index{TIM12@{TIM12}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM12}{TIM12}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a2397f8a0f8e7aa10cf8e8c049e431e53} 
+\+\#define TIM12~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a33dea32fadbaecea161c2ef7927992fd}{TIM12\+\_\+\+BASE}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00381}{381}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a33dea32fadbaecea161c2ef7927992fd}\index{STM32F446xx.h@{STM32F446xx.h}!TIM12\_BASE@{TIM12\_BASE}}
+\index{TIM12\_BASE@{TIM12\_BASE}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM12\_BASE}{TIM12\_BASE}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a33dea32fadbaecea161c2ef7927992fd} 
+\+\#define TIM12\+\_\+\+BASE~(0x40001800\+UL)}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00338}{338}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a5a959a833074d59bf6cc7fb437c65b18}\index{STM32F446xx.h@{STM32F446xx.h}!TIM13@{TIM13}}
+\index{TIM13@{TIM13}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM13}{TIM13}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a5a959a833074d59bf6cc7fb437c65b18} 
+\+\#define TIM13~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_ad20f79948e9359125a40bbf6ed063590}{TIM13\+\_\+\+BASE}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00382}{382}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_ad20f79948e9359125a40bbf6ed063590}\index{STM32F446xx.h@{STM32F446xx.h}!TIM13\_BASE@{TIM13\_BASE}}
+\index{TIM13\_BASE@{TIM13\_BASE}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM13\_BASE}{TIM13\_BASE}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_ad20f79948e9359125a40bbf6ed063590} 
+\+\#define TIM13\+\_\+\+BASE~(0x40001\+C00\+UL)}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00339}{339}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a2dd30f46fad69dd73e1d8941a43daffe}\index{STM32F446xx.h@{STM32F446xx.h}!TIM14@{TIM14}}
+\index{TIM14@{TIM14}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM14}{TIM14}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a2dd30f46fad69dd73e1d8941a43daffe} 
+\+\#define TIM14~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a862855347d6e1d92730dfe17ee8e90b8}{TIM14\+\_\+\+BASE}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00383}{383}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a862855347d6e1d92730dfe17ee8e90b8}\index{STM32F446xx.h@{STM32F446xx.h}!TIM14\_BASE@{TIM14\_BASE}}
+\index{TIM14\_BASE@{TIM14\_BASE}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM14\_BASE}{TIM14\_BASE}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a862855347d6e1d92730dfe17ee8e90b8} 
+\+\#define TIM14\+\_\+\+BASE~(0x40002000\+UL)}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00340}{340}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_af8aa324ca5011b8173ab16585ed7324a}\index{STM32F446xx.h@{STM32F446xx.h}!TIM1\_BASE@{TIM1\_BASE}}
+\index{TIM1\_BASE@{TIM1\_BASE}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM1\_BASE}{TIM1\_BASE}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_af8aa324ca5011b8173ab16585ed7324a} 
+\+\#define TIM1\+\_\+\+BASE~(0x40010000\+UL)}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00327}{327}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a3cfac9f2e43673f790f8668d48b4b92b}\index{STM32F446xx.h@{STM32F446xx.h}!TIM2@{TIM2}}
+\index{TIM2@{TIM2}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM2}{TIM2}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a3cfac9f2e43673f790f8668d48b4b92b} 
+\+\#define TIM2~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a00d0fe6ad532ab32f0f81cafca8d3aa5}{TIM2\+\_\+\+BASE}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00371}{371}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a00d0fe6ad532ab32f0f81cafca8d3aa5}\index{STM32F446xx.h@{STM32F446xx.h}!TIM2\_BASE@{TIM2\_BASE}}
+\index{TIM2\_BASE@{TIM2\_BASE}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM2\_BASE}{TIM2\_BASE}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a00d0fe6ad532ab32f0f81cafca8d3aa5} 
+\+\#define TIM2\+\_\+\+BASE~(0x40000000\+UL)}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00328}{328}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a61ee4c391385607d7af432b63905fcc9}\index{STM32F446xx.h@{STM32F446xx.h}!TIM3@{TIM3}}
+\index{TIM3@{TIM3}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM3}{TIM3}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a61ee4c391385607d7af432b63905fcc9} 
+\+\#define TIM3~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_af0c34a518f87e1e505cd2332e989564a}{TIM3\+\_\+\+BASE}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00372}{372}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_af0c34a518f87e1e505cd2332e989564a}\index{STM32F446xx.h@{STM32F446xx.h}!TIM3\_BASE@{TIM3\_BASE}}
+\index{TIM3\_BASE@{TIM3\_BASE}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM3\_BASE}{TIM3\_BASE}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_af0c34a518f87e1e505cd2332e989564a} 
+\+\#define TIM3\+\_\+\+BASE~(0x40000400\+UL)}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00329}{329}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a91a09bad8bdc7a1cb3d85cf49c94c8ec}\index{STM32F446xx.h@{STM32F446xx.h}!TIM4@{TIM4}}
+\index{TIM4@{TIM4}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM4}{TIM4}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a91a09bad8bdc7a1cb3d85cf49c94c8ec} 
+\+\#define TIM4~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a56e2d44b0002f316527b8913866a370d}{TIM4\+\_\+\+BASE}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00373}{373}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a56e2d44b0002f316527b8913866a370d}\index{STM32F446xx.h@{STM32F446xx.h}!TIM4\_BASE@{TIM4\_BASE}}
+\index{TIM4\_BASE@{TIM4\_BASE}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM4\_BASE}{TIM4\_BASE}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a56e2d44b0002f316527b8913866a370d} 
+\+\#define TIM4\+\_\+\+BASE~(0x40000800\+UL)}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00330}{330}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a5125ff6a23a2ed66e2e19bd196128c14}\index{STM32F446xx.h@{STM32F446xx.h}!TIM5@{TIM5}}
+\index{TIM5@{TIM5}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM5}{TIM5}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a5125ff6a23a2ed66e2e19bd196128c14} 
+\+\#define TIM5~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a3e1671477190d065ba7c944558336d7e}{TIM5\+\_\+\+BASE}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00374}{374}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a3e1671477190d065ba7c944558336d7e}\index{STM32F446xx.h@{STM32F446xx.h}!TIM5\_BASE@{TIM5\_BASE}}
+\index{TIM5\_BASE@{TIM5\_BASE}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM5\_BASE}{TIM5\_BASE}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a3e1671477190d065ba7c944558336d7e} 
+\+\#define TIM5\+\_\+\+BASE~(0x40000\+C00\+UL)}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00331}{331}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_ac7b4ed55f9201b498b38c962cca97314}\index{STM32F446xx.h@{STM32F446xx.h}!TIM6@{TIM6}}
+\index{TIM6@{TIM6}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM6}{TIM6}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_ac7b4ed55f9201b498b38c962cca97314} 
+\+\#define TIM6~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a8268ec947929f192559f28c6bf7d1eac}{TIM6\+\_\+\+BASE}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00375}{375}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a8268ec947929f192559f28c6bf7d1eac}\index{STM32F446xx.h@{STM32F446xx.h}!TIM6\_BASE@{TIM6\_BASE}}
+\index{TIM6\_BASE@{TIM6\_BASE}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM6\_BASE}{TIM6\_BASE}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a8268ec947929f192559f28c6bf7d1eac} 
+\+\#define TIM6\+\_\+\+BASE~(0x40001000\+UL)}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00332}{332}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a49267c49946fd61db6af8b49bcf16394}\index{STM32F446xx.h@{STM32F446xx.h}!TIM7@{TIM7}}
+\index{TIM7@{TIM7}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM7}{TIM7}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a49267c49946fd61db6af8b49bcf16394} 
+\+\#define TIM7~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a0ebf54364c6a2be6eb19ded6b18b6387}{TIM7\+\_\+\+BASE}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00376}{376}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a0ebf54364c6a2be6eb19ded6b18b6387}\index{STM32F446xx.h@{STM32F446xx.h}!TIM7\_BASE@{TIM7\_BASE}}
+\index{TIM7\_BASE@{TIM7\_BASE}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM7\_BASE}{TIM7\_BASE}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a0ebf54364c6a2be6eb19ded6b18b6387} 
+\+\#define TIM7\+\_\+\+BASE~(0x40001400\+UL)}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00333}{333}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a9a3660400b17735e91331f256095810e}\index{STM32F446xx.h@{STM32F446xx.h}!TIM8@{TIM8}}
+\index{TIM8@{TIM8}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM8}{TIM8}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a9a3660400b17735e91331f256095810e} 
+\+\#define TIM8~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a5b72f698b7a048a6f9fcfe2efe5bc1db}{TIM8\+\_\+\+BASE}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00377}{377}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a5b72f698b7a048a6f9fcfe2efe5bc1db}\index{STM32F446xx.h@{STM32F446xx.h}!TIM8\_BASE@{TIM8\_BASE}}
+\index{TIM8\_BASE@{TIM8\_BASE}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM8\_BASE}{TIM8\_BASE}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a5b72f698b7a048a6f9fcfe2efe5bc1db} 
+\+\#define TIM8\+\_\+\+BASE~(0x40010400\+UL)}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00334}{334}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_af52b4b4c36110a0addfa98059f54a50e}\index{STM32F446xx.h@{STM32F446xx.h}!TIM9@{TIM9}}
+\index{TIM9@{TIM9}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM9}{TIM9}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_af52b4b4c36110a0addfa98059f54a50e} 
+\+\#define TIM9~((\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*})\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a92ae902be7902560939223dd765ece08}{TIM9\+\_\+\+BASE}})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00378}{378}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a92ae902be7902560939223dd765ece08}\index{STM32F446xx.h@{STM32F446xx.h}!TIM9\_BASE@{TIM9\_BASE}}
+\index{TIM9\_BASE@{TIM9\_BASE}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{TIM9\_BASE}{TIM9\_BASE}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a92ae902be7902560939223dd765ece08} 
+\+\#define TIM9\+\_\+\+BASE~(0x40014000\+UL)}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00335}{335}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a4ccf21b5f54c80b031bff13956af2018}\index{STM32F446xx.h@{STM32F446xx.h}!USART1\_BASEADDR@{USART1\_BASEADDR}}
+\index{USART1\_BASEADDR@{USART1\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{USART1\_BASEADDR}{USART1\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a4ccf21b5f54c80b031bff13956af2018} 
+\+\#define USART1\+\_\+\+BASEADDR~0\+X40011000\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00070}{70}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a9e2d543dd90e725020d1f4b2ae3a0cdc}\index{STM32F446xx.h@{STM32F446xx.h}!USART2\_BASEADDR@{USART2\_BASEADDR}}
+\index{USART2\_BASEADDR@{USART2\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{USART2\_BASEADDR}{USART2\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a9e2d543dd90e725020d1f4b2ae3a0cdc} 
+\+\#define USART2\+\_\+\+BASEADDR~0x40004400\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00058}{58}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a44b4b63dcc1dedbd81fc2679c1d6c357}\index{STM32F446xx.h@{STM32F446xx.h}!USART3\_BASEADDR@{USART3\_BASEADDR}}
+\index{USART3\_BASEADDR@{USART3\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{USART3\_BASEADDR}{USART3\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a44b4b63dcc1dedbd81fc2679c1d6c357} 
+\+\#define USART3\+\_\+\+BASEADDR~0x40004800\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00059}{59}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a98f7a7a89ed0a98037caa7bd82d027e7}\index{STM32F446xx.h@{STM32F446xx.h}!USART4\_BASEADDR@{USART4\_BASEADDR}}
+\index{USART4\_BASEADDR@{USART4\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{USART4\_BASEADDR}{USART4\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a98f7a7a89ed0a98037caa7bd82d027e7} 
+\+\#define USART4\+\_\+\+BASEADDR~0x40004\+C00\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00060}{60}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a0fe016bdc6241abe115bb3a5b6f01c29}\index{STM32F446xx.h@{STM32F446xx.h}!USART5\_BASEADDR@{USART5\_BASEADDR}}
+\index{USART5\_BASEADDR@{USART5\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{USART5\_BASEADDR}{USART5\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a0fe016bdc6241abe115bb3a5b6f01c29} 
+\+\#define USART5\+\_\+\+BASEADDR~0x40005000\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00061}{61}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{System_2STM32F446xx_8h_a849c1342a2b7b4126c4a3b638c903c29}\index{STM32F446xx.h@{STM32F446xx.h}!USART6\_BASEADDR@{USART6\_BASEADDR}}
+\index{USART6\_BASEADDR@{USART6\_BASEADDR}!STM32F446xx.h@{STM32F446xx.h}}
+\doxysubsubsection{\texorpdfstring{USART6\_BASEADDR}{USART6\_BASEADDR}}
+{\footnotesize\ttfamily \label{System_2STM32F446xx_8h_a849c1342a2b7b4126c4a3b638c903c29} 
+\+\#define USART6\+\_\+\+BASEADDR~0\+X40011400\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_2STM32F446xx_8h_source_l00071}{71}} of file \doxymbox{\hyperlink{System_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+

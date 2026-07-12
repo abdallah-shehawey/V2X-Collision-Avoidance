@@ -1,0 +1,390 @@
+\doxysection{USART\+\_\+program.\+c}
+\hypertarget{USART__program_8c_source}{}\label{USART__program_8c_source}\index{Src/USART\_program.c@{Src/USART\_program.c}}
+\doxymbox{\hyperlink{USART__program_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h}{../Inc/Drivers/LIB/STM32F446xx.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{ErrTypes_8h}{../Inc/Drivers/LIB/ErrTypes.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00020}00020\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{USART__config_8h}{../Inc/Drivers/MCAL/USART/USART\_config.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00021}00021\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{USART__intreface_8h}{../Inc/Drivers/MCAL/USART/USART\_intreface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00022}00022\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{USART__private_8h}{../Inc/Drivers/MCAL/USART/USART\_private.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00024}00024\ \textcolor{comment}{/*\ Array\ of\ USART\ port\ register\ definitions\ for\ easy\ access\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00025}00025\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{structUSART__RegDef__t}{USART\_RegDef\_t}}\ *USART\_Channel[\doxymbox{\hyperlink{USART__private_8h_a9a3f69391bddeb754f135123c2850c9e}{USART\_CHANNEL\_COUNT}}]\ =\ \{\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_aedcc55b2b529aaf2b86136929704f0ea}{MUSART1}},\ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a018e2195978a9cc353c790033d1c7a0a}{MUSART2}},\ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_abe2a71d95cee15a1aa29fd73426458dc}{MUSART3}},\ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_aaef3695b9d2a750bc616b20ba7d93dc9}{MUSART4}},\ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_ae3fa87ee6d44f18319fad998888b6cbb}{MUSART5}},\ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a258613d2640e98dc10dd39944e6d87a5}{MUSART6}}\};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00026}00026\ \textcolor{comment}{/*Global\ flag\ for\ the\ USART\ Busy\ State*/}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00027}00027\ \textcolor{keyword}{static}\ uint8\_t\ USART\_u8State[\doxymbox{\hyperlink{USART__private_8h_a9a3f69391bddeb754f135123c2850c9e}{USART\_CHANNEL\_COUNT}}]\ =\ \{\doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}}\};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00028}00028\ \textcolor{keyword}{static}\ void\ (*USART\_CallBack[\doxymbox{\hyperlink{USART__private_8h_a9a3f69391bddeb754f135123c2850c9e}{USART\_CHANNEL\_COUNT}}])(void)\ =\ \{\doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}}\};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00029}00029\ \textcolor{comment}{/*==================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00042}\doxymbox{\hyperlink{USART__intreface_8h_a98f967289c40eacb31068b3becfff84f}{00042}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{USART__program_8c_a98f967289c40eacb31068b3becfff84f}{USART\_Init}}(\doxymbox{\hyperlink{structUSART__Config__t}{USART\_Config\_t}}\ *ChannelConfig)}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00043}00043\ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00044}00044\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00046}00046\ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00047}00047\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00048}00048\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00049}00049\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00050}00050\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00051}00051\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00052}00052\ \ \ \ \ \textcolor{keywordflow}{if}(ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}\ >\ \doxymbox{\hyperlink{USART__private_8h_a9a3f69391bddeb754f135123c2850c9e}{USART\_CHANNEL\_COUNT}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00053}00053\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00054}00054\ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00055}00055\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00056}00056\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00057}00057\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00058}00058\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ Over\ Sampling\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00059}00059\ \ \ \ \ \ \ USART\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a4113348c22cfcc1fa0b53e2cf16a1609}{OverSampling}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{USART__private_8h_a093fe2d53bab79fe3481e3593abdd1d4}{CR1\_OVER}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00061}00061\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ Baud\ Rate\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00062}00062\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a4113348c22cfcc1fa0b53e2cf16a1609}{OverSampling}}\ ==\ \doxymbox{\hyperlink{USART__intreface_8h_abafac9366efc163949f648cb90e719a3a5f7f986fd4559ee42850714b3906faca}{USART\_OVERSAMPLING\_16}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00063}00063\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ BAUD\_RATE\ =\ (PCK\ /\ (8\ *\ (2\ -\/\ Over8)\ *\ USART\_DIV)\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00065}00065\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ USART\_DIV\ =\ (PCK\ /\ (8\ *\ (2\ -\/\ Over8)\ *\ BAUD\_RATE)\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ USART\_Fraction\ =\ Fraction\ Part\ *\ 16\ (in\ oversampling\ 16)*/}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00067}00067\ \ \ \ \ \ \ \ \ uint32\_t\ Local\_u32BaudRate\ =\ (double)(\doxymbox{\hyperlink{USART__private_8h_afb8c57081cb4c682a84f252a6205a0d6}{MAXIMUM\_CLOCK}}\ /\ (8.0\ *\ (2.0\ -\/\ ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a4113348c22cfcc1fa0b53e2cf16a1609}{OverSampling}})\ *\ ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a35f84e621a02896b008cbdb850fb3cfa}{BaudRate}})\ *\ 1000);}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00068}00068\ \ \ \ \ \ \ \ \ uint32\_t\ Local\_u32USARTDiv\_Mantissa\ =\ (uint32\_t)(Local\_u32BaudRate\ /\ 1000);}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00069}00069\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ +500\ To\ get\ Round\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00070}00070\ \ \ \ \ \ \ \ \ uint32\_t\ Local\_u32USARTDiv\_Fraction\ =\ (uint32\_t)((((Local\_u32BaudRate\ \%\ 1000)\ *\ 16)\ +\ 500)\ /\ 1000);}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00072}00072\ \ \ \ \ \ \ \ \ USART\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]-\/>BRR\ \&=\ \doxymbox{\hyperlink{USART__private_8h_a72e5ce393f2e53b730e0f17bcbf640e4}{\string~BRR\_MASKING}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00073}00073\ \ \ \ \ \ \ \ \ USART\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]-\/>BRR\ |=\ ((Local\_u32USARTDiv\_Mantissa\ \&\ 0XFFF)\ <<\ \doxymbox{\hyperlink{USART__private_8h_a7ba8f0efd7140202e1a7821a0153ba57}{BRR\_DIV\_MANTISSA\_SHIFTING}});}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00074}00074\ \ \ \ \ \ \ \ \ USART\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]-\/>BRR\ |=\ (Local\_u32USARTDiv\_Fraction\ \&\ 0XF);}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00075}00075\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00076}00076\ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a4113348c22cfcc1fa0b53e2cf16a1609}{OverSampling}}\ ==\ \doxymbox{\hyperlink{USART__intreface_8h_abafac9366efc163949f648cb90e719a3af5782198bea5f0a044a84a117cf9dec0}{USART\_OVERSAMPLING\_8}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00077}00077\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00078}00078\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ BAUD\_RATE\ =\ (fCK\ /\ (8\ *\ (2\ -\/\ Over8)\ *\ USART\_DIV)\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00079}00079\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ USART\_DIV\ =\ (fCK\ /\ (8\ *\ (2\ -\/\ Over8)\ *\ BAUD\_RATE)\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00080}00080\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ USART\_Fraction\ =\ Fraction\ Part\ *\ 8\ (in\ oversampling\ 8)\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00081}00081\ \ \ \ \ \ \ \ \ uint32\_t\ Local\_u32BaudRate\ =\ (double)(\doxymbox{\hyperlink{USART__private_8h_afb8c57081cb4c682a84f252a6205a0d6}{MAXIMUM\_CLOCK}}\ /\ (8.0\ *\ (2.0\ -\/\ ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a4113348c22cfcc1fa0b53e2cf16a1609}{OverSampling}})\ *\ ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a35f84e621a02896b008cbdb850fb3cfa}{BaudRate}})\ *\ 1000);}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00082}00082\ \ \ \ \ \ \ \ \ uint32\_t\ Local\_u32USARTDiv\_Mantissa\ =\ (uint32\_t)(Local\_u32BaudRate\ /\ 1000);}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00083}00083\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ +500\ To\ get\ Round\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00084}00084\ \ \ \ \ \ \ \ \ uint32\_t\ Local\_u32USARTDiv\_Fraction\ =\ (uint32\_t)((((Local\_u32BaudRate\ \%\ 1000)\ *\ 8)\ +\ 500)\ /\ 1000);}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00086}00086\ \ \ \ \ \ \ \ \ USART\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]-\/>BRR\ \&=\ \doxymbox{\hyperlink{USART__private_8h_a72e5ce393f2e53b730e0f17bcbf640e4}{\string~BRR\_MASKING}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00087}00087\ \ \ \ \ \ \ \ \ USART\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]-\/>BRR\ |=\ ((Local\_u32USARTDiv\_Mantissa\ \&\ 0XFFF)\ <<\ \doxymbox{\hyperlink{USART__private_8h_a7ba8f0efd7140202e1a7821a0153ba57}{BRR\_DIV\_MANTISSA\_SHIFTING}});}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00088}00088\ \ \ \ \ \ \ \ \ USART\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]-\/>BRR\ |=\ (Local\_u32USARTDiv\_Fraction\ \&\ 0X7);}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00089}00089\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00091}00091\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ Word\ Length\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00092}00092\ \ \ \ \ \ \ USART\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a53ffeb85c37c77e6616f290dd72b5ea1}{WordLength}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{USART__private_8h_a8310f0b3f3150434ea4ded82d73f7196}{CR1\_WL}}\ ;}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00093}00093\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ Stop\ Bits\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00094}00094\ \ \ \ \ \ \ USART\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]-\/>CR2\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a475626d82d69c98459c7798f9bd729c7}{StopBits}}\ \&\ 0X3)\ <<\ \doxymbox{\hyperlink{USART__private_8h_ad07b476d303d97dd1055c0e44aa202d9}{CR2\_SB}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00095}00095\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ Parity\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00096}00096\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a35477effd687bd13b7814aacc84cb6da}{Parity}}\ !=\ \doxymbox{\hyperlink{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85aecf52ec650226bdc63e12a21d3b5585d}{USART\_PARITY\_NONE}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00097}00097\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Enable\ Parity\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00099}00099\ \ \ \ \ \ \ \ \ USART\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]-\/>CR1\ |=\ (1\ <<\ \doxymbox{\hyperlink{USART__private_8h_adc08bf66bfdbf6e3e9f5b11fc51868ed}{CR1\_PCE}});}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ Parity\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00101}00101\ \ \ \ \ \ \ \ \ USART\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a35477effd687bd13b7814aacc84cb6da}{Parity}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{USART__private_8h_af23a6ce408149f107f92991616c49bd1}{CR1\_PS}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00102}00102\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00104}00104\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ Mode\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00105}00105\ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a3599e052e10b278c6c8d878342670bcf}{Mode}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00106}00106\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00107}00107\ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2ace5b471384e2a4cbf3b933796507304b}{USART\_MODE\_TX\_RX}}:\ \textcolor{comment}{/*\ Enable\ both\ transmitter\ and\ receiver\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00108}00108\ \ \ \ \ \ \ \ \ USART\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]-\/>CR1\ |=\ (1\ <<\ \doxymbox{\hyperlink{USART__private_8h_a33e90b554e956f63783de3ec55fccb2a}{CR1\_TE}})\ |\ (1\ <<\ \doxymbox{\hyperlink{USART__private_8h_a525a42341ba9922554fe28824e666719}{CR1\_RE}});}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00109}00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00110}00110\ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2af50f1777647d119d6b7d0c5f80e0b9d4}{USART\_MODE\_TX}}:\ \textcolor{comment}{/*\ Enable\ transmitter\ only\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00111}00111\ \ \ \ \ \ \ \ \ USART\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]-\/>CR1\ |=\ (1\ <<\ \doxymbox{\hyperlink{USART__private_8h_a33e90b554e956f63783de3ec55fccb2a}{CR1\_TE}});}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00112}00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00113}00113\ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2ad5e3d2e29fa3f05889723d0aff5285c0}{USART\_MODE\_RX}}:\ \textcolor{comment}{/*\ Enable\ receiver\ only\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00114}00114\ \ \ \ \ \ \ \ \ USART\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]-\/>CR1\ |=\ (1\ <<\ \doxymbox{\hyperlink{USART__private_8h_a525a42341ba9922554fe28824e666719}{CR1\_RE}});}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00115}00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00116}00116\ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00117}00117\ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00118}00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00119}00119\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00121}00121\ \ \ \ \ \ \ USART\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]-\/>CR1\ |=\ (1\ <<\ 13);}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00122}00122\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00123}00123\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00125}00125\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00126}00126\ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00127}00127\ \textcolor{comment}{/*==================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00140}\doxymbox{\hyperlink{USART__intreface_8h_ad840a14bcc70c1f552f2864ea2443c55}{00140}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{USART__program_8c_ad840a14bcc70c1f552f2864ea2443c55}{USART\_InitIT}}(\doxymbox{\hyperlink{structUSART__Handle__t}{USART\_Handle\_t}}\ *ChannelHandle)}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00141}00141\ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00142}00142\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00144}00144\ \ \ \textcolor{keywordflow}{if}\ (ChannelHandle\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00145}00145\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00146}00146\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00147}00147\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00148}00148\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00149}00149\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00150}00150\ \ \ \ \ \textcolor{keywordflow}{if}(ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_aa673757872f1a8f9ad2ceb0c60ca684b}{Channel}}\ >\ \doxymbox{\hyperlink{USART__private_8h_a9a3f69391bddeb754f135123c2850c9e}{USART\_CHANNEL\_COUNT}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00151}00151\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00152}00152\ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00153}00153\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00154}00154\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00155}00155\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00156}00156\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ Over\ Sampling\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00157}00157\ \ \ \ \ \ \ USART\_Channel[ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_aa673757872f1a8f9ad2ceb0c60ca684b}{Channel}}]-\/>CR1\ |=\ (ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_a55217ed413490db42704baa4e4c7b179}{OverSampling}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{USART__private_8h_a093fe2d53bab79fe3481e3593abdd1d4}{CR1\_OVER}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00159}00159\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ Baud\ Rate\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00160}00160\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_a55217ed413490db42704baa4e4c7b179}{OverSampling}}\ ==\ \doxymbox{\hyperlink{USART__intreface_8h_abafac9366efc163949f648cb90e719a3a5f7f986fd4559ee42850714b3906faca}{USART\_OVERSAMPLING\_16}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00161}00161\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00162}00162\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ BAUD\_RATE\ =\ (fCK\ /\ (8\ *\ (2\ -\/\ Over8)\ *\ USART\_DIV)\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00163}00163\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ USART\_DIV\ =\ (fCK\ /\ (8\ *\ (2\ -\/\ Over8)\ *\ BAUD\_RATE)\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00164}00164\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ USART\_Fraction\ =\ Fraction\ Part\ *\ 16\ (in\ oversampling\ 16)*/}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00165}00165\ \ \ \ \ \ \ \ \ uint32\_t\ Local\_u32BaudRate\ =\ (double)(\doxymbox{\hyperlink{USART__private_8h_afb8c57081cb4c682a84f252a6205a0d6}{MAXIMUM\_CLOCK}}\ /\ (8.0\ *\ (2.0\ -\/\ ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_a55217ed413490db42704baa4e4c7b179}{OverSampling}})\ *\ ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_ad520bfbb2b428eb005400af9478725fa}{BaudRate}})\ *\ 1000);}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00166}00166\ \ \ \ \ \ \ \ \ uint32\_t\ Local\_u32USARTDiv\_Mantissa\ =\ (uint32\_t)(Local\_u32BaudRate\ /\ 1000);}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00167}00167\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ +500\ To\ get\ Round\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00168}00168\ \ \ \ \ \ \ \ \ uint32\_t\ Local\_u32USARTDiv\_Fraction\ =\ (uint32\_t)((((Local\_u32BaudRate\ \%\ 1000)\ *\ 16)\ +\ 500)\ /\ 1000);}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00170}00170\ \ \ \ \ \ \ \ \ USART\_Channel[ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_aa673757872f1a8f9ad2ceb0c60ca684b}{Channel}}]-\/>BRR\ \&=\ \doxymbox{\hyperlink{USART__private_8h_a72e5ce393f2e53b730e0f17bcbf640e4}{\string~BRR\_MASKING}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00171}00171\ \ \ \ \ \ \ \ \ USART\_Channel[ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_aa673757872f1a8f9ad2ceb0c60ca684b}{Channel}}]-\/>BRR\ |=\ ((Local\_u32USARTDiv\_Mantissa\ \&\ 0XFFF)\ <<\ \doxymbox{\hyperlink{USART__private_8h_a7ba8f0efd7140202e1a7821a0153ba57}{BRR\_DIV\_MANTISSA\_SHIFTING}});}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00172}00172\ \ \ \ \ \ \ \ \ USART\_Channel[ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_aa673757872f1a8f9ad2ceb0c60ca684b}{Channel}}]-\/>BRR\ |=\ (Local\_u32USARTDiv\_Fraction\ \&\ 0XF);}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00173}00173\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00174}00174\ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_a55217ed413490db42704baa4e4c7b179}{OverSampling}}\ ==\ \doxymbox{\hyperlink{USART__intreface_8h_abafac9366efc163949f648cb90e719a3af5782198bea5f0a044a84a117cf9dec0}{USART\_OVERSAMPLING\_8}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00175}00175\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00176}00176\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ BAUD\_RATE\ =\ (fCK\ /\ (8\ *\ (2\ -\/\ Over8)\ *\ USART\_DIV)\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00177}00177\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ USART\_DIV\ =\ (fCK\ /\ (8\ *\ (2\ -\/\ Over8)\ *\ BAUD\_RATE)\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00178}00178\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ USART\_Fraction\ =\ Fraction\ Part\ *\ 8\ (in\ oversampling\ 8)\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00179}00179\ \ \ \ \ \ \ \ \ uint32\_t\ Local\_u32BaudRate\ =\ (double)(\doxymbox{\hyperlink{USART__private_8h_afb8c57081cb4c682a84f252a6205a0d6}{MAXIMUM\_CLOCK}}\ /\ (8.0\ *\ (2.0\ -\/\ ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_a55217ed413490db42704baa4e4c7b179}{OverSampling}})\ *\ ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_ad520bfbb2b428eb005400af9478725fa}{BaudRate}})\ *\ 1000);}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00180}00180\ \ \ \ \ \ \ \ \ uint32\_t\ Local\_u32USARTDiv\_Mantissa\ =\ (uint32\_t)(Local\_u32BaudRate\ /\ 1000);}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00181}00181\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ +500\ To\ get\ Round\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00182}00182\ \ \ \ \ \ \ \ \ uint32\_t\ Local\_u32USARTDiv\_Fraction\ =\ (uint32\_t)((((Local\_u32BaudRate\ \%\ 1000)\ *\ 8)\ +\ 500)\ /\ 1000);}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00184}00184\ \ \ \ \ \ \ \ \ USART\_Channel[ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_aa673757872f1a8f9ad2ceb0c60ca684b}{Channel}}]-\/>BRR\ \&=\ \doxymbox{\hyperlink{USART__private_8h_a72e5ce393f2e53b730e0f17bcbf640e4}{\string~BRR\_MASKING}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00185}00185\ \ \ \ \ \ \ \ \ USART\_Channel[ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_aa673757872f1a8f9ad2ceb0c60ca684b}{Channel}}]-\/>BRR\ |=\ ((Local\_u32USARTDiv\_Mantissa\ \&\ 0XFFF)\ <<\ \doxymbox{\hyperlink{USART__private_8h_a7ba8f0efd7140202e1a7821a0153ba57}{BRR\_DIV\_MANTISSA\_SHIFTING}});}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00186}00186\ \ \ \ \ \ \ \ \ USART\_Channel[ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_aa673757872f1a8f9ad2ceb0c60ca684b}{Channel}}]-\/>BRR\ |=\ (Local\_u32USARTDiv\_Fraction\ \&\ 0X7);}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00187}00187\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00189}00189\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ Word\ Length\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00190}00190\ \ \ \ \ \ \ USART\_Channel[ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_aa673757872f1a8f9ad2ceb0c60ca684b}{Channel}}]-\/>CR1\ |=\ (ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_abf29e9ea811a2c70362f1b607422db8e}{WordLength}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{USART__private_8h_a8310f0b3f3150434ea4ded82d73f7196}{CR1\_WL}}\ ;}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00191}00191\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ Stop\ Bits\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00192}00192\ \ \ \ \ \ \ USART\_Channel[ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_aa673757872f1a8f9ad2ceb0c60ca684b}{Channel}}]-\/>CR2\ |=\ (ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_a1ae2c8c6693a2a60291c3248164f7717}{StopBits}}\ \&\ 0X3)\ <<\ \doxymbox{\hyperlink{USART__private_8h_ad07b476d303d97dd1055c0e44aa202d9}{CR2\_SB}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00193}00193\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ Parity\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00194}00194\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_acd395e4c38d29098f1e24a2965235869}{Parity}}\ !=\ \doxymbox{\hyperlink{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85aecf52ec650226bdc63e12a21d3b5585d}{USART\_PARITY\_NONE}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00195}00195\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00196}00196\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Enable\ Parity\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00197}00197\ \ \ \ \ \ \ \ \ USART\_Channel[ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_aa673757872f1a8f9ad2ceb0c60ca684b}{Channel}}]-\/>CR1\ |=\ (1\ <<\ \doxymbox{\hyperlink{USART__private_8h_adc08bf66bfdbf6e3e9f5b11fc51868ed}{CR1\_PCE}});}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00198}00198\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ Parity\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00199}00199\ \ \ \ \ \ \ \ \ USART\_Channel[ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_aa673757872f1a8f9ad2ceb0c60ca684b}{Channel}}]-\/>CR1\ |=\ (ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_acd395e4c38d29098f1e24a2965235869}{Parity}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{USART__private_8h_af23a6ce408149f107f92991616c49bd1}{CR1\_PS}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00200}00200\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00201}00201\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00202}00202\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ Mode\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00203}00203\ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_a0973511afc0fc0f5169a33e4dd307dbe}{Mode}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00204}00204\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00205}00205\ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2ace5b471384e2a4cbf3b933796507304b}{USART\_MODE\_TX\_RX}}:\ \textcolor{comment}{/*\ Enable\ both\ transmitter\ and\ receiver\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00206}00206\ \ \ \ \ \ \ \ \ USART\_Channel[ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_aa673757872f1a8f9ad2ceb0c60ca684b}{Channel}}]-\/>CR1\ |=\ (1\ <<\ \doxymbox{\hyperlink{USART__private_8h_a33e90b554e956f63783de3ec55fccb2a}{CR1\_TE}})\ |\ (1\ <<\ \doxymbox{\hyperlink{USART__private_8h_a525a42341ba9922554fe28824e666719}{CR1\_RE}});}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00207}00207\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00208}00208\ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2af50f1777647d119d6b7d0c5f80e0b9d4}{USART\_MODE\_TX}}:\ \textcolor{comment}{/*\ Enable\ transmitter\ only\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00209}00209\ \ \ \ \ \ \ \ \ USART\_Channel[ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_aa673757872f1a8f9ad2ceb0c60ca684b}{Channel}}]-\/>CR1\ |=\ (1\ <<\ \doxymbox{\hyperlink{USART__private_8h_a33e90b554e956f63783de3ec55fccb2a}{CR1\_TE}});}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00210}00210\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00211}00211\ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2ad5e3d2e29fa3f05889723d0aff5285c0}{USART\_MODE\_RX}}:\ \textcolor{comment}{/*\ Enable\ receiver\ only\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00212}00212\ \ \ \ \ \ \ \ \ USART\_Channel[ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_aa673757872f1a8f9ad2ceb0c60ca684b}{Channel}}]-\/>CR1\ |=\ (1\ <<\ \doxymbox{\hyperlink{USART__private_8h_a525a42341ba9922554fe28824e666719}{CR1\_RE}});}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00213}00213\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00214}00214\ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00215}00215\ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00216}00216\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00217}00217\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00218}00218\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00219}00219\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00220}00220\ \ \ \ \ \textcolor{comment}{/*\ Configure\ Interrupts\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00221}00221\ \ \ \ \ USART\_Channel[ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_aa673757872f1a8f9ad2ceb0c60ca684b}{Channel}}]-\/>CR1\ |=\ (ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_a059fec46fb1c4b0b701663a8a1189686}{RXNEIE}}\ \ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{USART__private_8h_a7eaac9a8c9e6f8c05e17bb82e6cb04fa}{CR1\_RXNEIE}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00222}00222\ \ \ \ \ USART\_Channel[ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_aa673757872f1a8f9ad2ceb0c60ca684b}{Channel}}]-\/>CR1\ |=\ (ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_a5412178ce96c8615908d2b7913dcfc6f}{TCIE}}\ \ \ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{USART__private_8h_a7b7fdcc0d8b02518cd9439f2e7487dfd}{CR1\_TCIE}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00223}00223\ \ \ \ \ USART\_Channel[ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_aa673757872f1a8f9ad2ceb0c60ca684b}{Channel}}]-\/>CR1\ |=\ (ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_a3a14a089db93ca1d2d55223a9480198e}{TXEIE}}\ \ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{USART__private_8h_a446178044b4cfdf91082e6108a28728c}{CR1\_TXEIE}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00224}00224\ \ \ \ \ USART\_Channel[ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_aa673757872f1a8f9ad2ceb0c60ca684b}{Channel}}]-\/>CR1\ |=\ (ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_a08ca0a058f6f219e988427a84c8406e5}{IDLEIE}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{USART__private_8h_a8f527263c044a71b0187c2213cea76e5}{CR1\_IDLEIE}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00225}00225\ \ \ \ \ USART\_Channel[ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_aa673757872f1a8f9ad2ceb0c60ca684b}{Channel}}]-\/>CR1\ |=\ (ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_a5a87fe8d7a2dac7fac0e0bb0ae1fd5ed}{PEIE}}\ \ \ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{USART__private_8h_ad507c4cd6a3f331b07d0d5d376cfd3c4}{CR1\_PEIE}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00226}00226\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00227}00227\ \ \ \ \ \textcolor{comment}{/*\ Store\ Callback\ Function\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00228}00228\ \ \ \ \ USART\_CallBack[ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_aa673757872f1a8f9ad2ceb0c60ca684b}{Channel}}]\ =\ ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_a26637f53bbb7395126e999b25261259d}{pfnCallback}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00229}00229\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00230}00230\ \ \ \ \ \textcolor{comment}{/*\ Enable\ USART\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00231}00231\ \ \ \ \ USART\_Channel[ChannelHandle-\/>\doxymbox{\hyperlink{structUSART__Handle__t_aa673757872f1a8f9ad2ceb0c60ca684b}{Channel}}]-\/>CR1\ |=\ (1\ <<\ 13);}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00232}00232\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00233}00233\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00234}00234\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00235}00235\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00236}00236\ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00237}00237\ \textcolor{comment}{/*==================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00250}\doxymbox{\hyperlink{USART__intreface_8h_a1abd71036dad0752b737b6b4872d7111}{00250}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{USART__program_8c_a1abd71036dad0752b737b6b4872d7111}{USART\_enumTransmit}}(\doxymbox{\hyperlink{structUSART__Config__t}{USART\_Config\_t}}\ *ChannelConfig,\ uint8\_t\ TX\_Data)}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00251}00251\ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00252}00252\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00253}00253\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u32TimeoutCounter\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00254}00254\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00255}00255\ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}\ >\ \doxymbox{\hyperlink{USART__private_8h_a9a3f69391bddeb754f135123c2850c9e}{USART\_CHANNEL\_COUNT}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00256}00256\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00257}00257\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00258}00258\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00259}00259\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00260}00260\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00261}00261\ \ \ \ \ \textcolor{comment}{/*\ Wait\ until\ TXE\ (data\ register\ empty),\ write\ the\ byte,\ then\ wait\ until\ TC}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00262}00262\ \textcolor{comment}{\ \ \ \ \ *\ (transmission\ complete)\ before\ returning.}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00263}00263\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00264}00264\ \textcolor{comment}{\ \ \ \ \ *\ Why\ wait\ for\ TC\ and\ not\ just\ TXE:\ with\ a\ TXE-\/only\ blocking\ write,\ back-\/to-\/}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00265}00265\ \textcolor{comment}{\ \ \ \ \ *\ back\ bytes\ (and\ especially\ long\ 0x00\ runs\ in\ the\ DSRC\ packet\ —\ speed=0,}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00266}00266\ \textcolor{comment}{\ \ \ \ \ *\ last\_update=0,\ dist=0)\ were\ dropped\ on\ the\ wire.\ The\ ESP\ saw\ zero-\/runs\ one}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00267}00267\ \textcolor{comment}{\ \ \ \ \ *\ byte\ short\ (a\ 4-\/zero\ field\ arriving\ as\ 3),\ truncating\ every\ frame\ so\ the}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00268}00268\ \textcolor{comment}{\ \ \ \ \ *\ END/checksum\ always\ failed.\ (The\ RPi\ path\ already\ worked\ around\ the\ SAME}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00269}00269\ \textcolor{comment}{\ \ \ \ \ *\ link\ by\ sending\ ASCII\ with\ no\ 0x00\ bytes.)\ Waiting\ for\ TC\ guarantees\ each}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00270}00270\ \textcolor{comment}{\ \ \ \ \ *\ byte\ —\ including\ its\ stop\ bit\ —\ fully\ shifts\ out\ before\ the\ next\ is\ loaded,}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00271}00271\ \textcolor{comment}{\ \ \ \ \ *\ which\ makes\ the\ binary\ stream\ survive\ intact.}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00272}00272\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00273}00273\ \textcolor{comment}{\ \ \ \ \ *\ The\ timeout\ is\ a\ stuck-\/hardware\ escape\ ONLY;\ USART\_u32TIMEOUT\ is\ sized\ so}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00274}00274\ \textcolor{comment}{\ \ \ \ \ *\ it\ cannot\ expire\ during\ a\ legitimate\ byte\ transfer.\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00275}00275\ \ \ \ \ \textcolor{keywordflow}{while}\ ((((USART\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]-\/>SR\ \&\ (1\ <<\ \doxymbox{\hyperlink{USART__private_8h_ad887ad91dd88c31c68a8d8af35e1487a}{SR\_TXE}}))\ >>\ \doxymbox{\hyperlink{USART__private_8h_ad887ad91dd88c31c68a8d8af35e1487a}{SR\_TXE}})\ ==\ 0)\ \&\&\ (Local\_u32TimeoutCounter\ <\ \doxymbox{\hyperlink{USART__private_8h_a233fec06ea448151a75382777a68d1d6}{USART\_u32TIMEOUT}}))}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00276}00276\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00277}00277\ \ \ \ \ \ \ Local\_u32TimeoutCounter++;}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00278}00278\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00279}00279\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00280}00280\ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32TimeoutCounter\ >=\ \doxymbox{\hyperlink{USART__private_8h_a233fec06ea448151a75382777a68d1d6}{USART\_u32TIMEOUT}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00281}00281\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00282}00282\ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00283}00283\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00284}00284\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00285}00285\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00286}00286\ \ \ \ \ \ \ \textcolor{comment}{/*\ Store\ Data\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00287}00287\ \ \ \ \ \ \ USART\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]-\/>DR\ =\ TX\_Data;}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00288}00288\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00289}00289\ \ \ \ \ \ \ \textcolor{comment}{/*\ Wait\ for\ Transmission\ Complete\ so\ the\ byte\ fully\ leaves\ the\ shift}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00290}00290\ \textcolor{comment}{\ \ \ \ \ \ \ *\ register\ (with\ its\ stop\ bit)\ before\ the\ next\ DR\ write\ can\ clobber\ it.\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00291}00291\ \ \ \ \ \ \ Local\_u32TimeoutCounter\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00292}00292\ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ ((((USART\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]-\/>SR\ \&\ (1\ <<\ \doxymbox{\hyperlink{USART__private_8h_a176af068481f1ab6cc4fb651649c6101}{SR\_TC}}))\ >>\ \doxymbox{\hyperlink{USART__private_8h_a176af068481f1ab6cc4fb651649c6101}{SR\_TC}})\ ==\ 0)\ \&\&\ (Local\_u32TimeoutCounter\ <\ \doxymbox{\hyperlink{USART__private_8h_a233fec06ea448151a75382777a68d1d6}{USART\_u32TIMEOUT}}))}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00293}00293\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00294}00294\ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter++;}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00295}00295\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00296}00296\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00297}00297\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00298}00298\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00299}00299\ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00300}00300\ \textcolor{comment}{/*==================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00313}\doxymbox{\hyperlink{USART__intreface_8h_ad2e4a4a25beec1ea90558dc055ad9240}{00313}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{USART__program_8c_ad2e4a4a25beec1ea90558dc055ad9240}{USART\_enumTransmitString}}(\doxymbox{\hyperlink{structUSART__Config__t}{USART\_Config\_t}}\ *ChannelConfig,\ uint8\_t\ *TX\_Data)}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00314}00314\ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00315}00315\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00316}00316\ \ \ uint32\_t\ Local\_u32Index\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00317}00317\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00318}00318\ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}\ >\ \doxymbox{\hyperlink{USART__private_8h_a9a3f69391bddeb754f135123c2850c9e}{USART\_CHANNEL\_COUNT}}\ ||\ TX\_Data\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00319}00319\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00320}00320\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00321}00321\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00322}00322\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00323}00323\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00324}00324\ \ \ \ \ \textcolor{keywordflow}{if}\ (USART\_u8State[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00325}00325\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00326}00326\ \ \ \ \ \ \ \textcolor{keywordflow}{while}(TX\_Data[Local\_u32Index]\ !=\ \textcolor{charliteral}{'\(\backslash\)0'})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00327}00327\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00328}00328\ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{USART__program_8c_a1abd71036dad0752b737b6b4872d7111}{USART\_enumTransmit}}(ChannelConfig,\ TX\_Data[Local\_u32Index]);}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00329}00329\ \ \ \ \ \ \ \ \ Local\_u32Index++;}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00330}00330\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u8ErrorState\ !=\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00331}00331\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00332}00332\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00333}00333\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00334}00334\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00335}00335\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00336}00336\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00337}00337\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00338}00338\ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81affe74893171dd0f0fe9331c5b5a74c66}{BUSY\_STATE}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00339}00339\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00340}00340\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00341}00341\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00342}00342\ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00343}00343\ \textcolor{comment}{/*==================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00356}\doxymbox{\hyperlink{USART__intreface_8h_a2e8eab5dfbeeb289f33fccae5536d8ef}{00356}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{USART__program_8c_a2e8eab5dfbeeb289f33fccae5536d8ef}{USART\_enumReceive}}(\doxymbox{\hyperlink{structUSART__Config__t}{USART\_Config\_t}}\ *ChannelConfig,\ uint8\_t\ *RX\_Data)}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00357}00357\ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00358}00358\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00359}00359\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00360}00360\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u32TimeoutCounter\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00361}00361\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00362}00362\ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}\ >\ \doxymbox{\hyperlink{USART__private_8h_a9a3f69391bddeb754f135123c2850c9e}{USART\_CHANNEL\_COUNT}}\ ||\ RX\_Data\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00363}00363\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00364}00364\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00365}00365\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00366}00366\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00367}00367\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00368}00368\ \ \ \ \ \textcolor{keywordflow}{if}\ (USART\_u8State[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00369}00369\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00370}00370\ \ \ \ \ \ \ USART\_u8State[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]\ =\ \doxymbox{\hyperlink{ErrTypes_8h_ab5be0aaddb58ffb9cb20c12530d66316}{BUSY}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00371}00371\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00372}00372\ \ \ \ \ \ \ \textcolor{keywordflow}{while}((USART\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]-\/>SR\ \&\ (1\ <<\ \doxymbox{\hyperlink{USART__private_8h_aed03e243a44089845577cb6faba3f696}{SR\_RXNE}}))\ >>\ \doxymbox{\hyperlink{USART__private_8h_aed03e243a44089845577cb6faba3f696}{SR\_RXNE}}\ ==\ 0\ \&\&\ Local\_u32TimeoutCounter\ !=\ \doxymbox{\hyperlink{USART__private_8h_a233fec06ea448151a75382777a68d1d6}{USART\_u32TIMEOUT}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00373}00373\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00374}00374\ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter++;}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00375}00375\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00376}00376\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00377}00377\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32TimeoutCounter\ ==\ \doxymbox{\hyperlink{USART__private_8h_a233fec06ea448151a75382777a68d1d6}{USART\_u32TIMEOUT}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00378}00378\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00379}00379\ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00380}00380\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00381}00381\ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00382}00382\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00383}00383\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Store\ Data\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00384}00384\ \ \ \ \ \ \ \ \ *RX\_Data\ =\ USART\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]-\/>DR;}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00385}00385\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00386}00386\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00387}00387\ \ \ \ \ \ \ USART\_u8State[ChannelConfig-\/>\doxymbox{\hyperlink{structUSART__Config__t_a2e4c2854b359b081657b2facbbe66413}{Channel}}]\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00388}00388\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00389}00389\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00390}00390\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00391}00391\ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81affe74893171dd0f0fe9331c5b5a74c66}{BUSY\_STATE}};}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00392}00392\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00393}00393\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00394}00394\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00395}00395\ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00396}00396\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00397}\doxymbox{\hyperlink{USART__intreface_8h_a2d4d739376d35a98e6b62282fc47b25a}{00397}}\ uint8\_t\ \doxymbox{\hyperlink{USART__program_8c_a2d4d739376d35a98e6b62282fc47b25a}{USART\_ReceiveByteDirect}}(\doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0f}{USART\_Channel\_t}}\ Channel)}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00398}00398\ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00399}00399\ \ \ \ \ \textcolor{comment}{/*\ Read\ SR\ THEN\ DR:\ this\ exact\ sequence\ also\ clears\ the\ ORE\ (overrun)\ flag.}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00400}00400\ \textcolor{comment}{\ \ \ \ \ *\ Reading\ DR\ alone\ would\ leave\ a\ set\ ORE\ asserting\ the\ RXNE\ interrupt\ line}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00401}00401\ \textcolor{comment}{\ \ \ \ \ *\ forever\ →\ an\ ISR\ storm\ that\ starves\ every\ task.\ Reading\ SR\ first\ makes}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00402}00402\ \textcolor{comment}{\ \ \ \ \ *\ the\ overrun\ self-\/clearing\ on\ the\ next\ received\ byte.\ */}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00403}00403\ \ \ \ \ \textcolor{keyword}{volatile}\ uint32\_t\ Local\_u32Status\ =\ USART\_Channel[Channel]-\/>SR;}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00404}00404\ \ \ \ \ (void)Local\_u32Status;}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00405}00405\ \ \ \ \ \textcolor{keywordflow}{return}\ (uint8\_t)(USART\_Channel[Channel]-\/>DR);}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00406}00406\ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00407}00407\ }
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00408}00408\ \textcolor{comment}{/*==================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00415}\doxymbox{\hyperlink{USART__program_8c_a7139cd4baabbbcbab0c1fe6d7d4ae1cc}{00415}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{USART__program_8c_a7139cd4baabbbcbab0c1fe6d7d4ae1cc}{USART1\_IRQHandler}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00416}00416\ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00417}00417\ \ \ \textcolor{keywordflow}{if}\ (USART\_CallBack[\doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa79bbc21727c50fad950ff76e76d924ab}{USART\_CHANNEL1}}]\ !=\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00418}00418\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00419}00419\ \ \ \ \ USART\_CallBack[\doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa79bbc21727c50fad950ff76e76d924ab}{USART\_CHANNEL1}}]();}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00420}00420\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00421}00421\ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00422}00422\ \textcolor{comment}{/*==================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00429}\doxymbox{\hyperlink{USART__program_8c_a0ca6fd0e6f77921dd1123539857ba0a8}{00429}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{USART__program_8c_a0ca6fd0e6f77921dd1123539857ba0a8}{USART2\_IRQHandler}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00430}00430\ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00431}00431\ \ \ \textcolor{keywordflow}{if}\ (USART\_CallBack[\doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0faaf4df48c4888878aacaea333fd164b28}{USART\_CHANNEL2}}]\ !=\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00432}00432\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00433}00433\ \ \ \ \ USART\_CallBack[\doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0faaf4df48c4888878aacaea333fd164b28}{USART\_CHANNEL2}}]();}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00434}00434\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00435}00435\ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00436}00436\ \textcolor{comment}{/*==================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00443}\doxymbox{\hyperlink{USART__program_8c_a0d108a3468b2051548183ee5ca2158a0}{00443}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{USART__program_8c_a0d108a3468b2051548183ee5ca2158a0}{USART3\_IRQHandler}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00444}00444\ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00445}00445\ \ \ \textcolor{keywordflow}{if}\ (USART\_CallBack[\doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa14f0c0083a3e5ba62f2d8ae6fcc8f5c3}{USART\_CHANNEL3}}]\ !=\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00446}00446\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00447}00447\ \ \ \ \ USART\_CallBack[\doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa14f0c0083a3e5ba62f2d8ae6fcc8f5c3}{USART\_CHANNEL3}}]();}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00448}00448\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00449}00449\ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00450}00450\ \textcolor{comment}{/*==================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00457}\doxymbox{\hyperlink{USART__program_8c_ad0d53420fd047695ef9cf3fda8282d9b}{00457}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{USART__program_8c_ad0d53420fd047695ef9cf3fda8282d9b}{USART4\_IRQHandler}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00458}00458\ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00459}00459\ \ \ \textcolor{keywordflow}{if}\ (USART\_CallBack[\doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa6909ff4ed1b6cf9ed37711a3a802a635}{USART\_CHANNEL4}}]\ !=\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00460}00460\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00461}00461\ \ \ \ \ USART\_CallBack[\doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa6909ff4ed1b6cf9ed37711a3a802a635}{USART\_CHANNEL4}}]();}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00462}00462\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00463}00463\ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00464}00464\ \textcolor{comment}{/*==================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00471}\doxymbox{\hyperlink{USART__program_8c_aea1a468c29d1d6aba1bba3f58c4b3b7e}{00471}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{USART__program_8c_aea1a468c29d1d6aba1bba3f58c4b3b7e}{USART5\_IRQHandler}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00472}00472\ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00473}00473\ \ \ \textcolor{keywordflow}{if}\ (USART\_CallBack[\doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa99640cff96d12f56b1ce87609f82c11d}{USART\_CHANNEL5}}]\ !=\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00474}00474\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00475}00475\ \ \ \ \ USART\_CallBack[\doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa99640cff96d12f56b1ce87609f82c11d}{USART\_CHANNEL5}}]();}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00476}00476\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00477}00477\ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00478}00478\ \textcolor{comment}{/*==================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00485}\doxymbox{\hyperlink{USART__program_8c_a12c827857d907ad0cccd586fd934d446}{00485}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{USART__program_8c_a12c827857d907ad0cccd586fd934d446}{USART6\_IRQHandler}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00486}00486\ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00487}00487\ \ \ \textcolor{keywordflow}{if}\ (USART\_CallBack[\doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa391e253a32e8c4f08f078e319f4dbb3c}{USART\_CHANNEL6}}]\ !=\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00488}00488\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00489}00489\ \ \ \ \ USART\_CallBack[\doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa391e253a32e8c4f08f078e319f4dbb3c}{USART\_CHANNEL6}}]();}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00490}00490\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{USART__program_8c_source_l00491}00491\ \}}
+
+\end{DoxyCode}

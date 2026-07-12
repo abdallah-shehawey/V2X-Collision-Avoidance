@@ -1,0 +1,477 @@
+\doxysection{Src/\+\+TIM\+\_\+program.c File Reference}
+\hypertarget{TIM__program_8c}{}\label{TIM__program_8c}\index{Src/TIM\_program.c@{Src/TIM\_program.c}}
+
+
+Timer (TIM) Program File.  
+
+
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+LIB/\+\+STM32\+F446xx.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+LIB/\+\+STD\+\_\+\+MACROS.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+LIB/\+\+Err\+Types.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+private.\+h"{}}\newline
+Include dependency graph for TIM\+\_\+program.\+c:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TIM__program_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{TIM__program_8c_a6bdf0a283847d5c7d7284ffc68885200}{TIM\+\_\+\+CLOCK\+\_\+\+FREQ}}~16000000\+UL
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__program_8c_a2db8aa14e44d1d1571d455542d2269f0}{TIM\+\_\+v\+Init}} (const \doxymbox{\hyperlink{structTIM__Config__t}{TIM\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}px\+Config)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__program_8c_a2bd184de6083fb2ccf17231557037835}{TIM\+\_\+v\+Start}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__program_8c_a704ce7ee96e78180a1bf2307b9a5f838}{TIM\+\_\+v\+Stop}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__program_8c_adfefb691110f40a37d8a427bd3883a72}{TIM\+\_\+v\+PWM\+\_\+\+Init}} (const \doxymbox{\hyperlink{structTIM__PWMConfig__t}{TIM\+\_\+\+PWMConfig\+\_\+t}} \texorpdfstring{$\ast$}{*}px\+PWMConfig)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__program_8c_a8e1065f213120676872fdbbd5ccfd37a}{TIM\+\_\+v\+IC\+\_\+\+Init}} (const \doxymbox{\hyperlink{structTIM__ICConfig__t}{TIM\+\_\+\+ICConfig\+\_\+t}} \texorpdfstring{$\ast$}{*}px\+ICConfig)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__program_8c_aed79cd1ecef7e696e8a65336cef6b89f}{TIM\+\_\+u32\+Get\+Capture\+Value}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, \doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}} Copy\+\_\+e\+Channel, uint32\+\_\+t \texorpdfstring{$\ast$}{*}pu32\+Value)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__program_8c_a40e7376c5f494fa3ed9df8dd673b9673}{TIM\+\_\+u32\+Get\+Counter\+Value}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, uint32\+\_\+t \texorpdfstring{$\ast$}{*}pu32\+Value)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__program_8c_af6ce9419f48628e54cb1110dae65e1f1}{TIM\+\_\+v\+Set\+ICPolarity}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, \doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}} Copy\+\_\+e\+Channel, \doxymbox{\hyperlink{TIM__interface_8h_ad6edd13d05def01952c9f8b6e11773d4}{TIM\+\_\+\+Polarity\+\_\+t}} Copy\+\_\+e\+Polarity)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__program_8c_a367d00f6e6cd9c32d38e40ed2dd95fb8}{TIM\+\_\+v\+Set\+Compare\+Value}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, \doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}} Copy\+\_\+e\+Channel, uint32\+\_\+t Copy\+\_\+u32\+Value)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__program_8c_ac28f51338121baf714c344ec730d8c12}{TIM\+\_\+v\+Set\+Prescaler}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, uint16\+\_\+t Copy\+\_\+u16\+Prescaler)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__program_8c_acf362053a622ba1d6bcdbf65a1bbb261}{TIM\+\_\+v\+Set\+Auto\+Reload\+Value}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, uint32\+\_\+t Copy\+\_\+u32\+Auto\+Reload)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__program_8c_a06dd9df822ed8f4c5635901b770230ea}{TIM\+\_\+v\+Delay\+Ms}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, uint32\+\_\+t Copy\+\_\+u32\+Ms)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__program_8c_a49a60dbb20212c2ba13e4aba78e81031}{TIM\+\_\+v\+Delay\+Us}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, uint32\+\_\+t Copy\+\_\+u32\+Us)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__program_8c_a59241245bf6224bcab52587175f7c41b}{TIM\+\_\+v\+Enable\+Interrupt}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__program_8c_a1156613e7e18e66d685bf32cff6b8af5}{TIM\+\_\+v\+Disable\+Interrupt}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__program_8c_ae5ded709a28d726686666d92e05c40d3}{TIM\+\_\+v\+Set\+Callback}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, void(\texorpdfstring{$\ast$}{*}pv\+Callback)(void))
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__program_8c_a78dfd09e838628d35bd9fc18ddd575ad}{TIM\+\_\+v\+Enable\+CCInterrupt}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, \doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}} Copy\+\_\+e\+Channel)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__program_8c_a05c68c2d16e14ca08f925fc789f8c000}{TIM\+\_\+v\+Disable\+CCInterrupt}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, \doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}} Copy\+\_\+e\+Channel)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__program_8c_a3a4b086e0c4a0656e57a585ec35734d3}{TIM\+\_\+v\+Set\+CCCallback}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, void(\texorpdfstring{$\ast$}{*}pv\+Callback)(\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}, uint8\+\_\+t, uint32\+\_\+t))
+\item 
+void \doxymbox{\hyperlink{TIM__program_8c_a38ad4725462bdc5e86c4ead4f04b9fc2}{TIM2\+\_\+\+IRQHandler}} (void)
+\item 
+void \doxymbox{\hyperlink{TIM__program_8c_ac8e51d2183b5230cbd5481f8867adce9}{TIM3\+\_\+\+IRQHandler}} (void)
+\item 
+void \doxymbox{\hyperlink{TIM__program_8c_a7133f3f78767503641d307386e68bd28}{TIM4\+\_\+\+IRQHandler}} (void)
+\item 
+void \doxymbox{\hyperlink{TIM__program_8c_a5e66446caf21dd90191dc07a13ce2378}{TIM5\+\_\+\+IRQHandler}} (void)
+\item 
+void \doxymbox{\hyperlink{TIM__program_8c_ad1fd361bc5ad89facee67c76d1ff8dc0}{TIM1\+\_\+\+UP\+\_\+\+TIM10\+\_\+\+IRQHandler}} (void)
+\begin{DoxyCompactList}\small\item\em TIM1 Update IRQ Handler. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{TIM__program_8c_a7fb516f8826d882ac91cfc093884fcf5}{TIM8\+\_\+\+UP\+\_\+\+TIM13\+\_\+\+IRQHandler}} (void)
+\begin{DoxyCompactList}\small\item\em TIM8 Update IRQ Handler. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{TIM__program_8c_a0839a45f331c4c067939b9c4533bbf4d}{TIM6\+\_\+\+DAC\+\_\+\+IRQHandler}} (void)
+\begin{DoxyCompactList}\small\item\em TIM6 /\+ DAC IRQ Handler. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{TIM__program_8c_a98cff83252098363b2dbca9608df964e}{TIM7\+\_\+\+IRQHandler}} (void)
+\begin{DoxyCompactList}\small\item\em TIM7 IRQ Handler. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Timer (TIM) Program File. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Saleh
+\end{DoxyAuthor}
+This file contains the implementation of the Timer driver functions. 
+
+Definition in file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+
+
+\label{doc-define-members}
+\Hypertarget{TIM__program_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{TIM__program_8c_a6bdf0a283847d5c7d7284ffc68885200}\index{TIM\_program.c@{TIM\_program.c}!TIM\_CLOCK\_FREQ@{TIM\_CLOCK\_FREQ}}
+\index{TIM\_CLOCK\_FREQ@{TIM\_CLOCK\_FREQ}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM\_CLOCK\_FREQ}{TIM\_CLOCK\_FREQ}}
+{\footnotesize\ttfamily \label{TIM__program_8c_a6bdf0a283847d5c7d7284ffc68885200} 
+\+\#define TIM\+\_\+\+CLOCK\+\_\+\+FREQ~16000000\+UL}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00030}{30}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{TIM__program_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{TIM__program_8c_ad1fd361bc5ad89facee67c76d1ff8dc0}\index{TIM\_program.c@{TIM\_program.c}!TIM1\_UP\_TIM10\_IRQHandler@{TIM1\_UP\_TIM10\_IRQHandler}}
+\index{TIM1\_UP\_TIM10\_IRQHandler@{TIM1\_UP\_TIM10\_IRQHandler}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM1\_UP\_TIM10\_IRQHandler()}{TIM1\_UP\_TIM10\_IRQHandler()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_ad1fd361bc5ad89facee67c76d1ff8dc0} 
+void TIM1\+\_\+\+UP\+\_\+\+TIM10\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+TIM1 Update IRQ Handler. 
+
+\begin{DoxyNote}{Note}
+On STM32\+F446xx, TIM1 Update shares its IRQ line with TIM10. The correct handler name is TIM1\+\_\+\+UP\+\_\+\+TIM10\+\_\+\+IRQHandler. Enable with NVIC IRQ:\+ TIM1\+\_\+\+UP\+\_\+\+TIM10\+\_\+\+IRQn 
+
+Advanced-\/control timer:\+ set MOE bit (BDTR register) if using PWM output. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00640}{640}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__program_8c_a38ad4725462bdc5e86c4ead4f04b9fc2}\index{TIM\_program.c@{TIM\_program.c}!TIM2\_IRQHandler@{TIM2\_IRQHandler}}
+\index{TIM2\_IRQHandler@{TIM2\_IRQHandler}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM2\_IRQHandler()}{TIM2\_IRQHandler()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_a38ad4725462bdc5e86c4ead4f04b9fc2} 
+void TIM2\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00581}{581}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__program_8c_ac8e51d2183b5230cbd5481f8867adce9}\index{TIM\_program.c@{TIM\_program.c}!TIM3\_IRQHandler@{TIM3\_IRQHandler}}
+\index{TIM3\_IRQHandler@{TIM3\_IRQHandler}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM3\_IRQHandler()}{TIM3\_IRQHandler()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_ac8e51d2183b5230cbd5481f8867adce9} 
+void TIM3\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00594}{594}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__program_8c_a7133f3f78767503641d307386e68bd28}\index{TIM\_program.c@{TIM\_program.c}!TIM4\_IRQHandler@{TIM4\_IRQHandler}}
+\index{TIM4\_IRQHandler@{TIM4\_IRQHandler}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM4\_IRQHandler()}{TIM4\_IRQHandler()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_a7133f3f78767503641d307386e68bd28} 
+void TIM4\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00607}{607}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__program_8c_a5e66446caf21dd90191dc07a13ce2378}\index{TIM\_program.c@{TIM\_program.c}!TIM5\_IRQHandler@{TIM5\_IRQHandler}}
+\index{TIM5\_IRQHandler@{TIM5\_IRQHandler}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM5\_IRQHandler()}{TIM5\_IRQHandler()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_a5e66446caf21dd90191dc07a13ce2378} 
+void TIM5\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00620}{620}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__program_8c_a0839a45f331c4c067939b9c4533bbf4d}\index{TIM\_program.c@{TIM\_program.c}!TIM6\_DAC\_IRQHandler@{TIM6\_DAC\_IRQHandler}}
+\index{TIM6\_DAC\_IRQHandler@{TIM6\_DAC\_IRQHandler}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM6\_DAC\_IRQHandler()}{TIM6\_DAC\_IRQHandler()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_a0839a45f331c4c067939b9c4533bbf4d} 
+void TIM6\+\_\+\+DAC\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+TIM6 /\+ DAC IRQ Handler. 
+
+\begin{DoxyNote}{Note}
+TIM6 shares its IRQ line with the DAC on STM32\+F446xx. The IRQ name is TIM6\+\_\+\+DAC\+\_\+\+IRQHandler. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00676}{676}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__program_8c_a98cff83252098363b2dbca9608df964e}\index{TIM\_program.c@{TIM\_program.c}!TIM7\_IRQHandler@{TIM7\_IRQHandler}}
+\index{TIM7\_IRQHandler@{TIM7\_IRQHandler}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM7\_IRQHandler()}{TIM7\_IRQHandler()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_a98cff83252098363b2dbca9608df964e} 
+void TIM7\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+TIM7 IRQ Handler. 
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00691}{691}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__program_8c_a7fb516f8826d882ac91cfc093884fcf5}\index{TIM\_program.c@{TIM\_program.c}!TIM8\_UP\_TIM13\_IRQHandler@{TIM8\_UP\_TIM13\_IRQHandler}}
+\index{TIM8\_UP\_TIM13\_IRQHandler@{TIM8\_UP\_TIM13\_IRQHandler}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM8\_UP\_TIM13\_IRQHandler()}{TIM8\_UP\_TIM13\_IRQHandler()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_a7fb516f8826d882ac91cfc093884fcf5} 
+void TIM8\+\_\+\+UP\+\_\+\+TIM13\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+TIM8 Update IRQ Handler. 
+
+\begin{DoxyNote}{Note}
+On STM32\+F446xx, TIM8 Update shares its IRQ line with TIM13. The correct handler name is TIM8\+\_\+\+UP\+\_\+\+TIM13\+\_\+\+IRQHandler. Enable with NVIC IRQ:\+ TIM8\+\_\+\+UP\+\_\+\+TIM13\+\_\+\+IRQn 
+
+Advanced-\/control timer:\+ set MOE bit (BDTR register) if using PWM output. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00659}{659}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__program_8c_aed79cd1ecef7e696e8a65336cef6b89f}\index{TIM\_program.c@{TIM\_program.c}!TIM\_u32GetCaptureValue@{TIM\_u32GetCaptureValue}}
+\index{TIM\_u32GetCaptureValue@{TIM\_u32GetCaptureValue}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM\_u32GetCaptureValue()}{TIM\_u32GetCaptureValue()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_aed79cd1ecef7e696e8a65336cef6b89f} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+u32\+Get\+Capture\+Value (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{\doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}}}]{Copy\+\_\+e\+Channel}{, }\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{pu32\+Value}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00321}{321}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__program_8c_a40e7376c5f494fa3ed9df8dd673b9673}\index{TIM\_program.c@{TIM\_program.c}!TIM\_u32GetCounterValue@{TIM\_u32GetCounterValue}}
+\index{TIM\_u32GetCounterValue@{TIM\_u32GetCounterValue}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM\_u32GetCounterValue()}{TIM\_u32GetCounterValue()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_a40e7376c5f494fa3ed9df8dd673b9673} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+u32\+Get\+Counter\+Value (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{pu32\+Value}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00338}{338}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__program_8c_a06dd9df822ed8f4c5635901b770230ea}\index{TIM\_program.c@{TIM\_program.c}!TIM\_vDelayMs@{TIM\_vDelayMs}}
+\index{TIM\_vDelayMs@{TIM\_vDelayMs}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM\_vDelayMs()}{TIM\_vDelayMs()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_a06dd9df822ed8f4c5635901b770230ea} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Delay\+Ms (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{uint32\+\_\+t}]{Copy\+\_\+u32\+Ms}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00434}{434}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TIM__program_8c_a06dd9df822ed8f4c5635901b770230ea_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{TIM__program_8c_a49a60dbb20212c2ba13e4aba78e81031}\index{TIM\_program.c@{TIM\_program.c}!TIM\_vDelayUs@{TIM\_vDelayUs}}
+\index{TIM\_vDelayUs@{TIM\_vDelayUs}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM\_vDelayUs()}{TIM\_vDelayUs()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_a49a60dbb20212c2ba13e4aba78e81031} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Delay\+Us (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{uint32\+\_\+t}]{Copy\+\_\+u32\+Us}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00473}{473}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__program_8c_a05c68c2d16e14ca08f925fc789f8c000}\index{TIM\_program.c@{TIM\_program.c}!TIM\_vDisableCCInterrupt@{TIM\_vDisableCCInterrupt}}
+\index{TIM\_vDisableCCInterrupt@{TIM\_vDisableCCInterrupt}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM\_vDisableCCInterrupt()}{TIM\_vDisableCCInterrupt()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_a05c68c2d16e14ca08f925fc789f8c000} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Disable\+CCInterrupt (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{\doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}}}]{Copy\+\_\+e\+Channel}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00537}{537}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TIM__program_8c_a05c68c2d16e14ca08f925fc789f8c000_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{TIM__program_8c_a1156613e7e18e66d685bf32cff6b8af5}\index{TIM\_program.c@{TIM\_program.c}!TIM\_vDisableInterrupt@{TIM\_vDisableInterrupt}}
+\index{TIM\_vDisableInterrupt@{TIM\_vDisableInterrupt}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM\_vDisableInterrupt()}{TIM\_vDisableInterrupt()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_a1156613e7e18e66d685bf32cff6b8af5} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Disable\+Interrupt (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00511}{511}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__program_8c_a78dfd09e838628d35bd9fc18ddd575ad}\index{TIM\_program.c@{TIM\_program.c}!TIM\_vEnableCCInterrupt@{TIM\_vEnableCCInterrupt}}
+\index{TIM\_vEnableCCInterrupt@{TIM\_vEnableCCInterrupt}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM\_vEnableCCInterrupt()}{TIM\_vEnableCCInterrupt()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_a78dfd09e838628d35bd9fc18ddd575ad} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Enable\+CCInterrupt (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{\doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}}}]{Copy\+\_\+e\+Channel}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00529}{529}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TIM__program_8c_a78dfd09e838628d35bd9fc18ddd575ad_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{TIM__program_8c_a59241245bf6224bcab52587175f7c41b}\index{TIM\_program.c@{TIM\_program.c}!TIM\_vEnableInterrupt@{TIM\_vEnableInterrupt}}
+\index{TIM\_vEnableInterrupt@{TIM\_vEnableInterrupt}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM\_vEnableInterrupt()}{TIM\_vEnableInterrupt()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_a59241245bf6224bcab52587175f7c41b} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Enable\+Interrupt (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00503}{503}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__program_8c_a8e1065f213120676872fdbbd5ccfd37a}\index{TIM\_program.c@{TIM\_program.c}!TIM\_vIC\_Init@{TIM\_vIC\_Init}}
+\index{TIM\_vIC\_Init@{TIM\_vIC\_Init}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM\_vIC\_Init()}{TIM\_vIC\_Init()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_a8e1065f213120676872fdbbd5ccfd37a} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+IC\+\_\+\+Init (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structTIM__ICConfig__t}{TIM\+\_\+\+ICConfig\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{px\+ICConfig}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00227}{227}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TIM__program_8c_a8e1065f213120676872fdbbd5ccfd37a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{TIM__program_8c_a2db8aa14e44d1d1571d455542d2269f0}\index{TIM\_program.c@{TIM\_program.c}!TIM\_vInit@{TIM\_vInit}}
+\index{TIM\_vInit@{TIM\_vInit}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM\_vInit()}{TIM\_vInit()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_a2db8aa14e44d1d1571d455542d2269f0} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Init (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structTIM__Config__t}{TIM\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{px\+Config}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00040}{40}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=339pt]{TIM__program_8c_a2db8aa14e44d1d1571d455542d2269f0_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{TIM__program_8c_adfefb691110f40a37d8a427bd3883a72}\index{TIM\_program.c@{TIM\_program.c}!TIM\_vPWM\_Init@{TIM\_vPWM\_Init}}
+\index{TIM\_vPWM\_Init@{TIM\_vPWM\_Init}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM\_vPWM\_Init()}{TIM\_vPWM\_Init()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_adfefb691110f40a37d8a427bd3883a72} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+PWM\+\_\+\+Init (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structTIM__PWMConfig__t}{TIM\+\_\+\+PWMConfig\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{px\+PWMConfig}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00128}{128}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__program_8c_acf362053a622ba1d6bcdbf65a1bbb261}\index{TIM\_program.c@{TIM\_program.c}!TIM\_vSetAutoReloadValue@{TIM\_vSetAutoReloadValue}}
+\index{TIM\_vSetAutoReloadValue@{TIM\_vSetAutoReloadValue}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM\_vSetAutoReloadValue()}{TIM\_vSetAutoReloadValue()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_acf362053a622ba1d6bcdbf65a1bbb261} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Set\+Auto\+Reload\+Value (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{uint32\+\_\+t}]{Copy\+\_\+u32\+Auto\+Reload}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00421}{421}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__program_8c_ae5ded709a28d726686666d92e05c40d3}\index{TIM\_program.c@{TIM\_program.c}!TIM\_vSetCallback@{TIM\_vSetCallback}}
+\index{TIM\_vSetCallback@{TIM\_vSetCallback}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM\_vSetCallback()}{TIM\_vSetCallback()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_ae5ded709a28d726686666d92e05c40d3} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Set\+Callback (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{void(\texorpdfstring{$\ast$}{*}}]{pv\+Callback~}{)(void)}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00519}{519}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__program_8c_a3a4b086e0c4a0656e57a585ec35734d3}\index{TIM\_program.c@{TIM\_program.c}!TIM\_vSetCCCallback@{TIM\_vSetCCCallback}}
+\index{TIM\_vSetCCCallback@{TIM\_vSetCCCallback}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM\_vSetCCCallback()}{TIM\_vSetCCCallback()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_a3a4b086e0c4a0656e57a585ec35734d3} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Set\+CCCallback (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{void(\texorpdfstring{$\ast$}{*}}]{pv\+Callback~}{)(\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}, uint8\+\_\+t, uint32\+\_\+t)}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00544}{544}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TIM__program_8c_a3a4b086e0c4a0656e57a585ec35734d3_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{TIM__program_8c_a367d00f6e6cd9c32d38e40ed2dd95fb8}\index{TIM\_program.c@{TIM\_program.c}!TIM\_vSetCompareValue@{TIM\_vSetCompareValue}}
+\index{TIM\_vSetCompareValue@{TIM\_vSetCompareValue}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM\_vSetCompareValue()}{TIM\_vSetCompareValue()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_a367d00f6e6cd9c32d38e40ed2dd95fb8} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Set\+Compare\+Value (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{\doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}}}]{Copy\+\_\+e\+Channel}{, }\item[{uint32\+\_\+t}]{Copy\+\_\+u32\+Value}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00382}{382}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__program_8c_af6ce9419f48628e54cb1110dae65e1f1}\index{TIM\_program.c@{TIM\_program.c}!TIM\_vSetICPolarity@{TIM\_vSetICPolarity}}
+\index{TIM\_vSetICPolarity@{TIM\_vSetICPolarity}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM\_vSetICPolarity()}{TIM\_vSetICPolarity()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_af6ce9419f48628e54cb1110dae65e1f1} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Set\+ICPolarity (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{\doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}}}]{Copy\+\_\+e\+Channel}{, }\item[{\doxymbox{\hyperlink{TIM__interface_8h_ad6edd13d05def01952c9f8b6e11773d4}{TIM\+\_\+\+Polarity\+\_\+t}}}]{Copy\+\_\+e\+Polarity}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00349}{349}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TIM__program_8c_af6ce9419f48628e54cb1110dae65e1f1_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{TIM__program_8c_ac28f51338121baf714c344ec730d8c12}\index{TIM\_program.c@{TIM\_program.c}!TIM\_vSetPrescaler@{TIM\_vSetPrescaler}}
+\index{TIM\_vSetPrescaler@{TIM\_vSetPrescaler}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM\_vSetPrescaler()}{TIM\_vSetPrescaler()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_ac28f51338121baf714c344ec730d8c12} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Set\+Prescaler (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{uint16\+\_\+t}]{Copy\+\_\+u16\+Prescaler}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00409}{409}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__program_8c_a2bd184de6083fb2ccf17231557037835}\index{TIM\_program.c@{TIM\_program.c}!TIM\_vStart@{TIM\_vStart}}
+\index{TIM\_vStart@{TIM\_vStart}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM\_vStart()}{TIM\_vStart()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_a2bd184de6083fb2ccf17231557037835} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Start (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00088}{88}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TIM__program_8c_a2bd184de6083fb2ccf17231557037835_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{TIM__program_8c_a704ce7ee96e78180a1bf2307b9a5f838}\index{TIM\_program.c@{TIM\_program.c}!TIM\_vStop@{TIM\_vStop}}
+\index{TIM\_vStop@{TIM\_vStop}!TIM\_program.c@{TIM\_program.c}}
+\doxysubsubsection{\texorpdfstring{TIM\_vStop()}{TIM\_vStop()}}
+{\footnotesize\ttfamily \label{TIM__program_8c_a704ce7ee96e78180a1bf2307b9a5f838} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Stop (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00108}{108}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+

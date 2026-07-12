@@ -1,0 +1,183 @@
+\doxysection{Inc/\+\+Drivers/\+\+LIB/\+\+STD\+\_\+\+MACROS.h File Reference}
+\hypertarget{STD__MACROS_8h}{}\label{STD__MACROS_8h}\index{Inc/Drivers/LIB/STD\_MACROS.h@{Inc/Drivers/LIB/STD\_MACROS.h}}
+This graph shows which files directly or indirectly include this file:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{STD__MACROS_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{STD__MACROS_8h_abe2f7b6344bb4d51dfea9c9f58609427}{REGISTER\+\_\+\+SIZE}}~8
+\item 
+\+\#define \doxymbox{\hyperlink{STD__MACROS_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\+\_\+\+BIT}}(reg,  bit)
+\item 
+\+\#define \doxymbox{\hyperlink{STD__MACROS_8h_a50ef806053a11c75cd2570f58e742de4}{CLR\+\_\+\+BIT}}(reg,  bit)
+\item 
+\+\#define \doxymbox{\hyperlink{STD__MACROS_8h_ad6d89aeec3157e9422d92480d4bd9343}{TOG\+\_\+\+BIT}}(reg,  bit)
+\item 
+\+\#define \doxymbox{\hyperlink{STD__MACROS_8h_aaef49ab0462bf902b59383f592140b05}{READ\+\_\+\+BIT}}(reg,  bit)
+\item 
+\+\#define \doxymbox{\hyperlink{STD__MACROS_8h_a79413e953065eefe67e15a9f1dba19c1}{READ\+\_\+\+BYTE}}(reg,  byte)
+\item 
+\+\#define \doxymbox{\hyperlink{STD__MACROS_8h_a3fe9237475a64592ad498aac6bba1650}{IS\+\_\+\+BIT\+\_\+\+SET}}(reg,  bit)
+\item 
+\+\#define \doxymbox{\hyperlink{STD__MACROS_8h_a3d70443f3f3b48c71f0184a7c2633e39}{IS\+\_\+\+BIT\+\_\+\+CLR}}(reg,  bit)
+\item 
+\+\#define \doxymbox{\hyperlink{STD__MACROS_8h_acdd57f8617d552ad57c697f8e46190a4}{ROR}}(reg,  num)
+\item 
+\+\#define \doxymbox{\hyperlink{STD__MACROS_8h_a29a7814b0a672229073f6cd702ba2437}{ROL}}(reg,  num)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{STD__MACROS_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{STD__MACROS_8h_a50ef806053a11c75cd2570f58e742de4}\index{STD\_MACROS.h@{STD\_MACROS.h}!CLR\_BIT@{CLR\_BIT}}
+\index{CLR\_BIT@{CLR\_BIT}!STD\_MACROS.h@{STD\_MACROS.h}}
+\doxysubsubsection{\texorpdfstring{CLR\_BIT}{CLR\_BIT}}
+{\footnotesize\ttfamily \label{STD__MACROS_8h_a50ef806053a11c75cd2570f58e742de4} 
+\+\#define CLR\+\_\+\+BIT(\begin{DoxyParamCaption}\item[{}]{reg}{, }\item[{}]{bit}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{reg\ \&=\ (\string~(1\ <<\ bit))}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{STD__MACROS_8h_source_l00014}{14}} of file \doxymbox{\hyperlink{STD__MACROS_8h_source}{STD\+\_\+\+MACROS.\+h}}.
+
+\Hypertarget{STD__MACROS_8h_a3d70443f3f3b48c71f0184a7c2633e39}\index{STD\_MACROS.h@{STD\_MACROS.h}!IS\_BIT\_CLR@{IS\_BIT\_CLR}}
+\index{IS\_BIT\_CLR@{IS\_BIT\_CLR}!STD\_MACROS.h@{STD\_MACROS.h}}
+\doxysubsubsection{\texorpdfstring{IS\_BIT\_CLR}{IS\_BIT\_CLR}}
+{\footnotesize\ttfamily \label{STD__MACROS_8h_a3d70443f3f3b48c71f0184a7c2633e39} 
+\+\#define IS\+\_\+\+BIT\+\_\+\+CLR(\begin{DoxyParamCaption}\item[{}]{reg}{, }\item[{}]{bit}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{!((reg\ \&\ (1\ <<\ bit))\ >>\ bit)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{STD__MACROS_8h_source_l00021}{21}} of file \doxymbox{\hyperlink{STD__MACROS_8h_source}{STD\+\_\+\+MACROS.\+h}}.
+
+\Hypertarget{STD__MACROS_8h_a3fe9237475a64592ad498aac6bba1650}\index{STD\_MACROS.h@{STD\_MACROS.h}!IS\_BIT\_SET@{IS\_BIT\_SET}}
+\index{IS\_BIT\_SET@{IS\_BIT\_SET}!STD\_MACROS.h@{STD\_MACROS.h}}
+\doxysubsubsection{\texorpdfstring{IS\_BIT\_SET}{IS\_BIT\_SET}}
+{\footnotesize\ttfamily \label{STD__MACROS_8h_a3fe9237475a64592ad498aac6bba1650} 
+\+\#define IS\+\_\+\+BIT\+\_\+\+SET(\begin{DoxyParamCaption}\item[{}]{reg}{, }\item[{}]{bit}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(reg\ \&\ (1\ <<\ bit))\ >>\ bit}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{STD__MACROS_8h_source_l00020}{20}} of file \doxymbox{\hyperlink{STD__MACROS_8h_source}{STD\+\_\+\+MACROS.\+h}}.
+
+\Hypertarget{STD__MACROS_8h_aaef49ab0462bf902b59383f592140b05}\index{STD\_MACROS.h@{STD\_MACROS.h}!READ\_BIT@{READ\_BIT}}
+\index{READ\_BIT@{READ\_BIT}!STD\_MACROS.h@{STD\_MACROS.h}}
+\doxysubsubsection{\texorpdfstring{READ\_BIT}{READ\_BIT}}
+{\footnotesize\ttfamily \label{STD__MACROS_8h_aaef49ab0462bf902b59383f592140b05} 
+\+\#define READ\+\_\+\+BIT(\begin{DoxyParamCaption}\item[{}]{reg}{, }\item[{}]{bit}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(reg\ \&\ (1\ <<\ bit))\ >>\ bit}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{STD__MACROS_8h_source_l00016}{16}} of file \doxymbox{\hyperlink{STD__MACROS_8h_source}{STD\+\_\+\+MACROS.\+h}}.
+
+\Hypertarget{STD__MACROS_8h_a79413e953065eefe67e15a9f1dba19c1}\index{STD\_MACROS.h@{STD\_MACROS.h}!READ\_BYTE@{READ\_BYTE}}
+\index{READ\_BYTE@{READ\_BYTE}!STD\_MACROS.h@{STD\_MACROS.h}}
+\doxysubsubsection{\texorpdfstring{READ\_BYTE}{READ\_BYTE}}
+{\footnotesize\ttfamily \label{STD__MACROS_8h_a79413e953065eefe67e15a9f1dba19c1} 
+\+\#define READ\+\_\+\+BYTE(\begin{DoxyParamCaption}\item[{}]{reg}{, }\item[{}]{byte}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(reg\ \&\ (0XFF\ <<\ (\textcolor{keywordtype}{byte}\ *\ 8)))\ >>\ (\textcolor{keywordtype}{byte}\ *\ 8)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{STD__MACROS_8h_source_l00018}{18}} of file \doxymbox{\hyperlink{STD__MACROS_8h_source}{STD\+\_\+\+MACROS.\+h}}.
+
+\Hypertarget{STD__MACROS_8h_abe2f7b6344bb4d51dfea9c9f58609427}\index{STD\_MACROS.h@{STD\_MACROS.h}!REGISTER\_SIZE@{REGISTER\_SIZE}}
+\index{REGISTER\_SIZE@{REGISTER\_SIZE}!STD\_MACROS.h@{STD\_MACROS.h}}
+\doxysubsubsection{\texorpdfstring{REGISTER\_SIZE}{REGISTER\_SIZE}}
+{\footnotesize\ttfamily \label{STD__MACROS_8h_abe2f7b6344bb4d51dfea9c9f58609427} 
+\+\#define REGISTER\+\_\+\+SIZE~8}
+
+
+
+Definition at line \doxymbox{\hyperlink{STD__MACROS_8h_source_l00012}{12}} of file \doxymbox{\hyperlink{STD__MACROS_8h_source}{STD\+\_\+\+MACROS.\+h}}.
+
+\Hypertarget{STD__MACROS_8h_a29a7814b0a672229073f6cd702ba2437}\index{STD\_MACROS.h@{STD\_MACROS.h}!ROL@{ROL}}
+\index{ROL@{ROL}!STD\_MACROS.h@{STD\_MACROS.h}}
+\doxysubsubsection{\texorpdfstring{ROL}{ROL}}
+{\footnotesize\ttfamily \label{STD__MACROS_8h_a29a7814b0a672229073f6cd702ba2437} 
+\+\#define ROL(\begin{DoxyParamCaption}\item[{}]{reg}{, }\item[{}]{num}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{reg\ =\ (reg\ >>\ (\doxymbox{\hyperlink{STD__MACROS_8h_abe2f7b6344bb4d51dfea9c9f58609427}{REGISTER\_SIZE}}\ -\/\ num))\ |\ (reg\ <<\ (num))}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{STD__MACROS_8h_source_l00024}{24}} of file \doxymbox{\hyperlink{STD__MACROS_8h_source}{STD\+\_\+\+MACROS.\+h}}.
+
+\Hypertarget{STD__MACROS_8h_acdd57f8617d552ad57c697f8e46190a4}\index{STD\_MACROS.h@{STD\_MACROS.h}!ROR@{ROR}}
+\index{ROR@{ROR}!STD\_MACROS.h@{STD\_MACROS.h}}
+\doxysubsubsection{\texorpdfstring{ROR}{ROR}}
+{\footnotesize\ttfamily \label{STD__MACROS_8h_acdd57f8617d552ad57c697f8e46190a4} 
+\+\#define ROR(\begin{DoxyParamCaption}\item[{}]{reg}{, }\item[{}]{num}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{reg\ =\ (reg\ <<\ (\doxymbox{\hyperlink{STD__MACROS_8h_abe2f7b6344bb4d51dfea9c9f58609427}{REGISTER\_SIZE}}\ -\/\ num))\ |\ (reg\ >>\ (num))}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{STD__MACROS_8h_source_l00023}{23}} of file \doxymbox{\hyperlink{STD__MACROS_8h_source}{STD\+\_\+\+MACROS.\+h}}.
+
+\Hypertarget{STD__MACROS_8h_a62af7cb8bfabd5a9f6ea45582e08843b}\index{STD\_MACROS.h@{STD\_MACROS.h}!SET\_BIT@{SET\_BIT}}
+\index{SET\_BIT@{SET\_BIT}!STD\_MACROS.h@{STD\_MACROS.h}}
+\doxysubsubsection{\texorpdfstring{SET\_BIT}{SET\_BIT}}
+{\footnotesize\ttfamily \label{STD__MACROS_8h_a62af7cb8bfabd5a9f6ea45582e08843b} 
+\+\#define SET\+\_\+\+BIT(\begin{DoxyParamCaption}\item[{}]{reg}{, }\item[{}]{bit}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{reg\ |=\ (1\ <<\ bit)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{STD__MACROS_8h_source_l00013}{13}} of file \doxymbox{\hyperlink{STD__MACROS_8h_source}{STD\+\_\+\+MACROS.\+h}}.
+
+\Hypertarget{STD__MACROS_8h_ad6d89aeec3157e9422d92480d4bd9343}\index{STD\_MACROS.h@{STD\_MACROS.h}!TOG\_BIT@{TOG\_BIT}}
+\index{TOG\_BIT@{TOG\_BIT}!STD\_MACROS.h@{STD\_MACROS.h}}
+\doxysubsubsection{\texorpdfstring{TOG\_BIT}{TOG\_BIT}}
+{\footnotesize\ttfamily \label{STD__MACROS_8h_ad6d89aeec3157e9422d92480d4bd9343} 
+\+\#define TOG\+\_\+\+BIT(\begin{DoxyParamCaption}\item[{}]{reg}{, }\item[{}]{bit}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{reg\ \string^=\ (1\ <<\ bit)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{STD__MACROS_8h_source_l00015}{15}} of file \doxymbox{\hyperlink{STD__MACROS_8h_source}{STD\+\_\+\+MACROS.\+h}}.
+

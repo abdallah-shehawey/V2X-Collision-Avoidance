@@ -1,0 +1,320 @@
+\doxysection{SYSTIC\+\_\+program.\+c}
+\hypertarget{SYSTIC__program_8c_source}{}\label{SYSTIC__program_8c_source}\index{Src/SYSTIC\_program.c@{Src/SYSTIC\_program.c}}
+\doxymbox{\hyperlink{SYSTIC__program_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00022}00022\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00023}00023\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h}{../Inc/Drivers/LIB/STM32F446xx.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00024}00024\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{ErrTypes_8h}{../Inc/Drivers/LIB/ErrTypes.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00026}00026\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SYSTIC__config_8h}{../Inc/Drivers/MCAL/SYSTIC/SYSTIC\_config.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00027}00027\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SYSTIC__interface_8h}{../Inc/Drivers/MCAL/SYSTIC/SYSTIC\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00028}00028\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SYSTIC__private_8h}{../Inc/Drivers/MCAL/SYSTIC/SYSTIC\_private.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00030}00030\ \textcolor{keyword}{static}\ void\ (*SYSTIC\_CallBack)(void)\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}};}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00031}00031\ \textcolor{keyword}{static}\ uint8\_t\ SingleShot\_Flag\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00033}00033\ \textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00048}\doxymbox{\hyperlink{SYSTIC__interface_8h_a99e63ce5310c50cf04f33715ace4023c}{00048}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{SYSTIC__program_8c_a99e63ce5310c50cf04f33715ace4023c}{SYSTIC\_vInit}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00049}00049\ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00050}00050\ \ \ \textcolor{comment}{/*\ Configure\ clock\ source\ -\/\ SysTick\ can\ use\ either:}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00051}00051\ \textcolor{comment}{\ \ \ *\ -\/\ AHB\ clock\ (full\ speed)\ when\ SYSTIC\_CLKSOURCE\ ==\ CLK\_SOURCE\_AHB}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00052}00052\ \textcolor{comment}{\ \ \ *\ -\/\ AHB/8\ clock\ (divided\ by\ 8)\ when\ SYSTIC\_CLKSOURCE\ ==\ CLK\_SOURCE\_AHB\_DIV8}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00053}00053\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00054}00054\ \textcolor{preprocessor}{\#if\ SYSTIC\_CLKSOURCE\ ==\ CLK\_SOURCE\_AHB}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00055}00055\ \ \ \textcolor{comment}{/*\ Use\ processor\ clock\ (AHB)\ for\ maximum\ precision\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00056}00056\ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>CTRL\ |=\ (1u\ <<\ \doxymbox{\hyperlink{group__SYSTIC__Registers_ga28a9ae71009dd56218f3f3ba9a3497a1}{SYSTIC\_CTRL\_CLKSOURCE}});}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00058}00058\ \textcolor{preprocessor}{\#elif\ SYSTIC\_CLKSOURCE\ ==\ CLK\_SOURCE\_AHB\_DIV8}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00059}00059\ \ \ \textcolor{comment}{/*\ Use\ processor\ clock\ divided\ by\ 8\ for\ power\ efficiency\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00060}00060\ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>CTRL\ \&=\ (\string~(1u\ <<\ \doxymbox{\hyperlink{group__SYSTIC__Registers_ga28a9ae71009dd56218f3f3ba9a3497a1}{SYSTIC\_CTRL\_CLKSOURCE}}));}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00062}00062\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00063}00063\ \textcolor{preprocessor}{\#error\ "{}Invalid\ SYSTIC\ Clock\ Source\ Configuration"{}}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00064}00064\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00066}00066\ \ \ \textcolor{comment}{/*\ Configure\ interrupt\ generation\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00067}00067\ \textcolor{preprocessor}{\#if\ SYSTIC\_TICKINT\ ==\ ENABLE}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00068}00068\ \ \ \textcolor{comment}{/*\ Enable\ SysTick\ exception\ generation\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00069}00069\ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>CTRL\ |=\ (1u\ <<\ \doxymbox{\hyperlink{group__SYSTIC__Registers_ga5756661e6f29f88fa14bfb0207114335}{SYSTIC\_CTRL\_TICKINT}});}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00070}00070\ \textcolor{preprocessor}{\#elif\ SYSTIC\_TICKINT\ ==\ DISABLE}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00071}00071\ \ \ \textcolor{comment}{/*\ Disable\ SysTick\ exception\ generation\ (polling\ mode)\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00072}00072\ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>CTRL\ \&=\ (\string~(1u\ <<\ \doxymbox{\hyperlink{group__SYSTIC__Registers_ga5756661e6f29f88fa14bfb0207114335}{SYSTIC\_CTRL\_TICKINT}}));}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00073}00073\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00074}00074\ \textcolor{preprocessor}{\#error\ "{}Invalid\ SYSTIC\ Interrupt\ Configuration"{}}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00075}00075\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00076}00076\ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00078}00078\ \textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00085}00085\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SYSTIC\_vDisable(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00086}00086\ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00087}00087\ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>CTRL\ \&=\ (\string~(1u\ <<\ \doxymbox{\hyperlink{group__SYSTIC__Registers_ga38d1b080e439bceb106970e8d4dd9b29}{SYSTIC\_CTRL\_ENABLE}}));}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00088}00088\ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00090}00090\ \textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00098}00098\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SYSTIC\_vEnable(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00099}00099\ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00100}00100\ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>CTRL\ |=\ (1u\ <<\ \doxymbox{\hyperlink{group__SYSTIC__Registers_ga38d1b080e439bceb106970e8d4dd9b29}{SYSTIC\_CTRL\_ENABLE}});}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00101}00101\ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00103}00103\ \textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00111}00111\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SYSTIC\_vWait(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00112}00112\ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00113}00113\ \ \ \textcolor{keywordflow}{while}\ ((\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>CTRL\ \&\ (1u\ <<\ \doxymbox{\hyperlink{group__SYSTIC__Registers_ga08cb1583dd11d0b6822481b8e7fe97de}{SYSTIC\_CTRL\_COUNTFLAG}}))\ ==\ 0);}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00114}00114\ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00116}00116\ \textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00136}\doxymbox{\hyperlink{SYSTIC__interface_8h_a1726b39164004495ff64017b18f6e118}{00136}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{SYSTIC__program_8c_a1726b39164004495ff64017b18f6e118}{SYSTIC\_vDelayMs}}(uint32\_t\ Copy\_u32MsTime)}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00137}00137\ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00138}00138\ \ \ \textcolor{comment}{/*\ Calculate\ tick\ time\ based\ on\ clock\ source}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00139}00139\ \textcolor{comment}{\ \ \ *\ -\/\ For\ AHB/8:\ 1\ tick\ =\ 1/(SYSTEM\_CLOCK\_IN\_KHZ/8)\ ms}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00140}00140\ \textcolor{comment}{\ \ \ *\ -\/\ For\ AHB:\ 1\ tick\ =\ 1/SYSTEM\_CLOCK\_IN\_KHZ\ ms}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00141}00141\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00142}00142\ \textcolor{preprocessor}{\#if\ SYSTIC\_CLKSOURCE\ ==\ CLK\_SOURCE\_AHB\_DIV8}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00143}00143\ \ \ \textcolor{keywordtype}{float}\ Local\_f32TickTimeInMs\ =\ 1.0\ /\ (\doxymbox{\hyperlink{group__SYSTIC__Clock__Config_ga078f7b549bde874db7ebf81d1359691f}{SYSTEM\_CLOCK\_IN\_KHZ}}\ /\ 8.0);}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00144}00144\ \textcolor{preprocessor}{\#elif\ SYSTIC\_CLKSOURCE\ ==\ CLK\_SOURCE\_AHB}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00145}00145\ \ \ \textcolor{keywordtype}{double}\ Local\_f32TickTimeInMs\ =\ 1.0\ /\ \doxymbox{\hyperlink{group__SYSTIC__Clock__Config_ga078f7b549bde874db7ebf81d1359691f}{SYSTEM\_CLOCK\_IN\_KHZ}};}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00146}00146\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00148}00148\ \ \ \textcolor{comment}{/*\ Calculate\ required\ number\ of\ ticks\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00149}00149\ \ \ uint32\_t\ Local\_u32NoOfTicks\ =\ Copy\_u32MsTime\ /\ Local\_f32TickTimeInMs;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00151}00151\ \ \ \textcolor{comment}{/*\ Check\ if\ delay\ fits\ in\ single\ counter\ cycle\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00152}00152\ \ \ \textcolor{keywordflow}{if}\ (Local\_u32NoOfTicks\ <=\ \doxymbox{\hyperlink{group__SYSTIC__Constants_gaa859133e49f79568817c4eec5ecc6a1f}{SYSTIC\_MAX\_NO\_OF\_TICKS}})}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00153}00153\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00154}00154\ \ \ \ \ \textcolor{comment}{/*\ Single\ cycle\ delay\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00155}00155\ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>VAL\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Clear\ current\ value\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00156}00156\ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>LOAD\ =\ Local\_u32NoOfTicks;\ \textcolor{comment}{/*\ Load\ delay\ value\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00157}00157\ \ \ \ \ SYSTIC\_vEnable();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Start\ timer\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00158}00158\ \ \ \ \ SYSTIC\_vWait();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Wait\ for\ completion\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00159}00159\ \ \ \ \ SYSTIC\_vDisable();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Stop\ timer\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00160}00160\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00161}00161\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00162}00162\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00163}00163\ \ \ \ \ \textcolor{comment}{/*\ Handle\ long\ delays\ by\ breaking\ into\ multiple\ cycles\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00164}00164\ \ \ \ \ \textcolor{keywordflow}{while}\ (Local\_u32NoOfTicks\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00165}00165\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00166}00166\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32NoOfTicks\ >\ \doxymbox{\hyperlink{group__SYSTIC__Constants_gaa859133e49f79568817c4eec5ecc6a1f}{SYSTIC\_MAX\_NO\_OF\_TICKS}})}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00167}00167\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00168}00168\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Load\ maximum\ possible\ value\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00169}00169\ \ \ \ \ \ \ \ \ Local\_u32NoOfTicks\ -\/=\ \doxymbox{\hyperlink{group__SYSTIC__Constants_gaa859133e49f79568817c4eec5ecc6a1f}{SYSTIC\_MAX\_NO\_OF\_TICKS}};}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00170}00170\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>VAL\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00171}00171\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>LOAD\ =\ \doxymbox{\hyperlink{group__SYSTIC__Constants_gaa859133e49f79568817c4eec5ecc6a1f}{SYSTIC\_MAX\_NO\_OF\_TICKS}};}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00172}00172\ \ \ \ \ \ \ \ \ SYSTIC\_vEnable();}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00173}00173\ \ \ \ \ \ \ \ \ SYSTIC\_vWait();}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00174}00174\ \ \ \ \ \ \ \ \ SYSTIC\_vDisable();}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00175}00175\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00176}00176\ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00177}00177\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00178}00178\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Load\ remaining\ ticks\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00179}00179\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>VAL\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00180}00180\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>LOAD\ =\ Local\_u32NoOfTicks;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00181}00181\ \ \ \ \ \ \ \ \ SYSTIC\_vEnable();}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00182}00182\ \ \ \ \ \ \ \ \ SYSTIC\_vWait();}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00183}00183\ \ \ \ \ \ \ \ \ SYSTIC\_vDisable();}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00184}00184\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00185}00185\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00186}00186\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00187}00187\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00188}00188\ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00189}00189\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00190}00190\ \textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00211}\doxymbox{\hyperlink{SYSTIC__interface_8h_ad76d8f1128b3a2cfceeca65bac33b757}{00211}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{SYSTIC__program_8c_ad76d8f1128b3a2cfceeca65bac33b757}{SYSTIC\_vDelayUs}}(uint32\_t\ Copy\_u32UsTime)}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00212}00212\ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00213}00213\ \ \ \textcolor{comment}{/*\ Calculate\ tick\ time\ based\ on\ clock\ source}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00214}00214\ \textcolor{comment}{\ \ \ *\ -\/\ For\ AHB/8:\ 1\ tick\ =\ 1/(SYSTEM\_CLOCK\_IN\_KHZ/8)\ us}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00215}00215\ \textcolor{comment}{\ \ \ *\ -\/\ For\ AHB:\ 1\ tick\ =\ 1/SYSTEM\_CLOCK\_IN\_KHZ\ us}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00216}00216\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00217}00217\ \textcolor{preprocessor}{\#if\ SYSTIC\_CLKSOURCE\ ==\ CLK\_SOURCE\_AHB\_DIV8}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00218}00218\ \ \ \textcolor{keywordtype}{double}\ Local\_f32TickTimeInUs\ =\ 1.0\ /\ (\doxymbox{\hyperlink{group__SYSTIC__Clock__Config_gaaf1d8e93c7d24cfcdec6e40b4581d050}{SYSTEM\_CLOCK\_IN\_MHZ}}\ /\ 8.0);}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00219}00219\ \textcolor{preprocessor}{\#elif\ SYSTIC\_CLKSOURCE\ ==\ CLK\_SOURCE\_AHB}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00220}00220\ \ \ \textcolor{keywordtype}{double}\ Local\_f32TickTimeInUs\ =\ 1.0\ /\ \doxymbox{\hyperlink{group__SYSTIC__Clock__Config_gaaf1d8e93c7d24cfcdec6e40b4581d050}{SYSTEM\_CLOCK\_IN\_MHZ}};}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00221}00221\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00222}00222\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00223}00223\ \ \ \textcolor{comment}{/*\ Calculate\ required\ number\ of\ ticks\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00224}00224\ \ \ uint32\_t\ Local\_u32NoOfTicks\ =\ Copy\_u32UsTime\ /\ Local\_f32TickTimeInUs;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00225}00225\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00226}00226\ \ \ \textcolor{comment}{/*\ Check\ if\ delay\ fits\ in\ single\ counter\ cycle\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00227}00227\ \ \ \textcolor{keywordflow}{if}\ (Local\_u32NoOfTicks\ <=\ \doxymbox{\hyperlink{group__SYSTIC__Constants_gaa859133e49f79568817c4eec5ecc6a1f}{SYSTIC\_MAX\_NO\_OF\_TICKS}})}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00228}00228\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00229}00229\ \ \ \ \ \textcolor{comment}{/*\ Single\ cycle\ delay\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00230}00230\ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>VAL\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Clear\ current\ value\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00231}00231\ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>LOAD\ =\ Local\_u32NoOfTicks;\ \textcolor{comment}{/*\ Load\ delay\ value\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00232}00232\ \ \ \ \ SYSTIC\_vEnable();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Start\ timer\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00233}00233\ \ \ \ \ SYSTIC\_vWait();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Wait\ for\ completion\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00234}00234\ \ \ \ \ SYSTIC\_vDisable();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Stop\ timer\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00235}00235\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00236}00236\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00237}00237\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00238}00238\ \ \ \ \ \textcolor{comment}{/*\ Handle\ long\ delays\ by\ breaking\ into\ multiple\ cycles\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00239}00239\ \ \ \ \ \textcolor{keywordflow}{while}\ (Local\_u32NoOfTicks\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00240}00240\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00241}00241\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32NoOfTicks\ >\ \doxymbox{\hyperlink{group__SYSTIC__Constants_gaa859133e49f79568817c4eec5ecc6a1f}{SYSTIC\_MAX\_NO\_OF\_TICKS}})}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00242}00242\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00243}00243\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Load\ maximum\ possible\ value\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00244}00244\ \ \ \ \ \ \ \ \ Local\_u32NoOfTicks\ -\/=\ \doxymbox{\hyperlink{group__SYSTIC__Constants_gaa859133e49f79568817c4eec5ecc6a1f}{SYSTIC\_MAX\_NO\_OF\_TICKS}};}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00245}00245\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>VAL\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00246}00246\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>LOAD\ =\ \doxymbox{\hyperlink{group__SYSTIC__Constants_gaa859133e49f79568817c4eec5ecc6a1f}{SYSTIC\_MAX\_NO\_OF\_TICKS}};}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00247}00247\ \ \ \ \ \ \ \ \ SYSTIC\_vEnable();}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00248}00248\ \ \ \ \ \ \ \ \ SYSTIC\_vWait();}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00249}00249\ \ \ \ \ \ \ \ \ SYSTIC\_vDisable();}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00250}00250\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00251}00251\ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00252}00252\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00253}00253\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Load\ remaining\ ticks\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00254}00254\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>VAL\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00255}00255\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>LOAD\ =\ Local\_u32NoOfTicks;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00256}00256\ \ \ \ \ \ \ \ \ SYSTIC\_vEnable();}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00257}00257\ \ \ \ \ \ \ \ \ SYSTIC\_vWait();}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00258}00258\ \ \ \ \ \ \ \ \ SYSTIC\_vDisable();}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00259}00259\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00260}00260\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00261}00261\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00262}00262\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00263}00263\ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00264}00264\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00265}00265\ \textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00286}\doxymbox{\hyperlink{SYSTIC__interface_8h_a6f1eb3133defa3900330337cde02ddc1}{00286}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{SYSTIC__program_8c_a6f1eb3133defa3900330337cde02ddc1}{SYSTIC\_enumGetElapsedTickSingleShot}}(uint32\_t\ *\ Copy\_pu32Tick)}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00287}00287\ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00288}00288\ \ \ \ \ \ \ \textcolor{comment}{/*\ Calculate\ tick\ time\ based\ on\ clock\ source\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00289}00289\ \textcolor{preprocessor}{\#if\ SYSTIC\_CLKSOURCE\ ==\ CLK\_SOURCE\_AHB\_DIV8}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00290}00290\ \textcolor{keywordtype}{double}\ Local\_f32TickTimeInUs\ =\ 1.0\ /\ (\doxymbox{\hyperlink{group__SYSTIC__Clock__Config_gaaf1d8e93c7d24cfcdec6e40b4581d050}{SYSTEM\_CLOCK\_IN\_MHZ}}\ /\ 8.0);}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00291}00291\ \textcolor{preprocessor}{\#elif\ SYSTIC\_CLKSOURCE\ ==\ CLK\_SOURCE\_AHB}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00292}00292\ \textcolor{keywordtype}{double}\ Local\_f32TickTimeInUs\ =\ 1.0\ /\ \doxymbox{\hyperlink{group__SYSTIC__Clock__Config_gaaf1d8e93c7d24cfcdec6e40b4581d050}{SYSTEM\_CLOCK\_IN\_MHZ}};}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00293}00293\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00294}00294\ \ \ \textcolor{comment}{/*\ Local\ variables}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00295}00295\ \textcolor{comment}{\ \ \ *\ -\/\ Local\_u32Tick:\ Stores\ the\ current\ tick\ count}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00296}00296\ \textcolor{comment}{\ \ \ *\ -\/\ Local\_u32LoadValue:\ Stores\ the\ initial\ load\ value}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00297}00297\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00298}00298\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_enumErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00299}00299\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00300}00300\ \ \ \textcolor{keywordflow}{if}\ (Copy\_pu32Tick\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00301}00301\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00302}00302\ \ \ \ \ Local\_enumErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00303}00303\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00304}00304\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00305}00305\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00306}00306\ \ \ \ \ *Copy\_pu32Tick\ =\ (((\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>LOAD)\ -\/\ (\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>VAL))\ *\ Local\_f32TickTimeInUs);}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00307}00307\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00308}00308\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00309}00309\ \ \ \textcolor{keywordflow}{return}\ Local\_enumErrorState;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00310}00310\ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00311}00311\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00312}00312\ \textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00327}\doxymbox{\hyperlink{SYSTIC__interface_8h_a6faccf82df62191d2ba2aaf0a0dd66ea}{00327}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{SYSTIC__program_8c_a6faccf82df62191d2ba2aaf0a0dd66ea}{SYSTIC\_enumRemainingTickSingleShot}}(uint32\_t\ *\ Copy\_pu32Tick)}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00328}00328\ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00329}00329\ \ \ \ \ \textcolor{comment}{/*\ Calculate\ tick\ time\ based\ on\ clock\ source\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00330}00330\ \textcolor{preprocessor}{\#if\ SYSTIC\_CLKSOURCE\ ==\ CLK\_SOURCE\_AHB\_DIV8}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00331}00331\ \textcolor{keywordtype}{double}\ Local\_f32TickTimeInUs\ =\ 1.0\ /\ (\doxymbox{\hyperlink{group__SYSTIC__Clock__Config_gaaf1d8e93c7d24cfcdec6e40b4581d050}{SYSTEM\_CLOCK\_IN\_MHZ}}\ /\ 8.0);}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00332}00332\ \textcolor{preprocessor}{\#elif\ SYSTIC\_CLKSOURCE\ ==\ CLK\_SOURCE\_AHB}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00333}00333\ \textcolor{keywordtype}{double}\ Local\_f32TickTimeInUs\ =\ 1.0\ /\ \doxymbox{\hyperlink{group__SYSTIC__Clock__Config_gaaf1d8e93c7d24cfcdec6e40b4581d050}{SYSTEM\_CLOCK\_IN\_MHZ}};}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00334}00334\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00335}00335\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00336}00336\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_enumErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00337}00337\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00338}00338\ \ \ \textcolor{keywordflow}{if}\ (Copy\_pu32Tick\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00339}00339\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00340}00340\ \ \ \ \ Local\_enumErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00341}00341\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00342}00342\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00343}00343\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00344}00344\ \ \ \ \ *Copy\_pu32Tick\ =\ (\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>VAL)\ *\ Local\_f32TickTimeInUs;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00345}00345\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00346}00346\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00347}00347\ \ \ \textcolor{keywordflow}{return}\ Local\_enumErrorState;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00348}00348\ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00349}00349\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00350}00350\ \textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00372}\doxymbox{\hyperlink{SYSTIC__interface_8h_a233735d97515255dbfddaaed7a4a5822}{00372}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{SYSTIC__program_8c_a233735d97515255dbfddaaed7a4a5822}{SYSTIC\_enumCallback}}(\textcolor{keywordtype}{void}(*Copy\_pvCallBack)(\textcolor{keywordtype}{void}),\ uint32\_t\ Copy\_u32Tick)}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00373}00373\ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00374}00374\ \ \ \textcolor{comment}{/*\ Configure\ clock\ source\ and\ set\ callback\ function}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00375}00375\ \textcolor{comment}{\ \ \ *\ -\/\ This\ function\ sets\ up\ the\ SysTick\ timer\ for\ continuous\ operation}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00376}00376\ \textcolor{comment}{\ \ \ *\ -\/\ The\ callback\ function\ will\ be\ called\ periodically}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00377}00377\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00378}00378\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_enumErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00379}00379\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00380}00380\ \ \ \textcolor{comment}{/*\ Calculate\ tick\ time\ based\ on\ clock\ source\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00381}00381\ \textcolor{preprocessor}{\#if\ SYSTIC\_CLKSOURCE\ ==\ CLK\_SOURCE\_AHB\_DIV8}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00382}00382\ \ \ \textcolor{keywordtype}{double}\ Local\_f32TickTimeInUs\ =\ 1.0\ /\ (\doxymbox{\hyperlink{group__SYSTIC__Clock__Config_gaaf1d8e93c7d24cfcdec6e40b4581d050}{SYSTEM\_CLOCK\_IN\_MHZ}}\ /\ 8.0);}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00383}00383\ \textcolor{preprocessor}{\#elif\ SYSTIC\_CLKSOURCE\ ==\ CLK\_SOURCE\_AHB}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00384}00384\ \ \ \textcolor{keywordtype}{double}\ Local\_f32TickTimeInUs\ =\ 1.0\ /\ \doxymbox{\hyperlink{group__SYSTIC__Clock__Config_gaaf1d8e93c7d24cfcdec6e40b4581d050}{SYSTEM\_CLOCK\_IN\_MHZ}};}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00385}00385\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00386}00386\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00387}00387\ \ \ \textcolor{comment}{/*\ Calculate\ required\ number\ of\ ticks\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00388}00388\ \ \ uint32\_t\ Local\_u32NoOfTicks\ =\ Copy\_u32Tick\ /\ Local\_f32TickTimeInUs;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00389}00389\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00390}00390\ \ \ \textcolor{keywordflow}{if}\ (Copy\_pvCallBack\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00391}00391\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00392}00392\ \ \ \ \ Local\_enumErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00393}00393\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00394}00394\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00395}00395\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00396}00396\ \ \ \ \ SingleShot\_Flag\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00397}00397\ \ \ \ \ SYSTIC\_CallBack\ =\ Copy\_pvCallBack;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00398}00398\ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>VAL\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00399}00399\ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>LOAD\ =\ Local\_u32NoOfTicks;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00400}00400\ \ \ \ \ SYSTIC\_vEnable();}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00401}00401\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00402}00402\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00403}00403\ \ \ \textcolor{keywordflow}{return}\ Local\_enumErrorState;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00404}00404\ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00405}00405\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00406}00406\ \textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00428}\doxymbox{\hyperlink{SYSTIC__interface_8h_a5a2145332c475bf7e865779752a45200}{00428}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{SYSTIC__program_8c_a5a2145332c475bf7e865779752a45200}{SYSTIC\_enumCallbackSingleShot}}(\textcolor{keywordtype}{void}(*Copy\_pvCallBack)(\textcolor{keywordtype}{void}),\ uint32\_t\ Copy\_u32Tick)}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00429}00429\ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00430}00430\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_enumErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00431}00431\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00432}00432\ \ \ \textcolor{comment}{/*\ Calculate\ tick\ time\ based\ on\ clock\ source\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00433}00433\ \textcolor{preprocessor}{\#if\ SYSTIC\_CLKSOURCE\ ==\ CLK\_SOURCE\_AHB\_DIV8}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00434}00434\ \ \ \textcolor{keywordtype}{double}\ Local\_f32TickTimeInUs\ =\ 1.0\ /\ (\doxymbox{\hyperlink{group__SYSTIC__Clock__Config_gaaf1d8e93c7d24cfcdec6e40b4581d050}{SYSTEM\_CLOCK\_IN\_MHZ}}\ /\ 8.0);}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00435}00435\ \textcolor{preprocessor}{\#elif\ SYSTIC\_CLKSOURCE\ ==\ CLK\_SOURCE\_AHB}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00436}00436\ \ \ \textcolor{keywordtype}{double}\ Local\_f32TickTimeInUs\ =\ 1.0\ /\ \doxymbox{\hyperlink{group__SYSTIC__Clock__Config_gaaf1d8e93c7d24cfcdec6e40b4581d050}{SYSTEM\_CLOCK\_IN\_MHZ}};}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00437}00437\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00438}00438\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00439}00439\ \ \ \textcolor{comment}{/*\ Calculate\ required\ number\ of\ ticks\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00440}00440\ \ \ uint32\_t\ Local\_u32NoOfTicks\ =\ Copy\_u32Tick\ /\ Local\_f32TickTimeInUs;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00441}00441\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00442}00442\ \ \ \textcolor{keywordflow}{if}\ (Copy\_pvCallBack\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00443}00443\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00444}00444\ \ \ \ \ Local\_enumErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00445}00445\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00446}00446\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00447}00447\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00448}00448\ \ \ \ \ SingleShot\_Flag\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00449}00449\ \ \ \ \ SYSTIC\_CallBack\ =\ Copy\_pvCallBack;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00450}00450\ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>VAL\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00451}00451\ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}-\/>LOAD\ =\ Local\_u32NoOfTicks;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00452}00452\ \ \ \ \ SYSTIC\_vEnable();}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00453}00453\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00454}00454\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00455}00455\ \ \ \textcolor{keywordflow}{return}\ Local\_enumErrorState;}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00456}00456\ \}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00457}00457\ }
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00460}00460\ \textcolor{comment}{//\ *\ @fn\ SysTick\_Handler}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00461}00461\ \textcolor{comment}{//\ *\ @brief\ SysTick\ interrupt\ handler}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00462}00462\ \textcolor{comment}{//\ *}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00463}00463\ \textcolor{comment}{//\ *\ @details\ Automatically\ called\ when\ the\ counter\ reaches\ zero}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00464}00464\ \textcolor{comment}{//\ *\ \ \ \ \ \ \ \ \ \ Clears\ the\ COUNTFLAG\ bit\ (bit\ 16\ in\ CTRL\ register)}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00465}00465\ \textcolor{comment}{//\ *\ \ \ \ \ \ \ \ \ \ Calls\ the\ registered\ callback\ function\ if\ set}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00466}00466\ \textcolor{comment}{//\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00467}00467\ \textcolor{comment}{//void\ SysTick\_Handler(void)}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00468}00468\ \textcolor{comment}{//\{}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00469}00469\ \textcolor{comment}{//\ \ /*\ SysTick\ interrupt\ handler}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00470}00470\ \textcolor{comment}{//\ \ \ *\ -\/\ Automatically\ called\ when\ the\ counter\ reaches\ zero}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00471}00471\ \textcolor{comment}{//\ \ \ *\ -\/\ Clears\ the\ COUNTFLAG\ bit\ (bit\ 16\ in\ CTRL\ register)}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00472}00472\ \textcolor{comment}{//\ \ \ *\ -\/\ Calls\ the\ registered\ callback\ function\ if\ set}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00473}00473\ \textcolor{comment}{//\ \ \ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00474}00474\ \textcolor{comment}{//\ \ /*\ Clear\ COUNTFLAG\ */}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00475}00475\ \textcolor{comment}{//\ \ if\ (SYSTIC\_CallBack\ !=\ NULL)}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00476}00476\ \textcolor{comment}{//\ \ \{}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00477}00477\ \textcolor{comment}{//\ \ \ \ SYSTIC\_CallBack();}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00478}00478\ \textcolor{comment}{//\ \ \}}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00479}00479\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00480}00480\ \textcolor{comment}{//\ \ if\ (SingleShot\_Flag\ ==\ 0)}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00481}00481\ \textcolor{comment}{//\ \ \{}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00482}00482\ \textcolor{comment}{//\ \ \ \ SYSTIC\_vDisable();}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00483}00483\ \textcolor{comment}{//\ \ \}}}
+\DoxyCodeLine{\Hypertarget{SYSTIC__program_8c_source_l00484}00484\ \textcolor{comment}{//\}}}
+
+\end{DoxyCode}

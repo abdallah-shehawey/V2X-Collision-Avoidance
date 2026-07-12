@@ -1,0 +1,370 @@
+\doxysection{Src/\+\+EXTI\+\_\+program.c File Reference}
+\hypertarget{EXTI__program_8c}{}\label{EXTI__program_8c}\index{Src/EXTI\_program.c@{Src/EXTI\_program.c}}
+{\ttfamily \+\#include $<$stdint.\+h$>$}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+LIB/\+\+STM32\+F446xx.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+LIB/\+\+Err\+Types.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+EXTI/\+\+EXTI\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+EXTI/\+\+EXTI\+\_\+private.\+h"{}}\newline
+Include dependency graph for EXTI\+\_\+program.\+c:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{EXTI__program_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{EXTI__program_8c_afbfd6cb04f146da7b0f90eb974c5629d}{EXTI\+\_\+v\+Line\+Init}} (const \doxymbox{\hyperlink{structEXTI__LineConfig__t}{EXTI\+\_\+\+Line\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Copy\+\_\+p\+EXTI\+\_\+\+Line\+Config)
+\begin{DoxyCompactList}\small\item\em :\+ Initialize EXTI line with configuration \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{EXTI__program_8c_a2254dc72f4278ce4b142c66530d6d963}{EXTI\+\_\+v\+Enable\+Interrupt}} (const \doxymbox{\hyperlink{structEXTI__LineConfig__t}{EXTI\+\_\+\+Line\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Copy\+\_\+p\+EXTI\+\_\+\+Line\+Config)
+\begin{DoxyCompactList}\small\item\em :\+ Enable EXTI interrupt \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{EXTI__program_8c_a8cabc6d106bafa74bbf8374a643fc68a}{EXTI\+\_\+v\+Set\+Trig\+Src}} (const \doxymbox{\hyperlink{structEXTI__LineConfig__t}{EXTI\+\_\+\+Line\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Copy\+\_\+p\+EXTI\+\_\+\+Line\+Config, \doxymbox{\hyperlink{EXTI__interface_8h_a3dcfff7050cb14cff72d6fda76609dbb}{EXTI\+\_\+\+Trigger\+Src\+\_\+t}} Copy\+\_\+u8\+Trigger)
+\begin{DoxyCompactList}\small\item\em :\+ Set EXTI trigger source \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{EXTI__program_8c_a3d4babfbee39e3c4fa39ff2eb9449ad1}{EXTI\+\_\+v\+Disable\+Interrupt}} (const \doxymbox{\hyperlink{structEXTI__LineConfig__t}{EXTI\+\_\+\+Line\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Copy\+\_\+p\+EXTI\+\_\+\+Line\+Config)
+\begin{DoxyCompactList}\small\item\em :\+ Disable EXTI interrupt \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{EXTI__program_8c_a8d26a0cb61cfe213478e2aa28fa9dacd}{EXTI\+\_\+v\+Sw\+Int\+Event}} (const \doxymbox{\hyperlink{structEXTI__LineConfig__t}{EXTI\+\_\+\+Line\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Copy\+\_\+p\+EXTI\+\_\+\+Line\+Config)
+\begin{DoxyCompactList}\small\item\em :\+ Generate software interrupt event \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{EXTI__program_8c_a91a04be07d8df4bf2a91ce56dd194410}{EXTI\+\_\+v\+Clear\+Pend\+Flag}} (\doxymbox{\hyperlink{EXTI__interface_8h_abf16b4fe3e2abbf3d805d3596d279003}{EXTI\+\_\+\+Line\+\_\+t}} Copy\+\_\+u8\+Line)
+\begin{DoxyCompactList}\small\item\em :\+ Clear EXTI pending flag \end{DoxyCompactList}\item 
+uint8\+\_\+t \doxymbox{\hyperlink{EXTI__program_8c_ac8fe718df7a6d654b866d6e8b210576f}{EXTI\+\_\+u8\+Read\+Pend\+Flag}} (\doxymbox{\hyperlink{EXTI__interface_8h_abf16b4fe3e2abbf3d805d3596d279003}{EXTI\+\_\+\+Line\+\_\+t}} Copy\+\_\+u8\+Line)
+\begin{DoxyCompactList}\small\item\em :\+ Read EXTI pending flag status \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{EXTI__program_8c_a17e9789a29a87d2df54f12b94dd1a0b6}{EXTI0\+\_\+\+IRQHandler}} (void)
+\item 
+void \doxymbox{\hyperlink{EXTI__program_8c_a49cfdd46eb8d0ef3e1987514aa9343dc}{EXTI1\+\_\+\+IRQHandler}} (void)
+\item 
+void \doxymbox{\hyperlink{EXTI__program_8c_ab5a1d9e9c8ef50e0cb9ddb5745a20a14}{EXTI2\+\_\+\+IRQHandler}} (void)
+\item 
+void \doxymbox{\hyperlink{EXTI__program_8c_a30c045de96d18ec9c67a7b9e4350920f}{EXTI3\+\_\+\+IRQHandler}} (void)
+\item 
+void \doxymbox{\hyperlink{EXTI__program_8c_a290cb997018c8d85d4b965b4a242842f}{EXTI4\+\_\+\+IRQHandler}} (void)
+\item 
+void \doxymbox{\hyperlink{EXTI__program_8c_a7b2096b8b2643286dc3a7e5110e5ae85}{EXTI9\+\_\+5\+\_\+\+IRQHandler}} (void)
+\item 
+void \doxymbox{\hyperlink{EXTI__program_8c_a738473a5b43f6c92b80ce1d3d6f77ed9}{EXTI15\+\_\+10\+\_\+\+IRQHandler}} (void)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{EXTI__program_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{EXTI__program_8c_a17e9789a29a87d2df54f12b94dd1a0b6}\index{EXTI\_program.c@{EXTI\_program.c}!EXTI0\_IRQHandler@{EXTI0\_IRQHandler}}
+\index{EXTI0\_IRQHandler@{EXTI0\_IRQHandler}!EXTI\_program.c@{EXTI\_program.c}}
+\doxysubsubsection{\texorpdfstring{EXTI0\_IRQHandler()}{EXTI0\_IRQHandler()}}
+{\footnotesize\ttfamily \label{EXTI__program_8c_a17e9789a29a87d2df54f12b94dd1a0b6} 
+void EXTI0\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{EXTI__program_8c_source_l00243}{243}} of file \doxymbox{\hyperlink{EXTI__program_8c_source}{EXTI\+\_\+program.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{EXTI__program_8c_a17e9789a29a87d2df54f12b94dd1a0b6_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{EXTI__program_8c_a738473a5b43f6c92b80ce1d3d6f77ed9}\index{EXTI\_program.c@{EXTI\_program.c}!EXTI15\_10\_IRQHandler@{EXTI15\_10\_IRQHandler}}
+\index{EXTI15\_10\_IRQHandler@{EXTI15\_10\_IRQHandler}!EXTI\_program.c@{EXTI\_program.c}}
+\doxysubsubsection{\texorpdfstring{EXTI15\_10\_IRQHandler()}{EXTI15\_10\_IRQHandler()}}
+{\footnotesize\ttfamily \label{EXTI__program_8c_a738473a5b43f6c92b80ce1d3d6f77ed9} 
+void EXTI15\+\_\+10\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{EXTI__program_8c_source_l00332}{332}} of file \doxymbox{\hyperlink{EXTI__program_8c_source}{EXTI\+\_\+program.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{EXTI__program_8c_a738473a5b43f6c92b80ce1d3d6f77ed9_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{EXTI__program_8c_a49cfdd46eb8d0ef3e1987514aa9343dc}\index{EXTI\_program.c@{EXTI\_program.c}!EXTI1\_IRQHandler@{EXTI1\_IRQHandler}}
+\index{EXTI1\_IRQHandler@{EXTI1\_IRQHandler}!EXTI\_program.c@{EXTI\_program.c}}
+\doxysubsubsection{\texorpdfstring{EXTI1\_IRQHandler()}{EXTI1\_IRQHandler()}}
+{\footnotesize\ttfamily \label{EXTI__program_8c_a49cfdd46eb8d0ef3e1987514aa9343dc} 
+void EXTI1\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{EXTI__program_8c_source_l00254}{254}} of file \doxymbox{\hyperlink{EXTI__program_8c_source}{EXTI\+\_\+program.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{EXTI__program_8c_a49cfdd46eb8d0ef3e1987514aa9343dc_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{EXTI__program_8c_ab5a1d9e9c8ef50e0cb9ddb5745a20a14}\index{EXTI\_program.c@{EXTI\_program.c}!EXTI2\_IRQHandler@{EXTI2\_IRQHandler}}
+\index{EXTI2\_IRQHandler@{EXTI2\_IRQHandler}!EXTI\_program.c@{EXTI\_program.c}}
+\doxysubsubsection{\texorpdfstring{EXTI2\_IRQHandler()}{EXTI2\_IRQHandler()}}
+{\footnotesize\ttfamily \label{EXTI__program_8c_ab5a1d9e9c8ef50e0cb9ddb5745a20a14} 
+void EXTI2\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{EXTI__program_8c_source_l00265}{265}} of file \doxymbox{\hyperlink{EXTI__program_8c_source}{EXTI\+\_\+program.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{EXTI__program_8c_ab5a1d9e9c8ef50e0cb9ddb5745a20a14_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{EXTI__program_8c_a30c045de96d18ec9c67a7b9e4350920f}\index{EXTI\_program.c@{EXTI\_program.c}!EXTI3\_IRQHandler@{EXTI3\_IRQHandler}}
+\index{EXTI3\_IRQHandler@{EXTI3\_IRQHandler}!EXTI\_program.c@{EXTI\_program.c}}
+\doxysubsubsection{\texorpdfstring{EXTI3\_IRQHandler()}{EXTI3\_IRQHandler()}}
+{\footnotesize\ttfamily \label{EXTI__program_8c_a30c045de96d18ec9c67a7b9e4350920f} 
+void EXTI3\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{EXTI__program_8c_source_l00276}{276}} of file \doxymbox{\hyperlink{EXTI__program_8c_source}{EXTI\+\_\+program.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{EXTI__program_8c_a30c045de96d18ec9c67a7b9e4350920f_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{EXTI__program_8c_a290cb997018c8d85d4b965b4a242842f}\index{EXTI\_program.c@{EXTI\_program.c}!EXTI4\_IRQHandler@{EXTI4\_IRQHandler}}
+\index{EXTI4\_IRQHandler@{EXTI4\_IRQHandler}!EXTI\_program.c@{EXTI\_program.c}}
+\doxysubsubsection{\texorpdfstring{EXTI4\_IRQHandler()}{EXTI4\_IRQHandler()}}
+{\footnotesize\ttfamily \label{EXTI__program_8c_a290cb997018c8d85d4b965b4a242842f} 
+void EXTI4\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{EXTI__program_8c_source_l00287}{287}} of file \doxymbox{\hyperlink{EXTI__program_8c_source}{EXTI\+\_\+program.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{EXTI__program_8c_a290cb997018c8d85d4b965b4a242842f_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{EXTI__program_8c_a7b2096b8b2643286dc3a7e5110e5ae85}\index{EXTI\_program.c@{EXTI\_program.c}!EXTI9\_5\_IRQHandler@{EXTI9\_5\_IRQHandler}}
+\index{EXTI9\_5\_IRQHandler@{EXTI9\_5\_IRQHandler}!EXTI\_program.c@{EXTI\_program.c}}
+\doxysubsubsection{\texorpdfstring{EXTI9\_5\_IRQHandler()}{EXTI9\_5\_IRQHandler()}}
+{\footnotesize\ttfamily \label{EXTI__program_8c_a7b2096b8b2643286dc3a7e5110e5ae85} 
+void EXTI9\+\_\+5\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{EXTI__program_8c_source_l00298}{298}} of file \doxymbox{\hyperlink{EXTI__program_8c_source}{EXTI\+\_\+program.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{EXTI__program_8c_a7b2096b8b2643286dc3a7e5110e5ae85_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{EXTI__program_8c_ac8fe718df7a6d654b866d6e8b210576f}\index{EXTI\_program.c@{EXTI\_program.c}!EXTI\_u8ReadPendFlag@{EXTI\_u8ReadPendFlag}}
+\index{EXTI\_u8ReadPendFlag@{EXTI\_u8ReadPendFlag}!EXTI\_program.c@{EXTI\_program.c}}
+\doxysubsubsection{\texorpdfstring{EXTI\_u8ReadPendFlag()}{EXTI\_u8ReadPendFlag()}}
+{\footnotesize\ttfamily \label{EXTI__program_8c_ac8fe718df7a6d654b866d6e8b210576f} 
+uint8\+\_\+t EXTI\+\_\+u8\+Read\+Pend\+Flag (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{EXTI__interface_8h_abf16b4fe3e2abbf3d805d3596d279003}{EXTI\+\_\+\+Line\+\_\+t}}}]{Copy\+\_\+u8\+Line}{}\end{DoxyParamCaption})}
+
+
+
+:\+ Read EXTI pending flag status 
+
+@\+EXTI\+\_\+u8\+Read\+Pend\+Flag function:\+
+
+:\+ Reads the status of the pending flag for specified EXTI line from PR register 
+\begin{DoxyParams}{Parameters}
+{\em } & Copy\+\_\+u8\+Line -\/ EXTI line number \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+:\+ uint8\+\_\+t -\/ Status of the pending flag (0:\+ not pending, 1:\+ pending) 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{EXTI__program_8c_source_l00234}{234}} of file \doxymbox{\hyperlink{EXTI__program_8c_source}{EXTI\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{EXTI__program_8c_ac8fe718df7a6d654b866d6e8b210576f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{EXTI__program_8c_a91a04be07d8df4bf2a91ce56dd194410}\index{EXTI\_program.c@{EXTI\_program.c}!EXTI\_vClearPendFlag@{EXTI\_vClearPendFlag}}
+\index{EXTI\_vClearPendFlag@{EXTI\_vClearPendFlag}!EXTI\_program.c@{EXTI\_program.c}}
+\doxysubsubsection{\texorpdfstring{EXTI\_vClearPendFlag()}{EXTI\_vClearPendFlag()}}
+{\footnotesize\ttfamily \label{EXTI__program_8c_a91a04be07d8df4bf2a91ce56dd194410} 
+void EXTI\+\_\+v\+Clear\+Pend\+Flag (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{EXTI__interface_8h_abf16b4fe3e2abbf3d805d3596d279003}{EXTI\+\_\+\+Line\+\_\+t}}}]{Copy\+\_\+u8\+Line}{}\end{DoxyParamCaption})}
+
+
+
+:\+ Clear EXTI pending flag 
+
+@\+EXTI\+\_\+v\+Clear\+Pend\+Flag function:\+
+
+:\+ Clears the pending flag for the specified EXTI line by writing to PR register 
+\begin{DoxyParams}{Parameters}
+{\em } & Copy\+\_\+u8\+Line -\/ EXTI line number \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+:\+ void 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{EXTI__program_8c_source_l00221}{221}} of file \doxymbox{\hyperlink{EXTI__program_8c_source}{EXTI\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{EXTI__program_8c_a91a04be07d8df4bf2a91ce56dd194410_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{EXTI__program_8c_a3d4babfbee39e3c4fa39ff2eb9449ad1}\index{EXTI\_program.c@{EXTI\_program.c}!EXTI\_vDisableInterrupt@{EXTI\_vDisableInterrupt}}
+\index{EXTI\_vDisableInterrupt@{EXTI\_vDisableInterrupt}!EXTI\_program.c@{EXTI\_program.c}}
+\doxysubsubsection{\texorpdfstring{EXTI\_vDisableInterrupt()}{EXTI\_vDisableInterrupt()}}
+{\footnotesize\ttfamily \label{EXTI__program_8c_a3d4babfbee39e3c4fa39ff2eb9449ad1} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} EXTI\+\_\+v\+Disable\+Interrupt (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structEXTI__LineConfig__t}{EXTI\+\_\+\+Line\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+p\+EXTI\+\_\+\+Line\+Config}{}\end{DoxyParamCaption})}
+
+
+
+:\+ Disable EXTI interrupt 
+
+@\+EXTI\+\_\+v\+Disable\+Interrupt function:\+
+
+:\+ Disables the specified EXTI line interrupt by clearing IMR bit 
+\begin{DoxyParams}{Parameters}
+{\em } & Copy\+\_\+p\+EXTI\+\_\+\+Line\+Config -\/ Pointer to EXTI configuration structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+:\+ \doxylink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} -\/ Error state of the operation OK -\/ Operation successful NULL\+\_\+\+POINTER -\/ Invalid configuration pointer 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{EXTI__program_8c_source_l00175}{175}} of file \doxymbox{\hyperlink{EXTI__program_8c_source}{EXTI\+\_\+program.\+c}}.
+
+\Hypertarget{EXTI__program_8c_a2254dc72f4278ce4b142c66530d6d963}\index{EXTI\_program.c@{EXTI\_program.c}!EXTI\_vEnableInterrupt@{EXTI\_vEnableInterrupt}}
+\index{EXTI\_vEnableInterrupt@{EXTI\_vEnableInterrupt}!EXTI\_program.c@{EXTI\_program.c}}
+\doxysubsubsection{\texorpdfstring{EXTI\_vEnableInterrupt()}{EXTI\_vEnableInterrupt()}}
+{\footnotesize\ttfamily \label{EXTI__program_8c_a2254dc72f4278ce4b142c66530d6d963} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} EXTI\+\_\+v\+Enable\+Interrupt (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structEXTI__LineConfig__t}{EXTI\+\_\+\+Line\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+p\+EXTI\+\_\+\+Line\+Config}{}\end{DoxyParamCaption})}
+
+
+
+:\+ Enable EXTI interrupt 
+
+@\+EXTI\+\_\+v\+Enable\+Interrupt function:\+
+
+:\+ Enables the specified EXTI line interrupt by setting IMR bit 
+\begin{DoxyParams}{Parameters}
+{\em } & Copy\+\_\+p\+EXTI\+\_\+\+Line\+Config -\/ Pointer to EXTI configuration structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+:\+ \doxylink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} -\/ Error state of the operation OK -\/ Operation successful NULL\+\_\+\+POINTER -\/ Invalid configuration pointer 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{EXTI__program_8c_source_l00105}{105}} of file \doxymbox{\hyperlink{EXTI__program_8c_source}{EXTI\+\_\+program.\+c}}.
+
+\Hypertarget{EXTI__program_8c_afbfd6cb04f146da7b0f90eb974c5629d}\index{EXTI\_program.c@{EXTI\_program.c}!EXTI\_vLineInit@{EXTI\_vLineInit}}
+\index{EXTI\_vLineInit@{EXTI\_vLineInit}!EXTI\_program.c@{EXTI\_program.c}}
+\doxysubsubsection{\texorpdfstring{EXTI\_vLineInit()}{EXTI\_vLineInit()}}
+{\footnotesize\ttfamily \label{EXTI__program_8c_afbfd6cb04f146da7b0f90eb974c5629d} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} EXTI\+\_\+v\+Line\+Init (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structEXTI__LineConfig__t}{EXTI\+\_\+\+Line\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+p\+EXTI\+\_\+\+Line\+Config}{}\end{DoxyParamCaption})}
+
+
+
+:\+ Initialize EXTI line with configuration 
+
+@\+EXTI\+\_\+v\+Line\+Init function:\+
+
+:\+ Configures EXTI line based on provided configuration structure
+\begin{DoxyItemize}
+\item Validates configuration parameters
+\item Sets trigger source
+\item Configures interrupt enable/\+disable state
+\item Stores callback function 
+\begin{DoxyParams}{Parameters}
+{\em } & Copy\+\_\+p\+EXTI\+\_\+\+Line\+Config -\/ Pointer to EXTI configuration structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+:\+ \doxylink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} -\/ Error state of the operation OK -\/ Operation successful NULL\+\_\+\+POINTER -\/ Invalid configuration pointer or callback NOK -\/ Invalid EXTI line number 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+:\+ Must be called after SYSCFG configuration 
+\end{DoxyNote}
+
+\end{DoxyItemize}
+
+Definition at line \doxymbox{\hyperlink{EXTI__program_8c_source_l00048}{48}} of file \doxymbox{\hyperlink{EXTI__program_8c_source}{EXTI\+\_\+program.\+c}}.
+
+\Hypertarget{EXTI__program_8c_a8cabc6d106bafa74bbf8374a643fc68a}\index{EXTI\_program.c@{EXTI\_program.c}!EXTI\_vSetTrigSrc@{EXTI\_vSetTrigSrc}}
+\index{EXTI\_vSetTrigSrc@{EXTI\_vSetTrigSrc}!EXTI\_program.c@{EXTI\_program.c}}
+\doxysubsubsection{\texorpdfstring{EXTI\_vSetTrigSrc()}{EXTI\_vSetTrigSrc()}}
+{\footnotesize\ttfamily \label{EXTI__program_8c_a8cabc6d106bafa74bbf8374a643fc68a} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} EXTI\+\_\+v\+Set\+Trig\+Src (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structEXTI__LineConfig__t}{EXTI\+\_\+\+Line\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+p\+EXTI\+\_\+\+Line\+Config}{, }\item[{\doxymbox{\hyperlink{EXTI__interface_8h_a3dcfff7050cb14cff72d6fda76609dbb}{EXTI\+\_\+\+Trigger\+Src\+\_\+t}}}]{Copy\+\_\+u8\+Trigger}{}\end{DoxyParamCaption})}
+
+
+
+:\+ Set EXTI trigger source 
+
+@\+EXTI\+\_\+v\+Set\+Trig\+Src function:\+
+
+:\+ Configures how the EXTI line is triggered by setting/\+clearing RTSR and FTSR bits 
+\begin{DoxyParams}{Parameters}
+{\em } & Copy\+\_\+p\+EXTI\+\_\+\+Line\+Config -\/ Pointer to EXTI configuration structure Copy\+\_\+u8\+Trigger -\/ New trigger source configuration \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+:\+ \doxylink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} -\/ Error state of the operation OK -\/ Operation successful NULL\+\_\+\+POINTER -\/ Invalid configuration pointer OUT\+\_\+\+OF\+\_\+\+RANGE -\/ Invalid trigger source 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{EXTI__program_8c_source_l00131}{131}} of file \doxymbox{\hyperlink{EXTI__program_8c_source}{EXTI\+\_\+program.\+c}}.
+
+\Hypertarget{EXTI__program_8c_a8d26a0cb61cfe213478e2aa28fa9dacd}\index{EXTI\_program.c@{EXTI\_program.c}!EXTI\_vSwIntEvent@{EXTI\_vSwIntEvent}}
+\index{EXTI\_vSwIntEvent@{EXTI\_vSwIntEvent}!EXTI\_program.c@{EXTI\_program.c}}
+\doxysubsubsection{\texorpdfstring{EXTI\_vSwIntEvent()}{EXTI\_vSwIntEvent()}}
+{\footnotesize\ttfamily \label{EXTI__program_8c_a8d26a0cb61cfe213478e2aa28fa9dacd} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} EXTI\+\_\+v\+Sw\+Int\+Event (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structEXTI__LineConfig__t}{EXTI\+\_\+\+Line\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+p\+EXTI\+\_\+\+Line\+Config}{}\end{DoxyParamCaption})}
+
+
+
+:\+ Generate software interrupt event 
+
+@\+EXTI\+\_\+v\+Sw\+Int\+Event function:\+
+
+:\+ Generates a software interrupt by writing to SWIER register 
+\begin{DoxyParams}{Parameters}
+{\em } & Copy\+\_\+p\+EXTI\+\_\+\+Line\+Config -\/ Pointer to EXTI configuration structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+:\+ \doxylink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} -\/ Error state of the operation OK -\/ Operation successful NULL\+\_\+\+POINTER -\/ Invalid configuration pointer 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{EXTI__program_8c_source_l00199}{199}} of file \doxymbox{\hyperlink{EXTI__program_8c_source}{EXTI\+\_\+program.\+c}}.
+

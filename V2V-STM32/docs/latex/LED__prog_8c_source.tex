@@ -1,0 +1,133 @@
+\doxysection{LED\+\_\+prog.\+c}
+\hypertarget{LED__prog_8c_source}{}\label{LED__prog_8c_source}\index{Src/LED\_prog.c@{Src/LED\_prog.c}}
+\doxymbox{\hyperlink{LED__prog_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{ErrTypes_8h}{../Inc/Drivers/LIB/ErrTypes.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{GPIO__interface_8h}{../Inc/Drivers/MCAL/GPIO/GPIO\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00019}00019\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{LED__interface_8h}{../Inc/Drivers/HAL/LED/LED\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00020}00020\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{LED__config_8h}{../Inc/Drivers/HAL/LED/LED\_config.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00021}00021\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{LED__private_8h}{../Inc/Drivers/HAL/LED/LED\_private.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00022}00022\ \textcolor{comment}{/*\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*/}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00024}00024\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00025}00025\ \textcolor{comment}{*\ Brief\ :\ This\ Function\ initialize\ the\ pin\ which\ connected\ to\ led\ as\ output\ pin}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00026}00026\ \textcolor{comment}{*\ Parameters\ :}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00027}00027\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ =>\ struct\ has\ the\ led\ port\ ,\ pin,\ status}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00028}00028\ \textcolor{comment}{*\ return\ :\ ErrorState\_t}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00029}00029\ \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00030}\doxymbox{\hyperlink{LED__interface_8h_a332224917c43c9232229ad1d349501e4}{00030}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{LED__prog_8c_a332224917c43c9232229ad1d349501e4}{LED\_Init}}(\doxymbox{\hyperlink{structLED__Config__t}{LED\_Config\_t}}\ *LED\_Configuration)}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00031}00031\ \{}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00032}00032\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00034}00034\ \ \ \textcolor{keywordflow}{if}\ (LED\_Configuration\ !=\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00035}00035\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00036}00036\ \ \ \ \ \doxymbox{\hyperlink{structGPIO__PinConfig__t}{GPIO\_PinConfig\_t}}\ Pin\_Config\ =}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00037}00037\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ .Port\ =\ LED\_Configuration-\/>\doxymbox{\hyperlink{structLED__Config__t_a9a6ec5acd8ad6330c8ea4fbd8e6904f5}{PortName}},}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ .PinNum\ =\ LED\_Configuration-\/>\doxymbox{\hyperlink{structLED__Config__t_a7e866577221817fba36f18afa94438e9}{PinNumber}},}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ .Mode\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26aa248e73c1faee9c6f072fd91569cf516}{GPIO\_OUTPUT}},}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ .Otype\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_a6470c88cd80e5ef53ac53602e73207f0a2ede6e0f1b50e67e840a93701323c775}{GPIO\_PUSH\_PULL}},}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ .Speed\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71a83efc1b373fff74ccc8ff155acb523bb}{GPIO\_MEDIUM\_SPEED}},}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ .PullType\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_af3291f1e475675bffc656c9f0c4c7399aa528b4821b033fe90e0b186ada74fa10}{GPIO\_NO\_PULL}}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00044}00044\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00046}00046\ \ \ \ \ Local\_ErrorState\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_a2a5e7c89bc6bb7103d96334a8481ea9b}{GPIO\_enumPinInit}}(\&Pin\_Config);}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00047}00047\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00048}00048\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00049}00049\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00050}00050\ \ \ \ \ Local\_ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00051}00051\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00052}00052\ \ \ \textcolor{keywordflow}{return}\ Local\_ErrorState;}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00053}00053\ \}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00055}00055\ \textcolor{comment}{/*\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*/}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00057}00057\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00058}00058\ \textcolor{comment}{*\ Brief\ :\ This\ Function\ set\ high\ on\ led\ pin\ (\ led\ on\ )}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00059}00059\ \textcolor{comment}{*\ Parameters\ :}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00060}00060\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ =>\ struct\ has\ the\ led\ port\ ,\ pin,\ status}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00061}00061\ \textcolor{comment}{*\ return\ :\ ErrorState\_t}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00062}00062\ \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00063}\doxymbox{\hyperlink{LED__interface_8h_aa4c69b1b0028cbaebddb177443aa022a}{00063}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{LED__prog_8c_aa4c69b1b0028cbaebddb177443aa022a}{LED\_TurnOn}}(\doxymbox{\hyperlink{structLED__Config__t}{LED\_Config\_t}}\ *LED\_Configuration)}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00064}00064\ \{}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00065}00065\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00067}00067\ \ \ \textcolor{keywordflow}{if}\ (LED\_Configuration\ !=\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00068}00068\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00069}00069\ \ \ \ \ \textcolor{keywordflow}{if}\ (LED\_Configuration-\/>\doxymbox{\hyperlink{structLED__Config__t_a569c6b77190bc29ef3c64bea8fb8b1c9}{ActiveState}}\ ==\ \doxymbox{\hyperlink{LED__interface_8h_a59d24514299cc1e14e907d084535e845afe240f1952811db0c18b4355fb28190f}{ACTIVE\_HIGH}})}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00070}00070\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00071}00071\ \ \ \ \ \ \ Local\_ErrorState\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_ab8efebd278bcf731012c238a3f69fb5c}{GPIO\_enumWritePinVal}}(LED\_Configuration-\/>\doxymbox{\hyperlink{structLED__Config__t_a9a6ec5acd8ad6330c8ea4fbd8e6904f5}{PortName}},\ LED\_Configuration-\/>\doxymbox{\hyperlink{structLED__Config__t_a7e866577221817fba36f18afa94438e9}{PinNumber}},\ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8acef36245ca64f0574b6a3381d607ee23}{GPIO\_PIN\_HIGH}});}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00072}00072\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00073}00073\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (LED\_Configuration-\/>\doxymbox{\hyperlink{structLED__Config__t_a569c6b77190bc29ef3c64bea8fb8b1c9}{ActiveState}}\ ==\ \doxymbox{\hyperlink{LED__interface_8h_a59d24514299cc1e14e907d084535e845a43ad983a1a6a3c04a137ec0471cdfe85}{ACTIVE\_LOW}})}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00074}00074\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00075}00075\ \ \ \ \ \ \ Local\_ErrorState\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_ab8efebd278bcf731012c238a3f69fb5c}{GPIO\_enumWritePinVal}}(LED\_Configuration-\/>\doxymbox{\hyperlink{structLED__Config__t_a9a6ec5acd8ad6330c8ea4fbd8e6904f5}{PortName}},\ LED\_Configuration-\/>\doxymbox{\hyperlink{structLED__Config__t_a7e866577221817fba36f18afa94438e9}{PinNumber}},\ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8a15615df0be390aa56563c157ddb5454e}{GPIO\_PIN\_LOW}});}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00076}00076\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00077}00077\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00078}00078\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00079}00079\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00080}00080\ \ \ \ \ Local\_ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00081}00081\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00082}00082\ \ \ \textcolor{keywordflow}{return}\ Local\_ErrorState;}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00083}00083\ \}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00085}00085\ \textcolor{comment}{/*\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*/}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00087}00087\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00088}00088\ \textcolor{comment}{*\ Brief\ :\ This\ Function\ set\ low\ on\ led\ pin\ (\ led\ off\ )}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00089}00089\ \textcolor{comment}{*\ Parameters\ :}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00090}00090\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ =>\ struct\ has\ the\ led\ port\ ,\ pin\ ,\ status}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00091}00091\ \textcolor{comment}{*\ return\ :\ ErrorState\_t}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00092}00092\ \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00093}\doxymbox{\hyperlink{LED__interface_8h_ab3011d692cf858177af7261a76b1a654}{00093}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{LED__prog_8c_ab3011d692cf858177af7261a76b1a654}{LED\_TurnOff}}(\doxymbox{\hyperlink{structLED__Config__t}{LED\_Config\_t}}\ *LED\_Configuration)}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00094}00094\ \{}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00095}00095\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00097}00097\ \ \ \textcolor{keywordflow}{if}\ (LED\_Configuration\ !=\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00098}00098\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00099}00099\ \ \ \ \ \textcolor{keywordflow}{if}\ (LED\_Configuration-\/>\doxymbox{\hyperlink{structLED__Config__t_a569c6b77190bc29ef3c64bea8fb8b1c9}{ActiveState}}\ ==\ \doxymbox{\hyperlink{LED__interface_8h_a59d24514299cc1e14e907d084535e845afe240f1952811db0c18b4355fb28190f}{ACTIVE\_HIGH}})}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00100}00100\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00101}00101\ \ \ \ \ \ \ Local\_ErrorState\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_ab8efebd278bcf731012c238a3f69fb5c}{GPIO\_enumWritePinVal}}(LED\_Configuration-\/>\doxymbox{\hyperlink{structLED__Config__t_a9a6ec5acd8ad6330c8ea4fbd8e6904f5}{PortName}},\ LED\_Configuration-\/>\doxymbox{\hyperlink{structLED__Config__t_a7e866577221817fba36f18afa94438e9}{PinNumber}},\ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8a15615df0be390aa56563c157ddb5454e}{GPIO\_PIN\_LOW}});}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00102}00102\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00103}00103\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (LED\_Configuration-\/>\doxymbox{\hyperlink{structLED__Config__t_a569c6b77190bc29ef3c64bea8fb8b1c9}{ActiveState}}\ ==\ \doxymbox{\hyperlink{LED__interface_8h_a59d24514299cc1e14e907d084535e845a43ad983a1a6a3c04a137ec0471cdfe85}{ACTIVE\_LOW}})}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00104}00104\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00105}00105\ \ \ \ \ \ \ Local\_ErrorState\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_ab8efebd278bcf731012c238a3f69fb5c}{GPIO\_enumWritePinVal}}(LED\_Configuration-\/>\doxymbox{\hyperlink{structLED__Config__t_a9a6ec5acd8ad6330c8ea4fbd8e6904f5}{PortName}},\ LED\_Configuration-\/>\doxymbox{\hyperlink{structLED__Config__t_a7e866577221817fba36f18afa94438e9}{PinNumber}},\ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8acef36245ca64f0574b6a3381d607ee23}{GPIO\_PIN\_HIGH}});}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00106}00106\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00107}00107\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00108}00108\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00109}00109\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00110}00110\ \ \ \ \ Local\_ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00111}00111\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00112}00112\ \ \ \textcolor{keywordflow}{return}\ Local\_ErrorState;}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00113}00113\ \}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00115}00115\ \textcolor{comment}{/*\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*/}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00117}00117\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00118}00118\ \textcolor{comment}{*\ Brief\ :\ This\ Function\ toggle\ led\ pin}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00119}00119\ \textcolor{comment}{*\ Parameters\ :}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00120}00120\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ =>\ struct\ has\ the\ led\ port\ ,\ pin\ ,\ status}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00121}00121\ \textcolor{comment}{*\ return\ :\ ErrorState\_t}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00122}00122\ \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00123}\doxymbox{\hyperlink{LED__interface_8h_afeefd0dfa8d890b751881b215366b63b}{00123}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{LED__prog_8c_afeefd0dfa8d890b751881b215366b63b}{LED\_Toggle}}(\doxymbox{\hyperlink{structLED__Config__t}{LED\_Config\_t}}\ *LED\_Configuration)}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00124}00124\ \{}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00125}00125\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00127}00127\ \ \ \textcolor{keywordflow}{if}\ (LED\_Configuration\ !=\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00128}00128\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00129}00129\ \ \ \ \ Local\_ErrorState\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_aacd1fe5ce0d15fd5040c41745409ca20}{GPIO\_enumTogPinVal}}(LED\_Configuration-\/>\doxymbox{\hyperlink{structLED__Config__t_a9a6ec5acd8ad6330c8ea4fbd8e6904f5}{PortName}},\ LED\_Configuration-\/>\doxymbox{\hyperlink{structLED__Config__t_a7e866577221817fba36f18afa94438e9}{PinNumber}});}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00130}00130\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00131}00131\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00132}00132\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00133}00133\ \ \ \ \ Local\_ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00134}00134\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00135}00135\ \ \ \textcolor{keywordflow}{return}\ Local\_ErrorState;}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00136}00136\ \}}
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{LED__prog_8c_source_l00138}00138\ \textcolor{comment}{//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\ \ \ \ END\ \ \ \ >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>}}
+
+\end{DoxyCode}

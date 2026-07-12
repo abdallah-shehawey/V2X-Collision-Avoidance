@@ -1,0 +1,599 @@
+\doxysection{Inc/\+\+Drivers/\+\+MCAL/\+\+USART/\+\+USART\+\_\+intreface.h File Reference}
+\hypertarget{USART__intreface_8h}{}\label{USART__intreface_8h}\index{Inc/Drivers/MCAL/USART/USART\_intreface.h@{Inc/Drivers/MCAL/USART/USART\_intreface.h}}
+{\ttfamily \+\#include "{}../\+../\+\+LIB/\+\+Err\+Types.\+h"{}}\newline
+{\ttfamily \+\#include $<$stdint.\+h$>$}\newline
+Include dependency graph for USART\+\_\+intreface.\+h:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{USART__intreface_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{USART__intreface_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}}
+\item 
+struct \doxymbox{\hyperlink{structUSART__Handle__t}{USART\+\_\+\+Handle\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0f}{USART\+\_\+\+Channel\+\_\+t}} \{ \newline
+\doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa79bbc21727c50fad950ff76e76d924ab}{USART\+\_\+\+CHANNEL1}}
+, \doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0faaf4df48c4888878aacaea333fd164b28}{USART\+\_\+\+CHANNEL2}}
+, \doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa14f0c0083a3e5ba62f2d8ae6fcc8f5c3}{USART\+\_\+\+CHANNEL3}}
+, \doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa6909ff4ed1b6cf9ed37711a3a802a635}{USART\+\_\+\+CHANNEL4}}
+, \newline
+\doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa99640cff96d12f56b1ce87609f82c11d}{USART\+\_\+\+CHANNEL5}}
+, \doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa391e253a32e8c4f08f078e319f4dbb3c}{USART\+\_\+\+CHANNEL6}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{USART__intreface_8h_a4e501b68f85dbe9be3c75f1bfc5b81bf}{USART\+\_\+\+Word\+Length\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_a4e501b68f85dbe9be3c75f1bfc5b81bfa11e0fe52228151363c3e93f67240aa72}{USART\+\_\+\+WORDLENGTH\+\_\+8B}}
+, \doxymbox{\hyperlink{USART__intreface_8h_a4e501b68f85dbe9be3c75f1bfc5b81bfafb039010a4915f7ea1115883f2328820}{USART\+\_\+\+WORDLENGTH\+\_\+9B}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00a}{USART\+\_\+\+Stop\+Bits\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa46d2a77c3f07e66a624b75975c37782e}{USART\+\_\+\+STOPBITS\+\_\+0\+\_\+5}}
+, \doxymbox{\hyperlink{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa9011413422d1340bb5c343a1f3b57341}{USART\+\_\+\+STOPBITS\+\_\+1}}
+, \doxymbox{\hyperlink{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aad2786662250834f04b72156aebff3050}{USART\+\_\+\+STOPBITS\+\_\+1\+\_\+5}}
+, \doxymbox{\hyperlink{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa1e3cd9a88a519d93c0c300e873437a2c}{USART\+\_\+\+STOPBITS\+\_\+2}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85}{USART\+\_\+\+Parity\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85aecf52ec650226bdc63e12a21d3b5585d}{USART\+\_\+\+PARITY\+\_\+\+NONE}}
+, \doxymbox{\hyperlink{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85a69c6cdd4d354d3b26c8d2f09f49d2ede}{USART\+\_\+\+PARITY\+\_\+\+ODD}}
+, \doxymbox{\hyperlink{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85ae5d22c99a30184aff19d77c1a970fb23}{USART\+\_\+\+PARITY\+\_\+\+EVEN}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2}{USART\+\_\+\+Mode\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2ace5b471384e2a4cbf3b933796507304b}{USART\+\_\+\+MODE\+\_\+\+TX\+\_\+\+RX}}
+, \doxymbox{\hyperlink{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2af50f1777647d119d6b7d0c5f80e0b9d4}{USART\+\_\+\+MODE\+\_\+\+TX}}
+, \doxymbox{\hyperlink{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2ad5e3d2e29fa3f05889723d0aff5285c0}{USART\+\_\+\+MODE\+\_\+\+RX}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0b}{USART\+\_\+\+State\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0ba305b79709e4eabff936a0b5a5b54892c}{USART\+\_\+\+DIS}}
+, \doxymbox{\hyperlink{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0ba393929613a131863ec9ae705082419d4}{USART\+\_\+\+EN}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{USART__intreface_8h_abafac9366efc163949f648cb90e719a3}{USART\+\_\+\+Over\+Sampling\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_abafac9366efc163949f648cb90e719a3a5f7f986fd4559ee42850714b3906faca}{USART\+\_\+\+OVERSAMPLING\+\_\+16}}
+, \doxymbox{\hyperlink{USART__intreface_8h_abafac9366efc163949f648cb90e719a3af5782198bea5f0a044a84a117cf9dec0}{USART\+\_\+\+OVERSAMPLING\+\_\+8}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912f}{USART\+\_\+\+Hardware\+Flow\+Control\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa3abfc51474e9b5def1151e7c2c731e85}{UART\+\_\+\+HWCONTROL\+\_\+\+NONE}}
+, \doxymbox{\hyperlink{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa38f199baa537d07cc6e56bae52406f50}{UART\+\_\+\+HWCONTROL\+\_\+\+RTS}}
+, \doxymbox{\hyperlink{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa3343d11dbb64750bde8dc28650118581}{UART\+\_\+\+HWCONTROL\+\_\+\+CTS}}
+, \doxymbox{\hyperlink{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fab67d687b8058f03397e00c462ab5fd43}{UART\+\_\+\+HWCONTROL\+\_\+\+RTS\+\_\+\+CTS}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9}{USART\+\_\+\+RXNEIE\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9a87c3f6c4240ed23001cf3856bca6627d}{USART\+\_\+\+RXNEIE\+\_\+\+DIS}}
+, \doxymbox{\hyperlink{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9afdc3b405c26fccce585184e05cca91ef}{USART\+\_\+\+RXNEIE\+\_\+\+EN}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5}{USART\+\_\+\+TCIE\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5a0ae09f6d4d7a420010e559f94af5d90f}{USART\+\_\+\+TCIE\+\_\+\+DIS}}
+, \doxymbox{\hyperlink{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5ac1cf02980c4eac018b15bb0fc33959d0}{USART\+\_\+\+TCIE\+\_\+\+EN}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{USART__intreface_8h_a671c995d7fa209fff941711681dcc559}{USART\+\_\+\+TXEIE\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_a671c995d7fa209fff941711681dcc559af03e1b14ff7cb6a9d3b78e2d3960cc3f}{USART\+\_\+\+TXEIE\+\_\+\+DIS}}
+, \doxymbox{\hyperlink{USART__intreface_8h_a671c995d7fa209fff941711681dcc559a63165aa1407782dab6a7c4476ef2532c}{USART\+\_\+\+TXEIE\+\_\+\+EN}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95}{USART\+\_\+\+IDLEIE\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95a7f6040cad225e6b17e708e8ad29faaee}{USART\+\_\+\+IDLEIE\+\_\+\+DIS}}
+, \doxymbox{\hyperlink{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95a35e1c3f7e0f09edadbc7e9cd3fa79e5d}{USART\+\_\+\+IDLEIE\+\_\+\+EN}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83}{USART\+\_\+\+PEIE\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83a4c7890981a65bd1f93f46b58a3cbf5e5}{USART\+\_\+\+PEIE\+\_\+\+DIS}}
+, \doxymbox{\hyperlink{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83a98a9f40e6ca4ee6bf2c43e7657b8da42}{USART\+\_\+\+PEIE\+\_\+\+EN}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__intreface_8h_a98f967289c40eacb31068b3becfff84f}{USART\+\_\+\+Init}} (\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__intreface_8h_ad840a14bcc70c1f552f2864ea2443c55}{USART\+\_\+\+Init\+IT}} (\doxymbox{\hyperlink{structUSART__Handle__t}{USART\+\_\+\+Handle\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Handle)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__intreface_8h_a1abd71036dad0752b737b6b4872d7111}{USART\+\_\+enum\+Transmit}} (\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint8\+\_\+t TX\+\_\+\+Data)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__intreface_8h_a2e8eab5dfbeeb289f33fccae5536d8ef}{USART\+\_\+enum\+Receive}} (\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint8\+\_\+t \texorpdfstring{$\ast$}{*}RX\+\_\+\+Data)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__intreface_8h_ad2e4a4a25beec1ea90558dc055ad9240}{USART\+\_\+enum\+Transmit\+String}} (\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint8\+\_\+t \texorpdfstring{$\ast$}{*}TX\+\_\+\+Data)
+\item 
+uint8\+\_\+t \doxymbox{\hyperlink{USART__intreface_8h_a2d4d739376d35a98e6b62282fc47b25a}{USART\+\_\+\+Receive\+Byte\+Direct}} (\doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0f}{USART\+\_\+\+Channel\+\_\+t}} Channel)
+\end{DoxyCompactItemize}
+
+
+\label{doc-enum-members}
+\Hypertarget{USART__intreface_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0f}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_Channel\_t@{USART\_Channel\_t}}
+\index{USART\_Channel\_t@{USART\_Channel\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_Channel\_t}{USART\_Channel\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0f} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0f}{USART\+\_\+\+Channel\+\_\+t}}}
+
+===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} USART\+\_\+intrefac.\+h \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Abdelmoemen Shehawey \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ MCAL \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} CPU :\+ Cortex-\/\+M4 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} MCU :\+ NUCLEO-\/\+F446\+RE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SWC :\+ USART \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_CHANNEL1@{USART\_CHANNEL1}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_CHANNEL1@{USART\_CHANNEL1}}
+}\Hypertarget{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa79bbc21727c50fad950ff76e76d924ab}\label{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa79bbc21727c50fad950ff76e76d924ab} 
+USART\+\_\+\+CHANNEL1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_CHANNEL2@{USART\_CHANNEL2}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_CHANNEL2@{USART\_CHANNEL2}}
+}\Hypertarget{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0faaf4df48c4888878aacaea333fd164b28}\label{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0faaf4df48c4888878aacaea333fd164b28} 
+USART\+\_\+\+CHANNEL2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_CHANNEL3@{USART\_CHANNEL3}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_CHANNEL3@{USART\_CHANNEL3}}
+}\Hypertarget{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa14f0c0083a3e5ba62f2d8ae6fcc8f5c3}\label{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa14f0c0083a3e5ba62f2d8ae6fcc8f5c3} 
+USART\+\_\+\+CHANNEL3&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_CHANNEL4@{USART\_CHANNEL4}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_CHANNEL4@{USART\_CHANNEL4}}
+}\Hypertarget{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa6909ff4ed1b6cf9ed37711a3a802a635}\label{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa6909ff4ed1b6cf9ed37711a3a802a635} 
+USART\+\_\+\+CHANNEL4&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_CHANNEL5@{USART\_CHANNEL5}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_CHANNEL5@{USART\_CHANNEL5}}
+}\Hypertarget{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa99640cff96d12f56b1ce87609f82c11d}\label{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa99640cff96d12f56b1ce87609f82c11d} 
+USART\+\_\+\+CHANNEL5&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_CHANNEL6@{USART\_CHANNEL6}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_CHANNEL6@{USART\_CHANNEL6}}
+}\Hypertarget{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa391e253a32e8c4f08f078e319f4dbb3c}\label{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa391e253a32e8c4f08f078e319f4dbb3c} 
+USART\+\_\+\+CHANNEL6&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00021}{21}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+\Hypertarget{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912f}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_HardwareFlowControl\_t@{USART\_HardwareFlowControl\_t}}
+\index{USART\_HardwareFlowControl\_t@{USART\_HardwareFlowControl\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_HardwareFlowControl\_t}{USART\_HardwareFlowControl\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912f} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912f}{USART\+\_\+\+Hardware\+Flow\+Control\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UART\_HWCONTROL\_NONE@{UART\_HWCONTROL\_NONE}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!UART\_HWCONTROL\_NONE@{UART\_HWCONTROL\_NONE}}
+}\Hypertarget{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa3abfc51474e9b5def1151e7c2c731e85}\label{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa3abfc51474e9b5def1151e7c2c731e85} 
+UART\+\_\+\+HWCONTROL\+\_\+\+NONE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UART\_HWCONTROL\_RTS@{UART\_HWCONTROL\_RTS}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!UART\_HWCONTROL\_RTS@{UART\_HWCONTROL\_RTS}}
+}\Hypertarget{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa38f199baa537d07cc6e56bae52406f50}\label{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa38f199baa537d07cc6e56bae52406f50} 
+UART\+\_\+\+HWCONTROL\+\_\+\+RTS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UART\_HWCONTROL\_CTS@{UART\_HWCONTROL\_CTS}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!UART\_HWCONTROL\_CTS@{UART\_HWCONTROL\_CTS}}
+}\Hypertarget{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa3343d11dbb64750bde8dc28650118581}\label{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa3343d11dbb64750bde8dc28650118581} 
+UART\+\_\+\+HWCONTROL\+\_\+\+CTS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UART\_HWCONTROL\_RTS\_CTS@{UART\_HWCONTROL\_RTS\_CTS}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!UART\_HWCONTROL\_RTS\_CTS@{UART\_HWCONTROL\_RTS\_CTS}}
+}\Hypertarget{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fab67d687b8058f03397e00c462ab5fd43}\label{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fab67d687b8058f03397e00c462ab5fd43} 
+UART\+\_\+\+HWCONTROL\+\_\+\+RTS\+\_\+\+CTS&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00071}{71}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+\Hypertarget{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_IDLEIE\_t@{USART\_IDLEIE\_t}}
+\index{USART\_IDLEIE\_t@{USART\_IDLEIE\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_IDLEIE\_t}{USART\_IDLEIE\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95}{USART\+\_\+\+IDLEIE\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_IDLEIE\_DIS@{USART\_IDLEIE\_DIS}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_IDLEIE\_DIS@{USART\_IDLEIE\_DIS}}
+}\Hypertarget{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95a7f6040cad225e6b17e708e8ad29faaee}\label{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95a7f6040cad225e6b17e708e8ad29faaee} 
+USART\+\_\+\+IDLEIE\+\_\+\+DIS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_IDLEIE\_EN@{USART\_IDLEIE\_EN}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_IDLEIE\_EN@{USART\_IDLEIE\_EN}}
+}\Hypertarget{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95a35e1c3f7e0f09edadbc7e9cd3fa79e5d}\label{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95a35e1c3f7e0f09edadbc7e9cd3fa79e5d} 
+USART\+\_\+\+IDLEIE\+\_\+\+EN&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00109}{109}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+\Hypertarget{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_Mode\_t@{USART\_Mode\_t}}
+\index{USART\_Mode\_t@{USART\_Mode\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_Mode\_t}{USART\_Mode\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2}{USART\+\_\+\+Mode\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_MODE\_TX\_RX@{USART\_MODE\_TX\_RX}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_MODE\_TX\_RX@{USART\_MODE\_TX\_RX}}
+}\Hypertarget{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2ace5b471384e2a4cbf3b933796507304b}\label{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2ace5b471384e2a4cbf3b933796507304b} 
+USART\+\_\+\+MODE\+\_\+\+TX\+\_\+\+RX&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_MODE\_TX@{USART\_MODE\_TX}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_MODE\_TX@{USART\_MODE\_TX}}
+}\Hypertarget{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2af50f1777647d119d6b7d0c5f80e0b9d4}\label{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2af50f1777647d119d6b7d0c5f80e0b9d4} 
+USART\+\_\+\+MODE\+\_\+\+TX&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_MODE\_RX@{USART\_MODE\_RX}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_MODE\_RX@{USART\_MODE\_RX}}
+}\Hypertarget{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2ad5e3d2e29fa3f05889723d0aff5285c0}\label{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2ad5e3d2e29fa3f05889723d0aff5285c0} 
+USART\+\_\+\+MODE\+\_\+\+RX&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00052}{52}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+\Hypertarget{USART__intreface_8h_abafac9366efc163949f648cb90e719a3}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_OverSampling\_t@{USART\_OverSampling\_t}}
+\index{USART\_OverSampling\_t@{USART\_OverSampling\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_OverSampling\_t}{USART\_OverSampling\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_abafac9366efc163949f648cb90e719a3} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_abafac9366efc163949f648cb90e719a3}{USART\+\_\+\+Over\+Sampling\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_OVERSAMPLING\_16@{USART\_OVERSAMPLING\_16}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_OVERSAMPLING\_16@{USART\_OVERSAMPLING\_16}}
+}\Hypertarget{USART__intreface_8h_abafac9366efc163949f648cb90e719a3a5f7f986fd4559ee42850714b3906faca}\label{USART__intreface_8h_abafac9366efc163949f648cb90e719a3a5f7f986fd4559ee42850714b3906faca} 
+USART\+\_\+\+OVERSAMPLING\+\_\+16&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_OVERSAMPLING\_8@{USART\_OVERSAMPLING\_8}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_OVERSAMPLING\_8@{USART\_OVERSAMPLING\_8}}
+}\Hypertarget{USART__intreface_8h_abafac9366efc163949f648cb90e719a3af5782198bea5f0a044a84a117cf9dec0}\label{USART__intreface_8h_abafac9366efc163949f648cb90e719a3af5782198bea5f0a044a84a117cf9dec0} 
+USART\+\_\+\+OVERSAMPLING\+\_\+8&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00065}{65}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+\Hypertarget{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_Parity\_t@{USART\_Parity\_t}}
+\index{USART\_Parity\_t@{USART\_Parity\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_Parity\_t}{USART\_Parity\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85}{USART\+\_\+\+Parity\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_PARITY\_NONE@{USART\_PARITY\_NONE}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_PARITY\_NONE@{USART\_PARITY\_NONE}}
+}\Hypertarget{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85aecf52ec650226bdc63e12a21d3b5585d}\label{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85aecf52ec650226bdc63e12a21d3b5585d} 
+USART\+\_\+\+PARITY\+\_\+\+NONE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_PARITY\_ODD@{USART\_PARITY\_ODD}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_PARITY\_ODD@{USART\_PARITY\_ODD}}
+}\Hypertarget{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85a69c6cdd4d354d3b26c8d2f09f49d2ede}\label{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85a69c6cdd4d354d3b26c8d2f09f49d2ede} 
+USART\+\_\+\+PARITY\+\_\+\+ODD&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_PARITY\_EVEN@{USART\_PARITY\_EVEN}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_PARITY\_EVEN@{USART\_PARITY\_EVEN}}
+}\Hypertarget{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85ae5d22c99a30184aff19d77c1a970fb23}\label{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85ae5d22c99a30184aff19d77c1a970fb23} 
+USART\+\_\+\+PARITY\+\_\+\+EVEN&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00045}{45}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+\Hypertarget{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_PEIE\_t@{USART\_PEIE\_t}}
+\index{USART\_PEIE\_t@{USART\_PEIE\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_PEIE\_t}{USART\_PEIE\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83}{USART\+\_\+\+PEIE\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_PEIE\_DIS@{USART\_PEIE\_DIS}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_PEIE\_DIS@{USART\_PEIE\_DIS}}
+}\Hypertarget{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83a4c7890981a65bd1f93f46b58a3cbf5e5}\label{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83a4c7890981a65bd1f93f46b58a3cbf5e5} 
+USART\+\_\+\+PEIE\+\_\+\+DIS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_PEIE\_EN@{USART\_PEIE\_EN}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_PEIE\_EN@{USART\_PEIE\_EN}}
+}\Hypertarget{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83a98a9f40e6ca4ee6bf2c43e7657b8da42}\label{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83a98a9f40e6ca4ee6bf2c43e7657b8da42} 
+USART\+\_\+\+PEIE\+\_\+\+EN&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00115}{115}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+\Hypertarget{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_RXNEIE\_t@{USART\_RXNEIE\_t}}
+\index{USART\_RXNEIE\_t@{USART\_RXNEIE\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_RXNEIE\_t}{USART\_RXNEIE\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9}{USART\+\_\+\+RXNEIE\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_RXNEIE\_DIS@{USART\_RXNEIE\_DIS}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_RXNEIE\_DIS@{USART\_RXNEIE\_DIS}}
+}\Hypertarget{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9a87c3f6c4240ed23001cf3856bca6627d}\label{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9a87c3f6c4240ed23001cf3856bca6627d} 
+USART\+\_\+\+RXNEIE\+\_\+\+DIS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_RXNEIE\_EN@{USART\_RXNEIE\_EN}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_RXNEIE\_EN@{USART\_RXNEIE\_EN}}
+}\Hypertarget{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9afdc3b405c26fccce585184e05cca91ef}\label{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9afdc3b405c26fccce585184e05cca91ef} 
+USART\+\_\+\+RXNEIE\+\_\+\+EN&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00091}{91}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+\Hypertarget{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0b}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_State\_t@{USART\_State\_t}}
+\index{USART\_State\_t@{USART\_State\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_State\_t}{USART\_State\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0b} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0b}{USART\+\_\+\+State\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_DIS@{USART\_DIS}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_DIS@{USART\_DIS}}
+}\Hypertarget{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0ba305b79709e4eabff936a0b5a5b54892c}\label{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0ba305b79709e4eabff936a0b5a5b54892c} 
+USART\+\_\+\+DIS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_EN@{USART\_EN}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_EN@{USART\_EN}}
+}\Hypertarget{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0ba393929613a131863ec9ae705082419d4}\label{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0ba393929613a131863ec9ae705082419d4} 
+USART\+\_\+\+EN&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00059}{59}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+\Hypertarget{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00a}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_StopBits\_t@{USART\_StopBits\_t}}
+\index{USART\_StopBits\_t@{USART\_StopBits\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_StopBits\_t}{USART\_StopBits\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00a} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00a}{USART\+\_\+\+Stop\+Bits\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_STOPBITS\_0\_5@{USART\_STOPBITS\_0\_5}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_STOPBITS\_0\_5@{USART\_STOPBITS\_0\_5}}
+}\Hypertarget{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa46d2a77c3f07e66a624b75975c37782e}\label{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa46d2a77c3f07e66a624b75975c37782e} 
+USART\+\_\+\+STOPBITS\+\_\+0\+\_\+5&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_STOPBITS\_1@{USART\_STOPBITS\_1}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_STOPBITS\_1@{USART\_STOPBITS\_1}}
+}\Hypertarget{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa9011413422d1340bb5c343a1f3b57341}\label{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa9011413422d1340bb5c343a1f3b57341} 
+USART\+\_\+\+STOPBITS\+\_\+1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_STOPBITS\_1\_5@{USART\_STOPBITS\_1\_5}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_STOPBITS\_1\_5@{USART\_STOPBITS\_1\_5}}
+}\Hypertarget{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aad2786662250834f04b72156aebff3050}\label{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aad2786662250834f04b72156aebff3050} 
+USART\+\_\+\+STOPBITS\+\_\+1\+\_\+5&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_STOPBITS\_2@{USART\_STOPBITS\_2}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_STOPBITS\_2@{USART\_STOPBITS\_2}}
+}\Hypertarget{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa1e3cd9a88a519d93c0c300e873437a2c}\label{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa1e3cd9a88a519d93c0c300e873437a2c} 
+USART\+\_\+\+STOPBITS\+\_\+2&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00037}{37}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+\Hypertarget{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_TCIE\_t@{USART\_TCIE\_t}}
+\index{USART\_TCIE\_t@{USART\_TCIE\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_TCIE\_t}{USART\_TCIE\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5}{USART\+\_\+\+TCIE\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_TCIE\_DIS@{USART\_TCIE\_DIS}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_TCIE\_DIS@{USART\_TCIE\_DIS}}
+}\Hypertarget{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5a0ae09f6d4d7a420010e559f94af5d90f}\label{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5a0ae09f6d4d7a420010e559f94af5d90f} 
+USART\+\_\+\+TCIE\+\_\+\+DIS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_TCIE\_EN@{USART\_TCIE\_EN}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_TCIE\_EN@{USART\_TCIE\_EN}}
+}\Hypertarget{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5ac1cf02980c4eac018b15bb0fc33959d0}\label{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5ac1cf02980c4eac018b15bb0fc33959d0} 
+USART\+\_\+\+TCIE\+\_\+\+EN&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00097}{97}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+\Hypertarget{USART__intreface_8h_a671c995d7fa209fff941711681dcc559}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_TXEIE\_t@{USART\_TXEIE\_t}}
+\index{USART\_TXEIE\_t@{USART\_TXEIE\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_TXEIE\_t}{USART\_TXEIE\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_a671c995d7fa209fff941711681dcc559} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_a671c995d7fa209fff941711681dcc559}{USART\+\_\+\+TXEIE\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_TXEIE\_DIS@{USART\_TXEIE\_DIS}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_TXEIE\_DIS@{USART\_TXEIE\_DIS}}
+}\Hypertarget{USART__intreface_8h_a671c995d7fa209fff941711681dcc559af03e1b14ff7cb6a9d3b78e2d3960cc3f}\label{USART__intreface_8h_a671c995d7fa209fff941711681dcc559af03e1b14ff7cb6a9d3b78e2d3960cc3f} 
+USART\+\_\+\+TXEIE\+\_\+\+DIS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_TXEIE\_EN@{USART\_TXEIE\_EN}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_TXEIE\_EN@{USART\_TXEIE\_EN}}
+}\Hypertarget{USART__intreface_8h_a671c995d7fa209fff941711681dcc559a63165aa1407782dab6a7c4476ef2532c}\label{USART__intreface_8h_a671c995d7fa209fff941711681dcc559a63165aa1407782dab6a7c4476ef2532c} 
+USART\+\_\+\+TXEIE\+\_\+\+EN&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00103}{103}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+\Hypertarget{USART__intreface_8h_a4e501b68f85dbe9be3c75f1bfc5b81bf}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_WordLength\_t@{USART\_WordLength\_t}}
+\index{USART\_WordLength\_t@{USART\_WordLength\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_WordLength\_t}{USART\_WordLength\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_a4e501b68f85dbe9be3c75f1bfc5b81bf} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_a4e501b68f85dbe9be3c75f1bfc5b81bf}{USART\+\_\+\+Word\+Length\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_WORDLENGTH\_8B@{USART\_WORDLENGTH\_8B}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_WORDLENGTH\_8B@{USART\_WORDLENGTH\_8B}}
+}\Hypertarget{USART__intreface_8h_a4e501b68f85dbe9be3c75f1bfc5b81bfa11e0fe52228151363c3e93f67240aa72}\label{USART__intreface_8h_a4e501b68f85dbe9be3c75f1bfc5b81bfa11e0fe52228151363c3e93f67240aa72} 
+USART\+\_\+\+WORDLENGTH\+\_\+8B&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_WORDLENGTH\_9B@{USART\_WORDLENGTH\_9B}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_WORDLENGTH\_9B@{USART\_WORDLENGTH\_9B}}
+}\Hypertarget{USART__intreface_8h_a4e501b68f85dbe9be3c75f1bfc5b81bfafb039010a4915f7ea1115883f2328820}\label{USART__intreface_8h_a4e501b68f85dbe9be3c75f1bfc5b81bfafb039010a4915f7ea1115883f2328820} 
+USART\+\_\+\+WORDLENGTH\+\_\+9B&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00031}{31}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{USART__intreface_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{USART__intreface_8h_a2e8eab5dfbeeb289f33fccae5536d8ef}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_enumReceive@{USART\_enumReceive}}
+\index{USART\_enumReceive@{USART\_enumReceive}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_enumReceive()}{USART\_enumReceive()}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_a2e8eab5dfbeeb289f33fccae5536d8ef} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+enum\+Receive (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{RX\+\_\+\+Data}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00356}{356}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+\Hypertarget{USART__intreface_8h_a1abd71036dad0752b737b6b4872d7111}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_enumTransmit@{USART\_enumTransmit}}
+\index{USART\_enumTransmit@{USART\_enumTransmit}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_enumTransmit()}{USART\_enumTransmit()}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_a1abd71036dad0752b737b6b4872d7111} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+enum\+Transmit (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint8\+\_\+t}]{TX\+\_\+\+Data}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00250}{250}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{USART__intreface_8h_a1abd71036dad0752b737b6b4872d7111_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{USART__intreface_8h_ad2e4a4a25beec1ea90558dc055ad9240}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_enumTransmitString@{USART\_enumTransmitString}}
+\index{USART\_enumTransmitString@{USART\_enumTransmitString}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_enumTransmitString()}{USART\_enumTransmitString()}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_ad2e4a4a25beec1ea90558dc055ad9240} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+enum\+Transmit\+String (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{TX\+\_\+\+Data}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00313}{313}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{USART__intreface_8h_ad2e4a4a25beec1ea90558dc055ad9240_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{USART__intreface_8h_ad2e4a4a25beec1ea90558dc055ad9240_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{USART__intreface_8h_a98f967289c40eacb31068b3becfff84f}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_Init@{USART\_Init}}
+\index{USART\_Init@{USART\_Init}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_Init()}{USART\_Init()}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_a98f967289c40eacb31068b3becfff84f} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00042}{42}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{USART__intreface_8h_a98f967289c40eacb31068b3becfff84f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{USART__intreface_8h_ad840a14bcc70c1f552f2864ea2443c55}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_InitIT@{USART\_InitIT}}
+\index{USART\_InitIT@{USART\_InitIT}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_InitIT()}{USART\_InitIT()}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_ad840a14bcc70c1f552f2864ea2443c55} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+\+Init\+IT (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Handle__t}{USART\+\_\+\+Handle\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Handle}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00140}{140}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{USART__intreface_8h_ad840a14bcc70c1f552f2864ea2443c55_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{USART__intreface_8h_a2d4d739376d35a98e6b62282fc47b25a}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_ReceiveByteDirect@{USART\_ReceiveByteDirect}}
+\index{USART\_ReceiveByteDirect@{USART\_ReceiveByteDirect}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_ReceiveByteDirect()}{USART\_ReceiveByteDirect()}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_a2d4d739376d35a98e6b62282fc47b25a} 
+uint8\+\_\+t USART\+\_\+\+Receive\+Byte\+Direct (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0f}{USART\+\_\+\+Channel\+\_\+t}}}]{Channel}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00397}{397}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{USART__intreface_8h_a2d4d739376d35a98e6b62282fc47b25a_icgraph}
+\end{center}
+\end{figure}

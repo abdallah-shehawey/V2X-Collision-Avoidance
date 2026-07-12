@@ -1,0 +1,201 @@
+\doxysection{Src/\+\+IWDG\+\_\+program.c File Reference}
+\hypertarget{IWDG__program_8c}{}\label{IWDG__program_8c}\index{Src/IWDG\_program.c@{Src/IWDG\_program.c}}
+{\ttfamily \+\#include $<$stdint.\+h$>$}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+IWDG/\+\+IWDG\+\_\+interface.\+h"{}}\newline
+Include dependency graph for IWDG\+\_\+program.\+c:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{IWDG__program_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structIWDG__RegDef__t}{IWDG\+\_\+\+Reg\+Def\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{IWDG__program_8c_a6663d7a6f91860b36a2ecef982441d1a}{MIWDG}}~((\doxymbox{\hyperlink{structIWDG__RegDef__t}{IWDG\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})0x40003000\+UL)
+\item 
+\+\#define \doxymbox{\hyperlink{IWDG__program_8c_a493295d56bb62752982234755612386f}{IWDG\+\_\+\+KEY\+\_\+\+ENABLE}}~0x5555u   /\+\texorpdfstring{$\ast$}{*} unlock write access to PR/\+RLR \texorpdfstring{$\ast$}{*}/\+
+\item 
+\+\#define \doxymbox{\hyperlink{IWDG__program_8c_aeb6bc86716057c4f3069e9544575ab84}{IWDG\+\_\+\+KEY\+\_\+\+REFRESH}}~0x\+AAAAu   /\+\texorpdfstring{$\ast$}{*} reload the down-\/counter       \texorpdfstring{$\ast$}{*}/\+
+\item 
+\+\#define \doxymbox{\hyperlink{IWDG__program_8c_ad68ae97e506cc924ebc9d1f470aa16f8}{IWDG\+\_\+\+KEY\+\_\+\+START}}~0x\+CCCCu   /\+\texorpdfstring{$\ast$}{*} start IWDG (auto-\/enables LSI) \texorpdfstring{$\ast$}{*}/\+
+\item 
+\+\#define \doxymbox{\hyperlink{IWDG__program_8c_aa62a819aba5aa37bec14ad12ed5c3726}{IWDG\+\_\+\+PR\+\_\+\+DIV64}}~0x4u
+\item 
+\+\#define \doxymbox{\hyperlink{IWDG__program_8c_a53a2d1ef90f17e50a14b730f7927fe92}{IWDG\+\_\+\+TICK\+\_\+\+MS}}~2u
+\item 
+\+\#define \doxymbox{\hyperlink{IWDG__program_8c_a82bec72240c652b91baec941eeb8fd0e}{IWDG\+\_\+\+RLR\+\_\+\+MAX}}~0x0\+FFFu
+\item 
+\+\#define \doxymbox{\hyperlink{IWDG__program_8c_a3e13d101d0743f47b52061f8d61abdc0}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ}}~(\texorpdfstring{$\ast$}{*}(volatile uint32\+\_\+t \texorpdfstring{$\ast$}{*})0x\+E0042008\+UL)
+\item 
+\+\#define \doxymbox{\hyperlink{IWDG__program_8c_ab297494df8c5a9e53e2590570df76010}{DBG\+\_\+\+IWDG\+\_\+\+STOP}}~(1u $<$$<$ 12)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{IWDG__program_8c_aaa08e67683aa75f91aabc14cb9c1253d}{IWDG\+\_\+void\+Init}} (uint16\+\_\+t timeout\+\_\+ms)
+\begin{DoxyCompactList}\small\item\em Start the Independent Watchdog with the given timeout. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{IWDG__program_8c_afdf15cddaf966d918224d78b50c4b6d5}{IWDG\+\_\+void\+Refresh}} (void)
+\begin{DoxyCompactList}\small\item\em Reload the watchdog counter ("{}kick the dog"{}). Call periodically. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{IWDG__program_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{IWDG__program_8c_ab297494df8c5a9e53e2590570df76010}\index{IWDG\_program.c@{IWDG\_program.c}!DBG\_IWDG\_STOP@{DBG\_IWDG\_STOP}}
+\index{DBG\_IWDG\_STOP@{DBG\_IWDG\_STOP}!IWDG\_program.c@{IWDG\_program.c}}
+\doxysubsubsection{\texorpdfstring{DBG\_IWDG\_STOP}{DBG\_IWDG\_STOP}}
+{\footnotesize\ttfamily \label{IWDG__program_8c_ab297494df8c5a9e53e2590570df76010} 
+\+\#define DBG\+\_\+\+IWDG\+\_\+\+STOP~(1u $<$$<$ 12)}
+
+
+
+Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00043}{43}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
+
+\Hypertarget{IWDG__program_8c_a3e13d101d0743f47b52061f8d61abdc0}\index{IWDG\_program.c@{IWDG\_program.c}!DBGMCU\_APB1\_FZ@{DBGMCU\_APB1\_FZ}}
+\index{DBGMCU\_APB1\_FZ@{DBGMCU\_APB1\_FZ}!IWDG\_program.c@{IWDG\_program.c}}
+\doxysubsubsection{\texorpdfstring{DBGMCU\_APB1\_FZ}{DBGMCU\_APB1\_FZ}}
+{\footnotesize\ttfamily \label{IWDG__program_8c_a3e13d101d0743f47b52061f8d61abdc0} 
+\+\#define DBGMCU\+\_\+\+APB1\+\_\+\+FZ~(\texorpdfstring{$\ast$}{*}(volatile uint32\+\_\+t \texorpdfstring{$\ast$}{*})0x\+E0042008\+UL)}
+
+
+
+Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00042}{42}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
+
+\Hypertarget{IWDG__program_8c_a493295d56bb62752982234755612386f}\index{IWDG\_program.c@{IWDG\_program.c}!IWDG\_KEY\_ENABLE@{IWDG\_KEY\_ENABLE}}
+\index{IWDG\_KEY\_ENABLE@{IWDG\_KEY\_ENABLE}!IWDG\_program.c@{IWDG\_program.c}}
+\doxysubsubsection{\texorpdfstring{IWDG\_KEY\_ENABLE}{IWDG\_KEY\_ENABLE}}
+{\footnotesize\ttfamily \label{IWDG__program_8c_a493295d56bb62752982234755612386f} 
+\+\#define IWDG\+\_\+\+KEY\+\_\+\+ENABLE~0x5555u   /\+\texorpdfstring{$\ast$}{*} unlock write access to PR/\+RLR \texorpdfstring{$\ast$}{*}/\+}
+
+
+
+Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00030}{30}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
+
+\Hypertarget{IWDG__program_8c_aeb6bc86716057c4f3069e9544575ab84}\index{IWDG\_program.c@{IWDG\_program.c}!IWDG\_KEY\_REFRESH@{IWDG\_KEY\_REFRESH}}
+\index{IWDG\_KEY\_REFRESH@{IWDG\_KEY\_REFRESH}!IWDG\_program.c@{IWDG\_program.c}}
+\doxysubsubsection{\texorpdfstring{IWDG\_KEY\_REFRESH}{IWDG\_KEY\_REFRESH}}
+{\footnotesize\ttfamily \label{IWDG__program_8c_aeb6bc86716057c4f3069e9544575ab84} 
+\+\#define IWDG\+\_\+\+KEY\+\_\+\+REFRESH~0x\+AAAAu   /\+\texorpdfstring{$\ast$}{*} reload the down-\/counter       \texorpdfstring{$\ast$}{*}/\+}
+
+
+
+Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00031}{31}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
+
+\Hypertarget{IWDG__program_8c_ad68ae97e506cc924ebc9d1f470aa16f8}\index{IWDG\_program.c@{IWDG\_program.c}!IWDG\_KEY\_START@{IWDG\_KEY\_START}}
+\index{IWDG\_KEY\_START@{IWDG\_KEY\_START}!IWDG\_program.c@{IWDG\_program.c}}
+\doxysubsubsection{\texorpdfstring{IWDG\_KEY\_START}{IWDG\_KEY\_START}}
+{\footnotesize\ttfamily \label{IWDG__program_8c_ad68ae97e506cc924ebc9d1f470aa16f8} 
+\+\#define IWDG\+\_\+\+KEY\+\_\+\+START~0x\+CCCCu   /\+\texorpdfstring{$\ast$}{*} start IWDG (auto-\/enables LSI) \texorpdfstring{$\ast$}{*}/\+}
+
+
+
+Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00032}{32}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
+
+\Hypertarget{IWDG__program_8c_aa62a819aba5aa37bec14ad12ed5c3726}\index{IWDG\_program.c@{IWDG\_program.c}!IWDG\_PR\_DIV64@{IWDG\_PR\_DIV64}}
+\index{IWDG\_PR\_DIV64@{IWDG\_PR\_DIV64}!IWDG\_program.c@{IWDG\_program.c}}
+\doxysubsubsection{\texorpdfstring{IWDG\_PR\_DIV64}{IWDG\_PR\_DIV64}}
+{\footnotesize\ttfamily \label{IWDG__program_8c_aa62a819aba5aa37bec14ad12ed5c3726} 
+\+\#define IWDG\+\_\+\+PR\+\_\+\+DIV64~0x4u}
+
+
+
+Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00036}{36}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
+
+\Hypertarget{IWDG__program_8c_a82bec72240c652b91baec941eeb8fd0e}\index{IWDG\_program.c@{IWDG\_program.c}!IWDG\_RLR\_MAX@{IWDG\_RLR\_MAX}}
+\index{IWDG\_RLR\_MAX@{IWDG\_RLR\_MAX}!IWDG\_program.c@{IWDG\_program.c}}
+\doxysubsubsection{\texorpdfstring{IWDG\_RLR\_MAX}{IWDG\_RLR\_MAX}}
+{\footnotesize\ttfamily \label{IWDG__program_8c_a82bec72240c652b91baec941eeb8fd0e} 
+\+\#define IWDG\+\_\+\+RLR\+\_\+\+MAX~0x0\+FFFu}
+
+
+
+Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00038}{38}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
+
+\Hypertarget{IWDG__program_8c_a53a2d1ef90f17e50a14b730f7927fe92}\index{IWDG\_program.c@{IWDG\_program.c}!IWDG\_TICK\_MS@{IWDG\_TICK\_MS}}
+\index{IWDG\_TICK\_MS@{IWDG\_TICK\_MS}!IWDG\_program.c@{IWDG\_program.c}}
+\doxysubsubsection{\texorpdfstring{IWDG\_TICK\_MS}{IWDG\_TICK\_MS}}
+{\footnotesize\ttfamily \label{IWDG__program_8c_a53a2d1ef90f17e50a14b730f7927fe92} 
+\+\#define IWDG\+\_\+\+TICK\+\_\+\+MS~2u}
+
+
+
+Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00037}{37}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
+
+\Hypertarget{IWDG__program_8c_a6663d7a6f91860b36a2ecef982441d1a}\index{IWDG\_program.c@{IWDG\_program.c}!MIWDG@{MIWDG}}
+\index{MIWDG@{MIWDG}!IWDG\_program.c@{IWDG\_program.c}}
+\doxysubsubsection{\texorpdfstring{MIWDG}{MIWDG}}
+{\footnotesize\ttfamily \label{IWDG__program_8c_a6663d7a6f91860b36a2ecef982441d1a} 
+\+\#define MIWDG~((\doxymbox{\hyperlink{structIWDG__RegDef__t}{IWDG\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*})0x40003000\+UL)}
+
+
+
+Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00027}{27}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{IWDG__program_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{IWDG__program_8c_aaa08e67683aa75f91aabc14cb9c1253d}\index{IWDG\_program.c@{IWDG\_program.c}!IWDG\_voidInit@{IWDG\_voidInit}}
+\index{IWDG\_voidInit@{IWDG\_voidInit}!IWDG\_program.c@{IWDG\_program.c}}
+\doxysubsubsection{\texorpdfstring{IWDG\_voidInit()}{IWDG\_voidInit()}}
+{\footnotesize\ttfamily \label{IWDG__program_8c_aaa08e67683aa75f91aabc14cb9c1253d} 
+void IWDG\+\_\+void\+Init (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{timeout\+\_\+ms}{}\end{DoxyParamCaption})}
+
+
+
+Start the Independent Watchdog with the given timeout. 
+
+===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} \doxylink{IWDG__interface_8h}{IWDG\+\_\+interface.\+h} \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Saleh \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ MCAL \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} CPU :\+ Cortex-\/\+M4 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} MCU :\+ NUCLEO-\/\+F446\+RE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SWC :\+ IWDG (Independent Watchdog) \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} 
+\begin{DoxyParams}{Parameters}
+{\em timeout\+\_\+ms} & Reset timeout in milliseconds (≈ 4 .. 8000 ms).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+-\/ Clocked by the LSI (\texorpdfstring{$\sim$}{\string~}32 k\+Hz, imprecise → keep a healthy margin).
+\begin{DoxyItemize}
+\item Once started the IWDG CANNOT be stopped; it MUST be refreshed via \doxylink{IWDG__interface_8h_afdf15cddaf966d918224d78b50c4b6d5}{IWDG\+\_\+void\+Refresh()} more often than timeout\+\_\+ms or the MCU resets.
+\item The IWDG is frozen while the core is halted by the debugger (so breakpoints don\textquotesingle{}t trigger spurious resets). 
+\end{DoxyItemize}
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00045}{45}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=243pt]{IWDG__program_8c_aaa08e67683aa75f91aabc14cb9c1253d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{IWDG__program_8c_afdf15cddaf966d918224d78b50c4b6d5}\index{IWDG\_program.c@{IWDG\_program.c}!IWDG\_voidRefresh@{IWDG\_voidRefresh}}
+\index{IWDG\_voidRefresh@{IWDG\_voidRefresh}!IWDG\_program.c@{IWDG\_program.c}}
+\doxysubsubsection{\texorpdfstring{IWDG\_voidRefresh()}{IWDG\_voidRefresh()}}
+{\footnotesize\ttfamily \label{IWDG__program_8c_afdf15cddaf966d918224d78b50c4b6d5} 
+void IWDG\+\_\+void\+Refresh (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Reload the watchdog counter ("{}kick the dog"{}). Call periodically. 
+
+
+
+Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00061}{61}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{IWDG__program_8c_afdf15cddaf966d918224d78b50c4b6d5_icgraph}
+\end{center}
+\end{figure}

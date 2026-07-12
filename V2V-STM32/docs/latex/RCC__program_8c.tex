@@ -1,0 +1,145 @@
+\doxysection{Src/\+\+RCC\+\_\+program.c File Reference}
+\hypertarget{RCC__program_8c}{}\label{RCC__program_8c}\index{Src/RCC\_program.c@{Src/RCC\_program.c}}
+{\ttfamily \+\#include $<$stdint.\+h$>$}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+LIB/\+\+STM32\+F446xx.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+LIB/\+\+Err\+Types.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+LIB/\+\+STD\+\_\+\+MACROS.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+config.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+private.\+h"{}}\newline
+Include dependency graph for RCC\+\_\+program.\+c:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RCC__program_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_ac0546afcec3b849576c5b3ece143b9a9}{RCC\+\_\+enum\+Set\+Clk\+Sts}} (uint8\+\_\+t Copy\+\_\+u8\+CLK, uint8\+\_\+t Copy\+\_\+u8\+Status)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_a4e5060e0774aa417bf2dbf5aad8904eb}{RCC\+\_\+enum\+Set\+Sys\+Clk}} (uint8\+\_\+t Copy\+\_\+u8\+CLK)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_a39479df13627e03c2248209d30fb6baa}{RCC\+\_\+enum\+PLLConfig}} (const \doxymbox{\hyperlink{structRCC__PLLConfig__t}{RCC\+\_\+\+PLLConfig\+\_\+t}} \texorpdfstring{$\ast$}{*}Copy\+\_\+\+PLLConfig)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_a8dac8e7ec4680d99cd53a562907c8f10}{RCC\+\_\+enum\+AHBConfig}} (uint8\+\_\+t Copy\+\_\+u8\+AHPDiv)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_a32ffc31db6be174ed88867d13b6fb770}{RCC\+\_\+enum\+APB1\+Config}} (uint8\+\_\+t Copy\+\_\+u8\+APB1\+Div)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_a528911683284afb4fc9731cfedfebc31}{RCC\+\_\+enum\+APB2\+Config}} (uint8\+\_\+t Copy\+\_\+u8\+APB2\+Div)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_a64dea321b9d4592b409225e2b55fef5c}{RCC\+\_\+enum\+AHPPer\+Sts}} (uint8\+\_\+t Copy\+\_\+u8\+Bus, uint8\+\_\+t Copy\+\_\+u8\+AHPPer, uint8\+\_\+t Copy\+\_\+u8\+Status)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_adcf07c53ca16c6ccd1af607d3173b2dc}{RCC\+\_\+enum\+ABPPer\+Sts}} (uint8\+\_\+t Copy\+\_\+u8\+Bus, uint8\+\_\+t Copy\+\_\+u8\+ABPPer, uint8\+\_\+t Copy\+\_\+u8\+Status)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{RCC__program_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{RCC__program_8c_adcf07c53ca16c6ccd1af607d3173b2dc}\index{RCC\_program.c@{RCC\_program.c}!RCC\_enumABPPerSts@{RCC\_enumABPPerSts}}
+\index{RCC\_enumABPPerSts@{RCC\_enumABPPerSts}!RCC\_program.c@{RCC\_program.c}}
+\doxysubsubsection{\texorpdfstring{RCC\_enumABPPerSts()}{RCC\_enumABPPerSts()}}
+{\footnotesize\ttfamily \label{RCC__program_8c_adcf07c53ca16c6ccd1af607d3173b2dc} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+ABPPer\+Sts (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Bus}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+ABPPer}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Status}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00521}{521}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RCC__program_8c_adcf07c53ca16c6ccd1af607d3173b2dc_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{RCC__program_8c_a8dac8e7ec4680d99cd53a562907c8f10}\index{RCC\_program.c@{RCC\_program.c}!RCC\_enumAHBConfig@{RCC\_enumAHBConfig}}
+\index{RCC\_enumAHBConfig@{RCC\_enumAHBConfig}!RCC\_program.c@{RCC\_program.c}}
+\doxysubsubsection{\texorpdfstring{RCC\_enumAHBConfig()}{RCC\_enumAHBConfig()}}
+{\footnotesize\ttfamily \label{RCC__program_8c_a8dac8e7ec4680d99cd53a562907c8f10} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+AHBConfig (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+AHPDiv}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00323}{323}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+\Hypertarget{RCC__program_8c_a64dea321b9d4592b409225e2b55fef5c}\index{RCC\_program.c@{RCC\_program.c}!RCC\_enumAHPPerSts@{RCC\_enumAHPPerSts}}
+\index{RCC\_enumAHPPerSts@{RCC\_enumAHPPerSts}!RCC\_program.c@{RCC\_program.c}}
+\doxysubsubsection{\texorpdfstring{RCC\_enumAHPPerSts()}{RCC\_enumAHPPerSts()}}
+{\footnotesize\ttfamily \label{RCC__program_8c_a64dea321b9d4592b409225e2b55fef5c} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+AHPPer\+Sts (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Bus}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+AHPPer}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Status}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00452}{452}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RCC__program_8c_a64dea321b9d4592b409225e2b55fef5c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{RCC__program_8c_a32ffc31db6be174ed88867d13b6fb770}\index{RCC\_program.c@{RCC\_program.c}!RCC\_enumAPB1Config@{RCC\_enumAPB1Config}}
+\index{RCC\_enumAPB1Config@{RCC\_enumAPB1Config}!RCC\_program.c@{RCC\_program.c}}
+\doxysubsubsection{\texorpdfstring{RCC\_enumAPB1Config()}{RCC\_enumAPB1Config()}}
+{\footnotesize\ttfamily \label{RCC__program_8c_a32ffc31db6be174ed88867d13b6fb770} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+APB1\+Config (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+APB1\+Div}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00366}{366}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+\Hypertarget{RCC__program_8c_a528911683284afb4fc9731cfedfebc31}\index{RCC\_program.c@{RCC\_program.c}!RCC\_enumAPB2Config@{RCC\_enumAPB2Config}}
+\index{RCC\_enumAPB2Config@{RCC\_enumAPB2Config}!RCC\_program.c@{RCC\_program.c}}
+\doxysubsubsection{\texorpdfstring{RCC\_enumAPB2Config()}{RCC\_enumAPB2Config()}}
+{\footnotesize\ttfamily \label{RCC__program_8c_a528911683284afb4fc9731cfedfebc31} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+APB2\+Config (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+APB2\+Div}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00409}{409}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+\Hypertarget{RCC__program_8c_a39479df13627e03c2248209d30fb6baa}\index{RCC\_program.c@{RCC\_program.c}!RCC\_enumPLLConfig@{RCC\_enumPLLConfig}}
+\index{RCC\_enumPLLConfig@{RCC\_enumPLLConfig}!RCC\_program.c@{RCC\_program.c}}
+\doxysubsubsection{\texorpdfstring{RCC\_enumPLLConfig()}{RCC\_enumPLLConfig()}}
+{\footnotesize\ttfamily \label{RCC__program_8c_a39479df13627e03c2248209d30fb6baa} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+PLLConfig (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structRCC__PLLConfig__t}{RCC\+\_\+\+PLLConfig\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+\+PLLConfig}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00257}{257}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+\Hypertarget{RCC__program_8c_ac0546afcec3b849576c5b3ece143b9a9}\index{RCC\_program.c@{RCC\_program.c}!RCC\_enumSetClkSts@{RCC\_enumSetClkSts}}
+\index{RCC\_enumSetClkSts@{RCC\_enumSetClkSts}!RCC\_program.c@{RCC\_program.c}}
+\doxysubsubsection{\texorpdfstring{RCC\_enumSetClkSts()}{RCC\_enumSetClkSts()}}
+{\footnotesize\ttfamily \label{RCC__program_8c_ac0546afcec3b849576c5b3ece143b9a9} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+Set\+Clk\+Sts (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+CLK}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Status}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00053}{53}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+\Hypertarget{RCC__program_8c_a4e5060e0774aa417bf2dbf5aad8904eb}\index{RCC\_program.c@{RCC\_program.c}!RCC\_enumSetSysClk@{RCC\_enumSetSysClk}}
+\index{RCC\_enumSetSysClk@{RCC\_enumSetSysClk}!RCC\_program.c@{RCC\_program.c}}
+\doxysubsubsection{\texorpdfstring{RCC\_enumSetSysClk()}{RCC\_enumSetSysClk()}}
+{\footnotesize\ttfamily \label{RCC__program_8c_a4e5060e0774aa417bf2dbf5aad8904eb} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+Set\+Sys\+Clk (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+CLK}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00191}{191}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RCC__program_8c_a4e5060e0774aa417bf2dbf5aad8904eb_icgraph}
+\end{center}
+\end{figure}

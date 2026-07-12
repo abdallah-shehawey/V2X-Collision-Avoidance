@@ -1,0 +1,719 @@
+\doxysection{Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+interface.h File Reference}
+\hypertarget{SPI__interface_8h}{}\label{SPI__interface_8h}\index{Inc/Drivers/MCAL/SPI/SPI\_interface.h@{Inc/Drivers/MCAL/SPI/SPI\_interface.h}}
+{\ttfamily \+\#include "{}stdint.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+../\+\+LIB/\+\+Err\+Types.\+h"{}}\newline
+Include dependency graph for SPI\+\_\+interface.\+h:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{SPI__interface_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{SPI__interface_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{SPI__interface_8h_a99e480c10376756fca05b64ed949a3d9}{SPI\+\_\+\+Channel\+\_\+t}} \{ \doxymbox{\hyperlink{SPI__interface_8h_a99e480c10376756fca05b64ed949a3d9ae01f25f2493c2b0a1406ee1371a2752d}{SPI\+\_\+\+CHANNEL1}}
+, \doxymbox{\hyperlink{SPI__interface_8h_a99e480c10376756fca05b64ed949a3d9a4acd0d9734887e78aa4c50dfc78fcbfa}{SPI\+\_\+\+CHANNEL2}}
+, \doxymbox{\hyperlink{SPI__interface_8h_a99e480c10376756fca05b64ed949a3d9a1b7e43cfe92e1412fc1d13622e099a6f}{SPI\+\_\+\+CHANNEL3}}
+, \doxymbox{\hyperlink{SPI__interface_8h_a99e480c10376756fca05b64ed949a3d9aad41df2ed0eb35b857f48bd36cf9f91e}{SPI\+\_\+\+CHANNEL4}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{SPI__interface_8h_a78da88ed6e4be342886ae4e703454ff9}{SPI\+\_\+\+CPHA\+\_\+t}} \{ \doxymbox{\hyperlink{SPI__interface_8h_a78da88ed6e4be342886ae4e703454ff9abf6e4c4ae342ea61214abbaa51ca3912}{SPI\+\_\+\+CPHA\+\_\+1\+EDGE}}
+, \doxymbox{\hyperlink{SPI__interface_8h_a78da88ed6e4be342886ae4e703454ff9a828367148114bfd4488ce259bcb4171d}{SPI\+\_\+\+CPHA\+\_\+2\+EDGE}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{SPI__interface_8h_a34beb9edf30f0d6974c2819a941cc423}{SPI\+\_\+\+CPOL\+\_\+t}} \{ \doxymbox{\hyperlink{SPI__interface_8h_a34beb9edf30f0d6974c2819a941cc423ad12b15db33ea03dc6d722c86bfdaaca2}{SPI\+\_\+\+CPOL\+\_\+\+LOW}}
+, \doxymbox{\hyperlink{SPI__interface_8h_a34beb9edf30f0d6974c2819a941cc423a17ee2099baebd6220fc708036eddea09}{SPI\+\_\+\+CPOL\+\_\+\+HIGH}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{SPI__interface_8h_af7f50e71bd6a06e32909cef3ba77610d}{SPI\+\_\+\+Mode\+\_\+t}} \{ \doxymbox{\hyperlink{SPI__interface_8h_af7f50e71bd6a06e32909cef3ba77610dad1131ed33ad43ab3f667070b04454439}{SPI\+\_\+\+MODE\+\_\+\+SLAVE}}
+, \doxymbox{\hyperlink{SPI__interface_8h_af7f50e71bd6a06e32909cef3ba77610dae68a8adf6e5b67a7bdbe9526b15dae99}{SPI\+\_\+\+MODE\+\_\+\+MASTER}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70}{SPI\+\_\+\+BAUDRATEPRESCALER\+\_\+t}} \{ \newline
+\doxymbox{\hyperlink{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70a1110455676d9393f3e4c9b3ef2cf0f3a}{SPI\+\_\+\+BAUDRATEPRESCALER\+\_\+2}}
+, \doxymbox{\hyperlink{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70ac17363d731112d1c6f778f917d473e8a}{SPI\+\_\+\+BAUDRATEPRESCALER\+\_\+4}}
+, \doxymbox{\hyperlink{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70a8f3e7d8ce0f2b92643ff0a2a507192d9}{SPI\+\_\+\+BAUDRATEPRESCALER\+\_\+8}}
+, \doxymbox{\hyperlink{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70aecb2e157b3d291c991dc5fa1773fa288}{SPI\+\_\+\+BAUDRATEPRESCALER\+\_\+16}}
+, \newline
+\doxymbox{\hyperlink{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70abba99eef7de12636aa3574e00a264be3}{SPI\+\_\+\+BAUDRATEPRESCALER\+\_\+32}}
+, \doxymbox{\hyperlink{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70aafb59a9b68c2bd0da97d9352d2a7c223}{SPI\+\_\+\+BAUDRATEPRESCALER\+\_\+64}}
+, \doxymbox{\hyperlink{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70a1ba7a2df42bf80bf98d03393f5be67e3}{SPI\+\_\+\+BAUDRATEPRESCALER\+\_\+128}}
+, \doxymbox{\hyperlink{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70a2428c494cea01367bf94df2977db30df}{SPI\+\_\+\+BAUDRATEPRESCALER\+\_\+256}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{SPI__interface_8h_a1db03ac197283574fffbb48a4afee6a8}{SPI\+\_\+\+SPE\+\_\+t}} \{ \doxymbox{\hyperlink{SPI__interface_8h_a1db03ac197283574fffbb48a4afee6a8ae63f309b046aa247cd58485fd7e25ac9}{SPI\+\_\+\+SPE\+\_\+\+DIS}}
+, \doxymbox{\hyperlink{SPI__interface_8h_a1db03ac197283574fffbb48a4afee6a8a29b7aac99dd1ca39efe89d857b558d0a}{SPI\+\_\+\+SPE\+\_\+\+EN}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{SPI__interface_8h_a3d2f4422f306ed3231341372d1b241f2}{SPI\+\_\+\+BFIRST\+\_\+t}} \{ \doxymbox{\hyperlink{SPI__interface_8h_a3d2f4422f306ed3231341372d1b241f2a3fa35f661bf7fbb96c05ff70827553be}{SPI\+\_\+\+MSBFIRST}}
+, \doxymbox{\hyperlink{SPI__interface_8h_a3d2f4422f306ed3231341372d1b241f2a183d076e845f5ea5d99465cd6aff505f}{SPI\+\_\+\+LSBFIRST}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{SPI__interface_8h_adbe1555d537053eec05421b9c0a1b5c2}{SPI\+\_\+\+NSS\+\_\+\+MAN\+\_\+t}} \{ \doxymbox{\hyperlink{SPI__interface_8h_adbe1555d537053eec05421b9c0a1b5c2a6be8167917892bc12fdf7fe61881e8e2}{SPI\+\_\+\+NSS\+\_\+\+HARDWARE}}
+, \doxymbox{\hyperlink{SPI__interface_8h_adbe1555d537053eec05421b9c0a1b5c2a4871d5bdcf01bf25ffce4da1b5f387fb}{SPI\+\_\+\+NSS\+\_\+\+SOFTWARE}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{SPI__interface_8h_a1c45faac8557e06760a44075984eb7ff}{SPI\+\_\+\+NSSI\+\_\+\+MODE\+\_\+t}} \{ \doxymbox{\hyperlink{SPI__interface_8h_a1c45faac8557e06760a44075984eb7ffa15e1a687d33411e898efbae001f0b860}{SPI\+\_\+\+NSSI\+\_\+\+SELECT}}
+, \doxymbox{\hyperlink{SPI__interface_8h_a1c45faac8557e06760a44075984eb7ffad3ed938d3769125d0486116dd63479fc}{SPI\+\_\+\+NSSI\+\_\+\+NOT\+\_\+\+SELECT}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{SPI__interface_8h_a9c9a776b797c9c30896f34a8fd521081}{SPI\+\_\+\+RXONLY\+\_\+t}} \{ \doxymbox{\hyperlink{SPI__interface_8h_a9c9a776b797c9c30896f34a8fd521081a4d040fb5953610e249dcf0442391e124}{SPI\+\_\+\+RXONLY\+\_\+\+DISABLE}}
+, \doxymbox{\hyperlink{SPI__interface_8h_a9c9a776b797c9c30896f34a8fd521081a78b48de7a19e2cb38bf0367815330e9f}{SPI\+\_\+\+RXONLY\+\_\+\+ENABLE}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{SPI__interface_8h_ab4199e1038cc90f9ba060af300e29a7c}{SPI\+\_\+\+DFF\+\_\+t}} \{ \doxymbox{\hyperlink{SPI__interface_8h_ab4199e1038cc90f9ba060af300e29a7ca77b5cfca09bdb76f00599cad3ab634dc}{SPI\+\_\+\+DFF\+\_\+8\+BIT}}
+, \doxymbox{\hyperlink{SPI__interface_8h_ab4199e1038cc90f9ba060af300e29a7ca87b8af2ad9ac2dba407fcd25dc4d8b61}{SPI\+\_\+\+DFF\+\_\+16\+BIT}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{SPI__interface_8h_a69aac2e6df15ed3f2dff3040dbe85501}{SPI\+\_\+\+CRCNEXT\+\_\+t}} \{ \doxymbox{\hyperlink{SPI__interface_8h_a69aac2e6df15ed3f2dff3040dbe85501ac8870ad61e4936fc656634b7e680e0ed}{SPI\+\_\+\+CRCNEXT\+\_\+\+DISABLE}}
+, \doxymbox{\hyperlink{SPI__interface_8h_a69aac2e6df15ed3f2dff3040dbe85501a096f933e7b181d9394aad9ca9a4e9c91}{SPI\+\_\+\+CRCNEXT\+\_\+\+ENABLE}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{SPI__interface_8h_a2b022b50caa9c05983f85788edaac92a}{SPI\+\_\+\+CRCEN\+\_\+t}} \{ \doxymbox{\hyperlink{SPI__interface_8h_a2b022b50caa9c05983f85788edaac92aa350ab723d3767e8cb9f2d05cd289bc3a}{SPI\+\_\+\+CRCDIS}}
+, \doxymbox{\hyperlink{SPI__interface_8h_a2b022b50caa9c05983f85788edaac92aad344481851450c7301db1fe855484680}{SPI\+\_\+\+CRCEN}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{SPI__interface_8h_a7945fb2d836e692e75adb203bac38fda}{SPI\+\_\+\+DIMODE\+\_\+t}} \{ \doxymbox{\hyperlink{SPI__interface_8h_a7945fb2d836e692e75adb203bac38fdaad0013d84215a2bdbd0cb3fa5ae578142}{SPI\+\_\+\+UNIDIMODE}}
+, \doxymbox{\hyperlink{SPI__interface_8h_a7945fb2d836e692e75adb203bac38fdaa7b814ce998fcf78a465aacccf4d3f2ef}{SPI\+\_\+\+BIDIMODE}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{SPI__interface_8h_abcbe881d592be63dfb1258760193bd40}{SPI\+\_\+\+BIDIOE\+\_\+t}} \{ \doxymbox{\hyperlink{SPI__interface_8h_abcbe881d592be63dfb1258760193bd40a258353ed8e9b22dae82d08fbf7857517}{SPI\+\_\+\+OUTPUT\+\_\+\+DIS}}
+, \doxymbox{\hyperlink{SPI__interface_8h_abcbe881d592be63dfb1258760193bd40a591b7aa466c4d270f7d6c57032d77b0b}{SPI\+\_\+\+OUTPUT\+\_\+\+EN}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{SPI__interface_8h_a4b6f9d4ba67bb037ab88265f09945a33}{SPI\+\_\+enum\+Init}} (\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config)
+\begin{DoxyCompactList}\small\item\em Initialize the SPI peripheral with the provided configuration. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{SPI__interface_8h_a09703b6224fb5ab17478e4f7e309e734}{SPI\+\_\+enum\+Trancieve}} (\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint16\+\_\+t TX\+\_\+\+Data, uint16\+\_\+t \texorpdfstring{$\ast$}{*}RX\+\_\+\+Data)
+\begin{DoxyCompactList}\small\item\em Perform full-\/duplex SPI transaction (transmit and receive). \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{SPI__interface_8h_ab4a020e4e95e27e7414af8bc9f9b9c91}{SPI\+\_\+enum\+Transmit}} (\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint16\+\_\+t TX\+\_\+\+Data)
+\begin{DoxyCompactList}\small\item\em Transmit data through SPI interface. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{SPI__interface_8h_a245169439dd789a907e87ab3291db588}{SPI\+\_\+enum\+Receive}} (\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint16\+\_\+t \texorpdfstring{$\ast$}{*}RX\+\_\+\+Data)
+\begin{DoxyCompactList}\small\item\em Receive data through SPI interface. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-enum-members}
+\Hypertarget{SPI__interface_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70}\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_BAUDRATEPRESCALER\_t@{SPI\_BAUDRATEPRESCALER\_t}}
+\index{SPI\_BAUDRATEPRESCALER\_t@{SPI\_BAUDRATEPRESCALER\_t}!SPI\_interface.h@{SPI\_interface.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_BAUDRATEPRESCALER\_t}{SPI\_BAUDRATEPRESCALER\_t}}
+{\footnotesize\ttfamily \label{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70} 
+enum \doxymbox{\hyperlink{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70}{SPI\+\_\+\+BAUDRATEPRESCALER\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_BAUDRATEPRESCALER\_2@{SPI\_BAUDRATEPRESCALER\_2}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_BAUDRATEPRESCALER\_2@{SPI\_BAUDRATEPRESCALER\_2}}
+}\Hypertarget{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70a1110455676d9393f3e4c9b3ef2cf0f3a}\label{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70a1110455676d9393f3e4c9b3ef2cf0f3a} 
+SPI\+\_\+\+BAUDRATEPRESCALER\+\_\+2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_BAUDRATEPRESCALER\_4@{SPI\_BAUDRATEPRESCALER\_4}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_BAUDRATEPRESCALER\_4@{SPI\_BAUDRATEPRESCALER\_4}}
+}\Hypertarget{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70ac17363d731112d1c6f778f917d473e8a}\label{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70ac17363d731112d1c6f778f917d473e8a} 
+SPI\+\_\+\+BAUDRATEPRESCALER\+\_\+4&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_BAUDRATEPRESCALER\_8@{SPI\_BAUDRATEPRESCALER\_8}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_BAUDRATEPRESCALER\_8@{SPI\_BAUDRATEPRESCALER\_8}}
+}\Hypertarget{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70a8f3e7d8ce0f2b92643ff0a2a507192d9}\label{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70a8f3e7d8ce0f2b92643ff0a2a507192d9} 
+SPI\+\_\+\+BAUDRATEPRESCALER\+\_\+8&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_BAUDRATEPRESCALER\_16@{SPI\_BAUDRATEPRESCALER\_16}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_BAUDRATEPRESCALER\_16@{SPI\_BAUDRATEPRESCALER\_16}}
+}\Hypertarget{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70aecb2e157b3d291c991dc5fa1773fa288}\label{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70aecb2e157b3d291c991dc5fa1773fa288} 
+SPI\+\_\+\+BAUDRATEPRESCALER\+\_\+16&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_BAUDRATEPRESCALER\_32@{SPI\_BAUDRATEPRESCALER\_32}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_BAUDRATEPRESCALER\_32@{SPI\_BAUDRATEPRESCALER\_32}}
+}\Hypertarget{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70abba99eef7de12636aa3574e00a264be3}\label{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70abba99eef7de12636aa3574e00a264be3} 
+SPI\+\_\+\+BAUDRATEPRESCALER\+\_\+32&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_BAUDRATEPRESCALER\_64@{SPI\_BAUDRATEPRESCALER\_64}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_BAUDRATEPRESCALER\_64@{SPI\_BAUDRATEPRESCALER\_64}}
+}\Hypertarget{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70aafb59a9b68c2bd0da97d9352d2a7c223}\label{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70aafb59a9b68c2bd0da97d9352d2a7c223} 
+SPI\+\_\+\+BAUDRATEPRESCALER\+\_\+64&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_BAUDRATEPRESCALER\_128@{SPI\_BAUDRATEPRESCALER\_128}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_BAUDRATEPRESCALER\_128@{SPI\_BAUDRATEPRESCALER\_128}}
+}\Hypertarget{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70a1ba7a2df42bf80bf98d03393f5be67e3}\label{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70a1ba7a2df42bf80bf98d03393f5be67e3} 
+SPI\+\_\+\+BAUDRATEPRESCALER\+\_\+128&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_BAUDRATEPRESCALER\_256@{SPI\_BAUDRATEPRESCALER\_256}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_BAUDRATEPRESCALER\_256@{SPI\_BAUDRATEPRESCALER\_256}}
+}\Hypertarget{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70a2428c494cea01367bf94df2977db30df}\label{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70a2428c494cea01367bf94df2977db30df} 
+SPI\+\_\+\+BAUDRATEPRESCALER\+\_\+256&\\
+\hline
+
+\end{DoxyEnumFields}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2SPI_2SPI_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00046}{46}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+\Hypertarget{SPI__interface_8h_a3d2f4422f306ed3231341372d1b241f2}\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_BFIRST\_t@{SPI\_BFIRST\_t}}
+\index{SPI\_BFIRST\_t@{SPI\_BFIRST\_t}!SPI\_interface.h@{SPI\_interface.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_BFIRST\_t}{SPI\_BFIRST\_t}}
+{\footnotesize\ttfamily \label{SPI__interface_8h_a3d2f4422f306ed3231341372d1b241f2} 
+enum \doxymbox{\hyperlink{SPI__interface_8h_a3d2f4422f306ed3231341372d1b241f2}{SPI\+\_\+\+BFIRST\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_MSBFIRST@{SPI\_MSBFIRST}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_MSBFIRST@{SPI\_MSBFIRST}}
+}\Hypertarget{SPI__interface_8h_a3d2f4422f306ed3231341372d1b241f2a3fa35f661bf7fbb96c05ff70827553be}\label{SPI__interface_8h_a3d2f4422f306ed3231341372d1b241f2a3fa35f661bf7fbb96c05ff70827553be} 
+SPI\+\_\+\+MSBFIRST&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_LSBFIRST@{SPI\_LSBFIRST}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_LSBFIRST@{SPI\_LSBFIRST}}
+}\Hypertarget{SPI__interface_8h_a3d2f4422f306ed3231341372d1b241f2a183d076e845f5ea5d99465cd6aff505f}\label{SPI__interface_8h_a3d2f4422f306ed3231341372d1b241f2a183d076e845f5ea5d99465cd6aff505f} 
+SPI\+\_\+\+LSBFIRST&\\
+\hline
+
+\end{DoxyEnumFields}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2SPI_2SPI_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00064}{64}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+\Hypertarget{SPI__interface_8h_abcbe881d592be63dfb1258760193bd40}\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_BIDIOE\_t@{SPI\_BIDIOE\_t}}
+\index{SPI\_BIDIOE\_t@{SPI\_BIDIOE\_t}!SPI\_interface.h@{SPI\_interface.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_BIDIOE\_t}{SPI\_BIDIOE\_t}}
+{\footnotesize\ttfamily \label{SPI__interface_8h_abcbe881d592be63dfb1258760193bd40} 
+enum \doxymbox{\hyperlink{SPI__interface_8h_abcbe881d592be63dfb1258760193bd40}{SPI\+\_\+\+BIDIOE\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_OUTPUT\_DIS@{SPI\_OUTPUT\_DIS}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_OUTPUT\_DIS@{SPI\_OUTPUT\_DIS}}
+}\Hypertarget{SPI__interface_8h_abcbe881d592be63dfb1258760193bd40a258353ed8e9b22dae82d08fbf7857517}\label{SPI__interface_8h_abcbe881d592be63dfb1258760193bd40a258353ed8e9b22dae82d08fbf7857517} 
+SPI\+\_\+\+OUTPUT\+\_\+\+DIS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_OUTPUT\_EN@{SPI\_OUTPUT\_EN}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_OUTPUT\_EN@{SPI\_OUTPUT\_EN}}
+}\Hypertarget{SPI__interface_8h_abcbe881d592be63dfb1258760193bd40a591b7aa466c4d270f7d6c57032d77b0b}\label{SPI__interface_8h_abcbe881d592be63dfb1258760193bd40a591b7aa466c4d270f7d6c57032d77b0b} 
+SPI\+\_\+\+OUTPUT\+\_\+\+EN&\\
+\hline
+
+\end{DoxyEnumFields}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2SPI_2SPI_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00112}{112}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+\Hypertarget{SPI__interface_8h_a99e480c10376756fca05b64ed949a3d9}\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_Channel\_t@{SPI\_Channel\_t}}
+\index{SPI\_Channel\_t@{SPI\_Channel\_t}!SPI\_interface.h@{SPI\_interface.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_Channel\_t}{SPI\_Channel\_t}}
+{\footnotesize\ttfamily \label{SPI__interface_8h_a99e480c10376756fca05b64ed949a3d9} 
+enum \doxymbox{\hyperlink{SPI__interface_8h_a99e480c10376756fca05b64ed949a3d9}{SPI\+\_\+\+Channel\+\_\+t}}}
+
+===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} \doxylink{SPI__interface_8h}{SPI\+\_\+interface.\+h} \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Abdelmoemen Shehawey \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ MCAL \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} CPU :\+ Cortex-\/\+M4 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} MCU :\+ NUCLEO-\/\+F446\+RE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SWC :\+ SPI \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_CHANNEL1@{SPI\_CHANNEL1}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_CHANNEL1@{SPI\_CHANNEL1}}
+}\Hypertarget{SPI__interface_8h_a99e480c10376756fca05b64ed949a3d9ae01f25f2493c2b0a1406ee1371a2752d}\label{SPI__interface_8h_a99e480c10376756fca05b64ed949a3d9ae01f25f2493c2b0a1406ee1371a2752d} 
+SPI\+\_\+\+CHANNEL1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_CHANNEL2@{SPI\_CHANNEL2}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_CHANNEL2@{SPI\_CHANNEL2}}
+}\Hypertarget{SPI__interface_8h_a99e480c10376756fca05b64ed949a3d9a4acd0d9734887e78aa4c50dfc78fcbfa}\label{SPI__interface_8h_a99e480c10376756fca05b64ed949a3d9a4acd0d9734887e78aa4c50dfc78fcbfa} 
+SPI\+\_\+\+CHANNEL2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_CHANNEL3@{SPI\_CHANNEL3}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_CHANNEL3@{SPI\_CHANNEL3}}
+}\Hypertarget{SPI__interface_8h_a99e480c10376756fca05b64ed949a3d9a1b7e43cfe92e1412fc1d13622e099a6f}\label{SPI__interface_8h_a99e480c10376756fca05b64ed949a3d9a1b7e43cfe92e1412fc1d13622e099a6f} 
+SPI\+\_\+\+CHANNEL3&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_CHANNEL4@{SPI\_CHANNEL4}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_CHANNEL4@{SPI\_CHANNEL4}}
+}\Hypertarget{SPI__interface_8h_a99e480c10376756fca05b64ed949a3d9aad41df2ed0eb35b857f48bd36cf9f91e}\label{SPI__interface_8h_a99e480c10376756fca05b64ed949a3d9aad41df2ed0eb35b857f48bd36cf9f91e} 
+SPI\+\_\+\+CHANNEL4&\\
+\hline
+
+\end{DoxyEnumFields}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2SPI_2SPI_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00020}{20}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+\Hypertarget{SPI__interface_8h_a78da88ed6e4be342886ae4e703454ff9}\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_CPHA\_t@{SPI\_CPHA\_t}}
+\index{SPI\_CPHA\_t@{SPI\_CPHA\_t}!SPI\_interface.h@{SPI\_interface.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_CPHA\_t}{SPI\_CPHA\_t}}
+{\footnotesize\ttfamily \label{SPI__interface_8h_a78da88ed6e4be342886ae4e703454ff9} 
+enum \doxymbox{\hyperlink{SPI__interface_8h_a78da88ed6e4be342886ae4e703454ff9}{SPI\+\_\+\+CPHA\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_CPHA\_1EDGE@{SPI\_CPHA\_1EDGE}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_CPHA\_1EDGE@{SPI\_CPHA\_1EDGE}}
+}\Hypertarget{SPI__interface_8h_a78da88ed6e4be342886ae4e703454ff9abf6e4c4ae342ea61214abbaa51ca3912}\label{SPI__interface_8h_a78da88ed6e4be342886ae4e703454ff9abf6e4c4ae342ea61214abbaa51ca3912} 
+SPI\+\_\+\+CPHA\+\_\+1\+EDGE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_CPHA\_2EDGE@{SPI\_CPHA\_2EDGE}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_CPHA\_2EDGE@{SPI\_CPHA\_2EDGE}}
+}\Hypertarget{SPI__interface_8h_a78da88ed6e4be342886ae4e703454ff9a828367148114bfd4488ce259bcb4171d}\label{SPI__interface_8h_a78da88ed6e4be342886ae4e703454ff9a828367148114bfd4488ce259bcb4171d} 
+SPI\+\_\+\+CPHA\+\_\+2\+EDGE&\\
+\hline
+
+\end{DoxyEnumFields}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2SPI_2SPI_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00028}{28}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+\Hypertarget{SPI__interface_8h_a34beb9edf30f0d6974c2819a941cc423}\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_CPOL\_t@{SPI\_CPOL\_t}}
+\index{SPI\_CPOL\_t@{SPI\_CPOL\_t}!SPI\_interface.h@{SPI\_interface.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_CPOL\_t}{SPI\_CPOL\_t}}
+{\footnotesize\ttfamily \label{SPI__interface_8h_a34beb9edf30f0d6974c2819a941cc423} 
+enum \doxymbox{\hyperlink{SPI__interface_8h_a34beb9edf30f0d6974c2819a941cc423}{SPI\+\_\+\+CPOL\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_CPOL\_LOW@{SPI\_CPOL\_LOW}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_CPOL\_LOW@{SPI\_CPOL\_LOW}}
+}\Hypertarget{SPI__interface_8h_a34beb9edf30f0d6974c2819a941cc423ad12b15db33ea03dc6d722c86bfdaaca2}\label{SPI__interface_8h_a34beb9edf30f0d6974c2819a941cc423ad12b15db33ea03dc6d722c86bfdaaca2} 
+SPI\+\_\+\+CPOL\+\_\+\+LOW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_CPOL\_HIGH@{SPI\_CPOL\_HIGH}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_CPOL\_HIGH@{SPI\_CPOL\_HIGH}}
+}\Hypertarget{SPI__interface_8h_a34beb9edf30f0d6974c2819a941cc423a17ee2099baebd6220fc708036eddea09}\label{SPI__interface_8h_a34beb9edf30f0d6974c2819a941cc423a17ee2099baebd6220fc708036eddea09} 
+SPI\+\_\+\+CPOL\+\_\+\+HIGH&\\
+\hline
+
+\end{DoxyEnumFields}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2SPI_2SPI_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00034}{34}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+\Hypertarget{SPI__interface_8h_a2b022b50caa9c05983f85788edaac92a}\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_CRCEN\_t@{SPI\_CRCEN\_t}}
+\index{SPI\_CRCEN\_t@{SPI\_CRCEN\_t}!SPI\_interface.h@{SPI\_interface.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_CRCEN\_t}{SPI\_CRCEN\_t}}
+{\footnotesize\ttfamily \label{SPI__interface_8h_a2b022b50caa9c05983f85788edaac92a} 
+enum \doxymbox{\hyperlink{SPI__interface_8h_a2b022b50caa9c05983f85788edaac92a}{SPI\+\_\+\+CRCEN\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_CRCDIS@{SPI\_CRCDIS}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_CRCDIS@{SPI\_CRCDIS}}
+}\Hypertarget{SPI__interface_8h_a2b022b50caa9c05983f85788edaac92aa350ab723d3767e8cb9f2d05cd289bc3a}\label{SPI__interface_8h_a2b022b50caa9c05983f85788edaac92aa350ab723d3767e8cb9f2d05cd289bc3a} 
+SPI\+\_\+\+CRCDIS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_CRCEN@{SPI\_CRCEN}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_CRCEN@{SPI\_CRCEN}}
+}\Hypertarget{SPI__interface_8h_a2b022b50caa9c05983f85788edaac92aad344481851450c7301db1fe855484680}\label{SPI__interface_8h_a2b022b50caa9c05983f85788edaac92aad344481851450c7301db1fe855484680} 
+SPI\+\_\+\+CRCEN&\\
+\hline
+
+\end{DoxyEnumFields}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2SPI_2SPI_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00100}{100}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+\Hypertarget{SPI__interface_8h_a69aac2e6df15ed3f2dff3040dbe85501}\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_CRCNEXT\_t@{SPI\_CRCNEXT\_t}}
+\index{SPI\_CRCNEXT\_t@{SPI\_CRCNEXT\_t}!SPI\_interface.h@{SPI\_interface.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_CRCNEXT\_t}{SPI\_CRCNEXT\_t}}
+{\footnotesize\ttfamily \label{SPI__interface_8h_a69aac2e6df15ed3f2dff3040dbe85501} 
+enum \doxymbox{\hyperlink{SPI__interface_8h_a69aac2e6df15ed3f2dff3040dbe85501}{SPI\+\_\+\+CRCNEXT\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_CRCNEXT\_DISABLE@{SPI\_CRCNEXT\_DISABLE}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_CRCNEXT\_DISABLE@{SPI\_CRCNEXT\_DISABLE}}
+}\Hypertarget{SPI__interface_8h_a69aac2e6df15ed3f2dff3040dbe85501ac8870ad61e4936fc656634b7e680e0ed}\label{SPI__interface_8h_a69aac2e6df15ed3f2dff3040dbe85501ac8870ad61e4936fc656634b7e680e0ed} 
+SPI\+\_\+\+CRCNEXT\+\_\+\+DISABLE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_CRCNEXT\_ENABLE@{SPI\_CRCNEXT\_ENABLE}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_CRCNEXT\_ENABLE@{SPI\_CRCNEXT\_ENABLE}}
+}\Hypertarget{SPI__interface_8h_a69aac2e6df15ed3f2dff3040dbe85501a096f933e7b181d9394aad9ca9a4e9c91}\label{SPI__interface_8h_a69aac2e6df15ed3f2dff3040dbe85501a096f933e7b181d9394aad9ca9a4e9c91} 
+SPI\+\_\+\+CRCNEXT\+\_\+\+ENABLE&\\
+\hline
+
+\end{DoxyEnumFields}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2SPI_2SPI_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00094}{94}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+\Hypertarget{SPI__interface_8h_ab4199e1038cc90f9ba060af300e29a7c}\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_DFF\_t@{SPI\_DFF\_t}}
+\index{SPI\_DFF\_t@{SPI\_DFF\_t}!SPI\_interface.h@{SPI\_interface.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_DFF\_t}{SPI\_DFF\_t}}
+{\footnotesize\ttfamily \label{SPI__interface_8h_ab4199e1038cc90f9ba060af300e29a7c} 
+enum \doxymbox{\hyperlink{SPI__interface_8h_ab4199e1038cc90f9ba060af300e29a7c}{SPI\+\_\+\+DFF\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_DFF\_8BIT@{SPI\_DFF\_8BIT}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_DFF\_8BIT@{SPI\_DFF\_8BIT}}
+}\Hypertarget{SPI__interface_8h_ab4199e1038cc90f9ba060af300e29a7ca77b5cfca09bdb76f00599cad3ab634dc}\label{SPI__interface_8h_ab4199e1038cc90f9ba060af300e29a7ca77b5cfca09bdb76f00599cad3ab634dc} 
+SPI\+\_\+\+DFF\+\_\+8\+BIT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_DFF\_16BIT@{SPI\_DFF\_16BIT}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_DFF\_16BIT@{SPI\_DFF\_16BIT}}
+}\Hypertarget{SPI__interface_8h_ab4199e1038cc90f9ba060af300e29a7ca87b8af2ad9ac2dba407fcd25dc4d8b61}\label{SPI__interface_8h_ab4199e1038cc90f9ba060af300e29a7ca87b8af2ad9ac2dba407fcd25dc4d8b61} 
+SPI\+\_\+\+DFF\+\_\+16\+BIT&\\
+\hline
+
+\end{DoxyEnumFields}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2SPI_2SPI_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00088}{88}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+\Hypertarget{SPI__interface_8h_a7945fb2d836e692e75adb203bac38fda}\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_DIMODE\_t@{SPI\_DIMODE\_t}}
+\index{SPI\_DIMODE\_t@{SPI\_DIMODE\_t}!SPI\_interface.h@{SPI\_interface.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_DIMODE\_t}{SPI\_DIMODE\_t}}
+{\footnotesize\ttfamily \label{SPI__interface_8h_a7945fb2d836e692e75adb203bac38fda} 
+enum \doxymbox{\hyperlink{SPI__interface_8h_a7945fb2d836e692e75adb203bac38fda}{SPI\+\_\+\+DIMODE\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_UNIDIMODE@{SPI\_UNIDIMODE}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_UNIDIMODE@{SPI\_UNIDIMODE}}
+}\Hypertarget{SPI__interface_8h_a7945fb2d836e692e75adb203bac38fdaad0013d84215a2bdbd0cb3fa5ae578142}\label{SPI__interface_8h_a7945fb2d836e692e75adb203bac38fdaad0013d84215a2bdbd0cb3fa5ae578142} 
+SPI\+\_\+\+UNIDIMODE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_BIDIMODE@{SPI\_BIDIMODE}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_BIDIMODE@{SPI\_BIDIMODE}}
+}\Hypertarget{SPI__interface_8h_a7945fb2d836e692e75adb203bac38fdaa7b814ce998fcf78a465aacccf4d3f2ef}\label{SPI__interface_8h_a7945fb2d836e692e75adb203bac38fdaa7b814ce998fcf78a465aacccf4d3f2ef} 
+SPI\+\_\+\+BIDIMODE&\\
+\hline
+
+\end{DoxyEnumFields}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2SPI_2SPI_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00106}{106}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+\Hypertarget{SPI__interface_8h_af7f50e71bd6a06e32909cef3ba77610d}\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_Mode\_t@{SPI\_Mode\_t}}
+\index{SPI\_Mode\_t@{SPI\_Mode\_t}!SPI\_interface.h@{SPI\_interface.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_Mode\_t}{SPI\_Mode\_t}}
+{\footnotesize\ttfamily \label{SPI__interface_8h_af7f50e71bd6a06e32909cef3ba77610d} 
+enum \doxymbox{\hyperlink{SPI__interface_8h_af7f50e71bd6a06e32909cef3ba77610d}{SPI\+\_\+\+Mode\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_MODE\_SLAVE@{SPI\_MODE\_SLAVE}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_MODE\_SLAVE@{SPI\_MODE\_SLAVE}}
+}\Hypertarget{SPI__interface_8h_af7f50e71bd6a06e32909cef3ba77610dad1131ed33ad43ab3f667070b04454439}\label{SPI__interface_8h_af7f50e71bd6a06e32909cef3ba77610dad1131ed33ad43ab3f667070b04454439} 
+SPI\+\_\+\+MODE\+\_\+\+SLAVE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_MODE\_MASTER@{SPI\_MODE\_MASTER}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_MODE\_MASTER@{SPI\_MODE\_MASTER}}
+}\Hypertarget{SPI__interface_8h_af7f50e71bd6a06e32909cef3ba77610dae68a8adf6e5b67a7bdbe9526b15dae99}\label{SPI__interface_8h_af7f50e71bd6a06e32909cef3ba77610dae68a8adf6e5b67a7bdbe9526b15dae99} 
+SPI\+\_\+\+MODE\+\_\+\+MASTER&\\
+\hline
+
+\end{DoxyEnumFields}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2SPI_2SPI_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00040}{40}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+\Hypertarget{SPI__interface_8h_adbe1555d537053eec05421b9c0a1b5c2}\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_NSS\_MAN\_t@{SPI\_NSS\_MAN\_t}}
+\index{SPI\_NSS\_MAN\_t@{SPI\_NSS\_MAN\_t}!SPI\_interface.h@{SPI\_interface.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_NSS\_MAN\_t}{SPI\_NSS\_MAN\_t}}
+{\footnotesize\ttfamily \label{SPI__interface_8h_adbe1555d537053eec05421b9c0a1b5c2} 
+enum \doxymbox{\hyperlink{SPI__interface_8h_adbe1555d537053eec05421b9c0a1b5c2}{SPI\+\_\+\+NSS\+\_\+\+MAN\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_NSS\_HARDWARE@{SPI\_NSS\_HARDWARE}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_NSS\_HARDWARE@{SPI\_NSS\_HARDWARE}}
+}\Hypertarget{SPI__interface_8h_adbe1555d537053eec05421b9c0a1b5c2a6be8167917892bc12fdf7fe61881e8e2}\label{SPI__interface_8h_adbe1555d537053eec05421b9c0a1b5c2a6be8167917892bc12fdf7fe61881e8e2} 
+SPI\+\_\+\+NSS\+\_\+\+HARDWARE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_NSS\_SOFTWARE@{SPI\_NSS\_SOFTWARE}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_NSS\_SOFTWARE@{SPI\_NSS\_SOFTWARE}}
+}\Hypertarget{SPI__interface_8h_adbe1555d537053eec05421b9c0a1b5c2a4871d5bdcf01bf25ffce4da1b5f387fb}\label{SPI__interface_8h_adbe1555d537053eec05421b9c0a1b5c2a4871d5bdcf01bf25ffce4da1b5f387fb} 
+SPI\+\_\+\+NSS\+\_\+\+SOFTWARE&\\
+\hline
+
+\end{DoxyEnumFields}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2SPI_2SPI_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00070}{70}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+\Hypertarget{SPI__interface_8h_a1c45faac8557e06760a44075984eb7ff}\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_NSSI\_MODE\_t@{SPI\_NSSI\_MODE\_t}}
+\index{SPI\_NSSI\_MODE\_t@{SPI\_NSSI\_MODE\_t}!SPI\_interface.h@{SPI\_interface.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_NSSI\_MODE\_t}{SPI\_NSSI\_MODE\_t}}
+{\footnotesize\ttfamily \label{SPI__interface_8h_a1c45faac8557e06760a44075984eb7ff} 
+enum \doxymbox{\hyperlink{SPI__interface_8h_a1c45faac8557e06760a44075984eb7ff}{SPI\+\_\+\+NSSI\+\_\+\+MODE\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_NSSI\_SELECT@{SPI\_NSSI\_SELECT}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_NSSI\_SELECT@{SPI\_NSSI\_SELECT}}
+}\Hypertarget{SPI__interface_8h_a1c45faac8557e06760a44075984eb7ffa15e1a687d33411e898efbae001f0b860}\label{SPI__interface_8h_a1c45faac8557e06760a44075984eb7ffa15e1a687d33411e898efbae001f0b860} 
+SPI\+\_\+\+NSSI\+\_\+\+SELECT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_NSSI\_NOT\_SELECT@{SPI\_NSSI\_NOT\_SELECT}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_NSSI\_NOT\_SELECT@{SPI\_NSSI\_NOT\_SELECT}}
+}\Hypertarget{SPI__interface_8h_a1c45faac8557e06760a44075984eb7ffad3ed938d3769125d0486116dd63479fc}\label{SPI__interface_8h_a1c45faac8557e06760a44075984eb7ffad3ed938d3769125d0486116dd63479fc} 
+SPI\+\_\+\+NSSI\+\_\+\+NOT\+\_\+\+SELECT&\\
+\hline
+
+\end{DoxyEnumFields}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2SPI_2SPI_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00076}{76}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+\Hypertarget{SPI__interface_8h_a9c9a776b797c9c30896f34a8fd521081}\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_RXONLY\_t@{SPI\_RXONLY\_t}}
+\index{SPI\_RXONLY\_t@{SPI\_RXONLY\_t}!SPI\_interface.h@{SPI\_interface.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_RXONLY\_t}{SPI\_RXONLY\_t}}
+{\footnotesize\ttfamily \label{SPI__interface_8h_a9c9a776b797c9c30896f34a8fd521081} 
+enum \doxymbox{\hyperlink{SPI__interface_8h_a9c9a776b797c9c30896f34a8fd521081}{SPI\+\_\+\+RXONLY\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_RXONLY\_DISABLE@{SPI\_RXONLY\_DISABLE}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_RXONLY\_DISABLE@{SPI\_RXONLY\_DISABLE}}
+}\Hypertarget{SPI__interface_8h_a9c9a776b797c9c30896f34a8fd521081a4d040fb5953610e249dcf0442391e124}\label{SPI__interface_8h_a9c9a776b797c9c30896f34a8fd521081a4d040fb5953610e249dcf0442391e124} 
+SPI\+\_\+\+RXONLY\+\_\+\+DISABLE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_RXONLY\_ENABLE@{SPI\_RXONLY\_ENABLE}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_RXONLY\_ENABLE@{SPI\_RXONLY\_ENABLE}}
+}\Hypertarget{SPI__interface_8h_a9c9a776b797c9c30896f34a8fd521081a78b48de7a19e2cb38bf0367815330e9f}\label{SPI__interface_8h_a9c9a776b797c9c30896f34a8fd521081a78b48de7a19e2cb38bf0367815330e9f} 
+SPI\+\_\+\+RXONLY\+\_\+\+ENABLE&\\
+\hline
+
+\end{DoxyEnumFields}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2SPI_2SPI_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00082}{82}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+\Hypertarget{SPI__interface_8h_a1db03ac197283574fffbb48a4afee6a8}\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_SPE\_t@{SPI\_SPE\_t}}
+\index{SPI\_SPE\_t@{SPI\_SPE\_t}!SPI\_interface.h@{SPI\_interface.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_SPE\_t}{SPI\_SPE\_t}}
+{\footnotesize\ttfamily \label{SPI__interface_8h_a1db03ac197283574fffbb48a4afee6a8} 
+enum \doxymbox{\hyperlink{SPI__interface_8h_a1db03ac197283574fffbb48a4afee6a8}{SPI\+\_\+\+SPE\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_SPE\_DIS@{SPI\_SPE\_DIS}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_SPE\_DIS@{SPI\_SPE\_DIS}}
+}\Hypertarget{SPI__interface_8h_a1db03ac197283574fffbb48a4afee6a8ae63f309b046aa247cd58485fd7e25ac9}\label{SPI__interface_8h_a1db03ac197283574fffbb48a4afee6a8ae63f309b046aa247cd58485fd7e25ac9} 
+SPI\+\_\+\+SPE\+\_\+\+DIS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPI\_SPE\_EN@{SPI\_SPE\_EN}!SPI\_interface.h@{SPI\_interface.h}}
+\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_SPE\_EN@{SPI\_SPE\_EN}}
+}\Hypertarget{SPI__interface_8h_a1db03ac197283574fffbb48a4afee6a8a29b7aac99dd1ca39efe89d857b558d0a}\label{SPI__interface_8h_a1db03ac197283574fffbb48a4afee6a8a29b7aac99dd1ca39efe89d857b558d0a} 
+SPI\+\_\+\+SPE\+\_\+\+EN&\\
+\hline
+
+\end{DoxyEnumFields}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2SPI_2SPI_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00058}{58}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{SPI__interface_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{SPI__interface_8h_a4b6f9d4ba67bb037ab88265f09945a33}\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_enumInit@{SPI\_enumInit}}
+\index{SPI\_enumInit@{SPI\_enumInit}!SPI\_interface.h@{SPI\_interface.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_enumInit()}{SPI\_enumInit()}}
+{\footnotesize\ttfamily \label{SPI__interface_8h_a4b6f9d4ba67bb037ab88265f09945a33} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} SPI\+\_\+enum\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{}\end{DoxyParamCaption})}
+
+
+
+Initialize the SPI peripheral with the provided configuration. 
+
+This function configures all SPI parameters including clock phase, polarity, master/\+slave mode, baud rate, data frame format, and other settings.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Channel\+Config} & Pointer to the SPI configuration structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} OK if initialization successful, error code otherwise
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+NULL pointer check is performed on the input parameter. 
+\end{DoxyWarning}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2SPI_2SPI_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{SPI__program_8c_source_l00038}{38}} of file \doxymbox{\hyperlink{SPI__program_8c_source}{SPI\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{SPI__interface_8h_a4b6f9d4ba67bb037ab88265f09945a33_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{SPI__interface_8h_a245169439dd789a907e87ab3291db588}\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_enumReceive@{SPI\_enumReceive}}
+\index{SPI\_enumReceive@{SPI\_enumReceive}!SPI\_interface.h@{SPI\_interface.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_enumReceive()}{SPI\_enumReceive()}}
+{\footnotesize\ttfamily \label{SPI__interface_8h_a245169439dd789a907e87ab3291db588} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} SPI\+\_\+enum\+Receive (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{RX\+\_\+\+Data}{}\end{DoxyParamCaption})}
+
+
+
+Receive data through SPI interface. 
+
+This function receives data through the SPI interface in a blocking manner with timeout protection.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Channel\+Config} & Pointer to the SPI configuration structure \\
+\hline
+{\em RX\+\_\+\+Data} & Pointer to store received data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} OK if successful, error code otherwise
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+NULL pointer check is performed on input parameters 
+\end{DoxyWarning}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2SPI_2SPI_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{SPI__program_8c_source_l00250}{250}} of file \doxymbox{\hyperlink{SPI__program_8c_source}{SPI\+\_\+program.\+c}}.
+
+\Hypertarget{SPI__interface_8h_a09703b6224fb5ab17478e4f7e309e734}\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_enumTrancieve@{SPI\_enumTrancieve}}
+\index{SPI\_enumTrancieve@{SPI\_enumTrancieve}!SPI\_interface.h@{SPI\_interface.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_enumTrancieve()}{SPI\_enumTrancieve()}}
+{\footnotesize\ttfamily \label{SPI__interface_8h_a09703b6224fb5ab17478e4f7e309e734} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} SPI\+\_\+enum\+Trancieve (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint16\+\_\+t}]{TX\+\_\+\+Data}{, }\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{RX\+\_\+\+Data}{}\end{DoxyParamCaption})}
+
+
+
+Perform full-\/duplex SPI transaction (transmit and receive). 
+
+This function sends data and simultaneously receives data through the SPI interface. It implements a blocking mechanism with timeout protection.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Channel\+Config} & Pointer to the SPI configuration structure \\
+\hline
+{\em TX\+\_\+\+Data} & Data to be transmitted \\
+\hline
+{\em RX\+\_\+\+Data} & Pointer to store received data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} OK if successful, error code otherwise
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+This is a blocking function with timeout protection 
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+NULL pointer check is performed on input parameters 
+\end{DoxyWarning}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2SPI_2SPI_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{SPI__program_8c_source_l00112}{112}} of file \doxymbox{\hyperlink{SPI__program_8c_source}{SPI\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{SPI__interface_8h_a09703b6224fb5ab17478e4f7e309e734_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{SPI__interface_8h_ab4a020e4e95e27e7414af8bc9f9b9c91}\index{SPI\_interface.h@{SPI\_interface.h}!SPI\_enumTransmit@{SPI\_enumTransmit}}
+\index{SPI\_enumTransmit@{SPI\_enumTransmit}!SPI\_interface.h@{SPI\_interface.h}}
+\doxysubsubsection{\texorpdfstring{SPI\_enumTransmit()}{SPI\_enumTransmit()}}
+{\footnotesize\ttfamily \label{SPI__interface_8h_ab4a020e4e95e27e7414af8bc9f9b9c91} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} SPI\+\_\+enum\+Transmit (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint16\+\_\+t}]{TX\+\_\+\+Data}{}\end{DoxyParamCaption})}
+
+
+
+Transmit data through SPI interface. 
+
+This function sends data through the SPI interface in a blocking manner with timeout protection.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Channel\+Config} & Pointer to the SPI configuration structure \\
+\hline
+{\em TX\+\_\+\+Data} & Data to be transmitted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} OK if successful, error code otherwise
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+NULL pointer check is performed on input parameter 
+\end{DoxyWarning}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2SPI_2SPI_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{SPI__program_8c_source_l00190}{190}} of file \doxymbox{\hyperlink{SPI__program_8c_source}{SPI\+\_\+program.\+c}}.
+

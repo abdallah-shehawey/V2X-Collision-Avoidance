@@ -1,0 +1,744 @@
+\doxysection{Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.h File Reference}
+\hypertarget{TIM__interface_8h}{}\label{TIM__interface_8h}\index{Inc/Drivers/MCAL/TIM/TIM\_interface.h@{Inc/Drivers/MCAL/TIM/TIM\_interface.h}}
+
+
+Timer (TIM) Interface Header File.  
+
+
+{\ttfamily \+\#include $<$stdint.\+h$>$}\newline
+{\ttfamily \+\#include "{}../\+../\+\+LIB/\+\+STD\+\_\+\+MACROS.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+../\+\+LIB/\+\+Err\+Types.\+h"{}}\newline
+Include dependency graph for TIM\+\_\+interface.\+h:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TIM__interface_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TIM__interface_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structTIM__Config__t}{TIM\+\_\+\+Config\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Configuration structure for Timer Initialization. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structTIM__PWMConfig__t}{TIM\+\_\+\+PWMConfig\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Configuration structure for PWM Initialization. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structTIM__ICConfig__t}{TIM\+\_\+\+ICConfig\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Configuration structure for Input Capture Initialization. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} \{ \newline
+\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ac5d83f7f02ed43be0c56113288ac5d6e}{TIM\+\_\+\+TIMER2}} = 0
+, \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ad67049f6927eb2cc4c7bf01ef65506d3}{TIM\+\_\+\+TIMER3}}
+, \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ae08922f4e53624681a74304401fe70d5}{TIM\+\_\+\+TIMER4}}
+, \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23aeacfda3ad57699febbf392e77ad9bcd1}{TIM\+\_\+\+TIMER5}}
+, \newline
+\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23a2f11856b0dad76655c7eee9a4373fcb7}{TIM\+\_\+\+TIMER1}}
+, \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ac393fa6bfe307979749a0f3021608981}{TIM\+\_\+\+TIMER8}}
+, \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23af18bf52d47d87947df265cf9a7e3ef26}{TIM\+\_\+\+TIMER6}}
+, \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23a546bf602f6bc1e3ec9d98a84922023ea}{TIM\+\_\+\+TIMER7}}
+, \newline
+\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23a7c344d8927dd06f539c5b78d7d7b9166}{TIM\+\_\+\+TIMER\+\_\+\+COUNT}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enumeration for Timer Instances. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{TIM__interface_8h_a0047e30e2a1ba7a8d59f2da4f0cf6eb4}{TIM\+\_\+\+Counter\+Mode\+\_\+t}} \{ \doxymbox{\hyperlink{TIM__interface_8h_a0047e30e2a1ba7a8d59f2da4f0cf6eb4a96b24c17ffe5b3442754f7bc9227231c}{TIM\+\_\+\+COUNTERMODE\+\_\+\+UP}} = 0
+, \doxymbox{\hyperlink{TIM__interface_8h_a0047e30e2a1ba7a8d59f2da4f0cf6eb4ae6b1ea60ecaa1a90a3b47632434ca0c6}{TIM\+\_\+\+COUNTERMODE\+\_\+\+DOWN}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enumeration for Timer Counter Modes. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}} \{ \doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16a7e4ba474fee3def9b11d24896d3f5498}{TIM\+\_\+\+CHANNEL1}} = 0
+, \doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16af0243948bc9f26dc189c86d2f90eef11}{TIM\+\_\+\+CHANNEL2}}
+, \doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16a8358131197511145a5792cebdd5b5117}{TIM\+\_\+\+CHANNEL3}}
+, \doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16ad13a94dddd6e2010d9af6a6737b7d6f4}{TIM\+\_\+\+CHANNEL4}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enumeration for Timer Channels. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{TIM__interface_8h_afc1e5fa076e28421ccdae09b6171f646}{TIM\+\_\+\+PWMMode\+\_\+t}} \{ \doxymbox{\hyperlink{TIM__interface_8h_afc1e5fa076e28421ccdae09b6171f646a36d1891725b1ff3907e225f44494a004}{TIM\+\_\+\+PWM\+\_\+\+MODE1}} = 6
+, \doxymbox{\hyperlink{TIM__interface_8h_afc1e5fa076e28421ccdae09b6171f646a45ff68dc5dc709458e7e5a32df769229}{TIM\+\_\+\+PWM\+\_\+\+MODE2}} = 7
+ \}
+\begin{DoxyCompactList}\small\item\em Enumeration for PWM Modes. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{TIM__interface_8h_ad6edd13d05def01952c9f8b6e11773d4}{TIM\+\_\+\+Polarity\+\_\+t}} \{ \doxymbox{\hyperlink{TIM__interface_8h_ad6edd13d05def01952c9f8b6e11773d4aeef997c391b7f2f5bd1c1d6fe2e436d0}{TIM\+\_\+\+POLARITY\+\_\+\+HIGH}} = 0
+, \doxymbox{\hyperlink{TIM__interface_8h_ad6edd13d05def01952c9f8b6e11773d4aee2ef1b20f37a3b93289526a21f9489d}{TIM\+\_\+\+POLARITY\+\_\+\+LOW}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enumeration for Output Polarity. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{TIM__interface_8h_a874d9ee0b93fcabcb9999efc4388e2db}{TIM\+\_\+\+IC\+\_\+\+Selection\+\_\+t}} \{ \doxymbox{\hyperlink{TIM__interface_8h_a874d9ee0b93fcabcb9999efc4388e2dba5815b1cbb7c2a1b8c080ced8c8f6e4c6}{TIM\+\_\+\+IC\+\_\+\+SELECTION\+\_\+\+DIRECT\+\_\+\+TI}} = 1
+, \doxymbox{\hyperlink{TIM__interface_8h_a874d9ee0b93fcabcb9999efc4388e2dba0435d9cbfaf85310ca1161317bd9afa1}{TIM\+\_\+\+IC\+\_\+\+SELECTION\+\_\+\+INDIRECT\+\_\+\+TI}} = 2
+, \doxymbox{\hyperlink{TIM__interface_8h_a874d9ee0b93fcabcb9999efc4388e2dbaa26adb629edad6eca4d40ba6dbc99538}{TIM\+\_\+\+IC\+\_\+\+SELECTION\+\_\+\+TRC}} = 3
+ \}
+\begin{DoxyCompactList}\small\item\em Enumeration for Input Capture Selection. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{TIM__interface_8h_a07b622d3e7637777981cc30f40026d7d}{TIM\+\_\+\+IC\+\_\+\+Prescaler\+\_\+t}} \{ \doxymbox{\hyperlink{TIM__interface_8h_a07b622d3e7637777981cc30f40026d7daf198c740949eb704a94ee161b2c860f5}{TIM\+\_\+\+IC\+\_\+\+PSC\+\_\+\+DIV1}} = 0
+, \doxymbox{\hyperlink{TIM__interface_8h_a07b622d3e7637777981cc30f40026d7da087015d83e0ee5efbd409629e1852d17}{TIM\+\_\+\+IC\+\_\+\+PSC\+\_\+\+DIV2}} = 1
+, \doxymbox{\hyperlink{TIM__interface_8h_a07b622d3e7637777981cc30f40026d7da48495fe8cc12b9259b6594d566d0c011}{TIM\+\_\+\+IC\+\_\+\+PSC\+\_\+\+DIV4}} = 2
+, \doxymbox{\hyperlink{TIM__interface_8h_a07b622d3e7637777981cc30f40026d7daec4ce8f08240f66773916f6f7cc4b1ea}{TIM\+\_\+\+IC\+\_\+\+PSC\+\_\+\+DIV8}} = 3
+ \}
+\begin{DoxyCompactList}\small\item\em Enumeration for Input Capture Prescaler. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__interface_8h_a2db8aa14e44d1d1571d455542d2269f0}{TIM\+\_\+v\+Init}} (const \doxymbox{\hyperlink{structTIM__Config__t}{TIM\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}px\+Config)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__interface_8h_a2bd184de6083fb2ccf17231557037835}{TIM\+\_\+v\+Start}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__interface_8h_a704ce7ee96e78180a1bf2307b9a5f838}{TIM\+\_\+v\+Stop}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__interface_8h_adfefb691110f40a37d8a427bd3883a72}{TIM\+\_\+v\+PWM\+\_\+\+Init}} (const \doxymbox{\hyperlink{structTIM__PWMConfig__t}{TIM\+\_\+\+PWMConfig\+\_\+t}} \texorpdfstring{$\ast$}{*}px\+PWMConfig)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__interface_8h_a8e1065f213120676872fdbbd5ccfd37a}{TIM\+\_\+v\+IC\+\_\+\+Init}} (const \doxymbox{\hyperlink{structTIM__ICConfig__t}{TIM\+\_\+\+ICConfig\+\_\+t}} \texorpdfstring{$\ast$}{*}px\+ICConfig)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__interface_8h_aed79cd1ecef7e696e8a65336cef6b89f}{TIM\+\_\+u32\+Get\+Capture\+Value}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, \doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}} Copy\+\_\+e\+Channel, uint32\+\_\+t \texorpdfstring{$\ast$}{*}pu32\+Value)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__interface_8h_a40e7376c5f494fa3ed9df8dd673b9673}{TIM\+\_\+u32\+Get\+Counter\+Value}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, uint32\+\_\+t \texorpdfstring{$\ast$}{*}pu32\+Value)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__interface_8h_af6ce9419f48628e54cb1110dae65e1f1}{TIM\+\_\+v\+Set\+ICPolarity}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, \doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}} Copy\+\_\+e\+Channel, \doxymbox{\hyperlink{TIM__interface_8h_ad6edd13d05def01952c9f8b6e11773d4}{TIM\+\_\+\+Polarity\+\_\+t}} Copy\+\_\+e\+Polarity)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__interface_8h_a367d00f6e6cd9c32d38e40ed2dd95fb8}{TIM\+\_\+v\+Set\+Compare\+Value}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, \doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}} Copy\+\_\+e\+Channel, uint32\+\_\+t Copy\+\_\+u32\+Value)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__interface_8h_ac28f51338121baf714c344ec730d8c12}{TIM\+\_\+v\+Set\+Prescaler}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, uint16\+\_\+t Copy\+\_\+u16\+Prescaler)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__interface_8h_acf362053a622ba1d6bcdbf65a1bbb261}{TIM\+\_\+v\+Set\+Auto\+Reload\+Value}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, uint32\+\_\+t Copy\+\_\+u32\+Auto\+Reload)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__interface_8h_a06dd9df822ed8f4c5635901b770230ea}{TIM\+\_\+v\+Delay\+Ms}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, uint32\+\_\+t Copy\+\_\+u32\+Ms)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__interface_8h_a49a60dbb20212c2ba13e4aba78e81031}{TIM\+\_\+v\+Delay\+Us}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, uint32\+\_\+t Copy\+\_\+u32\+Us)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__interface_8h_a59241245bf6224bcab52587175f7c41b}{TIM\+\_\+v\+Enable\+Interrupt}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__interface_8h_a1156613e7e18e66d685bf32cff6b8af5}{TIM\+\_\+v\+Disable\+Interrupt}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__interface_8h_ae5ded709a28d726686666d92e05c40d3}{TIM\+\_\+v\+Set\+Callback}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, void(\texorpdfstring{$\ast$}{*}pv\+Callback)(void))
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__interface_8h_a78dfd09e838628d35bd9fc18ddd575ad}{TIM\+\_\+v\+Enable\+CCInterrupt}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, \doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}} Copy\+\_\+e\+Channel)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__interface_8h_a05c68c2d16e14ca08f925fc789f8c000}{TIM\+\_\+v\+Disable\+CCInterrupt}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, \doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}} Copy\+\_\+e\+Channel)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{TIM__interface_8h_a274b369957bc2526189a0d66db5bb35e}{TIM\+\_\+v\+Set\+CCCallback}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, void(\texorpdfstring{$\ast$}{*}pv\+Callback)(\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, uint8\+\_\+t Copy\+\_\+u8\+Channel, uint32\+\_\+t Copy\+\_\+u32\+Capture))
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Timer (TIM) Interface Header File. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Saleh
+\end{DoxyAuthor}
+This file contains the function prototypes and data types for the Timer driver. 
+
+Definition in file \doxymbox{\hyperlink{TIM__interface_8h_source}{TIM\+\_\+interface.\+h}}.
+
+
+
+\label{doc-enum-members}
+\Hypertarget{TIM__interface_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_Channel\_t@{TIM\_Channel\_t}}
+\index{TIM\_Channel\_t@{TIM\_Channel\_t}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_Channel\_t}{TIM\_Channel\_t}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16} 
+enum \doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}}}
+
+
+
+Enumeration for Timer Channels. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_CHANNEL1@{TIM\_CHANNEL1}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_CHANNEL1@{TIM\_CHANNEL1}}
+}\Hypertarget{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16a7e4ba474fee3def9b11d24896d3f5498}\label{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16a7e4ba474fee3def9b11d24896d3f5498} 
+TIM\+\_\+\+CHANNEL1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_CHANNEL2@{TIM\_CHANNEL2}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_CHANNEL2@{TIM\_CHANNEL2}}
+}\Hypertarget{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16af0243948bc9f26dc189c86d2f90eef11}\label{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16af0243948bc9f26dc189c86d2f90eef11} 
+TIM\+\_\+\+CHANNEL2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_CHANNEL3@{TIM\_CHANNEL3}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_CHANNEL3@{TIM\_CHANNEL3}}
+}\Hypertarget{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16a8358131197511145a5792cebdd5b5117}\label{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16a8358131197511145a5792cebdd5b5117} 
+TIM\+\_\+\+CHANNEL3&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_CHANNEL4@{TIM\_CHANNEL4}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_CHANNEL4@{TIM\_CHANNEL4}}
+}\Hypertarget{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16ad13a94dddd6e2010d9af6a6737b7d6f4}\label{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16ad13a94dddd6e2010d9af6a6737b7d6f4} 
+TIM\+\_\+\+CHANNEL4&\\
+\hline
+
+\end{DoxyEnumFields}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2HAL_2US_2US_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+HAL/\+\+US/\+\+US\+\_\+interface.\+h}}, and \doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__interface_8h_source_l00050}{50}} of file \doxymbox{\hyperlink{TIM__interface_8h_source}{TIM\+\_\+interface.\+h}}.
+
+\Hypertarget{TIM__interface_8h_a0047e30e2a1ba7a8d59f2da4f0cf6eb4}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_CounterMode\_t@{TIM\_CounterMode\_t}}
+\index{TIM\_CounterMode\_t@{TIM\_CounterMode\_t}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_CounterMode\_t}{TIM\_CounterMode\_t}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_a0047e30e2a1ba7a8d59f2da4f0cf6eb4} 
+enum \doxymbox{\hyperlink{TIM__interface_8h_a0047e30e2a1ba7a8d59f2da4f0cf6eb4}{TIM\+\_\+\+Counter\+Mode\+\_\+t}}}
+
+
+
+Enumeration for Timer Counter Modes. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_COUNTERMODE\_UP@{TIM\_COUNTERMODE\_UP}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_COUNTERMODE\_UP@{TIM\_COUNTERMODE\_UP}}
+}\Hypertarget{TIM__interface_8h_a0047e30e2a1ba7a8d59f2da4f0cf6eb4a96b24c17ffe5b3442754f7bc9227231c}\label{TIM__interface_8h_a0047e30e2a1ba7a8d59f2da4f0cf6eb4a96b24c17ffe5b3442754f7bc9227231c} 
+TIM\+\_\+\+COUNTERMODE\+\_\+\+UP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_COUNTERMODE\_DOWN@{TIM\_COUNTERMODE\_DOWN}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_COUNTERMODE\_DOWN@{TIM\_COUNTERMODE\_DOWN}}
+}\Hypertarget{TIM__interface_8h_a0047e30e2a1ba7a8d59f2da4f0cf6eb4ae6b1ea60ecaa1a90a3b47632434ca0c6}\label{TIM__interface_8h_a0047e30e2a1ba7a8d59f2da4f0cf6eb4ae6b1ea60ecaa1a90a3b47632434ca0c6} 
+TIM\+\_\+\+COUNTERMODE\+\_\+\+DOWN&\\
+\hline
+
+\end{DoxyEnumFields}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__interface_8h_source_l00040}{40}} of file \doxymbox{\hyperlink{TIM__interface_8h_source}{TIM\+\_\+interface.\+h}}.
+
+\Hypertarget{TIM__interface_8h_a07b622d3e7637777981cc30f40026d7d}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_IC\_Prescaler\_t@{TIM\_IC\_Prescaler\_t}}
+\index{TIM\_IC\_Prescaler\_t@{TIM\_IC\_Prescaler\_t}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_IC\_Prescaler\_t}{TIM\_IC\_Prescaler\_t}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_a07b622d3e7637777981cc30f40026d7d} 
+enum \doxymbox{\hyperlink{TIM__interface_8h_a07b622d3e7637777981cc30f40026d7d}{TIM\+\_\+\+IC\+\_\+\+Prescaler\+\_\+t}}}
+
+
+
+Enumeration for Input Capture Prescaler. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_IC\_PSC\_DIV1@{TIM\_IC\_PSC\_DIV1}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_IC\_PSC\_DIV1@{TIM\_IC\_PSC\_DIV1}}
+}\Hypertarget{TIM__interface_8h_a07b622d3e7637777981cc30f40026d7daf198c740949eb704a94ee161b2c860f5}\label{TIM__interface_8h_a07b622d3e7637777981cc30f40026d7daf198c740949eb704a94ee161b2c860f5} 
+TIM\+\_\+\+IC\+\_\+\+PSC\+\_\+\+DIV1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_IC\_PSC\_DIV2@{TIM\_IC\_PSC\_DIV2}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_IC\_PSC\_DIV2@{TIM\_IC\_PSC\_DIV2}}
+}\Hypertarget{TIM__interface_8h_a07b622d3e7637777981cc30f40026d7da087015d83e0ee5efbd409629e1852d17}\label{TIM__interface_8h_a07b622d3e7637777981cc30f40026d7da087015d83e0ee5efbd409629e1852d17} 
+TIM\+\_\+\+IC\+\_\+\+PSC\+\_\+\+DIV2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_IC\_PSC\_DIV4@{TIM\_IC\_PSC\_DIV4}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_IC\_PSC\_DIV4@{TIM\_IC\_PSC\_DIV4}}
+}\Hypertarget{TIM__interface_8h_a07b622d3e7637777981cc30f40026d7da48495fe8cc12b9259b6594d566d0c011}\label{TIM__interface_8h_a07b622d3e7637777981cc30f40026d7da48495fe8cc12b9259b6594d566d0c011} 
+TIM\+\_\+\+IC\+\_\+\+PSC\+\_\+\+DIV4&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_IC\_PSC\_DIV8@{TIM\_IC\_PSC\_DIV8}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_IC\_PSC\_DIV8@{TIM\_IC\_PSC\_DIV8}}
+}\Hypertarget{TIM__interface_8h_a07b622d3e7637777981cc30f40026d7daec4ce8f08240f66773916f6f7cc4b1ea}\label{TIM__interface_8h_a07b622d3e7637777981cc30f40026d7daec4ce8f08240f66773916f6f7cc4b1ea} 
+TIM\+\_\+\+IC\+\_\+\+PSC\+\_\+\+DIV8&\\
+\hline
+
+\end{DoxyEnumFields}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__interface_8h_source_l00120}{120}} of file \doxymbox{\hyperlink{TIM__interface_8h_source}{TIM\+\_\+interface.\+h}}.
+
+\Hypertarget{TIM__interface_8h_a874d9ee0b93fcabcb9999efc4388e2db}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_IC\_Selection\_t@{TIM\_IC\_Selection\_t}}
+\index{TIM\_IC\_Selection\_t@{TIM\_IC\_Selection\_t}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_IC\_Selection\_t}{TIM\_IC\_Selection\_t}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_a874d9ee0b93fcabcb9999efc4388e2db} 
+enum \doxymbox{\hyperlink{TIM__interface_8h_a874d9ee0b93fcabcb9999efc4388e2db}{TIM\+\_\+\+IC\+\_\+\+Selection\+\_\+t}}}
+
+
+
+Enumeration for Input Capture Selection. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_IC\_SELECTION\_DIRECT\_TI@{TIM\_IC\_SELECTION\_DIRECT\_TI}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_IC\_SELECTION\_DIRECT\_TI@{TIM\_IC\_SELECTION\_DIRECT\_TI}}
+}\Hypertarget{TIM__interface_8h_a874d9ee0b93fcabcb9999efc4388e2dba5815b1cbb7c2a1b8c080ced8c8f6e4c6}\label{TIM__interface_8h_a874d9ee0b93fcabcb9999efc4388e2dba5815b1cbb7c2a1b8c080ced8c8f6e4c6} 
+TIM\+\_\+\+IC\+\_\+\+SELECTION\+\_\+\+DIRECT\+\_\+\+TI&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_IC\_SELECTION\_INDIRECT\_TI@{TIM\_IC\_SELECTION\_INDIRECT\_TI}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_IC\_SELECTION\_INDIRECT\_TI@{TIM\_IC\_SELECTION\_INDIRECT\_TI}}
+}\Hypertarget{TIM__interface_8h_a874d9ee0b93fcabcb9999efc4388e2dba0435d9cbfaf85310ca1161317bd9afa1}\label{TIM__interface_8h_a874d9ee0b93fcabcb9999efc4388e2dba0435d9cbfaf85310ca1161317bd9afa1} 
+TIM\+\_\+\+IC\+\_\+\+SELECTION\+\_\+\+INDIRECT\+\_\+\+TI&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_IC\_SELECTION\_TRC@{TIM\_IC\_SELECTION\_TRC}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_IC\_SELECTION\_TRC@{TIM\_IC\_SELECTION\_TRC}}
+}\Hypertarget{TIM__interface_8h_a874d9ee0b93fcabcb9999efc4388e2dbaa26adb629edad6eca4d40ba6dbc99538}\label{TIM__interface_8h_a874d9ee0b93fcabcb9999efc4388e2dbaa26adb629edad6eca4d40ba6dbc99538} 
+TIM\+\_\+\+IC\+\_\+\+SELECTION\+\_\+\+TRC&\\
+\hline
+
+\end{DoxyEnumFields}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__interface_8h_source_l00109}{109}} of file \doxymbox{\hyperlink{TIM__interface_8h_source}{TIM\+\_\+interface.\+h}}.
+
+\Hypertarget{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_Num\_t@{TIM\_Num\_t}}
+\index{TIM\_Num\_t@{TIM\_Num\_t}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_Num\_t}{TIM\_Num\_t}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23} 
+enum \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}
+
+
+
+Enumeration for Timer Instances. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_TIMER2@{TIM\_TIMER2}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_TIMER2@{TIM\_TIMER2}}
+}\Hypertarget{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ac5d83f7f02ed43be0c56113288ac5d6e}\label{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ac5d83f7f02ed43be0c56113288ac5d6e} 
+TIM\+\_\+\+TIMER2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_TIMER3@{TIM\_TIMER3}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_TIMER3@{TIM\_TIMER3}}
+}\Hypertarget{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ad67049f6927eb2cc4c7bf01ef65506d3}\label{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ad67049f6927eb2cc4c7bf01ef65506d3} 
+TIM\+\_\+\+TIMER3&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_TIMER4@{TIM\_TIMER4}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_TIMER4@{TIM\_TIMER4}}
+}\Hypertarget{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ae08922f4e53624681a74304401fe70d5}\label{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ae08922f4e53624681a74304401fe70d5} 
+TIM\+\_\+\+TIMER4&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_TIMER5@{TIM\_TIMER5}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_TIMER5@{TIM\_TIMER5}}
+}\Hypertarget{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23aeacfda3ad57699febbf392e77ad9bcd1}\label{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23aeacfda3ad57699febbf392e77ad9bcd1} 
+TIM\+\_\+\+TIMER5&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_TIMER1@{TIM\_TIMER1}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_TIMER1@{TIM\_TIMER1}}
+}\Hypertarget{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23a2f11856b0dad76655c7eee9a4373fcb7}\label{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23a2f11856b0dad76655c7eee9a4373fcb7} 
+TIM\+\_\+\+TIMER1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_TIMER8@{TIM\_TIMER8}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_TIMER8@{TIM\_TIMER8}}
+}\Hypertarget{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ac393fa6bfe307979749a0f3021608981}\label{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ac393fa6bfe307979749a0f3021608981} 
+TIM\+\_\+\+TIMER8&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_TIMER6@{TIM\_TIMER6}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_TIMER6@{TIM\_TIMER6}}
+}\Hypertarget{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23af18bf52d47d87947df265cf9a7e3ef26}\label{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23af18bf52d47d87947df265cf9a7e3ef26} 
+TIM\+\_\+\+TIMER6&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_TIMER7@{TIM\_TIMER7}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_TIMER7@{TIM\_TIMER7}}
+}\Hypertarget{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23a546bf602f6bc1e3ec9d98a84922023ea}\label{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23a546bf602f6bc1e3ec9d98a84922023ea} 
+TIM\+\_\+\+TIMER7&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_TIMER\_COUNT@{TIM\_TIMER\_COUNT}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_TIMER\_COUNT@{TIM\_TIMER\_COUNT}}
+}\Hypertarget{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23a7c344d8927dd06f539c5b78d7d7b9166}\label{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23a7c344d8927dd06f539c5b78d7d7b9166} 
+TIM\+\_\+\+TIMER\+\_\+\+COUNT&\\
+\hline
+
+\end{DoxyEnumFields}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2HAL_2US_2US_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+HAL/\+\+US/\+\+US\+\_\+interface.\+h}}, and \doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__interface_8h_source_l00023}{23}} of file \doxymbox{\hyperlink{TIM__interface_8h_source}{TIM\+\_\+interface.\+h}}.
+
+\Hypertarget{TIM__interface_8h_ad6edd13d05def01952c9f8b6e11773d4}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_Polarity\_t@{TIM\_Polarity\_t}}
+\index{TIM\_Polarity\_t@{TIM\_Polarity\_t}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_Polarity\_t}{TIM\_Polarity\_t}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_ad6edd13d05def01952c9f8b6e11773d4} 
+enum \doxymbox{\hyperlink{TIM__interface_8h_ad6edd13d05def01952c9f8b6e11773d4}{TIM\+\_\+\+Polarity\+\_\+t}}}
+
+
+
+Enumeration for Output Polarity. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_POLARITY\_HIGH@{TIM\_POLARITY\_HIGH}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_POLARITY\_HIGH@{TIM\_POLARITY\_HIGH}}
+}\Hypertarget{TIM__interface_8h_ad6edd13d05def01952c9f8b6e11773d4aeef997c391b7f2f5bd1c1d6fe2e436d0}\label{TIM__interface_8h_ad6edd13d05def01952c9f8b6e11773d4aeef997c391b7f2f5bd1c1d6fe2e436d0} 
+TIM\+\_\+\+POLARITY\+\_\+\+HIGH&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_POLARITY\_LOW@{TIM\_POLARITY\_LOW}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_POLARITY\_LOW@{TIM\_POLARITY\_LOW}}
+}\Hypertarget{TIM__interface_8h_ad6edd13d05def01952c9f8b6e11773d4aee2ef1b20f37a3b93289526a21f9489d}\label{TIM__interface_8h_ad6edd13d05def01952c9f8b6e11773d4aee2ef1b20f37a3b93289526a21f9489d} 
+TIM\+\_\+\+POLARITY\+\_\+\+LOW&\\
+\hline
+
+\end{DoxyEnumFields}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__interface_8h_source_l00072}{72}} of file \doxymbox{\hyperlink{TIM__interface_8h_source}{TIM\+\_\+interface.\+h}}.
+
+\Hypertarget{TIM__interface_8h_afc1e5fa076e28421ccdae09b6171f646}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_PWMMode\_t@{TIM\_PWMMode\_t}}
+\index{TIM\_PWMMode\_t@{TIM\_PWMMode\_t}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_PWMMode\_t}{TIM\_PWMMode\_t}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_afc1e5fa076e28421ccdae09b6171f646} 
+enum \doxymbox{\hyperlink{TIM__interface_8h_afc1e5fa076e28421ccdae09b6171f646}{TIM\+\_\+\+PWMMode\+\_\+t}}}
+
+
+
+Enumeration for PWM Modes. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_PWM\_MODE1@{TIM\_PWM\_MODE1}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_PWM\_MODE1@{TIM\_PWM\_MODE1}}
+}\Hypertarget{TIM__interface_8h_afc1e5fa076e28421ccdae09b6171f646a36d1891725b1ff3907e225f44494a004}\label{TIM__interface_8h_afc1e5fa076e28421ccdae09b6171f646a36d1891725b1ff3907e225f44494a004} 
+TIM\+\_\+\+PWM\+\_\+\+MODE1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIM\_PWM\_MODE2@{TIM\_PWM\_MODE2}!TIM\_interface.h@{TIM\_interface.h}}
+\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_PWM\_MODE2@{TIM\_PWM\_MODE2}}
+}\Hypertarget{TIM__interface_8h_afc1e5fa076e28421ccdae09b6171f646a45ff68dc5dc709458e7e5a32df769229}\label{TIM__interface_8h_afc1e5fa076e28421ccdae09b6171f646a45ff68dc5dc709458e7e5a32df769229} 
+TIM\+\_\+\+PWM\+\_\+\+MODE2&\\
+\hline
+
+\end{DoxyEnumFields}
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__interface_8h_source_l00062}{62}} of file \doxymbox{\hyperlink{TIM__interface_8h_source}{TIM\+\_\+interface.\+h}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{TIM__interface_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{TIM__interface_8h_aed79cd1ecef7e696e8a65336cef6b89f}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_u32GetCaptureValue@{TIM\_u32GetCaptureValue}}
+\index{TIM\_u32GetCaptureValue@{TIM\_u32GetCaptureValue}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_u32GetCaptureValue()}{TIM\_u32GetCaptureValue()}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_aed79cd1ecef7e696e8a65336cef6b89f} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+u32\+Get\+Capture\+Value (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{\doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}}}]{Copy\+\_\+e\+Channel}{, }\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{pu32\+Value}{}\end{DoxyParamCaption})}
+
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00321}{321}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__interface_8h_a40e7376c5f494fa3ed9df8dd673b9673}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_u32GetCounterValue@{TIM\_u32GetCounterValue}}
+\index{TIM\_u32GetCounterValue@{TIM\_u32GetCounterValue}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_u32GetCounterValue()}{TIM\_u32GetCounterValue()}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_a40e7376c5f494fa3ed9df8dd673b9673} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+u32\+Get\+Counter\+Value (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{pu32\+Value}{}\end{DoxyParamCaption})}
+
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00338}{338}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__interface_8h_a06dd9df822ed8f4c5635901b770230ea}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_vDelayMs@{TIM\_vDelayMs}}
+\index{TIM\_vDelayMs@{TIM\_vDelayMs}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_vDelayMs()}{TIM\_vDelayMs()}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_a06dd9df822ed8f4c5635901b770230ea} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Delay\+Ms (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{uint32\+\_\+t}]{Copy\+\_\+u32\+Ms}{}\end{DoxyParamCaption})}
+
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00434}{434}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TIM__interface_8h_a06dd9df822ed8f4c5635901b770230ea_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{TIM__interface_8h_a49a60dbb20212c2ba13e4aba78e81031}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_vDelayUs@{TIM\_vDelayUs}}
+\index{TIM\_vDelayUs@{TIM\_vDelayUs}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_vDelayUs()}{TIM\_vDelayUs()}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_a49a60dbb20212c2ba13e4aba78e81031} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Delay\+Us (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{uint32\+\_\+t}]{Copy\+\_\+u32\+Us}{}\end{DoxyParamCaption})}
+
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00473}{473}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__interface_8h_a05c68c2d16e14ca08f925fc789f8c000}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_vDisableCCInterrupt@{TIM\_vDisableCCInterrupt}}
+\index{TIM\_vDisableCCInterrupt@{TIM\_vDisableCCInterrupt}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_vDisableCCInterrupt()}{TIM\_vDisableCCInterrupt()}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_a05c68c2d16e14ca08f925fc789f8c000} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Disable\+CCInterrupt (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{\doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}}}]{Copy\+\_\+e\+Channel}{}\end{DoxyParamCaption})}
+
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00537}{537}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TIM__interface_8h_a05c68c2d16e14ca08f925fc789f8c000_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{TIM__interface_8h_a1156613e7e18e66d685bf32cff6b8af5}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_vDisableInterrupt@{TIM\_vDisableInterrupt}}
+\index{TIM\_vDisableInterrupt@{TIM\_vDisableInterrupt}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_vDisableInterrupt()}{TIM\_vDisableInterrupt()}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_a1156613e7e18e66d685bf32cff6b8af5} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Disable\+Interrupt (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{}\end{DoxyParamCaption})}
+
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00511}{511}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__interface_8h_a78dfd09e838628d35bd9fc18ddd575ad}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_vEnableCCInterrupt@{TIM\_vEnableCCInterrupt}}
+\index{TIM\_vEnableCCInterrupt@{TIM\_vEnableCCInterrupt}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_vEnableCCInterrupt()}{TIM\_vEnableCCInterrupt()}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_a78dfd09e838628d35bd9fc18ddd575ad} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Enable\+CCInterrupt (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{\doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}}}]{Copy\+\_\+e\+Channel}{}\end{DoxyParamCaption})}
+
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00529}{529}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TIM__interface_8h_a78dfd09e838628d35bd9fc18ddd575ad_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{TIM__interface_8h_a59241245bf6224bcab52587175f7c41b}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_vEnableInterrupt@{TIM\_vEnableInterrupt}}
+\index{TIM\_vEnableInterrupt@{TIM\_vEnableInterrupt}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_vEnableInterrupt()}{TIM\_vEnableInterrupt()}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_a59241245bf6224bcab52587175f7c41b} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Enable\+Interrupt (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{}\end{DoxyParamCaption})}
+
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00503}{503}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__interface_8h_a8e1065f213120676872fdbbd5ccfd37a}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_vIC\_Init@{TIM\_vIC\_Init}}
+\index{TIM\_vIC\_Init@{TIM\_vIC\_Init}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_vIC\_Init()}{TIM\_vIC\_Init()}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_a8e1065f213120676872fdbbd5ccfd37a} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+IC\+\_\+\+Init (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structTIM__ICConfig__t}{TIM\+\_\+\+ICConfig\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{px\+ICConfig}{}\end{DoxyParamCaption})}
+
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00227}{227}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TIM__interface_8h_a8e1065f213120676872fdbbd5ccfd37a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{TIM__interface_8h_a2db8aa14e44d1d1571d455542d2269f0}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_vInit@{TIM\_vInit}}
+\index{TIM\_vInit@{TIM\_vInit}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_vInit()}{TIM\_vInit()}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_a2db8aa14e44d1d1571d455542d2269f0} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Init (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structTIM__Config__t}{TIM\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{px\+Config}{}\end{DoxyParamCaption})}
+
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00040}{40}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=339pt]{TIM__interface_8h_a2db8aa14e44d1d1571d455542d2269f0_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{TIM__interface_8h_adfefb691110f40a37d8a427bd3883a72}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_vPWM\_Init@{TIM\_vPWM\_Init}}
+\index{TIM\_vPWM\_Init@{TIM\_vPWM\_Init}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_vPWM\_Init()}{TIM\_vPWM\_Init()}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_adfefb691110f40a37d8a427bd3883a72} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+PWM\+\_\+\+Init (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structTIM__PWMConfig__t}{TIM\+\_\+\+PWMConfig\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{px\+PWMConfig}{}\end{DoxyParamCaption})}
+
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00128}{128}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__interface_8h_acf362053a622ba1d6bcdbf65a1bbb261}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_vSetAutoReloadValue@{TIM\_vSetAutoReloadValue}}
+\index{TIM\_vSetAutoReloadValue@{TIM\_vSetAutoReloadValue}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_vSetAutoReloadValue()}{TIM\_vSetAutoReloadValue()}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_acf362053a622ba1d6bcdbf65a1bbb261} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Set\+Auto\+Reload\+Value (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{uint32\+\_\+t}]{Copy\+\_\+u32\+Auto\+Reload}{}\end{DoxyParamCaption})}
+
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00421}{421}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__interface_8h_ae5ded709a28d726686666d92e05c40d3}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_vSetCallback@{TIM\_vSetCallback}}
+\index{TIM\_vSetCallback@{TIM\_vSetCallback}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_vSetCallback()}{TIM\_vSetCallback()}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_ae5ded709a28d726686666d92e05c40d3} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Set\+Callback (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{void(\texorpdfstring{$\ast$}{*}}]{pv\+Callback~}{)(void)}\end{DoxyParamCaption})}
+
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00519}{519}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__interface_8h_a274b369957bc2526189a0d66db5bb35e}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_vSetCCCallback@{TIM\_vSetCCCallback}}
+\index{TIM\_vSetCCCallback@{TIM\_vSetCCCallback}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_vSetCCCallback()}{TIM\_vSetCCCallback()}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_a274b369957bc2526189a0d66db5bb35e} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Set\+CCCallback (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{void(\texorpdfstring{$\ast$}{*}}]{pv\+Callback~}{)(\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, uint8\+\_\+t Copy\+\_\+u8\+Channel, uint32\+\_\+t Copy\+\_\+u32\+Capture)}\end{DoxyParamCaption})}
+
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00544}{544}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TIM__interface_8h_a274b369957bc2526189a0d66db5bb35e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{TIM__interface_8h_a367d00f6e6cd9c32d38e40ed2dd95fb8}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_vSetCompareValue@{TIM\_vSetCompareValue}}
+\index{TIM\_vSetCompareValue@{TIM\_vSetCompareValue}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_vSetCompareValue()}{TIM\_vSetCompareValue()}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_a367d00f6e6cd9c32d38e40ed2dd95fb8} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Set\+Compare\+Value (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{\doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}}}]{Copy\+\_\+e\+Channel}{, }\item[{uint32\+\_\+t}]{Copy\+\_\+u32\+Value}{}\end{DoxyParamCaption})}
+
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00382}{382}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__interface_8h_af6ce9419f48628e54cb1110dae65e1f1}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_vSetICPolarity@{TIM\_vSetICPolarity}}
+\index{TIM\_vSetICPolarity@{TIM\_vSetICPolarity}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_vSetICPolarity()}{TIM\_vSetICPolarity()}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_af6ce9419f48628e54cb1110dae65e1f1} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Set\+ICPolarity (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{\doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}}}]{Copy\+\_\+e\+Channel}{, }\item[{\doxymbox{\hyperlink{TIM__interface_8h_ad6edd13d05def01952c9f8b6e11773d4}{TIM\+\_\+\+Polarity\+\_\+t}}}]{Copy\+\_\+e\+Polarity}{}\end{DoxyParamCaption})}
+
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00349}{349}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TIM__interface_8h_af6ce9419f48628e54cb1110dae65e1f1_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{TIM__interface_8h_ac28f51338121baf714c344ec730d8c12}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_vSetPrescaler@{TIM\_vSetPrescaler}}
+\index{TIM\_vSetPrescaler@{TIM\_vSetPrescaler}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_vSetPrescaler()}{TIM\_vSetPrescaler()}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_ac28f51338121baf714c344ec730d8c12} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Set\+Prescaler (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{uint16\+\_\+t}]{Copy\+\_\+u16\+Prescaler}{}\end{DoxyParamCaption})}
+
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00409}{409}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+\Hypertarget{TIM__interface_8h_a2bd184de6083fb2ccf17231557037835}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_vStart@{TIM\_vStart}}
+\index{TIM\_vStart@{TIM\_vStart}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_vStart()}{TIM\_vStart()}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_a2bd184de6083fb2ccf17231557037835} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Start (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{}\end{DoxyParamCaption})}
+
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00088}{88}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TIM__interface_8h_a2bd184de6083fb2ccf17231557037835_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{TIM__interface_8h_a704ce7ee96e78180a1bf2307b9a5f838}\index{TIM\_interface.h@{TIM\_interface.h}!TIM\_vStop@{TIM\_vStop}}
+\index{TIM\_vStop@{TIM\_vStop}!TIM\_interface.h@{TIM\_interface.h}}
+\doxysubsubsection{\texorpdfstring{TIM\_vStop()}{TIM\_vStop()}}
+{\footnotesize\ttfamily \label{TIM__interface_8h_a704ce7ee96e78180a1bf2307b9a5f838} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} TIM\+\_\+v\+Stop (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{}\end{DoxyParamCaption})}
+
+\begin{Desc}
+\item[Examples]\par
+\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
+
+
+Definition at line \doxymbox{\hyperlink{TIM__program_8c_source_l00108}{108}} of file \doxymbox{\hyperlink{TIM__program_8c_source}{TIM\+\_\+program.\+c}}.
+

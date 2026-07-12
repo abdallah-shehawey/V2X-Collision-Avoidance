@@ -1,0 +1,377 @@
+\doxysection{Src/\+\+System.c File Reference}
+\hypertarget{System_8c}{}\label{System_8c}\index{Src/System.c@{Src/System.c}}
+
+
+:\+ System initialization and RTOS setup  
+
+
+{\ttfamily \+\#include "{}System/\+\+System.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+GPIO/\+\+GPIO\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+HAL/\+\+BUZZ/\+\+BUZ\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+HAL/\+\+US/\+\+US\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+HAL/\+\+LED/\+\+LED\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+HAL/\+\+MPU9250/\+\+MPU9250\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+USART/\+\+USART\+\_\+intreface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+NVIC/\+\+NVIC\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Application/\+\+DSRC/\+\+DSRC.\+h"{}}\newline
+{\ttfamily \+\#include "{}Free\+RTOS.\+h"{}}\newline
+{\ttfamily \+\#include "{}SEGGER\+\_\+\+SYSVIEW.\+h"{}}\newline
+{\ttfamily \+\#include "{}task.\+h"{}}\newline
+Include dependency graph for System.\+c:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{System_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{System_8c_a88b12403f1d9bc8cff413fbbde56e15d}{v\+ESP\+\_\+\+UART\+\_\+\+RX\+\_\+\+Callback}} (void)
+\item 
+void \doxymbox{\hyperlink{System_8c_a97fd430f36f8b065226e2bff9bad1de5}{v\+Application\+Idle\+Hook}} (void)
+\item 
+void \doxymbox{\hyperlink{System_8c_a54b14b665d04a631991869b21065bf90}{v\+Application\+Stack\+Overflow\+Hook}} (Task\+Handle\+\_\+t x\+Task, char \texorpdfstring{$\ast$}{*}pc\+Task\+Name)
+\item 
+void \doxymbox{\hyperlink{System_8c_ab7e5c95cf72a3f819bc4462a7fb62ca3}{v\+Application\+Malloc\+Failed\+Hook}} (void)
+\item 
+void \doxymbox{\hyperlink{System_8c_ae436954cd2bde6634ab271317d2494a7}{System\+\_\+setup}} (void)
+\item 
+void \doxymbox{\hyperlink{System_8c_ac3f6c7e9a568f4528304150a6f59736b}{SEGGER\+\_\+setup}} (void)
+\item 
+void \doxymbox{\hyperlink{System_8c_a9f28a641641de8e783815ab1fa92549f}{RTOS\+\_\+setup}} (void)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{System_8c_aa3cd3e43291e81e795d642b79b6088e6}{System\+Core\+Clock}} = 16000000
+\item 
+volatile uint16\+\_\+t \doxymbox{\hyperlink{System_8c_a9e78367aa5b758af972838362c2b0eab}{G\+\_\+u16\+System\+Flags}} = 0
+\item 
+\doxymbox{\hyperlink{structHostVehicleState__t}{Host\+Vehicle\+State\+\_\+t}} \doxymbox{\hyperlink{System_8c_ac3116f56a230ebdd81cadd527921464c}{G\+\_\+st\+Host\+Vehicle\+State}} = \{0\}
+\item 
+float \doxymbox{\hyperlink{System_8c_a10d54e2c66effa6800db6f78aaec485c}{Host\+\_\+\+Dist\+To\+Intersection}} = 0.\+0f
+\item 
+\doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{System_8c_a4f097a0ea23201e71704715ba21668a1}{V2\+X\+\_\+\+Buzzer}} = \{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24a3266325667899f8d82c0624c493fda51}{GPIO\+\_\+\+PORTC}}, \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14a088dbea6be5692ef5375d1710404ad46}{GPIO\+\_\+\+PIN4}}, \doxymbox{\hyperlink{BUZ__interface_8h_a30707334c70b434fa4f7145542ee6b3aa21de853225ec138e5f029eccbbb87397}{BUZ\+\_\+\+ACTIVE\+\_\+\+HIGH}}\}
+\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{System_8c_af1fb4a43ba68d1fdc94fd35a7d901cd4}{Front\+R\+\_\+\+LED}} = \{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24a3266325667899f8d82c0624c493fda51}{GPIO\+\_\+\+PORTC}}, \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14adb75bcba02ec80bb4a9773718438047d}{GPIO\+\_\+\+PIN0}}, \doxymbox{\hyperlink{LED__interface_8h_a59d24514299cc1e14e907d084535e845afe240f1952811db0c18b4355fb28190f}{ACTIVE\+\_\+\+HIGH}}\}
+\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{System_8c_a2ab79e3f6235026ef8d29a9446511f48}{Front\+L\+\_\+\+LED}} = \{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24a3266325667899f8d82c0624c493fda51}{GPIO\+\_\+\+PORTC}}, \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14aa829aa9e491c03d6a8227d518b7fc8eb}{GPIO\+\_\+\+PIN1}}, \doxymbox{\hyperlink{LED__interface_8h_a59d24514299cc1e14e907d084535e845afe240f1952811db0c18b4355fb28190f}{ACTIVE\+\_\+\+HIGH}}\}
+\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{System_8c_ae41df9dd37d7c4d27b829fd46cd1e5e3}{Back\+R\+\_\+\+LED}} = \{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24a3266325667899f8d82c0624c493fda51}{GPIO\+\_\+\+PORTC}}, \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14a57cb1d6a79365503d4134ae99f5251f7}{GPIO\+\_\+\+PIN2}}, \doxymbox{\hyperlink{LED__interface_8h_a59d24514299cc1e14e907d084535e845afe240f1952811db0c18b4355fb28190f}{ACTIVE\+\_\+\+HIGH}}\}
+\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{System_8c_abfc8237214cfd1267c607aaff66a96da}{Back\+L\+\_\+\+LED}} = \{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24a3266325667899f8d82c0624c493fda51}{GPIO\+\_\+\+PORTC}}, \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14aff3e33054e363ddc891e9397e2b2f6d0}{GPIO\+\_\+\+PIN3}}, \doxymbox{\hyperlink{LED__interface_8h_a59d24514299cc1e14e907d084535e845afe240f1952811db0c18b4355fb28190f}{ACTIVE\+\_\+\+HIGH}}\}
+\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{System_8c_aa7037844a95faca4f50aae714fe5048a}{Interior\+\_\+\+LED}} = \{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24a3266325667899f8d82c0624c493fda51}{GPIO\+\_\+\+PORTC}}, \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14a0e9e1e2434aae274eb04b81c09fe1318}{GPIO\+\_\+\+PIN7}}, \doxymbox{\hyperlink{LED__interface_8h_a59d24514299cc1e14e907d084535e845afe240f1952811db0c18b4355fb28190f}{ACTIVE\+\_\+\+HIGH}}\}
+\item 
+\doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{System_8c_aed057ac0b23c05f6b02ef3bfed8bfa27}{Front\+US}} \+[3]\+
+\item 
+\doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{System_8c_a2b0e497a0b4ecc48b5dd5fef9623d4f3}{Back\+US}} \+[3]\+
+\item 
+\doxymbox{\hyperlink{structUSART__Handle__t}{USART\+\_\+\+Handle\+\_\+t}} \doxymbox{\hyperlink{System_8c_a6380af5ae8a47d62dd6de27b01504cd2}{USART\+\_\+1}}
+\item 
+\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{System_8c_a305c18e4f4654cb56286827ae4d3883b}{RPi\+\_\+\+UART}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+:\+ System initialization and RTOS setup 
+
+\begin{DoxyAuthor}{Author}
+:\+ Abdallah Saleh  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{System_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{System_8c_a9f28a641641de8e783815ab1fa92549f}\index{System.c@{System.c}!RTOS\_setup@{RTOS\_setup}}
+\index{RTOS\_setup@{RTOS\_setup}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{RTOS\_setup()}{RTOS\_setup()}}
+{\footnotesize\ttfamily \label{System_8c_a9f28a641641de8e783815ab1fa92549f} 
+void RTOS\+\_\+setup (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00286}{286}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{System_8c_a9f28a641641de8e783815ab1fa92549f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{System_8c_ac3f6c7e9a568f4528304150a6f59736b}\index{System.c@{System.c}!SEGGER\_setup@{SEGGER\_setup}}
+\index{SEGGER\_setup@{SEGGER\_setup}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{SEGGER\_setup()}{SEGGER\_setup()}}
+{\footnotesize\ttfamily \label{System_8c_ac3f6c7e9a568f4528304150a6f59736b} 
+void SEGGER\+\_\+setup (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00279}{279}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=245pt]{System_8c_ac3f6c7e9a568f4528304150a6f59736b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{System_8c_ae436954cd2bde6634ab271317d2494a7}\index{System.c@{System.c}!System\_setup@{System\_setup}}
+\index{System\_setup@{System\_setup}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{System\_setup()}{System\_setup()}}
+{\footnotesize\ttfamily \label{System_8c_ae436954cd2bde6634ab271317d2494a7} 
+void System\+\_\+setup (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00112}{112}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{System_8c_ae436954cd2bde6634ab271317d2494a7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{System_8c_ae436954cd2bde6634ab271317d2494a7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{System_8c_a97fd430f36f8b065226e2bff9bad1de5}\index{System.c@{System.c}!vApplicationIdleHook@{vApplicationIdleHook}}
+\index{vApplicationIdleHook@{vApplicationIdleHook}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{vApplicationIdleHook()}{vApplicationIdleHook()}}
+{\footnotesize\ttfamily \label{System_8c_a97fd430f36f8b065226e2bff9bad1de5} 
+void v\+Application\+Idle\+Hook (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00086}{86}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+\Hypertarget{System_8c_ab7e5c95cf72a3f819bc4462a7fb62ca3}\index{System.c@{System.c}!vApplicationMallocFailedHook@{vApplicationMallocFailedHook}}
+\index{vApplicationMallocFailedHook@{vApplicationMallocFailedHook}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{vApplicationMallocFailedHook()}{vApplicationMallocFailedHook()}}
+{\footnotesize\ttfamily \label{System_8c_ab7e5c95cf72a3f819bc4462a7fb62ca3} 
+void v\+Application\+Malloc\+Failed\+Hook (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00101}{101}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+\Hypertarget{System_8c_a54b14b665d04a631991869b21065bf90}\index{System.c@{System.c}!vApplicationStackOverflowHook@{vApplicationStackOverflowHook}}
+\index{vApplicationStackOverflowHook@{vApplicationStackOverflowHook}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{vApplicationStackOverflowHook()}{vApplicationStackOverflowHook()}}
+{\footnotesize\ttfamily \label{System_8c_a54b14b665d04a631991869b21065bf90} 
+void v\+Application\+Stack\+Overflow\+Hook (\begin{DoxyParamCaption}\item[{Task\+Handle\+\_\+t}]{x\+Task}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{pc\+Task\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00091}{91}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+\Hypertarget{System_8c_a88b12403f1d9bc8cff413fbbde56e15d}\index{System.c@{System.c}!vESP\_UART\_RX\_Callback@{vESP\_UART\_RX\_Callback}}
+\index{vESP\_UART\_RX\_Callback@{vESP\_UART\_RX\_Callback}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{vESP\_UART\_RX\_Callback()}{vESP\_UART\_RX\_Callback()}}
+{\footnotesize\ttfamily \label{System_8c_a88b12403f1d9bc8cff413fbbde56e15d} 
+void v\+ESP\+\_\+\+UART\+\_\+\+RX\+\_\+\+Callback (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{main_8c_source_l00460}{460}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{System_8c_a88b12403f1d9bc8cff413fbbde56e15d_cgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-var-members}
+\Hypertarget{System_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{System_8c_abfc8237214cfd1267c607aaff66a96da}\index{System.c@{System.c}!BackL\_LED@{BackL\_LED}}
+\index{BackL\_LED@{BackL\_LED}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{BackL\_LED}{BackL\_LED}}
+{\footnotesize\ttfamily \label{System_8c_abfc8237214cfd1267c607aaff66a96da} 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} Back\+L\+\_\+\+LED = \{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24a3266325667899f8d82c0624c493fda51}{GPIO\+\_\+\+PORTC}}, \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14aff3e33054e363ddc891e9397e2b2f6d0}{GPIO\+\_\+\+PIN3}}, \doxymbox{\hyperlink{LED__interface_8h_a59d24514299cc1e14e907d084535e845afe240f1952811db0c18b4355fb28190f}{ACTIVE\+\_\+\+HIGH}}\}}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00052}{52}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+\Hypertarget{System_8c_ae41df9dd37d7c4d27b829fd46cd1e5e3}\index{System.c@{System.c}!BackR\_LED@{BackR\_LED}}
+\index{BackR\_LED@{BackR\_LED}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{BackR\_LED}{BackR\_LED}}
+{\footnotesize\ttfamily \label{System_8c_ae41df9dd37d7c4d27b829fd46cd1e5e3} 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} Back\+R\+\_\+\+LED = \{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24a3266325667899f8d82c0624c493fda51}{GPIO\+\_\+\+PORTC}}, \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14a57cb1d6a79365503d4134ae99f5251f7}{GPIO\+\_\+\+PIN2}}, \doxymbox{\hyperlink{LED__interface_8h_a59d24514299cc1e14e907d084535e845afe240f1952811db0c18b4355fb28190f}{ACTIVE\+\_\+\+HIGH}}\}}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00051}{51}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+\Hypertarget{System_8c_a2b0e497a0b4ecc48b5dd5fef9623d4f3}\index{System.c@{System.c}!BackUS@{BackUS}}
+\index{BackUS@{BackUS}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{BackUS}{BackUS}}
+{\footnotesize\ttfamily \label{System_8c_a2b0e497a0b4ecc48b5dd5fef9623d4f3} 
+\doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} Back\+US\+[3]\+}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00056}{56}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+\Hypertarget{System_8c_a2ab79e3f6235026ef8d29a9446511f48}\index{System.c@{System.c}!FrontL\_LED@{FrontL\_LED}}
+\index{FrontL\_LED@{FrontL\_LED}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{FrontL\_LED}{FrontL\_LED}}
+{\footnotesize\ttfamily \label{System_8c_a2ab79e3f6235026ef8d29a9446511f48} 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} Front\+L\+\_\+\+LED = \{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24a3266325667899f8d82c0624c493fda51}{GPIO\+\_\+\+PORTC}}, \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14aa829aa9e491c03d6a8227d518b7fc8eb}{GPIO\+\_\+\+PIN1}}, \doxymbox{\hyperlink{LED__interface_8h_a59d24514299cc1e14e907d084535e845afe240f1952811db0c18b4355fb28190f}{ACTIVE\+\_\+\+HIGH}}\}}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00050}{50}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+\Hypertarget{System_8c_af1fb4a43ba68d1fdc94fd35a7d901cd4}\index{System.c@{System.c}!FrontR\_LED@{FrontR\_LED}}
+\index{FrontR\_LED@{FrontR\_LED}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{FrontR\_LED}{FrontR\_LED}}
+{\footnotesize\ttfamily \label{System_8c_af1fb4a43ba68d1fdc94fd35a7d901cd4} 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} Front\+R\+\_\+\+LED = \{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24a3266325667899f8d82c0624c493fda51}{GPIO\+\_\+\+PORTC}}, \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14adb75bcba02ec80bb4a9773718438047d}{GPIO\+\_\+\+PIN0}}, \doxymbox{\hyperlink{LED__interface_8h_a59d24514299cc1e14e907d084535e845afe240f1952811db0c18b4355fb28190f}{ACTIVE\+\_\+\+HIGH}}\}}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00049}{49}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+\Hypertarget{System_8c_aed057ac0b23c05f6b02ef3bfed8bfa27}\index{System.c@{System.c}!FrontUS@{FrontUS}}
+\index{FrontUS@{FrontUS}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{FrontUS}{FrontUS}}
+{\footnotesize\ttfamily \label{System_8c_aed057ac0b23c05f6b02ef3bfed8bfa27} 
+\doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} Front\+US\+[3]\+}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00055}{55}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+\Hypertarget{System_8c_ac3116f56a230ebdd81cadd527921464c}\index{System.c@{System.c}!G\_stHostVehicleState@{G\_stHostVehicleState}}
+\index{G\_stHostVehicleState@{G\_stHostVehicleState}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{G\_stHostVehicleState}{G\_stHostVehicleState}}
+{\footnotesize\ttfamily \label{System_8c_ac3116f56a230ebdd81cadd527921464c} 
+\doxymbox{\hyperlink{structHostVehicleState__t}{Host\+Vehicle\+State\+\_\+t}} G\+\_\+st\+Host\+Vehicle\+State = \{0\}}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00035}{35}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+\Hypertarget{System_8c_a9e78367aa5b758af972838362c2b0eab}\index{System.c@{System.c}!G\_u16SystemFlags@{G\_u16SystemFlags}}
+\index{G\_u16SystemFlags@{G\_u16SystemFlags}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{G\_u16SystemFlags}{G\_u16SystemFlags}}
+{\footnotesize\ttfamily \label{System_8c_a9e78367aa5b758af972838362c2b0eab} 
+volatile uint16\+\_\+t G\+\_\+u16\+System\+Flags = 0}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00034}{34}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+\Hypertarget{System_8c_a10d54e2c66effa6800db6f78aaec485c}\index{System.c@{System.c}!Host\_DistToIntersection@{Host\_DistToIntersection}}
+\index{Host\_DistToIntersection@{Host\_DistToIntersection}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{Host\_DistToIntersection}{Host\_DistToIntersection}}
+{\footnotesize\ttfamily \label{System_8c_a10d54e2c66effa6800db6f78aaec485c} 
+float Host\+\_\+\+Dist\+To\+Intersection = 0.\+0f}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00043}{43}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+\Hypertarget{System_8c_aa7037844a95faca4f50aae714fe5048a}\index{System.c@{System.c}!Interior\_LED@{Interior\_LED}}
+\index{Interior\_LED@{Interior\_LED}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{Interior\_LED}{Interior\_LED}}
+{\footnotesize\ttfamily \label{System_8c_aa7037844a95faca4f50aae714fe5048a} 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} Interior\+\_\+\+LED = \{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24a3266325667899f8d82c0624c493fda51}{GPIO\+\_\+\+PORTC}}, \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14a0e9e1e2434aae274eb04b81c09fe1318}{GPIO\+\_\+\+PIN7}}, \doxymbox{\hyperlink{LED__interface_8h_a59d24514299cc1e14e907d084535e845afe240f1952811db0c18b4355fb28190f}{ACTIVE\+\_\+\+HIGH}}\}}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00053}{53}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+\Hypertarget{System_8c_a305c18e4f4654cb56286827ae4d3883b}\index{System.c@{System.c}!RPi\_UART@{RPi\_UART}}
+\index{RPi\_UART@{RPi\_UART}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{RPi\_UART}{RPi\_UART}}
+{\footnotesize\ttfamily \label{System_8c_a305c18e4f4654cb56286827ae4d3883b} 
+\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} RPi\+\_\+\+UART}
+
+{\bfseries Initial value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{}
+\DoxyCodeLine{.Channel\ =\ \doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa6909ff4ed1b6cf9ed37711a3a802a635}{USART\_CHANNEL4}},}
+\DoxyCodeLine{.BaudRate\ =\ 115200,}
+\DoxyCodeLine{.WordLength\ =\ \doxymbox{\hyperlink{USART__intreface_8h_a4e501b68f85dbe9be3c75f1bfc5b81bfa11e0fe52228151363c3e93f67240aa72}{USART\_WORDLENGTH\_8B}},}
+\DoxyCodeLine{.StopBits\ =\ \doxymbox{\hyperlink{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa9011413422d1340bb5c343a1f3b57341}{USART\_STOPBITS\_1}},}
+\DoxyCodeLine{.Parity\ =\ \doxymbox{\hyperlink{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85aecf52ec650226bdc63e12a21d3b5585d}{USART\_PARITY\_NONE}},}
+\DoxyCodeLine{.Mode\ =\ \doxymbox{\hyperlink{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2ace5b471384e2a4cbf3b933796507304b}{USART\_MODE\_TX\_RX}},}
+\DoxyCodeLine{.HardwareFlowControl\ =\ \doxymbox{\hyperlink{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa3abfc51474e9b5def1151e7c2c731e85}{UART\_HWCONTROL\_NONE}},}
+\DoxyCodeLine{.OverSampling\ =\ \doxymbox{\hyperlink{USART__intreface_8h_abafac9366efc163949f648cb90e719a3a5f7f986fd4559ee42850714b3906faca}{USART\_OVERSAMPLING\_16}}\}}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00073}{73}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+\Hypertarget{System_8c_aa3cd3e43291e81e795d642b79b6088e6}\index{System.c@{System.c}!SystemCoreClock@{SystemCoreClock}}
+\index{SystemCoreClock@{SystemCoreClock}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{SystemCoreClock}{SystemCoreClock}}
+{\footnotesize\ttfamily \label{System_8c_aa3cd3e43291e81e795d642b79b6088e6} 
+uint32\+\_\+t System\+Core\+Clock = 16000000}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00028}{28}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+\Hypertarget{System_8c_a6380af5ae8a47d62dd6de27b01504cd2}\index{System.c@{System.c}!USART\_1@{USART\_1}}
+\index{USART\_1@{USART\_1}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{USART\_1}{USART\_1}}
+{\footnotesize\ttfamily \label{System_8c_a6380af5ae8a47d62dd6de27b01504cd2} 
+\doxymbox{\hyperlink{structUSART__Handle__t}{USART\+\_\+\+Handle\+\_\+t}} USART\+\_\+1}
+
+{\bfseries Initial value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{}
+\DoxyCodeLine{.Channel\ =\ \doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa79bbc21727c50fad950ff76e76d924ab}{USART\_CHANNEL1}},}
+\DoxyCodeLine{.BaudRate\ =\ 115200,}
+\DoxyCodeLine{.WordLength\ =\ \doxymbox{\hyperlink{USART__intreface_8h_a4e501b68f85dbe9be3c75f1bfc5b81bfa11e0fe52228151363c3e93f67240aa72}{USART\_WORDLENGTH\_8B}},}
+\DoxyCodeLine{.StopBits\ =\ \doxymbox{\hyperlink{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa9011413422d1340bb5c343a1f3b57341}{USART\_STOPBITS\_1}},}
+\DoxyCodeLine{.Parity\ =\ \doxymbox{\hyperlink{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85aecf52ec650226bdc63e12a21d3b5585d}{USART\_PARITY\_NONE}},}
+\DoxyCodeLine{.Mode\ =\ \doxymbox{\hyperlink{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2ace5b471384e2a4cbf3b933796507304b}{USART\_MODE\_TX\_RX}},}
+\DoxyCodeLine{.HardwareFlowControl\ =\ \doxymbox{\hyperlink{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa3abfc51474e9b5def1151e7c2c731e85}{UART\_HWCONTROL\_NONE}},}
+\DoxyCodeLine{.OverSampling\ =\ \doxymbox{\hyperlink{USART__intreface_8h_abafac9366efc163949f648cb90e719a3a5f7f986fd4559ee42850714b3906faca}{USART\_OVERSAMPLING\_16}},}
+\DoxyCodeLine{.RXNEIE\ =\ \doxymbox{\hyperlink{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9afdc3b405c26fccce585184e05cca91ef}{USART\_RXNEIE\_EN}},}
+\DoxyCodeLine{.pfnCallback\ =\ \doxymbox{\hyperlink{main_8c_a88b12403f1d9bc8cff413fbbde56e15d}{vESP\_UART\_RX\_Callback}}\}}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00061}{61}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+\Hypertarget{System_8c_a4f097a0ea23201e71704715ba21668a1}\index{System.c@{System.c}!V2X\_Buzzer@{V2X\_Buzzer}}
+\index{V2X\_Buzzer@{V2X\_Buzzer}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{V2X\_Buzzer}{V2X\_Buzzer}}
+{\footnotesize\ttfamily \label{System_8c_a4f097a0ea23201e71704715ba21668a1} 
+\doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} V2\+X\+\_\+\+Buzzer = \{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24a3266325667899f8d82c0624c493fda51}{GPIO\+\_\+\+PORTC}}, \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14a088dbea6be5692ef5375d1710404ad46}{GPIO\+\_\+\+PIN4}}, \doxymbox{\hyperlink{BUZ__interface_8h_a30707334c70b434fa4f7145542ee6b3aa21de853225ec138e5f029eccbbb87397}{BUZ\+\_\+\+ACTIVE\+\_\+\+HIGH}}\}}
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00048}{48}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+

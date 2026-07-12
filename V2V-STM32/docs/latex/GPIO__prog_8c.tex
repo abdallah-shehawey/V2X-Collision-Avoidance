@@ -1,0 +1,405 @@
+\doxysection{Src/\+\+GPIO\+\_\+prog.c File Reference}
+\hypertarget{GPIO__prog_8c}{}\label{GPIO__prog_8c}\index{Src/GPIO\_prog.c@{Src/GPIO\_prog.c}}
+{\ttfamily \+\#include $<$stdint.\+h$>$}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+LIB/\+\+STM32\+F446xx.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+LIB/\+\+STD\+\_\+\+MACROS.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+LIB/\+\+Err\+Types.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+GPIO/\+\+GPIO\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+GPIO/\+\+GPIO\+\_\+private.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+GPIO/\+\+GPIO\+\_\+config.\+h"{}}\newline
+Include dependency graph for GPIO\+\_\+prog.\+c:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{GPIO__prog_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_a2a5e7c89bc6bb7103d96334a8481ea9b}{GPIO\+\_\+enum\+Pin\+Init}} (const \doxymbox{\hyperlink{structGPIO__PinConfig__t}{GPIO\+\_\+\+Pin\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Pin\+Config)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_ace91b940fa22755a89e086016721f8aa}{GPIO\+\_\+enum\+Low\+Nibble\+Init}} (\doxymbox{\hyperlink{structGPIO__LowNibbleConfig__t}{GPIO\+\_\+\+Low\+Nibble\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Low\+Nibble\+Config)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_af5bb58748b4f2cf70c674d9566b63a97}{GPIO\+\_\+enum\+High\+Nibble\+Init}} (\doxymbox{\hyperlink{structGPIO__HighNibbleConfig__t}{GPIO\+\_\+\+High\+Nibble\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}High\+Nibble\+Config)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_a593d4ac1bc1d7198c9c3d56d05e23a07}{GPIO\+\_\+enum\+Byte\+Init}} (\doxymbox{\hyperlink{structGPIO__ByteConfig__t}{GPIO\+\_\+\+Byte\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Byte\+Config)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_a47aacfc99199904d2956173186b94d7f}{GPIO\+\_\+enum\+Half\+Port\+Init}} (\doxymbox{\hyperlink{structGPIO__HalfPortConfig__t}{GPIO\+\_\+\+Half\+Port\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Half\+Port\+Config)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_a2c01501f7ac9ed6dc2c172776c9203fa}{GPIO\+\_\+enum\+Port\+Init}} (\doxymbox{\hyperlink{structGPIO__PortConfig__t}{GPIO\+\_\+\+Port\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Port\+Config)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_a0e3f73a3160885bf15f427e9e894f2de}{GPIO\+\_\+enum\+Port8\+Pins\+Init}} (\doxymbox{\hyperlink{structGPIO__8PinsConfig__t}{GPIO\+\_\+8\+Pins\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}GPIO\+\_\+8\+Pins\+Config)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_a50576e5cecad40f4fa820bdacf2c270a}{GPIO\+\_\+enum\+Port4\+Pins\+Init}} (\doxymbox{\hyperlink{structGPIO__4PinsConfig__t}{GPIO\+\_\+4\+Pins\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}GPIO\+\_\+4\+Pins\+Config)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_a5df6200f9c0d12a785ab2086f7e441ff}{GPIO\+\_\+enum\+Write4\+Pins\+Val}} (\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} Port, \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} Start\+Pin, uint8\+\_\+t Value)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_a87a110f35c3bd9d61a84e5dee20df70d}{GPIO\+\_\+enum\+Write8\+Pins\+Val}} (\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} Port, \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} Start\+Pin, uint8\+\_\+t Value)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_ab8efebd278bcf731012c238a3f69fb5c}{GPIO\+\_\+enum\+Write\+Pin\+Val}} (\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} Port, \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} Pin\+Num, \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}} Pin\+Val)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_a3f0a533051c125627062a50e8a38fded}{GPIO\+\_\+enum\+Read\+Pin\+Val}} (\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} Port, \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} Pin\+Num, \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}} \texorpdfstring{$\ast$}{*}Pin\+Val)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_aacd1fe5ce0d15fd5040c41745409ca20}{GPIO\+\_\+enum\+Tog\+Pin\+Val}} (\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} Port, \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} Pin\+Num)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_a4456597da20f47afdce69e0a87b6ef21}{GPIO\+\_\+enum\+Read4\+Pins\+Val}} (\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} Port, \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} Start\+Pin, uint8\+\_\+t \texorpdfstring{$\ast$}{*}Pins\+Value)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_ab9623ca12f3b7738af049c3bbb858359}{GPIO\+\_\+enum\+Read8\+Pins\+Val}} (\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} Port, \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} Start\+Pin, uint8\+\_\+t \texorpdfstring{$\ast$}{*}Pins\+Value)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_aceac4c116796951c90c5ec500e6eb602}{GPIO\+\_\+enum\+Write\+Low\+Nibble\+Val}} (\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} port, uint8\+\_\+t Copy\+\_\+u8\+Val, \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}} Pins\+Val)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_ab099300bf9c8765081d9e1d79f8325cb}{GPIO\+\_\+enum\+Write\+High\+Nibble\+Val}} (\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} port, uint8\+\_\+t Copy\+\_\+u8\+Val, \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}} Pins\+Val)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_ab7a2804415a4ada1da55f247f7d251aa}{GPIO\+\_\+enum\+Write\+Byte\+Val}} (\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} port, uint8\+\_\+t Copy\+\_\+u8\+Val, \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}} Pins\+Val)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_a3e3bfad526b91ab38ea3fdb971d015a7}{GPIO\+\_\+enum\+Write\+Half\+Word\+Val}} (\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} port, uint16\+\_\+t Copy\+\_\+u16\+Val, \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}} Pins\+Val)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_aad5061927697c0d2f8f99c6aa146c605}{GPIO\+\_\+enum\+Write\+Port\+Val}} (\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} port, uint16\+\_\+t Copy\+\_\+u16\+Val, \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}} Pins\+Val)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_aa9ab64bad7421597169c43d8bd3e16e3}{GPIO\+\_\+enum\+Read\+Low\+Nibble\+Val}} (\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} port, uint8\+\_\+t \texorpdfstring{$\ast$}{*}Low\+Nibble\+Val)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_ab0614709e608d60a6da511e6382c5448}{GPIO\+\_\+enum\+Read\+High\+Nibble\+Val}} (\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} port, uint8\+\_\+t \texorpdfstring{$\ast$}{*}High\+Nibble\+Val)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_a1a62e3dea2ba83b5492640e9f8f88bcf}{GPIO\+\_\+enum\+Read\+Byte\+Val}} (\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} port, uint8\+\_\+t \texorpdfstring{$\ast$}{*}Byte\+Val)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_adccafed2049928790efb22602bfcef67}{GPIO\+\_\+enum\+Read\+Half\+Port\+Val}} (\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} port, uint16\+\_\+t \texorpdfstring{$\ast$}{*}Half\+Port\+Val)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{GPIO__prog_8c_a518fc2c707c44cdc8a356ba08d27f4a6}{GPIO\+\_\+enum\+Read\+Port\+Val}} (\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} port, uint32\+\_\+t \texorpdfstring{$\ast$}{*}Port\+Val)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{GPIO__prog_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{GPIO__prog_8c_a593d4ac1bc1d7198c9c3d56d05e23a07}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumByteInit@{GPIO\_enumByteInit}}
+\index{GPIO\_enumByteInit@{GPIO\_enumByteInit}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumByteInit()}{GPIO\_enumByteInit()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_a593d4ac1bc1d7198c9c3d56d05e23a07} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Byte\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structGPIO__ByteConfig__t}{GPIO\+\_\+\+Byte\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Byte\+Config}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00190}{190}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=331pt]{GPIO__prog_8c_a593d4ac1bc1d7198c9c3d56d05e23a07_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{GPIO__prog_8c_a47aacfc99199904d2956173186b94d7f}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumHalfPortInit@{GPIO\_enumHalfPortInit}}
+\index{GPIO\_enumHalfPortInit@{GPIO\_enumHalfPortInit}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumHalfPortInit()}{GPIO\_enumHalfPortInit()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_a47aacfc99199904d2956173186b94d7f} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Half\+Port\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structGPIO__HalfPortConfig__t}{GPIO\+\_\+\+Half\+Port\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Half\+Port\+Config}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00234}{234}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{GPIO__prog_8c_a47aacfc99199904d2956173186b94d7f_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{GPIO__prog_8c_af5bb58748b4f2cf70c674d9566b63a97}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumHighNibbleInit@{GPIO\_enumHighNibbleInit}}
+\index{GPIO\_enumHighNibbleInit@{GPIO\_enumHighNibbleInit}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumHighNibbleInit()}{GPIO\_enumHighNibbleInit()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_af5bb58748b4f2cf70c674d9566b63a97} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+High\+Nibble\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structGPIO__HighNibbleConfig__t}{GPIO\+\_\+\+High\+Nibble\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{High\+Nibble\+Config}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00146}{146}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{GPIO__prog_8c_af5bb58748b4f2cf70c674d9566b63a97_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{GPIO__prog_8c_ace91b940fa22755a89e086016721f8aa}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumLowNibbleInit@{GPIO\_enumLowNibbleInit}}
+\index{GPIO\_enumLowNibbleInit@{GPIO\_enumLowNibbleInit}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumLowNibbleInit()}{GPIO\_enumLowNibbleInit()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_ace91b940fa22755a89e086016721f8aa} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Low\+Nibble\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structGPIO__LowNibbleConfig__t}{GPIO\+\_\+\+Low\+Nibble\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Low\+Nibble\+Config}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00102}{102}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{GPIO__prog_8c_ace91b940fa22755a89e086016721f8aa_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{GPIO__prog_8c_a2a5e7c89bc6bb7103d96334a8481ea9b}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumPinInit@{GPIO\_enumPinInit}}
+\index{GPIO\_enumPinInit@{GPIO\_enumPinInit}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumPinInit()}{GPIO\_enumPinInit()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_a2a5e7c89bc6bb7103d96334a8481ea9b} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Pin\+Init (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structGPIO__PinConfig__t}{GPIO\+\_\+\+Pin\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Pin\+Config}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00041}{41}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{GPIO__prog_8c_a2a5e7c89bc6bb7103d96334a8481ea9b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{GPIO__prog_8c_a50576e5cecad40f4fa820bdacf2c270a}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumPort4PinsInit@{GPIO\_enumPort4PinsInit}}
+\index{GPIO\_enumPort4PinsInit@{GPIO\_enumPort4PinsInit}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumPort4PinsInit()}{GPIO\_enumPort4PinsInit()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_a50576e5cecad40f4fa820bdacf2c270a} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Port4\+Pins\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structGPIO__4PinsConfig__t}{GPIO\+\_\+4\+Pins\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{GPIO\+\_\+4\+Pins\+Config}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00383}{383}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{GPIO__prog_8c_a50576e5cecad40f4fa820bdacf2c270a_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{GPIO__prog_8c_a0e3f73a3160885bf15f427e9e894f2de}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumPort8PinsInit@{GPIO\_enumPort8PinsInit}}
+\index{GPIO\_enumPort8PinsInit@{GPIO\_enumPort8PinsInit}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumPort8PinsInit()}{GPIO\_enumPort8PinsInit()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_a0e3f73a3160885bf15f427e9e894f2de} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Port8\+Pins\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structGPIO__8PinsConfig__t}{GPIO\+\_\+8\+Pins\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{GPIO\+\_\+8\+Pins\+Config}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00329}{329}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{GPIO__prog_8c_a0e3f73a3160885bf15f427e9e894f2de_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{GPIO__prog_8c_a2c01501f7ac9ed6dc2c172776c9203fa}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumPortInit@{GPIO\_enumPortInit}}
+\index{GPIO\_enumPortInit@{GPIO\_enumPortInit}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumPortInit()}{GPIO\_enumPortInit()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_a2c01501f7ac9ed6dc2c172776c9203fa} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Port\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structGPIO__PortConfig__t}{GPIO\+\_\+\+Port\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Port\+Config}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00278}{278}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{GPIO__prog_8c_a2c01501f7ac9ed6dc2c172776c9203fa_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{GPIO__prog_8c_a4456597da20f47afdce69e0a87b6ef21}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumRead4PinsVal@{GPIO\_enumRead4PinsVal}}
+\index{GPIO\_enumRead4PinsVal@{GPIO\_enumRead4PinsVal}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumRead4PinsVal()}{GPIO\_enumRead4PinsVal()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_a4456597da20f47afdce69e0a87b6ef21} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Read4\+Pins\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{Port}{, }\item[{\doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}}}]{Start\+Pin}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{Pins\+Value}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00580}{580}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+\Hypertarget{GPIO__prog_8c_ab9623ca12f3b7738af049c3bbb858359}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumRead8PinsVal@{GPIO\_enumRead8PinsVal}}
+\index{GPIO\_enumRead8PinsVal@{GPIO\_enumRead8PinsVal}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumRead8PinsVal()}{GPIO\_enumRead8PinsVal()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_ab9623ca12f3b7738af049c3bbb858359} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Read8\+Pins\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{Port}{, }\item[{\doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}}}]{Start\+Pin}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{Pins\+Value}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00611}{611}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+\Hypertarget{GPIO__prog_8c_a1a62e3dea2ba83b5492640e9f8f88bcf}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumReadByteVal@{GPIO\_enumReadByteVal}}
+\index{GPIO\_enumReadByteVal@{GPIO\_enumReadByteVal}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumReadByteVal()}{GPIO\_enumReadByteVal()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_a1a62e3dea2ba83b5492640e9f8f88bcf} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Read\+Byte\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{port}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{Byte\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00871}{871}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+\Hypertarget{GPIO__prog_8c_adccafed2049928790efb22602bfcef67}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumReadHalfPortVal@{GPIO\_enumReadHalfPortVal}}
+\index{GPIO\_enumReadHalfPortVal@{GPIO\_enumReadHalfPortVal}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumReadHalfPortVal()}{GPIO\_enumReadHalfPortVal()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_adccafed2049928790efb22602bfcef67} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Read\+Half\+Port\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{port}{, }\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{Half\+Port\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00899}{899}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+\Hypertarget{GPIO__prog_8c_ab0614709e608d60a6da511e6382c5448}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumReadHighNibbleVal@{GPIO\_enumReadHighNibbleVal}}
+\index{GPIO\_enumReadHighNibbleVal@{GPIO\_enumReadHighNibbleVal}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumReadHighNibbleVal()}{GPIO\_enumReadHighNibbleVal()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_ab0614709e608d60a6da511e6382c5448} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Read\+High\+Nibble\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{port}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{High\+Nibble\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00843}{843}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+\Hypertarget{GPIO__prog_8c_aa9ab64bad7421597169c43d8bd3e16e3}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumReadLowNibbleVal@{GPIO\_enumReadLowNibbleVal}}
+\index{GPIO\_enumReadLowNibbleVal@{GPIO\_enumReadLowNibbleVal}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumReadLowNibbleVal()}{GPIO\_enumReadLowNibbleVal()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_aa9ab64bad7421597169c43d8bd3e16e3} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Read\+Low\+Nibble\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{port}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{Low\+Nibble\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00815}{815}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+\Hypertarget{GPIO__prog_8c_a3f0a533051c125627062a50e8a38fded}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumReadPinVal@{GPIO\_enumReadPinVal}}
+\index{GPIO\_enumReadPinVal@{GPIO\_enumReadPinVal}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumReadPinVal()}{GPIO\_enumReadPinVal()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_a3f0a533051c125627062a50e8a38fded} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Read\+Pin\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{Port}{, }\item[{\doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}}}]{Pin\+Num}{, }\item[{\doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Pin\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00524}{524}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+\Hypertarget{GPIO__prog_8c_a518fc2c707c44cdc8a356ba08d27f4a6}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumReadPortVal@{GPIO\_enumReadPortVal}}
+\index{GPIO\_enumReadPortVal@{GPIO\_enumReadPortVal}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumReadPortVal()}{GPIO\_enumReadPortVal()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_a518fc2c707c44cdc8a356ba08d27f4a6} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Read\+Port\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{port}{, }\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{Port\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00927}{927}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+\Hypertarget{GPIO__prog_8c_aacd1fe5ce0d15fd5040c41745409ca20}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumTogPinVal@{GPIO\_enumTogPinVal}}
+\index{GPIO\_enumTogPinVal@{GPIO\_enumTogPinVal}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumTogPinVal()}{GPIO\_enumTogPinVal()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_aacd1fe5ce0d15fd5040c41745409ca20} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Tog\+Pin\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{Port}{, }\item[{\doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}}}]{Pin\+Num}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00555}{555}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=309pt]{GPIO__prog_8c_aacd1fe5ce0d15fd5040c41745409ca20_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{GPIO__prog_8c_a5df6200f9c0d12a785ab2086f7e441ff}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumWrite4PinsVal@{GPIO\_enumWrite4PinsVal}}
+\index{GPIO\_enumWrite4PinsVal@{GPIO\_enumWrite4PinsVal}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumWrite4PinsVal()}{GPIO\_enumWrite4PinsVal()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_a5df6200f9c0d12a785ab2086f7e441ff} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Write4\+Pins\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{Port}{, }\item[{\doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}}}]{Start\+Pin}{, }\item[{uint8\+\_\+t}]{Value}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00433}{433}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+\Hypertarget{GPIO__prog_8c_a87a110f35c3bd9d61a84e5dee20df70d}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumWrite8PinsVal@{GPIO\_enumWrite8PinsVal}}
+\index{GPIO\_enumWrite8PinsVal@{GPIO\_enumWrite8PinsVal}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumWrite8PinsVal()}{GPIO\_enumWrite8PinsVal()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_a87a110f35c3bd9d61a84e5dee20df70d} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Write8\+Pins\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{Port}{, }\item[{\doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}}}]{Start\+Pin}{, }\item[{uint8\+\_\+t}]{Value}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00460}{460}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+\Hypertarget{GPIO__prog_8c_ab7a2804415a4ada1da55f247f7d251aa}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumWriteByteVal@{GPIO\_enumWriteByteVal}}
+\index{GPIO\_enumWriteByteVal@{GPIO\_enumWriteByteVal}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumWriteByteVal()}{GPIO\_enumWriteByteVal()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_ab7a2804415a4ada1da55f247f7d251aa} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Write\+Byte\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{port}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Val}{, }\item[{\doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}}}]{Pins\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00710}{710}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+\Hypertarget{GPIO__prog_8c_a3e3bfad526b91ab38ea3fdb971d015a7}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumWriteHalfWordVal@{GPIO\_enumWriteHalfWordVal}}
+\index{GPIO\_enumWriteHalfWordVal@{GPIO\_enumWriteHalfWordVal}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumWriteHalfWordVal()}{GPIO\_enumWriteHalfWordVal()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_a3e3bfad526b91ab38ea3fdb971d015a7} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Write\+Half\+Word\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{port}{, }\item[{uint16\+\_\+t}]{Copy\+\_\+u16\+Val}{, }\item[{\doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}}}]{Pins\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00745}{745}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+\Hypertarget{GPIO__prog_8c_ab099300bf9c8765081d9e1d79f8325cb}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumWriteHighNibbleVal@{GPIO\_enumWriteHighNibbleVal}}
+\index{GPIO\_enumWriteHighNibbleVal@{GPIO\_enumWriteHighNibbleVal}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumWriteHighNibbleVal()}{GPIO\_enumWriteHighNibbleVal()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_ab099300bf9c8765081d9e1d79f8325cb} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Write\+High\+Nibble\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{port}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Val}{, }\item[{\doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}}}]{Pins\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00675}{675}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+\Hypertarget{GPIO__prog_8c_aceac4c116796951c90c5ec500e6eb602}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumWriteLowNibbleVal@{GPIO\_enumWriteLowNibbleVal}}
+\index{GPIO\_enumWriteLowNibbleVal@{GPIO\_enumWriteLowNibbleVal}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumWriteLowNibbleVal()}{GPIO\_enumWriteLowNibbleVal()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_aceac4c116796951c90c5ec500e6eb602} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Write\+Low\+Nibble\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{port}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Val}{, }\item[{\doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}}}]{Pins\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00640}{640}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+\Hypertarget{GPIO__prog_8c_ab8efebd278bcf731012c238a3f69fb5c}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumWritePinVal@{GPIO\_enumWritePinVal}}
+\index{GPIO\_enumWritePinVal@{GPIO\_enumWritePinVal}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumWritePinVal()}{GPIO\_enumWritePinVal()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_ab8efebd278bcf731012c238a3f69fb5c} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Write\+Pin\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{Port}{, }\item[{\doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}}}]{Pin\+Num}{, }\item[{\doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}}}]{Pin\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00485}{485}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{GPIO__prog_8c_ab8efebd278bcf731012c238a3f69fb5c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{GPIO__prog_8c_aad5061927697c0d2f8f99c6aa146c605}\index{GPIO\_prog.c@{GPIO\_prog.c}!GPIO\_enumWritePortVal@{GPIO\_enumWritePortVal}}
+\index{GPIO\_enumWritePortVal@{GPIO\_enumWritePortVal}!GPIO\_prog.c@{GPIO\_prog.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_enumWritePortVal()}{GPIO\_enumWritePortVal()}}
+{\footnotesize\ttfamily \label{GPIO__prog_8c_aad5061927697c0d2f8f99c6aa146c605} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Write\+Port\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{port}{, }\item[{uint16\+\_\+t}]{Copy\+\_\+u16\+Val}{, }\item[{\doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}}}]{Pins\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00780}{780}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+

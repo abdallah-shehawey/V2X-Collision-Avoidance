@@ -1,0 +1,410 @@
+\doxysection{main.\+c}
+\hypertarget{main_8c_source}{}\label{main_8c_source}\index{Src/main.c@{Src/main.c}}
+\doxymbox{\hyperlink{main_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{System_8h}{System/System.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}FreeRTOS.h"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}SEGGER\_SYSVIEW.h"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}task.h"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00016}00016\ \textcolor{preprocessor}{\#include\ "{}queue.h"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}semphr.h"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00020}00020\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{BUZ__interface_8h}{../Inc/Drivers/HAL/BUZZ/BUZ\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00021}00021\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{TIM__interface_8h}{../Inc/Drivers/MCAL/TIM/TIM\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00022}00022\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{US__interface_8h}{../Inc/Drivers/HAL/US/US\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00023}00023\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{MPU9250__interface_8h}{../Inc/Drivers/HAL/MPU9250/MPU9250\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00024}00024\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{LED__interface_8h}{../Inc/Drivers/HAL/LED/LED\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00025}00025\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{USART__intreface_8h}{../Inc/Drivers/MCAL/USART/USART\_intreface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00026}00026\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{FCW__DNPW__interface_8h}{../Inc/Application/FCW\_DNPW/FCW\_DNPW\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00027}00027\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{EEBL__interface_8h}{../Inc/Application/EEBL/EEBL\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00028}00028\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{BSW__interface_8h}{../Inc/Application/BSW/BSW\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00029}00029\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{IMA__interface_8h}{../Inc/Application/IMA/IMA\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00030}00030\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{DSRC_8h}{../Inc/Application/DSRC/DSRC.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00031}00031\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SafetyEngine__interface_8h}{../Inc/Application/SafetyEngine/SafetyEngine\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00032}00032\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{IWDG__interface_8h}{../Inc/Drivers/MCAL/IWDG/IWDG\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00034}00034\ \textcolor{keyword}{extern}\ \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\_Config\_t}}\ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a4f097a0ea23201e71704715ba21668a1}{V2X\_Buzzer}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00035}00035\ \textcolor{keyword}{extern}\ \doxymbox{\hyperlink{structUSART__Config__t}{USART\_Config\_t}}\ \ \ \ \doxymbox{\hyperlink{main_8c_a305c18e4f4654cb56286827ae4d3883b}{RPi\_UART}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00036}00036\ \textcolor{keyword}{extern}\ \doxymbox{\hyperlink{structUS__Config__t}{US\_Config\_t}}\ \doxymbox{\hyperlink{main_8c_aed057ac0b23c05f6b02ef3bfed8bfa27}{FrontUS}}[3];}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00037}00037\ \textcolor{keyword}{extern}\ \doxymbox{\hyperlink{structUS__Config__t}{US\_Config\_t}}\ \doxymbox{\hyperlink{main_8c_a2b0e497a0b4ecc48b5dd5fef9623d4f3}{BackUS}}[3];}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00038}00038\ \textcolor{comment}{/*\ LEDs:\ FrontR=PC0,\ FrontL=PC1,\ BackR=PC2,\ BackL=PC3,\ Interior(driver)=PC7\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00039}\doxymbox{\hyperlink{main_8c_abfc8237214cfd1267c607aaff66a96da}{00039}}\ \textcolor{keyword}{extern}\ \doxymbox{\hyperlink{structLED__Config__t}{LED\_Config\_t}}\ \doxymbox{\hyperlink{System_8h_af1fb4a43ba68d1fdc94fd35a7d901cd4}{FrontR\_LED}},\ \doxymbox{\hyperlink{System_8h_a2ab79e3f6235026ef8d29a9446511f48}{FrontL\_LED}},\ \doxymbox{\hyperlink{System_8h_ae41df9dd37d7c4d27b829fd46cd1e5e3}{BackR\_LED}},\ \doxymbox{\hyperlink{System_8h_abfc8237214cfd1267c607aaff66a96da}{BackL\_LED}},\ \doxymbox{\hyperlink{System_8h_aa7037844a95faca4f50aae714fe5048a}{Interior\_LED}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00042}\doxymbox{\hyperlink{main_8c_a2c251aeac2c84008a206658c306be262}{00042}}\ QueueHandle\_t\ \doxymbox{\hyperlink{main_8c_a2c251aeac2c84008a206658c306be262}{G\_xESP\_RX\_Queue}};\ \ \ \ \ \ \ \ \textcolor{comment}{//\ queue\ for\ ESP32\ communication}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00043}\doxymbox{\hyperlink{main_8c_a101fd1911cf8e567c729470ceb6d2fb8}{00043}}\ SemaphoreHandle\_t\ \doxymbox{\hyperlink{main_8c_a101fd1911cf8e567c729470ceb6d2fb8}{G\_xDataMutex}};\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ data\ protection\ (G\_stHostVehicleState\ and\ G\_u16SystemFlags)}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00044}\doxymbox{\hyperlink{main_8c_ab31e36f89b28f343b708712d4346780a}{00044}}\ SemaphoreHandle\_t\ \doxymbox{\hyperlink{main_8c_ab31e36f89b28f343b708712d4346780a}{G\_xNeighborTableMutex}};\ \ \textcolor{comment}{//\ for\ neighbor\ table\ protection\ (neighbor\_table)}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00047}00047\ \textcolor{comment}{/*\ ==================\ Watchdog\ heartbeats\ ==================}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00048}00048\ \textcolor{comment}{\ *\ Each\ monitored\ task\ bumps\ its\ own\ slot\ every\ loop.\ vTask\_Watchdog\ refreshes}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00049}00049\ \textcolor{comment}{\ *\ the\ IWDG\ ONLY\ while\ EVERY\ slot\ keeps\ advancing;\ if\ any\ task\ stalls\ (hard}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00050}00050\ \textcolor{comment}{\ *\ fault,\ stack-\/overflow\ halt,\ infinite\ loop,\ ISR\ storm,\ or\ starvation)\ its\ slot}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00051}00051\ \textcolor{comment}{\ *\ freezes\ →\ the\ refresh\ stops\ →\ the\ IWDG\ hardware-\/resets\ the\ MCU.\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00052}\doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a23545dde189472e9f2a5d3f98b441486}{00052}}\ \textcolor{keyword}{enum}\ \{\ \doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a6ee3238ee2d20bffcd8978324484c80d}{HB\_SAFETY}}\ =\ 0,\ \doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a1b3618ccc2aaf62c2c021f869a7a963a}{HB\_SENSORS}},\ \doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a7c5b8595d98f89afda7c3c33f78fa1b3}{HB\_ESP}},\ \doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a8a36182c5a9963f01fdf377df752c75f}{HB\_FEEDBACK}},\ \doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4adf27abbb63f7e1861230371663fd6036}{HB\_RPI}},\ \doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a23545dde189472e9f2a5d3f98b441486}{HB\_COUNT}}\ \};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00053}\doxymbox{\hyperlink{main_8c_abf287e574f76db7ad0c43062a788d58c}{00053}}\ \textcolor{keyword}{volatile}\ uint32\_t\ \doxymbox{\hyperlink{main_8c_abf287e574f76db7ad0c43062a788d58c}{G\_au32Heartbeat}}[\doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a23545dde189472e9f2a5d3f98b441486}{HB\_COUNT}}]\ =\ \{0\};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00055}\doxymbox{\hyperlink{main_8c_a83bb26015dd24416bf6b59ad49e55c9b}{00055}}\ \textcolor{preprocessor}{\#define\ WDG\_TIMEOUT\_MS\ \ \ \ \ \ \ \ 2000U\ \ \ }\textcolor{comment}{/*\ IWDG\ hardware\ reset\ timeout\ (LSI-\/backed)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00056}\doxymbox{\hyperlink{main_8c_afee5313facd23b9a57c62ae9212967da}{00056}}\ \textcolor{preprocessor}{\#define\ WDG\_CHECK\_PERIOD\_MS\ \ \ \ 300U\ \ \ }\textcolor{comment}{/*\ how\ often\ the\ monitor\ verifies\ +\ kicks\ \ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00059}00059\ \textcolor{comment}{/*\ ==================\ Task\ Prototypes\ ==================\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00060}00060\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{main_8c_a1fa00ec0e4cf92155fcaa535be5ab3a1}{vTask\_SafetyEngine}}(\textcolor{keywordtype}{void}\ *pvParameters);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00061}00061\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{main_8c_a6124e00be85460e2af1224524c6c2278}{vTask\_Sensors}}(\textcolor{keywordtype}{void}\ *pvParameters);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00062}00062\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{main_8c_a96452f43e9871212929e6e6a969bec13}{vTask\_Feedback}}(\textcolor{keywordtype}{void}\ *pvParameters);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00064}00064\ \textcolor{comment}{/*\ Communication\ Tasks\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00065}00065\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{main_8c_a8e83024643794f31ab8139cbdb1de5dd}{vTask\_ESP\_Comm}}(\textcolor{keywordtype}{void}\ *pvParameters);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00066}00066\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{main_8c_a0d8bacb322388f8284803eeccc5612c0}{vTask\_RPi\_Comm}}(\textcolor{keywordtype}{void}\ *pvParameters);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00068}00068\ \textcolor{comment}{/*\ Reliability\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00069}00069\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{main_8c_ae1bcb9c7fb7ee6cb777db33125685421}{vTask\_Watchdog}}(\textcolor{keywordtype}{void}\ *pvParameters);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00072}\doxymbox{\hyperlink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{00072}}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00073}00073\ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00074}00074\ \ \ \textcolor{comment}{/*for\ segger*/}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00075}00075\ \ \ vInitPrioGroupValue();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00076}00076\ \ \ \textcolor{comment}{/*\ 1.\ Hardware\ Initialization\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00077}00077\ \ \ \doxymbox{\hyperlink{System_8h_ae436954cd2bde6634ab271317d2494a7}{System\_setup}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00078}00078\ \ \ \doxymbox{\hyperlink{System_8h_ac3f6c7e9a568f4528304150a6f59736b}{SEGGER\_setup}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00080}00080\ \ \ \textcolor{comment}{/*\ Create\ Queues\ \&\ Mutexes\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00081}00081\ \ \ \doxymbox{\hyperlink{main_8c_a2c251aeac2c84008a206658c306be262}{G\_xESP\_RX\_Queue}}\ =\ xQueueCreate(256,\ \textcolor{keyword}{sizeof}(uint8\_t));\ \textcolor{comment}{//\ 256\ element\ queue\ (byte)}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00082}00082\ \ \ \doxymbox{\hyperlink{main_8c_a101fd1911cf8e567c729470ceb6d2fb8}{G\_xDataMutex}}\ =\ xSemaphoreCreateMutex();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ data\ protection\ (G\_stHostVehicleState\ and\ G\_u16SystemFlags)}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00083}00083\ \ \ \doxymbox{\hyperlink{main_8c_ab31e36f89b28f343b708712d4346780a}{G\_xNeighborTableMutex}}\ =\ xSemaphoreCreateMutex();\ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ neighbor\ table\ protection\ (neighbor\_table)}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00085}00085\ \ \ \textcolor{comment}{/*\ Initialize\ all\ ADAS\ modules\ (FCW/EEBL/BSW/DNPW/IMA)\ before\ scheduling\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00086}00086\ \ \ \doxymbox{\hyperlink{SafetyEngine__interface_8h_ad87fdbbd1376c4cebfa69a906cfbe556}{SafetyEngine\_voidInit}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00088}00088\ \ \ \textcolor{comment}{/*\ 2.\ OS\ Tasks\ Creation\ -\/\ Pipeline\ Architecture\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00089}00089\ \ \ \textcolor{comment}{/*\ -\/-\/-\/\ High\ Priority:\ single-\/pass\ ADAS\ brain\ +\ V2X\ communication\ -\/-\/-\/\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00090}00090\ \ \ xTaskCreate(\doxymbox{\hyperlink{main_8c_a1fa00ec0e4cf92155fcaa535be5ab3a1}{vTask\_SafetyEngine}},\ \textcolor{stringliteral}{"{}SafetyEngine\_Task"{}},\ configMINIMAL\_STACK\_SIZE\ +\ 256,\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}},\ 4,\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00091}00091\ \ \ xTaskCreate(\doxymbox{\hyperlink{main_8c_a8e83024643794f31ab8139cbdb1de5dd}{vTask\_ESP\_Comm}},\ \ \ \ \ \textcolor{stringliteral}{"{}ESP\_Comm\_Task"{}},\ \ \ \ \ configMINIMAL\_STACK\_SIZE\ +\ 128,\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}},\ 4,\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00092}00092\ \ \ \textcolor{comment}{/*\ -\/-\/-\/\ Medium\ Priority:\ Data\ Acquisition\ (priority\ 3\ —\ US\ blocking\ preempted\ by\ priority\ 4)\ -\/-\/-\/\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00093}00093\ \ \ xTaskCreate(\doxymbox{\hyperlink{main_8c_a6124e00be85460e2af1224524c6c2278}{vTask\_Sensors}},\ \ \ \ \ \ \textcolor{stringliteral}{"{}Sensors\_Task"{}},\ \ \ \ \ \ configMINIMAL\_STACK\_SIZE\ +\ 256,\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}},\ 3,\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00094}00094\ \ \ \textcolor{comment}{/*\ -\/-\/-\/\ Low\ Priority:\ Actuator\ Execution\ \&\ UI/RPi\ -\/-\/-\/\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00095}00095\ \ \ xTaskCreate(\doxymbox{\hyperlink{main_8c_a96452f43e9871212929e6e6a969bec13}{vTask\_Feedback}},\ \ \ \ \ \textcolor{stringliteral}{"{}Feedback\_Task"{}},\ \ \ \ \ configMINIMAL\_STACK\_SIZE\ +\ 128,\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}},\ 2,\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00096}00096\ \ \ xTaskCreate(\doxymbox{\hyperlink{main_8c_a0d8bacb322388f8284803eeccc5612c0}{vTask\_RPi\_Comm}},\ \ \ \ \ \textcolor{stringliteral}{"{}RPi\_Comm\_Task"{}},\ \ \ \ \ configMINIMAL\_STACK\_SIZE\ +\ 256,\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}},\ 1,\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00097}00097\ \ \ \textcolor{comment}{/*\ -\/-\/-\/\ Lowest\ Priority:\ liveness\ monitor\ →\ kicks\ the\ IWDG\ (must\ run\ last)\ -\/-\/-\/\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00098}00098\ \ \ xTaskCreate(\doxymbox{\hyperlink{main_8c_ae1bcb9c7fb7ee6cb777db33125685421}{vTask\_Watchdog}},\ \ \ \ \ \textcolor{stringliteral}{"{}Watchdog\_Task"{}},\ \ \ \ \ configMINIMAL\_STACK\_SIZE,\ \ \ \ \ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}},\ 1,\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00100}00100\ \ \ \textcolor{comment}{/*\ Start\ the\ independent\ watchdog\ LAST,\ just\ before\ the\ scheduler.\ From\ here}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00101}00101\ \textcolor{comment}{\ \ \ *\ the\ IWDG\ must\ be\ kicked\ within\ WDG\_TIMEOUT\_MS\ or\ the\ MCU\ hardware-\/resets.\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00102}00102\ \ \ \doxymbox{\hyperlink{IWDG__interface_8h_aaa08e67683aa75f91aabc14cb9c1253d}{IWDG\_voidInit}}(\doxymbox{\hyperlink{main_8c_a83bb26015dd24416bf6b59ad49e55c9b}{WDG\_TIMEOUT\_MS}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00104}00104\ \ \ \textcolor{comment}{/*\ 3.\ OS\ Initialization\ and\ start\ running\ tasks\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00105}00105\ \ \ \doxymbox{\hyperlink{System_8h_a9f28a641641de8e783815ab1fa92549f}{RTOS\_setup}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00107}00107\ \ \ \textcolor{comment}{/*\ 4.\ Should\ never\ be\ reached\ unless\ scheduler\ fails\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00108}00108\ \ \ \textcolor{keywordflow}{for}\ (;;);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00110}00110\ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00112}00112\ \textcolor{comment}{/*\ ==================\ Task\ Implementations\ ==================\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00125}\doxymbox{\hyperlink{main_8c_a1fa00ec0e4cf92155fcaa535be5ab3a1}{00125}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{main_8c_a1fa00ec0e4cf92155fcaa535be5ab3a1}{vTask\_SafetyEngine}}(\textcolor{keywordtype}{void}\ *pvParameters)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00126}00126\ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00127}00127\ \ \ TickType\_t\ xLastWakeTime\ =\ xTaskGetTickCount();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00129}00129\ \ \ \textcolor{keywordflow}{for}(;;)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00130}00130\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00131}00131\ \ \ \ \ \doxymbox{\hyperlink{main_8c_abf287e574f76db7ad0c43062a788d58c}{G\_au32Heartbeat}}[\doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a6ee3238ee2d20bffcd8978324484c80d}{HB\_SAFETY}}]++;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00133}00133\ \ \ \ \ xSemaphoreTake(\doxymbox{\hyperlink{main_8c_ab31e36f89b28f343b708712d4346780a}{G\_xNeighborTableMutex}},\ portMAX\_DELAY);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00134}00134\ \ \ \ \ xSemaphoreTake(\doxymbox{\hyperlink{main_8c_a101fd1911cf8e567c729470ceb6d2fb8}{G\_xDataMutex}},\ \ \ \ \ \ \ \ \ \ portMAX\_DELAY);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00136}00136\ \ \ \ \ \doxymbox{\hyperlink{SafetyEngine__interface_8h_a7b6c12632534a82b4357a73306667157}{SafetyEngine\_voidUpdate}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00138}00138\ \ \ \ \ xSemaphoreGive(\doxymbox{\hyperlink{main_8c_a101fd1911cf8e567c729470ceb6d2fb8}{G\_xDataMutex}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00139}00139\ \ \ \ \ xSemaphoreGive(\doxymbox{\hyperlink{main_8c_ab31e36f89b28f343b708712d4346780a}{G\_xNeighborTableMutex}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00141}00141\ \ \ \ \ vTaskDelayUntil(\&xLastWakeTime,\ pdMS\_TO\_TICKS(50));}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00142}00142\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00143}00143\ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00145}00145\ \textcolor{comment}{/*\ Small\ rest\ after\ each\ full\ scan:\ gives\ lower-\/priority\ tasks\ guaranteed\ CPU}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00146}00146\ \textcolor{comment}{\ *\ and\ sets\ the\ minimum\ spacing\ between\ scans.\ The\ scan\ itself\ is\ adaptive\ —}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00147}00147\ \textcolor{comment}{\ *\ its\ length\ follows\ echo\ flight\ time\ (near\ objects\ →\ faster\ refresh).\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00148}\doxymbox{\hyperlink{main_8c_a78b344cdce85e4af3d1925ebfe42b907}{00148}}\ \textcolor{preprocessor}{\#define\ SENSORS\_CYCLE\_GAP\_MS\ \ 10U}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00163}\doxymbox{\hyperlink{main_8c_a6124e00be85460e2af1224524c6c2278}{00163}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{main_8c_a6124e00be85460e2af1224524c6c2278}{vTask\_Sensors}}(\textcolor{keywordtype}{void}\ *pvParameters)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00164}00164\ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00165}00165\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ local\_speed\_ms\ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00166}00166\ \ \ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{structMPU9250__Position__t}{MPU9250\_Position\_t}}\ local\_pos\ \ \ \ \ =\ \{0\};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00167}00167\ \ \ \doxymbox{\hyperlink{structMPU9250__Data__t}{MPU9250\_Data\_t}}\ \ mpu\_data\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{0\};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00168}00168\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00169}00169\ \ \ \textcolor{comment}{/*\ Interleaved\ order:\ each\ pair\ is\ geographically\ distant\ (front↔back\ same\ side)}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00170}00170\ \textcolor{comment}{\ \ \ *\ →\ no\ two\ adjacent\ reads\ share\ an\ acoustic\ path\ →\ cross-\/talk\ eliminated.\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00171}00171\ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{structUS__Config__t}{US\_Config\_t}}\ *sensors[6]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00172}00172\ \ \ \ \ \ \ \&\doxymbox{\hyperlink{main_8c_aed057ac0b23c05f6b02ef3bfed8bfa27}{FrontUS}}[0],\ \&\doxymbox{\hyperlink{main_8c_a2b0e497a0b4ecc48b5dd5fef9623d4f3}{BackUS}}[0],\ \ \ \textcolor{comment}{/*\ Left:\ \ \ front\ then\ back\ \ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00173}00173\ \ \ \ \ \ \ \&\doxymbox{\hyperlink{main_8c_aed057ac0b23c05f6b02ef3bfed8bfa27}{FrontUS}}[1],\ \&\doxymbox{\hyperlink{main_8c_a2b0e497a0b4ecc48b5dd5fef9623d4f3}{BackUS}}[1],\ \ \ \textcolor{comment}{/*\ Center:\ front\ then\ back\ \ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00174}00174\ \ \ \ \ \ \ \&\doxymbox{\hyperlink{main_8c_aed057ac0b23c05f6b02ef3bfed8bfa27}{FrontUS}}[2],\ \&\doxymbox{\hyperlink{main_8c_a2b0e497a0b4ecc48b5dd5fef9623d4f3}{BackUS}}[2]\ \ \ \ \textcolor{comment}{/*\ Right:\ \ front\ then\ back\ \ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00175}00175\ \ \ \};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00176}00176\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00177}00177\ \ \ \textcolor{comment}{/*\ Timestamp\ of\ the\ PREVIOUS\ MPU\ sample.\ dt\ is\ measured\ right\ around\ the\ MPU}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00178}00178\ \textcolor{comment}{\ \ \ *\ read\ (not\ at\ loop\ top),\ so\ it\ is\ the\ true\ interval\ between\ two\ consecutive}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00179}00179\ \textcolor{comment}{\ \ \ *\ IMU\ samples\ —\ independent\ of\ the\ variable-\/length\ ultrasonic\ scan\ that\ runs}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00180}00180\ \textcolor{comment}{\ \ \ *\ in\ between.\ This\ keeps\ the\ attitude/heading/speed/position\ integration\ exact.\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00181}00181\ \ \ TickType\_t\ xPrevMpuTick\ =\ xTaskGetTickCount();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00183}00183\ \ \ \textcolor{keywordflow}{for}(;;)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00184}00184\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00185}00185\ \ \ \ \ \doxymbox{\hyperlink{main_8c_abf287e574f76db7ad0c43062a788d58c}{G\_au32Heartbeat}}[\doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a1b3618ccc2aaf62c2c021f869a7a963a}{HB\_SENSORS}}]++;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00187}00187\ \ \ \ \ \textcolor{comment}{/*\ ──\ Read\ ALL\ 6\ ultrasonics\ into\ locals\ (task\ sleeps\ during\ each\ echo)\ ──\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00188}00188\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ us[6];}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00189}00189\ \ \ \ \ uint16\_t\ raw;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00190}00190\ \ \ \ \ \textcolor{keywordflow}{for}\ (uint8\_t\ i\ =\ 0;\ i\ <\ 6;\ i++)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00191}00191\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00192}00192\ \ \ \ \ \ \ us[i]\ =\ 400.0f;\ \ \ \textcolor{comment}{/*\ default\ =\ out\ of\ range\ /\ clear\ (no\ echo\ within\ 4m)\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00193}00193\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{US__interface_8h_a49bd64d408631fd63886cbc413453e08}{US\_u16ReadDistance\_cm}}(sensors[i],\ \&raw)\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}})}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00194}00194\ \ \ \ \ \ \ \ \ us[i]\ =\ (float)raw;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00195}00195\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00196}00196\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00197}00197\ \ \ \ \ \textcolor{comment}{/*\ ──\ dt\ =\ interval\ since\ the\ previous\ MPU\ sample\ (measured\ at\ the\ read)\ ──\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00198}00198\ \ \ \ \ TickType\_t\ xNow\ =\ xTaskGetTickCount();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00199}00199\ \ \ \ \ \textcolor{keywordtype}{float}\ dt\ =\ (float)(xNow\ -\/\ xPrevMpuTick)\ *\ 0.001f;\ \ \textcolor{comment}{/*\ ms\ →\ seconds\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00200}00200\ \ \ \ \ \textcolor{keywordflow}{if}\ (dt\ <=\ 0.0f)\ dt\ =\ 0.010f;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ guard:\ first\ run\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00201}00201\ \ \ \ \ xPrevMpuTick\ =\ xNow;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00202}00202\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00203}00203\ \ \ \ \ \textcolor{comment}{/*\ ──\ MPU9250:\ read\ and\ process\ into\ locals\ ──\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00204}00204\ \ \ \ \ \doxymbox{\hyperlink{MPU9250__interface_8h_a2ab617d57393d2b689a5b0ad9769d40d}{MPU9250\_enumReadData}}(\&mpu\_data);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00205}00205\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00206}00206\ \ \ \ \ \textcolor{keywordtype}{float}\ pitch\ =\ 0.0f,\ roll\ =\ 0.0f,\ heading\ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00207}00207\ \ \ \ \ \doxymbox{\hyperlink{MPU9250__interface_8h_afcf26cc0fdba049b9a485ed9e5650b96}{MPU9250\_enumGetAttitude}}(\&mpu\_data,\ dt,\ \&pitch,\ \&roll);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00208}00208\ \ \ \ \ \doxymbox{\hyperlink{MPU9250__interface_8h_a4bd71fee1d8605a1a9e26bbb7a5b008b}{MPU9250\_enumGetHeading}}(\&mpu\_data,\ dt,\ \&heading);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00209}00209\ \ \ \ \ \doxymbox{\hyperlink{MPU9250__interface_8h_afa7a847f26b23259cc89bf6a8f86b706}{MPU9250\_enumGetSpeed}}(\&mpu\_data,\ dt,\ \&local\_speed\_ms);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00210}00210\ \ \ \ \ \doxymbox{\hyperlink{MPU9250__interface_8h_a2c21fb3025bdca19293a1951dd08fadc}{MPU9250\_enumGetPosition}}(\&mpu\_data,\ local\_speed\_ms,\ heading,\ pitch,\ dt,\ \&local\_pos);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00211}00211\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00212}00212\ \ \ \ \ \textcolor{comment}{/*\ ──\ Publish\ everything\ in\ ONE\ short\ mutex\ section\ ──\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00213}00213\ \ \ \ \ xSemaphoreTake(\doxymbox{\hyperlink{main_8c_a101fd1911cf8e567c729470ceb6d2fb8}{G\_xDataMutex}},\ portMAX\_DELAY);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00214}00214\ \ \ \ \ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.FrontLeftUS\ \ \ =\ us[0];}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00215}00215\ \ \ \ \ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.BackLeftUS\ \ \ \ =\ us[1];}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00216}00216\ \ \ \ \ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.FrontCenterUS\ =\ us[2];}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00217}00217\ \ \ \ \ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.BackCenterUS\ \ =\ us[3];}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00218}00218\ \ \ \ \ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.FrontRightUS\ \ =\ us[4];}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00219}00219\ \ \ \ \ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.BackRightUS\ \ \ =\ us[5];}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00220}00220\ \ \ \ \ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.Speed\ \ \ =\ local\_speed\_ms\ *\ 100.0f;\ \ \textcolor{comment}{/*\ m/s\ →\ cm/s\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00221}00221\ \ \ \ \ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.Heading\ =\ heading;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00222}00222\ \ \ \ \ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.Pitch\ \ \ =\ pitch;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00223}00223\ \ \ \ \ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.Roll\ \ \ \ =\ roll;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00224}00224\ \ \ \ \ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.PosX\ \ \ \ =\ local\_pos.\doxymbox{\hyperlink{structMPU9250__Position__t_a4fe225ef27b2b7f0ee9e0b7a3064f0b6}{X}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00225}00225\ \ \ \ \ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.PosY\ \ \ \ =\ local\_pos.\doxymbox{\hyperlink{structMPU9250__Position__t_aa624e2c5eac7ac1586329d0dd06d43a4}{Y}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00226}00226\ \ \ \ \ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.PosZ\ \ \ \ =\ local\_pos.\doxymbox{\hyperlink{structMPU9250__Position__t_a557b1c4e849f5179709d40e81cef5b9c}{Z}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00227}00227\ \ \ \ \ xSemaphoreGive(\doxymbox{\hyperlink{main_8c_a101fd1911cf8e567c729470ceb6d2fb8}{G\_xDataMutex}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00228}00228\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00229}00229\ \ \ \ \ \textcolor{comment}{/*\ ──\ Small\ adaptive\ gap\ (other\ tasks\ get\ CPU;\ sets\ min\ scan\ spacing)\ ──\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00230}00230\ \ \ \ \ vTaskDelay(pdMS\_TO\_TICKS(\doxymbox{\hyperlink{main_8c_a78b344cdce85e4af3d1925ebfe42b907}{SENSORS\_CYCLE\_GAP\_MS}}));}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00231}00231\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00232}00232\ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00248}\doxymbox{\hyperlink{main_8c_a96452f43e9871212929e6e6a969bec13}{00248}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{main_8c_a96452f43e9871212929e6e6a969bec13}{vTask\_Feedback}}(\textcolor{keywordtype}{void}\ *pvParameters)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00249}00249\ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00250}00250\ \ \ \textcolor{keywordflow}{for}(;;)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00251}00251\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00252}00252\ \ \ \ \ \doxymbox{\hyperlink{main_8c_abf287e574f76db7ad0c43062a788d58c}{G\_au32Heartbeat}}[\doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a8a36182c5a9963f01fdf377df752c75f}{HB\_FEEDBACK}}]++;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00253}00253\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00254}00254\ \ \ \ \ \textcolor{comment}{/*\ Single\ atomic\ read\ of\ the\ volatile\ status\ word\ (uint16\ read\ is\ atomic\ on\ M4).\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00255}00255\ \ \ \ \ uint16\_t\ flags\ =\ \doxymbox{\hyperlink{System_8h_a9e78367aa5b758af972838362c2b0eab}{G\_u16SystemFlags}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00256}00256\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00257}00257\ \ \ \ \ \textcolor{keywordflow}{if}\ (flags\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00258}00258\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00259}00259\ \ \ \ \ \ \ \textcolor{comment}{/*\ ──\ ALL\ SAFE:\ no\ hazard\ from\ any\ module\ →\ silence\ everything\ ──\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00260}00260\ \ \ \ \ \ \ \doxymbox{\hyperlink{LED__interface_8h_ab3011d692cf858177af7261a76b1a654}{LED\_TurnOff}}(\&\doxymbox{\hyperlink{System_8h_af1fb4a43ba68d1fdc94fd35a7d901cd4}{FrontR\_LED}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00261}00261\ \ \ \ \ \ \ \doxymbox{\hyperlink{LED__interface_8h_ab3011d692cf858177af7261a76b1a654}{LED\_TurnOff}}(\&\doxymbox{\hyperlink{System_8h_a2ab79e3f6235026ef8d29a9446511f48}{FrontL\_LED}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00262}00262\ \ \ \ \ \ \ \doxymbox{\hyperlink{LED__interface_8h_ab3011d692cf858177af7261a76b1a654}{LED\_TurnOff}}(\&\doxymbox{\hyperlink{System_8h_ae41df9dd37d7c4d27b829fd46cd1e5e3}{BackR\_LED}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00263}00263\ \ \ \ \ \ \ \doxymbox{\hyperlink{LED__interface_8h_ab3011d692cf858177af7261a76b1a654}{LED\_TurnOff}}(\&\doxymbox{\hyperlink{System_8h_abfc8237214cfd1267c607aaff66a96da}{BackL\_LED}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00264}00264\ \ \ \ \ \ \ \doxymbox{\hyperlink{LED__interface_8h_ab3011d692cf858177af7261a76b1a654}{LED\_TurnOff}}(\&\doxymbox{\hyperlink{System_8h_aa7037844a95faca4f50aae714fe5048a}{Interior\_LED}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00265}00265\ \ \ \ \ \ \ \doxymbox{\hyperlink{BUZ__interface_8h_ac1ad879da00fa3cfbbaac731ef952ca6}{BUZ\_Off}}(\&\doxymbox{\hyperlink{main_8c_a4f097a0ea23201e71704715ba21668a1}{V2X\_Buzzer}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00266}00266\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00267}00267\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00268}00268\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00269}00269\ \ \ \ \ \ \ \textcolor{comment}{/*\ ──\ ANY\ alert\ (any\ module,\ warning\ OR\ critical)\ →\ warn\ the\ driver\ ──\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00270}00270\ \ \ \ \ \ \ \doxymbox{\hyperlink{LED__interface_8h_aa4c69b1b0028cbaebddb177443aa022a}{LED\_TurnOn}}(\&\doxymbox{\hyperlink{System_8h_aa7037844a95faca4f50aae714fe5048a}{Interior\_LED}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00271}00271\ \ \ \ \ \ \ \doxymbox{\hyperlink{BUZ__interface_8h_ad67714c41d2239985e57f277550de66a}{BUZ\_On}}(\&\doxymbox{\hyperlink{main_8c_a4f097a0ea23201e71704715ba21668a1}{V2X\_Buzzer}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00272}00272\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00273}00273\ \ \ \ \ \ \ \textcolor{comment}{/*\ FCW\ CRITICAL\ →\ front\ LEDs\ (imminent\ forward\ collision).\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00274}00274\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{System_8h_a7f3e28353c0f0f1ce0787d44563ca389}{SYS\_GET}}(flags,\ \doxymbox{\hyperlink{System_8h_a6abc7e388887578e3028a403f99ab155}{SYS\_FCW\_POS}})\ ==\ \doxymbox{\hyperlink{System_8h_a717d9a716e77febf5c57b5c7231802c8}{SYS\_CRITICAL}})}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00275}00275\ \ \ \ \ \ \ \{\ \doxymbox{\hyperlink{LED__interface_8h_aa4c69b1b0028cbaebddb177443aa022a}{LED\_TurnOn}}(\&\doxymbox{\hyperlink{System_8h_af1fb4a43ba68d1fdc94fd35a7d901cd4}{FrontR\_LED}});\ \ \doxymbox{\hyperlink{LED__interface_8h_aa4c69b1b0028cbaebddb177443aa022a}{LED\_TurnOn}}(\&\doxymbox{\hyperlink{System_8h_a2ab79e3f6235026ef8d29a9446511f48}{FrontL\_LED}});\ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00276}00276\ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00277}00277\ \ \ \ \ \ \ \{\ \doxymbox{\hyperlink{LED__interface_8h_ab3011d692cf858177af7261a76b1a654}{LED\_TurnOff}}(\&\doxymbox{\hyperlink{System_8h_af1fb4a43ba68d1fdc94fd35a7d901cd4}{FrontR\_LED}});\ \doxymbox{\hyperlink{LED__interface_8h_ab3011d692cf858177af7261a76b1a654}{LED\_TurnOff}}(\&\doxymbox{\hyperlink{System_8h_a2ab79e3f6235026ef8d29a9446511f48}{FrontL\_LED}});\ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00278}00278\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00279}00279\ \ \ \ \ \ \ \textcolor{comment}{/*\ EEBL\ CRITICAL\ →\ rear\ LEDs\ (hard\ braking\ →\ warn\ the\ car\ behind).\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00280}00280\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{System_8h_a7f3e28353c0f0f1ce0787d44563ca389}{SYS\_GET}}(flags,\ \doxymbox{\hyperlink{System_8h_a1c2a65c70adf45dcfed9a27b20f13082}{SYS\_EEBL\_POS}})\ ==\ \doxymbox{\hyperlink{System_8h_a717d9a716e77febf5c57b5c7231802c8}{SYS\_CRITICAL}})}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00281}00281\ \ \ \ \ \ \ \{\ \doxymbox{\hyperlink{LED__interface_8h_aa4c69b1b0028cbaebddb177443aa022a}{LED\_TurnOn}}(\&\doxymbox{\hyperlink{System_8h_ae41df9dd37d7c4d27b829fd46cd1e5e3}{BackR\_LED}});\ \ \doxymbox{\hyperlink{LED__interface_8h_aa4c69b1b0028cbaebddb177443aa022a}{LED\_TurnOn}}(\&\doxymbox{\hyperlink{System_8h_abfc8237214cfd1267c607aaff66a96da}{BackL\_LED}});\ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00282}00282\ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00283}00283\ \ \ \ \ \ \ \{\ \doxymbox{\hyperlink{LED__interface_8h_ab3011d692cf858177af7261a76b1a654}{LED\_TurnOff}}(\&\doxymbox{\hyperlink{System_8h_ae41df9dd37d7c4d27b829fd46cd1e5e3}{BackR\_LED}});\ \doxymbox{\hyperlink{LED__interface_8h_ab3011d692cf858177af7261a76b1a654}{LED\_TurnOff}}(\&\doxymbox{\hyperlink{System_8h_abfc8237214cfd1267c607aaff66a96da}{BackL\_LED}});\ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00284}00284\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00285}00285\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00286}00286\ \ \ \ \ vTaskDelay(pdMS\_TO\_TICKS(25));}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00287}00287\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00288}00288\ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00289}00289\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00290}00290\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00299}\doxymbox{\hyperlink{main_8c_a8e83024643794f31ab8139cbdb1de5dd}{00299}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{main_8c_a8e83024643794f31ab8139cbdb1de5dd}{vTask\_ESP\_Comm}}(\textcolor{keywordtype}{void}\ *pvParameters)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00300}00300\ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00301}00301\ \ \ TickType\_t\ xLastTXTime\ =\ xTaskGetTickCount();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00302}00302\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00303}00303\ \ \ \textcolor{keywordflow}{for}(;;)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00304}00304\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00305}00305\ \ \ \ \ \doxymbox{\hyperlink{main_8c_abf287e574f76db7ad0c43062a788d58c}{G\_au32Heartbeat}}[\doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a7c5b8595d98f89afda7c3c33f78fa1b3}{HB\_ESP}}]++;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00306}00306\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00307}00307\ \ \ \ \ \textcolor{comment}{/*\ ──\ RX:\ event-\/driven\ byte\ processing\ ─────────────────────────\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00308}00308\ \ \ \ \ uint8\_t\ byte;\ \textcolor{comment}{//\ \ Buffer\ to\ hold\ received\ byte\ from\ ESP32}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00309}00309\ \ \ \ \ \textcolor{keywordflow}{if}\ (xQueueReceive(\doxymbox{\hyperlink{main_8c_a2c251aeac2c84008a206658c306be262}{G\_xESP\_RX\_Queue}},\ \&\textcolor{keywordtype}{byte},\ pdMS\_TO\_TICKS(10))\ ==\ pdTRUE)\ \textcolor{comment}{//\ Waits\ for\ 10ms\ for\ a\ byte\ to\ be\ received}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00310}00310\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00311}00311\ \ \ \ \ \ \ \doxymbox{\hyperlink{DSRC_8h_a8f2c7037352677729c777df880fefd1b}{DSRC\_RxCallback}}(\textcolor{keywordtype}{byte});\ \textcolor{comment}{//\ Calls\ the\ callback\ function\ to\ process\ the\ received\ byte}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00312}00312\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00313}00313\ \ \ \ \ \ \ \textcolor{comment}{/*\ Drain\ every\ remaining\ byte\ without\ blocking\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00314}00314\ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (xQueueReceive(\doxymbox{\hyperlink{main_8c_a2c251aeac2c84008a206658c306be262}{G\_xESP\_RX\_Queue}},\ \&\textcolor{keywordtype}{byte},\ 0)\ ==\ pdTRUE)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00315}00315\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00316}00316\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{DSRC_8h_a8f2c7037352677729c777df880fefd1b}{DSRC\_RxCallback}}(\textcolor{keywordtype}{byte});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00317}00317\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00318}00318\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00319}00319\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00320}00320\ \ \ \ \ \textcolor{comment}{/*\ ──\ Neighbor\ table\ maintenance\ —\ runs\ EVERY\ iteration\ (\string~10ms)\ ──}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00321}00321\ \textcolor{comment}{\ \ \ \ \ *\ DSRC\_Update\ flushes\ any\ newly-\/assembled\ packets\ (no-\/op\ if\ none).}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00322}00322\ \textcolor{comment}{\ \ \ \ \ *\ DSRC\_RemoveStale\ MUST\ run\ even\ when\ no\ bytes\ arrived,\ otherwise\ a}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00323}00323\ \textcolor{comment}{\ \ \ \ \ *\ vehicle\ that\ goes\ silent\ (out\ of\ range\ /\ powered\ off)\ would\ never}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00324}00324\ \textcolor{comment}{\ \ \ \ \ *\ be\ purged\ and\ would\ haunt\ the\ table\ forever.\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00325}00325\ \ \ \ \ xSemaphoreTake(\doxymbox{\hyperlink{main_8c_ab31e36f89b28f343b708712d4346780a}{G\_xNeighborTableMutex}},\ portMAX\_DELAY);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00326}00326\ \ \ \ \ \doxymbox{\hyperlink{DSRC_8h_ac40e63c7c7041cacb1f60a1d4d710abb}{DSRC\_Update}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00327}00327\ \ \ \ \ \doxymbox{\hyperlink{DSRC_8h_aa38784384016c34bf5e63add1930104b}{DSRC\_RemoveStale}}((uint32\_t)xTaskGetTickCount());}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00328}00328\ \ \ \ \ xSemaphoreGive(\doxymbox{\hyperlink{main_8c_ab31e36f89b28f343b708712d4346780a}{G\_xNeighborTableMutex}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00329}00329\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00330}00330\ \ \ \ \ \textcolor{comment}{/*\ ──\ TX:\ periodic\ broadcast\ every\ 100\ ms\ ──────────────────────\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00331}00331\ \ \ \ \ \textcolor{keywordflow}{if}\ ((xTaskGetTickCount()\ -\/\ xLastTXTime)\ >=\ pdMS\_TO\_TICKS(100))}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00332}00332\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00333}00333\ \ \ \ \ \ \ xLastTXTime\ =\ xTaskGetTickCount();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00334}00334\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00335}00335\ \ \ \ \ \ \ \doxymbox{\hyperlink{DSRC_8h_ac818f2e1224a1e513913a85019953e14}{Neighbor}}\ my\_data\ =\ \{0\};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00336}00336\ \ \ \ \ \ \ my\_data.vehicle\_id\ =\ \doxymbox{\hyperlink{DSRC_8h_a9dd026e05b86378bf84c82c84dd193bf}{VEHICLE\_ID}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00337}00337\ \ \ \ \ \ \ \textcolor{comment}{/*\ last\_update\ is\ intentionally\ left\ 0:\ the\ receiver\ overwrites\ it\ with\ its}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00338}00338\ \textcolor{comment}{\ \ \ \ \ \ \ *\ OWN\ local\ FreeRTOS\ tick\ in\ update\_neighbor()\ (a\ sender's\ clock\ is}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00339}00339\ \textcolor{comment}{\ \ \ \ \ \ \ *\ meaningless\ to\ us),\ so\ transmitting\ it\ would\ only\ waste\ bytes.\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00340}00340\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00341}00341\ \ \ \ \ \ \ \textcolor{comment}{/*\ Read\ host\ state\ AND\ the\ cooperative\ ADAS\ flags\ under\ the\ SAME\ mutex,\ so}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00342}00342\ \textcolor{comment}{\ \ \ \ \ \ \ *\ the\ broadcast\ packet\ is\ one\ consistent\ snapshot\ of\ the\ last\ SafetyEngine}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00343}00343\ \textcolor{comment}{\ \ \ \ \ \ \ *\ cycle.\ vTask\_SafetyEngine\ writes\ these\ module\ statics\ while\ holding}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00344}00344\ \textcolor{comment}{\ \ \ \ \ \ \ *\ G\_xDataMutex,\ so\ taking\ it\ here\ closes\ the\ race\ —\ notably\ IMA\_u8GetFlag(),}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00345}00345\ \textcolor{comment}{\ \ \ \ \ \ \ *\ which\ reads\ three\ statics\ and\ is\ NOT\ atomic.}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00346}00346\ \textcolor{comment}{\ \ \ \ \ \ \ *\ \ \ fcw\_headon\_flag\ :\ head-\/on\ candidate\ (0/1)\ for\ the\ oncoming\ car\ to\ confirm}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00347}00347\ \textcolor{comment}{\ \ \ \ \ \ \ *\ \ \ bsw\_flag\ \ \ \ \ \ \ \ :\ my\ own\ front\ side(s)\ seeing\ a\ car\ (bit0=L,\ bit1=R)}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00348}00348\ \textcolor{comment}{\ \ \ \ \ \ \ *\ \ \ ima\_flag\ \ \ \ \ \ \ \ :\ intersection\ movement\ assist\ (0/1/2)}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00349}00349\ \textcolor{comment}{\ \ \ \ \ \ \ *\ \ \ distance\_to\_intersection\ :\ for\ the\ neighbors'\ IMA\ geometry\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00350}00350\ \ \ \ \ \ \ xSemaphoreTake(\doxymbox{\hyperlink{main_8c_a101fd1911cf8e567c729470ceb6d2fb8}{G\_xDataMutex}},\ portMAX\_DELAY);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00351}00351\ \ \ \ \ \ \ my\_data.speed\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.Speed;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00352}00352\ \ \ \ \ \ \ my\_data.heading\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.Heading;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00353}00353\ \ \ \ \ \ \ my\_data.fcw\_headon\_flag\ \ \ \ \ \ \ \ \ \ =\ \doxymbox{\hyperlink{FCW__DNPW__interface_8h_a2a96028174e72e3bc92ab13f333d4e6c}{FCW\_GetHeadonFlag}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00354}00354\ \ \ \ \ \ \ my\_data.bsw\_flag\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \doxymbox{\hyperlink{BSW__interface_8h_ad2e4d7ccf9588f4cdeecfd471430ec7c}{BSW\_u8GetFlag}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00355}00355\ \ \ \ \ \ \ my\_data.ima\_flag\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \doxymbox{\hyperlink{IMA__interface_8h_a18f54786f683ab3016989275ccf9e95a}{IMA\_u8GetFlag}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00356}00356\ \ \ \ \ \ \ my\_data.distance\_to\_intersection\ =\ \doxymbox{\hyperlink{System_8h_a10d54e2c66effa6800db6f78aaec485c}{Host\_DistToIntersection}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00357}00357\ \ \ \ \ \ \ xSemaphoreGive(\doxymbox{\hyperlink{main_8c_a101fd1911cf8e567c729470ceb6d2fb8}{G\_xDataMutex}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00358}00358\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00359}00359\ \ \ \ \ \ \ \doxymbox{\hyperlink{DSRC_8h_aded740c50de5ea4cf786939e10ace2d9}{DSRC\_SendNeighbor}}(\&my\_data);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00360}00360\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00361}00361\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00362}00362\ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00363}00363\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00364}00364\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00365}\doxymbox{\hyperlink{main_8c_a0d8bacb322388f8284803eeccc5612c0}{00365}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{main_8c_a0d8bacb322388f8284803eeccc5612c0}{vTask\_RPi\_Comm}}(\textcolor{keywordtype}{void}\ *pvParameters)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00366}00366\ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00367}00367\ \ \ TickType\_t\ xLastWakeTime\ =\ xTaskGetTickCount();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00368}00368\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00369}00369\ \ \ \textcolor{keywordtype}{char}\ line[112];}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00370}00370\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00371}00371\ \ \ \textcolor{keywordflow}{for}\ (;;)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00372}00372\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00373}00373\ \ \ \ \ \doxymbox{\hyperlink{main_8c_abf287e574f76db7ad0c43062a788d58c}{G\_au32Heartbeat}}[\doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4adf27abbb63f7e1861230371663fd6036}{HB\_RPI}}]++;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00374}00374\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00375}00375\ \ \ \ \ \textcolor{keywordtype}{float}\ spd,\ hdg,\ pit,\ rol,\ fl,\ fc,\ fr,\ bl,\ bc,\ br;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00376}00376\ \ \ \ \ uint16\_t\ flags;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00377}00377\ \ \ \ \ uint8\_t\ bsw\_sides;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00378}00378\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00379}00379\ \ \ \ \ \textcolor{comment}{/*\ Read\ shared\ state\ under\ mutex.\ The\ BSW\ per-\/side\ severity\ is\ computed\ from}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00380}00380\ \textcolor{comment}{\ \ \ \ \ *\ statics\ that\ vTask\_SafetyEngine\ writes\ while\ holding\ G\_xDataMutex,\ so\ read}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00381}00381\ \textcolor{comment}{\ \ \ \ \ *\ it\ here\ under\ the\ SAME\ lock\ to\ get\ a\ consistent\ snapshot.\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00382}00382\ \ \ \ \ xSemaphoreTake(\doxymbox{\hyperlink{main_8c_a101fd1911cf8e567c729470ceb6d2fb8}{G\_xDataMutex}},\ portMAX\_DELAY);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00383}00383\ \ \ \ \ spd\ =\ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.Speed;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00384}00384\ \ \ \ \ hdg\ =\ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.Heading;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00385}00385\ \ \ \ \ pit\ =\ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.Pitch;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00386}00386\ \ \ \ \ rol\ =\ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.Roll;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00387}00387\ \ \ \ \ fl\ \ =\ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.FrontLeftUS;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00388}00388\ \ \ \ \ fc\ \ =\ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.FrontCenterUS;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00389}00389\ \ \ \ \ fr\ \ =\ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.FrontRightUS;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00390}00390\ \ \ \ \ bl\ \ =\ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.BackLeftUS;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00391}00391\ \ \ \ \ bc\ \ =\ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.BackCenterUS;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00392}00392\ \ \ \ \ br\ \ =\ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}}.BackRightUS;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00393}00393\ \ \ \ \ bsw\_sides\ =\ \doxymbox{\hyperlink{BSW__interface_8h_adf8eecd88222e0b29db5aaffe7af235d}{BSW\_u8GetSidesSeverity}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00394}00394\ \ \ \ \ xSemaphoreGive(\doxymbox{\hyperlink{main_8c_a101fd1911cf8e567c729470ceb6d2fb8}{G\_xDataMutex}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00395}00395\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00396}00396\ \ \ \ \ \textcolor{comment}{/*\ 16-\/bit\ ADAS\ status\ word\ (2\ bits/module)\ —\ volatile\ read\ is\ atomic,\ no\ mutex.}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00397}00397\ \textcolor{comment}{\ \ \ \ \ *\ The\ RPi\ decodes\ each\ module\ via\ (flags\ >>\ SYS\_xxx\_POS)\ \&\ 0x3.\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00398}00398\ \ \ \ \ flags\ =\ \doxymbox{\hyperlink{System_8h_a9e78367aa5b758af972838362c2b0eab}{G\_u16SystemFlags}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00399}00399\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00400}00400\ \ \ \ \ \textcolor{comment}{/*\ ASCII\ CSV\ line\ —\ contains\ NO\ 0x00\ bytes,\ so\ it\ survives\ the\ UART\ link\ that}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00401}00401\ \textcolor{comment}{\ \ \ \ \ *\ was\ losing\ the\ binary\ packet's\ zero-\/runs.\ '\(\backslash\)n'-\/delimited,\ trivial\ to\ parse.}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00402}00402\ \textcolor{comment}{\ \ \ \ \ *\ Format:\ T,speed,heading,pitch,roll,FL,FC,FR,BL,BC,BR,flags,bsw\_sides\(\backslash\)n}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00403}00403\ \textcolor{comment}{\ \ \ \ \ *\ bsw\_sides:\ bits\ 1:0\ =\ LEFT\ blind-\/spot\ severity,\ bits\ 3:2\ =\ RIGHT\ (0/1/2).}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00404}00404\ \textcolor{comment}{\ \ \ \ \ *\ The\ aggregated\ BSW\ severity\ already\ lives\ inside\ \`{}flags`;\ this\ extra\ column}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00405}00405\ \textcolor{comment}{\ \ \ \ \ *\ only\ carries\ WHICH\ side(s)\ so\ the\ RPi\ can\ say\ left\ /\ right\ /\ both.\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00406}00406\ \ \ \ \ snprintf(line,\ \textcolor{keyword}{sizeof}(line),}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00407}00407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}T,\%.1f,\%.1f,\%.1f,\%.1f,\%.0f,\%.0f,\%.0f,\%.0f,\%.0f,\%.0f,\%u,\%u\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00408}00408\ \ \ \ \ \ \ \ \ \ \ \ \ \ spd,\ hdg,\ pit,\ rol,\ fl,\ fc,\ fr,\ bl,\ bc,\ br,}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00409}00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned})flags,\ (\textcolor{keywordtype}{unsigned})bsw\_sides);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00410}00410\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00411}00411\ \ \ \ \ \doxymbox{\hyperlink{USART__intreface_8h_ad2e4a4a25beec1ea90558dc055ad9240}{USART\_enumTransmitString}}(\&\doxymbox{\hyperlink{main_8c_a305c18e4f4654cb56286827ae4d3883b}{RPi\_UART}},\ (uint8\_t\ *)line);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00412}00412\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00413}00413\ \ \ \ \ vTaskDelayUntil(\&xLastWakeTime,\ pdMS\_TO\_TICKS(100));}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00414}00414\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00415}00415\ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00416}00416\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00417}00417\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00431}\doxymbox{\hyperlink{main_8c_ae1bcb9c7fb7ee6cb777db33125685421}{00431}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{main_8c_ae1bcb9c7fb7ee6cb777db33125685421}{vTask\_Watchdog}}(\textcolor{keywordtype}{void}\ *pvParameters)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00432}00432\ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00433}00433\ \ \ uint32\_t\ snapshot[\doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a23545dde189472e9f2a5d3f98b441486}{HB\_COUNT}}];}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00434}00434\ \ \ \textcolor{keywordflow}{for}\ (uint8\_t\ i\ =\ 0;\ i\ <\ \doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a23545dde189472e9f2a5d3f98b441486}{HB\_COUNT}};\ i++)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00435}00435\ \ \ \ \ snapshot[i]\ =\ \doxymbox{\hyperlink{main_8c_abf287e574f76db7ad0c43062a788d58c}{G\_au32Heartbeat}}[i];}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00436}00436\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00437}00437\ \ \ \doxymbox{\hyperlink{IWDG__interface_8h_afdf15cddaf966d918224d78b50c4b6d5}{IWDG\_voidRefresh}}();\ \ \ \textcolor{comment}{/*\ initial\ kick\ so\ the\ window\ starts\ clean\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00438}00438\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00439}00439\ \ \ TickType\_t\ xLastWake\ =\ xTaskGetTickCount();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00440}00440\ \ \ \textcolor{keywordflow}{for}\ (;;)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00441}00441\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00442}00442\ \ \ \ \ vTaskDelayUntil(\&xLastWake,\ pdMS\_TO\_TICKS(\doxymbox{\hyperlink{main_8c_afee5313facd23b9a57c62ae9212967da}{WDG\_CHECK\_PERIOD\_MS}}));}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00443}00443\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00444}00444\ \ \ \ \ uint8\_t\ all\_alive\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00445}00445\ \ \ \ \ \textcolor{keywordflow}{for}\ (uint8\_t\ i\ =\ 0;\ i\ <\ \doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a23545dde189472e9f2a5d3f98b441486}{HB\_COUNT}};\ i++)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00446}00446\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00447}00447\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{main_8c_abf287e574f76db7ad0c43062a788d58c}{G\_au32Heartbeat}}[i]\ ==\ snapshot[i])\ all\_alive\ =\ 0;\ \ \textcolor{comment}{/*\ this\ task\ stalled\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00448}00448\ \ \ \ \ \ \ snapshot[i]\ =\ \doxymbox{\hyperlink{main_8c_abf287e574f76db7ad0c43062a788d58c}{G\_au32Heartbeat}}[i];}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00449}00449\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00450}00450\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00451}00451\ \ \ \ \ \textcolor{comment}{/*\ Kick\ the\ dog\ only\ while\ EVERY\ monitored\ task\ is\ still\ advancing.}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00452}00452\ \textcolor{comment}{\ \ \ \ \ *\ If\ any\ stalled,\ deliberately\ skip\ the\ refresh\ →\ IWDG\ resets\ the\ MCU.\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00453}00453\ \ \ \ \ \textcolor{keywordflow}{if}\ (all\_alive)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00454}00454\ \ \ \ \ \ \ \doxymbox{\hyperlink{IWDG__interface_8h_afdf15cddaf966d918224d78b50c4b6d5}{IWDG\_voidRefresh}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00455}00455\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00456}00456\ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00457}00457\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00458}00458\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00459}00459\ \textcolor{comment}{/*\ ==================\ ISR\ callbacks\ ==================\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00460}\doxymbox{\hyperlink{main_8c_a88b12403f1d9bc8cff413fbbde56e15d}{00460}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{main_8c_a88b12403f1d9bc8cff413fbbde56e15d}{vESP\_UART\_RX\_Callback}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00461}00461\ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00462}00462\ \ \ \ \ \textcolor{comment}{/*\ Read\ exact\ byte\ directly\ from\ hardware\ Data\ Register\ (DR).}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00463}00463\ \textcolor{comment}{\ \ \ \ \ *\ This\ avoids\ any\ software\ busy-\/flag\ deadlocks\ when\ TX\ is\ transmitting\ simultaneously!}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00464}00464\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00465}00465\ \ \ \ \ uint8\_t\ rxData\ =\ \doxymbox{\hyperlink{USART__intreface_8h_a2d4d739376d35a98e6b62282fc47b25a}{USART\_ReceiveByteDirect}}(\doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa79bbc21727c50fad950ff76e76d924ab}{USART\_CHANNEL1}});\ \textcolor{comment}{/*\ ESP/DSRC\ on\ USART1\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00466}00466\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00467}00467\ \ \ \ \ BaseType\_t\ xHigherPriorityTaskWoken\ =\ pdFALSE;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00468}00468\ \ \ \ \ xQueueSendFromISR(\doxymbox{\hyperlink{main_8c_a2c251aeac2c84008a206658c306be262}{G\_xESP\_RX\_Queue}},\ \&rxData,\ \&xHigherPriorityTaskWoken);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00469}00469\ \ \ \ \ portYIELD\_FROM\_ISR(xHigherPriorityTaskWoken);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00470}00470\ \}}
+
+\end{DoxyCode}

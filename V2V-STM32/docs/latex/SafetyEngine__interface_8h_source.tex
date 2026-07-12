@@ -1,0 +1,74 @@
+\doxysection{Safety\+Engine\+\_\+interface.\+h}
+\hypertarget{SafetyEngine__interface_8h_source}{}\label{SafetyEngine__interface_8h_source}\index{Inc/Application/SafetyEngine/SafetyEngine\_interface.h@{Inc/Application/SafetyEngine/SafetyEngine\_interface.h}}
+\doxymbox{\hyperlink{SafetyEngine__interface_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ SAFETYENGINE\_INTERFACE\_H}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ SAFETYENGINE\_INTERFACE\_H}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00004}00004\ \textcolor{comment}{/*\ ======\ Direction\ Detection\ ======\ */}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00005}00005\ \textcolor{comment}{/*\ Heading\ threshold\ for\ direction\ classification\ (degrees).\ Widened\ from\ 30°\ to}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00006}00006\ \textcolor{comment}{\ *\ 40°\ to\ tolerate\ the\ heading\ error\ between\ the\ two\ vehicles'\ magnetometers,\ so\ a}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00007}00007\ \textcolor{comment}{\ *\ real\ SAME/OPPOSITE/CROSSING\ pair\ is\ not\ misclassified\ as\ UNKNOWN\ when\ their}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00008}00008\ \textcolor{comment}{\ *\ reported\ headings\ disagree\ by\ up\ to\ \string~40°.\ */}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00009}\doxymbox{\hyperlink{SafetyEngine__interface_8h_aca40a05ff74dcd2687ba7101bbdab282}{00009}}\ \textcolor{preprocessor}{\#define\ HEADING\_SAME\_THRESHOLD\ \ \ \ \ (40.0f)}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00010}\doxymbox{\hyperlink{SafetyEngine__interface_8h_a518549e49262479055bfda4ccb97c795}{00010}}\ \textcolor{preprocessor}{\#define\ HEADING\_OPPOSITE\_THRESHOLD\ (40.0f)}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00011}\doxymbox{\hyperlink{SafetyEngine__interface_8h_add0385cb7855bf3c89030696bb436e59}{00011}}\ \textcolor{preprocessor}{\#define\ HEADING\_CROSS\_THRESHOLD\ \ \ \ (40.0f)}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00013}\doxymbox{\hyperlink{SafetyEngine__interface_8h_a2e9ec086ba61b35cfc2439306cdfdd70}{00013}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00014}00014\ \{}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00015}\doxymbox{\hyperlink{SafetyEngine__interface_8h_a2e9ec086ba61b35cfc2439306cdfdd70abfd39f0e5351141b388b18956a84a61e}{00015}}\ \ \ \doxymbox{\hyperlink{SafetyEngine__interface_8h_a2e9ec086ba61b35cfc2439306cdfdd70abfd39f0e5351141b388b18956a84a61e}{DIR\_SAME}},}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00016}\doxymbox{\hyperlink{SafetyEngine__interface_8h_a2e9ec086ba61b35cfc2439306cdfdd70a30837161ea401603ea11e12bf7e910d7}{00016}}\ \ \ \doxymbox{\hyperlink{SafetyEngine__interface_8h_a2e9ec086ba61b35cfc2439306cdfdd70a30837161ea401603ea11e12bf7e910d7}{DIR\_OPPOSITE}},}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00017}\doxymbox{\hyperlink{SafetyEngine__interface_8h_a2e9ec086ba61b35cfc2439306cdfdd70ac6ff9aad4173c225b2c38b1f945b9726}{00017}}\ \ \ \doxymbox{\hyperlink{SafetyEngine__interface_8h_a2e9ec086ba61b35cfc2439306cdfdd70ac6ff9aad4173c225b2c38b1f945b9726}{DIR\_CROSSING}},}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00018}\doxymbox{\hyperlink{SafetyEngine__interface_8h_a2e9ec086ba61b35cfc2439306cdfdd70a595694ddc9fc69be39448c7aebc29492}{00018}}\ \ \ \doxymbox{\hyperlink{SafetyEngine__interface_8h_a2e9ec086ba61b35cfc2439306cdfdd70a595694ddc9fc69be39448c7aebc29492}{DIR\_UNKNOWN}}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00019}00019\ \}\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_a2e9ec086ba61b35cfc2439306cdfdd70}{Direction\_t}};}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00021}00021\ \textcolor{comment}{/*\ ======\ Risk\ Evaluation\ ======\ */}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00022}\doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88}{00022}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00023}00023\ \{}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00024}\doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{00024}}\ \ \ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}}\ =\ 0,}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00025}\doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82}{00025}}\ \ \ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82}{RISK\_WARNING}},}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00026}\doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492}{00026}}\ \ \ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492}{RISK\_CRITICAL}}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00027}00027\ \}\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88}{RiskLevel\_t}};}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00029}00029\ \textcolor{comment}{/*\ ======\ Shared\ Safe-\/Distance\ Model\ ======}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00030}00030\ \textcolor{comment}{\ *\ Speed-\/dependent\ gap\ shared\ by\ the\ distance-\/based\ modules\ (Local\ FCW\ +\ EEBL):}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00031}00031\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00032}00032\ \textcolor{comment}{\ *\ \ \ safe\_cm\ =\ Host\_Speed(m/s)\ *\ SAFE\_DIST\_PER\_MS\ \ \ (floored\ at\ MIN\_SAFE\_DISTANCE)}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00033}00033\ \textcolor{comment}{\ *\ \ \ crit\_cm\ =\ safe\_cm\ *\ CRITICAL\_RATIO}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00034}00034\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00035}00035\ \textcolor{comment}{\ *\ Prototype\ scale\ (small\ car,\ top\ speed\ \string~0.5\ m/s,\ corridor\ distances\ \string~10-\/20\ cm):}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00036}00036\ \textcolor{comment}{\ *\ \ \ @\ 0.5\ m/s\ -\/>\ safe\ =\ max(0.5*20,\ 15)\ =\ 15\ cm\ \ [warning\ zone:\ 10-\/15\ cm]}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00037}00037\ \textcolor{comment}{\ *\ \ \ crit\ =\ safe\ *\ 0.667\ =\ 10\ cm\ \ (the\ system\ minimum\ distance)}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00038}00038\ \textcolor{comment}{\ *\ \ \ Dashboard\ thresholds:\ SAFE=15cm\ \ WARNING=10cm\ \ CRITICAL=10cm}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00039}00039\ \textcolor{comment}{\ *\ \ \ -\/>\ Use\ MIN\_SAFE\_DISTANCE\ as\ the\ dominant\ floor.\ */}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00040}\doxymbox{\hyperlink{SafetyEngine__interface_8h_af9df724bcbcf5549ecc67e598fc3dde4}{00040}}\ \textcolor{preprocessor}{\#define\ SAFE\_DIST\_PER\_MS\ \ \ (40.0f)\ \ \ \ }\textcolor{comment}{/*\ cm\ of\ safe\ gap\ per\ 1\ m/s\ (prototype)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00041}\doxymbox{\hyperlink{SafetyEngine__interface_8h_ae17b0ade1e41ab06c55995e9afee25ff}{00041}}\ \textcolor{preprocessor}{\#define\ MIN\_SAFE\_DISTANCE\ \ (30.0f)\ \ \ \ }\textcolor{comment}{/*\ floor:\ SAFE\ zone\ \ >=\ 30\ cm\ \ \ \ \ \ \ \ \ \ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00042}\doxymbox{\hyperlink{SafetyEngine__interface_8h_a68fd7ab4074cc7e0c9e280582926f40b}{00042}}\ \textcolor{preprocessor}{\#define\ CRITICAL\_RATIO\ \ \ \ \ (0.667f)\ \ \ }\textcolor{comment}{/*\ CRITICAL\ below\ \string~67\%\ -\/>\ crit\ =\ 20\ cm\ \ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00044}00044\ \textcolor{comment}{/*\ ======\ Shared\ Host\ Vehicle\ Data\ ======}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00045}00045\ \textcolor{comment}{\ *\ Latched\ once\ per\ cycle\ by\ SafetyEngine\_voidUpdate()\ from\ G\_stHostVehicleState,}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00046}00046\ \textcolor{comment}{\ *\ then\ read\ by\ the\ distance-\/based\ modules\ during\ their\ neighbor\ pass.\ */}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00047}00047\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_a16174df02da93c0fc96432a4bc1de57b}{Host\_Speed}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ current\ speed\ (m/s)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00048}00048\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_afb1ff5cedbd39f1a8b81a25a7dcdb171}{Host\_Heading}};\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ current\ heading\ (0-\/360°)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00050}00050\ \textcolor{comment}{/*\ Safe/critical\ gaps\ (cm)\ for\ the\ current\ cycle.\ Read-\/only\ for\ the\ modules.\ */}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00051}00051\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_a2d869610528b06238c15ab8fb160304f}{SafetyEngine\_SafeDist}};}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00052}00052\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_a414ebc77c31778b0d2f7371abdbd2d19}{SafetyEngine\_CriticalDist}};}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00054}00054\ \textcolor{comment}{/*\ ======\ Public\ API\ ======\ */}}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00059}00059\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_ad87fdbbd1376c4cebfa69a906cfbe556}{SafetyEngine\_voidInit}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00067}00067\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_a7b6c12632534a82b4357a73306667157}{SafetyEngine\_voidUpdate}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00075}00075\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_a2e9ec086ba61b35cfc2439306cdfdd70}{Direction\_t}}\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_ab7dae45d16fd67e39cae94350eb6d0f7}{SafetyEngine\_DetectDirection}}(\textcolor{keywordtype}{float}\ my\_heading,\ \textcolor{keywordtype}{float}\ other\_heading);}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00085}00085\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88}{RiskLevel\_t}}\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_a7e73033d8b868fa66e2090ca79150677}{SafetyEngine\_EvaluateRisk}}(\textcolor{keywordtype}{float}\ value,\ \textcolor{keywordtype}{float}\ warning\_thr,\ \textcolor{keywordtype}{float}\ critical\_thr);}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00102}00102\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88}{RiskLevel\_t}}\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aff42a93f5f7c50d14d779e142010ae71}{SafetyEngine\_AssessDistanceRisk}}(\textcolor{keywordtype}{float}\ host\_speed,\ \textcolor{keywordtype}{float}\ distance,}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ dist\_per\_ms,\ \textcolor{keywordtype}{float}\ min\_dist,}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ crit\_ratio);}
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{SafetyEngine__interface_8h_source_l00106}00106\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

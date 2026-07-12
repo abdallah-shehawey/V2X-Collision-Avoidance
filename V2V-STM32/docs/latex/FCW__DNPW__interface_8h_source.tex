@@ -1,0 +1,42 @@
+\doxysection{FCW\+\_\+\+DNPW\+\_\+interface.\+h}
+\hypertarget{FCW__DNPW__interface_8h_source}{}\label{FCW__DNPW__interface_8h_source}\index{Inc/Application/FCW\_DNPW/FCW\_DNPW\_interface.h@{Inc/Application/FCW\_DNPW/FCW\_DNPW\_interface.h}}
+\doxymbox{\hyperlink{FCW__DNPW__interface_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ FCW\_DNPW\_INTERFACE\_H}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ FCW\_DNPW\_INTERFACE\_H}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{DSRC_8h}{../DSRC/DSRC.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SafetyEngine__interface_8h}{../SafetyEngine/SafetyEngine\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00008}00008\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00009}00009\ \textcolor{comment}{\ *\ Cooperative\ FCW\ +\ DNPW\ module.}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00010}00010\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00011}00011\ \textcolor{comment}{\ *\ The\ SafetyEngine\ feeds\ it\ the\ cycle's\ signals\ by\ direction;\ the\ getters}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00012}00012\ \textcolor{comment}{\ *\ derive\ the\ three\ flags\ on\ demand\ (no\ EndCycle).\ Of\ the\ three,\ only}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00013}00013\ \textcolor{comment}{\ *\ fcw\_headon\_flag\ is\ broadcast\ over\ DSRC\ —\ it\ is\ the\ cooperative\ signal.}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00014}00014\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00019}00019\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{FCW__DNPW__interface_8h_a3e8b7f3192f0f7284e9b4b5811019225}{FCW\_DNPW\_voidInit}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00021}00021\ \textcolor{comment}{/*\ =====\ Per-\/Neighbor\ API\ (used\ by\ SafetyEngine)\ =====\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00031}00031\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{FCW__DNPW__interface_8h_add7c6969ea4668acaa5a1684c9d2b8a6}{FCW\_DNPW\_voidBeginCycle}}(\textcolor{keywordtype}{float}\ front\_distance,\ \textcolor{keywordtype}{float}\ front\_left\_distance);}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00036}00036\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{FCW__DNPW__interface_8h_a39ed4f5fd853ab1d88dcfc504f67b057}{FCW\_DNPW\_voidProcessSameDirection}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00042}00042\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{FCW__DNPW__interface_8h_ae4036f8bfcac20167bbb36b1c2b168e9}{FCW\_DNPW\_voidProcessOppositeDirection}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{DSRC_8h_ac818f2e1224a1e513913a85019953e14}{Neighbor}}\ *n);}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00044}00044\ \textcolor{comment}{/*\ =====\ Public\ Getters\ (derive\ the\ results\ on\ demand)\ =====\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00050}00050\ uint8\_t\ \doxymbox{\hyperlink{FCW__DNPW__interface_8h_a724d10fbe6405476d140c3f113e787de}{FCW\_GetFrontFlag}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00057}00057\ uint8\_t\ \doxymbox{\hyperlink{FCW__DNPW__interface_8h_a2a96028174e72e3bc92ab13f333d4e6c}{FCW\_GetHeadonFlag}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00063}00063\ uint8\_t\ \doxymbox{\hyperlink{FCW__DNPW__interface_8h_a0eb1ff382b2898d1d05b62fdeaf96eee}{FCW\_GetHeadonConfirmed}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00071}00071\ uint8\_t\ \doxymbox{\hyperlink{FCW__DNPW__interface_8h_a0c6c9a2cd9113721e4d3fa8221ffaef9}{DNPW\_GetFlag}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__interface_8h_source_l00073}00073\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,127 @@
+\doxysection{Src/\+\+LED\+\_\+prog.c File Reference}
+\hypertarget{LED__prog_8c}{}\label{LED__prog_8c}\index{Src/LED\_prog.c@{Src/LED\_prog.c}}
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+LIB/\+\+Err\+Types.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+GPIO/\+\+GPIO\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+HAL/\+\+LED/\+\+LED\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+HAL/\+\+LED/\+\+LED\+\_\+config.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+HAL/\+\+LED/\+\+LED\+\_\+private.\+h"{}}\newline
+Include dependency graph for LED\+\_\+prog.\+c:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{LED__prog_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{LED__prog_8c_a332224917c43c9232229ad1d349501e4}{LED\+\_\+\+Init}} (\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}LED\+\_\+\+Configuration)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{LED__prog_8c_aa4c69b1b0028cbaebddb177443aa022a}{LED\+\_\+\+Turn\+On}} (\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}LED\+\_\+\+Configuration)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{LED__prog_8c_ab3011d692cf858177af7261a76b1a654}{LED\+\_\+\+Turn\+Off}} (\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}LED\+\_\+\+Configuration)
+\item 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{LED__prog_8c_afeefd0dfa8d890b751881b215366b63b}{LED\+\_\+\+Toggle}} (\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}LED\+\_\+\+Configuration)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{LED__prog_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{LED__prog_8c_a332224917c43c9232229ad1d349501e4}\index{LED\_prog.c@{LED\_prog.c}!LED\_Init@{LED\_Init}}
+\index{LED\_Init@{LED\_Init}!LED\_prog.c@{LED\_prog.c}}
+\doxysubsubsection{\texorpdfstring{LED\_Init()}{LED\_Init()}}
+{\footnotesize\ttfamily \label{LED__prog_8c_a332224917c43c9232229ad1d349501e4} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} LED\+\_\+\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{LED\+\_\+\+Configuration}{}\end{DoxyParamCaption})}
+
+===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} LED\+\_\+program.\+c \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Abdelmoemen Shehawey \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ HAL \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} CPU :\+ Cortex-\/\+M4 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} MCU :\+ F446\+RE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SWC :\+ LED \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} 
+
+Definition at line \doxymbox{\hyperlink{LED__prog_8c_source_l00030}{30}} of file \doxymbox{\hyperlink{LED__prog_8c_source}{LED\+\_\+prog.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{LED__prog_8c_a332224917c43c9232229ad1d349501e4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{LED__prog_8c_a332224917c43c9232229ad1d349501e4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{LED__prog_8c_afeefd0dfa8d890b751881b215366b63b}\index{LED\_prog.c@{LED\_prog.c}!LED\_Toggle@{LED\_Toggle}}
+\index{LED\_Toggle@{LED\_Toggle}!LED\_prog.c@{LED\_prog.c}}
+\doxysubsubsection{\texorpdfstring{LED\_Toggle()}{LED\_Toggle()}}
+{\footnotesize\ttfamily \label{LED__prog_8c_afeefd0dfa8d890b751881b215366b63b} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} LED\+\_\+\+Toggle (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{LED\+\_\+\+Configuration}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{LED__prog_8c_source_l00123}{123}} of file \doxymbox{\hyperlink{LED__prog_8c_source}{LED\+\_\+prog.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=307pt]{LED__prog_8c_afeefd0dfa8d890b751881b215366b63b_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{LED__prog_8c_ab3011d692cf858177af7261a76b1a654}\index{LED\_prog.c@{LED\_prog.c}!LED\_TurnOff@{LED\_TurnOff}}
+\index{LED\_TurnOff@{LED\_TurnOff}!LED\_prog.c@{LED\_prog.c}}
+\doxysubsubsection{\texorpdfstring{LED\_TurnOff()}{LED\_TurnOff()}}
+{\footnotesize\ttfamily \label{LED__prog_8c_ab3011d692cf858177af7261a76b1a654} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} LED\+\_\+\+Turn\+Off (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{LED\+\_\+\+Configuration}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{LED__prog_8c_source_l00093}{93}} of file \doxymbox{\hyperlink{LED__prog_8c_source}{LED\+\_\+prog.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{LED__prog_8c_ab3011d692cf858177af7261a76b1a654_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{LED__prog_8c_ab3011d692cf858177af7261a76b1a654_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{LED__prog_8c_aa4c69b1b0028cbaebddb177443aa022a}\index{LED\_prog.c@{LED\_prog.c}!LED\_TurnOn@{LED\_TurnOn}}
+\index{LED\_TurnOn@{LED\_TurnOn}!LED\_prog.c@{LED\_prog.c}}
+\doxysubsubsection{\texorpdfstring{LED\_TurnOn()}{LED\_TurnOn()}}
+{\footnotesize\ttfamily \label{LED__prog_8c_aa4c69b1b0028cbaebddb177443aa022a} 
+\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} LED\+\_\+\+Turn\+On (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{LED\+\_\+\+Configuration}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{LED__prog_8c_source_l00063}{63}} of file \doxymbox{\hyperlink{LED__prog_8c_source}{LED\+\_\+prog.\+c}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=319pt]{LED__prog_8c_aa4c69b1b0028cbaebddb177443aa022a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{LED__prog_8c_aa4c69b1b0028cbaebddb177443aa022a_icgraph}
+\end{center}
+\end{figure}

@@ -1,0 +1,887 @@
+\doxysection{Inc/\+\+Drivers/\+\+HAL/\+\+MPU9250/\+\+MPU9250\+\_\+private.h File Reference}
+\hypertarget{MPU9250__private_8h}{}\label{MPU9250__private_8h}\index{Inc/Drivers/HAL/MPU9250/MPU9250\_private.h@{Inc/Drivers/HAL/MPU9250/MPU9250\_private.h}}
+
+
+Private constants and register definitions for MPU9250.  
+
+
+This graph shows which files directly or indirectly include this file:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=221pt]{MPU9250__private_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_afbca39272b9691b037268612593d36ea}{SELF\+\_\+\+TEST\+\_\+\+X\+\_\+\+GYRO}}~0x00
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a4589b391b79cd75e09d08c4465ff95d6}{SELF\+\_\+\+TEST\+\_\+\+Y\+\_\+\+GYRO}}~0x01
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a7d36169280ef7d539e6535693fa54663}{SELF\+\_\+\+TEST\+\_\+\+Z\+\_\+\+GYRO}}~0x02
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a514afe64ef4e94fd792f0e01e66cf682}{SELF\+\_\+\+TEST\+\_\+\+X\+\_\+\+ACCEL}}~0x0D
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a9dba24f56a63a23b71ece8ebafbe46e1}{SELF\+\_\+\+TEST\+\_\+\+Y\+\_\+\+ACCEL}}~0x0E
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a89faa3ca314423fc7876d1df8c62f848}{SELF\+\_\+\+TEST\+\_\+\+Z\+\_\+\+ACCEL}}~0x0F
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a2dff8273af3bfe1bb8d2565df1f1444d}{XG\+\_\+\+OFFSET\+\_\+H}}~0x13
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a0e3a6dea62584e862fe3c9132268618d}{XG\+\_\+\+OFFSET\+\_\+L}}~0x14
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_aa7f7aa074a4b54f24a17e375d1a27104}{YG\+\_\+\+OFFSET\+\_\+H}}~0x15
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_af3d02481e1360d65052560bb6434437d}{YG\+\_\+\+OFFSET\+\_\+L}}~0x16
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a542c8677b03c7426f0446b211994d0b8}{ZG\+\_\+\+OFFSET\+\_\+H}}~0x17
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a8fc858d1bdf91b2ef0ec26050766d7dd}{ZG\+\_\+\+OFFSET\+\_\+L}}~0x18
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a7119c37e38b6736096ea1565459043ba}{SMPLRT\+\_\+\+DIV}}~0x19
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a76ea3cf49247a07c54b3db005a3c7f57}{CONFIG}}~0x1A
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_ac57e8c3192c859321b447c07089f20f0}{GYRO\+\_\+\+CONFIG}}~0x1B
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_ab7336e26f8947086e41a375f1e1e74d4}{ACCEL\+\_\+\+CONFIG}}~0x1C
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_aecbf5cd71bd0e677bf19d2e855323794}{ACCEL\+\_\+\+CONFIG2}}~0x1D
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a4a2dc75c2a0588814cb466b0db1bca8b}{LP\+\_\+\+ACCEL\+\_\+\+ODR}}~0x1E
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a81d6e49ec67e620570d1662f170b0900}{WOM\+\_\+\+THR}}~0x1F
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a53954ec7f9dc790f00548da08ccd5ed6}{FIFO\+\_\+\+EN}}~0x23
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a24bc05247067ad9f0479f5a6d49c6412}{I2\+C\+\_\+\+MST\+\_\+\+CTRL}}~0x24
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a614db921c27f375c632960a7f34999a4}{I2\+C\+\_\+\+SLV0\+\_\+\+ADDR}}~0x25
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a0553d56ecccd0fc8008505e712a9b075}{I2\+C\+\_\+\+SLV0\+\_\+\+REG}}~0x26
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_ad6fb6553534b0b9e9715db3e5a04ebca}{I2\+C\+\_\+\+SLV0\+\_\+\+CTRL}}~0x27
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_adeef906221a363d4489cf0a51d7f03b6}{I2\+C\+\_\+\+SLV1\+\_\+\+ADDR}}~0x28
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a33d12ea757eeb8ef10aa501f6c68ba3d}{I2\+C\+\_\+\+SLV1\+\_\+\+REG}}~0x29
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a6857f4e255988b5aae9d570dec2a06c8}{I2\+C\+\_\+\+SLV1\+\_\+\+CTRL}}~0x2A
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a2f0f1237e987597a4405b9deeefeb6f5}{I2\+C\+\_\+\+SLV0\+\_\+\+DO}}~0x63
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_aa6580b929fcb8b3e29fe45b73180d2bd}{EXT\+\_\+\+SENS\+\_\+\+DATA\+\_\+00}}~0x49
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a8498e646190e00d95ddd95af4d6a093a}{I2\+C\+\_\+\+MST\+\_\+\+STATUS}}~0x36
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_ab00fdfba66092d2d869031629c092dad}{INT\+\_\+\+PIN\+\_\+\+CFG}}~0x37
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_abf7a56466fd6203663685a04448c9185}{INT\+\_\+\+ENABLE}}~0x38
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a62cba161837810295654c3cc2de959a6}{INT\+\_\+\+STATUS}}~0x3A
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a94b93aa4aabbe7caec7884ddb46b531b}{ACCEL\+\_\+\+XOUT\+\_\+H}}~0x3B
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a47679c25e1689ee0401959e33e05a761}{ACCEL\+\_\+\+XOUT\+\_\+L}}~0x3C
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a26d680f52fbdaa0623d16292e9c40d4c}{ACCEL\+\_\+\+YOUT\+\_\+H}}~0x3D
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_ad7a92304bd1dd3755068380b51319a93}{ACCEL\+\_\+\+YOUT\+\_\+L}}~0x3E
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a44d84761605d984a0de060640f4c57da}{ACCEL\+\_\+\+ZOUT\+\_\+H}}~0x3F
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a36e02bfb24518b6c425d9c3411c8d720}{ACCEL\+\_\+\+ZOUT\+\_\+L}}~0x40
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_ae8c4c28fe604535a3a57d0536c6e8175}{TEMP\+\_\+\+OUT\+\_\+H}}~0x41
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a7fe4a13198c0b3d8cf09802e7247fd2c}{TEMP\+\_\+\+OUT\+\_\+L}}~0x42
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a0016198ccf5ca2b7f41d7a23e6554373}{GYRO\+\_\+\+XOUT\+\_\+H}}~0x43
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_af07374691962c7531539cfcd36aa1c4b}{GYRO\+\_\+\+XOUT\+\_\+L}}~0x44
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a0970193c5ba295a66f057c017663adf1}{GYRO\+\_\+\+YOUT\+\_\+H}}~0x45
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_af2403ccc9042c6a869278a7c211a396d}{GYRO\+\_\+\+YOUT\+\_\+L}}~0x46
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_ac0fcd61ece1f100c02494fc94f0b0dad}{GYRO\+\_\+\+ZOUT\+\_\+H}}~0x47
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a5466aa6a32d0b17e834ef9792e7f415d}{GYRO\+\_\+\+ZOUT\+\_\+L}}~0x48
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a1e6b15b0945c167f55f5e2cfd2c60d5a}{AK8963\+\_\+\+ADDR}}~0x0C
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a3826ec24a009126367fedb2422d092b1}{AK8963\+\_\+\+WHO\+\_\+\+AM\+\_\+I}}~0x00
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a0037cda572379e26ecad5030c64aaf10}{AK8963\+\_\+\+ST1}}~0x02
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a35260c212eacc1f2808af33bdc55c8fa}{AK8963\+\_\+\+XOUT\+\_\+L}}~0x03
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_acd2458bce11a9ed1710ae816050c2d13}{AK8963\+\_\+\+XOUT\+\_\+H}}~0x04
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_af7eff9c50ed2700781b4161699829e69}{AK8963\+\_\+\+YOUT\+\_\+L}}~0x05
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a2c78e17f8f5d96c2d6f82b81358bde6c}{AK8963\+\_\+\+YOUT\+\_\+H}}~0x06
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_ad3625cb250d1202b43b44a4d2b0a6c2e}{AK8963\+\_\+\+ZOUT\+\_\+L}}~0x07
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a8e0a7c22a104aa2fb77a01518d0aaa74}{AK8963\+\_\+\+ZOUT\+\_\+H}}~0x08
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_ad740f9c857e0ffc7c474f9b9cb2e7d6b}{AK8963\+\_\+\+ST2}}~0x09
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a9049064347064927059f71ea3843f986}{AK8963\+\_\+\+CNTL}}~0x0A
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a66032b6572950d4fb7044420a6beeee2}{AK8963\+\_\+\+ASAX}}~0x10
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a02f4a8ec6ef7533b43b75c839ca2547d}{AK8963\+\_\+\+ASAY}}~0x11
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_ad7807198e6ed02af5748886428078868}{AK8963\+\_\+\+ASAZ}}~0x12
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_abd9eebb35aad7616fe0414952e2d477d}{USER\+\_\+\+CTRL}}~0x6A
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a96169eb207e721c1546cea9ffd8a35e4}{PWR\+\_\+\+MGMT\+\_\+1}}~0x6B
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a23cfbcfd19dc88eb631309970f138e65}{PWR\+\_\+\+MGMT\+\_\+2}}~0x6C
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a9fcb9e460d175bfc7ab4d80bf788b43a}{WHO\+\_\+\+AM\+\_\+I}}~0x75
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a9349ad443a8bbd5be084ea1d6925cdc7}{PWR\+\_\+\+RESET}}~0x80
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a37c31deb5f9bfb1a36fb54d5769e93f1}{CLOCK\+\_\+\+SEL\+\_\+\+PLL}}~0x01
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a6638690f11487686a5ad203aff444ae2}{I2\+C\+\_\+\+IF\+\_\+\+DIS}}~0x10
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_acb5b7cc1d39ba9199cef1d5c676db667}{I2\+C\+\_\+\+MST\+\_\+\+EN}}~0x20
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a3022d5e5387dfbf2ed4b80a587b08ca2}{ACCEL\+\_\+\+SENS\+\_\+2G}}~16384.\+0f
+\item 
+\+\#define \doxymbox{\hyperlink{MPU9250__private_8h_a763555a07ac8afb9614649becdee67d5}{GYRO\+\_\+\+SENS\+\_\+250}}~131.\+0f
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Private constants and register definitions for MPU9250. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Saleh 
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+
+
+\label{doc-define-members}
+\Hypertarget{MPU9250__private_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{MPU9250__private_8h_ab7336e26f8947086e41a375f1e1e74d4}\index{MPU9250\_private.h@{MPU9250\_private.h}!ACCEL\_CONFIG@{ACCEL\_CONFIG}}
+\index{ACCEL\_CONFIG@{ACCEL\_CONFIG}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{ACCEL\_CONFIG}{ACCEL\_CONFIG}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_ab7336e26f8947086e41a375f1e1e74d4} 
+\+\#define ACCEL\+\_\+\+CONFIG~0x1C}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00026}{26}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_aecbf5cd71bd0e677bf19d2e855323794}\index{MPU9250\_private.h@{MPU9250\_private.h}!ACCEL\_CONFIG2@{ACCEL\_CONFIG2}}
+\index{ACCEL\_CONFIG2@{ACCEL\_CONFIG2}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{ACCEL\_CONFIG2}{ACCEL\_CONFIG2}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_aecbf5cd71bd0e677bf19d2e855323794} 
+\+\#define ACCEL\+\_\+\+CONFIG2~0x1D}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00027}{27}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a3022d5e5387dfbf2ed4b80a587b08ca2}\index{MPU9250\_private.h@{MPU9250\_private.h}!ACCEL\_SENS\_2G@{ACCEL\_SENS\_2G}}
+\index{ACCEL\_SENS\_2G@{ACCEL\_SENS\_2G}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{ACCEL\_SENS\_2G}{ACCEL\_SENS\_2G}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a3022d5e5387dfbf2ed4b80a587b08ca2} 
+\+\#define ACCEL\+\_\+\+SENS\+\_\+2G~16384.\+0f}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00090}{90}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a94b93aa4aabbe7caec7884ddb46b531b}\index{MPU9250\_private.h@{MPU9250\_private.h}!ACCEL\_XOUT\_H@{ACCEL\_XOUT\_H}}
+\index{ACCEL\_XOUT\_H@{ACCEL\_XOUT\_H}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{ACCEL\_XOUT\_H}{ACCEL\_XOUT\_H}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a94b93aa4aabbe7caec7884ddb46b531b} 
+\+\#define ACCEL\+\_\+\+XOUT\+\_\+H~0x3B}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00046}{46}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a47679c25e1689ee0401959e33e05a761}\index{MPU9250\_private.h@{MPU9250\_private.h}!ACCEL\_XOUT\_L@{ACCEL\_XOUT\_L}}
+\index{ACCEL\_XOUT\_L@{ACCEL\_XOUT\_L}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{ACCEL\_XOUT\_L}{ACCEL\_XOUT\_L}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a47679c25e1689ee0401959e33e05a761} 
+\+\#define ACCEL\+\_\+\+XOUT\+\_\+L~0x3C}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00047}{47}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a26d680f52fbdaa0623d16292e9c40d4c}\index{MPU9250\_private.h@{MPU9250\_private.h}!ACCEL\_YOUT\_H@{ACCEL\_YOUT\_H}}
+\index{ACCEL\_YOUT\_H@{ACCEL\_YOUT\_H}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{ACCEL\_YOUT\_H}{ACCEL\_YOUT\_H}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a26d680f52fbdaa0623d16292e9c40d4c} 
+\+\#define ACCEL\+\_\+\+YOUT\+\_\+H~0x3D}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00048}{48}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_ad7a92304bd1dd3755068380b51319a93}\index{MPU9250\_private.h@{MPU9250\_private.h}!ACCEL\_YOUT\_L@{ACCEL\_YOUT\_L}}
+\index{ACCEL\_YOUT\_L@{ACCEL\_YOUT\_L}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{ACCEL\_YOUT\_L}{ACCEL\_YOUT\_L}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_ad7a92304bd1dd3755068380b51319a93} 
+\+\#define ACCEL\+\_\+\+YOUT\+\_\+L~0x3E}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00049}{49}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a44d84761605d984a0de060640f4c57da}\index{MPU9250\_private.h@{MPU9250\_private.h}!ACCEL\_ZOUT\_H@{ACCEL\_ZOUT\_H}}
+\index{ACCEL\_ZOUT\_H@{ACCEL\_ZOUT\_H}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{ACCEL\_ZOUT\_H}{ACCEL\_ZOUT\_H}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a44d84761605d984a0de060640f4c57da} 
+\+\#define ACCEL\+\_\+\+ZOUT\+\_\+H~0x3F}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00050}{50}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a36e02bfb24518b6c425d9c3411c8d720}\index{MPU9250\_private.h@{MPU9250\_private.h}!ACCEL\_ZOUT\_L@{ACCEL\_ZOUT\_L}}
+\index{ACCEL\_ZOUT\_L@{ACCEL\_ZOUT\_L}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{ACCEL\_ZOUT\_L}{ACCEL\_ZOUT\_L}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a36e02bfb24518b6c425d9c3411c8d720} 
+\+\#define ACCEL\+\_\+\+ZOUT\+\_\+L~0x40}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00051}{51}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a1e6b15b0945c167f55f5e2cfd2c60d5a}\index{MPU9250\_private.h@{MPU9250\_private.h}!AK8963\_ADDR@{AK8963\_ADDR}}
+\index{AK8963\_ADDR@{AK8963\_ADDR}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{AK8963\_ADDR}{AK8963\_ADDR}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a1e6b15b0945c167f55f5e2cfd2c60d5a} 
+\+\#define AK8963\+\_\+\+ADDR~0x0C}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00062}{62}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a66032b6572950d4fb7044420a6beeee2}\index{MPU9250\_private.h@{MPU9250\_private.h}!AK8963\_ASAX@{AK8963\_ASAX}}
+\index{AK8963\_ASAX@{AK8963\_ASAX}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{AK8963\_ASAX}{AK8963\_ASAX}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a66032b6572950d4fb7044420a6beeee2} 
+\+\#define AK8963\+\_\+\+ASAX~0x10}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00073}{73}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a02f4a8ec6ef7533b43b75c839ca2547d}\index{MPU9250\_private.h@{MPU9250\_private.h}!AK8963\_ASAY@{AK8963\_ASAY}}
+\index{AK8963\_ASAY@{AK8963\_ASAY}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{AK8963\_ASAY}{AK8963\_ASAY}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a02f4a8ec6ef7533b43b75c839ca2547d} 
+\+\#define AK8963\+\_\+\+ASAY~0x11}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00074}{74}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_ad7807198e6ed02af5748886428078868}\index{MPU9250\_private.h@{MPU9250\_private.h}!AK8963\_ASAZ@{AK8963\_ASAZ}}
+\index{AK8963\_ASAZ@{AK8963\_ASAZ}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{AK8963\_ASAZ}{AK8963\_ASAZ}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_ad7807198e6ed02af5748886428078868} 
+\+\#define AK8963\+\_\+\+ASAZ~0x12}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00075}{75}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a9049064347064927059f71ea3843f986}\index{MPU9250\_private.h@{MPU9250\_private.h}!AK8963\_CNTL@{AK8963\_CNTL}}
+\index{AK8963\_CNTL@{AK8963\_CNTL}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{AK8963\_CNTL}{AK8963\_CNTL}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a9049064347064927059f71ea3843f986} 
+\+\#define AK8963\+\_\+\+CNTL~0x0A}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00072}{72}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a0037cda572379e26ecad5030c64aaf10}\index{MPU9250\_private.h@{MPU9250\_private.h}!AK8963\_ST1@{AK8963\_ST1}}
+\index{AK8963\_ST1@{AK8963\_ST1}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{AK8963\_ST1}{AK8963\_ST1}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a0037cda572379e26ecad5030c64aaf10} 
+\+\#define AK8963\+\_\+\+ST1~0x02}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00064}{64}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_ad740f9c857e0ffc7c474f9b9cb2e7d6b}\index{MPU9250\_private.h@{MPU9250\_private.h}!AK8963\_ST2@{AK8963\_ST2}}
+\index{AK8963\_ST2@{AK8963\_ST2}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{AK8963\_ST2}{AK8963\_ST2}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_ad740f9c857e0ffc7c474f9b9cb2e7d6b} 
+\+\#define AK8963\+\_\+\+ST2~0x09}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00071}{71}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a3826ec24a009126367fedb2422d092b1}\index{MPU9250\_private.h@{MPU9250\_private.h}!AK8963\_WHO\_AM\_I@{AK8963\_WHO\_AM\_I}}
+\index{AK8963\_WHO\_AM\_I@{AK8963\_WHO\_AM\_I}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{AK8963\_WHO\_AM\_I}{AK8963\_WHO\_AM\_I}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a3826ec24a009126367fedb2422d092b1} 
+\+\#define AK8963\+\_\+\+WHO\+\_\+\+AM\+\_\+I~0x00}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00063}{63}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_acd2458bce11a9ed1710ae816050c2d13}\index{MPU9250\_private.h@{MPU9250\_private.h}!AK8963\_XOUT\_H@{AK8963\_XOUT\_H}}
+\index{AK8963\_XOUT\_H@{AK8963\_XOUT\_H}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{AK8963\_XOUT\_H}{AK8963\_XOUT\_H}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_acd2458bce11a9ed1710ae816050c2d13} 
+\+\#define AK8963\+\_\+\+XOUT\+\_\+H~0x04}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00066}{66}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a35260c212eacc1f2808af33bdc55c8fa}\index{MPU9250\_private.h@{MPU9250\_private.h}!AK8963\_XOUT\_L@{AK8963\_XOUT\_L}}
+\index{AK8963\_XOUT\_L@{AK8963\_XOUT\_L}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{AK8963\_XOUT\_L}{AK8963\_XOUT\_L}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a35260c212eacc1f2808af33bdc55c8fa} 
+\+\#define AK8963\+\_\+\+XOUT\+\_\+L~0x03}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00065}{65}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a2c78e17f8f5d96c2d6f82b81358bde6c}\index{MPU9250\_private.h@{MPU9250\_private.h}!AK8963\_YOUT\_H@{AK8963\_YOUT\_H}}
+\index{AK8963\_YOUT\_H@{AK8963\_YOUT\_H}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{AK8963\_YOUT\_H}{AK8963\_YOUT\_H}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a2c78e17f8f5d96c2d6f82b81358bde6c} 
+\+\#define AK8963\+\_\+\+YOUT\+\_\+H~0x06}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00068}{68}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_af7eff9c50ed2700781b4161699829e69}\index{MPU9250\_private.h@{MPU9250\_private.h}!AK8963\_YOUT\_L@{AK8963\_YOUT\_L}}
+\index{AK8963\_YOUT\_L@{AK8963\_YOUT\_L}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{AK8963\_YOUT\_L}{AK8963\_YOUT\_L}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_af7eff9c50ed2700781b4161699829e69} 
+\+\#define AK8963\+\_\+\+YOUT\+\_\+L~0x05}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00067}{67}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a8e0a7c22a104aa2fb77a01518d0aaa74}\index{MPU9250\_private.h@{MPU9250\_private.h}!AK8963\_ZOUT\_H@{AK8963\_ZOUT\_H}}
+\index{AK8963\_ZOUT\_H@{AK8963\_ZOUT\_H}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{AK8963\_ZOUT\_H}{AK8963\_ZOUT\_H}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a8e0a7c22a104aa2fb77a01518d0aaa74} 
+\+\#define AK8963\+\_\+\+ZOUT\+\_\+H~0x08}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00070}{70}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_ad3625cb250d1202b43b44a4d2b0a6c2e}\index{MPU9250\_private.h@{MPU9250\_private.h}!AK8963\_ZOUT\_L@{AK8963\_ZOUT\_L}}
+\index{AK8963\_ZOUT\_L@{AK8963\_ZOUT\_L}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{AK8963\_ZOUT\_L}{AK8963\_ZOUT\_L}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_ad3625cb250d1202b43b44a4d2b0a6c2e} 
+\+\#define AK8963\+\_\+\+ZOUT\+\_\+L~0x07}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00069}{69}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a37c31deb5f9bfb1a36fb54d5769e93f1}\index{MPU9250\_private.h@{MPU9250\_private.h}!CLOCK\_SEL\_PLL@{CLOCK\_SEL\_PLL}}
+\index{CLOCK\_SEL\_PLL@{CLOCK\_SEL\_PLL}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{CLOCK\_SEL\_PLL}{CLOCK\_SEL\_PLL}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a37c31deb5f9bfb1a36fb54d5769e93f1} 
+\+\#define CLOCK\+\_\+\+SEL\+\_\+\+PLL~0x01}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00085}{85}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a76ea3cf49247a07c54b3db005a3c7f57}\index{MPU9250\_private.h@{MPU9250\_private.h}!CONFIG@{CONFIG}}
+\index{CONFIG@{CONFIG}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{CONFIG}{CONFIG}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a76ea3cf49247a07c54b3db005a3c7f57} 
+\+\#define CONFIG~0x1A}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00024}{24}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_aa6580b929fcb8b3e29fe45b73180d2bd}\index{MPU9250\_private.h@{MPU9250\_private.h}!EXT\_SENS\_DATA\_00@{EXT\_SENS\_DATA\_00}}
+\index{EXT\_SENS\_DATA\_00@{EXT\_SENS\_DATA\_00}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{EXT\_SENS\_DATA\_00}{EXT\_SENS\_DATA\_00}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_aa6580b929fcb8b3e29fe45b73180d2bd} 
+\+\#define EXT\+\_\+\+SENS\+\_\+\+DATA\+\_\+00~0x49}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00039}{39}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a53954ec7f9dc790f00548da08ccd5ed6}\index{MPU9250\_private.h@{MPU9250\_private.h}!FIFO\_EN@{FIFO\_EN}}
+\index{FIFO\_EN@{FIFO\_EN}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{FIFO\_EN}{FIFO\_EN}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a53954ec7f9dc790f00548da08ccd5ed6} 
+\+\#define FIFO\+\_\+\+EN~0x23}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00030}{30}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_ac57e8c3192c859321b447c07089f20f0}\index{MPU9250\_private.h@{MPU9250\_private.h}!GYRO\_CONFIG@{GYRO\_CONFIG}}
+\index{GYRO\_CONFIG@{GYRO\_CONFIG}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{GYRO\_CONFIG}{GYRO\_CONFIG}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_ac57e8c3192c859321b447c07089f20f0} 
+\+\#define GYRO\+\_\+\+CONFIG~0x1B}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00025}{25}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a763555a07ac8afb9614649becdee67d5}\index{MPU9250\_private.h@{MPU9250\_private.h}!GYRO\_SENS\_250@{GYRO\_SENS\_250}}
+\index{GYRO\_SENS\_250@{GYRO\_SENS\_250}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{GYRO\_SENS\_250}{GYRO\_SENS\_250}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a763555a07ac8afb9614649becdee67d5} 
+\+\#define GYRO\+\_\+\+SENS\+\_\+250~131.\+0f}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00091}{91}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a0016198ccf5ca2b7f41d7a23e6554373}\index{MPU9250\_private.h@{MPU9250\_private.h}!GYRO\_XOUT\_H@{GYRO\_XOUT\_H}}
+\index{GYRO\_XOUT\_H@{GYRO\_XOUT\_H}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{GYRO\_XOUT\_H}{GYRO\_XOUT\_H}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a0016198ccf5ca2b7f41d7a23e6554373} 
+\+\#define GYRO\+\_\+\+XOUT\+\_\+H~0x43}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00054}{54}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_af07374691962c7531539cfcd36aa1c4b}\index{MPU9250\_private.h@{MPU9250\_private.h}!GYRO\_XOUT\_L@{GYRO\_XOUT\_L}}
+\index{GYRO\_XOUT\_L@{GYRO\_XOUT\_L}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{GYRO\_XOUT\_L}{GYRO\_XOUT\_L}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_af07374691962c7531539cfcd36aa1c4b} 
+\+\#define GYRO\+\_\+\+XOUT\+\_\+L~0x44}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00055}{55}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a0970193c5ba295a66f057c017663adf1}\index{MPU9250\_private.h@{MPU9250\_private.h}!GYRO\_YOUT\_H@{GYRO\_YOUT\_H}}
+\index{GYRO\_YOUT\_H@{GYRO\_YOUT\_H}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{GYRO\_YOUT\_H}{GYRO\_YOUT\_H}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a0970193c5ba295a66f057c017663adf1} 
+\+\#define GYRO\+\_\+\+YOUT\+\_\+H~0x45}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00056}{56}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_af2403ccc9042c6a869278a7c211a396d}\index{MPU9250\_private.h@{MPU9250\_private.h}!GYRO\_YOUT\_L@{GYRO\_YOUT\_L}}
+\index{GYRO\_YOUT\_L@{GYRO\_YOUT\_L}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{GYRO\_YOUT\_L}{GYRO\_YOUT\_L}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_af2403ccc9042c6a869278a7c211a396d} 
+\+\#define GYRO\+\_\+\+YOUT\+\_\+L~0x46}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00057}{57}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_ac0fcd61ece1f100c02494fc94f0b0dad}\index{MPU9250\_private.h@{MPU9250\_private.h}!GYRO\_ZOUT\_H@{GYRO\_ZOUT\_H}}
+\index{GYRO\_ZOUT\_H@{GYRO\_ZOUT\_H}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{GYRO\_ZOUT\_H}{GYRO\_ZOUT\_H}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_ac0fcd61ece1f100c02494fc94f0b0dad} 
+\+\#define GYRO\+\_\+\+ZOUT\+\_\+H~0x47}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00058}{58}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a5466aa6a32d0b17e834ef9792e7f415d}\index{MPU9250\_private.h@{MPU9250\_private.h}!GYRO\_ZOUT\_L@{GYRO\_ZOUT\_L}}
+\index{GYRO\_ZOUT\_L@{GYRO\_ZOUT\_L}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{GYRO\_ZOUT\_L}{GYRO\_ZOUT\_L}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a5466aa6a32d0b17e834ef9792e7f415d} 
+\+\#define GYRO\+\_\+\+ZOUT\+\_\+L~0x48}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00059}{59}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a6638690f11487686a5ad203aff444ae2}\index{MPU9250\_private.h@{MPU9250\_private.h}!I2C\_IF\_DIS@{I2C\_IF\_DIS}}
+\index{I2C\_IF\_DIS@{I2C\_IF\_DIS}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{I2C\_IF\_DIS}{I2C\_IF\_DIS}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a6638690f11487686a5ad203aff444ae2} 
+\+\#define I2\+C\+\_\+\+IF\+\_\+\+DIS~0x10}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00086}{86}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a24bc05247067ad9f0479f5a6d49c6412}\index{MPU9250\_private.h@{MPU9250\_private.h}!I2C\_MST\_CTRL@{I2C\_MST\_CTRL}}
+\index{I2C\_MST\_CTRL@{I2C\_MST\_CTRL}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{I2C\_MST\_CTRL}{I2C\_MST\_CTRL}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a24bc05247067ad9f0479f5a6d49c6412} 
+\+\#define I2\+C\+\_\+\+MST\+\_\+\+CTRL~0x24}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00031}{31}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_acb5b7cc1d39ba9199cef1d5c676db667}\index{MPU9250\_private.h@{MPU9250\_private.h}!I2C\_MST\_EN@{I2C\_MST\_EN}}
+\index{I2C\_MST\_EN@{I2C\_MST\_EN}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{I2C\_MST\_EN}{I2C\_MST\_EN}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_acb5b7cc1d39ba9199cef1d5c676db667} 
+\+\#define I2\+C\+\_\+\+MST\+\_\+\+EN~0x20}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00087}{87}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a8498e646190e00d95ddd95af4d6a093a}\index{MPU9250\_private.h@{MPU9250\_private.h}!I2C\_MST\_STATUS@{I2C\_MST\_STATUS}}
+\index{I2C\_MST\_STATUS@{I2C\_MST\_STATUS}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{I2C\_MST\_STATUS}{I2C\_MST\_STATUS}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a8498e646190e00d95ddd95af4d6a093a} 
+\+\#define I2\+C\+\_\+\+MST\+\_\+\+STATUS~0x36}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00040}{40}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a614db921c27f375c632960a7f34999a4}\index{MPU9250\_private.h@{MPU9250\_private.h}!I2C\_SLV0\_ADDR@{I2C\_SLV0\_ADDR}}
+\index{I2C\_SLV0\_ADDR@{I2C\_SLV0\_ADDR}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{I2C\_SLV0\_ADDR}{I2C\_SLV0\_ADDR}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a614db921c27f375c632960a7f34999a4} 
+\+\#define I2\+C\+\_\+\+SLV0\+\_\+\+ADDR~0x25}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00032}{32}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_ad6fb6553534b0b9e9715db3e5a04ebca}\index{MPU9250\_private.h@{MPU9250\_private.h}!I2C\_SLV0\_CTRL@{I2C\_SLV0\_CTRL}}
+\index{I2C\_SLV0\_CTRL@{I2C\_SLV0\_CTRL}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{I2C\_SLV0\_CTRL}{I2C\_SLV0\_CTRL}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_ad6fb6553534b0b9e9715db3e5a04ebca} 
+\+\#define I2\+C\+\_\+\+SLV0\+\_\+\+CTRL~0x27}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00034}{34}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a2f0f1237e987597a4405b9deeefeb6f5}\index{MPU9250\_private.h@{MPU9250\_private.h}!I2C\_SLV0\_DO@{I2C\_SLV0\_DO}}
+\index{I2C\_SLV0\_DO@{I2C\_SLV0\_DO}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{I2C\_SLV0\_DO}{I2C\_SLV0\_DO}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a2f0f1237e987597a4405b9deeefeb6f5} 
+\+\#define I2\+C\+\_\+\+SLV0\+\_\+\+DO~0x63}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00038}{38}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a0553d56ecccd0fc8008505e712a9b075}\index{MPU9250\_private.h@{MPU9250\_private.h}!I2C\_SLV0\_REG@{I2C\_SLV0\_REG}}
+\index{I2C\_SLV0\_REG@{I2C\_SLV0\_REG}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{I2C\_SLV0\_REG}{I2C\_SLV0\_REG}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a0553d56ecccd0fc8008505e712a9b075} 
+\+\#define I2\+C\+\_\+\+SLV0\+\_\+\+REG~0x26}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00033}{33}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_adeef906221a363d4489cf0a51d7f03b6}\index{MPU9250\_private.h@{MPU9250\_private.h}!I2C\_SLV1\_ADDR@{I2C\_SLV1\_ADDR}}
+\index{I2C\_SLV1\_ADDR@{I2C\_SLV1\_ADDR}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{I2C\_SLV1\_ADDR}{I2C\_SLV1\_ADDR}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_adeef906221a363d4489cf0a51d7f03b6} 
+\+\#define I2\+C\+\_\+\+SLV1\+\_\+\+ADDR~0x28}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00035}{35}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a6857f4e255988b5aae9d570dec2a06c8}\index{MPU9250\_private.h@{MPU9250\_private.h}!I2C\_SLV1\_CTRL@{I2C\_SLV1\_CTRL}}
+\index{I2C\_SLV1\_CTRL@{I2C\_SLV1\_CTRL}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{I2C\_SLV1\_CTRL}{I2C\_SLV1\_CTRL}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a6857f4e255988b5aae9d570dec2a06c8} 
+\+\#define I2\+C\+\_\+\+SLV1\+\_\+\+CTRL~0x2A}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00037}{37}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a33d12ea757eeb8ef10aa501f6c68ba3d}\index{MPU9250\_private.h@{MPU9250\_private.h}!I2C\_SLV1\_REG@{I2C\_SLV1\_REG}}
+\index{I2C\_SLV1\_REG@{I2C\_SLV1\_REG}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{I2C\_SLV1\_REG}{I2C\_SLV1\_REG}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a33d12ea757eeb8ef10aa501f6c68ba3d} 
+\+\#define I2\+C\+\_\+\+SLV1\+\_\+\+REG~0x29}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00036}{36}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_abf7a56466fd6203663685a04448c9185}\index{MPU9250\_private.h@{MPU9250\_private.h}!INT\_ENABLE@{INT\_ENABLE}}
+\index{INT\_ENABLE@{INT\_ENABLE}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{INT\_ENABLE}{INT\_ENABLE}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_abf7a56466fd6203663685a04448c9185} 
+\+\#define INT\+\_\+\+ENABLE~0x38}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00042}{42}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_ab00fdfba66092d2d869031629c092dad}\index{MPU9250\_private.h@{MPU9250\_private.h}!INT\_PIN\_CFG@{INT\_PIN\_CFG}}
+\index{INT\_PIN\_CFG@{INT\_PIN\_CFG}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{INT\_PIN\_CFG}{INT\_PIN\_CFG}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_ab00fdfba66092d2d869031629c092dad} 
+\+\#define INT\+\_\+\+PIN\+\_\+\+CFG~0x37}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00041}{41}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a62cba161837810295654c3cc2de959a6}\index{MPU9250\_private.h@{MPU9250\_private.h}!INT\_STATUS@{INT\_STATUS}}
+\index{INT\_STATUS@{INT\_STATUS}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{INT\_STATUS}{INT\_STATUS}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a62cba161837810295654c3cc2de959a6} 
+\+\#define INT\+\_\+\+STATUS~0x3A}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00043}{43}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a4a2dc75c2a0588814cb466b0db1bca8b}\index{MPU9250\_private.h@{MPU9250\_private.h}!LP\_ACCEL\_ODR@{LP\_ACCEL\_ODR}}
+\index{LP\_ACCEL\_ODR@{LP\_ACCEL\_ODR}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{LP\_ACCEL\_ODR}{LP\_ACCEL\_ODR}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a4a2dc75c2a0588814cb466b0db1bca8b} 
+\+\#define LP\+\_\+\+ACCEL\+\_\+\+ODR~0x1E}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00028}{28}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a96169eb207e721c1546cea9ffd8a35e4}\index{MPU9250\_private.h@{MPU9250\_private.h}!PWR\_MGMT\_1@{PWR\_MGMT\_1}}
+\index{PWR\_MGMT\_1@{PWR\_MGMT\_1}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{PWR\_MGMT\_1}{PWR\_MGMT\_1}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a96169eb207e721c1546cea9ffd8a35e4} 
+\+\#define PWR\+\_\+\+MGMT\+\_\+1~0x6B}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00079}{79}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a23cfbcfd19dc88eb631309970f138e65}\index{MPU9250\_private.h@{MPU9250\_private.h}!PWR\_MGMT\_2@{PWR\_MGMT\_2}}
+\index{PWR\_MGMT\_2@{PWR\_MGMT\_2}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{PWR\_MGMT\_2}{PWR\_MGMT\_2}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a23cfbcfd19dc88eb631309970f138e65} 
+\+\#define PWR\+\_\+\+MGMT\+\_\+2~0x6C}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00080}{80}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a9349ad443a8bbd5be084ea1d6925cdc7}\index{MPU9250\_private.h@{MPU9250\_private.h}!PWR\_RESET@{PWR\_RESET}}
+\index{PWR\_RESET@{PWR\_RESET}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{PWR\_RESET}{PWR\_RESET}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a9349ad443a8bbd5be084ea1d6925cdc7} 
+\+\#define PWR\+\_\+\+RESET~0x80}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00084}{84}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a514afe64ef4e94fd792f0e01e66cf682}\index{MPU9250\_private.h@{MPU9250\_private.h}!SELF\_TEST\_X\_ACCEL@{SELF\_TEST\_X\_ACCEL}}
+\index{SELF\_TEST\_X\_ACCEL@{SELF\_TEST\_X\_ACCEL}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{SELF\_TEST\_X\_ACCEL}{SELF\_TEST\_X\_ACCEL}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a514afe64ef4e94fd792f0e01e66cf682} 
+\+\#define SELF\+\_\+\+TEST\+\_\+\+X\+\_\+\+ACCEL~0x0D}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00014}{14}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_afbca39272b9691b037268612593d36ea}\index{MPU9250\_private.h@{MPU9250\_private.h}!SELF\_TEST\_X\_GYRO@{SELF\_TEST\_X\_GYRO}}
+\index{SELF\_TEST\_X\_GYRO@{SELF\_TEST\_X\_GYRO}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{SELF\_TEST\_X\_GYRO}{SELF\_TEST\_X\_GYRO}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_afbca39272b9691b037268612593d36ea} 
+\+\#define SELF\+\_\+\+TEST\+\_\+\+X\+\_\+\+GYRO~0x00}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00011}{11}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a9dba24f56a63a23b71ece8ebafbe46e1}\index{MPU9250\_private.h@{MPU9250\_private.h}!SELF\_TEST\_Y\_ACCEL@{SELF\_TEST\_Y\_ACCEL}}
+\index{SELF\_TEST\_Y\_ACCEL@{SELF\_TEST\_Y\_ACCEL}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{SELF\_TEST\_Y\_ACCEL}{SELF\_TEST\_Y\_ACCEL}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a9dba24f56a63a23b71ece8ebafbe46e1} 
+\+\#define SELF\+\_\+\+TEST\+\_\+\+Y\+\_\+\+ACCEL~0x0E}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00015}{15}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a4589b391b79cd75e09d08c4465ff95d6}\index{MPU9250\_private.h@{MPU9250\_private.h}!SELF\_TEST\_Y\_GYRO@{SELF\_TEST\_Y\_GYRO}}
+\index{SELF\_TEST\_Y\_GYRO@{SELF\_TEST\_Y\_GYRO}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{SELF\_TEST\_Y\_GYRO}{SELF\_TEST\_Y\_GYRO}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a4589b391b79cd75e09d08c4465ff95d6} 
+\+\#define SELF\+\_\+\+TEST\+\_\+\+Y\+\_\+\+GYRO~0x01}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00012}{12}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a89faa3ca314423fc7876d1df8c62f848}\index{MPU9250\_private.h@{MPU9250\_private.h}!SELF\_TEST\_Z\_ACCEL@{SELF\_TEST\_Z\_ACCEL}}
+\index{SELF\_TEST\_Z\_ACCEL@{SELF\_TEST\_Z\_ACCEL}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{SELF\_TEST\_Z\_ACCEL}{SELF\_TEST\_Z\_ACCEL}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a89faa3ca314423fc7876d1df8c62f848} 
+\+\#define SELF\+\_\+\+TEST\+\_\+\+Z\+\_\+\+ACCEL~0x0F}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00016}{16}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a7d36169280ef7d539e6535693fa54663}\index{MPU9250\_private.h@{MPU9250\_private.h}!SELF\_TEST\_Z\_GYRO@{SELF\_TEST\_Z\_GYRO}}
+\index{SELF\_TEST\_Z\_GYRO@{SELF\_TEST\_Z\_GYRO}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{SELF\_TEST\_Z\_GYRO}{SELF\_TEST\_Z\_GYRO}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a7d36169280ef7d539e6535693fa54663} 
+\+\#define SELF\+\_\+\+TEST\+\_\+\+Z\+\_\+\+GYRO~0x02}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00013}{13}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a7119c37e38b6736096ea1565459043ba}\index{MPU9250\_private.h@{MPU9250\_private.h}!SMPLRT\_DIV@{SMPLRT\_DIV}}
+\index{SMPLRT\_DIV@{SMPLRT\_DIV}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{SMPLRT\_DIV}{SMPLRT\_DIV}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a7119c37e38b6736096ea1565459043ba} 
+\+\#define SMPLRT\+\_\+\+DIV~0x19}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00023}{23}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_ae8c4c28fe604535a3a57d0536c6e8175}\index{MPU9250\_private.h@{MPU9250\_private.h}!TEMP\_OUT\_H@{TEMP\_OUT\_H}}
+\index{TEMP\_OUT\_H@{TEMP\_OUT\_H}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{TEMP\_OUT\_H}{TEMP\_OUT\_H}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_ae8c4c28fe604535a3a57d0536c6e8175} 
+\+\#define TEMP\+\_\+\+OUT\+\_\+H~0x41}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00052}{52}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a7fe4a13198c0b3d8cf09802e7247fd2c}\index{MPU9250\_private.h@{MPU9250\_private.h}!TEMP\_OUT\_L@{TEMP\_OUT\_L}}
+\index{TEMP\_OUT\_L@{TEMP\_OUT\_L}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{TEMP\_OUT\_L}{TEMP\_OUT\_L}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a7fe4a13198c0b3d8cf09802e7247fd2c} 
+\+\#define TEMP\+\_\+\+OUT\+\_\+L~0x42}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00053}{53}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_abd9eebb35aad7616fe0414952e2d477d}\index{MPU9250\_private.h@{MPU9250\_private.h}!USER\_CTRL@{USER\_CTRL}}
+\index{USER\_CTRL@{USER\_CTRL}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{USER\_CTRL}{USER\_CTRL}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_abd9eebb35aad7616fe0414952e2d477d} 
+\+\#define USER\+\_\+\+CTRL~0x6A}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00078}{78}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a9fcb9e460d175bfc7ab4d80bf788b43a}\index{MPU9250\_private.h@{MPU9250\_private.h}!WHO\_AM\_I@{WHO\_AM\_I}}
+\index{WHO\_AM\_I@{WHO\_AM\_I}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{WHO\_AM\_I}{WHO\_AM\_I}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a9fcb9e460d175bfc7ab4d80bf788b43a} 
+\+\#define WHO\+\_\+\+AM\+\_\+I~0x75}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00081}{81}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a81d6e49ec67e620570d1662f170b0900}\index{MPU9250\_private.h@{MPU9250\_private.h}!WOM\_THR@{WOM\_THR}}
+\index{WOM\_THR@{WOM\_THR}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{WOM\_THR}{WOM\_THR}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a81d6e49ec67e620570d1662f170b0900} 
+\+\#define WOM\+\_\+\+THR~0x1F}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00029}{29}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a2dff8273af3bfe1bb8d2565df1f1444d}\index{MPU9250\_private.h@{MPU9250\_private.h}!XG\_OFFSET\_H@{XG\_OFFSET\_H}}
+\index{XG\_OFFSET\_H@{XG\_OFFSET\_H}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{XG\_OFFSET\_H}{XG\_OFFSET\_H}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a2dff8273af3bfe1bb8d2565df1f1444d} 
+\+\#define XG\+\_\+\+OFFSET\+\_\+H~0x13}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00017}{17}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a0e3a6dea62584e862fe3c9132268618d}\index{MPU9250\_private.h@{MPU9250\_private.h}!XG\_OFFSET\_L@{XG\_OFFSET\_L}}
+\index{XG\_OFFSET\_L@{XG\_OFFSET\_L}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{XG\_OFFSET\_L}{XG\_OFFSET\_L}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a0e3a6dea62584e862fe3c9132268618d} 
+\+\#define XG\+\_\+\+OFFSET\+\_\+L~0x14}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00018}{18}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_aa7f7aa074a4b54f24a17e375d1a27104}\index{MPU9250\_private.h@{MPU9250\_private.h}!YG\_OFFSET\_H@{YG\_OFFSET\_H}}
+\index{YG\_OFFSET\_H@{YG\_OFFSET\_H}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{YG\_OFFSET\_H}{YG\_OFFSET\_H}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_aa7f7aa074a4b54f24a17e375d1a27104} 
+\+\#define YG\+\_\+\+OFFSET\+\_\+H~0x15}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00019}{19}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_af3d02481e1360d65052560bb6434437d}\index{MPU9250\_private.h@{MPU9250\_private.h}!YG\_OFFSET\_L@{YG\_OFFSET\_L}}
+\index{YG\_OFFSET\_L@{YG\_OFFSET\_L}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{YG\_OFFSET\_L}{YG\_OFFSET\_L}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_af3d02481e1360d65052560bb6434437d} 
+\+\#define YG\+\_\+\+OFFSET\+\_\+L~0x16}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00020}{20}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a542c8677b03c7426f0446b211994d0b8}\index{MPU9250\_private.h@{MPU9250\_private.h}!ZG\_OFFSET\_H@{ZG\_OFFSET\_H}}
+\index{ZG\_OFFSET\_H@{ZG\_OFFSET\_H}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{ZG\_OFFSET\_H}{ZG\_OFFSET\_H}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a542c8677b03c7426f0446b211994d0b8} 
+\+\#define ZG\+\_\+\+OFFSET\+\_\+H~0x17}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00021}{21}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{MPU9250__private_8h_a8fc858d1bdf91b2ef0ec26050766d7dd}\index{MPU9250\_private.h@{MPU9250\_private.h}!ZG\_OFFSET\_L@{ZG\_OFFSET\_L}}
+\index{ZG\_OFFSET\_L@{ZG\_OFFSET\_L}!MPU9250\_private.h@{MPU9250\_private.h}}
+\doxysubsubsection{\texorpdfstring{ZG\_OFFSET\_L}{ZG\_OFFSET\_L}}
+{\footnotesize\ttfamily \label{MPU9250__private_8h_a8fc858d1bdf91b2ef0ec26050766d7dd} 
+\+\#define ZG\+\_\+\+OFFSET\+\_\+L~0x18}
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00022}{22}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+

@@ -1,0 +1,147 @@
+\doxysection{Inc/\+\+Application/\+\+EEBL/\+\+EEBL\+\_\+interface.h File Reference}
+\hypertarget{EEBL__interface_8h}{}\label{EEBL__interface_8h}\index{Inc/Application/EEBL/EEBL\_interface.h@{Inc/Application/EEBL/EEBL\_interface.h}}
+{\ttfamily \+\#include $<$stdint.\+h$>$}\newline
+{\ttfamily \+\#include "{}../\+\+DSRC/\+\+DSRC.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Safety\+Engine/\+\+Safety\+Engine\+\_\+interface.\+h"{}}\newline
+Include dependency graph for EEBL\+\_\+interface.\+h:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{EEBL__interface_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{EEBL__interface_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{EEBL__interface_8h_aa259a5e3167ee1735a31092312d7fd94}{EEBL\+\_\+void\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize the EEBL module. \end{DoxyCompactList}\item 
+uint8\+\_\+t \doxymbox{\hyperlink{EEBL__interface_8h_afaabdbd7129e3944f1edaa8119941c89}{EEBL\+\_\+u8\+Get\+Flag}} (void)
+\begin{DoxyCompactList}\small\item\em Get current EEBL risk level. The LED/\+buzzer is driven by the caller. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{EEBL__interface_8h_ad9b9306a8560417cdc9a5d6ec08eff93}{EEBL\+\_\+void\+Begin\+Cycle}} (void)
+\begin{DoxyCompactList}\small\item\em Begin a new processing cycle — check braking gate, reset accumulator. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{EEBL__interface_8h_aa57120c568a45e9aae5c81b8fbf6f1b0}{EEBL\+\_\+void\+Process\+Neighbor}} (float rear\+\_\+distance)
+\begin{DoxyCompactList}\small\item\em Process one SAME-\/direction DSRC neighbor for EEBL. The Safety\+Engine only dispatches same-\/direction neighbors here. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{EEBL__interface_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{EEBL__interface_8h_afaabdbd7129e3944f1edaa8119941c89}\index{EEBL\_interface.h@{EEBL\_interface.h}!EEBL\_u8GetFlag@{EEBL\_u8GetFlag}}
+\index{EEBL\_u8GetFlag@{EEBL\_u8GetFlag}!EEBL\_interface.h@{EEBL\_interface.h}}
+\doxysubsubsection{\texorpdfstring{EEBL\_u8GetFlag()}{EEBL\_u8GetFlag()}}
+{\footnotesize\ttfamily \label{EEBL__interface_8h_afaabdbd7129e3944f1edaa8119941c89} 
+uint8\+\_\+t EEBL\+\_\+u8\+Get\+Flag (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Get current EEBL risk level. The LED/\+buzzer is driven by the caller. 
+
+\begin{DoxyReturn}{Returns}
+0=Safe, 1=Warning, 2=Critical
+\end{DoxyReturn}
+Get current EEBL risk level. The LED/\+buzzer is driven by the caller.
+
+\begin{DoxyReturn}{Returns}
+0=Safe, 1=Warning, 2=Critical 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{EEBL__program_8c_source_l00088}{88}} of file \doxymbox{\hyperlink{EEBL__program_8c_source}{EEBL\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{EEBL__interface_8h_afaabdbd7129e3944f1edaa8119941c89_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{EEBL__interface_8h_ad9b9306a8560417cdc9a5d6ec08eff93}\index{EEBL\_interface.h@{EEBL\_interface.h}!EEBL\_voidBeginCycle@{EEBL\_voidBeginCycle}}
+\index{EEBL\_voidBeginCycle@{EEBL\_voidBeginCycle}!EEBL\_interface.h@{EEBL\_interface.h}}
+\doxysubsubsection{\texorpdfstring{EEBL\_voidBeginCycle()}{EEBL\_voidBeginCycle()}}
+{\footnotesize\ttfamily \label{EEBL__interface_8h_ad9b9306a8560417cdc9a5d6ec08eff93} 
+void EEBL\+\_\+void\+Begin\+Cycle (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Begin a new processing cycle — check braking gate, reset accumulator. 
+
+Begin a new processing cycle — check braking gate, reset accumulator. 
+
+Definition at line \doxymbox{\hyperlink{EEBL__program_8c_source_l00042}{42}} of file \doxymbox{\hyperlink{EEBL__program_8c_source}{EEBL\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{EEBL__interface_8h_ad9b9306a8560417cdc9a5d6ec08eff93_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{EEBL__interface_8h_aa259a5e3167ee1735a31092312d7fd94}\index{EEBL\_interface.h@{EEBL\_interface.h}!EEBL\_voidInit@{EEBL\_voidInit}}
+\index{EEBL\_voidInit@{EEBL\_voidInit}!EEBL\_interface.h@{EEBL\_interface.h}}
+\doxysubsubsection{\texorpdfstring{EEBL\_voidInit()}{EEBL\_voidInit()}}
+{\footnotesize\ttfamily \label{EEBL__interface_8h_aa259a5e3167ee1735a31092312d7fd94} 
+void EEBL\+\_\+void\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initialize the EEBL module. 
+
+
+
+Definition at line \doxymbox{\hyperlink{EEBL__program_8c_source_l00027}{27}} of file \doxymbox{\hyperlink{EEBL__program_8c_source}{EEBL\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{EEBL__interface_8h_aa259a5e3167ee1735a31092312d7fd94_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{EEBL__interface_8h_aa57120c568a45e9aae5c81b8fbf6f1b0}\index{EEBL\_interface.h@{EEBL\_interface.h}!EEBL\_voidProcessNeighbor@{EEBL\_voidProcessNeighbor}}
+\index{EEBL\_voidProcessNeighbor@{EEBL\_voidProcessNeighbor}!EEBL\_interface.h@{EEBL\_interface.h}}
+\doxysubsubsection{\texorpdfstring{EEBL\_voidProcessNeighbor()}{EEBL\_voidProcessNeighbor()}}
+{\footnotesize\ttfamily \label{EEBL__interface_8h_aa57120c568a45e9aae5c81b8fbf6f1b0} 
+void EEBL\+\_\+void\+Process\+Neighbor (\begin{DoxyParamCaption}\item[{float}]{rear\+\_\+distance}{}\end{DoxyParamCaption})}
+
+
+
+Process one SAME-\/direction DSRC neighbor for EEBL. The Safety\+Engine only dispatches same-\/direction neighbors here. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rear\+\_\+distance} & Rear ultrasonic distance (cm)\\
+\hline
+\end{DoxyParams}
+Process one SAME-\/direction DSRC neighbor for EEBL. The Safety\+Engine only dispatches same-\/direction neighbors here.
+
+Risk depends on the host\textquotesingle{}s own speed (the cycle safe/\+critical gaps), not on relative speed:\+ a sudden brake with a vehicle close behind raises a warning. Keeps the worst severity across the cycle.
+
+
+\begin{DoxyParams}{Parameters}
+{\em rear\+\_\+distance} & Rear ultrasonic distance (cm) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{EEBL__program_8c_source_l00061}{61}} of file \doxymbox{\hyperlink{EEBL__program_8c_source}{EEBL\+\_\+program.\+c}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{EEBL__interface_8h_aa57120c568a45e9aae5c81b8fbf6f1b0_icgraph}
+\end{center}
+\end{figure}
