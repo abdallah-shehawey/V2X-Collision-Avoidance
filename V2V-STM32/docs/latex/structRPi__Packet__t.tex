@@ -1,0 +1,239 @@
+\doxysection{RPi\+\_\+\+Packet\+\_\+t Struct Reference}
+\hypertarget{structRPi__Packet__t}{}\label{structRPi__Packet__t}\index{RPi\_Packet\_t@{RPi\_Packet\_t}}
+
+
+Legacy binary telemetry packet — {\bfseries{kept for reference only}}.  
+
+
+
+
+{\ttfamily \+\#include $<$System/\+\+System.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \doxymbox{\hyperlink{structRPi__Packet__t_aeaa9458317dfdd181c24849b736f72d3}{start}}
+\begin{DoxyCompactList}\small\item\em Start-\/of-\/frame marker, always 0x\+AA. \end{DoxyCompactList}\item 
+uint16\+\_\+t \doxymbox{\hyperlink{structRPi__Packet__t_a205ab0969a6d33d43802b088811a969e}{sys\+\_\+flags}}
+\begin{DoxyCompactList}\small\item\em A copy of \doxylink{group__system_ga9e78367aa5b758af972838362c2b0eab}{G\+\_\+u16\+System\+Flags}. \end{DoxyCompactList}\item 
+float \doxymbox{\hyperlink{structRPi__Packet__t_ab729ad2fe55d2b13eb0179f4c9c4a554}{speed}}
+\begin{DoxyCompactList}\small\item\em Ground speed \+[cm/\+s]\+. \end{DoxyCompactList}\item 
+float \doxymbox{\hyperlink{structRPi__Packet__t_af4606477e64e54a1fc56be698ae2f89f}{heading}}
+\begin{DoxyCompactList}\small\item\em Compass heading \+[degrees]\+, 0..360. \end{DoxyCompactList}\item 
+float \doxymbox{\hyperlink{structRPi__Packet__t_afe2d947b3db6ac6ef2a73a5b62453675}{front\+\_\+left}}
+\begin{DoxyCompactList}\small\item\em Front-\/left ultrasonic distance \+[cm]\+. \end{DoxyCompactList}\item 
+float \doxymbox{\hyperlink{structRPi__Packet__t_acfcfb9503609082dd678a6c58670f822}{front\+\_\+center}}
+\begin{DoxyCompactList}\small\item\em Front-\/centre ultrasonic distance \+[cm]\+. \end{DoxyCompactList}\item 
+float \doxymbox{\hyperlink{structRPi__Packet__t_acff2f39cfc4d7cb463a41a1aef08099d}{front\+\_\+right}}
+\begin{DoxyCompactList}\small\item\em Front-\/right ultrasonic distance \+[cm]\+. \end{DoxyCompactList}\item 
+float \doxymbox{\hyperlink{structRPi__Packet__t_a230d2ce5482996f40b5c09c2a433aa5b}{back\+\_\+left}}
+\begin{DoxyCompactList}\small\item\em Rear-\/left ultrasonic distance \+[cm]\+. \end{DoxyCompactList}\item 
+float \doxymbox{\hyperlink{structRPi__Packet__t_a9b9b52d7f70960c3576a0385acb1ba12}{back\+\_\+center}}
+\begin{DoxyCompactList}\small\item\em Rear-\/centre ultrasonic distance \+[cm]\+. \end{DoxyCompactList}\item 
+float \doxymbox{\hyperlink{structRPi__Packet__t_ab70064a49397573a0e995523712b1830}{back\+\_\+right}}
+\begin{DoxyCompactList}\small\item\em Rear-\/right ultrasonic distance \+[cm]\+. \end{DoxyCompactList}\item 
+uint8\+\_\+t \doxymbox{\hyperlink{structRPi__Packet__t_a70990c28a423ece6104ae9be9d3fd201}{end}}
+\begin{DoxyCompactList}\small\item\em End-\/of-\/frame marker, always 0x55. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Legacy binary telemetry packet — {\bfseries{kept for reference only}}. 
+
+\begin{DoxyRefDesc}{Deprecated}
+\item[\doxymbox{\hyperlink{deprecated__deprecated000001}{Deprecated}}]Nothing sends this any more. {\ttfamily RPi\+\_\+\+Comm\+\_\+\+Task} streams an ASCII CSV line instead, because this packed layout contains {\ttfamily 0x00} bytes and those were being lost on the UART link, which silently truncated whole runs.\end{DoxyRefDesc}
+
+
+The wire format actually in use is one {\ttfamily \textbackslash{}n}-\/terminated line every 100 ms:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{T,\doxymbox{\hyperlink{structRPi__Packet__t_ab729ad2fe55d2b13eb0179f4c9c4a554}{speed}},\doxymbox{\hyperlink{structRPi__Packet__t_af4606477e64e54a1fc56be698ae2f89f}{heading}},pitch,roll,FL,FC,FR,BL,BC,BR,flags,bsw\_sides\(\backslash\)n}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Field  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Meaning  \\
+{\ttfamily \doxylink{structRPi__Packet__t_ab729ad2fe55d2b13eb0179f4c9c4a554}{speed}}  &cm/\+s  \\
+{\ttfamily \doxylink{structRPi__Packet__t_af4606477e64e54a1fc56be698ae2f89f}{heading}}  &degrees, 0..360  \\
+{\ttfamily pitch}, {\ttfamily roll}  &degrees  \\
+{\ttfamily FL}..{\ttfamily BR}  &the six ultrasonic distances \+[cm]\+  \\
+{\ttfamily flags}  &\doxylink{group__system_ga9e78367aa5b758af972838362c2b0eab}{G\+\_\+u16\+System\+Flags} — 2 bits per module  \\
+{\ttfamily bsw\+\_\+sides}  &per-\/side blind-\/spot severity:\+ bits 1:\+0 LEFT, bits 3:\+2 RIGHT  \\
+\end{DoxyTable}
+
+
+{\ttfamily bsw\+\_\+sides} is sent separately because the BSW field inside {\ttfamily flags} is already aggregated to the worst side and no longer says {\itshape which} side triggered.
+
+\begin{DoxyWarning}{Warning}
+The column order here must match the Raspberry Pi parser ({\ttfamily server.\+py}, {\ttfamily PACKET\+\_\+\+FIELDS}) exactly. Change one side, change the other. 
+\end{DoxyWarning}
+
+
+Definition at line \doxymbox{\hyperlink{System_8h_source_l00194}{194}} of file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{structRPi__Packet__t_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structRPi__Packet__t_aeaa9458317dfdd181c24849b736f72d3}\index{RPi\_Packet\_t@{RPi\_Packet\_t}!start@{start}}
+\index{start@{start}!RPi\_Packet\_t@{RPi\_Packet\_t}}
+\doxysubsubsection{\texorpdfstring{start}{start}}
+{\footnotesize\ttfamily \label{structRPi__Packet__t_aeaa9458317dfdd181c24849b736f72d3} 
+uint8\+\_\+t RPi\+\_\+\+Packet\+\_\+t::\+start}
+
+
+
+Start-\/of-\/frame marker, always 0x\+AA. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8h_source_l00196}{196}} of file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+
+\Hypertarget{structRPi__Packet__t_a205ab0969a6d33d43802b088811a969e}\index{RPi\_Packet\_t@{RPi\_Packet\_t}!sys\_flags@{sys\_flags}}
+\index{sys\_flags@{sys\_flags}!RPi\_Packet\_t@{RPi\_Packet\_t}}
+\doxysubsubsection{\texorpdfstring{sys\_flags}{sys\_flags}}
+{\footnotesize\ttfamily \label{structRPi__Packet__t_a205ab0969a6d33d43802b088811a969e} 
+uint16\+\_\+t RPi\+\_\+\+Packet\+\_\+t::\+sys\+\_\+flags}
+
+
+
+A copy of \doxylink{group__system_ga9e78367aa5b758af972838362c2b0eab}{G\+\_\+u16\+System\+Flags}. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8h_source_l00197}{197}} of file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+
+\Hypertarget{structRPi__Packet__t_ab729ad2fe55d2b13eb0179f4c9c4a554}\index{RPi\_Packet\_t@{RPi\_Packet\_t}!speed@{speed}}
+\index{speed@{speed}!RPi\_Packet\_t@{RPi\_Packet\_t}}
+\doxysubsubsection{\texorpdfstring{speed}{speed}}
+{\footnotesize\ttfamily \label{structRPi__Packet__t_ab729ad2fe55d2b13eb0179f4c9c4a554} 
+float RPi\+\_\+\+Packet\+\_\+t::\+speed}
+
+
+
+Ground speed \+[cm/\+s]\+. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8h_source_l00198}{198}} of file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+
+\Hypertarget{structRPi__Packet__t_af4606477e64e54a1fc56be698ae2f89f}\index{RPi\_Packet\_t@{RPi\_Packet\_t}!heading@{heading}}
+\index{heading@{heading}!RPi\_Packet\_t@{RPi\_Packet\_t}}
+\doxysubsubsection{\texorpdfstring{heading}{heading}}
+{\footnotesize\ttfamily \label{structRPi__Packet__t_af4606477e64e54a1fc56be698ae2f89f} 
+float RPi\+\_\+\+Packet\+\_\+t::\+heading}
+
+
+
+Compass heading \+[degrees]\+, 0..360. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8h_source_l00199}{199}} of file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+
+\Hypertarget{structRPi__Packet__t_afe2d947b3db6ac6ef2a73a5b62453675}\index{RPi\_Packet\_t@{RPi\_Packet\_t}!front\_left@{front\_left}}
+\index{front\_left@{front\_left}!RPi\_Packet\_t@{RPi\_Packet\_t}}
+\doxysubsubsection{\texorpdfstring{front\_left}{front\_left}}
+{\footnotesize\ttfamily \label{structRPi__Packet__t_afe2d947b3db6ac6ef2a73a5b62453675} 
+float RPi\+\_\+\+Packet\+\_\+t::\+front\+\_\+left}
+
+
+
+Front-\/left ultrasonic distance \+[cm]\+. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8h_source_l00200}{200}} of file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+
+\Hypertarget{structRPi__Packet__t_acfcfb9503609082dd678a6c58670f822}\index{RPi\_Packet\_t@{RPi\_Packet\_t}!front\_center@{front\_center}}
+\index{front\_center@{front\_center}!RPi\_Packet\_t@{RPi\_Packet\_t}}
+\doxysubsubsection{\texorpdfstring{front\_center}{front\_center}}
+{\footnotesize\ttfamily \label{structRPi__Packet__t_acfcfb9503609082dd678a6c58670f822} 
+float RPi\+\_\+\+Packet\+\_\+t::\+front\+\_\+center}
+
+
+
+Front-\/centre ultrasonic distance \+[cm]\+. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8h_source_l00201}{201}} of file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+
+\Hypertarget{structRPi__Packet__t_acff2f39cfc4d7cb463a41a1aef08099d}\index{RPi\_Packet\_t@{RPi\_Packet\_t}!front\_right@{front\_right}}
+\index{front\_right@{front\_right}!RPi\_Packet\_t@{RPi\_Packet\_t}}
+\doxysubsubsection{\texorpdfstring{front\_right}{front\_right}}
+{\footnotesize\ttfamily \label{structRPi__Packet__t_acff2f39cfc4d7cb463a41a1aef08099d} 
+float RPi\+\_\+\+Packet\+\_\+t::\+front\+\_\+right}
+
+
+
+Front-\/right ultrasonic distance \+[cm]\+. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8h_source_l00202}{202}} of file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+
+\Hypertarget{structRPi__Packet__t_a230d2ce5482996f40b5c09c2a433aa5b}\index{RPi\_Packet\_t@{RPi\_Packet\_t}!back\_left@{back\_left}}
+\index{back\_left@{back\_left}!RPi\_Packet\_t@{RPi\_Packet\_t}}
+\doxysubsubsection{\texorpdfstring{back\_left}{back\_left}}
+{\footnotesize\ttfamily \label{structRPi__Packet__t_a230d2ce5482996f40b5c09c2a433aa5b} 
+float RPi\+\_\+\+Packet\+\_\+t::\+back\+\_\+left}
+
+
+
+Rear-\/left ultrasonic distance \+[cm]\+. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8h_source_l00203}{203}} of file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+
+\Hypertarget{structRPi__Packet__t_a9b9b52d7f70960c3576a0385acb1ba12}\index{RPi\_Packet\_t@{RPi\_Packet\_t}!back\_center@{back\_center}}
+\index{back\_center@{back\_center}!RPi\_Packet\_t@{RPi\_Packet\_t}}
+\doxysubsubsection{\texorpdfstring{back\_center}{back\_center}}
+{\footnotesize\ttfamily \label{structRPi__Packet__t_a9b9b52d7f70960c3576a0385acb1ba12} 
+float RPi\+\_\+\+Packet\+\_\+t::\+back\+\_\+center}
+
+
+
+Rear-\/centre ultrasonic distance \+[cm]\+. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8h_source_l00204}{204}} of file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+
+\Hypertarget{structRPi__Packet__t_ab70064a49397573a0e995523712b1830}\index{RPi\_Packet\_t@{RPi\_Packet\_t}!back\_right@{back\_right}}
+\index{back\_right@{back\_right}!RPi\_Packet\_t@{RPi\_Packet\_t}}
+\doxysubsubsection{\texorpdfstring{back\_right}{back\_right}}
+{\footnotesize\ttfamily \label{structRPi__Packet__t_ab70064a49397573a0e995523712b1830} 
+float RPi\+\_\+\+Packet\+\_\+t::\+back\+\_\+right}
+
+
+
+Rear-\/right ultrasonic distance \+[cm]\+. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8h_source_l00205}{205}} of file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+
+\Hypertarget{structRPi__Packet__t_a70990c28a423ece6104ae9be9d3fd201}\index{RPi\_Packet\_t@{RPi\_Packet\_t}!end@{end}}
+\index{end@{end}!RPi\_Packet\_t@{RPi\_Packet\_t}}
+\doxysubsubsection{\texorpdfstring{end}{end}}
+{\footnotesize\ttfamily \label{structRPi__Packet__t_a70990c28a423ece6104ae9be9d3fd201} 
+uint8\+\_\+t RPi\+\_\+\+Packet\+\_\+t::\+end}
+
+
+
+End-\/of-\/frame marker, always 0x55. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8h_source_l00206}{206}} of file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+V2\+V-\/\+STM32/\+\+Inc/\+\+System/\+\doxymbox{\hyperlink{System_8h}{System.\+h}}\end{DoxyCompactItemize}

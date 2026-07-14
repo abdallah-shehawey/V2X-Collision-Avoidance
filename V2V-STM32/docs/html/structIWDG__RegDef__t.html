@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: IWDG_RegDef_t Struct Reference</title>
+<title>V2V Collision Avoidance Firmware: IWDG_RegDef_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -93,19 +93,29 @@ $(function(){initNavTree('structIWDG__RegDef__t.html','',''); });
   <div class="headertitle"><div class="title">IWDG_RegDef_t Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>IWDG register block — APB1 @ 0x40003000, clocked by the LSI (~32 kHz).  
+ <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a5570985723cddb8ac076b566bb0f9585" id="r_a5570985723cddb8ac076b566bb0f9585"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a5570985723cddb8ac076b566bb0f9585">KR</a></td></tr>
+<tr class="memdesc:a5570985723cddb8ac076b566bb0f9585"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key register (0x00): the magic values that unlock the registers, reload the counter, or start the watchdog.  <br /></td></tr>
 <tr class="memitem:a88d7d44a8bbed9d21a0fa1b01d3033da" id="r_a88d7d44a8bbed9d21a0fa1b01d3033da"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a88d7d44a8bbed9d21a0fa1b01d3033da">PR</a></td></tr>
+<tr class="memdesc:a88d7d44a8bbed9d21a0fa1b01d3033da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prescaler (0x04): divides the ~32 kHz LSI down to the counter's tick rate.  <br /></td></tr>
 <tr class="memitem:a3abcbb874bcffb4481131681a48a679f" id="r_a3abcbb874bcffb4481131681a48a679f"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a3abcbb874bcffb4481131681a48a679f">RLR</a></td></tr>
+<tr class="memdesc:a3abcbb874bcffb4481131681a48a679f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reload value (0x08): what the down-counter restarts from on each kick.  <br /></td></tr>
 <tr class="memitem:a2fc54da78e15238279372f2c48f52e8d" id="r_a2fc54da78e15238279372f2c48f52e8d"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a2fc54da78e15238279372f2c48f52e8d">SR</a></td></tr>
+<tr class="memdesc:a2fc54da78e15238279372f2c48f52e8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status (0x0C): "an update to PR/RLR is still in progress".  <br /></td></tr>
 <tr class="memitem:ad1baad23cdb6f363390bad4c5b119f46" id="r_ad1baad23cdb6f363390bad4c5b119f46"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ad1baad23cdb6f363390bad4c5b119f46">WINR</a></td></tr>
+<tr class="memdesc:ad1baad23cdb6f363390bad4c5b119f46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Window (0x10): if set, kicking <em>too early</em> also resets the MCU.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>===========================================================================** &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; <a class="el" href="IWDG__program_8c.html">IWDG_program.c</a> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;** ** Author : Abdallah Saleh ** Layer : MCAL ** CPU : Cortex-M4 ** MCU : NUCLEO-F446RE ** SWC : IWDG (Independent Watchdog) ** ** ===========================================================================** </p>
+<div class="textblock"><p>IWDG register block — APB1 @ 0x40003000, clocked by the LSI (~32 kHz). </p>
+<p>The IWDG is deliberately hard to disarm: its registers are write-protected, and a magic key must be written to <a class="el" href="#a5570985723cddb8ac076b566bb0f9585" title="IWDG_RegDef_t::KR">IWDG_RegDef_t::KR</a> to unlock them. Once the watchdog has been started it cannot be stopped at all — only reset before it expires. That is the whole point: a runaway program must not be able to switch off its own safety net.</p>
+<dl class="section note"><dt>Note</dt><dd>Its clock is the LSI, an RC oscillator accurate to roughly ±50%, so the real timeout can be substantially shorter or longer than the nominal one. Timeouts here are chosen with generous margin rather than to the millisecond. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="IWDG__program_8c_source.html#l00018">18</a> of file <a class="el" href="IWDG__program_8c_source.html">IWDG_program.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="IWDG__program_8c_source.html#l00026">26</a> of file <a class="el" href="IWDG__program_8c_source.html">IWDG_program.c</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
 <a id="a5570985723cddb8ac076b566bb0f9585" name="a5570985723cddb8ac076b566bb0f9585"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5570985723cddb8ac076b566bb0f9585">&#9670;&#160;</a></span>KR</h2>
@@ -119,7 +129,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="IWDG__program_8c_source.html#l00020">20</a> of file <a class="el" href="IWDG__program_8c_source.html">IWDG_program.c</a>.</p>
+<p>Key register (0x00): the magic values that unlock the registers, reload the counter, or start the watchdog. </p>
+
+<p class="definition">Definition at line <a class="el" href="IWDG__program_8c_source.html#l00028">28</a> of file <a class="el" href="IWDG__program_8c_source.html">IWDG_program.c</a>.</p>
 
 </div>
 </div>
@@ -135,7 +147,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="IWDG__program_8c_source.html#l00021">21</a> of file <a class="el" href="IWDG__program_8c_source.html">IWDG_program.c</a>.</p>
+<p>Prescaler (0x04): divides the ~32 kHz LSI down to the counter's tick rate. </p>
+
+<p class="definition">Definition at line <a class="el" href="IWDG__program_8c_source.html#l00029">29</a> of file <a class="el" href="IWDG__program_8c_source.html">IWDG_program.c</a>.</p>
 
 </div>
 </div>
@@ -151,7 +165,10 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="IWDG__program_8c_source.html#l00022">22</a> of file <a class="el" href="IWDG__program_8c_source.html">IWDG_program.c</a>.</p>
+<p>Reload value (0x08): what the down-counter restarts from on each kick. </p>
+<p>Together with PR this sets the timeout. </p>
+
+<p class="definition">Definition at line <a class="el" href="IWDG__program_8c_source.html#l00030">30</a> of file <a class="el" href="IWDG__program_8c_source.html">IWDG_program.c</a>.</p>
 
 </div>
 </div>
@@ -167,7 +184,10 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="IWDG__program_8c_source.html#l00023">23</a> of file <a class="el" href="IWDG__program_8c_source.html">IWDG_program.c</a>.</p>
+<p>Status (0x0C): "an update to PR/RLR is still in progress". </p>
+<p>Both must read back clear before a new write is accepted. </p>
+
+<p class="definition">Definition at line <a class="el" href="IWDG__program_8c_source.html#l00031">31</a> of file <a class="el" href="IWDG__program_8c_source.html">IWDG_program.c</a>.</p>
 
 </div>
 </div>
@@ -183,12 +203,15 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="IWDG__program_8c_source.html#l00024">24</a> of file <a class="el" href="IWDG__program_8c_source.html">IWDG_program.c</a>.</p>
+<p>Window (0x10): if set, kicking <em>too early</em> also resets the MCU. </p>
+<p>Unused here. </p>
+
+<p class="definition">Definition at line <a class="el" href="IWDG__program_8c_source.html#l00032">32</a> of file <a class="el" href="IWDG__program_8c_source.html">IWDG_program.c</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>Src/<a class="el" href="IWDG__program_8c_source.html">IWDG_program.c</a></li>
+<li>V2V-STM32/Src/<a class="el" href="IWDG__program_8c_source.html">IWDG_program.c</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Inc/Application/BSW/BSW_config.h Source File</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Inc/Application/BSW/BSW_config.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -93,42 +93,39 @@ $(function(){initNavTree('BSW__config_8h_source.html','',''); });
   <div class="headertitle"><div class="title">BSW_config.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="BSW__config_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BSW_CONFIG_H</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BSW_CONFIG_H</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * ====== Cooperative Blind-Spot Model ======</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * SENDER:   uses its FRONT-side ultrasonics (front-left / front-right) to</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> *           detect a car alongside-ahead of it, and broadcasts bsw_flag as a</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> *           bitmask (bit0=LEFT, bit1=RIGHT) of the side(s) it saw.</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> * RECEIVER: for each side bit set, checks the OPPOSITE REAR sensor (sender</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> *           LEFT -&gt; my rear-right, sender RIGHT -&gt; my rear-left). If something</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> *           is there, this car sits in the sender&#39;s blind spot -&gt; raise BSW on</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> *           that side. Both bits are handled independently.</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">/* Object present if a side ultrasonic reads &lt; this distance (cm).</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"> * Prototype scale: small car in a tight corridor -&gt; 30 cm tuned best.</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment"> * This is the WARNING band: a neighbor inside this distance raises BSW WARNING. */</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="BSW__config_8h.html#aeb97789f4baf3ec92a8a71924b6271e9">   18</a></span><span class="preprocessor">#define BSW_SIDE_THRESHOLD (60.0f)</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">/* Closer than this (cm) escalates the receiver-side blind-spot alert to CRITICAL.</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment"> * Must be &lt; BSW_SIDE_THRESHOLD: [CRITICAL, THRESHOLD) = warning, [0, CRITICAL) = critical. */</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="BSW__config_8h.html#a8b6f2ee7e091070e69743e594090dc95">   22</a></span><span class="preprocessor">#define BSW_SIDE_CRITICAL  (40.0f)</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment">/* Alerts (LED/buzzer) are handled outside this module — it only computes the</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment"> * sender flag and the receiver-side blind-spot result, exposed via</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment"> * BSW_u8GetFlag(), BSW_u8GetBlindSpot() (side bitmask) and BSW_u8GetSeverity()</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment"> * (0=safe/1=warning/2=critical). */</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#endif</span></div>
+<a href="BSW__config_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#ifndef BSW_CONFIG_H</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#define BSW_CONFIG_H</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"> * ====== Cooperative Blind-Spot Model ======</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"> * SENDER:   uses its FRONT-side ultrasonics (front-left / front-right) to</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"> *           detect a car alongside-ahead of it, and broadcasts bsw_flag as a</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment"> *           bitmask (bit0=LEFT, bit1=RIGHT) of the side(s) it saw.</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment"> * RECEIVER: for each side bit set, checks the OPPOSITE REAR sensor (sender</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment"> *           LEFT -&gt; my rear-right, sender RIGHT -&gt; my rear-left). If something</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment"> *           is there, this car sits in the sender&#39;s blind spot -&gt; raise BSW on</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment"> *           that side. Both bits are handled independently.</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="BSW__config_8h.html#aeb97789f4baf3ec92a8a71924b6271e9">   30</a></span><span class="preprocessor">#define BSW_SIDE_THRESHOLD (60.0f)</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="BSW__config_8h.html#a8b6f2ee7e091070e69743e594090dc95">   40</a></span><span class="preprocessor">#define BSW_SIDE_CRITICAL  (40.0f)</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">/* Alerts (LED/buzzer) are handled outside this module — it only computes the</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment"> * sender flag and the receiver-side blind-spot result, exposed via</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment"> * BSW_u8GetFlag(), BSW_u8GetBlindSpot() (side bitmask) and BSW_u8GetSeverity()</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment"> * (0=safe/1=warning/2=critical). */</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_f93dfce691d792349f1c14ede440e2e6.html">Inc</a></li><li class="navelem"><a href="dir_39944c0e13724f9c5fdb666d288b390a.html">Application</a></li><li class="navelem"><a href="dir_f53180c4c4aeadb870e7b95fc493e28a.html">BSW</a></li><li class="navelem"><a href="BSW__config_8h.html">BSW_config.h</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Inc</b></li><li class="navelem"><b>Application</b></li><li class="navelem"><b>BSW</b></li><li class="navelem"><a href="BSW__config_8h.html">BSW_config.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

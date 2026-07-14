@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Src/LED_prog.c File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Src/LED_prog.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,48 +90,43 @@ $(function(){initNavTree('LED__prog_8c.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">LED_prog.c File Reference</div></div>
+  <div class="headertitle"><div class="title">LED_prog.c File Reference<div class="ingroups"><a class="el" href="group__hal.html">HAL</a> &raquo; <a class="el" href="group__hal__led.html">LED</a></div></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Implementation of the LED driver — the indicator LEDs.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="ErrTypes_8h_source.html">../Inc/Drivers/LIB/ErrTypes.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GPIO__interface_8h_source.html">../Inc/Drivers/MCAL/GPIO/GPIO_interface.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LED__interface_8h_source.html">../Inc/Drivers/HAL/LED/LED_interface.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LED__config_8h_source.html">../Inc/Drivers/HAL/LED/LED_config.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LED__private_8h_source.html">../Inc/Drivers/HAL/LED/LED_private.h</a>&quot;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for LED_prog.c:</div>
-<div class="dyncontent">
-<div class="center"><img src="LED__prog_8c__incl.png" border="0" usemap="#aSrc_2LED__prog_8c" loading="lazy" alt=""/></div>
-<map name="aSrc_2LED__prog_8c" id="aSrc_2LED__prog_8c">
-<area shape="rect" title=" " alt="" coords="170,5,287,33"/>
-<area shape="rect" href="ErrTypes_8h.html" title=" " alt="" coords="13,266,140,311"/>
-<area shape="poly" title=" " alt="" coords="168,32,83,53,46,67,24,83,13,102,9,124,9,146,14,169,31,214,54,253,49,254,27,216,9,171,4,147,3,123,8,100,20,79,43,62,81,48,171,28"/>
-<area shape="rect" href="GPIO__interface_8h.html" title=" " alt="" coords="114,174,284,218"/>
-<area shape="poly" title=" " alt="" coords="228,32,208,160,203,158,224,35"/>
-<area shape="rect" href="LED__interface_8h.html" title=" " alt="" coords="34,81,191,126"/>
-<area shape="poly" title=" " alt="" coords="208,36,158,74,154,70,212,32"/>
-<area shape="rect" href="LED__config_8h.html" title=" " alt="" coords="266,81,404,126"/>
-<area shape="poly" title=" " alt="" coords="246,31,297,71,292,72,245,36"/>
-<area shape="rect" href="LED__private_8h.html" title=" " alt="" coords="428,81,573,126"/>
-<area shape="poly" title=" " alt="" coords="272,31,416,75,411,77,272,36"/>
-<area shape="poly" title=" " alt="" coords="172,218,119,259,116,255,168,220"/>
-<area shape="rect" title=" " alt="" coords="164,275,234,302"/>
-<area shape="poly" title=" " alt="" coords="201,217,201,260,197,258,197,221"/>
-<area shape="poly" title=" " alt="" coords="111,125,86,252,81,251,106,127"/>
-<area shape="poly" title=" " alt="" coords="133,123,171,162,166,163,133,129"/>
-</map>
+</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for LED_prog.c:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="LED__prog_8c__incl.svg" width="578" height="316"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="LED__prog_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a332224917c43c9232229ad1d349501e4" id="r_a332224917c43c9232229ad1d349501e4"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a332224917c43c9232229ad1d349501e4">LED_Init</a> (<a class="el" href="structLED__Config__t.html">LED_Config_t</a> *LED_Configuration)</td></tr>
-<tr class="memitem:aa4c69b1b0028cbaebddb177443aa022a" id="r_aa4c69b1b0028cbaebddb177443aa022a"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa4c69b1b0028cbaebddb177443aa022a">LED_TurnOn</a> (<a class="el" href="structLED__Config__t.html">LED_Config_t</a> *LED_Configuration)</td></tr>
-<tr class="memitem:ab3011d692cf858177af7261a76b1a654" id="r_ab3011d692cf858177af7261a76b1a654"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab3011d692cf858177af7261a76b1a654">LED_TurnOff</a> (<a class="el" href="structLED__Config__t.html">LED_Config_t</a> *LED_Configuration)</td></tr>
-<tr class="memitem:afeefd0dfa8d890b751881b215366b63b" id="r_afeefd0dfa8d890b751881b215366b63b"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#afeefd0dfa8d890b751881b215366b63b">LED_Toggle</a> (<a class="el" href="structLED__Config__t.html">LED_Config_t</a> *LED_Configuration)</td></tr>
+<tr class="memitem:a332224917c43c9232229ad1d349501e4" id="r_a332224917c43c9232229ad1d349501e4"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a332224917c43c9232229ad1d349501e4">LED_Init</a> (<a class="el" href="structLED__Config__t.html">LED_Config_t</a> *LED_Configuration)</td></tr>
+<tr class="memdesc:a332224917c43c9232229ad1d349501e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize LED pin as output.  <br /></td></tr>
+<tr class="memitem:aa4c69b1b0028cbaebddb177443aa022a" id="r_aa4c69b1b0028cbaebddb177443aa022a"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa4c69b1b0028cbaebddb177443aa022a">LED_TurnOn</a> (<a class="el" href="structLED__Config__t.html">LED_Config_t</a> *LED_Configuration)</td></tr>
+<tr class="memdesc:aa4c69b1b0028cbaebddb177443aa022a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Turn LED on.  <br /></td></tr>
+<tr class="memitem:ab3011d692cf858177af7261a76b1a654" id="r_ab3011d692cf858177af7261a76b1a654"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab3011d692cf858177af7261a76b1a654">LED_TurnOff</a> (<a class="el" href="structLED__Config__t.html">LED_Config_t</a> *LED_Configuration)</td></tr>
+<tr class="memdesc:ab3011d692cf858177af7261a76b1a654"><td class="mdescLeft">&#160;</td><td class="mdescRight">Turn LED off.  <br /></td></tr>
+<tr class="memitem:afeefd0dfa8d890b751881b215366b63b" id="r_afeefd0dfa8d890b751881b215366b63b"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#afeefd0dfa8d890b751881b215366b63b">LED_Toggle</a> (<a class="el" href="structLED__Config__t.html">LED_Config_t</a> *LED_Configuration)</td></tr>
+<tr class="memdesc:afeefd0dfa8d890b751881b215366b63b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggle LED state.  <br /></td></tr>
 </table>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Implementation of the LED driver — the indicator LEDs. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Abdelmoemen Shehawey  </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="LED__prog_8c_source.html">LED_prog.c</a>.</p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a332224917c43c9232229ad1d349501e4" name="a332224917c43c9232229ad1d349501e4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a332224917c43c9232229ad1d349501e4">&#9670;&#160;</a></span>LED_Init()</h2>
 
@@ -139,49 +134,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> LED_Init </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structLED__Config__t.html">LED_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>LED_Configuration</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>===========================================================================** &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; LED_program.c &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;** ** Author : Abdallah Abdelmoemen Shehawey ** Layer : HAL ** CPU : Cortex-M4 ** MCU : F446RE ** SWC : LED ** ** ===========================================================================** </p>
-
-<p class="definition">Definition at line <a class="el" href="LED__prog_8c_source.html#l00030">30</a> of file <a class="el" href="LED__prog_8c_source.html">LED_prog.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="LED__prog_8c_a332224917c43c9232229ad1d349501e4_cgraph.png" border="0" usemap="#aLED__prog_8c_a332224917c43c9232229ad1d349501e4_cgraph" loading="lazy" alt=""/></div>
-<map name="aLED__prog_8c_a332224917c43c9232229ad1d349501e4_cgraph" id="aLED__prog_8c_a332224917c43c9232229ad1d349501e4_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,80,33"/>
-<area shape="rect" href="GPIO__prog_8c.html#a2a5e7c89bc6bb7103d96334a8481ea9b" title=" " alt="" coords="128,5,266,33"/>
-<area shape="poly" title=" " alt="" coords="80,17,115,19,109,20,80,22"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="LED__prog_8c_a332224917c43c9232229ad1d349501e4_icgraph.png" border="0" usemap="#aLED__prog_8c_a332224917c43c9232229ad1d349501e4_icgraph" loading="lazy" alt=""/></div>
-<map name="aLED__prog_8c_a332224917c43c9232229ad1d349501e4_icgraph" id="aLED__prog_8c_a332224917c43c9232229ad1d349501e4_icgraph">
-<area shape="rect" title=" " alt="" coords="269,5,343,33"/>
-<area shape="rect" href="System_8c.html#ae436954cd2bde6634ab271317d2494a7" title=" " alt="" coords="108,5,221,33"/>
-<area shape="poly" title=" " alt="" coords="251,19,222,22,222,17,256,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,95,18"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="afeefd0dfa8d890b751881b215366b63b" name="afeefd0dfa8d890b751881b215366b63b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afeefd0dfa8d890b751881b215366b63b">&#9670;&#160;</a></span>LED_Toggle()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> LED_Toggle </td>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> LED_Init </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structLED__Config__t.html">LED_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>LED_Configuration</em></span></td><td>)</td>
           <td></td>
@@ -189,60 +142,31 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="LED__prog_8c_source.html#l00123">123</a> of file <a class="el" href="LED__prog_8c_source.html">LED_prog.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="LED__prog_8c_afeefd0dfa8d890b751881b215366b63b_cgraph.png" border="0" usemap="#aLED__prog_8c_afeefd0dfa8d890b751881b215366b63b_cgraph" loading="lazy" alt=""/></div>
-<map name="aLED__prog_8c_afeefd0dfa8d890b751881b215366b63b_cgraph" id="aLED__prog_8c_afeefd0dfa8d890b751881b215366b63b_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,101,33"/>
-<area shape="rect" href="GPIO__prog_8c.html#aacd1fe5ce0d15fd5040c41745409ca20" title=" " alt="" coords="149,5,308,33"/>
-<area shape="poly" title=" " alt="" coords="101,17,136,19,130,19,101,22"/>
-</map>
-</div>
+<p>Initialize LED pin as output. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">LED_Configuration</td><td>- Structure containing LED configuration </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a> - Error state (ERROR_OK if successful, ERROR_NOK if error) </dd></dl>
 
-</div>
-</div>
-<a id="ab3011d692cf858177af7261a76b1a654" name="ab3011d692cf858177af7261a76b1a654"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3011d692cf858177af7261a76b1a654">&#9670;&#160;</a></span>LED_TurnOff()</h2>
+<p class="definition">Definition at line <a class="el" href="LED__prog_8c_source.html#l00026">26</a> of file <a class="el" href="LED__prog_8c_source.html">LED_prog.c</a>.</p>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> LED_TurnOff </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structLED__Config__t.html">LED_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>LED_Configuration</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p class="reference">References <a class="el" href="GPIO__prog_8c_source.html#l00041">GPIO_enumPinInit()</a>, <a class="el" href="GPIO__interface_8h_source.html#l00102">GPIO_MEDIUM_SPEED</a>, <a class="el" href="GPIO__interface_8h_source.html#l00109">GPIO_NO_PULL</a>, <a class="el" href="GPIO__interface_8h_source.html#l00078">GPIO_OUTPUT</a>, <a class="el" href="GPIO__interface_8h_source.html#l00085">GPIO_PUSH_PULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00024">NULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00044">NULL_POINTER</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="LED__interface_8h_source.html#l00037">LED_Config_t::PinNumber</a>, and <a class="el" href="LED__interface_8h_source.html#l00036">LED_Config_t::PortName</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="LED__prog_8c_source.html#l00093">93</a> of file <a class="el" href="LED__prog_8c_source.html">LED_prog.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="LED__prog_8c_ab3011d692cf858177af7261a76b1a654_cgraph.png" border="0" usemap="#aLED__prog_8c_ab3011d692cf858177af7261a76b1a654_cgraph" loading="lazy" alt=""/></div>
-<map name="aLED__prog_8c_ab3011d692cf858177af7261a76b1a654_cgraph" id="aLED__prog_8c_ab3011d692cf858177af7261a76b1a654_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,105,33"/>
-<area shape="rect" href="GPIO__prog_8c.html#ab8efebd278bcf731012c238a3f69fb5c" title=" " alt="" coords="153,5,325,33"/>
-<area shape="poly" title=" " alt="" coords="105,17,140,19,134,19,105,22"/>
-</map>
+<p class="reference">Referenced by <a class="el" href="System_8c_source.html#l00133">System_setup()</a>.</p>
+<div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="LED__prog_8c_ab3011d692cf858177af7261a76b1a654_icgraph.png" border="0" usemap="#aLED__prog_8c_ab3011d692cf858177af7261a76b1a654_icgraph" loading="lazy" alt=""/></div>
-<map name="aLED__prog_8c_ab3011d692cf858177af7261a76b1a654_icgraph" id="aLED__prog_8c_ab3011d692cf858177af7261a76b1a654_icgraph">
-<area shape="rect" title=" " alt="" coords="283,32,382,60"/>
-<area shape="rect" href="System_8c.html#ae436954cd2bde6634ab271317d2494a7" title=" " alt="" coords="115,5,228,33"/>
-<area shape="poly" title=" " alt="" coords="265,35,228,31,228,26,270,35"/>
-<area shape="rect" href="main_8c.html#a96452f43e9871212929e6e6a969bec13" title="Alert manager (the &quot;Muscle&quot;): drives the LEDs + buzzer from the ADAS status word. It makes NO decisio..." alt="" coords="108,57,235,85"/>
-<area shape="poly" title=" " alt="" coords="270,56,236,64,235,59,265,56"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,32,60,60"/>
-<area shape="poly" title=" " alt="" coords="97,35,61,43,59,38,101,31"/>
-<area shape="poly" title=" " alt="" coords="90,58,60,53,60,48,95,56"/>
-</map>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="LED__prog_8c_a332224917c43c9232229ad1d349501e4_cgraph.svg" width="272" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="LED__prog_8c_a332224917c43c9232229ad1d349501e4_icgraph.svg" width="350" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -254,7 +178,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> LED_TurnOn </td>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> LED_TurnOn </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structLED__Config__t.html">LED_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>LED_Configuration</em></span></td><td>)</td>
           <td></td>
@@ -262,31 +186,111 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="LED__prog_8c_source.html#l00063">63</a> of file <a class="el" href="LED__prog_8c_source.html">LED_prog.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="LED__prog_8c_aa4c69b1b0028cbaebddb177443aa022a_cgraph.png" border="0" usemap="#aLED__prog_8c_aa4c69b1b0028cbaebddb177443aa022a_cgraph" loading="lazy" alt=""/></div>
-<map name="aLED__prog_8c_aa4c69b1b0028cbaebddb177443aa022a_cgraph" id="aLED__prog_8c_aa4c69b1b0028cbaebddb177443aa022a_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,104,33"/>
-<area shape="rect" href="GPIO__prog_8c.html#ab8efebd278bcf731012c238a3f69fb5c" title=" " alt="" coords="152,5,324,33"/>
-<area shape="poly" title=" " alt="" coords="104,17,139,19,134,19,104,22"/>
-</map>
+<p>Turn LED on. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">LED_Configuration</td><td>- Structure containing LED configuration </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a> - Error state (ERROR_OK if successful, ERROR_NOK if error) </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="LED__prog_8c_source.html#l00059">59</a> of file <a class="el" href="LED__prog_8c_source.html">LED_prog.c</a>.</p>
+
+<p class="reference">References <a class="el" href="LED__interface_8h_source.html#l00023">ACTIVE_HIGH</a>, <a class="el" href="LED__interface_8h_source.html#l00022">ACTIVE_LOW</a>, <a class="el" href="LED__interface_8h_source.html#l00038">LED_Config_t::ActiveState</a>, <a class="el" href="GPIO__prog_8c_source.html#l00475">GPIO_enumWritePinVal()</a>, <a class="el" href="GPIO__interface_8h_source.html#l00142">GPIO_PIN_HIGH</a>, <a class="el" href="GPIO__interface_8h_source.html#l00141">GPIO_PIN_LOW</a>, <a class="el" href="ErrTypes_8h_source.html#l00024">NULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00044">NULL_POINTER</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="LED__interface_8h_source.html#l00037">LED_Config_t::PinNumber</a>, and <a class="el" href="LED__interface_8h_source.html#l00036">LED_Config_t::PortName</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="System_8c_source.html#l00133">System_setup()</a>, and <a class="el" href="main_8c_source.html#l00334">vTask_Feedback()</a>.</p>
+<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="LED__prog_8c_aa4c69b1b0028cbaebddb177443aa022a_icgraph.png" border="0" usemap="#aLED__prog_8c_aa4c69b1b0028cbaebddb177443aa022a_icgraph" loading="lazy" alt=""/></div>
-<map name="aLED__prog_8c_aa4c69b1b0028cbaebddb177443aa022a_icgraph" id="aLED__prog_8c_aa4c69b1b0028cbaebddb177443aa022a_icgraph">
-<area shape="rect" title=" " alt="" coords="283,32,381,60"/>
-<area shape="rect" href="System_8c.html#ae436954cd2bde6634ab271317d2494a7" title=" " alt="" coords="115,5,228,33"/>
-<area shape="poly" title=" " alt="" coords="265,35,228,31,228,26,270,35"/>
-<area shape="rect" href="main_8c.html#a96452f43e9871212929e6e6a969bec13" title="Alert manager (the &quot;Muscle&quot;): drives the LEDs + buzzer from the ADAS status word. It makes NO decisio..." alt="" coords="108,57,235,85"/>
-<area shape="poly" title=" " alt="" coords="270,56,236,64,235,58,265,56"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,32,60,60"/>
-<area shape="poly" title=" " alt="" coords="97,35,61,43,59,38,101,31"/>
-<area shape="poly" title=" " alt="" coords="90,58,60,53,60,48,95,56"/>
-</map>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="LED__prog_8c_aa4c69b1b0028cbaebddb177443aa022a_cgraph.svg" width="330" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="LED__prog_8c_aa4c69b1b0028cbaebddb177443aa022a_icgraph.svg" width="387" height="91"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab3011d692cf858177af7261a76b1a654" name="ab3011d692cf858177af7261a76b1a654"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3011d692cf858177af7261a76b1a654">&#9670;&#160;</a></span>LED_TurnOff()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> LED_TurnOff </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structLED__Config__t.html">LED_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>LED_Configuration</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Turn LED off. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">LED_Configuration</td><td>- Structure containing LED configuration </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a> - Error state (ERROR_OK if successful, ERROR_NOK if error) </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="LED__prog_8c_source.html#l00089">89</a> of file <a class="el" href="LED__prog_8c_source.html">LED_prog.c</a>.</p>
+
+<p class="reference">References <a class="el" href="LED__interface_8h_source.html#l00023">ACTIVE_HIGH</a>, <a class="el" href="LED__interface_8h_source.html#l00022">ACTIVE_LOW</a>, <a class="el" href="LED__interface_8h_source.html#l00038">LED_Config_t::ActiveState</a>, <a class="el" href="GPIO__prog_8c_source.html#l00475">GPIO_enumWritePinVal()</a>, <a class="el" href="GPIO__interface_8h_source.html#l00142">GPIO_PIN_HIGH</a>, <a class="el" href="GPIO__interface_8h_source.html#l00141">GPIO_PIN_LOW</a>, <a class="el" href="ErrTypes_8h_source.html#l00024">NULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00044">NULL_POINTER</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="LED__interface_8h_source.html#l00037">LED_Config_t::PinNumber</a>, and <a class="el" href="LED__interface_8h_source.html#l00036">LED_Config_t::PortName</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="System_8c_source.html#l00133">System_setup()</a>, and <a class="el" href="main_8c_source.html#l00334">vTask_Feedback()</a>.</p>
+<div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="LED__prog_8c_ab3011d692cf858177af7261a76b1a654_cgraph.svg" width="331" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-6" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="LED__prog_8c_ab3011d692cf858177af7261a76b1a654_icgraph.svg" width="388" height="91"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="afeefd0dfa8d890b751881b215366b63b" name="afeefd0dfa8d890b751881b215366b63b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afeefd0dfa8d890b751881b215366b63b">&#9670;&#160;</a></span>LED_Toggle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> LED_Toggle </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structLED__Config__t.html">LED_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>LED_Configuration</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Toggle LED state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">LED_Configuration</td><td>- Structure containing LED configuration </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a> - Error state (ERROR_OK if successful, ERROR_NOK if error) </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="LED__prog_8c_source.html#l00119">119</a> of file <a class="el" href="LED__prog_8c_source.html">LED_prog.c</a>.</p>
+
+<p class="reference">References <a class="el" href="GPIO__prog_8c_source.html#l00543">GPIO_enumTogPinVal()</a>, <a class="el" href="ErrTypes_8h_source.html#l00024">NULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00044">NULL_POINTER</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="LED__interface_8h_source.html#l00037">LED_Config_t::PinNumber</a>, and <a class="el" href="LED__interface_8h_source.html#l00036">LED_Config_t::PortName</a>.</p>
+<div id="dynsection-7" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="LED__prog_8c_afeefd0dfa8d890b751881b215366b63b_cgraph.svg" width="314" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -304,7 +308,7 @@ Here is the caller graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_413f4e031a85da0d68269c6fd2f76e1c.html">Src</a></li><li class="navelem"><a href="LED__prog_8c.html">LED_prog.c</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Src</b></li><li class="navelem"><a href="LED__prog_8c.html">LED_prog.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

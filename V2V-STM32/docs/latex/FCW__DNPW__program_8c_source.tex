@@ -1,148 +1,168 @@
 \doxysection{FCW\+\_\+\+DNPW\+\_\+program.\+c}
-\hypertarget{FCW__DNPW__program_8c_source}{}\label{FCW__DNPW__program_8c_source}\index{Src/FCW\_DNPW\_program.c@{Src/FCW\_DNPW\_program.c}}
+\hypertarget{FCW__DNPW__program_8c_source}{}\label{FCW__DNPW__program_8c_source}\index{V2V-\/STM32/Src/FCW\_DNPW\_program.c@{V2V-\/STM32/Src/FCW\_DNPW\_program.c}}
 \doxymbox{\hyperlink{FCW__DNPW__program_8c}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00001}00001\ }
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00013}00013\ }
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00014}00014\ \textcolor{comment}{/*}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00015}00015\ \textcolor{comment}{\ *\ Cooperative\ Forward\ Collision\ Warning\ (FCW)\ and\ Do-\/Not-\/Pass\ Warning\ (DNPW).}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00016}00016\ \textcolor{comment}{\ *\ Both\ are\ derived\ from\ the\ same\ per-\/cycle\ signals,\ so\ they\ share\ one\ module.}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00017}00017\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00018}00018\ \textcolor{comment}{\ *\ The\ SafetyEngine\ feeds\ the\ module\ by\ direction\ during\ the\ neighbor\ pass;\ the}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00019}00019\ \textcolor{comment}{\ *\ three\ flags\ are\ then\ derived\ on\ demand\ by\ the\ getters:}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00020}00020\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00021}00021\ \textcolor{comment}{\ *\ \ \ fcw\_front\_flag\ \ :\ forward\ collision\ with\ a\ vehicle\ ahead\ in\ the\ same\ lane.}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00022}00022\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Local,\ severity\ WARNING/CRITICAL\ from\ the\ front\ distance.}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00010}00010\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00011}00011\ \textcolor{comment}{\ *\ Cooperative\ Forward\ Collision\ Warning\ (FCW)\ and\ Do-\/Not-\/Pass\ Warning\ (DNPW).}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00012}00012\ \textcolor{comment}{\ *\ Both\ are\ derived\ from\ the\ same\ per-\/cycle\ signals,\ so\ they\ share\ one\ module.}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00013}00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00014}00014\ \textcolor{comment}{\ *\ The\ SafetyEngine\ feeds\ the\ module\ by\ direction\ during\ the\ neighbor\ pass;\ the}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00015}00015\ \textcolor{comment}{\ *\ three\ flags\ are\ then\ derived\ on\ demand\ by\ the\ getters:}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00016}00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00017}00017\ \textcolor{comment}{\ *\ \ \ fcw\_front\_flag\ \ :\ forward\ collision\ with\ a\ vehicle\ ahead\ in\ the\ same\ lane.}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00018}00018\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Local,\ severity\ WARNING/CRITICAL\ from\ the\ front\ distance.}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00019}00019\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00020}00020\ \textcolor{comment}{\ *\ \ \ fcw\_headon\_flag\ :\ head-\/on\ candidate\ —\ a\ vehicle\ ahead\ and\ an\ oncoming}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00021}00021\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vehicle\ both\ present.\ Broadcast\ over\ DSRC\ so\ the\ oncoming}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00022}00022\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ car\ can\ confirm.\ Boolean.}}
 \DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00023}00023\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00024}00024\ \textcolor{comment}{\ *\ \ \ fcw\_headon\_flag\ :\ head-\/on\ candidate\ —\ a\ vehicle\ ahead\ and\ an\ oncoming}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00025}00025\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vehicle\ both\ present.\ Broadcast\ over\ DSRC\ so\ the\ oncoming}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00026}00026\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ car\ can\ confirm.\ Boolean.}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00027}00027\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00028}00028\ \textcolor{comment}{\ *\ \ \ dnpw\_flag\ \ \ \ \ \ \ :\ the\ oncoming\ car\ has\ no\ head-\/on\ candidate\ of\ its\ own,\ so}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00029}00029\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ it\ is\ in\ another\ lane\ —\ an\ overtaking\ risk,\ not\ head-\/on.}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00030}00030\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00031}00031\ \textcolor{comment}{\ *\ Severity\ comes\ from\ the\ front\ distance\ against\ the\ cycle\ safe/critical\ gaps}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00032}00032\ \textcolor{comment}{\ *\ (SafetyEngine\_SafeDist\ /\ SafetyEngine\_CriticalDist).}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00033}00033\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00034}00034\ }
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00035}00035\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{FCW__DNPW__interface_8h}{../Inc/Application/FCW\_DNPW/FCW\_DNPW\_interface.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00036}00036\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{FCW__DNPW__config_8h}{../Inc/Application/FCW\_DNPW/FCW\_DNPW\_config.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00037}00037\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{FCW__DNPW__private_8h}{../Inc/Application/FCW\_DNPW/FCW\_DNPW\_private.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00038}00038\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{DSRC_8h}{../Inc/Application/DSRC/DSRC.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00039}00039\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{System_8h}{../Inc/System/System.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00040}00040\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SafetyEngine__interface_8h}{../Inc/Application/SafetyEngine/SafetyEngine\_interface.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00041}00041\ }
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00042}00042\ \textcolor{comment}{/*}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00043}00043\ \textcolor{comment}{\ *\ Module\ state\ —\ the\ four\ results,\ each\ ready\ to\ read\ straight\ from\ a\ getter.}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00044}00044\ \textcolor{comment}{\ *\ Inputs\ (front\ object\ +\ severity)\ are\ latched\ in\ BeginCycle;\ the\ result\ flags}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00045}00045\ \textcolor{comment}{\ *\ are\ kept\ up\ to\ date\ as\ neighbors\ arrive,\ so\ no\ getter\ recomputes\ anything.}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00046}00046\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00047}00047\ \textcolor{keyword}{static}\ uint8\_t\ FCW\_DNPW\_FcwObject\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ object\ inside\ the\ FCW\ front\ gate\ (40\ cm,\ wider)\ \ \ \ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00048}00048\ \textcolor{keyword}{static}\ uint8\_t\ FCW\_DNPW\_FrontObject\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ object\ inside\ the\ DNPW/head-\/on\ front\ gate\ (20\ cm)\ \ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00049}00049\ \textcolor{keyword}{static}\ uint8\_t\ FCW\_DNPW\_FrontLeftNear\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ oncoming\ car\ alongside\ on\ the\ left\ (front-\/left\ gate)*/}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00050}00050\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88}{RiskLevel\_t}}\ FCW\_DNPW\_FrontSeverity\ =\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};\ \ \textcolor{comment}{/*\ same-\/direction\ severity,\ latched\ per\ cycle\ \ \ \ \ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00051}00051\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88}{RiskLevel\_t}}\ FCW\_DNPW\_HeadonSeverity\ =\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};\ \textcolor{comment}{/*\ head-\/on\ severity:\ gaps\ doubled\ for\ closing\ speed\ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00052}00052\ }
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00053}00053\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88}{RiskLevel\_t}}\ FCW\_DNPW\_FrontFlag\ =\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};\ \textcolor{comment}{/*\ [result]\ forward\ collision,\ same\ lane\ (0/1/2)\ \ \ \ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00054}00054\ \textcolor{keyword}{static}\ uint8\_t\ FCW\_DNPW\_HeadonFlag\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ [result]\ head-\/on\ candidate,\ broadcast\ (0/1)\ \ \ \ \ \ \ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00055}00055\ \textcolor{keyword}{static}\ uint8\_t\ FCW\_DNPW\_HeadonConfirmed\ =\ 0;\ \ \ \ \ \ \ \textcolor{comment}{/*\ [result]\ confirmed\ head-\/on\ severity\ (0/1/2)\ \ \ \ \ \ \ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00056}00056\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88}{RiskLevel\_t}}\ FCW\_DNPW\_DnpwFlag\ =\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};\ \ \textcolor{comment}{/*\ [result]\ do-\/not-\/pass\ severity\ (0/1/2)\ \ \ \ \ \ \ \ \ \ \ \ \ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00057}00057\ }
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00058}00058\ \textcolor{comment}{/*\ ============\ Init\ ============\ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00059}\doxymbox{\hyperlink{FCW__DNPW__interface_8h_a3e8b7f3192f0f7284e9b4b5811019225}{00059}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a3e8b7f3192f0f7284e9b4b5811019225}{FCW\_DNPW\_voidInit}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00060}00060\ \{}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00061}00061\ \ \ FCW\_DNPW\_FcwObject\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00062}00062\ \ \ FCW\_DNPW\_FrontObject\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00063}00063\ \ \ FCW\_DNPW\_FrontLeftNear\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00064}00064\ \ \ FCW\_DNPW\_FrontSeverity\ =\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00065}00065\ \ \ FCW\_DNPW\_HeadonSeverity\ =\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00066}00066\ \ \ FCW\_DNPW\_FrontFlag\ =\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00067}00067\ \ \ FCW\_DNPW\_HeadonFlag\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00068}00068\ \ \ FCW\_DNPW\_HeadonConfirmed\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00069}00069\ \ \ FCW\_DNPW\_DnpwFlag\ =\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00070}00070\ \}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00071}00071\ }
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00072}00072\ \textcolor{comment}{/*\ ============================================================\ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00073}00073\ \textcolor{comment}{/*\ ============\ Per-\/Neighbor\ API\ (for\ SafetyEngine)\ ============\ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00074}00074\ \textcolor{comment}{/*\ ============================================================\ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00075}00075\ }
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00081}\doxymbox{\hyperlink{FCW__DNPW__interface_8h_add7c6969ea4668acaa5a1684c9d2b8a6}{00081}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_add7c6969ea4668acaa5a1684c9d2b8a6}{FCW\_DNPW\_voidBeginCycle}}(\textcolor{keywordtype}{float}\ front\_distance,\ \textcolor{keywordtype}{float}\ front\_left\_distance)}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00082}00082\ \{}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00083}00083\ \ \ \textcolor{comment}{/*\ Two\ front\ gates\ (not\ yet\ known\ to\ be\ a\ vehicle\ —\ a\ neighbor\ confirms\ later):}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00084}00084\ \textcolor{comment}{\ \ \ *\ \ \ -\/\ FCW\ gate\ (wider,\ 40\ cm)\ feeds\ the\ same-\/lane\ forward\ collision:\ warn\ earlier.}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00085}00085\ \textcolor{comment}{\ \ \ *\ \ \ -\/\ DNPW/head-\/on\ gate\ (nearer,\ 20\ cm)\ feeds\ the\ oncoming/overtaking\ case.\ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00086}00086\ \ \ FCW\_DNPW\_FcwObject\ =\ (front\_distance\ >\ 0.0f\ \&\&\ front\_distance\ <\ \doxymbox{\hyperlink{FCW__DNPW__config_8h_a62efb4f170f9fe499586d377133fa412}{FCW\_FRONT\_THRESHOLD}})\ ?\ 1U\ :\ 0U;}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00087}00087\ \ \ FCW\_DNPW\_FrontObject\ =\ (front\_distance\ >\ 0.0f\ \&\&\ front\_distance\ <\ \doxymbox{\hyperlink{FCW__DNPW__config_8h_a1f9edf3bbe77d932d8881a76d853ee6d}{DNPW\_FRONT\_THRESHOLD}})\ ?\ 1U\ :\ 0U;}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00088}00088\ }
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00089}00089\ \ \ \textcolor{comment}{/*\ The\ oncoming\ car\ alongside\ on\ the\ LEFT\ (overtaking\ side)\ escalates\ a\ DNPW\ to}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00090}00090\ \textcolor{comment}{\ \ \ *\ CRITICAL:\ to\ pass\ we\ pull\ out\ left,\ so\ the\ car\ we\ must\ not\ pass\ is\ on\ our\ left.\ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00091}00091\ \ \ FCW\_DNPW\_FrontLeftNear\ =\ (front\_left\_distance\ >\ 0.0f\ \&\&\ front\_left\_distance\ <\ \doxymbox{\hyperlink{FCW__DNPW__config_8h_a434f5b4f70cfa6ddea3651a08b646ccd}{DNPW\_FRONT\_LEFT\_CRITICAL}})\ ?\ 1U\ :\ 0U;}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00092}00092\ }
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00093}00093\ \ \ \textcolor{comment}{/*\ Latch\ the\ distance-\/based\ severity\ once.\ Two\ severities:\ a\ same-\/direction}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00094}00094\ \textcolor{comment}{\ \ \ *\ collision\ closes\ at\ the\ speed\ difference,\ but\ a\ head-\/on\ closes\ at\ the\ sum\ of}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00095}00095\ \textcolor{comment}{\ \ \ *\ both\ speeds\ (\string~double),\ so\ the\ head-\/on\ gaps\ are\ doubled\ to\ warn\ at\ twice\ the}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00096}00096\ \textcolor{comment}{\ \ \ *\ distance.\ The\ same-\/direction\ severity\ uses\ the\ wider\ FCW\ gate;\ the\ head-\/on}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00097}00097\ \textcolor{comment}{\ \ \ *\ severity\ uses\ the\ nearer\ DNPW\ gate.\ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00098}00098\ \ \ FCW\_DNPW\_FrontSeverity\ =\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00099}00099\ \ \ FCW\_DNPW\_HeadonSeverity\ =\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00100}00100\ }
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00101}00101\ \ \ \textcolor{comment}{/*\ Same-\/direction\ (FCW\ gate):\ closing\ at\ the\ speed\ difference,\ plain\ gaps.\ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00102}00102\ \ \ \textcolor{keywordflow}{if}\ (FCW\_DNPW\_FcwObject\ \&\&\ front\_distance\ <\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_a2d869610528b06238c15ab8fb160304f}{SafetyEngine\_SafeDist}})}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00103}00103\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00104}00104\ \ \ \ \ FCW\_DNPW\_FrontSeverity\ =\ (front\_distance\ <\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_a414ebc77c31778b0d2f7371abdbd2d19}{SafetyEngine\_CriticalDist}})\ ?\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492}{RISK\_CRITICAL}}\ :\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82}{RISK\_WARNING}};}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00105}00105\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00106}00106\ }
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00107}00107\ \ \ \textcolor{comment}{/*\ Head-\/on\ (DNPW\ gate):\ closing\ at\ the\ sum\ of\ both\ speeds\ (\string~double),\ doubled\ gaps.\ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00108}00108\ \ \ \textcolor{keywordflow}{if}\ (FCW\_DNPW\_FrontObject\ \&\&\ front\_distance\ <\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_a2d869610528b06238c15ab8fb160304f}{SafetyEngine\_SafeDist}}\ *\ 2.0f)}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00109}00109\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00110}00110\ \ \ \ \ FCW\_DNPW\_HeadonSeverity\ =\ (front\_distance\ <\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_a414ebc77c31778b0d2f7371abdbd2d19}{SafetyEngine\_CriticalDist}}\ *\ 2.0f)\ ?\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492}{RISK\_CRITICAL}}\ :\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82}{RISK\_WARNING}};}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00111}00111\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00112}00112\ }
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00113}00113\ \ \ \textcolor{comment}{/*\ Reset\ the\ results\ for\ the\ new\ cycle.\ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00114}00114\ \ \ FCW\_DNPW\_FrontFlag\ =\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00115}00115\ \ \ FCW\_DNPW\_HeadonFlag\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00116}00116\ \ \ FCW\_DNPW\_HeadonConfirmed\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00117}00117\ \ \ FCW\_DNPW\_DnpwFlag\ =\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00118}00118\ \}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00119}00119\ }
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00126}\doxymbox{\hyperlink{FCW__DNPW__interface_8h_a39ed4f5fd853ab1d88dcfc504f67b057}{00126}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a39ed4f5fd853ab1d88dcfc504f67b057}{FCW\_DNPW\_voidProcessSameDirection}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00127}00127\ \{}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00128}00128\ \ \ FCW\_DNPW\_FrontFlag\ =\ FCW\_DNPW\_FrontSeverity;}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00129}00129\ \}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00130}00130\ }
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00140}\doxymbox{\hyperlink{FCW__DNPW__interface_8h_ae4036f8bfcac20167bbb36b1c2b168e9}{00140}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_ae4036f8bfcac20167bbb36b1c2b168e9}{FCW\_DNPW\_voidProcessOppositeDirection}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{DSRC_8h_ac818f2e1224a1e513913a85019953e14}{Neighbor}}\ *n)}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00141}00141\ \{}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00142}00142\ \ \ \textcolor{keywordflow}{if}\ (!FCW\_DNPW\_FrontObject)}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00143}00143\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00144}00144\ \ \ \ \ \textcolor{keywordflow}{return};\ \textcolor{comment}{/*\ no\ object\ ahead\ —\ oncoming\ car\ alone\ is\ not\ our\ hazard\ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00145}00145\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00146}00146\ }
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00147}00147\ \ \ FCW\_DNPW\_HeadonFlag\ =\ 1;\ \textcolor{comment}{/*\ candidate:\ object\ ahead\ +\ oncoming\ present\ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00148}00148\ }
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00149}00149\ \ \ \textcolor{keywordflow}{if}\ (n-\/>fcw\_headon\_flag\ >\ 0)}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00150}00150\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00151}00151\ \ \ \ \ \textcolor{comment}{/*\ Same\ obstacle:\ a\ real\ head-\/on\ overrides\ any\ do-\/not-\/pass\ seen\ this\ cycle.}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00152}00152\ \textcolor{comment}{\ \ \ \ \ *\ Use\ the\ head-\/on\ severity\ (doubled\ gaps)\ for\ the\ higher\ closing\ speed.\ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00153}00153\ \ \ \ \ FCW\_DNPW\_HeadonConfirmed\ =\ (uint8\_t)FCW\_DNPW\_HeadonSeverity;}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00154}00154\ \ \ \ \ FCW\_DNPW\_DnpwFlag\ =\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00024}00024\ \textcolor{comment}{\ *\ \ \ dnpw\_flag\ \ \ \ \ \ \ :\ the\ oncoming\ car\ has\ no\ head-\/on\ candidate\ of\ its\ own,\ so}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00025}00025\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ it\ is\ in\ another\ lane\ —\ an\ overtaking\ risk,\ not\ head-\/on.}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00026}00026\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00027}00027\ \textcolor{comment}{\ *\ Severity\ comes\ from\ the\ front\ distance\ against\ the\ cycle\ safe/critical\ gaps}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00028}00028\ \textcolor{comment}{\ *\ (SafetyEngine\_SafeDist\ /\ SafetyEngine\_CriticalDist).}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00029}00029\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00031}00031\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{FCW__DNPW__interface_8h}{../Inc/Application/FCW\_DNPW/FCW\_DNPW\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00032}00032\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{FCW__DNPW__config_8h}{../Inc/Application/FCW\_DNPW/FCW\_DNPW\_config.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00033}00033\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{FCW__DNPW__private_8h}{../Inc/Application/FCW\_DNPW/FCW\_DNPW\_private.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00034}00034\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{DSRC_8h}{../Inc/Application/DSRC/DSRC.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00035}00035\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{System_8h}{../Inc/System/System.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00036}00036\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SafetyEngine__interface_8h}{../Inc/Application/SafetyEngine/SafetyEngine\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00038}00038\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00039}00039\ \textcolor{comment}{\ *\ Module\ state\ —\ the\ four\ results,\ each\ ready\ to\ read\ straight\ from\ a\ getter.}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00040}00040\ \textcolor{comment}{\ *\ Inputs\ (front\ object\ +\ severity)\ are\ latched\ in\ BeginCycle;\ the\ result\ flags}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00041}00041\ \textcolor{comment}{\ *\ are\ kept\ up\ to\ date\ as\ neighbors\ arrive,\ so\ no\ getter\ recomputes\ anything.}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00042}00042\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00044}\doxymbox{\hyperlink{FCW__DNPW__program_8c_abae69438c3855add2f720ba78ebaf6c6}{00044}}\ \textcolor{keyword}{static}\ uint8\_t\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_abae69438c3855add2f720ba78ebaf6c6}{FCW\_DNPW\_FcwObject}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00046}\doxymbox{\hyperlink{FCW__DNPW__program_8c_a481a3bcf1205909bc9e5cf8b8b7cbd12}{00046}}\ \textcolor{keyword}{static}\ uint8\_t\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a481a3bcf1205909bc9e5cf8b8b7cbd12}{FCW\_DNPW\_FrontObject}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00048}\doxymbox{\hyperlink{FCW__DNPW__program_8c_a5c674f2520cc5e2c3fa0b907cee8833f}{00048}}\ \textcolor{keyword}{static}\ uint8\_t\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a5c674f2520cc5e2c3fa0b907cee8833f}{FCW\_DNPW\_FrontLeftNear}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00050}\doxymbox{\hyperlink{FCW__DNPW__program_8c_a4ff6ffd2aec06ddd250b0d1247da26b1}{00050}}\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{RiskLevel\_t}}\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a4ff6ffd2aec06ddd250b0d1247da26b1}{FCW\_DNPW\_FrontSeverity}}\ =\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00057}\doxymbox{\hyperlink{FCW__DNPW__program_8c_a4d96357f4ee2899a2f18f9bdc3c9a443}{00057}}\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{RiskLevel\_t}}\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a4d96357f4ee2899a2f18f9bdc3c9a443}{FCW\_DNPW\_HeadonSeverity}}\ =\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00060}\doxymbox{\hyperlink{FCW__DNPW__program_8c_a2d56e15e0504fef8fd3ab61b5a246186}{00060}}\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{RiskLevel\_t}}\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a2d56e15e0504fef8fd3ab61b5a246186}{FCW\_DNPW\_FrontFlag}}\ =\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00062}\doxymbox{\hyperlink{FCW__DNPW__program_8c_aa6b13e4c5fb5a01ece5cc137d69631ca}{00062}}\ \textcolor{keyword}{static}\ uint8\_t\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_aa6b13e4c5fb5a01ece5cc137d69631ca}{FCW\_DNPW\_HeadonFlag}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00064}\doxymbox{\hyperlink{FCW__DNPW__program_8c_ad6c9a97d12eb3e337a414b5c845d68df}{00064}}\ \textcolor{keyword}{static}\ uint8\_t\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_ad6c9a97d12eb3e337a414b5c845d68df}{FCW\_DNPW\_HeadonConfirmed}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00066}\doxymbox{\hyperlink{FCW__DNPW__program_8c_a3b16cca55686a877ca52179e5e27c7c2}{00066}}\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{RiskLevel\_t}}\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a3b16cca55686a877ca52179e5e27c7c2}{FCW\_DNPW\_DnpwFlag}}\ =\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00068}00068\ \textcolor{comment}{/*\ ============\ Init\ ============\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00069}\doxymbox{\hyperlink{FCW__DNPW__interface_8h_a3e8b7f3192f0f7284e9b4b5811019225}{00069}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a3e8b7f3192f0f7284e9b4b5811019225}{FCW\_DNPW\_voidInit}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00070}00070\ \{}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00071}00071\ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_abae69438c3855add2f720ba78ebaf6c6}{FCW\_DNPW\_FcwObject}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00072}00072\ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a481a3bcf1205909bc9e5cf8b8b7cbd12}{FCW\_DNPW\_FrontObject}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00073}00073\ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a5c674f2520cc5e2c3fa0b907cee8833f}{FCW\_DNPW\_FrontLeftNear}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00074}00074\ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a4ff6ffd2aec06ddd250b0d1247da26b1}{FCW\_DNPW\_FrontSeverity}}\ =\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00075}00075\ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a4d96357f4ee2899a2f18f9bdc3c9a443}{FCW\_DNPW\_HeadonSeverity}}\ =\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00076}00076\ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a2d56e15e0504fef8fd3ab61b5a246186}{FCW\_DNPW\_FrontFlag}}\ =\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00077}00077\ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_aa6b13e4c5fb5a01ece5cc137d69631ca}{FCW\_DNPW\_HeadonFlag}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00078}00078\ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_ad6c9a97d12eb3e337a414b5c845d68df}{FCW\_DNPW\_HeadonConfirmed}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00079}00079\ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a3b16cca55686a877ca52179e5e27c7c2}{FCW\_DNPW\_DnpwFlag}}\ =\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00080}00080\ \}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00082}00082\ \textcolor{comment}{/*\ ============================================================\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00083}00083\ \textcolor{comment}{/*\ ============\ Per-\/Neighbor\ API\ (for\ SafetyEngine)\ ============\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00084}00084\ \textcolor{comment}{/*\ ============================================================\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00086}00086\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00087}00087\ \textcolor{comment}{\ *\ @brief\ Start\ a\ new\ cycle:\ latch\ the\ front\ distances\ and\ reset\ the\ signals.}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00088}00088\ \textcolor{comment}{\ *\ @param\ front\_distance\ \ \ \ \ \ Front-\/center\ ultrasonic\ distance\ (cm)}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00089}00089\ \textcolor{comment}{\ *\ @param\ front\_left\_distance\ Front-\/left\ ultrasonic\ distance\ (cm)}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00090}00090\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00091}\doxymbox{\hyperlink{FCW__DNPW__interface_8h_add7c6969ea4668acaa5a1684c9d2b8a6}{00091}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_add7c6969ea4668acaa5a1684c9d2b8a6}{FCW\_DNPW\_voidBeginCycle}}(\textcolor{keywordtype}{float}\ front\_distance,\ \textcolor{keywordtype}{float}\ front\_left\_distance)}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00092}00092\ \{}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00093}00093\ \ \ \textcolor{comment}{/*\ Two\ front\ gates\ (not\ yet\ known\ to\ be\ a\ vehicle\ —\ a\ neighbor\ confirms\ later):}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00094}00094\ \textcolor{comment}{\ \ \ *\ \ \ -\/\ FCW\ gate\ (wider,\ 40\ cm)\ feeds\ the\ same-\/lane\ forward\ collision:\ warn\ earlier.}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00095}00095\ \textcolor{comment}{\ \ \ *\ \ \ -\/\ DNPW/head-\/on\ gate\ (nearer,\ 20\ cm)\ feeds\ the\ oncoming/overtaking\ case.\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00096}00096\ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_abae69438c3855add2f720ba78ebaf6c6}{FCW\_DNPW\_FcwObject}}\ =\ (front\_distance\ >\ 0.0f\ \&\&\ front\_distance\ <\ \doxymbox{\hyperlink{FCW__DNPW__config_8h_a62efb4f170f9fe499586d377133fa412}{FCW\_FRONT\_THRESHOLD}})\ ?\ 1U\ :\ 0U;}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00097}00097\ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a481a3bcf1205909bc9e5cf8b8b7cbd12}{FCW\_DNPW\_FrontObject}}\ =\ (front\_distance\ >\ 0.0f\ \&\&\ front\_distance\ <\ \doxymbox{\hyperlink{FCW__DNPW__config_8h_a1f9edf3bbe77d932d8881a76d853ee6d}{DNPW\_FRONT\_THRESHOLD}})\ ?\ 1U\ :\ 0U;}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00099}00099\ \ \ \textcolor{comment}{/*\ The\ oncoming\ car\ alongside\ on\ the\ LEFT\ (overtaking\ side)\ escalates\ a\ DNPW\ to}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00100}00100\ \textcolor{comment}{\ \ \ *\ CRITICAL:\ to\ pass\ we\ pull\ out\ left,\ so\ the\ car\ we\ must\ not\ pass\ is\ on\ our\ left.\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00101}00101\ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a5c674f2520cc5e2c3fa0b907cee8833f}{FCW\_DNPW\_FrontLeftNear}}\ =\ (front\_left\_distance\ >\ 0.0f\ \&\&\ front\_left\_distance\ <\ \doxymbox{\hyperlink{FCW__DNPW__config_8h_a434f5b4f70cfa6ddea3651a08b646ccd}{DNPW\_FRONT\_LEFT\_CRITICAL}})\ ?\ 1U\ :\ 0U;}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00103}00103\ \ \ \textcolor{comment}{/*\ Latch\ the\ distance-\/based\ severity\ once.\ Two\ severities:\ a\ same-\/direction}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00104}00104\ \textcolor{comment}{\ \ \ *\ collision\ closes\ at\ the\ speed\ difference,\ but\ a\ head-\/on\ closes\ at\ the\ sum\ of}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00105}00105\ \textcolor{comment}{\ \ \ *\ both\ speeds\ (\string~double),\ so\ the\ head-\/on\ gaps\ are\ doubled\ to\ warn\ at\ twice\ the}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00106}00106\ \textcolor{comment}{\ \ \ *\ distance.\ The\ same-\/direction\ severity\ uses\ the\ wider\ FCW\ gate;\ the\ head-\/on}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00107}00107\ \textcolor{comment}{\ \ \ *\ severity\ uses\ the\ nearer\ DNPW\ gate.\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00108}00108\ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a4ff6ffd2aec06ddd250b0d1247da26b1}{FCW\_DNPW\_FrontSeverity}}\ =\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00109}00109\ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a4d96357f4ee2899a2f18f9bdc3c9a443}{FCW\_DNPW\_HeadonSeverity}}\ =\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00111}00111\ \ \ \textcolor{comment}{/*\ Same-\/direction\ (FCW\ gate):\ closing\ at\ the\ speed\ difference,\ plain\ gaps.\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00112}00112\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{FCW__DNPW__program_8c_abae69438c3855add2f720ba78ebaf6c6}{FCW\_DNPW\_FcwObject}}\ \&\&\ front\_distance\ <\ \doxymbox{\hyperlink{group__app__safetyengine_ga2d869610528b06238c15ab8fb160304f}{SafetyEngine\_SafeDist}})}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00113}00113\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00114}00114\ \ \ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a4ff6ffd2aec06ddd250b0d1247da26b1}{FCW\_DNPW\_FrontSeverity}}\ =\ (front\_distance\ <\ \doxymbox{\hyperlink{group__app__safetyengine_ga414ebc77c31778b0d2f7371abdbd2d19}{SafetyEngine\_CriticalDist}})\ ?\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492}{RISK\_CRITICAL}}\ :\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82}{RISK\_WARNING}};}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00115}00115\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00117}00117\ \ \ \textcolor{comment}{/*\ Head-\/on\ (DNPW\ gate):\ closing\ at\ the\ sum\ of\ both\ speeds\ (\string~double),\ doubled\ gaps.\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00118}00118\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{FCW__DNPW__program_8c_a481a3bcf1205909bc9e5cf8b8b7cbd12}{FCW\_DNPW\_FrontObject}}\ \&\&\ front\_distance\ <\ \doxymbox{\hyperlink{group__app__safetyengine_ga2d869610528b06238c15ab8fb160304f}{SafetyEngine\_SafeDist}}\ *\ 2.0f)}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00119}00119\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00120}00120\ \ \ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a4d96357f4ee2899a2f18f9bdc3c9a443}{FCW\_DNPW\_HeadonSeverity}}\ =\ (front\_distance\ <\ \doxymbox{\hyperlink{group__app__safetyengine_ga414ebc77c31778b0d2f7371abdbd2d19}{SafetyEngine\_CriticalDist}}\ *\ 2.0f)\ ?\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492}{RISK\_CRITICAL}}\ :\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82}{RISK\_WARNING}};}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00121}00121\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00123}00123\ \ \ \textcolor{comment}{/*\ Reset\ the\ results\ for\ the\ new\ cycle.\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00124}00124\ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a2d56e15e0504fef8fd3ab61b5a246186}{FCW\_DNPW\_FrontFlag}}\ =\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00125}00125\ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_aa6b13e4c5fb5a01ece5cc137d69631ca}{FCW\_DNPW\_HeadonFlag}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00126}00126\ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_ad6c9a97d12eb3e337a414b5c845d68df}{FCW\_DNPW\_HeadonConfirmed}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00127}00127\ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a3b16cca55686a877ca52179e5e27c7c2}{FCW\_DNPW\_DnpwFlag}}\ =\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00128}00128\ \}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00130}00130\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00131}00131\ \textcolor{comment}{\ *\ @brief\ A\ same-\/direction\ neighbor\ confirms\ the\ object\ ahead\ is\ a\ vehicle,\ so\ the}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00132}00132\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ latched\ front-\/distance\ severity\ becomes\ a\ real\ front-\/collision\ flag.}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00133}00133\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ The\ severity\ is\ the\ same\ for\ every\ same-\/direction\ neighbor\ (it\ depends}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00134}00134\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ only\ on\ the\ front\ distance),\ so\ a\ plain\ assignment\ is\ enough.}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00135}00135\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00136}\doxymbox{\hyperlink{FCW__DNPW__interface_8h_a39ed4f5fd853ab1d88dcfc504f67b057}{00136}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a39ed4f5fd853ab1d88dcfc504f67b057}{FCW\_DNPW\_voidProcessSameDirection}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00137}00137\ \{}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00138}00138\ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a2d56e15e0504fef8fd3ab61b5a246186}{FCW\_DNPW\_FrontFlag}}\ =\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a4ff6ffd2aec06ddd250b0d1247da26b1}{FCW\_DNPW\_FrontSeverity}};}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00139}00139\ \}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00141}00141\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00142}00142\ \textcolor{comment}{\ *\ @brief\ An\ oncoming\ neighbor\ exists.\ With\ an\ object\ ahead,\ that\ makes\ a\ head-\/on}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00143}00143\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ candidate\ (broadcast\ for\ confirmation).\ Whether\ the\ oncoming\ car\ raised}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00144}00144\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ its\ own\ head-\/on\ flag\ splits\ the\ case:}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00145}00145\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ -\/\ it\ did\ \ →\ both\ face\ the\ same\ obstacle:\ confirmed\ head-\/on\ (severity).}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00146}00146\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ -\/\ it\ did\ not\ →\ it\ is\ in\ another\ lane:\ a\ do-\/not-\/pass\ /\ overtaking\ risk.}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00147}00147\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ All\ three\ results\ are\ settled\ here,\ ready\ for\ the\ getters\ to\ return.}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00148}00148\ \textcolor{comment}{\ *\ @param\ n\ Pointer\ to\ neighbor\ data}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00149}00149\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00150}\doxymbox{\hyperlink{FCW__DNPW__interface_8h_ae4036f8bfcac20167bbb36b1c2b168e9}{00150}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_ae4036f8bfcac20167bbb36b1c2b168e9}{FCW\_DNPW\_voidProcessOppositeDirection}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structNeighbor}{Neighbor}}\ *n)}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00151}00151\ \{}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00152}00152\ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{FCW__DNPW__program_8c_a481a3bcf1205909bc9e5cf8b8b7cbd12}{FCW\_DNPW\_FrontObject}})}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00153}00153\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00154}00154\ \ \ \ \ \textcolor{keywordflow}{return};\ \textcolor{comment}{/*\ no\ object\ ahead\ —\ oncoming\ car\ alone\ is\ not\ our\ hazard\ */}}
 \DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00155}00155\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00156}00156\ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (!FCW\_DNPW\_HeadonConfirmed)}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00157}00157\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00158}00158\ \ \ \ \ \textcolor{comment}{/*\ Oncoming\ is\ in\ another\ lane:\ overtaking\ risk.\ WARNING\ by\ default,\ CRITICAL}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00159}00159\ \textcolor{comment}{\ \ \ \ \ *\ when\ the\ front-\/left\ sensor\ reads\ a\ near\ object\ (the\ oncoming\ car\ alongside}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00160}00160\ \textcolor{comment}{\ \ \ \ \ *\ on\ the\ overtaking\ side).\ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00161}00161\ \ \ \ \ FCW\_DNPW\_DnpwFlag\ =\ FCW\_DNPW\_FrontLeftNear\ ?\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492}{RISK\_CRITICAL}}\ :\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82}{RISK\_WARNING}};}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00162}00162\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00163}00163\ \}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00164}00164\ }
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00165}00165\ \textcolor{comment}{/*\ ============\ Public\ Getters\ (return\ the\ ready\ results)\ ============\ */}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00166}00166\ }
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00168}\doxymbox{\hyperlink{FCW__DNPW__interface_8h_a724d10fbe6405476d140c3f113e787de}{00168}}\ uint8\_t\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a724d10fbe6405476d140c3f113e787de}{FCW\_GetFrontFlag}}(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ (uint8\_t)FCW\_DNPW\_FrontFlag;\ \}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00169}00169\ }
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00171}\doxymbox{\hyperlink{FCW__DNPW__interface_8h_a2a96028174e72e3bc92ab13f333d4e6c}{00171}}\ uint8\_t\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a2a96028174e72e3bc92ab13f333d4e6c}{FCW\_GetHeadonFlag}}(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ FCW\_DNPW\_HeadonFlag;\ \}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00172}00172\ }
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00174}\doxymbox{\hyperlink{FCW__DNPW__interface_8h_a0eb1ff382b2898d1d05b62fdeaf96eee}{00174}}\ uint8\_t\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a0eb1ff382b2898d1d05b62fdeaf96eee}{FCW\_GetHeadonConfirmed}}(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ FCW\_DNPW\_HeadonConfirmed;\ \}}
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00175}00175\ }
-\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00177}\doxymbox{\hyperlink{FCW__DNPW__interface_8h_a0c6c9a2cd9113721e4d3fa8221ffaef9}{00177}}\ uint8\_t\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a0c6c9a2cd9113721e4d3fa8221ffaef9}{DNPW\_GetFlag}}(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ (uint8\_t)FCW\_DNPW\_DnpwFlag;\ \}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00156}00156\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00157}00157\ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_aa6b13e4c5fb5a01ece5cc137d69631ca}{FCW\_DNPW\_HeadonFlag}}\ =\ 1;\ \textcolor{comment}{/*\ candidate:\ object\ ahead\ +\ oncoming\ present\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00159}00159\ \ \ \textcolor{keywordflow}{if}\ (n-\/>\doxymbox{\hyperlink{structNeighbor_a96546ab95ad4529f151b6bd6d0dbf25b}{fcw\_headon\_flag}}\ >\ 0)}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00160}00160\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00161}00161\ \ \ \ \ \textcolor{comment}{/*\ Same\ obstacle:\ a\ real\ head-\/on\ overrides\ any\ do-\/not-\/pass\ seen\ this\ cycle.}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00162}00162\ \textcolor{comment}{\ \ \ \ \ *\ Use\ the\ head-\/on\ severity\ (doubled\ gaps)\ for\ the\ higher\ closing\ speed.\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00163}00163\ \ \ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_ad6c9a97d12eb3e337a414b5c845d68df}{FCW\_DNPW\_HeadonConfirmed}}\ =\ (uint8\_t)\doxymbox{\hyperlink{FCW__DNPW__program_8c_a4d96357f4ee2899a2f18f9bdc3c9a443}{FCW\_DNPW\_HeadonSeverity}};}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00164}00164\ \ \ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a3b16cca55686a877ca52179e5e27c7c2}{FCW\_DNPW\_DnpwFlag}}\ =\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00165}00165\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00166}00166\ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{FCW__DNPW__program_8c_ad6c9a97d12eb3e337a414b5c845d68df}{FCW\_DNPW\_HeadonConfirmed}})}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00167}00167\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00168}00168\ \ \ \ \ \textcolor{comment}{/*\ Oncoming\ is\ in\ another\ lane:\ overtaking\ risk.\ WARNING\ by\ default,\ CRITICAL}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00169}00169\ \textcolor{comment}{\ \ \ \ \ *\ when\ the\ front-\/left\ sensor\ reads\ a\ near\ object\ (the\ oncoming\ car\ alongside}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00170}00170\ \textcolor{comment}{\ \ \ \ \ *\ on\ the\ overtaking\ side).\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00171}00171\ \ \ \ \ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a3b16cca55686a877ca52179e5e27c7c2}{FCW\_DNPW\_DnpwFlag}}\ =\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a5c674f2520cc5e2c3fa0b907cee8833f}{FCW\_DNPW\_FrontLeftNear}}\ ?\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492}{RISK\_CRITICAL}}\ :\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82}{RISK\_WARNING}};}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00172}00172\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00173}00173\ \}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00175}00175\ \textcolor{comment}{/*\ ============\ Public\ Getters\ (return\ the\ ready\ results)\ ============\ */}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00176}00176\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00178}\doxymbox{\hyperlink{FCW__DNPW__interface_8h_a724d10fbe6405476d140c3f113e787de}{00178}}\ uint8\_t\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a724d10fbe6405476d140c3f113e787de}{FCW\_GetFrontFlag}}(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ (uint8\_t)\doxymbox{\hyperlink{FCW__DNPW__program_8c_a2d56e15e0504fef8fd3ab61b5a246186}{FCW\_DNPW\_FrontFlag}};\ \}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00181}\doxymbox{\hyperlink{FCW__DNPW__interface_8h_a2a96028174e72e3bc92ab13f333d4e6c}{00181}}\ uint8\_t\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a2a96028174e72e3bc92ab13f333d4e6c}{FCW\_GetHeadonFlag}}(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_aa6b13e4c5fb5a01ece5cc137d69631ca}{FCW\_DNPW\_HeadonFlag}};\ \}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00184}\doxymbox{\hyperlink{FCW__DNPW__interface_8h_a0eb1ff382b2898d1d05b62fdeaf96eee}{00184}}\ uint8\_t\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a0eb1ff382b2898d1d05b62fdeaf96eee}{FCW\_GetHeadonConfirmed}}(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_ad6c9a97d12eb3e337a414b5c845d68df}{FCW\_DNPW\_HeadonConfirmed}};\ \}}
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{FCW__DNPW__program_8c_source_l00187}\doxymbox{\hyperlink{FCW__DNPW__interface_8h_a0c6c9a2cd9113721e4d3fa8221ffaef9}{00187}}\ uint8\_t\ \doxymbox{\hyperlink{FCW__DNPW__program_8c_a0c6c9a2cd9113721e4d3fa8221ffaef9}{DNPW\_GetFlag}}(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ (uint8\_t)\doxymbox{\hyperlink{FCW__DNPW__program_8c_a3b16cca55686a877ca52179e5e27c7c2}{FCW\_DNPW\_DnpwFlag}};\ \}}
 
 \end{DoxyCode}

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Inc/Application/BSW/BSW_interface.h Source File</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Inc/Application/BSW/BSW_interface.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -93,48 +93,50 @@ $(function(){initNavTree('BSW__interface_8h_source.html','',''); });
   <div class="headertitle"><div class="title">BSW_interface.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="BSW__interface_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BSW_INTERFACE_H</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BSW_INTERFACE_H</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="DSRC_8h.html">../DSRC/DSRC.h</a>&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="SafetyEngine__interface_8h.html">../SafetyEngine/SafetyEngine_interface.h</a>&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keywordtype">void</span> <a class="code hl_function" href="BSW__interface_8h.html#a9f03e569a421d0df764a8e87d671eea4">BSW_voidInit</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>uint8_t <a class="code hl_function" href="BSW__interface_8h.html#ad2e4d7ccf9588f4cdeecfd471430ec7c">BSW_u8GetFlag</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>uint8_t <a class="code hl_function" href="BSW__interface_8h.html#ac814a5d4310e3e00b8700df5af59858d">BSW_u8GetBlindSpot</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>uint8_t <a class="code hl_function" href="BSW__interface_8h.html#a78f44c9528e62f99efcefaa8d779a6a2">BSW_u8GetSeverity</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>uint8_t <a class="code hl_function" href="BSW__interface_8h.html#adf8eecd88222e0b29db5aaffe7af235d">BSW_u8GetSidesSeverity</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">/* ===== Per-Neighbor API (used by SafetyEngine) ===== */</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keywordtype">void</span> <a class="code hl_function" href="BSW__interface_8h.html#ae07233e2631a1dc55b95b7933e9b9801">BSW_voidBeginCycle</a>(<span class="keywordtype">float</span> front_left, <span class="keywordtype">float</span> front_right,</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                        <span class="keywordtype">float</span> rear_left, <span class="keywordtype">float</span> rear_right);</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keywordtype">void</span> <a class="code hl_function" href="BSW__interface_8h.html#a92af4dc1c402accc0ef30daa8d798e00">BSW_voidProcessNeighbor</a>(<span class="keyword">const</span> <a class="code hl_variable" href="DSRC_8h.html#ac818f2e1224a1e513913a85019953e14">Neighbor</a> *n);</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aBSW__interface_8h_html_a78f44c9528e62f99efcefaa8d779a6a2"><div class="ttname"><a href="BSW__interface_8h.html#a78f44c9528e62f99efcefaa8d779a6a2">BSW_u8GetSeverity</a></div><div class="ttdeci">uint8_t BSW_u8GetSeverity(void)</div><div class="ttdoc">Get the receiver-side blind-spot SEVERITY for THIS car (worst side), graded by how close the car behi...</div><div class="ttdef"><b>Definition</b> <a href="BSW__program_8c_source.html#l00143">BSW_program.c:143</a></div></div>
-<div class="ttc" id="aBSW__interface_8h_html_a92af4dc1c402accc0ef30daa8d798e00"><div class="ttname"><a href="BSW__interface_8h.html#a92af4dc1c402accc0ef30daa8d798e00">BSW_voidProcessNeighbor</a></div><div class="ttdeci">void BSW_voidProcessNeighbor(const Neighbor *n)</div><div class="ttdoc">Process one DSRC neighbor for BSW (receiver role).</div><div class="ttdef"><b>Definition</b> <a href="BSW__program_8c_source.html#l00099">BSW_program.c:99</a></div></div>
-<div class="ttc" id="aBSW__interface_8h_html_a9f03e569a421d0df764a8e87d671eea4"><div class="ttname"><a href="BSW__interface_8h.html#a9f03e569a421d0df764a8e87d671eea4">BSW_voidInit</a></div><div class="ttdeci">void BSW_voidInit(void)</div><div class="ttdoc">Initialize the BSW module.</div><div class="ttdef"><b>Definition</b> <a href="BSW__program_8c_source.html#l00046">BSW_program.c:46</a></div></div>
-<div class="ttc" id="aBSW__interface_8h_html_ac814a5d4310e3e00b8700df5af59858d"><div class="ttname"><a href="BSW__interface_8h.html#ac814a5d4310e3e00b8700df5af59858d">BSW_u8GetBlindSpot</a></div><div class="ttdeci">uint8_t BSW_u8GetBlindSpot(void)</div><div class="ttdoc">Get the receiver-side blind-spot result for THIS car (which side has a vehicle in the blind spot)....</div><div class="ttdef"><b>Definition</b> <a href="BSW__program_8c_source.html#l00133">BSW_program.c:133</a></div></div>
-<div class="ttc" id="aBSW__interface_8h_html_ad2e4d7ccf9588f4cdeecfd471430ec7c"><div class="ttname"><a href="BSW__interface_8h.html#ad2e4d7ccf9588f4cdeecfd471430ec7c">BSW_u8GetFlag</a></div><div class="ttdeci">uint8_t BSW_u8GetFlag(void)</div><div class="ttdoc">Get current BSW flag to broadcast over DSRC (sender&#39;s own front side(s)).</div><div class="ttdef"><b>Definition</b> <a href="BSW__program_8c_source.html#l00121">BSW_program.c:121</a></div></div>
-<div class="ttc" id="aBSW__interface_8h_html_adf8eecd88222e0b29db5aaffe7af235d"><div class="ttname"><a href="BSW__interface_8h.html#adf8eecd88222e0b29db5aaffe7af235d">BSW_u8GetSidesSeverity</a></div><div class="ttdeci">uint8_t BSW_u8GetSidesSeverity(void)</div><div class="ttdoc">Get the receiver-side blind-spot severity PER SIDE, packed so the Raspberry Pi can tell LEFT from RIG...</div><div class="ttdef"><b>Definition</b> <a href="BSW__program_8c_source.html#l00155">BSW_program.c:155</a></div></div>
-<div class="ttc" id="aBSW__interface_8h_html_ae07233e2631a1dc55b95b7933e9b9801"><div class="ttname"><a href="BSW__interface_8h.html#ae07233e2631a1dc55b95b7933e9b9801">BSW_voidBeginCycle</a></div><div class="ttdeci">void BSW_voidBeginCycle(float front_left, float front_right, float rear_left, float rear_right)</div><div class="ttdoc">Begin a new processing cycle — latch side distances, reset accumulators.</div><div class="ttdef"><b>Definition</b> <a href="BSW__program_8c_source.html#l00065">BSW_program.c:65</a></div></div>
-<div class="ttc" id="aDSRC_8h_html"><div class="ttname"><a href="DSRC_8h.html">DSRC.h</a></div><div class="ttdoc">: DSRC module implementation</div></div>
-<div class="ttc" id="aDSRC_8h_html_ac818f2e1224a1e513913a85019953e14"><div class="ttname"><a href="DSRC_8h.html#ac818f2e1224a1e513913a85019953e14">Neighbor</a></div><div class="ttdeci">Neighbor</div><div class="ttdef"><b>Definition</b> <a href="DSRC_8h_source.html#l00040">DSRC.h:40</a></div></div>
-<div class="ttc" id="aSafetyEngine__interface_8h_html"><div class="ttname"><a href="SafetyEngine__interface_8h.html">SafetyEngine_interface.h</a></div></div>
+<a href="BSW__interface_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#ifndef BSW_INTERFACE_H</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#define BSW_INTERFACE_H</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="DSRC_8h.html">../DSRC/DSRC.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="SafetyEngine__interface_8h.html">../SafetyEngine/SafetyEngine_interface.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keywordtype">void</span> <a class="code hl_function" href="BSW__interface_8h.html#a9f03e569a421d0df764a8e87d671eea4">BSW_voidInit</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>uint8_t <a class="code hl_function" href="BSW__interface_8h.html#ad2e4d7ccf9588f4cdeecfd471430ec7c">BSW_u8GetFlag</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>uint8_t <a class="code hl_function" href="BSW__interface_8h.html#ac814a5d4310e3e00b8700df5af59858d">BSW_u8GetBlindSpot</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>uint8_t <a class="code hl_function" href="BSW__interface_8h.html#a78f44c9528e62f99efcefaa8d779a6a2">BSW_u8GetSeverity</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>uint8_t <a class="code hl_function" href="BSW__interface_8h.html#adf8eecd88222e0b29db5aaffe7af235d">BSW_u8GetSidesSeverity</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">/* ===== Per-Neighbor API (used by SafetyEngine) ===== */</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keywordtype">void</span> <a class="code hl_function" href="BSW__interface_8h.html#ae07233e2631a1dc55b95b7933e9b9801">BSW_voidBeginCycle</a>(<span class="keywordtype">float</span> front_left, <span class="keywordtype">float</span> front_right,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                        <span class="keywordtype">float</span> rear_left, <span class="keywordtype">float</span> rear_right);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keywordtype">void</span> <a class="code hl_function" href="BSW__interface_8h.html#a92af4dc1c402accc0ef30daa8d798e00">BSW_voidProcessNeighbor</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structNeighbor.html">Neighbor</a> *n);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aBSW__interface_8h_html_a78f44c9528e62f99efcefaa8d779a6a2"><div class="ttname"><a href="BSW__interface_8h.html#a78f44c9528e62f99efcefaa8d779a6a2">BSW_u8GetSeverity</a></div><div class="ttdeci">uint8_t BSW_u8GetSeverity(void)</div><div class="ttdoc">Get the receiver-side blind-spot SEVERITY for THIS car (worst side), graded by how close the car behi...</div><div class="ttdef"><b>Definition</b> <a href="BSW__program_8c_source.html#l00153">BSW_program.c:153</a></div></div>
+<div class="ttc" id="aBSW__interface_8h_html_a92af4dc1c402accc0ef30daa8d798e00"><div class="ttname"><a href="BSW__interface_8h.html#a92af4dc1c402accc0ef30daa8d798e00">BSW_voidProcessNeighbor</a></div><div class="ttdeci">void BSW_voidProcessNeighbor(const Neighbor *n)</div><div class="ttdoc">Process one DSRC neighbor for BSW (receiver role).</div><div class="ttdef"><b>Definition</b> <a href="BSW__program_8c_source.html#l00109">BSW_program.c:109</a></div></div>
+<div class="ttc" id="aBSW__interface_8h_html_a9f03e569a421d0df764a8e87d671eea4"><div class="ttname"><a href="BSW__interface_8h.html#a9f03e569a421d0df764a8e87d671eea4">BSW_voidInit</a></div><div class="ttdeci">void BSW_voidInit(void)</div><div class="ttdoc">Initialize the BSW module.</div><div class="ttdef"><b>Definition</b> <a href="BSW__program_8c_source.html#l00056">BSW_program.c:56</a></div></div>
+<div class="ttc" id="aBSW__interface_8h_html_ac814a5d4310e3e00b8700df5af59858d"><div class="ttname"><a href="BSW__interface_8h.html#ac814a5d4310e3e00b8700df5af59858d">BSW_u8GetBlindSpot</a></div><div class="ttdeci">uint8_t BSW_u8GetBlindSpot(void)</div><div class="ttdoc">Get the receiver-side blind-spot result for THIS car (which side has a vehicle in the blind spot).</div><div class="ttdef"><b>Definition</b> <a href="BSW__program_8c_source.html#l00143">BSW_program.c:143</a></div></div>
+<div class="ttc" id="aBSW__interface_8h_html_ad2e4d7ccf9588f4cdeecfd471430ec7c"><div class="ttname"><a href="BSW__interface_8h.html#ad2e4d7ccf9588f4cdeecfd471430ec7c">BSW_u8GetFlag</a></div><div class="ttdeci">uint8_t BSW_u8GetFlag(void)</div><div class="ttdoc">Get current BSW flag to broadcast over DSRC (sender&#39;s own front side(s)).</div><div class="ttdef"><b>Definition</b> <a href="BSW__program_8c_source.html#l00131">BSW_program.c:131</a></div></div>
+<div class="ttc" id="aBSW__interface_8h_html_adf8eecd88222e0b29db5aaffe7af235d"><div class="ttname"><a href="BSW__interface_8h.html#adf8eecd88222e0b29db5aaffe7af235d">BSW_u8GetSidesSeverity</a></div><div class="ttdeci">uint8_t BSW_u8GetSidesSeverity(void)</div><div class="ttdoc">Get the receiver-side blind-spot severity PER SIDE, packed so the Raspberry Pi can tell LEFT from RIG...</div><div class="ttdef"><b>Definition</b> <a href="BSW__program_8c_source.html#l00165">BSW_program.c:165</a></div></div>
+<div class="ttc" id="aBSW__interface_8h_html_ae07233e2631a1dc55b95b7933e9b9801"><div class="ttname"><a href="BSW__interface_8h.html#ae07233e2631a1dc55b95b7933e9b9801">BSW_voidBeginCycle</a></div><div class="ttdeci">void BSW_voidBeginCycle(float front_left, float front_right, float rear_left, float rear_right)</div><div class="ttdoc">Begin a new processing cycle — latch side distances, reset accumulators.</div><div class="ttdef"><b>Definition</b> <a href="BSW__program_8c_source.html#l00075">BSW_program.c:75</a></div></div>
+<div class="ttc" id="aDSRC_8h_html"><div class="ttname"><a href="DSRC_8h.html">DSRC.h</a></div><div class="ttdoc">The V2V transport: the neighbor table and the over-the-air frame format shared with the ESP32 radio b...</div></div>
+<div class="ttc" id="aSafetyEngine__interface_8h_html"><div class="ttname"><a href="SafetyEngine__interface_8h.html">SafetyEngine_interface.h</a></div><div class="ttdoc">Public API of the SafetyEngine driver — the shared risk model and per-cycle ADAS orchestration.</div></div>
+<div class="ttc" id="astructNeighbor_html"><div class="ttname"><a href="structNeighbor.html">Neighbor</a></div><div class="ttdoc">One vehicle&#39;s broadcast state — this is the wire format itself.</div><div class="ttdef"><b>Definition</b> <a href="DSRC_8h_source.html#l00099">DSRC.h:100</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_f93dfce691d792349f1c14ede440e2e6.html">Inc</a></li><li class="navelem"><a href="dir_39944c0e13724f9c5fdb666d288b390a.html">Application</a></li><li class="navelem"><a href="dir_f53180c4c4aeadb870e7b95fc493e28a.html">BSW</a></li><li class="navelem"><a href="BSW__interface_8h.html">BSW_interface.h</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Inc</b></li><li class="navelem"><b>Application</b></li><li class="navelem"><b>BSW</b></li><li class="navelem"><a href="BSW__interface_8h.html">BSW_interface.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

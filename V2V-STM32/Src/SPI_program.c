@@ -1,14 +1,10 @@
 /**
- **===========================================================================**
- **<<<<<<<<<<<<<<<<<<<<<<<<<<    SPI_program.c    >>>>>>>>>>>>>>>>>>>>>>>>>>>>**
- **                                                                           **
- **                  Author : Abdallah Abdelmoemen Shehawey                   **
- **                  Layer  : MCAL                                            **
- **                  CPU    : Cortex-M4                                       **
- **                  MCU    : NUCLEO-F446RE                                   **
- **                  SWC    : SPI                                             **
- **                                                                           **
- **===========================================================================**
+ ******************************************************************************
+ * @file    SPI_program.c
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Implementation of the SPI driver — the serial peripheral interface.
+ * @ingroup mcal_spi
+ ******************************************************************************
  */
 #include "stdint.h"
 #include "../Inc/Drivers/LIB/ErrTypes.h"
@@ -18,13 +14,16 @@
 #include "../Inc/Drivers/MCAL/SPI/SPI_config.h"
 #include "../Inc/Drivers/MCAL/SPI/SPI_interface.h"
 
-/* Array of SPI port register definitions for easy access */
+/**
+ * @brief Maps a @ref SPI_Channel_t onto the peripheral's register block.
+ * @note Order must match @ref SPI_Channel_t — the enum indexes straight into it.
+ */
 static SPI_RegDef_t *SPI_Channel[SPI_CHANNEL_COUNT] = {MSPI1, MSPI2, MSPI3, MSPI4};
-/*Global flag for the SPI Busy State*/
+/** @brief Reentrancy guard: @ref IDLE or @ref BUSY. A second caller entering while a transfer is in flight is rejected with @ref BUSY_STATE rather than corrupting it. */
 static uint8_t SPI_u8State = IDLE;
 
 
-/**
+/*
  * @brief Initialize the SPI peripheral with the provided configuration.
  * 
  * This function configures all SPI parameters including clock phase, polarity,
@@ -95,7 +94,7 @@ ErrorState_t SPI_enumInit(SPI_Config_t *ChannelConfig)
   return Local_u8ErrorState;
 }
 
-/**
+/*
  * @brief Perform full-duplex SPI transaction (transmit and receive)
  * 
  * This function sends data and simultaneously receives data through the SPI interface.
@@ -175,7 +174,7 @@ ErrorState_t SPI_enumTrancieve(SPI_Config_t *ChannelConfig, uint16_t TX_Data, ui
 }
 
 
-/**
+/*
  * @brief Transmit data through SPI interface
  * 
  * This function sends data through the SPI interface in a blocking manner
@@ -235,7 +234,7 @@ ErrorState_t SPI_enumTransmit(SPI_Config_t *ChannelConfig, uint16_t TX_Data)
 }
 
 
-/**
+/*
  * @brief Receive data through SPI interface
  * 
  * This function receives data through the SPI interface in a blocking manner

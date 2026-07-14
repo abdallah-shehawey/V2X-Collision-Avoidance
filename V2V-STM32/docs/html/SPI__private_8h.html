@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Inc/Drivers/MCAL/SPI/SPI_private.h File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Inc/Drivers/MCAL/SPI/SPI_private.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,26 +90,27 @@ $(function(){initNavTree('SPI__private_8h.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">SPI_private.h File Reference</div></div>
+  <div class="headertitle"><div class="title">SPI_private.h File Reference<div class="ingroups"><a class="el" href="group__mcal.html">MCAL</a> &raquo; <a class="el" href="group__mcal__spi.html">SPI</a></div></div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="SPI__private_8h__dep__incl.png" border="0" usemap="#aInc_2Drivers_2MCAL_2SPI_2SPI__private_8hdep" loading="lazy" alt=""/></div>
-<map name="aInc_2Drivers_2MCAL_2SPI_2SPI__private_8hdep" id="aInc_2Drivers_2MCAL_2SPI_2SPI__private_8hdep">
-<area shape="rect" title=" " alt="" coords="5,5,162,50"/>
-<area shape="rect" href="SPI__program_8c.html" title=" " alt="" coords="14,98,153,126"/>
-<area shape="poly" title=" " alt="" coords="85,64,86,98,81,96,82,68"/>
-</map>
+
+<p>Register bit positions and internals of the SPI driver — not a public header.  
+<a href="#details">More...</a></p>
+<div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="SPI__private_8h__dep__incl.svg" width="227" height="131"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="SPI__private_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ac8ab65623984e03b92e1907f1ff5e2cd" id="r_ac8ab65623984e03b92e1907f1ff5e2cd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ac8ab65623984e03b92e1907f1ff5e2cd">SPI_CHANNEL_COUNT</a>&#160;&#160;&#160;4</td></tr>
-<tr class="memitem:ae0b46ae81878a268de1667fdf2d76457" id="r_ae0b46ae81878a268de1667fdf2d76457"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ae0b46ae81878a268de1667fdf2d76457">SPI_u32TIMEOUT</a>&#160;&#160;&#160;10000UL</td></tr>
+<tr class="memitem:ac8ab65623984e03b92e1907f1ff5e2cd" id="r_ac8ab65623984e03b92e1907f1ff5e2cd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ac8ab65623984e03b92e1907f1ff5e2cd">SPI_CHANNEL_COUNT</a></td></tr>
+<tr class="memdesc:ac8ab65623984e03b92e1907f1ff5e2cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">How many SPI peripherals this MCU has.  <br /></td></tr>
+<tr class="memitem:ae0b46ae81878a268de1667fdf2d76457" id="r_ae0b46ae81878a268de1667fdf2d76457"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ae0b46ae81878a268de1667fdf2d76457">SPI_u32TIMEOUT</a></td></tr>
+<tr class="memdesc:ae0b46ae81878a268de1667fdf2d76457"><td class="mdescLeft">&#160;</td><td class="mdescRight">Busy-wait bound for the status flags, in loop iterations.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -119,7 +120,7 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a16c519bf9d2968295f34e4db15a62786a3f3c71215abe5f7c95ff486be94a581c">CR1_MSTR</a>
 , <a class="el" href="#a16c519bf9d2968295f34e4db15a62786a4043cbff8ac59383cc7877e9aa4b19ac">CR1_BR</a>
 , <br />
-&#160;&#160;<a class="el" href="#a16c519bf9d2968295f34e4db15a62786a466d4993f43ec8ecf2335f075b366c03">CR1_SPE</a> = 6
+&#160;&#160;<a class="el" href="#a16c519bf9d2968295f34e4db15a62786a466d4993f43ec8ecf2335f075b366c03">CR1_SPE</a>
 , <a class="el" href="#a16c519bf9d2968295f34e4db15a62786addc1e347bdee03e930aabc666a5c32f6">CR1_LSBFIRST</a>
 , <a class="el" href="#a16c519bf9d2968295f34e4db15a62786abd3d3a4dd604ebb13037b54b7694126d">CR1_SSI</a>
 , <a class="el" href="#a16c519bf9d2968295f34e4db15a62786a6a135f2c8d8bc0d86303e6b14e265c54">CR1_SSM</a>
@@ -133,6 +134,7 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a16c519bf9d2968295f34e4db15a62786abd15cc78b5517df3b3bc61f3807386c1">CR1_BIDIMODE</a>
 <br />
  }</td></tr>
+<tr class="memdesc:a16c519bf9d2968295f34e4db15a62786"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit positions within the SPI <span class="tt">CR1</span> register.  <a href="#a16c519bf9d2968295f34e4db15a62786">More...</a><br /></td></tr>
 <tr class="memitem:ac7a06a9e237169f8078000aa0802a22c" id="r_ac7a06a9e237169f8078000aa0802a22c"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#ac7a06a9e237169f8078000aa0802a22c">SPI_SR_BITS</a> { <br />
 &#160;&#160;<a class="el" href="#ac7a06a9e237169f8078000aa0802a22ca9deda832438eb675c437b20951d3151c">SR_RXNE</a>
 , <a class="el" href="#ac7a06a9e237169f8078000aa0802a22ca5b061fdc949ca6abd1dcc8bc3c04e8d7">SR_TXE</a>
@@ -147,8 +149,14 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="#ac7a06a9e237169f8078000aa0802a22ca6bcdc79d12aaaf771f171264c9feb143">SR_FRE</a>
 <br />
  }</td></tr>
+<tr class="memdesc:ac7a06a9e237169f8078000aa0802a22c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit positions within the SPI <span class="tt">SR</span> (status) register.  <a href="#ac7a06a9e237169f8078000aa0802a22c">More...</a><br /></td></tr>
 </table>
-<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Register bit positions and internals of the SPI driver — not a public header. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Abdelmoemen Shehawey  </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="SPI__private_8h_source.html">SPI_private.h</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="ac8ab65623984e03b92e1907f1ff5e2cd" name="ac8ab65623984e03b92e1907f1ff5e2cd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac8ab65623984e03b92e1907f1ff5e2cd">&#9670;&#160;</a></span>SPI_CHANNEL_COUNT</h2>
 
@@ -156,13 +164,16 @@ Enumerations</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define SPI_CHANNEL_COUNT&#160;&#160;&#160;4</td>
+          <td class="memname">#define SPI_CHANNEL_COUNT</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>===========================================================================** &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; <a class="el" href="SPI__private_8h.html">SPI_private.h</a> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;** ** Author : Abdallah Abdelmoemen Shehawey ** Layer : MCAL ** CPU : Cortex-M4 ** MCU : NUCLEO-F446RE ** SWC : SPI ** ** ===========================================================================** </p>
 
-<p class="definition">Definition at line <a class="el" href="SPI__private_8h_source.html#l00018">18</a> of file <a class="el" href="SPI__private_8h_source.html">SPI_private.h</a>.</p>
+<p>How many SPI peripherals this MCU has. </p>
+
+<p class="definition">Definition at line <a class="el" href="SPI__private_8h_source.html#l00014">14</a> of file <a class="el" href="SPI__private_8h_source.html">SPI_private.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SPI__program_8c_source.html#l00037">SPI_enumInit()</a>, <a class="el" href="SPI__program_8c_source.html#l00249">SPI_enumReceive()</a>, <a class="el" href="SPI__program_8c_source.html#l00111">SPI_enumTrancieve()</a>, and <a class="el" href="SPI__program_8c_source.html#l00189">SPI_enumTransmit()</a>.</p>
 
 </div>
 </div>
@@ -173,12 +184,17 @@ Enumerations</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define SPI_u32TIMEOUT&#160;&#160;&#160;10000UL</td>
+          <td class="memname">#define SPI_u32TIMEOUT</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SPI__private_8h_source.html#l00051">51</a> of file <a class="el" href="SPI__private_8h_source.html">SPI_private.h</a>.</p>
+<p>Busy-wait bound for the status flags, in loop iterations. </p>
+<p>Escapes a dead peripheral rather than hanging forever. </p>
+
+<p class="definition">Definition at line <a class="el" href="SPI__private_8h_source.html#l00049">49</a> of file <a class="el" href="SPI__private_8h_source.html">SPI_private.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SPI__program_8c_source.html#l00249">SPI_enumReceive()</a>, <a class="el" href="SPI__program_8c_source.html#l00111">SPI_enumTrancieve()</a>, and <a class="el" href="SPI__program_8c_source.html#l00189">SPI_enumTransmit()</a>.</p>
 
 </div>
 </div>
@@ -194,24 +210,40 @@ Enumerations</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Bit positions within the SPI <span class="tt">CR1</span> register. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786af92064a3d6b08e8c8ea749867762784f" name="a16c519bf9d2968295f34e4db15a62786af92064a3d6b08e8c8ea749867762784f"></a>CR1_CPHA&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786a960e68aa2d05201b29da28e636c6aefe" name="a16c519bf9d2968295f34e4db15a62786a960e68aa2d05201b29da28e636c6aefe"></a>CR1_CPOL&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786a3f3c71215abe5f7c95ff486be94a581c" name="a16c519bf9d2968295f34e4db15a62786a3f3c71215abe5f7c95ff486be94a581c"></a>CR1_MSTR&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786a4043cbff8ac59383cc7877e9aa4b19ac" name="a16c519bf9d2968295f34e4db15a62786a4043cbff8ac59383cc7877e9aa4b19ac"></a>CR1_BR&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786a466d4993f43ec8ecf2335f075b366c03" name="a16c519bf9d2968295f34e4db15a62786a466d4993f43ec8ecf2335f075b366c03"></a>CR1_SPE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786addc1e347bdee03e930aabc666a5c32f6" name="a16c519bf9d2968295f34e4db15a62786addc1e347bdee03e930aabc666a5c32f6"></a>CR1_LSBFIRST&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786abd3d3a4dd604ebb13037b54b7694126d" name="a16c519bf9d2968295f34e4db15a62786abd3d3a4dd604ebb13037b54b7694126d"></a>CR1_SSI&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786a6a135f2c8d8bc0d86303e6b14e265c54" name="a16c519bf9d2968295f34e4db15a62786a6a135f2c8d8bc0d86303e6b14e265c54"></a>CR1_SSM&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786a9189a82dfb5a96fc0866834baa268b96" name="a16c519bf9d2968295f34e4db15a62786a9189a82dfb5a96fc0866834baa268b96"></a>CR1_RXONLY&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786a0e32c6a55a625cec4a0582c58853a278" name="a16c519bf9d2968295f34e4db15a62786a0e32c6a55a625cec4a0582c58853a278"></a>CR1_DFF&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786ae4672870f40368842404dcce5592e9bf" name="a16c519bf9d2968295f34e4db15a62786ae4672870f40368842404dcce5592e9bf"></a>CR1_CRCNEXT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786a534a1d7f277d8cefcd7dc75e21b855c7" name="a16c519bf9d2968295f34e4db15a62786a534a1d7f277d8cefcd7dc75e21b855c7"></a>CR1_CRCEN&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786a01240c840606af5e9a1867c01d053628" name="a16c519bf9d2968295f34e4db15a62786a01240c840606af5e9a1867c01d053628"></a>CR1_BIDIOE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786abd15cc78b5517df3b3bc61f3807386c1" name="a16c519bf9d2968295f34e4db15a62786abd15cc78b5517df3b3bc61f3807386c1"></a>CR1_BIDIMODE&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="3">Enumerator</th></tr><tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786af92064a3d6b08e8c8ea749867762784f" name="a16c519bf9d2968295f34e4db15a62786af92064a3d6b08e8c8ea749867762784f"></a>CR1_CPHA&#160;</td><td class="fieldinit">&#160;</td><td class="fielddoc"><p>Clock phase. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786a960e68aa2d05201b29da28e636c6aefe" name="a16c519bf9d2968295f34e4db15a62786a960e68aa2d05201b29da28e636c6aefe"></a>CR1_CPOL&#160;</td><td class="fieldinit">&#160;</td><td class="fielddoc"><p>Clock polarity. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786a3f3c71215abe5f7c95ff486be94a581c" name="a16c519bf9d2968295f34e4db15a62786a3f3c71215abe5f7c95ff486be94a581c"></a>CR1_MSTR&#160;</td><td class="fieldinit">&#160;</td><td class="fielddoc"><p>Master selection. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786a4043cbff8ac59383cc7877e9aa4b19ac" name="a16c519bf9d2968295f34e4db15a62786a4043cbff8ac59383cc7877e9aa4b19ac"></a>CR1_BR&#160;</td><td class="fieldinit">&#160;</td><td class="fielddoc"><p>Baud-rate prescaler, 3 bits wide. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786a466d4993f43ec8ecf2335f075b366c03" name="a16c519bf9d2968295f34e4db15a62786a466d4993f43ec8ecf2335f075b366c03"></a>CR1_SPE&#160;</td><td class="fieldinit">6&#160;</td><td class="fielddoc"><p>SPI enable. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786addc1e347bdee03e930aabc666a5c32f6" name="a16c519bf9d2968295f34e4db15a62786addc1e347bdee03e930aabc666a5c32f6"></a>CR1_LSBFIRST&#160;</td><td class="fieldinit">&#160;</td><td class="fielddoc"><p>Frame format: LSB first. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786abd3d3a4dd604ebb13037b54b7694126d" name="a16c519bf9d2968295f34e4db15a62786abd3d3a4dd604ebb13037b54b7694126d"></a>CR1_SSI&#160;</td><td class="fieldinit">&#160;</td><td class="fielddoc"><p>Internal slave select. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786a6a135f2c8d8bc0d86303e6b14e265c54" name="a16c519bf9d2968295f34e4db15a62786a6a135f2c8d8bc0d86303e6b14e265c54"></a>CR1_SSM&#160;</td><td class="fieldinit">&#160;</td><td class="fielddoc"><p>Software slave management. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786a9189a82dfb5a96fc0866834baa268b96" name="a16c519bf9d2968295f34e4db15a62786a9189a82dfb5a96fc0866834baa268b96"></a>CR1_RXONLY&#160;</td><td class="fieldinit">&#160;</td><td class="fielddoc"><p>Receive-only mode. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786a0e32c6a55a625cec4a0582c58853a278" name="a16c519bf9d2968295f34e4db15a62786a0e32c6a55a625cec4a0582c58853a278"></a>CR1_DFF&#160;</td><td class="fieldinit">&#160;</td><td class="fielddoc"><p>Data frame format: 8 or 16 bits. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786ae4672870f40368842404dcce5592e9bf" name="a16c519bf9d2968295f34e4db15a62786ae4672870f40368842404dcce5592e9bf"></a>CR1_CRCNEXT&#160;</td><td class="fieldinit">&#160;</td><td class="fielddoc"><p>Transmit the CRC next. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786a534a1d7f277d8cefcd7dc75e21b855c7" name="a16c519bf9d2968295f34e4db15a62786a534a1d7f277d8cefcd7dc75e21b855c7"></a>CR1_CRCEN&#160;</td><td class="fieldinit">&#160;</td><td class="fielddoc"><p>Hardware CRC enable. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786a01240c840606af5e9a1867c01d053628" name="a16c519bf9d2968295f34e4db15a62786a01240c840606af5e9a1867c01d053628"></a>CR1_BIDIOE&#160;</td><td class="fieldinit">&#160;</td><td class="fielddoc"><p>Output enable in bidirectional mode. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a16c519bf9d2968295f34e4db15a62786abd15cc78b5517df3b3bc61f3807386c1" name="a16c519bf9d2968295f34e4db15a62786abd15cc78b5517df3b3bc61f3807386c1"></a>CR1_BIDIMODE&#160;</td><td class="fieldinit">&#160;</td><td class="fielddoc"><p>Bidirectional (one-line) mode. </p>
+</td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="SPI__private_8h_source.html#l00020">20</a> of file <a class="el" href="SPI__private_8h_source.html">SPI_private.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SPI__private_8h_source.html#l00017">17</a> of file <a class="el" href="SPI__private_8h_source.html">SPI_private.h</a>.</p>
 
 </div>
 </div>
@@ -226,19 +258,31 @@ Enumerations</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Bit positions within the SPI <span class="tt">SR</span> (status) register. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac7a06a9e237169f8078000aa0802a22ca9deda832438eb675c437b20951d3151c" name="ac7a06a9e237169f8078000aa0802a22ca9deda832438eb675c437b20951d3151c"></a>SR_RXNE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ac7a06a9e237169f8078000aa0802a22ca5b061fdc949ca6abd1dcc8bc3c04e8d7" name="ac7a06a9e237169f8078000aa0802a22ca5b061fdc949ca6abd1dcc8bc3c04e8d7"></a>SR_TXE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ac7a06a9e237169f8078000aa0802a22caf713be38b6c386da9e3d929a9f0d8067" name="ac7a06a9e237169f8078000aa0802a22caf713be38b6c386da9e3d929a9f0d8067"></a>SR_CHSIDE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ac7a06a9e237169f8078000aa0802a22ca0bdf30e2d1ba08d5313b8ffb45fc5442" name="ac7a06a9e237169f8078000aa0802a22ca0bdf30e2d1ba08d5313b8ffb45fc5442"></a>SR_UDR&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ac7a06a9e237169f8078000aa0802a22caf243c1bb094739b803fdb947aeb51633" name="ac7a06a9e237169f8078000aa0802a22caf243c1bb094739b803fdb947aeb51633"></a>SR_CRCERR&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ac7a06a9e237169f8078000aa0802a22ca99eb2055e06c36ff2e319ecbf335e7d8" name="ac7a06a9e237169f8078000aa0802a22ca99eb2055e06c36ff2e319ecbf335e7d8"></a>SR_MODF&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ac7a06a9e237169f8078000aa0802a22ca96b6b6be6d2c36faa96fc1744256367d" name="ac7a06a9e237169f8078000aa0802a22ca96b6b6be6d2c36faa96fc1744256367d"></a>SR_OVR&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ac7a06a9e237169f8078000aa0802a22cafd5b1ed556f92017d33afc222fc3eb0c" name="ac7a06a9e237169f8078000aa0802a22cafd5b1ed556f92017d33afc222fc3eb0c"></a>SR_BSY&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ac7a06a9e237169f8078000aa0802a22ca6bcdc79d12aaaf771f171264c9feb143" name="ac7a06a9e237169f8078000aa0802a22ca6bcdc79d12aaaf771f171264c9feb143"></a>SR_FRE&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac7a06a9e237169f8078000aa0802a22ca9deda832438eb675c437b20951d3151c" name="ac7a06a9e237169f8078000aa0802a22ca9deda832438eb675c437b20951d3151c"></a>SR_RXNE&#160;</td><td class="fielddoc"><p>Receive buffer not empty — a frame is waiting. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ac7a06a9e237169f8078000aa0802a22ca5b061fdc949ca6abd1dcc8bc3c04e8d7" name="ac7a06a9e237169f8078000aa0802a22ca5b061fdc949ca6abd1dcc8bc3c04e8d7"></a>SR_TXE&#160;</td><td class="fielddoc"><p>Transmit buffer empty — ready for the next frame. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ac7a06a9e237169f8078000aa0802a22caf713be38b6c386da9e3d929a9f0d8067" name="ac7a06a9e237169f8078000aa0802a22caf713be38b6c386da9e3d929a9f0d8067"></a>SR_CHSIDE&#160;</td><td class="fielddoc"><p>Channel side (I2S mode only). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ac7a06a9e237169f8078000aa0802a22ca0bdf30e2d1ba08d5313b8ffb45fc5442" name="ac7a06a9e237169f8078000aa0802a22ca0bdf30e2d1ba08d5313b8ffb45fc5442"></a>SR_UDR&#160;</td><td class="fielddoc"><p>Underrun (slave mode). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ac7a06a9e237169f8078000aa0802a22caf243c1bb094739b803fdb947aeb51633" name="ac7a06a9e237169f8078000aa0802a22caf243c1bb094739b803fdb947aeb51633"></a>SR_CRCERR&#160;</td><td class="fielddoc"><p>CRC mismatch. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ac7a06a9e237169f8078000aa0802a22ca99eb2055e06c36ff2e319ecbf335e7d8" name="ac7a06a9e237169f8078000aa0802a22ca99eb2055e06c36ff2e319ecbf335e7d8"></a>SR_MODF&#160;</td><td class="fielddoc"><p>Mode fault — another master drove NSS low while we were master. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ac7a06a9e237169f8078000aa0802a22ca96b6b6be6d2c36faa96fc1744256367d" name="ac7a06a9e237169f8078000aa0802a22ca96b6b6be6d2c36faa96fc1744256367d"></a>SR_OVR&#160;</td><td class="fielddoc"><p>Overrun — a frame arrived before the previous one was read, and was lost. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ac7a06a9e237169f8078000aa0802a22cafd5b1ed556f92017d33afc222fc3eb0c" name="ac7a06a9e237169f8078000aa0802a22cafd5b1ed556f92017d33afc222fc3eb0c"></a>SR_BSY&#160;</td><td class="fielddoc"><p>Busy — a transfer is in progress. </p>
+<p>Must be clear before the peripheral is disabled. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ac7a06a9e237169f8078000aa0802a22ca6bcdc79d12aaaf771f171264c9feb143" name="ac7a06a9e237169f8078000aa0802a22ca6bcdc79d12aaaf771f171264c9feb143"></a>SR_FRE&#160;</td><td class="fielddoc"><p>Frame format error. </p>
+</td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="SPI__private_8h_source.html#l00038">38</a> of file <a class="el" href="SPI__private_8h_source.html">SPI_private.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SPI__private_8h_source.html#l00036">36</a> of file <a class="el" href="SPI__private_8h_source.html">SPI_private.h</a>.</p>
 
 </div>
 </div>
@@ -255,7 +299,7 @@ Enumerations</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_f93dfce691d792349f1c14ede440e2e6.html">Inc</a></li><li class="navelem"><a href="dir_5807d32f659ca06f2d44f24c89728eb8.html">Drivers</a></li><li class="navelem"><a href="dir_8b6b04023385edca15dd86450894d113.html">MCAL</a></li><li class="navelem"><a href="dir_06c715a56a77f9b0370ec06d8b9fb3be.html">SPI</a></li><li class="navelem"><a href="SPI__private_8h.html">SPI_private.h</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Inc</b></li><li class="navelem"><b>Drivers</b></li><li class="navelem"><b>MCAL</b></li><li class="navelem"><b>SPI</b></li><li class="navelem"><a href="SPI__private_8h.html">SPI_private.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

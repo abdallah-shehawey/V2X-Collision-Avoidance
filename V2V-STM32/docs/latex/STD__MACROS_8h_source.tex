@@ -1,32 +1,33 @@
 \doxysection{STD\+\_\+\+MACROS.\+h}
-\hypertarget{STD__MACROS_8h_source}{}\label{STD__MACROS_8h_source}\index{Inc/Drivers/LIB/STD\_MACROS.h@{Inc/Drivers/LIB/STD\_MACROS.h}}
+\hypertarget{STD__MACROS_8h_source}{}\label{STD__MACROS_8h_source}\index{V2V-\/STM32/Inc/Drivers/LIB/STD\_MACROS.h@{V2V-\/STM32/Inc/Drivers/LIB/STD\_MACROS.h}}
 \doxymbox{\hyperlink{STD__MACROS_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00001}00001\ \textcolor{comment}{/*}}
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00002}00002\ \textcolor{comment}{\ *<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\ \ \ \ STD\_MACROS.h\ \ \ \ >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>}}
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00003}00003\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00004}00004\ \textcolor{comment}{\ *\ \ Author\ :\ Abdallah\ Abdelmoemen\ Shehawey}}
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00005}00005\ \textcolor{comment}{\ *\ \ Layer\ \ :\ LIB}}
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00006}00006\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00007}00007\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00008}00008\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00009}00009\ \textcolor{preprocessor}{\#ifndef\ STD\_MACROS\_h\_}}
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00010}00010\ \textcolor{preprocessor}{\#define\ STD\_MACROS\_h\_}}
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00011}00011\ }
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00012}\doxymbox{\hyperlink{STD__MACROS_8h_abe2f7b6344bb4d51dfea9c9f58609427}{00012}}\ \textcolor{preprocessor}{\#define\ REGISTER\_SIZE\ 8}}
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00013}\doxymbox{\hyperlink{STD__MACROS_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{00013}}\ \textcolor{preprocessor}{\#define\ SET\_BIT(reg,\ bit)\ \ \ \ \ reg\ |=\ (1\ <<\ bit)}}
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00014}\doxymbox{\hyperlink{STD__MACROS_8h_a50ef806053a11c75cd2570f58e742de4}{00014}}\ \textcolor{preprocessor}{\#define\ CLR\_BIT(reg,\ bit)\ \ \ \ \ reg\ \&=\ (\string~(1\ <<\ bit))}}
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00015}\doxymbox{\hyperlink{STD__MACROS_8h_ad6d89aeec3157e9422d92480d4bd9343}{00015}}\ \textcolor{preprocessor}{\#define\ TOG\_BIT(reg,\ bit)\ \ \ \ \ reg\ \string^=\ (1\ <<\ bit)}}
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00016}\doxymbox{\hyperlink{STD__MACROS_8h_aaef49ab0462bf902b59383f592140b05}{00016}}\ \textcolor{preprocessor}{\#define\ READ\_BIT(reg,\ bit)\ \ \ \ (reg\ \&\ (1\ <<\ bit))\ >>\ bit}}
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00017}00017\ }
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00018}\doxymbox{\hyperlink{STD__MACROS_8h_a79413e953065eefe67e15a9f1dba19c1}{00018}}\ \textcolor{preprocessor}{\#define\ READ\_BYTE(reg,\ byte)\ \ (reg\ \&\ (0XFF\ <<\ (byte\ *\ 8)))\ >>\ (byte\ *\ 8)}}
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00019}00019\ }
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00020}\doxymbox{\hyperlink{STD__MACROS_8h_a3fe9237475a64592ad498aac6bba1650}{00020}}\ \textcolor{preprocessor}{\#define\ IS\_BIT\_SET(reg,\ bit)\ \ (reg\ \&\ (1\ <<\ bit))\ >>\ bit}}
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00021}\doxymbox{\hyperlink{STD__MACROS_8h_a3d70443f3f3b48c71f0184a7c2633e39}{00021}}\ \textcolor{preprocessor}{\#define\ IS\_BIT\_CLR(reg,\ bit)\ \ !((reg\ \&\ (1\ <<\ bit))\ >>\ bit)}}
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00022}00022\ }
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00023}\doxymbox{\hyperlink{STD__MACROS_8h_acdd57f8617d552ad57c697f8e46190a4}{00023}}\ \textcolor{preprocessor}{\#define\ ROR(reg,\ num)\ \ \ \ \ \ \ \ \ reg\ =\ (reg\ <<\ (REGISTER\_SIZE\ -\/\ num))\ |\ (reg\ >>\ (num))}}
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00024}\doxymbox{\hyperlink{STD__MACROS_8h_a29a7814b0a672229073f6cd702ba2437}{00024}}\ \textcolor{preprocessor}{\#define\ ROL(reg,\ num)\ \ \ \ \ \ \ \ \ reg\ =\ (reg\ >>\ (REGISTER\_SIZE\ -\/\ num))\ |\ (reg\ <<\ (num))}}
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00025}00025\ }
-\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00026}00026\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ STD\_MACROS\_H\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00019}00019\ \textcolor{preprocessor}{\#ifndef\ STD\_MACROS\_h\_}}
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00020}00020\ \textcolor{preprocessor}{\#define\ STD\_MACROS\_h\_}}
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00032}\doxymbox{\hyperlink{group__lib_gabe2f7b6344bb4d51dfea9c9f58609427}{00032}}\ \textcolor{preprocessor}{\#define\ REGISTER\_SIZE\ 8}}
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00039}\doxymbox{\hyperlink{group__lib_ga62af7cb8bfabd5a9f6ea45582e08843b}{00039}}\ \textcolor{preprocessor}{\#define\ SET\_BIT(reg,\ bit)\ reg\ |=\ (1\ <<\ bit)}}
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00046}\doxymbox{\hyperlink{group__lib_ga50ef806053a11c75cd2570f58e742de4}{00046}}\ \textcolor{preprocessor}{\#define\ CLR\_BIT(reg,\ bit)\ reg\ \&=\ (\string~(1\ <<\ bit))}}
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00053}\doxymbox{\hyperlink{group__lib_gad6d89aeec3157e9422d92480d4bd9343}{00053}}\ \textcolor{preprocessor}{\#define\ TOG\_BIT(reg,\ bit)\ reg\ \string^=\ (1\ <<\ bit)}}
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00061}\doxymbox{\hyperlink{group__lib_gaaef49ab0462bf902b59383f592140b05}{00061}}\ \textcolor{preprocessor}{\#define\ READ\_BIT(reg,\ bit)\ (reg\ \&\ (1\ <<\ bit))\ >>\ bit}}
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00069}\doxymbox{\hyperlink{group__lib_ga79413e953065eefe67e15a9f1dba19c1}{00069}}\ \textcolor{preprocessor}{\#define\ READ\_BYTE(reg,\ byte)\ (reg\ \&\ (0XFF\ <<\ (byte\ *\ 8)))\ >>\ (byte\ *\ 8)}}
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00077}\doxymbox{\hyperlink{group__lib_ga3fe9237475a64592ad498aac6bba1650}{00077}}\ \textcolor{preprocessor}{\#define\ IS\_BIT\_SET(reg,\ bit)\ (reg\ \&\ (1\ <<\ bit))\ >>\ bit}}
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00085}\doxymbox{\hyperlink{group__lib_ga3d70443f3f3b48c71f0184a7c2633e39}{00085}}\ \textcolor{preprocessor}{\#define\ IS\_BIT\_CLR(reg,\ bit)\ !((reg\ \&\ (1\ <<\ bit))\ >>\ bit)}}
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00093}\doxymbox{\hyperlink{group__lib_gacdd57f8617d552ad57c697f8e46190a4}{00093}}\ \textcolor{preprocessor}{\#define\ ROR(reg,\ num)\ reg\ =\ (reg\ <<\ (REGISTER\_SIZE\ -\/\ num))\ |\ (reg\ >>\ (num))}}
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00101}\doxymbox{\hyperlink{group__lib_ga29a7814b0a672229073f6cd702ba2437}{00101}}\ \textcolor{preprocessor}{\#define\ ROL(reg,\ num)\ reg\ =\ (reg\ >>\ (REGISTER\_SIZE\ -\/\ num))\ |\ (reg\ <<\ (num))}}
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00102}00102\ \ \textcolor{comment}{/*\ end\ of\ lib\ */}}
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{STD__MACROS_8h_source_l00105}00105\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ STD\_MACROS\_H\_\ */}\textcolor{preprocessor}{}}
 
 \end{DoxyCode}

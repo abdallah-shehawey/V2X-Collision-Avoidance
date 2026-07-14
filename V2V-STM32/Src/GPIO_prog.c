@@ -1,14 +1,10 @@
 /**
- **===========================================================================**
- **<<<<<<<<<<<<<<<<<<<<<<<<<<    GPIO_prog.c     >>>>>>>>>>>>>>>>>>>>>>>>>>>>>**
- **                                                                           **
- **                  Author : Abdallah Abdelmoemen Shehawey                   **
- **                  Layer  : MCAL                                            **
- **                  CPU    : Cortex-M4                                       **
- **                  MCU    : NUCLEO-F446RE                                   **
- **                  SWC    : GPIO                                            **
- **                                                                           **
- **===========================================================================**
+ ******************************************************************************
+ * @file    GPIO_prog.c
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Implementation of the GPIO driver — the general-purpose I/O ports.
+ * @ingroup mcal_gpio
+ ******************************************************************************
  */
 
 #include <stdint.h>
@@ -22,13 +18,17 @@
 #include "../Inc/Drivers/MCAL/GPIO/GPIO_config.h"
 
 /* Array of GPIO port register definitions for easy access */
+/**
+ * @brief Maps a @ref GPIO_Port_t onto the port's register block.
+ * @note The order must match @ref GPIO_Port_t exactly — the enum indexes straight
+ *       into this table.
+ */
 static GPIO_REGDEF_t *GPIO_Port[GPIO_PORT_COUNT] = {MGPIOA, MGPIOB, MGPIOC, MGPIOD, MGPIOE, MGPIOF, MGPIOG, MGPIOH};
 
 /*=================================================================================================================*/
-/**
- * @fn     GPIO_enumPinInit
- * @brief : Initializes GPIO pin configuration using array-based port access
- * @param : PinConfig[in]: Pointer to pin configuration structure containing:
+/*
+ * @brief Initializes GPIO pin configuration using array-based port access
+ * @param PinConfig[in]: Pointer to pin configuration structure containing:
  *                      - Port: Selected GPIO port index (PORTA to PORTH)
  *                      - PinNum: Selected pin number (PIN0 to PIN15)
  *                      - Mode: Pin mode (INPUT, OUTPUT, ALTFN, ANALOG)
@@ -36,7 +36,7 @@ static GPIO_REGDEF_t *GPIO_Port[GPIO_PORT_COUNT] = {MGPIOA, MGPIOB, MGPIOC, MGPI
  *                      - Speed: Output speed (LOW_SPEED, MEDIUM_SPEED, HIGH_SPEED, VERY_HIGH_SPEED)
  *                      - PullType: Pull-up/Pull-down configuration (NO_PULL, PULL_UP, PULL_DOWN)
  *                      - AlternateFunction: Alternate function number if Mode is ALTFN (AF0 to AF15)
- * @retval ErrorState_t: OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid ptr
+ * @retval ErrorState_t OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid ptr
  */
 ErrorState_t GPIO_enumPinInit(const GPIO_PinConfig_t *PinConfig)
 {
@@ -94,10 +94,9 @@ ErrorState_t GPIO_enumPinInit(const GPIO_PinConfig_t *PinConfig)
 }
 /*=================================================================================================================*/
 /*
- * @fn     GPIO_enumLowNibbleInit
- * @brief : Initializes GPIO low nibble configuration
- * @param : LowNibbleConfig[in]: Pointer to low nibble configuration structure
- * @retval GPIO_ErrorState: GPIO_OK if successful, GPIO_NOK if error
+ * @brief Initializes GPIO low nibble configuration
+ * @param LowNibbleConfig[in]: Pointer to low nibble configuration structure
+ * @retval GPIO_ErrorState GPIO_OK if successful, GPIO_NOK if error
  */
 ErrorState_t GPIO_enumLowNibbleInit(GPIO_LowNibbleConfig_t *LowNibbleConfig)
 {
@@ -138,10 +137,9 @@ ErrorState_t GPIO_enumLowNibbleInit(GPIO_LowNibbleConfig_t *LowNibbleConfig)
 }
 /*=================================================================================================================*/
 /*
- * @fn     GPIO_enumHighNibbleInit
- * @brief : Initializes GPIO pin configuration
- * @param : PinConfig[in]: Pointer to pin configuration structure
- * @retval GPIO_ErrorState: GPIO_OK if successful, GPIO_NOK if error
+ * @brief Initializes GPIO pin configuration
+ * @param PinConfig[in]: Pointer to pin configuration structure
+ * @retval GPIO_ErrorState GPIO_OK if successful, GPIO_NOK if error
  */
 ErrorState_t GPIO_enumHighNibbleInit(GPIO_HighNibbleConfig_t *HighNibbleConfig)
 {
@@ -182,10 +180,9 @@ ErrorState_t GPIO_enumHighNibbleInit(GPIO_HighNibbleConfig_t *HighNibbleConfig)
 }
 /*=================================================================================================================*/
 /*
- * @fn     GPIO_enumByteInit
- * @brief : Initializes GPIO pin configuration
- * @param : PinConfig[in]: Pointer to pin configuration structure
- * @retval GPIO_ErrorState: GPIO_OK if successful, GPIO_NOK if error
+ * @brief Initializes GPIO pin configuration
+ * @param PinConfig[in]: Pointer to pin configuration structure
+ * @retval GPIO_ErrorState GPIO_OK if successful, GPIO_NOK if error
  */
 ErrorState_t GPIO_enumByteInit(GPIO_ByteConfig_t *ByteConfig)
 {
@@ -226,10 +223,9 @@ ErrorState_t GPIO_enumByteInit(GPIO_ByteConfig_t *ByteConfig)
 }
 /*=================================================================================================================*/
 /*
- * @fn     GPIO_enumHalfPortInit
- * @brief : Initializes GPIO pin configuration
- * @param : PinConfig[in]: Pointer to pin configuration structure
- * @retval GPIO_ErrorState: GPIO_OK if successful, GPIO_NOK if error
+ * @brief Initializes GPIO pin configuration
+ * @param PinConfig[in]: Pointer to pin configuration structure
+ * @retval GPIO_ErrorState GPIO_OK if successful, GPIO_NOK if error
  */
 ErrorState_t GPIO_enumHalfPortInit(GPIO_HalfPortConfig_t *HalfPortConfig)
 {
@@ -270,10 +266,9 @@ ErrorState_t GPIO_enumHalfPortInit(GPIO_HalfPortConfig_t *HalfPortConfig)
 }
 /*=================================================================================================================*/
 /*
- * @fn     GPIO_enumPortInit
- * @brief : Initializes GPIO pin configuration
- * @param : PinConfig[in]: Pointer to pin configuration structure
- * @retval GPIO_ErrorState: GPIO_OK if successful, GPIO_NOK if error
+ * @brief Initializes GPIO pin configuration
+ * @param PinConfig[in]: Pointer to pin configuration structure
+ * @retval GPIO_ErrorState GPIO_OK if successful, GPIO_NOK if error
  */
 ErrorState_t GPIO_enumPortInit(GPIO_PortConfig_t *PortConfig)
 {
@@ -314,17 +309,16 @@ ErrorState_t GPIO_enumPortInit(GPIO_PortConfig_t *PortConfig)
 }
 
 /*=================================================================================================================*/
-/**
- * @fn     GPIO_enumPort8PinsInit
- * @brief : Initializes GPIO port 8-pins configuration
- * @param : GPIO_8BinsConfig[in]: Pointer to port 8-pins configuration structure containing:
+/*
+ * @brief Initializes GPIO port 8-pins configuration
+ * @param GPIO_8BinsConfig[in]: Pointer to port 8-pins configuration structure containing:
  *                      - Port: Selected GPIO port (PORTA to PORTH)
  *                      - StartPin: Starting pin number (PIN0 to PIN8)
  *                      - Mode: Port mode (INPUT, OUTPUT)
  *                      - Otype: Output type (PUSH_PULL, OPEN_DRAIN)
  *                      - Speed: Output speed (LOW_SPEED, MEDIUM_SPEED, HIGH_SPEED, VERY_HIGH_SPEED)
  *                      - PullType: Pull-up/Pull-down configuration (NO_PULL, PULL_UP, PULL_DOWN)
- * @retval ErrorState_t: OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
+ * @retval ErrorState_t OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
  */
 ErrorState_t GPIO_enumPort8PinsInit(GPIO_8PinsConfig_t *GPIO_8PinsConfig)
 {
@@ -368,17 +362,16 @@ ErrorState_t GPIO_enumPort8PinsInit(GPIO_8PinsConfig_t *GPIO_8PinsConfig)
 }
 
 /*=================================================================================================================*/
-/**
- * @fn     GPIO_enumPort4PinsInit
- * @brief : Initializes GPIO port 4-pins configuration
- * @param : Port4PinsConfig[in]: Pointer to port 4-pins configuration structure containing:
+/*
+ * @brief Initializes GPIO port 4-pins configuration
+ * @param Port4PinsConfig[in]: Pointer to port 4-pins configuration structure containing:
  *                      - Port: Selected GPIO port (PORTA to PORTH)
  *                      - StartPin: Starting pin number (PIN0 to PIN15)
  *                      - Mode: Port mode (INPUT, OUTPUT)
  *                      - Otype: Output type (PUSH_PULL, OPEN_DRAIN)
  *                      - Speed: Output speed (LOW_SPEED, MEDIUM_SPEED, HIGH_SPEED, VERY_HIGH_SPEED)
  *                      - PullType: Pull-up/Pull-down configuration (NO_PULL, PULL_UP, PULL_DOWN)
- * @retval ErrorState_t: OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
+ * @retval ErrorState_t OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
  */
 ErrorState_t GPIO_enumPort4PinsInit(GPIO_4PinsConfig_t *GPIO_4PinsConfig)
 {
@@ -422,13 +415,12 @@ ErrorState_t GPIO_enumPort4PinsInit(GPIO_4PinsConfig_t *GPIO_4PinsConfig)
 }
 
 /*=================================================================================================================*/
-/**
- * @fn     GPIO_enumWrite4BitsVal
- * @brief : Write 4 bits directly to ODR register starting from specified pin
- * @param : Port: GPIO port index (PORTA to PORTH)
- * @param : StartPin: Starting pin number (PIN0 to PIN12)
- * @param : Value: 4-bit value to write (0x0 to 0xF)
- * @retval ErrorState_t: OK if write successful, NOK if invalid parameters
+/*
+ * @brief Write 4 bits directly to ODR register starting from specified pin
+ * @param Port GPIO port index (PORTA to PORTH)
+ * @param StartPin Starting pin number (PIN0 to PIN12)
+ * @param Value 4-bit value to write (0x0 to 0xF)
+ * @retval ErrorState_t OK if write successful, NOK if invalid parameters
  */
 ErrorState_t GPIO_enumWrite4PinsVal(GPIO_Port_t Port, GPIO_Pin_t StartPin, uint8_t Value)
 {
@@ -449,13 +441,12 @@ ErrorState_t GPIO_enumWrite4PinsVal(GPIO_Port_t Port, GPIO_Pin_t StartPin, uint8
 }
 
 /*=================================================================================================================*/
-/**
- * @fn     GPIO_enumWrite8BitsVal
- * @brief : Write 8 bits directly to ODR register starting from specified pin
- * @param : Port: GPIO port index (PORTA to PORTH)
- * @param : StartPin: Starting pin number (PIN0 to PIN15)
- * @param : Value: 8-bit value to write (0x00 to 0xFF)
- * @retval ErrorState_t: OK if write successful, NOK if invalid parameters
+/*
+ * @brief Write 8 bits directly to ODR register starting from specified pin
+ * @param Port GPIO port index (PORTA to PORTH)
+ * @param StartPin Starting pin number (PIN0 to PIN15)
+ * @param Value 8-bit value to write (0x00 to 0xFF)
+ * @retval ErrorState_t OK if write successful, NOK if invalid parameters
  */
 ErrorState_t GPIO_enumWrite8PinsVal(GPIO_Port_t Port, GPIO_Pin_t StartPin, uint8_t Value)
 {
@@ -474,13 +465,12 @@ ErrorState_t GPIO_enumWrite8PinsVal(GPIO_Port_t Port, GPIO_Pin_t StartPin, uint8
 }
 
 /*=================================================================================================================*/
-/**
- * @fn     GPIO_enumWritePinVal
- * @brief : Write a value to a specific GPIO pin using array-based port access
- * @param : Port: GPIO port index (PORTA to PORTH)
- * @param : PinNum: Selected pin number (PIN0 to PIN15)
- * @param : PinVal: Value to write (PIN_LOW or PIN_HIGH)
- * @retval ErrorState_t: OK if write successful, NOK if invalid parameters
+/*
+ * @brief Write a value to a specific GPIO pin using array-based port access
+ * @param Port GPIO port index (PORTA to PORTH)
+ * @param PinNum Selected pin number (PIN0 to PIN15)
+ * @param PinVal Value to write (PIN_LOW or PIN_HIGH)
+ * @retval ErrorState_t OK if write successful, NOK if invalid parameters
  */
 ErrorState_t GPIO_enumWritePinVal(GPIO_Port_t Port, GPIO_Pin_t PinNum, GPIO_PinValue_t PinVal)
 {
@@ -513,13 +503,12 @@ ErrorState_t GPIO_enumWritePinVal(GPIO_Port_t Port, GPIO_Pin_t PinNum, GPIO_PinV
 }
 
 /*=================================================================================================================*/
-/**
- * @fn     GPIO_enumReadPinVal
- * @brief : Read the current value of a specific GPIO pin using array-based port access
- * @param : Port: GPIO port index (PORTA to PORTH)
- * @param : PinNum: Selected pin number (PIN0 to PIN15)
- * @param : PinVal: Pointer to store the read value (PIN_LOW or PIN_HIGH)
- * @retval ErrorState_t: OK if read successful, NOK if invalid parameters
+/*
+ * @brief Read the current value of a specific GPIO pin using array-based port access
+ * @param Port GPIO port index (PORTA to PORTH)
+ * @param PinNum Selected pin number (PIN0 to PIN15)
+ * @param PinVal Pointer to store the read value (PIN_LOW or PIN_HIGH)
+ * @retval ErrorState_t OK if read successful, NOK if invalid parameters
  */
 ErrorState_t GPIO_enumReadPinVal(GPIO_Port_t Port, GPIO_Pin_t PinNum, GPIO_PinValue_t *PinVal)
 {
@@ -545,12 +534,11 @@ ErrorState_t GPIO_enumReadPinVal(GPIO_Port_t Port, GPIO_Pin_t PinNum, GPIO_PinVa
 }
 
 /*=================================================================================================================*/
-/**
- * @fn     GPIO_enumTogPinVal
- * @brief : Toggle the current value of a specific GPIO pin using array-based port access
- * @param : Port: GPIO port index (PORTA to PORTH)
- * @param : PinNum: Selected pin number (PIN0 to PIN15)
- * @retval ErrorState_t: OK if toggle successful, NOK if invalid parameters
+/*
+ * @brief Toggle the current value of a specific GPIO pin using array-based port access
+ * @param Port GPIO port index (PORTA to PORTH)
+ * @param PinNum Selected pin number (PIN0 to PIN15)
+ * @retval ErrorState_t OK if toggle successful, NOK if invalid parameters
  */
 ErrorState_t GPIO_enumTogPinVal(GPIO_Port_t Port, GPIO_Pin_t PinNum)
 {
@@ -569,13 +557,12 @@ ErrorState_t GPIO_enumTogPinVal(GPIO_Port_t Port, GPIO_Pin_t PinNum)
 }
 
 /*=================================================================================================================*/
-/**
- * @fn     GPIO_enumRead4PinsVal
- * @brief : Read the current value of a GPIO port 4-pins
- * @param : Port: GPIO port (PORTA to PORTH)
- * @param : StartPin: Starting pin number (PIN0 to PIN15)
- * @param : PinsValue: Pointer to store the read value
- * @retval ErrorState_t: OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
+/*
+ * @brief Read the current value of a GPIO port 4-pins
+ * @param Port GPIO port (PORTA to PORTH)
+ * @param StartPin Starting pin number (PIN0 to PIN15)
+ * @param PinsValue Pointer to store the read value
+ * @retval ErrorState_t OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
  */
 ErrorState_t GPIO_enumRead4PinsVal(GPIO_Port_t Port, GPIO_Pin_t StartPin, uint8_t *PinsValue)
 {
@@ -600,13 +587,12 @@ ErrorState_t GPIO_enumRead4PinsVal(GPIO_Port_t Port, GPIO_Pin_t StartPin, uint8_
 
 
 /*=================================================================================================================*/
-/**
- * @fn     GPIO_enumRead8PinsVal
- * @brief : Read the current value of a GPIO port 8-pins
- * @param : Port: GPIO port (PORTA to PORTH)
- * @param : StartPin: Starting pin number (PIN0 to PIN15)
- * @param : PinsValue: Pointer to store the read value
- * @retval ErrorState_t: OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
+/*
+ * @brief Read the current value of a GPIO port 8-pins
+ * @param Port GPIO port (PORTA to PORTH)
+ * @param StartPin Starting pin number (PIN0 to PIN15)
+ * @param PinsValue Pointer to store the read value
+ * @retval ErrorState_t OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
  */
 ErrorState_t GPIO_enumRead8PinsVal(GPIO_Port_t Port, GPIO_Pin_t StartPin, uint8_t *PinsValue)
 {
@@ -629,13 +615,12 @@ ErrorState_t GPIO_enumRead8PinsVal(GPIO_Port_t Port, GPIO_Pin_t StartPin, uint8_
   return Local_u8ErrorState;
 }
 /*=================================================================================================================*/
-/**
- * @fn     GPIO_enumWriteLowNibbleVal
- * @brief : Write the current value of a GPIO port low nibble
- * @param : port: GPIO port (PORTA to PORTH)
- * @param : Copy_u8Val: Value to write
- * @param : PinsVal: Value to write
- * @retval ErrorState_t: OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
+/*
+ * @brief Write the current value of a GPIO port low nibble
+ * @param port GPIO port (PORTA to PORTH)
+ * @param Copy_u8Val Value to write
+ * @param PinsVal Value to write
+ * @retval ErrorState_t OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
  */
 ErrorState_t GPIO_enumWriteLowNibbleVal(GPIO_Port_t port, uint8_t Copy_u8Val, GPIO_PinValue_t PinsVal)
 {
@@ -664,13 +649,12 @@ ErrorState_t GPIO_enumWriteLowNibbleVal(GPIO_Port_t port, uint8_t Copy_u8Val, GP
   return Local_u8ErrorState;
 }
 /*=================================================================================================================*/
-/**
- * @fn     GPIO_enumWriteHighNibbleVal
- * @brief : Write the current value of a GPIO port high nibble
- * @param : port: GPIO port (PORTA to PORTH)
- * @param : Copy_u8Val: Value to write
- * @param : PinsVal: Value to write
- * @retval ErrorState_t: OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
+/*
+ * @brief Write the current value of a GPIO port high nibble
+ * @param port GPIO port (PORTA to PORTH)
+ * @param Copy_u8Val Value to write
+ * @param PinsVal Value to write
+ * @retval ErrorState_t OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
  */
 ErrorState_t GPIO_enumWriteHighNibbleVal(GPIO_Port_t port, uint8_t Copy_u8Val, GPIO_PinValue_t PinsVal)
 {
@@ -699,13 +683,12 @@ ErrorState_t GPIO_enumWriteHighNibbleVal(GPIO_Port_t port, uint8_t Copy_u8Val, G
   return Local_u8ErrorState;
 }
 /*=================================================================================================================*/
-/**
- * @fn     GPIO_enumWriteByteVal
- * @brief : Write the current value of a GPIO port byte
- * @param : port: GPIO port (PORTA to PORTH)
- * @param : Copy_u8Val: Value to write
- * @param : PinsVal: Value to write
- * @retval ErrorState_t: OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
+/*
+ * @brief Write the current value of a GPIO port byte
+ * @param port GPIO port (PORTA to PORTH)
+ * @param Copy_u8Val Value to write
+ * @param PinsVal Value to write
+ * @retval ErrorState_t OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
  */
 ErrorState_t GPIO_enumWriteByteVal(GPIO_Port_t port, uint8_t Copy_u8Val, GPIO_PinValue_t PinsVal)
 {
@@ -734,13 +717,12 @@ ErrorState_t GPIO_enumWriteByteVal(GPIO_Port_t port, uint8_t Copy_u8Val, GPIO_Pi
   return Local_u8ErrorState;
 }
 /*=================================================================================================================*/
-/**
- * @fn     GPIO_enumWriteHalfWordVal
- * @brief : Write the current value of a GPIO port half word
- * @param : port: GPIO port (PORTA to PORTH)
- * @param : Copy_u8Val: Value to write
- * @param : PinsVal: Value to write
- * @retval ErrorState_t: OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
+/*
+ * @brief Write the current value of a GPIO port half word
+ * @param port GPIO port (PORTA to PORTH)
+ * @param Copy_u8Val Value to write
+ * @param PinsVal Value to write
+ * @retval ErrorState_t OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
  */
 ErrorState_t GPIO_enumWriteHalfWordVal(GPIO_Port_t port, uint16_t Copy_u16Val, GPIO_PinValue_t PinsVal)
 {
@@ -769,13 +751,12 @@ ErrorState_t GPIO_enumWriteHalfWordVal(GPIO_Port_t port, uint16_t Copy_u16Val, G
   return Local_u8ErrorState;
 }
 /*=================================================================================================================*/
-/**
- * @fn     GPIO_enumWritePortVal
- * @brief : Write the current value of a GPIO port word
- * @param : port: GPIO port (PORTA to PORTH)
- * @param : Copy_u8Val: Value to write
- * @param : PinsVal: Value to write
- * @retval ErrorState_t: OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
+/*
+ * @brief Write the current value of a GPIO port word
+ * @param port GPIO port (PORTA to PORTH)
+ * @param Copy_u8Val Value to write
+ * @param PinsVal Value to write
+ * @retval ErrorState_t OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
  */
 ErrorState_t GPIO_enumWritePortVal(GPIO_Port_t port, uint16_t Copy_u16Val, GPIO_PinValue_t PinsVal)
 {
@@ -804,13 +785,12 @@ ErrorState_t GPIO_enumWritePortVal(GPIO_Port_t port, uint16_t Copy_u16Val, GPIO_
   return Local_u8ErrorState;
 }
 /*=================================================================================================================*/
-/**
- * @fn     GPIO_enumReadLowNibbleVal
- * @brief : Read the current value of a GPIO port low nibble
- * @param : port: GPIO port (PORTA to PORTH)
- * @param : Copy_u8Val: Value to write
- * @param : PinsVal: Value to write
- * @retval ErrorState_t: OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
+/*
+ * @brief Read the current value of a GPIO port low nibble
+ * @param port GPIO port (PORTA to PORTH)
+ * @param Copy_u8Val Value to write
+ * @param PinsVal Value to write
+ * @retval ErrorState_t OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
  */
 ErrorState_t GPIO_enumReadLowNibbleVal(GPIO_Port_t port,uint8_t *LowNibbleVal)
 {
@@ -833,12 +813,11 @@ ErrorState_t GPIO_enumReadLowNibbleVal(GPIO_Port_t port,uint8_t *LowNibbleVal)
   return Local_u8ErrorState;
 }
 /*=================================================================================================================*/
-/**
- * @fn     GPIO_enumReadHighNibbleVal
- * @brief : Read the current value of a GPIO port high nibble
- * @param : port: GPIO port (PORTA to PORTH)
- * @param : HighNibbleVal: Pointer to store the read value
- * @retval ErrorState_t: OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
+/*
+ * @brief Read the current value of a GPIO port high nibble
+ * @param port GPIO port (PORTA to PORTH)
+ * @param HighNibbleVal Pointer to store the read value
+ * @retval ErrorState_t OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
  */
 ErrorState_t GPIO_enumReadHighNibbleVal(GPIO_Port_t port,uint8_t *HighNibbleVal)
 {
@@ -861,12 +840,11 @@ ErrorState_t GPIO_enumReadHighNibbleVal(GPIO_Port_t port,uint8_t *HighNibbleVal)
   return Local_u8ErrorState;
 }
 /*=================================================================================================================*/
-/**
- * @fn     GPIO_enumReadByteVal
- * @brief : Read the current value of a GPIO port byte
- * @param : port: GPIO port (PORTA to PORTH)
- * @param : ByteVal: Pointer to store the read value
- * @retval ErrorState_t: OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
+/*
+ * @brief Read the current value of a GPIO port byte
+ * @param port GPIO port (PORTA to PORTH)
+ * @param ByteVal Pointer to store the read value
+ * @retval ErrorState_t OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
  */
 ErrorState_t GPIO_enumReadByteVal(GPIO_Port_t port,uint8_t *ByteVal)
 {
@@ -889,12 +867,11 @@ ErrorState_t GPIO_enumReadByteVal(GPIO_Port_t port,uint8_t *ByteVal)
   return Local_u8ErrorState;
 }
 /*=================================================================================================================*/
-/**
- * @fn     GPIO_enumReadHalfPortVal
- * @brief : Read the current value of a GPIO port half word
- * @param : port: GPIO port (PORTA to PORTH)
- * @param : HalfPortVal: Pointer to store the read value
- * @retval ErrorState_t: OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
+/*
+ * @brief Read the current value of a GPIO port half word
+ * @param port GPIO port (PORTA to PORTH)
+ * @param HalfPortVal Pointer to store the read value
+ * @retval ErrorState_t OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
  */
 ErrorState_t GPIO_enumReadHalfPortVal(GPIO_Port_t port,uint16_t *HalfPortVal)
 {
@@ -917,12 +894,11 @@ ErrorState_t GPIO_enumReadHalfPortVal(GPIO_Port_t port,uint16_t *HalfPortVal)
   return Local_u8ErrorState;
 }
 /*=================================================================================================================*/
-/**
- * @fn     GPIO_enumReadPortVal
- * @brief : Read the current value of a GPIO port word
- * @param : port: GPIO port (PORTA to PORTH)
- * @param : PortVal: Pointer to store the read value
- * @retval ErrorState_t: OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
+/*
+ * @brief Read the current value of a GPIO port word
+ * @param port GPIO port (PORTA to PORTH)
+ * @param PortVal Pointer to store the read value
+ * @retval ErrorState_t OK if configuration successful, NOK if invalid parameters, NULL_POINTER if invalid pointer
  */
 ErrorState_t GPIO_enumReadPortVal(GPIO_Port_t port,uint32_t *PortVal)
 {

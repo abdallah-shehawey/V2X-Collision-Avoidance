@@ -1,0 +1,35 @@
+\doxysection{HAL }
+\hypertarget{group__hal}{}\label{group__hal}\index{HAL@{HAL}}
+
+
+Hardware Abstraction Layer — board-\/level devices built on top of MCAL.  
+
+
+Collaboration diagram for HAL:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{group__hal}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Topics}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{group__hal__led}{LED}}
+\begin{DoxyCompactList}\small\item\em Discrete indicator LEDs (front L/\+R, rear L/\+R, interior). \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__hal__buzz}{BUZZ}}
+\begin{DoxyCompactList}\small\item\em Piezo buzzer used for the audible alert. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__hal__us}{US}}
+\begin{DoxyCompactList}\small\item\em HC-\/\+SR04 ultrasonic ranging, interrupt-\/driven (6 sensors). \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__hal__mpu9250}{MPU9250}}
+\begin{DoxyCompactList}\small\item\em 9-\/axis IMU over SPI:\+ speed, heading, pitch/\+roll, dead-\/reckoned position. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Hardware Abstraction Layer — board-\/level devices built on top of MCAL. 
+
+A HAL driver knows what is physically wired to the board (an LED on a given pin, an HC-\/\+SR04 on a trigger/\+echo pair, an MPU9250 on SPI1) but knows nothing about collision avoidance. It exposes the device in the device\textquotesingle{}s own terms ({\ttfamily LED\+\_\+enum\+On}, {\ttfamily US\+\_\+f32\+Get\+Distance}, {\ttfamily MPU9250\+\_\+void\+Get\+Heading}) and leaves all policy to the Application layer. \input{group__hal__led}
+\input{group__hal__buzz}
+\input{group__hal__us}
+\input{group__hal__mpu9250}

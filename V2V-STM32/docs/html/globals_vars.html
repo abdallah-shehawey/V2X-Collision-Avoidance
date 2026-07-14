@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Globals</title>
+<title>V2V Collision Avoidance Firmware: Globals</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,12 +90,29 @@ $(function(){initNavTree('globals_vars.html','',''); });
 </div>
 
 <div class="contents">
-<div class="textblock">Here is a list of all variables with links to the files they belong to:</div>
+<div class="textblock">Here is a list of all documented variables with links to the documentation:</div>
+
+<h3 class="doxsection"><a id="index__5F" name="index__5F"></a>- _ -</h3><ul>
+<li>__env&#160;:&#160;<a class="el" href="syscalls_8c.html#a5428d66981cb84e60b899495874618b2">syscalls.c</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_a" name="index_a"></a>- a -</h3><ul>
+<li>Accel_Offset&#160;:&#160;<a class="el" href="MPU9250__program_8c.html#aacca6e511db4f275d992be839268f3d6">MPU9250_program.c</a></li>
+</ul>
+
 
 <h3 class="doxsection"><a id="index_b" name="index_b"></a>- b -</h3><ul>
-<li>BackL_LED&#160;:&#160;<a class="el" href="System_8h.html#abfc8237214cfd1267c607aaff66a96da">System.h</a>, <a class="el" href="main_8c.html#abfc8237214cfd1267c607aaff66a96da">main.c</a>, <a class="el" href="System_8c.html#abfc8237214cfd1267c607aaff66a96da">System.c</a></li>
-<li>BackR_LED&#160;:&#160;<a class="el" href="System_8h.html#ae41df9dd37d7c4d27b829fd46cd1e5e3">System.h</a>, <a class="el" href="main_8c.html#ae41df9dd37d7c4d27b829fd46cd1e5e3">main.c</a>, <a class="el" href="System_8c.html#ae41df9dd37d7c4d27b829fd46cd1e5e3">System.c</a></li>
+<li>BackL_LED&#160;:&#160;<a class="el" href="group__system.html#gabfc8237214cfd1267c607aaff66a96da">System.h</a>, <a class="el" href="group__system.html#gabfc8237214cfd1267c607aaff66a96da">main.c</a>, <a class="el" href="group__system.html#gabfc8237214cfd1267c607aaff66a96da">System.c</a></li>
+<li>BackR_LED&#160;:&#160;<a class="el" href="group__system.html#gae41df9dd37d7c4d27b829fd46cd1e5e3">System.h</a>, <a class="el" href="group__system.html#gae41df9dd37d7c4d27b829fd46cd1e5e3">main.c</a>, <a class="el" href="group__system.html#gae41df9dd37d7c4d27b829fd46cd1e5e3">System.c</a></li>
 <li>BackUS&#160;:&#160;<a class="el" href="main_8c.html#a2b0e497a0b4ecc48b5dd5fef9623d4f3">main.c</a>, <a class="el" href="System_8c.html#a2b0e497a0b4ecc48b5dd5fef9623d4f3">System.c</a></li>
+<li>BSW_AlertLeft&#160;:&#160;<a class="el" href="BSW__program_8c.html#a4f7db86811c39d9e9fe7f3eab47d7e8b">BSW_program.c</a></li>
+<li>BSW_AlertRight&#160;:&#160;<a class="el" href="BSW__program_8c.html#ae52f5f44a0903a97a561470d0d59a058">BSW_program.c</a></li>
+<li>BSW_FrontLeft&#160;:&#160;<a class="el" href="BSW__program_8c.html#ae5149859ed6db187a1450b41dafaf05b">BSW_program.c</a></li>
+<li>BSW_FrontRight&#160;:&#160;<a class="el" href="BSW__program_8c.html#a9fff1c5cbdb0ad5f3a3cbebde19b1735">BSW_program.c</a></li>
+<li>BSW_RearLeft&#160;:&#160;<a class="el" href="BSW__program_8c.html#a729bf9722705efba0bdeb40a800426c5">BSW_program.c</a></li>
+<li>BSW_RearRight&#160;:&#160;<a class="el" href="BSW__program_8c.html#ae8fa69b07e8c55bce9b58c19e8f8478a">BSW_program.c</a></li>
+<li>BSW_SenderFlag&#160;:&#160;<a class="el" href="BSW__program_8c.html#af508af8eb4d49d9e5c8bab85f1301ae5">BSW_program.c</a></li>
 </ul>
 
 
@@ -110,82 +127,133 @@ $(function(){initNavTree('globals_vars.html','',''); });
 
 
 <h3 class="doxsection"><a id="index_e" name="index_e"></a>- e -</h3><ul>
+<li>EEBL_BrakingDetected&#160;:&#160;<a class="el" href="EEBL__program_8c.html#ace09641028ae50b3a0e8dd2ff8dbd38a">EEBL_program.c</a></li>
+<li>EEBL_PrevSpeed&#160;:&#160;<a class="el" href="EEBL__program_8c.html#a0652de7240f7f76ce324700c38579040">EEBL_program.c</a></li>
+<li>EEBL_WorstLevel&#160;:&#160;<a class="el" href="EEBL__program_8c.html#ab13704a2cc012c74c95d7563b4e80b90">EEBL_program.c</a></li>
 <li>environ&#160;:&#160;<a class="el" href="syscalls_8c.html#aa006daaf11f1e2e45a6ababaf463212b">syscalls.c</a></li>
+<li>EXTI_CallBack&#160;:&#160;<a class="el" href="EXTI__program_8c.html#a6c52246d575ebfe5d99357154ec32034">EXTI_program.c</a></li>
 </ul>
 
 
 <h3 class="doxsection"><a id="index_f" name="index_f"></a>- f -</h3><ul>
-<li>FrontL_LED&#160;:&#160;<a class="el" href="System_8h.html#a2ab79e3f6235026ef8d29a9446511f48">System.h</a>, <a class="el" href="main_8c.html#a2ab79e3f6235026ef8d29a9446511f48">main.c</a>, <a class="el" href="System_8c.html#a2ab79e3f6235026ef8d29a9446511f48">System.c</a></li>
-<li>FrontR_LED&#160;:&#160;<a class="el" href="System_8h.html#af1fb4a43ba68d1fdc94fd35a7d901cd4">System.h</a>, <a class="el" href="main_8c.html#af1fb4a43ba68d1fdc94fd35a7d901cd4">main.c</a>, <a class="el" href="System_8c.html#af1fb4a43ba68d1fdc94fd35a7d901cd4">System.c</a></li>
+<li>FCW_DNPW_DnpwFlag&#160;:&#160;<a class="el" href="FCW__DNPW__program_8c.html#a3b16cca55686a877ca52179e5e27c7c2">FCW_DNPW_program.c</a></li>
+<li>FCW_DNPW_FcwObject&#160;:&#160;<a class="el" href="FCW__DNPW__program_8c.html#abae69438c3855add2f720ba78ebaf6c6">FCW_DNPW_program.c</a></li>
+<li>FCW_DNPW_FrontFlag&#160;:&#160;<a class="el" href="FCW__DNPW__program_8c.html#a2d56e15e0504fef8fd3ab61b5a246186">FCW_DNPW_program.c</a></li>
+<li>FCW_DNPW_FrontLeftNear&#160;:&#160;<a class="el" href="FCW__DNPW__program_8c.html#a5c674f2520cc5e2c3fa0b907cee8833f">FCW_DNPW_program.c</a></li>
+<li>FCW_DNPW_FrontObject&#160;:&#160;<a class="el" href="FCW__DNPW__program_8c.html#a481a3bcf1205909bc9e5cf8b8b7cbd12">FCW_DNPW_program.c</a></li>
+<li>FCW_DNPW_FrontSeverity&#160;:&#160;<a class="el" href="FCW__DNPW__program_8c.html#a4ff6ffd2aec06ddd250b0d1247da26b1">FCW_DNPW_program.c</a></li>
+<li>FCW_DNPW_HeadonConfirmed&#160;:&#160;<a class="el" href="FCW__DNPW__program_8c.html#ad6c9a97d12eb3e337a414b5c845d68df">FCW_DNPW_program.c</a></li>
+<li>FCW_DNPW_HeadonFlag&#160;:&#160;<a class="el" href="FCW__DNPW__program_8c.html#aa6b13e4c5fb5a01ece5cc137d69631ca">FCW_DNPW_program.c</a></li>
+<li>FCW_DNPW_HeadonSeverity&#160;:&#160;<a class="el" href="FCW__DNPW__program_8c.html#a4d96357f4ee2899a2f18f9bdc3c9a443">FCW_DNPW_program.c</a></li>
+<li>Filtered_Heading&#160;:&#160;<a class="el" href="MPU9250__program_8c.html#a8c91ea831ab38979811c6fa8a8ac4dd5">MPU9250_program.c</a></li>
+<li>Filtered_Pitch&#160;:&#160;<a class="el" href="MPU9250__program_8c.html#ac72163e667d60e0a5ec99467948d9745">MPU9250_program.c</a></li>
+<li>Filtered_Roll&#160;:&#160;<a class="el" href="MPU9250__program_8c.html#af9cef7fe72820a4030101eff937ae86b">MPU9250_program.c</a></li>
+<li>FrontL_LED&#160;:&#160;<a class="el" href="group__system.html#ga2ab79e3f6235026ef8d29a9446511f48">System.h</a>, <a class="el" href="group__system.html#ga2ab79e3f6235026ef8d29a9446511f48">main.c</a>, <a class="el" href="group__system.html#ga2ab79e3f6235026ef8d29a9446511f48">System.c</a></li>
+<li>FrontR_LED&#160;:&#160;<a class="el" href="group__system.html#gaf1fb4a43ba68d1fdc94fd35a7d901cd4">System.h</a>, <a class="el" href="group__system.html#gaf1fb4a43ba68d1fdc94fd35a7d901cd4">main.c</a>, <a class="el" href="group__system.html#gaf1fb4a43ba68d1fdc94fd35a7d901cd4">System.c</a></li>
 <li>FrontUS&#160;:&#160;<a class="el" href="main_8c.html#aed057ac0b23c05f6b02ef3bfed8bfa27">main.c</a>, <a class="el" href="System_8c.html#aed057ac0b23c05f6b02ef3bfed8bfa27">System.c</a></li>
 </ul>
 
 
 <h3 class="doxsection"><a id="index_g" name="index_g"></a>- g -</h3><ul>
 <li>G_au32Heartbeat&#160;:&#160;<a class="el" href="main_8c.html#abf287e574f76db7ad0c43062a788d58c">main.c</a></li>
-<li>G_stHostVehicleState&#160;:&#160;<a class="el" href="System_8h.html#ac3116f56a230ebdd81cadd527921464c">System.h</a>, <a class="el" href="System_8c.html#ac3116f56a230ebdd81cadd527921464c">System.c</a></li>
-<li>G_u16SystemFlags&#160;:&#160;<a class="el" href="System_8h.html#a9e78367aa5b758af972838362c2b0eab">System.h</a>, <a class="el" href="System_8c.html#a9e78367aa5b758af972838362c2b0eab">System.c</a></li>
+<li>G_stHostVehicleState&#160;:&#160;<a class="el" href="group__system.html#gac3116f56a230ebdd81cadd527921464c">System.h</a>, <a class="el" href="group__system.html#gac3116f56a230ebdd81cadd527921464c">System.c</a></li>
+<li>G_u16SystemFlags&#160;:&#160;<a class="el" href="group__system.html#ga9e78367aa5b758af972838362c2b0eab">System.h</a>, <a class="el" href="group__system.html#ga9e78367aa5b758af972838362c2b0eab">System.c</a></li>
 <li>G_xDataMutex&#160;:&#160;<a class="el" href="main_8c.html#a101fd1911cf8e567c729470ceb6d2fb8">main.c</a></li>
 <li>G_xESP_RX_Queue&#160;:&#160;<a class="el" href="main_8c.html#a2c251aeac2c84008a206658c306be262">main.c</a></li>
 <li>G_xNeighborTableMutex&#160;:&#160;<a class="el" href="main_8c.html#ab31e36f89b28f343b708712d4346780a">main.c</a></li>
+<li>GPIO_Port&#160;:&#160;<a class="el" href="GPIO__prog_8c.html#a1c4f329a4b2087fabcff2288dcc3e2bc">GPIO_prog.c</a></li>
+<li>Gyro_Offset&#160;:&#160;<a class="el" href="MPU9250__program_8c.html#af421b445ac1f8d9fc33b2017a5fc9b45">MPU9250_program.c</a></li>
 </ul>
 
 
 <h3 class="doxsection"><a id="index_h" name="index_h"></a>- h -</h3><ul>
-<li>Host_DistToIntersection&#160;:&#160;<a class="el" href="System_8h.html#a10d54e2c66effa6800db6f78aaec485c">System.h</a>, <a class="el" href="System_8c.html#a10d54e2c66effa6800db6f78aaec485c">System.c</a></li>
-<li>Host_Heading&#160;:&#160;<a class="el" href="SafetyEngine__interface_8h.html#afb1ff5cedbd39f1a8b81a25a7dcdb171">SafetyEngine_interface.h</a>, <a class="el" href="SafetyEngine__program_8c.html#afb1ff5cedbd39f1a8b81a25a7dcdb171">SafetyEngine_program.c</a></li>
-<li>Host_Speed&#160;:&#160;<a class="el" href="SafetyEngine__interface_8h.html#a16174df02da93c0fc96432a4bc1de57b">SafetyEngine_interface.h</a>, <a class="el" href="SafetyEngine__program_8c.html#a16174df02da93c0fc96432a4bc1de57b">SafetyEngine_program.c</a></li>
+<li>Heading_Init&#160;:&#160;<a class="el" href="MPU9250__program_8c.html#a909fd86d75a387e7be616b75095995d0">MPU9250_program.c</a></li>
+<li>Host_DistToIntersection&#160;:&#160;<a class="el" href="group__system.html#ga10d54e2c66effa6800db6f78aaec485c">System.h</a>, <a class="el" href="group__system.html#ga10d54e2c66effa6800db6f78aaec485c">System.c</a></li>
+<li>Host_Heading&#160;:&#160;<a class="el" href="group__app__safetyengine.html#gafb1ff5cedbd39f1a8b81a25a7dcdb171">SafetyEngine_interface.h</a>, <a class="el" href="group__app__safetyengine.html#gafb1ff5cedbd39f1a8b81a25a7dcdb171">SafetyEngine_program.c</a></li>
+<li>Host_Speed&#160;:&#160;<a class="el" href="group__app__safetyengine.html#ga16174df02da93c0fc96432a4bc1de57b">SafetyEngine_interface.h</a>, <a class="el" href="group__app__safetyengine.html#ga16174df02da93c0fc96432a4bc1de57b">SafetyEngine_program.c</a></li>
 </ul>
 
 
 <h3 class="doxsection"><a id="index_i" name="index_i"></a>- i -</h3><ul>
-<li>Interior_LED&#160;:&#160;<a class="el" href="System_8h.html#aa7037844a95faca4f50aae714fe5048a">System.h</a>, <a class="el" href="main_8c.html#aa7037844a95faca4f50aae714fe5048a">main.c</a>, <a class="el" href="System_8c.html#aa7037844a95faca4f50aae714fe5048a">System.c</a></li>
+<li>IMA_CrossingDetected&#160;:&#160;<a class="el" href="IMA__program_8c.html#aa8ee3697aabf78e1aad8d7b10effba12">IMA_program.c</a></li>
+<li>IMA_WorstRisk&#160;:&#160;<a class="el" href="IMA__program_8c.html#ada0a2986b5d169695406de97638b1e43">IMA_program.c</a></li>
+<li>Interior_LED&#160;:&#160;<a class="el" href="group__system.html#gaa7037844a95faca4f50aae714fe5048a">System.h</a>, <a class="el" href="group__system.html#gaa7037844a95faca4f50aae714fe5048a">main.c</a>, <a class="el" href="group__system.html#gaa7037844a95faca4f50aae714fe5048a">System.c</a></li>
 </ul>
 
 
 <h3 class="doxsection"><a id="index_m" name="index_m"></a>- m -</h3><ul>
+<li>Mag_ASA&#160;:&#160;<a class="el" href="MPU9250__program_8c.html#aa7bc40095959553f49b3801560b9c983">MPU9250_program.c</a></li>
+<li>Mag_OffX&#160;:&#160;<a class="el" href="MPU9250__program_8c.html#a4d0066c49faf51d582cbbaf4046a178b">MPU9250_program.c</a></li>
+<li>Mag_OffY&#160;:&#160;<a class="el" href="MPU9250__program_8c.html#a91124b4238f933aaaeada7a3c2b3f9e0">MPU9250_program.c</a></li>
 <li>maxval&#160;:&#160;<a class="el" href="US__prog_8c.html#ae3410746ad12451a31ab39175fb1dc70">US_prog.c</a></li>
 <li>MPU9250_ID&#160;:&#160;<a class="el" href="MPU9250__program_8c.html#ab42bbf6ae5c9f42067d65b65417eb69f">MPU9250_program.c</a></li>
+<li>MPU9250_SPI&#160;:&#160;<a class="el" href="MPU9250__program_8c.html#a5b19083122fd42508de6ff6ac3a63ce0">MPU9250_program.c</a></li>
 </ul>
 
 
 <h3 class="doxsection"><a id="index_n" name="index_n"></a>- n -</h3><ul>
-<li>Neighbor&#160;:&#160;<a class="el" href="DSRC_8h.html#ac818f2e1224a1e513913a85019953e14">DSRC.h</a></li>
+<li>neighbor_count&#160;:&#160;<a class="el" href="DSRC_8c.html#a89c07c5539fe52e085d729b16b7adbf3">DSRC.c</a></li>
+<li>neighbor_table&#160;:&#160;<a class="el" href="DSRC_8c.html#ab81c561c155a828fdd542f1506b8a14b">DSRC.c</a></li>
 </ul>
 
 
 <h3 class="doxsection"><a id="index_p" name="index_p"></a>- p -</h3><ul>
+<li>parse_state&#160;:&#160;<a class="el" href="DSRC_8c.html#af6601d6caee138a71d57ec1a648a129c">DSRC.c</a></li>
 <li>phase&#160;:&#160;<a class="el" href="US__prog_8c.html#a34bb55e8c64d1459517441eebc24dfca">US_prog.c</a></li>
 </ul>
 
 
+<h3 class="doxsection"><a id="index_q" name="index_q"></a>- q -</h3><ul>
+<li>queue_head&#160;:&#160;<a class="el" href="DSRC_8c.html#a1a5bdba5ad46709632528c6d50d23f21">DSRC.c</a></li>
+<li>queue_tail&#160;:&#160;<a class="el" href="DSRC_8c.html#aace80fbfca2f194e2e4a47e3c42cf890">DSRC.c</a></li>
+</ul>
+
+
 <h3 class="doxsection"><a id="index_r" name="index_r"></a>- r -</h3><ul>
-<li>RPi_Packet_t&#160;:&#160;<a class="el" href="System_8h.html#a49cc648a30989079385c3b1cbf224789">System.h</a></li>
+<li>RCC_u8State&#160;:&#160;<a class="el" href="RCC__program_8c.html#a537fc4bb205f0f47b72f30d2ed70a386">RCC_program.c</a></li>
 <li>RPi_UART&#160;:&#160;<a class="el" href="main_8c.html#a305c18e4f4654cb56286827ae4d3883b">main.c</a>, <a class="el" href="System_8c.html#a305c18e4f4654cb56286827ae4d3883b">System.c</a></li>
+<li>rx_buf&#160;:&#160;<a class="el" href="DSRC_8c.html#ad8551a5eade2706b9a9febd30eeccf72">DSRC.c</a></li>
+<li>rx_checksum&#160;:&#160;<a class="el" href="DSRC_8c.html#af7ae33ec078d1850f461a9ee7d7b7335">DSRC.c</a></li>
+<li>rx_idx&#160;:&#160;<a class="el" href="DSRC_8c.html#afa50670d960de8bf72255273abefae07">DSRC.c</a></li>
+<li>rx_queue&#160;:&#160;<a class="el" href="DSRC_8c.html#ae475e643d0ef2f075c1418f4c4ea33f0">DSRC.c</a></li>
 </ul>
 
 
 <h3 class="doxsection"><a id="index_s" name="index_s"></a>- s -</h3><ul>
-<li>SafetyEngine_CriticalDist&#160;:&#160;<a class="el" href="SafetyEngine__interface_8h.html#a414ebc77c31778b0d2f7371abdbd2d19">SafetyEngine_interface.h</a>, <a class="el" href="SafetyEngine__program_8c.html#a414ebc77c31778b0d2f7371abdbd2d19">SafetyEngine_program.c</a></li>
-<li>SafetyEngine_SafeDist&#160;:&#160;<a class="el" href="SafetyEngine__interface_8h.html#a2d869610528b06238c15ab8fb160304f">SafetyEngine_interface.h</a>, <a class="el" href="SafetyEngine__program_8c.html#a2d869610528b06238c15ab8fb160304f">SafetyEngine_program.c</a></li>
+<li>SafetyEngine_CriticalDist&#160;:&#160;<a class="el" href="group__app__safetyengine.html#ga414ebc77c31778b0d2f7371abdbd2d19">SafetyEngine_interface.h</a>, <a class="el" href="group__app__safetyengine.html#ga414ebc77c31778b0d2f7371abdbd2d19">SafetyEngine_program.c</a></li>
+<li>SafetyEngine_SafeDist&#160;:&#160;<a class="el" href="group__app__safetyengine.html#ga2d869610528b06238c15ab8fb160304f">SafetyEngine_interface.h</a>, <a class="el" href="group__app__safetyengine.html#ga2d869610528b06238c15ab8fb160304f">SafetyEngine_program.c</a></li>
+<li>SingleShot_Flag&#160;:&#160;<a class="el" href="SYSTIC__program_8c.html#a9721a4d0aaa47d84c581c06e153b8a87">SYSTIC_program.c</a></li>
+<li>SPI_Channel&#160;:&#160;<a class="el" href="SPI__program_8c.html#ab1484f24c12c859f21e7dab789be7ff9">SPI_program.c</a></li>
+<li>SPI_u8State&#160;:&#160;<a class="el" href="SPI__program_8c.html#ac3c975c9f481046c6225d47ecb7ea18a">SPI_program.c</a></li>
 <li>SystemCoreClock&#160;:&#160;<a class="el" href="System_8c.html#aa3cd3e43291e81e795d642b79b6088e6">System.c</a></li>
+<li>SYSTIC_CallBack&#160;:&#160;<a class="el" href="SYSTIC__program_8c.html#ad7fd210618a8746df3cf57ec955c3259">SYSTIC_program.c</a></li>
 </ul>
 
 
 <h3 class="doxsection"><a id="index_t" name="index_t"></a>- t -</h3><ul>
 <li>t1&#160;:&#160;<a class="el" href="US__prog_8c.html#a6858d4bf91e3f238387650930c15b7fd">US_prog.c</a></li>
+<li>TIM_Callbacks&#160;:&#160;<a class="el" href="TIM__program_8c.html#afe00692d86baf98d32b9ab4ce9fb6fb4">TIM_program.c</a></li>
+<li>TIM_CC_Callbacks&#160;:&#160;<a class="el" href="TIM__program_8c.html#a9d7ed91dcad342395d884691701439a5">TIM_program.c</a></li>
+<li>TIM_Instances&#160;:&#160;<a class="el" href="TIM__program_8c.html#aa1305f9e2a91f04a8ca28ecfcc65b657">TIM_program.c</a></li>
 <li>timer&#160;:&#160;<a class="el" href="US__prog_8c.html#a9e4d06093a8d0697179ece54c8df7bc2">US_prog.c</a></li>
 </ul>
 
 
 <h3 class="doxsection"><a id="index_u" name="index_u"></a>- u -</h3><ul>
+<li>US_Active&#160;:&#160;<a class="el" href="US__prog_8c.html#a6e45c6ae507b29bc14bd9f3a65271abf">US_prog.c</a></li>
+<li>US_TIM_Array&#160;:&#160;<a class="el" href="US__prog_8c.html#a1075f329baf7454c0e9a988c726d67f8">US_prog.c</a></li>
+<li>US_xDoneSem&#160;:&#160;<a class="el" href="US__prog_8c.html#a45b109c89a06e7204f4c203252f57350">US_prog.c</a></li>
 <li>USART_1&#160;:&#160;<a class="el" href="DSRC_8c.html#a6380af5ae8a47d62dd6de27b01504cd2">DSRC.c</a>, <a class="el" href="System_8c.html#a6380af5ae8a47d62dd6de27b01504cd2">System.c</a></li>
+<li>USART_CallBack&#160;:&#160;<a class="el" href="USART__program_8c.html#ab11fc9093ef36d9fbbdc0a113fc8e3ea">USART_program.c</a></li>
+<li>USART_Channel&#160;:&#160;<a class="el" href="USART__program_8c.html#a82049e1b8dd619328b6a59449abb779d">USART_program.c</a></li>
+<li>USART_u8State&#160;:&#160;<a class="el" href="USART__program_8c.html#a9382df4b0d96d2e17fee183f923a7dbc">USART_program.c</a></li>
 </ul>
 
 
 <h3 class="doxsection"><a id="index_v" name="index_v"></a>- v -</h3><ul>
 <li>V2X_Buzzer&#160;:&#160;<a class="el" href="main_8c.html#a4f097a0ea23201e71704715ba21668a1">main.c</a>, <a class="el" href="System_8c.html#a4f097a0ea23201e71704715ba21668a1">System.c</a></li>
 <li>valid&#160;:&#160;<a class="el" href="US__prog_8c.html#a75adb1881fa5da948723d7b8807b78cd">US_prog.c</a></li>
+<li>Vert_Velocity_m_s&#160;:&#160;<a class="el" href="MPU9250__program_8c.html#a8b22987bc762fe7d1f41c8a4b231837f">MPU9250_program.c</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

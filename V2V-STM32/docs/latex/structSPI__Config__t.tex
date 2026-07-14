@@ -2,86 +2,65 @@
 \hypertarget{structSPI__Config__t}{}\label{structSPI__Config__t}\index{SPI\_Config\_t@{SPI\_Config\_t}}
 
 
-{\ttfamily \+\#include $<$SPI\+\_\+interface.\+h$>$}
+Everything needed to bring one SPI peripheral up.  
+
+
+
+
+{\ttfamily \+\#include $<$Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+interface.\+h$>$}
 
 \doxysubsubsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
 \doxymbox{\hyperlink{SPI__interface_8h_a99e480c10376756fca05b64ed949a3d9}{SPI\+\_\+\+Channel\+\_\+t}} \doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}
-\item 
+\begin{DoxyCompactList}\small\item\em Which SPI peripheral (SPI1..SPI4). \end{DoxyCompactList}\item 
 \doxymbox{\hyperlink{SPI__interface_8h_a78da88ed6e4be342886ae4e703454ff9}{SPI\+\_\+\+CPHA\+\_\+t}} \doxymbox{\hyperlink{structSPI__Config__t_a7ecef74a0f8f84d8050f8c655c600361}{CPHA}}
-\item 
+\begin{DoxyCompactList}\small\item\em Clock phase:\+ which clock edge samples the data. \end{DoxyCompactList}\item 
 \doxymbox{\hyperlink{SPI__interface_8h_a34beb9edf30f0d6974c2819a941cc423}{SPI\+\_\+\+CPOL\+\_\+t}} \doxymbox{\hyperlink{structSPI__Config__t_a3eb827d937f1d50611d731b85f7a1119}{CPOL}}
-\item 
+\begin{DoxyCompactList}\small\item\em Clock polarity:\+ the idle level of SCK. \end{DoxyCompactList}\item 
 \doxymbox{\hyperlink{SPI__interface_8h_af7f50e71bd6a06e32909cef3ba77610d}{SPI\+\_\+\+Mode\+\_\+t}} \doxymbox{\hyperlink{structSPI__Config__t_a7f7526555beb55126d4bf5c9341e1724}{Mode}}
-\item 
+\begin{DoxyCompactList}\small\item\em Master or slave. \end{DoxyCompactList}\item 
 \doxymbox{\hyperlink{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70}{SPI\+\_\+\+BAUDRATEPRESCALER\+\_\+t}} \doxymbox{\hyperlink{structSPI__Config__t_a911cf4570a942c5aa13c1cf48e7a6e52}{Baud\+Rate\+Prescaler}}
-\item 
+\begin{DoxyCompactList}\small\item\em Divides the APB clock down to SCK. \end{DoxyCompactList}\item 
 \doxymbox{\hyperlink{SPI__interface_8h_a1db03ac197283574fffbb48a4afee6a8}{SPI\+\_\+\+SPE\+\_\+t}} \doxymbox{\hyperlink{structSPI__Config__t_a40158d2ab4973bd7305cc09188e3a75d}{SPE}}
-\item 
+\begin{DoxyCompactList}\small\item\em SPI enable — the peripheral does nothing until this is set. \end{DoxyCompactList}\item 
 \doxymbox{\hyperlink{SPI__interface_8h_a3d2f4422f306ed3231341372d1b241f2}{SPI\+\_\+\+BFIRST\+\_\+t}} \doxymbox{\hyperlink{structSPI__Config__t_a1b62a15cf591f2bf7bfd3e51f83151da}{BFIRST}}
-\item 
+\begin{DoxyCompactList}\small\item\em Bit order:\+ MSB or LSB first. \end{DoxyCompactList}\item 
 \doxymbox{\hyperlink{SPI__interface_8h_adbe1555d537053eec05421b9c0a1b5c2}{SPI\+\_\+\+NSS\+\_\+\+MAN\+\_\+t}} \doxymbox{\hyperlink{structSPI__Config__t_a76ac0853fd1f97093d1903c5ed2d5010}{NSS\+\_\+\+MAN}}
-\item 
+\begin{DoxyCompactList}\small\item\em Whether slave-\/select is driven by software or by hardware. \end{DoxyCompactList}\item 
 \doxymbox{\hyperlink{SPI__interface_8h_a1c45faac8557e06760a44075984eb7ff}{SPI\+\_\+\+NSSI\+\_\+\+MODE\+\_\+t}} \doxymbox{\hyperlink{structSPI__Config__t_a4e7252309b44dce2e5908b0579f6a161}{NSSI\+\_\+\+MODE}}
-\item 
+\begin{DoxyCompactList}\small\item\em The software slave-\/select level, when NSS is software-\/managed. \end{DoxyCompactList}\item 
 \doxymbox{\hyperlink{SPI__interface_8h_a9c9a776b797c9c30896f34a8fd521081}{SPI\+\_\+\+RXONLY\+\_\+t}} \doxymbox{\hyperlink{structSPI__Config__t_a45144f1e23b389e29aa4d42809776dd3}{RXONLY}}
-\item 
+\begin{DoxyCompactList}\small\item\em Receive-\/only mode (half-\/duplex listen). \end{DoxyCompactList}\item 
 \doxymbox{\hyperlink{SPI__interface_8h_ab4199e1038cc90f9ba060af300e29a7c}{SPI\+\_\+\+DFF\+\_\+t}} \doxymbox{\hyperlink{structSPI__Config__t_a0037df0b1605a4fc0437380006bce929}{DFF}}
-\item 
+\begin{DoxyCompactList}\small\item\em Frame size:\+ 8 or 16 bits. \end{DoxyCompactList}\item 
 \doxymbox{\hyperlink{SPI__interface_8h_a2b022b50caa9c05983f85788edaac92a}{SPI\+\_\+\+CRCEN\+\_\+t}} \doxymbox{\hyperlink{structSPI__Config__t_a66babbd43cbecf5bd98a536164f11454}{CRC\+\_\+\+MODE}}
-\item 
+\begin{DoxyCompactList}\small\item\em Hardware CRC calculation on/\+off. \end{DoxyCompactList}\item 
 \doxymbox{\hyperlink{SPI__interface_8h_a69aac2e6df15ed3f2dff3040dbe85501}{SPI\+\_\+\+CRCNEXT\+\_\+t}} \doxymbox{\hyperlink{structSPI__Config__t_a0f2b62da0db9ae65df33ed7fc57948f8}{CRCNEXT}}
-\item 
+\begin{DoxyCompactList}\small\item\em Transmit the CRC instead of the next data word. \end{DoxyCompactList}\item 
 \doxymbox{\hyperlink{SPI__interface_8h_a7945fb2d836e692e75adb203bac38fda}{SPI\+\_\+\+DIMODE\+\_\+t}} \doxymbox{\hyperlink{structSPI__Config__t_adff536b0be25a5f9968007bd22d3003e}{DIMODE}}
-\item 
+\begin{DoxyCompactList}\small\item\em Full-\/duplex, or one-\/line bidirectional. \end{DoxyCompactList}\item 
 \doxymbox{\hyperlink{SPI__interface_8h_abcbe881d592be63dfb1258760193bd40}{SPI\+\_\+\+BIDIOE\+\_\+t}} \doxymbox{\hyperlink{structSPI__Config__t_a1983c25b50ad9aeca06018f8f88ab4ae}{BIDIOE}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em In bidirectional mode, whether the single line is an output. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2SPI_2SPI_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+interface.\+h}}.\end{Desc}
+Everything needed to bring one SPI peripheral up. 
+
+The fields map one-\/to-\/one onto bits of the SPI {\ttfamily CR1}/\+{\ttfamily CR2} registers, so this struct is essentially a typed, readable form of those registers.
+
+\begin{DoxyNote}{Note}
+{\ttfamily \doxylink{structSPI__Config__t_a3eb827d937f1d50611d731b85f7a1119}{CPOL}} and {\ttfamily \doxylink{structSPI__Config__t_a7ecef74a0f8f84d8050f8c655c600361}{CPHA}} together choose the SPI {\itshape mode} (0..3), and they must match what the slave expects or every byte comes back garbage. The MPU9250 on this board wants mode 0 — \doxylink{SPI__interface_8h_a34beb9edf30f0d6974c2819a941cc423ad12b15db33ea03dc6d722c86bfdaaca2}{SPI\+\_\+\+CPOL\+\_\+\+LOW} with \doxylink{SPI__interface_8h_a78da88ed6e4be342886ae4e703454ff9abf6e4c4ae342ea61214abbaa51ca3912}{SPI\+\_\+\+CPHA\+\_\+1\+EDGE}. 
+\end{DoxyNote}
 
 
-Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00118}{118}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00156}{156}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
 
 
 
 \label{doc-variable-members}
 \Hypertarget{structSPI__Config__t_doc-variable-members}
 \doxysubsection{Field Documentation}
-\Hypertarget{structSPI__Config__t_a911cf4570a942c5aa13c1cf48e7a6e52}\index{SPI\_Config\_t@{SPI\_Config\_t}!BaudRatePrescaler@{BaudRatePrescaler}}
-\index{BaudRatePrescaler@{BaudRatePrescaler}!SPI\_Config\_t@{SPI\_Config\_t}}
-\doxysubsubsection{\texorpdfstring{BaudRatePrescaler}{BaudRatePrescaler}}
-{\footnotesize\ttfamily \label{structSPI__Config__t_a911cf4570a942c5aa13c1cf48e7a6e52} 
-\doxymbox{\hyperlink{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70}{SPI\+\_\+\+BAUDRATEPRESCALER\+\_\+t}} SPI\+\_\+\+Config\+\_\+t::\+\+Baud\+Rate\+Prescaler}
-
-
-
-Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00124}{124}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
-
-\Hypertarget{structSPI__Config__t_a1b62a15cf591f2bf7bfd3e51f83151da}\index{SPI\_Config\_t@{SPI\_Config\_t}!BFIRST@{BFIRST}}
-\index{BFIRST@{BFIRST}!SPI\_Config\_t@{SPI\_Config\_t}}
-\doxysubsubsection{\texorpdfstring{BFIRST}{BFIRST}}
-{\footnotesize\ttfamily \label{structSPI__Config__t_a1b62a15cf591f2bf7bfd3e51f83151da} 
-\doxymbox{\hyperlink{SPI__interface_8h_a3d2f4422f306ed3231341372d1b241f2}{SPI\+\_\+\+BFIRST\+\_\+t}} SPI\+\_\+\+Config\+\_\+t::\+\+BFIRST}
-
-
-
-Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00126}{126}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
-
-\Hypertarget{structSPI__Config__t_a1983c25b50ad9aeca06018f8f88ab4ae}\index{SPI\_Config\_t@{SPI\_Config\_t}!BIDIOE@{BIDIOE}}
-\index{BIDIOE@{BIDIOE}!SPI\_Config\_t@{SPI\_Config\_t}}
-\doxysubsubsection{\texorpdfstring{BIDIOE}{BIDIOE}}
-{\footnotesize\ttfamily \label{structSPI__Config__t_a1983c25b50ad9aeca06018f8f88ab4ae} 
-\doxymbox{\hyperlink{SPI__interface_8h_abcbe881d592be63dfb1258760193bd40}{SPI\+\_\+\+BIDIOE\+\_\+t}} SPI\+\_\+\+Config\+\_\+t::\+\+BIDIOE}
-
-
-
-Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00134}{134}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
-
 \Hypertarget{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}\index{SPI\_Config\_t@{SPI\_Config\_t}!Channel@{Channel}}
 \index{Channel@{Channel}!SPI\_Config\_t@{SPI\_Config\_t}}
 \doxysubsubsection{\texorpdfstring{Channel}{Channel}}
@@ -90,7 +69,15 @@ Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00134}{134}} o
 
 
 
-Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00120}{120}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+Which SPI peripheral (SPI1..SPI4). 
+
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00158}{158}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SPI__program_8c_source_l00037}{SPI\+\_\+enum\+Init()}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00249}{SPI\+\_\+enum\+Receive()}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00111}{SPI\+\_\+enum\+Trancieve()}}, and \doxymbox{\hyperlink{SPI__program_8c_source_l00189}{SPI\+\_\+enum\+Transmit()}}.
 
 \Hypertarget{structSPI__Config__t_a7ecef74a0f8f84d8050f8c655c600361}\index{SPI\_Config\_t@{SPI\_Config\_t}!CPHA@{CPHA}}
 \index{CPHA@{CPHA}!SPI\_Config\_t@{SPI\_Config\_t}}
@@ -100,7 +87,15 @@ Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00120}{120}} o
 
 
 
-Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00121}{121}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+Clock phase:\+ which clock edge samples the data. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00159}{159}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SPI__program_8c_source_l00037}{SPI\+\_\+enum\+Init()}}.
 
 \Hypertarget{structSPI__Config__t_a3eb827d937f1d50611d731b85f7a1119}\index{SPI\_Config\_t@{SPI\_Config\_t}!CPOL@{CPOL}}
 \index{CPOL@{CPOL}!SPI\_Config\_t@{SPI\_Config\_t}}
@@ -110,47 +105,15 @@ Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00121}{121}} o
 
 
 
-Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00122}{122}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
-
-\Hypertarget{structSPI__Config__t_a66babbd43cbecf5bd98a536164f11454}\index{SPI\_Config\_t@{SPI\_Config\_t}!CRC\_MODE@{CRC\_MODE}}
-\index{CRC\_MODE@{CRC\_MODE}!SPI\_Config\_t@{SPI\_Config\_t}}
-\doxysubsubsection{\texorpdfstring{CRC\_MODE}{CRC\_MODE}}
-{\footnotesize\ttfamily \label{structSPI__Config__t_a66babbd43cbecf5bd98a536164f11454} 
-\doxymbox{\hyperlink{SPI__interface_8h_a2b022b50caa9c05983f85788edaac92a}{SPI\+\_\+\+CRCEN\+\_\+t}} SPI\+\_\+\+Config\+\_\+t::\+\+CRC\+\_\+\+MODE}
+Clock polarity:\+ the idle level of SCK. 
 
 
 
-Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00131}{131}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
-
-\Hypertarget{structSPI__Config__t_a0f2b62da0db9ae65df33ed7fc57948f8}\index{SPI\_Config\_t@{SPI\_Config\_t}!CRCNEXT@{CRCNEXT}}
-\index{CRCNEXT@{CRCNEXT}!SPI\_Config\_t@{SPI\_Config\_t}}
-\doxysubsubsection{\texorpdfstring{CRCNEXT}{CRCNEXT}}
-{\footnotesize\ttfamily \label{structSPI__Config__t_a0f2b62da0db9ae65df33ed7fc57948f8} 
-\doxymbox{\hyperlink{SPI__interface_8h_a69aac2e6df15ed3f2dff3040dbe85501}{SPI\+\_\+\+CRCNEXT\+\_\+t}} SPI\+\_\+\+Config\+\_\+t::\+\+CRCNEXT}
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00160}{160}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
 
 
 
-Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00132}{132}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
-
-\Hypertarget{structSPI__Config__t_a0037df0b1605a4fc0437380006bce929}\index{SPI\_Config\_t@{SPI\_Config\_t}!DFF@{DFF}}
-\index{DFF@{DFF}!SPI\_Config\_t@{SPI\_Config\_t}}
-\doxysubsubsection{\texorpdfstring{DFF}{DFF}}
-{\footnotesize\ttfamily \label{structSPI__Config__t_a0037df0b1605a4fc0437380006bce929} 
-\doxymbox{\hyperlink{SPI__interface_8h_ab4199e1038cc90f9ba060af300e29a7c}{SPI\+\_\+\+DFF\+\_\+t}} SPI\+\_\+\+Config\+\_\+t::\+\+DFF}
-
-
-
-Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00130}{130}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
-
-\Hypertarget{structSPI__Config__t_adff536b0be25a5f9968007bd22d3003e}\index{SPI\_Config\_t@{SPI\_Config\_t}!DIMODE@{DIMODE}}
-\index{DIMODE@{DIMODE}!SPI\_Config\_t@{SPI\_Config\_t}}
-\doxysubsubsection{\texorpdfstring{DIMODE}{DIMODE}}
-{\footnotesize\ttfamily \label{structSPI__Config__t_adff536b0be25a5f9968007bd22d3003e} 
-\doxymbox{\hyperlink{SPI__interface_8h_a7945fb2d836e692e75adb203bac38fda}{SPI\+\_\+\+DIMODE\+\_\+t}} SPI\+\_\+\+Config\+\_\+t::\+\+DIMODE}
-
-
-
-Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00133}{133}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+Referenced by \doxymbox{\hyperlink{SPI__program_8c_source_l00037}{SPI\+\_\+enum\+Init()}}.
 
 \Hypertarget{structSPI__Config__t_a7f7526555beb55126d4bf5c9341e1724}\index{SPI\_Config\_t@{SPI\_Config\_t}!Mode@{Mode}}
 \index{Mode@{Mode}!SPI\_Config\_t@{SPI\_Config\_t}}
@@ -160,37 +123,33 @@ Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00133}{133}} o
 
 
 
-Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00123}{123}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
-
-\Hypertarget{structSPI__Config__t_a76ac0853fd1f97093d1903c5ed2d5010}\index{SPI\_Config\_t@{SPI\_Config\_t}!NSS\_MAN@{NSS\_MAN}}
-\index{NSS\_MAN@{NSS\_MAN}!SPI\_Config\_t@{SPI\_Config\_t}}
-\doxysubsubsection{\texorpdfstring{NSS\_MAN}{NSS\_MAN}}
-{\footnotesize\ttfamily \label{structSPI__Config__t_a76ac0853fd1f97093d1903c5ed2d5010} 
-\doxymbox{\hyperlink{SPI__interface_8h_adbe1555d537053eec05421b9c0a1b5c2}{SPI\+\_\+\+NSS\+\_\+\+MAN\+\_\+t}} SPI\+\_\+\+Config\+\_\+t::\+\+NSS\+\_\+\+MAN}
+Master or slave. 
 
 
 
-Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00127}{127}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
-
-\Hypertarget{structSPI__Config__t_a4e7252309b44dce2e5908b0579f6a161}\index{SPI\_Config\_t@{SPI\_Config\_t}!NSSI\_MODE@{NSSI\_MODE}}
-\index{NSSI\_MODE@{NSSI\_MODE}!SPI\_Config\_t@{SPI\_Config\_t}}
-\doxysubsubsection{\texorpdfstring{NSSI\_MODE}{NSSI\_MODE}}
-{\footnotesize\ttfamily \label{structSPI__Config__t_a4e7252309b44dce2e5908b0579f6a161} 
-\doxymbox{\hyperlink{SPI__interface_8h_a1c45faac8557e06760a44075984eb7ff}{SPI\+\_\+\+NSSI\+\_\+\+MODE\+\_\+t}} SPI\+\_\+\+Config\+\_\+t::\+\+NSSI\+\_\+\+MODE}
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00161}{161}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
 
 
 
-Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00128}{128}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+Referenced by \doxymbox{\hyperlink{SPI__program_8c_source_l00037}{SPI\+\_\+enum\+Init()}}.
 
-\Hypertarget{structSPI__Config__t_a45144f1e23b389e29aa4d42809776dd3}\index{SPI\_Config\_t@{SPI\_Config\_t}!RXONLY@{RXONLY}}
-\index{RXONLY@{RXONLY}!SPI\_Config\_t@{SPI\_Config\_t}}
-\doxysubsubsection{\texorpdfstring{RXONLY}{RXONLY}}
-{\footnotesize\ttfamily \label{structSPI__Config__t_a45144f1e23b389e29aa4d42809776dd3} 
-\doxymbox{\hyperlink{SPI__interface_8h_a9c9a776b797c9c30896f34a8fd521081}{SPI\+\_\+\+RXONLY\+\_\+t}} SPI\+\_\+\+Config\+\_\+t::\+\+RXONLY}
+\Hypertarget{structSPI__Config__t_a911cf4570a942c5aa13c1cf48e7a6e52}\index{SPI\_Config\_t@{SPI\_Config\_t}!BaudRatePrescaler@{BaudRatePrescaler}}
+\index{BaudRatePrescaler@{BaudRatePrescaler}!SPI\_Config\_t@{SPI\_Config\_t}}
+\doxysubsubsection{\texorpdfstring{BaudRatePrescaler}{BaudRatePrescaler}}
+{\footnotesize\ttfamily \label{structSPI__Config__t_a911cf4570a942c5aa13c1cf48e7a6e52} 
+\doxymbox{\hyperlink{SPI__interface_8h_ad2bbaf49914501be27a607d94d829f70}{SPI\+\_\+\+BAUDRATEPRESCALER\+\_\+t}} SPI\+\_\+\+Config\+\_\+t::\+\+Baud\+Rate\+Prescaler}
 
 
 
-Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00129}{129}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+Divides the APB clock down to SCK. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00162}{162}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SPI__program_8c_source_l00037}{SPI\+\_\+enum\+Init()}}.
 
 \Hypertarget{structSPI__Config__t_a40158d2ab4973bd7305cc09188e3a75d}\index{SPI\_Config\_t@{SPI\_Config\_t}!SPE@{SPE}}
 \index{SPE@{SPE}!SPI\_Config\_t@{SPI\_Config\_t}}
@@ -200,10 +159,180 @@ Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00129}{129}} o
 
 
 
-Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00125}{125}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+SPI enable — the peripheral does nothing until this is set. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00163}{163}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SPI__program_8c_source_l00037}{SPI\+\_\+enum\+Init()}}.
+
+\Hypertarget{structSPI__Config__t_a1b62a15cf591f2bf7bfd3e51f83151da}\index{SPI\_Config\_t@{SPI\_Config\_t}!BFIRST@{BFIRST}}
+\index{BFIRST@{BFIRST}!SPI\_Config\_t@{SPI\_Config\_t}}
+\doxysubsubsection{\texorpdfstring{BFIRST}{BFIRST}}
+{\footnotesize\ttfamily \label{structSPI__Config__t_a1b62a15cf591f2bf7bfd3e51f83151da} 
+\doxymbox{\hyperlink{SPI__interface_8h_a3d2f4422f306ed3231341372d1b241f2}{SPI\+\_\+\+BFIRST\+\_\+t}} SPI\+\_\+\+Config\+\_\+t::\+\+BFIRST}
+
+
+
+Bit order:\+ MSB or LSB first. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00164}{164}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SPI__program_8c_source_l00037}{SPI\+\_\+enum\+Init()}}.
+
+\Hypertarget{structSPI__Config__t_a76ac0853fd1f97093d1903c5ed2d5010}\index{SPI\_Config\_t@{SPI\_Config\_t}!NSS\_MAN@{NSS\_MAN}}
+\index{NSS\_MAN@{NSS\_MAN}!SPI\_Config\_t@{SPI\_Config\_t}}
+\doxysubsubsection{\texorpdfstring{NSS\_MAN}{NSS\_MAN}}
+{\footnotesize\ttfamily \label{structSPI__Config__t_a76ac0853fd1f97093d1903c5ed2d5010} 
+\doxymbox{\hyperlink{SPI__interface_8h_adbe1555d537053eec05421b9c0a1b5c2}{SPI\+\_\+\+NSS\+\_\+\+MAN\+\_\+t}} SPI\+\_\+\+Config\+\_\+t::\+\+NSS\+\_\+\+MAN}
+
+
+
+Whether slave-\/select is driven by software or by hardware. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00165}{165}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SPI__program_8c_source_l00037}{SPI\+\_\+enum\+Init()}}.
+
+\Hypertarget{structSPI__Config__t_a4e7252309b44dce2e5908b0579f6a161}\index{SPI\_Config\_t@{SPI\_Config\_t}!NSSI\_MODE@{NSSI\_MODE}}
+\index{NSSI\_MODE@{NSSI\_MODE}!SPI\_Config\_t@{SPI\_Config\_t}}
+\doxysubsubsection{\texorpdfstring{NSSI\_MODE}{NSSI\_MODE}}
+{\footnotesize\ttfamily \label{structSPI__Config__t_a4e7252309b44dce2e5908b0579f6a161} 
+\doxymbox{\hyperlink{SPI__interface_8h_a1c45faac8557e06760a44075984eb7ff}{SPI\+\_\+\+NSSI\+\_\+\+MODE\+\_\+t}} SPI\+\_\+\+Config\+\_\+t::\+\+NSSI\+\_\+\+MODE}
+
+
+
+The software slave-\/select level, when NSS is software-\/managed. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00166}{166}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SPI__program_8c_source_l00037}{SPI\+\_\+enum\+Init()}}.
+
+\Hypertarget{structSPI__Config__t_a45144f1e23b389e29aa4d42809776dd3}\index{SPI\_Config\_t@{SPI\_Config\_t}!RXONLY@{RXONLY}}
+\index{RXONLY@{RXONLY}!SPI\_Config\_t@{SPI\_Config\_t}}
+\doxysubsubsection{\texorpdfstring{RXONLY}{RXONLY}}
+{\footnotesize\ttfamily \label{structSPI__Config__t_a45144f1e23b389e29aa4d42809776dd3} 
+\doxymbox{\hyperlink{SPI__interface_8h_a9c9a776b797c9c30896f34a8fd521081}{SPI\+\_\+\+RXONLY\+\_\+t}} SPI\+\_\+\+Config\+\_\+t::\+\+RXONLY}
+
+
+
+Receive-\/only mode (half-\/duplex listen). 
+
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00167}{167}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SPI__program_8c_source_l00037}{SPI\+\_\+enum\+Init()}}.
+
+\Hypertarget{structSPI__Config__t_a0037df0b1605a4fc0437380006bce929}\index{SPI\_Config\_t@{SPI\_Config\_t}!DFF@{DFF}}
+\index{DFF@{DFF}!SPI\_Config\_t@{SPI\_Config\_t}}
+\doxysubsubsection{\texorpdfstring{DFF}{DFF}}
+{\footnotesize\ttfamily \label{structSPI__Config__t_a0037df0b1605a4fc0437380006bce929} 
+\doxymbox{\hyperlink{SPI__interface_8h_ab4199e1038cc90f9ba060af300e29a7c}{SPI\+\_\+\+DFF\+\_\+t}} SPI\+\_\+\+Config\+\_\+t::\+\+DFF}
+
+
+
+Frame size:\+ 8 or 16 bits. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00168}{168}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SPI__program_8c_source_l00037}{SPI\+\_\+enum\+Init()}}.
+
+\Hypertarget{structSPI__Config__t_a66babbd43cbecf5bd98a536164f11454}\index{SPI\_Config\_t@{SPI\_Config\_t}!CRC\_MODE@{CRC\_MODE}}
+\index{CRC\_MODE@{CRC\_MODE}!SPI\_Config\_t@{SPI\_Config\_t}}
+\doxysubsubsection{\texorpdfstring{CRC\_MODE}{CRC\_MODE}}
+{\footnotesize\ttfamily \label{structSPI__Config__t_a66babbd43cbecf5bd98a536164f11454} 
+\doxymbox{\hyperlink{SPI__interface_8h_a2b022b50caa9c05983f85788edaac92a}{SPI\+\_\+\+CRCEN\+\_\+t}} SPI\+\_\+\+Config\+\_\+t::\+\+CRC\+\_\+\+MODE}
+
+
+
+Hardware CRC calculation on/\+off. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00169}{169}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SPI__program_8c_source_l00037}{SPI\+\_\+enum\+Init()}}.
+
+\Hypertarget{structSPI__Config__t_a0f2b62da0db9ae65df33ed7fc57948f8}\index{SPI\_Config\_t@{SPI\_Config\_t}!CRCNEXT@{CRCNEXT}}
+\index{CRCNEXT@{CRCNEXT}!SPI\_Config\_t@{SPI\_Config\_t}}
+\doxysubsubsection{\texorpdfstring{CRCNEXT}{CRCNEXT}}
+{\footnotesize\ttfamily \label{structSPI__Config__t_a0f2b62da0db9ae65df33ed7fc57948f8} 
+\doxymbox{\hyperlink{SPI__interface_8h_a69aac2e6df15ed3f2dff3040dbe85501}{SPI\+\_\+\+CRCNEXT\+\_\+t}} SPI\+\_\+\+Config\+\_\+t::\+\+CRCNEXT}
+
+
+
+Transmit the CRC instead of the next data word. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00170}{170}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SPI__program_8c_source_l00037}{SPI\+\_\+enum\+Init()}}.
+
+\Hypertarget{structSPI__Config__t_adff536b0be25a5f9968007bd22d3003e}\index{SPI\_Config\_t@{SPI\_Config\_t}!DIMODE@{DIMODE}}
+\index{DIMODE@{DIMODE}!SPI\_Config\_t@{SPI\_Config\_t}}
+\doxysubsubsection{\texorpdfstring{DIMODE}{DIMODE}}
+{\footnotesize\ttfamily \label{structSPI__Config__t_adff536b0be25a5f9968007bd22d3003e} 
+\doxymbox{\hyperlink{SPI__interface_8h_a7945fb2d836e692e75adb203bac38fda}{SPI\+\_\+\+DIMODE\+\_\+t}} SPI\+\_\+\+Config\+\_\+t::\+\+DIMODE}
+
+
+
+Full-\/duplex, or one-\/line bidirectional. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00171}{171}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SPI__program_8c_source_l00037}{SPI\+\_\+enum\+Init()}}.
+
+\Hypertarget{structSPI__Config__t_a1983c25b50ad9aeca06018f8f88ab4ae}\index{SPI\_Config\_t@{SPI\_Config\_t}!BIDIOE@{BIDIOE}}
+\index{BIDIOE@{BIDIOE}!SPI\_Config\_t@{SPI\_Config\_t}}
+\doxysubsubsection{\texorpdfstring{BIDIOE}{BIDIOE}}
+{\footnotesize\ttfamily \label{structSPI__Config__t_a1983c25b50ad9aeca06018f8f88ab4ae} 
+\doxymbox{\hyperlink{SPI__interface_8h_abcbe881d592be63dfb1258760193bd40}{SPI\+\_\+\+BIDIOE\+\_\+t}} SPI\+\_\+\+Config\+\_\+t::\+\+BIDIOE}
+
+
+
+In bidirectional mode, whether the single line is an output. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SPI__interface_8h_source_l00172}{172}} of file \doxymbox{\hyperlink{SPI__interface_8h_source}{SPI\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SPI__program_8c_source_l00037}{SPI\+\_\+enum\+Init()}}.
 
 
 
 The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
 \item 
-Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\doxymbox{\hyperlink{SPI__interface_8h}{SPI\+\_\+interface.\+h}}\end{DoxyCompactItemize}
+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\doxymbox{\hyperlink{SPI__interface_8h}{SPI\+\_\+interface.\+h}}\end{DoxyCompactItemize}

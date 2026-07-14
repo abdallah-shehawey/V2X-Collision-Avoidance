@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: SPI_RegDef_t Struct Reference</title>
+<title>V2V Collision Avoidance Firmware: SPI_RegDef_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,27 +90,41 @@ $(function(){initNavTree('structSPI__RegDef__t.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">SPI_RegDef_t Struct Reference</div></div>
+  <div class="headertitle"><div class="title">SPI_RegDef_t Struct Reference<div class="ingroups"><a class="el" href="group__lib.html">LIB</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>&gt;</code></p>
+<p>SPI register layout (identical for SPI1..SPI4).  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="STM32F446xx_8h_source.html">Drivers/LIB/STM32F446xx.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:ac96f2c20647aebb0bb725c0ac45705a5" id="r_ac96f2c20647aebb0bb725c0ac45705a5"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ac96f2c20647aebb0bb725c0ac45705a5">CR1</a></td></tr>
+<tr class="memdesc:ac96f2c20647aebb0bb725c0ac45705a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Control 1: master/slave, clock polarity and phase, baud prescaler, SPI enable.  <br /></td></tr>
 <tr class="memitem:a5c7bdfb470ba9acc7ec7a4e92ed914e5" id="r_a5c7bdfb470ba9acc7ec7a4e92ed914e5"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a5c7bdfb470ba9acc7ec7a4e92ed914e5">CR2</a></td></tr>
+<tr class="memdesc:a5c7bdfb470ba9acc7ec7a4e92ed914e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Control 2: interrupt enables, DMA enables, slave-select output.  <br /></td></tr>
 <tr class="memitem:a4024f8b3b2956d3b0da456db820ff4bd" id="r_a4024f8b3b2956d3b0da456db820ff4bd"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a4024f8b3b2956d3b0da456db820ff4bd">SR</a></td></tr>
+<tr class="memdesc:a4024f8b3b2956d3b0da456db820ff4bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status: TXE, RXNE, BSY and the error flags.  <br /></td></tr>
 <tr class="memitem:a16c4921fe5a1af205321713f1dfb08ad" id="r_a16c4921fe5a1af205321713f1dfb08ad"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a16c4921fe5a1af205321713f1dfb08ad">DR</a></td></tr>
+<tr class="memdesc:a16c4921fe5a1af205321713f1dfb08ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data: writing transmits a frame, reading takes the received one.  <br /></td></tr>
 <tr class="memitem:aedf6c9286aa5a2cb8d4cf51f3cb28eb6" id="r_aedf6c9286aa5a2cb8d4cf51f3cb28eb6"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#aedf6c9286aa5a2cb8d4cf51f3cb28eb6">CRCPR</a></td></tr>
+<tr class="memdesc:aedf6c9286aa5a2cb8d4cf51f3cb28eb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">CRC polynomial.  <br /></td></tr>
 <tr class="memitem:a022c43d11acb3ebddc4acf1ef59107c7" id="r_a022c43d11acb3ebddc4acf1ef59107c7"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a022c43d11acb3ebddc4acf1ef59107c7">RXCRCR</a></td></tr>
+<tr class="memdesc:a022c43d11acb3ebddc4acf1ef59107c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">CRC computed over the received frames.  <br /></td></tr>
 <tr class="memitem:ac12fccf88eafec6de1734d6b13cecded" id="r_ac12fccf88eafec6de1734d6b13cecded"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ac12fccf88eafec6de1734d6b13cecded">TXCRCR</a></td></tr>
+<tr class="memdesc:ac12fccf88eafec6de1734d6b13cecded"><td class="mdescLeft">&#160;</td><td class="mdescRight">CRC computed over the transmitted frames.  <br /></td></tr>
 <tr class="memitem:aa1dd2b7dbe7a09e533def3fdfac45cbd" id="r_aa1dd2b7dbe7a09e533def3fdfac45cbd"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#aa1dd2b7dbe7a09e533def3fdfac45cbd">I2SCFGR</a></td></tr>
+<tr class="memdesc:aa1dd2b7dbe7a09e533def3fdfac45cbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">I2S mode configuration (unused — this SPI stays in SPI mode).  <br /></td></tr>
 <tr class="memitem:ae83cebea9159bfa9d34fd01334948406" id="r_ae83cebea9159bfa9d34fd01334948406"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ae83cebea9159bfa9d34fd01334948406">I2SPR</a></td></tr>
+<tr class="memdesc:ae83cebea9159bfa9d34fd01334948406"><td class="mdescLeft">&#160;</td><td class="mdescRight">I2S prescaler (unused).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00190">190</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<div class="textblock"><p>SPI register layout (identical for SPI1..SPI4). </p>
+<p>Only SPI1 is used, as the master link to the MPU9250 IMU. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00251">251</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
 <a id="ac96f2c20647aebb0bb725c0ac45705a5" name="ac96f2c20647aebb0bb725c0ac45705a5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac96f2c20647aebb0bb725c0ac45705a5">&#9670;&#160;</a></span>CR1</h2>
@@ -124,7 +138,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00191">191</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Control 1: master/slave, clock polarity and phase, baud prescaler, SPI enable. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00252">252</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
@@ -140,87 +156,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00192">192</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Control 2: interrupt enables, DMA enables, slave-select output. </p>
 
-</div>
-</div>
-<a id="aedf6c9286aa5a2cb8d4cf51f3cb28eb6" name="aedf6c9286aa5a2cb8d4cf51f3cb28eb6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aedf6c9286aa5a2cb8d4cf51f3cb28eb6">&#9670;&#160;</a></span>CRCPR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t SPI_RegDef_t::CRCPR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00195">195</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a16c4921fe5a1af205321713f1dfb08ad" name="a16c4921fe5a1af205321713f1dfb08ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16c4921fe5a1af205321713f1dfb08ad">&#9670;&#160;</a></span>DR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t SPI_RegDef_t::DR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00194">194</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="aa1dd2b7dbe7a09e533def3fdfac45cbd" name="aa1dd2b7dbe7a09e533def3fdfac45cbd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1dd2b7dbe7a09e533def3fdfac45cbd">&#9670;&#160;</a></span>I2SCFGR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t SPI_RegDef_t::I2SCFGR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00198">198</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="ae83cebea9159bfa9d34fd01334948406" name="ae83cebea9159bfa9d34fd01334948406"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae83cebea9159bfa9d34fd01334948406">&#9670;&#160;</a></span>I2SPR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t SPI_RegDef_t::I2SPR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00199">199</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a022c43d11acb3ebddc4acf1ef59107c7" name="a022c43d11acb3ebddc4acf1ef59107c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a022c43d11acb3ebddc4acf1ef59107c7">&#9670;&#160;</a></span>RXCRCR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t SPI_RegDef_t::RXCRCR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00196">196</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00253">253</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
@@ -236,7 +174,63 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00193">193</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Status: TXE, RXNE, BSY and the error flags. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00254">254</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a16c4921fe5a1af205321713f1dfb08ad" name="a16c4921fe5a1af205321713f1dfb08ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16c4921fe5a1af205321713f1dfb08ad">&#9670;&#160;</a></span>DR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t SPI_RegDef_t::DR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Data: writing transmits a frame, reading takes the received one. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00255">255</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="aedf6c9286aa5a2cb8d4cf51f3cb28eb6" name="aedf6c9286aa5a2cb8d4cf51f3cb28eb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedf6c9286aa5a2cb8d4cf51f3cb28eb6">&#9670;&#160;</a></span>CRCPR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t SPI_RegDef_t::CRCPR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>CRC polynomial. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00256">256</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a022c43d11acb3ebddc4acf1ef59107c7" name="a022c43d11acb3ebddc4acf1ef59107c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a022c43d11acb3ebddc4acf1ef59107c7">&#9670;&#160;</a></span>RXCRCR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t SPI_RegDef_t::RXCRCR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>CRC computed over the received frames. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00257">257</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
@@ -252,13 +246,50 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00197">197</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>CRC computed over the transmitted frames. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00258">258</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>Inc/Drivers/LIB/<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
-<li>Inc/System/<a class="el" href="System_2STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
+<a id="aa1dd2b7dbe7a09e533def3fdfac45cbd" name="aa1dd2b7dbe7a09e533def3fdfac45cbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1dd2b7dbe7a09e533def3fdfac45cbd">&#9670;&#160;</a></span>I2SCFGR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t SPI_RegDef_t::I2SCFGR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>I2S mode configuration (unused — this SPI stays in SPI mode). </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00259">259</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="ae83cebea9159bfa9d34fd01334948406" name="ae83cebea9159bfa9d34fd01334948406"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae83cebea9159bfa9d34fd01334948406">&#9670;&#160;</a></span>I2SPR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t SPI_RegDef_t::I2SPR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>I2S prescaler (unused). </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00260">260</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>V2V-STM32/Inc/Drivers/LIB/<a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

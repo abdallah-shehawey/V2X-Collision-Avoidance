@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: EXTI_RegDef_t Struct Reference</title>
+<title>V2V Collision Avoidance Firmware: EXTI_RegDef_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,57 +90,36 @@ $(function(){initNavTree('structEXTI__RegDef__t.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">EXTI_RegDef_t Struct Reference</div></div>
+  <div class="headertitle"><div class="title">EXTI_RegDef_t Struct Reference<div class="ingroups"><a class="el" href="group__lib.html">LIB</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>&gt;</code></p>
+<p>EXTI (external interrupt/event controller) register layout.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="STM32F446xx_8h_source.html">Drivers/LIB/STM32F446xx.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a52f1f2cc57a95d314f5548828ebb5b49" id="r_a52f1f2cc57a95d314f5548828ebb5b49"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a52f1f2cc57a95d314f5548828ebb5b49">IMR</a></td></tr>
+<tr class="memdesc:a52f1f2cc57a95d314f5548828ebb5b49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt mask: 1 = this line may raise an interrupt.  <br /></td></tr>
 <tr class="memitem:adecaee8de5bbade513d871374f0d135b" id="r_adecaee8de5bbade513d871374f0d135b"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#adecaee8de5bbade513d871374f0d135b">EMR</a></td></tr>
+<tr class="memdesc:adecaee8de5bbade513d871374f0d135b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event mask: 1 = this line may raise an event (no ISR).  <br /></td></tr>
 <tr class="memitem:ada23a33e1f03a78a99a545c106d52666" id="r_ada23a33e1f03a78a99a545c106d52666"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ada23a33e1f03a78a99a545c106d52666">RTSR</a></td></tr>
+<tr class="memdesc:ada23a33e1f03a78a99a545c106d52666"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rising trigger select: 1 = trigger on the rising edge.  <br /></td></tr>
 <tr class="memitem:a5864335570202ab9be74e760ceadb734" id="r_a5864335570202ab9be74e760ceadb734"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a5864335570202ab9be74e760ceadb734">FTSR</a></td></tr>
+<tr class="memdesc:a5864335570202ab9be74e760ceadb734"><td class="mdescLeft">&#160;</td><td class="mdescRight">Falling trigger select: 1 = trigger on the falling edge.  <br /></td></tr>
 <tr class="memitem:a495f9c6c179b66917b4f552be80720e2" id="r_a495f9c6c179b66917b4f552be80720e2"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a495f9c6c179b66917b4f552be80720e2">SWIER</a></td></tr>
+<tr class="memdesc:a495f9c6c179b66917b4f552be80720e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Software interrupt event: writing a 1 raises the line from software.  <br /></td></tr>
 <tr class="memitem:a90d2eb815b6f13e98ee2d08f0a064acf" id="r_a90d2eb815b6f13e98ee2d08f0a064acf"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a90d2eb815b6f13e98ee2d08f0a064acf">PR</a></td></tr>
+<tr class="memdesc:a90d2eb815b6f13e98ee2d08f0a064acf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pending: reads 1 when the line fired.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00291">291</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<div class="textblock"><p>EXTI (external interrupt/event controller) register layout. </p>
+<p>Every register holds one bit per EXTI line (0..22). The six HC-SR04 echo pins are configured here for both-edge triggering: the rising edge starts the echo timing, the falling edge ends it. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00356">356</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
-<a id="adecaee8de5bbade513d871374f0d135b" name="adecaee8de5bbade513d871374f0d135b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adecaee8de5bbade513d871374f0d135b">&#9670;&#160;</a></span>EMR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t EXTI_RegDef_t::EMR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00293">293</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a5864335570202ab9be74e760ceadb734" name="a5864335570202ab9be74e760ceadb734"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5864335570202ab9be74e760ceadb734">&#9670;&#160;</a></span>FTSR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t EXTI_RegDef_t::FTSR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00295">295</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
 <a id="a52f1f2cc57a95d314f5548828ebb5b49" name="a52f1f2cc57a95d314f5548828ebb5b49"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a52f1f2cc57a95d314f5548828ebb5b49">&#9670;&#160;</a></span>IMR</h2>
 
@@ -153,23 +132,27 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00292">292</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Interrupt mask: 1 = this line may raise an interrupt. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00357">357</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<a id="a90d2eb815b6f13e98ee2d08f0a064acf" name="a90d2eb815b6f13e98ee2d08f0a064acf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90d2eb815b6f13e98ee2d08f0a064acf">&#9670;&#160;</a></span>PR</h2>
+<a id="adecaee8de5bbade513d871374f0d135b" name="adecaee8de5bbade513d871374f0d135b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adecaee8de5bbade513d871374f0d135b">&#9670;&#160;</a></span>EMR</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t EXTI_RegDef_t::PR</td>
+          <td class="memname">uint32_t EXTI_RegDef_t::EMR</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00297">297</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Event mask: 1 = this line may raise an event (no ISR). </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00358">358</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
@@ -185,7 +168,27 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00294">294</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Rising trigger select: 1 = trigger on the rising edge. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00359">359</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a5864335570202ab9be74e760ceadb734" name="a5864335570202ab9be74e760ceadb734"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5864335570202ab9be74e760ceadb734">&#9670;&#160;</a></span>FTSR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t EXTI_RegDef_t::FTSR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Falling trigger select: 1 = trigger on the falling edge. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00360">360</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
@@ -201,13 +204,33 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00296">296</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Software interrupt event: writing a 1 raises the line from software. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00361">361</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>Inc/Drivers/LIB/<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
-<li>Inc/System/<a class="el" href="System_2STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
+<a id="a90d2eb815b6f13e98ee2d08f0a064acf" name="a90d2eb815b6f13e98ee2d08f0a064acf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90d2eb815b6f13e98ee2d08f0a064acf">&#9670;&#160;</a></span>PR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t EXTI_RegDef_t::PR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pending: reads 1 when the line fired. </p>
+<p>Cleared by writing a 1 back — not a 0. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00362">362</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>V2V-STM32/Inc/Drivers/LIB/<a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

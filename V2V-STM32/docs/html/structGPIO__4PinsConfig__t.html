@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: GPIO_4PinsConfig_t Struct Reference</title>
+<title>V2V Collision Avoidance Firmware: GPIO_4PinsConfig_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,59 +90,36 @@ $(function(){initNavTree('structGPIO__4PinsConfig__t.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">GPIO_4PinsConfig_t Struct Reference</div></div>
+  <div class="headertitle"><div class="title">GPIO_4PinsConfig_t Struct Reference<div class="ingroups"><a class="el" href="group__mcal.html">MCAL</a> &raquo; <a class="el" href="group__mcal__gpio.html">GPIO</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="GPIO__interface_8h_source.html">GPIO_interface.h</a>&gt;</code></p>
+<p>Configuration of 4 consecutive pins, as passed to <a class="el" href="group__mcal__gpio.html#ga50576e5cecad40f4fa820bdacf2c270a" title="GPIO_enumPort4PinsInit">GPIO_enumPort4PinsInit</a>.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="GPIO__interface_8h_source.html">Drivers/MCAL/GPIO/GPIO_interface.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:ad1e083e10694942b2182ae22f7e0d70d" id="r_ad1e083e10694942b2182ae22f7e0d70d"><td class="memItemLeft"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad1e083e10694942b2182ae22f7e0d70d">Port</a></td></tr>
-<tr class="memitem:aec6315aeb2923dcb34a45a6c255e22aa" id="r_aec6315aeb2923dcb34a45a6c255e22aa"><td class="memItemLeft"><a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aec6315aeb2923dcb34a45a6c255e22aa">StartPin</a></td></tr>
-<tr class="memitem:a6bdded55e9b1366a8c943758ea71832b" id="r_a6bdded55e9b1366a8c943758ea71832b"><td class="memItemLeft"><a class="el" href="GPIO__interface_8h.html#afb8ae0eef9d79d2066ab67bbf12d9f26">GPIO_Mode_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6bdded55e9b1366a8c943758ea71832b">Mode</a></td></tr>
-<tr class="memitem:a32b3fc631b9e493129f5c3ae308e9a81" id="r_a32b3fc631b9e493129f5c3ae308e9a81"><td class="memItemLeft"><a class="el" href="GPIO__interface_8h.html#a6470c88cd80e5ef53ac53602e73207f0">GPIO_OutputType_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a32b3fc631b9e493129f5c3ae308e9a81">Otype</a></td></tr>
-<tr class="memitem:a10b4c8780f700c7b512ded000d0589de" id="r_a10b4c8780f700c7b512ded000d0589de"><td class="memItemLeft"><a class="el" href="GPIO__interface_8h.html#ad0390106f85689de1897dd9543754e71">GPIO_OutputSpeed_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a10b4c8780f700c7b512ded000d0589de">Speed</a></td></tr>
-<tr class="memitem:a1aff2580226602c999fb7e6449b50fd4" id="r_a1aff2580226602c999fb7e6449b50fd4"><td class="memItemLeft"><a class="el" href="GPIO__interface_8h.html#af3291f1e475675bffc656c9f0c4c7399">GPIO_PullUpDown_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1aff2580226602c999fb7e6449b50fd4">PullType</a></td></tr>
+<tr class="memitem:ad1e083e10694942b2182ae22f7e0d70d" id="r_ad1e083e10694942b2182ae22f7e0d70d"><td class="memItemLeft"><a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad1e083e10694942b2182ae22f7e0d70d">Port</a></td></tr>
+<tr class="memdesc:ad1e083e10694942b2182ae22f7e0d70d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Which port.  <br /></td></tr>
+<tr class="memitem:aec6315aeb2923dcb34a45a6c255e22aa" id="r_aec6315aeb2923dcb34a45a6c255e22aa"><td class="memItemLeft"><a class="el" href="group__mcal__gpio.html#ga5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aec6315aeb2923dcb34a45a6c255e22aa">StartPin</a></td></tr>
+<tr class="memdesc:aec6315aeb2923dcb34a45a6c255e22aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">First of the 4 pins; must be <a class="el" href="group__mcal__gpio.html#gga5fbd1b6f232b4bf0b9ca60ea2d01da14ae54732352207a6d40be8d329384af84d" title="GPIO_PIN12">GPIO_PIN12</a> or below so the run fits in the port.  <br /></td></tr>
+<tr class="memitem:a6bdded55e9b1366a8c943758ea71832b" id="r_a6bdded55e9b1366a8c943758ea71832b"><td class="memItemLeft"><a class="el" href="group__mcal__gpio.html#gafb8ae0eef9d79d2066ab67bbf12d9f26">GPIO_Mode_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6bdded55e9b1366a8c943758ea71832b">Mode</a></td></tr>
+<tr class="memdesc:a6bdded55e9b1366a8c943758ea71832b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode applied to all 4 pins.  <br /></td></tr>
+<tr class="memitem:a32b3fc631b9e493129f5c3ae308e9a81" id="r_a32b3fc631b9e493129f5c3ae308e9a81"><td class="memItemLeft"><a class="el" href="group__mcal__gpio.html#ga6470c88cd80e5ef53ac53602e73207f0">GPIO_OutputType_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a32b3fc631b9e493129f5c3ae308e9a81">Otype</a></td></tr>
+<tr class="memdesc:a32b3fc631b9e493129f5c3ae308e9a81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output type applied to all 4 pins.  <br /></td></tr>
+<tr class="memitem:a10b4c8780f700c7b512ded000d0589de" id="r_a10b4c8780f700c7b512ded000d0589de"><td class="memItemLeft"><a class="el" href="group__mcal__gpio.html#gad0390106f85689de1897dd9543754e71">GPIO_OutputSpeed_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a10b4c8780f700c7b512ded000d0589de">Speed</a></td></tr>
+<tr class="memdesc:a10b4c8780f700c7b512ded000d0589de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output speed applied to all 4 pins.  <br /></td></tr>
+<tr class="memitem:a1aff2580226602c999fb7e6449b50fd4" id="r_a1aff2580226602c999fb7e6449b50fd4"><td class="memItemLeft"><a class="el" href="group__mcal__gpio.html#gaf3291f1e475675bffc656c9f0c4c7399">GPIO_PullUpDown_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1aff2580226602c999fb7e6449b50fd4">PullType</a></td></tr>
+<tr class="memdesc:a1aff2580226602c999fb7e6449b50fd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pull configuration applied to all 4 pins.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2GPIO_2GPIO_interface_8h-example.html#_a71">/media/Local-Disk/Data/V2X-Collision-Avoidance/V2V-STM32/Inc/Drivers/MCAL/GPIO/GPIO_interface.h</a>.</dd>
-</dl>
+<div class="textblock"><p>Configuration of 4 consecutive pins, as passed to <a class="el" href="group__mcal__gpio.html#ga50576e5cecad40f4fa820bdacf2c270a" title="GPIO_enumPort4PinsInit">GPIO_enumPort4PinsInit</a>. </p>
+<p>All four pins get the same mode, output type, speed and pull. </p>
 
-<p class="definition">Definition at line <a class="el" href="GPIO__interface_8h_source.html#l00231">231</a> of file <a class="el" href="GPIO__interface_8h_source.html">GPIO_interface.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="GPIO__interface_8h_source.html#l00187">187</a> of file <a class="el" href="GPIO__interface_8h_source.html">GPIO_interface.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
-<a id="a6bdded55e9b1366a8c943758ea71832b" name="a6bdded55e9b1366a8c943758ea71832b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6bdded55e9b1366a8c943758ea71832b">&#9670;&#160;</a></span>Mode</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="GPIO__interface_8h.html#afb8ae0eef9d79d2066ab67bbf12d9f26">GPIO_Mode_t</a> GPIO_4PinsConfig_t::Mode</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__interface_8h_source.html#l00234">234</a> of file <a class="el" href="GPIO__interface_8h_source.html">GPIO_interface.h</a>.</p>
-
-</div>
-</div>
-<a id="a32b3fc631b9e493129f5c3ae308e9a81" name="a32b3fc631b9e493129f5c3ae308e9a81"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32b3fc631b9e493129f5c3ae308e9a81">&#9670;&#160;</a></span>Otype</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="GPIO__interface_8h.html#a6470c88cd80e5ef53ac53602e73207f0">GPIO_OutputType_t</a> GPIO_4PinsConfig_t::Otype</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__interface_8h_source.html#l00236">236</a> of file <a class="el" href="GPIO__interface_8h_source.html">GPIO_interface.h</a>.</p>
-
-</div>
-</div>
 <a id="ad1e083e10694942b2182ae22f7e0d70d" name="ad1e083e10694942b2182ae22f7e0d70d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad1e083e10694942b2182ae22f7e0d70d">&#9670;&#160;</a></span>Port</h2>
 
@@ -150,44 +127,16 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> GPIO_4PinsConfig_t::Port</td>
+          <td class="memname"><a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> GPIO_4PinsConfig_t::Port</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GPIO__interface_8h_source.html#l00232">232</a> of file <a class="el" href="GPIO__interface_8h_source.html">GPIO_interface.h</a>.</p>
+<p>Which port. </p>
 
-</div>
-</div>
-<a id="a1aff2580226602c999fb7e6449b50fd4" name="a1aff2580226602c999fb7e6449b50fd4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1aff2580226602c999fb7e6449b50fd4">&#9670;&#160;</a></span>PullType</h2>
+<p class="definition">Definition at line <a class="el" href="GPIO__interface_8h_source.html#l00188">188</a> of file <a class="el" href="GPIO__interface_8h_source.html">GPIO_interface.h</a>.</p>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="GPIO__interface_8h.html#af3291f1e475675bffc656c9f0c4c7399">GPIO_PullUpDown_t</a> GPIO_4PinsConfig_t::PullType</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__interface_8h_source.html#l00240">240</a> of file <a class="el" href="GPIO__interface_8h_source.html">GPIO_interface.h</a>.</p>
-
-</div>
-</div>
-<a id="a10b4c8780f700c7b512ded000d0589de" name="a10b4c8780f700c7b512ded000d0589de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10b4c8780f700c7b512ded000d0589de">&#9670;&#160;</a></span>Speed</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="GPIO__interface_8h.html#ad0390106f85689de1897dd9543754e71">GPIO_OutputSpeed_t</a> GPIO_4PinsConfig_t::Speed</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__interface_8h_source.html#l00238">238</a> of file <a class="el" href="GPIO__interface_8h_source.html">GPIO_interface.h</a>.</p>
+<p class="reference">Referenced by <a class="el" href="GPIO__prog_8c_source.html#l00376">GPIO_enumPort4PinsInit()</a>.</p>
 
 </div>
 </div>
@@ -198,17 +147,101 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a> GPIO_4PinsConfig_t::StartPin</td>
+          <td class="memname"><a class="el" href="group__mcal__gpio.html#ga5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a> GPIO_4PinsConfig_t::StartPin</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GPIO__interface_8h_source.html#l00233">233</a> of file <a class="el" href="GPIO__interface_8h_source.html">GPIO_interface.h</a>.</p>
+<p>First of the 4 pins; must be <a class="el" href="group__mcal__gpio.html#gga5fbd1b6f232b4bf0b9ca60ea2d01da14ae54732352207a6d40be8d329384af84d" title="GPIO_PIN12">GPIO_PIN12</a> or below so the run fits in the port. </p>
+
+<p class="definition">Definition at line <a class="el" href="GPIO__interface_8h_source.html#l00189">189</a> of file <a class="el" href="GPIO__interface_8h_source.html">GPIO_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="GPIO__prog_8c_source.html#l00376">GPIO_enumPort4PinsInit()</a>.</p>
+
+</div>
+</div>
+<a id="a6bdded55e9b1366a8c943758ea71832b" name="a6bdded55e9b1366a8c943758ea71832b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bdded55e9b1366a8c943758ea71832b">&#9670;&#160;</a></span>Mode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__mcal__gpio.html#gafb8ae0eef9d79d2066ab67bbf12d9f26">GPIO_Mode_t</a> GPIO_4PinsConfig_t::Mode</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mode applied to all 4 pins. </p>
+
+<p class="definition">Definition at line <a class="el" href="GPIO__interface_8h_source.html#l00190">190</a> of file <a class="el" href="GPIO__interface_8h_source.html">GPIO_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="GPIO__prog_8c_source.html#l00376">GPIO_enumPort4PinsInit()</a>.</p>
+
+</div>
+</div>
+<a id="a32b3fc631b9e493129f5c3ae308e9a81" name="a32b3fc631b9e493129f5c3ae308e9a81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32b3fc631b9e493129f5c3ae308e9a81">&#9670;&#160;</a></span>Otype</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__mcal__gpio.html#ga6470c88cd80e5ef53ac53602e73207f0">GPIO_OutputType_t</a> GPIO_4PinsConfig_t::Otype</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Output type applied to all 4 pins. </p>
+
+<p class="definition">Definition at line <a class="el" href="GPIO__interface_8h_source.html#l00191">191</a> of file <a class="el" href="GPIO__interface_8h_source.html">GPIO_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="GPIO__prog_8c_source.html#l00376">GPIO_enumPort4PinsInit()</a>.</p>
+
+</div>
+</div>
+<a id="a10b4c8780f700c7b512ded000d0589de" name="a10b4c8780f700c7b512ded000d0589de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10b4c8780f700c7b512ded000d0589de">&#9670;&#160;</a></span>Speed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__mcal__gpio.html#gad0390106f85689de1897dd9543754e71">GPIO_OutputSpeed_t</a> GPIO_4PinsConfig_t::Speed</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Output speed applied to all 4 pins. </p>
+
+<p class="definition">Definition at line <a class="el" href="GPIO__interface_8h_source.html#l00192">192</a> of file <a class="el" href="GPIO__interface_8h_source.html">GPIO_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="GPIO__prog_8c_source.html#l00376">GPIO_enumPort4PinsInit()</a>.</p>
+
+</div>
+</div>
+<a id="a1aff2580226602c999fb7e6449b50fd4" name="a1aff2580226602c999fb7e6449b50fd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1aff2580226602c999fb7e6449b50fd4">&#9670;&#160;</a></span>PullType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__mcal__gpio.html#gaf3291f1e475675bffc656c9f0c4c7399">GPIO_PullUpDown_t</a> GPIO_4PinsConfig_t::PullType</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pull configuration applied to all 4 pins. </p>
+
+<p class="definition">Definition at line <a class="el" href="GPIO__interface_8h_source.html#l00193">193</a> of file <a class="el" href="GPIO__interface_8h_source.html">GPIO_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="GPIO__prog_8c_source.html#l00376">GPIO_enumPort4PinsInit()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>Inc/Drivers/MCAL/GPIO/<a class="el" href="GPIO__interface_8h_source.html">GPIO_interface.h</a></li>
+<li>V2V-STM32/Inc/Drivers/MCAL/GPIO/<a class="el" href="GPIO__interface_8h_source.html">GPIO_interface.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

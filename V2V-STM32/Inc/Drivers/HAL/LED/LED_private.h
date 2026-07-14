@@ -1,14 +1,10 @@
 /**
- **===========================================================================**
- **<<<<<<<<<<<<<<<<<<<<<<<<<<    LED_private.h    >>>>>>>>>>>>>>>>>>>>>>>>>>>>**
- **                                                                           **
- **                  Author : Abdallah Abdelmoemen Shehawey                   **
- **                  Layer  : HAL                                             **
- **                  CPU    : Cortex-M4                                       **
- **                  MCU    : F446RE                                          **
- **                  SWC    : LED                                             **
- **                                                                           **
- **===========================================================================**
+ ******************************************************************************
+ * @file    LED_private.h
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Register bit positions and internals of the LED driver — not a public header.
+ * @ingroup hal_led
+ ******************************************************************************
  */
 
 #ifndef LED_PRIVATE_H_

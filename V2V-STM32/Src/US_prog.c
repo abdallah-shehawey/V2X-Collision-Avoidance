@@ -1,19 +1,10 @@
 /**
- **===========================================================================**
- **<<<<<<<<<<<<<<<<<<<<<<<<<<      US_prog.c        >>>>>>>>>>>>>>>>>>>>>>>>>>**
- **                                                                           **
- **                  Author : Abdallah Saleh                                  **
- **                  Layer  : HAL                                             **
- **                  SWC    : US (Ultrasonic Distance Sensor - ICU Interrupt) **
- **                                                                           **
- **  Interrupt-driven HC-SR04 driver:                                         **
- **    - Trigger is fired, then the calling task SLEEPS on a semaphore        **
- **      (CPU free) until the Input-Capture ISR delivers both echo edges.     **
- **    - Sequential by design (one active measurement) → no acoustic          **
- **      cross-talk and a trivially-safe single shared state + semaphore.     **
- **                                                                           **
- **  RTOS dependency: this driver uses FreeRTOS (binary semaphore + FromISR). **
- **===========================================================================**
+ ******************************************************************************
+ * @file    US_prog.c
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Implementation of the US driver — the HC-SR04 ultrasonic rangefinders.
+ * @ingroup hal_us
+ ******************************************************************************
  */
 
 #include <stdint.h>
@@ -32,33 +23,69 @@
 #include "task.h"
 #include "semphr.h"
 
+/**
+ * @brief Maps a @ref TIM_Num_t onto its register block.
+ * @note Order must match @ref TIM_Num_t — the enum indexes straight into it.
+ */
 static TIM_TypeDef *US_TIM_Array[TIM_TIMER_COUNT] = {TIM2, TIM3, TIM4, TIM5, TIM1, TIM8, TIM6, TIM7};
 
 /* ===================== Interrupt-driven measurement state ===================== */
+/**
+ * @brief Where a single echo measurement has got to.
+ *
+ * An HC-SR04 reports distance as the *width* of its echo pulse, so timing it takes
+ * two interrupts: one on the rising edge to start the clock, one on the falling
+ * edge to stop it. This enum is what the ISR uses to know which of the two it is
+ * looking at.
+ */
 typedef enum
 {
-    US_PHASE_RISING = 0,
-    US_PHASE_FALLING,
-    US_PHASE_DONE
+    US_PHASE_RISING = 0, /**< Waiting for the rising edge — the echo has not started yet. */
+    US_PHASE_FALLING,    /**< Rising edge seen and timestamped; waiting for the falling edge. */
+    US_PHASE_DONE        /**< Both edges seen; the distance is ready. */
 } US_Phase_t;
 
-/* Exactly ONE measurement is active at a time (sequential reads), so a single
- * shared context + one binary semaphore is race-free. All fields are touched by
- * both the reading task and the ISR → volatile. */
+/**
+ * @brief The one measurement currently in flight.
+ *
+ * There is deliberately only one. The six sensors are read strictly one after
+ * another — partly to avoid acoustic cross-talk, where one sensor hears another's
+ * ping and reports a phantom object, and partly because it makes a single shared
+ * context and one binary semaphore sufficient. No per-sensor state, and no race.
+ *
+ * Every field is touched by both the reading task and the capture ISR, hence
+ * `volatile`.
+ */
 static volatile struct
 {
-    TIM_Num_t timer;
-    uint8_t channel; /* 0..3 */
-    uint32_t maxval; /* timer wrap value (0xFFFF or 0xFFFFFFFF) */
-    uint32_t t1;     /* rising-edge timestamp */
-    US_Phase_t phase;
-    uint8_t valid;    /* 0 = result is out-of-range/garbage, 1 = a real echo was timed */
-    uint16_t dist_cm; /* result, valid when phase == US_PHASE_DONE && valid */
+    TIM_Num_t timer;   /**< Timer doing the capture for the active sensor. */
+    uint8_t channel;   /**< Its capture/compare channel, 0..3. */
+    uint32_t maxval;   /**< The timer's wrap value (0xFFFF or 0xFFFFFFFF), needed to unwrap a counter that rolled over mid-echo. */
+    uint32_t t1;       /**< Counter value captured on the rising edge. */
+    US_Phase_t phase;  /**< Which edge we are waiting for. */
+    uint8_t valid;     /**< 1 if a real echo was timed; 0 if it was out of range or garbage. */
+    uint16_t dist_cm;  /**< The result [cm]; meaningful only once `phase == US_PHASE_DONE` and `valid` is 1. */
 } US_Active;
 
-static SemaphoreHandle_t US_xDoneSem = NULL; /* given by ISR on completion */
+/**
+ * @brief Given by the capture ISR when a measurement completes.
+ *
+ * This is what lets the reading task **sleep** through the echo's flight time
+ * instead of busy-waiting on a flag. An echo from a distant object can take
+ * tens of milliseconds; spending that spinning would starve every lower-priority
+ * task in the system.
+ */
+static SemaphoreHandle_t US_xDoneSem = NULL;
 
 /* Private Function Prototypes */
+/**
+ * @brief Fire the trigger pulse that starts one sensor's measurement.
+ *
+ * Holds TRIG low for @ref US_TRIG_SETTLE_US to guarantee a clean edge, then high
+ * for @ref US_TRIG_PULSE_US — the minimum the HC-SR04 datasheet demands.
+ *
+ * @param[in] pxSensor The sensor to trigger.
+ */
 static void US_vSendTrigger(const US_Config_t *pxSensor);
 static void US_CC_Handler(TIM_Num_t Copy_eTimer, uint8_t Copy_u8Channel, uint32_t Copy_u32Capture);
 static uint8_t US_u8NvicIrqForTimer(TIM_Num_t Copy_eTimer);
@@ -78,7 +105,11 @@ static void US_vSendTrigger(const US_Config_t *pxSensor)
     GPIO_enumWritePinVal(pxSensor->TrigPort, pxSensor->TrigPin, GPIO_PIN_LOW);
 }
 
-/* Map a US timer to its NVIC IRQ number (US uses general-purpose TIM2..TIM5). */
+/**
+ * @brief Map one of the ultrasonic timers to its NVIC IRQ number.
+ * @param Copy_eTimer The timer (the ultrasonics only use TIM2..TIM5).
+ * @return The matching @ref NVIC_IRQNumber_t value.
+ */
 static uint8_t US_u8NvicIrqForTimer(TIM_Num_t Copy_eTimer)
 {
     switch (Copy_eTimer)
@@ -96,8 +127,21 @@ static uint8_t US_u8NvicIrqForTimer(TIM_Num_t Copy_eTimer)
     }
 }
 
-/* Input-Capture ISR callback (timer IRQ context). Runs the 2-edge state machine
- * for the single active measurement, then wakes the reading task. */
+/**
+ * @brief Input-capture callback — runs the two-edge state machine for the active echo.
+ *
+ * Called from timer IRQ context on each captured edge. On the rising edge it
+ * timestamps the start; on the falling edge it works out the pulse width, converts
+ * it to a distance via @ref US_SOUND_SPEED_FACTOR, clamps it against
+ * @ref US_MAX_RANGE_CM, and gives @ref US_xDoneSem to wake the reading task.
+ *
+ * @param Copy_eTimer    Which timer fired.
+ * @param Copy_u8Channel Which of its channels captured, 0..3.
+ * @param Copy_u32Capture The captured counter value.
+ *
+ * @note Captures that do not belong to the active measurement are ignored — a
+ *       stray edge on an idle sensor must not be mistaken for our echo.
+ */
 static void US_CC_Handler(TIM_Num_t Copy_eTimer, uint8_t Copy_u8Channel, uint32_t Copy_u32Capture)
 {
     /* Ignore captures that don't belong to the active measurement */
@@ -146,7 +190,7 @@ static void US_CC_Handler(TIM_Num_t Copy_eTimer, uint8_t Copy_u8Channel, uint32_
     }
 }
 
-/**************************************         Public Functions
+/*************************************         Public Functions
  * ******************************************/
 
 ErrorState_t US_vInit(const US_Config_t *pxSensor)
@@ -224,7 +268,7 @@ ErrorState_t US_vInit(const US_Config_t *pxSensor)
     return OK;
 }
 
-/**
+/*
  * @brief Trigger sensor and measure distance (cm). The calling task SLEEPS on a
  *        semaphore while the echo is in flight (CPU free), then the IC ISR wakes
  *        it with the result. Returns TIMEOUT_STATE if no echo within the window.

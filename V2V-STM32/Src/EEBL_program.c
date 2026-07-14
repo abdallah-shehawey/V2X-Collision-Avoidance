@@ -1,14 +1,10 @@
 /**
- **===========================================================================**
- **<<<<<<<<<<<<<<<<<<<<<<<<<<<    EEBL_program.c     >>>>>>>>>>>>>>>>>>>>>>>>>>>>>**
- **                                                                           **
- **                  Author : Abdallah Abdelmoemen Shehawey                   **
- **                  Layer  : APP                                             **
- **                  CPU    : Cortex-M4                                       **
- **                  MCU    : NUCLEO-F446RE                                   **
- **                  SW     : EEBL (Electronic Emergency Brake Lights)        **
- **                                                                           **
- **===========================================================================**
+ ******************************************************************************
+ * @file    EEBL_program.c
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Implementation of the EEBL driver — Electronic Emergency Brake Light.
+ * @ingroup app_eebl
+ ******************************************************************************
  */
 
 #include "../Inc/Application/EEBL/EEBL_interface.h"
@@ -19,9 +15,12 @@
 #include "../Inc/Application/SafetyEngine/SafetyEngine_interface.h"
 
 /* ============ Module State ============ */
-static float       EEBL_PrevSpeed       = 0.0f;      /* previous-cycle speed, for braking detection */
-static uint8_t     EEBL_BrakingDetected = 0;         /* sudden-brake gate (set in BeginCycle)        */
-static RiskLevel_t EEBL_WorstLevel      = RISK_SAFE; /* worst risk this cycle (read via getter)      */
+/** @brief The neighbor's speed last cycle [m/s]. Braking is detected as the *drop* from this to the current value. */
+static float       EEBL_PrevSpeed       = 0.0f;
+/** @brief Gate: did a neighbor ahead brake hard enough this cycle to exceed @ref EEBL_DECEL_THRESHOLD? */
+static uint8_t     EEBL_BrakingDetected = 0;
+/** @brief Result: the worst risk seen across every neighbor this cycle. */
+static RiskLevel_t EEBL_WorstLevel      = RISK_SAFE;
 
 /* ============ Init ============ */
 void EEBL_voidInit(void)
@@ -35,7 +34,7 @@ void EEBL_voidInit(void)
 /* ============ Per-Neighbor API (for SafetyEngine) ============ */
 /* ============================================================ */
 
-/**
+/*
  * @brief Start a new cycle: set the sudden-braking gate and reset the result.
  *        While not braking, ProcessNeighbor skips every neighbor.
  */
@@ -49,7 +48,7 @@ void EEBL_voidBeginCycle(void)
   EEBL_WorstLevel = RISK_SAFE;
 }
 
-/**
+/*
  * @brief Evaluate one same-direction neighbor against the rear gap.
  *
  * Risk depends on the host's own speed (the cycle safe/critical gaps), not on
@@ -81,7 +80,7 @@ void EEBL_voidProcessNeighbor(float rear_distance)
 
 /* ============ Public Getter ============ */
 
-/**
+/*
  * @brief Get current EEBL risk level (LED/buzzer handled by the caller).
  * @return 0=Safe, 1=Warning, 2=Critical
  */

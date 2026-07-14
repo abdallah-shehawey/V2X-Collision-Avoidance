@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Inc/System/System.h File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Inc/System/System.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,59 +90,25 @@ $(function(){initNavTree('System_8h.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">System.h File Reference</div></div>
+  <div class="headertitle"><div class="title">System.h File Reference<div class="ingroups"><a class="el" href="group__system.html">System</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>: System Header file  
+<p>System-wide contract: the board wiring map, the shared vehicle state, the packed ADAS status word, and the telemetry format.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="LED__interface_8h_source.html">../Drivers/HAL/LED/LED_interface.h</a>&quot;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for System.h:</div>
-<div class="dyncontent">
-<div class="center"><img src="System_8h__incl.png" border="0" usemap="#aInc_2System_2System_8h" loading="lazy" alt=""/></div>
-<map name="aInc_2System_2System_8h" id="aInc_2System_2System_8h">
-<area shape="rect" title=": System Header file" alt="" coords="5,5,164,33"/>
-<area shape="rect" title=" " alt="" coords="43,266,113,294"/>
-<area shape="poly" title=" " alt="" coords="77,36,63,82,49,150,49,180,55,218,67,252,61,252,50,219,44,180,44,149,58,80,79,31"/>
-<area shape="rect" href="LED__interface_8h.html" title=" " alt="" coords="72,81,212,126"/>
-<area shape="poly" title=" " alt="" coords="94,31,121,68,115,69,94,36"/>
-<area shape="rect" href="GPIO__interface_8h.html" title=" " alt="" coords="65,174,219,218"/>
-<area shape="poly" title=" " alt="" coords="143,124,144,159,139,157,141,128"/>
-<area shape="rect" href="ErrTypes_8h.html" title=" " alt="" coords="163,266,299,294"/>
-<area shape="poly" title=" " alt="" coords="185,124,213,145,234,172,240,192,243,213,240,252,235,249,238,213,235,193,229,175,209,149,184,129"/>
-<area shape="poly" title=" " alt="" coords="127,217,99,256,96,252,123,220"/>
-<area shape="poly" title=" " alt="" coords="166,216,208,255,203,256,164,221"/>
-</map>
+</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for System.h:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="System_8h__dep__incl.png" border="0" usemap="#aInc_2System_2System_8hdep" loading="lazy" alt=""/></div>
-<map name="aInc_2System_2System_8hdep" id="aInc_2System_2System_8hdep">
-<area shape="rect" title=": System Header file" alt="" coords="520,5,678,33"/>
-<area shape="rect" href="EEBL__private_8h.html" title=" " alt="" coords="5,81,159,126"/>
-<area shape="poly" title=" " alt="" coords="502,33,352,56,178,84,160,87,158,82,178,78,351,50,507,31"/>
-<area shape="rect" href="EEBL__program_8c.html" title=" " alt="" coords="80,174,230,201"/>
-<area shape="poly" title=" " alt="" coords="502,28,345,48,272,64,244,73,223,83,201,104,183,128,161,175,158,172,179,126,197,100,221,79,242,68,271,59,344,43,507,26"/>
-<area shape="rect" href="FCW__DNPW__private_8h.html" title=" " alt="" coords="234,81,450,126"/>
-<area shape="poly" title=" " alt="" coords="546,37,411,83,410,78,541,39"/>
-<area shape="rect" href="FCW__DNPW__program_8c.html" title=" " alt="" coords="285,174,482,201"/>
-<area shape="poly" title=" " alt="" coords="569,41,514,83,464,128,402,175,400,171,460,124,511,79,564,43"/>
-<area shape="rect" href="BSW__program_8c.html" title=" " alt="" coords="525,90,674,117"/>
-<area shape="poly" title=" " alt="" coords="601,47,601,91,597,88,598,51"/>
-<area shape="rect" href="IMA__program_8c.html" title=" " alt="" coords="697,90,840,117"/>
-<area shape="poly" title=" " alt="" coords="641,38,744,89,739,89,640,43"/>
-<area shape="rect" href="SafetyEngine__program_8c.html" title=" " alt="" coords="864,90,1068,117"/>
-<area shape="poly" title=" " alt="" coords="673,34,910,89,905,89,673,40"/>
-<area shape="rect" href="System_8c.html" title=": System initialization and RTOS setup" alt="" coords="1092,90,1197,117"/>
-<area shape="poly" title=" " alt="" coords="694,24,875,43,979,59,1081,78,1111,89,1106,89,1080,84,978,64,874,48,694,30"/>
-<area shape="rect" href="main_8c.html" title=": Main program body" alt="" coords="1221,90,1311,117"/>
-<area shape="poly" title=" " alt="" coords="694,20,801,25,930,35,1071,52,1211,78,1238,89,1233,89,1209,84,1070,57,930,40,800,30,694,25"/>
-<area shape="poly" title=" " alt="" coords="112,135,146,173,141,173,110,140"/>
-<area shape="poly" title=" " alt="" coords="361,137,379,174,374,172,358,142"/>
-</map>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="System_8h__incl.svg" width="311" height="316"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div><div class="textblock"><div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="System_8h__dep__incl.svg" width="100%" height="481"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="System_8h_source.html">Go to the source code of this file.</a></p>
@@ -150,592 +116,170 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:HostVehicleState_5Ft" id="r_HostVehicleState_5Ft"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structHostVehicleState__t.html">HostVehicleState_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Everything the sensors know about <em>this</em> vehicle, in one place.  <a href="structHostVehicleState__t.html#details">More...</a><br /></td></tr>
+<tr class="memitem:RPi_5FPacket_5Ft" id="r_RPi_5FPacket_5Ft"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structRPi__Packet__t.html">RPi_Packet_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Legacy binary telemetry packet — <b>kept for reference only</b>.  <a href="structRPi__Packet__t.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a167de614bc64dfddcd8a7677b6fecda0" id="r_a167de614bc64dfddcd8a7677b6fecda0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a167de614bc64dfddcd8a7677b6fecda0">SYS_SAFE</a>&#160;&#160;&#160;0x0u</td></tr>
-<tr class="memitem:ad8f58f6c26f6d5da69980ba995e38c78" id="r_ad8f58f6c26f6d5da69980ba995e38c78"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ad8f58f6c26f6d5da69980ba995e38c78">SYS_WARNING</a>&#160;&#160;&#160;0x1u</td></tr>
-<tr class="memitem:a717d9a716e77febf5c57b5c7231802c8" id="r_a717d9a716e77febf5c57b5c7231802c8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a717d9a716e77febf5c57b5c7231802c8">SYS_CRITICAL</a>&#160;&#160;&#160;0x2u</td></tr>
-<tr class="memitem:a1096a3bcb1d33bab56e2746735bef164" id="r_a1096a3bcb1d33bab56e2746735bef164"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a1096a3bcb1d33bab56e2746735bef164">SYS_MASK</a>&#160;&#160;&#160;0x3u /* 2-bit field mask */</td></tr>
-<tr class="memitem:a6abc7e388887578e3028a403f99ab155" id="r_a6abc7e388887578e3028a403f99ab155"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a6abc7e388887578e3028a403f99ab155">SYS_FCW_POS</a>&#160;&#160;&#160;0u</td></tr>
-<tr class="memitem:a1c2a65c70adf45dcfed9a27b20f13082" id="r_a1c2a65c70adf45dcfed9a27b20f13082"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a1c2a65c70adf45dcfed9a27b20f13082">SYS_EEBL_POS</a>&#160;&#160;&#160;2u</td></tr>
-<tr class="memitem:a04414e3adf55b811ccb5b68914f10f2f" id="r_a04414e3adf55b811ccb5b68914f10f2f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a04414e3adf55b811ccb5b68914f10f2f">SYS_BSW_POS</a>&#160;&#160;&#160;4u</td></tr>
-<tr class="memitem:ac52b1dbb5be5438fcd6fba16dd939688" id="r_ac52b1dbb5be5438fcd6fba16dd939688"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ac52b1dbb5be5438fcd6fba16dd939688">SYS_DNPW_POS</a>&#160;&#160;&#160;6u</td></tr>
-<tr class="memitem:a42dbde5a9405e8b4ea3cab2049a4c97d" id="r_a42dbde5a9405e8b4ea3cab2049a4c97d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a42dbde5a9405e8b4ea3cab2049a4c97d">SYS_IMA_POS</a>&#160;&#160;&#160;8u</td></tr>
-<tr class="memitem:a7f3e28353c0f0f1ce0787d44563ca389" id="r_a7f3e28353c0f0f1ce0787d44563ca389"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a7f3e28353c0f0f1ce0787d44563ca389">SYS_GET</a>(flags,  pos)</td></tr>
-<tr class="memitem:a90b9ebedff8635727698afd2fa84b90a" id="r_a90b9ebedff8635727698afd2fa84b90a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a90b9ebedff8635727698afd2fa84b90a">DWT_CTRL</a>&#160;&#160;&#160;*((volatile uint32_t *)0xE0001000)</td></tr>
+<tr class="memitem:ga90b9ebedff8635727698afd2fa84b90a" id="r_ga90b9ebedff8635727698afd2fa84b90a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#ga90b9ebedff8635727698afd2fa84b90a">DWT_CTRL</a></td></tr>
+<tr class="memdesc:ga90b9ebedff8635727698afd2fa84b90a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cortex-M4 Data Watchpoint and Trace control register.  <br /></td></tr>
+<tr id="define-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">ADAS status word (G_u16SystemFlags)</div></td></tr>
+<tr><td colspan="2" class="ititle"><div class="groupText"><p><a class="el" href="group__system.html#ga9e78367aa5b758af972838362c2b0eab" title="G_u16SystemFlags">G_u16SystemFlags</a> packs the result of all five ADAS modules into one 16-bit word, two bits per module.</p>
+<p><span class="tt">SafetyEngine_Task</span> is its only writer; <span class="tt">Feedback_Task</span> and <span class="tt">RPi_Comm_Task</span> are its readers.</p>
+<p>Each 2-bit field holds <a class="el" href="group__system.html#ga167de614bc64dfddcd8a7677b6fecda0" title="SYS_SAFE">SYS_SAFE</a>, <a class="el" href="group__system.html#gad8f58f6c26f6d5da69980ba995e38c78" title="SYS_WARNING">SYS_WARNING</a> or <a class="el" href="group__system.html#ga717d9a716e77febf5c57b5c7231802c8" title="SYS_CRITICAL">SYS_CRITICAL</a>. The layout is:</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Bits  </th><th class="markdownTableHeadNone">Module  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">1:0  </td><td class="markdownTableBodyNone">FCW — Forward Collision Warning  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">3:2  </td><td class="markdownTableBodyNone">EEBL — Emergency Electronic Brake Light  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">5:4  </td><td class="markdownTableBodyNone">BSW — Blind Spot Warning (warning level only)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">7:6  </td><td class="markdownTableBodyNone">DNPW — Do Not Pass Warning  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">9:8  </td><td class="markdownTableBodyNone">IMA — Intersection Movement Assist  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">15:10  </td><td class="markdownTableBodyNone">reserved, always 0  </td></tr>
+</table>
+<p>So <span class="tt">0x0000</span> means everything is safe, <span class="tt">0x0002</span> is "FCW critical", and <span class="tt">0x0006</span> is "FCW critical **and** EEBL warning" at the same time.</p>
+<p>Read one module's status with <a class="el" href="group__system.html#ga7f3e28353c0f0f1ce0787d44563ca389" title="SYS_GET">SYS_GET</a>, e.g. <span class="tt"><a class="el" href="group__system.html#ga7f3e28353c0f0f1ce0787d44563ca389" title="Extract one module&#39;s 2-bit status from the packed word.">SYS_GET(G_u16SystemFlags, SYS_FCW_POS)</a></span>. </p>
+</div></td></tr>
+<tr class="memitem:ga167de614bc64dfddcd8a7677b6fecda0" id="r_ga167de614bc64dfddcd8a7677b6fecda0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#ga167de614bc64dfddcd8a7677b6fecda0">SYS_SAFE</a></td></tr>
+<tr class="memdesc:ga167de614bc64dfddcd8a7677b6fecda0"><td class="mdescLeft">&#160;</td><td class="mdescRight">No hazard from this module.  <br /></td></tr>
+<tr class="memitem:gad8f58f6c26f6d5da69980ba995e38c78" id="r_gad8f58f6c26f6d5da69980ba995e38c78"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#gad8f58f6c26f6d5da69980ba995e38c78">SYS_WARNING</a></td></tr>
+<tr class="memdesc:gad8f58f6c26f6d5da69980ba995e38c78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Caution — the driver should slow down.  <br /></td></tr>
+<tr class="memitem:ga717d9a716e77febf5c57b5c7231802c8" id="r_ga717d9a716e77febf5c57b5c7231802c8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#ga717d9a716e77febf5c57b5c7231802c8">SYS_CRITICAL</a></td></tr>
+<tr class="memdesc:ga717d9a716e77febf5c57b5c7231802c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Danger — the driver should stop.  <br /></td></tr>
+<tr class="memitem:ga1096a3bcb1d33bab56e2746735bef164" id="r_ga1096a3bcb1d33bab56e2746735bef164"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#ga1096a3bcb1d33bab56e2746735bef164">SYS_MASK</a></td></tr>
+<tr class="memdesc:ga1096a3bcb1d33bab56e2746735bef164"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask of one 2-bit module field.  <br /></td></tr>
+<tr class="memitem:ga6abc7e388887578e3028a403f99ab155" id="r_ga6abc7e388887578e3028a403f99ab155"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#ga6abc7e388887578e3028a403f99ab155">SYS_FCW_POS</a></td></tr>
+<tr class="memdesc:ga6abc7e388887578e3028a403f99ab155"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit position of the FCW field.  <br /></td></tr>
+<tr class="memitem:ga1c2a65c70adf45dcfed9a27b20f13082" id="r_ga1c2a65c70adf45dcfed9a27b20f13082"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#ga1c2a65c70adf45dcfed9a27b20f13082">SYS_EEBL_POS</a></td></tr>
+<tr class="memdesc:ga1c2a65c70adf45dcfed9a27b20f13082"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit position of the EEBL field.  <br /></td></tr>
+<tr class="memitem:ga04414e3adf55b811ccb5b68914f10f2f" id="r_ga04414e3adf55b811ccb5b68914f10f2f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#ga04414e3adf55b811ccb5b68914f10f2f">SYS_BSW_POS</a></td></tr>
+<tr class="memdesc:ga04414e3adf55b811ccb5b68914f10f2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit position of the BSW field.  <br /></td></tr>
+<tr class="memitem:gac52b1dbb5be5438fcd6fba16dd939688" id="r_gac52b1dbb5be5438fcd6fba16dd939688"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#gac52b1dbb5be5438fcd6fba16dd939688">SYS_DNPW_POS</a></td></tr>
+<tr class="memdesc:gac52b1dbb5be5438fcd6fba16dd939688"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit position of the DNPW field.  <br /></td></tr>
+<tr class="memitem:ga42dbde5a9405e8b4ea3cab2049a4c97d" id="r_ga42dbde5a9405e8b4ea3cab2049a4c97d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#ga42dbde5a9405e8b4ea3cab2049a4c97d">SYS_IMA_POS</a></td></tr>
+<tr class="memdesc:ga42dbde5a9405e8b4ea3cab2049a4c97d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit position of the IMA field.  <br /></td></tr>
+<tr class="memitem:ga7f3e28353c0f0f1ce0787d44563ca389" id="r_ga7f3e28353c0f0f1ce0787d44563ca389"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#ga7f3e28353c0f0f1ce0787d44563ca389">SYS_GET</a>(flags,  pos)</td></tr>
+<tr class="memdesc:ga7f3e28353c0f0f1ce0787d44563ca389"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract one module's 2-bit status from the packed word.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ab898071398b359603a35c202e9c65f3b" id="r_ab898071398b359603a35c202e9c65f3b"><td class="memItemLeft">struct&#160;</td><td class="memItemRight"><a class="el" href="#ab898071398b359603a35c202e9c65f3b">__attribute__</a> ((packed))</td></tr>
-<tr class="memitem:ac3f6c7e9a568f4528304150a6f59736b" id="r_ac3f6c7e9a568f4528304150a6f59736b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac3f6c7e9a568f4528304150a6f59736b">SEGGER_setup</a> (void)</td></tr>
-<tr class="memitem:ae436954cd2bde6634ab271317d2494a7" id="r_ae436954cd2bde6634ab271317d2494a7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae436954cd2bde6634ab271317d2494a7">System_setup</a> (void)</td></tr>
-<tr class="memitem:a9f28a641641de8e783815ab1fa92549f" id="r_a9f28a641641de8e783815ab1fa92549f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9f28a641641de8e783815ab1fa92549f">RTOS_setup</a> (void)</td></tr>
+<tr class="memitem:gac3f6c7e9a568f4528304150a6f59736b" id="r_gac3f6c7e9a568f4528304150a6f59736b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#gac3f6c7e9a568f4528304150a6f59736b">SEGGER_setup</a> (void)</td></tr>
+<tr class="memdesc:gac3f6c7e9a568f4528304150a6f59736b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start SEGGER SystemView tracing (enables the DWT cycle counter first).  <br /></td></tr>
+<tr class="memitem:gae436954cd2bde6634ab271317d2494a7" id="r_gae436954cd2bde6634ab271317d2494a7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#gae436954cd2bde6634ab271317d2494a7">System_setup</a> (void)</td></tr>
+<tr class="memdesc:gae436954cd2bde6634ab271317d2494a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bring up the board: clock tree, then every MCAL and HAL peripheral.  <br /></td></tr>
+<tr class="memitem:ga9f28a641641de8e783815ab1fa92549f" id="r_ga9f28a641641de8e783815ab1fa92549f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#ga9f28a641641de8e783815ab1fa92549f">RTOS_setup</a> (void)</td></tr>
+<tr class="memdesc:ga9f28a641641de8e783815ab1fa92549f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create the mutexes and the six FreeRTOS tasks, then start the scheduler.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a49cc648a30989079385c3b1cbf224789" id="r_a49cc648a30989079385c3b1cbf224789"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a49cc648a30989079385c3b1cbf224789">RPi_Packet_t</a></td></tr>
-<tr class="memitem:a9e78367aa5b758af972838362c2b0eab" id="r_a9e78367aa5b758af972838362c2b0eab"><td class="memItemLeft">volatile uint16_t&#160;</td><td class="memItemRight"><a class="el" href="#a9e78367aa5b758af972838362c2b0eab">G_u16SystemFlags</a></td></tr>
-<tr class="memitem:ac3116f56a230ebdd81cadd527921464c" id="r_ac3116f56a230ebdd81cadd527921464c"><td class="memItemLeft"><a class="el" href="structHostVehicleState__t.html">HostVehicleState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac3116f56a230ebdd81cadd527921464c">G_stHostVehicleState</a></td></tr>
-<tr class="memitem:a10d54e2c66effa6800db6f78aaec485c" id="r_a10d54e2c66effa6800db6f78aaec485c"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a10d54e2c66effa6800db6f78aaec485c">Host_DistToIntersection</a></td></tr>
-<tr class="memitem:af1fb4a43ba68d1fdc94fd35a7d901cd4" id="r_af1fb4a43ba68d1fdc94fd35a7d901cd4"><td class="memItemLeft"><a class="el" href="structLED__Config__t.html">LED_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#af1fb4a43ba68d1fdc94fd35a7d901cd4">FrontR_LED</a></td></tr>
-<tr class="memitem:a2ab79e3f6235026ef8d29a9446511f48" id="r_a2ab79e3f6235026ef8d29a9446511f48"><td class="memItemLeft"><a class="el" href="structLED__Config__t.html">LED_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2ab79e3f6235026ef8d29a9446511f48">FrontL_LED</a></td></tr>
-<tr class="memitem:ae41df9dd37d7c4d27b829fd46cd1e5e3" id="r_ae41df9dd37d7c4d27b829fd46cd1e5e3"><td class="memItemLeft"><a class="el" href="structLED__Config__t.html">LED_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae41df9dd37d7c4d27b829fd46cd1e5e3">BackR_LED</a></td></tr>
-<tr class="memitem:abfc8237214cfd1267c607aaff66a96da" id="r_abfc8237214cfd1267c607aaff66a96da"><td class="memItemLeft"><a class="el" href="structLED__Config__t.html">LED_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#abfc8237214cfd1267c607aaff66a96da">BackL_LED</a></td></tr>
-<tr class="memitem:aa7037844a95faca4f50aae714fe5048a" id="r_aa7037844a95faca4f50aae714fe5048a"><td class="memItemLeft"><a class="el" href="structLED__Config__t.html">LED_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa7037844a95faca4f50aae714fe5048a">Interior_LED</a></td></tr>
+<tr class="memitem:ga9e78367aa5b758af972838362c2b0eab" id="r_ga9e78367aa5b758af972838362c2b0eab"><td class="memItemLeft">volatile uint16_t&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#ga9e78367aa5b758af972838362c2b0eab">G_u16SystemFlags</a></td></tr>
+<tr class="memdesc:ga9e78367aa5b758af972838362c2b0eab"><td class="mdescLeft">&#160;</td><td class="mdescRight">The packed ADAS status word — see <a class="el" href="group__system.html#ga7f3e28353c0f0f1ce0787d44563ca389" title="SYS_GET">SYS_GET</a> for how to read it.  <br /></td></tr>
+<tr class="memitem:gac3116f56a230ebdd81cadd527921464c" id="r_gac3116f56a230ebdd81cadd527921464c"><td class="memItemLeft"><a class="el" href="structHostVehicleState__t.html">HostVehicleState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#gac3116f56a230ebdd81cadd527921464c">G_stHostVehicleState</a></td></tr>
+<tr class="memdesc:gac3116f56a230ebdd81cadd527921464c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The shared sensor picture of this vehicle.  <br /></td></tr>
+<tr class="memitem:ga10d54e2c66effa6800db6f78aaec485c" id="r_ga10d54e2c66effa6800db6f78aaec485c"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#ga10d54e2c66effa6800db6f78aaec485c">Host_DistToIntersection</a></td></tr>
+<tr class="memdesc:ga10d54e2c66effa6800db6f78aaec485c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distance to the nearest intersection [cm]; 0 means "not near one".  <br /></td></tr>
+<tr id="var-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">Indicator LEDs</div></td></tr>
+<tr><td colspan="2" class="ititle"><div class="groupText"><p>The five LEDs, defined in <span class="tt"><a class="el" href="System_8c.html" title="System initialization and RTOS setup.">System.c</a></span> and shared across tasks.</p>
+<p><span class="tt">Feedback_Task</span> is the only task that drives them: the interior LED on any alert, the front pair on an FCW-critical, the rear pair on an EEBL-critical. </p>
+</div></td></tr>
+<tr class="memitem:gaf1fb4a43ba68d1fdc94fd35a7d901cd4" id="r_gaf1fb4a43ba68d1fdc94fd35a7d901cd4"><td class="memItemLeft"><a class="el" href="structLED__Config__t.html">LED_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#gaf1fb4a43ba68d1fdc94fd35a7d901cd4">FrontR_LED</a></td></tr>
+<tr class="memdesc:gaf1fb4a43ba68d1fdc94fd35a7d901cd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Front-right LED (PC0) — lit on an FCW-critical.  <br /></td></tr>
+<tr class="memitem:ga2ab79e3f6235026ef8d29a9446511f48" id="r_ga2ab79e3f6235026ef8d29a9446511f48"><td class="memItemLeft"><a class="el" href="structLED__Config__t.html">LED_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#ga2ab79e3f6235026ef8d29a9446511f48">FrontL_LED</a></td></tr>
+<tr class="memdesc:ga2ab79e3f6235026ef8d29a9446511f48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Front-left LED (PC1) — lit on an FCW-critical.  <br /></td></tr>
+<tr class="memitem:gae41df9dd37d7c4d27b829fd46cd1e5e3" id="r_gae41df9dd37d7c4d27b829fd46cd1e5e3"><td class="memItemLeft"><a class="el" href="structLED__Config__t.html">LED_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#gae41df9dd37d7c4d27b829fd46cd1e5e3">BackR_LED</a></td></tr>
+<tr class="memdesc:gae41df9dd37d7c4d27b829fd46cd1e5e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rear-right LED (PC2) — lit on an EEBL-critical.  <br /></td></tr>
+<tr class="memitem:gabfc8237214cfd1267c607aaff66a96da" id="r_gabfc8237214cfd1267c607aaff66a96da"><td class="memItemLeft"><a class="el" href="structLED__Config__t.html">LED_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#gabfc8237214cfd1267c607aaff66a96da">BackL_LED</a></td></tr>
+<tr class="memdesc:gabfc8237214cfd1267c607aaff66a96da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rear-left LED (PC3) — lit on an EEBL-critical.  <br /></td></tr>
+<tr class="memitem:gaa7037844a95faca4f50aae714fe5048a" id="r_gaa7037844a95faca4f50aae714fe5048a"><td class="memItemLeft"><a class="el" href="structLED__Config__t.html">LED_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#gaa7037844a95faca4f50aae714fe5048a">Interior_LED</a></td></tr>
+<tr class="memdesc:gaa7037844a95faca4f50aae714fe5048a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interior/dashboard LED (PC7) — lit on any alert.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>: System Header file </p>
-<dl class="section author"><dt>Author</dt><dd>: Abdallah Saleh  </dd></dl>
+<div class="textblock"><p>System-wide contract: the board wiring map, the shared vehicle state, the packed ADAS status word, and the telemetry format. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Saleh </dd></dl>
+<p>Everything in this header is shared between tasks, so it is also where the concurrency rules live. Three globals cross task boundaries:</p>
+<ul>
+<li><a class="el" href="group__system.html#gac3116f56a230ebdd81cadd527921464c" title="G_stHostVehicleState">G_stHostVehicleState</a> — written by <span class="tt">Sensors_Task</span>, read by everyone else.</li>
+<li><a class="el" href="group__system.html#ga9e78367aa5b758af972838362c2b0eab" title="G_u16SystemFlags">G_u16SystemFlags</a> — written by <span class="tt">SafetyEngine_Task</span>, read by <span class="tt">Feedback_Task</span> and <span class="tt">RPi_Comm_Task</span>.</li>
+<li><a class="el" href="group__system.html#ga10d54e2c66effa6800db6f78aaec485c" title="Host_DistToIntersection">Host_DistToIntersection</a> — written by whatever supplies intersection geometry, read by IMA.</li>
+</ul>
+<p>Both mutexes are always taken in the order <b>NeighborTable → Data</b>, and never nested from more than one place, which is what makes the task set deadlock-free by construction.</p>
+<h1 class="doxsection"><a class="anchor" id="sys_wiring"></a>
+Board wiring map</h1>
+<p><b>Ultrasonic sensors — 3 front, 3 rear.</b> Echo pins are EXTI inputs; trigger pins are plain outputs. The echo pins were chosen to leave PA0..PA3 free for the UARTs.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">ID  </th><th class="markdownTableHeadNone">Location  </th><th class="markdownTableHeadNone">Echo  </th><th class="markdownTableHeadNone">Trigger  </th><th class="markdownTableHeadNone">Timer channel  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">S1  </td><td class="markdownTableBodyNone">Front left  </td><td class="markdownTableBodyNone">PA15  </td><td class="markdownTableBodyNone">PB0  </td><td class="markdownTableBodyNone">TIM2_CH1  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">S2  </td><td class="markdownTableBodyNone">Front centre  </td><td class="markdownTableBodyNone">PB3  </td><td class="markdownTableBodyNone">PB1  </td><td class="markdownTableBodyNone">TIM2_CH2  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">S3  </td><td class="markdownTableBodyNone">Front right  </td><td class="markdownTableBodyNone">PB4  </td><td class="markdownTableBodyNone">PB2  </td><td class="markdownTableBodyNone">TIM3_CH1  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">S4  </td><td class="markdownTableBodyNone">Rear left  </td><td class="markdownTableBodyNone">PB5  </td><td class="markdownTableBodyNone">PB12  </td><td class="markdownTableBodyNone">TIM3_CH2  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">S5  </td><td class="markdownTableBodyNone">Rear centre  </td><td class="markdownTableBodyNone">PC8  </td><td class="markdownTableBodyNone">PB13  </td><td class="markdownTableBodyNone">TIM3_CH3  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">S6  </td><td class="markdownTableBodyNone">Rear right  </td><td class="markdownTableBodyNone">PC9  </td><td class="markdownTableBodyNone">PB14  </td><td class="markdownTableBodyNone">TIM3_CH4  </td></tr>
+</table>
+<p><b>MPU9250 IMU</b> — SPI1 on PA5 (SCK), PA6 (MISO/ADO), PA7 (MOSI/SDA), AF5.</p>
+<p><b>Feedback devices</b> — all on port C:</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Device  </th><th class="markdownTableHeadNone">Pin  </th><th class="markdownTableHeadNone">Role  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">LED 1  </td><td class="markdownTableBodyNone">PC0  </td><td class="markdownTableBodyNone">Front right  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">LED 2  </td><td class="markdownTableBodyNone">PC1  </td><td class="markdownTableBodyNone">Front left  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">LED 3  </td><td class="markdownTableBodyNone">PC2  </td><td class="markdownTableBodyNone">Rear right  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">LED 4  </td><td class="markdownTableBodyNone">PC3  </td><td class="markdownTableBodyNone">Rear left  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">LED 5  </td><td class="markdownTableBodyNone">PC7  </td><td class="markdownTableBodyNone">Interior / dashboard driver alert  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Buzzer  </td><td class="markdownTableBodyNone">PC4  </td><td class="markdownTableBodyNone">Audible warning  </td></tr>
+</table>
+<p><b>Serial links:</b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Port  </th><th class="markdownTableHeadNone">Pins  </th><th class="markdownTableHeadNone">Use  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">USART1  </td><td class="markdownTableBodyNone">PA9 TX, PA10 RX  </td><td class="markdownTableBodyNone">ESP32 radio bridge (ESP-NOW / V2V)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">USART2  </td><td class="markdownTableBodyNone">PA2 TX, PA3 RX  </td><td class="markdownTableBodyNone">Raspberry Pi telemetry  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">UART4  </td><td class="markdownTableBodyNone">PA0 TX, PA1 RX  </td><td class="markdownTableBodyNone">free (previously the Raspberry Pi link)  </td></tr>
+</table>
+<dl class="section note"><dt>Note</dt><dd>There is <b>no motor driver on the STM32</b>. The Raspberry Pi drives the motors from the telemetry this firmware sends, so no pin here is a motor pin.</dd></dl>
+<h1 class="doxsection"><a class="anchor" id="sys_tasks"></a>
+Task set</h1>
+<p><span class="tt">configMAX_PRIORITIES</span> is 5, so priority 4 is the highest available to a task and priority 0 belongs to the FreeRTOS idle task.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Task  </th><th class="markdownTableHeadNone">Priority  </th><th class="markdownTableHeadNone">Period  </th><th class="markdownTableHeadNone">Role  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt"><a class="el" href="main_8c.html#a1fa00ec0e4cf92155fcaa535be5ab3a1" title="Single-pass ADAS brain.">vTask_SafetyEngine</a></span>  </td><td class="markdownTableBodyNone">4  </td><td class="markdownTableBodyNone">50 ms  </td><td class="markdownTableBodyNone">The <b>brain</b>: runs every ADAS module over the neighbor table in one pass and publishes <a class="el" href="group__system.html#ga9e78367aa5b758af972838362c2b0eab" title="G_u16SystemFlags">G_u16SystemFlags</a>. Decides nothing about actuators. Holds both mutexes.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt"><a class="el" href="main_8c.html#a8e83024643794f31ab8139cbdb1de5dd" title="Handles both RX and TX communication with ESP (V2X Network) using DSRC foundation.">vTask_ESP_Comm</a></span>  </td><td class="markdownTableBodyNone">4  </td><td class="markdownTableBodyNone">RX ~10 ms / TX 100 ms  </td><td class="markdownTableBodyNone">V2V traffic over USART1. Takes the two mutexes separately.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt"><a class="el" href="main_8c.html#a6124e00be85460e2af1224524c6c2278" title="Reads ALL 6 ultrasonics + MPU9250 every cycle, then a small gap.">vTask_Sensors</a></span>  </td><td class="markdownTableBodyNone">3  </td><td class="markdownTableBodyNone">~25–82 ms, adaptive  </td><td class="markdownTableBodyNone">Reads all 6 ultrasonics (interrupt-driven — the task <em>sleeps</em> during each echo) and the IMU. Sequential reads, so no acoustic cross-talk.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt"><a class="el" href="main_8c.html#a96452f43e9871212929e6e6a969bec13" title="Alert manager (the &quot;Muscle&quot;): drives the LEDs + buzzer from the ADAS status word.">vTask_Feedback</a></span>  </td><td class="markdownTableBodyNone">2  </td><td class="markdownTableBodyNone">25 ms  </td><td class="markdownTableBodyNone">The <b>muscle</b>: renders <a class="el" href="group__system.html#ga9e78367aa5b758af972838362c2b0eab" title="G_u16SystemFlags">G_u16SystemFlags</a> onto the LEDs and buzzer.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt"><a class="el" href="main_8c.html#a0d8bacb322388f8284803eeccc5612c0" title="Streams one ASCII CSV telemetry line to the Raspberry Pi every 100 ms.">vTask_RPi_Comm</a></span>  </td><td class="markdownTableBodyNone">1  </td><td class="markdownTableBodyNone">100 ms  </td><td class="markdownTableBodyNone">Streams the telemetry line to the Raspberry Pi.  </td></tr>
+</table>
+<dl class="section warning"><dt>Warning</dt><dd><span class="tt">configMAX_SYSCALL_INTERRUPT_PRIORITY</span> is 5, so any interrupt that calls a FreeRTOS <span class="tt">...FromISR</span> API — USART1 included — must be given an NVIC priority number of <b>6 or higher</b> (i.e. a <em>lower</em> urgency). </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="a90b9ebedff8635727698afd2fa84b90a" name="a90b9ebedff8635727698afd2fa84b90a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90b9ebedff8635727698afd2fa84b90a">&#9670;&#160;</a></span>DWT_CTRL</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define DWT_CTRL&#160;&#160;&#160;*((volatile uint32_t *)0xE0001000)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00210">210</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-<a id="a04414e3adf55b811ccb5b68914f10f2f" name="a04414e3adf55b811ccb5b68914f10f2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04414e3adf55b811ccb5b68914f10f2f">&#9670;&#160;</a></span>SYS_BSW_POS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SYS_BSW_POS&#160;&#160;&#160;4u</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00154">154</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-<a id="a717d9a716e77febf5c57b5c7231802c8" name="a717d9a716e77febf5c57b5c7231802c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a717d9a716e77febf5c57b5c7231802c8">&#9670;&#160;</a></span>SYS_CRITICAL</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SYS_CRITICAL&#160;&#160;&#160;0x2u</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00149">149</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-<a id="ac52b1dbb5be5438fcd6fba16dd939688" name="ac52b1dbb5be5438fcd6fba16dd939688"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac52b1dbb5be5438fcd6fba16dd939688">&#9670;&#160;</a></span>SYS_DNPW_POS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SYS_DNPW_POS&#160;&#160;&#160;6u</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00155">155</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-<a id="a1c2a65c70adf45dcfed9a27b20f13082" name="a1c2a65c70adf45dcfed9a27b20f13082"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c2a65c70adf45dcfed9a27b20f13082">&#9670;&#160;</a></span>SYS_EEBL_POS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SYS_EEBL_POS&#160;&#160;&#160;2u</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00153">153</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-<a id="a6abc7e388887578e3028a403f99ab155" name="a6abc7e388887578e3028a403f99ab155"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6abc7e388887578e3028a403f99ab155">&#9670;&#160;</a></span>SYS_FCW_POS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SYS_FCW_POS&#160;&#160;&#160;0u</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00152">152</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-<a id="a7f3e28353c0f0f1ce0787d44563ca389" name="a7f3e28353c0f0f1ce0787d44563ca389"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f3e28353c0f0f1ce0787d44563ca389">&#9670;&#160;</a></span>SYS_GET</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SYS_GET</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>flags</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>pos</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(((flags) &gt;&gt; (pos)) &amp; <a class="code hl_define" href="#a1096a3bcb1d33bab56e2746735bef164">SYS_MASK</a>)</div>
-<div class="ttc" id="aSystem_8h_html_a1096a3bcb1d33bab56e2746735bef164"><div class="ttname"><a href="#a1096a3bcb1d33bab56e2746735bef164">SYS_MASK</a></div><div class="ttdeci">#define SYS_MASK</div><div class="ttdef"><b>Definition</b> <a href="System_8h_source.html#l00150">System.h:150</a></div></div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00159">159</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-<a id="a42dbde5a9405e8b4ea3cab2049a4c97d" name="a42dbde5a9405e8b4ea3cab2049a4c97d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42dbde5a9405e8b4ea3cab2049a4c97d">&#9670;&#160;</a></span>SYS_IMA_POS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SYS_IMA_POS&#160;&#160;&#160;8u</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00156">156</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-<a id="a1096a3bcb1d33bab56e2746735bef164" name="a1096a3bcb1d33bab56e2746735bef164"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1096a3bcb1d33bab56e2746735bef164">&#9670;&#160;</a></span>SYS_MASK</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SYS_MASK&#160;&#160;&#160;0x3u /* 2-bit field mask */</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00150">150</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-<a id="a167de614bc64dfddcd8a7677b6fecda0" name="a167de614bc64dfddcd8a7677b6fecda0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a167de614bc64dfddcd8a7677b6fecda0">&#9670;&#160;</a></span>SYS_SAFE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SYS_SAFE&#160;&#160;&#160;0x0u</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00147">147</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-<a id="ad8f58f6c26f6d5da69980ba995e38c78" name="ad8f58f6c26f6d5da69980ba995e38c78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8f58f6c26f6d5da69980ba995e38c78">&#9670;&#160;</a></span>SYS_WARNING</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SYS_WARNING&#160;&#160;&#160;0x1u</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00148">148</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="ab898071398b359603a35c202e9c65f3b" name="ab898071398b359603a35c202e9c65f3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab898071398b359603a35c202e9c65f3b">&#9670;&#160;</a></span>__attribute__()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct __attribute__ </td>
-          <td>(</td>
-          <td class="paramtype">(packed)</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00001">1</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-<a id="a9f28a641641de8e783815ab1fa92549f" name="a9f28a641641de8e783815ab1fa92549f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f28a641641de8e783815ab1fa92549f">&#9670;&#160;</a></span>RTOS_setup()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void RTOS_setup </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8c_source.html#l00286">286</a> of file <a class="el" href="System_8c_source.html">System.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="System_8h_a9f28a641641de8e783815ab1fa92549f_icgraph.png" border="0" usemap="#aSystem_8h_a9f28a641641de8e783815ab1fa92549f_icgraph" loading="lazy" alt=""/></div>
-<map name="aSystem_8h_a9f28a641641de8e783815ab1fa92549f_icgraph" id="aSystem_8h_a9f28a641641de8e783815ab1fa92549f_icgraph">
-<area shape="rect" title=" " alt="" coords="108,5,206,33"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,94,18"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ac3f6c7e9a568f4528304150a6f59736b" name="ac3f6c7e9a568f4528304150a6f59736b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3f6c7e9a568f4528304150a6f59736b">&#9670;&#160;</a></span>SEGGER_setup()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void SEGGER_setup </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8c_source.html#l00279">279</a> of file <a class="el" href="System_8c_source.html">System.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="System_8h_ac3f6c7e9a568f4528304150a6f59736b_icgraph.png" border="0" usemap="#aSystem_8h_ac3f6c7e9a568f4528304150a6f59736b_icgraph" loading="lazy" alt=""/></div>
-<map name="aSystem_8h_ac3f6c7e9a568f4528304150a6f59736b_icgraph" id="aSystem_8h_ac3f6c7e9a568f4528304150a6f59736b_icgraph">
-<area shape="rect" title=" " alt="" coords="108,5,225,33"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="90,20,60,22,60,17,95,18"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ae436954cd2bde6634ab271317d2494a7" name="ae436954cd2bde6634ab271317d2494a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae436954cd2bde6634ab271317d2494a7">&#9670;&#160;</a></span>System_setup()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void System_setup </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8c_source.html#l00112">112</a> of file <a class="el" href="System_8c_source.html">System.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="System_8h_ae436954cd2bde6634ab271317d2494a7_cgraph.png" border="0" usemap="#aSystem_8h_ae436954cd2bde6634ab271317d2494a7_cgraph" loading="lazy" alt=""/></div>
-<map name="aSystem_8h_ae436954cd2bde6634ab271317d2494a7_cgraph" id="aSystem_8h_ae436954cd2bde6634ab271317d2494a7_cgraph">
-<area shape="rect" title=" " alt="" coords="5,523,119,551"/>
-<area shape="rect" href="BUZ__program_8c.html#aee43f9ae5f162980c0e95c9a96694e4a" title="Initialize the buzzer pin." alt="" coords="235,217,312,244"/>
-<area shape="poly" title=" " alt="" coords="61,523,67,472,83,400,96,361,114,322,137,286,165,255,190,239,221,232,218,236,193,244,168,259,141,290,119,325,101,363,88,401,73,473,67,523"/>
-<area shape="rect" href="BUZ__program_8c.html#a6ea5cda725dca71e4c638f57f43eecd7" title="Turn off the buzzer." alt="" coords="487,169,562,196"/>
-<area shape="poly" title=" " alt="" coords="60,523,61,462,73,374,85,327,104,280,130,238,165,203,201,181,240,165,282,156,324,152,405,156,475,168,470,171,405,161,324,158,283,162,242,171,203,185,168,207,135,242,109,283,90,328,78,375,66,463,65,523"/>
-<area shape="rect" href="GPIO__prog_8c.html#a2a5e7c89bc6bb7103d96334a8481ea9b" title=" " alt="" coords="456,266,594,294"/>
-<area shape="poly" title=" " alt="" coords="65,522,76,488,96,443,126,396,144,375,165,356,269,329,442,294,439,298,270,335,168,361,148,378,130,399,101,445,81,490,70,523"/>
-<area shape="rect" href="BUZ__program_8c.html#ab7f7f6ad4821bcc1ce356a6912597511" title="Turn on the buzzer." alt="" coords="488,117,562,144"/>
-<area shape="poly" title=" " alt="" coords="62,522,74,446,94,336,109,280,125,228,144,187,165,159,200,136,239,119,281,109,323,105,405,106,475,117,470,120,405,111,324,110,282,115,241,124,203,140,168,163,148,189,130,230,114,281,100,337,79,447,68,523"/>
-<area shape="rect" href="DSRC_8c.html#adad268979d4c4038075346292651c8af" title=" " alt="" coords="231,726,316,754"/>
-<area shape="poly" title=" " alt="" coords="68,549,83,583,103,625,132,668,168,706,191,719,218,730,213,732,189,724,165,710,128,672,99,627,78,585,68,554"/>
-<area shape="rect" href="LED__prog_8c.html#a332224917c43c9232229ad1d349501e4" title=" " alt="" coords="237,269,311,296"/>
-<area shape="poly" title=" " alt="" coords="63,522,73,481,91,425,121,365,141,337,165,312,191,296,223,287,220,291,194,301,168,317,145,340,126,367,96,427,78,482,68,523"/>
-<area shape="rect" href="LED__prog_8c.html#ab3011d692cf858177af7261a76b1a654" title=" " alt="" coords="475,13,574,40"/>
-<area shape="poly" title=" " alt="" coords="62,523,70,430,88,291,102,219,119,154,140,100,152,80,165,65,198,41,234,24,273,12,313,6,392,4,462,12,458,15,392,9,314,11,274,18,236,29,200,45,168,68,156,83,145,103,124,155,107,220,94,292,75,430,67,523"/>
-<area shape="rect" href="LED__prog_8c.html#aa4c69b1b0028cbaebddb177443aa022a" title=" " alt="" coords="476,65,574,92"/>
-<area shape="poly" title=" " alt="" coords="62,523,72,438,91,314,105,250,122,192,142,144,165,113,198,89,235,73,274,62,314,56,393,55,462,64,458,66,392,60,314,61,275,67,237,78,201,94,169,116,146,147,127,193,110,251,97,315,77,439,67,523"/>
-<area shape="rect" href="MPU9250__program_8c.html#ae6d18356fb8c1619afbb6021d986abea" title="Boot&#45;time hard&#45;iron calibration. Rotate the vehicle ~360° during the window (length = MPU9250_MAGCAL_..." alt="" coords="167,370,381,398"/>
-<area shape="poly" title=" " alt="" coords="69,522,106,469,134,439,165,414,192,401,188,406,168,418,137,443,111,472,74,524"/>
-<area shape="rect" href="TIM__program_8c.html#a06dd9df822ed8f4c5635901b770230ea" title=" " alt="" coords="466,370,583,398"/>
-<area shape="poly" title=" " alt="" coords="76,521,115,489,166,457,281,429,452,396,449,399,283,434,168,462,118,493,80,524"/>
-<area shape="rect" href="MPU9250__program_8c.html#a152f5e09dbda831d60bc3d5241d714ad" title="Initializes the MPU9250 sensor and its internal I2C master." alt="" coords="200,471,348,499"/>
-<area shape="poly" title=" " alt="" coords="117,521,201,501,198,505,121,525"/>
-<area shape="rect" href="NVIC__program_8c.html#a85d98abbd23523e4abf16cc4b4501431" title="Enable an IRQ number in the NVIC." alt="" coords="457,627,592,655"/>
-<area shape="poly" title=" " alt="" coords="118,549,167,560,444,622,440,626,166,565,120,553"/>
-<area shape="rect" href="NVIC__program_8c.html#adacfc2d410ead15ca25830190e615000" title="Set priority for an IRQ number in the NVIC." alt="" coords="456,679,593,707"/>
-<area shape="poly" title=" " alt="" coords="77,549,117,582,168,613,218,630,289,648,443,678,439,681,288,653,216,635,166,618,114,586,78,554"/>
-<area shape="rect" href="RCC__program_8c.html#adcf07c53ca16c6ccd1af607d3173b2dc" title=" " alt="" coords="194,778,354,806"/>
-<area shape="poly" title=" " alt="" coords="65,549,77,593,95,651,125,711,145,739,168,763,183,774,178,775,165,767,141,743,120,714,90,653,72,594,65,554"/>
-<area shape="rect" href="RCC__program_8c.html#a64dea321b9d4592b409225e2b55fef5c" title=" " alt="" coords="194,830,354,858"/>
-<area shape="poly" title=" " alt="" coords="64,549,73,601,88,673,101,712,119,750,141,785,168,815,182,826,177,827,165,819,137,788,114,752,96,714,83,674,67,602,64,554"/>
-<area shape="rect" href="RCC__program_8c.html#a4e5060e0774aa417bf2dbf5aad8904eb" title=" " alt="" coords="195,882,352,910"/>
-<area shape="poly" title=" " alt="" coords="63,549,69,610,82,695,95,742,113,788,137,830,168,867,184,879,179,880,165,871,133,833,108,790,90,744,77,696,63,611,63,554"/>
-<area shape="rect" href="TIM__program_8c.html#a2db8aa14e44d1d1571d455542d2269f0" title=" " alt="" coords="233,934,314,962"/>
-<area shape="poly" title=" " alt="" coords="65,549,80,628,101,739,131,849,149,891,169,919,191,934,220,944,215,946,189,939,165,923,145,894,126,850,96,740,74,629,65,554"/>
-<area shape="rect" href="TIM__program_8c.html#a2bd184de6083fb2ccf17231557037835" title=" " alt="" coords="479,731,570,759"/>
-<area shape="poly" title=" " alt="" coords="70,549,108,609,135,641,168,668,197,684,222,694,269,702,319,704,381,712,466,731,461,733,381,717,319,709,269,707,221,699,195,689,165,673,131,645,103,612,70,554"/>
-<area shape="rect" href="US__prog_8c.html#a29b879f76d665878390dd6161d1eea84" title=" " alt="" coords="236,523,312,551"/>
-<area shape="poly" title=" " alt="" coords="118,535,222,535,219,539,120,539"/>
-<area shape="rect" href="USART__program_8c.html#a98f967289c40eacb31068b3becfff84f" title=" " alt="" coords="227,986,320,1014"/>
-<area shape="poly" title=" " alt="" coords="65,549,78,637,98,764,112,830,128,890,147,939,169,971,189,985,214,996,209,996,186,990,165,975,143,941,123,891,107,831,93,765,72,638,65,554"/>
-<area shape="rect" href="USART__program_8c.html#ad840a14bcc70c1f552f2864ea2443c55" title=" " alt="" coords="221,1038,326,1066"/>
-<area shape="poly" title=" " alt="" coords="65,549,76,646,95,788,108,863,125,931,145,986,169,1023,186,1036,209,1047,204,1047,184,1041,165,1027,140,989,120,932,103,864,89,789,70,646,64,554"/>
-<area shape="poly" title=" " alt="" coords="311,221,474,191,470,194,314,225"/>
-<area shape="poly" title=" " alt="" coords="312,235,443,262,438,265,314,240"/>
-<area shape="rect" href="GPIO__prog_8c.html#ab8efebd278bcf731012c238a3f69fb5c" title=" " alt="" coords="668,91,841,119"/>
-<area shape="poly" title=" " alt="" coords="561,171,619,153,706,124,702,127,621,158,565,175"/>
-<area shape="poly" title=" " alt="" coords="561,124,655,115,650,118,564,129"/>
-<area shape="poly" title=" " alt="" coords="310,280,442,279,438,282,312,284"/>
-<area shape="poly" title=" " alt="" coords="574,37,621,51,708,84,703,86,619,56,576,42"/>
-<area shape="poly" title=" " alt="" coords="573,82,655,92,651,95,575,87"/>
-<area shape="rect" href="MPU9250__program_8c.html#a022452767b3c6ead71407af8db33696f" title="Reads all sensor data (Accel, Gyro, Mag, Temp) in a single burst." alt="" coords="429,318,620,346"/>
-<area shape="poly" title=" " alt="" coords="343,367,441,348,437,351,346,372"/>
-<area shape="poly" title=" " alt="" coords="380,381,452,382,448,385,383,386"/>
-<area shape="rect" href="SPI__program_8c.html#a09703b6224fb5ab17478e4f7e309e734" title="Perform full&#45;duplex SPI transaction (transmit and receive)." alt="" coords="681,395,828,423"/>
-<area shape="poly" title=" " alt="" coords="579,344,621,356,706,388,701,390,619,361,581,349"/>
-<area shape="poly" title=" " alt="" coords="301,469,341,443,379,407,394,380,400,355,407,330,427,305,443,296,440,300,431,308,412,332,405,356,399,382,383,411,344,447,304,473"/>
-<area shape="poly" title=" " alt="" coords="347,484,476,479,549,471,620,459,666,445,712,428,708,431,668,450,621,464,549,476,476,484,350,489"/>
-<area shape="poly" title=" " alt="" coords="337,469,380,451,394,441,403,430,413,419,428,408,453,399,449,402,430,413,416,423,407,433,397,444,382,455,341,473"/>
-<area shape="rect" href="SPI__program_8c.html#a4b6f9d4ba67bb037ab88265f09945a33" title="Initialize the SPI peripheral with the provided configuration." alt="" coords="472,422,578,450"/>
-<area shape="poly" title=" " alt="" coords="347,468,458,447,454,451,349,473"/>
-<area shape="poly" title=" " alt="" coords="310,535,347,527,364,520,379,509,397,484,404,460,405,435,403,409,400,383,401,357,409,331,427,305,443,294,440,298,431,308,414,333,406,358,405,383,408,409,411,434,410,461,402,487,383,512,367,524,349,532,313,539"/>
-<area shape="poly" title=" " alt="" coords="311,541,347,551,382,567,397,578,407,590,416,601,430,612,445,621,440,622,428,617,412,605,403,594,394,582,380,571,346,556,313,546"/>
-<area shape="poly" title=" " alt="" coords="295,549,383,618,406,643,416,654,430,664,445,673,440,674,428,669,412,658,402,647,379,622,295,554"/>
-<area shape="poly" title=" " alt="" coords="287,549,365,644,406,691,431,716,467,734,461,735,427,721,402,695,361,648,286,554"/>
-<area shape="rect" href="TIM__program_8c.html#a8e1065f213120676872fdbbd5ccfd37a" title=" " alt="" coords="474,523,575,551"/>
-<area shape="poly" title=" " alt="" coords="311,535,461,536,456,539,313,540"/>
-<area shape="rect" href="TIM__program_8c.html#a3a4b086e0c4a0656e57a585ec35734d3" title=" " alt="" coords="447,575,602,603"/>
-<area shape="poly" title=" " alt="" coords="311,542,441,570,437,573,312,547"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="System_8h_ae436954cd2bde6634ab271317d2494a7_icgraph.png" border="0" usemap="#aSystem_8h_ae436954cd2bde6634ab271317d2494a7_icgraph" loading="lazy" alt=""/></div>
-<map name="aSystem_8h_ae436954cd2bde6634ab271317d2494a7_icgraph" id="aSystem_8h_ae436954cd2bde6634ab271317d2494a7_icgraph">
-<area shape="rect" title=" " alt="" coords="108,5,221,33"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,95,18"/>
-</map>
-</div>
-
-</div>
-</div>
-<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
-<a id="abfc8237214cfd1267c607aaff66a96da" name="abfc8237214cfd1267c607aaff66a96da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abfc8237214cfd1267c607aaff66a96da">&#9670;&#160;</a></span>BackL_LED</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structLED__Config__t.html">LED_Config_t</a> BackL_LED</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00207">207</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-<a id="ae41df9dd37d7c4d27b829fd46cd1e5e3" name="ae41df9dd37d7c4d27b829fd46cd1e5e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae41df9dd37d7c4d27b829fd46cd1e5e3">&#9670;&#160;</a></span>BackR_LED</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structLED__Config__t.html">LED_Config_t</a> BackR_LED</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00207">207</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-<a id="a2ab79e3f6235026ef8d29a9446511f48" name="a2ab79e3f6235026ef8d29a9446511f48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ab79e3f6235026ef8d29a9446511f48">&#9670;&#160;</a></span>FrontL_LED</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structLED__Config__t.html">LED_Config_t</a> FrontL_LED</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00207">207</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-<a id="af1fb4a43ba68d1fdc94fd35a7d901cd4" name="af1fb4a43ba68d1fdc94fd35a7d901cd4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1fb4a43ba68d1fdc94fd35a7d901cd4">&#9670;&#160;</a></span>FrontR_LED</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structLED__Config__t.html">LED_Config_t</a> FrontR_LED</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8c_source.html#l00049">49</a> of file <a class="el" href="System_8c_source.html">System.c</a>.</p>
-
-</div>
-</div>
-<a id="ac3116f56a230ebdd81cadd527921464c" name="ac3116f56a230ebdd81cadd527921464c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3116f56a230ebdd81cadd527921464c">&#9670;&#160;</a></span>G_stHostVehicleState</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structHostVehicleState__t.html">HostVehicleState_t</a> G_stHostVehicleState</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8c_source.html#l00035">35</a> of file <a class="el" href="System_8c_source.html">System.c</a>.</p>
-
-</div>
-</div>
-<a id="a9e78367aa5b758af972838362c2b0eab" name="a9e78367aa5b758af972838362c2b0eab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e78367aa5b758af972838362c2b0eab">&#9670;&#160;</a></span>G_u16SystemFlags</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint16_t G_u16SystemFlags</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8c_source.html#l00034">34</a> of file <a class="el" href="System_8c_source.html">System.c</a>.</p>
-
-</div>
-</div>
-<a id="a10d54e2c66effa6800db6f78aaec485c" name="a10d54e2c66effa6800db6f78aaec485c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10d54e2c66effa6800db6f78aaec485c">&#9670;&#160;</a></span>Host_DistToIntersection</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float Host_DistToIntersection</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8c_source.html#l00043">43</a> of file <a class="el" href="System_8c_source.html">System.c</a>.</p>
-
-</div>
-</div>
-<a id="aa7037844a95faca4f50aae714fe5048a" name="aa7037844a95faca4f50aae714fe5048a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa7037844a95faca4f50aae714fe5048a">&#9670;&#160;</a></span>Interior_LED</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structLED__Config__t.html">LED_Config_t</a> Interior_LED</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00207">207</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-<a id="a49cc648a30989079385c3b1cbf224789" name="a49cc648a30989079385c3b1cbf224789"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49cc648a30989079385c3b1cbf224789">&#9670;&#160;</a></span>RPi_Packet_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">RPi_Packet_t</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00192">192</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-</div><!-- contents -->
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>
@@ -748,7 +292,7 @@ Here is the caller graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_f93dfce691d792349f1c14ede440e2e6.html">Inc</a></li><li class="navelem"><a href="dir_5ef29a86f9da49496371e3264393e3d7.html">System</a></li><li class="navelem"><a href="System_8h.html">System.h</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Inc</b></li><li class="navelem"><b>System</b></li><li class="navelem"><a href="System_8h.html">System.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

@@ -1,5 +1,10 @@
-\doxysection{Src/\+\+FCW\+\_\+\+DNPW\+\_\+program.c File Reference}
-\hypertarget{FCW__DNPW__program_8c}{}\label{FCW__DNPW__program_8c}\index{Src/FCW\_DNPW\_program.c@{Src/FCW\_DNPW\_program.c}}
+\doxysection{V2\+V-\/\+STM32/\+\+Src/\+\+FCW\+\_\+\+DNPW\+\_\+program.c File Reference}
+\hypertarget{FCW__DNPW__program_8c}{}\label{FCW__DNPW__program_8c}\index{V2V-\/STM32/Src/FCW\_DNPW\_program.c@{V2V-\/STM32/Src/FCW\_DNPW\_program.c}}
+
+
+Implementation of the FCW/\+\+DNPW driver — Forward Collision Warning and Do-\/\+Not-\/\+Pass Warning.  
+
+
 {\ttfamily \+\#include "{}../\+\+Inc/\+\+Application/\+\+FCW\+\_\+\+DNPW/\+\+FCW\+\_\+\+DNPW\+\_\+interface.\+h"{}}\newline
 {\ttfamily \+\#include "{}../\+\+Inc/\+\+Application/\+\+FCW\+\_\+\+DNPW/\+\+FCW\+\_\+\+DNPW\+\_\+config.\+h"{}}\newline
 {\ttfamily \+\#include "{}../\+\+Inc/\+\+Application/\+\+FCW\+\_\+\+DNPW/\+\+FCW\+\_\+\+DNPW\+\_\+private.\+h"{}}\newline
@@ -20,11 +25,11 @@ Include dependency graph for FCW\+\_\+\+DNPW\+\_\+program.\+c:\+
 void \doxymbox{\hyperlink{FCW__DNPW__program_8c_a3e8b7f3192f0f7284e9b4b5811019225}{FCW\+\_\+\+DNPW\+\_\+void\+Init}} (void)
 \begin{DoxyCompactList}\small\item\em Initialize the FCW/\+\+DNPW module. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{FCW__DNPW__program_8c_add7c6969ea4668acaa5a1684c9d2b8a6}{FCW\+\_\+\+DNPW\+\_\+void\+Begin\+Cycle}} (float front\+\_\+distance, float front\+\_\+left\+\_\+distance)
-\begin{DoxyCompactList}\small\item\em Start a new cycle:\+ latch the front distances and reset the signals. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Begin a cycle:\+ latch the front distances and reset the signals. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{FCW__DNPW__program_8c_a39ed4f5fd853ab1d88dcfc504f67b057}{FCW\+\_\+\+DNPW\+\_\+void\+Process\+Same\+Direction}} (void)
-\begin{DoxyCompactList}\small\item\em A same-\/direction neighbor confirms the object ahead is a vehicle, so the latched front-\/distance severity becomes a real front-\/collision flag. The severity is the same for every same-\/direction neighbor (it depends only on the front distance), so a plain assignment is enough. \end{DoxyCompactList}\item 
-void \doxymbox{\hyperlink{FCW__DNPW__program_8c_ae4036f8bfcac20167bbb36b1c2b168e9}{FCW\+\_\+\+DNPW\+\_\+void\+Process\+Opposite\+Direction}} (const \doxymbox{\hyperlink{DSRC_8h_ac818f2e1224a1e513913a85019953e14}{Neighbor}} \texorpdfstring{$\ast$}{*}n)
-\begin{DoxyCompactList}\small\item\em An oncoming neighbor exists. With an object ahead, that makes a head-\/on candidate (broadcast for confirmation). Whether the oncoming car raised its own head-\/on flag splits the case:\+ \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Feed one same-\/direction neighbor (confirms a vehicle is ahead). \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{FCW__DNPW__program_8c_ae4036f8bfcac20167bbb36b1c2b168e9}{FCW\+\_\+\+DNPW\+\_\+void\+Process\+Opposite\+Direction}} (const \doxymbox{\hyperlink{structNeighbor}{Neighbor}} \texorpdfstring{$\ast$}{*}n)
+\begin{DoxyCompactList}\small\item\em Feed one opposite-\/direction neighbor (records it and its head-\/on flag). \end{DoxyCompactList}\item 
 uint8\+\_\+t \doxymbox{\hyperlink{FCW__DNPW__program_8c_a724d10fbe6405476d140c3f113e787de}{FCW\+\_\+\+Get\+Front\+Flag}} (void)
 \begin{DoxyCompactList}\small\item\em Forward collision, same lane. \end{DoxyCompactList}\item 
 uint8\+\_\+t \doxymbox{\hyperlink{FCW__DNPW__program_8c_a2a96028174e72e3bc92ab13f333d4e6c}{FCW\+\_\+\+Get\+Headon\+Flag}} (void)
@@ -33,69 +38,44 @@ uint8\+\_\+t \doxymbox{\hyperlink{FCW__DNPW__program_8c_a0eb1ff382b2898d1d05b62f
 \begin{DoxyCompactList}\small\item\em Confirmed head-\/on collision. \end{DoxyCompactList}\item 
 uint8\+\_\+t \doxymbox{\hyperlink{FCW__DNPW__program_8c_a0c6c9a2cd9113721e4d3fa8221ffaef9}{DNPW\+\_\+\+Get\+Flag}} (void)
 \begin{DoxyCompactList}\small\item\em Do-\/not-\/pass (oncoming in another lane). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static uint8\+\_\+t \doxymbox{\hyperlink{FCW__DNPW__program_8c_abae69438c3855add2f720ba78ebaf6c6}{FCW\+\_\+\+DNPW\+\_\+\+Fcw\+Object}}
+\begin{DoxyCompactList}\small\item\em Is something inside the wider FCW front gate, \doxylink{FCW__DNPW__config_8h_a62efb4f170f9fe499586d377133fa412}{FCW\+\_\+\+FRONT\+\_\+\+THRESHOLD}? \end{DoxyCompactList}\item 
+static uint8\+\_\+t \doxymbox{\hyperlink{FCW__DNPW__program_8c_a481a3bcf1205909bc9e5cf8b8b7cbd12}{FCW\+\_\+\+DNPW\+\_\+\+Front\+Object}}
+\begin{DoxyCompactList}\small\item\em Is something inside the tighter DNPW /\+ head-\/on front gate, \doxylink{FCW__DNPW__config_8h_a1f9edf3bbe77d932d8881a76d853ee6d}{DNPW\+\_\+\+FRONT\+\_\+\+THRESHOLD}? \end{DoxyCompactList}\item 
+static uint8\+\_\+t \doxymbox{\hyperlink{FCW__DNPW__program_8c_a5c674f2520cc5e2c3fa0b907cee8833f}{FCW\+\_\+\+DNPW\+\_\+\+Front\+Left\+Near}}
+\begin{DoxyCompactList}\small\item\em Is a car alongside us on the overtaking (left) side? \end{DoxyCompactList}\item 
+static \doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} \doxymbox{\hyperlink{FCW__DNPW__program_8c_a4ff6ffd2aec06ddd250b0d1247da26b1}{FCW\+\_\+\+DNPW\+\_\+\+Front\+Severity}}
+\begin{DoxyCompactList}\small\item\em Severity for a same-\/direction vehicle ahead, latched for this cycle. \end{DoxyCompactList}\item 
+static \doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} \doxymbox{\hyperlink{FCW__DNPW__program_8c_a4d96357f4ee2899a2f18f9bdc3c9a443}{FCW\+\_\+\+DNPW\+\_\+\+Headon\+Severity}}
+\begin{DoxyCompactList}\small\item\em Severity for a head-\/on encounter. \end{DoxyCompactList}\item 
+static \doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} \doxymbox{\hyperlink{FCW__DNPW__program_8c_a2d56e15e0504fef8fd3ab61b5a246186}{FCW\+\_\+\+DNPW\+\_\+\+Front\+Flag}}
+\begin{DoxyCompactList}\small\item\em Result:\+ forward-\/collision risk in our own lane. \end{DoxyCompactList}\item 
+static uint8\+\_\+t \doxymbox{\hyperlink{FCW__DNPW__program_8c_aa6b13e4c5fb5a01ece5cc137d69631ca}{FCW\+\_\+\+DNPW\+\_\+\+Headon\+Flag}}
+\begin{DoxyCompactList}\small\item\em Result:\+ head-\/on candidate, broadcast to the other car as \doxylink{structNeighbor_a96546ab95ad4529f151b6bd6d0dbf25b}{Neighbor::\+fcw\+\_\+headon\+\_\+flag} so it can confirm from its own side. \end{DoxyCompactList}\item 
+static uint8\+\_\+t \doxymbox{\hyperlink{FCW__DNPW__program_8c_ad6c9a97d12eb3e337a414b5c845d68df}{FCW\+\_\+\+DNPW\+\_\+\+Headon\+Confirmed}}
+\begin{DoxyCompactList}\small\item\em Result:\+ a head-\/on that {\bfseries{both}} cars independently flagged — our own geometry agrees with the neighbor\textquotesingle{}s broadcast \doxylink{structNeighbor_a96546ab95ad4529f151b6bd6d0dbf25b}{Neighbor::\+fcw\+\_\+headon\+\_\+flag}. \end{DoxyCompactList}\item 
+static \doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} \doxymbox{\hyperlink{FCW__DNPW__program_8c_a3b16cca55686a877ca52179e5e27c7c2}{FCW\+\_\+\+DNPW\+\_\+\+Dnpw\+Flag}}
+\begin{DoxyCompactList}\small\item\em Result:\+ do-\/not-\/pass severity — an oncoming car in another lane makes overtaking unsafe. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of the FCW/\+\+DNPW driver — Forward Collision Warning and Do-\/\+Not-\/\+Pass Warning. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+
 
 
 \label{doc-func-members}
 \Hypertarget{FCW__DNPW__program_8c_doc-func-members}
 \doxysubsection{Function Documentation}
-\Hypertarget{FCW__DNPW__program_8c_a0c6c9a2cd9113721e4d3fa8221ffaef9}\index{FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}!DNPW\_GetFlag@{DNPW\_GetFlag}}
-\index{DNPW\_GetFlag@{DNPW\_GetFlag}!FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}}
-\doxysubsubsection{\texorpdfstring{DNPW\_GetFlag()}{DNPW\_GetFlag()}}
-{\footnotesize\ttfamily \label{FCW__DNPW__program_8c_a0c6c9a2cd9113721e4d3fa8221ffaef9} 
-uint8\+\_\+t DNPW\+\_\+\+Get\+Flag (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
-
-
-
-Do-\/not-\/pass (oncoming in another lane). 
-
-Do-\/\+Not-\/\+Pass flag (candidate but the oncoming car is in another lane). Graded:\+ WARNING by default, CRITICAL when the front-\/right sensor reads a near object (a car alongside on the overtaking side).
-
-\begin{DoxyReturn}{Returns}
-0=Safe, 1=Warning, 2=Critical 
-\end{DoxyReturn}
-
-
-Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00177}{177}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
-
-Here is the caller graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{FCW__DNPW__program_8c_a0c6c9a2cd9113721e4d3fa8221ffaef9_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{FCW__DNPW__program_8c_add7c6969ea4668acaa5a1684c9d2b8a6}\index{FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}!FCW\_DNPW\_voidBeginCycle@{FCW\_DNPW\_voidBeginCycle}}
-\index{FCW\_DNPW\_voidBeginCycle@{FCW\_DNPW\_voidBeginCycle}!FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}}
-\doxysubsubsection{\texorpdfstring{FCW\_DNPW\_voidBeginCycle()}{FCW\_DNPW\_voidBeginCycle()}}
-{\footnotesize\ttfamily \label{FCW__DNPW__program_8c_add7c6969ea4668acaa5a1684c9d2b8a6} 
-void FCW\+\_\+\+DNPW\+\_\+void\+Begin\+Cycle (\begin{DoxyParamCaption}\item[{float}]{front\+\_\+distance}{, }\item[{float}]{front\+\_\+left\+\_\+distance}{}\end{DoxyParamCaption})}
-
-
-
-Start a new cycle:\+ latch the front distances and reset the signals. 
-
-Begin a cycle:\+ latch the front distances and reset the signals. The Safety\+Engine sets the cycle safe/\+critical gaps beforehand.
-
-
-\begin{DoxyParams}{Parameters}
-{\em front\+\_\+distance} & Front-\/center ultrasonic distance (cm) \\
-\hline
-{\em front\+\_\+left\+\_\+distance} & Front-\/left ultrasonic distance (cm) \\
-\hline
-\end{DoxyParams}
-
-
-Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00081}{81}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
-
-Here is the caller graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{FCW__DNPW__program_8c_add7c6969ea4668acaa5a1684c9d2b8a6_icgraph}
-\end{center}
-\end{figure}
 \Hypertarget{FCW__DNPW__program_8c_a3e8b7f3192f0f7284e9b4b5811019225}\index{FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}!FCW\_DNPW\_voidInit@{FCW\_DNPW\_voidInit}}
 \index{FCW\_DNPW\_voidInit@{FCW\_DNPW\_voidInit}!FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}}
 \doxysubsubsection{\texorpdfstring{FCW\_DNPW\_voidInit()}{FCW\_DNPW\_voidInit()}}
@@ -108,7 +88,15 @@ Initialize the FCW/\+\+DNPW module.
 
 
 
-Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00059}{59}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00069}{69}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00066}{FCW\+\_\+\+DNPW\+\_\+\+Dnpw\+Flag}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00044}{FCW\+\_\+\+DNPW\+\_\+\+Fcw\+Object}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00060}{FCW\+\_\+\+DNPW\+\_\+\+Front\+Flag}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00048}{FCW\+\_\+\+DNPW\+\_\+\+Front\+Left\+Near}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00046}{FCW\+\_\+\+DNPW\+\_\+\+Front\+Object}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00050}{FCW\+\_\+\+DNPW\+\_\+\+Front\+Severity}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00064}{FCW\+\_\+\+DNPW\+\_\+\+Headon\+Confirmed}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00062}{FCW\+\_\+\+DNPW\+\_\+\+Headon\+Flag}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00057}{FCW\+\_\+\+DNPW\+\_\+\+Headon\+Severity}}, and \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00060}{RISK\+\_\+\+SAFE}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00033}{Safety\+Engine\+\_\+void\+Init()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
@@ -118,37 +106,41 @@ Here is the caller graph for this function:\+
 \includegraphics[width=350pt]{FCW__DNPW__program_8c_a3e8b7f3192f0f7284e9b4b5811019225_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{FCW__DNPW__program_8c_ae4036f8bfcac20167bbb36b1c2b168e9}\index{FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}!FCW\_DNPW\_voidProcessOppositeDirection@{FCW\_DNPW\_voidProcessOppositeDirection}}
-\index{FCW\_DNPW\_voidProcessOppositeDirection@{FCW\_DNPW\_voidProcessOppositeDirection}!FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}}
-\doxysubsubsection{\texorpdfstring{FCW\_DNPW\_voidProcessOppositeDirection()}{FCW\_DNPW\_voidProcessOppositeDirection()}}
-{\footnotesize\ttfamily \label{FCW__DNPW__program_8c_ae4036f8bfcac20167bbb36b1c2b168e9} 
-void FCW\+\_\+\+DNPW\+\_\+void\+Process\+Opposite\+Direction (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{DSRC_8h_ac818f2e1224a1e513913a85019953e14}{Neighbor}} \texorpdfstring{$\ast$}{*}}]{n}{}\end{DoxyParamCaption})}
+\Hypertarget{FCW__DNPW__program_8c_add7c6969ea4668acaa5a1684c9d2b8a6}\index{FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}!FCW\_DNPW\_voidBeginCycle@{FCW\_DNPW\_voidBeginCycle}}
+\index{FCW\_DNPW\_voidBeginCycle@{FCW\_DNPW\_voidBeginCycle}!FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}}
+\doxysubsubsection{\texorpdfstring{FCW\_DNPW\_voidBeginCycle()}{FCW\_DNPW\_voidBeginCycle()}}
+{\footnotesize\ttfamily \label{FCW__DNPW__program_8c_add7c6969ea4668acaa5a1684c9d2b8a6} 
+void FCW\+\_\+\+DNPW\+\_\+void\+Begin\+Cycle (\begin{DoxyParamCaption}\item[{float}]{front\+\_\+distance}{, }\item[{float}]{front\+\_\+left\+\_\+distance}{}\end{DoxyParamCaption})}
 
 
 
-An oncoming neighbor exists. With an object ahead, that makes a head-\/on candidate (broadcast for confirmation). Whether the oncoming car raised its own head-\/on flag splits the case:\+ 
+Begin a cycle:\+ latch the front distances and reset the signals. 
 
-Feed one opposite-\/direction neighbor (records it and its head-\/on flag).
-
-
-\begin{DoxyItemize}
-\item it did → both face the same obstacle:\+ confirmed head-\/on (severity).
-\item it did not → it is in another lane:\+ a do-\/not-\/pass /\+ overtaking risk. All three results are settled here, ready for the getters to return. 
+The Safety\+Engine sets the cycle safe/\+critical gaps beforehand. 
 \begin{DoxyParams}{Parameters}
-{\em n} & Pointer to neighbor data \\
+{\em front\+\_\+distance} & Front-\/center ultrasonic distance (cm) \\
+\hline
+{\em front\+\_\+left\+\_\+distance} & Front-\/left ultrasonic distance (cm), used to escalate DNPW to CRITICAL when the oncoming car is alongside on the overtaking (left) side \\
 \hline
 \end{DoxyParams}
 
-\end{DoxyItemize}
 
-Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00140}{140}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00091}{91}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{FCW__DNPW__config_8h_source_l00046}{DNPW\+\_\+\+FRONT\+\_\+\+LEFT\+\_\+\+CRITICAL}}, \doxymbox{\hyperlink{FCW__DNPW__config_8h_source_l00036}{DNPW\+\_\+\+FRONT\+\_\+\+THRESHOLD}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00066}{FCW\+\_\+\+DNPW\+\_\+\+Dnpw\+Flag}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00044}{FCW\+\_\+\+DNPW\+\_\+\+Fcw\+Object}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00060}{FCW\+\_\+\+DNPW\+\_\+\+Front\+Flag}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00048}{FCW\+\_\+\+DNPW\+\_\+\+Front\+Left\+Near}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00046}{FCW\+\_\+\+DNPW\+\_\+\+Front\+Object}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00050}{FCW\+\_\+\+DNPW\+\_\+\+Front\+Severity}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00064}{FCW\+\_\+\+DNPW\+\_\+\+Headon\+Confirmed}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00062}{FCW\+\_\+\+DNPW\+\_\+\+Headon\+Flag}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00057}{FCW\+\_\+\+DNPW\+\_\+\+Headon\+Severity}}, \doxymbox{\hyperlink{FCW__DNPW__config_8h_source_l00035}{FCW\+\_\+\+FRONT\+\_\+\+THRESHOLD}}, \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00062}{RISK\+\_\+\+CRITICAL}}, \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00060}{RISK\+\_\+\+SAFE}}, \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00061}{RISK\+\_\+\+WARNING}}, \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00030}{Safety\+Engine\+\_\+\+Critical\+Dist}}, and \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00028}{Safety\+Engine\+\_\+\+Safe\+Dist}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{FCW__DNPW__program_8c_ae4036f8bfcac20167bbb36b1c2b168e9_icgraph}
+\includegraphics[width=350pt]{FCW__DNPW__program_8c_add7c6969ea4668acaa5a1684c9d2b8a6_icgraph}
 \end{center}
 \end{figure}
 \Hypertarget{FCW__DNPW__program_8c_a39ed4f5fd853ab1d88dcfc504f67b057}\index{FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}!FCW\_DNPW\_voidProcessSameDirection@{FCW\_DNPW\_voidProcessSameDirection}}
@@ -159,11 +151,19 @@ void FCW\+\_\+\+DNPW\+\_\+void\+Process\+Same\+Direction (\begin{DoxyParamCaptio
 
 
 
-A same-\/direction neighbor confirms the object ahead is a vehicle, so the latched front-\/distance severity becomes a real front-\/collision flag. The severity is the same for every same-\/direction neighbor (it depends only on the front distance), so a plain assignment is enough. 
-
 Feed one same-\/direction neighbor (confirms a vehicle is ahead). 
 
-Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00126}{126}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+
+
+Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00136}{136}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00060}{FCW\+\_\+\+DNPW\+\_\+\+Front\+Flag}}, and \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00050}{FCW\+\_\+\+DNPW\+\_\+\+Front\+Severity}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
@@ -171,6 +171,41 @@ Here is the caller graph for this function:\+
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{FCW__DNPW__program_8c_a39ed4f5fd853ab1d88dcfc504f67b057_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{FCW__DNPW__program_8c_ae4036f8bfcac20167bbb36b1c2b168e9}\index{FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}!FCW\_DNPW\_voidProcessOppositeDirection@{FCW\_DNPW\_voidProcessOppositeDirection}}
+\index{FCW\_DNPW\_voidProcessOppositeDirection@{FCW\_DNPW\_voidProcessOppositeDirection}!FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}}
+\doxysubsubsection{\texorpdfstring{FCW\_DNPW\_voidProcessOppositeDirection()}{FCW\_DNPW\_voidProcessOppositeDirection()}}
+{\footnotesize\ttfamily \label{FCW__DNPW__program_8c_ae4036f8bfcac20167bbb36b1c2b168e9} 
+void FCW\+\_\+\+DNPW\+\_\+void\+Process\+Opposite\+Direction (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structNeighbor}{Neighbor}} \texorpdfstring{$\ast$}{*}}]{n}{}\end{DoxyParamCaption})}
+
+
+
+Feed one opposite-\/direction neighbor (records it and its head-\/on flag). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & Pointer to neighbor data \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00150}{150}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00066}{FCW\+\_\+\+DNPW\+\_\+\+Dnpw\+Flag}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00048}{FCW\+\_\+\+DNPW\+\_\+\+Front\+Left\+Near}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00046}{FCW\+\_\+\+DNPW\+\_\+\+Front\+Object}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00064}{FCW\+\_\+\+DNPW\+\_\+\+Headon\+Confirmed}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00062}{FCW\+\_\+\+DNPW\+\_\+\+Headon\+Flag}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00057}{FCW\+\_\+\+DNPW\+\_\+\+Headon\+Severity}}, \doxymbox{\hyperlink{DSRC_8h_source_l00114}{Neighbor::\+fcw\+\_\+headon\+\_\+flag}}, \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00062}{RISK\+\_\+\+CRITICAL}}, \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00060}{RISK\+\_\+\+SAFE}}, and \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00061}{RISK\+\_\+\+WARNING}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{FCW__DNPW__program_8c_ae4036f8bfcac20167bbb36b1c2b168e9_icgraph}
 \end{center}
 \end{figure}
 \Hypertarget{FCW__DNPW__program_8c_a724d10fbe6405476d140c3f113e787de}\index{FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}!FCW\_GetFrontFlag@{FCW\_GetFrontFlag}}
@@ -183,14 +218,22 @@ uint8\+\_\+t FCW\+\_\+\+Get\+Front\+Flag (\begin{DoxyParamCaption}\item[{void}]{
 
 Forward collision, same lane. 
 
-Forward-\/collision flag (vehicle ahead, same lane). Local only.
+Forward-\/collision flag (vehicle ahead, same lane).
 
 \begin{DoxyReturn}{Returns}
 0=Safe, 1=Warning, 2=Critical 
 \end{DoxyReturn}
 
 
-Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00168}{168}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00178}{178}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00060}{FCW\+\_\+\+DNPW\+\_\+\+Front\+Flag}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
@@ -198,6 +241,41 @@ Here is the caller graph for this function:\+
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{FCW__DNPW__program_8c_a724d10fbe6405476d140c3f113e787de_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{FCW__DNPW__program_8c_a2a96028174e72e3bc92ab13f333d4e6c}\index{FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}!FCW\_GetHeadonFlag@{FCW\_GetHeadonFlag}}
+\index{FCW\_GetHeadonFlag@{FCW\_GetHeadonFlag}!FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}}
+\doxysubsubsection{\texorpdfstring{FCW\_GetHeadonFlag()}{FCW\_GetHeadonFlag()}}
+{\footnotesize\ttfamily \label{FCW__DNPW__program_8c_a2a96028174e72e3bc92ab13f333d4e6c} 
+uint8\+\_\+t FCW\+\_\+\+Get\+Headon\+Flag (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Head-\/on candidate, broadcast over DSRC. 
+
+Head-\/on candidate flag (vehicle ahead + oncoming vehicle).
+
+\begin{DoxyReturn}{Returns}
+0/\+1 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00181}{181}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00062}{FCW\+\_\+\+DNPW\+\_\+\+Headon\+Flag}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00387}{v\+Task\+\_\+\+ESP\+\_\+\+Comm()}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{FCW__DNPW__program_8c_a2a96028174e72e3bc92ab13f333d4e6c_icgraph}
 \end{center}
 \end{figure}
 \Hypertarget{FCW__DNPW__program_8c_a0eb1ff382b2898d1d05b62fdeaf96eee}\index{FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}!FCW\_GetHeadonConfirmed@{FCW\_GetHeadonConfirmed}}
@@ -217,7 +295,15 @@ Confirmed head-\/on collision (our candidate and the oncoming car\textquotesingl
 \end{DoxyReturn}
 
 
-Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00174}{174}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00184}{184}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00064}{FCW\+\_\+\+DNPW\+\_\+\+Headon\+Confirmed}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
@@ -227,30 +313,208 @@ Here is the caller graph for this function:\+
 \includegraphics[width=350pt]{FCW__DNPW__program_8c_a0eb1ff382b2898d1d05b62fdeaf96eee_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{FCW__DNPW__program_8c_a2a96028174e72e3bc92ab13f333d4e6c}\index{FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}!FCW\_GetHeadonFlag@{FCW\_GetHeadonFlag}}
-\index{FCW\_GetHeadonFlag@{FCW\_GetHeadonFlag}!FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}}
-\doxysubsubsection{\texorpdfstring{FCW\_GetHeadonFlag()}{FCW\_GetHeadonFlag()}}
-{\footnotesize\ttfamily \label{FCW__DNPW__program_8c_a2a96028174e72e3bc92ab13f333d4e6c} 
-uint8\+\_\+t FCW\+\_\+\+Get\+Headon\+Flag (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+\Hypertarget{FCW__DNPW__program_8c_a0c6c9a2cd9113721e4d3fa8221ffaef9}\index{FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}!DNPW\_GetFlag@{DNPW\_GetFlag}}
+\index{DNPW\_GetFlag@{DNPW\_GetFlag}!FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}}
+\doxysubsubsection{\texorpdfstring{DNPW\_GetFlag()}{DNPW\_GetFlag()}}
+{\footnotesize\ttfamily \label{FCW__DNPW__program_8c_a0c6c9a2cd9113721e4d3fa8221ffaef9} 
+uint8\+\_\+t DNPW\+\_\+\+Get\+Flag (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
 
 
 
-Head-\/on candidate, broadcast over DSRC. 
+Do-\/not-\/pass (oncoming in another lane). 
 
-Head-\/on candidate flag (vehicle ahead + oncoming vehicle). Broadcast as fcw\+\_\+headon\+\_\+flag for the cooperative decision.
+Do-\/\+Not-\/\+Pass flag (candidate but the oncoming car is in another lane).
 
 \begin{DoxyReturn}{Returns}
-0/\+1 
+0=Safe, 1=Warning, 2=Critical 
 \end{DoxyReturn}
 
 
-Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00171}{171}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00187}{187}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00066}{FCW\+\_\+\+DNPW\+\_\+\+Dnpw\+Flag}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{FCW__DNPW__program_8c_a2a96028174e72e3bc92ab13f333d4e6c_icgraph}
+\includegraphics[width=350pt]{FCW__DNPW__program_8c_a0c6c9a2cd9113721e4d3fa8221ffaef9_icgraph}
 \end{center}
 \end{figure}
+
+
+\label{doc-var-members}
+\Hypertarget{FCW__DNPW__program_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{FCW__DNPW__program_8c_abae69438c3855add2f720ba78ebaf6c6}\index{FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}!FCW\_DNPW\_FcwObject@{FCW\_DNPW\_FcwObject}}
+\index{FCW\_DNPW\_FcwObject@{FCW\_DNPW\_FcwObject}!FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}}
+\doxysubsubsection{\texorpdfstring{FCW\_DNPW\_FcwObject}{FCW\_DNPW\_FcwObject}}
+{\footnotesize\ttfamily \label{FCW__DNPW__program_8c_abae69438c3855add2f720ba78ebaf6c6} 
+uint8\+\_\+t FCW\+\_\+\+DNPW\+\_\+\+Fcw\+Object\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Is something inside the wider FCW front gate, \doxylink{FCW__DNPW__config_8h_a62efb4f170f9fe499586d377133fa412}{FCW\+\_\+\+FRONT\+\_\+\+THRESHOLD}? 
+
+(Local, ultrasonic-\/only.) 
+
+Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00044}{44}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00091}{FCW\+\_\+\+DNPW\+\_\+void\+Begin\+Cycle()}}, and \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00069}{FCW\+\_\+\+DNPW\+\_\+void\+Init()}}.
+
+\Hypertarget{FCW__DNPW__program_8c_a481a3bcf1205909bc9e5cf8b8b7cbd12}\index{FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}!FCW\_DNPW\_FrontObject@{FCW\_DNPW\_FrontObject}}
+\index{FCW\_DNPW\_FrontObject@{FCW\_DNPW\_FrontObject}!FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}}
+\doxysubsubsection{\texorpdfstring{FCW\_DNPW\_FrontObject}{FCW\_DNPW\_FrontObject}}
+{\footnotesize\ttfamily \label{FCW__DNPW__program_8c_a481a3bcf1205909bc9e5cf8b8b7cbd12} 
+uint8\+\_\+t FCW\+\_\+\+DNPW\+\_\+\+Front\+Object\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Is something inside the tighter DNPW /\+ head-\/on front gate, \doxylink{FCW__DNPW__config_8h_a1f9edf3bbe77d932d8881a76d853ee6d}{DNPW\+\_\+\+FRONT\+\_\+\+THRESHOLD}? 
+
+
+
+Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00046}{46}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00091}{FCW\+\_\+\+DNPW\+\_\+void\+Begin\+Cycle()}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00069}{FCW\+\_\+\+DNPW\+\_\+void\+Init()}}, and \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00150}{FCW\+\_\+\+DNPW\+\_\+void\+Process\+Opposite\+Direction()}}.
+
+\Hypertarget{FCW__DNPW__program_8c_a5c674f2520cc5e2c3fa0b907cee8833f}\index{FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}!FCW\_DNPW\_FrontLeftNear@{FCW\_DNPW\_FrontLeftNear}}
+\index{FCW\_DNPW\_FrontLeftNear@{FCW\_DNPW\_FrontLeftNear}!FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}}
+\doxysubsubsection{\texorpdfstring{FCW\_DNPW\_FrontLeftNear}{FCW\_DNPW\_FrontLeftNear}}
+{\footnotesize\ttfamily \label{FCW__DNPW__program_8c_a5c674f2520cc5e2c3fa0b907cee8833f} 
+uint8\+\_\+t FCW\+\_\+\+DNPW\+\_\+\+Front\+Left\+Near\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Is a car alongside us on the overtaking (left) side? 
+
+Escalates DNPW to critical — see \doxylink{FCW__DNPW__config_8h_a434f5b4f70cfa6ddea3651a08b646ccd}{DNPW\+\_\+\+FRONT\+\_\+\+LEFT\+\_\+\+CRITICAL}. 
+
+Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00048}{48}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00091}{FCW\+\_\+\+DNPW\+\_\+void\+Begin\+Cycle()}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00069}{FCW\+\_\+\+DNPW\+\_\+void\+Init()}}, and \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00150}{FCW\+\_\+\+DNPW\+\_\+void\+Process\+Opposite\+Direction()}}.
+
+\Hypertarget{FCW__DNPW__program_8c_a4ff6ffd2aec06ddd250b0d1247da26b1}\index{FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}!FCW\_DNPW\_FrontSeverity@{FCW\_DNPW\_FrontSeverity}}
+\index{FCW\_DNPW\_FrontSeverity@{FCW\_DNPW\_FrontSeverity}!FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}}
+\doxysubsubsection{\texorpdfstring{FCW\_DNPW\_FrontSeverity}{FCW\_DNPW\_FrontSeverity}}
+{\footnotesize\ttfamily \label{FCW__DNPW__program_8c_a4ff6ffd2aec06ddd250b0d1247da26b1} 
+\doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} FCW\+\_\+\+DNPW\+\_\+\+Front\+Severity\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Severity for a same-\/direction vehicle ahead, latched for this cycle. 
+
+
+
+Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00050}{50}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00091}{FCW\+\_\+\+DNPW\+\_\+void\+Begin\+Cycle()}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00069}{FCW\+\_\+\+DNPW\+\_\+void\+Init()}}, and \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00136}{FCW\+\_\+\+DNPW\+\_\+void\+Process\+Same\+Direction()}}.
+
+\Hypertarget{FCW__DNPW__program_8c_a4d96357f4ee2899a2f18f9bdc3c9a443}\index{FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}!FCW\_DNPW\_HeadonSeverity@{FCW\_DNPW\_HeadonSeverity}}
+\index{FCW\_DNPW\_HeadonSeverity@{FCW\_DNPW\_HeadonSeverity}!FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}}
+\doxysubsubsection{\texorpdfstring{FCW\_DNPW\_HeadonSeverity}{FCW\_DNPW\_HeadonSeverity}}
+{\footnotesize\ttfamily \label{FCW__DNPW__program_8c_a4d96357f4ee2899a2f18f9bdc3c9a443} 
+\doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} FCW\+\_\+\+DNPW\+\_\+\+Headon\+Severity\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Severity for a head-\/on encounter. 
+
+\begin{DoxyNote}{Note}
+The safe gaps are {\bfseries{doubled}} here. Two cars approaching each other close at the sum of their speeds, so the same physical distance buys only half the time it would against a stationary obstacle. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00057}{57}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00091}{FCW\+\_\+\+DNPW\+\_\+void\+Begin\+Cycle()}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00069}{FCW\+\_\+\+DNPW\+\_\+void\+Init()}}, and \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00150}{FCW\+\_\+\+DNPW\+\_\+void\+Process\+Opposite\+Direction()}}.
+
+\Hypertarget{FCW__DNPW__program_8c_a2d56e15e0504fef8fd3ab61b5a246186}\index{FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}!FCW\_DNPW\_FrontFlag@{FCW\_DNPW\_FrontFlag}}
+\index{FCW\_DNPW\_FrontFlag@{FCW\_DNPW\_FrontFlag}!FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}}
+\doxysubsubsection{\texorpdfstring{FCW\_DNPW\_FrontFlag}{FCW\_DNPW\_FrontFlag}}
+{\footnotesize\ttfamily \label{FCW__DNPW__program_8c_a2d56e15e0504fef8fd3ab61b5a246186} 
+\doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} FCW\+\_\+\+DNPW\+\_\+\+Front\+Flag\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Result:\+ forward-\/collision risk in our own lane. 
+
+
+
+Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00060}{60}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00091}{FCW\+\_\+\+DNPW\+\_\+void\+Begin\+Cycle()}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00069}{FCW\+\_\+\+DNPW\+\_\+void\+Init()}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00136}{FCW\+\_\+\+DNPW\+\_\+void\+Process\+Same\+Direction()}}, and \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00178}{FCW\+\_\+\+Get\+Front\+Flag()}}.
+
+\Hypertarget{FCW__DNPW__program_8c_aa6b13e4c5fb5a01ece5cc137d69631ca}\index{FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}!FCW\_DNPW\_HeadonFlag@{FCW\_DNPW\_HeadonFlag}}
+\index{FCW\_DNPW\_HeadonFlag@{FCW\_DNPW\_HeadonFlag}!FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}}
+\doxysubsubsection{\texorpdfstring{FCW\_DNPW\_HeadonFlag}{FCW\_DNPW\_HeadonFlag}}
+{\footnotesize\ttfamily \label{FCW__DNPW__program_8c_aa6b13e4c5fb5a01ece5cc137d69631ca} 
+uint8\+\_\+t FCW\+\_\+\+DNPW\+\_\+\+Headon\+Flag\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Result:\+ head-\/on candidate, broadcast to the other car as \doxylink{structNeighbor_a96546ab95ad4529f151b6bd6d0dbf25b}{Neighbor::\+fcw\+\_\+headon\+\_\+flag} so it can confirm from its own side. 
+
+
+
+Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00062}{62}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00091}{FCW\+\_\+\+DNPW\+\_\+void\+Begin\+Cycle()}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00069}{FCW\+\_\+\+DNPW\+\_\+void\+Init()}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00150}{FCW\+\_\+\+DNPW\+\_\+void\+Process\+Opposite\+Direction()}}, and \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00181}{FCW\+\_\+\+Get\+Headon\+Flag()}}.
+
+\Hypertarget{FCW__DNPW__program_8c_ad6c9a97d12eb3e337a414b5c845d68df}\index{FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}!FCW\_DNPW\_HeadonConfirmed@{FCW\_DNPW\_HeadonConfirmed}}
+\index{FCW\_DNPW\_HeadonConfirmed@{FCW\_DNPW\_HeadonConfirmed}!FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}}
+\doxysubsubsection{\texorpdfstring{FCW\_DNPW\_HeadonConfirmed}{FCW\_DNPW\_HeadonConfirmed}}
+{\footnotesize\ttfamily \label{FCW__DNPW__program_8c_ad6c9a97d12eb3e337a414b5c845d68df} 
+uint8\+\_\+t FCW\+\_\+\+DNPW\+\_\+\+Headon\+Confirmed\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Result:\+ a head-\/on that {\bfseries{both}} cars independently flagged — our own geometry agrees with the neighbor\textquotesingle{}s broadcast \doxylink{structNeighbor_a96546ab95ad4529f151b6bd6d0dbf25b}{Neighbor::\+fcw\+\_\+headon\+\_\+flag}. 
+
+
+
+Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00064}{64}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00091}{FCW\+\_\+\+DNPW\+\_\+void\+Begin\+Cycle()}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00069}{FCW\+\_\+\+DNPW\+\_\+void\+Init()}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00150}{FCW\+\_\+\+DNPW\+\_\+void\+Process\+Opposite\+Direction()}}, and \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00184}{FCW\+\_\+\+Get\+Headon\+Confirmed()}}.
+
+\Hypertarget{FCW__DNPW__program_8c_a3b16cca55686a877ca52179e5e27c7c2}\index{FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}!FCW\_DNPW\_DnpwFlag@{FCW\_DNPW\_DnpwFlag}}
+\index{FCW\_DNPW\_DnpwFlag@{FCW\_DNPW\_DnpwFlag}!FCW\_DNPW\_program.c@{FCW\_DNPW\_program.c}}
+\doxysubsubsection{\texorpdfstring{FCW\_DNPW\_DnpwFlag}{FCW\_DNPW\_DnpwFlag}}
+{\footnotesize\ttfamily \label{FCW__DNPW__program_8c_a3b16cca55686a877ca52179e5e27c7c2} 
+\doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} FCW\+\_\+\+DNPW\+\_\+\+Dnpw\+Flag\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Result:\+ do-\/not-\/pass severity — an oncoming car in another lane makes overtaking unsafe. 
+
+
+
+Definition at line \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00066}{66}} of file \doxymbox{\hyperlink{FCW__DNPW__program_8c_source}{FCW\+\_\+\+DNPW\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00187}{DNPW\+\_\+\+Get\+Flag()}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00091}{FCW\+\_\+\+DNPW\+\_\+void\+Begin\+Cycle()}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00069}{FCW\+\_\+\+DNPW\+\_\+void\+Init()}}, and \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00150}{FCW\+\_\+\+DNPW\+\_\+void\+Process\+Opposite\+Direction()}}.
+

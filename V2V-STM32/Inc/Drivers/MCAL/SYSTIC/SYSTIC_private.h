@@ -1,14 +1,10 @@
 /**
- **===========================================================================**
- **<<<<<<<<<<<<<<<<<<<<<<<<<<    SYSTIC_private.h    >>>>>>>>>>>>>>>>>>>>>>>>>**
- **                                                                           **
- **                  Author : Abdallah Abdelmoemen Shehawey                   **
- **                  Layer  : MCAL                                            **
- **                  CPU    : Cortex-M4                                       **
- **                  MCU    : NUCLEO-F446RE                                   **
- **                  SWC    : SYSTIC                                          **
- **                                                                           **
- **===========================================================================**
+ ******************************************************************************
+ * @file    SYSTIC_private.h
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Register bit positions and internals of the SYSTICK driver — not a public header.
+ * @ingroup mcal_systic
+ ******************************************************************************
  */
 
 #ifndef MCAL_SYSTIC_PRIVATE_H_

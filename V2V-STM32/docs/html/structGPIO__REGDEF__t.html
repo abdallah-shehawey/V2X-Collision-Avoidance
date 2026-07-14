@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: GPIO_REGDEF_t Struct Reference</title>
+<title>V2V Collision Avoidance Firmware: GPIO_REGDEF_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,92 +90,41 @@ $(function(){initNavTree('structGPIO__REGDEF__t.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">GPIO_REGDEF_t Struct Reference</div></div>
+  <div class="headertitle"><div class="title">GPIO_REGDEF_t Struct Reference<div class="ingroups"><a class="el" href="group__lib.html">LIB</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>&gt;</code></p>
+<p>GPIO port register layout (identical for every port A..H).  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="STM32F446xx_8h_source.html">Drivers/LIB/STM32F446xx.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:add8f7a178602d0b6e6627c15ef0d6194" id="r_add8f7a178602d0b6e6627c15ef0d6194"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#add8f7a178602d0b6e6627c15ef0d6194">MODER</a></td></tr>
+<tr class="memdesc:add8f7a178602d0b6e6627c15ef0d6194"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode: 2 bits per pin — input / output / alternate function / analog.  <br /></td></tr>
 <tr class="memitem:ad0f06942cdadf84ac41240d7f6b12e45" id="r_ad0f06942cdadf84ac41240d7f6b12e45"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ad0f06942cdadf84ac41240d7f6b12e45">OTYPER</a></td></tr>
+<tr class="memdesc:ad0f06942cdadf84ac41240d7f6b12e45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output type: 1 bit per pin — push-pull or open-drain.  <br /></td></tr>
 <tr class="memitem:a1853ad64c88ec2a5996dc1ae27ce062c" id="r_a1853ad64c88ec2a5996dc1ae27ce062c"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a1853ad64c88ec2a5996dc1ae27ce062c">OSPEEDR</a></td></tr>
+<tr class="memdesc:a1853ad64c88ec2a5996dc1ae27ce062c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output speed: 2 bits per pin — low / medium / fast / high.  <br /></td></tr>
 <tr class="memitem:a4ecda0ba5608662a927730f26d3c1eee" id="r_a4ecda0ba5608662a927730f26d3c1eee"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a4ecda0ba5608662a927730f26d3c1eee">PUPDR</a></td></tr>
+<tr class="memdesc:a4ecda0ba5608662a927730f26d3c1eee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pull-up/pull-down: 2 bits per pin — none / pull-up / pull-down.  <br /></td></tr>
 <tr class="memitem:ac5e9dc7200cbd1facef55fdd0b165244" id="r_ac5e9dc7200cbd1facef55fdd0b165244"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ac5e9dc7200cbd1facef55fdd0b165244">IDR</a></td></tr>
+<tr class="memdesc:ac5e9dc7200cbd1facef55fdd0b165244"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input data (read-only): the level currently on each pin.  <br /></td></tr>
 <tr class="memitem:abbb7f21e6eb91f382ca46cbde9eb6277" id="r_abbb7f21e6eb91f382ca46cbde9eb6277"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#abbb7f21e6eb91f382ca46cbde9eb6277">ODR</a></td></tr>
+<tr class="memdesc:abbb7f21e6eb91f382ca46cbde9eb6277"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output data: the level driven onto each output pin.  <br /></td></tr>
 <tr class="memitem:a35f835f589764c50417acd0a08dd920a" id="r_a35f835f589764c50417acd0a08dd920a"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a35f835f589764c50417acd0a08dd920a">BSRR</a></td></tr>
+<tr class="memdesc:a35f835f589764c50417acd0a08dd920a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit set/reset: atomic set (low half) and reset (high half) of ODR bits.  <br /></td></tr>
 <tr class="memitem:ad4478841787679cbee8f4eaba61c1a3b" id="r_ad4478841787679cbee8f4eaba61c1a3b"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ad4478841787679cbee8f4eaba61c1a3b">LCKR</a></td></tr>
-<tr class="memitem:a8c8407eb13488ed840fd68506712df0e" id="r_a8c8407eb13488ed840fd68506712df0e"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a8c8407eb13488ed840fd68506712df0e">AFR</a> [2]</td></tr>
+<tr class="memdesc:ad4478841787679cbee8f4eaba61c1a3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration lock: freezes a pin's config until the next reset.  <br /></td></tr>
+<tr class="memitem:a89c2a2b3b7aebda1d1d3b6ce73a579e1" id="r_a89c2a2b3b7aebda1d1d3b6ce73a579e1"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a89c2a2b3b7aebda1d1d3b6ce73a579e1">AFR</a> [2]</td></tr>
+<tr class="memdesc:a89c2a2b3b7aebda1d1d3b6ce73a579e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alternate function: <span class="tt"><a class="el" href="#a89c2a2b3b7aebda1d1d3b6ce73a579e1" title="Alternate function: AFR[0] covers pins 0..7, AFR[1] covers pins 8..15, 4 bits per pin.">AFR</a>[0]</span> covers pins 0..7, <span class="tt"><a class="el" href="#a89c2a2b3b7aebda1d1d3b6ce73a579e1" title="Alternate function: AFR[0] covers pins 0..7, AFR[1] covers pins 8..15, 4 bits per pin.">AFR</a>[1]</span> covers pins 8..15, 4 bits per pin.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00097">97</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<div class="textblock"><p>GPIO port register layout (identical for every port A..H). </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00143">143</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
-<a id="a8c8407eb13488ed840fd68506712df0e" name="a8c8407eb13488ed840fd68506712df0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c8407eb13488ed840fd68506712df0e">&#9670;&#160;</a></span>AFR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t GPIO_REGDEF_t::AFR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00106">106</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a35f835f589764c50417acd0a08dd920a" name="a35f835f589764c50417acd0a08dd920a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35f835f589764c50417acd0a08dd920a">&#9670;&#160;</a></span>BSRR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t GPIO_REGDEF_t::BSRR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00104">104</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="ac5e9dc7200cbd1facef55fdd0b165244" name="ac5e9dc7200cbd1facef55fdd0b165244"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac5e9dc7200cbd1facef55fdd0b165244">&#9670;&#160;</a></span>IDR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t GPIO_REGDEF_t::IDR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00102">102</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="ad4478841787679cbee8f4eaba61c1a3b" name="ad4478841787679cbee8f4eaba61c1a3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4478841787679cbee8f4eaba61c1a3b">&#9670;&#160;</a></span>LCKR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t GPIO_REGDEF_t::LCKR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00105">105</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
 <a id="add8f7a178602d0b6e6627c15ef0d6194" name="add8f7a178602d0b6e6627c15ef0d6194"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#add8f7a178602d0b6e6627c15ef0d6194">&#9670;&#160;</a></span>MODER</h2>
 
@@ -188,39 +137,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00098">98</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Mode: 2 bits per pin — input / output / alternate function / analog. </p>
 
-</div>
-</div>
-<a id="abbb7f21e6eb91f382ca46cbde9eb6277" name="abbb7f21e6eb91f382ca46cbde9eb6277"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abbb7f21e6eb91f382ca46cbde9eb6277">&#9670;&#160;</a></span>ODR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t GPIO_REGDEF_t::ODR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00103">103</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a1853ad64c88ec2a5996dc1ae27ce062c" name="a1853ad64c88ec2a5996dc1ae27ce062c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1853ad64c88ec2a5996dc1ae27ce062c">&#9670;&#160;</a></span>OSPEEDR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t GPIO_REGDEF_t::OSPEEDR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00100">100</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00144">144</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
@@ -236,7 +155,27 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00099">99</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Output type: 1 bit per pin — push-pull or open-drain. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00145">145</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a1853ad64c88ec2a5996dc1ae27ce062c" name="a1853ad64c88ec2a5996dc1ae27ce062c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1853ad64c88ec2a5996dc1ae27ce062c">&#9670;&#160;</a></span>OSPEEDR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t GPIO_REGDEF_t::OSPEEDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Output speed: 2 bits per pin — low / medium / fast / high. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00146">146</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
@@ -252,13 +191,104 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00101">101</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Pull-up/pull-down: 2 bits per pin — none / pull-up / pull-down. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00147">147</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>Inc/Drivers/LIB/<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
-<li>Inc/System/<a class="el" href="System_2STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
+<a id="ac5e9dc7200cbd1facef55fdd0b165244" name="ac5e9dc7200cbd1facef55fdd0b165244"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5e9dc7200cbd1facef55fdd0b165244">&#9670;&#160;</a></span>IDR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t GPIO_REGDEF_t::IDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Input data (read-only): the level currently on each pin. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00148">148</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="abbb7f21e6eb91f382ca46cbde9eb6277" name="abbb7f21e6eb91f382ca46cbde9eb6277"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbb7f21e6eb91f382ca46cbde9eb6277">&#9670;&#160;</a></span>ODR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t GPIO_REGDEF_t::ODR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Output data: the level driven onto each output pin. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00149">149</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a35f835f589764c50417acd0a08dd920a" name="a35f835f589764c50417acd0a08dd920a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35f835f589764c50417acd0a08dd920a">&#9670;&#160;</a></span>BSRR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t GPIO_REGDEF_t::BSRR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bit set/reset: atomic set (low half) and reset (high half) of ODR bits. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00150">150</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="ad4478841787679cbee8f4eaba61c1a3b" name="ad4478841787679cbee8f4eaba61c1a3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4478841787679cbee8f4eaba61c1a3b">&#9670;&#160;</a></span>LCKR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t GPIO_REGDEF_t::LCKR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configuration lock: freezes a pin's config until the next reset. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00151">151</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a89c2a2b3b7aebda1d1d3b6ce73a579e1" name="a89c2a2b3b7aebda1d1d3b6ce73a579e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89c2a2b3b7aebda1d1d3b6ce73a579e1">&#9670;&#160;</a></span>AFR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t GPIO_REGDEF_t::AFR[2]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Alternate function: <span class="tt"><a class="el" href="#a89c2a2b3b7aebda1d1d3b6ce73a579e1" title="Alternate function: AFR[0] covers pins 0..7, AFR[1] covers pins 8..15, 4 bits per pin.">AFR</a>[0]</span> covers pins 0..7, <span class="tt"><a class="el" href="#a89c2a2b3b7aebda1d1d3b6ce73a579e1" title="Alternate function: AFR[0] covers pins 0..7, AFR[1] covers pins 8..15, 4 bits per pin.">AFR</a>[1]</span> covers pins 8..15, 4 bits per pin. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00152">152</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>V2V-STM32/Inc/Drivers/LIB/<a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

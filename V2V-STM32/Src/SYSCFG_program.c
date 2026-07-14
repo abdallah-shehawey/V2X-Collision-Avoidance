@@ -1,14 +1,10 @@
 /**
- **===========================================================================**
- **<<<<<<<<<<<<<<<<<<<<<<<<<<    SYSCFG_prog.c     >>>>>>>>>>>>>>>>>>>>>>>>>>>**
- **                                                                           **
- **                  Author : Abdallah Abdelmoemen Shehawey                   **
- **                  Layer  : MCAL                                            **
- **                  CPU    : Cortex-M4                                       **
- **                  MCU    : NUCLEO-F446RE                                   **
- **                  SWC    : SYSCFG                                          **
- **                                                                           **
- **===========================================================================**
+ ******************************************************************************
+ * @file    SYSCFG_program.c
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Implementation of the SYSCFG driver — the system configuration controller.
+ * @ingroup mcal_syscfg
+ ******************************************************************************
  */
 
 #include <stdint.h>
@@ -21,18 +17,18 @@
 #include "../Inc/Drivers/MCAL/SYSCFG/SYSCFG_config.h"
 #include "../Inc/Drivers/MCAL/SYSCFG/SYSCFG_interface.h"
 
-/**
- * @SYSCFG_vSetEXTIConfig function:
- * @brief: Configure EXTI line mapping to GPIO port
- * @details: Maps a specific EXTI line to a GPIO port in the SYSCFG peripheral
- * @param: Copy_u8EXTI - EXTI line number (0-15)
+/*
+ * @brief Configure EXTI line mapping to GPIO port
+ * @details Maps a specific EXTI line to a GPIO port in the SYSCFG peripheral
+ * @param Copy_u8EXTI - EXTI line number (0-15)
  *         Copy_u8Port - GPIO port identifier (A-H)
- * @return: void
- * @note:
+ * @return void
+ * @note 
  *   1. Each EXTI line is mapped to a 4-bit field in one of four EXTICR registers
  *   2. The mapping is done in groups of 4 EXTI lines per register
  *   3. Must be called before configuring EXTI line
- * @example:
+ * @par Example:
+ * 
  *   SYSCFG_vSetEXTIConfig(SYSCFG_EXTI0, SYSCFG_PORTA); // Map EXTI0 to Port A
  * @internal:
  *   - Local_u8RegNum: Calculates which EXTICR register to use (0-3)

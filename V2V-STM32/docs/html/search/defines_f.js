@@ -1,19 +1,5 @@
 var searchData=
 [
-  ['rcc_5fbaseaddr_0',['RCC_BASEADDR',['../Drivers_2LIB_2STM32F446xx_8h.html#a89610f202a9f78bcc85f76c5ba52d009',1,'RCC_BASEADDR:&#160;STM32F446xx.h'],['../System_2STM32F446xx_8h.html#a89610f202a9f78bcc85f76c5ba52d009',1,'RCC_BASEADDR:&#160;STM32F446xx.h']]],
-  ['rcc_5fmpll_5fdiv_5f2_1',['RCC_MPLL_DIV_2',['../RCC__interface_8h.html#a9bc683f819655771e6ccd69918b7ab8f',1,'RCC_interface.h']]],
-  ['rcc_5fmpll_5fdiv_5f63_2',['RCC_MPLL_DIV_63',['../RCC__interface_8h.html#af62964e9d26ee49a3bcd5e71ca2e2491',1,'RCC_interface.h']]],
-  ['rcc_5fmpll_5fdiv_5fmask_3',['RCC_MPLL_DIV_MASK',['../RCC__private_8h.html#a43b33b72bb100bc3f43c4ccfa0da5e1b',1,'RCC_private.h']]],
-  ['rcc_5fnpll_5fclk_5fmult_5f432_4',['RCC_NPLL_CLK_MULT_432',['../RCC__interface_8h.html#a8a02545773f814aff776ce2f00785679',1,'RCC_interface.h']]],
-  ['rcc_5fnpll_5fclk_5fmult_5f50_5',['RCC_NPLL_CLK_MULT_50',['../RCC__interface_8h.html#aaf88478f7a98ec5399c7657e37a49c0a',1,'RCC_interface.h']]],
-  ['rcc_5fnpll_5fmult_5fmask_6',['RCC_NPLL_MULT_MASK',['../RCC__private_8h.html#a9fc70219da462d4ea6e442f67ccbb500',1,'RCC_private.h']]],
-  ['rcc_5fppll_5fdiv_5fmask_7',['RCC_PPLL_DIV_MASK',['../RCC__private_8h.html#a991ffc2843311a8006557e2e0bee2171',1,'RCC_private.h']]],
-  ['rcc_5fsys_5fclk_5fmask_8',['RCC_SYS_CLK_MASK',['../RCC__private_8h.html#a1549d0577a2af5b6a0e7960eb838ed28',1,'RCC_private.h']]],
-  ['rcc_5fu32timeout_9',['RCC_u32TIMEOUT',['../RCC__private_8h.html#a97d72aa3d3462687b8715699bcf6248c',1,'RCC_private.h']]],
-  ['read_5fbit_10',['READ_BIT',['../STD__MACROS_8h.html#aaef49ab0462bf902b59383f592140b05',1,'STD_MACROS.h']]],
-  ['read_5fbyte_11',['READ_BYTE',['../STD__MACROS_8h.html#a79413e953065eefe67e15a9f1dba19c1',1,'STD_MACROS.h']]],
-  ['register_5fsize_12',['REGISTER_SIZE',['../STD__MACROS_8h.html#abe2f7b6344bb4d51dfea9c9f58609427',1,'STD_MACROS.h']]],
-  ['rol_13',['ROL',['../STD__MACROS_8h.html#a29a7814b0a672229073f6cd702ba2437',1,'STD_MACROS.h']]],
-  ['rom_5fbaseaddr_14',['ROM_BASEADDR',['../Drivers_2LIB_2STM32F446xx_8h.html#a548ca9ecc4b62f701800110d155a05dc',1,'ROM_BASEADDR:&#160;STM32F446xx.h'],['../System_2STM32F446xx_8h.html#a548ca9ecc4b62f701800110d155a05dc',1,'ROM_BASEADDR:&#160;STM32F446xx.h']]],
-  ['ror_15',['ROR',['../STD__MACROS_8h.html#acdd57f8617d552ad57c697f8e46190a4',1,'STD_MACROS.h']]]
+  ['wdg_5fcheck_5fperiod_5fms_0',['WDG_CHECK_PERIOD_MS',['../main_8c.html#afee5313facd23b9a57c62ae9212967da',1,'main.c']]],
+  ['wdg_5ftimeout_5fms_1',['WDG_TIMEOUT_MS',['../main_8c.html#a83bb26015dd24416bf6b59ad49e55c9b',1,'main.c']]]
 ];

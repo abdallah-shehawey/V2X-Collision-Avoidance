@@ -2,100 +2,150 @@
 \hypertarget{structGPIO__PortConfig__t}{}\label{structGPIO__PortConfig__t}\index{GPIO\_PortConfig\_t@{GPIO\_PortConfig\_t}}
 
 
-{\ttfamily \+\#include $<$GPIO\+\_\+interface.\+h$>$}
+Configuration of all 16 pins of a port, as passed to \doxylink{group__mcal__gpio_ga2c01501f7ac9ed6dc2c172776c9203fa}{GPIO\+\_\+enum\+Port\+Init}.  
+
+
+
+
+{\ttfamily \+\#include $<$Drivers/\+\+MCAL/\+\+GPIO/\+\+GPIO\+\_\+interface.\+h$>$}
 
 \doxysubsubsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
-\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} \doxymbox{\hyperlink{structGPIO__PortConfig__t_aaabe23c3bf75b95e5e24e137bd765aec}{Port}}
-\item 
-\doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} \doxymbox{\hyperlink{structGPIO__PortConfig__t_a0137eb748b05e68b0c554727618e17b9}{Start\+Pin}}
-\item 
-\doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26}{GPIO\+\_\+\+Mode\+\_\+t}} \doxymbox{\hyperlink{structGPIO__PortConfig__t_a8f75c7e1445f2bb43f778e78761023c0}{Mode}}
-\item 
-\doxymbox{\hyperlink{GPIO__interface_8h_a6470c88cd80e5ef53ac53602e73207f0}{GPIO\+\_\+\+Output\+Type\+\_\+t}} \doxymbox{\hyperlink{structGPIO__PortConfig__t_abad8f1983357730de22b70662150fc8b}{Otype}}
-\item 
-\doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71}{GPIO\+\_\+\+Output\+Speed\+\_\+t}} \doxymbox{\hyperlink{structGPIO__PortConfig__t_a5a7992fc6bbd35a6169815f83845b47b}{Speed}}
-\item 
-\doxymbox{\hyperlink{GPIO__interface_8h_af3291f1e475675bffc656c9f0c4c7399}{GPIO\+\_\+\+Pull\+Up\+Down\+\_\+t}} \doxymbox{\hyperlink{structGPIO__PortConfig__t_a0036bff3865c9952e2b72efce71f8a13}{Pull\+Type}}
-\end{DoxyCompactItemize}
+\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} \doxymbox{\hyperlink{structGPIO__PortConfig__t_aaabe23c3bf75b95e5e24e137bd765aec}{Port}}
+\begin{DoxyCompactList}\small\item\em Which port. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} \doxymbox{\hyperlink{structGPIO__PortConfig__t_a0137eb748b05e68b0c554727618e17b9}{Start\+Pin}}
+\begin{DoxyCompactList}\small\item\em Must be \doxylink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14adb75bcba02ec80bb4a9773718438047d}{GPIO\+\_\+\+PIN0} — a whole-\/port init always starts at pin 0. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__gpio_gafb8ae0eef9d79d2066ab67bbf12d9f26}{GPIO\+\_\+\+Mode\+\_\+t}} \doxymbox{\hyperlink{structGPIO__PortConfig__t_a8f75c7e1445f2bb43f778e78761023c0}{Mode}}
+\begin{DoxyCompactList}\small\item\em Mode applied to all 16 pins. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__gpio_ga6470c88cd80e5ef53ac53602e73207f0}{GPIO\+\_\+\+Output\+Type\+\_\+t}} \doxymbox{\hyperlink{structGPIO__PortConfig__t_abad8f1983357730de22b70662150fc8b}{Otype}}
+\begin{DoxyCompactList}\small\item\em Output type applied to all 16 pins. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__gpio_gad0390106f85689de1897dd9543754e71}{GPIO\+\_\+\+Output\+Speed\+\_\+t}} \doxymbox{\hyperlink{structGPIO__PortConfig__t_a5a7992fc6bbd35a6169815f83845b47b}{Speed}}
+\begin{DoxyCompactList}\small\item\em Output speed applied to all 16 pins. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__gpio_gaf3291f1e475675bffc656c9f0c4c7399}{GPIO\+\_\+\+Pull\+Up\+Down\+\_\+t}} \doxymbox{\hyperlink{structGPIO__PortConfig__t_a0036bff3865c9952e2b72efce71f8a13}{Pull\+Type}}
+\begin{DoxyCompactList}\small\item\em Pull configuration applied to all 16 pins. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2GPIO_2GPIO_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+GPIO/\+\+GPIO\+\_\+interface.\+h}}.\end{Desc}
+Configuration of all 16 pins of a port, as passed to \doxylink{group__mcal__gpio_ga2c01501f7ac9ed6dc2c172776c9203fa}{GPIO\+\_\+enum\+Port\+Init}. 
 
-
-Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00331}{331}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00237}{237}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
 
 
 
 \label{doc-variable-members}
 \Hypertarget{structGPIO__PortConfig__t_doc-variable-members}
 \doxysubsection{Field Documentation}
-\Hypertarget{structGPIO__PortConfig__t_a8f75c7e1445f2bb43f778e78761023c0}\index{GPIO\_PortConfig\_t@{GPIO\_PortConfig\_t}!Mode@{Mode}}
-\index{Mode@{Mode}!GPIO\_PortConfig\_t@{GPIO\_PortConfig\_t}}
-\doxysubsubsection{\texorpdfstring{Mode}{Mode}}
-{\footnotesize\ttfamily \label{structGPIO__PortConfig__t_a8f75c7e1445f2bb43f778e78761023c0} 
-\doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26}{GPIO\+\_\+\+Mode\+\_\+t}} GPIO\+\_\+\+Port\+Config\+\_\+t::\+\+Mode}
-
-
-
-Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00334}{334}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
-
-\Hypertarget{structGPIO__PortConfig__t_abad8f1983357730de22b70662150fc8b}\index{GPIO\_PortConfig\_t@{GPIO\_PortConfig\_t}!Otype@{Otype}}
-\index{Otype@{Otype}!GPIO\_PortConfig\_t@{GPIO\_PortConfig\_t}}
-\doxysubsubsection{\texorpdfstring{Otype}{Otype}}
-{\footnotesize\ttfamily \label{structGPIO__PortConfig__t_abad8f1983357730de22b70662150fc8b} 
-\doxymbox{\hyperlink{GPIO__interface_8h_a6470c88cd80e5ef53ac53602e73207f0}{GPIO\+\_\+\+Output\+Type\+\_\+t}} GPIO\+\_\+\+Port\+Config\+\_\+t::\+\+Otype}
-
-
-
-Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00336}{336}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
-
 \Hypertarget{structGPIO__PortConfig__t_aaabe23c3bf75b95e5e24e137bd765aec}\index{GPIO\_PortConfig\_t@{GPIO\_PortConfig\_t}!Port@{Port}}
 \index{Port@{Port}!GPIO\_PortConfig\_t@{GPIO\_PortConfig\_t}}
 \doxysubsubsection{\texorpdfstring{Port}{Port}}
 {\footnotesize\ttfamily \label{structGPIO__PortConfig__t_aaabe23c3bf75b95e5e24e137bd765aec} 
-\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} GPIO\+\_\+\+Port\+Config\+\_\+t::\+\+Port}
+\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} GPIO\+\_\+\+Port\+Config\+\_\+t::\+\+Port}
 
 
 
-Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00332}{332}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
-
-\Hypertarget{structGPIO__PortConfig__t_a0036bff3865c9952e2b72efce71f8a13}\index{GPIO\_PortConfig\_t@{GPIO\_PortConfig\_t}!PullType@{PullType}}
-\index{PullType@{PullType}!GPIO\_PortConfig\_t@{GPIO\_PortConfig\_t}}
-\doxysubsubsection{\texorpdfstring{PullType}{PullType}}
-{\footnotesize\ttfamily \label{structGPIO__PortConfig__t_a0036bff3865c9952e2b72efce71f8a13} 
-\doxymbox{\hyperlink{GPIO__interface_8h_af3291f1e475675bffc656c9f0c4c7399}{GPIO\+\_\+\+Pull\+Up\+Down\+\_\+t}} GPIO\+\_\+\+Port\+Config\+\_\+t::\+\+Pull\+Type}
+Which port. 
 
 
 
-Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00340}{340}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
-
-\Hypertarget{structGPIO__PortConfig__t_a5a7992fc6bbd35a6169815f83845b47b}\index{GPIO\_PortConfig\_t@{GPIO\_PortConfig\_t}!Speed@{Speed}}
-\index{Speed@{Speed}!GPIO\_PortConfig\_t@{GPIO\_PortConfig\_t}}
-\doxysubsubsection{\texorpdfstring{Speed}{Speed}}
-{\footnotesize\ttfamily \label{structGPIO__PortConfig__t_a5a7992fc6bbd35a6169815f83845b47b} 
-\doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71}{GPIO\+\_\+\+Output\+Speed\+\_\+t}} GPIO\+\_\+\+Port\+Config\+\_\+t::\+\+Speed}
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00238}{238}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
 
 
 
-Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00338}{338}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+Referenced by \doxymbox{\hyperlink{GPIO__prog_8c_source_l00273}{GPIO\+\_\+enum\+Port\+Init()}}.
 
 \Hypertarget{structGPIO__PortConfig__t_a0137eb748b05e68b0c554727618e17b9}\index{GPIO\_PortConfig\_t@{GPIO\_PortConfig\_t}!StartPin@{StartPin}}
 \index{StartPin@{StartPin}!GPIO\_PortConfig\_t@{GPIO\_PortConfig\_t}}
 \doxysubsubsection{\texorpdfstring{StartPin}{StartPin}}
 {\footnotesize\ttfamily \label{structGPIO__PortConfig__t_a0137eb748b05e68b0c554727618e17b9} 
-\doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} GPIO\+\_\+\+Port\+Config\+\_\+t::\+\+Start\+Pin}
+\doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} GPIO\+\_\+\+Port\+Config\+\_\+t::\+\+Start\+Pin}
 
 
 
-Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00333}{333}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+Must be \doxylink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14adb75bcba02ec80bb4a9773718438047d}{GPIO\+\_\+\+PIN0} — a whole-\/port init always starts at pin 0. 
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00239}{239}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{GPIO__prog_8c_source_l00273}{GPIO\+\_\+enum\+Port\+Init()}}.
+
+\Hypertarget{structGPIO__PortConfig__t_a8f75c7e1445f2bb43f778e78761023c0}\index{GPIO\_PortConfig\_t@{GPIO\_PortConfig\_t}!Mode@{Mode}}
+\index{Mode@{Mode}!GPIO\_PortConfig\_t@{GPIO\_PortConfig\_t}}
+\doxysubsubsection{\texorpdfstring{Mode}{Mode}}
+{\footnotesize\ttfamily \label{structGPIO__PortConfig__t_a8f75c7e1445f2bb43f778e78761023c0} 
+\doxymbox{\hyperlink{group__mcal__gpio_gafb8ae0eef9d79d2066ab67bbf12d9f26}{GPIO\+\_\+\+Mode\+\_\+t}} GPIO\+\_\+\+Port\+Config\+\_\+t::\+\+Mode}
+
+
+
+Mode applied to all 16 pins. 
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00240}{240}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{GPIO__prog_8c_source_l00273}{GPIO\+\_\+enum\+Port\+Init()}}.
+
+\Hypertarget{structGPIO__PortConfig__t_abad8f1983357730de22b70662150fc8b}\index{GPIO\_PortConfig\_t@{GPIO\_PortConfig\_t}!Otype@{Otype}}
+\index{Otype@{Otype}!GPIO\_PortConfig\_t@{GPIO\_PortConfig\_t}}
+\doxysubsubsection{\texorpdfstring{Otype}{Otype}}
+{\footnotesize\ttfamily \label{structGPIO__PortConfig__t_abad8f1983357730de22b70662150fc8b} 
+\doxymbox{\hyperlink{group__mcal__gpio_ga6470c88cd80e5ef53ac53602e73207f0}{GPIO\+\_\+\+Output\+Type\+\_\+t}} GPIO\+\_\+\+Port\+Config\+\_\+t::\+\+Otype}
+
+
+
+Output type applied to all 16 pins. 
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00241}{241}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{GPIO__prog_8c_source_l00273}{GPIO\+\_\+enum\+Port\+Init()}}.
+
+\Hypertarget{structGPIO__PortConfig__t_a5a7992fc6bbd35a6169815f83845b47b}\index{GPIO\_PortConfig\_t@{GPIO\_PortConfig\_t}!Speed@{Speed}}
+\index{Speed@{Speed}!GPIO\_PortConfig\_t@{GPIO\_PortConfig\_t}}
+\doxysubsubsection{\texorpdfstring{Speed}{Speed}}
+{\footnotesize\ttfamily \label{structGPIO__PortConfig__t_a5a7992fc6bbd35a6169815f83845b47b} 
+\doxymbox{\hyperlink{group__mcal__gpio_gad0390106f85689de1897dd9543754e71}{GPIO\+\_\+\+Output\+Speed\+\_\+t}} GPIO\+\_\+\+Port\+Config\+\_\+t::\+\+Speed}
+
+
+
+Output speed applied to all 16 pins. 
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00242}{242}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{GPIO__prog_8c_source_l00273}{GPIO\+\_\+enum\+Port\+Init()}}.
+
+\Hypertarget{structGPIO__PortConfig__t_a0036bff3865c9952e2b72efce71f8a13}\index{GPIO\_PortConfig\_t@{GPIO\_PortConfig\_t}!PullType@{PullType}}
+\index{PullType@{PullType}!GPIO\_PortConfig\_t@{GPIO\_PortConfig\_t}}
+\doxysubsubsection{\texorpdfstring{PullType}{PullType}}
+{\footnotesize\ttfamily \label{structGPIO__PortConfig__t_a0036bff3865c9952e2b72efce71f8a13} 
+\doxymbox{\hyperlink{group__mcal__gpio_gaf3291f1e475675bffc656c9f0c4c7399}{GPIO\+\_\+\+Pull\+Up\+Down\+\_\+t}} GPIO\+\_\+\+Port\+Config\+\_\+t::\+\+Pull\+Type}
+
+
+
+Pull configuration applied to all 16 pins. 
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00243}{243}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{GPIO__prog_8c_source_l00273}{GPIO\+\_\+enum\+Port\+Init()}}.
 
 
 
 The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
 \item 
-Inc/\+\+Drivers/\+\+MCAL/\+\+GPIO/\+\doxymbox{\hyperlink{GPIO__interface_8h}{GPIO\+\_\+interface.\+h}}\end{DoxyCompactItemize}
+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+GPIO/\+\doxymbox{\hyperlink{GPIO__interface_8h}{GPIO\+\_\+interface.\+h}}\end{DoxyCompactItemize}

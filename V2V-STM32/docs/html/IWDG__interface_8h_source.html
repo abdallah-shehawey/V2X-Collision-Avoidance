@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Inc/Drivers/MCAL/IWDG/IWDG_interface.h Source File</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Inc/Drivers/MCAL/IWDG/IWDG_interface.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -94,26 +94,26 @@ $(function(){initNavTree('IWDG__interface_8h_source.html','',''); });
 </div><!--header-->
 <div class="contents">
 <a href="IWDG__interface_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#ifndef IWDG_INTERFACE_H_</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#define IWDG_INTERFACE_H_</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keywordtype">void</span> <a class="code hl_function" href="IWDG__interface_8h.html#aaa08e67683aa75f91aabc14cb9c1253d">IWDG_voidInit</a>(uint16_t timeout_ms);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keywordtype">void</span> <a class="code hl_function" href="IWDG__interface_8h.html#afdf15cddaf966d918224d78b50c4b6d5">IWDG_voidRefresh</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#endif </span><span class="comment">/* IWDG_INTERFACE_H_ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="aIWDG__interface_8h_html_aaa08e67683aa75f91aabc14cb9c1253d"><div class="ttname"><a href="IWDG__interface_8h.html#aaa08e67683aa75f91aabc14cb9c1253d">IWDG_voidInit</a></div><div class="ttdeci">void IWDG_voidInit(uint16_t timeout_ms)</div><div class="ttdoc">Start the Independent Watchdog with the given timeout.</div><div class="ttdef"><b>Definition</b> <a href="IWDG__program_8c_source.html#l00045">IWDG_program.c:45</a></div></div>
-<div class="ttc" id="aIWDG__interface_8h_html_afdf15cddaf966d918224d78b50c4b6d5"><div class="ttname"><a href="IWDG__interface_8h.html#afdf15cddaf966d918224d78b50c4b6d5">IWDG_voidRefresh</a></div><div class="ttdeci">void IWDG_voidRefresh(void)</div><div class="ttdoc">Reload the watchdog counter (&quot;kick the dog&quot;). Call periodically.</div><div class="ttdef"><b>Definition</b> <a href="IWDG__program_8c_source.html#l00061">IWDG_program.c:61</a></div></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#ifndef IWDG_INTERFACE_H_</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#define IWDG_INTERFACE_H_</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keywordtype">void</span> <a class="code hl_function" href="IWDG__interface_8h.html#aaa08e67683aa75f91aabc14cb9c1253d">IWDG_voidInit</a>(uint16_t timeout_ms);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keywordtype">void</span> <a class="code hl_function" href="IWDG__interface_8h.html#afdf15cddaf966d918224d78b50c4b6d5">IWDG_voidRefresh</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#endif </span><span class="comment">/* IWDG_INTERFACE_H_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aIWDG__interface_8h_html_aaa08e67683aa75f91aabc14cb9c1253d"><div class="ttname"><a href="IWDG__interface_8h.html#aaa08e67683aa75f91aabc14cb9c1253d">IWDG_voidInit</a></div><div class="ttdeci">void IWDG_voidInit(uint16_t timeout_ms)</div><div class="ttdoc">Start the Independent Watchdog with the given timeout.</div><div class="ttdef"><b>Definition</b> <a href="IWDG__program_8c_source.html#l00073">IWDG_program.c:73</a></div></div>
+<div class="ttc" id="aIWDG__interface_8h_html_afdf15cddaf966d918224d78b50c4b6d5"><div class="ttname"><a href="IWDG__interface_8h.html#afdf15cddaf966d918224d78b50c4b6d5">IWDG_voidRefresh</a></div><div class="ttdeci">void IWDG_voidRefresh(void)</div><div class="ttdoc">Reload the watchdog counter (&quot;kick the dog&quot;).</div><div class="ttdef"><b>Definition</b> <a href="IWDG__program_8c_source.html#l00089">IWDG_program.c:89</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_f93dfce691d792349f1c14ede440e2e6.html">Inc</a></li><li class="navelem"><a href="dir_5807d32f659ca06f2d44f24c89728eb8.html">Drivers</a></li><li class="navelem"><a href="dir_8b6b04023385edca15dd86450894d113.html">MCAL</a></li><li class="navelem"><a href="dir_009231207bdf76d93bef455fb338957c.html">IWDG</a></li><li class="navelem"><a href="IWDG__interface_8h.html">IWDG_interface.h</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Inc</b></li><li class="navelem"><b>Drivers</b></li><li class="navelem"><b>MCAL</b></li><li class="navelem"><b>IWDG</b></li><li class="navelem"><a href="IWDG__interface_8h.html">IWDG_interface.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

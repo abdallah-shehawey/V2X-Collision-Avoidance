@@ -71,10 +71,10 @@ var NVIC__interface_8h =
       [ "NVIC_FMPI2C1_EV", "NVIC__interface_8h.html#a65e707f1e0baee3fd079df3704b78ed1ae05d2c3ba591b4d1a5962be351a22920", null ],
       [ "NVIC_FMPI2C1_ER", "NVIC__interface_8h.html#a65e707f1e0baee3fd079df3704b78ed1ad49a77d7dca5d08a25664adbeaf958a0", null ]
     ] ],
-    [ "NVIC_vClearPendingFlag", "NVIC__interface_8h.html#a4ef3db3ed7f9fd593fc38ab943c6e228", null ],
-    [ "NVIC_vDisableIRQ", "NVIC__interface_8h.html#a8d97ac945c4d8195e2d4c5de802dd747", null ],
     [ "NVIC_vEnableIRQ", "NVIC__interface_8h.html#a85d98abbd23523e4abf16cc4b4501431", null ],
-    [ "NVIC_vGetActiveFlag", "NVIC__interface_8h.html#aee982de5e4f7bd4192063d4ca975f3c4", null ],
+    [ "NVIC_vDisableIRQ", "NVIC__interface_8h.html#a8d97ac945c4d8195e2d4c5de802dd747", null ],
     [ "NVIC_vSetPendingFlag", "NVIC__interface_8h.html#ae356a904164941f246e6603db421e081", null ],
+    [ "NVIC_vClearPendingFlag", "NVIC__interface_8h.html#a4ef3db3ed7f9fd593fc38ab943c6e228", null ],
+    [ "NVIC_vGetActiveFlag", "NVIC__interface_8h.html#aee982de5e4f7bd4192063d4ca975f3c4", null ],
     [ "NVIC_vSetPriority", "NVIC__interface_8h.html#adacfc2d410ead15ca25830190e615000", null ]
 ];

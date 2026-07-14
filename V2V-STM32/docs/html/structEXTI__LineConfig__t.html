@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: EXTI_LineConfig_t Struct Reference</title>
+<title>V2V Collision Avoidance Firmware: EXTI_LineConfig_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -94,65 +94,29 @@ $(function(){initNavTree('structEXTI__LineConfig__t.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>: Configuration structure for EXTI line  
+<p>Configuration structure for EXTI line.  
  <a href="#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="EXTI__interface_8h_source.html">EXTI_interface.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="EXTI__interface_8h_source.html">Drivers/MCAL/EXTI/EXTI_interface.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a7bb57c6477e14aa8abd22e5a4cc6ab18" id="r_a7bb57c6477e14aa8abd22e5a4cc6ab18"><td class="memItemLeft"><a class="el" href="EXTI__interface_8h.html#abf16b4fe3e2abbf3d805d3596d279003">EXTI_Line_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7bb57c6477e14aa8abd22e5a4cc6ab18">Line</a></td></tr>
+<tr class="memdesc:a7bb57c6477e14aa8abd22e5a4cc6ab18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Which EXTI line, 0..15.  <br /></td></tr>
 <tr class="memitem:a30fce41e562685f6f811e81155ae7752" id="r_a30fce41e562685f6f811e81155ae7752"><td class="memItemLeft"><a class="el" href="EXTI__interface_8h.html#a3dcfff7050cb14cff72d6fda76609dbb">EXTI_TriggerSrc_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a30fce41e562685f6f811e81155ae7752">TrigSrc</a></td></tr>
+<tr class="memdesc:a30fce41e562685f6f811e81155ae7752"><td class="mdescLeft">&#160;</td><td class="mdescRight">Which edge fires it: rising, falling, or both.  <br /></td></tr>
 <tr class="memitem:a0491a60ce683c9d8f38a0a56cf79811d" id="r_a0491a60ce683c9d8f38a0a56cf79811d"><td class="memItemLeft"><a class="el" href="EXTI__interface_8h.html#aec5e19bc63c0a447f1202ca8cba09e74">EXTI_Enable_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0491a60ce683c9d8f38a0a56cf79811d">Enable</a></td></tr>
+<tr class="memdesc:a0491a60ce683c9d8f38a0a56cf79811d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the line is unmasked at init.  <br /></td></tr>
 <tr class="memitem:a4590b53f6a42687ebf0c3cdf3ad8d4af" id="r_a4590b53f6a42687ebf0c3cdf3ad8d4af"><td class="memItemLeft">void(*&#160;</td><td class="memItemRight"><a class="el" href="#a4590b53f6a42687ebf0c3cdf3ad8d4af">Copy_pvCallBack</a> )(void)</td></tr>
+<tr class="memdesc:a4590b53f6a42687ebf0c3cdf3ad8d4af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called from the EXTI ISR when the line fires.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>: Configuration structure for EXTI line </p>
-<p>@EXTI_LineConfig_t struct:</p>
-<p>: Holds all configuration parameters for an EXTI line </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname"></td><td>Line - EXTI line number (0-15) TrigSrc - Trigger source configuration Enable - Enable/disable state Copy_pvCallBack - Pointer to callback function </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>: Configuration structure for EXTI line </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2EXTI_2EXTI_interface_8h-example.html#_a25">/media/Local-Disk/Data/V2X-Collision-Avoidance/V2V-STM32/Inc/Drivers/MCAL/EXTI/EXTI_interface.h</a>.</dd>
-</dl>
+<div class="textblock"><p>Configuration structure for EXTI line. </p>
+<p>Holds all configuration parameters for an EXTI line One EXTI line, its trigger edge, and what to run when it fires. The six ultrasonic echo pins each own a line configured for <b>both</b> edges: the rising edge starts the echo timing, the falling edge stops it, and the difference is the distance.</p>
+<dl class="section note"><dt>Note</dt><dd>EXTI line <em>N</em> is shared by pin <em>N</em> of every port — PA3, PB3 and PC3 all map to EXTI3, and only one of them can own it. Which port actually drives the line is chosen in SYSCFG, not here. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="EXTI__interface_8h_source.html#l00088">88</a> of file <a class="el" href="EXTI__interface_8h_source.html">EXTI_interface.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="EXTI__interface_8h_source.html#l00080">80</a> of file <a class="el" href="EXTI__interface_8h_source.html">EXTI_interface.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
-<a id="a4590b53f6a42687ebf0c3cdf3ad8d4af" name="a4590b53f6a42687ebf0c3cdf3ad8d4af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4590b53f6a42687ebf0c3cdf3ad8d4af">&#9670;&#160;</a></span>Copy_pvCallBack</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void(* EXTI_LineConfig_t::Copy_pvCallBack) (void)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="EXTI__interface_8h_source.html#l00093">93</a> of file <a class="el" href="EXTI__interface_8h_source.html">EXTI_interface.h</a>.</p>
-
-</div>
-</div>
-<a id="a0491a60ce683c9d8f38a0a56cf79811d" name="a0491a60ce683c9d8f38a0a56cf79811d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0491a60ce683c9d8f38a0a56cf79811d">&#9670;&#160;</a></span>Enable</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="EXTI__interface_8h.html#aec5e19bc63c0a447f1202ca8cba09e74">EXTI_Enable_t</a> EXTI_LineConfig_t::Enable</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="EXTI__interface_8h_source.html#l00092">92</a> of file <a class="el" href="EXTI__interface_8h_source.html">EXTI_interface.h</a>.</p>
-
-</div>
-</div>
 <a id="a7bb57c6477e14aa8abd22e5a4cc6ab18" name="a7bb57c6477e14aa8abd22e5a4cc6ab18"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7bb57c6477e14aa8abd22e5a4cc6ab18">&#9670;&#160;</a></span>Line</h2>
 
@@ -165,7 +129,11 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EXTI__interface_8h_source.html#l00090">90</a> of file <a class="el" href="EXTI__interface_8h_source.html">EXTI_interface.h</a>.</p>
+<p>Which EXTI line, 0..15. </p>
+
+<p class="definition">Definition at line <a class="el" href="EXTI__interface_8h_source.html#l00082">82</a> of file <a class="el" href="EXTI__interface_8h_source.html">EXTI_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EXTI__program_8c_source.html#l00165">EXTI_vDisableInterrupt()</a>, <a class="el" href="EXTI__program_8c_source.html#l00097">EXTI_vEnableInterrupt()</a>, <a class="el" href="EXTI__program_8c_source.html#l00041">EXTI_vLineInit()</a>, <a class="el" href="EXTI__program_8c_source.html#l00122">EXTI_vSetTrigSrc()</a>, and <a class="el" href="EXTI__program_8c_source.html#l00188">EXTI_vSwIntEvent()</a>.</p>
 
 </div>
 </div>
@@ -181,12 +149,57 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EXTI__interface_8h_source.html#l00091">91</a> of file <a class="el" href="EXTI__interface_8h_source.html">EXTI_interface.h</a>.</p>
+<p>Which edge fires it: rising, falling, or both. </p>
+
+<p class="definition">Definition at line <a class="el" href="EXTI__interface_8h_source.html#l00083">83</a> of file <a class="el" href="EXTI__interface_8h_source.html">EXTI_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EXTI__program_8c_source.html#l00041">EXTI_vLineInit()</a>.</p>
+
+</div>
+</div>
+<a id="a0491a60ce683c9d8f38a0a56cf79811d" name="a0491a60ce683c9d8f38a0a56cf79811d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0491a60ce683c9d8f38a0a56cf79811d">&#9670;&#160;</a></span>Enable</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="EXTI__interface_8h.html#aec5e19bc63c0a447f1202ca8cba09e74">EXTI_Enable_t</a> EXTI_LineConfig_t::Enable</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Whether the line is unmasked at init. </p>
+
+<p class="definition">Definition at line <a class="el" href="EXTI__interface_8h_source.html#l00084">84</a> of file <a class="el" href="EXTI__interface_8h_source.html">EXTI_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EXTI__program_8c_source.html#l00041">EXTI_vLineInit()</a>.</p>
+
+</div>
+</div>
+<a id="a4590b53f6a42687ebf0c3cdf3ad8d4af" name="a4590b53f6a42687ebf0c3cdf3ad8d4af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4590b53f6a42687ebf0c3cdf3ad8d4af">&#9670;&#160;</a></span>Copy_pvCallBack</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void(* EXTI_LineConfig_t::Copy_pvCallBack) (void)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Called from the EXTI ISR when the line fires. </p>
+<p>Must be ISR-safe: short, non-blocking, <span class="tt">...FromISR</span> API only. </p>
+
+<p class="definition">Definition at line <a class="el" href="EXTI__interface_8h_source.html#l00085">85</a> of file <a class="el" href="EXTI__interface_8h_source.html">EXTI_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="EXTI__program_8c_source.html#l00041">EXTI_vLineInit()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>Inc/Drivers/MCAL/EXTI/<a class="el" href="EXTI__interface_8h_source.html">EXTI_interface.h</a></li>
+<li>V2V-STM32/Inc/Drivers/MCAL/EXTI/<a class="el" href="EXTI__interface_8h_source.html">EXTI_interface.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

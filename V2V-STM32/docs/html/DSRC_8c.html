@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Src/DSRC.c File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Src/DSRC.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,40 +90,21 @@ $(function(){initNavTree('DSRC_8c.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">DSRC.c File Reference</div></div>
+  <div class="headertitle"><div class="title">DSRC.c File Reference<div class="ingroups"><a class="el" href="group__app.html">Application</a> &raquo; <a class="el" href="group__app__dsrc.html">DSRC</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>: DSRC module implementation  
+<p><a class="el" href="structNeighbor.html" title="One vehicle&#39;s broadcast state — this is the wire format itself.">Neighbor</a> table, frame parser and transmitter for the V2V link.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="USART__intreface_8h_source.html">../Inc/Drivers/MCAL/USART/USART_intreface.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="DSRC_8h_source.html">../Inc/Application/DSRC/DSRC.h</a>&quot;</code><br />
 <code>#include &quot;FreeRTOS.h&quot;</code><br />
 <code>#include &quot;task.h&quot;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for DSRC.c:</div>
-<div class="dyncontent">
-<div class="center"><img src="DSRC_8c__incl.png" border="0" usemap="#aSrc_2DSRC_8c" loading="lazy" alt=""/></div>
-<map name="aSrc_2DSRC_8c" id="aSrc_2DSRC_8c">
-<area shape="rect" title=": DSRC module implementation" alt="" coords="317,5,409,33"/>
-<area shape="rect" href="USART__intreface_8h.html" title=" " alt="" coords="12,81,207,126"/>
-<area shape="poly" title=" " alt="" coords="320,35,192,78,190,73,324,32"/>
-<area shape="rect" href="DSRC_8h.html" title=": DSRC module implementation" alt="" coords="230,81,360,126"/>
-<area shape="poly" title=" " alt="" coords="354,32,324,71,321,67,350,35"/>
-<area shape="rect" title=" " alt="" coords="383,90,478,117"/>
-<area shape="poly" title=" " alt="" coords="375,31,413,78,408,77,373,36"/>
-<area shape="rect" title=" " alt="" coords="503,90,564,117"/>
-<area shape="poly" title=" " alt="" coords="391,31,492,79,497,83,491,82,490,83,390,36"/>
-<area shape="rect" href="ErrTypes_8h.html" title=" " alt="" coords="5,174,142,201"/>
-<area shape="poly" title=" " alt="" coords="102,124,88,161,83,158,98,128"/>
-<area shape="rect" title=" " alt="" coords="166,174,237,201"/>
-<area shape="poly" title=" " alt="" coords="135,124,178,163,173,163,133,129"/>
-<area shape="poly" title=" " alt="" coords="273,125,229,165,226,161,268,127"/>
-<area shape="rect" title=" " alt="" coords="261,174,328,201"/>
-<area shape="poly" title=" " alt="" coords="297,124,297,160,293,157,293,128"/>
-<area shape="rect" title=" " alt="" coords="353,174,423,201"/>
-<area shape="poly" title=" " alt="" coords="320,124,364,164,359,163,318,129"/>
-</map>
+</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for DSRC.c:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="DSRC_8c__incl.svg" width="570" height="207"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="DSRC_8c_source.html">Go to the source code of this file.</a></p>
@@ -135,24 +116,70 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a99f78dec5b5884642b44f101ef1d2460a93a993275f8870e7456c9f4c83f3a9aa">READ_CHECKSUM</a>
 , <a class="el" href="#a99f78dec5b5884642b44f101ef1d2460a1790dee8d2ec1e5612d374dc86385a94">READ_END</a>
  }</td></tr>
+<tr class="memdesc:a99f78dec5b5884642b44f101ef1d2460"><td class="mdescLeft">&#160;</td><td class="mdescRight">States of the receive state machine, in the order a good frame walks them.  <a href="#a99f78dec5b5884642b44f101ef1d2460">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:adad268979d4c4038075346292651c8af" id="r_adad268979d4c4038075346292651c8af"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adad268979d4c4038075346292651c8af">DSRC_Init</a> (void)</td></tr>
-<tr class="memitem:aded740c50de5ea4cf786939e10ace2d9" id="r_aded740c50de5ea4cf786939e10ace2d9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aded740c50de5ea4cf786939e10ace2d9">DSRC_SendNeighbor</a> (<a class="el" href="DSRC_8h.html#ac818f2e1224a1e513913a85019953e14">Neighbor</a> *n)</td></tr>
-<tr class="memitem:ac40e63c7c7041cacb1f60a1d4d710abb" id="r_ac40e63c7c7041cacb1f60a1d4d710abb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac40e63c7c7041cacb1f60a1d4d710abb">DSRC_Update</a> (void)</td></tr>
-<tr class="memitem:aa38784384016c34bf5e63add1930104b" id="r_aa38784384016c34bf5e63add1930104b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa38784384016c34bf5e63add1930104b">DSRC_RemoveStale</a> (uint32_t current_time)</td></tr>
-<tr class="memitem:a15d8d8dc4459f83b2aa2519119d037d0" id="r_a15d8d8dc4459f83b2aa2519119d037d0"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a15d8d8dc4459f83b2aa2519119d037d0">DSRC_GetCount</a> (void)</td></tr>
-<tr class="memitem:a76299bf71b1e2dc13baac26c6c4228c4" id="r_a76299bf71b1e2dc13baac26c6c4228c4"><td class="memItemLeft"><a class="el" href="DSRC_8h.html#ac818f2e1224a1e513913a85019953e14">Neighbor</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a76299bf71b1e2dc13baac26c6c4228c4">DSRC_GetTable</a> (void)</td></tr>
-<tr class="memitem:a8f2c7037352677729c777df880fefd1b" id="r_a8f2c7037352677729c777df880fefd1b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8f2c7037352677729c777df880fefd1b">DSRC_RxCallback</a> (uint8_t byte)</td></tr>
+<tr class="memitem:adf230eff7bb998e7580c3170513c4748" id="r_adf230eff7bb998e7580c3170513c4748"><td class="memItemLeft">static uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#adf230eff7bb998e7580c3170513c4748">calc_checksum</a> (uint8_t *data, uint8_t len)</td></tr>
+<tr class="memdesc:adf230eff7bb998e7580c3170513c4748"><td class="mdescLeft">&#160;</td><td class="mdescRight">XOR checksum over a byte range — the same one the ESP32 computes.  <br /></td></tr>
+<tr class="memitem:a9581430d0464dbd16bb9526564fb1299" id="r_a9581430d0464dbd16bb9526564fb1299"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a9581430d0464dbd16bb9526564fb1299">queue_push</a> (<a class="el" href="structNeighbor.html">Neighbor</a> *n)</td></tr>
+<tr class="memdesc:a9581430d0464dbd16bb9526564fb1299"><td class="mdescLeft">&#160;</td><td class="mdescRight">Append a parsed frame to <a class="el" href="#ae475e643d0ef2f075c1418f4c4ea33f0" title="rx_queue">rx_queue</a>.  <br /></td></tr>
+<tr class="memitem:abccb8c604d9cb8da589d0dfc1a6995b2" id="r_abccb8c604d9cb8da589d0dfc1a6995b2"><td class="memItemLeft">static uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#abccb8c604d9cb8da589d0dfc1a6995b2">queue_pop</a> (<a class="el" href="structNeighbor.html">Neighbor</a> *out)</td></tr>
+<tr class="memdesc:abccb8c604d9cb8da589d0dfc1a6995b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Take the oldest frame out of <a class="el" href="#ae475e643d0ef2f075c1418f4c4ea33f0" title="rx_queue">rx_queue</a>.  <br /></td></tr>
+<tr class="memitem:a8ee22cdf259d59d18812ac85cf9e88a9" id="r_a8ee22cdf259d59d18812ac85cf9e88a9"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a8ee22cdf259d59d18812ac85cf9e88a9">update_neighbor</a> (const <a class="el" href="structNeighbor.html">Neighbor</a> *msg)</td></tr>
+<tr class="memdesc:a8ee22cdf259d59d18812ac85cf9e88a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fold one received frame into the neighbor table.  <br /></td></tr>
+<tr class="memitem:gadad268979d4c4038075346292651c8af" id="r_gadad268979d4c4038075346292651c8af"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__app__dsrc.html#gadad268979d4c4038075346292651c8af">DSRC_Init</a> (void)</td></tr>
+<tr class="memdesc:gadad268979d4c4038075346292651c8af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the neighbor table and reset the frame parser.  <br /></td></tr>
+<tr class="memitem:gaded740c50de5ea4cf786939e10ace2d9" id="r_gaded740c50de5ea4cf786939e10ace2d9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__app__dsrc.html#gaded740c50de5ea4cf786939e10ace2d9">DSRC_SendNeighbor</a> (<a class="el" href="structNeighbor.html">Neighbor</a> *n)</td></tr>
+<tr class="memdesc:gaded740c50de5ea4cf786939e10ace2d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frame and transmit one <a class="el" href="structNeighbor.html" title="Neighbor">Neighbor</a> over UART1 to the ESP32 bridge.  <br /></td></tr>
+<tr class="memitem:gac40e63c7c7041cacb1f60a1d4d710abb" id="r_gac40e63c7c7041cacb1f60a1d4d710abb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__app__dsrc.html#gac40e63c7c7041cacb1f60a1d4d710abb">DSRC_Update</a> (void)</td></tr>
+<tr class="memdesc:gac40e63c7c7041cacb1f60a1d4d710abb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drain the parser's byte queue and fold any complete frames into the table.  <br /></td></tr>
+<tr class="memitem:gaa38784384016c34bf5e63add1930104b" id="r_gaa38784384016c34bf5e63add1930104b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__app__dsrc.html#gaa38784384016c34bf5e63add1930104b">DSRC_RemoveStale</a> (uint32_t current_time)</td></tr>
+<tr class="memdesc:gaa38784384016c34bf5e63add1930104b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drop every neighbor that has been silent for <a class="el" href="group__app__dsrc.html#ga545233ea05ce2ada1c14377954bb8931" title="NEIGHBOR_TIMEOUT">NEIGHBOR_TIMEOUT</a>.  <br /></td></tr>
+<tr class="memitem:ga15d8d8dc4459f83b2aa2519119d037d0" id="r_ga15d8d8dc4459f83b2aa2519119d037d0"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="group__app__dsrc.html#ga15d8d8dc4459f83b2aa2519119d037d0">DSRC_GetCount</a> (void)</td></tr>
+<tr class="memdesc:ga15d8d8dc4459f83b2aa2519119d037d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">How many neighbors are currently in the table.  <br /></td></tr>
+<tr class="memitem:ga76299bf71b1e2dc13baac26c6c4228c4" id="r_ga76299bf71b1e2dc13baac26c6c4228c4"><td class="memItemLeft"><a class="el" href="structNeighbor.html">Neighbor</a> *&#160;</td><td class="memItemRight"><a class="el" href="group__app__dsrc.html#ga76299bf71b1e2dc13baac26c6c4228c4">DSRC_GetTable</a> (void)</td></tr>
+<tr class="memdesc:ga76299bf71b1e2dc13baac26c6c4228c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Borrow the neighbor table itself.  <br /></td></tr>
+<tr class="memitem:ga8f2c7037352677729c777df880fefd1b" id="r_ga8f2c7037352677729c777df880fefd1b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__app__dsrc.html#ga8f2c7037352677729c777df880fefd1b">DSRC_RxCallback</a> (uint8_t byte)</td></tr>
+<tr class="memdesc:ga8f2c7037352677729c777df880fefd1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Feed one received byte into the frame parser.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a6380af5ae8a47d62dd6de27b01504cd2" id="r_a6380af5ae8a47d62dd6de27b01504cd2"><td class="memItemLeft"><a class="el" href="structUSART__Handle__t.html">USART_Handle_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6380af5ae8a47d62dd6de27b01504cd2">USART_1</a></td></tr>
+<tr class="memdesc:a6380af5ae8a47d62dd6de27b01504cd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">USART1 — the link to the ESP32 radio bridge.  <br /></td></tr>
+<tr class="memitem:ab81c561c155a828fdd542f1506b8a14b" id="r_ab81c561c155a828fdd542f1506b8a14b"><td class="memItemLeft">static <a class="el" href="structNeighbor.html">Neighbor</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab81c561c155a828fdd542f1506b8a14b">neighbor_table</a> [<a class="el" href="group__app__dsrc.html#ga2b1d39159e4114f433745f15a201c93c">MAX_NEIGHBORS</a>]</td></tr>
+<tr class="memdesc:ab81c561c155a828fdd542f1506b8a14b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The neighbor table: one row per vehicle heard from recently.  <br /></td></tr>
+<tr class="memitem:a89c07c5539fe52e085d729b16b7adbf3" id="r_a89c07c5539fe52e085d729b16b7adbf3"><td class="memItemLeft">static uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a89c07c5539fe52e085d729b16b7adbf3">neighbor_count</a></td></tr>
+<tr class="memdesc:a89c07c5539fe52e085d729b16b7adbf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">How many rows of <a class="el" href="#ab81c561c155a828fdd542f1506b8a14b" title="neighbor_table">neighbor_table</a> are in use.  <br /></td></tr>
+<tr class="memitem:af6601d6caee138a71d57ec1a648a129c" id="r_af6601d6caee138a71d57ec1a648a129c"><td class="memItemLeft">static <a class="el" href="#a99f78dec5b5884642b44f101ef1d2460">ParseState</a>&#160;</td><td class="memItemRight"><a class="el" href="#af6601d6caee138a71d57ec1a648a129c">parse_state</a></td></tr>
+<tr class="memdesc:af6601d6caee138a71d57ec1a648a129c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Where the frame parser currently is.  <br /></td></tr>
+<tr class="memitem:ad8551a5eade2706b9a9febd30eeccf72" id="r_ad8551a5eade2706b9a9febd30eeccf72"><td class="memItemLeft">static uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#ad8551a5eade2706b9a9febd30eeccf72">rx_buf</a> [sizeof(<a class="el" href="structNeighbor.html">Neighbor</a>)]</td></tr>
+<tr class="memdesc:ad8551a5eade2706b9a9febd30eeccf72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Payload bytes collected so far during <a class="el" href="#a99f78dec5b5884642b44f101ef1d2460a6c9aea235a9b44681dfcc088658ccdd6" title="READ_DATA">READ_DATA</a>.  <br /></td></tr>
+<tr class="memitem:afa50670d960de8bf72255273abefae07" id="r_afa50670d960de8bf72255273abefae07"><td class="memItemLeft">static uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#afa50670d960de8bf72255273abefae07">rx_idx</a></td></tr>
+<tr class="memdesc:afa50670d960de8bf72255273abefae07"><td class="mdescLeft">&#160;</td><td class="mdescRight">How many payload bytes <a class="el" href="#ad8551a5eade2706b9a9febd30eeccf72" title="rx_buf">rx_buf</a> currently holds.  <br /></td></tr>
+<tr class="memitem:af7ae33ec078d1850f461a9ee7d7b7335" id="r_af7ae33ec078d1850f461a9ee7d7b7335"><td class="memItemLeft">static uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#af7ae33ec078d1850f461a9ee7d7b7335">rx_checksum</a></td></tr>
+<tr class="memdesc:af7ae33ec078d1850f461a9ee7d7b7335"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checksum byte received, held until the frame is validated.  <br /></td></tr>
+<tr id="var-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">Parsed-frame queue</div></td></tr>
+<tr><td colspan="2" class="ititle"><div class="groupText"><p>A single-producer / single-consumer ring buffer sitting between the parser and <a class="el" href="group__app__dsrc.html#gac40e63c7c7041cacb1f60a1d4d710abb" title="DSRC_Update">DSRC_Update</a>.</p>
+<p>It is deliberately allowed to <em>drop</em> a frame when full rather than block or overwrite: losing one 100 ms broadcast is harmless, since the sender repeats it, whereas stalling the parser would back up the UART. </p>
+</div></td></tr>
+<tr class="memitem:ae475e643d0ef2f075c1418f4c4ea33f0" id="r_ae475e643d0ef2f075c1418f4c4ea33f0"><td class="memItemLeft">static <a class="el" href="structNeighbor.html">Neighbor</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae475e643d0ef2f075c1418f4c4ea33f0">rx_queue</a> [<a class="el" href="group__app__dsrc.html#ga142810068f1b99cd93d3fc9f0e160e02">QUEUE_SIZE</a>]</td></tr>
+<tr class="memdesc:ae475e643d0ef2f075c1418f4c4ea33f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The queued frames.  <br /></td></tr>
+<tr class="memitem:a1a5bdba5ad46709632528c6d50d23f21" id="r_a1a5bdba5ad46709632528c6d50d23f21"><td class="memItemLeft">static volatile uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a1a5bdba5ad46709632528c6d50d23f21">queue_head</a></td></tr>
+<tr class="memdesc:a1a5bdba5ad46709632528c6d50d23f21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read index — advanced by <a class="el" href="#abccb8c604d9cb8da589d0dfc1a6995b2" title="queue_pop">queue_pop</a>.  <br /></td></tr>
+<tr class="memitem:aace80fbfca2f194e2e4a47e3c42cf890" id="r_aace80fbfca2f194e2e4a47e3c42cf890"><td class="memItemLeft">static volatile uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#aace80fbfca2f194e2e4a47e3c42cf890">queue_tail</a></td></tr>
+<tr class="memdesc:aace80fbfca2f194e2e4a47e3c42cf890"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write index — advanced by <a class="el" href="#a9581430d0464dbd16bb9526564fb1299" title="queue_push">queue_push</a>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>: DSRC module implementation </p>
-<dl class="section author"><dt>Author</dt><dd>: Abdallah Shehawey  </dd></dl>
+<div class="textblock"><p><a class="el" href="structNeighbor.html" title="One vehicle&#39;s broadcast state — this is the wire format itself.">Neighbor</a> table, frame parser and transmitter for the V2V link. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Shehawey </dd></dl>
+<p>Three pieces live here:</p>
+<ol type="1">
+<li>a <b>byte-at-a-time frame parser</b> (<a class="el" href="group__app__dsrc.html#ga8f2c7037352677729c777df880fefd1b" title="DSRC_RxCallback">DSRC_RxCallback</a>), written as an explicit state machine so a garbled or half-received frame can never leave the parser stuck — it simply falls back to <a class="el" href="#a99f78dec5b5884642b44f101ef1d2460ad672f41b357cfe8db0e7b262a428fd66" title="WAIT_START">WAIT_START</a>;</li>
+<li>a small <b>queue</b> of successfully parsed frames, which decouples parsing from the table update;</li>
+<li>the <b>neighbor table</b> itself, one row per vehicle heard from recently.</li>
+</ol>
+<p>See <a class="el" href="DSRC_8h.html#dsrc_frame" title="Frame layout">Frame layout</a> in <a class="el" href="DSRC_8h.html" title="The V2V transport: the neighbor table and the over-the-air frame format shared with the ESP32 radio b...">DSRC.h</a> for the frame layout. </p>
 
 <p class="definition">Definition in file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
@@ -167,245 +194,215 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>States of the receive state machine, in the order a good frame walks them. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a99f78dec5b5884642b44f101ef1d2460ad672f41b357cfe8db0e7b262a428fd66" name="a99f78dec5b5884642b44f101ef1d2460ad672f41b357cfe8db0e7b262a428fd66"></a>WAIT_START&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a99f78dec5b5884642b44f101ef1d2460a6c9aea235a9b44681dfcc088658ccdd6" name="a99f78dec5b5884642b44f101ef1d2460a6c9aea235a9b44681dfcc088658ccdd6"></a>READ_DATA&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a99f78dec5b5884642b44f101ef1d2460a93a993275f8870e7456c9f4c83f3a9aa" name="a99f78dec5b5884642b44f101ef1d2460a93a993275f8870e7456c9f4c83f3a9aa"></a>READ_CHECKSUM&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a99f78dec5b5884642b44f101ef1d2460a1790dee8d2ec1e5612d374dc86385a94" name="a99f78dec5b5884642b44f101ef1d2460a1790dee8d2ec1e5612d374dc86385a94"></a>READ_END&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a99f78dec5b5884642b44f101ef1d2460ad672f41b357cfe8db0e7b262a428fd66" name="a99f78dec5b5884642b44f101ef1d2460ad672f41b357cfe8db0e7b262a428fd66"></a>WAIT_START&#160;</td><td class="fielddoc"><p>Discarding bytes until <a class="el" href="group__app__dsrc.html#ga30d2043ca397843e08c43ade3aaee5b2" title="START_BYTE">START_BYTE</a> shows up. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a99f78dec5b5884642b44f101ef1d2460a6c9aea235a9b44681dfcc088658ccdd6" name="a99f78dec5b5884642b44f101ef1d2460a6c9aea235a9b44681dfcc088658ccdd6"></a>READ_DATA&#160;</td><td class="fielddoc"><p>Collecting the <span class="tt">sizeof(Neighbor)</span> payload bytes. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a99f78dec5b5884642b44f101ef1d2460a93a993275f8870e7456c9f4c83f3a9aa" name="a99f78dec5b5884642b44f101ef1d2460a93a993275f8870e7456c9f4c83f3a9aa"></a>READ_CHECKSUM&#160;</td><td class="fielddoc"><p>Reading the checksum byte and comparing it with the running XOR. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a99f78dec5b5884642b44f101ef1d2460a1790dee8d2ec1e5612d374dc86385a94" name="a99f78dec5b5884642b44f101ef1d2460a1790dee8d2ec1e5612d374dc86385a94"></a>READ_END&#160;</td><td class="fielddoc"><p>Expecting <a class="el" href="group__app__dsrc.html#ga5126c1e2dc63cec63fc73710e48a9b5d" title="END_BYTE">END_BYTE</a>; only now is the frame accepted. </p>
+</td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00027">27</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00053">53</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
 
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a15d8d8dc4459f83b2aa2519119d037d0" name="a15d8d8dc4459f83b2aa2519119d037d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a15d8d8dc4459f83b2aa2519119d037d0">&#9670;&#160;</a></span>DSRC_GetCount()</h2>
+<a id="adf230eff7bb998e7580c3170513c4748" name="adf230eff7bb998e7580c3170513c4748"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf230eff7bb998e7580c3170513c4748">&#9670;&#160;</a></span>calc_checksum()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t DSRC_GetCount </td>
+          <td class="memname">uint8_t calc_checksum </td>
           <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>len</em></span>&#160;)</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00176">176</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="DSRC_8c_a15d8d8dc4459f83b2aa2519119d037d0_icgraph.png" border="0" usemap="#aDSRC_8c_a15d8d8dc4459f83b2aa2519119d037d0_icgraph" loading="lazy" alt=""/></div>
-<map name="aDSRC_8c_a15d8d8dc4459f83b2aa2519119d037d0_icgraph" id="aDSRC_8c_a15d8d8dc4459f83b2aa2519119d037d0_icgraph">
-<area shape="rect" title=" " alt="" coords="544,5,670,33"/>
-<area shape="rect" href="SafetyEngine__program_8c.html#a7b6c12632534a82b4357a73306667157" title="Single&#45;pass update over the DSRC neighbor table. Runs all safety modules in ONE pass and aggregates t..." alt="" coords="307,5,496,33"/>
-<area shape="poly" title=" " alt="" coords="526,19,497,22,497,17,531,19"/>
-<area shape="rect" href="main_8c.html#a1fa00ec0e4cf92155fcaa535be5ab3a1" title="Single&#45;pass ADAS brain." alt="" coords="108,5,259,33"/>
-<area shape="poly" title=" " alt="" coords="289,19,260,22,259,17,294,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,94,18"/>
-</map>
+<p>XOR checksum over a byte range — the same one the ESP32 computes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>First byte to fold in. </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">len</td><td>Number of bytes. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The XOR of all <code class="param">len</code> bytes.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>An XOR is weak as error detection goes: it catches any single-bit error and any odd number of flipped bits, but two bits flipped in the same column cancel out. It is what the ESP32 side computes, so the two must match. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00084">84</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DSRC_8c_source.html#l00276">DSRC_RxCallback()</a>, and <a class="el" href="DSRC_8c_source.html#l00204">DSRC_SendNeighbor()</a>.</p>
+<div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="DSRC_8c_adf230eff7bb998e7580c3170513c4748_icgraph.svg" width="624" height="91"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
 </div>
-<a id="a76299bf71b1e2dc13baac26c6c4228c4" name="a76299bf71b1e2dc13baac26c6c4228c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76299bf71b1e2dc13baac26c6c4228c4">&#9670;&#160;</a></span>DSRC_GetTable()</h2>
+<a id="a9581430d0464dbd16bb9526564fb1299" name="a9581430d0464dbd16bb9526564fb1299"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9581430d0464dbd16bb9526564fb1299">&#9670;&#160;</a></span>queue_push()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="DSRC_8h.html#ac818f2e1224a1e513913a85019953e14">Neighbor</a> * DSRC_GetTable </td>
+          <td class="memname">void queue_push </td>
           <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structNeighbor.html">Neighbor</a> *</td>          <td class="paramname"><span class="paramname"><em>n</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00200">200</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="DSRC_8c_a76299bf71b1e2dc13baac26c6c4228c4_icgraph.png" border="0" usemap="#aDSRC_8c_a76299bf71b1e2dc13baac26c6c4228c4_icgraph" loading="lazy" alt=""/></div>
-<map name="aDSRC_8c_a76299bf71b1e2dc13baac26c6c4228c4_icgraph" id="aDSRC_8c_a76299bf71b1e2dc13baac26c6c4228c4_icgraph">
-<area shape="rect" title=" " alt="" coords="544,5,666,33"/>
-<area shape="rect" href="SafetyEngine__program_8c.html#a7b6c12632534a82b4357a73306667157" title="Single&#45;pass update over the DSRC neighbor table. Runs all safety modules in ONE pass and aggregates t..." alt="" coords="307,5,496,33"/>
-<area shape="poly" title=" " alt="" coords="526,19,497,22,497,17,532,19"/>
-<area shape="rect" href="main_8c.html#a1fa00ec0e4cf92155fcaa535be5ab3a1" title="Single&#45;pass ADAS brain." alt="" coords="108,5,259,33"/>
-<area shape="poly" title=" " alt="" coords="289,19,260,22,259,17,294,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,94,18"/>
-</map>
+<p>Append a parsed frame to <a class="el" href="#ae475e643d0ef2f075c1418f4c4ea33f0" title="rx_queue">rx_queue</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>The frame to enqueue. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>If the queue is full the frame is <b>dropped silently</b>. That is the intended behaviour — see the note on the queue itself. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00104">104</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
+
+<p class="reference">References <a class="el" href="DSRC_8c_source.html#l00046">queue_head</a>, <a class="el" href="DSRC_8h_source.html#l00085">QUEUE_SIZE</a>, <a class="el" href="DSRC_8c_source.html#l00047">queue_tail</a>, and <a class="el" href="DSRC_8c_source.html#l00045">rx_queue</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DSRC_8c_source.html#l00276">DSRC_RxCallback()</a>.</p>
+<div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="DSRC_8c_a9581430d0464dbd16bb9526564fb1299_icgraph.svg" width="586" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
 </div>
-<a id="adad268979d4c4038075346292651c8af" name="adad268979d4c4038075346292651c8af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adad268979d4c4038075346292651c8af">&#9670;&#160;</a></span>DSRC_Init()</h2>
+<a id="abccb8c604d9cb8da589d0dfc1a6995b2" name="abccb8c604d9cb8da589d0dfc1a6995b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abccb8c604d9cb8da589d0dfc1a6995b2">&#9670;&#160;</a></span>queue_pop()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void DSRC_Init </td>
+          <td class="memname">uint8_t queue_pop </td>
           <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structNeighbor.html">Neighbor</a> *</td>          <td class="paramname"><span class="paramname"><em>out</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00127">127</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="DSRC_8c_adad268979d4c4038075346292651c8af_icgraph.png" border="0" usemap="#aDSRC_8c_adad268979d4c4038075346292651c8af_icgraph" loading="lazy" alt=""/></div>
-<map name="aDSRC_8c_adad268979d4c4038075346292651c8af_icgraph" id="aDSRC_8c_adad268979d4c4038075346292651c8af_icgraph">
-<area shape="rect" title=" " alt="" coords="269,5,354,33"/>
-<area shape="rect" href="System_8c.html#ae436954cd2bde6634ab271317d2494a7" title=" " alt="" coords="108,5,221,33"/>
-<area shape="poly" title=" " alt="" coords="251,19,221,22,221,17,256,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,95,18"/>
-</map>
+<p>Take the oldest frame out of <a class="el" href="#ae475e643d0ef2f075c1418f4c4ea33f0" title="rx_queue">rx_queue</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>Receives the frame; untouched when the queue is empty. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">1</td><td>A frame was dequeued into <code class="param">out</code>. </td></tr>
+    <tr><td class="paramname">0</td><td>The queue was empty. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00120">120</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
+
+<p class="reference">References <a class="el" href="DSRC_8c_source.html#l00046">queue_head</a>, <a class="el" href="DSRC_8h_source.html#l00085">QUEUE_SIZE</a>, <a class="el" href="DSRC_8c_source.html#l00047">queue_tail</a>, and <a class="el" href="DSRC_8c_source.html#l00045">rx_queue</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DSRC_8c_source.html#l00220">DSRC_Update()</a>.</p>
+<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="DSRC_8c_abccb8c604d9cb8da589d0dfc1a6995b2_icgraph.svg" width="552" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
 </div>
-<a id="aa38784384016c34bf5e63add1930104b" name="aa38784384016c34bf5e63add1930104b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa38784384016c34bf5e63add1930104b">&#9670;&#160;</a></span>DSRC_RemoveStale()</h2>
+<a id="a8ee22cdf259d59d18812ac85cf9e88a9" name="a8ee22cdf259d59d18812ac85cf9e88a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ee22cdf259d59d18812ac85cf9e88a9">&#9670;&#160;</a></span>update_neighbor()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void DSRC_RemoveStale </td>
+          <td class="memname">void update_neighbor </td>
           <td>(</td>
-          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>current_time</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="structNeighbor.html">Neighbor</a> *</td>          <td class="paramname"><span class="paramname"><em>msg</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00161">161</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="DSRC_8c_aa38784384016c34bf5e63add1930104b_icgraph.png" border="0" usemap="#aDSRC_8c_aa38784384016c34bf5e63add1930104b_icgraph" loading="lazy" alt=""/></div>
-<map name="aDSRC_8c_aa38784384016c34bf5e63add1930104b_icgraph" id="aDSRC_8c_aa38784384016c34bf5e63add1930104b_icgraph">
-<area shape="rect" title=" " alt="" coords="295,5,446,33"/>
-<area shape="rect" href="main_8c.html#a8e83024643794f31ab8139cbdb1de5dd" title="Handles both RX and TX communication with ESP (V2X Network) using DSRC foundation." alt="" coords="108,5,247,33"/>
-<area shape="poly" title=" " alt="" coords="277,19,248,22,248,17,282,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="90,20,60,22,60,17,95,18"/>
-</map>
-</div>
+<p>Fold one received frame into the neighbor table. </p>
+<p>A sender already in the table overwrites its own row; a new sender takes the next free slot. Once the table holds <a class="el" href="group__app__dsrc.html#ga2b1d39159e4114f433745f15a201c93c" title="MAX_NEIGHBORS">MAX_NEIGHBORS</a> vehicles, further new senders are ignored.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">msg</td><td>The frame to merge in.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>The row is stamped with the <b>local</b> FreeRTOS tick, not the sender's <span class="tt">last_update</span>. The sender's timestamp comes from its own clock, which has no fixed relationship to ours, so it cannot be compared against anything here — <a class="el" href="group__app__dsrc.html#gaa38784384016c34bf5e63add1930104b" title="DSRC_RemoveStale">DSRC_RemoveStale</a> would either purge everyone or no one. </dd></dl>
 
-</div>
-</div>
-<a id="a8f2c7037352677729c777df880fefd1b" name="a8f2c7037352677729c777df880fefd1b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f2c7037352677729c777df880fefd1b">&#9670;&#160;</a></span>DSRC_RxCallback()</h2>
+<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00151">151</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DSRC_RxCallback </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>byte</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p class="reference">References <a class="el" href="DSRC_8h_source.html#l00066">MAX_NEIGHBORS</a>, <a class="el" href="DSRC_8c_source.html#l00034">neighbor_count</a>, <a class="el" href="DSRC_8c_source.html#l00031">neighbor_table</a>, and <a class="el" href="DSRC_8h_source.html#l00101">Neighbor::vehicle_id</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00208">208</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="DSRC_8c_a8f2c7037352677729c777df880fefd1b_icgraph.png" border="0" usemap="#aDSRC_8c_a8f2c7037352677729c777df880fefd1b_icgraph" loading="lazy" alt=""/></div>
-<map name="aDSRC_8c_a8f2c7037352677729c777df880fefd1b_icgraph" id="aDSRC_8c_a8f2c7037352677729c777df880fefd1b_icgraph">
-<area shape="rect" title=" " alt="" coords="295,5,432,33"/>
-<area shape="rect" href="main_8c.html#a8e83024643794f31ab8139cbdb1de5dd" title="Handles both RX and TX communication with ESP (V2X Network) using DSRC foundation." alt="" coords="108,5,247,33"/>
-<area shape="poly" title=" " alt="" coords="276,19,248,22,247,17,282,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="90,20,60,22,60,17,95,18"/>
-</map>
+<p class="reference">Referenced by <a class="el" href="DSRC_8c_source.html#l00220">DSRC_Update()</a>.</p>
+<div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
-
-</div>
-</div>
-<a id="aded740c50de5ea4cf786939e10ace2d9" name="aded740c50de5ea4cf786939e10ace2d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aded740c50de5ea4cf786939e10ace2d9">&#9670;&#160;</a></span>DSRC_SendNeighbor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DSRC_SendNeighbor </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="DSRC_8h.html#ac818f2e1224a1e513913a85019953e14">Neighbor</a> *</td>          <td class="paramname"><span class="paramname"><em>n</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00136">136</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="DSRC_8c_aded740c50de5ea4cf786939e10ace2d9_cgraph.png" border="0" usemap="#aDSRC_8c_aded740c50de5ea4cf786939e10ace2d9_cgraph" loading="lazy" alt=""/></div>
-<map name="aDSRC_8c_aded740c50de5ea4cf786939e10ace2d9_cgraph" id="aDSRC_8c_aded740c50de5ea4cf786939e10ace2d9_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,161,33"/>
-<area shape="rect" href="USART__program_8c.html#a1abd71036dad0752b737b6b4872d7111" title=" " alt="" coords="209,5,374,33"/>
-<area shape="poly" title=" " alt="" coords="161,17,196,19,190,19,161,22"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="DSRC_8c_aded740c50de5ea4cf786939e10ace2d9_icgraph.png" border="0" usemap="#aDSRC_8c_aded740c50de5ea4cf786939e10ace2d9_icgraph" loading="lazy" alt=""/></div>
-<map name="aDSRC_8c_aded740c50de5ea4cf786939e10ace2d9_icgraph" id="aDSRC_8c_aded740c50de5ea4cf786939e10ace2d9_icgraph">
-<area shape="rect" title=" " alt="" coords="295,5,450,33"/>
-<area shape="rect" href="main_8c.html#a8e83024643794f31ab8139cbdb1de5dd" title="Handles both RX and TX communication with ESP (V2X Network) using DSRC foundation." alt="" coords="108,5,247,33"/>
-<area shape="poly" title=" " alt="" coords="277,19,248,22,248,17,282,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="90,20,60,22,60,17,95,18"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ac40e63c7c7041cacb1f60a1d4d710abb" name="ac40e63c7c7041cacb1f60a1d4d710abb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac40e63c7c7041cacb1f60a1d4d710abb">&#9670;&#160;</a></span>DSRC_Update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DSRC_Update </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00152">152</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="DSRC_8c_ac40e63c7c7041cacb1f60a1d4d710abb_icgraph.png" border="0" usemap="#aDSRC_8c_ac40e63c7c7041cacb1f60a1d4d710abb_icgraph" loading="lazy" alt=""/></div>
-<map name="aDSRC_8c_ac40e63c7c7041cacb1f60a1d4d710abb_icgraph" id="aDSRC_8c_ac40e63c7c7041cacb1f60a1d4d710abb_icgraph">
-<area shape="rect" title=" " alt="" coords="295,5,406,33"/>
-<area shape="rect" href="main_8c.html#a8e83024643794f31ab8139cbdb1de5dd" title="Handles both RX and TX communication with ESP (V2X Network) using DSRC foundation." alt="" coords="108,5,247,33"/>
-<area shape="poly" title=" " alt="" coords="277,19,247,22,247,17,282,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="90,20,60,22,60,17,95,18"/>
-</map>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="DSRC_8c_a8ee22cdf259d59d18812ac85cf9e88a9_icgraph.svg" width="591" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -431,7 +428,264 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="System_8c_source.html#l00061">61</a> of file <a class="el" href="System_8c_source.html">System.c</a>.</p>
+<p>USART1 — the link to the ESP32 radio bridge. </p>
+<p>Defined in <span class="tt"><a class="el" href="System_8c.html" title="System initialization and RTOS setup.">System.c</a></span>. </p>
+
+<p class="definition">Definition at line <a class="el" href="System_8c_source.html#l00062">62</a> of file <a class="el" href="System_8c_source.html">System.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DSRC_8c_source.html#l00204">DSRC_SendNeighbor()</a>, and <a class="el" href="System_8c_source.html#l00133">System_setup()</a>.</p>
+
+</div>
+</div>
+<a id="ab81c561c155a828fdd542f1506b8a14b" name="ab81c561c155a828fdd542f1506b8a14b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab81c561c155a828fdd542f1506b8a14b">&#9670;&#160;</a></span>neighbor_table</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structNeighbor.html">Neighbor</a> neighbor_table[<a class="el" href="group__app__dsrc.html#ga2b1d39159e4114f433745f15a201c93c">MAX_NEIGHBORS</a>]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The neighbor table: one row per vehicle heard from recently. </p>
+
+<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00031">31</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DSRC_8c_source.html#l00268">DSRC_GetTable()</a>, <a class="el" href="DSRC_8c_source.html#l00195">DSRC_Init()</a>, <a class="el" href="DSRC_8c_source.html#l00229">DSRC_RemoveStale()</a>, and <a class="el" href="DSRC_8c_source.html#l00151">update_neighbor()</a>.</p>
+
+</div>
+</div>
+<a id="a89c07c5539fe52e085d729b16b7adbf3" name="a89c07c5539fe52e085d729b16b7adbf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89c07c5539fe52e085d729b16b7adbf3">&#9670;&#160;</a></span>neighbor_count</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t neighbor_count</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>How many rows of <a class="el" href="#ab81c561c155a828fdd542f1506b8a14b" title="neighbor_table">neighbor_table</a> are in use. </p>
+
+<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00034">34</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DSRC_8c_source.html#l00244">DSRC_GetCount()</a>, <a class="el" href="DSRC_8c_source.html#l00195">DSRC_Init()</a>, <a class="el" href="DSRC_8c_source.html#l00229">DSRC_RemoveStale()</a>, and <a class="el" href="DSRC_8c_source.html#l00151">update_neighbor()</a>.</p>
+
+</div>
+</div>
+<a id="ae475e643d0ef2f075c1418f4c4ea33f0" name="ae475e643d0ef2f075c1418f4c4ea33f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae475e643d0ef2f075c1418f4c4ea33f0">&#9670;&#160;</a></span>rx_queue</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structNeighbor.html">Neighbor</a> rx_queue[<a class="el" href="group__app__dsrc.html#ga142810068f1b99cd93d3fc9f0e160e02">QUEUE_SIZE</a>]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The queued frames. </p>
+
+<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00045">45</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DSRC_8c_source.html#l00120">queue_pop()</a>, and <a class="el" href="DSRC_8c_source.html#l00104">queue_push()</a>.</p>
+
+</div>
+</div>
+<a id="a1a5bdba5ad46709632528c6d50d23f21" name="a1a5bdba5ad46709632528c6d50d23f21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a5bdba5ad46709632528c6d50d23f21">&#9670;&#160;</a></span>queue_head</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint8_t queue_head</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Read index — advanced by <a class="el" href="#abccb8c604d9cb8da589d0dfc1a6995b2" title="queue_pop">queue_pop</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00046">46</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DSRC_8c_source.html#l00195">DSRC_Init()</a>, <a class="el" href="DSRC_8c_source.html#l00120">queue_pop()</a>, and <a class="el" href="DSRC_8c_source.html#l00104">queue_push()</a>.</p>
+
+</div>
+</div>
+<a id="aace80fbfca2f194e2e4a47e3c42cf890" name="aace80fbfca2f194e2e4a47e3c42cf890"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aace80fbfca2f194e2e4a47e3c42cf890">&#9670;&#160;</a></span>queue_tail</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint8_t queue_tail</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Write index — advanced by <a class="el" href="#a9581430d0464dbd16bb9526564fb1299" title="queue_push">queue_push</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00047">47</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DSRC_8c_source.html#l00195">DSRC_Init()</a>, <a class="el" href="DSRC_8c_source.html#l00120">queue_pop()</a>, and <a class="el" href="DSRC_8c_source.html#l00104">queue_push()</a>.</p>
+
+</div>
+</div>
+<a id="af6601d6caee138a71d57ec1a648a129c" name="af6601d6caee138a71d57ec1a648a129c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6601d6caee138a71d57ec1a648a129c">&#9670;&#160;</a></span>parse_state</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a99f78dec5b5884642b44f101ef1d2460">ParseState</a> parse_state</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Where the frame parser currently is. </p>
+
+<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00062">62</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DSRC_8c_source.html#l00195">DSRC_Init()</a>, and <a class="el" href="DSRC_8c_source.html#l00276">DSRC_RxCallback()</a>.</p>
+
+</div>
+</div>
+<a id="ad8551a5eade2706b9a9febd30eeccf72" name="ad8551a5eade2706b9a9febd30eeccf72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8551a5eade2706b9a9febd30eeccf72">&#9670;&#160;</a></span>rx_buf</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t rx_buf[sizeof(<a class="el" href="structNeighbor.html">Neighbor</a>)]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Payload bytes collected so far during <a class="el" href="#a99f78dec5b5884642b44f101ef1d2460a6c9aea235a9b44681dfcc088658ccdd6" title="READ_DATA">READ_DATA</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00065">65</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DSRC_8c_source.html#l00276">DSRC_RxCallback()</a>.</p>
+
+</div>
+</div>
+<a id="afa50670d960de8bf72255273abefae07" name="afa50670d960de8bf72255273abefae07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa50670d960de8bf72255273abefae07">&#9670;&#160;</a></span>rx_idx</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t rx_idx</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>How many payload bytes <a class="el" href="#ad8551a5eade2706b9a9febd30eeccf72" title="rx_buf">rx_buf</a> currently holds. </p>
+
+<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00068">68</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DSRC_8c_source.html#l00276">DSRC_RxCallback()</a>.</p>
+
+</div>
+</div>
+<a id="af7ae33ec078d1850f461a9ee7d7b7335" name="af7ae33ec078d1850f461a9ee7d7b7335"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7ae33ec078d1850f461a9ee7d7b7335">&#9670;&#160;</a></span>rx_checksum</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t rx_checksum</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checksum byte received, held until the frame is validated. </p>
+
+<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00071">71</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="DSRC_8c_source.html#l00276">DSRC_RxCallback()</a>.</p>
 
 </div>
 </div>
@@ -448,7 +702,7 @@ Here is the caller graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_413f4e031a85da0d68269c6fd2f76e1c.html">Src</a></li><li class="navelem"><a href="DSRC_8c.html">DSRC.c</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Src</b></li><li class="navelem"><a href="DSRC_8c.html">DSRC.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

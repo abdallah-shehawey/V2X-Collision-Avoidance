@@ -7,29 +7,65 @@ Configuration structure for the buzzer.
 
 
 
-{\ttfamily \+\#include $<$BUZ\+\_\+interface.\+h$>$}
+{\ttfamily \+\#include $<$Drivers/\+\+HAL/\+\+BUZZ/\+\+BUZ\+\_\+interface.\+h$>$}
 
 \doxysubsubsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
-\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} \doxymbox{\hyperlink{structBUZ__Config__t_aee32e26b6531412ccbe879c667b65b2f}{Port}}
-\item 
-\doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} \doxymbox{\hyperlink{structBUZ__Config__t_a0f92704234d6d41557959b250f271987}{Pin}}
-\item 
+\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} \doxymbox{\hyperlink{structBUZ__Config__t_aee32e26b6531412ccbe879c667b65b2f}{Port}}
+\begin{DoxyCompactList}\small\item\em GPIO Port (PORTA to PORTH). \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} \doxymbox{\hyperlink{structBUZ__Config__t_a0f92704234d6d41557959b250f271987}{Pin}}
+\begin{DoxyCompactList}\small\item\em GPIO Pin (PIN0 to PIN15). \end{DoxyCompactList}\item 
 \doxymbox{\hyperlink{BUZ__interface_8h_a30707334c70b434fa4f7145542ee6b3a}{BUZ\+\_\+\+Active\+State\+\_\+t}} \doxymbox{\hyperlink{structBUZ__Config__t_ad353577f1afb89c9608c5e1158efb5b8}{Active\+State}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em ACTIVE\+\_\+\+HIGH or ACTIVE\+\_\+\+LOW. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 Configuration structure for the buzzer. 
 
-Definition at line \doxymbox{\hyperlink{BUZ__interface_8h_source_l00028}{28}} of file \doxymbox{\hyperlink{BUZ__interface_8h_source}{BUZ\+\_\+interface.\+h}}.
+Definition at line \doxymbox{\hyperlink{BUZ__interface_8h_source_l00029}{29}} of file \doxymbox{\hyperlink{BUZ__interface_8h_source}{BUZ\+\_\+interface.\+h}}.
 
 
 
 \label{doc-variable-members}
 \Hypertarget{structBUZ__Config__t_doc-variable-members}
 \doxysubsection{Field Documentation}
+\Hypertarget{structBUZ__Config__t_aee32e26b6531412ccbe879c667b65b2f}\index{BUZ\_Config\_t@{BUZ\_Config\_t}!Port@{Port}}
+\index{Port@{Port}!BUZ\_Config\_t@{BUZ\_Config\_t}}
+\doxysubsubsection{\texorpdfstring{Port}{Port}}
+{\footnotesize\ttfamily \label{structBUZ__Config__t_aee32e26b6531412ccbe879c667b65b2f} 
+\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} BUZ\+\_\+\+Config\+\_\+t::\+\+Port}
+
+
+
+GPIO Port (PORTA to PORTH). 
+
+
+
+Definition at line \doxymbox{\hyperlink{BUZ__interface_8h_source_l00031}{31}} of file \doxymbox{\hyperlink{BUZ__interface_8h_source}{BUZ\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{BUZ__program_8c_source_l00017}{BUZ\+\_\+\+Init()}}, \doxymbox{\hyperlink{BUZ__program_8c_source_l00073}{BUZ\+\_\+\+Off()}}, \doxymbox{\hyperlink{BUZ__program_8c_source_l00053}{BUZ\+\_\+\+On()}}, and \doxymbox{\hyperlink{BUZ__program_8c_source_l00094}{BUZ\+\_\+\+Toggle()}}.
+
+\Hypertarget{structBUZ__Config__t_a0f92704234d6d41557959b250f271987}\index{BUZ\_Config\_t@{BUZ\_Config\_t}!Pin@{Pin}}
+\index{Pin@{Pin}!BUZ\_Config\_t@{BUZ\_Config\_t}}
+\doxysubsubsection{\texorpdfstring{Pin}{Pin}}
+{\footnotesize\ttfamily \label{structBUZ__Config__t_a0f92704234d6d41557959b250f271987} 
+\doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} BUZ\+\_\+\+Config\+\_\+t::\+\+Pin}
+
+
+
+GPIO Pin (PIN0 to PIN15). 
+
+
+
+Definition at line \doxymbox{\hyperlink{BUZ__interface_8h_source_l00032}{32}} of file \doxymbox{\hyperlink{BUZ__interface_8h_source}{BUZ\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{BUZ__program_8c_source_l00017}{BUZ\+\_\+\+Init()}}, \doxymbox{\hyperlink{BUZ__program_8c_source_l00073}{BUZ\+\_\+\+Off()}}, \doxymbox{\hyperlink{BUZ__program_8c_source_l00053}{BUZ\+\_\+\+On()}}, and \doxymbox{\hyperlink{BUZ__program_8c_source_l00094}{BUZ\+\_\+\+Toggle()}}.
+
 \Hypertarget{structBUZ__Config__t_ad353577f1afb89c9608c5e1158efb5b8}\index{BUZ\_Config\_t@{BUZ\_Config\_t}!ActiveState@{ActiveState}}
 \index{ActiveState@{ActiveState}!BUZ\_Config\_t@{BUZ\_Config\_t}}
 \doxysubsubsection{\texorpdfstring{ActiveState}{ActiveState}}
@@ -38,30 +74,18 @@ Definition at line \doxymbox{\hyperlink{BUZ__interface_8h_source_l00028}{28}} of
 
 
 
-Definition at line \doxymbox{\hyperlink{BUZ__interface_8h_source_l00032}{32}} of file \doxymbox{\hyperlink{BUZ__interface_8h_source}{BUZ\+\_\+interface.\+h}}.
-
-\Hypertarget{structBUZ__Config__t_a0f92704234d6d41557959b250f271987}\index{BUZ\_Config\_t@{BUZ\_Config\_t}!Pin@{Pin}}
-\index{Pin@{Pin}!BUZ\_Config\_t@{BUZ\_Config\_t}}
-\doxysubsubsection{\texorpdfstring{Pin}{Pin}}
-{\footnotesize\ttfamily \label{structBUZ__Config__t_a0f92704234d6d41557959b250f271987} 
-\doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} BUZ\+\_\+\+Config\+\_\+t::\+\+Pin}
+ACTIVE\+\_\+\+HIGH or ACTIVE\+\_\+\+LOW. 
 
 
 
-Definition at line \doxymbox{\hyperlink{BUZ__interface_8h_source_l00031}{31}} of file \doxymbox{\hyperlink{BUZ__interface_8h_source}{BUZ\+\_\+interface.\+h}}.
-
-\Hypertarget{structBUZ__Config__t_aee32e26b6531412ccbe879c667b65b2f}\index{BUZ\_Config\_t@{BUZ\_Config\_t}!Port@{Port}}
-\index{Port@{Port}!BUZ\_Config\_t@{BUZ\_Config\_t}}
-\doxysubsubsection{\texorpdfstring{Port}{Port}}
-{\footnotesize\ttfamily \label{structBUZ__Config__t_aee32e26b6531412ccbe879c667b65b2f} 
-\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} BUZ\+\_\+\+Config\+\_\+t::\+\+Port}
+Definition at line \doxymbox{\hyperlink{BUZ__interface_8h_source_l00033}{33}} of file \doxymbox{\hyperlink{BUZ__interface_8h_source}{BUZ\+\_\+interface.\+h}}.
 
 
 
-Definition at line \doxymbox{\hyperlink{BUZ__interface_8h_source_l00030}{30}} of file \doxymbox{\hyperlink{BUZ__interface_8h_source}{BUZ\+\_\+interface.\+h}}.
+Referenced by \doxymbox{\hyperlink{BUZ__program_8c_source_l00073}{BUZ\+\_\+\+Off()}}, and \doxymbox{\hyperlink{BUZ__program_8c_source_l00053}{BUZ\+\_\+\+On()}}.
 
 
 
 The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
 \item 
-Inc/\+\+Drivers/\+\+HAL/\+\+BUZZ/\+\doxymbox{\hyperlink{BUZ__interface_8h}{BUZ\+\_\+interface.\+h}}\end{DoxyCompactItemize}
+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+HAL/\+\+BUZZ/\+\doxymbox{\hyperlink{BUZ__interface_8h}{BUZ\+\_\+interface.\+h}}\end{DoxyCompactItemize}

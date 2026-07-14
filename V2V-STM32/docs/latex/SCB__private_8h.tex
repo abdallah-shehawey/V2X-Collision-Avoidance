@@ -1,20 +1,37 @@
-\doxysection{Inc/\+\+Drivers/\+\+MCAL/\+\+SCB/\+\+SCB\+\_\+private.h File Reference}
-\hypertarget{SCB__private_8h}{}\label{SCB__private_8h}\index{Inc/Drivers/MCAL/SCB/SCB\_private.h@{Inc/Drivers/MCAL/SCB/SCB\_private.h}}
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SCB/\+\+SCB\+\_\+private.h File Reference}
+\hypertarget{SCB__private_8h}{}\label{SCB__private_8h}\index{V2V-\/STM32/Inc/Drivers/MCAL/SCB/SCB\_private.h@{V2V-\/STM32/Inc/Drivers/MCAL/SCB/SCB\_private.h}}
+
+
+Register bit positions and internals of the SCB driver — not a public header.  
+
+
 This graph shows which files directly or indirectly include this file:\+
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=202pt]{SCB__private_8h__dep__incl}
+\includegraphics[width=247pt]{SCB__private_8h__dep__incl}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\+\#define \doxymbox{\hyperlink{SCB__private_8h_a50a045146cf2dec3fc38e7ad0fca3f35}{AIRCR\+\_\+\+VECTKEY}}~0x\+FA05 $<$$<$ 16
-\item 
-\+\#define \doxymbox{\hyperlink{SCB__private_8h_ab513f93009579856a20b2b105f7f34f1}{SCB\+\_\+\+MAX\+\_\+\+PRIORITY\+\_\+\+GROUPING}}~7
-\end{DoxyCompactItemize}
+\+\#define \doxymbox{\hyperlink{SCB__private_8h_a50a045146cf2dec3fc38e7ad0fca3f35}{AIRCR\+\_\+\+VECTKEY}}
+\begin{DoxyCompactList}\small\item\em The key that must be written into the top half of {\ttfamily AIRCR} for the write to take effect. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{SCB__private_8h_ab513f93009579856a20b2b105f7f34f1}{SCB\+\_\+\+MAX\+\_\+\+PRIORITY\+\_\+\+GROUPING}}
+\begin{DoxyCompactList}\small\item\em Largest valid priority-\/group value; higher means fewer preemption levels. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Register bit positions and internals of the SCB driver — not a public header. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{SCB__private_8h_source}{SCB\+\_\+private.\+h}}.
+
 
 
 \label{doc-define-members}
@@ -24,19 +41,38 @@ This graph shows which files directly or indirectly include this file:\+
 \index{AIRCR\_VECTKEY@{AIRCR\_VECTKEY}!SCB\_private.h@{SCB\_private.h}}
 \doxysubsubsection{\texorpdfstring{AIRCR\_VECTKEY}{AIRCR\_VECTKEY}}
 {\footnotesize\ttfamily \label{SCB__private_8h_a50a045146cf2dec3fc38e7ad0fca3f35} 
-\+\#define AIRCR\+\_\+\+VECTKEY~0x\+FA05 $<$$<$ 16}
+\+\#define AIRCR\+\_\+\+VECTKEY}
 
 
 
-Definition at line \doxymbox{\hyperlink{SCB__private_8h_source_l00004}{4}} of file \doxymbox{\hyperlink{SCB__private_8h_source}{SCB\+\_\+private.\+h}}.
+The key that must be written into the top half of {\ttfamily AIRCR} for the write to take effect. 
+
+\begin{DoxyNote}{Note}
+A write to {\ttfamily AIRCR} without this key is silently ignored. It is a guard against a stray pointer accidentally triggering a system reset. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{SCB__private_8h_source_l00018}{18}} of file \doxymbox{\hyperlink{SCB__private_8h_source}{SCB\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SCB__program_8c_source_l00019}{SCB\+\_\+v\+Set\+Priority\+Grouping()}}.
 
 \Hypertarget{SCB__private_8h_ab513f93009579856a20b2b105f7f34f1}\index{SCB\_private.h@{SCB\_private.h}!SCB\_MAX\_PRIORITY\_GROUPING@{SCB\_MAX\_PRIORITY\_GROUPING}}
 \index{SCB\_MAX\_PRIORITY\_GROUPING@{SCB\_MAX\_PRIORITY\_GROUPING}!SCB\_private.h@{SCB\_private.h}}
 \doxysubsubsection{\texorpdfstring{SCB\_MAX\_PRIORITY\_GROUPING}{SCB\_MAX\_PRIORITY\_GROUPING}}
 {\footnotesize\ttfamily \label{SCB__private_8h_ab513f93009579856a20b2b105f7f34f1} 
-\+\#define SCB\+\_\+\+MAX\+\_\+\+PRIORITY\+\_\+\+GROUPING~7}
+\+\#define SCB\+\_\+\+MAX\+\_\+\+PRIORITY\+\_\+\+GROUPING}
 
 
 
-Definition at line \doxymbox{\hyperlink{SCB__private_8h_source_l00006}{6}} of file \doxymbox{\hyperlink{SCB__private_8h_source}{SCB\+\_\+private.\+h}}.
+Largest valid priority-\/group value; higher means fewer preemption levels. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SCB__private_8h_source_l00020}{20}} of file \doxymbox{\hyperlink{SCB__private_8h_source}{SCB\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SCB__program_8c_source_l00019}{SCB\+\_\+v\+Set\+Priority\+Grouping()}}.
 

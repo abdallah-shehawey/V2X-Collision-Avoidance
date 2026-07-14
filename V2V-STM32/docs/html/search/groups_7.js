@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['timer_20configuration_0',['SysTick Timer Configuration',['../group__SYSTIC__Timer__Config.html',1,'']]]
+  ['hal_0',['HAL',['../group__hal.html',1,'']]]
 ];

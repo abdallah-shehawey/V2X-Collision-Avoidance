@@ -1,14 +1,10 @@
 /**
- **===========================================================================**
- **<<<<<<<<<<<<<<<<<<<<<<<<<<    SCB_program.c    >>>>>>>>>>>>>>>>>>>>>>>>>>>>**
- **                                                                           **
- **                  Author : Abdallah Abdelmoemen Shehawey                   **
- **                  Layer  : MCAL                                            **
- **                  CPU    : Cortex-M4                                       **
- **                  MCU    : NUCLEO-F446RE                                   **
- **                  SWC    : SCB                                             **
- **                                                                           **
- **===========================================================================**
+ ******************************************************************************
+ * @file    SCB_program.c
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Implementation of the SCB driver — the system control block.
+ * @ingroup mcal_scb
+ ******************************************************************************
  */
 #include <stdint.h>
 

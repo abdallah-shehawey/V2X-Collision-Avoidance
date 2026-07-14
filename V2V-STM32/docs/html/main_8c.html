@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Src/main.c File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Src/main.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,11 +90,11 @@ $(function(){initNavTree('main_8c.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">main.c File Reference</div></div>
+  <div class="headertitle"><div class="title">main.c File Reference<div class="ingroups"><a class="el" href="group__system.html">System</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>: Main program body  
+<p>Entry point, the six FreeRTOS tasks, and the watchdog liveness net.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
@@ -117,119 +117,37 @@ $(function(){initNavTree('main_8c.html','',''); });
 <code>#include &quot;<a class="el" href="DSRC_8h_source.html">../Inc/Application/DSRC/DSRC.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SafetyEngine__interface_8h_source.html">../Inc/Application/SafetyEngine/SafetyEngine_interface.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="IWDG__interface_8h_source.html">../Inc/Drivers/MCAL/IWDG/IWDG_interface.h</a>&quot;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for main.c:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8c__incl.png" border="0" usemap="#aSrc_2main_8c" loading="lazy" alt=""/></div>
-<map name="aSrc_2main_8c" id="aSrc_2main_8c">
-<area shape="rect" title=": Main program body" alt="" coords="1572,5,1661,33"/>
-<area shape="rect" title=" " alt="" coords="1244,359,1314,387"/>
-<area shape="poly" title=" " alt="" coords="1661,20,1738,25,1829,36,1912,53,1945,65,1968,79,1997,111,2012,144,2012,181,1996,220,1980,244,1963,262,1926,285,1883,298,1829,314,1761,333,1690,347,1550,366,1425,374,1330,375,1330,370,1425,369,1550,361,1690,342,1760,327,1828,308,1881,293,1924,280,1960,258,1976,240,1991,217,2007,180,2007,146,1992,114,1964,83,1942,70,1911,58,1828,41,1738,31,1662,25"/>
-<area shape="rect" title=" " alt="" coords="2057,90,2122,117"/>
-<area shape="poly" title=" " alt="" coords="1661,21,1829,38,1934,55,2039,78,2050,84,2044,84,2037,84,1933,60,1828,43,1662,26"/>
-<area shape="rect" href="System_8h.html" title=": System Header file" alt="" coords="548,90,683,117"/>
-<area shape="poly" title=" " alt="" coords="1569,21,1426,26,1211,35,959,53,829,67,702,84,678,88,677,83,701,78,828,61,958,48,1211,30,1426,21,1574,20"/>
-<area shape="rect" href="LED__interface_8h.html" title=" " alt="" coords="456,174,596,218"/>
-<area shape="poly" title=" " alt="" coords="1569,22,1331,30,993,42,685,59,583,71,552,77,537,83,526,99,520,118,520,160,515,157,515,117,521,97,533,79,550,72,582,65,685,54,992,36,1330,25,1574,21"/>
-<area shape="rect" title=" " alt="" coords="2146,90,2242,117"/>
-<area shape="poly" title=" " alt="" coords="1661,20,1868,36,2002,53,2136,78,2150,84,2144,84,2135,84,2001,58,1868,41,1662,25"/>
-<area shape="rect" title=" " alt="" coords="2265,90,2416,117"/>
-<area shape="poly" title=" " alt="" coords="1661,20,1915,37,2083,54,2254,78,2280,86,2274,85,2253,84,2083,60,1914,43,1662,25"/>
-<area shape="rect" title=" " alt="" coords="2439,90,2500,117"/>
-<area shape="poly" title=" " alt="" coords="1661,19,1823,24,2045,35,2267,53,2359,65,2428,78,2436,83,2431,83,2427,84,2358,70,2266,58,2045,41,1823,30,1662,24"/>
-<area shape="rect" title=" " alt="" coords="2525,90,2598,117"/>
-<area shape="poly" title=" " alt="" coords="1661,19,1838,24,2085,35,2333,53,2436,65,2513,78,2524,84,2519,83,2512,84,2435,70,2332,58,2085,41,1838,30,1662,24"/>
-<area shape="rect" title=" " alt="" coords="2622,90,2704,117"/>
-<area shape="poly" title=" " alt="" coords="1662,19,1856,24,2131,34,2409,52,2525,64,2612,78,2624,84,2619,84,2611,84,2524,69,2409,57,2131,39,1856,29,1662,24"/>
-<area shape="rect" href="BUZ__interface_8h.html" title=" " alt="" coords="260,174,432,218"/>
-<area shape="poly" title=" " alt="" coords="1569,22,1006,43,692,60,578,71,512,84,475,100,439,121,381,165,378,161,436,116,472,95,510,78,577,66,692,55,1006,37,1574,21"/>
-<area shape="rect" href="TIM__interface_8h.html" title="Timer (TIM) Interface Header File." alt="" coords="498,266,652,311"/>
-<area shape="poly" title=" " alt="" coords="1569,22,1421,28,1219,38,1018,56,936,68,875,84,834,100,795,120,720,167,657,216,609,258,606,253,654,211,717,162,792,115,832,95,873,78,935,63,1018,51,1219,33,1421,23,1574,21"/>
-<area shape="rect" href="US__interface_8h.html" title=" " alt="" coords="743,174,885,218"/>
-<area shape="poly" title=" " alt="" coords="1569,21,1434,27,1253,37,1074,54,1002,67,948,83,918,100,889,120,843,164,840,160,886,116,915,95,946,79,1000,62,1074,49,1252,31,1434,22,1574,21"/>
-<area shape="rect" href="MPU9250__interface_8h.html" title="Header file for MPU9250 IMU driver." alt="" coords="5,174,236,218"/>
-<area shape="poly" title=" " alt="" coords="1569,21,1344,27,1012,37,672,55,531,68,425,84,358,101,292,123,180,169,177,164,290,118,356,96,424,78,530,62,672,50,1012,32,1344,22,1574,21"/>
-<area shape="rect" href="USART__intreface_8h.html" title=" " alt="" coords="925,266,1119,311"/>
-<area shape="poly" title=" " alt="" coords="1569,22,1435,30,1261,40,1105,58,1051,69,1024,83,1011,101,1003,121,997,167,1002,212,1011,253,1007,250,997,213,992,167,998,120,1006,99,1020,79,1050,64,1104,53,1260,35,1435,24,1574,21"/>
-<area shape="rect" href="FCW__DNPW__interface_8h.html" title=" " alt="" coords="1053,81,1316,126"/>
-<area shape="poly" title=" " alt="" coords="1569,30,1315,80,1314,75,1574,28"/>
-<area shape="rect" href="DSRC_8h.html" title=": DSRC module implementation" alt="" coords="1268,182,1389,210"/>
-<area shape="poly" title=" " alt="" coords="1569,22,1439,30,1272,41,1122,58,1070,70,1044,83,1035,95,1031,106,1031,116,1035,125,1054,142,1084,156,1166,176,1255,190,1249,190,1165,181,1082,161,1051,147,1030,129,1026,117,1025,105,1030,93,1040,79,1069,65,1121,53,1271,36,1439,25,1574,21"/>
-<area shape="rect" href="SafetyEngine__interface_8h.html" title=" " alt="" coords="1465,174,1674,218"/>
-<area shape="poly" title=" " alt="" coords="1654,31,1687,50,1702,64,1714,80,1721,104,1713,127,1693,151,1666,169,1664,164,1689,147,1709,124,1716,104,1709,82,1698,67,1684,55,1653,36"/>
-<area shape="rect" href="EEBL__interface_8h.html" title=" " alt="" coords="1339,81,1510,126"/>
-<area shape="poly" title=" " alt="" coords="1588,33,1490,77,1489,72,1583,34"/>
-<area shape="rect" href="BSW__interface_8h.html" title=" " alt="" coords="1533,81,1700,126"/>
-<area shape="poly" title=" " alt="" coords="1618,32,1619,67,1614,63,1615,36"/>
-<area shape="rect" href="IMA__interface_8h.html" title=" " alt="" coords="1774,81,1931,126"/>
-<area shape="poly" title=" " alt="" coords="1655,31,1778,76,1773,75,1654,36"/>
-<area shape="rect" href="IWDG__interface_8h.html" title=" " alt="" coords="1801,174,1981,218"/>
-<area shape="poly" title=" " alt="" coords="1661,19,1735,24,1820,34,1896,52,1926,64,1945,79,1954,100,1951,122,1941,144,1925,164,1923,160,1936,141,1946,121,1949,101,1941,83,1923,69,1895,57,1819,40,1735,29,1662,25"/>
-<area shape="poly" title=" " alt="" coords="683,115,776,135,890,167,1013,209,1074,235,1132,264,1199,306,1254,350,1249,348,1196,310,1130,269,1072,240,1011,214,889,172,775,140,683,120"/>
-<area shape="poly" title=" " alt="" coords="605,116,559,165,556,160,600,119"/>
-<area shape="rect" href="GPIO__interface_8h.html" title=" " alt="" coords="269,266,423,311"/>
-<area shape="poly" title=" " alt="" coords="485,218,403,262,401,257,480,220"/>
-<area shape="rect" href="ErrTypes_8h.html" title=" " alt="" coords="278,359,414,387"/>
-<area shape="poly" title=" " alt="" coords="453,217,258,268,253,278,251,288,259,310,277,332,302,352,297,351,273,336,254,312,246,288,248,277,255,264,458,214"/>
-<area shape="poly" title=" " alt="" coords="423,300,486,308,702,330,915,347,1231,369,1226,369,915,352,702,335,486,314,423,305"/>
-<area shape="poly" title=" " alt="" coords="348,309,348,345,344,342,344,313"/>
-<area shape="poly" title=" " alt="" coords="347,217,348,252,344,250,344,221"/>
-<area shape="poly" title=" " alt="" coords="269,220,240,241,215,268,207,289,215,310,238,334,270,353,265,353,235,338,210,312,202,289,210,265,236,236,273,218"/>
-<area shape="poly" title=" " alt="" coords="653,300,716,308,1006,342,1231,367,1226,367,1006,347,715,314,653,305"/>
-<area shape="poly" title=" " alt="" coords="517,311,397,356,396,351,512,312"/>
-<area shape="rect" href="STD__MACROS_8h.html" title=" " alt="" coords="547,359,718,387"/>
-<area shape="poly" title=" " alt="" coords="591,309,617,347,612,345,589,314"/>
-<area shape="poly" title=" " alt="" coords="740,211,442,269,438,270,437,265,441,264,745,209"/>
-<area shape="poly" title=" " alt="" coords="740,202,685,212,620,224,552,242,487,269,472,278,461,289,437,313,380,353,378,348,433,309,457,285,468,274,485,264,550,237,619,219,685,206,745,201"/>
-<area shape="poly" title=" " alt="" coords="759,218,647,263,646,258,754,220"/>
-<area shape="poly" title=" " alt="" coords="780,218,748,243,717,268,680,309,650,349,648,344,676,305,713,264,745,238,775,220"/>
-<area shape="rect" href="Drivers_2LIB_2STM32F446xx_8h.html" title=" " alt="" coords="727,275,900,302"/>
-<area shape="poly" title=" " alt="" coords="816,217,816,261,812,258,812,221"/>
-<area shape="poly" title=" " alt="" coords="873,300,913,308,1231,364,1226,364,912,314,873,306"/>
-<area shape="poly" title=" " alt="" coords="131,216,160,263,179,288,201,309,240,334,283,354,278,354,237,338,198,313,175,291,156,266,130,222"/>
-<area shape="poly" title=" " alt="" coords="1091,309,1232,356,1226,355,1090,314"/>
-<area shape="poly" title=" " alt="" coords="927,309,913,314,649,347,430,367,429,362,648,341,912,308,921,309"/>
-<area shape="poly" title=" " alt="" coords="1188,124,1202,209,1216,260,1235,310,1259,348,1254,346,1230,312,1211,262,1197,210,1185,128"/>
-<area shape="poly" title=" " alt="" coords="1220,124,1298,174,1293,173,1218,129"/>
-<area shape="poly" title=" " alt="" coords="1277,124,1465,170,1460,170,1277,129"/>
-<area shape="poly" title=" " alt="" coords="1333,208,1337,256,1335,284,1328,312,1318,332,1305,350,1302,345,1314,329,1323,310,1330,283,1331,256,1329,212"/>
-<area shape="rect" title=" " alt="" coords="1388,275,1456,302"/>
-<area shape="poly" title=" " alt="" coords="1343,208,1400,265,1395,263,1341,213"/>
-<area shape="rect" title=" " alt="" coords="1244,275,1314,302"/>
-<area shape="poly" title=" " alt="" coords="1324,209,1295,263,1292,259,1319,212"/>
-<area shape="poly" title=" " alt="" coords="1431,124,1456,218,1464,241,1470,266,1475,290,1475,301,1469,313,1440,340,1404,358,1366,368,1330,373,1329,368,1365,363,1402,353,1437,336,1465,309,1470,299,1470,290,1465,267,1459,243,1451,219,1428,128"/>
-<area shape="poly" title=" " alt="" coords="1404,125,1355,174,1352,169,1399,127"/>
-<area shape="poly" title=" " alt="" coords="1460,124,1525,166,1520,165,1459,129"/>
-<area shape="poly" title=" " alt="" coords="1649,124,1672,146,1690,173,1697,197,1690,220,1655,262,1613,295,1565,321,1514,341,1463,355,1413,364,1330,373,1329,368,1413,359,1462,350,1513,336,1563,316,1610,291,1651,258,1685,217,1691,197,1685,175,1668,149,1647,129"/>
-<area shape="poly" title=" " alt="" coords="1550,126,1386,180,1384,174,1545,127"/>
-<area shape="poly" title=" " alt="" coords="1608,124,1589,162,1586,158,1603,128"/>
-<area shape="poly" title=" " alt="" coords="1835,125,1735,230,1679,281,1634,313,1595,330,1554,344,1471,362,1394,371,1330,374,1330,369,1393,366,1470,357,1553,339,1593,325,1631,309,1676,277,1732,226,1830,127"/>
-<area shape="poly" title=" " alt="" coords="1777,118,1404,184,1404,179,1771,119"/>
-<area shape="poly" title=" " alt="" coords="1787,126,1653,171,1651,166,1782,127"/>
-<area shape="poly" title=" " alt="" coords="1880,218,1841,269,1814,294,1783,313,1745,327,1694,339,1569,356,1437,367,1330,372,1330,367,1436,361,1568,351,1693,333,1744,322,1781,309,1810,289,1837,265,1875,220"/>
-</map>
+</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for main.c:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="main_8c__incl.svg" width="100%" height="594"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="main_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a83bb26015dd24416bf6b59ad49e55c9b" id="r_a83bb26015dd24416bf6b59ad49e55c9b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a83bb26015dd24416bf6b59ad49e55c9b">WDG_TIMEOUT_MS</a>&#160;&#160;&#160;2000U   /* IWDG hardware reset timeout (LSI-backed) */</td></tr>
-<tr class="memitem:afee5313facd23b9a57c62ae9212967da" id="r_afee5313facd23b9a57c62ae9212967da"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#afee5313facd23b9a57c62ae9212967da">WDG_CHECK_PERIOD_MS</a>&#160;&#160;&#160;300U   /* how often the monitor verifies + kicks   */</td></tr>
-<tr class="memitem:a78b344cdce85e4af3d1925ebfe42b907" id="r_a78b344cdce85e4af3d1925ebfe42b907"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a78b344cdce85e4af3d1925ebfe42b907">SENSORS_CYCLE_GAP_MS</a>&#160;&#160;&#160;10U</td></tr>
+<tr class="memitem:a83bb26015dd24416bf6b59ad49e55c9b" id="r_a83bb26015dd24416bf6b59ad49e55c9b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a83bb26015dd24416bf6b59ad49e55c9b">WDG_TIMEOUT_MS</a></td></tr>
+<tr class="memdesc:a83bb26015dd24416bf6b59ad49e55c9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">How long the IWDG will wait before resetting the MCU [ms].  <br /></td></tr>
+<tr class="memitem:afee5313facd23b9a57c62ae9212967da" id="r_afee5313facd23b9a57c62ae9212967da"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#afee5313facd23b9a57c62ae9212967da">WDG_CHECK_PERIOD_MS</a></td></tr>
+<tr class="memdesc:afee5313facd23b9a57c62ae9212967da"><td class="mdescLeft">&#160;</td><td class="mdescRight">How often <a class="el" href="#ae1bcb9c7fb7ee6cb777db33125685421" title="vTask_Watchdog">vTask_Watchdog</a> checks the heartbeats and kicks the IWDG [ms].  <br /></td></tr>
+<tr class="memitem:a78b344cdce85e4af3d1925ebfe42b907" id="r_a78b344cdce85e4af3d1925ebfe42b907"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a78b344cdce85e4af3d1925ebfe42b907">SENSORS_CYCLE_GAP_MS</a></td></tr>
+<tr class="memdesc:a78b344cdce85e4af3d1925ebfe42b907"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rest inserted after each full 6-sensor scan [ms].  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a2fb3f953ca886909cc9636f8a3660fc4" id="r_a2fb3f953ca886909cc9636f8a3660fc4"><td class="memItemLeft">enum &#160;</td><td class="memItemRight">{ <br />
-&#160;&#160;<a class="el" href="#a2fb3f953ca886909cc9636f8a3660fc4a6ee3238ee2d20bffcd8978324484c80d">HB_SAFETY</a> = 0
-, <a class="el" href="#a2fb3f953ca886909cc9636f8a3660fc4a1b3618ccc2aaf62c2c021f869a7a963a">HB_SENSORS</a>
-, <a class="el" href="#a2fb3f953ca886909cc9636f8a3660fc4a7c5b8595d98f89afda7c3c33f78fa1b3">HB_ESP</a>
-, <a class="el" href="#a2fb3f953ca886909cc9636f8a3660fc4a8a36182c5a9963f01fdf377df752c75f">HB_FEEDBACK</a>
+<tr class="memitem:a8b46a0a2e186c5a4e1157910e1117839" id="r_a8b46a0a2e186c5a4e1157910e1117839"><td class="memItemLeft">enum &#160;</td><td class="memItemRight">{ <br />
+&#160;&#160;<a class="el" href="#a8b46a0a2e186c5a4e1157910e1117839a6ee3238ee2d20bffcd8978324484c80d">HB_SAFETY</a>
+, <a class="el" href="#a8b46a0a2e186c5a4e1157910e1117839a1b3618ccc2aaf62c2c021f869a7a963a">HB_SENSORS</a>
+, <a class="el" href="#a8b46a0a2e186c5a4e1157910e1117839a7c5b8595d98f89afda7c3c33f78fa1b3">HB_ESP</a>
+, <a class="el" href="#a8b46a0a2e186c5a4e1157910e1117839a8a36182c5a9963f01fdf377df752c75f">HB_FEEDBACK</a>
 , <br />
-&#160;&#160;<a class="el" href="#a2fb3f953ca886909cc9636f8a3660fc4adf27abbb63f7e1861230371663fd6036">HB_RPI</a>
-, <a class="el" href="#a2fb3f953ca886909cc9636f8a3660fc4a23545dde189472e9f2a5d3f98b441486">HB_COUNT</a>
+&#160;&#160;<a class="el" href="#a8b46a0a2e186c5a4e1157910e1117839adf27abbb63f7e1861230371663fd6036">HB_RPI</a>
+, <a class="el" href="#a8b46a0a2e186c5a4e1157910e1117839a23545dde189472e9f2a5d3f98b441486">HB_COUNT</a>
 <br />
  }</td></tr>
+<tr class="memdesc:a8b46a0a2e186c5a4e1157910e1117839"><td class="mdescLeft">&#160;</td><td class="mdescRight">One heartbeat slot per monitored task — see <a class="el" href="#main_wdg" title="The watchdog net">The watchdog net</a>.  <a href="#a8b46a0a2e186c5a4e1157910e1117839">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -238,50 +156,80 @@ Functions</h2></td></tr>
 <tr class="memitem:a6124e00be85460e2af1224524c6c2278" id="r_a6124e00be85460e2af1224524c6c2278"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6124e00be85460e2af1224524c6c2278">vTask_Sensors</a> (void *pvParameters)</td></tr>
 <tr class="memdesc:a6124e00be85460e2af1224524c6c2278"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads ALL 6 ultrasonics + MPU9250 every cycle, then a small gap.  <br /></td></tr>
 <tr class="memitem:a96452f43e9871212929e6e6a969bec13" id="r_a96452f43e9871212929e6e6a969bec13"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a96452f43e9871212929e6e6a969bec13">vTask_Feedback</a> (void *pvParameters)</td></tr>
-<tr class="memdesc:a96452f43e9871212929e6e6a969bec13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alert manager (the "Muscle"): drives the LEDs + buzzer from the ADAS status word. It makes NO decision of its own — it only renders the severity that vTask_SafetyEngine already published. (Motors are driven by the Raspberry Pi, not here.).  <br /></td></tr>
+<tr class="memdesc:a96452f43e9871212929e6e6a969bec13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alert manager (the "Muscle"): drives the LEDs + buzzer from the ADAS status word.  <br /></td></tr>
 <tr class="memitem:a8e83024643794f31ab8139cbdb1de5dd" id="r_a8e83024643794f31ab8139cbdb1de5dd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8e83024643794f31ab8139cbdb1de5dd">vTask_ESP_Comm</a> (void *pvParameters)</td></tr>
 <tr class="memdesc:a8e83024643794f31ab8139cbdb1de5dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles both RX and TX communication with ESP (V2X Network) using DSRC foundation.  <br /></td></tr>
 <tr class="memitem:a0d8bacb322388f8284803eeccc5612c0" id="r_a0d8bacb322388f8284803eeccc5612c0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0d8bacb322388f8284803eeccc5612c0">vTask_RPi_Comm</a> (void *pvParameters)</td></tr>
+<tr class="memdesc:a0d8bacb322388f8284803eeccc5612c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Streams one ASCII CSV telemetry line to the Raspberry Pi every 100 ms.  <br /></td></tr>
 <tr class="memitem:ae1bcb9c7fb7ee6cb777db33125685421" id="r_ae1bcb9c7fb7ee6cb777db33125685421"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae1bcb9c7fb7ee6cb777db33125685421">vTask_Watchdog</a> (void *pvParameters)</td></tr>
 <tr class="memdesc:ae1bcb9c7fb7ee6cb777db33125685421"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liveness monitor + watchdog kicker (lowest priority).  <br /></td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe" id="r_a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Firmware entry point: bring up the board, create the tasks, start the OS.  <br /></td></tr>
 <tr class="memitem:a88b12403f1d9bc8cff413fbbde56e15d" id="r_a88b12403f1d9bc8cff413fbbde56e15d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a88b12403f1d9bc8cff413fbbde56e15d">vESP_UART_RX_Callback</a> (void)</td></tr>
+<tr class="memdesc:a88b12403f1d9bc8cff413fbbde56e15d"><td class="mdescLeft">&#160;</td><td class="mdescRight">USART1 receive ISR callback: push one byte onto <a class="el" href="#a2c251aeac2c84008a206658c306be262" title="G_xESP_RX_Queue">G_xESP_RX_Queue</a>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a4f097a0ea23201e71704715ba21668a1" id="r_a4f097a0ea23201e71704715ba21668a1"><td class="memItemLeft"><a class="el" href="structBUZ__Config__t.html">BUZ_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4f097a0ea23201e71704715ba21668a1">V2X_Buzzer</a></td></tr>
-<tr class="memitem:a305c18e4f4654cb56286827ae4d3883b" id="r_a305c18e4f4654cb56286827ae4d3883b"><td class="memItemLeft"><a class="el" href="structUSART__Config__t.html">USART_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a305c18e4f4654cb56286827ae4d3883b">RPi_UART</a></td></tr>
-<tr class="memitem:aed057ac0b23c05f6b02ef3bfed8bfa27" id="r_aed057ac0b23c05f6b02ef3bfed8bfa27"><td class="memItemLeft"><a class="el" href="structUS__Config__t.html">US_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aed057ac0b23c05f6b02ef3bfed8bfa27">FrontUS</a> [3]</td></tr>
-<tr class="memitem:a2b0e497a0b4ecc48b5dd5fef9623d4f3" id="r_a2b0e497a0b4ecc48b5dd5fef9623d4f3"><td class="memItemLeft"><a class="el" href="structUS__Config__t.html">US_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2b0e497a0b4ecc48b5dd5fef9623d4f3">BackUS</a> [3]</td></tr>
-<tr class="memitem:af1fb4a43ba68d1fdc94fd35a7d901cd4" id="r_af1fb4a43ba68d1fdc94fd35a7d901cd4"><td class="memItemLeft"><a class="el" href="structLED__Config__t.html">LED_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#af1fb4a43ba68d1fdc94fd35a7d901cd4">FrontR_LED</a></td></tr>
-<tr class="memitem:a2ab79e3f6235026ef8d29a9446511f48" id="r_a2ab79e3f6235026ef8d29a9446511f48"><td class="memItemLeft"><a class="el" href="structLED__Config__t.html">LED_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2ab79e3f6235026ef8d29a9446511f48">FrontL_LED</a></td></tr>
-<tr class="memitem:ae41df9dd37d7c4d27b829fd46cd1e5e3" id="r_ae41df9dd37d7c4d27b829fd46cd1e5e3"><td class="memItemLeft"><a class="el" href="structLED__Config__t.html">LED_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae41df9dd37d7c4d27b829fd46cd1e5e3">BackR_LED</a></td></tr>
-<tr class="memitem:abfc8237214cfd1267c607aaff66a96da" id="r_abfc8237214cfd1267c607aaff66a96da"><td class="memItemLeft"><a class="el" href="structLED__Config__t.html">LED_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#abfc8237214cfd1267c607aaff66a96da">BackL_LED</a></td></tr>
-<tr class="memitem:aa7037844a95faca4f50aae714fe5048a" id="r_aa7037844a95faca4f50aae714fe5048a"><td class="memItemLeft"><a class="el" href="structLED__Config__t.html">LED_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa7037844a95faca4f50aae714fe5048a">Interior_LED</a></td></tr>
 <tr class="memitem:a2c251aeac2c84008a206658c306be262" id="r_a2c251aeac2c84008a206658c306be262"><td class="memItemLeft">QueueHandle_t&#160;</td><td class="memItemRight"><a class="el" href="#a2c251aeac2c84008a206658c306be262">G_xESP_RX_Queue</a></td></tr>
+<tr class="memdesc:a2c251aeac2c84008a206658c306be262"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bytes received on USART1, handed from the RX ISR to <a class="el" href="#a8e83024643794f31ab8139cbdb1de5dd" title="vTask_ESP_Comm">vTask_ESP_Comm</a>.  <br /></td></tr>
 <tr class="memitem:a101fd1911cf8e567c729470ceb6d2fb8" id="r_a101fd1911cf8e567c729470ceb6d2fb8"><td class="memItemLeft">SemaphoreHandle_t&#160;</td><td class="memItemRight"><a class="el" href="#a101fd1911cf8e567c729470ceb6d2fb8">G_xDataMutex</a></td></tr>
+<tr class="memdesc:a101fd1911cf8e567c729470ceb6d2fb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Guards <a class="el" href="group__system.html#gac3116f56a230ebdd81cadd527921464c" title="G_stHostVehicleState">G_stHostVehicleState</a> and <a class="el" href="group__system.html#ga9e78367aa5b758af972838362c2b0eab" title="G_u16SystemFlags">G_u16SystemFlags</a>.  <br /></td></tr>
 <tr class="memitem:ab31e36f89b28f343b708712d4346780a" id="r_ab31e36f89b28f343b708712d4346780a"><td class="memItemLeft">SemaphoreHandle_t&#160;</td><td class="memItemRight"><a class="el" href="#ab31e36f89b28f343b708712d4346780a">G_xNeighborTableMutex</a></td></tr>
-<tr class="memitem:abf287e574f76db7ad0c43062a788d58c" id="r_abf287e574f76db7ad0c43062a788d58c"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#abf287e574f76db7ad0c43062a788d58c">G_au32Heartbeat</a> [<a class="el" href="#a2fb3f953ca886909cc9636f8a3660fc4a23545dde189472e9f2a5d3f98b441486">HB_COUNT</a>] = {0}</td></tr>
+<tr class="memdesc:ab31e36f89b28f343b708712d4346780a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Guards the DSRC neighbor table.  <br /></td></tr>
+<tr class="memitem:abf287e574f76db7ad0c43062a788d58c" id="r_abf287e574f76db7ad0c43062a788d58c"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#abf287e574f76db7ad0c43062a788d58c">G_au32Heartbeat</a> [<a class="el" href="#a8b46a0a2e186c5a4e1157910e1117839a23545dde189472e9f2a5d3f98b441486">HB_COUNT</a>]</td></tr>
+<tr class="memdesc:abf287e574f76db7ad0c43062a788d58c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The heartbeat counters, one per entry of the enum above.  <br /></td></tr>
+<tr id="var-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">Board objects</div></td></tr>
+<tr><td colspan="2" class="ititle"><div class="groupText"><p>Defined in <span class="tt"><a class="el" href="System_8c.html" title="System initialization and RTOS setup.">System.c</a></span>; declared here because the tasks below drive them. </p>
+</div></td></tr>
+<tr class="memitem:a4f097a0ea23201e71704715ba21668a1" id="r_a4f097a0ea23201e71704715ba21668a1"><td class="memItemLeft"><a class="el" href="structBUZ__Config__t.html">BUZ_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4f097a0ea23201e71704715ba21668a1">V2X_Buzzer</a></td></tr>
+<tr class="memdesc:a4f097a0ea23201e71704715ba21668a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The piezo buzzer (PC4).  <br /></td></tr>
+<tr class="memitem:a305c18e4f4654cb56286827ae4d3883b" id="r_a305c18e4f4654cb56286827ae4d3883b"><td class="memItemLeft"><a class="el" href="structUSART__Config__t.html">USART_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a305c18e4f4654cb56286827ae4d3883b">RPi_UART</a></td></tr>
+<tr class="memdesc:a305c18e4f4654cb56286827ae4d3883b"><td class="mdescLeft">&#160;</td><td class="mdescRight">USART2 — the Raspberry Pi telemetry link.  <br /></td></tr>
+<tr class="memitem:aed057ac0b23c05f6b02ef3bfed8bfa27" id="r_aed057ac0b23c05f6b02ef3bfed8bfa27"><td class="memItemLeft"><a class="el" href="structUS__Config__t.html">US_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aed057ac0b23c05f6b02ef3bfed8bfa27">FrontUS</a> [3]</td></tr>
+<tr class="memdesc:aed057ac0b23c05f6b02ef3bfed8bfa27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Front ultrasonics, in the order left, centre, right.  <br /></td></tr>
+<tr class="memitem:a2b0e497a0b4ecc48b5dd5fef9623d4f3" id="r_a2b0e497a0b4ecc48b5dd5fef9623d4f3"><td class="memItemLeft"><a class="el" href="structUS__Config__t.html">US_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2b0e497a0b4ecc48b5dd5fef9623d4f3">BackUS</a> [3]</td></tr>
+<tr class="memdesc:a2b0e497a0b4ecc48b5dd5fef9623d4f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rear ultrasonics, in the order left, centre, right.  <br /></td></tr>
+<tr class="memitem:gaf1fb4a43ba68d1fdc94fd35a7d901cd4" id="r_gaf1fb4a43ba68d1fdc94fd35a7d901cd4"><td class="memItemLeft"><a class="el" href="structLED__Config__t.html">LED_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#gaf1fb4a43ba68d1fdc94fd35a7d901cd4">FrontR_LED</a></td></tr>
+<tr class="memdesc:gaf1fb4a43ba68d1fdc94fd35a7d901cd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Front-right LED (PC0).  <br /></td></tr>
+<tr class="memitem:ga2ab79e3f6235026ef8d29a9446511f48" id="r_ga2ab79e3f6235026ef8d29a9446511f48"><td class="memItemLeft"><a class="el" href="structLED__Config__t.html">LED_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#ga2ab79e3f6235026ef8d29a9446511f48">FrontL_LED</a></td></tr>
+<tr class="memdesc:ga2ab79e3f6235026ef8d29a9446511f48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Front-left LED (PC1).  <br /></td></tr>
+<tr class="memitem:gae41df9dd37d7c4d27b829fd46cd1e5e3" id="r_gae41df9dd37d7c4d27b829fd46cd1e5e3"><td class="memItemLeft"><a class="el" href="structLED__Config__t.html">LED_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#gae41df9dd37d7c4d27b829fd46cd1e5e3">BackR_LED</a></td></tr>
+<tr class="memdesc:gae41df9dd37d7c4d27b829fd46cd1e5e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rear-right LED (PC2).  <br /></td></tr>
+<tr class="memitem:gabfc8237214cfd1267c607aaff66a96da" id="r_gabfc8237214cfd1267c607aaff66a96da"><td class="memItemLeft"><a class="el" href="structLED__Config__t.html">LED_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#gabfc8237214cfd1267c607aaff66a96da">BackL_LED</a></td></tr>
+<tr class="memdesc:gabfc8237214cfd1267c607aaff66a96da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rear-left LED (PC3).  <br /></td></tr>
+<tr class="memitem:gaa7037844a95faca4f50aae714fe5048a" id="r_gaa7037844a95faca4f50aae714fe5048a"><td class="memItemLeft"><a class="el" href="structLED__Config__t.html">LED_Config_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__system.html#gaa7037844a95faca4f50aae714fe5048a">Interior_LED</a></td></tr>
+<tr class="memdesc:gaa7037844a95faca4f50aae714fe5048a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interior/dashboard LED (PC7).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>: Main program body </p>
-<dl class="section author"><dt>Author</dt><dd>: Abdallah Saleh  </dd></dl>
+<div class="textblock"><p>Entry point, the six FreeRTOS tasks, and the watchdog liveness net. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Saleh </dd></dl>
+<p><span class="tt"><a class="el" href="#a840291bc02cba5474a4cb46a9b9566fe" title="Firmware entry point: bring up the board, create the tasks, start the OS.">main()</a></span> brings the board up (<a class="el" href="group__system.html#gae436954cd2bde6634ab271317d2494a7" title="System_setup">System_setup</a>), then hands control to the scheduler (<a class="el" href="group__system.html#ga9f28a641641de8e783815ab1fa92549f" title="RTOS_setup">RTOS_setup</a>). Everything after that happens in one of six tasks; see <a class="el" href="System_8h.html#sys_tasks" title="Task set">Task set</a> for their priorities and periods.</p>
+<p>The tasks are deliberately split <b>brain / muscle</b>: <a class="el" href="#a1fa00ec0e4cf92155fcaa535be5ab3a1" title="vTask_SafetyEngine">vTask_SafetyEngine</a> decides, and nothing else does. It writes its verdict into <a class="el" href="group__system.html#ga9e78367aa5b758af972838362c2b0eab" title="G_u16SystemFlags">G_u16SystemFlags</a>, and <a class="el" href="#a96452f43e9871212929e6e6a969bec13" title="vTask_Feedback">vTask_Feedback</a> simply renders that word onto the LEDs and buzzer without re-deriving anything.</p>
+<h1 class="doxsection"><a class="anchor" id="main_wdg"></a>
+The watchdog net</h1>
+<p>Every monitored task bumps its own slot in <a class="el" href="#abf287e574f76db7ad0c43062a788d58c" title="G_au32Heartbeat">G_au32Heartbeat</a> on each loop. <a class="el" href="#ae1bcb9c7fb7ee6cb777db33125685421" title="vTask_Watchdog">vTask_Watchdog</a> refreshes the hardware IWDG <b>only while every slot is still advancing</b>. If any single task stalls — hard fault, stack overflow, infinite loop, ISR storm, or simple starvation — its slot freezes, the refresh stops, and the IWDG hardware-resets the MCU after <a class="el" href="#a83bb26015dd24416bf6b59ad49e55c9b" title="WDG_TIMEOUT_MS">WDG_TIMEOUT_MS</a>.</p>
+<p>This is why the check is per-task rather than a single "I'm alive" flag: a watchdog kicked from one healthy task would happily keep the MCU running with a dead ADAS task. </p>
 
 <p class="definition">Definition in file <a class="el" href="main_8c_source.html">main.c</a>.</p>
 </div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="a78b344cdce85e4af3d1925ebfe42b907" name="a78b344cdce85e4af3d1925ebfe42b907"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78b344cdce85e4af3d1925ebfe42b907">&#9670;&#160;</a></span>SENSORS_CYCLE_GAP_MS</h2>
+<a id="a83bb26015dd24416bf6b59ad49e55c9b" name="a83bb26015dd24416bf6b59ad49e55c9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83bb26015dd24416bf6b59ad49e55c9b">&#9670;&#160;</a></span>WDG_TIMEOUT_MS</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define SENSORS_CYCLE_GAP_MS&#160;&#160;&#160;10U</td>
+          <td class="memname">#define WDG_TIMEOUT_MS</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00148">148</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<p>How long the IWDG will wait before resetting the MCU [ms]. </p>
+<dl class="section note"><dt>Note</dt><dd>Clocked from the LSI, which is only accurate to about ±50%, so this is a generous multiple of <a class="el" href="#afee5313facd23b9a57c62ae9212967da" title="WDG_CHECK_PERIOD_MS">WDG_CHECK_PERIOD_MS</a> rather than a tight bound. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00117">117</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00147">main()</a>.</p>
 
 </div>
 </div>
@@ -292,34 +240,43 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define WDG_CHECK_PERIOD_MS&#160;&#160;&#160;300U   /* how often the monitor verifies + kicks   */</td>
+          <td class="memname">#define WDG_CHECK_PERIOD_MS</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00056">56</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<p>How often <a class="el" href="#ae1bcb9c7fb7ee6cb777db33125685421" title="vTask_Watchdog">vTask_Watchdog</a> checks the heartbeats and kicks the IWDG [ms]. </p>
+
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00120">120</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00534">vTask_Watchdog()</a>.</p>
 
 </div>
 </div>
-<a id="a83bb26015dd24416bf6b59ad49e55c9b" name="a83bb26015dd24416bf6b59ad49e55c9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a83bb26015dd24416bf6b59ad49e55c9b">&#9670;&#160;</a></span>WDG_TIMEOUT_MS</h2>
+<a id="a78b344cdce85e4af3d1925ebfe42b907" name="a78b344cdce85e4af3d1925ebfe42b907"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78b344cdce85e4af3d1925ebfe42b907">&#9670;&#160;</a></span>SENSORS_CYCLE_GAP_MS</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define WDG_TIMEOUT_MS&#160;&#160;&#160;2000U   /* IWDG hardware reset timeout (LSI-backed) */</td>
+          <td class="memname">#define SENSORS_CYCLE_GAP_MS</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00055">55</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<p>Rest inserted after each full 6-sensor scan [ms]. </p>
+<p>Two jobs: it guarantees the lower-priority tasks some CPU, and it sets the minimum spacing between scans. The scan itself has no fixed length — it is adaptive, because each reading takes as long as its echo takes to come back, so near objects produce a naturally faster refresh than distant ones. </p>
+
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00230">230</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00247">vTask_Sensors()</a>.</p>
 
 </div>
 </div>
 <a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
-<a id="a2fb3f953ca886909cc9636f8a3660fc4" name="a2fb3f953ca886909cc9636f8a3660fc4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2fb3f953ca886909cc9636f8a3660fc4">&#9670;&#160;</a></span>anonymous enum</h2>
+<a id="a8b46a0a2e186c5a4e1157910e1117839" name="a8b46a0a2e186c5a4e1157910e1117839"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b46a0a2e186c5a4e1157910e1117839">&#9670;&#160;</a></span>anonymous enum</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -329,341 +286,28 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>One heartbeat slot per monitored task — see <a class="el" href="#main_wdg" title="The watchdog net">The watchdog net</a>. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a2fb3f953ca886909cc9636f8a3660fc4a6ee3238ee2d20bffcd8978324484c80d" name="a2fb3f953ca886909cc9636f8a3660fc4a6ee3238ee2d20bffcd8978324484c80d"></a>HB_SAFETY&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a2fb3f953ca886909cc9636f8a3660fc4a1b3618ccc2aaf62c2c021f869a7a963a" name="a2fb3f953ca886909cc9636f8a3660fc4a1b3618ccc2aaf62c2c021f869a7a963a"></a>HB_SENSORS&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a2fb3f953ca886909cc9636f8a3660fc4a7c5b8595d98f89afda7c3c33f78fa1b3" name="a2fb3f953ca886909cc9636f8a3660fc4a7c5b8595d98f89afda7c3c33f78fa1b3"></a>HB_ESP&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a2fb3f953ca886909cc9636f8a3660fc4a8a36182c5a9963f01fdf377df752c75f" name="a2fb3f953ca886909cc9636f8a3660fc4a8a36182c5a9963f01fdf377df752c75f"></a>HB_FEEDBACK&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a2fb3f953ca886909cc9636f8a3660fc4adf27abbb63f7e1861230371663fd6036" name="a2fb3f953ca886909cc9636f8a3660fc4adf27abbb63f7e1861230371663fd6036"></a>HB_RPI&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a2fb3f953ca886909cc9636f8a3660fc4a23545dde189472e9f2a5d3f98b441486" name="a2fb3f953ca886909cc9636f8a3660fc4a23545dde189472e9f2a5d3f98b441486"></a>HB_COUNT&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="3">Enumerator</th></tr><tr><td class="fieldname"><a id="a8b46a0a2e186c5a4e1157910e1117839a6ee3238ee2d20bffcd8978324484c80d" name="a8b46a0a2e186c5a4e1157910e1117839a6ee3238ee2d20bffcd8978324484c80d"></a>HB_SAFETY&#160;</td><td class="fieldinit">0&#160;</td><td class="fielddoc"><p>Slot bumped by <a class="el" href="#a1fa00ec0e4cf92155fcaa535be5ab3a1" title="vTask_SafetyEngine">vTask_SafetyEngine</a>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8b46a0a2e186c5a4e1157910e1117839a1b3618ccc2aaf62c2c021f869a7a963a" name="a8b46a0a2e186c5a4e1157910e1117839a1b3618ccc2aaf62c2c021f869a7a963a"></a>HB_SENSORS&#160;</td><td class="fieldinit">&#160;</td><td class="fielddoc"><p>Slot bumped by <a class="el" href="#a6124e00be85460e2af1224524c6c2278" title="vTask_Sensors">vTask_Sensors</a>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8b46a0a2e186c5a4e1157910e1117839a7c5b8595d98f89afda7c3c33f78fa1b3" name="a8b46a0a2e186c5a4e1157910e1117839a7c5b8595d98f89afda7c3c33f78fa1b3"></a>HB_ESP&#160;</td><td class="fieldinit">&#160;</td><td class="fielddoc"><p>Slot bumped by <a class="el" href="#a8e83024643794f31ab8139cbdb1de5dd" title="vTask_ESP_Comm">vTask_ESP_Comm</a>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8b46a0a2e186c5a4e1157910e1117839a8a36182c5a9963f01fdf377df752c75f" name="a8b46a0a2e186c5a4e1157910e1117839a8a36182c5a9963f01fdf377df752c75f"></a>HB_FEEDBACK&#160;</td><td class="fieldinit">&#160;</td><td class="fielddoc"><p>Slot bumped by <a class="el" href="#a96452f43e9871212929e6e6a969bec13" title="vTask_Feedback">vTask_Feedback</a>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8b46a0a2e186c5a4e1157910e1117839adf27abbb63f7e1861230371663fd6036" name="a8b46a0a2e186c5a4e1157910e1117839adf27abbb63f7e1861230371663fd6036"></a>HB_RPI&#160;</td><td class="fieldinit">&#160;</td><td class="fielddoc"><p>Slot bumped by <a class="el" href="#a0d8bacb322388f8284803eeccc5612c0" title="vTask_RPi_Comm">vTask_RPi_Comm</a>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8b46a0a2e186c5a4e1157910e1117839a23545dde189472e9f2a5d3f98b441486" name="a8b46a0a2e186c5a4e1157910e1117839a23545dde189472e9f2a5d3f98b441486"></a>HB_COUNT&#160;</td><td class="fieldinit">&#160;</td><td class="fielddoc"><p>Number of monitored tasks; not a slot itself. </p>
+</td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00052">52</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00095">95</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
 
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a840291bc02cba5474a4cb46a9b9566fe" name="a840291bc02cba5474a4cb46a9b9566fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a840291bc02cba5474a4cb46a9b9566fe">&#9670;&#160;</a></span>main()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00072">72</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8c_a840291bc02cba5474a4cb46a9b9566fe_cgraph.png" border="0" usemap="#amain_8c_a840291bc02cba5474a4cb46a9b9566fe_cgraph" loading="lazy" alt=""/></div>
-<map name="amain_8c_a840291bc02cba5474a4cb46a9b9566fe_cgraph" id="amain_8c_a840291bc02cba5474a4cb46a9b9566fe_cgraph">
-<area shape="rect" title=" " alt="" coords="5,780,60,808"/>
-<area shape="rect" href="IWDG__program_8c.html#aaa08e67683aa75f91aabc14cb9c1253d" title="Start the Independent Watchdog with the given timeout." alt="" coords="132,57,246,85"/>
-<area shape="poly" title=" " alt="" coords="32,780,39,642,53,424,75,214,89,139,97,113,106,96,120,85,117,90,110,99,102,115,95,140,81,215,59,425,44,642,37,780"/>
-<area shape="rect" href="System_8c.html#a9f28a641641de8e783815ab1fa92549f" title=" " alt="" coords="140,109,238,137"/>
-<area shape="poly" title=" " alt="" coords="31,779,30,659,36,470,45,371,59,278,78,201,91,171,106,148,127,133,125,138,110,152,96,174,83,203,64,279,50,371,42,471,35,659,36,780"/>
-<area shape="rect" href="SafetyEngine__program_8c.html#ad87fdbbd1376c4cebfa69a906cfbe556" title="Initialize all safety modules (FCW/DNPW, EEBL, BSW, IMA)." alt="" coords="108,161,271,189"/>
-<area shape="poly" title=" " alt="" coords="31,780,30,701,37,575,46,501,60,425,79,349,105,277,131,234,163,198,161,203,135,237,110,279,84,351,65,426,51,502,43,575,36,701,36,780"/>
-<area shape="rect" href="System_8c.html#ac3f6c7e9a568f4528304150a6f59736b" title=" " alt="" coords="131,289,248,317"/>
-<area shape="poly" title=" " alt="" coords="32,779,35,689,47,554,56,484,69,419,85,365,106,328,118,319,116,324,110,331,90,368,74,421,61,485,52,555,41,690,37,780"/>
-<area shape="rect" href="System_8c.html#ae436954cd2bde6634ab271317d2494a7" title=" " alt="" coords="133,780,246,808"/>
-<area shape="poly" title=" " alt="" coords="58,792,119,792,115,796,62,796"/>
-<area shape="rect" href="main_8c.html#a8e83024643794f31ab8139cbdb1de5dd" title="Handles both RX and TX communication with ESP (V2X Network) using DSRC foundation." alt="" coords="120,1468,259,1496"/>
-<area shape="poly" title=" " alt="" coords="39,806,184,1452,179,1453,35,810"/>
-<area shape="rect" href="main_8c.html#a96452f43e9871212929e6e6a969bec13" title="Alert manager (the &quot;Muscle&quot;): drives the LEDs + buzzer from the ADAS status word. It makes NO decisio..." alt="" coords="126,341,253,369"/>
-<area shape="poly" title=" " alt="" coords="36,779,178,381,178,386,41,780"/>
-<area shape="rect" href="main_8c.html#a0d8bacb322388f8284803eeccc5612c0" title=" " alt="" coords="121,1753,258,1781"/>
-<area shape="poly" title=" " alt="" coords="34,805,42,955,54,1197,76,1451,92,1558,110,1636,137,1693,169,1741,164,1741,133,1695,105,1637,87,1559,71,1452,49,1197,36,955,34,810"/>
-<area shape="rect" href="main_8c.html#a1fa00ec0e4cf92155fcaa535be5ab3a1" title="Single&#45;pass ADAS brain." alt="" coords="114,1597,265,1625"/>
-<area shape="poly" title=" " alt="" coords="34,805,42,935,55,1140,77,1353,92,1442,110,1506,134,1549,164,1585,159,1586,130,1552,105,1508,87,1443,71,1354,49,1141,37,936,34,811"/>
-<area shape="rect" href="main_8c.html#a6124e00be85460e2af1224524c6c2278" title="Reads ALL 6 ultrasonics + MPU9250 every cycle, then a small gap." alt="" coords="131,1857,248,1885"/>
-<area shape="poly" title=" " alt="" coords="34,805,44,997,59,1308,81,1615,95,1728,110,1791,130,1821,157,1847,152,1848,126,1825,105,1794,90,1729,76,1616,53,1308,39,997,34,811"/>
-<area shape="rect" href="main_8c.html#ae1bcb9c7fb7ee6cb777db33125685421" title="Liveness monitor + watchdog kicker (lowest priority)." alt="" coords="125,1909,254,1937"/>
-<area shape="poly" title=" " alt="" coords="34,805,38,1017,47,1364,56,1545,69,1705,87,1828,98,1870,110,1895,115,1902,109,1901,105,1898,93,1872,82,1829,64,1706,51,1545,42,1365,33,1017,34,811"/>
-<area shape="rect" href="BSW__program_8c.html#a9f03e569a421d0df764a8e87d671eea4" title="Initialize the BSW module." alt="" coords="372,109,480,137"/>
-<area shape="poly" title=" " alt="" coords="254,159,359,136,356,140,258,163"/>
-<area shape="rect" href="EEBL__program_8c.html#aa259a5e3167ee1735a31092312d7fd94" title="Initialize the EEBL module." alt="" coords="372,161,481,189"/>
-<area shape="poly" title=" " alt="" coords="270,173,358,173,354,177,273,177"/>
-<area shape="rect" href="FCW__DNPW__program_8c.html#a3e8b7f3192f0f7284e9b4b5811019225" title="Initialize the FCW/DNPW module." alt="" coords="348,5,504,33"/>
-<area shape="poly" title=" " alt="" coords="250,159,269,146,280,134,286,122,292,96,298,70,305,57,317,44,336,34,333,38,321,48,309,60,303,72,297,97,291,124,284,137,273,151,254,162"/>
-<area shape="rect" href="IMA__program_8c.html#abd5d231970401e78bd9552c40742d1e9" title="Initialize the IMA module." alt="" coords="375,57,477,85"/>
-<area shape="poly" title=" " alt="" coords="244,159,270,146,284,134,293,121,302,108,318,96,362,79,358,83,320,100,306,112,297,124,288,138,272,151,248,162"/>
-<area shape="rect" href="BUZ__program_8c.html#aee43f9ae5f162980c0e95c9a96694e4a" title="Initialize the buzzer pin." alt="" coords="388,780,465,808"/>
-<area shape="poly" title=" " alt="" coords="245,792,374,792,370,796,248,796"/>
-<area shape="rect" href="BUZ__program_8c.html#a6ea5cda725dca71e4c638f57f43eecd7" title="Turn off the buzzer." alt="" coords="613,417,688,445"/>
-<area shape="poly" title=" " alt="" coords="188,779,194,718,212,628,228,580,251,533,280,490,317,454,350,434,386,421,424,412,462,408,536,409,600,418,595,421,536,414,463,413,425,417,388,426,353,439,321,459,284,493,255,535,233,582,217,629,199,718,194,780"/>
-<area shape="rect" href="GPIO__prog_8c.html#a2a5e7c89bc6bb7103d96334a8481ea9b" title=" " alt="" coords="581,881,720,909"/>
-<area shape="poly" title=" " alt="" coords="246,804,571,876,567,879,247,809"/>
-<area shape="rect" href="BUZ__program_8c.html#ab7f7f6ad4821bcc1ce356a6912597511" title="Turn on the buzzer." alt="" coords="389,315,463,342"/>
-<area shape="poly" title=" " alt="" coords="187,779,189,705,194,650,204,590,219,526,243,463,275,405,317,353,343,337,375,329,372,333,346,341,321,357,279,408,247,466,225,528,209,591,199,651,194,705,193,780"/>
-<area shape="rect" href="DSRC_8c.html#adad268979d4c4038075346292651c8af" title=" " alt="" coords="384,1288,469,1316"/>
-<area shape="poly" title=" " alt="" coords="193,805,210,900,237,1039,255,1111,275,1177,297,1232,321,1268,343,1284,371,1295,366,1297,341,1288,317,1272,292,1234,270,1179,249,1113,232,1040,205,901,193,811"/>
-<area shape="rect" href="LED__prog_8c.html#a332224917c43c9232229ad1d349501e4" title=" " alt="" coords="389,881,463,909"/>
-<area shape="poly" title=" " alt="" coords="213,806,263,833,320,861,376,881,372,883,318,866,260,838,215,811"/>
-<area shape="rect" href="LED__prog_8c.html#ab3011d692cf858177af7261a76b1a654" title=" " alt="" coords="376,367,476,394"/>
-<area shape="poly" title=" " alt="" coords="188,779,194,714,212,615,228,560,250,506,280,455,317,411,337,396,363,387,360,391,340,401,321,414,284,458,255,508,233,562,217,616,199,714,194,780"/>
-<area shape="rect" href="LED__prog_8c.html#aa4c69b1b0028cbaebddb177443aa022a" title=" " alt="" coords="377,263,475,290"/>
-<area shape="poly" title=" " alt="" coords="190,779,204,684,230,540,248,465,268,396,291,340,317,301,337,287,363,279,360,283,340,292,321,305,296,342,273,398,253,466,235,541,209,685,195,780"/>
-<area shape="rect" href="MPU9250__program_8c.html#ae6d18356fb8c1619afbb6021d986abea" title="Boot&#45;time hard&#45;iron calibration. Rotate the vehicle ~360° during the window (length = MPU9250_MAGCAL_..." alt="" coords="319,1035,533,1062"/>
-<area shape="poly" title=" " alt="" coords="195,806,212,848,237,904,273,964,295,991,321,1014,340,1027,335,1029,317,1019,291,994,268,967,232,907,207,850,195,811"/>
-<area shape="rect" href="TIM__program_8c.html#a06dd9df822ed8f4c5635901b770230ea" title=" " alt="" coords="592,984,709,1012"/>
-<area shape="poly" title=" " alt="" coords="196,806,214,842,239,888,275,934,296,954,320,970,351,985,383,995,451,1008,518,1010,579,1008,574,1011,518,1015,451,1013,382,1001,349,990,318,975,293,958,271,937,235,891,209,845,196,811"/>
-<area shape="rect" href="MPU9250__program_8c.html#a152f5e09dbda831d60bc3d5241d714ad" title="Initializes the MPU9250 sensor and its internal I2C master." alt="" coords="352,933,500,961"/>
-<area shape="poly" title=" " alt="" coords="200,805,250,861,283,892,320,918,340,928,335,930,318,923,280,896,246,865,201,811"/>
-<area shape="rect" href="NVIC__program_8c.html#a85d98abbd23523e4abf16cc4b4501431" title="Enable an IRQ number in the NVIC." alt="" coords="583,1097,718,1125"/>
-<area shape="poly" title=" " alt="" coords="192,805,204,859,226,932,242,971,263,1009,289,1043,321,1072,338,1081,363,1089,426,1099,569,1109,565,1112,425,1105,361,1094,336,1086,317,1076,285,1047,259,1012,237,974,221,934,199,860,192,811"/>
-<area shape="rect" href="NVIC__program_8c.html#adacfc2d410ead15ca25830190e615000" title="Set priority for an IRQ number in the NVIC." alt="" coords="582,1173,719,1201"/>
-<area shape="poly" title=" " alt="" coords="190,805,195,877,201,925,211,978,226,1033,249,1086,280,1134,321,1173,350,1191,383,1203,417,1211,453,1214,522,1212,586,1203,581,1206,523,1217,453,1220,417,1216,382,1209,348,1196,317,1177,276,1137,244,1088,221,1035,205,979,195,926,190,877,190,811"/>
-<area shape="rect" href="RCC__program_8c.html#adcf07c53ca16c6ccd1af607d3173b2dc" title=" " alt="" coords="346,468,506,496"/>
-<area shape="poly" title=" " alt="" coords="190,779,200,727,223,653,239,613,260,574,286,538,317,506,334,497,331,501,321,511,290,541,265,577,244,616,228,655,206,728,195,780"/>
-<area shape="rect" href="RCC__program_8c.html#a64dea321b9d4592b409225e2b55fef5c" title=" " alt="" coords="346,520,506,548"/>
-<area shape="poly" title=" " alt="" coords="192,779,205,736,229,676,266,613,290,583,317,558,333,550,330,554,321,563,294,587,271,616,234,678,210,737,197,780"/>
-<area shape="rect" href="RCC__program_8c.html#a4e5060e0774aa417bf2dbf5aad8904eb" title=" " alt="" coords="348,572,505,600"/>
-<area shape="poly" title=" " alt="" coords="194,779,211,744,237,698,273,651,317,610,334,602,331,607,321,615,277,654,241,701,215,746,199,780"/>
-<area shape="rect" href="TIM__program_8c.html#a2db8aa14e44d1d1571d455542d2269f0" title=" " alt="" coords="386,624,467,652"/>
-<area shape="poly" title=" " alt="" coords="198,779,245,722,279,689,318,662,343,651,372,644,369,648,345,656,320,667,283,694,249,725,203,781"/>
-<area shape="rect" href="TIM__program_8c.html#a2bd184de6083fb2ccf17231557037835" title=" " alt="" coords="605,1232,696,1260"/>
-<area shape="poly" title=" " alt="" coords="193,806,210,894,237,1020,254,1085,274,1144,297,1191,321,1221,351,1241,384,1254,420,1263,456,1267,528,1266,592,1259,588,1262,528,1272,456,1273,419,1268,383,1259,349,1245,317,1225,292,1194,269,1146,249,1087,231,1022,205,895,193,811"/>
-<area shape="rect" href="US__prog_8c.html#a29b879f76d665878390dd6161d1eea84" title=" " alt="" coords="388,1136,464,1164"/>
-<area shape="poly" title=" " alt="" coords="192,806,203,865,224,948,240,993,262,1038,288,1080,321,1116,346,1132,376,1143,371,1145,343,1137,317,1120,284,1083,257,1040,235,995,219,950,198,866,192,811"/>
-<area shape="rect" href="USART__program_8c.html#a98f967289c40eacb31068b3becfff84f" title=" " alt="" coords="380,676,473,704"/>
-<area shape="poly" title=" " alt="" coords="208,778,257,746,318,714,366,700,363,704,320,719,260,750,212,781"/>
-<area shape="rect" href="USART__program_8c.html#ad840a14bcc70c1f552f2864ea2443c55" title=" " alt="" coords="374,728,479,756"/>
-<area shape="poly" title=" " alt="" coords="244,780,360,755,356,759,248,784"/>
-<area shape="poly" title=" " alt="" coords="464,791,500,783,517,776,532,765,562,731,587,692,606,650,621,607,638,524,647,463,649,458,644,525,626,608,611,652,591,695,566,734,535,769,519,780,502,788,467,795"/>
-<area shape="poly" title=" " alt="" coords="464,800,534,823,579,846,619,872,614,873,576,851,532,828,466,805"/>
-<area shape="poly" title=" " alt="" coords="462,893,568,894,563,897,465,897"/>
-<area shape="poly" title=" " alt="" coords="489,1032,579,1013,575,1016,492,1036"/>
-<area shape="poly" title=" " alt="" coords="488,931,575,911,571,915,491,935"/>
-<area shape="poly" title=" " alt="" coords="489,959,579,980,574,983,491,964"/>
-<area shape="poly" title=" " alt="" coords="453,1134,493,1107,531,1072,548,1047,557,1024,564,999,579,971,625,918,622,923,584,974,569,1002,562,1025,553,1049,535,1076,496,1112,457,1137"/>
-<area shape="poly" title=" " alt="" coords="463,1141,570,1124,565,1127,465,1146"/>
-<area shape="poly" title=" " alt="" coords="463,1153,569,1172,565,1175,465,1158"/>
-<area shape="poly" title=" " alt="" coords="460,1162,605,1224,600,1227,461,1167"/>
-<area shape="rect" href="BSW__program_8c.html#ad2e4d7ccf9588f4cdeecfd471430ec7c" title="Get current BSW flag to broadcast over DSRC (sender&#39;s own front side(s))." alt="" coords="364,1389,489,1417"/>
-<area shape="poly" title=" " alt="" coords="221,1465,318,1427,350,1419,346,1423,320,1432,224,1470"/>
-<area shape="rect" href="DSRC_8c.html#aa38784384016c34bf5e63add1930104b" title=" " alt="" coords="350,1441,502,1469"/>
-<area shape="poly" title=" " alt="" coords="258,1472,337,1464,333,1467,261,1476"/>
-<area shape="rect" href="DSRC_8c.html#a8f2c7037352677729c777df880fefd1b" title=" " alt="" coords="358,1493,495,1521"/>
-<area shape="poly" title=" " alt="" coords="259,1487,344,1497,340,1500,261,1492"/>
-<area shape="rect" href="DSRC_8c.html#aded740c50de5ea4cf786939e10ace2d9" title=" " alt="" coords="348,1545,504,1573"/>
-<area shape="poly" title=" " alt="" coords="223,1494,320,1530,349,1540,344,1542,318,1535,224,1499"/>
-<area shape="rect" href="DSRC_8c.html#ac40e63c7c7041cacb1f60a1d4d710abb" title=" " alt="" coords="370,1597,482,1625"/>
-<area shape="poly" title=" " alt="" coords="204,1493,254,1538,286,1562,320,1582,358,1597,353,1599,318,1587,283,1566,251,1542,205,1499"/>
-<area shape="rect" href="FCW__DNPW__program_8c.html#a2a96028174e72e3bc92ab13f333d4e6c" title="Head&#45;on candidate flag (vehicle ahead + oncoming vehicle). Broadcast as fcw_headon_flag for the coope..." alt="" coords="346,1649,506,1677"/>
-<area shape="poly" title=" " alt="" coords="202,1493,267,1575,321,1634,335,1643,330,1644,317,1639,263,1578,202,1499"/>
-<area shape="rect" href="IMA__program_8c.html#a18f54786f683ab3016989275ccf9e95a" title="Get current IMA flag (for DSRC flag broadcast)." alt="" coords="590,1520,711,1548"/>
-<area shape="poly" title=" " alt="" coords="200,1466,248,1418,281,1394,318,1375,378,1356,428,1347,477,1353,535,1375,572,1402,602,1436,625,1473,641,1506,635,1505,620,1475,597,1440,568,1406,532,1380,476,1358,428,1353,379,1361,320,1380,284,1398,251,1422,204,1469"/>
-<area shape="poly" title=" " alt="" coords="248,339,269,326,285,307,291,287,299,267,318,249,375,223,401,216,426,214,451,216,477,223,535,249,556,263,575,281,606,322,628,365,643,403,638,403,624,367,602,325,571,284,553,267,532,253,475,228,450,222,426,219,402,221,377,228,320,253,303,270,296,289,289,310,273,331,252,342"/>
-<area shape="poly" title=" " alt="" coords="252,346,376,332,372,336,255,350"/>
-<area shape="poly" title=" " alt="" coords="252,360,363,372,359,375,255,364"/>
-<area shape="poly" title=" " alt="" coords="236,339,270,326,294,313,318,301,364,288,360,292,320,306,296,318,272,331,240,343"/>
-<area shape="rect" href="BSW__program_8c.html#adf8eecd88222e0b29db5aaffe7af235d" title="Get the receiver&#45;side blind&#45;spot severity PER SIDE, packed so the Raspberry Pi can tell LEFT from RIG..." alt="" coords="333,1753,519,1781"/>
-<area shape="poly" title=" " alt="" coords="257,1765,320,1766,315,1768,258,1770"/>
-<area shape="rect" href="USART__program_8c.html#ad2e4a4a25beec1ea90558dc055ad9240" title=" " alt="" coords="324,1805,528,1833"/>
-<area shape="poly" title=" " alt="" coords="256,1779,347,1800,342,1802,256,1784"/>
-<area shape="rect" href="SafetyEngine__program_8c.html#a7b6c12632534a82b4357a73306667157" title="Single&#45;pass update over the DSRC neighbor table. Runs all safety modules in ONE pass and aggregates t..." alt="" coords="332,1701,521,1729"/>
-<area shape="poly" title=" " alt="" coords="210,1623,260,1655,320,1686,343,1696,338,1697,318,1691,257,1659,210,1628"/>
-<area shape="poly" title=" " alt="" coords="508,1698,532,1686,565,1658,594,1624,634,1563,638,1559,598,1627,569,1662,535,1691,510,1703"/>
-<area shape="rect" href="MPU9250__program_8c.html#a7377b0518b8d538d0fe9ee7f617c2a05" title="Calculates Pitch and Roll using a Complementary Filter." alt="" coords="325,1857,527,1885"/>
-<area shape="poly" title=" " alt="" coords="248,1869,312,1870,307,1872,248,1874"/>
-<area shape="rect" href="MPU9250__program_8c.html#a26ddeda4d58b13e547711d40807346dc" title="Fused 2D heading: magnetometer (hard&#45;iron corrected) + GyroZ via a wrap&#45;aware complementary filter...." alt="" coords="324,1909,528,1937"/>
-<area shape="poly" title=" " alt="" coords="248,1881,348,1905,342,1906,248,1887"/>
-<area shape="rect" href="MPU9250__program_8c.html#a7c3bf491aef8f2bd61d33decb7bb8e52" title="Updates position using Dead Reckoning and Gravity Compensation." alt="" coords="325,1961,527,1989"/>
-<area shape="poly" title=" " alt="" coords="247,1883,272,1896,288,1909,297,1922,306,1934,320,1946,335,1956,330,1955,318,1951,302,1938,293,1925,284,1912,270,1900,246,1888"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a88b12403f1d9bc8cff413fbbde56e15d" name="a88b12403f1d9bc8cff413fbbde56e15d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a88b12403f1d9bc8cff413fbbde56e15d">&#9670;&#160;</a></span>vESP_UART_RX_Callback()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void vESP_UART_RX_Callback </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00460">460</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8c_a88b12403f1d9bc8cff413fbbde56e15d_cgraph.png" border="0" usemap="#amain_8c_a88b12403f1d9bc8cff413fbbde56e15d_cgraph" loading="lazy" alt=""/></div>
-<map name="amain_8c_a88b12403f1d9bc8cff413fbbde56e15d_cgraph" id="amain_8c_a88b12403f1d9bc8cff413fbbde56e15d_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,189,33"/>
-<area shape="rect" href="USART__program_8c.html#a2d4d739376d35a98e6b62282fc47b25a" title=" " alt="" coords="237,5,430,33"/>
-<area shape="poly" title=" " alt="" coords="189,17,224,19,219,19,189,22"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a8e83024643794f31ab8139cbdb1de5dd" name="a8e83024643794f31ab8139cbdb1de5dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e83024643794f31ab8139cbdb1de5dd">&#9670;&#160;</a></span>vTask_ESP_Comm()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void vTask_ESP_Comm </td>
-          <td>(</td>
-          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>pvParameters</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Handles both RX and TX communication with ESP (V2X Network) using DSRC foundation. </p>
-<p>RX path (event-driven): blocks on G_xESP_RX_Queue, drains all pending bytes into DSRC state machine, then flushes assembled packets into neighbor table. TX path (periodic 100ms): builds a Neighbor from current host state + ADAS flags and broadcasts via DSRC_SendNeighbor. </p>
-
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00299">299</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8c_a8e83024643794f31ab8139cbdb1de5dd_cgraph.png" border="0" usemap="#amain_8c_a8e83024643794f31ab8139cbdb1de5dd_cgraph" loading="lazy" alt=""/></div>
-<map name="amain_8c_a8e83024643794f31ab8139cbdb1de5dd_cgraph" id="amain_8c_a8e83024643794f31ab8139cbdb1de5dd_cgraph">
-<area shape="rect" title="Handles both RX and TX communication with ESP (V2X Network) using DSRC foundation." alt="" coords="5,161,145,189"/>
-<area shape="rect" href="BSW__program_8c.html#ad2e4d7ccf9588f4cdeecfd471430ec7c" title="Get current BSW flag to broadcast over DSRC (sender&#39;s own front side(s))." alt="" coords="210,5,335,33"/>
-<area shape="poly" title=" " alt="" coords="83,159,125,104,156,72,191,44,205,38,201,42,194,48,160,76,130,107,88,162"/>
-<area shape="rect" href="DSRC_8c.html#aa38784384016c34bf5e63add1930104b" title=" " alt="" coords="197,57,348,85"/>
-<area shape="poly" title=" " alt="" coords="93,159,137,127,191,95,210,89,206,93,194,100,140,132,97,163"/>
-<area shape="rect" href="DSRC_8c.html#a8f2c7037352677729c777df880fefd1b" title=" " alt="" coords="204,109,341,137"/>
-<area shape="poly" title=" " alt="" coords="129,158,204,140,200,143,132,163"/>
-<area shape="rect" href="DSRC_8c.html#aded740c50de5ea4cf786939e10ace2d9" title=" " alt="" coords="195,161,350,189"/>
-<area shape="poly" title=" " alt="" coords="144,173,181,174,177,176,146,178"/>
-<area shape="rect" href="DSRC_8c.html#ac40e63c7c7041cacb1f60a1d4d710abb" title=" " alt="" coords="217,213,328,241"/>
-<area shape="poly" title=" " alt="" coords="130,187,204,207,200,210,131,192"/>
-<area shape="rect" href="FCW__DNPW__program_8c.html#a2a96028174e72e3bc92ab13f333d4e6c" title="Head&#45;on candidate flag (vehicle ahead + oncoming vehicle). Broadcast as fcw_headon_flag for the coope..." alt="" coords="193,265,352,293"/>
-<area shape="poly" title=" " alt="" coords="95,187,140,218,194,250,211,259,205,260,191,255,137,223,95,192"/>
-<area shape="rect" href="IMA__program_8c.html#a18f54786f683ab3016989275ccf9e95a" title="Get current IMA flag (for DSRC flag broadcast)." alt="" coords="212,317,332,345"/>
-<area shape="poly" title=" " alt="" coords="86,187,130,243,160,275,194,302,205,311,200,310,191,307,156,279,125,247,85,192"/>
-<area shape="rect" href="USART__program_8c.html#a1abd71036dad0752b737b6b4872d7111" title=" " alt="" coords="400,161,565,189"/>
-<area shape="poly" title=" " alt="" coords="350,173,387,175,381,176,351,178"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8c_a8e83024643794f31ab8139cbdb1de5dd_icgraph.png" border="0" usemap="#amain_8c_a8e83024643794f31ab8139cbdb1de5dd_icgraph" loading="lazy" alt=""/></div>
-<map name="amain_8c_a8e83024643794f31ab8139cbdb1de5dd_icgraph" id="amain_8c_a8e83024643794f31ab8139cbdb1de5dd_icgraph">
-<area shape="rect" title="Handles both RX and TX communication with ESP (V2X Network) using DSRC foundation." alt="" coords="108,5,247,33"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="90,20,60,22,60,17,95,18"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a96452f43e9871212929e6e6a969bec13" name="a96452f43e9871212929e6e6a969bec13"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96452f43e9871212929e6e6a969bec13">&#9670;&#160;</a></span>vTask_Feedback()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void vTask_Feedback </td>
-          <td>(</td>
-          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>pvParameters</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Alert manager (the "Muscle"): drives the LEDs + buzzer from the ADAS status word. It makes NO decision of its own — it only renders the severity that vTask_SafetyEngine already published. (Motors are driven by the Raspberry Pi, not here.). </p>
-<p>Reads G_u16SystemFlags (2 bits/module: 00 safe / 01 warning / 10 critical) and maps it to the actuators exactly as agreed: • all safe (word == 0) → everything OFF. • ANY alert (warning or crit) → interior dashboard LED + buzzer ON. • FCW == CRITICAL → additionally the FRONT LEDs. • EEBL == CRITICAL → additionally the REAR LEDs. • everything else (BSW/DNPW/IMA, or FCW/EEBL at WARNING) adds no extra LED — the interior LED + buzzer is their full response. </p>
-
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00248">248</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8c_a96452f43e9871212929e6e6a969bec13_cgraph.png" border="0" usemap="#amain_8c_a96452f43e9871212929e6e6a969bec13_cgraph" loading="lazy" alt=""/></div>
-<map name="amain_8c_a96452f43e9871212929e6e6a969bec13_cgraph" id="amain_8c_a96452f43e9871212929e6e6a969bec13_cgraph">
-<area shape="rect" title="Alert manager (the &quot;Muscle&quot;): drives the LEDs + buzzer from the ADAS status word. It makes NO decisio..." alt="" coords="5,84,133,112"/>
-<area shape="rect" href="BUZ__program_8c.html#a6ea5cda725dca71e4c638f57f43eecd7" title="Turn off the buzzer." alt="" coords="193,5,268,33"/>
-<area shape="poly" title=" " alt="" coords="98,81,188,38,185,42,101,86"/>
-<area shape="rect" href="BUZ__program_8c.html#ab7f7f6ad4821bcc1ce356a6912597511" title="Turn on the buzzer." alt="" coords="193,57,268,85"/>
-<area shape="poly" title=" " alt="" coords="132,85,180,78,176,81,134,90"/>
-<area shape="rect" href="LED__prog_8c.html#ab3011d692cf858177af7261a76b1a654" title=" " alt="" coords="181,109,280,137"/>
-<area shape="poly" title=" " alt="" coords="133,105,168,112,163,114,133,110"/>
-<area shape="rect" href="LED__prog_8c.html#aa4c69b1b0028cbaebddb177443aa022a" title=" " alt="" coords="181,161,280,189"/>
-<area shape="poly" title=" " alt="" coords="100,110,188,153,184,156,99,115"/>
-<area shape="rect" href="GPIO__prog_8c.html#ab8efebd278bcf731012c238a3f69fb5c" title=" " alt="" coords="328,84,500,112"/>
-<area shape="poly" title=" " alt="" coords="265,31,369,77,363,78,265,36"/>
-<area shape="poly" title=" " alt="" coords="268,74,315,83,310,84,268,79"/>
-<area shape="poly" title=" " alt="" coords="280,114,315,111,310,112,281,119"/>
-<area shape="poly" title=" " alt="" coords="264,158,363,118,368,118,266,163"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8c_a96452f43e9871212929e6e6a969bec13_icgraph.png" border="0" usemap="#amain_8c_a96452f43e9871212929e6e6a969bec13_icgraph" loading="lazy" alt=""/></div>
-<map name="amain_8c_a96452f43e9871212929e6e6a969bec13_icgraph" id="amain_8c_a96452f43e9871212929e6e6a969bec13_icgraph">
-<area shape="rect" title="Alert manager (the &quot;Muscle&quot;): drives the LEDs + buzzer from the ADAS status word. It makes NO decisio..." alt="" coords="108,5,235,33"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,95,18"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a0d8bacb322388f8284803eeccc5612c0" name="a0d8bacb322388f8284803eeccc5612c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d8bacb322388f8284803eeccc5612c0">&#9670;&#160;</a></span>vTask_RPi_Comm()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void vTask_RPi_Comm </td>
-          <td>(</td>
-          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>pvParameters</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00365">365</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8c_a0d8bacb322388f8284803eeccc5612c0_cgraph.png" border="0" usemap="#amain_8c_a0d8bacb322388f8284803eeccc5612c0_cgraph" loading="lazy" alt=""/></div>
-<map name="amain_8c_a0d8bacb322388f8284803eeccc5612c0_cgraph" id="amain_8c_a0d8bacb322388f8284803eeccc5612c0_cgraph">
-<area shape="rect" title=" " alt="" coords="5,32,142,60"/>
-<area shape="rect" href="BSW__program_8c.html#adf8eecd88222e0b29db5aaffe7af235d" title="Get the receiver&#45;side blind&#45;spot severity PER SIDE, packed so the Raspberry Pi can tell LEFT from RIG..." alt="" coords="198,5,384,33"/>
-<area shape="poly" title=" " alt="" coords="142,35,185,32,180,33,143,40"/>
-<area shape="rect" href="USART__program_8c.html#ad2e4a4a25beec1ea90558dc055ad9240" title=" " alt="" coords="190,57,393,85"/>
-<area shape="poly" title=" " alt="" coords="142,51,177,57,172,58,142,56"/>
-<area shape="rect" href="USART__program_8c.html#a1abd71036dad0752b737b6b4872d7111" title=" " alt="" coords="441,57,606,85"/>
-<area shape="poly" title=" " alt="" coords="393,69,428,71,423,71,393,74"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8c_a0d8bacb322388f8284803eeccc5612c0_icgraph.png" border="0" usemap="#amain_8c_a0d8bacb322388f8284803eeccc5612c0_icgraph" loading="lazy" alt=""/></div>
-<map name="amain_8c_a0d8bacb322388f8284803eeccc5612c0_icgraph" id="amain_8c_a0d8bacb322388f8284803eeccc5612c0_icgraph">
-<area shape="rect" title=" " alt="" coords="108,5,244,33"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,94,18"/>
-</map>
-</div>
-
-</div>
-</div>
 <a id="a1fa00ec0e4cf92155fcaa535be5ab3a1" name="a1fa00ec0e4cf92155fcaa535be5ab3a1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1fa00ec0e4cf92155fcaa535be5ab3a1">&#9670;&#160;</a></span>vTask_SafetyEngine()</h2>
 
@@ -680,65 +324,30 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Single-pass ADAS brain. </p>
-<p>Every 50ms: takes BOTH mutexes (neighbor table + host state), then <a class="el" href="SafetyEngine__interface_8h.html#a7b6c12632534a82b4357a73306667157" title="Single-pass update over the DSRC neighbor table. Runs all safety modules in ONE pass and aggregates t...">SafetyEngine_voidUpdate()</a> runs detection for ALL modules in one pass and aggregates the result into the G_u16SystemFlags status word (2 bits/module) consumed by vTask_Feedback and vTask_RPi_Comm.</p>
-<p>Lock order: NeighborTable → Data. vTask_ESP_Comm takes them separately (never nested) and vTask_Sensors takes Data only → no deadlock possible. </p>
+<p>Every 50ms: takes BOTH mutexes (neighbor table + host state), then <a class="el" href="group__app__safetyengine.html#ga7b6c12632534a82b4357a73306667157" title="Run one full ADAS cycle: every module, over every neighbor, in one pass.">SafetyEngine_voidUpdate()</a> runs detection for ALL modules in one pass and aggregates the result into the G_u16SystemFlags status word (2 bits/module) consumed by vTask_Feedback and vTask_RPi_Comm.</p>
+<p>Lock order: NeighborTable → Data. vTask_ESP_Comm takes them separately (never nested) and vTask_Sensors takes Data only → no deadlock possible. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pvParameters</td><td>Unused. FreeRTOS hands the task the argument given to <span class="tt">xTaskCreate</span>, which is NULL for every task here. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00125">125</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8c_a1fa00ec0e4cf92155fcaa535be5ab3a1_cgraph.png" border="0" usemap="#amain_8c_a1fa00ec0e4cf92155fcaa535be5ab3a1_cgraph" loading="lazy" alt=""/></div>
-<map name="amain_8c_a1fa00ec0e4cf92155fcaa535be5ab3a1_cgraph" id="amain_8c_a1fa00ec0e4cf92155fcaa535be5ab3a1_cgraph">
-<area shape="rect" title="Single&#45;pass ADAS brain." alt="" coords="5,448,157,476"/>
-<area shape="rect" href="SafetyEngine__program_8c.html#a7b6c12632534a82b4357a73306667157" title="Single&#45;pass update over the DSRC neighbor table. Runs all safety modules in ONE pass and aggregates t..." alt="" coords="205,448,394,476"/>
-<area shape="poly" title=" " alt="" coords="156,460,191,460,187,463,159,464"/>
-<area shape="rect" href="BSW__program_8c.html#a78f44c9528e62f99efcefaa8d779a6a2" title="Get the receiver&#45;side blind&#45;spot SEVERITY for THIS car (worst side), graded by how close the car behi..." alt="" coords="488,5,639,33"/>
-<area shape="poly" title=" " alt="" coords="298,447,303,375,310,323,322,266,340,206,365,147,398,91,440,44,474,26,471,30,444,48,402,95,369,149,345,208,327,267,316,324,308,376,303,448"/>
-<area shape="rect" href="BSW__program_8c.html#ae07233e2631a1dc55b95b7933e9b9801" title="Begin a new processing cycle — latch side distances, reset accumulators." alt="" coords="484,57,643,85"/>
-<area shape="poly" title=" " alt="" coords="299,447,307,383,329,288,347,236,371,184,402,137,440,96,470,80,467,84,444,100,406,140,375,187,352,238,334,289,312,384,304,448"/>
-<area shape="rect" href="BSW__program_8c.html#a92af4dc1c402accc0ef30daa8d798e00" title="Process one DSRC neighbor for BSW (receiver role)." alt="" coords="466,109,661,137"/>
-<area shape="poly" title=" " alt="" coords="300,447,311,391,335,310,354,266,377,222,406,182,440,148,453,141,450,145,444,152,410,186,381,225,358,268,340,311,316,392,305,449"/>
-<area shape="rect" href="FCW__DNPW__program_8c.html#a0c6c9a2cd9113721e4d3fa8221ffaef9" title="Do&#45;Not&#45;Pass flag (candidate but the oncoming car is in another lane). Graded: WARNING by default,..." alt="" coords="503,161,623,189"/>
-<area shape="poly" title=" " alt="" coords="301,447,315,399,342,332,360,296,383,260,409,228,440,200,463,187,490,180,486,183,465,192,444,204,413,231,387,263,365,298,347,334,320,401,306,449"/>
-<area shape="rect" href="DSRC_8c.html#a15d8d8dc4459f83b2aa2519119d037d0" title=" " alt="" coords="500,213,626,241"/>
-<area shape="poly" title=" " alt="" coords="304,446,321,407,349,354,389,298,414,273,441,252,462,240,488,233,484,237,464,245,443,256,417,277,393,302,354,357,325,409,308,449"/>
-<area shape="rect" href="DSRC_8c.html#a76299bf71b1e2dc13baac26c6c4228c4" title=" " alt="" coords="502,265,624,293"/>
-<area shape="poly" title=" " alt="" coords="307,446,357,377,396,337,441,303,489,287,485,290,443,308,399,341,361,380,311,449"/>
-<area shape="rect" href="EEBL__program_8c.html#afaabdbd7129e3944f1edaa8119941c89" title="Get current EEBL risk level. The LED/buzzer is driven by the caller." alt="" coords="500,317,627,345"/>
-<area shape="poly" title=" " alt="" coords="313,446,367,401,403,376,441,355,487,342,482,345,443,360,405,381,370,405,317,449"/>
-<area shape="rect" href="EEBL__program_8c.html#ad9b9306a8560417cdc9a5d6ec08eff93" title="Begin a new processing cycle — check braking gate, reset accumulator." alt="" coords="482,369,644,397"/>
-<area shape="poly" title=" " alt="" coords="334,445,441,407,477,400,473,402,443,412,337,450"/>
-<area shape="rect" href="EEBL__program_8c.html#aa57120c568a45e9aae5c81b8fbf6f1b0" title="Process one SAME&#45;direction DSRC neighbor for EEBL. The SafetyEngine only dispatches same&#45;direction ne..." alt="" coords="464,421,662,449"/>
-<area shape="poly" title=" " alt="" coords="393,450,451,445,447,448,396,455"/>
-<area shape="rect" href="FCW__DNPW__program_8c.html#add7c6969ea4668acaa5a1684c9d2b8a6" title="Begin a cycle: latch the front distances and reset the signals. The SafetyEngine sets the cycle safe/..." alt="" coords="460,473,667,501"/>
-<area shape="poly" title=" " alt="" coords="394,468,446,475,442,477,395,473"/>
-<area shape="rect" href="FCW__DNPW__program_8c.html#ae4036f8bfcac20167bbb36b1c2b168e9" title="Feed one opposite&#45;direction neighbor (records it and its head&#45;on flag)." alt="" coords="442,525,684,570"/>
-<area shape="poly" title=" " alt="" coords="338,474,443,510,468,519,463,521,441,515,339,479"/>
-<area shape="rect" href="FCW__DNPW__program_8c.html#a39ed4f5fd853ab1d88dcfc504f67b057" title="Feed one same&#45;direction neighbor (confirms a vehicle is ahead)." alt="" coords="452,594,674,639"/>
-<area shape="poly" title=" " alt="" coords="314,474,368,526,404,555,443,580,457,587,451,588,441,584,401,559,365,530,314,479"/>
-<area shape="rect" href="FCW__DNPW__program_8c.html#a724d10fbe6405476d140c3f113e787de" title="Forward&#45;collision flag (vehicle ahead, same lane). Local only." alt="" coords="492,663,634,690"/>
-<area shape="poly" title=" " alt="" coords="307,473,327,511,356,558,395,608,418,630,443,649,480,666,474,667,441,653,415,634,391,611,352,562,323,513,307,479"/>
-<area shape="rect" href="FCW__DNPW__program_8c.html#a0eb1ff382b2898d1d05b62fdeaf96eee" title="Confirmed head&#45;on collision (our candidate and the oncoming car&#39;s)." alt="" coords="464,715,662,742"/>
-<area shape="poly" title=" " alt="" coords="305,473,322,519,349,581,390,646,415,675,444,700,453,707,448,707,440,704,411,678,385,649,345,583,317,521,304,479"/>
-<area shape="rect" href="IMA__program_8c.html#a18f54786f683ab3016989275ccf9e95a" title="Get current IMA flag (for DSRC flag broadcast)." alt="" coords="503,767,623,794"/>
-<area shape="poly" title=" " alt="" coords="304,474,318,528,343,604,361,644,384,684,411,721,444,752,465,764,490,775,485,775,462,769,440,756,407,724,379,687,356,647,338,606,313,530,302,479"/>
-<area shape="rect" href="IMA__program_8c.html#a17e1c415924f5123666b1c7436f57a94" title="Begin a new processing cycle — reset accumulators No sensor parameters needed; IMA reads Host_Speed f..." alt="" coords="486,819,640,846"/>
-<area shape="poly" title=" " alt="" coords="303,474,314,537,336,626,354,675,378,722,407,766,444,804,474,823,469,822,440,808,403,769,373,725,349,677,331,628,308,538,301,479"/>
-<area shape="rect" href="IMA__program_8c.html#a748c4abb479229cffa75659e88bd9751" title="Process one CROSSING&#45;direction DSRC neighbor for IMA. The SafetyEngine only dispatches crossing&#45;direc..." alt="" coords="468,871,658,898"/>
-<area shape="poly" title=" " alt="" coords="302,474,310,545,330,648,347,704,372,760,403,812,444,856,457,867,452,866,440,860,399,815,367,762,342,706,325,649,305,545,300,479"/>
-<area shape="rect" href="SafetyEngine__program_8c.html#ab7dae45d16fd67e39cae94350eb6d0f7" title="Detect direction relationship between two vehicles." alt="" coords="455,923,671,950"/>
-<area shape="poly" title=" " alt="" coords="301,474,306,553,312,608,323,670,341,734,366,798,400,857,444,908,450,915,445,913,440,912,395,860,361,800,336,736,318,671,307,609,301,553,299,479"/>
-</map>
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00202">202</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+
+<p class="reference">References <a class="el" href="main_8c_source.html#l00110">G_au32Heartbeat</a>, <a class="el" href="main_8c_source.html#l00082">G_xDataMutex</a>, <a class="el" href="main_8c_source.html#l00090">G_xNeighborTableMutex</a>, <a class="el" href="main_8c_source.html#l00096">HB_SAFETY</a>, and <a class="el" href="SafetyEngine__program_8c_source.html#l00049">SafetyEngine_voidUpdate()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00147">main()</a>.</p>
+<div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8c_a1fa00ec0e4cf92155fcaa535be5ab3a1_icgraph.png" border="0" usemap="#amain_8c_a1fa00ec0e4cf92155fcaa535be5ab3a1_icgraph" loading="lazy" alt=""/></div>
-<map name="amain_8c_a1fa00ec0e4cf92155fcaa535be5ab3a1_icgraph" id="amain_8c_a1fa00ec0e4cf92155fcaa535be5ab3a1_icgraph">
-<area shape="rect" title="Single&#45;pass ADAS brain." alt="" coords="108,5,259,33"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,94,18"/>
-</map>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="main_8c_a1fa00ec0e4cf92155fcaa535be5ab3a1_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="main_8c_a1fa00ec0e4cf92155fcaa535be5ab3a1_icgraph.svg" width="264" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -761,46 +370,161 @@ Here is the caller graph for this function:</div>
 <p>Reads ALL 6 ultrasonics + MPU9250 every cycle, then a small gap. </p>
 <p>The US driver is interrupt-driven: the task SLEEPS during each echo flight (CPU free), so all 6 can be read back-to-back without hogging the CPU. Reads are sequential → no acoustic cross-talk.</p>
 <p>Adaptive refresh: full scan ≈ sum of echo times (near objects → ~15-45ms, all out of range → ~150ms with the 4m cap). Much faster than the old 300ms.</p>
-<p>All values are computed into locals first, then published in ONE short mutex section. Speed stored as cm/s so ADAS TTC (distance_cm / speed_cm_s) = seconds. </p>
+<p>All values are computed into locals first, then published in ONE short mutex section. Speed stored as cm/s so ADAS TTC (distance_cm / speed_cm_s) = seconds. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pvParameters</td><td>Unused. FreeRTOS hands the task the argument given to <span class="tt">xTaskCreate</span>, which is NULL for every task here. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00163">163</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8c_a6124e00be85460e2af1224524c6c2278_cgraph.png" border="0" usemap="#amain_8c_a6124e00be85460e2af1224524c6c2278_cgraph" loading="lazy" alt=""/></div>
-<map name="amain_8c_a6124e00be85460e2af1224524c6c2278_cgraph" id="amain_8c_a6124e00be85460e2af1224524c6c2278_cgraph">
-<area shape="rect" title="Reads ALL 6 ultrasonics + MPU9250 every cycle, then a small gap." alt="" coords="5,136,122,164"/>
-<area shape="rect" href="MPU9250__program_8c.html#a7377b0518b8d538d0fe9ee7f617c2a05" title="Calculates Pitch and Roll using a Complementary Filter." alt="" coords="171,5,373,33"/>
-<area shape="poly" title=" " alt="" coords="73,134,112,89,138,64,168,44,186,37,182,41,171,48,142,69,115,93,78,137"/>
-<area shape="rect" href="MPU9250__program_8c.html#a26ddeda4d58b13e547711d40807346dc" title="Fused 2D heading: magnetometer (hard&#45;iron corrected) + GyroZ via a wrap&#45;aware complementary filter...." alt="" coords="170,57,374,85"/>
-<area shape="poly" title=" " alt="" coords="88,133,169,95,195,88,191,92,171,100,92,138"/>
-<area shape="rect" href="MPU9250__program_8c.html#a7c3bf491aef8f2bd61d33decb7bb8e52" title="Updates position using Dead Reckoning and Gravity Compensation." alt="" coords="171,109,373,137"/>
-<area shape="poly" title=" " alt="" coords="121,140,157,136,153,140,123,145"/>
-<area shape="rect" href="MPU9250__program_8c.html#aa5879429ed27ae3012b8dfafdecacbb8" title="Estimates forward speed with gravity compensation." alt="" coords="177,161,367,189"/>
-<area shape="poly" title=" " alt="" coords="121,154,163,160,159,163,123,159"/>
-<area shape="rect" href="MPU9250__program_8c.html#a022452767b3c6ead71407af8db33696f" title="Reads all sensor data (Accel, Gyro, Mag, Temp) in a single burst." alt="" coords="176,213,368,241"/>
-<area shape="poly" title=" " alt="" coords="91,162,171,198,197,208,192,210,169,203,91,167"/>
-<area shape="rect" href="US__prog_8c.html#a49bd64d408631fd63886cbc413453e08" title="Trigger sensor and measure distance (cm). The calling task SLEEPS on a semaphore while the echo is in..." alt="" coords="178,279,366,306"/>
-<area shape="poly" title=" " alt="" coords="76,162,117,205,143,229,171,250,211,272,206,273,168,255,139,233,113,209,76,167"/>
-<area shape="rect" href="SPI__program_8c.html#a09703b6224fb5ab17478e4f7e309e734" title="Perform full&#45;duplex SPI transaction (transmit and receive)." alt="" coords="440,200,587,228"/>
-<area shape="poly" title=" " alt="" coords="368,219,427,218,422,219,369,224"/>
-<area shape="rect" href="TIM__program_8c.html#a05c68c2d16e14ca08f925fc789f8c000" title=" " alt="" coords="422,252,605,280"/>
-<area shape="poly" title=" " alt="" coords="366,280,409,277,404,278,366,285"/>
-<area shape="rect" href="TIM__program_8c.html#a78dfd09e838628d35bd9fc18ddd575ad" title=" " alt="" coords="424,304,603,332"/>
-<area shape="poly" title=" " alt="" coords="366,300,411,307,406,307,366,305"/>
-<area shape="rect" href="TIM__program_8c.html#af6ce9419f48628e54cb1110dae65e1f1" title=" " alt="" coords="442,356,586,384"/>
-<area shape="poly" title=" " alt="" coords="314,304,423,341,450,351,445,351,421,346,314,310"/>
-</map>
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00247">247</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+
+<p class="reference">References <a class="el" href="System_8c_source.html#l00057">BackUS</a>, <a class="el" href="System_8c_source.html#l00056">FrontUS</a>, <a class="el" href="main_8c_source.html#l00110">G_au32Heartbeat</a>, <a class="el" href="System_8c_source.html#l00036">G_stHostVehicleState</a>, <a class="el" href="main_8c_source.html#l00082">G_xDataMutex</a>, <a class="el" href="main_8c_source.html#l00097">HB_SENSORS</a>, <a class="el" href="MPU9250__program_8c_source.html#l00205">MPU9250_enumGetAttitude()</a>, <a class="el" href="MPU9250__program_8c_source.html#l00252">MPU9250_enumGetHeading()</a>, <a class="el" href="MPU9250__program_8c_source.html#l00323">MPU9250_enumGetPosition()</a>, <a class="el" href="MPU9250__program_8c_source.html#l00290">MPU9250_enumGetSpeed()</a>, <a class="el" href="MPU9250__program_8c_source.html#l00187">MPU9250_enumReadData()</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="main_8c_source.html#l00230">SENSORS_CYCLE_GAP_MS</a>, <a class="el" href="US__prog_8c_source.html#l00278">US_u16ReadDistance_cm()</a>, <a class="el" href="MPU9250__interface_8h_source.html#l00037">MPU9250_Position_t::X</a>, <a class="el" href="MPU9250__interface_8h_source.html#l00038">MPU9250_Position_t::Y</a>, and <a class="el" href="MPU9250__interface_8h_source.html#l00039">MPU9250_Position_t::Z</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00147">main()</a>.</p>
+<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8c_a6124e00be85460e2af1224524c6c2278_icgraph.png" border="0" usemap="#amain_8c_a6124e00be85460e2af1224524c6c2278_icgraph" loading="lazy" alt=""/></div>
-<map name="amain_8c_a6124e00be85460e2af1224524c6c2278_icgraph" id="amain_8c_a6124e00be85460e2af1224524c6c2278_icgraph">
-<area shape="rect" title="Reads ALL 6 ultrasonics + MPU9250 every cycle, then a small gap." alt="" coords="108,5,224,33"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="90,20,60,22,60,17,95,18"/>
-</map>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="main_8c_a6124e00be85460e2af1224524c6c2278_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="main_8c_a6124e00be85460e2af1224524c6c2278_icgraph.svg" width="230" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a96452f43e9871212929e6e6a969bec13" name="a96452f43e9871212929e6e6a969bec13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96452f43e9871212929e6e6a969bec13">&#9670;&#160;</a></span>vTask_Feedback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vTask_Feedback </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>pvParameters</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Alert manager (the "Muscle"): drives the LEDs + buzzer from the ADAS status word. </p>
+<p>It makes NO decision of its own — it only renders the severity that vTask_SafetyEngine already published. (Motors are driven by the Raspberry Pi, not here.)</p>
+<p>Reads G_u16SystemFlags (2 bits/module: 00 safe / 01 warning / 10 critical) and maps it to the actuators exactly as agreed: • all safe (word == 0) → everything OFF. • ANY alert (warning or crit) → interior dashboard LED + buzzer ON. • FCW == CRITICAL → additionally the FRONT LEDs. • EEBL == CRITICAL → additionally the REAR LEDs. • everything else (BSW/DNPW/IMA, or FCW/EEBL at WARNING) adds no extra LED — the interior LED + buzzer is their full response. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pvParameters</td><td>Unused. FreeRTOS hands the task the argument given to <span class="tt">xTaskCreate</span>, which is NULL for every task here. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00334">334</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+
+<p class="reference">References <a class="el" href="System_8c_source.html#l00053">BackL_LED</a>, <a class="el" href="System_8c_source.html#l00052">BackR_LED</a>, <a class="el" href="BUZ__program_8c_source.html#l00073">BUZ_Off()</a>, <a class="el" href="BUZ__program_8c_source.html#l00053">BUZ_On()</a>, <a class="el" href="System_8c_source.html#l00051">FrontL_LED</a>, <a class="el" href="System_8c_source.html#l00050">FrontR_LED</a>, <a class="el" href="main_8c_source.html#l00110">G_au32Heartbeat</a>, <a class="el" href="System_8c_source.html#l00035">G_u16SystemFlags</a>, <a class="el" href="main_8c_source.html#l00099">HB_FEEDBACK</a>, <a class="el" href="System_8c_source.html#l00054">Interior_LED</a>, <a class="el" href="LED__prog_8c_source.html#l00089">LED_TurnOff()</a>, <a class="el" href="LED__prog_8c_source.html#l00059">LED_TurnOn()</a>, <a class="el" href="System_8h_source.html#l00148">SYS_CRITICAL</a>, <a class="el" href="System_8h_source.html#l00152">SYS_EEBL_POS</a>, <a class="el" href="System_8h_source.html#l00151">SYS_FCW_POS</a>, <a class="el" href="System_8h_source.html#l00163">SYS_GET</a>, and <a class="el" href="System_8c_source.html#l00049">V2X_Buzzer</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00147">main()</a>.</p>
+<div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="main_8c_a96452f43e9871212929e6e6a969bec13_cgraph.svg" width="506" height="195"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-6" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="main_8c_a96452f43e9871212929e6e6a969bec13_icgraph.svg" width="240" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a8e83024643794f31ab8139cbdb1de5dd" name="a8e83024643794f31ab8139cbdb1de5dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e83024643794f31ab8139cbdb1de5dd">&#9670;&#160;</a></span>vTask_ESP_Comm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vTask_ESP_Comm </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>pvParameters</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handles both RX and TX communication with ESP (V2X Network) using DSRC foundation. </p>
+<p>RX path (event-driven): blocks on G_xESP_RX_Queue, drains all pending bytes into DSRC state machine, then flushes assembled packets into neighbor table. TX path (periodic 100ms): builds a <a class="el" href="structNeighbor.html" title="One vehicle&#39;s broadcast state — this is the wire format itself.">Neighbor</a> from current host state + ADAS flags and broadcasts via DSRC_SendNeighbor. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pvParameters</td><td>Unused. FreeRTOS hands the task the argument given to <span class="tt">xTaskCreate</span>, which is NULL for every task here. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00387">387</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+
+<p class="reference">References <a class="el" href="DSRC_8h_source.html#l00123">Neighbor::bsw_flag</a>, <a class="el" href="BSW__program_8c_source.html#l00131">BSW_u8GetFlag()</a>, <a class="el" href="DSRC_8h_source.html#l00125">Neighbor::distance_to_intersection</a>, <a class="el" href="DSRC_8c_source.html#l00229">DSRC_RemoveStale()</a>, <a class="el" href="DSRC_8c_source.html#l00276">DSRC_RxCallback()</a>, <a class="el" href="DSRC_8c_source.html#l00204">DSRC_SendNeighbor()</a>, <a class="el" href="DSRC_8c_source.html#l00220">DSRC_Update()</a>, <a class="el" href="FCW__DNPW__program_8c_source.html#l00181">FCW_GetHeadonFlag()</a>, <a class="el" href="DSRC_8h_source.html#l00114">Neighbor::fcw_headon_flag</a>, <a class="el" href="main_8c_source.html#l00110">G_au32Heartbeat</a>, <a class="el" href="System_8c_source.html#l00036">G_stHostVehicleState</a>, <a class="el" href="main_8c_source.html#l00082">G_xDataMutex</a>, <a class="el" href="main_8c_source.html#l00079">G_xESP_RX_Queue</a>, <a class="el" href="main_8c_source.html#l00090">G_xNeighborTableMutex</a>, <a class="el" href="main_8c_source.html#l00098">HB_ESP</a>, <a class="el" href="DSRC_8h_source.html#l00103">Neighbor::heading</a>, <a class="el" href="System_8c_source.html#l00044">Host_DistToIntersection</a>, <a class="el" href="DSRC_8h_source.html#l00126">Neighbor::ima_flag</a>, <a class="el" href="IMA__program_8c_source.html#l00079">IMA_u8GetFlag()</a>, <a class="el" href="DSRC_8h_source.html#l00102">Neighbor::speed</a>, <a class="el" href="DSRC_8h_source.html#l00076">VEHICLE_ID</a>, and <a class="el" href="DSRC_8h_source.html#l00101">Neighbor::vehicle_id</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00147">main()</a>.</p>
+<div id="dynsection-7" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="main_8c_a8e83024643794f31ab8139cbdb1de5dd_cgraph.svg" width="571" height="351"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-8" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="main_8c_a8e83024643794f31ab8139cbdb1de5dd_icgraph.svg" width="252" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a0d8bacb322388f8284803eeccc5612c0" name="a0d8bacb322388f8284803eeccc5612c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d8bacb322388f8284803eeccc5612c0">&#9670;&#160;</a></span>vTask_RPi_Comm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vTask_RPi_Comm </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>pvParameters</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Streams one ASCII CSV telemetry line to the Raspberry Pi every 100 ms. </p>
+<p>The line format and its column order are specified on <a class="el" href="structRPi__Packet__t.html" title="RPi_Packet_t">RPi_Packet_t</a> — the Raspberry Pi parser must agree with it field for field.</p>
+<p>ASCII is used rather than the packed binary struct because the binary layout contains <span class="tt">0x00</span> bytes, and those were being dropped on the UART link, which silently truncated entire runs.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pvParameters</td><td>Unused. FreeRTOS hands the task the argument given to <span class="tt">xTaskCreate</span>, which is NULL for every task here. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00466">466</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+
+<p class="reference">References <a class="el" href="BSW__program_8c_source.html#l00165">BSW_u8GetSidesSeverity()</a>, <a class="el" href="main_8c_source.html#l00110">G_au32Heartbeat</a>, <a class="el" href="System_8c_source.html#l00036">G_stHostVehicleState</a>, <a class="el" href="System_8c_source.html#l00035">G_u16SystemFlags</a>, <a class="el" href="main_8c_source.html#l00082">G_xDataMutex</a>, <a class="el" href="main_8c_source.html#l00100">HB_RPI</a>, <a class="el" href="System_8c_source.html#l00074">RPi_UART</a>, and <a class="el" href="USART__program_8c_source.html#l00309">USART_enumTransmitString()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00147">main()</a>.</p>
+<div id="dynsection-9" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-9-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="main_8c_a0d8bacb322388f8284803eeccc5612c0_cgraph.svg" width="612" height="91"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-10" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-10-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="main_8c_a0d8bacb322388f8284803eeccc5612c0_icgraph.svg" width="250" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -822,67 +546,99 @@ Here is the caller graph for this function:</div>
 
 <p>Liveness monitor + watchdog kicker (lowest priority). </p>
 <p>Every WDG_CHECK_PERIOD_MS it snapshots every task's heartbeat. It refreshes the IWDG ONLY if ALL of them advanced since the last check. If any task stalled — hard fault / stack-overflow halt / infinite loop / ISR storm / starvation — its heartbeat freezes, the refresh is skipped, and the IWDG hardware-resets the MCU after WDG_TIMEOUT_MS. Transient stalls shorter than the IWDG timeout are tolerated (the next healthy check kicks the dog again).</p>
-<p>Runs at the LOWEST user priority so that CPU starvation by ANY other task also stops the kicks. The task is self-covering: if IT hangs, no kicks → reset. </p>
+<p>Runs at the LOWEST user priority so that CPU starvation by ANY other task also stops the kicks. The task is self-covering: if IT hangs, no kicks → reset. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pvParameters</td><td>Unused. FreeRTOS hands the task the argument given to <span class="tt">xTaskCreate</span>, which is NULL for every task here. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00431">431</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8c_ae1bcb9c7fb7ee6cb777db33125685421_cgraph.png" border="0" usemap="#amain_8c_ae1bcb9c7fb7ee6cb777db33125685421_cgraph" loading="lazy" alt=""/></div>
-<map name="amain_8c_ae1bcb9c7fb7ee6cb777db33125685421_cgraph" id="amain_8c_ae1bcb9c7fb7ee6cb777db33125685421_cgraph">
-<area shape="rect" title="Liveness monitor + watchdog kicker (lowest priority)." alt="" coords="5,5,135,33"/>
-<area shape="rect" href="IWDG__program_8c.html#afdf15cddaf966d918224d78b50c4b6d5" title="Reload the watchdog counter (&quot;kick the dog&quot;). Call periodically." alt="" coords="183,5,326,33"/>
-<area shape="poly" title=" " alt="" coords="135,17,170,19,164,19,135,22"/>
-</map>
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00534">534</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+
+<p class="reference">References <a class="el" href="main_8c_source.html#l00110">G_au32Heartbeat</a>, <a class="el" href="main_8c_source.html#l00101">HB_COUNT</a>, <a class="el" href="IWDG__program_8c_source.html#l00089">IWDG_voidRefresh()</a>, and <a class="el" href="main_8c_source.html#l00120">WDG_CHECK_PERIOD_MS</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00147">main()</a>.</p>
+<div id="dynsection-11" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
 </div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8c_ae1bcb9c7fb7ee6cb777db33125685421_icgraph.png" border="0" usemap="#amain_8c_ae1bcb9c7fb7ee6cb777db33125685421_icgraph" loading="lazy" alt=""/></div>
-<map name="amain_8c_ae1bcb9c7fb7ee6cb777db33125685421_icgraph" id="amain_8c_ae1bcb9c7fb7ee6cb777db33125685421_icgraph">
-<area shape="rect" title="Liveness monitor + watchdog kicker (lowest priority)." alt="" coords="108,5,237,33"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,95,18"/>
-</map>
+<div id="dynsection-11-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="main_8c_ae1bcb9c7fb7ee6cb777db33125685421_cgraph.svg" width="332" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-12" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-12-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="main_8c_ae1bcb9c7fb7ee6cb777db33125685421_icgraph.svg" width="243" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a840291bc02cba5474a4cb46a9b9566fe" name="a840291bc02cba5474a4cb46a9b9566fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a840291bc02cba5474a4cb46a9b9566fe">&#9670;&#160;</a></span>main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Firmware entry point: bring up the board, create the tasks, start the OS. </p>
+<p>The order here matters. The ADAS modules are initialised <em>before</em> any task can run, and the IWDG is started <b>last</b>, immediately before the scheduler: from the moment <a class="el" href="IWDG__interface_8h.html#aaa08e67683aa75f91aabc14cb9c1253d" title="IWDG_voidInit">IWDG_voidInit</a> returns, something must kick the watchdog within <a class="el" href="#a83bb26015dd24416bf6b59ad49e55c9b" title="WDG_TIMEOUT_MS">WDG_TIMEOUT_MS</a> or the MCU resets — so it must not be armed while there is still setup work left to do.</p>
+<dl class="section return"><dt>Returns</dt><dd>Never returns. If the scheduler ever fails to start, the function traps in an infinite loop and the watchdog resets the MCU. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00147">147</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+
+<p class="reference">References <a class="el" href="main_8c_source.html#l00082">G_xDataMutex</a>, <a class="el" href="main_8c_source.html#l00079">G_xESP_RX_Queue</a>, <a class="el" href="main_8c_source.html#l00090">G_xNeighborTableMutex</a>, <a class="el" href="IWDG__program_8c_source.html#l00073">IWDG_voidInit()</a>, <a class="el" href="ErrTypes_8h_source.html#l00024">NULL</a>, <a class="el" href="System_8c_source.html#l00307">RTOS_setup()</a>, <a class="el" href="SafetyEngine__program_8c_source.html#l00033">SafetyEngine_voidInit()</a>, <a class="el" href="System_8c_source.html#l00300">SEGGER_setup()</a>, <a class="el" href="System_8c_source.html#l00133">System_setup()</a>, <a class="el" href="main_8c_source.html#l00387">vTask_ESP_Comm()</a>, <a class="el" href="main_8c_source.html#l00334">vTask_Feedback()</a>, <a class="el" href="main_8c_source.html#l00466">vTask_RPi_Comm()</a>, <a class="el" href="main_8c_source.html#l00202">vTask_SafetyEngine()</a>, <a class="el" href="main_8c_source.html#l00247">vTask_Sensors()</a>, <a class="el" href="main_8c_source.html#l00534">vTask_Watchdog()</a>, and <a class="el" href="main_8c_source.html#l00117">WDG_TIMEOUT_MS</a>.</p>
+<div id="dynsection-13" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-13-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="main_8c_a840291bc02cba5474a4cb46a9b9566fe_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a88b12403f1d9bc8cff413fbbde56e15d" name="a88b12403f1d9bc8cff413fbbde56e15d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88b12403f1d9bc8cff413fbbde56e15d">&#9670;&#160;</a></span>vESP_UART_RX_Callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vESP_UART_RX_Callback </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USART1 receive ISR callback: push one byte onto <a class="el" href="#a2c251aeac2c84008a206658c306be262" title="G_xESP_RX_Queue">G_xESP_RX_Queue</a>. </p>
+<p>Called from interrupt context for every byte the ESP32 sends. It does the minimum possible — read the byte, enqueue it — and leaves all DSRC framing and parsing to <a class="el" href="#a8e83024643794f31ab8139cbdb1de5dd" title="vTask_ESP_Comm">vTask_ESP_Comm</a>, which can afford to block on a mutex.</p>
+<p>The byte is read straight out of the USART data register rather than through the driver's blocking receive, because polling the busy flag here would deadlock against a transmission already in progress.</p>
+<dl class="section warning"><dt>Warning</dt><dd>Runs in interrupt context, so it may only use the <span class="tt">...FromISR</span> FreeRTOS API. That in turn requires USART1's NVIC priority to be numerically <b>at or above</b> <span class="tt">configMAX_SYSCALL_INTERRUPT_PRIORITY</span> (5) — see the warning on <a class="el" href="System_8h.html#sys_tasks" title="Task set">Task set</a>. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00580">580</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+
+<p class="reference">References <a class="el" href="main_8c_source.html#l00079">G_xESP_RX_Queue</a>, <a class="el" href="USART__intreface_8h_source.html#l00020">USART_CHANNEL1</a>, and <a class="el" href="USART__program_8c_source.html#l00392">USART_ReceiveByteDirect()</a>.</p>
+<div id="dynsection-14" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-14-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-14-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="main_8c_a88b12403f1d9bc8cff413fbbde56e15d_cgraph.svg" width="436" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
 </div>
 <a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
-<a id="abfc8237214cfd1267c607aaff66a96da" name="abfc8237214cfd1267c607aaff66a96da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abfc8237214cfd1267c607aaff66a96da">&#9670;&#160;</a></span>BackL_LED</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structLED__Config__t.html">LED_Config_t</a> BackL_LED</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00039">39</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
-
-</div>
-</div>
-<a id="ae41df9dd37d7c4d27b829fd46cd1e5e3" name="ae41df9dd37d7c4d27b829fd46cd1e5e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae41df9dd37d7c4d27b829fd46cd1e5e3">&#9670;&#160;</a></span>BackR_LED</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structLED__Config__t.html">LED_Config_t</a> BackR_LED</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00039">39</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
-
-</div>
-</div>
-<a id="a2b0e497a0b4ecc48b5dd5fef9623d4f3" name="a2b0e497a0b4ecc48b5dd5fef9623d4f3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b0e497a0b4ecc48b5dd5fef9623d4f3">&#9670;&#160;</a></span>BackUS</h2>
+<a id="a4f097a0ea23201e71704715ba21668a1" name="a4f097a0ea23201e71704715ba21668a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f097a0ea23201e71704715ba21668a1">&#9670;&#160;</a></span>V2X_Buzzer</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -891,7 +647,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structUS__Config__t.html">US_Config_t</a> BackUS[3]</td>
+          <td class="memname"><a class="el" href="structBUZ__Config__t.html">BUZ_Config_t</a> V2X_Buzzer</td>
         </tr>
       </table>
   </td>
@@ -901,151 +657,11 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="System_8c_source.html#l00056">56</a> of file <a class="el" href="System_8c_source.html">System.c</a>.</p>
-
-</div>
-</div>
-<a id="a2ab79e3f6235026ef8d29a9446511f48" name="a2ab79e3f6235026ef8d29a9446511f48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ab79e3f6235026ef8d29a9446511f48">&#9670;&#160;</a></span>FrontL_LED</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structLED__Config__t.html">LED_Config_t</a> FrontL_LED</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00039">39</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
-
-</div>
-</div>
-<a id="af1fb4a43ba68d1fdc94fd35a7d901cd4" name="af1fb4a43ba68d1fdc94fd35a7d901cd4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1fb4a43ba68d1fdc94fd35a7d901cd4">&#9670;&#160;</a></span>FrontR_LED</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structLED__Config__t.html">LED_Config_t</a> FrontR_LED</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
+<p>The piezo buzzer (PC4). </p>
 
 <p class="definition">Definition at line <a class="el" href="System_8c_source.html#l00049">49</a> of file <a class="el" href="System_8c_source.html">System.c</a>.</p>
 
-</div>
-</div>
-<a id="aed057ac0b23c05f6b02ef3bfed8bfa27" name="aed057ac0b23c05f6b02ef3bfed8bfa27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed057ac0b23c05f6b02ef3bfed8bfa27">&#9670;&#160;</a></span>FrontUS</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structUS__Config__t.html">US_Config_t</a> FrontUS[3]</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8c_source.html#l00055">55</a> of file <a class="el" href="System_8c_source.html">System.c</a>.</p>
-
-</div>
-</div>
-<a id="abf287e574f76db7ad0c43062a788d58c" name="abf287e574f76db7ad0c43062a788d58c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf287e574f76db7ad0c43062a788d58c">&#9670;&#160;</a></span>G_au32Heartbeat</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t G_au32Heartbeat[<a class="el" href="#a2fb3f953ca886909cc9636f8a3660fc4a23545dde189472e9f2a5d3f98b441486">HB_COUNT</a>] = {0}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00053">53</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
-
-</div>
-</div>
-<a id="a101fd1911cf8e567c729470ceb6d2fb8" name="a101fd1911cf8e567c729470ceb6d2fb8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a101fd1911cf8e567c729470ceb6d2fb8">&#9670;&#160;</a></span>G_xDataMutex</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">SemaphoreHandle_t G_xDataMutex</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00043">43</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
-
-</div>
-</div>
-<a id="a2c251aeac2c84008a206658c306be262" name="a2c251aeac2c84008a206658c306be262"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c251aeac2c84008a206658c306be262">&#9670;&#160;</a></span>G_xESP_RX_Queue</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">QueueHandle_t G_xESP_RX_Queue</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00042">42</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
-
-</div>
-</div>
-<a id="ab31e36f89b28f343b708712d4346780a" name="ab31e36f89b28f343b708712d4346780a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab31e36f89b28f343b708712d4346780a">&#9670;&#160;</a></span>G_xNeighborTableMutex</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">SemaphoreHandle_t G_xNeighborTableMutex</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00044">44</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
-
-</div>
-</div>
-<a id="aa7037844a95faca4f50aae714fe5048a" name="aa7037844a95faca4f50aae714fe5048a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa7037844a95faca4f50aae714fe5048a">&#9670;&#160;</a></span>Interior_LED</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structLED__Config__t.html">LED_Config_t</a> Interior_LED</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00039">39</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<p class="reference">Referenced by <a class="el" href="System_8c_source.html#l00133">System_setup()</a>, and <a class="el" href="main_8c_source.html#l00334">vTask_Feedback()</a>.</p>
 
 </div>
 </div>
@@ -1069,12 +685,16 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="System_8c_source.html#l00073">73</a> of file <a class="el" href="System_8c_source.html">System.c</a>.</p>
+<p>USART2 — the Raspberry Pi telemetry link. </p>
+
+<p class="definition">Definition at line <a class="el" href="System_8c_source.html#l00074">74</a> of file <a class="el" href="System_8c_source.html">System.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="System_8c_source.html#l00133">System_setup()</a>, and <a class="el" href="main_8c_source.html#l00466">vTask_RPi_Comm()</a>.</p>
 
 </div>
 </div>
-<a id="a4f097a0ea23201e71704715ba21668a1" name="a4f097a0ea23201e71704715ba21668a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f097a0ea23201e71704715ba21668a1">&#9670;&#160;</a></span>V2X_Buzzer</h2>
+<a id="aed057ac0b23c05f6b02ef3bfed8bfa27" name="aed057ac0b23c05f6b02ef3bfed8bfa27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed057ac0b23c05f6b02ef3bfed8bfa27">&#9670;&#160;</a></span>FrontUS</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1083,7 +703,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structBUZ__Config__t.html">BUZ_Config_t</a> V2X_Buzzer</td>
+          <td class="memname"><a class="el" href="structUS__Config__t.html">US_Config_t</a> FrontUS[3]</td>
         </tr>
       </table>
   </td>
@@ -1093,7 +713,122 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="System_8c_source.html#l00048">48</a> of file <a class="el" href="System_8c_source.html">System.c</a>.</p>
+<p>Front ultrasonics, in the order left, centre, right. </p>
+
+<p class="definition">Definition at line <a class="el" href="System_8c_source.html#l00056">56</a> of file <a class="el" href="System_8c_source.html">System.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="System_8c_source.html#l00133">System_setup()</a>, and <a class="el" href="main_8c_source.html#l00247">vTask_Sensors()</a>.</p>
+
+</div>
+</div>
+<a id="a2b0e497a0b4ecc48b5dd5fef9623d4f3" name="a2b0e497a0b4ecc48b5dd5fef9623d4f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b0e497a0b4ecc48b5dd5fef9623d4f3">&#9670;&#160;</a></span>BackUS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structUS__Config__t.html">US_Config_t</a> BackUS[3]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Rear ultrasonics, in the order left, centre, right. </p>
+
+<p class="definition">Definition at line <a class="el" href="System_8c_source.html#l00057">57</a> of file <a class="el" href="System_8c_source.html">System.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="System_8c_source.html#l00133">System_setup()</a>, and <a class="el" href="main_8c_source.html#l00247">vTask_Sensors()</a>.</p>
+
+</div>
+</div>
+<a id="a2c251aeac2c84008a206658c306be262" name="a2c251aeac2c84008a206658c306be262"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c251aeac2c84008a206658c306be262">&#9670;&#160;</a></span>G_xESP_RX_Queue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QueueHandle_t G_xESP_RX_Queue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bytes received on USART1, handed from the RX ISR to <a class="el" href="#a8e83024643794f31ab8139cbdb1de5dd" title="vTask_ESP_Comm">vTask_ESP_Comm</a>. </p>
+<p>The ISR only enqueues; all DSRC parsing happens in task context, so the ISR stays short and the parser can take mutexes. </p>
+
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00079">79</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00147">main()</a>, <a class="el" href="main_8c_source.html#l00580">vESP_UART_RX_Callback()</a>, and <a class="el" href="main_8c_source.html#l00387">vTask_ESP_Comm()</a>.</p>
+
+</div>
+</div>
+<a id="a101fd1911cf8e567c729470ceb6d2fb8" name="a101fd1911cf8e567c729470ceb6d2fb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a101fd1911cf8e567c729470ceb6d2fb8">&#9670;&#160;</a></span>G_xDataMutex</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SemaphoreHandle_t G_xDataMutex</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Guards <a class="el" href="group__system.html#gac3116f56a230ebdd81cadd527921464c" title="G_stHostVehicleState">G_stHostVehicleState</a> and <a class="el" href="group__system.html#ga9e78367aa5b758af972838362c2b0eab" title="G_u16SystemFlags">G_u16SystemFlags</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00082">82</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00147">main()</a>, <a class="el" href="main_8c_source.html#l00387">vTask_ESP_Comm()</a>, <a class="el" href="main_8c_source.html#l00466">vTask_RPi_Comm()</a>, <a class="el" href="main_8c_source.html#l00202">vTask_SafetyEngine()</a>, and <a class="el" href="main_8c_source.html#l00247">vTask_Sensors()</a>.</p>
+
+</div>
+</div>
+<a id="ab31e36f89b28f343b708712d4346780a" name="ab31e36f89b28f343b708712d4346780a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab31e36f89b28f343b708712d4346780a">&#9670;&#160;</a></span>G_xNeighborTableMutex</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SemaphoreHandle_t G_xNeighborTableMutex</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Guards the DSRC neighbor table. </p>
+<dl class="section warning"><dt>Warning</dt><dd>When both mutexes are needed they are always taken <b>NeighborTable → Data</b>, never the other way round. That fixed order is what makes the task set deadlock-free. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00090">90</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00147">main()</a>, <a class="el" href="main_8c_source.html#l00387">vTask_ESP_Comm()</a>, and <a class="el" href="main_8c_source.html#l00202">vTask_SafetyEngine()</a>.</p>
+
+</div>
+</div>
+<a id="abf287e574f76db7ad0c43062a788d58c" name="abf287e574f76db7ad0c43062a788d58c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf287e574f76db7ad0c43062a788d58c">&#9670;&#160;</a></span>G_au32Heartbeat</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t G_au32Heartbeat[<a class="el" href="#a8b46a0a2e186c5a4e1157910e1117839a23545dde189472e9f2a5d3f98b441486">HB_COUNT</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The heartbeat counters, one per entry of the enum above. </p>
+<p>Each task increments its own slot and no other, so no locking is needed: there is exactly one writer per slot, and the watchdog only ever reads. </p>
+
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00110">110</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00387">vTask_ESP_Comm()</a>, <a class="el" href="main_8c_source.html#l00334">vTask_Feedback()</a>, <a class="el" href="main_8c_source.html#l00466">vTask_RPi_Comm()</a>, <a class="el" href="main_8c_source.html#l00202">vTask_SafetyEngine()</a>, <a class="el" href="main_8c_source.html#l00247">vTask_Sensors()</a>, and <a class="el" href="main_8c_source.html#l00534">vTask_Watchdog()</a>.</p>
 
 </div>
 </div>
@@ -1110,7 +845,7 @@ Here is the caller graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_413f4e031a85da0d68269c6fd2f76e1c.html">Src</a></li><li class="navelem"><a href="main_8c.html">main.c</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Src</b></li><li class="navelem"><a href="main_8c.html">main.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

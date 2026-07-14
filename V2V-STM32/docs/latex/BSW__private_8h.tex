@@ -1,12 +1,17 @@
-\doxysection{Inc/\+\+Application/\+\+BSW/\+\+BSW\+\_\+private.h File Reference}
-\hypertarget{BSW__private_8h}{}\label{BSW__private_8h}\index{Inc/Application/BSW/BSW\_private.h@{Inc/Application/BSW/BSW\_private.h}}
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Application/\+\+BSW/\+\+BSW\+\_\+private.h File Reference}
+\hypertarget{BSW__private_8h}{}\label{BSW__private_8h}\index{V2V-\/STM32/Inc/Application/BSW/BSW\_private.h@{V2V-\/STM32/Inc/Application/BSW/BSW\_private.h}}
+
+
+Register bit positions and internals of the BSW driver — not a public header.  
+
+
 {\ttfamily \+\#include $<$stdint.\+h$>$}\newline
 Include dependency graph for BSW\+\_\+private.\+h:\+
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=194pt]{BSW__private_8h__incl}
+\includegraphics[width=227pt]{BSW__private_8h__incl}
 \end{center}
 \end{figure}
 This graph shows which files directly or indirectly include this file:\+
@@ -14,62 +19,102 @@ This graph shows which files directly or indirectly include this file:\+
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=194pt]{BSW__private_8h__dep__incl}
+\includegraphics[width=250pt]{BSW__private_8h__dep__incl}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\+\#define \doxymbox{\hyperlink{BSW__private_8h_a18c269d0ae92da9ebc825eade6e72972}{BSW\+\_\+\+FLAG\+\_\+\+NONE}}~0x00
-\item 
-\+\#define \doxymbox{\hyperlink{BSW__private_8h_ac4b9a0f4dad1a7da8f8b2755ea949324}{BSW\+\_\+\+FLAG\+\_\+\+LEFT}}~0x01
-\item 
-\+\#define \doxymbox{\hyperlink{BSW__private_8h_a2a98a8ddcc7848d71962dfcc5bba2a18}{BSW\+\_\+\+FLAG\+\_\+\+RIGHT}}~0x02
-\item 
-\+\#define \doxymbox{\hyperlink{BSW__private_8h_aa2f629e8505d279f891b49142d3448b2}{BSW\+\_\+\+FLAG\+\_\+\+BOTH}}~(\doxymbox{\hyperlink{BSW__private_8h_ac4b9a0f4dad1a7da8f8b2755ea949324}{BSW\+\_\+\+FLAG\+\_\+\+LEFT}} \texorpdfstring{$\vert$}{|} \doxymbox{\hyperlink{BSW__private_8h_a2a98a8ddcc7848d71962dfcc5bba2a18}{BSW\+\_\+\+FLAG\+\_\+\+RIGHT}})
-\end{DoxyCompactItemize}
+\+\#define \doxymbox{\hyperlink{BSW__private_8h_a18c269d0ae92da9ebc825eade6e72972}{BSW\+\_\+\+FLAG\+\_\+\+NONE}}
+\begin{DoxyCompactList}\small\item\em Neither side occupied. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{BSW__private_8h_ac4b9a0f4dad1a7da8f8b2755ea949324}{BSW\+\_\+\+FLAG\+\_\+\+LEFT}}
+\begin{DoxyCompactList}\small\item\em Left side occupied (bit 0). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{BSW__private_8h_a2a98a8ddcc7848d71962dfcc5bba2a18}{BSW\+\_\+\+FLAG\+\_\+\+RIGHT}}
+\begin{DoxyCompactList}\small\item\em Right side occupied (bit 1). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{BSW__private_8h_aa2f629e8505d279f891b49142d3448b2}{BSW\+\_\+\+FLAG\+\_\+\+BOTH}}
+\begin{DoxyCompactList}\small\item\em Both sides occupied — the two bits together. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Register bit positions and internals of the BSW driver — not a public header. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{BSW__private_8h_source}{BSW\+\_\+private.\+h}}.
+
 
 
 \label{doc-define-members}
 \Hypertarget{BSW__private_8h_doc-define-members}
 \doxysubsection{Macro Definition Documentation}
-\Hypertarget{BSW__private_8h_aa2f629e8505d279f891b49142d3448b2}\index{BSW\_private.h@{BSW\_private.h}!BSW\_FLAG\_BOTH@{BSW\_FLAG\_BOTH}}
-\index{BSW\_FLAG\_BOTH@{BSW\_FLAG\_BOTH}!BSW\_private.h@{BSW\_private.h}}
-\doxysubsubsection{\texorpdfstring{BSW\_FLAG\_BOTH}{BSW\_FLAG\_BOTH}}
-{\footnotesize\ttfamily \label{BSW__private_8h_aa2f629e8505d279f891b49142d3448b2} 
-\+\#define BSW\+\_\+\+FLAG\+\_\+\+BOTH~(\doxymbox{\hyperlink{BSW__private_8h_ac4b9a0f4dad1a7da8f8b2755ea949324}{BSW\+\_\+\+FLAG\+\_\+\+LEFT}} \texorpdfstring{$\vert$}{|} \doxymbox{\hyperlink{BSW__private_8h_a2a98a8ddcc7848d71962dfcc5bba2a18}{BSW\+\_\+\+FLAG\+\_\+\+RIGHT}})}
+\Hypertarget{BSW__private_8h_a18c269d0ae92da9ebc825eade6e72972}\index{BSW\_private.h@{BSW\_private.h}!BSW\_FLAG\_NONE@{BSW\_FLAG\_NONE}}
+\index{BSW\_FLAG\_NONE@{BSW\_FLAG\_NONE}!BSW\_private.h@{BSW\_private.h}}
+\doxysubsubsection{\texorpdfstring{BSW\_FLAG\_NONE}{BSW\_FLAG\_NONE}}
+{\footnotesize\ttfamily \label{BSW__private_8h_a18c269d0ae92da9ebc825eade6e72972} 
+\+\#define BSW\+\_\+\+FLAG\+\_\+\+NONE}
 
 
 
-Definition at line \doxymbox{\hyperlink{BSW__private_8h_source_l00010}{10}} of file \doxymbox{\hyperlink{BSW__private_8h_source}{BSW\+\_\+private.\+h}}.
+Neither side occupied. 
+
+
+
+Definition at line \doxymbox{\hyperlink{BSW__private_8h_source_l00016}{16}} of file \doxymbox{\hyperlink{BSW__private_8h_source}{BSW\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{BSW__program_8c_source_l00075}{BSW\+\_\+void\+Begin\+Cycle()}}, and \doxymbox{\hyperlink{BSW__program_8c_source_l00056}{BSW\+\_\+void\+Init()}}.
 
 \Hypertarget{BSW__private_8h_ac4b9a0f4dad1a7da8f8b2755ea949324}\index{BSW\_private.h@{BSW\_private.h}!BSW\_FLAG\_LEFT@{BSW\_FLAG\_LEFT}}
 \index{BSW\_FLAG\_LEFT@{BSW\_FLAG\_LEFT}!BSW\_private.h@{BSW\_private.h}}
 \doxysubsubsection{\texorpdfstring{BSW\_FLAG\_LEFT}{BSW\_FLAG\_LEFT}}
 {\footnotesize\ttfamily \label{BSW__private_8h_ac4b9a0f4dad1a7da8f8b2755ea949324} 
-\+\#define BSW\+\_\+\+FLAG\+\_\+\+LEFT~0x01}
+\+\#define BSW\+\_\+\+FLAG\+\_\+\+LEFT}
 
 
 
-Definition at line \doxymbox{\hyperlink{BSW__private_8h_source_l00008}{8}} of file \doxymbox{\hyperlink{BSW__private_8h_source}{BSW\+\_\+private.\+h}}.
-
-\Hypertarget{BSW__private_8h_a18c269d0ae92da9ebc825eade6e72972}\index{BSW\_private.h@{BSW\_private.h}!BSW\_FLAG\_NONE@{BSW\_FLAG\_NONE}}
-\index{BSW\_FLAG\_NONE@{BSW\_FLAG\_NONE}!BSW\_private.h@{BSW\_private.h}}
-\doxysubsubsection{\texorpdfstring{BSW\_FLAG\_NONE}{BSW\_FLAG\_NONE}}
-{\footnotesize\ttfamily \label{BSW__private_8h_a18c269d0ae92da9ebc825eade6e72972} 
-\+\#define BSW\+\_\+\+FLAG\+\_\+\+NONE~0x00}
+Left side occupied (bit 0). 
 
 
 
-Definition at line \doxymbox{\hyperlink{BSW__private_8h_source_l00007}{7}} of file \doxymbox{\hyperlink{BSW__private_8h_source}{BSW\+\_\+private.\+h}}.
+Definition at line \doxymbox{\hyperlink{BSW__private_8h_source_l00017}{17}} of file \doxymbox{\hyperlink{BSW__private_8h_source}{BSW\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{BSW__program_8c_source_l00075}{BSW\+\_\+void\+Begin\+Cycle()}}, and \doxymbox{\hyperlink{BSW__program_8c_source_l00109}{BSW\+\_\+void\+Process\+Neighbor()}}.
 
 \Hypertarget{BSW__private_8h_a2a98a8ddcc7848d71962dfcc5bba2a18}\index{BSW\_private.h@{BSW\_private.h}!BSW\_FLAG\_RIGHT@{BSW\_FLAG\_RIGHT}}
 \index{BSW\_FLAG\_RIGHT@{BSW\_FLAG\_RIGHT}!BSW\_private.h@{BSW\_private.h}}
 \doxysubsubsection{\texorpdfstring{BSW\_FLAG\_RIGHT}{BSW\_FLAG\_RIGHT}}
 {\footnotesize\ttfamily \label{BSW__private_8h_a2a98a8ddcc7848d71962dfcc5bba2a18} 
-\+\#define BSW\+\_\+\+FLAG\+\_\+\+RIGHT~0x02}
+\+\#define BSW\+\_\+\+FLAG\+\_\+\+RIGHT}
 
 
 
-Definition at line \doxymbox{\hyperlink{BSW__private_8h_source_l00009}{9}} of file \doxymbox{\hyperlink{BSW__private_8h_source}{BSW\+\_\+private.\+h}}.
+Right side occupied (bit 1). 
+
+
+
+Definition at line \doxymbox{\hyperlink{BSW__private_8h_source_l00018}{18}} of file \doxymbox{\hyperlink{BSW__private_8h_source}{BSW\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{BSW__program_8c_source_l00075}{BSW\+\_\+void\+Begin\+Cycle()}}, and \doxymbox{\hyperlink{BSW__program_8c_source_l00109}{BSW\+\_\+void\+Process\+Neighbor()}}.
+
+\Hypertarget{BSW__private_8h_aa2f629e8505d279f891b49142d3448b2}\index{BSW\_private.h@{BSW\_private.h}!BSW\_FLAG\_BOTH@{BSW\_FLAG\_BOTH}}
+\index{BSW\_FLAG\_BOTH@{BSW\_FLAG\_BOTH}!BSW\_private.h@{BSW\_private.h}}
+\doxysubsubsection{\texorpdfstring{BSW\_FLAG\_BOTH}{BSW\_FLAG\_BOTH}}
+{\footnotesize\ttfamily \label{BSW__private_8h_aa2f629e8505d279f891b49142d3448b2} 
+\+\#define BSW\+\_\+\+FLAG\+\_\+\+BOTH}
+
+
+
+Both sides occupied — the two bits together. 
+
+
+
+Definition at line \doxymbox{\hyperlink{BSW__private_8h_source_l00019}{19}} of file \doxymbox{\hyperlink{BSW__private_8h_source}{BSW\+\_\+private.\+h}}.
 

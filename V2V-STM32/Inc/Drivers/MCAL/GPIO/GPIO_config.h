@@ -1,14 +1,10 @@
 /**
- **===========================================================================**
- **<<<<<<<<<<<<<<<<<<<<<<<<<<    GPIO_config.h     >>>>>>>>>>>>>>>>>>>>>>>>>>**
- **                                                                           **
- **                  Author : Abdallah Abdelmoemen Shehawey                   **
- **                  Layer  : MCAL                                            **
- **                  CPU    : Cortex-M4                                       **
- **                  MCU    : NUCLEO-F446RE                                   **
- **                  SWC    : GPIO                                            **
- **                                                                           **
- **===========================================================================**
+ ******************************************************************************
+ * @file    GPIO_config.h
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Compile-time configuration for the GPIO driver — the general-purpose I/O ports.
+ * @ingroup mcal_gpio
+ ******************************************************************************
  */
 
 #ifndef GPIO_CONFIG_H_

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Inc/Drivers/LIB/STD_MACROS.h File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Inc/Drivers/LIB/STD_MACROS.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,294 +90,52 @@ $(function(){initNavTree('STD__MACROS_8h.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">STD_MACROS.h File Reference</div></div>
+  <div class="headertitle"><div class="title">STD_MACROS.h File Reference<div class="ingroups"><a class="el" href="group__lib.html">LIB</a></div></div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="STD__MACROS_8h__dep__incl.png" border="0" usemap="#aInc_2Drivers_2LIB_2STD__MACROS_8hdep" loading="lazy" alt=""/></div>
-<map name="aInc_2Drivers_2LIB_2STD__MACROS_8hdep" id="aInc_2Drivers_2LIB_2STD__MACROS_8hdep">
-<area shape="rect" title=" " alt="" coords="332,5,477,50"/>
-<area shape="rect" href="US__interface_8h.html" title=" " alt="" coords="98,191,242,235"/>
-<area shape="poly" title=" " alt="" coords="315,39,285,49,253,61,223,78,197,100,184,121,176,145,171,191,166,189,171,144,179,119,193,96,220,73,251,56,284,43,319,36"/>
-<area shape="rect" href="US__prog_8c.html" title=" " alt="" coords="5,283,116,311"/>
-<area shape="poly" title=" " alt="" coords="315,47,244,69,170,100,104,136,82,158,62,192,55,215,54,240,60,283,54,283,48,241,50,215,57,190,78,154,101,132,167,96,242,64,319,44"/>
-<area shape="rect" href="TIM__interface_8h.html" title="Timer (TIM) Interface Header File." alt="" coords="207,98,367,143"/>
-<area shape="poly" title=" " alt="" coords="367,58,317,100,314,95,363,61"/>
-<area shape="rect" href="TIM__program_8c.html" title="Timer (TIM) Program File." alt="" coords="572,199,714,227"/>
-<area shape="poly" title=" " alt="" coords="405,63,413,105,420,124,432,141,453,152,495,167,597,198,591,199,493,172,451,157,428,145,416,126,408,106,402,68"/>
-<area shape="rect" href="GPIO__prog_8c.html" title=" " alt="" coords="442,106,567,134"/>
-<area shape="poly" title=" " alt="" coords="440,58,493,106,487,106,439,63"/>
-<area shape="rect" href="RCC__program_8c.html" title=" " alt="" coords="590,106,736,134"/>
-<area shape="poly" title=" " alt="" coords="481,53,628,105,623,106,481,58"/>
-<area shape="rect" href="SYSCFG__program_8c.html" title=" " alt="" coords="760,106,929,134"/>
-<area shape="poly" title=" " alt="" coords="493,44,749,95,788,106,782,106,748,101,492,49"/>
-<area shape="rect" href="System_8c.html" title=": System initialization and RTOS setup" alt="" coords="270,283,376,311"/>
-<area shape="poly" title=" " alt="" coords="225,240,301,283,296,283,223,246"/>
-<area shape="poly" title=" " alt="" coords="131,245,80,285,77,280,126,245"/>
-<area shape="rect" href="main_8c.html" title=": Main program body" alt="" coords="152,283,241,311"/>
-<area shape="poly" title=" " alt="" coords="183,248,195,284,190,282,180,252"/>
-<area shape="poly" title=" " alt="" coords="250,151,199,192,196,188,245,154"/>
-<area shape="poly" title=" " alt="" coords="297,156,323,283,318,282,293,160"/>
-<area shape="poly" title=" " alt="" coords="190,136,136,157,110,173,88,192,74,214,66,239,62,283,57,282,61,238,69,212,84,189,107,168,134,152,194,132"/>
-<area shape="poly" title=" " alt="" coords="283,156,273,197,256,237,236,264,214,285,211,281,232,260,252,234,268,195,279,160"/>
-<area shape="rect" href="MPU9250__program_8c.html" title="Professional MPU9250 driver: High&#45;Accuracy Speed (m/s) &amp; Gravity&#45;Compensated Altitude." alt="" coords="368,199,548,227"/>
-<area shape="poly" title=" " alt="" coords="342,148,436,198,430,199,341,153"/>
-<area shape="poly" title=" " alt="" coords="383,143,561,188,594,199,589,199,560,193,382,148"/>
-</map>
+
+<p>Bit-manipulation macros used by every register access in the MCAL.  
+<a href="#details">More...</a></p>
+<div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="STD__MACROS_8h__dep__incl.svg" width="100%" height="537"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="STD__MACROS_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:abe2f7b6344bb4d51dfea9c9f58609427" id="r_abe2f7b6344bb4d51dfea9c9f58609427"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#abe2f7b6344bb4d51dfea9c9f58609427">REGISTER_SIZE</a>&#160;&#160;&#160;8</td></tr>
-<tr class="memitem:a62af7cb8bfabd5a9f6ea45582e08843b" id="r_a62af7cb8bfabd5a9f6ea45582e08843b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a62af7cb8bfabd5a9f6ea45582e08843b">SET_BIT</a>(reg,  bit)</td></tr>
-<tr class="memitem:a50ef806053a11c75cd2570f58e742de4" id="r_a50ef806053a11c75cd2570f58e742de4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a50ef806053a11c75cd2570f58e742de4">CLR_BIT</a>(reg,  bit)</td></tr>
-<tr class="memitem:ad6d89aeec3157e9422d92480d4bd9343" id="r_ad6d89aeec3157e9422d92480d4bd9343"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ad6d89aeec3157e9422d92480d4bd9343">TOG_BIT</a>(reg,  bit)</td></tr>
-<tr class="memitem:aaef49ab0462bf902b59383f592140b05" id="r_aaef49ab0462bf902b59383f592140b05"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aaef49ab0462bf902b59383f592140b05">READ_BIT</a>(reg,  bit)</td></tr>
-<tr class="memitem:a79413e953065eefe67e15a9f1dba19c1" id="r_a79413e953065eefe67e15a9f1dba19c1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a79413e953065eefe67e15a9f1dba19c1">READ_BYTE</a>(reg,  byte)</td></tr>
-<tr class="memitem:a3fe9237475a64592ad498aac6bba1650" id="r_a3fe9237475a64592ad498aac6bba1650"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a3fe9237475a64592ad498aac6bba1650">IS_BIT_SET</a>(reg,  bit)</td></tr>
-<tr class="memitem:a3d70443f3f3b48c71f0184a7c2633e39" id="r_a3d70443f3f3b48c71f0184a7c2633e39"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a3d70443f3f3b48c71f0184a7c2633e39">IS_BIT_CLR</a>(reg,  bit)</td></tr>
-<tr class="memitem:acdd57f8617d552ad57c697f8e46190a4" id="r_acdd57f8617d552ad57c697f8e46190a4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#acdd57f8617d552ad57c697f8e46190a4">ROR</a>(reg,  num)</td></tr>
-<tr class="memitem:a29a7814b0a672229073f6cd702ba2437" id="r_a29a7814b0a672229073f6cd702ba2437"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a29a7814b0a672229073f6cd702ba2437">ROL</a>(reg,  num)</td></tr>
+<tr class="memitem:gabe2f7b6344bb4d51dfea9c9f58609427" id="r_gabe2f7b6344bb4d51dfea9c9f58609427"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__lib.html#gabe2f7b6344bb4d51dfea9c9f58609427">REGISTER_SIZE</a></td></tr>
+<tr class="memdesc:gabe2f7b6344bb4d51dfea9c9f58609427"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register width in bits assumed by <a class="el" href="group__lib.html#gacdd57f8617d552ad57c697f8e46190a4" title="ROR">ROR</a> and <a class="el" href="group__lib.html#ga29a7814b0a672229073f6cd702ba2437" title="ROL">ROL</a>.  <br /></td></tr>
+<tr class="memitem:ga62af7cb8bfabd5a9f6ea45582e08843b" id="r_ga62af7cb8bfabd5a9f6ea45582e08843b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__lib.html#ga62af7cb8bfabd5a9f6ea45582e08843b">SET_BIT</a>(reg,  bit)</td></tr>
+<tr class="memdesc:ga62af7cb8bfabd5a9f6ea45582e08843b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set bit <code class="param">bit</code> of <code class="param">reg</code> to 1.  <br /></td></tr>
+<tr class="memitem:ga50ef806053a11c75cd2570f58e742de4" id="r_ga50ef806053a11c75cd2570f58e742de4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__lib.html#ga50ef806053a11c75cd2570f58e742de4">CLR_BIT</a>(reg,  bit)</td></tr>
+<tr class="memdesc:ga50ef806053a11c75cd2570f58e742de4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear bit <code class="param">bit</code> of <code class="param">reg</code> to 0.  <br /></td></tr>
+<tr class="memitem:gad6d89aeec3157e9422d92480d4bd9343" id="r_gad6d89aeec3157e9422d92480d4bd9343"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__lib.html#gad6d89aeec3157e9422d92480d4bd9343">TOG_BIT</a>(reg,  bit)</td></tr>
+<tr class="memdesc:gad6d89aeec3157e9422d92480d4bd9343"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggle bit <code class="param">bit</code> of <code class="param">reg</code>.  <br /></td></tr>
+<tr class="memitem:gaaef49ab0462bf902b59383f592140b05" id="r_gaaef49ab0462bf902b59383f592140b05"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__lib.html#gaaef49ab0462bf902b59383f592140b05">READ_BIT</a>(reg,  bit)</td></tr>
+<tr class="memdesc:gaaef49ab0462bf902b59383f592140b05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read bit <code class="param">bit</code> of <code class="param">reg</code>, shifted down to bit 0.  <br /></td></tr>
+<tr class="memitem:ga79413e953065eefe67e15a9f1dba19c1" id="r_ga79413e953065eefe67e15a9f1dba19c1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__lib.html#ga79413e953065eefe67e15a9f1dba19c1">READ_BYTE</a>(reg,  byte)</td></tr>
+<tr class="memdesc:ga79413e953065eefe67e15a9f1dba19c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract byte <code class="param">byte</code> of <code class="param">reg</code>, shifted down to bit 0.  <br /></td></tr>
+<tr class="memitem:ga3fe9237475a64592ad498aac6bba1650" id="r_ga3fe9237475a64592ad498aac6bba1650"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__lib.html#ga3fe9237475a64592ad498aac6bba1650">IS_BIT_SET</a>(reg,  bit)</td></tr>
+<tr class="memdesc:ga3fe9237475a64592ad498aac6bba1650"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test whether bit <code class="param">bit</code> of <code class="param">reg</code> is set.  <br /></td></tr>
+<tr class="memitem:ga3d70443f3f3b48c71f0184a7c2633e39" id="r_ga3d70443f3f3b48c71f0184a7c2633e39"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__lib.html#ga3d70443f3f3b48c71f0184a7c2633e39">IS_BIT_CLR</a>(reg,  bit)</td></tr>
+<tr class="memdesc:ga3d70443f3f3b48c71f0184a7c2633e39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test whether bit <code class="param">bit</code> of <code class="param">reg</code> is clear.  <br /></td></tr>
+<tr class="memitem:gacdd57f8617d552ad57c697f8e46190a4" id="r_gacdd57f8617d552ad57c697f8e46190a4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__lib.html#gacdd57f8617d552ad57c697f8e46190a4">ROR</a>(reg,  num)</td></tr>
+<tr class="memdesc:gacdd57f8617d552ad57c697f8e46190a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotate <code class="param">reg</code> right by <code class="param">num</code> bits, in place.  <br /></td></tr>
+<tr class="memitem:ga29a7814b0a672229073f6cd702ba2437" id="r_ga29a7814b0a672229073f6cd702ba2437"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__lib.html#ga29a7814b0a672229073f6cd702ba2437">ROL</a>(reg,  num)</td></tr>
+<tr class="memdesc:ga29a7814b0a672229073f6cd702ba2437"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotate <code class="param">reg</code> left by <code class="param">num</code> bits, in place.  <br /></td></tr>
 </table>
-<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="a50ef806053a11c75cd2570f58e742de4" name="a50ef806053a11c75cd2570f58e742de4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50ef806053a11c75cd2570f58e742de4">&#9670;&#160;</a></span>CLR_BIT</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Bit-manipulation macros used by every register access in the MCAL. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Abdelmoemen Shehawey </dd></dl>
+<p>These are the only primitives the drivers use to touch a peripheral register: an MCAL driver never writes a raw hex mask, it names the bit and uses one of the macros below.</p>
+<dl class="section warning"><dt>Warning</dt><dd>The arguments are not parenthesised internally. Pass a plain variable and a plain bit index — an expression such as <span class="tt"><a class="el" href="group__lib.html#gaaef49ab0462bf902b59383f592140b05" title="Read bit bit of reg, shifted down to bit 0.">READ_BIT</a>(reg, i + 1)</span> will not parse the way you expect, and <span class="tt"><a class="el" href="group__lib.html#gaaef49ab0462bf902b59383f592140b05" title="Read bit bit of reg, shifted down to bit 0.">READ_BIT(...)</a></span> used inside a larger expression needs its own parentheses because <span class="tt">&amp;</span> binds looser than <span class="tt">==</span>. </dd></dl>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CLR_BIT</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>reg</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>bit</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">reg &amp;= (~(1 &lt;&lt; bit))</div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="STD__MACROS_8h_source.html#l00014">14</a> of file <a class="el" href="STD__MACROS_8h_source.html">STD_MACROS.h</a>.</p>
-
-</div>
-</div>
-<a id="a3d70443f3f3b48c71f0184a7c2633e39" name="a3d70443f3f3b48c71f0184a7c2633e39"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d70443f3f3b48c71f0184a7c2633e39">&#9670;&#160;</a></span>IS_BIT_CLR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define IS_BIT_CLR</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>reg</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>bit</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">!((reg &amp; (1 &lt;&lt; bit)) &gt;&gt; bit)</div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="STD__MACROS_8h_source.html#l00021">21</a> of file <a class="el" href="STD__MACROS_8h_source.html">STD_MACROS.h</a>.</p>
-
-</div>
-</div>
-<a id="a3fe9237475a64592ad498aac6bba1650" name="a3fe9237475a64592ad498aac6bba1650"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3fe9237475a64592ad498aac6bba1650">&#9670;&#160;</a></span>IS_BIT_SET</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define IS_BIT_SET</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>reg</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>bit</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(reg &amp; (1 &lt;&lt; bit)) &gt;&gt; bit</div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="STD__MACROS_8h_source.html#l00020">20</a> of file <a class="el" href="STD__MACROS_8h_source.html">STD_MACROS.h</a>.</p>
-
-</div>
-</div>
-<a id="aaef49ab0462bf902b59383f592140b05" name="aaef49ab0462bf902b59383f592140b05"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaef49ab0462bf902b59383f592140b05">&#9670;&#160;</a></span>READ_BIT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define READ_BIT</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>reg</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>bit</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(reg &amp; (1 &lt;&lt; bit)) &gt;&gt; bit</div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="STD__MACROS_8h_source.html#l00016">16</a> of file <a class="el" href="STD__MACROS_8h_source.html">STD_MACROS.h</a>.</p>
-
-</div>
-</div>
-<a id="a79413e953065eefe67e15a9f1dba19c1" name="a79413e953065eefe67e15a9f1dba19c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79413e953065eefe67e15a9f1dba19c1">&#9670;&#160;</a></span>READ_BYTE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define READ_BYTE</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>reg</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>byte</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(reg &amp; (0XFF &lt;&lt; (<span class="keywordtype">byte</span> * 8))) &gt;&gt; (<span class="keywordtype">byte</span> * 8)</div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="STD__MACROS_8h_source.html#l00018">18</a> of file <a class="el" href="STD__MACROS_8h_source.html">STD_MACROS.h</a>.</p>
-
-</div>
-</div>
-<a id="abe2f7b6344bb4d51dfea9c9f58609427" name="abe2f7b6344bb4d51dfea9c9f58609427"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe2f7b6344bb4d51dfea9c9f58609427">&#9670;&#160;</a></span>REGISTER_SIZE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define REGISTER_SIZE&#160;&#160;&#160;8</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="STD__MACROS_8h_source.html#l00012">12</a> of file <a class="el" href="STD__MACROS_8h_source.html">STD_MACROS.h</a>.</p>
-
-</div>
-</div>
-<a id="a29a7814b0a672229073f6cd702ba2437" name="a29a7814b0a672229073f6cd702ba2437"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29a7814b0a672229073f6cd702ba2437">&#9670;&#160;</a></span>ROL</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define ROL</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>reg</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>num</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">reg = (reg &gt;&gt; (<a class="code hl_define" href="#abe2f7b6344bb4d51dfea9c9f58609427">REGISTER_SIZE</a> - num)) | (reg &lt;&lt; (num))</div>
-<div class="ttc" id="aSTD__MACROS_8h_html_abe2f7b6344bb4d51dfea9c9f58609427"><div class="ttname"><a href="#abe2f7b6344bb4d51dfea9c9f58609427">REGISTER_SIZE</a></div><div class="ttdeci">#define REGISTER_SIZE</div><div class="ttdef"><b>Definition</b> <a href="STD__MACROS_8h_source.html#l00012">STD_MACROS.h:12</a></div></div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="STD__MACROS_8h_source.html#l00024">24</a> of file <a class="el" href="STD__MACROS_8h_source.html">STD_MACROS.h</a>.</p>
-
-</div>
-</div>
-<a id="acdd57f8617d552ad57c697f8e46190a4" name="acdd57f8617d552ad57c697f8e46190a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acdd57f8617d552ad57c697f8e46190a4">&#9670;&#160;</a></span>ROR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define ROR</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>reg</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>num</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">reg = (reg &lt;&lt; (<a class="code hl_define" href="#abe2f7b6344bb4d51dfea9c9f58609427">REGISTER_SIZE</a> - num)) | (reg &gt;&gt; (num))</div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="STD__MACROS_8h_source.html#l00023">23</a> of file <a class="el" href="STD__MACROS_8h_source.html">STD_MACROS.h</a>.</p>
-
-</div>
-</div>
-<a id="a62af7cb8bfabd5a9f6ea45582e08843b" name="a62af7cb8bfabd5a9f6ea45582e08843b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a62af7cb8bfabd5a9f6ea45582e08843b">&#9670;&#160;</a></span>SET_BIT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SET_BIT</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>reg</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>bit</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">reg |= (1 &lt;&lt; bit)</div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="STD__MACROS_8h_source.html#l00013">13</a> of file <a class="el" href="STD__MACROS_8h_source.html">STD_MACROS.h</a>.</p>
-
-</div>
-</div>
-<a id="ad6d89aeec3157e9422d92480d4bd9343" name="ad6d89aeec3157e9422d92480d4bd9343"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6d89aeec3157e9422d92480d4bd9343">&#9670;&#160;</a></span>TOG_BIT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define TOG_BIT</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>reg</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>bit</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">reg ^= (1 &lt;&lt; bit)</div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="STD__MACROS_8h_source.html#l00015">15</a> of file <a class="el" href="STD__MACROS_8h_source.html">STD_MACROS.h</a>.</p>
-
-</div>
-</div>
-</div><!-- contents -->
+<p class="definition">Definition in file <a class="el" href="STD__MACROS_8h_source.html">STD_MACROS.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>
@@ -390,7 +148,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_f93dfce691d792349f1c14ede440e2e6.html">Inc</a></li><li class="navelem"><a href="dir_5807d32f659ca06f2d44f24c89728eb8.html">Drivers</a></li><li class="navelem"><a href="dir_59efadd6d5f873987bdd2a54883b8dd7.html">LIB</a></li><li class="navelem"><a href="STD__MACROS_8h.html">STD_MACROS.h</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Inc</b></li><li class="navelem"><b>Drivers</b></li><li class="navelem"><b>LIB</b></li><li class="navelem"><a href="STD__MACROS_8h.html">STD_MACROS.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

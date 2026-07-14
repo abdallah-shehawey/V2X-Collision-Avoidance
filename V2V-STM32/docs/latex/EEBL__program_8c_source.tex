@@ -1,69 +1,86 @@
 \doxysection{EEBL\+\_\+program.\+c}
-\hypertarget{EEBL__program_8c_source}{}\label{EEBL__program_8c_source}\index{Src/EEBL\_program.c@{Src/EEBL\_program.c}}
+\hypertarget{EEBL__program_8c_source}{}\label{EEBL__program_8c_source}\index{V2V-\/STM32/Src/EEBL\_program.c@{V2V-\/STM32/Src/EEBL\_program.c}}
 \doxymbox{\hyperlink{EEBL__program_8c}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00001}00001\ }
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00013}00013\ }
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{EEBL__interface_8h}{../Inc/Application/EEBL/EEBL\_interface.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{EEBL__config_8h}{../Inc/Application/EEBL/EEBL\_config.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00016}00016\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{EEBL__private_8h}{../Inc/Application/EEBL/EEBL\_private.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{DSRC_8h}{../Inc/Application/DSRC/DSRC.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00018}00018\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{System_8h}{../Inc/System/System.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00019}00019\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SafetyEngine__interface_8h}{../Inc/Application/SafetyEngine/SafetyEngine\_interface.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00020}00020\ }
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00021}00021\ \textcolor{comment}{/*\ ============\ Module\ State\ ============\ */}}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00022}00022\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ EEBL\_PrevSpeed\ \ \ \ \ \ \ =\ 0.0f;\ \ \ \ \ \ \textcolor{comment}{/*\ previous-\/cycle\ speed,\ for\ braking\ detection\ */}}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00023}00023\ \textcolor{keyword}{static}\ uint8\_t\ \ \ \ \ EEBL\_BrakingDetected\ =\ 0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ sudden-\/brake\ gate\ (set\ in\ BeginCycle)\ \ \ \ \ \ \ \ */}}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00024}00024\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88}{RiskLevel\_t}}\ EEBL\_WorstLevel\ \ \ \ \ \ =\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};\ \textcolor{comment}{/*\ worst\ risk\ this\ cycle\ (read\ via\ getter)\ \ \ \ \ \ */}}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00025}00025\ }
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00026}00026\ \textcolor{comment}{/*\ ============\ Init\ ============\ */}}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00027}\doxymbox{\hyperlink{EEBL__interface_8h_aa259a5e3167ee1735a31092312d7fd94}{00027}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{EEBL__program_8c_aa259a5e3167ee1735a31092312d7fd94}{EEBL\_voidInit}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00028}00028\ \{}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00029}00029\ \ \ EEBL\_PrevSpeed\ \ \ \ \ \ \ =\ 0.0f;}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00030}00030\ \ \ EEBL\_BrakingDetected\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00031}00031\ \ \ EEBL\_WorstLevel\ \ \ \ \ \ =\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00032}00032\ \}}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00033}00033\ }
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00034}00034\ \textcolor{comment}{/*\ ============================================================\ */}}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00035}00035\ \textcolor{comment}{/*\ ============\ Per-\/Neighbor\ API\ (for\ SafetyEngine)\ ============\ */}}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00036}00036\ \textcolor{comment}{/*\ ============================================================\ */}}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00037}00037\ }
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00042}\doxymbox{\hyperlink{EEBL__interface_8h_ad9b9306a8560417cdc9a5d6ec08eff93}{00042}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{EEBL__program_8c_ad9b9306a8560417cdc9a5d6ec08eff93}{EEBL\_voidBeginCycle}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00043}00043\ \{}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00044}00044\ \ \ \textcolor{comment}{/*\ Sudden\ braking\ =\ a\ drop\ in\ speed\ since\ the\ last\ cycle.\ */}}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00045}00045\ \ \ \textcolor{keywordtype}{float}\ decel\ =\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_a16174df02da93c0fc96432a4bc1de57b}{Host\_Speed}}\ -\/\ EEBL\_PrevSpeed;}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00046}00046\ \ \ EEBL\_BrakingDetected\ =\ (decel\ <=\ \doxymbox{\hyperlink{EEBL__config_8h_aba76f3ff4e32fd399d378c281b86fb31}{EEBL\_DECEL\_THRESHOLD}})\ ?\ 1U\ :\ 0U;}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00047}00047\ }
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00048}00048\ \ \ EEBL\_PrevSpeed\ \ =\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_a16174df02da93c0fc96432a4bc1de57b}{Host\_Speed}};}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00049}00049\ \ \ EEBL\_WorstLevel\ =\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00050}00050\ \}}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00051}00051\ }
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00061}\doxymbox{\hyperlink{EEBL__interface_8h_aa57120c568a45e9aae5c81b8fbf6f1b0}{00061}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{EEBL__program_8c_aa57120c568a45e9aae5c81b8fbf6f1b0}{EEBL\_voidProcessNeighbor}}(\textcolor{keywordtype}{float}\ rear\_distance)}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00062}00062\ \{}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00063}00063\ \ \ \textcolor{keywordflow}{if}\ (!EEBL\_BrakingDetected)}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00064}00064\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00065}00065\ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00066}00066\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00067}00067\ }
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00068}00068\ \ \ \textcolor{comment}{/*\ Nothing\ behind,\ or\ beyond\ the\ safe\ gap\ (which\ is\ RISK\_SAFE\ anyway).\ */}}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00069}00069\ \ \ \textcolor{keywordflow}{if}\ (rear\_distance\ <=\ 0.0f\ ||\ rear\_distance\ >=\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_a2d869610528b06238c15ab8fb160304f}{SafetyEngine\_SafeDist}})}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00070}00070\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00071}00071\ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00072}00072\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00073}00073\ }
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00074}00074\ \ \ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88}{RiskLevel\_t}}\ level\ =\ (rear\_distance\ <\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_a414ebc77c31778b0d2f7371abdbd2d19}{SafetyEngine\_CriticalDist}})\ ?\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492}{RISK\_CRITICAL}}\ :\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82}{RISK\_WARNING}};}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00075}00075\ }
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00076}00076\ \ \ \textcolor{keywordflow}{if}\ (level\ >\ EEBL\_WorstLevel)}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00077}00077\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00078}00078\ \ \ \ \ EEBL\_WorstLevel\ =\ level;}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00079}00079\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00080}00080\ \}}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00081}00081\ }
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00082}00082\ \textcolor{comment}{/*\ ============\ Public\ Getter\ ============\ */}}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00083}00083\ }
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00088}\doxymbox{\hyperlink{EEBL__interface_8h_afaabdbd7129e3944f1edaa8119941c89}{00088}}\ uint8\_t\ \doxymbox{\hyperlink{EEBL__program_8c_afaabdbd7129e3944f1edaa8119941c89}{EEBL\_u8GetFlag}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00089}00089\ \{}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00090}00090\ \ \ \textcolor{keywordflow}{return}\ (uint8\_t)EEBL\_WorstLevel;}
-\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00091}00091\ \}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{EEBL__interface_8h}{../Inc/Application/EEBL/EEBL\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{EEBL__config_8h}{../Inc/Application/EEBL/EEBL\_config.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{EEBL__private_8h}{../Inc/Application/EEBL/EEBL\_private.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{DSRC_8h}{../Inc/Application/DSRC/DSRC.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{System_8h}{../Inc/System/System.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SafetyEngine__interface_8h}{../Inc/Application/SafetyEngine/SafetyEngine\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00017}00017\ \textcolor{comment}{/*\ ============\ Module\ State\ ============\ */}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00019}\doxymbox{\hyperlink{EEBL__program_8c_a0652de7240f7f76ce324700c38579040}{00019}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \doxymbox{\hyperlink{EEBL__program_8c_a0652de7240f7f76ce324700c38579040}{EEBL\_PrevSpeed}}\ \ \ \ \ \ \ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00021}\doxymbox{\hyperlink{EEBL__program_8c_ace09641028ae50b3a0e8dd2ff8dbd38a}{00021}}\ \textcolor{keyword}{static}\ uint8\_t\ \ \ \ \ \doxymbox{\hyperlink{EEBL__program_8c_ace09641028ae50b3a0e8dd2ff8dbd38a}{EEBL\_BrakingDetected}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00023}\doxymbox{\hyperlink{EEBL__program_8c_ab13704a2cc012c74c95d7563b4e80b90}{00023}}\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{RiskLevel\_t}}\ \doxymbox{\hyperlink{EEBL__program_8c_ab13704a2cc012c74c95d7563b4e80b90}{EEBL\_WorstLevel}}\ \ \ \ \ \ =\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00025}00025\ \textcolor{comment}{/*\ ============\ Init\ ============\ */}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00026}\doxymbox{\hyperlink{EEBL__interface_8h_aa259a5e3167ee1735a31092312d7fd94}{00026}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{EEBL__program_8c_aa259a5e3167ee1735a31092312d7fd94}{EEBL\_voidInit}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00027}00027\ \{}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00028}00028\ \ \ \doxymbox{\hyperlink{EEBL__program_8c_a0652de7240f7f76ce324700c38579040}{EEBL\_PrevSpeed}}\ \ \ \ \ \ \ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00029}00029\ \ \ \doxymbox{\hyperlink{EEBL__program_8c_ace09641028ae50b3a0e8dd2ff8dbd38a}{EEBL\_BrakingDetected}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00030}00030\ \ \ \doxymbox{\hyperlink{EEBL__program_8c_ab13704a2cc012c74c95d7563b4e80b90}{EEBL\_WorstLevel}}\ \ \ \ \ \ =\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00031}00031\ \}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00033}00033\ \textcolor{comment}{/*\ ============================================================\ */}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00034}00034\ \textcolor{comment}{/*\ ============\ Per-\/Neighbor\ API\ (for\ SafetyEngine)\ ============\ */}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00035}00035\ \textcolor{comment}{/*\ ============================================================\ */}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00037}00037\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00038}00038\ \textcolor{comment}{\ *\ @brief\ Start\ a\ new\ cycle:\ set\ the\ sudden-\/braking\ gate\ and\ reset\ the\ result.}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00039}00039\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ While\ not\ braking,\ ProcessNeighbor\ skips\ every\ neighbor.}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00040}00040\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00041}\doxymbox{\hyperlink{EEBL__interface_8h_ad9b9306a8560417cdc9a5d6ec08eff93}{00041}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{EEBL__program_8c_ad9b9306a8560417cdc9a5d6ec08eff93}{EEBL\_voidBeginCycle}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00042}00042\ \{}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00043}00043\ \ \ \textcolor{comment}{/*\ Sudden\ braking\ =\ a\ drop\ in\ speed\ since\ the\ last\ cycle.\ */}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00044}00044\ \ \ \textcolor{keywordtype}{float}\ decel\ =\ \doxymbox{\hyperlink{group__app__safetyengine_ga16174df02da93c0fc96432a4bc1de57b}{Host\_Speed}}\ -\/\ \doxymbox{\hyperlink{EEBL__program_8c_a0652de7240f7f76ce324700c38579040}{EEBL\_PrevSpeed}};}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00045}00045\ \ \ \doxymbox{\hyperlink{EEBL__program_8c_ace09641028ae50b3a0e8dd2ff8dbd38a}{EEBL\_BrakingDetected}}\ =\ (decel\ <=\ \doxymbox{\hyperlink{EEBL__config_8h_aba76f3ff4e32fd399d378c281b86fb31}{EEBL\_DECEL\_THRESHOLD}})\ ?\ 1U\ :\ 0U;}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00047}00047\ \ \ \doxymbox{\hyperlink{EEBL__program_8c_a0652de7240f7f76ce324700c38579040}{EEBL\_PrevSpeed}}\ \ =\ \doxymbox{\hyperlink{group__app__safetyengine_ga16174df02da93c0fc96432a4bc1de57b}{Host\_Speed}};}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00048}00048\ \ \ \doxymbox{\hyperlink{EEBL__program_8c_ab13704a2cc012c74c95d7563b4e80b90}{EEBL\_WorstLevel}}\ =\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00049}00049\ \}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00051}00051\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00052}00052\ \textcolor{comment}{\ *\ @brief\ Evaluate\ one\ same-\/direction\ neighbor\ against\ the\ rear\ gap.}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00053}00053\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00054}00054\ \textcolor{comment}{\ *\ Risk\ depends\ on\ the\ host's\ own\ speed\ (the\ cycle\ safe/critical\ gaps),\ not\ on}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00055}00055\ \textcolor{comment}{\ *\ relative\ speed:\ a\ sudden\ brake\ with\ a\ vehicle\ close\ behind\ raises\ a\ warning.}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00056}00056\ \textcolor{comment}{\ *\ Keeps\ the\ worst\ severity\ across\ the\ cycle.}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00057}00057\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00058}00058\ \textcolor{comment}{\ *\ @param\ rear\_distance\ Rear\ ultrasonic\ distance\ (cm)}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00059}00059\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00060}\doxymbox{\hyperlink{EEBL__interface_8h_aa57120c568a45e9aae5c81b8fbf6f1b0}{00060}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{EEBL__program_8c_aa57120c568a45e9aae5c81b8fbf6f1b0}{EEBL\_voidProcessNeighbor}}(\textcolor{keywordtype}{float}\ rear\_distance)}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00061}00061\ \{}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00062}00062\ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{EEBL__program_8c_ace09641028ae50b3a0e8dd2ff8dbd38a}{EEBL\_BrakingDetected}})}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00063}00063\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00064}00064\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00065}00065\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00067}00067\ \ \ \textcolor{comment}{/*\ Nothing\ behind,\ or\ beyond\ the\ safe\ gap\ (which\ is\ RISK\_SAFE\ anyway).\ */}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00068}00068\ \ \ \textcolor{keywordflow}{if}\ (rear\_distance\ <=\ 0.0f\ ||\ rear\_distance\ >=\ \doxymbox{\hyperlink{group__app__safetyengine_ga2d869610528b06238c15ab8fb160304f}{SafetyEngine\_SafeDist}})}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00069}00069\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00070}00070\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00071}00071\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00073}00073\ \ \ \doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{RiskLevel\_t}}\ level\ =\ (rear\_distance\ <\ \doxymbox{\hyperlink{group__app__safetyengine_ga414ebc77c31778b0d2f7371abdbd2d19}{SafetyEngine\_CriticalDist}})\ ?\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492}{RISK\_CRITICAL}}\ :\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82}{RISK\_WARNING}};}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00075}00075\ \ \ \textcolor{keywordflow}{if}\ (level\ >\ \doxymbox{\hyperlink{EEBL__program_8c_ab13704a2cc012c74c95d7563b4e80b90}{EEBL\_WorstLevel}})}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00076}00076\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00077}00077\ \ \ \ \ \doxymbox{\hyperlink{EEBL__program_8c_ab13704a2cc012c74c95d7563b4e80b90}{EEBL\_WorstLevel}}\ =\ level;}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00078}00078\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00079}00079\ \}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00081}00081\ \textcolor{comment}{/*\ ============\ Public\ Getter\ ============\ */}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00083}00083\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00084}00084\ \textcolor{comment}{\ *\ @brief\ Get\ current\ EEBL\ risk\ level\ (LED/buzzer\ handled\ by\ the\ caller).}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00085}00085\ \textcolor{comment}{\ *\ @return\ 0=Safe,\ 1=Warning,\ 2=Critical}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00086}00086\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00087}\doxymbox{\hyperlink{EEBL__interface_8h_afaabdbd7129e3944f1edaa8119941c89}{00087}}\ uint8\_t\ \doxymbox{\hyperlink{EEBL__program_8c_afaabdbd7129e3944f1edaa8119941c89}{EEBL\_u8GetFlag}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00088}00088\ \{}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00089}00089\ \ \ \textcolor{keywordflow}{return}\ (uint8\_t)\doxymbox{\hyperlink{EEBL__program_8c_ab13704a2cc012c74c95d7563b4e80b90}{EEBL\_WorstLevel}};}
+\DoxyCodeLine{\Hypertarget{EEBL__program_8c_source_l00090}00090\ \}}
 
 \end{DoxyCode}

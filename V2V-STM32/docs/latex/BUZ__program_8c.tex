@@ -1,5 +1,10 @@
-\doxysection{Src/\+\+BUZ\+\_\+program.c File Reference}
-\hypertarget{BUZ__program_8c}{}\label{BUZ__program_8c}\index{Src/BUZ\_program.c@{Src/BUZ\_program.c}}
+\doxysection{V2\+V-\/\+STM32/\+\+Src/\+\+BUZ\+\_\+program.c File Reference}
+\hypertarget{BUZ__program_8c}{}\label{BUZ__program_8c}\index{V2V-\/STM32/Src/BUZ\_program.c@{V2V-\/STM32/Src/BUZ\_program.c}}
+
+
+Implementation of the BUZZ driver — the piezo buzzer.  
+
+
 {\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+HAL/\+\+BUZZ/\+\+BUZ\+\_\+interface.\+h"{}}\newline
 {\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+HAL/\+\+BUZZ/\+\+BUZ\+\_\+private.\+h"{}}\newline
 {\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+HAL/\+\+BUZZ/\+\+BUZ\+\_\+config.\+h"{}}\newline
@@ -14,14 +19,26 @@ Include dependency graph for BUZ\+\_\+program.\+c:\+
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{BUZ__program_8c_aee43f9ae5f162980c0e95c9a96694e4a}{BUZ\+\_\+\+Init}} (const \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}BUZ\+\_\+\+Configuration)
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{BUZ__program_8c_aee43f9ae5f162980c0e95c9a96694e4a}{BUZ\+\_\+\+Init}} (const \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}BUZ\+\_\+\+Configuration)
 \begin{DoxyCompactList}\small\item\em Initialize the buzzer pin. \end{DoxyCompactList}\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{BUZ__program_8c_ab7f7f6ad4821bcc1ce356a6912597511}{BUZ\+\_\+\+On}} (const \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}BUZ\+\_\+\+Configuration)
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{BUZ__program_8c_ab7f7f6ad4821bcc1ce356a6912597511}{BUZ\+\_\+\+On}} (const \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}BUZ\+\_\+\+Configuration)
 \begin{DoxyCompactList}\small\item\em Turn on the buzzer. \end{DoxyCompactList}\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{BUZ__program_8c_a6ea5cda725dca71e4c638f57f43eecd7}{BUZ\+\_\+\+Off}} (const \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}BUZ\+\_\+\+Configuration)
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{BUZ__program_8c_a6ea5cda725dca71e4c638f57f43eecd7}{BUZ\+\_\+\+Off}} (const \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}BUZ\+\_\+\+Configuration)
 \begin{DoxyCompactList}\small\item\em Turn off the buzzer. \end{DoxyCompactList}\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{BUZ__program_8c_aaee2a85a84cc58a2be5fa0e7c32e5837}{BUZ\+\_\+\+Toggle}} (const \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}BUZ\+\_\+\+Configuration)
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{BUZ__program_8c_aaee2a85a84cc58a2be5fa0e7c32e5837}{BUZ\+\_\+\+Toggle}} (const \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}BUZ\+\_\+\+Configuration)
 \begin{DoxyCompactList}\small\item\em Toggle the buzzer state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of the BUZZ driver — the piezo buzzer. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{BUZ__program_8c_source}{BUZ\+\_\+program.\+c}}.
+
 
 
 \label{doc-func-members}
@@ -31,15 +48,31 @@ Include dependency graph for BUZ\+\_\+program.\+c:\+
 \index{BUZ\_Init@{BUZ\_Init}!BUZ\_program.c@{BUZ\_program.c}}
 \doxysubsubsection{\texorpdfstring{BUZ\_Init()}{BUZ\_Init()}}
 {\footnotesize\ttfamily \label{BUZ__program_8c_aee43f9ae5f162980c0e95c9a96694e4a} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} BUZ\+\_\+\+Init (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{BUZ\+\_\+\+Configuration}{}\end{DoxyParamCaption})}
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} BUZ\+\_\+\+Init (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Config}{}\end{DoxyParamCaption})}
 
 
 
 Initialize the buzzer pin. 
 
-===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} \doxylink{BUZ__program_8c}{BUZ\+\_\+program.\+c} \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Abdelmoemen Shehawey \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ HAL \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SWC :\+ BUZZER \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} 
 
-Definition at line \doxymbox{\hyperlink{BUZ__program_8c_source_l00019}{19}} of file \doxymbox{\hyperlink{BUZ__program_8c_source}{BUZ\+\_\+program.\+c}}.
+\begin{DoxyParams}{Parameters}
+{\em Config} & Pointer to buzzer configuration structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ Error state 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{BUZ__program_8c_source_l00017}{17}} of file \doxymbox{\hyperlink{BUZ__program_8c_source}{BUZ\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{BUZ__program_8c_source_l00073}{BUZ\+\_\+\+Off()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00041}{GPIO\+\_\+enum\+Pin\+Init()}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00102}{GPIO\+\_\+\+MEDIUM\+\_\+\+SPEED}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00109}{GPIO\+\_\+\+NO\+\_\+\+PULL}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00078}{GPIO\+\_\+\+OUTPUT}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00085}{GPIO\+\_\+\+PUSH\+\_\+\+PULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{BUZ__interface_8h_source_l00032}{BUZ\+\_\+\+Config\+\_\+t::\+\+Pin}}, and \doxymbox{\hyperlink{BUZ__interface_8h_source_l00031}{BUZ\+\_\+\+Config\+\_\+t::\+\+Port}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}.
 
 Here is the call graph for this function:\+
 \nopagebreak
@@ -57,49 +90,11 @@ Here is the caller graph for this function:\+
 \includegraphics[width=336pt]{BUZ__program_8c_aee43f9ae5f162980c0e95c9a96694e4a_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{BUZ__program_8c_a6ea5cda725dca71e4c638f57f43eecd7}\index{BUZ\_program.c@{BUZ\_program.c}!BUZ\_Off@{BUZ\_Off}}
-\index{BUZ\_Off@{BUZ\_Off}!BUZ\_program.c@{BUZ\_program.c}}
-\doxysubsubsection{\texorpdfstring{BUZ\_Off()}{BUZ\_Off()}}
-{\footnotesize\ttfamily \label{BUZ__program_8c_a6ea5cda725dca71e4c638f57f43eecd7} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} BUZ\+\_\+\+Off (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Config}{}\end{DoxyParamCaption})}
-
-
-
-Turn off the buzzer. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em Config} & Pointer to buzzer configuration structure \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-\doxylink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ Error state 
-\end{DoxyReturn}
-
-
-Definition at line \doxymbox{\hyperlink{BUZ__program_8c_source_l00075}{75}} of file \doxymbox{\hyperlink{BUZ__program_8c_source}{BUZ\+\_\+program.\+c}}.
-
-Here is the call graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=302pt]{BUZ__program_8c_a6ea5cda725dca71e4c638f57f43eecd7_cgraph}
-\end{center}
-\end{figure}
-Here is the caller graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{BUZ__program_8c_a6ea5cda725dca71e4c638f57f43eecd7_icgraph}
-\end{center}
-\end{figure}
 \Hypertarget{BUZ__program_8c_ab7f7f6ad4821bcc1ce356a6912597511}\index{BUZ\_program.c@{BUZ\_program.c}!BUZ\_On@{BUZ\_On}}
 \index{BUZ\_On@{BUZ\_On}!BUZ\_program.c@{BUZ\_program.c}}
 \doxysubsubsection{\texorpdfstring{BUZ\_On()}{BUZ\_On()}}
 {\footnotesize\ttfamily \label{BUZ__program_8c_ab7f7f6ad4821bcc1ce356a6912597511} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} BUZ\+\_\+\+On (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Config}{}\end{DoxyParamCaption})}
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} BUZ\+\_\+\+On (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Config}{}\end{DoxyParamCaption})}
 
 
 
@@ -111,11 +106,19 @@ Turn on the buzzer.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-\doxylink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ Error state 
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ Error state 
 \end{DoxyReturn}
 
 
-Definition at line \doxymbox{\hyperlink{BUZ__program_8c_source_l00055}{55}} of file \doxymbox{\hyperlink{BUZ__program_8c_source}{BUZ\+\_\+program.\+c}}.
+Definition at line \doxymbox{\hyperlink{BUZ__program_8c_source_l00053}{53}} of file \doxymbox{\hyperlink{BUZ__program_8c_source}{BUZ\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{BUZ__interface_8h_source_l00033}{BUZ\+\_\+\+Config\+\_\+t::\+\+Active\+State}}, \doxymbox{\hyperlink{BUZ__interface_8h_source_l00023}{BUZ\+\_\+\+ACTIVE\+\_\+\+HIGH}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00475}{GPIO\+\_\+enum\+Write\+Pin\+Val()}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00142}{GPIO\+\_\+\+PIN\+\_\+\+HIGH}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00141}{GPIO\+\_\+\+PIN\+\_\+\+LOW}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{BUZ__interface_8h_source_l00032}{BUZ\+\_\+\+Config\+\_\+t::\+\+Pin}}, and \doxymbox{\hyperlink{BUZ__interface_8h_source_l00031}{BUZ\+\_\+\+Config\+\_\+t::\+\+Port}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}, and \doxymbox{\hyperlink{main_8c_source_l00334}{v\+Task\+\_\+\+Feedback()}}.
 
 Here is the call graph for this function:\+
 \nopagebreak
@@ -133,11 +136,57 @@ Here is the caller graph for this function:\+
 \includegraphics[width=344pt]{BUZ__program_8c_ab7f7f6ad4821bcc1ce356a6912597511_icgraph}
 \end{center}
 \end{figure}
+\Hypertarget{BUZ__program_8c_a6ea5cda725dca71e4c638f57f43eecd7}\index{BUZ\_program.c@{BUZ\_program.c}!BUZ\_Off@{BUZ\_Off}}
+\index{BUZ\_Off@{BUZ\_Off}!BUZ\_program.c@{BUZ\_program.c}}
+\doxysubsubsection{\texorpdfstring{BUZ\_Off()}{BUZ\_Off()}}
+{\footnotesize\ttfamily \label{BUZ__program_8c_a6ea5cda725dca71e4c638f57f43eecd7} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} BUZ\+\_\+\+Off (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Config}{}\end{DoxyParamCaption})}
+
+
+
+Turn off the buzzer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Config} & Pointer to buzzer configuration structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ Error state 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{BUZ__program_8c_source_l00073}{73}} of file \doxymbox{\hyperlink{BUZ__program_8c_source}{BUZ\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{BUZ__interface_8h_source_l00033}{BUZ\+\_\+\+Config\+\_\+t::\+\+Active\+State}}, \doxymbox{\hyperlink{BUZ__interface_8h_source_l00023}{BUZ\+\_\+\+ACTIVE\+\_\+\+HIGH}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00475}{GPIO\+\_\+enum\+Write\+Pin\+Val()}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00142}{GPIO\+\_\+\+PIN\+\_\+\+HIGH}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00141}{GPIO\+\_\+\+PIN\+\_\+\+LOW}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{BUZ__interface_8h_source_l00032}{BUZ\+\_\+\+Config\+\_\+t::\+\+Pin}}, and \doxymbox{\hyperlink{BUZ__interface_8h_source_l00031}{BUZ\+\_\+\+Config\+\_\+t::\+\+Port}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{BUZ__program_8c_source_l00017}{BUZ\+\_\+\+Init()}}, \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}, and \doxymbox{\hyperlink{main_8c_source_l00334}{v\+Task\+\_\+\+Feedback()}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{BUZ__program_8c_a6ea5cda725dca71e4c638f57f43eecd7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{BUZ__program_8c_a6ea5cda725dca71e4c638f57f43eecd7_icgraph}
+\end{center}
+\end{figure}
 \Hypertarget{BUZ__program_8c_aaee2a85a84cc58a2be5fa0e7c32e5837}\index{BUZ\_program.c@{BUZ\_program.c}!BUZ\_Toggle@{BUZ\_Toggle}}
 \index{BUZ\_Toggle@{BUZ\_Toggle}!BUZ\_program.c@{BUZ\_program.c}}
 \doxysubsubsection{\texorpdfstring{BUZ\_Toggle()}{BUZ\_Toggle()}}
 {\footnotesize\ttfamily \label{BUZ__program_8c_aaee2a85a84cc58a2be5fa0e7c32e5837} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} BUZ\+\_\+\+Toggle (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Config}{}\end{DoxyParamCaption})}
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} BUZ\+\_\+\+Toggle (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Config}{}\end{DoxyParamCaption})}
 
 
 
@@ -149,11 +198,15 @@ Toggle the buzzer state.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-\doxylink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ Error state 
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ Error state 
 \end{DoxyReturn}
 
 
-Definition at line \doxymbox{\hyperlink{BUZ__program_8c_source_l00096}{96}} of file \doxymbox{\hyperlink{BUZ__program_8c_source}{BUZ\+\_\+program.\+c}}.
+Definition at line \doxymbox{\hyperlink{BUZ__program_8c_source_l00094}{94}} of file \doxymbox{\hyperlink{BUZ__program_8c_source}{BUZ\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__prog_8c_source_l00543}{GPIO\+\_\+enum\+Tog\+Pin\+Val()}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{BUZ__interface_8h_source_l00032}{BUZ\+\_\+\+Config\+\_\+t::\+\+Pin}}, and \doxymbox{\hyperlink{BUZ__interface_8h_source_l00031}{BUZ\+\_\+\+Config\+\_\+t::\+\+Port}}.
 
 Here is the call graph for this function:\+
 \nopagebreak

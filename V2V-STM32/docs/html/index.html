@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Main Page</title>
+<title>V2V Collision Avoidance Firmware: 🔧 V2V-STM32 — Real-Time Safety Core</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -89,10 +89,172 @@ $(function(){initNavTree('index.html','',''); });
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">V2X Collision Avoidance System Documentation</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">🔧 V2V-STM32 — Real-Time Safety Core </div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p><a class="anchor" id="md_V2V-STM32_2README"></a></p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
+🚗 V2V Safety-Critical Core</h1>
+<p>This directory contains the <b>real-time safety-critical implementation</b> of the V2X Collision Avoidance System.</p>
+<p>It runs on <b>STM32F446RE</b> and is responsible for executing all V2V collision avoidance algorithms with deterministic timing using <b>FreeRTOS</b>, talking to the ESP32 (V2V radio) over UART1 and to the Raspberry Pi (telemetry + remote control) over UART2.</p>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
+🎯 Purpose of this Layer</h1>
+<p>This layer handles:</p>
+<ul>
+<li>Real-time sensor acquisition (6× ultrasonic + MPU9250 IMU)</li>
+<li>Cooperative collision detection (FCW, DNPW, EEBL, BSW, IMA) over DSRC</li>
+<li>Alert generation (LEDs, buzzer)</li>
+<li>V2V message broadcast/receive via the ESP32 bridge (ESP-NOW)</li>
+<li>Telemetry streaming to the Raspberry Pi</li>
+<li>Hardware-level driver control (all MCAL/HAL written from scratch — no HAL library)</li>
+<li>Independent hardware watchdog (IWDG) with per-task liveness checks</li>
+</ul>
+<p>This layer is designed to be:</p>
+<ul>
+<li>Deterministic</li>
+<li>Modular</li>
+<li>Safety-focused</li>
+<li>Self-recovering (a hung task triggers a hardware reset instead of hanging forever)</li>
+</ul>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
+🧠 Architecture Overview</h1>
+<p>The firmware follows a layered embedded architecture:</p>
+<div class="fragment"><div class="line">Application Layer (SafetyEngine + FCW/DNPW, EEBL, BSW, IMA + DSRC)</div>
+<div class="line">        ↓</div>
+<div class="line">HAL (LED, Buzzer, Ultrasonic, MPU9250)</div>
+<div class="line">        ↓</div>
+<div class="line">MCAL (RCC, GPIO, NVIC, SCB, SYSCFG, SYSTICK, EXTI, SPI, TIM, USART, IWDG)</div>
+<div class="line">        ↓</div>
+<div class="line">Hardware (STM32F446RE)</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md6"></a>
+FreeRTOS task pipeline</h2>
+<p><span class="tt"><a class="el" href="main_8c.html" title="Entry point, the six FreeRTOS tasks, and the watchdog liveness net.">main.c</a></span> creates six tasks; the ADAS decision and V2X TX/RX run at the highest priority, sensing at medium, and actuation/telemetry/monitoring below that. Every monitored task bumps its own heartbeat slot each loop; the watchdog task only kicks the hardware IWDG when <b>all</b> slots are still advancing — a stalled task (hard fault, infinite loop, ISR storm) stops the kicks and the MCU hardware-resets.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Task  </th><th class="markdownTableHeadNone">Priority  </th><th class="markdownTableHeadNone">Period  </th><th class="markdownTableHeadNone">Role  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">SafetyEngine_Task</span>  </td><td class="markdownTableBodyNone">4 (highest)  </td><td class="markdownTableBodyNone">50 ms  </td><td class="markdownTableBodyNone">Single-pass ADAS brain: locks both mutexes, runs <span class="tt"><a class="el" href="group__app__safetyengine.html#ga7b6c12632534a82b4357a73306667157" title="Run one full ADAS cycle: every module, over every neighbor, in one pass.">SafetyEngine_voidUpdate()</a></span> over the whole DSRC neighbor table, aggregates every module's result into the <span class="tt"><a class="el" href="group__system.html#ga9e78367aa5b758af972838362c2b0eab" title="The packed ADAS status word — see SYS_GET for how to read it.">G_u16SystemFlags</a></span> status word (2 bits/module)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">ESP_Comm_Task</span>  </td><td class="markdownTableBodyNone">4  </td><td class="markdownTableBodyNone">event-driven RX + 100 ms TX  </td><td class="markdownTableBodyNone">Drains UART1 bytes into the DSRC parser, maintains the neighbor table (flush + purge stale), and broadcasts this vehicle's <span class="tt"><a class="el" href="structNeighbor.html" title="One vehicle&#39;s broadcast state — this is the wire format itself.">Neighbor</a></span> frame every 100 ms  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">Sensors_Task</span>  </td><td class="markdownTableBodyNone">3  </td><td class="markdownTableBodyNone">adaptive (~15–150 ms)  </td><td class="markdownTableBodyNone">Reads all 6 ultrasonics (interrupt-driven, sleeps during echo flight) + the MPU9250 (speed/heading/pitch/roll/position), publishes into <span class="tt"><a class="el" href="group__system.html#gac3116f56a230ebdd81cadd527921464c" title="The shared sensor picture of this vehicle.">G_stHostVehicleState</a></span>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">Feedback_Task</span>  </td><td class="markdownTableBodyNone">2  </td><td class="markdownTableBodyNone">25 ms  </td><td class="markdownTableBodyNone">The "muscle": renders <span class="tt"><a class="el" href="group__system.html#ga9e78367aa5b758af972838362c2b0eab" title="The packed ADAS status word — see SYS_GET for how to read it.">G_u16SystemFlags</a></span> onto LEDs + buzzer. Makes no decisions of its own — front LEDs on FCW-critical, rear LEDs on EEBL-critical, interior LED + buzzer on any alert  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">RPi_Comm_Task</span>  </td><td class="markdownTableBodyNone">1  </td><td class="markdownTableBodyNone">100 ms  </td><td class="markdownTableBodyNone">Streams a <span class="tt">\n</span>-terminated ASCII CSV telemetry line over UART2 to the Raspberry Pi (speed, heading, pitch/roll, 6× ultrasonic, ADAS flags, BSW per-side severity)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">Watchdog_Task</span>  </td><td class="markdownTableBodyNone">1 (lowest)  </td><td class="markdownTableBodyNone">300 ms check  </td><td class="markdownTableBodyNone">Liveness monitor; kicks the IWDG (2 s hardware timeout) only if every task's heartbeat advanced since the last check  </td></tr>
+</table>
+<p>Lock order is always <b>NeighborTable → Data</b> and is never taken nested from more than one place, so no deadlock is possible between tasks.</p>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="autotoc_md8"></a>
+📁 Directory Structure</h1>
+<div class="fragment"><div class="line">V2V-STM32/</div>
+<div class="line">├── Inc/</div>
+<div class="line">│   ├── Application/</div>
+<div class="line">│   │   ├── SafetyEngine/   # Shared risk model, direction detection, module orchestration</div>
+<div class="line">│   │   ├── DSRC/           # Neighbor table + wire protocol (shared with esp32/)</div>
+<div class="line">│   │   ├── FCW_DNPW/       # Forward Collision Warning + Do-Not-Pass Warning (one module)</div>
+<div class="line">│   │   ├── EEBL/           # Electronic Emergency Brake Light</div>
+<div class="line">│   │   ├── BSW/            # Blind Spot Warning</div>
+<div class="line">│   │   └── IMA/            # Intersection Movement Assist</div>
+<div class="line">│   │</div>
+<div class="line">│   ├── Drivers/</div>
+<div class="line">│   │   ├── MCAL/           # RCC, GPIO, NVIC, SCB, SYSCFG, SYSTICK, EXTI, SPI, TIM, USART, IWDG</div>
+<div class="line">│   │   ├── HAL/             # LED, BUZZ, US (ultrasonic), MPU9250</div>
+<div class="line">│   │   └── LIB/              # ErrTypes, STD_MACROS, register maps</div>
+<div class="line">│   │</div>
+<div class="line">│   └── System/</div>
+<div class="line">│       └── System.h        # System-wide configuration</div>
+<div class="line">│</div>
+<div class="line">├── Src/</div>
+<div class="line">│   ├── main.c                  # FreeRTOS tasks, ISR callbacks, watchdog heartbeats</div>
+<div class="line">│   ├── System.c</div>
+<div class="line">│   ├── SafetyEngine_program.c  # Direction detection + risk model + per-cycle orchestration</div>
+<div class="line">│   ├── DSRC.c                  # Neighbor table, UART framing, stale purge</div>
+<div class="line">│   ├── FCW_DNPW_program.c</div>
+<div class="line">│   ├── EEBL_program.c</div>
+<div class="line">│   ├── BSW_program.c</div>
+<div class="line">│   ├── IMA_program.c</div>
+<div class="line">│   ├── RCC_program.c / GPIO_prog.c / NVIC_program.c / SCB_program.c</div>
+<div class="line">│   ├── SYSCFG_program.c / SYSTIC_program.c / TIM_program.c</div>
+<div class="line">│   ├── EXTI_program.c / SPI_program.c / USART_program.c / IWDG_program.c</div>
+<div class="line">│   ├── MPU9250_program.c / US_prog.c / LED_prog.c / BUZ_program.c</div>
+<div class="line">│   └── syscalls.c</div>
+<div class="line">│</div>
+<div class="line">├── Startup/</div>
+<div class="line">│   └── startup_stm32f446retx.s</div>
+<div class="line">│</div>
+<div class="line">├── STM32F446RETX_FLASH.ld</div>
+<div class="line">├── STM32F446RETX_RAM.ld</div>
+<div class="line">│</div>
+<div class="line">├── docs/</div>
+<div class="line">│   └── PCB_BUILD_STAGES.md   # Altium carrier-board build guide, stage by stage</div>
+<div class="line">│</div>
+<div class="line">├── ThirdParty/</div>
+<div class="line">│   ├── License/</div>
+<div class="line">│   └── Source/              # FreeRTOS kernel (tasks, queue, timers, event_groups, ...)</div>
+<div class="line">│</div>
+<div class="line">└── Debug/                   # Auto-generated build output (STM32CubeIDE / make)</div>
+</div><!-- fragment --><hr  />
+<h1 class="doxsection"><a class="anchor" id="autotoc_md10"></a>
+🚘 Implemented V2V Subsystems</h1>
+<p>All five modules share the same <span class="tt">SafetyEngine</span> risk model (<span class="tt"><a class="el" href="group__app__safetyengine.html#gaff42a93f5f7c50d14d779e142010ae71" title="Assess collision risk from host speed and a measured distance.">SafetyEngine_AssessDistanceRisk</a></span>, <span class="tt"><a class="el" href="group__app__safetyengine.html#ga7e73033d8b868fa66e2090ca79150677" title="Evaluate risk from a &quot;lower value = higher risk&quot; metric.">SafetyEngine_EvaluateRisk</a></span>, <span class="tt"><a class="el" href="group__app__safetyengine.html#gab7dae45d16fd67e39cae94350eb6d0f7" title="Detect direction relationship between two vehicles.">SafetyEngine_DetectDirection</a></span>) and consume the DSRC neighbor table each 50 ms cycle. Each returns a graded <b>0=Safe / 1=Warning / 2=Critical</b> flag.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md11"></a>
+🔹 FCW / DNPW — Forward Collision + Do-Not-Pass Warning</h2>
+<p>One combined module. <span class="tt"><a class="el" href="FCW__DNPW__interface_8h.html#a724d10fbe6405476d140c3f113e787de" title="Forward-collision flag (vehicle ahead, same lane).">FCW_GetFrontFlag()</a></span> covers a same-lane vehicle ahead (local, ultrasonic-only). For an oncoming vehicle, it distinguishes a <b>head-on candidate</b> (broadcast cooperatively as <span class="tt">fcw_headon_flag</span> so the other car can confirm) from a <b>Do-Not-Pass</b> case (oncoming car in another lane — graded critical when the front-right sensor also reads a car alongside on the overtaking side).</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md12"></a>
+🔹 EEBL — Electronic Emergency Brake Light</h2>
+<p>Detects a same-direction vehicle ahead braking hard and grades the risk from the rear ultrasonic distance via the shared speed-dependent safe-distance model.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md13"></a>
+🔹 BSW — Blind Spot Warning</h2>
+<p>Dual role per cycle: broadcasts <em>this</em> car's own front-side occupancy (<span class="tt">bit0=LEFT, bit1=RIGHT</span>) for others to use, and separately computes whether <em>this</em> car has a neighbor in its own rear blind spot — with per-side severity so the Raspberry Pi can tell left from right.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md14"></a>
+🔹 IMA — Intersection Movement Assist</h2>
+<p>Processes crossing-direction neighbors only, comparing distance-to-intersection and speed to flag a likely intersection collision.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md15"></a>
+DSRC — the transport underneath all five</h2>
+<p><span class="tt"><a class="el" href="DSRC_8c.html" title="Neighbor table, frame parser and transmitter for the V2V link.">DSRC.c</a></span> maintains the neighbor table (up to <span class="tt"><a class="el" href="group__app__dsrc.html#ga2b1d39159e4114f433745f15a201c93c" title="Maximum number of vehicles tracked at once; further senders are ignored until a slot frees up.">MAX_NEIGHBORS</a></span>, purged after <span class="tt"><a class="el" href="group__app__dsrc.html#ga545233ea05ce2ada1c14377954bb8931" title="How long a neighbor may stay silent before it is purged from the table [ms].">NEIGHBOR_TIMEOUT</a></span> of silence) and frames/parses the packed <span class="tt"><a class="el" href="structNeighbor.html" title="One vehicle&#39;s broadcast state — this is the wire format itself.">Neighbor</a></span> struct over UART1 (<span class="tt"><a class="el" href="group__app__dsrc.html#ga30d2043ca397843e08c43ade3aaee5b2" title="First byte of every frame — see Frame layout.">START_BYTE</a> … <a class="el" href="group__app__dsrc.html#ga5126c1e2dc63cec63fc73710e48a9b5d" title="Last byte of every frame.">END_BYTE</a></span>, checksummed). The <b>same struct layout</b> is mirrored byte-for-byte in the ESP32 sketches (<span class="tt">esp32/master</span>, <span class="tt">esp32/sniffer</span>) — see <a class="el" href="dir_59e7f8d29184d0656f3182488763fc33.html" title="/media/Local-Disk/Data/V2X-Collision-Avoidance/esp32/README.md"><span class="tt">../esp32/README.md</span></a>. Any field reorder on one side must be mirrored on the other.</p>
+<blockquote class="doxtable">
+<p>There is no separate "SDW" (Safe Distance Warning) module — the shared safe/critical distance model in <span class="tt">SafetyEngine</span> (used by FCW and EEBL) covers that role. </p>
+</blockquote>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
+📡 Telemetry to the Raspberry Pi</h1>
+<p><span class="tt">RPi_Comm_Task</span> streams one ASCII CSV line every 100 ms over UART2:</p>
+<div class="fragment"><div class="line">T,speed,heading,pitch,roll,FL,FC,FR,BL,BC,BR,flags,bsw_sides\n</div>
+</div><!-- fragment --><p>ASCII (not the binary <span class="tt"><a class="el" href="structNeighbor.html" title="One vehicle&#39;s broadcast state — this is the wire format itself.">Neighbor</a></span> struct) was chosen because it contains no <span class="tt">0x00</span> bytes, which was previously causing dropped runs over the UART link. <span class="tt">flags</span> is the 16-bit ADAS status word (2 bits per module); <span class="tt">bsw_sides</span> packs left/right blind-spot severity separately since the aggregated flag alone loses which side triggered. This feeds <span class="tt">RPI/DashBoard/</span> — see <a class="el" href="dir_55122db787629eaf0bcbfbf6ffd453bc.html" title="/media/Local-Disk/Data/V2X-Collision-Avoidance/RPI/DashBoard/README.md"><span class="tt">../RPI/DashBoard/README.md</span></a>.</p>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
+⚙️ Hardware Dependencies</h1>
+<ul>
+<li>STM32F446RE (Nucleo)</li>
+<li>MPU9250 IMU (SPI)</li>
+<li>6× HC-SR04 ultrasonic sensors (interrupt-driven, front-left/center/right + rear-left/center/right)</li>
+<li>ESP32-S3 on UART1 (V2V radio bridge)</li>
+<li>Raspberry Pi on UART2 (telemetry + control)</li>
+<li>LEDs (front L/R, rear L/R, interior) + buzzer</li>
+</ul>
+<p>See <a class="el" href="md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html" title="V2X Car PCB — Stage-by-Stage Build Guide (Altium)"><span class="tt">docs/PCB_BUILD_STAGES.md</span></a> for the carrier-board build (power, MCU, sensors, comms blocks).</p>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
+🔐 Safety &amp; Determinism</h1>
+<ul>
+<li>Interrupt-driven ultrasonic sensing (task sleeps during echo flight, no busy-wait)</li>
+<li>Fixed lock order (NeighborTable → Data) — deadlock-free by construction</li>
+<li>Independent hardware watchdog (IWDG) gated on <b>every</b> task's liveness, not just one</li>
+<li>All timing-critical work happens inside <span class="tt">SafetyEngine_Task</span> (priority 4, 50 ms cycle)</li>
+<li>Feedback task never makes decisions — it only renders what SafetyEngine already computed</li>
+</ul>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="autotoc_md23"></a>
+🏁 Summary</h1>
+<p>This layer is the <b>core safety engine</b> of the V2X project: a from-scratch MCAL/HAL stack, a cooperative DSRC neighbor protocol shared with the ESP32 radio bridge, five ADAS modules built on one shared risk model, and a self-monitoring FreeRTOS pipeline that hardware-resets itself if anything stalls.</p>
+<hr  />
+ </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: SysTick Constants</title>
+<title>V2V Collision Avoidance Firmware: SysTick Constants</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -99,17 +99,40 @@ $(function(){initNavTree('group__SYSTIC__Constants.html','',''); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:gaa859133e49f79568817c4eec5ecc6a1f" id="r_gaa859133e49f79568817c4eec5ecc6a1f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaa859133e49f79568817c4eec5ecc6a1f">SYSTIC_MAX_NO_OF_TICKS</a>&#160;&#160;&#160;(0x00FFFFFF)</td></tr>
-<tr class="memitem:gae468065fe667882e5f951fd7f20a0c1b" id="r_gae468065fe667882e5f951fd7f20a0c1b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae468065fe667882e5f951fd7f20a0c1b">CLK_SOURCE_AHB</a>&#160;&#160;&#160;(1U)</td></tr>
+<tr class="memitem:gaa859133e49f79568817c4eec5ecc6a1f" id="r_gaa859133e49f79568817c4eec5ecc6a1f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaa859133e49f79568817c4eec5ecc6a1f">SYSTIC_MAX_NO_OF_TICKS</a></td></tr>
+<tr class="memdesc:gaa859133e49f79568817c4eec5ecc6a1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum counter value (24-bit counter).  <br /></td></tr>
+<tr class="memitem:gae468065fe667882e5f951fd7f20a0c1b" id="r_gae468065fe667882e5f951fd7f20a0c1b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae468065fe667882e5f951fd7f20a0c1b">CLK_SOURCE_AHB</a></td></tr>
 <tr class="memdesc:gae468065fe667882e5f951fd7f20a0c1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clock source selection values for SysTick timer.  <br /></td></tr>
-<tr class="memitem:ga3f0fad65c3d5c5c2be745f12f2cbbef4" id="r_ga3f0fad65c3d5c5c2be745f12f2cbbef4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3f0fad65c3d5c5c2be745f12f2cbbef4">CLK_SOURCE_AHB_DIV8</a>&#160;&#160;&#160;(0U)</td></tr>
-<tr class="memitem:ga514ad415fb6125ba296793df7d1a468a" id="r_ga514ad415fb6125ba296793df7d1a468a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga514ad415fb6125ba296793df7d1a468a">ENABLE</a>&#160;&#160;&#160;(1U)</td></tr>
+<tr class="memitem:ga3f0fad65c3d5c5c2be745f12f2cbbef4" id="r_ga3f0fad65c3d5c5c2be745f12f2cbbef4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3f0fad65c3d5c5c2be745f12f2cbbef4">CLK_SOURCE_AHB_DIV8</a></td></tr>
+<tr class="memdesc:ga3f0fad65c3d5c5c2be745f12f2cbbef4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use processor clock divided by 8.  <br /></td></tr>
+<tr class="memitem:ga514ad415fb6125ba296793df7d1a468a" id="r_ga514ad415fb6125ba296793df7d1a468a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga514ad415fb6125ba296793df7d1a468a">ENABLE</a></td></tr>
 <tr class="memdesc:ga514ad415fb6125ba296793df7d1a468a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic enable/disable definitions.  <br /></td></tr>
-<tr class="memitem:ga99496f7308834e8b220f7894efa0b6ab" id="r_ga99496f7308834e8b220f7894efa0b6ab"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga99496f7308834e8b220f7894efa0b6ab">DISABLE</a>&#160;&#160;&#160;(0U)</td></tr>
+<tr class="memitem:ga99496f7308834e8b220f7894efa0b6ab" id="r_ga99496f7308834e8b220f7894efa0b6ab"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga99496f7308834e8b220f7894efa0b6ab">DISABLE</a></td></tr>
+<tr class="memdesc:ga99496f7308834e8b220f7894efa0b6ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable a feature.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Important constants for SysTick configuration. </p>
 </div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="gaa859133e49f79568817c4eec5ecc6a1f" name="gaa859133e49f79568817c4eec5ecc6a1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa859133e49f79568817c4eec5ecc6a1f">&#9670;&#160;</a></span>SYSTIC_MAX_NO_OF_TICKS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SYSTIC_MAX_NO_OF_TICKS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum counter value (24-bit counter). </p>
+
+<p class="definition">Definition at line <a class="el" href="SYSTIC__private_8h_source.html#l00029">29</a> of file <a class="el" href="SYSTIC__private_8h_source.html">SYSTIC_private.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SYSTIC__program_8c_source.html#l00133">SYSTIC_vDelayMs()</a>, and <a class="el" href="SYSTIC__program_8c_source.html#l00207">SYSTIC_vDelayUs()</a>.</p>
+
+</div>
+</div>
 <a id="gae468065fe667882e5f951fd7f20a0c1b" name="gae468065fe667882e5f951fd7f20a0c1b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gae468065fe667882e5f951fd7f20a0c1b">&#9670;&#160;</a></span>CLK_SOURCE_AHB</h2>
 
@@ -117,7 +140,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CLK_SOURCE_AHB&#160;&#160;&#160;(1U)</td>
+          <td class="memname">#define CLK_SOURCE_AHB</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -125,7 +148,7 @@ Macros</h2></td></tr>
 <p>Clock source selection values for SysTick timer. </p>
 <dl class="section note"><dt>Note</dt><dd>These values are written to CLKSOURCE bit in STK_CTRL Use processor clock (AHB) directly </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SYSTIC__private_8h_source.html#l00039">39</a> of file <a class="el" href="SYSTIC__private_8h_source.html">SYSTIC_private.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SYSTIC__private_8h_source.html#l00035">35</a> of file <a class="el" href="SYSTIC__private_8h_source.html">SYSTIC_private.h</a>.</p>
 
 </div>
 </div>
@@ -136,30 +159,14 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CLK_SOURCE_AHB_DIV8&#160;&#160;&#160;(0U)</td>
+          <td class="memname">#define CLK_SOURCE_AHB_DIV8</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Use processor clock divided by 8 </p>
 
-<p class="definition">Definition at line <a class="el" href="SYSTIC__private_8h_source.html#l00040">40</a> of file <a class="el" href="SYSTIC__private_8h_source.html">SYSTIC_private.h</a>.</p>
+<p>Use processor clock divided by 8. </p>
 
-</div>
-</div>
-<a id="ga99496f7308834e8b220f7894efa0b6ab" name="ga99496f7308834e8b220f7894efa0b6ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga99496f7308834e8b220f7894efa0b6ab">&#9670;&#160;</a></span>DISABLE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define DISABLE&#160;&#160;&#160;(0U)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Disable a feature </p>
-
-<p class="definition">Definition at line <a class="el" href="SYSTIC__private_8h_source.html#l00046">46</a> of file <a class="el" href="SYSTIC__private_8h_source.html">SYSTIC_private.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SYSTIC__private_8h_source.html#l00036">36</a> of file <a class="el" href="SYSTIC__private_8h_source.html">SYSTIC_private.h</a>.</p>
 
 </div>
 </div>
@@ -170,7 +177,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define ENABLE&#160;&#160;&#160;(1U)</td>
+          <td class="memname">#define ENABLE</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -178,24 +185,25 @@ Macros</h2></td></tr>
 <p>Generic enable/disable definitions. </p>
 <p>Enable a feature </p>
 
-<p class="definition">Definition at line <a class="el" href="SYSTIC__private_8h_source.html#l00045">45</a> of file <a class="el" href="SYSTIC__private_8h_source.html">SYSTIC_private.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SYSTIC__private_8h_source.html#l00041">41</a> of file <a class="el" href="SYSTIC__private_8h_source.html">SYSTIC_private.h</a>.</p>
 
 </div>
 </div>
-<a id="gaa859133e49f79568817c4eec5ecc6a1f" name="gaa859133e49f79568817c4eec5ecc6a1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa859133e49f79568817c4eec5ecc6a1f">&#9670;&#160;</a></span>SYSTIC_MAX_NO_OF_TICKS</h2>
+<a id="ga99496f7308834e8b220f7894efa0b6ab" name="ga99496f7308834e8b220f7894efa0b6ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga99496f7308834e8b220f7894efa0b6ab">&#9670;&#160;</a></span>DISABLE</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define SYSTIC_MAX_NO_OF_TICKS&#160;&#160;&#160;(0x00FFFFFF)</td>
+          <td class="memname">#define DISABLE</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Maximum counter value (24-bit counter) </p>
 
-<p class="definition">Definition at line <a class="el" href="SYSTIC__private_8h_source.html#l00033">33</a> of file <a class="el" href="SYSTIC__private_8h_source.html">SYSTIC_private.h</a>.</p>
+<p>Disable a feature. </p>
+
+<p class="definition">Definition at line <a class="el" href="SYSTIC__private_8h_source.html#l00042">42</a> of file <a class="el" href="SYSTIC__private_8h_source.html">SYSTIC_private.h</a>.</p>
 
 </div>
 </div>

@@ -1,4 +1,27 @@
 var searchData=
 [
-  ['📡_20telemetry_20to_20the_20raspberry_20pi_0',['📡 Telemetry to the Raspberry Pi',['../md_README.html#autotoc_md17',1,'']]]
+  ['v2v_20safety_20critical_20core_0',['🚗 V2V Safety-Critical Core',['../index.html#autotoc_md1',1,'']]],
+  ['v2v_20stm32_20—_20real_20time_20safety_20core_1',['🔧 V2V-STM32 — Real-Time Safety Core',['../index.html',1,'']]],
+  ['v2v_20subsystems_2',['🚘 Implemented V2V Subsystems',['../index.html#autotoc_md10',1,'']]],
+  ['v2x_20car_20pcb_20—_20stage_20by_20stage_20build_20guide_20altium_3',['V2X Car PCB — Stage-by-Stage Build Guide (Altium)',['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html',1,'']]],
+  ['v2x_20dashboard_20web_4',['V2X Dashboard (Web)',['../dir_55122db787629eaf0bcbfbf6ffd453bc.html#autotoc_md94',1,'']]],
+  ['v2x_20usart1_5',['STAGE 6 — ESP32-S3 BLOCK (V2X / USART1)',['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md63',1,'']]],
+  ['v2x_5fbuzzer_6',['V2X_Buzzer',['../main_8c.html#a4f097a0ea23201e71704715ba21668a1',1,'V2X_Buzzer:&#160;System.c'],['../System_8c.html#a4f097a0ea23201e71704715ba21668a1',1,'V2X_Buzzer:&#160;System.c']]],
+  ['val_7',['VAL',['../structSYSTIC__RegDef__t.html#addaeb69c7a1c2f721053f664fd432299',1,'SYSTIC_RegDef_t']]],
+  ['valid_8',['valid',['../US__prog_8c.html#a75adb1881fa5da948723d7b8807b78cd',1,'US_prog.c']]],
+  ['values_20by_20hand_9',['Test mode (now): change values by hand',['../dir_55122db787629eaf0bcbfbf6ffd453bc.html#autotoc_md97',1,'']]],
+  ['vapplicationidlehook_10',['vApplicationIdleHook',['../System_8c.html#a97fd430f36f8b065226e2bff9bad1de5',1,'System.c']]],
+  ['vapplicationmallocfailedhook_11',['vApplicationMallocFailedHook',['../System_8c.html#ab7e5c95cf72a3f819bc4462a7fb62ca3',1,'System.c']]],
+  ['vapplicationstackoverflowhook_12',['vApplicationStackOverflowHook',['../System_8c.html#a54b14b665d04a631991869b21065bf90',1,'System.c']]],
+  ['vehicle_5fid_13',['VEHICLE_ID',['../group__app__dsrc.html#ga9dd026e05b86378bf84c82c84dd193bf',1,'DSRC.h']]],
+  ['vehicle_5fid_14',['vehicle_id',['../structNeighbor.html#a2b27a4aea905edae73642bd1bde4c493',1,'Neighbor']]],
+  ['vert_5fvelocity_5fm_5fs_15',['Vert_Velocity_m_s',['../MPU9250__program_8c.html#a8b22987bc762fe7d1f41c8a4b231837f',1,'MPU9250_program.c']]],
+  ['vesp_5fuart_5frx_5fcallback_16',['vESP_UART_RX_Callback',['../main_8c.html#a88b12403f1d9bc8cff413fbbde56e15d',1,'vESP_UART_RX_Callback(void):&#160;main.c'],['../System_8c.html#a88b12403f1d9bc8cff413fbbde56e15d',1,'vESP_UART_RX_Callback(void):&#160;main.c']]],
+  ['vtask_5fesp_5fcomm_17',['vTask_ESP_Comm',['../main_8c.html#a8e83024643794f31ab8139cbdb1de5dd',1,'main.c']]],
+  ['vtask_5ffeedback_18',['vTask_Feedback',['../main_8c.html#a96452f43e9871212929e6e6a969bec13',1,'main.c']]],
+  ['vtask_5frpi_5fcomm_19',['vTask_RPi_Comm',['../main_8c.html#a0d8bacb322388f8284803eeccc5612c0',1,'main.c']]],
+  ['vtask_5fsafetyengine_20',['vTask_SafetyEngine',['../main_8c.html#a1fa00ec0e4cf92155fcaa535be5ab3a1',1,'main.c']]],
+  ['vtask_5fsensors_21',['vTask_Sensors',['../main_8c.html#a6124e00be85460e2af1224524c6c2278',1,'main.c']]],
+  ['vtask_5fwatchdog_22',['vTask_Watchdog',['../main_8c.html#ae1bcb9c7fb7ee6cb777db33125685421',1,'main.c']]],
+  ['vtor_23',['VTOR',['../structSCB__RegDef__t.html#a01940cb0a71e93befc5f2e36c26e239a',1,'SCB_RegDef_t']]]
 ];

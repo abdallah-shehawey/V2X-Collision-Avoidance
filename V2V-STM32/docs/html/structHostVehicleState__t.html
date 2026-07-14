@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: HostVehicleState_t Struct Reference</title>
+<title>V2V Collision Avoidance Firmware: HostVehicleState_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,77 +90,67 @@ $(function(){initNavTree('structHostVehicleState__t.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">HostVehicleState_t Struct Reference</div></div>
+  <div class="headertitle"><div class="title">HostVehicleState_t Struct Reference<div class="ingroups"><a class="el" href="group__system.html">System</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="System_8h_source.html">System.h</a>&gt;</code></p>
+<p>Everything the sensors know about <em>this</em> vehicle, in one place.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="System_8h_source.html">System/System.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a9f56bbdb2cab29267dbf08e8701f4e01" id="r_a9f56bbdb2cab29267dbf08e8701f4e01"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a9f56bbdb2cab29267dbf08e8701f4e01">FrontLeftUS</a></td></tr>
+<tr class="memdesc:a9f56bbdb2cab29267dbf08e8701f4e01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Front-left ultrasonic distance [cm].  <br /></td></tr>
 <tr class="memitem:ae4b8720527d5bed97dff0c8fb7b1463d" id="r_ae4b8720527d5bed97dff0c8fb7b1463d"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ae4b8720527d5bed97dff0c8fb7b1463d">FrontCenterUS</a></td></tr>
+<tr class="memdesc:ae4b8720527d5bed97dff0c8fb7b1463d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Front-centre ultrasonic distance [cm].  <br /></td></tr>
 <tr class="memitem:ae2395ee925d80eb9e8310bef5a987d48" id="r_ae2395ee925d80eb9e8310bef5a987d48"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ae2395ee925d80eb9e8310bef5a987d48">FrontRightUS</a></td></tr>
+<tr class="memdesc:ae2395ee925d80eb9e8310bef5a987d48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Front-right ultrasonic distance [cm].  <br /></td></tr>
 <tr class="memitem:a0ca909d0541f217f15b40d7dc098d0f0" id="r_a0ca909d0541f217f15b40d7dc098d0f0"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a0ca909d0541f217f15b40d7dc098d0f0">BackLeftUS</a></td></tr>
+<tr class="memdesc:a0ca909d0541f217f15b40d7dc098d0f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rear-left ultrasonic distance [cm].  <br /></td></tr>
 <tr class="memitem:aaa86a237fbf13e3fc368fff0331fb7d4" id="r_aaa86a237fbf13e3fc368fff0331fb7d4"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#aaa86a237fbf13e3fc368fff0331fb7d4">BackCenterUS</a></td></tr>
+<tr class="memdesc:aaa86a237fbf13e3fc368fff0331fb7d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rear-centre ultrasonic distance [cm].  <br /></td></tr>
 <tr class="memitem:a0ef2f623a5e80b6cf31539e22d0d3438" id="r_a0ef2f623a5e80b6cf31539e22d0d3438"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a0ef2f623a5e80b6cf31539e22d0d3438">BackRightUS</a></td></tr>
+<tr class="memdesc:a0ef2f623a5e80b6cf31539e22d0d3438"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rear-right ultrasonic distance [cm].  <br /></td></tr>
 <tr class="memitem:a84e0032012bf423fa2aecee96d0bb087" id="r_a84e0032012bf423fa2aecee96d0bb087"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a84e0032012bf423fa2aecee96d0bb087">Speed</a></td></tr>
+<tr class="memdesc:a84e0032012bf423fa2aecee96d0bb087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ground speed [cm/s], integrated from the IMU's accelerometer.  <br /></td></tr>
 <tr class="memitem:ada46c15632a98c76c391b5e47fbb9e23" id="r_ada46c15632a98c76c391b5e47fbb9e23"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ada46c15632a98c76c391b5e47fbb9e23">Heading</a></td></tr>
+<tr class="memdesc:ada46c15632a98c76c391b5e47fbb9e23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compass heading [degrees], 0..360, from the magnetometer.  <br /></td></tr>
 <tr class="memitem:a8b62f1a68450ac021c80ed3817fd1c73" id="r_a8b62f1a68450ac021c80ed3817fd1c73"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a8b62f1a68450ac021c80ed3817fd1c73">Pitch</a></td></tr>
+<tr class="memdesc:a8b62f1a68450ac021c80ed3817fd1c73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pitch angle [degrees], from the fused accelerometer/gyro.  <br /></td></tr>
 <tr class="memitem:a4ca0f1cf1933fe428d433b731eca21f1" id="r_a4ca0f1cf1933fe428d433b731eca21f1"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a4ca0f1cf1933fe428d433b731eca21f1">Roll</a></td></tr>
+<tr class="memdesc:a4ca0f1cf1933fe428d433b731eca21f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Roll angle [degrees], from the fused accelerometer/gyro.  <br /></td></tr>
 <tr class="memitem:ae831f3492cdbd61099dad0e1ed23b2f4" id="r_ae831f3492cdbd61099dad0e1ed23b2f4"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ae831f3492cdbd61099dad0e1ed23b2f4">PosX</a></td></tr>
+<tr class="memdesc:ae831f3492cdbd61099dad0e1ed23b2f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dead-reckoned X position [cm] since startup.  <br /></td></tr>
 <tr class="memitem:ab75a44ea2cca9fe814fc6cb54211237d" id="r_ab75a44ea2cca9fe814fc6cb54211237d"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ab75a44ea2cca9fe814fc6cb54211237d">PosY</a></td></tr>
+<tr class="memdesc:ab75a44ea2cca9fe814fc6cb54211237d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dead-reckoned Y position [cm] since startup.  <br /></td></tr>
 <tr class="memitem:a15ddee0efe3d4d5eabeb0a57089f15ba" id="r_a15ddee0efe3d4d5eabeb0a57089f15ba"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a15ddee0efe3d4d5eabeb0a57089f15ba">PosZ</a></td></tr>
+<tr class="memdesc:a15ddee0efe3d4d5eabeb0a57089f15ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dead-reckoned Z position [cm] since startup.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00099">99</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
+<div class="textblock"><p>Everything the sensors know about <em>this</em> vehicle, in one place. </p>
+<p>Produced by <span class="tt">Sensors_Task</span> once per scan and consumed by the ADAS modules, the telemetry task and the DSRC broadcast. Access is serialised by the Data mutex.</p>
+<p>The six ultrasonic readings are distances in centimetres; a sensor that saw no echo reports its out-of-range ceiling (about 200 cm) rather than 0, so "far
+away" never looks like "touching". </p>
+
+<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00102">102</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
-<a id="aaa86a237fbf13e3fc368fff0331fb7d4" name="aaa86a237fbf13e3fc368fff0331fb7d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa86a237fbf13e3fc368fff0331fb7d4">&#9670;&#160;</a></span>BackCenterUS</h2>
+<a id="a9f56bbdb2cab29267dbf08e8701f4e01" name="a9f56bbdb2cab29267dbf08e8701f4e01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f56bbdb2cab29267dbf08e8701f4e01">&#9670;&#160;</a></span>FrontLeftUS</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float HostVehicleState_t::BackCenterUS</td>
+          <td class="memname">float HostVehicleState_t::FrontLeftUS</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00105">105</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-<a id="a0ca909d0541f217f15b40d7dc098d0f0" name="a0ca909d0541f217f15b40d7dc098d0f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ca909d0541f217f15b40d7dc098d0f0">&#9670;&#160;</a></span>BackLeftUS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float HostVehicleState_t::BackLeftUS</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>Front-left ultrasonic distance [cm]. </p>
 
 <p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00104">104</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-<a id="a0ef2f623a5e80b6cf31539e22d0d3438" name="a0ef2f623a5e80b6cf31539e22d0d3438"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ef2f623a5e80b6cf31539e22d0d3438">&#9670;&#160;</a></span>BackRightUS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float HostVehicleState_t::BackRightUS</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00106">106</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
 
 </div>
 </div>
@@ -176,23 +166,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00102">102</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
+<p>Front-centre ultrasonic distance [cm]. </p>
 
-</div>
-</div>
-<a id="a9f56bbdb2cab29267dbf08e8701f4e01" name="a9f56bbdb2cab29267dbf08e8701f4e01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f56bbdb2cab29267dbf08e8701f4e01">&#9670;&#160;</a></span>FrontLeftUS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float HostVehicleState_t::FrontLeftUS</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00101">101</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00105">105</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
 
 </div>
 </div>
@@ -208,103 +184,63 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00103">103</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
+<p>Front-right ultrasonic distance [cm]. </p>
+
+<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00106">106</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
 
 </div>
 </div>
-<a id="ada46c15632a98c76c391b5e47fbb9e23" name="ada46c15632a98c76c391b5e47fbb9e23"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada46c15632a98c76c391b5e47fbb9e23">&#9670;&#160;</a></span>Heading</h2>
+<a id="a0ca909d0541f217f15b40d7dc098d0f0" name="a0ca909d0541f217f15b40d7dc098d0f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ca909d0541f217f15b40d7dc098d0f0">&#9670;&#160;</a></span>BackLeftUS</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float HostVehicleState_t::Heading</td>
+          <td class="memname">float HostVehicleState_t::BackLeftUS</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Rear-left ultrasonic distance [cm]. </p>
+
+<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00107">107</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
+
+</div>
+</div>
+<a id="aaa86a237fbf13e3fc368fff0331fb7d4" name="aaa86a237fbf13e3fc368fff0331fb7d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa86a237fbf13e3fc368fff0331fb7d4">&#9670;&#160;</a></span>BackCenterUS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float HostVehicleState_t::BackCenterUS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rear-centre ultrasonic distance [cm]. </p>
+
+<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00108">108</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
+
+</div>
+</div>
+<a id="a0ef2f623a5e80b6cf31539e22d0d3438" name="a0ef2f623a5e80b6cf31539e22d0d3438"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ef2f623a5e80b6cf31539e22d0d3438">&#9670;&#160;</a></span>BackRightUS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float HostVehicleState_t::BackRightUS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rear-right ultrasonic distance [cm]. </p>
 
 <p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00109">109</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-<a id="a8b62f1a68450ac021c80ed3817fd1c73" name="a8b62f1a68450ac021c80ed3817fd1c73"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b62f1a68450ac021c80ed3817fd1c73">&#9670;&#160;</a></span>Pitch</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float HostVehicleState_t::Pitch</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00110">110</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-<a id="ae831f3492cdbd61099dad0e1ed23b2f4" name="ae831f3492cdbd61099dad0e1ed23b2f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae831f3492cdbd61099dad0e1ed23b2f4">&#9670;&#160;</a></span>PosX</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float HostVehicleState_t::PosX</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00112">112</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-<a id="ab75a44ea2cca9fe814fc6cb54211237d" name="ab75a44ea2cca9fe814fc6cb54211237d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab75a44ea2cca9fe814fc6cb54211237d">&#9670;&#160;</a></span>PosY</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float HostVehicleState_t::PosY</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00113">113</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-<a id="a15ddee0efe3d4d5eabeb0a57089f15ba" name="a15ddee0efe3d4d5eabeb0a57089f15ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a15ddee0efe3d4d5eabeb0a57089f15ba">&#9670;&#160;</a></span>PosZ</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float HostVehicleState_t::PosZ</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00114">114</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
-
-</div>
-</div>
-<a id="a4ca0f1cf1933fe428d433b731eca21f1" name="a4ca0f1cf1933fe428d433b731eca21f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ca0f1cf1933fe428d433b731eca21f1">&#9670;&#160;</a></span>Roll</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float HostVehicleState_t::Roll</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00111">111</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
 
 </div>
 </div>
@@ -320,12 +256,122 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00108">108</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
+<p>Ground speed [cm/s], integrated from the IMU's accelerometer. </p>
+
+<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00111">111</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
+
+</div>
+</div>
+<a id="ada46c15632a98c76c391b5e47fbb9e23" name="ada46c15632a98c76c391b5e47fbb9e23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada46c15632a98c76c391b5e47fbb9e23">&#9670;&#160;</a></span>Heading</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float HostVehicleState_t::Heading</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compass heading [degrees], 0..360, from the magnetometer. </p>
+
+<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00112">112</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
+
+</div>
+</div>
+<a id="a8b62f1a68450ac021c80ed3817fd1c73" name="a8b62f1a68450ac021c80ed3817fd1c73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b62f1a68450ac021c80ed3817fd1c73">&#9670;&#160;</a></span>Pitch</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float HostVehicleState_t::Pitch</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pitch angle [degrees], from the fused accelerometer/gyro. </p>
+
+<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00113">113</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
+
+</div>
+</div>
+<a id="a4ca0f1cf1933fe428d433b731eca21f1" name="a4ca0f1cf1933fe428d433b731eca21f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ca0f1cf1933fe428d433b731eca21f1">&#9670;&#160;</a></span>Roll</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float HostVehicleState_t::Roll</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Roll angle [degrees], from the fused accelerometer/gyro. </p>
+
+<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00114">114</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
+
+</div>
+</div>
+<a id="ae831f3492cdbd61099dad0e1ed23b2f4" name="ae831f3492cdbd61099dad0e1ed23b2f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae831f3492cdbd61099dad0e1ed23b2f4">&#9670;&#160;</a></span>PosX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float HostVehicleState_t::PosX</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dead-reckoned X position [cm] since startup. </p>
+
+<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00115">115</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
+
+</div>
+</div>
+<a id="ab75a44ea2cca9fe814fc6cb54211237d" name="ab75a44ea2cca9fe814fc6cb54211237d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab75a44ea2cca9fe814fc6cb54211237d">&#9670;&#160;</a></span>PosY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float HostVehicleState_t::PosY</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dead-reckoned Y position [cm] since startup. </p>
+
+<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00116">116</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
+
+</div>
+</div>
+<a id="a15ddee0efe3d4d5eabeb0a57089f15ba" name="a15ddee0efe3d4d5eabeb0a57089f15ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15ddee0efe3d4d5eabeb0a57089f15ba">&#9670;&#160;</a></span>PosZ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float HostVehicleState_t::PosZ</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dead-reckoned Z position [cm] since startup. </p>
+
+<p class="definition">Definition at line <a class="el" href="System_8h_source.html#l00117">117</a> of file <a class="el" href="System_8h_source.html">System.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>Inc/System/<a class="el" href="System_8h_source.html">System.h</a></li>
+<li>V2V-STM32/Inc/System/<a class="el" href="System_8h_source.html">System.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,5 +1,10 @@
-\doxysection{Inc/\+\+Drivers/\+\+MCAL/\+\+NVIC/\+\+NVIC\+\_\+interface.h File Reference}
-\hypertarget{NVIC__interface_8h}{}\label{NVIC__interface_8h}\index{Inc/Drivers/MCAL/NVIC/NVIC\_interface.h@{Inc/Drivers/MCAL/NVIC/NVIC\_interface.h}}
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+NVIC/\+\+NVIC\+\_\+interface.h File Reference}
+\hypertarget{NVIC__interface_8h}{}\label{NVIC__interface_8h}\index{V2V-\/STM32/Inc/Drivers/MCAL/NVIC/NVIC\_interface.h@{V2V-\/STM32/Inc/Drivers/MCAL/NVIC/NVIC\_interface.h}}
+
+
+Public API of the NVIC driver — the nested vectored interrupt controller.  
+
+
 {\ttfamily \+\#include "{}stdint.\+h"{}}\newline
 {\ttfamily \+\#include "{}../\+../\+\+LIB/\+\+Err\+Types.\+h"{}}\newline
 Include dependency graph for NVIC\+\_\+interface.\+h:\+
@@ -7,7 +12,7 @@ Include dependency graph for NVIC\+\_\+interface.\+h:\+
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=254pt]{NVIC__interface_8h__incl}
+\includegraphics[width=258pt]{NVIC__interface_8h__incl}
 \end{center}
 \end{figure}
 This graph shows which files directly or indirectly include this file:\+
@@ -22,7 +27,7 @@ This graph shows which files directly or indirectly include this file:\+
 \begin{DoxyCompactItemize}
 \item 
 enum \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1}{NVIC\+\_\+\+IRQNumber\+\_\+t}} \{ \newline
-\doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a0d0f89dcf35e027a3498f00387b31031}{NVIC\+\_\+\+WWDGEN}} = 0
+\doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a0d0f89dcf35e027a3498f00387b31031}{NVIC\+\_\+\+WWDGEN}}
 , \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a0eea24be9ff0ba0e5eab7b8330d1a8c0}{NVIC\+\_\+\+PVDEN}}
 , \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a337234ca024a9b1cebf6707647c570fa}{NVIC\+\_\+\+TAMP\+\_\+\+STAMP}}
 , \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1abd17d5135852065ebfda5d8201f2f423}{NVIC\+\_\+\+RTC\+\_\+\+WAKEUP}}
@@ -75,9 +80,9 @@ enum \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1}{
 \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a85e15288cfd3a9d154a70abdaa6310aa}{NVIC\+\_\+\+EXTI15\+\_\+10}}
 , \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a97bd3de2d19e071a710e58553ed63a9e}{NVIC\+\_\+\+RTC\+\_\+\+ALARM}}
 , \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ad2da95724e77901ff5341888618bbe5f}{NVIC\+\_\+\+OTG\+\_\+\+FS\+\_\+\+WKUP}}
-, \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a58239f08001397f77d0baa3b41b8c3a0}{NVIC\+\_\+\+DMA1\+\_\+\+STREAM7}} = 47
+, \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a58239f08001397f77d0baa3b41b8c3a0}{NVIC\+\_\+\+DMA1\+\_\+\+STREAM7}}
 , \newline
-\doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a99aaa9fa78fce9f84a9e59f6db238b2f}{NVIC\+\_\+\+SDIO}} = 49
+\doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a99aaa9fa78fce9f84a9e59f6db238b2f}{NVIC\+\_\+\+SDIO}}
 , \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a7e31df9d39b9956c6fb8615b8eacc365}{NVIC\+\_\+\+TIM5}}
 , \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aa7b641a9a3c2ee63a5f6389aa9d02829}{NVIC\+\_\+\+SPI3}}
 , \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aa2fe128e66ec051cd89c0dfbf5e9f895}{NVIC\+\_\+\+USART4}}
@@ -92,7 +97,7 @@ enum \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1}{
 , \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a89bfd75e1bbdfff72b1cc99246dd1b27}{NVIC\+\_\+\+DMA2\+\_\+\+STREAM3}}
 , \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ab715387aa2e2c09a4f9a489855fbba4f}{NVIC\+\_\+\+DMA2\+\_\+\+STREAM4}}
 , \newline
-\doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1af5b2bbacd295ba7f0c2ee7e40c1f877a}{NVIC\+\_\+\+OTG\+\_\+\+FS}} = 67
+\doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1af5b2bbacd295ba7f0c2ee7e40c1f877a}{NVIC\+\_\+\+OTG\+\_\+\+FS}}
 , \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a428aec13ce236b267f7a1d1b8e2655b4}{NVIC\+\_\+\+DMA2\+\_\+\+STREAM5}}
 , \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ad521f1195f1c804194bf376cc160727f}{NVIC\+\_\+\+DMA2\+\_\+\+STREAM6}}
 , \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a95905638795678ce4d1ec20d564e0d9e}{NVIC\+\_\+\+DMA2\+\_\+\+STREAM7}}
@@ -100,31 +105,43 @@ enum \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1}{
 \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1af628fdf199441f69e693ce7976c0a210}{NVIC\+\_\+\+USART6}}
 , \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a08d71c93f2793eb121f90af56fbe6df6}{NVIC\+\_\+\+I2\+C3\+\_\+\+EV}}
 , \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a2981d5ac4cd94d5b9251d624bd3a9257}{NVIC\+\_\+\+I2\+C3\+\_\+\+ER}}
-, \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a92efe3a2705f878386e84183dabe6a72}{NVIC\+\_\+\+FPU}} = 81
+, \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a92efe3a2705f878386e84183dabe6a72}{NVIC\+\_\+\+FPU}}
 , \newline
-\doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aebb959cf67bf60fa760fe940fe698be7}{NVIC\+\_\+\+SPI4}} = 84
+\doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aebb959cf67bf60fa760fe940fe698be7}{NVIC\+\_\+\+SPI4}}
 , \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a495bf5cb3e89496fa7cc171aa471d048}{NVIC\+\_\+\+SPI5}}
-, \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a182564c2bf28794cfe8cb17020c184ef}{NVIC\+\_\+\+QUADSPI}} = 92
-, \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ae05d2c3ba591b4d1a5962be351a22920}{NVIC\+\_\+\+FMPI2\+C1\+\_\+\+EV}} = 95
+, \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a182564c2bf28794cfe8cb17020c184ef}{NVIC\+\_\+\+QUADSPI}}
+, \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ae05d2c3ba591b4d1a5962be351a22920}{NVIC\+\_\+\+FMPI2\+C1\+\_\+\+EV}}
 , \newline
 \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ad49a77d7dca5d08a25664adbeaf958a0}{NVIC\+\_\+\+FMPI2\+C1\+\_\+\+ER}}
  \}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Interrupt (IRQ) numbers of the STM32\+F446\+RE, as laid out in the vector table. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{NVIC__interface_8h_a85d98abbd23523e4abf16cc4b4501431}{NVIC\+\_\+v\+Enable\+IRQ}} (uint8\+\_\+t Copy\+\_\+u8\+IRQNumber)
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{NVIC__interface_8h_a85d98abbd23523e4abf16cc4b4501431}{NVIC\+\_\+v\+Enable\+IRQ}} (uint8\+\_\+t Copy\+\_\+u8\+IRQNumber)
 \begin{DoxyCompactList}\small\item\em Enable an IRQ number in the NVIC. \end{DoxyCompactList}\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{NVIC__interface_8h_a8d97ac945c4d8195e2d4c5de802dd747}{NVIC\+\_\+v\+Disable\+IRQ}} (uint8\+\_\+t Copy\+\_\+u8\+IRQNumber)
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{NVIC__interface_8h_a8d97ac945c4d8195e2d4c5de802dd747}{NVIC\+\_\+v\+Disable\+IRQ}} (uint8\+\_\+t Copy\+\_\+u8\+IRQNumber)
 \begin{DoxyCompactList}\small\item\em Disable an IRQ number in the NVIC. \end{DoxyCompactList}\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{NVIC__interface_8h_ae356a904164941f246e6603db421e081}{NVIC\+\_\+v\+Set\+Pending\+Flag}} (uint8\+\_\+t Copy\+\_\+u8\+IRQNumber)
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{NVIC__interface_8h_ae356a904164941f246e6603db421e081}{NVIC\+\_\+v\+Set\+Pending\+Flag}} (uint8\+\_\+t Copy\+\_\+u8\+IRQNumber)
 \begin{DoxyCompactList}\small\item\em Set pending flag for an IRQ number in the NVIC. \end{DoxyCompactList}\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{NVIC__interface_8h_a4ef3db3ed7f9fd593fc38ab943c6e228}{NVIC\+\_\+v\+Clear\+Pending\+Flag}} (uint8\+\_\+t Copy\+\_\+u8\+IRQNumber)
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{NVIC__interface_8h_a4ef3db3ed7f9fd593fc38ab943c6e228}{NVIC\+\_\+v\+Clear\+Pending\+Flag}} (uint8\+\_\+t Copy\+\_\+u8\+IRQNumber)
 \begin{DoxyCompactList}\small\item\em Clear pending flag for an IRQ number in the NVIC. \end{DoxyCompactList}\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{NVIC__interface_8h_aee982de5e4f7bd4192063d4ca975f3c4}{NVIC\+\_\+v\+Get\+Active\+Flag}} (uint8\+\_\+t Copy\+\_\+u8\+IRQNumber, uint8\+\_\+t \texorpdfstring{$\ast$}{*}Copy\+\_\+pu8\+Flag)
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{NVIC__interface_8h_aee982de5e4f7bd4192063d4ca975f3c4}{NVIC\+\_\+v\+Get\+Active\+Flag}} (uint8\+\_\+t Copy\+\_\+u8\+IRQNumber, uint8\+\_\+t \texorpdfstring{$\ast$}{*}Copy\+\_\+pu8\+Flag)
 \begin{DoxyCompactList}\small\item\em Get active flag status for an IRQ number in the NVIC. \end{DoxyCompactList}\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{NVIC__interface_8h_adacfc2d410ead15ca25830190e615000}{NVIC\+\_\+v\+Set\+Priority}} (uint8\+\_\+t Copy\+\_\+u8\+IRQNumber, uint8\+\_\+t Copy\+\_\+u8\+Priority)
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{NVIC__interface_8h_adacfc2d410ead15ca25830190e615000}{NVIC\+\_\+v\+Set\+Priority}} (uint8\+\_\+t Copy\+\_\+u8\+IRQNumber, uint8\+\_\+t Copy\+\_\+u8\+Priority)
 \begin{DoxyCompactList}\small\item\em Set priority for an IRQ number in the NVIC. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Public API of the NVIC driver — the nested vectored interrupt controller. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{NVIC__interface_8h_source}{NVIC\+\_\+interface.\+h}}.
+
 
 
 \label{doc-enum-members}
@@ -136,489 +153,448 @@ enum \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1}{
 {\footnotesize\ttfamily \label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1} 
 enum \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1}{NVIC\+\_\+\+IRQNumber\+\_\+t}}}
 
-===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} \doxylink{NVIC__interface_8h}{NVIC\+\_\+interface.\+h} \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Abdelmoemen Shehawey \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ MCAL \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} CPU :\+ Cortex-\/\+M4 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} MCU :\+ NUCLEO-\/\+F446\+RE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SWC :\+ NVIC \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \begin{DoxyEnumFields}[2]{Enumerator}
+
+
+Interrupt (IRQ) numbers of the STM32\+F446\+RE, as laid out in the vector table. 
+
+The value of each enumerator {\itshape is} its position in the vector table, which is what the NVIC driver uses to index its register arrays:\+ IRQ {\itshape n} lives in bit {\ttfamily n \% 32} of word {\ttfamily n /\+ 32}.
+
+\begin{DoxyNote}{Note}
+Some vectors are {\bfseries{shared}}. \doxylink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aa2c097c1f79eeb9b9fd0abc206e549a3}{NVIC\+\_\+\+EXTI9\+\_\+5} and \doxylink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a85e15288cfd3a9d154a70abdaa6310aa}{NVIC\+\_\+\+EXTI15\+\_\+10} each cover a whole range of EXTI lines, so their handlers have to read the pending register to find out which line actually fired. The six ultrasonic echo pins fall into these shared vectors. 
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+An interrupt whose handler calls a Free\+RTOS {\ttfamily ...From\+ISR} function must be given a priority number of 6 or higher — see the warning on \doxysectlink{System_8h_sys_tasks}{Task set}{1}. \doxylink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aaa1a454cf3c61d9bcbe869d293b85e9b}{NVIC\+\_\+\+USART1} is the one this applies to. 
+\end{DoxyWarning}
+\begin{DoxyEnumFields}[3]{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_WWDGEN@{NVIC\_WWDGEN}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_WWDGEN@{NVIC\_WWDGEN}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a0d0f89dcf35e027a3498f00387b31031}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a0d0f89dcf35e027a3498f00387b31031} 
-NVIC\+\_\+\+WWDGEN&\\
+NVIC\+\_\+\+WWDGEN&0&Window watchdog early-\/wakeup. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_PVDEN@{NVIC\_PVDEN}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_PVDEN@{NVIC\_PVDEN}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a0eea24be9ff0ba0e5eab7b8330d1a8c0}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a0eea24be9ff0ba0e5eab7b8330d1a8c0} 
-NVIC\+\_\+\+PVDEN&\\
+NVIC\+\_\+\+PVDEN&&Programmable voltage detector, through EXTI line 16. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_TAMP\_STAMP@{NVIC\_TAMP\_STAMP}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_TAMP\_STAMP@{NVIC\_TAMP\_STAMP}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a337234ca024a9b1cebf6707647c570fa}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a337234ca024a9b1cebf6707647c570fa} 
-NVIC\+\_\+\+TAMP\+\_\+\+STAMP&\\
+NVIC\+\_\+\+TAMP\+\_\+\+STAMP&&RTC tamper and timestamp, through EXTI line 21. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_RTC\_WAKEUP@{NVIC\_RTC\_WAKEUP}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_RTC\_WAKEUP@{NVIC\_RTC\_WAKEUP}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1abd17d5135852065ebfda5d8201f2f423}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1abd17d5135852065ebfda5d8201f2f423} 
-NVIC\+\_\+\+RTC\+\_\+\+WAKEUP&\\
+NVIC\+\_\+\+RTC\+\_\+\+WAKEUP&&RTC wakeup timer, through EXTI line 22. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_FLASH@{NVIC\_FLASH}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_FLASH@{NVIC\_FLASH}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a582ef745b5a67b03e816082615a498fb}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a582ef745b5a67b03e816082615a498fb} 
-NVIC\+\_\+\+FLASH&\\
+NVIC\+\_\+\+FLASH&&Flash memory global interrupt. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_RCC@{NVIC\_RCC}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_RCC@{NVIC\_RCC}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a1b49767ea20172f3d8142e5957d1b4d6}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a1b49767ea20172f3d8142e5957d1b4d6} 
-NVIC\+\_\+\+RCC&\\
+NVIC\+\_\+\+RCC&&RCC global interrupt (clock-\/ready and clock-\/security events). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_EXTI0@{NVIC\_EXTI0}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_EXTI0@{NVIC\_EXTI0}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ae8682487e9160a6fc1ab8481f5272683}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ae8682487e9160a6fc1ab8481f5272683} 
-NVIC\+\_\+\+EXTI0&\\
+NVIC\+\_\+\+EXTI0&&EXTI line 0 — pin 0 of the selected port. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_EXTI1@{NVIC\_EXTI1}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_EXTI1@{NVIC\_EXTI1}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a77be88c5985357fe7ef3fcf6ffe3fc90}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a77be88c5985357fe7ef3fcf6ffe3fc90} 
-NVIC\+\_\+\+EXTI1&\\
+NVIC\+\_\+\+EXTI1&&EXTI line 1. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_EXTI2@{NVIC\_EXTI2}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_EXTI2@{NVIC\_EXTI2}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ac3bb8adf1a451bf9a5ea90ea41ae3154}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ac3bb8adf1a451bf9a5ea90ea41ae3154} 
-NVIC\+\_\+\+EXTI2&\\
+NVIC\+\_\+\+EXTI2&&EXTI line 2. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_EXTI3@{NVIC\_EXTI3}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_EXTI3@{NVIC\_EXTI3}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1af2226dee9874d0769810efba92ea0eb5}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1af2226dee9874d0769810efba92ea0eb5} 
-NVIC\+\_\+\+EXTI3&\\
+NVIC\+\_\+\+EXTI3&&EXTI line 3. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_EXTI4@{NVIC\_EXTI4}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_EXTI4@{NVIC\_EXTI4}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a4e8c99ea32d63686fd6c044b9837c308}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a4e8c99ea32d63686fd6c044b9837c308} 
-NVIC\+\_\+\+EXTI4&\\
+NVIC\+\_\+\+EXTI4&&EXTI line 4. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_DMA1\_STREAM0@{NVIC\_DMA1\_STREAM0}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_DMA1\_STREAM0@{NVIC\_DMA1\_STREAM0}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1abf87c9025b00310756717c635f160d0b}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1abf87c9025b00310756717c635f160d0b} 
-NVIC\+\_\+\+DMA1\+\_\+\+STREAM0&\\
+NVIC\+\_\+\+DMA1\+\_\+\+STREAM0&&DMA1 stream 0. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_DMA1\_STREAM1@{NVIC\_DMA1\_STREAM1}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_DMA1\_STREAM1@{NVIC\_DMA1\_STREAM1}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ae694c986b633d40c4fc857b59ef550fa}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ae694c986b633d40c4fc857b59ef550fa} 
-NVIC\+\_\+\+DMA1\+\_\+\+STREAM1&\\
+NVIC\+\_\+\+DMA1\+\_\+\+STREAM1&&DMA1 stream 1. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_DMA1\_STREAM2@{NVIC\_DMA1\_STREAM2}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_DMA1\_STREAM2@{NVIC\_DMA1\_STREAM2}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a751f695c1627847f0831ee8d8d4d5e30}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a751f695c1627847f0831ee8d8d4d5e30} 
-NVIC\+\_\+\+DMA1\+\_\+\+STREAM2&\\
+NVIC\+\_\+\+DMA1\+\_\+\+STREAM2&&DMA1 stream 2. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_DMA1\_STREAM3@{NVIC\_DMA1\_STREAM3}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_DMA1\_STREAM3@{NVIC\_DMA1\_STREAM3}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a08ca5366fe56556f0e47e90915d2a3ef}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a08ca5366fe56556f0e47e90915d2a3ef} 
-NVIC\+\_\+\+DMA1\+\_\+\+STREAM3&\\
+NVIC\+\_\+\+DMA1\+\_\+\+STREAM3&&DMA1 stream 3. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_DMA1\_STREAM4@{NVIC\_DMA1\_STREAM4}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_DMA1\_STREAM4@{NVIC\_DMA1\_STREAM4}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a2455544772344fb821c60a4644838385}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a2455544772344fb821c60a4644838385} 
-NVIC\+\_\+\+DMA1\+\_\+\+STREAM4&\\
+NVIC\+\_\+\+DMA1\+\_\+\+STREAM4&&DMA1 stream 4. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_DMA1\_STREAM5@{NVIC\_DMA1\_STREAM5}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_DMA1\_STREAM5@{NVIC\_DMA1\_STREAM5}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a87c6c4bfcada7b5805a9928697cabe66}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a87c6c4bfcada7b5805a9928697cabe66} 
-NVIC\+\_\+\+DMA1\+\_\+\+STREAM5&\\
+NVIC\+\_\+\+DMA1\+\_\+\+STREAM5&&DMA1 stream 5. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_DMA1\_STREAM6@{NVIC\_DMA1\_STREAM6}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_DMA1\_STREAM6@{NVIC\_DMA1\_STREAM6}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a8cf09d2620903556c43bee33ae933ed4}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a8cf09d2620903556c43bee33ae933ed4} 
-NVIC\+\_\+\+DMA1\+\_\+\+STREAM6&\\
+NVIC\+\_\+\+DMA1\+\_\+\+STREAM6&&DMA1 stream 6. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_ADC@{NVIC\_ADC}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_ADC@{NVIC\_ADC}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1af945f2fa81264c6a5a998c8a666e9410}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1af945f2fa81264c6a5a998c8a666e9410} 
-NVIC\+\_\+\+ADC&\\
+NVIC\+\_\+\+ADC&&ADC1, ADC2 and ADC3, sharing one vector. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_CAN1\_TX@{NVIC\_CAN1\_TX}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_CAN1\_TX@{NVIC\_CAN1\_TX}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a2e51fc75206476780b1004b8743ead49}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a2e51fc75206476780b1004b8743ead49} 
-NVIC\+\_\+\+CAN1\+\_\+\+TX&\\
+NVIC\+\_\+\+CAN1\+\_\+\+TX&&CAN1 transmit mailbox empty. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_CAN1\_RX0@{NVIC\_CAN1\_RX0}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_CAN1\_RX0@{NVIC\_CAN1\_RX0}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a2419b029dd9782ba8374972af1b32107}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a2419b029dd9782ba8374972af1b32107} 
-NVIC\+\_\+\+CAN1\+\_\+\+RX0&\\
+NVIC\+\_\+\+CAN1\+\_\+\+RX0&&CAN1 receive FIFO 0. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_CAN1\_RX1@{NVIC\_CAN1\_RX1}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_CAN1\_RX1@{NVIC\_CAN1\_RX1}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a943082e91d053ceb8ad0bb843df3c2fd}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a943082e91d053ceb8ad0bb843df3c2fd} 
-NVIC\+\_\+\+CAN1\+\_\+\+RX1&\\
+NVIC\+\_\+\+CAN1\+\_\+\+RX1&&CAN1 receive FIFO 1. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_CAN1\_SCE@{NVIC\_CAN1\_SCE}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_CAN1\_SCE@{NVIC\_CAN1\_SCE}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a7d0ce9cc495653f1b618623bdc7b7487}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a7d0ce9cc495653f1b618623bdc7b7487} 
-NVIC\+\_\+\+CAN1\+\_\+\+SCE&\\
+NVIC\+\_\+\+CAN1\+\_\+\+SCE&&CAN1 status change and error. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_EXTI9\_5@{NVIC\_EXTI9\_5}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_EXTI9\_5@{NVIC\_EXTI9\_5}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aa2c097c1f79eeb9b9fd0abc206e549a3}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aa2c097c1f79eeb9b9fd0abc206e549a3} 
-NVIC\+\_\+\+EXTI9\+\_\+5&\\
+NVIC\+\_\+\+EXTI9\+\_\+5&&EXTI lines 5 to 9, sharing one vector — the handler must check which line fired. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_TIM1\_BRK\_TIM9@{NVIC\_TIM1\_BRK\_TIM9}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_TIM1\_BRK\_TIM9@{NVIC\_TIM1\_BRK\_TIM9}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1af56ce37ae13206173fa14fa0ad9cc128}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1af56ce37ae13206173fa14fa0ad9cc128} 
-NVIC\+\_\+\+TIM1\+\_\+\+BRK\+\_\+\+TIM9&\\
+NVIC\+\_\+\+TIM1\+\_\+\+BRK\+\_\+\+TIM9&&TIM1 break, and TIM9 global. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_TIM1\_UP\_TIM10@{NVIC\_TIM1\_UP\_TIM10}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_TIM1\_UP\_TIM10@{NVIC\_TIM1\_UP\_TIM10}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ae495db0963b4c4fe741cd0d670154233}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ae495db0963b4c4fe741cd0d670154233} 
-NVIC\+\_\+\+TIM1\+\_\+\+UP\+\_\+\+TIM10&\\
+NVIC\+\_\+\+TIM1\+\_\+\+UP\+\_\+\+TIM10&&TIM1 update, and TIM10 global. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_TIM1\_TRG\_COM\_TIM11@{NVIC\_TIM1\_TRG\_COM\_TIM11}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_TIM1\_TRG\_COM\_TIM11@{NVIC\_TIM1\_TRG\_COM\_TIM11}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ac9780d61f83d841a15c757d93ccae801}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ac9780d61f83d841a15c757d93ccae801} 
-NVIC\+\_\+\+TIM1\+\_\+\+TRG\+\_\+\+COM\+\_\+\+TIM11&\\
+NVIC\+\_\+\+TIM1\+\_\+\+TRG\+\_\+\+COM\+\_\+\+TIM11&&TIM1 trigger and commutation, and TIM11 global. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_TIM1\_CC@{NVIC\_TIM1\_CC}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_TIM1\_CC@{NVIC\_TIM1\_CC}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ae8a0ffed8a43bf0cbd7b40078e2d2a89}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ae8a0ffed8a43bf0cbd7b40078e2d2a89} 
-NVIC\+\_\+\+TIM1\+\_\+\+CC&\\
+NVIC\+\_\+\+TIM1\+\_\+\+CC&&TIM1 capture/\+compare. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_TIM2@{NVIC\_TIM2}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_TIM2@{NVIC\_TIM2}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a76ec1c2d3056b837063b2c3f332123ad}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a76ec1c2d3056b837063b2c3f332123ad} 
-NVIC\+\_\+\+TIM2&\\
+NVIC\+\_\+\+TIM2&&TIM2 global — times the front-\/left and front-\/centre ultrasonic echoes. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_TIM3@{NVIC\_TIM3}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_TIM3@{NVIC\_TIM3}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a221d3cc5c8e77eea3306b909dd178d6b}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a221d3cc5c8e77eea3306b909dd178d6b} 
-NVIC\+\_\+\+TIM3&\\
+NVIC\+\_\+\+TIM3&&TIM3 global — times the front-\/right and the three rear ultrasonic echoes. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_TIM4@{NVIC\_TIM4}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_TIM4@{NVIC\_TIM4}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a0fb80737161641f4c14b83657f3176cb}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a0fb80737161641f4c14b83657f3176cb} 
-NVIC\+\_\+\+TIM4&\\
+NVIC\+\_\+\+TIM4&&TIM4 global. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_I2C1\_EV@{NVIC\_I2C1\_EV}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_I2C1\_EV@{NVIC\_I2C1\_EV}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a8e44c6f62f38fde44083f2856eb65685}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a8e44c6f62f38fde44083f2856eb65685} 
-NVIC\+\_\+\+I2\+C1\+\_\+\+EV&\\
+NVIC\+\_\+\+I2\+C1\+\_\+\+EV&&I2\+C1 event. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_I2C1\_ER@{NVIC\_I2C1\_ER}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_I2C1\_ER@{NVIC\_I2C1\_ER}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ad044e2f91f863d1b5666f470b54e476b}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ad044e2f91f863d1b5666f470b54e476b} 
-NVIC\+\_\+\+I2\+C1\+\_\+\+ER&\\
+NVIC\+\_\+\+I2\+C1\+\_\+\+ER&&I2\+C1 error. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_I2C2\_EV@{NVIC\_I2C2\_EV}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_I2C2\_EV@{NVIC\_I2C2\_EV}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a36e8fddd9d7e47460b4377d3f16953bd}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a36e8fddd9d7e47460b4377d3f16953bd} 
-NVIC\+\_\+\+I2\+C2\+\_\+\+EV&\\
+NVIC\+\_\+\+I2\+C2\+\_\+\+EV&&I2\+C2 event. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_I2C2\_ER@{NVIC\_I2C2\_ER}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_I2C2\_ER@{NVIC\_I2C2\_ER}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a957d976bf8e2b3f0a374b3b5f41fa0ca}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a957d976bf8e2b3f0a374b3b5f41fa0ca} 
-NVIC\+\_\+\+I2\+C2\+\_\+\+ER&\\
+NVIC\+\_\+\+I2\+C2\+\_\+\+ER&&I2\+C2 error. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_SPI1@{NVIC\_SPI1}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_SPI1@{NVIC\_SPI1}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aa0c8757e0b809371ba2419530f8cafbe}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aa0c8757e0b809371ba2419530f8cafbe} 
-NVIC\+\_\+\+SPI1&\\
+NVIC\+\_\+\+SPI1&&SPI1 global — the MPU9250 link. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_SPI2@{NVIC\_SPI2}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_SPI2@{NVIC\_SPI2}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ae5839b610bb8ff658cef0100b00df2dd}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ae5839b610bb8ff658cef0100b00df2dd} 
-NVIC\+\_\+\+SPI2&\\
+NVIC\+\_\+\+SPI2&&SPI2 global. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_USART1@{NVIC\_USART1}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_USART1@{NVIC\_USART1}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aaa1a454cf3c61d9bcbe869d293b85e9b}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aaa1a454cf3c61d9bcbe869d293b85e9b} 
-NVIC\+\_\+\+USART1&\\
+NVIC\+\_\+\+USART1&&USART1 global — the ESP32 V2V link. Its priority must be 6 or higher, since its ISR calls Free\+RTOS {\ttfamily ...From\+ISR} functions. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_USART2@{NVIC\_USART2}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_USART2@{NVIC\_USART2}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a387d691414c56fae087308eb38454d79}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a387d691414c56fae087308eb38454d79} 
-NVIC\+\_\+\+USART2&\\
+NVIC\+\_\+\+USART2&&USART2 global — the Raspberry Pi telemetry link. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_USART3@{NVIC\_USART3}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_USART3@{NVIC\_USART3}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aaeec2b13ce7e24e747cd0c6b6c3ff67b}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aaeec2b13ce7e24e747cd0c6b6c3ff67b} 
-NVIC\+\_\+\+USART3&\\
+NVIC\+\_\+\+USART3&&USART3 global. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_EXTI15\_10@{NVIC\_EXTI15\_10}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_EXTI15\_10@{NVIC\_EXTI15\_10}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a85e15288cfd3a9d154a70abdaa6310aa}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a85e15288cfd3a9d154a70abdaa6310aa} 
-NVIC\+\_\+\+EXTI15\+\_\+10&\\
+NVIC\+\_\+\+EXTI15\+\_\+10&&EXTI lines 10 to 15, sharing one vector. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_RTC\_ALARM@{NVIC\_RTC\_ALARM}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_RTC\_ALARM@{NVIC\_RTC\_ALARM}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a97bd3de2d19e071a710e58553ed63a9e}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a97bd3de2d19e071a710e58553ed63a9e} 
-NVIC\+\_\+\+RTC\+\_\+\+ALARM&\\
+NVIC\+\_\+\+RTC\+\_\+\+ALARM&&RTC alarms A and B, through EXTI line 17. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_OTG\_FS\_WKUP@{NVIC\_OTG\_FS\_WKUP}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_OTG\_FS\_WKUP@{NVIC\_OTG\_FS\_WKUP}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ad2da95724e77901ff5341888618bbe5f}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ad2da95724e77901ff5341888618bbe5f} 
-NVIC\+\_\+\+OTG\+\_\+\+FS\+\_\+\+WKUP&\\
+NVIC\+\_\+\+OTG\+\_\+\+FS\+\_\+\+WKUP&&USB OTG full-\/speed wakeup, through EXTI line 18. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_DMA1\_STREAM7@{NVIC\_DMA1\_STREAM7}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_DMA1\_STREAM7@{NVIC\_DMA1\_STREAM7}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a58239f08001397f77d0baa3b41b8c3a0}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a58239f08001397f77d0baa3b41b8c3a0} 
-NVIC\+\_\+\+DMA1\+\_\+\+STREAM7&\\
+NVIC\+\_\+\+DMA1\+\_\+\+STREAM7&47&DMA1 stream 7. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_SDIO@{NVIC\_SDIO}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_SDIO@{NVIC\_SDIO}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a99aaa9fa78fce9f84a9e59f6db238b2f}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a99aaa9fa78fce9f84a9e59f6db238b2f} 
-NVIC\+\_\+\+SDIO&\\
+NVIC\+\_\+\+SDIO&49&SDIO global. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_TIM5@{NVIC\_TIM5}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_TIM5@{NVIC\_TIM5}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a7e31df9d39b9956c6fb8615b8eacc365}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a7e31df9d39b9956c6fb8615b8eacc365} 
-NVIC\+\_\+\+TIM5&\\
+NVIC\+\_\+\+TIM5&&TIM5 global. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_SPI3@{NVIC\_SPI3}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_SPI3@{NVIC\_SPI3}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aa7b641a9a3c2ee63a5f6389aa9d02829}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aa7b641a9a3c2ee63a5f6389aa9d02829} 
-NVIC\+\_\+\+SPI3&\\
+NVIC\+\_\+\+SPI3&&SPI3 global. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_USART4@{NVIC\_USART4}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_USART4@{NVIC\_USART4}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aa2fe128e66ec051cd89c0dfbf5e9f895}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aa2fe128e66ec051cd89c0dfbf5e9f895} 
-NVIC\+\_\+\+USART4&\\
+NVIC\+\_\+\+USART4&&UART4 global. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_USART5@{NVIC\_USART5}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_USART5@{NVIC\_USART5}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a8608b6ab8411632a7cdc82e9f2ff7e25}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a8608b6ab8411632a7cdc82e9f2ff7e25} 
-NVIC\+\_\+\+USART5&\\
+NVIC\+\_\+\+USART5&&UART5 global. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_TIM6\_DAC@{NVIC\_TIM6\_DAC}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_TIM6\_DAC@{NVIC\_TIM6\_DAC}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aff23ba24fc33a749912ac3d15bdb2347}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aff23ba24fc33a749912ac3d15bdb2347} 
-NVIC\+\_\+\+TIM6\+\_\+\+DAC&\\
+NVIC\+\_\+\+TIM6\+\_\+\+DAC&&TIM6 global, and the DAC underrun. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_TIM7@{NVIC\_TIM7}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_TIM7@{NVIC\_TIM7}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a916caf20f7178bcabca10baf29d5307f}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a916caf20f7178bcabca10baf29d5307f} 
-NVIC\+\_\+\+TIM7&\\
+NVIC\+\_\+\+TIM7&&TIM7 global. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_DMA2\_STREAM0@{NVIC\_DMA2\_STREAM0}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_DMA2\_STREAM0@{NVIC\_DMA2\_STREAM0}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aeb64532601bf8e0810d578a30e5f48e9}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aeb64532601bf8e0810d578a30e5f48e9} 
-NVIC\+\_\+\+DMA2\+\_\+\+STREAM0&\\
+NVIC\+\_\+\+DMA2\+\_\+\+STREAM0&&DMA2 stream 0. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_DMA2\_STREAM1@{NVIC\_DMA2\_STREAM1}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_DMA2\_STREAM1@{NVIC\_DMA2\_STREAM1}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a7ce37a0d003368724051e3b4a67e57a7}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a7ce37a0d003368724051e3b4a67e57a7} 
-NVIC\+\_\+\+DMA2\+\_\+\+STREAM1&\\
+NVIC\+\_\+\+DMA2\+\_\+\+STREAM1&&DMA2 stream 1. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_DMA2\_STREAM2@{NVIC\_DMA2\_STREAM2}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_DMA2\_STREAM2@{NVIC\_DMA2\_STREAM2}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1af8f335b13261b686dd37c2bdf20457b7}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1af8f335b13261b686dd37c2bdf20457b7} 
-NVIC\+\_\+\+DMA2\+\_\+\+STREAM2&\\
+NVIC\+\_\+\+DMA2\+\_\+\+STREAM2&&DMA2 stream 2. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_DMA2\_STREAM3@{NVIC\_DMA2\_STREAM3}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_DMA2\_STREAM3@{NVIC\_DMA2\_STREAM3}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a89bfd75e1bbdfff72b1cc99246dd1b27}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a89bfd75e1bbdfff72b1cc99246dd1b27} 
-NVIC\+\_\+\+DMA2\+\_\+\+STREAM3&\\
+NVIC\+\_\+\+DMA2\+\_\+\+STREAM3&&DMA2 stream 3. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_DMA2\_STREAM4@{NVIC\_DMA2\_STREAM4}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_DMA2\_STREAM4@{NVIC\_DMA2\_STREAM4}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ab715387aa2e2c09a4f9a489855fbba4f}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ab715387aa2e2c09a4f9a489855fbba4f} 
-NVIC\+\_\+\+DMA2\+\_\+\+STREAM4&\\
+NVIC\+\_\+\+DMA2\+\_\+\+STREAM4&&DMA2 stream 4. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_OTG\_FS@{NVIC\_OTG\_FS}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_OTG\_FS@{NVIC\_OTG\_FS}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1af5b2bbacd295ba7f0c2ee7e40c1f877a}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1af5b2bbacd295ba7f0c2ee7e40c1f877a} 
-NVIC\+\_\+\+OTG\+\_\+\+FS&\\
+NVIC\+\_\+\+OTG\+\_\+\+FS&67&USB OTG full-\/speed global. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_DMA2\_STREAM5@{NVIC\_DMA2\_STREAM5}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_DMA2\_STREAM5@{NVIC\_DMA2\_STREAM5}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a428aec13ce236b267f7a1d1b8e2655b4}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a428aec13ce236b267f7a1d1b8e2655b4} 
-NVIC\+\_\+\+DMA2\+\_\+\+STREAM5&\\
+NVIC\+\_\+\+DMA2\+\_\+\+STREAM5&&DMA2 stream 5. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_DMA2\_STREAM6@{NVIC\_DMA2\_STREAM6}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_DMA2\_STREAM6@{NVIC\_DMA2\_STREAM6}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ad521f1195f1c804194bf376cc160727f}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ad521f1195f1c804194bf376cc160727f} 
-NVIC\+\_\+\+DMA2\+\_\+\+STREAM6&\\
+NVIC\+\_\+\+DMA2\+\_\+\+STREAM6&&DMA2 stream 6. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_DMA2\_STREAM7@{NVIC\_DMA2\_STREAM7}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_DMA2\_STREAM7@{NVIC\_DMA2\_STREAM7}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a95905638795678ce4d1ec20d564e0d9e}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a95905638795678ce4d1ec20d564e0d9e} 
-NVIC\+\_\+\+DMA2\+\_\+\+STREAM7&\\
+NVIC\+\_\+\+DMA2\+\_\+\+STREAM7&&DMA2 stream 7. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_USART6@{NVIC\_USART6}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_USART6@{NVIC\_USART6}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1af628fdf199441f69e693ce7976c0a210}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1af628fdf199441f69e693ce7976c0a210} 
-NVIC\+\_\+\+USART6&\\
+NVIC\+\_\+\+USART6&&USART6 global. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_I2C3\_EV@{NVIC\_I2C3\_EV}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_I2C3\_EV@{NVIC\_I2C3\_EV}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a08d71c93f2793eb121f90af56fbe6df6}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a08d71c93f2793eb121f90af56fbe6df6} 
-NVIC\+\_\+\+I2\+C3\+\_\+\+EV&\\
+NVIC\+\_\+\+I2\+C3\+\_\+\+EV&&I2\+C3 event. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_I2C3\_ER@{NVIC\_I2C3\_ER}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_I2C3\_ER@{NVIC\_I2C3\_ER}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a2981d5ac4cd94d5b9251d624bd3a9257}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a2981d5ac4cd94d5b9251d624bd3a9257} 
-NVIC\+\_\+\+I2\+C3\+\_\+\+ER&\\
+NVIC\+\_\+\+I2\+C3\+\_\+\+ER&&I2\+C3 error. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_FPU@{NVIC\_FPU}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_FPU@{NVIC\_FPU}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a92efe3a2705f878386e84183dabe6a72}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a92efe3a2705f878386e84183dabe6a72} 
-NVIC\+\_\+\+FPU&\\
+NVIC\+\_\+\+FPU&81&Floating-\/point unit exception. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_SPI4@{NVIC\_SPI4}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_SPI4@{NVIC\_SPI4}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aebb959cf67bf60fa760fe940fe698be7}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1aebb959cf67bf60fa760fe940fe698be7} 
-NVIC\+\_\+\+SPI4&\\
+NVIC\+\_\+\+SPI4&84&SPI4 global. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_SPI5@{NVIC\_SPI5}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_SPI5@{NVIC\_SPI5}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a495bf5cb3e89496fa7cc171aa471d048}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a495bf5cb3e89496fa7cc171aa471d048} 
-NVIC\+\_\+\+SPI5&\\
+NVIC\+\_\+\+SPI5&&SPI5 global. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_QUADSPI@{NVIC\_QUADSPI}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_QUADSPI@{NVIC\_QUADSPI}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a182564c2bf28794cfe8cb17020c184ef}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a182564c2bf28794cfe8cb17020c184ef} 
-NVIC\+\_\+\+QUADSPI&\\
+NVIC\+\_\+\+QUADSPI&92&Quad\+SPI global. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_FMPI2C1\_EV@{NVIC\_FMPI2C1\_EV}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_FMPI2C1\_EV@{NVIC\_FMPI2C1\_EV}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ae05d2c3ba591b4d1a5962be351a22920}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ae05d2c3ba591b4d1a5962be351a22920} 
-NVIC\+\_\+\+FMPI2\+C1\+\_\+\+EV&\\
+NVIC\+\_\+\+FMPI2\+C1\+\_\+\+EV&95&Fast-\/mode-\/plus I2\+C1 event. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NVIC\_FMPI2C1\_ER@{NVIC\_FMPI2C1\_ER}!NVIC\_interface.h@{NVIC\_interface.h}}
 \index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_FMPI2C1\_ER@{NVIC\_FMPI2C1\_ER}}
 }\Hypertarget{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ad49a77d7dca5d08a25664adbeaf958a0}\label{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1ad49a77d7dca5d08a25664adbeaf958a0} 
-NVIC\+\_\+\+FMPI2\+C1\+\_\+\+ER&\\
+NVIC\+\_\+\+FMPI2\+C1\+\_\+\+ER&&Fast-\/mode-\/plus I2\+C1 error. \\
 \hline
 
 \end{DoxyEnumFields}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2NVIC_2NVIC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+NVIC/\+\+NVIC\+\_\+interface.\+h}}.\end{Desc}
 
 
-Definition at line \doxymbox{\hyperlink{NVIC__interface_8h_source_l00021}{21}} of file \doxymbox{\hyperlink{NVIC__interface_8h_source}{NVIC\+\_\+interface.\+h}}.
+Definition at line \doxymbox{\hyperlink{NVIC__interface_8h_source_l00032}{32}} of file \doxymbox{\hyperlink{NVIC__interface_8h_source}{NVIC\+\_\+interface.\+h}}.
 
 
 
 \label{doc-func-members}
 \Hypertarget{NVIC__interface_8h_doc-func-members}
 \doxysubsection{Function Documentation}
-\Hypertarget{NVIC__interface_8h_a4ef3db3ed7f9fd593fc38ab943c6e228}\index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_vClearPendingFlag@{NVIC\_vClearPendingFlag}}
-\index{NVIC\_vClearPendingFlag@{NVIC\_vClearPendingFlag}!NVIC\_interface.h@{NVIC\_interface.h}}
-\doxysubsubsection{\texorpdfstring{NVIC\_vClearPendingFlag()}{NVIC\_vClearPendingFlag()}}
-{\footnotesize\ttfamily \label{NVIC__interface_8h_a4ef3db3ed7f9fd593fc38ab943c6e228} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} NVIC\+\_\+v\+Clear\+Pending\+Flag (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+IRQNumber}{}\end{DoxyParamCaption})}
-
-
-
-Clear pending flag for an IRQ number in the NVIC. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em Copy\+\_\+u8\+IRQNumber} & IRQ number to clear pending flag. \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-\doxylink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} Returns OK if successful, NOK if IRQ number is invalid. 
-\end{DoxyReturn}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2NVIC_2NVIC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+NVIC/\+\+NVIC\+\_\+interface.\+h}}.\end{Desc}
-
-
-Definition at line \doxymbox{\hyperlink{NVIC__program_8c_source_l00094}{94}} of file \doxymbox{\hyperlink{NVIC__program_8c_source}{NVIC\+\_\+program.\+c}}.
-
-\Hypertarget{NVIC__interface_8h_a8d97ac945c4d8195e2d4c5de802dd747}\index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_vDisableIRQ@{NVIC\_vDisableIRQ}}
-\index{NVIC\_vDisableIRQ@{NVIC\_vDisableIRQ}!NVIC\_interface.h@{NVIC\_interface.h}}
-\doxysubsubsection{\texorpdfstring{NVIC\_vDisableIRQ()}{NVIC\_vDisableIRQ()}}
-{\footnotesize\ttfamily \label{NVIC__interface_8h_a8d97ac945c4d8195e2d4c5de802dd747} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} NVIC\+\_\+v\+Disable\+IRQ (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+IRQNumber}{}\end{DoxyParamCaption})}
-
-
-
-Disable an IRQ number in the NVIC. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em Copy\+\_\+u8\+IRQNumber} & IRQ number to disable. \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-\doxylink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} Returns OK if successful, NOK if IRQ number is invalid. 
-\end{DoxyReturn}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2NVIC_2NVIC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+NVIC/\+\+NVIC\+\_\+interface.\+h}}.\end{Desc}
-
-
-Definition at line \doxymbox{\hyperlink{NVIC__program_8c_source_l00056}{56}} of file \doxymbox{\hyperlink{NVIC__program_8c_source}{NVIC\+\_\+program.\+c}}.
-
 \Hypertarget{NVIC__interface_8h_a85d98abbd23523e4abf16cc4b4501431}\index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_vEnableIRQ@{NVIC\_vEnableIRQ}}
 \index{NVIC\_vEnableIRQ@{NVIC\_vEnableIRQ}!NVIC\_interface.h@{NVIC\_interface.h}}
 \doxysubsubsection{\texorpdfstring{NVIC\_vEnableIRQ()}{NVIC\_vEnableIRQ()}}
 {\footnotesize\ttfamily \label{NVIC__interface_8h_a85d98abbd23523e4abf16cc4b4501431} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} NVIC\+\_\+v\+Enable\+IRQ (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+IRQNumber}{}\end{DoxyParamCaption})}
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} NVIC\+\_\+v\+Enable\+IRQ (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+IRQNumber}{}\end{DoxyParamCaption})}
 
 
 
@@ -630,14 +606,22 @@ Enable an IRQ number in the NVIC.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-\doxylink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} Returns OK if successful, NOK if IRQ number is invalid. 
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} Returns OK if successful, NOK if IRQ number is invalid. 
 \end{DoxyReturn}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2NVIC_2NVIC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+NVIC/\+\+NVIC\+\_\+interface.\+h}}.\end{Desc}
+\begin{DoxyParagraph}{Example:\+}
+NVIC\+\_\+v\+Enable\+IRQ(\+NVIC\+\_\+\+EXTI0); 
+\end{DoxyParagraph}
 
 
 Definition at line \doxymbox{\hyperlink{NVIC__program_8c_source_l00037}{37}} of file \doxymbox{\hyperlink{NVIC__program_8c_source}{NVIC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{STM32F446xx_8h_source_l00297}{MNVIC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{NVIC__interface_8h_source_l00102}{NVIC\+\_\+\+FMPI2\+C1\+\_\+\+ER}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}, and \doxymbox{\hyperlink{US__prog_8c_source_l00196}{US\+\_\+v\+Init()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
@@ -647,11 +631,98 @@ Here is the caller graph for this function:\+
 \includegraphics[width=350pt]{NVIC__interface_8h_a85d98abbd23523e4abf16cc4b4501431_icgraph}
 \end{center}
 \end{figure}
+\Hypertarget{NVIC__interface_8h_a8d97ac945c4d8195e2d4c5de802dd747}\index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_vDisableIRQ@{NVIC\_vDisableIRQ}}
+\index{NVIC\_vDisableIRQ@{NVIC\_vDisableIRQ}!NVIC\_interface.h@{NVIC\_interface.h}}
+\doxysubsubsection{\texorpdfstring{NVIC\_vDisableIRQ()}{NVIC\_vDisableIRQ()}}
+{\footnotesize\ttfamily \label{NVIC__interface_8h_a8d97ac945c4d8195e2d4c5de802dd747} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} NVIC\+\_\+v\+Disable\+IRQ (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+IRQNumber}{}\end{DoxyParamCaption})}
+
+
+
+Disable an IRQ number in the NVIC. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+u8\+IRQNumber} & IRQ number to disable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} Returns OK if successful, NOK if IRQ number is invalid. 
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example:\+}
+NVIC\+\_\+v\+Disable\+IRQ(\+NVIC\+\_\+\+EXTI0); 
+\end{DoxyParagraph}
+
+
+Definition at line \doxymbox{\hyperlink{NVIC__program_8c_source_l00056}{56}} of file \doxymbox{\hyperlink{NVIC__program_8c_source}{NVIC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{STM32F446xx_8h_source_l00297}{MNVIC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{NVIC__interface_8h_source_l00102}{NVIC\+\_\+\+FMPI2\+C1\+\_\+\+ER}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}.
+
+\Hypertarget{NVIC__interface_8h_ae356a904164941f246e6603db421e081}\index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_vSetPendingFlag@{NVIC\_vSetPendingFlag}}
+\index{NVIC\_vSetPendingFlag@{NVIC\_vSetPendingFlag}!NVIC\_interface.h@{NVIC\_interface.h}}
+\doxysubsubsection{\texorpdfstring{NVIC\_vSetPendingFlag()}{NVIC\_vSetPendingFlag()}}
+{\footnotesize\ttfamily \label{NVIC__interface_8h_ae356a904164941f246e6603db421e081} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} NVIC\+\_\+v\+Set\+Pending\+Flag (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+IRQNumber}{}\end{DoxyParamCaption})}
+
+
+
+Set pending flag for an IRQ number in the NVIC. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+u8\+IRQNumber} & IRQ number to set pending flag. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} Returns OK if successful, NOK if IRQ number is invalid. 
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example:\+}
+NVIC\+\_\+v\+Set\+Pending\+Flag(\+NVIC\+\_\+\+EXTI0); 
+\end{DoxyParagraph}
+
+
+Definition at line \doxymbox{\hyperlink{NVIC__program_8c_source_l00075}{75}} of file \doxymbox{\hyperlink{NVIC__program_8c_source}{NVIC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{STM32F446xx_8h_source_l00297}{MNVIC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{NVIC__interface_8h_source_l00102}{NVIC\+\_\+\+FMPI2\+C1\+\_\+\+ER}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}.
+
+\Hypertarget{NVIC__interface_8h_a4ef3db3ed7f9fd593fc38ab943c6e228}\index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_vClearPendingFlag@{NVIC\_vClearPendingFlag}}
+\index{NVIC\_vClearPendingFlag@{NVIC\_vClearPendingFlag}!NVIC\_interface.h@{NVIC\_interface.h}}
+\doxysubsubsection{\texorpdfstring{NVIC\_vClearPendingFlag()}{NVIC\_vClearPendingFlag()}}
+{\footnotesize\ttfamily \label{NVIC__interface_8h_a4ef3db3ed7f9fd593fc38ab943c6e228} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} NVIC\+\_\+v\+Clear\+Pending\+Flag (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+IRQNumber}{}\end{DoxyParamCaption})}
+
+
+
+Clear pending flag for an IRQ number in the NVIC. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+u8\+IRQNumber} & IRQ number to clear pending flag. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} Returns OK if successful, NOK if IRQ number is invalid. 
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example:\+}
+NVIC\+\_\+v\+Clear\+Pending\+Flag(\+NVIC\+\_\+\+EXTI0); 
+\end{DoxyParagraph}
+
+
+Definition at line \doxymbox{\hyperlink{NVIC__program_8c_source_l00094}{94}} of file \doxymbox{\hyperlink{NVIC__program_8c_source}{NVIC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{STM32F446xx_8h_source_l00297}{MNVIC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{NVIC__interface_8h_source_l00102}{NVIC\+\_\+\+FMPI2\+C1\+\_\+\+ER}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}.
+
 \Hypertarget{NVIC__interface_8h_aee982de5e4f7bd4192063d4ca975f3c4}\index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_vGetActiveFlag@{NVIC\_vGetActiveFlag}}
 \index{NVIC\_vGetActiveFlag@{NVIC\_vGetActiveFlag}!NVIC\_interface.h@{NVIC\_interface.h}}
 \doxysubsubsection{\texorpdfstring{NVIC\_vGetActiveFlag()}{NVIC\_vGetActiveFlag()}}
 {\footnotesize\ttfamily \label{NVIC__interface_8h_aee982de5e4f7bd4192063d4ca975f3c4} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} NVIC\+\_\+v\+Get\+Active\+Flag (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+IRQNumber}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+pu8\+Flag}{}\end{DoxyParamCaption})}
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} NVIC\+\_\+v\+Get\+Active\+Flag (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+IRQNumber}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+pu8\+Flag}{}\end{DoxyParamCaption})}
 
 
 
@@ -665,45 +736,24 @@ Get active flag status for an IRQ number in the NVIC.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-\doxylink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} Returns OK if successful, NOK if IRQ number invalid, or NULL\+\_\+\+POINTER if pointer is NULL. 
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} Returns OK if successful, NOK if IRQ number invalid, or NULL\+\_\+\+POINTER if pointer is NULL. 
 \end{DoxyReturn}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2NVIC_2NVIC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+NVIC/\+\+NVIC\+\_\+interface.\+h}}.\end{Desc}
+\begin{DoxyParagraph}{Example:\+}
 
+\end{DoxyParagraph}
+uint8\+\_\+t flag; NVIC\+\_\+v\+Get\+Active\+Flag(\+NVIC\+\_\+\+EXTI0, \&flag); 
 
 Definition at line \doxymbox{\hyperlink{NVIC__program_8c_source_l00114}{114}} of file \doxymbox{\hyperlink{NVIC__program_8c_source}{NVIC\+\_\+program.\+c}}.
 
-\Hypertarget{NVIC__interface_8h_ae356a904164941f246e6603db421e081}\index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_vSetPendingFlag@{NVIC\_vSetPendingFlag}}
-\index{NVIC\_vSetPendingFlag@{NVIC\_vSetPendingFlag}!NVIC\_interface.h@{NVIC\_interface.h}}
-\doxysubsubsection{\texorpdfstring{NVIC\_vSetPendingFlag()}{NVIC\_vSetPendingFlag()}}
-{\footnotesize\ttfamily \label{NVIC__interface_8h_ae356a904164941f246e6603db421e081} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} NVIC\+\_\+v\+Set\+Pending\+Flag (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+IRQNumber}{}\end{DoxyParamCaption})}
 
 
-
-Set pending flag for an IRQ number in the NVIC. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em Copy\+\_\+u8\+IRQNumber} & IRQ number to set pending flag. \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-\doxylink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} Returns OK if successful, NOK if IRQ number is invalid. 
-\end{DoxyReturn}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2NVIC_2NVIC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+NVIC/\+\+NVIC\+\_\+interface.\+h}}.\end{Desc}
-
-
-Definition at line \doxymbox{\hyperlink{NVIC__program_8c_source_l00075}{75}} of file \doxymbox{\hyperlink{NVIC__program_8c_source}{NVIC\+\_\+program.\+c}}.
+References \doxymbox{\hyperlink{STM32F446xx_8h_source_l00297}{MNVIC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{NVIC__interface_8h_source_l00102}{NVIC\+\_\+\+FMPI2\+C1\+\_\+\+ER}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}.
 
 \Hypertarget{NVIC__interface_8h_adacfc2d410ead15ca25830190e615000}\index{NVIC\_interface.h@{NVIC\_interface.h}!NVIC\_vSetPriority@{NVIC\_vSetPriority}}
 \index{NVIC\_vSetPriority@{NVIC\_vSetPriority}!NVIC\_interface.h@{NVIC\_interface.h}}
 \doxysubsubsection{\texorpdfstring{NVIC\_vSetPriority()}{NVIC\_vSetPriority()}}
 {\footnotesize\ttfamily \label{NVIC__interface_8h_adacfc2d410ead15ca25830190e615000} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} NVIC\+\_\+v\+Set\+Priority (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+IRQNumber}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Priority}{}\end{DoxyParamCaption})}
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} NVIC\+\_\+v\+Set\+Priority (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+IRQNumber}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Priority}{}\end{DoxyParamCaption})}
 
 
 
@@ -717,14 +767,22 @@ Set priority for an IRQ number in the NVIC.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-\doxylink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} Returns OK if successful, NOK if IRQ number or priority is invalid. 
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} Returns OK if successful, NOK if IRQ number or priority is invalid. 
 \end{DoxyReturn}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2NVIC_2NVIC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+NVIC/\+\+NVIC\+\_\+interface.\+h}}.\end{Desc}
+\begin{DoxyParagraph}{Example:\+}
+NVIC\+\_\+v\+Set\+Priority(\+NVIC\+\_\+\+EXTI0, 2); 
+\end{DoxyParagraph}
 
 
 Definition at line \doxymbox{\hyperlink{NVIC__program_8c_source_l00141}{141}} of file \doxymbox{\hyperlink{NVIC__program_8c_source}{NVIC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{STM32F446xx_8h_source_l00297}{MNVIC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{NVIC__interface_8h_source_l00102}{NVIC\+\_\+\+FMPI2\+C1\+\_\+\+ER}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}, and \doxymbox{\hyperlink{US__prog_8c_source_l00196}{US\+\_\+v\+Init()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak

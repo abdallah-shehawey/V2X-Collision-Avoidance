@@ -15,26 +15,42 @@
 /**************************************         Private Variables
  * ******************************************/
 
+/**
+ * @brief Maps a @ref TIM_Num_t onto the peripheral it names.
+ * @note The order must match @ref TIM_Num_t exactly — the enum is used as the
+ *       index into this table, so a mismatch silently drives the wrong timer.
+ */
 static TIM_TypeDef *TIM_Instances[TIM_TIMER_COUNT] = {TIM2, TIM3, TIM4, TIM5, TIM1, TIM8, TIM6, TIM7};
+
+/** @brief Per-timer update-event (overflow) callbacks; NULL means "no handler registered". */
 static void (*TIM_Callbacks[TIM_TIMER_COUNT])(void) = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 
-/* Input-Capture (CC) callbacks — invoked from the timer IRQ with channel + captured value */
+/**
+ * @brief Per-timer input-capture callbacks.
+ *
+ * Called from the timer IRQ with the timer, the channel that captured, and the
+ * captured counter value. This is how the ultrasonic driver learns how long an
+ * echo took without ever polling.
+ */
 static void (*TIM_CC_Callbacks[TIM_TIMER_COUNT])(TIM_Num_t, uint8_t, uint32_t) =
     {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 
-/* Dispatch any pending+enabled CC flags of TIMx to the registered CC callback */
 static void TIM_voidHandleCC(TIM_TypeDef *TIMx, TIM_Num_t Copy_eTimer);
 
-/* Define Default Clock if not defined */
+/**
+ * @brief Timer input clock [Hz], used to turn prescaler values into real time.
+ * @note Only a fallback — the build normally defines this. If it is ever wrong,
+ *       every computed period and every measured echo is scaled by the same
+ *       factor, so distances come out proportionally wrong rather than random.
+ */
 #ifndef TIM_CLOCK_FREQ
 #define TIM_CLOCK_FREQ 16000000UL
 #endif
 
-/**************************************         Function Definitions
+/*************************************         Function Definitions
  * ******************************************/
 
-/**
- * @fn      TIM_vInit
+/*
  * @brief   Initialize the Timer with the specified configuration.
  */
 ErrorState_t TIM_vInit(const TIM_Config_t *pxConfig)
@@ -81,8 +97,7 @@ ErrorState_t TIM_vInit(const TIM_Config_t *pxConfig)
     return Local_ErrorState;
 }
 
-/**
- * @fn      TIM_vStart
+/*
  * @brief   Start the Timer counter.
  */
 ErrorState_t TIM_vStart(TIM_Num_t Copy_eTimer)
@@ -101,8 +116,7 @@ ErrorState_t TIM_vStart(TIM_Num_t Copy_eTimer)
     return Local_ErrorState;
 }
 
-/**
- * @fn      TIM_vStop
+/*
  * @brief   Stop the Timer counter.
  */
 ErrorState_t TIM_vStop(TIM_Num_t Copy_eTimer)
@@ -121,8 +135,7 @@ ErrorState_t TIM_vStop(TIM_Num_t Copy_eTimer)
     return Local_ErrorState;
 }
 
-/**
- * @fn      TIM_vPWM_Init
+/*
  * @brief   Initialize a PWM channel.
  */
 ErrorState_t TIM_vPWM_Init(const TIM_PWMConfig_t *pxPWMConfig)
@@ -220,8 +233,7 @@ ErrorState_t TIM_vPWM_Init(const TIM_PWMConfig_t *pxPWMConfig)
     return Local_ErrorState;
 }
 
-/**
- * @fn      TIM_vIC_Init
+/*
  * @brief   Initialize an Input Capture channel.
  */
 ErrorState_t TIM_vIC_Init(const TIM_ICConfig_t *pxICConfig)
@@ -375,8 +387,7 @@ ErrorState_t TIM_vSetICPolarity(TIM_Num_t Copy_eTimer, TIM_Channel_t Copy_eChann
     return Local_ErrorState;
 }
 
-/**
- * @fn      TIM_vSetCompareValue
+/*
  * @brief   Set the Compare Value.
  */
 ErrorState_t TIM_vSetCompareValue(TIM_Num_t Copy_eTimer, TIM_Channel_t Copy_eChannel, uint32_t Copy_u32Value)
@@ -402,8 +413,7 @@ ErrorState_t TIM_vSetCompareValue(TIM_Num_t Copy_eTimer, TIM_Channel_t Copy_eCha
     return Local_ErrorState;
 }
 
-/**
- * @fn      TIM_vSetPrescaler
+/*
  * @brief   Set/Update Prescaler.
  */
 ErrorState_t TIM_vSetPrescaler(TIM_Num_t Copy_eTimer, uint16_t Copy_u16Prescaler)
@@ -414,8 +424,7 @@ ErrorState_t TIM_vSetPrescaler(TIM_Num_t Copy_eTimer, uint16_t Copy_u16Prescaler
     return Local_ErrorState;
 }
 
-/**
- * @fn      TIM_vSetAutoReloadValue
+/*
  * @brief   Set/Update ARR.
  */
 ErrorState_t TIM_vSetAutoReloadValue(TIM_Num_t Copy_eTimer, uint32_t Copy_u32AutoReload)
@@ -426,8 +435,7 @@ ErrorState_t TIM_vSetAutoReloadValue(TIM_Num_t Copy_eTimer, uint32_t Copy_u32Aut
     return Local_ErrorState;
 }
 
-/**
- * @fn      TIM_vDelayMs
+/*
  * @brief   Blocking Delay in ms.
  * @note    Assumes 16MHz clock if not configured.
  */
@@ -466,8 +474,7 @@ ErrorState_t TIM_vDelayMs(TIM_Num_t Copy_eTimer, uint32_t Copy_u32Ms)
     return Local_ErrorState;
 }
 
-/**
- * @fn      TIM_vDelayUs
+/*
  * @brief   Blocking Delay in us.
  */
 ErrorState_t TIM_vDelayUs(TIM_Num_t Copy_eTimer, uint32_t Copy_u32Us)
@@ -524,7 +531,7 @@ ErrorState_t TIM_vSetCallback(TIM_Num_t Copy_eTimer, void (*pvCallback)(void))
     return Local_ErrorState;
 }
 
-/**************************************  Input-Capture (CC) Interrupt API  ******/
+/*************************************  Input-Capture (CC) Interrupt API  ******/
 
 ErrorState_t TIM_vEnableCCInterrupt(TIM_Num_t Copy_eTimer, TIM_Channel_t Copy_eChannel)
 {
@@ -549,7 +556,14 @@ ErrorState_t TIM_vSetCCCallback(TIM_Num_t Copy_eTimer,
     return OK;
 }
 
-/* Reading CCRx clears the corresponding CCxIF flag automatically (RM0390). */
+/**
+ * @brief Dispatch whichever capture/compare flags are pending on @p TIMx to its callback.
+ * @param[in] TIMx        The timer's register block.
+ * @param     Copy_eTimer Which timer that is, used to find its callback.
+ * @note Reading `CCRx` clears the matching `CCxIF` flag by itself (RM0390), so
+ *       there is deliberately no explicit flag clear here — adding one would be
+ *       harmless but redundant.
+ */
 static void TIM_voidHandleCC(TIM_TypeDef *TIMx, TIM_Num_t Copy_eTimer)
 {
     void (*cb)(TIM_Num_t, uint8_t, uint32_t) = TIM_CC_Callbacks[Copy_eTimer];
@@ -578,6 +592,12 @@ static void TIM_voidHandleCC(TIM_TypeDef *TIMx, TIM_Num_t Copy_eTimer)
     }
 }
 
+/**
+ * @brief TIM2 interrupt handler: dispatch the update event and any input capture.
+ * @note Named to match the vector table in `startup_stm32f446retx.s`; the linker
+ *       binds it by name, so a typo means the weak default handler runs instead
+ *       and the interrupt appears to do nothing.
+ */
 void TIM2_IRQHandler(void)
 {
     if (READ_BIT(TIM2->DIER, TIM_DIER_UIE) && READ_BIT(TIM2->SR, TIM_SR_UIF))
@@ -591,6 +611,12 @@ void TIM2_IRQHandler(void)
     TIM_voidHandleCC(TIM2, TIM_TIMER2);
 }
 
+/**
+ * @brief TIM3 interrupt handler: dispatch the update event and any input capture.
+ * @note Named to match the vector table in `startup_stm32f446retx.s`; the linker
+ *       binds it by name, so a typo means the weak default handler runs instead
+ *       and the interrupt appears to do nothing.
+ */
 void TIM3_IRQHandler(void)
 {
     if (READ_BIT(TIM3->DIER, TIM_DIER_UIE) && READ_BIT(TIM3->SR, TIM_SR_UIF))
@@ -604,6 +630,12 @@ void TIM3_IRQHandler(void)
     TIM_voidHandleCC(TIM3, TIM_TIMER3);
 }
 
+/**
+ * @brief TIM4 interrupt handler: dispatch the update event and any input capture.
+ * @note Named to match the vector table in `startup_stm32f446retx.s`; the linker
+ *       binds it by name, so a typo means the weak default handler runs instead
+ *       and the interrupt appears to do nothing.
+ */
 void TIM4_IRQHandler(void)
 {
     if (READ_BIT(TIM4->DIER, TIM_DIER_UIE) && READ_BIT(TIM4->SR, TIM_SR_UIF))
@@ -617,6 +649,12 @@ void TIM4_IRQHandler(void)
     TIM_voidHandleCC(TIM4, TIM_TIMER4);
 }
 
+/**
+ * @brief TIM5 interrupt handler: dispatch the update event and any input capture.
+ * @note Named to match the vector table in `startup_stm32f446retx.s`; the linker
+ *       binds it by name, so a typo means the weak default handler runs instead
+ *       and the interrupt appears to do nothing.
+ */
 void TIM5_IRQHandler(void)
 {
     if (READ_BIT(TIM5->DIER, TIM_DIER_UIE) && READ_BIT(TIM5->SR, TIM_SR_UIF))

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Src/SCB_program.c File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Src/SCB_program.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,48 +90,40 @@ $(function(){initNavTree('SCB__program_8c.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">SCB_program.c File Reference</div></div>
+  <div class="headertitle"><div class="title">SCB_program.c File Reference<div class="ingroups"><a class="el" href="group__mcal.html">MCAL</a> &raquo; <a class="el" href="group__mcal__scb.html">SCB</a></div></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Implementation of the SCB driver — the system control block.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="ErrTypes_8h_source.html">../Inc/Drivers/LIB/ErrTypes.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SCB__interface_8h_source.html">../Inc/Drivers/MCAL/SCB/SCB_interface.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SCB__private_8h_source.html">../Inc/Drivers/MCAL/SCB/SCB_private.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SCB__config_8h_source.html">../Inc/Drivers/MCAL/SCB/SCB_config.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">../Inc/Drivers/LIB/STM32F446xx.h</a>&quot;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for SCB_program.c:</div>
-<div class="dyncontent">
-<div class="center"><img src="SCB__program_8c__incl.png" border="0" usemap="#aSrc_2SCB__program_8c" loading="lazy" alt=""/></div>
-<map name="aSrc_2SCB__program_8c" id="aSrc_2SCB__program_8c">
-<area shape="rect" title=" " alt="" coords="275,5,419,33"/>
-<area shape="rect" title=" " alt="" coords="56,182,126,210"/>
-<area shape="poly" title=" " alt="" coords="272,25,201,31,124,42,57,59,32,70,16,83,10,93,8,104,17,128,37,151,61,172,56,174,33,155,13,131,3,105,4,92,12,79,29,65,55,54,123,37,201,26,277,22"/>
-<area shape="rect" href="ErrTypes_8h.html" title=" " alt="" coords="422,174,549,218"/>
-<area shape="poly" title=" " alt="" coords="419,20,495,26,576,36,646,53,672,65,690,79,701,98,699,116,689,132,671,145,622,167,565,183,564,178,620,162,668,141,685,128,694,114,695,100,686,83,669,69,644,58,575,41,494,31,420,25"/>
-<area shape="rect" href="SCB__interface_8h.html" title=" " alt="" coords="180,81,338,126"/>
-<area shape="poly" title=" " alt="" coords="335,32,295,72,292,68,331,35"/>
-<area shape="rect" href="SCB__private_8h.html" title=" " alt="" coords="362,81,508,126"/>
-<area shape="poly" title=" " alt="" coords="362,31,403,70,398,70,360,36"/>
-<area shape="rect" href="SCB__config_8h.html" title=" " alt="" coords="532,81,676,126"/>
-<area shape="poly" title=" " alt="" coords="388,31,524,75,519,76,388,36"/>
-<area shape="rect" href="Drivers_2LIB_2STM32F446xx_8h.html" title=" " alt="" coords="26,81,156,126"/>
-<area shape="poly" title=" " alt="" coords="304,35,171,79,169,74,308,32"/>
-<area shape="poly" title=" " alt="" coords="221,126,130,177,128,172,216,127"/>
-<area shape="poly" title=" " alt="" coords="314,124,420,167,415,168,313,129"/>
-<area shape="poly" title=" " alt="" coords="93,124,93,167,88,166,89,128"/>
-</map>
+<code>#include &quot;<a class="el" href="STM32F446xx_8h_source.html">../Inc/Drivers/LIB/STM32F446xx.h</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for SCB_program.c:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="SCB__program_8c__incl.svg" width="100%" height="468"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="SCB__program_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aed1f54e4a731be8ec0d97a4d8517a57e" id="r_aed1f54e4a731be8ec0d97a4d8517a57e"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aed1f54e4a731be8ec0d97a4d8517a57e">SCB_vSetPriorityGrouping</a> (uint8_t Copy_u8PriorityGrouping)</td></tr>
+<tr class="memitem:aed1f54e4a731be8ec0d97a4d8517a57e" id="r_aed1f54e4a731be8ec0d97a4d8517a57e"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aed1f54e4a731be8ec0d97a4d8517a57e">SCB_vSetPriorityGrouping</a> (uint8_t Copy_u8PriorityGrouping)</td></tr>
+<tr class="memdesc:aed1f54e4a731be8ec0d97a4d8517a57e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Priority Grouping in AIRCR register.  <br /></td></tr>
 <tr class="memitem:a93f514700ccf00d08dbdcff7f1224eb2" id="r_a93f514700ccf00d08dbdcff7f1224eb2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a93f514700ccf00d08dbdcff7f1224eb2">SystemInit</a> (void)</td></tr>
 <tr class="memdesc:a93f514700ccf00d08dbdcff7f1224eb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">System initialization called from startup file.  <br /></td></tr>
 </table>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Implementation of the SCB driver — the system control block. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Abdelmoemen Shehawey  </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="SCB__program_8c_source.html">SCB_program.c</a>.</p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="aed1f54e4a731be8ec0d97a4d8517a57e" name="aed1f54e4a731be8ec0d97a4d8517a57e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aed1f54e4a731be8ec0d97a4d8517a57e">&#9670;&#160;</a></span>SCB_vSetPriorityGrouping()</h2>
 
@@ -139,16 +131,34 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> SCB_vSetPriorityGrouping </td>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> SCB_vSetPriorityGrouping </td>
           <td>(</td>
           <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8PriorityGrouping</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>===========================================================================** &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; <a class="el" href="SCB__program_8c.html">SCB_program.c</a> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;** ** Author : Abdallah Abdelmoemen Shehawey ** Layer : MCAL ** CPU : Cortex-M4 ** MCU : NUCLEO-F446RE ** SWC : SCB ** ** ===========================================================================** </p>
 
-<p class="definition">Definition at line <a class="el" href="SCB__program_8c_source.html#l00023">23</a> of file <a class="el" href="SCB__program_8c_source.html">SCB_program.c</a>.</p>
+<p>Set the Priority Grouping in AIRCR register. </p>
+<p>Configures the split between Group Priority and Sub-Priority bits in the Interrupt Priority Register. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Copy_u8PriorityGrouping</td><td>Priority grouping value (0-7)<ul>
+<li>3: 4 bits for Group, 0 bits for Sub (16 Groups, 0 Sub)</li>
+<li>4: 3 bits for Group, 1 bit for Sub (8 Groups, 2 Sub)</li>
+<li>5: 2 bits for Group, 2 bits for Sub (4 Groups, 4 Sub)</li>
+<li>6: 1 bit for Group, 3 bits for Sub (2 Groups, 8 Sub)</li>
+<li>7: 0 bits for Group, 4 bits for Sub (1 Group, 16 Sub) </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a>: OK if valid, NOK if invalid grouping </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd>SCB_vSetPriorityGrouping(0x05); </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="SCB__program_8c_source.html#l00019">19</a> of file <a class="el" href="SCB__program_8c_source.html">SCB_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="SCB__private_8h_source.html#l00018">AIRCR_VECTKEY</a>, <a class="el" href="STM32F446xx_8h_source.html#l00327">MSCB</a>, <a class="el" href="ErrTypes_8h_source.html#l00043">NOK</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, and <a class="el" href="SCB__private_8h_source.html#l00020">SCB_MAX_PRIORITY_GROUPING</a>.</p>
 
 </div>
 </div>
@@ -170,7 +180,7 @@ Functions</h2></td></tr>
 <p>System initialization called from startup file. </p>
 <p>Handles FPU enablement and potential critical system settings. </p>
 
-<p class="definition">Definition at line <a class="el" href="SCB__program_8c_source.html#l00037">37</a> of file <a class="el" href="SCB__program_8c_source.html">SCB_program.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SCB__program_8c_source.html#l00033">33</a> of file <a class="el" href="SCB__program_8c_source.html">SCB_program.c</a>.</p>
 
 </div>
 </div>
@@ -187,7 +197,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_413f4e031a85da0d68269c6fd2f76e1c.html">Src</a></li><li class="navelem"><a href="SCB__program_8c.html">SCB_program.c</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Src</b></li><li class="navelem"><a href="SCB__program_8c.html">SCB_program.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

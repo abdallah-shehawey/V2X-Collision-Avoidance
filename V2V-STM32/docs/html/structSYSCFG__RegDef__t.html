@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: SYSCFG_RegDef_t Struct Reference</title>
+<title>V2V Collision Avoidance Firmware: SYSCFG_RegDef_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,74 +90,38 @@ $(function(){initNavTree('structSYSCFG__RegDef__t.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">SYSCFG_RegDef_t Struct Reference</div></div>
+  <div class="headertitle"><div class="title">SYSCFG_RegDef_t Struct Reference<div class="ingroups"><a class="el" href="group__lib.html">LIB</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>&gt;</code></p>
+<p>SYSCFG (system configuration controller) register layout.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="STM32F446xx_8h_source.html">Drivers/LIB/STM32F446xx.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:afb7ac1eeb76a8eedc6220dc146c96d6a" id="r_afb7ac1eeb76a8eedc6220dc146c96d6a"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#afb7ac1eeb76a8eedc6220dc146c96d6a">MEMRMP</a></td></tr>
+<tr class="memdesc:afb7ac1eeb76a8eedc6220dc146c96d6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Memory remap: what is mapped at address 0x00000000.  <br /></td></tr>
 <tr class="memitem:aac0299c67b47e4c96c2bc2ba13019d47" id="r_aac0299c67b47e4c96c2bc2ba13019d47"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#aac0299c67b47e4c96c2bc2ba13019d47">PMC</a></td></tr>
-<tr class="memitem:af52f202cfb4930ff2f821d2dfb1b01d2" id="r_af52f202cfb4930ff2f821d2dfb1b01d2"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#af52f202cfb4930ff2f821d2dfb1b01d2">EXTICR</a> [4]</td></tr>
-<tr class="memitem:a159604ad33935960ee6fc9ff5c24d1a6" id="r_a159604ad33935960ee6fc9ff5c24d1a6"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a159604ad33935960ee6fc9ff5c24d1a6">Reserved1</a> [2]</td></tr>
+<tr class="memdesc:aac0299c67b47e4c96c2bc2ba13019d47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peripheral mode configuration.  <br /></td></tr>
+<tr class="memitem:a4fd64f8698981dfb7505cdb4bfcd6b6a" id="r_a4fd64f8698981dfb7505cdb4bfcd6b6a"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a4fd64f8698981dfb7505cdb4bfcd6b6a">EXTICR</a> [4]</td></tr>
+<tr class="memdesc:a4fd64f8698981dfb7505cdb4bfcd6b6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">EXTI port routing: 4 bits per EXTI line, 4 lines per word.  <br /></td></tr>
+<tr class="memitem:adf8c7bf432a49ea430a454b20211594e" id="r_adf8c7bf432a49ea430a454b20211594e"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#adf8c7bf432a49ea430a454b20211594e">Reserved1</a> [2]</td></tr>
+<tr class="memdesc:adf8c7bf432a49ea430a454b20211594e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Padding — keeps CMPCR at its hardware offset.  <br /></td></tr>
 <tr class="memitem:a8df57c2991c18a97c7a48487950c68fa" id="r_a8df57c2991c18a97c7a48487950c68fa"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a8df57c2991c18a97c7a48487950c68fa">CMPCR</a></td></tr>
-<tr class="memitem:a41a8d9dd312e6d537b763ca114692af5" id="r_a41a8d9dd312e6d537b763ca114692af5"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a41a8d9dd312e6d537b763ca114692af5">Reserved2</a> [2]</td></tr>
+<tr class="memdesc:a8df57c2991c18a97c7a48487950c68fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compensation cell control.  <br /></td></tr>
+<tr class="memitem:abb1d8ec928bff2103e51442a8154df00" id="r_abb1d8ec928bff2103e51442a8154df00"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#abb1d8ec928bff2103e51442a8154df00">Reserved2</a> [2]</td></tr>
+<tr class="memdesc:abb1d8ec928bff2103e51442a8154df00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Padding — keeps CFGR at its hardware offset.  <br /></td></tr>
 <tr class="memitem:a9a921131581d7c3b0336b740dc580e97" id="r_a9a921131581d7c3b0336b740dc580e97"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a9a921131581d7c3b0336b740dc580e97">CFGR</a></td></tr>
+<tr class="memdesc:a9a921131581d7c3b0336b740dc580e97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration register.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00277">277</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<div class="textblock"><p>SYSCFG (system configuration controller) register layout. </p>
+<p>Its only job in this firmware is EXTICR: choosing <em>which port's</em> pin N drives EXTI line N. Without it, every EXTI line would default to port A, and the six ultrasonic echo interrupts would never fire. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00336">336</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
-<a id="a9a921131581d7c3b0336b740dc580e97" name="a9a921131581d7c3b0336b740dc580e97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9a921131581d7c3b0336b740dc580e97">&#9670;&#160;</a></span>CFGR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t SYSCFG_RegDef_t::CFGR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00284">284</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a8df57c2991c18a97c7a48487950c68fa" name="a8df57c2991c18a97c7a48487950c68fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8df57c2991c18a97c7a48487950c68fa">&#9670;&#160;</a></span>CMPCR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t SYSCFG_RegDef_t::CMPCR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00282">282</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="af52f202cfb4930ff2f821d2dfb1b01d2" name="af52f202cfb4930ff2f821d2dfb1b01d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af52f202cfb4930ff2f821d2dfb1b01d2">&#9670;&#160;</a></span>EXTICR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t SYSCFG_RegDef_t::EXTICR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00280">280</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
 <a id="afb7ac1eeb76a8eedc6220dc146c96d6a" name="afb7ac1eeb76a8eedc6220dc146c96d6a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afb7ac1eeb76a8eedc6220dc146c96d6a">&#9670;&#160;</a></span>MEMRMP</h2>
 
@@ -170,7 +134,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00278">278</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Memory remap: what is mapped at address 0x00000000. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00337">337</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
@@ -186,45 +152,104 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00279">279</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Peripheral mode configuration. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00338">338</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<a id="a159604ad33935960ee6fc9ff5c24d1a6" name="a159604ad33935960ee6fc9ff5c24d1a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a159604ad33935960ee6fc9ff5c24d1a6">&#9670;&#160;</a></span>Reserved1</h2>
+<a id="a4fd64f8698981dfb7505cdb4bfcd6b6a" name="a4fd64f8698981dfb7505cdb4bfcd6b6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fd64f8698981dfb7505cdb4bfcd6b6a">&#9670;&#160;</a></span>EXTICR</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t SYSCFG_RegDef_t::Reserved1</td>
+          <td class="memname">uint32_t SYSCFG_RegDef_t::EXTICR[4]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00281">281</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>EXTI port routing: 4 bits per EXTI line, 4 lines per word. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00339">339</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<a id="a41a8d9dd312e6d537b763ca114692af5" name="a41a8d9dd312e6d537b763ca114692af5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41a8d9dd312e6d537b763ca114692af5">&#9670;&#160;</a></span>Reserved2</h2>
+<a id="adf8c7bf432a49ea430a454b20211594e" name="adf8c7bf432a49ea430a454b20211594e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf8c7bf432a49ea430a454b20211594e">&#9670;&#160;</a></span>Reserved1</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t SYSCFG_RegDef_t::Reserved2</td>
+          <td class="memname">uint32_t SYSCFG_RegDef_t::Reserved1[2]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00283">283</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Padding — keeps CMPCR at its hardware offset. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00340">340</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>Inc/Drivers/LIB/<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
-<li>Inc/System/<a class="el" href="System_2STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
+<a id="a8df57c2991c18a97c7a48487950c68fa" name="a8df57c2991c18a97c7a48487950c68fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8df57c2991c18a97c7a48487950c68fa">&#9670;&#160;</a></span>CMPCR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SYSCFG_RegDef_t::CMPCR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compensation cell control. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00341">341</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="abb1d8ec928bff2103e51442a8154df00" name="abb1d8ec928bff2103e51442a8154df00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb1d8ec928bff2103e51442a8154df00">&#9670;&#160;</a></span>Reserved2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SYSCFG_RegDef_t::Reserved2[2]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Padding — keeps CFGR at its hardware offset. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00342">342</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a9a921131581d7c3b0336b740dc580e97" name="a9a921131581d7c3b0336b740dc580e97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a921131581d7c3b0336b740dc580e97">&#9670;&#160;</a></span>CFGR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SYSCFG_RegDef_t::CFGR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configuration register. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00343">343</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>V2V-STM32/Inc/Drivers/LIB/<a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

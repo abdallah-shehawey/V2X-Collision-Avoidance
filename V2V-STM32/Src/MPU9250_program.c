@@ -12,22 +12,36 @@
 #include "../Inc/Drivers/MCAL/TIM/TIM_interface.h"
 #include <math.h>
 
+/** @brief Pi, for the radian/degree conversions. Defined only if the toolchain's `math.h` did not. */
 #ifndef M_PI
 #define M_PI 3.14159265358979323846f
 #endif
 
 /* Global State */
+/** @brief Accelerometer zero-offset per axis, subtracted from every raw reading. */
 static float Accel_Offset[3] = {0, 0, 0};
+/** @brief Gyroscope zero-offset per axis. A gyro reads non-zero while perfectly still; this cancels that, and without it the integrated heading drifts steadily. */
 static float Gyro_Offset[3]  = {0, 0, 0};
-static float Mag_ASA[3]      = {1.0f, 1.0f, 1.0f}; /* AK8963 factory sensitivity adjust */
-/* Hard-iron bias from the boot-time rotation calibration (frozen after cal) */
-static float Mag_OffX = 0.0f, Mag_OffY = 0.0f;
-static float Filtered_Pitch = 0, Filtered_Roll = 0, Filtered_Heading = 0;
-static uint8_t Heading_Init = 0;   /* seed the fused heading on the first call */
+/** @brief AK8963 factory sensitivity adjustment per axis, read once from the chip's fuse ROM at init. */
+static float Mag_ASA[3]      = {1.0f, 1.0f, 1.0f};
+/** @brief Hard-iron bias on X, learned by @ref MPU9250_enumCalibrateMag and frozen thereafter. */
+static float Mag_OffX = 0.0f;
+/** @brief Hard-iron bias on Y, learned by @ref MPU9250_enumCalibrateMag and frozen thereafter. */
+static float Mag_OffY = 0.0f;
+/** @brief Complementary-filter state: the fused pitch [degrees]. */
+static float Filtered_Pitch = 0;
+/** @brief Complementary-filter state: the fused roll [degrees]. */
+static float Filtered_Roll = 0;
+/** @brief Complementary-filter state: the fused heading [degrees]. */
+static float Filtered_Heading = 0;
+/** @brief Has the fused heading been seeded yet? The first call takes the magnetometer reading outright rather than filtering towards it from zero. */
+static uint8_t Heading_Init = 0;
+/** @brief Integrated vertical velocity [m/s], used to separate real motion from gravity. */
 static float Vert_Velocity_m_s = 0; 
-volatile uint8_t MPU9250_ID = 0; /* Visible ID for debugging */
+/** @brief The `WHO_AM_I` value read at init — 0x71 on a genuine part. Kept as a global so a debugger can see at a glance whether the IMU answered at all. */
+volatile uint8_t MPU9250_ID = 0;
 
-/* SPI Config */
+/** @brief The SPI settings this driver talks to the IMU with. */
 static SPI_Config_t MPU9250_SPI = {
     .Channel = MPU9250_SPI_CHANNEL, .CPHA = SPI_CPHA_2EDGE, .CPOL = SPI_CPOL_HIGH,
     .Mode = SPI_MODE_MASTER, .BaudRatePrescaler = SPI_BAUDRATEPRESCALER_64,
@@ -37,9 +51,16 @@ static SPI_Config_t MPU9250_SPI = {
 };
 
 /* Helpers */
+/** @brief Pull chip-select low to begin an SPI transaction. */
 static void MPU9250_vSelect(void)   { GPIO_enumWritePinVal(MPU9250_CS_PORT, MPU9250_CS_PIN, GPIO_PIN_LOW); }
+/** @brief Release chip-select to end an SPI transaction. */
 static void MPU9250_vDeselect(void) { GPIO_enumWritePinVal(MPU9250_CS_PORT, MPU9250_CS_PIN, GPIO_PIN_HIGH); }
 
+/**
+ * @brief Write one MPU9250 register.
+ * @param reg  Register address.
+ * @param data Byte to write.
+ */
 static void MPU9250_vWriteReg(uint8_t reg, uint8_t data) {
   uint16_t d; MPU9250_vSelect();
   SPI_enumTrancieve(&MPU9250_SPI, (uint16_t)reg, &d);
@@ -47,6 +68,13 @@ static void MPU9250_vWriteReg(uint8_t reg, uint8_t data) {
   MPU9250_vDeselect();
 }
 
+/**
+ * @brief Read one MPU9250 register.
+ * @param reg Register address.
+ * @return The register's value.
+ * @note The read is signalled by setting the top bit of the address byte — the
+ *       SPI convention this part uses.
+ */
 static uint8_t MPU9250_u8ReadReg(uint8_t reg) {
   uint16_t val; MPU9250_vSelect();
   SPI_enumTrancieve(&MPU9250_SPI, (uint16_t)(reg | 0x80), &val);
@@ -57,6 +85,14 @@ static uint8_t MPU9250_u8ReadReg(uint8_t reg) {
 
 /* Read one AK8963 register through the MPU9250 internal I2C master.
  * The fetched byte lands in EXT_SENS_DATA_00 once the master completes. */
+/**
+ * @brief Read one AK8963 register, through the MPU's internal I2C master.
+ * @param reg Register address inside the AK8963.
+ * @return The register's value.
+ * @note Not a direct read — the magnetometer is not on the SPI bus. This programs
+ *       the I2C master to fetch the byte, then reads it back out of
+ *       @ref EXT_SENS_DATA_00. See @ref mpu_layout.
+ */
 static uint8_t MPU9250_u8ReadMagReg(uint8_t reg) {
   MPU9250_vWriteReg(I2C_SLV0_ADDR, 0x80 | AK8963_ADDR); /* AK8963 addr, read */
   MPU9250_vWriteReg(I2C_SLV0_REG,  reg);
@@ -65,6 +101,12 @@ static uint8_t MPU9250_u8ReadMagReg(uint8_t reg) {
   return MPU9250_u8ReadReg(EXT_SENS_DATA_00);
 }
 
+/**
+ * @brief Bring the AK8963 magnetometer up via the MPU's internal I2C master.
+ *
+ * Enables the master, reads the factory sensitivity values into @ref Mag_ASA, and
+ * puts the part into continuous-measurement mode.
+ */
 static void MPU9250_vInitMag(void) {
   /* SPI-only (I2C_IF_DIS) + enable internal I2C master @400kHz, no bypass */
   MPU9250_vWriteReg(0x37, 0x00); TIM_vDelayMs(MPU9250_DELAY_TIMER, 10);

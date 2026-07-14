@@ -1,3 +1,12 @@
+/**
+ ******************************************************************************
+ * @file    BSW_config.h
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Compile-time configuration for the BSW driver — Blind Spot Warning.
+ * @ingroup app_bsw
+ ******************************************************************************
+ */
+
 #ifndef BSW_CONFIG_H
 #define BSW_CONFIG_H
 
@@ -12,13 +21,22 @@
  *           that side. Both bits are handled independently.
  */
 
-/* Object present if a side ultrasonic reads < this distance (cm).
- * Prototype scale: small car in a tight corridor -> 30 cm tuned best.
- * This is the WARNING band: a neighbor inside this distance raises BSW WARNING. */
+/**
+ * @brief A side ultrasonic reading below this means a vehicle is there [cm].
+ *
+ * This is the **warning** band: a neighbor inside this distance raises a BSW
+ * warning. Tuned for the prototype — a small car in a tight corridor.
+ */
 #define BSW_SIDE_THRESHOLD (60.0f)
 
-/* Closer than this (cm) escalates the receiver-side blind-spot alert to CRITICAL.
- * Must be < BSW_SIDE_THRESHOLD: [CRITICAL, THRESHOLD) = warning, [0, CRITICAL) = critical. */
+/**
+ * @brief Closer than this escalates the blind-spot alert to critical [cm].
+ *
+ * @warning Must be **strictly less than** @ref BSW_SIDE_THRESHOLD. The two carve
+ *          the range into `[CRITICAL, THRESHOLD)` = warning and `[0, CRITICAL)` =
+ *          critical; making this the larger of the two collapses the warning band
+ *          to nothing and the module would only ever report critical or safe.
+ */
 #define BSW_SIDE_CRITICAL  (40.0f)
 
 /* Alerts (LED/buzzer) are handled outside this module — it only computes the

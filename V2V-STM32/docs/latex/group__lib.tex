@@ -1,0 +1,1881 @@
+\doxysection{LIB }
+\hypertarget{group__lib}{}\label{group__lib}\index{LIB@{LIB}}
+
+
+Foundation layer:\+ error codes, bit-\/manipulation macros, register map.  
+
+
+\doxysubsubsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file \doxymbox{\hyperlink{ErrTypes_8h}{Err\+Types.\+h}}
+\begin{DoxyCompactList}\small\item\em Project-\/wide return codes and boolean-\/style constants. \end{DoxyCompactList}\item 
+file \doxymbox{\hyperlink{STD__MACROS_8h}{STD\+\_\+\+MACROS.\+h}}
+\begin{DoxyCompactList}\small\item\em Bit-\/manipulation macros used by every register access in the MCAL. \end{DoxyCompactList}\item 
+file \doxymbox{\hyperlink{STM32F446xx_8h}{STM32\+F446xx.\+h}}
+\begin{DoxyCompactList}\small\item\em STM32\+F446\+RE register map:\+ peripheral base addresses, register layout structs, and the typed pointers the MCAL drivers write to. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structSYSTIC__RegDef__t}{SYSTIC\+\_\+\+Reg\+Def\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Sys\+Tick register layout (Cortex-\/\+M4 core timer). \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structGPIO__REGDEF__t}{GPIO\+\_\+\+REGDEF\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em GPIO port register layout (identical for every port A..H). \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structDMA__STREAM__REGDEF__t}{DMA\+\_\+\+STREAM\+\_\+\+REGDEF\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Register layout of a single DMA stream. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structDMA__REGDEF__t}{DMA\+\_\+\+REGDEF\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em DMA controller register layout:\+ the shared registers plus 8 streams. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structRCC__RegDef__t}{RCC\+\_\+\+Reg\+Def\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em RCC (reset and clock control) register layout. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structSPI__RegDef__t}{SPI\+\_\+\+Reg\+Def\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em SPI register layout (identical for SPI1..SPI4). \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structNVIC__RegDef__t}{NVIC\+\_\+\+Reg\+Def\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em NVIC register layout (Cortex-\/\+M4 interrupt controller). \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structSCB__RegDef__t}{SCB\+\_\+\+Reg\+Def\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em SCB (system control block) register layout. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structSYSCFG__RegDef__t}{SYSCFG\+\_\+\+Reg\+Def\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em SYSCFG (system configuration controller) register layout. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structEXTI__RegDef__t}{EXTI\+\_\+\+Reg\+Def\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em EXTI (external interrupt/\+event controller) register layout. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structUSART__RegDef__t}{USART\+\_\+\+Reg\+Def\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em USART register layout (identical for USART1..6). \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}}
+\begin{DoxyCompactList}\small\item\em Timer register layout, in the superset form used by TIM1/\+\+TIM8. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}}
+\begin{DoxyCompactList}\small\item\em Null pointer constant, defined here so the drivers never need a libc header. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga514ad415fb6125ba296793df7d1a468a}{ENABLE}}
+\begin{DoxyCompactList}\small\item\em Generic "{}switch this on"{} value for the {\ttfamily \doxylink{group__lib_ga514ad415fb6125ba296793df7d1a468a}{ENABLE}}/\+{\ttfamily \doxylink{group__lib_ga99496f7308834e8b220f7894efa0b6ab}{DISABLE}} driver arguments. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga99496f7308834e8b220f7894efa0b6ab}{DISABLE}}
+\begin{DoxyCompactList}\small\item\em Generic "{}switch this off"{} value for the {\ttfamily \doxylink{group__lib_ga514ad415fb6125ba296793df7d1a468a}{ENABLE}}/\+{\ttfamily \doxylink{group__lib_ga99496f7308834e8b220f7894efa0b6ab}{DISABLE}} driver arguments. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}}
+\begin{DoxyCompactList}\small\item\em Peripheral state:\+ no transfer in progress, a new one may be started. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gab5be0aaddb58ffb9cb20c12530d66316}{BUSY}}
+\begin{DoxyCompactList}\small\item\em Peripheral state:\+ a transfer is already in progress. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gabe2f7b6344bb4d51dfea9c9f58609427}{REGISTER\+\_\+\+SIZE}}
+\begin{DoxyCompactList}\small\item\em Register width in bits assumed by \doxylink{group__lib_gacdd57f8617d552ad57c697f8e46190a4}{ROR} and \doxylink{group__lib_ga29a7814b0a672229073f6cd702ba2437}{ROL}. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga62af7cb8bfabd5a9f6ea45582e08843b}{SET\+\_\+\+BIT}}(reg,  bit)
+\begin{DoxyCompactList}\small\item\em Set bit {\ttfamily bit} of {\ttfamily reg} to 1. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga50ef806053a11c75cd2570f58e742de4}{CLR\+\_\+\+BIT}}(reg,  bit)
+\begin{DoxyCompactList}\small\item\em Clear bit {\ttfamily bit} of {\ttfamily reg} to 0. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gad6d89aeec3157e9422d92480d4bd9343}{TOG\+\_\+\+BIT}}(reg,  bit)
+\begin{DoxyCompactList}\small\item\em Toggle bit {\ttfamily bit} of {\ttfamily reg}. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gaaef49ab0462bf902b59383f592140b05}{READ\+\_\+\+BIT}}(reg,  bit)
+\begin{DoxyCompactList}\small\item\em Read bit {\ttfamily bit} of {\ttfamily reg}, shifted down to bit 0. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga79413e953065eefe67e15a9f1dba19c1}{READ\+\_\+\+BYTE}}(reg,  byte)
+\begin{DoxyCompactList}\small\item\em Extract byte {\ttfamily byte} of {\ttfamily reg}, shifted down to bit 0. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga3fe9237475a64592ad498aac6bba1650}{IS\+\_\+\+BIT\+\_\+\+SET}}(reg,  bit)
+\begin{DoxyCompactList}\small\item\em Test whether bit {\ttfamily bit} of {\ttfamily reg} is set. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga3d70443f3f3b48c71f0184a7c2633e39}{IS\+\_\+\+BIT\+\_\+\+CLR}}(reg,  bit)
+\begin{DoxyCompactList}\small\item\em Test whether bit {\ttfamily bit} of {\ttfamily reg} is clear. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gacdd57f8617d552ad57c697f8e46190a4}{ROR}}(reg,  num)
+\begin{DoxyCompactList}\small\item\em Rotate {\ttfamily reg} right by {\ttfamily num} bits, in place. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga29a7814b0a672229073f6cd702ba2437}{ROL}}(reg,  num)
+\begin{DoxyCompactList}\small\item\em Rotate {\ttfamily reg} left by {\ttfamily num} bits, in place. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to the Sys\+Tick peripheral. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga979d8bdf1fee96914aa697664b3cc1ce}{MDMA1}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to DMA controller 1. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga23dba18604da608d963a7d0d2f2e07a8}{MDMA2}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to DMA controller 2. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to the RCC peripheral. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga5592a87b609cf093eb988459b69071ce}{MNVIC}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to the NVIC. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gad64f4ba7787546fc107c2c2993554e91}{MSCB}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to the SCB. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga531c08f5a73855527d044114a066fbb4}{MSYSCFG}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to the SYSCFG peripheral. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gade59853bea97901ef8816f8d8623cdf2}{MEXTI}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to the EXTI peripheral. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \{ \newline
+\doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}}
+, \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}}
+, \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}}
+, \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81affe74893171dd0f0fe9331c5b5a74c66}{BUSY\+\_\+\+STATE}}
+, \newline
+\doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\+\_\+\+STATE}}
+ \}
+\begin{DoxyCompactList}\small\item\em Return code shared by every fallible driver call in the firmware. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Memory base addresses}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gaf6863e7094aca292453684fa2af16686}{FLASH\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em Start of on-\/chip Flash (512 KB), where the vector table and code live. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gacce5bcdd78719c9f4a53cfc4ca0f6f42}{SRAM\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em Start of SRAM1 (128 KB):\+ the stack, the heap and all Free\+RTOS objects. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga548ca9ecc4b62f701800110d155a05dc}{ROM\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em Start of system memory, the factory ROM bootloader. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Cortex-\/\+M4 core peripheral base addresses}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga01d5d6d14e5ddc3602597f71315ef112}{NVIC\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em Nested vectored interrupt controller. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gafd26e1e406073dbe90566bacb7f55cd9}{SCB\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em System control block. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga3afdbef526b79ce12092b3d70f232328}{SYSTIC\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em Sys\+Tick 24-\/bit system timer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{AHB1 peripheral base addresses}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga3e615727451fa1abc89e436a7158d4aa}{GPIOA\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em GPIO port A. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga583cafe206b45c6e3507b0493b96bdf0}{GPIOB\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em GPIO port B. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga05e89040a5ad3c3e5f5bbd62b434512b}{GPIOC\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em GPIO port C. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga807336d6c75feb8d0e943d618b5eaf26}{GPIOD\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em GPIO port D. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gac248e8d8a7113113481c2abb31d7660a}{GPIOE\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em GPIO port E. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga5f0323ec1e9720a76beebf3081bad9dc}{GPIOF\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em GPIO port F. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga90f006630c69a7540d8b0b1c0073f3d2}{GPIOG\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em GPIO port G. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga63f9598aea50d8c995a9037578bb0907}{GPIOH\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em GPIO port H. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga89610f202a9f78bcc85f76c5ba52d009}{RCC\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em Reset and clock control. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga489420976747e7bcf241e2a9bb6cd138}{DMA1\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em DMA controller 1 (declared for completeness; the firmware does not use DMA). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gac3883cd723aa62055a055104bb3f6890}{DMA2\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em DMA controller 2 (declared for completeness; the firmware does not use DMA). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{APB1 peripheral base addresses}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga9e2d543dd90e725020d1f4b2ae3a0cdc}{USART2\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em USART2 — the Raspberry Pi telemetry link. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga44b4b63dcc1dedbd81fc2679c1d6c357}{USART3\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em USART3. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga98f7a7a89ed0a98037caa7bd82d027e7}{USART4\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em UART4. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga0fe016bdc6241abe115bb3a5b6f01c29}{USART5\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em UART5. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga52fc929735639d70b44dea7885bb01ff}{SPI2\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em SPI2. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gada16cf23d6a91088c447de485b616ed8}{SPI3\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em SPI3. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{APB2 peripheral base addresses}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gad389e516cff9dd84a9b04685b391b8fe}{SYSCFG\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em System configuration controller (EXTI port routing). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga9ce143f4fc043361dc774d877c672f0d}{EXTI\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em External interrupt/\+event controller. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga4ccf21b5f54c80b031bff13956af2018}{USART1\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em USART1 — the ESP32 V2V radio link. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga849c1342a2b7b4126c4a3b638c903c29}{USART6\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em USART6. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga64992f19fed3a459eb91f519c06b3427}{SPI1\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em SPI1 — the MPU9250 IMU link. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga8370319e63d6c3a62ce4f0539ebe2b68}{SPI4\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em SPI4. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Timer peripheral base addresses}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gaf8aa324ca5011b8173ab16585ed7324a}{TIM1\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM1:\+ advanced-\/control timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga00d0fe6ad532ab32f0f81cafca8d3aa5}{TIM2\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM2:\+ 32-\/bit general-\/purpose timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gaf0c34a518f87e1e505cd2332e989564a}{TIM3\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM3:\+ general-\/purpose timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga56e2d44b0002f316527b8913866a370d}{TIM4\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM4:\+ general-\/purpose timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga3e1671477190d065ba7c944558336d7e}{TIM5\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM5:\+ 32-\/bit general-\/purpose timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga8268ec947929f192559f28c6bf7d1eac}{TIM6\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM6:\+ basic timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga0ebf54364c6a2be6eb19ded6b18b6387}{TIM7\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM7:\+ basic timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga5b72f698b7a048a6f9fcfe2efe5bc1db}{TIM8\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM8:\+ advanced-\/control timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga92ae902be7902560939223dd765ece08}{TIM9\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM9:\+ general-\/purpose timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga3eff32f3801db31fb4b61d5618cad54a}{TIM10\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM10:\+ general-\/purpose timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga3a4a06bb84c703084f0509e105ffaf1d}{TIM11\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM11:\+ general-\/purpose timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga33dea32fadbaecea161c2ef7927992fd}{TIM12\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM12:\+ general-\/purpose timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gad20f79948e9359125a40bbf6ed063590}{TIM13\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM13:\+ general-\/purpose timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga862855347d6e1d92730dfe17ee8e90b8}{TIM14\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM14:\+ general-\/purpose timer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{GPIO port pointers}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gaf6850b06a42624be83a68462a7be5e12}{MGPIOA}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to GPIO port A. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gabe05d406fedc633b59c450f2a33b2daf}{MGPIOB}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to GPIO port B. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga86afa157c87ffee58eadc07c173acd3d}{MGPIOC}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to GPIO port C. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gaa8e1edc7576e162af0842453dcca1f83}{MGPIOD}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to GPIO port D. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gac06cc433a06b25055ff908e11cf37d44}{MGPIOE}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to GPIO port E. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga012e799ad11bc8bc642b351d1f38653e}{MGPIOF}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to GPIO port F. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gad803338b64ed6061cf02a3690ceccd3e}{MGPIOG}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to GPIO port G. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga8bd94bebe51f97e4e077768972e16324}{MGPIOH}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to GPIO port H. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{SPI peripheral pointers}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gaef26793e8da8ae0f978071e519b95a98}{MSPI1}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to SPI1 — the MPU9250 link. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga3a0b50a712a207cfe1591e042e354b40}{MSPI2}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to SPI2. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga5176ad296ec37851a317895e592225c8}{MSPI3}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to SPI3. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gaba6db3bf8d7ccd3f31795fcff7bd17a1}{MSPI4}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to SPI4. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{USART peripheral pointers}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gaedcc55b2b529aaf2b86136929704f0ea}{MUSART1}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to USART1 — the ESP32 V2V link. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga018e2195978a9cc353c790033d1c7a0a}{MUSART2}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to USART2 — the Raspberry Pi telemetry link. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gabe2a71d95cee15a1aa29fd73426458dc}{MUSART3}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to USART3. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gaaef3695b9d2a750bc616b20ba7d93dc9}{MUSART4}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to UART4. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gae3fa87ee6d44f18319fad998888b6cbb}{MUSART5}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to UART5. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga258613d2640e98dc10dd39944e6d87a5}{MUSART6}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to USART6. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Timer peripheral pointers}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga2e87451fea8dc9380056d3cfc5ed81fb}{TIM1}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM1. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga3cfac9f2e43673f790f8668d48b4b92b}{TIM2}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM2. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga61ee4c391385607d7af432b63905fcc9}{TIM3}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM3. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga91a09bad8bdc7a1cb3d85cf49c94c8ec}{TIM4}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM4. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga5125ff6a23a2ed66e2e19bd196128c14}{TIM5}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM5. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gac7b4ed55f9201b498b38c962cca97314}{TIM6}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM6. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga49267c49946fd61db6af8b49bcf16394}{TIM7}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM7. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga9a3660400b17735e91331f256095810e}{TIM8}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM8. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gaf52b4b4c36110a0addfa98059f54a50e}{TIM9}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM9. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga46b2ad3f5f506f0f8df0d2ec3e767267}{TIM10}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM10. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gacfd11ef966c7165f57e2cebe0abc71ad}{TIM11}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM11. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga2397f8a0f8e7aa10cf8e8c049e431e53}{TIM12}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM12. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga5a959a833074d59bf6cc7fb437c65b18}{TIM13}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM13. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga2dd30f46fad69dd73e1d8941a43daffe}{TIM14}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM14. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Foundation layer:\+ error codes, bit-\/manipulation macros, register map. 
+
+Pure declarations with no executable code and no dependencies. Everything in the firmware is allowed to include this layer. 
+
+\label{doc-define-members}
+\Hypertarget{group__lib_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{group__lib_ga070d2ce7b6bb7e5c05602aa8c308d0c4}\index{LIB@{LIB}!NULL@{NULL}}
+\index{NULL@{NULL}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{NULL}{NULL}}
+{\footnotesize\ttfamily \label{group__lib_ga070d2ce7b6bb7e5c05602aa8c308d0c4} 
+\+\#define NULL}
+
+
+
+Null pointer constant, defined here so the drivers never need a libc header. 
+
+
+
+Definition at line \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{24}} of file \doxymbox{\hyperlink{ErrTypes_8h_source}{Err\+Types.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{BUZ__program_8c_source_l00017}{BUZ\+\_\+\+Init()}}, \doxymbox{\hyperlink{BUZ__program_8c_source_l00073}{BUZ\+\_\+\+Off()}}, \doxymbox{\hyperlink{BUZ__program_8c_source_l00053}{BUZ\+\_\+\+On()}}, \doxymbox{\hyperlink{BUZ__program_8c_source_l00094}{BUZ\+\_\+\+Toggle()}}, \doxymbox{\hyperlink{EXTI__program_8c_source_l00236}{EXTI0\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{EXTI__program_8c_source_l00361}{EXTI15\+\_\+10\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{EXTI__program_8c_source_l00253}{EXTI1\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{EXTI__program_8c_source_l00270}{EXTI2\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{EXTI__program_8c_source_l00287}{EXTI3\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{EXTI__program_8c_source_l00304}{EXTI4\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{EXTI__program_8c_source_l00321}{EXTI9\+\_\+5\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{EXTI__program_8c_source_l00165}{EXTI\+\_\+v\+Disable\+Interrupt()}}, \doxymbox{\hyperlink{EXTI__program_8c_source_l00097}{EXTI\+\_\+v\+Enable\+Interrupt()}}, \doxymbox{\hyperlink{EXTI__program_8c_source_l00041}{EXTI\+\_\+v\+Line\+Init()}}, \doxymbox{\hyperlink{EXTI__program_8c_source_l00122}{EXTI\+\_\+v\+Set\+Trig\+Src()}}, \doxymbox{\hyperlink{EXTI__program_8c_source_l00188}{EXTI\+\_\+v\+Sw\+Int\+Event()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00187}{GPIO\+\_\+enum\+Byte\+Init()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00230}{GPIO\+\_\+enum\+Half\+Port\+Init()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00144}{GPIO\+\_\+enum\+High\+Nibble\+Init()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00101}{GPIO\+\_\+enum\+Low\+Nibble\+Init()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00041}{GPIO\+\_\+enum\+Pin\+Init()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00376}{GPIO\+\_\+enum\+Port4\+Pins\+Init()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00323}{GPIO\+\_\+enum\+Port8\+Pins\+Init()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00273}{GPIO\+\_\+enum\+Port\+Init()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00567}{GPIO\+\_\+enum\+Read4\+Pins\+Val()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00597}{GPIO\+\_\+enum\+Read8\+Pins\+Val()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00849}{GPIO\+\_\+enum\+Read\+Byte\+Val()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00876}{GPIO\+\_\+enum\+Read\+Half\+Port\+Val()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00822}{GPIO\+\_\+enum\+Read\+High\+Nibble\+Val()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00795}{GPIO\+\_\+enum\+Read\+Low\+Nibble\+Val()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00513}{GPIO\+\_\+enum\+Read\+Pin\+Val()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00903}{GPIO\+\_\+enum\+Read\+Port\+Val()}}, \doxymbox{\hyperlink{LED__prog_8c_source_l00026}{LED\+\_\+\+Init()}}, \doxymbox{\hyperlink{LED__prog_8c_source_l00119}{LED\+\_\+\+Toggle()}}, \doxymbox{\hyperlink{LED__prog_8c_source_l00089}{LED\+\_\+\+Turn\+Off()}}, \doxymbox{\hyperlink{LED__prog_8c_source_l00059}{LED\+\_\+\+Turn\+On()}}, \doxymbox{\hyperlink{main_8c_source_l00147}{main()}}, \doxymbox{\hyperlink{NVIC__program_8c_source_l00114}{NVIC\+\_\+v\+Get\+Active\+Flag()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00250}{RCC\+\_\+enum\+PLLConfig()}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00037}{SPI\+\_\+enum\+Init()}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00249}{SPI\+\_\+enum\+Receive()}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00111}{SPI\+\_\+enum\+Trancieve()}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00189}{SPI\+\_\+enum\+Transmit()}}, \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00365}{SYSTIC\+\_\+enum\+Callback()}}, \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00420}{SYSTIC\+\_\+enum\+Callback\+Single\+Shot()}}, \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00281}{SYSTIC\+\_\+enum\+Get\+Elapsed\+Tick\+Single\+Shot()}}, \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00321}{SYSTIC\+\_\+enum\+Remaining\+Tick\+Single\+Shot()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00678}{TIM1\+\_\+\+UP\+\_\+\+TIM10\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00601}{TIM2\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00620}{TIM3\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00639}{TIM4\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00658}{TIM5\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00714}{TIM6\+\_\+\+DAC\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00729}{TIM7\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00697}{TIM8\+\_\+\+UP\+\_\+\+TIM13\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00333}{TIM\+\_\+u32\+Get\+Capture\+Value()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00350}{TIM\+\_\+u32\+Get\+Counter\+Value()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00239}{TIM\+\_\+v\+IC\+\_\+\+Init()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00056}{TIM\+\_\+v\+Init()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00141}{TIM\+\_\+v\+PWM\+\_\+\+Init()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00526}{TIM\+\_\+v\+Set\+Callback()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00551}{TIM\+\_\+v\+Set\+CCCallback()}}, \doxymbox{\hyperlink{US__prog_8c_source_l00278}{US\+\_\+u16\+Read\+Distance\+\_\+cm()}}, \doxymbox{\hyperlink{US__prog_8c_source_l00196}{US\+\_\+v\+Init()}}, \doxymbox{\hyperlink{USART__program_8c_source_l00409}{USART1\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{USART__program_8c_source_l00422}{USART2\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{USART__program_8c_source_l00435}{USART3\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{USART__program_8c_source_l00448}{USART4\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{USART__program_8c_source_l00461}{USART5\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{USART__program_8c_source_l00474}{USART6\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{USART__program_8c_source_l00351}{USART\+\_\+enum\+Receive()}}, \doxymbox{\hyperlink{USART__program_8c_source_l00309}{USART\+\_\+enum\+Transmit\+String()}}, \doxymbox{\hyperlink{USART__program_8c_source_l00041}{USART\+\_\+\+Init()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00138}{USART\+\_\+\+Init\+IT()}}.
+
+\Hypertarget{group__lib_ga514ad415fb6125ba296793df7d1a468a}\index{LIB@{LIB}!ENABLE@{ENABLE}}
+\index{ENABLE@{ENABLE}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{ENABLE}{ENABLE}}
+{\footnotesize\ttfamily \label{group__lib_ga514ad415fb6125ba296793df7d1a468a} 
+\+\#define ENABLE}
+
+
+
+Generic "{}switch this on"{} value for the {\ttfamily \doxylink{group__lib_ga514ad415fb6125ba296793df7d1a468a}{ENABLE}}/\+{\ttfamily \doxylink{group__lib_ga99496f7308834e8b220f7894efa0b6ab}{DISABLE}} driver arguments. 
+
+
+
+Definition at line \doxymbox{\hyperlink{ErrTypes_8h_source_l00028}{28}} of file \doxymbox{\hyperlink{ErrTypes_8h_source}{Err\+Types.\+h}}.
+
+\Hypertarget{group__lib_ga99496f7308834e8b220f7894efa0b6ab}\index{LIB@{LIB}!DISABLE@{DISABLE}}
+\index{DISABLE@{DISABLE}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{DISABLE}{DISABLE}}
+{\footnotesize\ttfamily \label{group__lib_ga99496f7308834e8b220f7894efa0b6ab} 
+\+\#define DISABLE}
+
+
+
+Generic "{}switch this off"{} value for the {\ttfamily \doxylink{group__lib_ga514ad415fb6125ba296793df7d1a468a}{ENABLE}}/\+{\ttfamily \doxylink{group__lib_ga99496f7308834e8b220f7894efa0b6ab}{DISABLE}} driver arguments. 
+
+
+
+Definition at line \doxymbox{\hyperlink{ErrTypes_8h_source_l00030}{30}} of file \doxymbox{\hyperlink{ErrTypes_8h_source}{Err\+Types.\+h}}.
+
+\Hypertarget{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}\index{LIB@{LIB}!IDLE@{IDLE}}
+\index{IDLE@{IDLE}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{IDLE}{IDLE}}
+{\footnotesize\ttfamily \label{group__lib_ga9c21a7caee326d7803b94ae1952b27ca} 
+\+\#define IDLE}
+
+
+
+Peripheral state:\+ no transfer in progress, a new one may be started. 
+
+
+
+Definition at line \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{33}} of file \doxymbox{\hyperlink{ErrTypes_8h_source}{Err\+Types.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{RCC__program_8c_source_l00509}{RCC\+\_\+enum\+ABPPer\+Sts()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00315}{RCC\+\_\+enum\+AHBConfig()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00441}{RCC\+\_\+enum\+AHPPer\+Sts()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00357}{RCC\+\_\+enum\+APB1\+Config()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00399}{RCC\+\_\+enum\+APB2\+Config()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00250}{RCC\+\_\+enum\+PLLConfig()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00048}{RCC\+\_\+enum\+Set\+Clk\+Sts()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00185}{RCC\+\_\+enum\+Set\+Sys\+Clk()}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00249}{SPI\+\_\+enum\+Receive()}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00111}{SPI\+\_\+enum\+Trancieve()}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00189}{SPI\+\_\+enum\+Transmit()}}, \doxymbox{\hyperlink{USART__program_8c_source_l00351}{USART\+\_\+enum\+Receive()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00309}{USART\+\_\+enum\+Transmit\+String()}}.
+
+\Hypertarget{group__lib_gab5be0aaddb58ffb9cb20c12530d66316}\index{LIB@{LIB}!BUSY@{BUSY}}
+\index{BUSY@{BUSY}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{BUSY}{BUSY}}
+{\footnotesize\ttfamily \label{group__lib_gab5be0aaddb58ffb9cb20c12530d66316} 
+\+\#define BUSY}
+
+
+
+Peripheral state:\+ a transfer is already in progress. 
+
+
+
+Definition at line \doxymbox{\hyperlink{ErrTypes_8h_source_l00035}{35}} of file \doxymbox{\hyperlink{ErrTypes_8h_source}{Err\+Types.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{RCC__program_8c_source_l00509}{RCC\+\_\+enum\+ABPPer\+Sts()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00315}{RCC\+\_\+enum\+AHBConfig()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00441}{RCC\+\_\+enum\+AHPPer\+Sts()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00357}{RCC\+\_\+enum\+APB1\+Config()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00399}{RCC\+\_\+enum\+APB2\+Config()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00250}{RCC\+\_\+enum\+PLLConfig()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00048}{RCC\+\_\+enum\+Set\+Clk\+Sts()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00185}{RCC\+\_\+enum\+Set\+Sys\+Clk()}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00249}{SPI\+\_\+enum\+Receive()}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00111}{SPI\+\_\+enum\+Trancieve()}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00189}{SPI\+\_\+enum\+Transmit()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00351}{USART\+\_\+enum\+Receive()}}.
+
+\Hypertarget{group__lib_gabe2f7b6344bb4d51dfea9c9f58609427}\index{LIB@{LIB}!REGISTER\_SIZE@{REGISTER\_SIZE}}
+\index{REGISTER\_SIZE@{REGISTER\_SIZE}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{REGISTER\_SIZE}{REGISTER\_SIZE}}
+{\footnotesize\ttfamily \label{group__lib_gabe2f7b6344bb4d51dfea9c9f58609427} 
+\+\#define REGISTER\+\_\+\+SIZE}
+
+
+
+Register width in bits assumed by \doxylink{group__lib_gacdd57f8617d552ad57c697f8e46190a4}{ROR} and \doxylink{group__lib_ga29a7814b0a672229073f6cd702ba2437}{ROL}. 
+
+\begin{DoxyNote}{Note}
+This is 8, so the two rotate macros are only correct for 8-\/bit values. They are not used on the 32-\/bit peripheral registers. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{STD__MACROS_8h_source_l00032}{32}} of file \doxymbox{\hyperlink{STD__MACROS_8h_source}{STD\+\_\+\+MACROS.\+h}}.
+
+\Hypertarget{group__lib_ga62af7cb8bfabd5a9f6ea45582e08843b}\index{LIB@{LIB}!SET\_BIT@{SET\_BIT}}
+\index{SET\_BIT@{SET\_BIT}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{SET\_BIT}{SET\_BIT}}
+{\footnotesize\ttfamily \label{group__lib_ga62af7cb8bfabd5a9f6ea45582e08843b} 
+\+\#define SET\+\_\+\+BIT(\begin{DoxyParamCaption}\item[{}]{reg}{, }\item[{}]{bit}{}\end{DoxyParamCaption})}
+
+
+
+Set bit {\ttfamily bit} of {\ttfamily reg} to 1. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg} & Register or variable to modify in place. \\
+\hline
+{\em bit} & Bit index, 0 = least-\/significant bit. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{STD__MACROS_8h_source_l00039}{39}} of file \doxymbox{\hyperlink{STD__MACROS_8h_source}{STD\+\_\+\+MACROS.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{RCC__program_8c_source_l00509}{RCC\+\_\+enum\+ABPPer\+Sts()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00441}{RCC\+\_\+enum\+AHPPer\+Sts()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00250}{RCC\+\_\+enum\+PLLConfig()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00048}{RCC\+\_\+enum\+Set\+Clk\+Sts()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00442}{TIM\+\_\+v\+Delay\+Ms()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00480}{TIM\+\_\+v\+Delay\+Us()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00536}{TIM\+\_\+v\+Enable\+CCInterrupt()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00510}{TIM\+\_\+v\+Enable\+Interrupt()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00239}{TIM\+\_\+v\+IC\+\_\+\+Init()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00056}{TIM\+\_\+v\+Init()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00141}{TIM\+\_\+v\+PWM\+\_\+\+Init()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00361}{TIM\+\_\+v\+Set\+ICPolarity()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00103}{TIM\+\_\+v\+Start()}}, and \doxymbox{\hyperlink{US__prog_8c_source_l00196}{US\+\_\+v\+Init()}}.
+
+\Hypertarget{group__lib_ga50ef806053a11c75cd2570f58e742de4}\index{LIB@{LIB}!CLR\_BIT@{CLR\_BIT}}
+\index{CLR\_BIT@{CLR\_BIT}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{CLR\_BIT}{CLR\_BIT}}
+{\footnotesize\ttfamily \label{group__lib_ga50ef806053a11c75cd2570f58e742de4} 
+\+\#define CLR\+\_\+\+BIT(\begin{DoxyParamCaption}\item[{}]{reg}{, }\item[{}]{bit}{}\end{DoxyParamCaption})}
+
+
+
+Clear bit {\ttfamily bit} of {\ttfamily reg} to 0. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg} & Register or variable to modify in place. \\
+\hline
+{\em bit} & Bit index, 0 = least-\/significant bit. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{STD__MACROS_8h_source_l00046}{46}} of file \doxymbox{\hyperlink{STD__MACROS_8h_source}{STD\+\_\+\+MACROS.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{RCC__program_8c_source_l00509}{RCC\+\_\+enum\+ABPPer\+Sts()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00441}{RCC\+\_\+enum\+AHPPer\+Sts()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00250}{RCC\+\_\+enum\+PLLConfig()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00048}{RCC\+\_\+enum\+Set\+Clk\+Sts()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00678}{TIM1\+\_\+\+UP\+\_\+\+TIM10\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00601}{TIM2\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00620}{TIM3\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00639}{TIM4\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00658}{TIM5\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00714}{TIM6\+\_\+\+DAC\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00729}{TIM7\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00697}{TIM8\+\_\+\+UP\+\_\+\+TIM13\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00442}{TIM\+\_\+v\+Delay\+Ms()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00480}{TIM\+\_\+v\+Delay\+Us()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00544}{TIM\+\_\+v\+Disable\+CCInterrupt()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00518}{TIM\+\_\+v\+Disable\+Interrupt()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00239}{TIM\+\_\+v\+IC\+\_\+\+Init()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00056}{TIM\+\_\+v\+Init()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00141}{TIM\+\_\+v\+PWM\+\_\+\+Init()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00361}{TIM\+\_\+v\+Set\+ICPolarity()}}, and \doxymbox{\hyperlink{TIM__program_8c_source_l00122}{TIM\+\_\+v\+Stop()}}.
+
+\Hypertarget{group__lib_gad6d89aeec3157e9422d92480d4bd9343}\index{LIB@{LIB}!TOG\_BIT@{TOG\_BIT}}
+\index{TOG\_BIT@{TOG\_BIT}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TOG\_BIT}{TOG\_BIT}}
+{\footnotesize\ttfamily \label{group__lib_gad6d89aeec3157e9422d92480d4bd9343} 
+\+\#define TOG\+\_\+\+BIT(\begin{DoxyParamCaption}\item[{}]{reg}{, }\item[{}]{bit}{}\end{DoxyParamCaption})}
+
+
+
+Toggle bit {\ttfamily bit} of {\ttfamily reg}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg} & Register or variable to modify in place. \\
+\hline
+{\em bit} & Bit index, 0 = least-\/significant bit. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{STD__MACROS_8h_source_l00053}{53}} of file \doxymbox{\hyperlink{STD__MACROS_8h_source}{STD\+\_\+\+MACROS.\+h}}.
+
+\Hypertarget{group__lib_gaaef49ab0462bf902b59383f592140b05}\index{LIB@{LIB}!READ\_BIT@{READ\_BIT}}
+\index{READ\_BIT@{READ\_BIT}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{READ\_BIT}{READ\_BIT}}
+{\footnotesize\ttfamily \label{group__lib_gaaef49ab0462bf902b59383f592140b05} 
+\+\#define READ\+\_\+\+BIT(\begin{DoxyParamCaption}\item[{}]{reg}{, }\item[{}]{bit}{}\end{DoxyParamCaption})}
+
+
+
+Read bit {\ttfamily bit} of {\ttfamily reg}, shifted down to bit 0. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg} & Register or variable to read. \\
+\hline
+{\em bit} & Bit index, 0 = least-\/significant bit. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 or 1. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{STD__MACROS_8h_source_l00061}{61}} of file \doxymbox{\hyperlink{STD__MACROS_8h_source}{STD\+\_\+\+MACROS.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{RCC__program_8c_source_l00048}{RCC\+\_\+enum\+Set\+Clk\+Sts()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00678}{TIM1\+\_\+\+UP\+\_\+\+TIM10\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00601}{TIM2\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00620}{TIM3\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00639}{TIM4\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00658}{TIM5\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00714}{TIM6\+\_\+\+DAC\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00729}{TIM7\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00697}{TIM8\+\_\+\+UP\+\_\+\+TIM13\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00442}{TIM\+\_\+v\+Delay\+Ms()}}, and \doxymbox{\hyperlink{TIM__program_8c_source_l00480}{TIM\+\_\+v\+Delay\+Us()}}.
+
+\Hypertarget{group__lib_ga79413e953065eefe67e15a9f1dba19c1}\index{LIB@{LIB}!READ\_BYTE@{READ\_BYTE}}
+\index{READ\_BYTE@{READ\_BYTE}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{READ\_BYTE}{READ\_BYTE}}
+{\footnotesize\ttfamily \label{group__lib_ga79413e953065eefe67e15a9f1dba19c1} 
+\+\#define READ\+\_\+\+BYTE(\begin{DoxyParamCaption}\item[{}]{reg}{, }\item[{}]{byte}{}\end{DoxyParamCaption})}
+
+
+
+Extract byte {\ttfamily byte} of {\ttfamily reg}, shifted down to bit 0. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg} & Register or variable to read. \\
+\hline
+{\em byte} & Byte index, 0 = least-\/significant byte. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The selected byte, in the range 0..255. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{STD__MACROS_8h_source_l00069}{69}} of file \doxymbox{\hyperlink{STD__MACROS_8h_source}{STD\+\_\+\+MACROS.\+h}}.
+
+\Hypertarget{group__lib_ga3fe9237475a64592ad498aac6bba1650}\index{LIB@{LIB}!IS\_BIT\_SET@{IS\_BIT\_SET}}
+\index{IS\_BIT\_SET@{IS\_BIT\_SET}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{IS\_BIT\_SET}{IS\_BIT\_SET}}
+{\footnotesize\ttfamily \label{group__lib_ga3fe9237475a64592ad498aac6bba1650} 
+\+\#define IS\+\_\+\+BIT\+\_\+\+SET(\begin{DoxyParamCaption}\item[{}]{reg}{, }\item[{}]{bit}{}\end{DoxyParamCaption})}
+
+
+
+Test whether bit {\ttfamily bit} of {\ttfamily reg} is set. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg} & Register or variable to read. \\
+\hline
+{\em bit} & Bit index, 0 = least-\/significant bit. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if the bit is set, 0 otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{STD__MACROS_8h_source_l00077}{77}} of file \doxymbox{\hyperlink{STD__MACROS_8h_source}{STD\+\_\+\+MACROS.\+h}}.
+
+\Hypertarget{group__lib_ga3d70443f3f3b48c71f0184a7c2633e39}\index{LIB@{LIB}!IS\_BIT\_CLR@{IS\_BIT\_CLR}}
+\index{IS\_BIT\_CLR@{IS\_BIT\_CLR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{IS\_BIT\_CLR}{IS\_BIT\_CLR}}
+{\footnotesize\ttfamily \label{group__lib_ga3d70443f3f3b48c71f0184a7c2633e39} 
+\+\#define IS\+\_\+\+BIT\+\_\+\+CLR(\begin{DoxyParamCaption}\item[{}]{reg}{, }\item[{}]{bit}{}\end{DoxyParamCaption})}
+
+
+
+Test whether bit {\ttfamily bit} of {\ttfamily reg} is clear. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg} & Register or variable to read. \\
+\hline
+{\em bit} & Bit index, 0 = least-\/significant bit. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if the bit is clear, 0 otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{STD__MACROS_8h_source_l00085}{85}} of file \doxymbox{\hyperlink{STD__MACROS_8h_source}{STD\+\_\+\+MACROS.\+h}}.
+
+\Hypertarget{group__lib_gacdd57f8617d552ad57c697f8e46190a4}\index{LIB@{LIB}!ROR@{ROR}}
+\index{ROR@{ROR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{ROR}{ROR}}
+{\footnotesize\ttfamily \label{group__lib_gacdd57f8617d552ad57c697f8e46190a4} 
+\+\#define ROR(\begin{DoxyParamCaption}\item[{}]{reg}{, }\item[{}]{num}{}\end{DoxyParamCaption})}
+
+
+
+Rotate {\ttfamily reg} right by {\ttfamily num} bits, in place. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg} & Variable to rotate in place. \\
+\hline
+{\em num} & Number of bit positions to rotate by, 1..7. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Assumes an 8-\/bit value — see \doxylink{group__lib_gabe2f7b6344bb4d51dfea9c9f58609427}{REGISTER\+\_\+\+SIZE}. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{STD__MACROS_8h_source_l00093}{93}} of file \doxymbox{\hyperlink{STD__MACROS_8h_source}{STD\+\_\+\+MACROS.\+h}}.
+
+\Hypertarget{group__lib_ga29a7814b0a672229073f6cd702ba2437}\index{LIB@{LIB}!ROL@{ROL}}
+\index{ROL@{ROL}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{ROL}{ROL}}
+{\footnotesize\ttfamily \label{group__lib_ga29a7814b0a672229073f6cd702ba2437} 
+\+\#define ROL(\begin{DoxyParamCaption}\item[{}]{reg}{, }\item[{}]{num}{}\end{DoxyParamCaption})}
+
+
+
+Rotate {\ttfamily reg} left by {\ttfamily num} bits, in place. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg} & Variable to rotate in place. \\
+\hline
+{\em num} & Number of bit positions to rotate by, 1..7. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Assumes an 8-\/bit value — see \doxylink{group__lib_gabe2f7b6344bb4d51dfea9c9f58609427}{REGISTER\+\_\+\+SIZE}. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{STD__MACROS_8h_source_l00101}{101}} of file \doxymbox{\hyperlink{STD__MACROS_8h_source}{STD\+\_\+\+MACROS.\+h}}.
+
+\Hypertarget{group__lib_gaf6863e7094aca292453684fa2af16686}\index{LIB@{LIB}!FLASH\_BASEADDR@{FLASH\_BASEADDR}}
+\index{FLASH\_BASEADDR@{FLASH\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{FLASH\_BASEADDR}{FLASH\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_gaf6863e7094aca292453684fa2af16686} 
+\+\#define FLASH\+\_\+\+BASEADDR}
+
+
+
+Start of on-\/chip Flash (512 KB), where the vector table and code live. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00043}{43}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_gacce5bcdd78719c9f4a53cfc4ca0f6f42}\index{LIB@{LIB}!SRAM\_BASEADDR@{SRAM\_BASEADDR}}
+\index{SRAM\_BASEADDR@{SRAM\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{SRAM\_BASEADDR}{SRAM\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_gacce5bcdd78719c9f4a53cfc4ca0f6f42} 
+\+\#define SRAM\+\_\+\+BASEADDR}
+
+
+
+Start of SRAM1 (128 KB):\+ the stack, the heap and all Free\+RTOS objects. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00044}{44}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga548ca9ecc4b62f701800110d155a05dc}\index{LIB@{LIB}!ROM\_BASEADDR@{ROM\_BASEADDR}}
+\index{ROM\_BASEADDR@{ROM\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{ROM\_BASEADDR}{ROM\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_ga548ca9ecc4b62f701800110d155a05dc} 
+\+\#define ROM\+\_\+\+BASEADDR}
+
+
+
+Start of system memory, the factory ROM bootloader. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00045}{45}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga01d5d6d14e5ddc3602597f71315ef112}\index{LIB@{LIB}!NVIC\_BASEADDR@{NVIC\_BASEADDR}}
+\index{NVIC\_BASEADDR@{NVIC\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{NVIC\_BASEADDR}{NVIC\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_ga01d5d6d14e5ddc3602597f71315ef112} 
+\+\#define NVIC\+\_\+\+BASEADDR}
+
+
+
+Nested vectored interrupt controller. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00052}{52}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_gafd26e1e406073dbe90566bacb7f55cd9}\index{LIB@{LIB}!SCB\_BASEADDR@{SCB\_BASEADDR}}
+\index{SCB\_BASEADDR@{SCB\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{SCB\_BASEADDR}{SCB\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_gafd26e1e406073dbe90566bacb7f55cd9} 
+\+\#define SCB\+\_\+\+BASEADDR}
+
+
+
+System control block. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00053}{53}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga3afdbef526b79ce12092b3d70f232328}\index{LIB@{LIB}!SYSTIC\_BASEADDR@{SYSTIC\_BASEADDR}}
+\index{SYSTIC\_BASEADDR@{SYSTIC\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{SYSTIC\_BASEADDR}{SYSTIC\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_ga3afdbef526b79ce12092b3d70f232328} 
+\+\#define SYSTIC\+\_\+\+BASEADDR}
+
+
+
+Sys\+Tick 24-\/bit system timer. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00054}{54}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga3e615727451fa1abc89e436a7158d4aa}\index{LIB@{LIB}!GPIOA\_BASEADDR@{GPIOA\_BASEADDR}}
+\index{GPIOA\_BASEADDR@{GPIOA\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{GPIOA\_BASEADDR}{GPIOA\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_ga3e615727451fa1abc89e436a7158d4aa} 
+\+\#define GPIOA\+\_\+\+BASEADDR}
+
+
+
+GPIO port A. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00061}{61}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga583cafe206b45c6e3507b0493b96bdf0}\index{LIB@{LIB}!GPIOB\_BASEADDR@{GPIOB\_BASEADDR}}
+\index{GPIOB\_BASEADDR@{GPIOB\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{GPIOB\_BASEADDR}{GPIOB\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_ga583cafe206b45c6e3507b0493b96bdf0} 
+\+\#define GPIOB\+\_\+\+BASEADDR}
+
+
+
+GPIO port B. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00062}{62}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga05e89040a5ad3c3e5f5bbd62b434512b}\index{LIB@{LIB}!GPIOC\_BASEADDR@{GPIOC\_BASEADDR}}
+\index{GPIOC\_BASEADDR@{GPIOC\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{GPIOC\_BASEADDR}{GPIOC\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_ga05e89040a5ad3c3e5f5bbd62b434512b} 
+\+\#define GPIOC\+\_\+\+BASEADDR}
+
+
+
+GPIO port C. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00063}{63}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga807336d6c75feb8d0e943d618b5eaf26}\index{LIB@{LIB}!GPIOD\_BASEADDR@{GPIOD\_BASEADDR}}
+\index{GPIOD\_BASEADDR@{GPIOD\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{GPIOD\_BASEADDR}{GPIOD\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_ga807336d6c75feb8d0e943d618b5eaf26} 
+\+\#define GPIOD\+\_\+\+BASEADDR}
+
+
+
+GPIO port D. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00064}{64}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_gac248e8d8a7113113481c2abb31d7660a}\index{LIB@{LIB}!GPIOE\_BASEADDR@{GPIOE\_BASEADDR}}
+\index{GPIOE\_BASEADDR@{GPIOE\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{GPIOE\_BASEADDR}{GPIOE\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_gac248e8d8a7113113481c2abb31d7660a} 
+\+\#define GPIOE\+\_\+\+BASEADDR}
+
+
+
+GPIO port E. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00065}{65}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga5f0323ec1e9720a76beebf3081bad9dc}\index{LIB@{LIB}!GPIOF\_BASEADDR@{GPIOF\_BASEADDR}}
+\index{GPIOF\_BASEADDR@{GPIOF\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{GPIOF\_BASEADDR}{GPIOF\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_ga5f0323ec1e9720a76beebf3081bad9dc} 
+\+\#define GPIOF\+\_\+\+BASEADDR}
+
+
+
+GPIO port F. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00066}{66}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga90f006630c69a7540d8b0b1c0073f3d2}\index{LIB@{LIB}!GPIOG\_BASEADDR@{GPIOG\_BASEADDR}}
+\index{GPIOG\_BASEADDR@{GPIOG\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{GPIOG\_BASEADDR}{GPIOG\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_ga90f006630c69a7540d8b0b1c0073f3d2} 
+\+\#define GPIOG\+\_\+\+BASEADDR}
+
+
+
+GPIO port G. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00067}{67}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga63f9598aea50d8c995a9037578bb0907}\index{LIB@{LIB}!GPIOH\_BASEADDR@{GPIOH\_BASEADDR}}
+\index{GPIOH\_BASEADDR@{GPIOH\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{GPIOH\_BASEADDR}{GPIOH\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_ga63f9598aea50d8c995a9037578bb0907} 
+\+\#define GPIOH\+\_\+\+BASEADDR}
+
+
+
+GPIO port H. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00068}{68}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga89610f202a9f78bcc85f76c5ba52d009}\index{LIB@{LIB}!RCC\_BASEADDR@{RCC\_BASEADDR}}
+\index{RCC\_BASEADDR@{RCC\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{RCC\_BASEADDR}{RCC\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_ga89610f202a9f78bcc85f76c5ba52d009} 
+\+\#define RCC\+\_\+\+BASEADDR}
+
+
+
+Reset and clock control. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00070}{70}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga489420976747e7bcf241e2a9bb6cd138}\index{LIB@{LIB}!DMA1\_BASEADDR@{DMA1\_BASEADDR}}
+\index{DMA1\_BASEADDR@{DMA1\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{DMA1\_BASEADDR}{DMA1\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_ga489420976747e7bcf241e2a9bb6cd138} 
+\+\#define DMA1\+\_\+\+BASEADDR}
+
+
+
+DMA controller 1 (declared for completeness; the firmware does not use DMA). 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00072}{72}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_gac3883cd723aa62055a055104bb3f6890}\index{LIB@{LIB}!DMA2\_BASEADDR@{DMA2\_BASEADDR}}
+\index{DMA2\_BASEADDR@{DMA2\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{DMA2\_BASEADDR}{DMA2\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_gac3883cd723aa62055a055104bb3f6890} 
+\+\#define DMA2\+\_\+\+BASEADDR}
+
+
+
+DMA controller 2 (declared for completeness; the firmware does not use DMA). 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00073}{73}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga9e2d543dd90e725020d1f4b2ae3a0cdc}\index{LIB@{LIB}!USART2\_BASEADDR@{USART2\_BASEADDR}}
+\index{USART2\_BASEADDR@{USART2\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{USART2\_BASEADDR}{USART2\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_ga9e2d543dd90e725020d1f4b2ae3a0cdc} 
+\+\#define USART2\+\_\+\+BASEADDR}
+
+
+
+USART2 — the Raspberry Pi telemetry link. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00080}{80}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga44b4b63dcc1dedbd81fc2679c1d6c357}\index{LIB@{LIB}!USART3\_BASEADDR@{USART3\_BASEADDR}}
+\index{USART3\_BASEADDR@{USART3\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{USART3\_BASEADDR}{USART3\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_ga44b4b63dcc1dedbd81fc2679c1d6c357} 
+\+\#define USART3\+\_\+\+BASEADDR}
+
+
+
+USART3. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00081}{81}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga98f7a7a89ed0a98037caa7bd82d027e7}\index{LIB@{LIB}!USART4\_BASEADDR@{USART4\_BASEADDR}}
+\index{USART4\_BASEADDR@{USART4\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{USART4\_BASEADDR}{USART4\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_ga98f7a7a89ed0a98037caa7bd82d027e7} 
+\+\#define USART4\+\_\+\+BASEADDR}
+
+
+
+UART4. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00082}{82}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga0fe016bdc6241abe115bb3a5b6f01c29}\index{LIB@{LIB}!USART5\_BASEADDR@{USART5\_BASEADDR}}
+\index{USART5\_BASEADDR@{USART5\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{USART5\_BASEADDR}{USART5\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_ga0fe016bdc6241abe115bb3a5b6f01c29} 
+\+\#define USART5\+\_\+\+BASEADDR}
+
+
+
+UART5. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00083}{83}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga52fc929735639d70b44dea7885bb01ff}\index{LIB@{LIB}!SPI2\_BASEADDR@{SPI2\_BASEADDR}}
+\index{SPI2\_BASEADDR@{SPI2\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{SPI2\_BASEADDR}{SPI2\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_ga52fc929735639d70b44dea7885bb01ff} 
+\+\#define SPI2\+\_\+\+BASEADDR}
+
+
+
+SPI2. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00084}{84}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_gada16cf23d6a91088c447de485b616ed8}\index{LIB@{LIB}!SPI3\_BASEADDR@{SPI3\_BASEADDR}}
+\index{SPI3\_BASEADDR@{SPI3\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{SPI3\_BASEADDR}{SPI3\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_gada16cf23d6a91088c447de485b616ed8} 
+\+\#define SPI3\+\_\+\+BASEADDR}
+
+
+
+SPI3. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00085}{85}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_gad389e516cff9dd84a9b04685b391b8fe}\index{LIB@{LIB}!SYSCFG\_BASEADDR@{SYSCFG\_BASEADDR}}
+\index{SYSCFG\_BASEADDR@{SYSCFG\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{SYSCFG\_BASEADDR}{SYSCFG\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_gad389e516cff9dd84a9b04685b391b8fe} 
+\+\#define SYSCFG\+\_\+\+BASEADDR}
+
+
+
+System configuration controller (EXTI port routing). 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00092}{92}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga9ce143f4fc043361dc774d877c672f0d}\index{LIB@{LIB}!EXTI\_BASEADDR@{EXTI\_BASEADDR}}
+\index{EXTI\_BASEADDR@{EXTI\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{EXTI\_BASEADDR}{EXTI\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_ga9ce143f4fc043361dc774d877c672f0d} 
+\+\#define EXTI\+\_\+\+BASEADDR}
+
+
+
+External interrupt/\+event controller. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00093}{93}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga4ccf21b5f54c80b031bff13956af2018}\index{LIB@{LIB}!USART1\_BASEADDR@{USART1\_BASEADDR}}
+\index{USART1\_BASEADDR@{USART1\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{USART1\_BASEADDR}{USART1\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_ga4ccf21b5f54c80b031bff13956af2018} 
+\+\#define USART1\+\_\+\+BASEADDR}
+
+
+
+USART1 — the ESP32 V2V radio link. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00094}{94}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga849c1342a2b7b4126c4a3b638c903c29}\index{LIB@{LIB}!USART6\_BASEADDR@{USART6\_BASEADDR}}
+\index{USART6\_BASEADDR@{USART6\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{USART6\_BASEADDR}{USART6\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_ga849c1342a2b7b4126c4a3b638c903c29} 
+\+\#define USART6\+\_\+\+BASEADDR}
+
+
+
+USART6. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00095}{95}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga64992f19fed3a459eb91f519c06b3427}\index{LIB@{LIB}!SPI1\_BASEADDR@{SPI1\_BASEADDR}}
+\index{SPI1\_BASEADDR@{SPI1\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{SPI1\_BASEADDR}{SPI1\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_ga64992f19fed3a459eb91f519c06b3427} 
+\+\#define SPI1\+\_\+\+BASEADDR}
+
+
+
+SPI1 — the MPU9250 IMU link. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00096}{96}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga8370319e63d6c3a62ce4f0539ebe2b68}\index{LIB@{LIB}!SPI4\_BASEADDR@{SPI4\_BASEADDR}}
+\index{SPI4\_BASEADDR@{SPI4\_BASEADDR}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{SPI4\_BASEADDR}{SPI4\_BASEADDR}}
+{\footnotesize\ttfamily \label{group__lib_ga8370319e63d6c3a62ce4f0539ebe2b68} 
+\+\#define SPI4\+\_\+\+BASEADDR}
+
+
+
+SPI4. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00097}{97}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_gaf8aa324ca5011b8173ab16585ed7324a}\index{LIB@{LIB}!TIM1\_BASE@{TIM1\_BASE}}
+\index{TIM1\_BASE@{TIM1\_BASE}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM1\_BASE}{TIM1\_BASE}}
+{\footnotesize\ttfamily \label{group__lib_gaf8aa324ca5011b8173ab16585ed7324a} 
+\+\#define TIM1\+\_\+\+BASE}
+
+
+
+TIM1:\+ advanced-\/control timer. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00104}{104}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga00d0fe6ad532ab32f0f81cafca8d3aa5}\index{LIB@{LIB}!TIM2\_BASE@{TIM2\_BASE}}
+\index{TIM2\_BASE@{TIM2\_BASE}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM2\_BASE}{TIM2\_BASE}}
+{\footnotesize\ttfamily \label{group__lib_ga00d0fe6ad532ab32f0f81cafca8d3aa5} 
+\+\#define TIM2\+\_\+\+BASE}
+
+
+
+TIM2:\+ 32-\/bit general-\/purpose timer. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00105}{105}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_gaf0c34a518f87e1e505cd2332e989564a}\index{LIB@{LIB}!TIM3\_BASE@{TIM3\_BASE}}
+\index{TIM3\_BASE@{TIM3\_BASE}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM3\_BASE}{TIM3\_BASE}}
+{\footnotesize\ttfamily \label{group__lib_gaf0c34a518f87e1e505cd2332e989564a} 
+\+\#define TIM3\+\_\+\+BASE}
+
+
+
+TIM3:\+ general-\/purpose timer. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00106}{106}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga56e2d44b0002f316527b8913866a370d}\index{LIB@{LIB}!TIM4\_BASE@{TIM4\_BASE}}
+\index{TIM4\_BASE@{TIM4\_BASE}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM4\_BASE}{TIM4\_BASE}}
+{\footnotesize\ttfamily \label{group__lib_ga56e2d44b0002f316527b8913866a370d} 
+\+\#define TIM4\+\_\+\+BASE}
+
+
+
+TIM4:\+ general-\/purpose timer. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00107}{107}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga3e1671477190d065ba7c944558336d7e}\index{LIB@{LIB}!TIM5\_BASE@{TIM5\_BASE}}
+\index{TIM5\_BASE@{TIM5\_BASE}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM5\_BASE}{TIM5\_BASE}}
+{\footnotesize\ttfamily \label{group__lib_ga3e1671477190d065ba7c944558336d7e} 
+\+\#define TIM5\+\_\+\+BASE}
+
+
+
+TIM5:\+ 32-\/bit general-\/purpose timer. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00108}{108}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga8268ec947929f192559f28c6bf7d1eac}\index{LIB@{LIB}!TIM6\_BASE@{TIM6\_BASE}}
+\index{TIM6\_BASE@{TIM6\_BASE}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM6\_BASE}{TIM6\_BASE}}
+{\footnotesize\ttfamily \label{group__lib_ga8268ec947929f192559f28c6bf7d1eac} 
+\+\#define TIM6\+\_\+\+BASE}
+
+
+
+TIM6:\+ basic timer. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00109}{109}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga0ebf54364c6a2be6eb19ded6b18b6387}\index{LIB@{LIB}!TIM7\_BASE@{TIM7\_BASE}}
+\index{TIM7\_BASE@{TIM7\_BASE}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM7\_BASE}{TIM7\_BASE}}
+{\footnotesize\ttfamily \label{group__lib_ga0ebf54364c6a2be6eb19ded6b18b6387} 
+\+\#define TIM7\+\_\+\+BASE}
+
+
+
+TIM7:\+ basic timer. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00110}{110}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga5b72f698b7a048a6f9fcfe2efe5bc1db}\index{LIB@{LIB}!TIM8\_BASE@{TIM8\_BASE}}
+\index{TIM8\_BASE@{TIM8\_BASE}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM8\_BASE}{TIM8\_BASE}}
+{\footnotesize\ttfamily \label{group__lib_ga5b72f698b7a048a6f9fcfe2efe5bc1db} 
+\+\#define TIM8\+\_\+\+BASE}
+
+
+
+TIM8:\+ advanced-\/control timer. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00111}{111}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga92ae902be7902560939223dd765ece08}\index{LIB@{LIB}!TIM9\_BASE@{TIM9\_BASE}}
+\index{TIM9\_BASE@{TIM9\_BASE}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM9\_BASE}{TIM9\_BASE}}
+{\footnotesize\ttfamily \label{group__lib_ga92ae902be7902560939223dd765ece08} 
+\+\#define TIM9\+\_\+\+BASE}
+
+
+
+TIM9:\+ general-\/purpose timer. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00112}{112}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga3eff32f3801db31fb4b61d5618cad54a}\index{LIB@{LIB}!TIM10\_BASE@{TIM10\_BASE}}
+\index{TIM10\_BASE@{TIM10\_BASE}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM10\_BASE}{TIM10\_BASE}}
+{\footnotesize\ttfamily \label{group__lib_ga3eff32f3801db31fb4b61d5618cad54a} 
+\+\#define TIM10\+\_\+\+BASE}
+
+
+
+TIM10:\+ general-\/purpose timer. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00113}{113}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga3a4a06bb84c703084f0509e105ffaf1d}\index{LIB@{LIB}!TIM11\_BASE@{TIM11\_BASE}}
+\index{TIM11\_BASE@{TIM11\_BASE}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM11\_BASE}{TIM11\_BASE}}
+{\footnotesize\ttfamily \label{group__lib_ga3a4a06bb84c703084f0509e105ffaf1d} 
+\+\#define TIM11\+\_\+\+BASE}
+
+
+
+TIM11:\+ general-\/purpose timer. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00114}{114}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga33dea32fadbaecea161c2ef7927992fd}\index{LIB@{LIB}!TIM12\_BASE@{TIM12\_BASE}}
+\index{TIM12\_BASE@{TIM12\_BASE}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM12\_BASE}{TIM12\_BASE}}
+{\footnotesize\ttfamily \label{group__lib_ga33dea32fadbaecea161c2ef7927992fd} 
+\+\#define TIM12\+\_\+\+BASE}
+
+
+
+TIM12:\+ general-\/purpose timer. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00115}{115}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_gad20f79948e9359125a40bbf6ed063590}\index{LIB@{LIB}!TIM13\_BASE@{TIM13\_BASE}}
+\index{TIM13\_BASE@{TIM13\_BASE}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM13\_BASE}{TIM13\_BASE}}
+{\footnotesize\ttfamily \label{group__lib_gad20f79948e9359125a40bbf6ed063590} 
+\+\#define TIM13\+\_\+\+BASE}
+
+
+
+TIM13:\+ general-\/purpose timer. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00116}{116}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga862855347d6e1d92730dfe17ee8e90b8}\index{LIB@{LIB}!TIM14\_BASE@{TIM14\_BASE}}
+\index{TIM14\_BASE@{TIM14\_BASE}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM14\_BASE}{TIM14\_BASE}}
+{\footnotesize\ttfamily \label{group__lib_ga862855347d6e1d92730dfe17ee8e90b8} 
+\+\#define TIM14\+\_\+\+BASE}
+
+
+
+TIM14:\+ general-\/purpose timer. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00117}{117}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga355cddce57cd0f3773dc66f0486aeb07}\index{LIB@{LIB}!MSYSTIC@{MSYSTIC}}
+\index{MSYSTIC@{MSYSTIC}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MSYSTIC}{MSYSTIC}}
+{\footnotesize\ttfamily \label{group__lib_ga355cddce57cd0f3773dc66f0486aeb07} 
+\+\#define MSYSTIC}
+
+
+
+Typed pointer to the Sys\+Tick peripheral. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00138}{138}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00365}{SYSTIC\+\_\+enum\+Callback()}}, \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00420}{SYSTIC\+\_\+enum\+Callback\+Single\+Shot()}}, \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00281}{SYSTIC\+\_\+enum\+Get\+Elapsed\+Tick\+Single\+Shot()}}, \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00321}{SYSTIC\+\_\+enum\+Remaining\+Tick\+Single\+Shot()}}, \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00133}{SYSTIC\+\_\+v\+Delay\+Ms()}}, \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00207}{SYSTIC\+\_\+v\+Delay\+Us()}}, \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00085}{SYSTIC\+\_\+v\+Disable()}}, \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00097}{SYSTIC\+\_\+v\+Enable()}}, \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00049}{SYSTIC\+\_\+v\+Init()}}, and \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00109}{SYSTIC\+\_\+v\+Wait()}}.
+
+\Hypertarget{group__lib_gaf6850b06a42624be83a68462a7be5e12}\index{LIB@{LIB}!MGPIOA@{MGPIOA}}
+\index{MGPIOA@{MGPIOA}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MGPIOA}{MGPIOA}}
+{\footnotesize\ttfamily \label{group__lib_gaf6850b06a42624be83a68462a7be5e12} 
+\+\#define MGPIOA}
+
+
+
+Typed pointer to GPIO port A. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00159}{159}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_gabe05d406fedc633b59c450f2a33b2daf}\index{LIB@{LIB}!MGPIOB@{MGPIOB}}
+\index{MGPIOB@{MGPIOB}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MGPIOB}{MGPIOB}}
+{\footnotesize\ttfamily \label{group__lib_gabe05d406fedc633b59c450f2a33b2daf} 
+\+\#define MGPIOB}
+
+
+
+Typed pointer to GPIO port B. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00160}{160}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga86afa157c87ffee58eadc07c173acd3d}\index{LIB@{LIB}!MGPIOC@{MGPIOC}}
+\index{MGPIOC@{MGPIOC}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MGPIOC}{MGPIOC}}
+{\footnotesize\ttfamily \label{group__lib_ga86afa157c87ffee58eadc07c173acd3d} 
+\+\#define MGPIOC}
+
+
+
+Typed pointer to GPIO port C. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00161}{161}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_gaa8e1edc7576e162af0842453dcca1f83}\index{LIB@{LIB}!MGPIOD@{MGPIOD}}
+\index{MGPIOD@{MGPIOD}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MGPIOD}{MGPIOD}}
+{\footnotesize\ttfamily \label{group__lib_gaa8e1edc7576e162af0842453dcca1f83} 
+\+\#define MGPIOD}
+
+
+
+Typed pointer to GPIO port D. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00162}{162}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_gac06cc433a06b25055ff908e11cf37d44}\index{LIB@{LIB}!MGPIOE@{MGPIOE}}
+\index{MGPIOE@{MGPIOE}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MGPIOE}{MGPIOE}}
+{\footnotesize\ttfamily \label{group__lib_gac06cc433a06b25055ff908e11cf37d44} 
+\+\#define MGPIOE}
+
+
+
+Typed pointer to GPIO port E. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00163}{163}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga012e799ad11bc8bc642b351d1f38653e}\index{LIB@{LIB}!MGPIOF@{MGPIOF}}
+\index{MGPIOF@{MGPIOF}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MGPIOF}{MGPIOF}}
+{\footnotesize\ttfamily \label{group__lib_ga012e799ad11bc8bc642b351d1f38653e} 
+\+\#define MGPIOF}
+
+
+
+Typed pointer to GPIO port F. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00164}{164}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_gad803338b64ed6061cf02a3690ceccd3e}\index{LIB@{LIB}!MGPIOG@{MGPIOG}}
+\index{MGPIOG@{MGPIOG}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MGPIOG}{MGPIOG}}
+{\footnotesize\ttfamily \label{group__lib_gad803338b64ed6061cf02a3690ceccd3e} 
+\+\#define MGPIOG}
+
+
+
+Typed pointer to GPIO port G. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00165}{165}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga8bd94bebe51f97e4e077768972e16324}\index{LIB@{LIB}!MGPIOH@{MGPIOH}}
+\index{MGPIOH@{MGPIOH}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MGPIOH}{MGPIOH}}
+{\footnotesize\ttfamily \label{group__lib_ga8bd94bebe51f97e4e077768972e16324} 
+\+\#define MGPIOH}
+
+
+
+Typed pointer to GPIO port H. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00166}{166}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga979d8bdf1fee96914aa697664b3cc1ce}\index{LIB@{LIB}!MDMA1@{MDMA1}}
+\index{MDMA1@{MDMA1}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MDMA1}{MDMA1}}
+{\footnotesize\ttfamily \label{group__lib_ga979d8bdf1fee96914aa697664b3cc1ce} 
+\+\#define MDMA1}
+
+
+
+Typed pointer to DMA controller 1. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00195}{195}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga23dba18604da608d963a7d0d2f2e07a8}\index{LIB@{LIB}!MDMA2@{MDMA2}}
+\index{MDMA2@{MDMA2}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MDMA2}{MDMA2}}
+{\footnotesize\ttfamily \label{group__lib_ga23dba18604da608d963a7d0d2f2e07a8} 
+\+\#define MDMA2}
+
+
+
+Typed pointer to DMA controller 2. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00196}{196}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}\index{LIB@{LIB}!MRCC@{MRCC}}
+\index{MRCC@{MRCC}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MRCC}{MRCC}}
+{\footnotesize\ttfamily \label{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc} 
+\+\#define MRCC}
+
+
+
+Typed pointer to the RCC peripheral. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00244}{244}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{RCC__program_8c_source_l00509}{RCC\+\_\+enum\+ABPPer\+Sts()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00315}{RCC\+\_\+enum\+AHBConfig()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00441}{RCC\+\_\+enum\+AHPPer\+Sts()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00357}{RCC\+\_\+enum\+APB1\+Config()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00399}{RCC\+\_\+enum\+APB2\+Config()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00250}{RCC\+\_\+enum\+PLLConfig()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00048}{RCC\+\_\+enum\+Set\+Clk\+Sts()}}, and \doxymbox{\hyperlink{RCC__program_8c_source_l00185}{RCC\+\_\+enum\+Set\+Sys\+Clk()}}.
+
+\Hypertarget{group__lib_gaef26793e8da8ae0f978071e519b95a98}\index{LIB@{LIB}!MSPI1@{MSPI1}}
+\index{MSPI1@{MSPI1}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MSPI1}{MSPI1}}
+{\footnotesize\ttfamily \label{group__lib_gaef26793e8da8ae0f978071e519b95a98} 
+\+\#define MSPI1}
+
+
+
+Typed pointer to SPI1 — the MPU9250 link. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00267}{267}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga3a0b50a712a207cfe1591e042e354b40}\index{LIB@{LIB}!MSPI2@{MSPI2}}
+\index{MSPI2@{MSPI2}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MSPI2}{MSPI2}}
+{\footnotesize\ttfamily \label{group__lib_ga3a0b50a712a207cfe1591e042e354b40} 
+\+\#define MSPI2}
+
+
+
+Typed pointer to SPI2. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00268}{268}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga5176ad296ec37851a317895e592225c8}\index{LIB@{LIB}!MSPI3@{MSPI3}}
+\index{MSPI3@{MSPI3}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MSPI3}{MSPI3}}
+{\footnotesize\ttfamily \label{group__lib_ga5176ad296ec37851a317895e592225c8} 
+\+\#define MSPI3}
+
+
+
+Typed pointer to SPI3. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00269}{269}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_gaba6db3bf8d7ccd3f31795fcff7bd17a1}\index{LIB@{LIB}!MSPI4@{MSPI4}}
+\index{MSPI4@{MSPI4}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MSPI4}{MSPI4}}
+{\footnotesize\ttfamily \label{group__lib_gaba6db3bf8d7ccd3f31795fcff7bd17a1} 
+\+\#define MSPI4}
+
+
+
+Typed pointer to SPI4. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00270}{270}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga5592a87b609cf093eb988459b69071ce}\index{LIB@{LIB}!MNVIC@{MNVIC}}
+\index{MNVIC@{MNVIC}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MNVIC}{MNVIC}}
+{\footnotesize\ttfamily \label{group__lib_ga5592a87b609cf093eb988459b69071ce} 
+\+\#define MNVIC}
+
+
+
+Typed pointer to the NVIC. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00297}{297}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{NVIC__program_8c_source_l00094}{NVIC\+\_\+v\+Clear\+Pending\+Flag()}}, \doxymbox{\hyperlink{NVIC__program_8c_source_l00056}{NVIC\+\_\+v\+Disable\+IRQ()}}, \doxymbox{\hyperlink{NVIC__program_8c_source_l00037}{NVIC\+\_\+v\+Enable\+IRQ()}}, \doxymbox{\hyperlink{NVIC__program_8c_source_l00114}{NVIC\+\_\+v\+Get\+Active\+Flag()}}, \doxymbox{\hyperlink{NVIC__program_8c_source_l00075}{NVIC\+\_\+v\+Set\+Pending\+Flag()}}, and \doxymbox{\hyperlink{NVIC__program_8c_source_l00141}{NVIC\+\_\+v\+Set\+Priority()}}.
+
+\Hypertarget{group__lib_gad64f4ba7787546fc107c2c2993554e91}\index{LIB@{LIB}!MSCB@{MSCB}}
+\index{MSCB@{MSCB}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MSCB}{MSCB}}
+{\footnotesize\ttfamily \label{group__lib_gad64f4ba7787546fc107c2c2993554e91} 
+\+\#define MSCB}
+
+
+
+Typed pointer to the SCB. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00327}{327}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SCB__program_8c_source_l00019}{SCB\+\_\+v\+Set\+Priority\+Grouping()}}.
+
+\Hypertarget{group__lib_ga531c08f5a73855527d044114a066fbb4}\index{LIB@{LIB}!MSYSCFG@{MSYSCFG}}
+\index{MSYSCFG@{MSYSCFG}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MSYSCFG}{MSYSCFG}}
+{\footnotesize\ttfamily \label{group__lib_ga531c08f5a73855527d044114a066fbb4} 
+\+\#define MSYSCFG}
+
+
+
+Typed pointer to the SYSCFG peripheral. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00347}{347}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SYSCFG__program_8c_source_l00038}{SYSCFG\+\_\+v\+Set\+EXTIConfig()}}.
+
+\Hypertarget{group__lib_gade59853bea97901ef8816f8d8623cdf2}\index{LIB@{LIB}!MEXTI@{MEXTI}}
+\index{MEXTI@{MEXTI}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MEXTI}{MEXTI}}
+{\footnotesize\ttfamily \label{group__lib_gade59853bea97901ef8816f8d8623cdf2} 
+\+\#define MEXTI}
+
+
+
+Typed pointer to the EXTI peripheral. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00366}{366}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{EXTI__program_8c_source_l00221}{EXTI\+\_\+u8\+Read\+Pend\+Flag()}}, \doxymbox{\hyperlink{EXTI__program_8c_source_l00209}{EXTI\+\_\+v\+Clear\+Pend\+Flag()}}, \doxymbox{\hyperlink{EXTI__program_8c_source_l00165}{EXTI\+\_\+v\+Disable\+Interrupt()}}, \doxymbox{\hyperlink{EXTI__program_8c_source_l00097}{EXTI\+\_\+v\+Enable\+Interrupt()}}, \doxymbox{\hyperlink{EXTI__program_8c_source_l00041}{EXTI\+\_\+v\+Line\+Init()}}, \doxymbox{\hyperlink{EXTI__program_8c_source_l00122}{EXTI\+\_\+v\+Set\+Trig\+Src()}}, and \doxymbox{\hyperlink{EXTI__program_8c_source_l00188}{EXTI\+\_\+v\+Sw\+Int\+Event()}}.
+
+\Hypertarget{group__lib_gaedcc55b2b529aaf2b86136929704f0ea}\index{LIB@{LIB}!MUSART1@{MUSART1}}
+\index{MUSART1@{MUSART1}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MUSART1}{MUSART1}}
+{\footnotesize\ttfamily \label{group__lib_gaedcc55b2b529aaf2b86136929704f0ea} 
+\+\#define MUSART1}
+
+
+
+Typed pointer to USART1 — the ESP32 V2V link. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00388}{388}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga018e2195978a9cc353c790033d1c7a0a}\index{LIB@{LIB}!MUSART2@{MUSART2}}
+\index{MUSART2@{MUSART2}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MUSART2}{MUSART2}}
+{\footnotesize\ttfamily \label{group__lib_ga018e2195978a9cc353c790033d1c7a0a} 
+\+\#define MUSART2}
+
+
+
+Typed pointer to USART2 — the Raspberry Pi telemetry link. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00389}{389}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_gabe2a71d95cee15a1aa29fd73426458dc}\index{LIB@{LIB}!MUSART3@{MUSART3}}
+\index{MUSART3@{MUSART3}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MUSART3}{MUSART3}}
+{\footnotesize\ttfamily \label{group__lib_gabe2a71d95cee15a1aa29fd73426458dc} 
+\+\#define MUSART3}
+
+
+
+Typed pointer to USART3. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00390}{390}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_gaaef3695b9d2a750bc616b20ba7d93dc9}\index{LIB@{LIB}!MUSART4@{MUSART4}}
+\index{MUSART4@{MUSART4}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MUSART4}{MUSART4}}
+{\footnotesize\ttfamily \label{group__lib_gaaef3695b9d2a750bc616b20ba7d93dc9} 
+\+\#define MUSART4}
+
+
+
+Typed pointer to UART4. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00391}{391}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_gae3fa87ee6d44f18319fad998888b6cbb}\index{LIB@{LIB}!MUSART5@{MUSART5}}
+\index{MUSART5@{MUSART5}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MUSART5}{MUSART5}}
+{\footnotesize\ttfamily \label{group__lib_gae3fa87ee6d44f18319fad998888b6cbb} 
+\+\#define MUSART5}
+
+
+
+Typed pointer to UART5. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00392}{392}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga258613d2640e98dc10dd39944e6d87a5}\index{LIB@{LIB}!MUSART6@{MUSART6}}
+\index{MUSART6@{MUSART6}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{MUSART6}{MUSART6}}
+{\footnotesize\ttfamily \label{group__lib_ga258613d2640e98dc10dd39944e6d87a5} 
+\+\#define MUSART6}
+
+
+
+Typed pointer to USART6. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00393}{393}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga2e87451fea8dc9380056d3cfc5ed81fb}\index{LIB@{LIB}!TIM1@{TIM1}}
+\index{TIM1@{TIM1}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM1}{TIM1}}
+{\footnotesize\ttfamily \label{group__lib_ga2e87451fea8dc9380056d3cfc5ed81fb} 
+\+\#define TIM1}
+
+
+
+Typed pointer to TIM1. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00431}{431}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{TIM__program_8c_source_l00678}{TIM1\+\_\+\+UP\+\_\+\+TIM10\+\_\+\+IRQHandler()}}.
+
+\Hypertarget{group__lib_ga3cfac9f2e43673f790f8668d48b4b92b}\index{LIB@{LIB}!TIM2@{TIM2}}
+\index{TIM2@{TIM2}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM2}{TIM2}}
+{\footnotesize\ttfamily \label{group__lib_ga3cfac9f2e43673f790f8668d48b4b92b} 
+\+\#define TIM2}
+
+
+
+Typed pointer to TIM2. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00432}{432}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{TIM__program_8c_source_l00601}{TIM2\+\_\+\+IRQHandler()}}.
+
+\Hypertarget{group__lib_ga61ee4c391385607d7af432b63905fcc9}\index{LIB@{LIB}!TIM3@{TIM3}}
+\index{TIM3@{TIM3}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM3}{TIM3}}
+{\footnotesize\ttfamily \label{group__lib_ga61ee4c391385607d7af432b63905fcc9} 
+\+\#define TIM3}
+
+
+
+Typed pointer to TIM3. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00433}{433}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{TIM__program_8c_source_l00620}{TIM3\+\_\+\+IRQHandler()}}.
+
+\Hypertarget{group__lib_ga91a09bad8bdc7a1cb3d85cf49c94c8ec}\index{LIB@{LIB}!TIM4@{TIM4}}
+\index{TIM4@{TIM4}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM4}{TIM4}}
+{\footnotesize\ttfamily \label{group__lib_ga91a09bad8bdc7a1cb3d85cf49c94c8ec} 
+\+\#define TIM4}
+
+
+
+Typed pointer to TIM4. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00434}{434}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{TIM__program_8c_source_l00639}{TIM4\+\_\+\+IRQHandler()}}.
+
+\Hypertarget{group__lib_ga5125ff6a23a2ed66e2e19bd196128c14}\index{LIB@{LIB}!TIM5@{TIM5}}
+\index{TIM5@{TIM5}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM5}{TIM5}}
+{\footnotesize\ttfamily \label{group__lib_ga5125ff6a23a2ed66e2e19bd196128c14} 
+\+\#define TIM5}
+
+
+
+Typed pointer to TIM5. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00435}{435}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{TIM__program_8c_source_l00658}{TIM5\+\_\+\+IRQHandler()}}.
+
+\Hypertarget{group__lib_gac7b4ed55f9201b498b38c962cca97314}\index{LIB@{LIB}!TIM6@{TIM6}}
+\index{TIM6@{TIM6}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM6}{TIM6}}
+{\footnotesize\ttfamily \label{group__lib_gac7b4ed55f9201b498b38c962cca97314} 
+\+\#define TIM6}
+
+
+
+Typed pointer to TIM6. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00436}{436}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{TIM__program_8c_source_l00714}{TIM6\+\_\+\+DAC\+\_\+\+IRQHandler()}}.
+
+\Hypertarget{group__lib_ga49267c49946fd61db6af8b49bcf16394}\index{LIB@{LIB}!TIM7@{TIM7}}
+\index{TIM7@{TIM7}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM7}{TIM7}}
+{\footnotesize\ttfamily \label{group__lib_ga49267c49946fd61db6af8b49bcf16394} 
+\+\#define TIM7}
+
+
+
+Typed pointer to TIM7. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00437}{437}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{TIM__program_8c_source_l00729}{TIM7\+\_\+\+IRQHandler()}}.
+
+\Hypertarget{group__lib_ga9a3660400b17735e91331f256095810e}\index{LIB@{LIB}!TIM8@{TIM8}}
+\index{TIM8@{TIM8}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM8}{TIM8}}
+{\footnotesize\ttfamily \label{group__lib_ga9a3660400b17735e91331f256095810e} 
+\+\#define TIM8}
+
+
+
+Typed pointer to TIM8. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00438}{438}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{TIM__program_8c_source_l00697}{TIM8\+\_\+\+UP\+\_\+\+TIM13\+\_\+\+IRQHandler()}}.
+
+\Hypertarget{group__lib_gaf52b4b4c36110a0addfa98059f54a50e}\index{LIB@{LIB}!TIM9@{TIM9}}
+\index{TIM9@{TIM9}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM9}{TIM9}}
+{\footnotesize\ttfamily \label{group__lib_gaf52b4b4c36110a0addfa98059f54a50e} 
+\+\#define TIM9}
+
+
+
+Typed pointer to TIM9. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00439}{439}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga46b2ad3f5f506f0f8df0d2ec3e767267}\index{LIB@{LIB}!TIM10@{TIM10}}
+\index{TIM10@{TIM10}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM10}{TIM10}}
+{\footnotesize\ttfamily \label{group__lib_ga46b2ad3f5f506f0f8df0d2ec3e767267} 
+\+\#define TIM10}
+
+
+
+Typed pointer to TIM10. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00440}{440}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_gacfd11ef966c7165f57e2cebe0abc71ad}\index{LIB@{LIB}!TIM11@{TIM11}}
+\index{TIM11@{TIM11}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM11}{TIM11}}
+{\footnotesize\ttfamily \label{group__lib_gacfd11ef966c7165f57e2cebe0abc71ad} 
+\+\#define TIM11}
+
+
+
+Typed pointer to TIM11. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00441}{441}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga2397f8a0f8e7aa10cf8e8c049e431e53}\index{LIB@{LIB}!TIM12@{TIM12}}
+\index{TIM12@{TIM12}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM12}{TIM12}}
+{\footnotesize\ttfamily \label{group__lib_ga2397f8a0f8e7aa10cf8e8c049e431e53} 
+\+\#define TIM12}
+
+
+
+Typed pointer to TIM12. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00442}{442}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga5a959a833074d59bf6cc7fb437c65b18}\index{LIB@{LIB}!TIM13@{TIM13}}
+\index{TIM13@{TIM13}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM13}{TIM13}}
+{\footnotesize\ttfamily \label{group__lib_ga5a959a833074d59bf6cc7fb437c65b18} 
+\+\#define TIM13}
+
+
+
+Typed pointer to TIM13. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00443}{443}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{group__lib_ga2dd30f46fad69dd73e1d8941a43daffe}\index{LIB@{LIB}!TIM14@{TIM14}}
+\index{TIM14@{TIM14}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{TIM14}{TIM14}}
+{\footnotesize\ttfamily \label{group__lib_ga2dd30f46fad69dd73e1d8941a43daffe} 
+\+\#define TIM14}
+
+
+
+Typed pointer to TIM14. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00444}{444}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+
+
+\label{doc-enum-members}
+\Hypertarget{group__lib_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{group__lib_ga74f58890b599c641e4382ff49c4a3e81}\index{LIB@{LIB}!ErrorState\_t@{ErrorState\_t}}
+\index{ErrorState\_t@{ErrorState\_t}!LIB@{LIB}}
+\doxysubsubsection{\texorpdfstring{ErrorState\_t}{ErrorState\_t}}
+{\footnotesize\ttfamily \label{group__lib_ga74f58890b599c641e4382ff49c4a3e81} 
+enum \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}}}
+
+
+
+Return code shared by every fallible driver call in the firmware. 
+
+\begin{DoxyEnumFields}[3]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OK@{OK}!LIB@{LIB}}
+\index{LIB@{LIB}!OK@{OK}}
+}\Hypertarget{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}\label{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59} 
+OK&0&The call completed successfully. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NOK@{NOK}!LIB@{LIB}}
+\index{LIB@{LIB}!NOK@{NOK}}
+}\Hypertarget{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}\label{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6} 
+NOK&&The call failed, or an argument was out of range. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NULL\_POINTER@{NULL\_POINTER}!LIB@{LIB}}
+\index{LIB@{LIB}!NULL\_POINTER@{NULL\_POINTER}}
+}\Hypertarget{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}\label{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd} 
+NULL\+\_\+\+POINTER&&A required pointer argument was NULL. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BUSY\_STATE@{BUSY\_STATE}!LIB@{LIB}}
+\index{LIB@{LIB}!BUSY\_STATE@{BUSY\_STATE}}
+}\Hypertarget{group__lib_gga74f58890b599c641e4382ff49c4a3e81affe74893171dd0f0fe9331c5b5a74c66}\label{group__lib_gga74f58890b599c641e4382ff49c4a3e81affe74893171dd0f0fe9331c5b5a74c66} 
+BUSY\+\_\+\+STATE&&The peripheral was still busy with a previous transfer. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIMEOUT\_STATE@{TIMEOUT\_STATE}!LIB@{LIB}}
+\index{LIB@{LIB}!TIMEOUT\_STATE@{TIMEOUT\_STATE}}
+}\Hypertarget{group__lib_gga74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}\label{group__lib_gga74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3} 
+TIMEOUT\+\_\+\+STATE&&The peripheral did not respond within the allowed time. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{ErrTypes_8h_source_l00040}{40}} of file \doxymbox{\hyperlink{ErrTypes_8h_source}{Err\+Types.\+h}}.
+

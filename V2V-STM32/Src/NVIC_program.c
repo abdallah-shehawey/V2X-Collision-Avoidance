@@ -29,7 +29,7 @@
  * Author: Abdallah Abdelmoemen Shehawey
  */
 
-/**
+/*
  * @brief Enable an IRQ number in the NVIC.
  * @param Copy_u8IRQNumber IRQ number to enable.
  * @return ErrorState_t Returns OK if successful, NOK if IRQ number is invalid.
@@ -48,7 +48,7 @@ ErrorState_t NVIC_vEnableIRQ(uint8_t Copy_u8IRQNumber)
   return local_u8ErrorState;
 }
 
-/**
+/*
  * @brief Disable an IRQ number in the NVIC.
  * @param Copy_u8IRQNumber IRQ number to disable.
  * @return ErrorState_t Returns OK if successful, NOK if IRQ number is invalid.
@@ -67,7 +67,7 @@ ErrorState_t NVIC_vDisableIRQ(uint8_t Copy_u8IRQNumber)
   return local_u8ErrorState;
 }
 
-/**
+/*
  * @brief Set pending flag for an IRQ number in the NVIC.
  * @param Copy_u8IRQNumber IRQ number to set pending flag.
  * @return ErrorState_t Returns OK if successful, NOK if IRQ number is invalid.
@@ -86,7 +86,7 @@ ErrorState_t NVIC_vSetPendingFlag(uint8_t Copy_u8IRQNumber)
   return local_u8ErrorState;
 }
 
-/**
+/*
  * @brief Clear pending flag for an IRQ number in the NVIC.
  * @param Copy_u8IRQNumber IRQ number to clear pending flag.
  * @return ErrorState_t Returns OK if successful, NOK if IRQ number is invalid.
@@ -105,7 +105,7 @@ ErrorState_t NVIC_vClearPendingFlag(uint8_t Copy_u8IRQNumber)
   return local_u8ErrorState;
 }
 
-/**
+/*
  * @brief Get active flag status for an IRQ number in the NVIC.
  * @param Copy_u8IRQNumber IRQ number to check active flag.
  * @param Copy_pu8Flag Pointer to store active flag status (0 or 1).
@@ -132,7 +132,7 @@ ErrorState_t NVIC_vGetActiveFlag(uint8_t Copy_u8IRQNumber, uint8_t *Copy_pu8Flag
   return local_u8ErrorState;
 }
 
-/**
+/*
  * @brief Set priority for an IRQ number in the NVIC.
  * @param Copy_u8IRQNumber IRQ number to set priority.
  * @param Copy_u8Priority Priority value (0 to 15).

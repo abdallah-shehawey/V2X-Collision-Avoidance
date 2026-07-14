@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Globals</title>
+<title>V2V Collision Avoidance Firmware: Globals</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,7 +90,7 @@ $(function(){initNavTree('globals_r.html','',''); });
 </div>
 
 <div class="contents">
-<div class="textblock">Here is a list of all functions, variables, defines, enums, and typedefs with links to the files they belong to:</div>
+<div class="textblock">Here is a list of all documented functions, variables, defines, enums, and typedefs with links to the documentation:</div>
 
 <h3 class="doxsection"><a id="index_r" name="index_r"></a>- r -</h3><ul>
 <li>RCC_ADC1EN&#160;:&#160;<a class="el" href="RCC__interface_8h.html#a3088ded1499d9e3881e080ca7a101805af055395282bf999654dd9690cf0707b8">RCC_interface.h</a></li>
@@ -122,7 +122,7 @@ $(function(){initNavTree('globals_r.html','',''); });
 <li>RCC_APB_DIV_4&#160;:&#160;<a class="el" href="RCC__interface_8h.html#a6a950980135f66c49402eca289ba8154ada81311d5873eae58a24d8569c3e46e5">RCC_interface.h</a></li>
 <li>RCC_APB_DIV_8&#160;:&#160;<a class="el" href="RCC__interface_8h.html#a6a950980135f66c49402eca289ba8154a6febd734f8d8def30cb4b70ac7cb5f06">RCC_interface.h</a></li>
 <li>RCC_APB_NOT_DIV&#160;:&#160;<a class="el" href="RCC__interface_8h.html#a6a950980135f66c49402eca289ba8154a75d5f1176559c60c38e3333d9c79bd68">RCC_interface.h</a></li>
-<li>RCC_BASEADDR&#160;:&#160;<a class="el" href="Drivers_2LIB_2STM32F446xx_8h.html#a89610f202a9f78bcc85f76c5ba52d009">STM32F446xx.h</a></li>
+<li>RCC_BASEADDR&#160;:&#160;<a class="el" href="group__lib.html#ga89610f202a9f78bcc85f76c5ba52d009">STM32F446xx.h</a></li>
 <li>RCC_BKPSRAMEN&#160;:&#160;<a class="el" href="RCC__interface_8h.html#a552e326d6d1787caeeb0d595c9886850ae305ea05feeee7763555972659e4760d">RCC_interface.h</a></li>
 <li>RCC_CAN1EN&#160;:&#160;<a class="el" href="RCC__interface_8h.html#a65576cdb66a28ddbc61cc0eb138389e0af56e52fbd88428cee849b94a16d91136">RCC_interface.h</a></li>
 <li>RCC_CAN2EN&#160;:&#160;<a class="el" href="RCC__interface_8h.html#a65576cdb66a28ddbc61cc0eb138389e0a51e44f3ef6b8370a832f57cf2a1db9f8">RCC_interface.h</a></li>
@@ -210,6 +210,7 @@ $(function(){initNavTree('globals_r.html','',''); });
 <li>RCC_TIM8EN&#160;:&#160;<a class="el" href="RCC__interface_8h.html#a3088ded1499d9e3881e080ca7a101805a2e9c94c9c1753fb92bf3cb9b03a18177">RCC_interface.h</a></li>
 <li>RCC_TIM9EN&#160;:&#160;<a class="el" href="RCC__interface_8h.html#a3088ded1499d9e3881e080ca7a101805a95ea1023a4c98193f7eca64e8a36f8e9">RCC_interface.h</a></li>
 <li>RCC_u32TIMEOUT&#160;:&#160;<a class="el" href="RCC__private_8h.html#a97d72aa3d3462687b8715699bcf6248c">RCC_private.h</a></li>
+<li>RCC_u8State&#160;:&#160;<a class="el" href="RCC__program_8c.html#a537fc4bb205f0f47b72f30d2ed70a386">RCC_program.c</a></li>
 <li>RCC_uC_BUS_t&#160;:&#160;<a class="el" href="RCC__interface_8h.html#a62b5b7fee8df02fbf7524fe42ea61553">RCC_interface.h</a></li>
 <li>RCC_USART1&#160;:&#160;<a class="el" href="RCC__interface_8h.html#a3088ded1499d9e3881e080ca7a101805a6f9bc1664f1972e622f9228606caa3b8">RCC_interface.h</a></li>
 <li>RCC_USART2EN&#160;:&#160;<a class="el" href="RCC__interface_8h.html#a65576cdb66a28ddbc61cc0eb138389e0add9dbc104c0809be2f94e5eb80fcce47">RCC_interface.h</a></li>
@@ -218,22 +219,25 @@ $(function(){initNavTree('globals_r.html','',''); });
 <li>RCC_USART5EN&#160;:&#160;<a class="el" href="RCC__interface_8h.html#a65576cdb66a28ddbc61cc0eb138389e0a7c5f581bff810d27c5b3205af885de79">RCC_interface.h</a></li>
 <li>RCC_USART6&#160;:&#160;<a class="el" href="RCC__interface_8h.html#a3088ded1499d9e3881e080ca7a101805af5e7cede1d1b7c4b6897b58cf3d7f516">RCC_interface.h</a></li>
 <li>RCC_WWDGEN&#160;:&#160;<a class="el" href="RCC__interface_8h.html#a65576cdb66a28ddbc61cc0eb138389e0a3d45bbd38d0f967f103f86068a5fd996">RCC_interface.h</a></li>
-<li>READ_BIT&#160;:&#160;<a class="el" href="STD__MACROS_8h.html#aaef49ab0462bf902b59383f592140b05">STD_MACROS.h</a></li>
-<li>READ_BYTE&#160;:&#160;<a class="el" href="STD__MACROS_8h.html#a79413e953065eefe67e15a9f1dba19c1">STD_MACROS.h</a></li>
+<li>READ_BIT&#160;:&#160;<a class="el" href="group__lib.html#gaaef49ab0462bf902b59383f592140b05">STD_MACROS.h</a></li>
+<li>READ_BYTE&#160;:&#160;<a class="el" href="group__lib.html#ga79413e953065eefe67e15a9f1dba19c1">STD_MACROS.h</a></li>
 <li>READ_CHECKSUM&#160;:&#160;<a class="el" href="DSRC_8c.html#a99f78dec5b5884642b44f101ef1d2460a93a993275f8870e7456c9f4c83f3a9aa">DSRC.c</a></li>
 <li>READ_DATA&#160;:&#160;<a class="el" href="DSRC_8c.html#a99f78dec5b5884642b44f101ef1d2460a6c9aea235a9b44681dfcc088658ccdd6">DSRC.c</a></li>
 <li>READ_END&#160;:&#160;<a class="el" href="DSRC_8c.html#a99f78dec5b5884642b44f101ef1d2460a1790dee8d2ec1e5612d374dc86385a94">DSRC.c</a></li>
-<li>REGISTER_SIZE&#160;:&#160;<a class="el" href="STD__MACROS_8h.html#abe2f7b6344bb4d51dfea9c9f58609427">STD_MACROS.h</a></li>
-<li>RISK_CRITICAL&#160;:&#160;<a class="el" href="SafetyEngine__interface_8h.html#aa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492">SafetyEngine_interface.h</a></li>
-<li>RISK_SAFE&#160;:&#160;<a class="el" href="SafetyEngine__interface_8h.html#aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c">SafetyEngine_interface.h</a></li>
-<li>RISK_WARNING&#160;:&#160;<a class="el" href="SafetyEngine__interface_8h.html#aa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82">SafetyEngine_interface.h</a></li>
-<li>RiskLevel_t&#160;:&#160;<a class="el" href="SafetyEngine__interface_8h.html#aa870174b113e13762b47e719bf3efa88">SafetyEngine_interface.h</a></li>
-<li>ROL&#160;:&#160;<a class="el" href="STD__MACROS_8h.html#a29a7814b0a672229073f6cd702ba2437">STD_MACROS.h</a></li>
-<li>ROM_BASEADDR&#160;:&#160;<a class="el" href="Drivers_2LIB_2STM32F446xx_8h.html#a548ca9ecc4b62f701800110d155a05dc">STM32F446xx.h</a></li>
-<li>ROR&#160;:&#160;<a class="el" href="STD__MACROS_8h.html#acdd57f8617d552ad57c697f8e46190a4">STD_MACROS.h</a></li>
-<li>RPi_Packet_t&#160;:&#160;<a class="el" href="System_8h.html#a49cc648a30989079385c3b1cbf224789">System.h</a></li>
+<li>REGISTER_SIZE&#160;:&#160;<a class="el" href="group__lib.html#gabe2f7b6344bb4d51dfea9c9f58609427">STD_MACROS.h</a></li>
+<li>RISK_CRITICAL&#160;:&#160;<a class="el" href="group__app__safetyengine.html#ggaa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492">SafetyEngine_interface.h</a></li>
+<li>RISK_SAFE&#160;:&#160;<a class="el" href="group__app__safetyengine.html#ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c">SafetyEngine_interface.h</a></li>
+<li>RISK_WARNING&#160;:&#160;<a class="el" href="group__app__safetyengine.html#ggaa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82">SafetyEngine_interface.h</a></li>
+<li>RiskLevel_t&#160;:&#160;<a class="el" href="group__app__safetyengine.html#gaa870174b113e13762b47e719bf3efa88">SafetyEngine_interface.h</a></li>
+<li>ROL&#160;:&#160;<a class="el" href="group__lib.html#ga29a7814b0a672229073f6cd702ba2437">STD_MACROS.h</a></li>
+<li>ROM_BASEADDR&#160;:&#160;<a class="el" href="group__lib.html#ga548ca9ecc4b62f701800110d155a05dc">STM32F446xx.h</a></li>
+<li>ROR&#160;:&#160;<a class="el" href="group__lib.html#gacdd57f8617d552ad57c697f8e46190a4">STD_MACROS.h</a></li>
 <li>RPi_UART&#160;:&#160;<a class="el" href="main_8c.html#a305c18e4f4654cb56286827ae4d3883b">main.c</a>, <a class="el" href="System_8c.html#a305c18e4f4654cb56286827ae4d3883b">System.c</a></li>
-<li>RTOS_setup()&#160;:&#160;<a class="el" href="System_8h.html#a9f28a641641de8e783815ab1fa92549f">System.h</a>, <a class="el" href="System_8c.html#a9f28a641641de8e783815ab1fa92549f">System.c</a></li>
+<li>RTOS_setup()&#160;:&#160;<a class="el" href="group__system.html#ga9f28a641641de8e783815ab1fa92549f">System.h</a>, <a class="el" href="group__system.html#ga9f28a641641de8e783815ab1fa92549f">System.c</a></li>
+<li>rx_buf&#160;:&#160;<a class="el" href="DSRC_8c.html#ad8551a5eade2706b9a9febd30eeccf72">DSRC.c</a></li>
+<li>rx_checksum&#160;:&#160;<a class="el" href="DSRC_8c.html#af7ae33ec078d1850f461a9ee7d7b7335">DSRC.c</a></li>
+<li>rx_idx&#160;:&#160;<a class="el" href="DSRC_8c.html#afa50670d960de8bf72255273abefae07">DSRC.c</a></li>
+<li>rx_queue&#160;:&#160;<a class="el" href="DSRC_8c.html#ae475e643d0ef2f075c1418f4c4ea33f0">DSRC.c</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

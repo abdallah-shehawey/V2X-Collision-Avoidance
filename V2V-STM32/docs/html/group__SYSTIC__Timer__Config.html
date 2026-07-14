@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: SysTick Timer Configuration</title>
+<title>V2V Collision Avoidance Firmware: SysTick Timer Configuration</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -96,9 +96,9 @@ $(function(){initNavTree('group__SYSTIC__Timer__Config.html','',''); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga985a99dd0160c9e7cae843bd9d64e7b7" id="r_ga985a99dd0160c9e7cae843bd9d64e7b7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga985a99dd0160c9e7cae843bd9d64e7b7">SYSTIC_CLKSOURCE</a>&#160;&#160;&#160;<a class="el" href="group__SYSTIC__Constants.html#gae468065fe667882e5f951fd7f20a0c1b">CLK_SOURCE_AHB</a></td></tr>
+<tr class="memitem:ga985a99dd0160c9e7cae843bd9d64e7b7" id="r_ga985a99dd0160c9e7cae843bd9d64e7b7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga985a99dd0160c9e7cae843bd9d64e7b7">SYSTIC_CLKSOURCE</a></td></tr>
 <tr class="memdesc:ga985a99dd0160c9e7cae843bd9d64e7b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">SysTick Clock Source Configuration.  <br /></td></tr>
-<tr class="memitem:gace3e7bfd4cee98cc45c484226a7d0ff6" id="r_gace3e7bfd4cee98cc45c484226a7d0ff6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gace3e7bfd4cee98cc45c484226a7d0ff6">SYSTIC_TICKINT</a>&#160;&#160;&#160;<a class="el" href="ErrTypes_8h.html#a99496f7308834e8b220f7894efa0b6ab">DISABLE</a></td></tr>
+<tr class="memitem:gace3e7bfd4cee98cc45c484226a7d0ff6" id="r_gace3e7bfd4cee98cc45c484226a7d0ff6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gace3e7bfd4cee98cc45c484226a7d0ff6">SYSTIC_TICKINT</a></td></tr>
 <tr class="memdesc:gace3e7bfd4cee98cc45c484226a7d0ff6"><td class="mdescLeft">&#160;</td><td class="mdescRight">SysTick Exception Configuration.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
@@ -110,19 +110,19 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define SYSTIC_CLKSOURCE&#160;&#160;&#160;<a class="el" href="group__SYSTIC__Constants.html#gae468065fe667882e5f951fd7f20a0c1b">CLK_SOURCE_AHB</a></td>
+          <td class="memname">#define SYSTIC_CLKSOURCE</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>SysTick Clock Source Configuration. </p>
 <dl class="section note"><dt>Note</dt><dd>Select the clock source for the SysTick timer</dd></dl>
-<p>@options:</p><ul>
+<ul>
 <li>CLK_SOURCE_AHB: Use processor clock (maximum precision) Suitable for: High-precision timing requirements</li>
 <li>CLK_SOURCE_AHB_DIV8: Use processor clock divided by 8 (power efficient) Suitable for: General purpose timing with lower power consumption </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="SYSTIC__config_8h_source.html#l00057">57</a> of file <a class="el" href="SYSTIC__config_8h_source.html">SYSTIC_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SYSTIC__config_8h_source.html#l00056">56</a> of file <a class="el" href="SYSTIC__config_8h_source.html">SYSTIC_config.h</a>.</p>
 
 </div>
 </div>
@@ -133,19 +133,19 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define SYSTIC_TICKINT&#160;&#160;&#160;<a class="el" href="ErrTypes_8h.html#a99496f7308834e8b220f7894efa0b6ab">DISABLE</a></td>
+          <td class="memname">#define SYSTIC_TICKINT</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>SysTick Exception Configuration. </p>
 <dl class="section note"><dt>Note</dt><dd>Controls whether the SysTick timer generates exceptions</dd></dl>
-<p>@options:</p><ul>
+<ul>
 <li>ENABLE: Timer will generate an exception when it reaches zero Use this for: RTOS tick source or regular interval interrupts</li>
 <li>DISABLE: No exceptions generated (polling mode) Use this for: Simple delay functions or when interrupts are not needed </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="SYSTIC__config_8h_source.html#l00070">70</a> of file <a class="el" href="SYSTIC__config_8h_source.html">SYSTIC_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SYSTIC__config_8h_source.html#l00068">68</a> of file <a class="el" href="SYSTIC__config_8h_source.html">SYSTIC_config.h</a>.</p>
 
 </div>
 </div>

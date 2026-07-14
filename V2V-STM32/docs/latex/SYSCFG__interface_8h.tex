@@ -1,5 +1,10 @@
-\doxysection{Inc/\+\+Drivers/\+\+MCAL/\+\+SYSCFG/\+\+SYSCFG\+\_\+interface.h File Reference}
-\hypertarget{SYSCFG__interface_8h}{}\label{SYSCFG__interface_8h}\index{Inc/Drivers/MCAL/SYSCFG/SYSCFG\_interface.h@{Inc/Drivers/MCAL/SYSCFG/SYSCFG\_interface.h}}
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SYSCFG/\+\+SYSCFG\+\_\+interface.h File Reference}
+\hypertarget{SYSCFG__interface_8h}{}\label{SYSCFG__interface_8h}\index{V2V-\/STM32/Inc/Drivers/MCAL/SYSCFG/SYSCFG\_interface.h@{V2V-\/STM32/Inc/Drivers/MCAL/SYSCFG/SYSCFG\_interface.h}}
+
+
+Public API of the SYSCFG driver — the system configuration controller.  
+
+
 {\ttfamily \+\#include "{}stdint.\+h"{}}\newline
 {\ttfamily \+\#include "{}../\+../\+\+LIB/\+\+Err\+Types.\+h"{}}\newline
 Include dependency graph for SYSCFG\+\_\+interface.\+h:\+
@@ -7,7 +12,7 @@ Include dependency graph for SYSCFG\+\_\+interface.\+h:\+
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=254pt]{SYSCFG__interface_8h__incl}
+\includegraphics[width=273pt]{SYSCFG__interface_8h__incl}
 \end{center}
 \end{figure}
 This graph shows which files directly or indirectly include this file:\+
@@ -15,7 +20,7 @@ This graph shows which files directly or indirectly include this file:\+
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=221pt]{SYSCFG__interface_8h__dep__incl}
+\includegraphics[width=267pt]{SYSCFG__interface_8h__dep__incl}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Enumerations}
@@ -42,9 +47,9 @@ enum \doxymbox{\hyperlink{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6db
 , \doxymbox{\hyperlink{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dba980a7a5cdc1ae7e430e2f406258e5224}{SYSCFG\+\_\+\+EXTI14}}
 , \doxymbox{\hyperlink{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dbaf21da58b1630daca130b8f5d40b3dc2b}{SYSCFG\+\_\+\+EXTI15}}
  \}
-\begin{DoxyCompactList}\small\item\em :\+ System configuration for EXTI lines \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em System configuration for EXTI lines. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219}{SYSCFG\+\_\+\+Port\+\_\+t}} \{ \newline
-\doxymbox{\hyperlink{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219a51c6e700e364b735a1e7f718f6c27f02}{SYSCFG\+\_\+\+PORTA}} = 0
+\doxymbox{\hyperlink{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219a51c6e700e364b735a1e7f718f6c27f02}{SYSCFG\+\_\+\+PORTA}}
 , \doxymbox{\hyperlink{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219a97c499ffe9aa403ad9d32182c70c1719}{SYSCFG\+\_\+\+PORTB}}
 , \doxymbox{\hyperlink{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219afe1fb8769a8fe456910ccaf9f756b218}{SYSCFG\+\_\+\+PORTC}}
 , \doxymbox{\hyperlink{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219aa014aad75940ad31d0a512166aeec16f}{SYSCFG\+\_\+\+PORTD}}
@@ -54,12 +59,24 @@ enum \doxymbox{\hyperlink{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219
 , \doxymbox{\hyperlink{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219a0bac90739b93ee77d0cf2c8d55cea3ea}{SYSCFG\+\_\+\+PORTG}}
 , \doxymbox{\hyperlink{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219a958087a32b2cb3a29914bf26bfdd3dae}{SYSCFG\+\_\+\+PORTH}}
  \}
-\begin{DoxyCompactList}\small\item\em :\+ System configuration for GPIO ports \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em System configuration for GPIO ports. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \doxymbox{\hyperlink{SYSCFG__interface_8h_ae89860feecf5f8fa39db3d67b9ebe08a}{SYSCFG\+\_\+v\+Set\+EXTIConfig}} (\doxymbox{\hyperlink{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6db}{SYSCFG\+\_\+\+EXTI\+\_\+t}} Copy\+\_\+u8\+EXTI, \doxymbox{\hyperlink{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219}{SYSCFG\+\_\+\+Port\+\_\+t}} Copy\+\_\+u8\+Port)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Choose which GPIO port drives a given EXTI line. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Public API of the SYSCFG driver — the system configuration controller. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{SYSCFG__interface_8h_source}{SYSCFG\+\_\+interface.\+h}}.
+
 
 
 \label{doc-enum-members}
@@ -73,122 +90,112 @@ enum \doxymbox{\hyperlink{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6db
 
 
 
-:\+ System configuration for EXTI lines 
+System configuration for EXTI lines. 
 
-===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} \doxylink{SYSCFG__interface_8h}{SYSCFG\+\_\+interface.\+h} \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Abdelmoemen Shehawey \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ MCAL \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} CPU :\+ Cortex-\/\+M4 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} MCU :\+ NUCLEO-\/\+F446\+RE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SWC :\+ SYSCFG \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} @\+SYSCFG\+\_\+\+EXTI\+\_\+t enum:\+
-
-:\+ Defines EXTI line numbers for SYSCFG configuration 
-\begin{DoxyParams}{Parameters}
-{\em } & SYSCFG\+\_\+\+EXTI0-\/\+SYSCFG\+\_\+\+EXTI15 -\/ EXTI line numbers (0-\/15) \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-:\+ Selected EXTI line number 
-\end{DoxyReturn}
-\begin{DoxyEnumFields}[2]{Enumerator}
+Defines EXTI line numbers for SYSCFG configuration
+\begin{DoxyItemize}
+\item SYSCFG\+\_\+\+EXTI0-\/\+SYSCFG\+\_\+\+EXTI15 -\/ EXTI line numbers (0-\/15) 
+\end{DoxyItemize}\begin{DoxyEnumFields}[2]{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_EXTI0@{SYSCFG\_EXTI0}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_EXTI0@{SYSCFG\_EXTI0}}
 }\Hypertarget{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dbaff8aa542f103b5665eb76422e1a89d63}\label{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dbaff8aa542f103b5665eb76422e1a89d63} 
-SYSCFG\+\_\+\+EXTI0&\\
+SYSCFG\+\_\+\+EXTI0&Route EXTI line 0 to pin 0 of the chosen port. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_EXTI1@{SYSCFG\_EXTI1}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_EXTI1@{SYSCFG\_EXTI1}}
 }\Hypertarget{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dba5a30791e509d9464aa46a58891a48c1d}\label{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dba5a30791e509d9464aa46a58891a48c1d} 
-SYSCFG\+\_\+\+EXTI1&\\
+SYSCFG\+\_\+\+EXTI1&Route EXTI line 1 to pin 1 of the chosen port. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_EXTI2@{SYSCFG\_EXTI2}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_EXTI2@{SYSCFG\_EXTI2}}
 }\Hypertarget{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dbae2739addd69dd2161d6c6d54d5a2c59d}\label{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dbae2739addd69dd2161d6c6d54d5a2c59d} 
-SYSCFG\+\_\+\+EXTI2&\\
+SYSCFG\+\_\+\+EXTI2&Route EXTI line 2 to pin 2 of the chosen port. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_EXTI3@{SYSCFG\_EXTI3}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_EXTI3@{SYSCFG\_EXTI3}}
 }\Hypertarget{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dba9a561e2513f70847f775fa8a9bc390f1}\label{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dba9a561e2513f70847f775fa8a9bc390f1} 
-SYSCFG\+\_\+\+EXTI3&\\
+SYSCFG\+\_\+\+EXTI3&Route EXTI line 3 to pin 3 of the chosen port. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_EXTI4@{SYSCFG\_EXTI4}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_EXTI4@{SYSCFG\_EXTI4}}
 }\Hypertarget{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dba8e330ecfa1296f9281db39c68abb5344}\label{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dba8e330ecfa1296f9281db39c68abb5344} 
-SYSCFG\+\_\+\+EXTI4&\\
+SYSCFG\+\_\+\+EXTI4&Route EXTI line 4 to pin 4 of the chosen port. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_EXTI5@{SYSCFG\_EXTI5}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_EXTI5@{SYSCFG\_EXTI5}}
 }\Hypertarget{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dba09c413898f0ea45e85dabd0eeae4d1b2}\label{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dba09c413898f0ea45e85dabd0eeae4d1b2} 
-SYSCFG\+\_\+\+EXTI5&\\
+SYSCFG\+\_\+\+EXTI5&Route EXTI line 5 to pin 5 of the chosen port. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_EXTI6@{SYSCFG\_EXTI6}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_EXTI6@{SYSCFG\_EXTI6}}
 }\Hypertarget{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dbad5922537e59ab8e6ebec6f5b1fbb3374}\label{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dbad5922537e59ab8e6ebec6f5b1fbb3374} 
-SYSCFG\+\_\+\+EXTI6&\\
+SYSCFG\+\_\+\+EXTI6&Route EXTI line 6 to pin 6 of the chosen port. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_EXTI7@{SYSCFG\_EXTI7}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_EXTI7@{SYSCFG\_EXTI7}}
 }\Hypertarget{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dbaa3e2491bfa5d364884f4a7e633316a84}\label{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dbaa3e2491bfa5d364884f4a7e633316a84} 
-SYSCFG\+\_\+\+EXTI7&\\
+SYSCFG\+\_\+\+EXTI7&Route EXTI line 7 to pin 7 of the chosen port. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_EXTI8@{SYSCFG\_EXTI8}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_EXTI8@{SYSCFG\_EXTI8}}
 }\Hypertarget{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dba660e026374be168afc90886436f3e6f7}\label{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dba660e026374be168afc90886436f3e6f7} 
-SYSCFG\+\_\+\+EXTI8&\\
+SYSCFG\+\_\+\+EXTI8&Route EXTI line 8 to pin 8 of the chosen port. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_EXTI9@{SYSCFG\_EXTI9}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_EXTI9@{SYSCFG\_EXTI9}}
 }\Hypertarget{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dba258ea1f10d535be9a2b04e4a8ed41d44}\label{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dba258ea1f10d535be9a2b04e4a8ed41d44} 
-SYSCFG\+\_\+\+EXTI9&\\
+SYSCFG\+\_\+\+EXTI9&Route EXTI line 9 to pin 9 of the chosen port. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_EXTI10@{SYSCFG\_EXTI10}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_EXTI10@{SYSCFG\_EXTI10}}
 }\Hypertarget{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dbae2200d9fed6d8eb656738389dde569c6}\label{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dbae2200d9fed6d8eb656738389dde569c6} 
-SYSCFG\+\_\+\+EXTI10&\\
+SYSCFG\+\_\+\+EXTI10&Route EXTI line 10 to pin 10 of the chosen port. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_EXTI11@{SYSCFG\_EXTI11}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_EXTI11@{SYSCFG\_EXTI11}}
 }\Hypertarget{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dbafccdd1cc6f5f42a15b36456ae5728d3b}\label{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dbafccdd1cc6f5f42a15b36456ae5728d3b} 
-SYSCFG\+\_\+\+EXTI11&\\
+SYSCFG\+\_\+\+EXTI11&Route EXTI line 11 to pin 11 of the chosen port. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_EXTI12@{SYSCFG\_EXTI12}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_EXTI12@{SYSCFG\_EXTI12}}
 }\Hypertarget{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dba19f0766f1ebdb269bdb857ee833e024f}\label{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dba19f0766f1ebdb269bdb857ee833e024f} 
-SYSCFG\+\_\+\+EXTI12&\\
+SYSCFG\+\_\+\+EXTI12&Route EXTI line 12 to pin 12 of the chosen port. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_EXTI13@{SYSCFG\_EXTI13}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_EXTI13@{SYSCFG\_EXTI13}}
 }\Hypertarget{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dba9c2d75cd7f1ffd4dae6a4d04c9943965}\label{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dba9c2d75cd7f1ffd4dae6a4d04c9943965} 
-SYSCFG\+\_\+\+EXTI13&\\
+SYSCFG\+\_\+\+EXTI13&Route EXTI line 13 to pin 13 of the chosen port. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_EXTI14@{SYSCFG\_EXTI14}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_EXTI14@{SYSCFG\_EXTI14}}
 }\Hypertarget{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dba980a7a5cdc1ae7e430e2f406258e5224}\label{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dba980a7a5cdc1ae7e430e2f406258e5224} 
-SYSCFG\+\_\+\+EXTI14&\\
+SYSCFG\+\_\+\+EXTI14&Route EXTI line 14 to pin 14 of the chosen port. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_EXTI15@{SYSCFG\_EXTI15}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_EXTI15@{SYSCFG\_EXTI15}}
 }\Hypertarget{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dbaf21da58b1630daca130b8f5d40b3dc2b}\label{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dbaf21da58b1630daca130b8f5d40b3dc2b} 
-SYSCFG\+\_\+\+EXTI15&\\
+SYSCFG\+\_\+\+EXTI15&Route EXTI line 15 to pin 15 of the chosen port. \\
 \hline
 
 \end{DoxyEnumFields}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Src_2SYSCFG_program_8c-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Src/\+\+SYSCFG\+\_\+program.\+c}}.\end{Desc}
 
 
-Definition at line \doxymbox{\hyperlink{SYSCFG__interface_8h_source_l00027}{27}} of file \doxymbox{\hyperlink{SYSCFG__interface_8h_source}{SYSCFG\+\_\+interface.\+h}}.
+Definition at line \doxymbox{\hyperlink{SYSCFG__interface_8h_source_l00021}{21}} of file \doxymbox{\hyperlink{SYSCFG__interface_8h_source}{SYSCFG\+\_\+interface.\+h}}.
 
 \Hypertarget{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219}\index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_Port\_t@{SYSCFG\_Port\_t}}
 \index{SYSCFG\_Port\_t@{SYSCFG\_Port\_t}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
@@ -198,74 +205,64 @@ enum \doxymbox{\hyperlink{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219
 
 
 
-:\+ System configuration for GPIO ports 
+System configuration for GPIO ports. 
 
-@\+SYSCFG\+\_\+\+Port\+\_\+t enum:\+
-
-:\+ Defines available GPIO ports for SYSCFG configuration 
-\begin{DoxyParams}{Parameters}
-{\em } & SYSCFG\+\_\+\+PORTA-\/\+SYSCFG\+\_\+\+PORTH -\/ GPIO port identifiers (A-\/H) \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-:\+ Selected GPIO port 
-\end{DoxyReturn}
-\begin{DoxyEnumFields}[2]{Enumerator}
+Defines available GPIO ports for SYSCFG configuration
+\begin{DoxyItemize}
+\item SYSCFG\+\_\+\+PORTA-\/\+SYSCFG\+\_\+\+PORTH -\/ GPIO port identifiers (A-\/H) 
+\end{DoxyItemize}\begin{DoxyEnumFields}[3]{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_PORTA@{SYSCFG\_PORTA}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_PORTA@{SYSCFG\_PORTA}}
 }\Hypertarget{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219a51c6e700e364b735a1e7f718f6c27f02}\label{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219a51c6e700e364b735a1e7f718f6c27f02} 
-SYSCFG\+\_\+\+PORTA&\\
+SYSCFG\+\_\+\+PORTA&0&GPIO Port A. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_PORTB@{SYSCFG\_PORTB}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_PORTB@{SYSCFG\_PORTB}}
 }\Hypertarget{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219a97c499ffe9aa403ad9d32182c70c1719}\label{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219a97c499ffe9aa403ad9d32182c70c1719} 
-SYSCFG\+\_\+\+PORTB&\\
+SYSCFG\+\_\+\+PORTB&&GPIO Port B. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_PORTC@{SYSCFG\_PORTC}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_PORTC@{SYSCFG\_PORTC}}
 }\Hypertarget{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219afe1fb8769a8fe456910ccaf9f756b218}\label{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219afe1fb8769a8fe456910ccaf9f756b218} 
-SYSCFG\+\_\+\+PORTC&\\
+SYSCFG\+\_\+\+PORTC&&GPIO Port C. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_PORTD@{SYSCFG\_PORTD}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_PORTD@{SYSCFG\_PORTD}}
 }\Hypertarget{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219aa014aad75940ad31d0a512166aeec16f}\label{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219aa014aad75940ad31d0a512166aeec16f} 
-SYSCFG\+\_\+\+PORTD&\\
+SYSCFG\+\_\+\+PORTD&&GPIO Port D. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_PORTE@{SYSCFG\_PORTE}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_PORTE@{SYSCFG\_PORTE}}
 }\Hypertarget{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219a8412b2dce1ca772f140bfbc5657c0f4e}\label{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219a8412b2dce1ca772f140bfbc5657c0f4e} 
-SYSCFG\+\_\+\+PORTE&\\
+SYSCFG\+\_\+\+PORTE&&GPIO Port E. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_PORTF@{SYSCFG\_PORTF}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_PORTF@{SYSCFG\_PORTF}}
 }\Hypertarget{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219a1622be7a54b87d43a82ab1a42794c88c}\label{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219a1622be7a54b87d43a82ab1a42794c88c} 
-SYSCFG\+\_\+\+PORTF&\\
+SYSCFG\+\_\+\+PORTF&&GPIO Port F. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_PORTG@{SYSCFG\_PORTG}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_PORTG@{SYSCFG\_PORTG}}
 }\Hypertarget{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219a0bac90739b93ee77d0cf2c8d55cea3ea}\label{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219a0bac90739b93ee77d0cf2c8d55cea3ea} 
-SYSCFG\+\_\+\+PORTG&\\
+SYSCFG\+\_\+\+PORTG&&GPIO Port G. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SYSCFG\_PORTH@{SYSCFG\_PORTH}!SYSCFG\_interface.h@{SYSCFG\_interface.h}}
 \index{SYSCFG\_interface.h@{SYSCFG\_interface.h}!SYSCFG\_PORTH@{SYSCFG\_PORTH}}
 }\Hypertarget{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219a958087a32b2cb3a29914bf26bfdd3dae}\label{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219a958087a32b2cb3a29914bf26bfdd3dae} 
-SYSCFG\+\_\+\+PORTH&\\
+SYSCFG\+\_\+\+PORTH&&GPIO Port H. \\
 \hline
 
 \end{DoxyEnumFields}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Src_2SYSCFG_program_8c-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Src/\+\+SYSCFG\+\_\+program.\+c}}.\end{Desc}
 
 
-Definition at line \doxymbox{\hyperlink{SYSCFG__interface_8h_source_l00054}{54}} of file \doxymbox{\hyperlink{SYSCFG__interface_8h_source}{SYSCFG\+\_\+interface.\+h}}.
+Definition at line \doxymbox{\hyperlink{SYSCFG__interface_8h_source_l00046}{46}} of file \doxymbox{\hyperlink{SYSCFG__interface_8h_source}{SYSCFG\+\_\+interface.\+h}}.
 
 
 
@@ -278,10 +275,32 @@ Definition at line \doxymbox{\hyperlink{SYSCFG__interface_8h_source_l00054}{54}}
 {\footnotesize\ttfamily \label{SYSCFG__interface_8h_ae89860feecf5f8fa39db3d67b9ebe08a} 
 void SYSCFG\+\_\+v\+Set\+EXTIConfig (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6db}{SYSCFG\+\_\+\+EXTI\+\_\+t}}}]{Copy\+\_\+u8\+EXTI}{, }\item[{\doxymbox{\hyperlink{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219}{SYSCFG\+\_\+\+Port\+\_\+t}}}]{Copy\+\_\+u8\+Port}{}\end{DoxyParamCaption})}
 
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Src_2SYSCFG_program_8c-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Src/\+\+SYSCFG\+\_\+program.\+c}}.\end{Desc}
 
 
-Definition at line \doxymbox{\hyperlink{SYSCFG__program_8c_source_l00042}{42}} of file \doxymbox{\hyperlink{SYSCFG__program_8c_source}{SYSCFG\+\_\+program.\+c}}.
+Choose which GPIO port drives a given EXTI line. 
+
+EXTI line {\itshape N} is shared by pin {\itshape N} of every port — PA3, PB3 and PC3 all map to EXTI3 — and only one of them can own the line. This is where that choice is made.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+u8\+EXTI} & EXTI line to route, 0..15. \\
+\hline
+{\em Copy\+\_\+u8\+Port} & The port whose pin should drive it.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Without this call an EXTI line defaults to port A, so an interrupt configured on, say, PB4 is simply never delivered. It has to run {\bfseries{before}} \doxylink{EXTI__interface_8h_afbfd6cb04f146da7b0f90eb974c5629d}{EXTI\+\_\+v\+Line\+Init}.
+\end{DoxyNote}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\doxymbox{\hyperlink{SYSCFG__interface_8h_ae89860feecf5f8fa39db3d67b9ebe08a}{SYSCFG\_vSetEXTIConfig}}(\doxymbox{\hyperlink{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dbaff8aa542f103b5665eb76422e1a89d63}{SYSCFG\_EXTI0}},\ \doxymbox{\hyperlink{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219a51c6e700e364b735a1e7f718f6c27f02}{SYSCFG\_PORTA}});}
+
+\end{DoxyCode}
+ 
+
+Definition at line \doxymbox{\hyperlink{SYSCFG__program_8c_source_l00038}{38}} of file \doxymbox{\hyperlink{SYSCFG__program_8c_source}{SYSCFG\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{SYSCFG__private_8h_source_l00013}{EXTI\+\_\+\+CTRL\+\_\+\+REG\+\_\+\+LINEBITS}}, \doxymbox{\hyperlink{SYSCFG__private_8h_source_l00015}{EXTI\+\_\+\+CTRL\+\_\+\+REG\+\_\+\+MASK}}, and \doxymbox{\hyperlink{STM32F446xx_8h_source_l00347}{MSYSCFG}}.
 

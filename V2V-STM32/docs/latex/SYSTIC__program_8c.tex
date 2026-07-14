@@ -1,8 +1,8 @@
-\doxysection{Src/\+\+SYSTIC\+\_\+program.c File Reference}
-\hypertarget{SYSTIC__program_8c}{}\label{SYSTIC__program_8c}\index{Src/SYSTIC\_program.c@{Src/SYSTIC\_program.c}}
+\doxysection{V2\+V-\/\+STM32/\+\+Src/\+\+SYSTIC\+\_\+program.c File Reference}
+\hypertarget{SYSTIC__program_8c}{}\label{SYSTIC__program_8c}\index{V2V-\/STM32/Src/SYSTIC\_program.c@{V2V-\/STM32/Src/SYSTIC\_program.c}}
 
 
-Sys\+Tick Timer Driver Implementation.  
+===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} \doxylink{SYSTIC__program_8c}{SYSTIC\+\_\+program.\+c} \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Abdelmoemen Shehawey \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ MCAL \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} CPU :\+ Cortex-\/\+M4 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} MCU :\+ NUCLEO-\/\+F446\+RE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SWC :\+ SYSTIC \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}  
 
 
 {\ttfamily \+\#include $<$stdint.\+h$>$}\newline
@@ -24,24 +24,37 @@ Include dependency graph for SYSTIC\+\_\+program.\+c:\+
 \item 
 void \doxymbox{\hyperlink{SYSTIC__program_8c_a99e63ce5310c50cf04f33715ace4023c}{SYSTIC\+\_\+v\+Init}} (void)
 \begin{DoxyCompactList}\small\item\em Initialize the Sys\+Tick timer with configured settings. \end{DoxyCompactList}\item 
+static void \doxymbox{\hyperlink{SYSTIC__program_8c_ac095f2dcf6262ec7bd865b1bdac25b64}{SYSTIC\+\_\+v\+Disable}} (void)
+\begin{DoxyCompactList}\small\item\em Disable the Sys\+Tick timer. \end{DoxyCompactList}\item 
+static void \doxymbox{\hyperlink{SYSTIC__program_8c_aed31b8341f403a3068ea1106d1c31e09}{SYSTIC\+\_\+v\+Enable}} (void)
+\begin{DoxyCompactList}\small\item\em Enable the Sys\+Tick timer. \end{DoxyCompactList}\item 
+static void \doxymbox{\hyperlink{SYSTIC__program_8c_ab105192747b83b6f41fb0cc7c242649d}{SYSTIC\+\_\+v\+Wait}} (void)
+\begin{DoxyCompactList}\small\item\em Wait for the Sys\+Tick timer to complete counting. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{SYSTIC__program_8c_a1726b39164004495ff64017b18f6e118}{SYSTIC\+\_\+v\+Delay\+Ms}} (uint32\+\_\+t Copy\+\_\+u32\+Ms\+Time)
-\item 
+\begin{DoxyCompactList}\small\item\em Generate a precise millisecond delay using polling method. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{SYSTIC__program_8c_ad76d8f1128b3a2cfceeca65bac33b757}{SYSTIC\+\_\+v\+Delay\+Us}} (uint32\+\_\+t Copy\+\_\+u32\+Us\+Time)
+\begin{DoxyCompactList}\small\item\em Generate a precise microsecond delay using polling method. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{SYSTIC__program_8c_a6f1eb3133defa3900330337cde02ddc1}{SYSTIC\+\_\+enum\+Get\+Elapsed\+Tick\+Single\+Shot}} (uint32\+\_\+t \texorpdfstring{$\ast$}{*}Copy\+\_\+pu32\+Tick)
+\begin{DoxyCompactList}\small\item\em Generate a precise microsecond delay using polling method. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{SYSTIC__program_8c_a6faccf82df62191d2ba2aaf0a0dd66ea}{SYSTIC\+\_\+enum\+Remaining\+Tick\+Single\+Shot}} (uint32\+\_\+t \texorpdfstring{$\ast$}{*}Copy\+\_\+pu32\+Tick)
+\begin{DoxyCompactList}\small\item\em Get the remaining tick count for a single-\/shot Sys\+Tick timer. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{SYSTIC__program_8c_a233735d97515255dbfddaaed7a4a5822}{SYSTIC\+\_\+enum\+Callback}} (void(\texorpdfstring{$\ast$}{*}Copy\+\_\+pv\+Call\+Back)(void), uint32\+\_\+t Copy\+\_\+u32\+Tick)
+\begin{DoxyCompactList}\small\item\em Register a {\bfseries{periodic}} callback, fired from the Sys\+Tick ISR every {\ttfamily Copy\+\_\+u32\+Tick} ticks. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{SYSTIC__program_8c_a5a2145332c475bf7e865779752a45200}{SYSTIC\+\_\+enum\+Callback\+Single\+Shot}} (void(\texorpdfstring{$\ast$}{*}Copy\+\_\+pv\+Call\+Back)(void), uint32\+\_\+t Copy\+\_\+u32\+Tick)
+\begin{DoxyCompactList}\small\item\em Register a {\bfseries{one-\/shot}} callback, fired once after {\ttfamily Copy\+\_\+u32\+Tick} ticks. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
 \item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{SYSTIC__program_8c_a6f1eb3133defa3900330337cde02ddc1}{SYSTIC\+\_\+enum\+Get\+Elapsed\+Tick\+Single\+Shot}} (uint32\+\_\+t \texorpdfstring{$\ast$}{*}Copy\+\_\+pu32\+Tick)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{SYSTIC__program_8c_a6faccf82df62191d2ba2aaf0a0dd66ea}{SYSTIC\+\_\+enum\+Remaining\+Tick\+Single\+Shot}} (uint32\+\_\+t \texorpdfstring{$\ast$}{*}Copy\+\_\+pu32\+Tick)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{SYSTIC__program_8c_a233735d97515255dbfddaaed7a4a5822}{SYSTIC\+\_\+enum\+Callback}} (void(\texorpdfstring{$\ast$}{*}Copy\+\_\+pv\+Call\+Back)(void), uint32\+\_\+t Copy\+\_\+u32\+Tick)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{SYSTIC__program_8c_a5a2145332c475bf7e865779752a45200}{SYSTIC\+\_\+enum\+Callback\+Single\+Shot}} (void(\texorpdfstring{$\ast$}{*}Copy\+\_\+pv\+Call\+Back)(void), uint32\+\_\+t Copy\+\_\+u32\+Tick)
-\end{DoxyCompactItemize}
+static void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{SYSTIC__program_8c_ad7fd210618a8746df3cf57ec955c3259}{SYSTIC\+\_\+\+Call\+Back}} )(void)
+\begin{DoxyCompactList}\small\item\em Callback invoked from the Sys\+Tick ISR; NULL means none registered. \end{DoxyCompactList}\item 
+static uint8\+\_\+t \doxymbox{\hyperlink{SYSTIC__program_8c_a9721a4d0aaa47d84c581c06e153b8a87}{Single\+Shot\+\_\+\+Flag}}
+\begin{DoxyCompactList}\small\item\em 1 = the pending callback is one-\/shot and disarms itself after firing; 0 = periodic. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Sys\+Tick Timer Driver Implementation. 
+===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} \doxylink{SYSTIC__program_8c}{SYSTIC\+\_\+program.\+c} \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Abdelmoemen Shehawey \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ MCAL \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} CPU :\+ Cortex-\/\+M4 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} MCU :\+ NUCLEO-\/\+F446\+RE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SWC :\+ SYSTIC \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} 
 
-===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} \doxylink{SYSTIC__program_8c}{SYSTIC\+\_\+program.\+c} \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Abdelmoemen Shehawey \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ MCAL \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} CPU :\+ Cortex-\/\+M4 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} MCU :\+ NUCLEO-\/\+F446\+RE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SWC :\+ SYSTIC \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}
+Sys\+Tick Timer Driver Implementation
 
 This file implements the Sys\+Tick timer functionality for STM32\+F446\+RE microcontroller. Sys\+Tick is a 24-\/bit down counter that can be used for generating precise delays and periodic interrupts. The driver supports both polling and interrupt-\/based operation modes. 
 
@@ -52,66 +65,6 @@ Definition in file \doxymbox{\hyperlink{SYSTIC__program_8c_source}{SYSTIC\+\_\+p
 \label{doc-func-members}
 \Hypertarget{SYSTIC__program_8c_doc-func-members}
 \doxysubsection{Function Documentation}
-\Hypertarget{SYSTIC__program_8c_a233735d97515255dbfddaaed7a4a5822}\index{SYSTIC\_program.c@{SYSTIC\_program.c}!SYSTIC\_enumCallback@{SYSTIC\_enumCallback}}
-\index{SYSTIC\_enumCallback@{SYSTIC\_enumCallback}!SYSTIC\_program.c@{SYSTIC\_program.c}}
-\doxysubsubsection{\texorpdfstring{SYSTIC\_enumCallback()}{SYSTIC\_enumCallback()}}
-{\footnotesize\ttfamily \label{SYSTIC__program_8c_a233735d97515255dbfddaaed7a4a5822} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} SYSTIC\+\_\+enum\+Callback (\begin{DoxyParamCaption}\item[{void(\texorpdfstring{$\ast$}{*}}]{Copy\+\_\+pv\+Call\+Back~}{)(void), }\item[{uint32\+\_\+t}]{Copy\+\_\+u32\+Tick}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00372}{372}} of file \doxymbox{\hyperlink{SYSTIC__program_8c_source}{SYSTIC\+\_\+program.\+c}}.
-
-\Hypertarget{SYSTIC__program_8c_a5a2145332c475bf7e865779752a45200}\index{SYSTIC\_program.c@{SYSTIC\_program.c}!SYSTIC\_enumCallbackSingleShot@{SYSTIC\_enumCallbackSingleShot}}
-\index{SYSTIC\_enumCallbackSingleShot@{SYSTIC\_enumCallbackSingleShot}!SYSTIC\_program.c@{SYSTIC\_program.c}}
-\doxysubsubsection{\texorpdfstring{SYSTIC\_enumCallbackSingleShot()}{SYSTIC\_enumCallbackSingleShot()}}
-{\footnotesize\ttfamily \label{SYSTIC__program_8c_a5a2145332c475bf7e865779752a45200} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} SYSTIC\+\_\+enum\+Callback\+Single\+Shot (\begin{DoxyParamCaption}\item[{void(\texorpdfstring{$\ast$}{*}}]{Copy\+\_\+pv\+Call\+Back~}{)(void), }\item[{uint32\+\_\+t}]{Copy\+\_\+u32\+Tick}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00428}{428}} of file \doxymbox{\hyperlink{SYSTIC__program_8c_source}{SYSTIC\+\_\+program.\+c}}.
-
-\Hypertarget{SYSTIC__program_8c_a6f1eb3133defa3900330337cde02ddc1}\index{SYSTIC\_program.c@{SYSTIC\_program.c}!SYSTIC\_enumGetElapsedTickSingleShot@{SYSTIC\_enumGetElapsedTickSingleShot}}
-\index{SYSTIC\_enumGetElapsedTickSingleShot@{SYSTIC\_enumGetElapsedTickSingleShot}!SYSTIC\_program.c@{SYSTIC\_program.c}}
-\doxysubsubsection{\texorpdfstring{SYSTIC\_enumGetElapsedTickSingleShot()}{SYSTIC\_enumGetElapsedTickSingleShot()}}
-{\footnotesize\ttfamily \label{SYSTIC__program_8c_a6f1eb3133defa3900330337cde02ddc1} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} SYSTIC\+\_\+enum\+Get\+Elapsed\+Tick\+Single\+Shot (\begin{DoxyParamCaption}\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+pu32\+Tick}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00286}{286}} of file \doxymbox{\hyperlink{SYSTIC__program_8c_source}{SYSTIC\+\_\+program.\+c}}.
-
-\Hypertarget{SYSTIC__program_8c_a6faccf82df62191d2ba2aaf0a0dd66ea}\index{SYSTIC\_program.c@{SYSTIC\_program.c}!SYSTIC\_enumRemainingTickSingleShot@{SYSTIC\_enumRemainingTickSingleShot}}
-\index{SYSTIC\_enumRemainingTickSingleShot@{SYSTIC\_enumRemainingTickSingleShot}!SYSTIC\_program.c@{SYSTIC\_program.c}}
-\doxysubsubsection{\texorpdfstring{SYSTIC\_enumRemainingTickSingleShot()}{SYSTIC\_enumRemainingTickSingleShot()}}
-{\footnotesize\ttfamily \label{SYSTIC__program_8c_a6faccf82df62191d2ba2aaf0a0dd66ea} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} SYSTIC\+\_\+enum\+Remaining\+Tick\+Single\+Shot (\begin{DoxyParamCaption}\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+pu32\+Tick}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00327}{327}} of file \doxymbox{\hyperlink{SYSTIC__program_8c_source}{SYSTIC\+\_\+program.\+c}}.
-
-\Hypertarget{SYSTIC__program_8c_a1726b39164004495ff64017b18f6e118}\index{SYSTIC\_program.c@{SYSTIC\_program.c}!SYSTIC\_vDelayMs@{SYSTIC\_vDelayMs}}
-\index{SYSTIC\_vDelayMs@{SYSTIC\_vDelayMs}!SYSTIC\_program.c@{SYSTIC\_program.c}}
-\doxysubsubsection{\texorpdfstring{SYSTIC\_vDelayMs()}{SYSTIC\_vDelayMs()}}
-{\footnotesize\ttfamily \label{SYSTIC__program_8c_a1726b39164004495ff64017b18f6e118} 
-void SYSTIC\+\_\+v\+Delay\+Ms (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{Copy\+\_\+u32\+Ms\+Time}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00136}{136}} of file \doxymbox{\hyperlink{SYSTIC__program_8c_source}{SYSTIC\+\_\+program.\+c}}.
-
-\Hypertarget{SYSTIC__program_8c_ad76d8f1128b3a2cfceeca65bac33b757}\index{SYSTIC\_program.c@{SYSTIC\_program.c}!SYSTIC\_vDelayUs@{SYSTIC\_vDelayUs}}
-\index{SYSTIC\_vDelayUs@{SYSTIC\_vDelayUs}!SYSTIC\_program.c@{SYSTIC\_program.c}}
-\doxysubsubsection{\texorpdfstring{SYSTIC\_vDelayUs()}{SYSTIC\_vDelayUs()}}
-{\footnotesize\ttfamily \label{SYSTIC__program_8c_ad76d8f1128b3a2cfceeca65bac33b757} 
-void SYSTIC\+\_\+v\+Delay\+Us (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{Copy\+\_\+u32\+Us\+Time}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00211}{211}} of file \doxymbox{\hyperlink{SYSTIC__program_8c_source}{SYSTIC\+\_\+program.\+c}}.
-
 \Hypertarget{SYSTIC__program_8c_a99e63ce5310c50cf04f33715ace4023c}\index{SYSTIC\_program.c@{SYSTIC\_program.c}!SYSTIC\_vInit@{SYSTIC\_vInit}}
 \index{SYSTIC\_vInit@{SYSTIC\_vInit}!SYSTIC\_program.c@{SYSTIC\_program.c}}
 \doxysubsubsection{\texorpdfstring{SYSTIC\_vInit()}{SYSTIC\_vInit()}}
@@ -121,10 +74,6 @@ void SYSTIC\+\_\+v\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyPara
 
 
 Initialize the Sys\+Tick timer with configured settings. 
-
-Initialize and configure the Sys\+Tick timer.
-
-===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} \doxylink{SYSTIC__interface_8h}{SYSTIC\+\_\+interface.\+h} \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Abdelmoemen Shehawey \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ MCAL \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} CPU :\+ Cortex-\/\+M4 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} MCU :\+ NUCLEO-\/\+F446\+RE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SWC :\+ SYSTIC \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}
 
 This function initializes the Sys\+Tick timer with the following:\+
 \begin{DoxyItemize}
@@ -137,29 +86,411 @@ This function initializes the Sys\+Tick timer with the following:\+
 Must be called before using any other SYSTIC functions 
 \end{DoxyNote}
 \begin{DoxyWarning}{Warning}
-Ensure proper clock configuration before initialization
+Ensure proper clock configuration before initialization 
 \end{DoxyWarning}
-This function performs the following configurations:\+
-\begin{DoxyEnumerate}
-\item Sets up the clock source based on SYSTIC\+\_\+\+CLKSOURCE configuration
-\begin{DoxyItemize}
-\item AHB clock:\+ Maximum precision but higher power consumption
-\item AHB/\+8:\+ Lower precision but more power efficient
-\end{DoxyItemize}
-\item Configures the interrupt state based on SYSTIC\+\_\+\+TICKINT
-\begin{DoxyItemize}
-\item Enabled:\+ Timer will generate exceptions
-\item Disabled:\+ Polling mode operation
-\end{DoxyItemize}
-\end{DoxyEnumerate}
+\begin{DoxyParagraph}{Example:\+}
+\doxylink{SYSTIC__interface_8h_a99e63ce5310c50cf04f33715ace4023c}{SYSTIC\+\_\+v\+Init()}; 
+\end{DoxyParagraph}
+
+
+Definition at line \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00049}{49}} of file \doxymbox{\hyperlink{SYSTIC__program_8c_source}{SYSTIC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{STM32F446xx_8h_source_l00138}{MSYSTIC}}, \doxymbox{\hyperlink{SYSTIC__private_8h_source_l00020}{SYSTIC\+\_\+\+CTRL\+\_\+\+CLKSOURCE}}, and \doxymbox{\hyperlink{SYSTIC__private_8h_source_l00019}{SYSTIC\+\_\+\+CTRL\+\_\+\+TICKINT}}.
+
+\Hypertarget{SYSTIC__program_8c_ac095f2dcf6262ec7bd865b1bdac25b64}\index{SYSTIC\_program.c@{SYSTIC\_program.c}!SYSTIC\_vDisable@{SYSTIC\_vDisable}}
+\index{SYSTIC\_vDisable@{SYSTIC\_vDisable}!SYSTIC\_program.c@{SYSTIC\_program.c}}
+\doxysubsubsection{\texorpdfstring{SYSTIC\_vDisable()}{SYSTIC\_vDisable()}}
+{\footnotesize\ttfamily \label{SYSTIC__program_8c_ac095f2dcf6262ec7bd865b1bdac25b64} 
+void SYSTIC\+\_\+v\+Disable (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Disable the Sys\+Tick timer. 
+
+Stops the timer by clearing the ENABLE bit in the CTRL register This function is used internally by delay functions 
+
+Definition at line \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00085}{85}} of file \doxymbox{\hyperlink{SYSTIC__program_8c_source}{SYSTIC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{STM32F446xx_8h_source_l00138}{MSYSTIC}}, and \doxymbox{\hyperlink{SYSTIC__private_8h_source_l00018}{SYSTIC\+\_\+\+CTRL\+\_\+\+ENABLE}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00133}{SYSTIC\+\_\+v\+Delay\+Ms()}}, and \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00207}{SYSTIC\+\_\+v\+Delay\+Us()}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{SYSTIC__program_8c_ac095f2dcf6262ec7bd865b1bdac25b64_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{SYSTIC__program_8c_aed31b8341f403a3068ea1106d1c31e09}\index{SYSTIC\_program.c@{SYSTIC\_program.c}!SYSTIC\_vEnable@{SYSTIC\_vEnable}}
+\index{SYSTIC\_vEnable@{SYSTIC\_vEnable}!SYSTIC\_program.c@{SYSTIC\_program.c}}
+\doxysubsubsection{\texorpdfstring{SYSTIC\_vEnable()}{SYSTIC\_vEnable()}}
+{\footnotesize\ttfamily \label{SYSTIC__program_8c_aed31b8341f403a3068ea1106d1c31e09} 
+void SYSTIC\+\_\+v\+Enable (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Enable the Sys\+Tick timer. 
+
+Starts the timer by setting the ENABLE bit in the CTRL register This function is used internally by delay functions 
+
+Definition at line \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00097}{97}} of file \doxymbox{\hyperlink{SYSTIC__program_8c_source}{SYSTIC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{STM32F446xx_8h_source_l00138}{MSYSTIC}}, and \doxymbox{\hyperlink{SYSTIC__private_8h_source_l00018}{SYSTIC\+\_\+\+CTRL\+\_\+\+ENABLE}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00365}{SYSTIC\+\_\+enum\+Callback()}}, \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00420}{SYSTIC\+\_\+enum\+Callback\+Single\+Shot()}}, \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00133}{SYSTIC\+\_\+v\+Delay\+Ms()}}, and \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00207}{SYSTIC\+\_\+v\+Delay\+Us()}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{SYSTIC__program_8c_aed31b8341f403a3068ea1106d1c31e09_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{SYSTIC__program_8c_ab105192747b83b6f41fb0cc7c242649d}\index{SYSTIC\_program.c@{SYSTIC\_program.c}!SYSTIC\_vWait@{SYSTIC\_vWait}}
+\index{SYSTIC\_vWait@{SYSTIC\_vWait}!SYSTIC\_program.c@{SYSTIC\_program.c}}
+\doxysubsubsection{\texorpdfstring{SYSTIC\_vWait()}{SYSTIC\_vWait()}}
+{\footnotesize\ttfamily \label{SYSTIC__program_8c_ab105192747b83b6f41fb0cc7c242649d} 
+void SYSTIC\+\_\+v\+Wait (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Wait for the Sys\+Tick timer to complete counting. 
+
+Polls the COUNTFLAG bit in the CTRL register until it is set, indicating that the counter has reached zero 
+
+Definition at line \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00109}{109}} of file \doxymbox{\hyperlink{SYSTIC__program_8c_source}{SYSTIC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{STM32F446xx_8h_source_l00138}{MSYSTIC}}, and \doxymbox{\hyperlink{SYSTIC__private_8h_source_l00021}{SYSTIC\+\_\+\+CTRL\+\_\+\+COUNTFLAG}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00133}{SYSTIC\+\_\+v\+Delay\+Ms()}}, and \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00207}{SYSTIC\+\_\+v\+Delay\+Us()}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=303pt]{SYSTIC__program_8c_ab105192747b83b6f41fb0cc7c242649d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{SYSTIC__program_8c_a1726b39164004495ff64017b18f6e118}\index{SYSTIC\_program.c@{SYSTIC\_program.c}!SYSTIC\_vDelayMs@{SYSTIC\_vDelayMs}}
+\index{SYSTIC\_vDelayMs@{SYSTIC\_vDelayMs}!SYSTIC\_program.c@{SYSTIC\_program.c}}
+\doxysubsubsection{\texorpdfstring{SYSTIC\_vDelayMs()}{SYSTIC\_vDelayMs()}}
+{\footnotesize\ttfamily \label{SYSTIC__program_8c_a1726b39164004495ff64017b18f6e118} 
+void SYSTIC\+\_\+v\+Delay\+Ms (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{Copy\+\_\+u32\+Ms\+Time}{}\end{DoxyParamCaption})}
+
+
+
+Generate a precise millisecond delay using polling method. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Copy\+\_\+u32\+Ms\+Time} & Delay duration in milliseconds (1 to 16777215 ms)\\
+\hline
+\end{DoxyParams}
+Uses the Sys\+Tick timer to generate accurate millisecond delays by polling the COUNTFLAG bit
 
 \begin{DoxyNote}{Note}
-This function must be called before using any other SYSTIC functions 
+This is a blocking function 
 \end{DoxyNote}
 \begin{DoxyWarning}{Warning}
-Ensure system clock is properly configured before calling this function 
+Maximum delay is limited by the 24-\/bit counter 
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example:\+}
+SYSTIC\+\_\+v\+Delay\+Ms(1000); 
+\end{DoxyParagraph}
+
+
+Definition at line \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00133}{133}} of file \doxymbox{\hyperlink{SYSTIC__program_8c_source}{SYSTIC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{STM32F446xx_8h_source_l00138}{MSYSTIC}}, \doxymbox{\hyperlink{SYSTIC__config_8h_source_l00030}{SYSTEM\+\_\+\+CLOCK\+\_\+\+IN\+\_\+\+KHZ}}, \doxymbox{\hyperlink{SYSTIC__private_8h_source_l00029}{SYSTIC\+\_\+\+MAX\+\_\+\+NO\+\_\+\+OF\+\_\+\+TICKS}}, \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00085}{SYSTIC\+\_\+v\+Disable()}}, \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00097}{SYSTIC\+\_\+v\+Enable()}}, and \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00109}{SYSTIC\+\_\+v\+Wait()}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{SYSTIC__program_8c_a1726b39164004495ff64017b18f6e118_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{SYSTIC__program_8c_ad76d8f1128b3a2cfceeca65bac33b757}\index{SYSTIC\_program.c@{SYSTIC\_program.c}!SYSTIC\_vDelayUs@{SYSTIC\_vDelayUs}}
+\index{SYSTIC\_vDelayUs@{SYSTIC\_vDelayUs}!SYSTIC\_program.c@{SYSTIC\_program.c}}
+\doxysubsubsection{\texorpdfstring{SYSTIC\_vDelayUs()}{SYSTIC\_vDelayUs()}}
+{\footnotesize\ttfamily \label{SYSTIC__program_8c_ad76d8f1128b3a2cfceeca65bac33b757} 
+void SYSTIC\+\_\+v\+Delay\+Us (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{Copy\+\_\+u32\+Us\+Time}{}\end{DoxyParamCaption})}
+
+
+
+Generate a precise microsecond delay using polling method. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Copy\+\_\+u32\+Us\+Time} & Delay duration in microseconds (1 to 16777215 µs)\\
+\hline
+\end{DoxyParams}
+Uses the Sys\+Tick timer to generate accurate microsecond delays by polling the COUNTFLAG bit
+
+\begin{DoxyNote}{Note}
+This is a blocking function 
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+For very short delays (\texorpdfstring{$<$}{<}10µs), accuracy may be affected by function call overhead 
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example:\+}
+SYSTIC\+\_\+v\+Delay\+Us(500); 
+\end{DoxyParagraph}
+
+
+Definition at line \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00207}{207}} of file \doxymbox{\hyperlink{SYSTIC__program_8c_source}{SYSTIC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{STM32F446xx_8h_source_l00138}{MSYSTIC}}, \doxymbox{\hyperlink{SYSTIC__config_8h_source_l00023}{SYSTEM\+\_\+\+CLOCK\+\_\+\+IN\+\_\+\+MHZ}}, \doxymbox{\hyperlink{SYSTIC__private_8h_source_l00029}{SYSTIC\+\_\+\+MAX\+\_\+\+NO\+\_\+\+OF\+\_\+\+TICKS}}, \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00085}{SYSTIC\+\_\+v\+Disable()}}, \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00097}{SYSTIC\+\_\+v\+Enable()}}, and \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00109}{SYSTIC\+\_\+v\+Wait()}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{SYSTIC__program_8c_ad76d8f1128b3a2cfceeca65bac33b757_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{SYSTIC__program_8c_a6f1eb3133defa3900330337cde02ddc1}\index{SYSTIC\_program.c@{SYSTIC\_program.c}!SYSTIC\_enumGetElapsedTickSingleShot@{SYSTIC\_enumGetElapsedTickSingleShot}}
+\index{SYSTIC\_enumGetElapsedTickSingleShot@{SYSTIC\_enumGetElapsedTickSingleShot}!SYSTIC\_program.c@{SYSTIC\_program.c}}
+\doxysubsubsection{\texorpdfstring{SYSTIC\_enumGetElapsedTickSingleShot()}{SYSTIC\_enumGetElapsedTickSingleShot()}}
+{\footnotesize\ttfamily \label{SYSTIC__program_8c_a6f1eb3133defa3900330337cde02ddc1} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} SYSTIC\+\_\+enum\+Get\+Elapsed\+Tick\+Single\+Shot (\begin{DoxyParamCaption}\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+pu32\+Tick}{}\end{DoxyParamCaption})}
+
+
+
+Generate a precise microsecond delay using polling method. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Copy\+\_\+pu32\+Tick} & Pointer to store the elapsed tick count\\
+\hline
+\end{DoxyParams}
+This function:\+
+\begin{DoxyEnumerate}
+\item Calculates the number of ticks needed based on clock configuration
+\item Handles delays longer than maximum counter value (24-\/bit) by breaking them into multiple shorter delays
+\end{DoxyEnumerate}
+
+\begin{DoxyReturn}{Returns}
+OK if the tick count was written to {\ttfamily Copy\+\_\+pu32\+Tick}, NULL\+\_\+\+POINTER if it was NULL.
+\begin{DoxyEnumerate}
+\item Uses polling method to wait for completion
+\end{DoxyEnumerate}
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+The actual delay might be slightly longer than requested due to:\+
+\begin{DoxyItemize}
+\item Function call overhead
+\item Context switching (if interrupts are enabled)
+\item Clock frequency rounding
+\end{DoxyItemize}
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+For very short delays (\texorpdfstring{$<$}{<}10µs), the actual elapsed tick count may be longer than requested due to function call overhead 
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example:\+}
+
+\end{DoxyParagraph}
+uint32\+\_\+t elapsed; SYSTIC\+\_\+enum\+Get\+Elapsed\+Tick\+Single\+Shot(\&elapsed); 
+
+Definition at line \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00281}{281}} of file \doxymbox{\hyperlink{SYSTIC__program_8c_source}{SYSTIC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{STM32F446xx_8h_source_l00138}{MSYSTIC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, and \doxymbox{\hyperlink{SYSTIC__config_8h_source_l00023}{SYSTEM\+\_\+\+CLOCK\+\_\+\+IN\+\_\+\+MHZ}}.
+
+\Hypertarget{SYSTIC__program_8c_a6faccf82df62191d2ba2aaf0a0dd66ea}\index{SYSTIC\_program.c@{SYSTIC\_program.c}!SYSTIC\_enumRemainingTickSingleShot@{SYSTIC\_enumRemainingTickSingleShot}}
+\index{SYSTIC\_enumRemainingTickSingleShot@{SYSTIC\_enumRemainingTickSingleShot}!SYSTIC\_program.c@{SYSTIC\_program.c}}
+\doxysubsubsection{\texorpdfstring{SYSTIC\_enumRemainingTickSingleShot()}{SYSTIC\_enumRemainingTickSingleShot()}}
+{\footnotesize\ttfamily \label{SYSTIC__program_8c_a6faccf82df62191d2ba2aaf0a0dd66ea} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} SYSTIC\+\_\+enum\+Remaining\+Tick\+Single\+Shot (\begin{DoxyParamCaption}\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+pu32\+Tick}{}\end{DoxyParamCaption})}
+
+
+
+Get the remaining tick count for a single-\/shot Sys\+Tick timer. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Copy\+\_\+pu32\+Tick} & Pointer to store the remaining tick count\\
+\hline
+\end{DoxyParams}
+This function:\+
+\begin{DoxyEnumerate}
+\item Calculates the number of ticks remaining for a single-\/shot Sys\+Tick timer
+\end{DoxyEnumerate}
+
+\begin{DoxyReturn}{Returns}
+OK if the remaining count was written to {\ttfamily Copy\+\_\+pu32\+Tick}, NULL\+\_\+\+POINTER if it was NULL.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+The actual remaining tick count might be slightly longer than requested due to:\+
+\begin{DoxyItemize}
+\item Function call overhead
+\item Context switching (if interrupts are enabled)
+\item Clock frequency rounding
+\end{DoxyItemize}
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+For very short delays (\texorpdfstring{$<$}{<}10µs), the actual remaining tick count may be longer than requested due to function call overhead 
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example:\+}
+
+\end{DoxyParagraph}
+uint32\+\_\+t remaining; SYSTIC\+\_\+enum\+Remaining\+Tick\+Single\+Shot(\&remaining); 
+
+Definition at line \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00321}{321}} of file \doxymbox{\hyperlink{SYSTIC__program_8c_source}{SYSTIC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{STM32F446xx_8h_source_l00138}{MSYSTIC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, and \doxymbox{\hyperlink{SYSTIC__config_8h_source_l00023}{SYSTEM\+\_\+\+CLOCK\+\_\+\+IN\+\_\+\+MHZ}}.
+
+\Hypertarget{SYSTIC__program_8c_a233735d97515255dbfddaaed7a4a5822}\index{SYSTIC\_program.c@{SYSTIC\_program.c}!SYSTIC\_enumCallback@{SYSTIC\_enumCallback}}
+\index{SYSTIC\_enumCallback@{SYSTIC\_enumCallback}!SYSTIC\_program.c@{SYSTIC\_program.c}}
+\doxysubsubsection{\texorpdfstring{SYSTIC\_enumCallback()}{SYSTIC\_enumCallback()}}
+{\footnotesize\ttfamily \label{SYSTIC__program_8c_a233735d97515255dbfddaaed7a4a5822} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} SYSTIC\+\_\+enum\+Callback (\begin{DoxyParamCaption}\item[{void(\texorpdfstring{$\ast$}{*}}]{Copy\+\_\+pv\+Call\+Back~}{)(void), }\item[{uint32\+\_\+t}]{Copy\+\_\+u32\+Tick}{}\end{DoxyParamCaption})}
+
+
+
+Register a {\bfseries{periodic}} callback, fired from the Sys\+Tick ISR every {\ttfamily Copy\+\_\+u32\+Tick} ticks. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Copy\+\_\+pv\+Call\+Back} & Function to call. Runs in interrupt context, so it must be short and non-\/blocking. \\
+\hline
+ & {\em Copy\+\_\+u32\+Tick} & Period, in Sys\+Tick ticks. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The callback was registered and the timer started. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily Copy\+\_\+pv\+Call\+Back} was NULL.\\
+\hline
+\end{DoxyRetVals}
+\begin{DoxyWarning}{Warning}
+For very short periods (under \texorpdfstring{$\sim$}{\string~}10 us) the call overhead is a significant fraction of the period, and the real interval will be longer than asked for. 
 \end{DoxyWarning}
 
 
-Definition at line \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00048}{48}} of file \doxymbox{\hyperlink{SYSTIC__program_8c_source}{SYSTIC\+\_\+program.\+c}}.
+Definition at line \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00365}{365}} of file \doxymbox{\hyperlink{SYSTIC__program_8c_source}{SYSTIC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{STM32F446xx_8h_source_l00138}{MSYSTIC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00033}{Single\+Shot\+\_\+\+Flag}}, \doxymbox{\hyperlink{SYSTIC__config_8h_source_l00023}{SYSTEM\+\_\+\+CLOCK\+\_\+\+IN\+\_\+\+MHZ}}, \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00031}{SYSTIC\+\_\+\+Call\+Back}}, and \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00097}{SYSTIC\+\_\+v\+Enable()}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=335pt]{SYSTIC__program_8c_a233735d97515255dbfddaaed7a4a5822_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{SYSTIC__program_8c_a5a2145332c475bf7e865779752a45200}\index{SYSTIC\_program.c@{SYSTIC\_program.c}!SYSTIC\_enumCallbackSingleShot@{SYSTIC\_enumCallbackSingleShot}}
+\index{SYSTIC\_enumCallbackSingleShot@{SYSTIC\_enumCallbackSingleShot}!SYSTIC\_program.c@{SYSTIC\_program.c}}
+\doxysubsubsection{\texorpdfstring{SYSTIC\_enumCallbackSingleShot()}{SYSTIC\_enumCallbackSingleShot()}}
+{\footnotesize\ttfamily \label{SYSTIC__program_8c_a5a2145332c475bf7e865779752a45200} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} SYSTIC\+\_\+enum\+Callback\+Single\+Shot (\begin{DoxyParamCaption}\item[{void(\texorpdfstring{$\ast$}{*}}]{Copy\+\_\+pv\+Call\+Back~}{)(void), }\item[{uint32\+\_\+t}]{Copy\+\_\+u32\+Tick}{}\end{DoxyParamCaption})}
+
+
+
+Register a {\bfseries{one-\/shot}} callback, fired once after {\ttfamily Copy\+\_\+u32\+Tick} ticks. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Copy\+\_\+pv\+Call\+Back} & Function to call. Runs in interrupt context. \\
+\hline
+ & {\em Copy\+\_\+u32\+Tick} & Delay before it fires, in Sys\+Tick ticks. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The callback was registered and the timer started. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily Copy\+\_\+pv\+Call\+Back} was NULL.\\
+\hline
+\end{DoxyRetVals}
+\begin{DoxyNote}{Note}
+Disarms itself after firing — unlike \doxylink{SYSTIC__interface_8h_a233735d97515255dbfddaaed7a4a5822}{SYSTIC\+\_\+enum\+Callback}, which repeats until it is replaced. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00420}{420}} of file \doxymbox{\hyperlink{SYSTIC__program_8c_source}{SYSTIC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{STM32F446xx_8h_source_l00138}{MSYSTIC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00033}{Single\+Shot\+\_\+\+Flag}}, \doxymbox{\hyperlink{SYSTIC__config_8h_source_l00023}{SYSTEM\+\_\+\+CLOCK\+\_\+\+IN\+\_\+\+MHZ}}, \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00031}{SYSTIC\+\_\+\+Call\+Back}}, and \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00097}{SYSTIC\+\_\+v\+Enable()}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{SYSTIC__program_8c_a5a2145332c475bf7e865779752a45200_cgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-var-members}
+\Hypertarget{SYSTIC__program_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{SYSTIC__program_8c_ad7fd210618a8746df3cf57ec955c3259}\index{SYSTIC\_program.c@{SYSTIC\_program.c}!SYSTIC\_CallBack@{SYSTIC\_CallBack}}
+\index{SYSTIC\_CallBack@{SYSTIC\_CallBack}!SYSTIC\_program.c@{SYSTIC\_program.c}}
+\doxysubsubsection{\texorpdfstring{SYSTIC\_CallBack}{SYSTIC\_CallBack}}
+{\footnotesize\ttfamily \label{SYSTIC__program_8c_ad7fd210618a8746df3cf57ec955c3259} 
+void(\texorpdfstring{$\ast$}{*} SYSTIC\+\_\+\+Call\+Back) (void) (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Callback invoked from the Sys\+Tick ISR; NULL means none registered. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00031}{31}} of file \doxymbox{\hyperlink{SYSTIC__program_8c_source}{SYSTIC\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00365}{SYSTIC\+\_\+enum\+Callback()}}, and \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00420}{SYSTIC\+\_\+enum\+Callback\+Single\+Shot()}}.
+
+\Hypertarget{SYSTIC__program_8c_a9721a4d0aaa47d84c581c06e153b8a87}\index{SYSTIC\_program.c@{SYSTIC\_program.c}!SingleShot\_Flag@{SingleShot\_Flag}}
+\index{SingleShot\_Flag@{SingleShot\_Flag}!SYSTIC\_program.c@{SYSTIC\_program.c}}
+\doxysubsubsection{\texorpdfstring{SingleShot\_Flag}{SingleShot\_Flag}}
+{\footnotesize\ttfamily \label{SYSTIC__program_8c_a9721a4d0aaa47d84c581c06e153b8a87} 
+uint8\+\_\+t Single\+Shot\+\_\+\+Flag\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+1 = the pending callback is one-\/shot and disarms itself after firing; 0 = periodic. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00033}{33}} of file \doxymbox{\hyperlink{SYSTIC__program_8c_source}{SYSTIC\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00365}{SYSTIC\+\_\+enum\+Callback()}}, and \doxymbox{\hyperlink{SYSTIC__program_8c_source_l00420}{SYSTIC\+\_\+enum\+Callback\+Single\+Shot()}}.
 

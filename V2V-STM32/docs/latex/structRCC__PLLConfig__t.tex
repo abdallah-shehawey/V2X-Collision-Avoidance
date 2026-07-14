@@ -2,34 +2,67 @@
 \hypertarget{structRCC__PLLConfig__t}{}\label{structRCC__PLLConfig__t}\index{RCC\_PLLConfig\_t@{RCC\_PLLConfig\_t}}
 
 
-{\ttfamily \+\#include $<$RCC\+\_\+interface.\+h$>$}
+The PLL dividers that set the system clock frequency.  
+
+
+
+
+{\ttfamily \+\#include $<$Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h$>$}
 
 \doxysubsubsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
 \doxymbox{\hyperlink{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455}{RCC\+\_\+\+PLL\+\_\+\+CLK\+\_\+\+SRC\+\_\+t}} \doxymbox{\hyperlink{structRCC__PLLConfig__t_a6cc22cade4aa9139e8126737b13f263b}{PLLSource}}
-\item 
+\begin{DoxyCompactList}\small\item\em Where the PLL takes its input from:\+ the internal HSI or the external HSE. \end{DoxyCompactList}\item 
 uint8\+\_\+t \doxymbox{\hyperlink{structRCC__PLLConfig__t_a4ced7907a8b3208d084ef5835e62466f}{PLLM\+\_\+\+Div}}
-\item 
+\begin{DoxyCompactList}\small\item\em Input divider, 2..63. \end{DoxyCompactList}\item 
 uint8\+\_\+t \doxymbox{\hyperlink{structRCC__PLLConfig__t_aac81bf0a8a6b4773f37ae33dd426bbf2}{PLLN\+\_\+\+Mult}}
-\item 
+\begin{DoxyCompactList}\small\item\em VCO multiplier, 50..432. \end{DoxyCompactList}\item 
 \doxymbox{\hyperlink{RCC__interface_8h_a2fc8ece77236e47c265f8205802c711c}{RCC\+\_\+\+PPLL\+\_\+\+CLK\+\_\+\+DIV\+\_\+t}} \doxymbox{\hyperlink{structRCC__PLLConfig__t_a1c948324f41858be945f948a1a5751c9}{PLLP\+\_\+\+Div}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Output divider — 2, 4, 6 or 8 — giving the final system clock (≤ 180 MHz). \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2RCC_2RCC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h}}.\end{Desc}
+The PLL dividers that set the system clock frequency. 
+
+The PLL takes the source clock and puts it through three stages:\+
+
+\begin{DoxyVerb}*   f_SYSCLK = f_source / PLLM_Div * PLLN_Mult / PLLP_Div
+* \end{DoxyVerb}
 
 
-Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00265}{265}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+{\ttfamily \doxylink{structRCC__PLLConfig__t_a4ced7907a8b3208d084ef5835e62466f}{PLLM\+\_\+\+Div}} first brings the source down to the PLL\textquotesingle{}s input frequency, which {\bfseries{must land between 1 and 2 MHz}} (2 MHz is recommended); {\ttfamily \doxylink{structRCC__PLLConfig__t_aac81bf0a8a6b4773f37ae33dd426bbf2}{PLLN\+\_\+\+Mult}} then multiplies it up into the VCO, which must stay between 100 and 432 MHz; and {\ttfamily \doxylink{structRCC__PLLConfig__t_a1c948324f41858be945f948a1a5751c9}{PLLP\+\_\+\+Div}} divides the VCO down to the final system clock, which must not exceed 180 MHz on this part.
+
+\begin{DoxyWarning}{Warning}
+Those three ranges are hardware limits, not style advice. A combination that overshoots them produces a PLL that either never locks or locks at a frequency the flash cannot be read at, and the symptom is a board that appears dead at reset. 
+\end{DoxyWarning}
+
+
+Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00254}{254}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
 
 
 
 \label{doc-variable-members}
 \Hypertarget{structRCC__PLLConfig__t_doc-variable-members}
 \doxysubsection{Field Documentation}
+\Hypertarget{structRCC__PLLConfig__t_a6cc22cade4aa9139e8126737b13f263b}\index{RCC\_PLLConfig\_t@{RCC\_PLLConfig\_t}!PLLSource@{PLLSource}}
+\index{PLLSource@{PLLSource}!RCC\_PLLConfig\_t@{RCC\_PLLConfig\_t}}
+\doxysubsubsection{\texorpdfstring{PLLSource}{PLLSource}}
+{\footnotesize\ttfamily \label{structRCC__PLLConfig__t_a6cc22cade4aa9139e8126737b13f263b} 
+\doxymbox{\hyperlink{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455}{RCC\+\_\+\+PLL\+\_\+\+CLK\+\_\+\+SRC\+\_\+t}} RCC\+\_\+\+PLLConfig\+\_\+t::\+\+PLLSource}
+
+
+
+Where the PLL takes its input from:\+ the internal HSI or the external HSE. 
+
+
+
+Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00255}{255}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{RCC__program_8c_source_l00250}{RCC\+\_\+enum\+PLLConfig()}}.
+
 \Hypertarget{structRCC__PLLConfig__t_a4ced7907a8b3208d084ef5835e62466f}\index{RCC\_PLLConfig\_t@{RCC\_PLLConfig\_t}!PLLM\_Div@{PLLM\_Div}}
 \index{PLLM\_Div@{PLLM\_Div}!RCC\_PLLConfig\_t@{RCC\_PLLConfig\_t}}
 \doxysubsubsection{\texorpdfstring{PLLM\_Div}{PLLM\_Div}}
@@ -38,7 +71,15 @@ uint8\+\_\+t RCC\+\_\+\+PLLConfig\+\_\+t::\+\+PLLM\+\_\+\+Div}
 
 
 
-Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00267}{267}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+Input divider, 2..63. 
+
+Brings the source down to the 1–2 MHz the PLL wants. 
+
+Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00256}{256}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{RCC__program_8c_source_l00250}{RCC\+\_\+enum\+PLLConfig()}}.
 
 \Hypertarget{structRCC__PLLConfig__t_aac81bf0a8a6b4773f37ae33dd426bbf2}\index{RCC\_PLLConfig\_t@{RCC\_PLLConfig\_t}!PLLN\_Mult@{PLLN\_Mult}}
 \index{PLLN\_Mult@{PLLN\_Mult}!RCC\_PLLConfig\_t@{RCC\_PLLConfig\_t}}
@@ -48,7 +89,15 @@ uint8\+\_\+t RCC\+\_\+\+PLLConfig\+\_\+t::\+\+PLLN\+\_\+\+Mult}
 
 
 
-Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00269}{269}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+VCO multiplier, 50..432. 
+
+The result must stay within 100–432 MHz. 
+
+Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00257}{257}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{RCC__program_8c_source_l00250}{RCC\+\_\+enum\+PLLConfig()}}.
 
 \Hypertarget{structRCC__PLLConfig__t_a1c948324f41858be945f948a1a5751c9}\index{RCC\_PLLConfig\_t@{RCC\_PLLConfig\_t}!PLLP\_Div@{PLLP\_Div}}
 \index{PLLP\_Div@{PLLP\_Div}!RCC\_PLLConfig\_t@{RCC\_PLLConfig\_t}}
@@ -58,20 +107,18 @@ Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00269}{269}} o
 
 
 
-Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00270}{270}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
-
-\Hypertarget{structRCC__PLLConfig__t_a6cc22cade4aa9139e8126737b13f263b}\index{RCC\_PLLConfig\_t@{RCC\_PLLConfig\_t}!PLLSource@{PLLSource}}
-\index{PLLSource@{PLLSource}!RCC\_PLLConfig\_t@{RCC\_PLLConfig\_t}}
-\doxysubsubsection{\texorpdfstring{PLLSource}{PLLSource}}
-{\footnotesize\ttfamily \label{structRCC__PLLConfig__t_a6cc22cade4aa9139e8126737b13f263b} 
-\doxymbox{\hyperlink{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455}{RCC\+\_\+\+PLL\+\_\+\+CLK\+\_\+\+SRC\+\_\+t}} RCC\+\_\+\+PLLConfig\+\_\+t::\+\+PLLSource}
+Output divider — 2, 4, 6 or 8 — giving the final system clock (≤ 180 MHz). 
 
 
 
-Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00266}{266}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00258}{258}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{RCC__program_8c_source_l00250}{RCC\+\_\+enum\+PLLConfig()}}.
 
 
 
 The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
 \item 
-Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\doxymbox{\hyperlink{RCC__interface_8h}{RCC\+\_\+interface.\+h}}\end{DoxyCompactItemize}
+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\doxymbox{\hyperlink{RCC__interface_8h}{RCC\+\_\+interface.\+h}}\end{DoxyCompactItemize}

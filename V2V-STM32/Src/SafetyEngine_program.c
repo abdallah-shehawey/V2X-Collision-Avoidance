@@ -1,14 +1,10 @@
 /**
- **===========================================================================**
- **<<<<<<<<<<<<<<<<<<<<<<    SafetyEngine_program.c   >>>>>>>>>>>>>>>>>>>>>>>>**
- **                                                                           **
- **                  Author : Abdallah Abdelmoemen Shehawey                   **
- **                  Layer  : APP                                             **
- **                  CPU    : Cortex-M4                                       **
- **                  MCU    : NUCLEO-F446RE                                   **
- **                  SW     : V2X Safety Engine (Single-Pass)                 **
- **                                                                           **
- **===========================================================================**
+ ******************************************************************************
+ * @file    SafetyEngine_program.c
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Implementation of the SafetyEngine driver — the shared risk model and per-cycle ADAS orchestration.
+ * @ingroup app_safetyengine
+ ******************************************************************************
  */
 
 #include "../Inc/Application/SafetyEngine/SafetyEngine_interface.h"
@@ -21,12 +17,16 @@
 
 /* Host state latched once per cycle from G_stHostVehicleState, read by the
  * distance-based modules during their neighbor pass (declared in the interface). */
+/** @brief This vehicle's speed for the current cycle [m/s]. Latched once per cycle — see @ref SafetyEngine_voidUpdate. */
 float Host_Speed   = 0.0f;
+/** @brief This vehicle's heading for the current cycle [degrees]. Latched once per cycle. */
 float Host_Heading = 0.0f;
 
 /* Speed-dependent safe/critical gaps (cm) for the current cycle, shared by the
  * distance-based modules (Local FCW, EEBL). See SafetyEngine_interface.h. */
+/** @brief The safe gap for the current cycle [cm], from the shared speed-dependent model. */
 float SafetyEngine_SafeDist     = 0.0f;
+/** @brief The critical gap for the current cycle [cm]. */
 float SafetyEngine_CriticalDist = 0.0f;
 
 /* ============ Init ============ */
@@ -125,7 +125,16 @@ void SafetyEngine_voidUpdate(void)
 /* ============ Shared Direction Detection ============ */
 
 /**
- * @brief Calculate absolute heading difference, normalized to [0, 180]
+ * @brief Absolute difference between two headings, normalised to 0..180 degrees.
+ *
+ * @param h1 First heading [degrees], 0..360.
+ * @param h2 Second heading [degrees], 0..360.
+ * @return The angle between them [degrees], 0..180.
+ *
+ * @note Headings are circular, so the naive `|h1 - h2|` is wrong: 350° and 10°
+ *       are 20° apart, not 340°. Normalising here is what stops two cars that are
+ *       plainly travelling the same way being classified as @ref DIR_OPPOSITE
+ *       whenever they happen to be pointing near north.
  */
 static float CalcHeadingDiff(float h1, float h2)
 {

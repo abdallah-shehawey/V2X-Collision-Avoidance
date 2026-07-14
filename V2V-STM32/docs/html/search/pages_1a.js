@@ -1,4 +1,32 @@
 var searchData=
 [
-  ['🔧_20v2v_20stm32_20—_20real_20time_20safety_20core_0',['🔧 V2V-STM32 — Real-Time Safety Core',['../md_README.html',1,'']]]
+  ['takes_0',['The path a message takes',['../DSRC_8h.html#dsrc_flow',1,'']]],
+  ['task_20pipeline_1',['FreeRTOS task pipeline',['../index.html#autotoc_md6',1,'']]],
+  ['task_20set_2',['Task set',['../System_8h.html#sys_tasks',1,'']]],
+  ['telemetry_20to_20the_20raspberry_20pi_3',['📡 Telemetry to the Raspberry Pi',['../index.html#autotoc_md17',1,'']]],
+  ['test_20mode_20now_20_3a_20change_20values_20by_20hand_4',['Test mode (now): change values by hand',['../dir_55122db787629eaf0bcbfbf6ffd453bc.html#autotoc_md97',1,'']]],
+  ['testing_20with_20this_20one_5',['STAGE 3 — FEEDBACK BLOCK (5 LEDs + buzzer) ⭐ start testing with this one',['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md43',1,'']]],
+  ['the_20firmware_6',['3. Upload the Firmware',['../dir_59e7f8d29184d0656f3182488763fc33.html#autotoc_md91',1,'']]],
+  ['the_20firmware_20src_20system_20c_7',['Full PIN MAP (reference — from the firmware, &lt;span class=&quot;tt&quot;&gt;Src/System.c&lt;/span&gt;)',['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md87',1,'']]],
+  ['the_20foundation_20—_20start_20here_8',['STAGE 1 — POWER BLOCK (the foundation — start here)',['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md29',1,'']]],
+  ['the_20most_20important_20one_9',['STAGE 4 — ULTRASONICS BLOCK (×6) — the most important one',['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md49',1,'']]],
+  ['the_20path_20a_20message_20takes_10',['The path a message takes',['../DSRC_8h.html#dsrc_flow',1,'']]],
+  ['the_20raspberry_20pi_11',['📡 Telemetry to the Raspberry Pi',['../index.html#autotoc_md17',1,'']]],
+  ['the_20serial_20monitor_12',['4. Open the Serial Monitor',['../dir_59e7f8d29184d0656f3182488763fc33.html#autotoc_md92',1,'']]],
+  ['the_20sketch_13',['2. Compile the Sketch',['../dir_59e7f8d29184d0656f3182488763fc33.html#autotoc_md90',1,'']]],
+  ['the_20transport_20underneath_20all_20five_14',['DSRC — the transport underneath all five',['../index.html#autotoc_md15',1,'']]],
+  ['the_20two_20chips_20fit_20together_15',['How the two chips fit together',['../MPU9250__private_8h.html#mpu_layout',1,'']]],
+  ['the_20watchdog_20net_16',['The watchdog net',['../main_8c.html#main_wdg',1,'']]],
+  ['them_17',['them',['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md40',1,'Libraries and how to get them'],['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md47',1,'Libraries and how to get them'],['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md53',1,'Libraries and how to get them'],['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md60',1,'Libraries and how to get them'],['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md67',1,'Libraries and how to get them'],['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md74',1,'Libraries and how to get them'],['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md33',1,'Required libraries and how to get them']]],
+  ['then_20layout_18',['Suggested build order (schematic first, then layout)',['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md85',1,'']]],
+  ['this_20layer_19',['🎯 Purpose of this Layer',['../index.html#autotoc_md3',1,'']]],
+  ['this_20one_20',['STAGE 3 — FEEDBACK BLOCK (5 LEDs + buzzer) ⭐ start testing with this one',['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md43',1,'']]],
+  ['time_20safety_20core_21',['🔧 V2V-STM32 — Real-Time Safety Core',['../index.html',1,'']]],
+  ['to_20every_20stage_22',['Where to get Altium libraries (applies to every stage)',['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md27',1,'']]],
+  ['to_20get_20altium_20libraries_20applies_20to_20every_20stage_23',['Where to get Altium libraries (applies to every stage)',['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md27',1,'']]],
+  ['to_20get_20them_24',['to get them',['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md40',1,'Libraries and how to get them'],['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md47',1,'Libraries and how to get them'],['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md53',1,'Libraries and how to get them'],['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md60',1,'Libraries and how to get them'],['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md67',1,'Libraries and how to get them'],['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md74',1,'Libraries and how to get them'],['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md33',1,'Required libraries and how to get them']]],
+  ['to_20the_20raspberry_20pi_25',['📡 Telemetry to the Raspberry Pi',['../index.html#autotoc_md17',1,'']]],
+  ['together_26',['How the two chips fit together',['../MPU9250__private_8h.html#mpu_layout',1,'']]],
+  ['transport_20underneath_20all_20five_27',['DSRC — the transport underneath all five',['../index.html#autotoc_md15',1,'']]],
+  ['two_20chips_20fit_20together_28',['How the two chips fit together',['../MPU9250__private_8h.html#mpu_layout',1,'']]]
 ];

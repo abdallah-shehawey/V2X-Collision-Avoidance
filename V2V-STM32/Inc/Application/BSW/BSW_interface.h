@@ -1,3 +1,12 @@
+/**
+ ******************************************************************************
+ * @file    BSW_interface.h
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Public API of the BSW driver — Blind Spot Warning.
+ * @ingroup app_bsw
+ ******************************************************************************
+ */
+
 #ifndef BSW_INTERFACE_H
 #define BSW_INTERFACE_H
 

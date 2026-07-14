@@ -1,241 +1,288 @@
 \doxysection{SPI\+\_\+program.\+c}
-\hypertarget{SPI__program_8c_source}{}\label{SPI__program_8c_source}\index{Src/SPI\_program.c@{Src/SPI\_program.c}}
+\hypertarget{SPI__program_8c_source}{}\label{SPI__program_8c_source}\index{V2V-\/STM32/Src/SPI\_program.c@{V2V-\/STM32/Src/SPI\_program.c}}
 \doxymbox{\hyperlink{SPI__program_8c}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00001}00001\ }
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}stdint.h"{}}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{ErrTypes_8h}{../Inc/Drivers/LIB/ErrTypes.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h}{../Inc/Drivers/LIB/STM32F446xx.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}stdint.h"{}}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{ErrTypes_8h}{../Inc/Drivers/LIB/ErrTypes.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{STM32F446xx_8h}{../Inc/Drivers/LIB/STM32F446xx.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SPI__private_8h}{../Inc/Drivers/MCAL/SPI/SPI\_private.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SPI__config_8h}{../Inc/Drivers/MCAL/SPI/SPI\_config.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SPI__interface_8h}{../Inc/Drivers/MCAL/SPI/SPI\_interface.h}}"{}}}
 \DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00016}00016\ }
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SPI__private_8h}{../Inc/Drivers/MCAL/SPI/SPI\_private.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00018}00018\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SPI__config_8h}{../Inc/Drivers/MCAL/SPI/SPI\_config.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00019}00019\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SPI__interface_8h}{../Inc/Drivers/MCAL/SPI/SPI\_interface.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00020}00020\ }
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00021}00021\ \textcolor{comment}{/*\ Array\ of\ SPI\ port\ register\ definitions\ for\ easy\ access\ */}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00022}00022\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{structSPI__RegDef__t}{SPI\_RegDef\_t}}\ *SPI\_Channel[\doxymbox{\hyperlink{SPI__private_8h_ac8ab65623984e03b92e1907f1ff5e2cd}{SPI\_CHANNEL\_COUNT}}]\ =\ \{\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_aef26793e8da8ae0f978071e519b95a98}{MSPI1}},\ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a3a0b50a712a207cfe1591e042e354b40}{MSPI2}},\ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a5176ad296ec37851a317895e592225c8}{MSPI3}},\ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_aba6db3bf8d7ccd3f31795fcff7bd17a1}{MSPI4}}\};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00023}00023\ \textcolor{comment}{/*Global\ flag\ for\ the\ SPI\ Busy\ State*/}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00024}00024\ \textcolor{keyword}{static}\ uint8\_t\ SPI\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00021}\doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{00021}}\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{structSPI__RegDef__t}{SPI\_RegDef\_t}}\ *\doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\_Channel}}[\doxymbox{\hyperlink{SPI__private_8h_ac8ab65623984e03b92e1907f1ff5e2cd}{SPI\_CHANNEL\_COUNT}}]\ =\ \{\doxymbox{\hyperlink{group__lib_gaef26793e8da8ae0f978071e519b95a98}{MSPI1}},\ \doxymbox{\hyperlink{group__lib_ga3a0b50a712a207cfe1591e042e354b40}{MSPI2}},\ \doxymbox{\hyperlink{group__lib_ga5176ad296ec37851a317895e592225c8}{MSPI3}},\ \doxymbox{\hyperlink{group__lib_gaba6db3bf8d7ccd3f31795fcff7bd17a1}{MSPI4}}\};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00023}\doxymbox{\hyperlink{SPI__program_8c_ac3c975c9f481046c6225d47ecb7ea18a}{00023}}\ \textcolor{keyword}{static}\ uint8\_t\ \doxymbox{\hyperlink{SPI__program_8c_ac3c975c9f481046c6225d47ecb7ea18a}{SPI\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00024}00024\ }
 \DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00025}00025\ }
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00026}00026\ }
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00038}\doxymbox{\hyperlink{SPI__interface_8h_a4b6f9d4ba67bb037ab88265f09945a33}{00038}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{SPI__program_8c_a4b6f9d4ba67bb037ab88265f09945a33}{SPI\_enumInit}}(\doxymbox{\hyperlink{structSPI__Config__t}{SPI\_Config\_t}}\ *ChannelConfig)}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00039}00039\ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00040}00040\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00041}00041\ }
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00042}00042\ \ \ \textcolor{comment}{//\ Check\ for\ NULL\ pointer\ input}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00043}00043\ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00044}00044\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00045}00045\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00046}00046\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00047}00047\ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00048}00048\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00049}00049\ \ \ \ \ \textcolor{comment}{//\ Validate\ channel\ number}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00050}00050\ \ \ \ \ \textcolor{keywordflow}{if}(ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}\ >\ \doxymbox{\hyperlink{SPI__private_8h_ac8ab65623984e03b92e1907f1ff5e2cd}{SPI\_CHANNEL\_COUNT}})}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00051}00051\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00052}00052\ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00053}00053\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00054}00054\ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00055}00055\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00056}00056\ \ \ \ \ \ \ \textcolor{comment}{//\ Configure\ CLOCK\ PHASE\ (CPHA)}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00057}00057\ \ \ \ \ \ \ SPI\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a7ecef74a0f8f84d8050f8c655c600361}{CPHA}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786af92064a3d6b08e8c8ea749867762784f}{CR1\_CPHA}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00058}00058\ \ \ \ \ \ \ \textcolor{comment}{//\ Configure\ Clock\ Polarity\ (CPOL)}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00059}00059\ \ \ \ \ \ \ SPI\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a3eb827d937f1d50611d731b85f7a1119}{CPOL}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a960e68aa2d05201b29da28e636c6aefe}{CR1\_CPOL}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00060}00060\ \ \ \ \ \ \ \textcolor{comment}{//\ Configure\ Master/Slave\ Mode}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00061}00061\ \ \ \ \ \ \ SPI\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a7f7526555beb55126d4bf5c9341e1724}{Mode}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a3f3c71215abe5f7c95ff486be94a581c}{CR1\_MSTR}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00062}00062\ \ \ \ \ \ \ \textcolor{comment}{//\ Configure\ Baud\ Rate\ Prescaler}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00063}00063\ \ \ \ \ \ \ SPI\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a911cf4570a942c5aa13c1cf48e7a6e52}{BaudRatePrescaler}}\ \&\ 0X7)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a4043cbff8ac59383cc7877e9aa4b19ac}{CR1\_BR}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00064}00064\ \ \ \ \ \ \ \textcolor{comment}{//\ Configure\ Bit\ Order\ (MSB/LSB\ first)}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00065}00065\ \ \ \ \ \ \ SPI\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a1b62a15cf591f2bf7bfd3e51f83151da}{BFIRST}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786addc1e347bdee03e930aabc666a5c32f6}{CR1\_LSBFIRST}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00066}00066\ \ \ \ \ \ \ \textcolor{comment}{//\ Configure\ NSS\ Management\ (Hardware/Software)}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00067}00067\ \ \ \ \ \ \ SPI\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a76ac0853fd1f97093d1903c5ed2d5010}{NSS\_MAN}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a6a135f2c8d8bc0d86303e6b14e265c54}{CR1\_SSM}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00068}00068\ \ \ \ \ \ \ \textcolor{comment}{//\ If\ using\ Software\ NSS,\ configure\ NSS\ Mode}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00069}00069\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a76ac0853fd1f97093d1903c5ed2d5010}{NSS\_MAN}}\ ==\ \doxymbox{\hyperlink{SPI__interface_8h_adbe1555d537053eec05421b9c0a1b5c2a4871d5bdcf01bf25ffce4da1b5f387fb}{SPI\_NSS\_SOFTWARE}})}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00070}00070\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00071}00071\ \ \ \ \ \ \ \ \ SPI\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a4e7252309b44dce2e5908b0579f6a161}{NSSI\_MODE}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786abd3d3a4dd604ebb13037b54b7694126d}{CR1\_SSI}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00072}00072\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00073}00073\ \ \ \ \ \ \ \textcolor{comment}{//\ Configure\ Receive\ Only\ Mode}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00074}00074\ \ \ \ \ \ \ SPI\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a45144f1e23b389e29aa4d42809776dd3}{RXONLY}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a9189a82dfb5a96fc0866834baa268b96}{CR1\_RXONLY}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00075}00075\ \ \ \ \ \ \ \textcolor{comment}{//\ Configure\ Data\ Frame\ Format\ (8/16\ bit)}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00076}00076\ \ \ \ \ \ \ SPI\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a0037df0b1605a4fc0437380006bce929}{DFF}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a0e32c6a55a625cec4a0582c58853a278}{CR1\_DFF}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00077}00077\ \ \ \ \ \ \ \textcolor{comment}{//\ Configure\ CRC\ Mode}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00078}00078\ \ \ \ \ \ \ SPI\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a66babbd43cbecf5bd98a536164f11454}{CRC\_MODE}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a534a1d7f277d8cefcd7dc75e21b855c7}{CR1\_CRCEN}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00079}00079\ \ \ \ \ \ \ \textcolor{comment}{//\ If\ CRC\ is\ enabled,\ configure\ CRC\ Next}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00080}00080\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a66babbd43cbecf5bd98a536164f11454}{CRC\_MODE}}\ ==\ \doxymbox{\hyperlink{SPI__interface_8h_a2b022b50caa9c05983f85788edaac92aad344481851450c7301db1fe855484680}{SPI\_CRCEN}})}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00081}00081\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00082}00082\ \ \ \ \ \ \ \ \ SPI\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a0f2b62da0db9ae65df33ed7fc57948f8}{CRCNEXT}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786ae4672870f40368842404dcce5592e9bf}{CR1\_CRCNEXT}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00083}00083\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00084}00084\ \ \ \ \ \ \ \textcolor{comment}{//\ Configure\ Bidirectional\ Mode}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00085}00085\ \ \ \ \ \ \ SPI\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_adff536b0be25a5f9968007bd22d3003e}{DIMODE}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786abd15cc78b5517df3b3bc61f3807386c1}{CR1\_BIDIMODE}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00086}00086\ \ \ \ \ \ \ \textcolor{comment}{//\ If\ Bidirectional\ mode\ is\ enabled,\ configure\ Output\ Enable}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00087}00087\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_adff536b0be25a5f9968007bd22d3003e}{DIMODE}}\ ==\ \doxymbox{\hyperlink{SPI__interface_8h_a7945fb2d836e692e75adb203bac38fdaa7b814ce998fcf78a465aacccf4d3f2ef}{SPI\_BIDIMODE}})}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00088}00088\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00089}00089\ \ \ \ \ \ \ \ \ SPI\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a1983c25b50ad9aeca06018f8f88ab4ae}{BIDIOE}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a01240c840606af5e9a1867c01d053628}{CR1\_BIDIOE}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00090}00090\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00091}00091\ \ \ \ \ \ \ \textcolor{comment}{//\ Enable\ SPI\ peripheral}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00092}00092\ \ \ \ \ \ \ SPI\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a40158d2ab4973bd7305cc09188e3a75d}{SPE}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a466d4993f43ec8ecf2335f075b366c03}{CR1\_SPE}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00093}00093\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00094}00094\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00095}00095\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00096}00096\ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00097}00097\ }
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00112}\doxymbox{\hyperlink{SPI__interface_8h_a09703b6224fb5ab17478e4f7e309e734}{00112}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{SPI__program_8c_a09703b6224fb5ab17478e4f7e309e734}{SPI\_enumTrancieve}}(\doxymbox{\hyperlink{structSPI__Config__t}{SPI\_Config\_t}}\ *ChannelConfig,\ uint16\_t\ TX\_Data,\ uint16\_t\ *RX\_Data)}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00113}00113\ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00114}00114\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00115}00115\ \ \ uint32\_t\ Local\_u32TimeoutCounter\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00116}00116\ }
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00117}00117\ \ \ \textcolor{comment}{//\ Check\ for\ NULL\ pointers}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00118}00118\ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}}\ ||\ RX\_Data\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00119}00119\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00120}00120\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00121}00121\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00122}00122\ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00123}00123\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00124}00124\ \ \ \ \ \textcolor{comment}{//\ Validate\ channel\ number}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00125}00125\ \ \ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}\ >\ \doxymbox{\hyperlink{SPI__private_8h_ac8ab65623984e03b92e1907f1ff5e2cd}{SPI\_CHANNEL\_COUNT}})}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00126}00126\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00127}00127\ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00128}00128\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00129}00129\ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00130}00130\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00131}00131\ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ SPI\ is\ not\ busy}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00132}00132\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (SPI\_u8State\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00133}00133\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00134}00134\ \ \ \ \ \ \ \ \ SPI\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_ab5be0aaddb58ffb9cb20c12530d66316}{BUSY}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00135}00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}((SPI\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>SR\ \&\ (1\ <<\ \doxymbox{\hyperlink{USART__private_8h_ad887ad91dd88c31c68a8d8af35e1487a}{SR\_TXE}}))\ >>\ \doxymbox{\hyperlink{USART__private_8h_ad887ad91dd88c31c68a8d8af35e1487a}{SR\_TXE}}\ ==\ 0\ \&\&\ (Local\_u32TimeoutCounter\ !=\ \doxymbox{\hyperlink{SPI__private_8h_ae0b46ae81878a268de1667fdf2d76457}{SPI\_u32TIMEOUT}}))}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00136}00136\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter++;}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00138}00138\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00139}00139\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00140}00140\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ timeout\ occurred}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00141}00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32TimeoutCounter\ ==\ \doxymbox{\hyperlink{SPI__private_8h_ae0b46ae81878a268de1667fdf2d76457}{SPI\_u32TIMEOUT}})}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00142}00142\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00144}00144\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00145}00145\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00146}00146\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Transmit\ data}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ SPI\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>DR\ =\ TX\_Data;}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00149}00149\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00150}00150\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00151}00151\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Reset\ timeout\ counter}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00152}00152\ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00153}00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}((SPI\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>SR\ \&\ (1\ <<\ \doxymbox{\hyperlink{USART__private_8h_aed03e243a44089845577cb6faba3f696}{SR\_RXNE}}))\ >>\ \doxymbox{\hyperlink{USART__private_8h_aed03e243a44089845577cb6faba3f696}{SR\_RXNE}}\ ==\ 0\ \&\&\ (Local\_u32TimeoutCounter\ !=\ \doxymbox{\hyperlink{SPI__private_8h_ae0b46ae81878a268de1667fdf2d76457}{SPI\_u32TIMEOUT}}))}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00154}00154\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter++;}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00156}00156\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00157}00157\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00158}00158\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ timeout\ occurred}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00159}00159\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32TimeoutCounter\ ==\ \doxymbox{\hyperlink{SPI__private_8h_ae0b46ae81878a268de1667fdf2d76457}{SPI\_u32TIMEOUT}})}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00160}00160\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00162}00162\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00163}00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00164}00164\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Read\ received\ data}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ *RX\_Data\ =\ SPI\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>DR;}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00167}00167\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00168}00168\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00169}00169\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Mark\ SPI\ as\ idle}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00170}00170\ \ \ \ \ \ \ \ \ SPI\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00171}00171\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00172}00172\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00173}00173\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00174}00174\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00175}00175\ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00026}00026\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00027}00027\ \textcolor{comment}{\ *\ @brief\ Initialize\ the\ SPI\ peripheral\ with\ the\ provided\ configuration.}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00028}00028\ \textcolor{comment}{\ *\ }}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00029}00029\ \textcolor{comment}{\ *\ This\ function\ configures\ all\ SPI\ parameters\ including\ clock\ phase,\ polarity,}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00030}00030\ \textcolor{comment}{\ *\ master/slave\ mode,\ baud\ rate,\ data\ frame\ format,\ and\ other\ settings.}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00031}00031\ \textcolor{comment}{\ *\ }}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00032}00032\ \textcolor{comment}{\ *\ @param\ ChannelConfig\ Pointer\ to\ the\ SPI\ configuration\ structure}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00033}00033\ \textcolor{comment}{\ *\ @return\ ErrorState\_t\ OK\ if\ initialization\ successful,\ error\ code\ otherwise}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00034}00034\ \textcolor{comment}{\ *\ }}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00035}00035\ \textcolor{comment}{\ *\ @warning\ NULL\ pointer\ check\ is\ performed\ on\ the\ input\ parameter.}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00036}00036\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00037}\doxymbox{\hyperlink{SPI__interface_8h_a4b6f9d4ba67bb037ab88265f09945a33}{00037}}\ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{SPI__program_8c_a4b6f9d4ba67bb037ab88265f09945a33}{SPI\_enumInit}}(\doxymbox{\hyperlink{structSPI__Config__t}{SPI\_Config\_t}}\ *ChannelConfig)}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00038}00038\ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00039}00039\ \ \ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00041}00041\ \ \ \textcolor{comment}{//\ Check\ for\ NULL\ pointer\ input}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00042}00042\ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig\ ==\ \doxymbox{\hyperlink{group__lib_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00043}00043\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00044}00044\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00045}00045\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00046}00046\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00047}00047\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00048}00048\ \ \ \ \ \textcolor{comment}{//\ Validate\ channel\ number}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00049}00049\ \ \ \ \ \textcolor{keywordflow}{if}(ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}\ >\ \doxymbox{\hyperlink{SPI__private_8h_ac8ab65623984e03b92e1907f1ff5e2cd}{SPI\_CHANNEL\_COUNT}})}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00050}00050\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00051}00051\ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00052}00052\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00053}00053\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00054}00054\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00055}00055\ \ \ \ \ \ \ \textcolor{comment}{//\ Configure\ CLOCK\ PHASE\ (CPHA)}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00056}00056\ \ \ \ \ \ \ \doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\_Channel}}[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a7ecef74a0f8f84d8050f8c655c600361}{CPHA}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786af92064a3d6b08e8c8ea749867762784f}{CR1\_CPHA}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00057}00057\ \ \ \ \ \ \ \textcolor{comment}{//\ Configure\ Clock\ Polarity\ (CPOL)}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00058}00058\ \ \ \ \ \ \ \doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\_Channel}}[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a3eb827d937f1d50611d731b85f7a1119}{CPOL}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a960e68aa2d05201b29da28e636c6aefe}{CR1\_CPOL}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00059}00059\ \ \ \ \ \ \ \textcolor{comment}{//\ Configure\ Master/Slave\ Mode}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00060}00060\ \ \ \ \ \ \ \doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\_Channel}}[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a7f7526555beb55126d4bf5c9341e1724}{Mode}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a3f3c71215abe5f7c95ff486be94a581c}{CR1\_MSTR}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00061}00061\ \ \ \ \ \ \ \textcolor{comment}{//\ Configure\ Baud\ Rate\ Prescaler}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00062}00062\ \ \ \ \ \ \ \doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\_Channel}}[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a911cf4570a942c5aa13c1cf48e7a6e52}{BaudRatePrescaler}}\ \&\ 0X7)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a4043cbff8ac59383cc7877e9aa4b19ac}{CR1\_BR}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00063}00063\ \ \ \ \ \ \ \textcolor{comment}{//\ Configure\ Bit\ Order\ (MSB/LSB\ first)}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00064}00064\ \ \ \ \ \ \ \doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\_Channel}}[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a1b62a15cf591f2bf7bfd3e51f83151da}{BFIRST}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786addc1e347bdee03e930aabc666a5c32f6}{CR1\_LSBFIRST}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00065}00065\ \ \ \ \ \ \ \textcolor{comment}{//\ Configure\ NSS\ Management\ (Hardware/Software)}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00066}00066\ \ \ \ \ \ \ \doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\_Channel}}[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a76ac0853fd1f97093d1903c5ed2d5010}{NSS\_MAN}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a6a135f2c8d8bc0d86303e6b14e265c54}{CR1\_SSM}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00067}00067\ \ \ \ \ \ \ \textcolor{comment}{//\ If\ using\ Software\ NSS,\ configure\ NSS\ Mode}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00068}00068\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a76ac0853fd1f97093d1903c5ed2d5010}{NSS\_MAN}}\ ==\ \doxymbox{\hyperlink{SPI__interface_8h_adbe1555d537053eec05421b9c0a1b5c2a4871d5bdcf01bf25ffce4da1b5f387fb}{SPI\_NSS\_SOFTWARE}})}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00069}00069\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00070}00070\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\_Channel}}[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a4e7252309b44dce2e5908b0579f6a161}{NSSI\_MODE}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786abd3d3a4dd604ebb13037b54b7694126d}{CR1\_SSI}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00071}00071\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00072}00072\ \ \ \ \ \ \ \textcolor{comment}{//\ Configure\ Receive\ Only\ Mode}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00073}00073\ \ \ \ \ \ \ \doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\_Channel}}[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a45144f1e23b389e29aa4d42809776dd3}{RXONLY}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a9189a82dfb5a96fc0866834baa268b96}{CR1\_RXONLY}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00074}00074\ \ \ \ \ \ \ \textcolor{comment}{//\ Configure\ Data\ Frame\ Format\ (8/16\ bit)}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00075}00075\ \ \ \ \ \ \ \doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\_Channel}}[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a0037df0b1605a4fc0437380006bce929}{DFF}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a0e32c6a55a625cec4a0582c58853a278}{CR1\_DFF}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00076}00076\ \ \ \ \ \ \ \textcolor{comment}{//\ Configure\ CRC\ Mode}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00077}00077\ \ \ \ \ \ \ \doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\_Channel}}[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a66babbd43cbecf5bd98a536164f11454}{CRC\_MODE}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a534a1d7f277d8cefcd7dc75e21b855c7}{CR1\_CRCEN}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00078}00078\ \ \ \ \ \ \ \textcolor{comment}{//\ If\ CRC\ is\ enabled,\ configure\ CRC\ Next}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00079}00079\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a66babbd43cbecf5bd98a536164f11454}{CRC\_MODE}}\ ==\ \doxymbox{\hyperlink{SPI__interface_8h_a2b022b50caa9c05983f85788edaac92aad344481851450c7301db1fe855484680}{SPI\_CRCEN}})}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00080}00080\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00081}00081\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\_Channel}}[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a0f2b62da0db9ae65df33ed7fc57948f8}{CRCNEXT}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786ae4672870f40368842404dcce5592e9bf}{CR1\_CRCNEXT}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00082}00082\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00083}00083\ \ \ \ \ \ \ \textcolor{comment}{//\ Configure\ Bidirectional\ Mode}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00084}00084\ \ \ \ \ \ \ \doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\_Channel}}[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_adff536b0be25a5f9968007bd22d3003e}{DIMODE}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786abd15cc78b5517df3b3bc61f3807386c1}{CR1\_BIDIMODE}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00085}00085\ \ \ \ \ \ \ \textcolor{comment}{//\ If\ Bidirectional\ mode\ is\ enabled,\ configure\ Output\ Enable}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00086}00086\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_adff536b0be25a5f9968007bd22d3003e}{DIMODE}}\ ==\ \doxymbox{\hyperlink{SPI__interface_8h_a7945fb2d836e692e75adb203bac38fdaa7b814ce998fcf78a465aacccf4d3f2ef}{SPI\_BIDIMODE}})}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00087}00087\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00088}00088\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\_Channel}}[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a1983c25b50ad9aeca06018f8f88ab4ae}{BIDIOE}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a01240c840606af5e9a1867c01d053628}{CR1\_BIDIOE}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00089}00089\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00090}00090\ \ \ \ \ \ \ \textcolor{comment}{//\ Enable\ SPI\ peripheral}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00091}00091\ \ \ \ \ \ \ \doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\_Channel}}[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>CR1\ |=\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_a40158d2ab4973bd7305cc09188e3a75d}{SPE}}\ \&\ 0X1)\ <<\ \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a466d4993f43ec8ecf2335f075b366c03}{CR1\_SPE}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00092}00092\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00093}00093\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00094}00094\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00095}00095\ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00097}00097\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00098}00098\ \textcolor{comment}{\ *\ @brief\ Perform\ full-\/duplex\ SPI\ transaction\ (transmit\ and\ receive)}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00099}00099\ \textcolor{comment}{\ *\ }}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00100}00100\ \textcolor{comment}{\ *\ This\ function\ sends\ data\ and\ simultaneously\ receives\ data\ through\ the\ SPI\ interface.}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00101}00101\ \textcolor{comment}{\ *\ It\ implements\ a\ blocking\ mechanism\ with\ timeout\ protection.}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00102}00102\ \textcolor{comment}{\ *\ }}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00103}00103\ \textcolor{comment}{\ *\ @param\ ChannelConfig\ Pointer\ to\ the\ SPI\ configuration\ structure}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00104}00104\ \textcolor{comment}{\ *\ @param\ TX\_Data\ Data\ to\ be\ transmitted}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00105}00105\ \textcolor{comment}{\ *\ @param\ RX\_Data\ Pointer\ to\ store\ received\ data}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00106}00106\ \textcolor{comment}{\ *\ @return\ ErrorState\_t\ OK\ if\ successful,\ error\ code\ otherwise}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00107}00107\ \textcolor{comment}{\ *\ }}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00108}00108\ \textcolor{comment}{\ *\ @note\ This\ is\ a\ blocking\ function\ with\ timeout\ protection}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00109}00109\ \textcolor{comment}{\ *\ @warning\ NULL\ pointer\ check\ is\ performed\ on\ input\ parameters}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00110}00110\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00111}\doxymbox{\hyperlink{SPI__interface_8h_a09703b6224fb5ab17478e4f7e309e734}{00111}}\ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{SPI__program_8c_a09703b6224fb5ab17478e4f7e309e734}{SPI\_enumTrancieve}}(\doxymbox{\hyperlink{structSPI__Config__t}{SPI\_Config\_t}}\ *ChannelConfig,\ uint16\_t\ TX\_Data,\ uint16\_t\ *RX\_Data)}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00112}00112\ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00113}00113\ \ \ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00114}00114\ \ \ uint32\_t\ Local\_u32TimeoutCounter\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00116}00116\ \ \ \textcolor{comment}{//\ Check\ for\ NULL\ pointers}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00117}00117\ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig\ ==\ \doxymbox{\hyperlink{group__lib_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}}\ ||\ RX\_Data\ ==\ \doxymbox{\hyperlink{group__lib_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00118}00118\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00119}00119\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00120}00120\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00121}00121\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00122}00122\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00123}00123\ \ \ \ \ \textcolor{comment}{//\ Validate\ channel\ number}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00124}00124\ \ \ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}\ >\ \doxymbox{\hyperlink{SPI__private_8h_ac8ab65623984e03b92e1907f1ff5e2cd}{SPI\_CHANNEL\_COUNT}})}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00125}00125\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00126}00126\ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00127}00127\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00128}00128\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00129}00129\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00130}00130\ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ SPI\ is\ not\ busy}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00131}00131\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{SPI__program_8c_ac3c975c9f481046c6225d47ecb7ea18a}{SPI\_u8State}}\ ==\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00132}00132\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00133}00133\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{SPI__program_8c_ac3c975c9f481046c6225d47ecb7ea18a}{SPI\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_gab5be0aaddb58ffb9cb20c12530d66316}{BUSY}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00134}00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}((\doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\_Channel}}[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>SR\ \&\ (1\ <<\ \doxymbox{\hyperlink{USART__private_8h_ad887ad91dd88c31c68a8d8af35e1487a}{SR\_TXE}}))\ >>\ \doxymbox{\hyperlink{USART__private_8h_ad887ad91dd88c31c68a8d8af35e1487a}{SR\_TXE}}\ ==\ 0\ \&\&\ (Local\_u32TimeoutCounter\ !=\ \doxymbox{\hyperlink{SPI__private_8h_ae0b46ae81878a268de1667fdf2d76457}{SPI\_u32TIMEOUT}}))}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00135}00135\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter++;}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00137}00137\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00138}00138\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00139}00139\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ timeout\ occurred}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00140}00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32TimeoutCounter\ ==\ \doxymbox{\hyperlink{SPI__private_8h_ae0b46ae81878a268de1667fdf2d76457}{SPI\_u32TIMEOUT}})}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00141}00141\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00143}00143\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00144}00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00145}00145\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Transmit\ data}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\_Channel}}[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>DR\ =\ TX\_Data;}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00148}00148\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00149}00149\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00150}00150\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Reset\ timeout\ counter}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00151}00151\ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00152}00152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}((\doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\_Channel}}[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>SR\ \&\ (1\ <<\ \doxymbox{\hyperlink{USART__private_8h_aed03e243a44089845577cb6faba3f696}{SR\_RXNE}}))\ >>\ \doxymbox{\hyperlink{USART__private_8h_aed03e243a44089845577cb6faba3f696}{SR\_RXNE}}\ ==\ 0\ \&\&\ (Local\_u32TimeoutCounter\ !=\ \doxymbox{\hyperlink{SPI__private_8h_ae0b46ae81878a268de1667fdf2d76457}{SPI\_u32TIMEOUT}}))}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00153}00153\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter++;}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00155}00155\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00156}00156\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00157}00157\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ timeout\ occurred}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00158}00158\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32TimeoutCounter\ ==\ \doxymbox{\hyperlink{SPI__private_8h_ae0b46ae81878a268de1667fdf2d76457}{SPI\_u32TIMEOUT}})}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00159}00159\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00161}00161\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00162}00162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00163}00163\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Read\ received\ data}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ *RX\_Data\ =\ \doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\_Channel}}[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>DR;}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00166}00166\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00167}00167\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00168}00168\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Mark\ SPI\ as\ idle}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00169}00169\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{SPI__program_8c_ac3c975c9f481046c6225d47ecb7ea18a}{SPI\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00170}00170\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00171}00171\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00172}00172\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00173}00173\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00174}00174\ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00175}00175\ }
 \DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00176}00176\ }
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00177}00177\ }
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00190}\doxymbox{\hyperlink{SPI__interface_8h_ab4a020e4e95e27e7414af8bc9f9b9c91}{00190}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{SPI__program_8c_ab4a020e4e95e27e7414af8bc9f9b9c91}{SPI\_enumTransmit}}(\doxymbox{\hyperlink{structSPI__Config__t}{SPI\_Config\_t}}\ *ChannelConfig,\ uint16\_t\ TX\_Data)}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00191}00191\ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00192}00192\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00193}00193\ \ \ uint32\_t\ Local\_u32TimeoutCounter\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00194}00194\ }
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00195}00195\ \ \ \textcolor{comment}{//\ Check\ for\ NULL\ pointer}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00196}00196\ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00197}00197\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00198}00198\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00199}00199\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00200}00200\ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00201}00201\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00202}00202\ \ \ \ \ \textcolor{comment}{//\ Validate\ channel\ number}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00203}00203\ \ \ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}\ >\ \doxymbox{\hyperlink{SPI__private_8h_ac8ab65623984e03b92e1907f1ff5e2cd}{SPI\_CHANNEL\_COUNT}})}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00204}00204\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00205}00205\ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00206}00206\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00207}00207\ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00208}00208\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00209}00209\ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ SPI\ is\ not\ busy}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00210}00210\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (SPI\_u8State\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00211}00211\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00212}00212\ \ \ \ \ \ \ \ \ SPI\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_ab5be0aaddb58ffb9cb20c12530d66316}{BUSY}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00213}00213\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}((SPI\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>SR\ \&\ (1\ <<\ \doxymbox{\hyperlink{USART__private_8h_ad887ad91dd88c31c68a8d8af35e1487a}{SR\_TXE}}))\ >>\ \doxymbox{\hyperlink{USART__private_8h_ad887ad91dd88c31c68a8d8af35e1487a}{SR\_TXE}}\ ==\ 0\ \&\&\ (Local\_u32TimeoutCounter\ !=\ \doxymbox{\hyperlink{SPI__private_8h_ae0b46ae81878a268de1667fdf2d76457}{SPI\_u32TIMEOUT}}))}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00214}00214\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00215}00215\ \ \ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter++;}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00216}00216\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00217}00217\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00218}00218\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ timeout\ occurred}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00219}00219\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32TimeoutCounter\ ==\ \doxymbox{\hyperlink{SPI__private_8h_ae0b46ae81878a268de1667fdf2d76457}{SPI\_u32TIMEOUT}})}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00220}00220\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00222}00222\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00223}00223\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00224}00224\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Transmit\ data}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ SPI\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>DR\ =\ TX\_Data;}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00227}00227\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00228}00228\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00229}00229\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Mark\ SPI\ as\ idle}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00230}00230\ \ \ \ \ \ \ \ \ SPI\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00231}00231\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00232}00232\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00233}00233\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00234}00234\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00235}00235\ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00177}00177\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00178}00178\ \textcolor{comment}{\ *\ @brief\ Transmit\ data\ through\ SPI\ interface}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00179}00179\ \textcolor{comment}{\ *\ }}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00180}00180\ \textcolor{comment}{\ *\ This\ function\ sends\ data\ through\ the\ SPI\ interface\ in\ a\ blocking\ manner}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00181}00181\ \textcolor{comment}{\ *\ with\ timeout\ protection.}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00182}00182\ \textcolor{comment}{\ *\ }}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00183}00183\ \textcolor{comment}{\ *\ @param\ ChannelConfig\ Pointer\ to\ the\ SPI\ configuration\ structure}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00184}00184\ \textcolor{comment}{\ *\ @param\ TX\_Data\ Data\ to\ be\ transmitted}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00185}00185\ \textcolor{comment}{\ *\ @return\ ErrorState\_t\ OK\ if\ successful,\ error\ code\ otherwise}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00186}00186\ \textcolor{comment}{\ *\ }}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00187}00187\ \textcolor{comment}{\ *\ @warning\ NULL\ pointer\ check\ is\ performed\ on\ input\ parameter}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00188}00188\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00189}\doxymbox{\hyperlink{SPI__interface_8h_ab4a020e4e95e27e7414af8bc9f9b9c91}{00189}}\ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{SPI__program_8c_ab4a020e4e95e27e7414af8bc9f9b9c91}{SPI\_enumTransmit}}(\doxymbox{\hyperlink{structSPI__Config__t}{SPI\_Config\_t}}\ *ChannelConfig,\ uint16\_t\ TX\_Data)}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00190}00190\ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00191}00191\ \ \ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00192}00192\ \ \ uint32\_t\ Local\_u32TimeoutCounter\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00193}00193\ }
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00194}00194\ \ \ \textcolor{comment}{//\ Check\ for\ NULL\ pointer}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00195}00195\ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig\ ==\ \doxymbox{\hyperlink{group__lib_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00196}00196\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00197}00197\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00198}00198\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00199}00199\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00200}00200\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00201}00201\ \ \ \ \ \textcolor{comment}{//\ Validate\ channel\ number}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00202}00202\ \ \ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}\ >\ \doxymbox{\hyperlink{SPI__private_8h_ac8ab65623984e03b92e1907f1ff5e2cd}{SPI\_CHANNEL\_COUNT}})}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00203}00203\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00204}00204\ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00205}00205\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00206}00206\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00207}00207\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00208}00208\ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ SPI\ is\ not\ busy}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00209}00209\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{SPI__program_8c_ac3c975c9f481046c6225d47ecb7ea18a}{SPI\_u8State}}\ ==\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00210}00210\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00211}00211\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{SPI__program_8c_ac3c975c9f481046c6225d47ecb7ea18a}{SPI\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_gab5be0aaddb58ffb9cb20c12530d66316}{BUSY}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00212}00212\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}((\doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\_Channel}}[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>SR\ \&\ (1\ <<\ \doxymbox{\hyperlink{USART__private_8h_ad887ad91dd88c31c68a8d8af35e1487a}{SR\_TXE}}))\ >>\ \doxymbox{\hyperlink{USART__private_8h_ad887ad91dd88c31c68a8d8af35e1487a}{SR\_TXE}}\ ==\ 0\ \&\&\ (Local\_u32TimeoutCounter\ !=\ \doxymbox{\hyperlink{SPI__private_8h_ae0b46ae81878a268de1667fdf2d76457}{SPI\_u32TIMEOUT}}))}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00213}00213\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00214}00214\ \ \ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter++;}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00215}00215\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00216}00216\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00217}00217\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ timeout\ occurred}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00218}00218\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32TimeoutCounter\ ==\ \doxymbox{\hyperlink{SPI__private_8h_ae0b46ae81878a268de1667fdf2d76457}{SPI\_u32TIMEOUT}})}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00219}00219\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00221}00221\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00222}00222\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00223}00223\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Transmit\ data}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\_Channel}}[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>DR\ =\ TX\_Data;}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00226}00226\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00227}00227\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00228}00228\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Mark\ SPI\ as\ idle}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00229}00229\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{SPI__program_8c_ac3c975c9f481046c6225d47ecb7ea18a}{SPI\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00230}00230\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00231}00231\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00232}00232\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00233}00233\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00234}00234\ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00235}00235\ }
 \DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00236}00236\ }
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00237}00237\ }
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00250}\doxymbox{\hyperlink{SPI__interface_8h_a245169439dd789a907e87ab3291db588}{00250}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{SPI__program_8c_a245169439dd789a907e87ab3291db588}{SPI\_enumReceive}}(\doxymbox{\hyperlink{structSPI__Config__t}{SPI\_Config\_t}}\ *ChannelConfig,\ uint16\_t\ *RX\_Data)}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00251}00251\ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00252}00252\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00253}00253\ \ \ uint32\_t\ Local\_u32TimeoutCounter\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00254}00254\ }
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00255}00255\ \ \ \textcolor{comment}{//\ Check\ for\ NULL\ pointers}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00256}00256\ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}}\ ||\ RX\_Data\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00257}00257\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00258}00258\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00259}00259\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00260}00260\ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00261}00261\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00262}00262\ \ \ \ \ \textcolor{comment}{//\ Validate\ channel\ number}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00263}00263\ \ \ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}\ >\ \doxymbox{\hyperlink{SPI__private_8h_ac8ab65623984e03b92e1907f1ff5e2cd}{SPI\_CHANNEL\_COUNT}})}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00264}00264\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00265}00265\ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00266}00266\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00267}00267\ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00268}00268\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00269}00269\ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ SPI\ is\ not\ busy}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00270}00270\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (SPI\_u8State\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00271}00271\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00272}00272\ \ \ \ \ \ \ \ \ SPI\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_ab5be0aaddb58ffb9cb20c12530d66316}{BUSY}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00273}00273\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}((SPI\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>SR\ \&\ (1\ <<\ \doxymbox{\hyperlink{USART__private_8h_aed03e243a44089845577cb6faba3f696}{SR\_RXNE}}))\ >>\ \doxymbox{\hyperlink{USART__private_8h_aed03e243a44089845577cb6faba3f696}{SR\_RXNE}}\ ==\ 0\ \&\&\ (Local\_u32TimeoutCounter\ !=\ \doxymbox{\hyperlink{SPI__private_8h_ae0b46ae81878a268de1667fdf2d76457}{SPI\_u32TIMEOUT}}))}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00274}00274\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter++;}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00276}00276\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00277}00277\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00278}00278\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ timeout\ occurred}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00279}00279\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32TimeoutCounter\ ==\ \doxymbox{\hyperlink{SPI__private_8h_ae0b46ae81878a268de1667fdf2d76457}{SPI\_u32TIMEOUT}})}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00280}00280\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00282}00282\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00283}00283\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00284}00284\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00285}00285\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Read\ received\ data}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00286}00286\ \ \ \ \ \ \ \ \ \ \ *RX\_Data\ =\ SPI\_Channel[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>DR;}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00287}00287\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00288}00288\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00289}00289\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Mark\ SPI\ as\ idle}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00290}00290\ \ \ \ \ \ \ \ \ SPI\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00291}00291\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00292}00292\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00293}00293\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00294}00294\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
-\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00295}00295\ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00237}00237\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00238}00238\ \textcolor{comment}{\ *\ @brief\ Receive\ data\ through\ SPI\ interface}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00239}00239\ \textcolor{comment}{\ *\ }}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00240}00240\ \textcolor{comment}{\ *\ This\ function\ receives\ data\ through\ the\ SPI\ interface\ in\ a\ blocking\ manner}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00241}00241\ \textcolor{comment}{\ *\ with\ timeout\ protection.}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00242}00242\ \textcolor{comment}{\ *\ }}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00243}00243\ \textcolor{comment}{\ *\ @param\ ChannelConfig\ Pointer\ to\ the\ SPI\ configuration\ structure}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00244}00244\ \textcolor{comment}{\ *\ @param\ RX\_Data\ Pointer\ to\ store\ received\ data}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00245}00245\ \textcolor{comment}{\ *\ @return\ ErrorState\_t\ OK\ if\ successful,\ error\ code\ otherwise}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00246}00246\ \textcolor{comment}{\ *\ }}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00247}00247\ \textcolor{comment}{\ *\ @warning\ NULL\ pointer\ check\ is\ performed\ on\ input\ parameters}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00248}00248\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00249}\doxymbox{\hyperlink{SPI__interface_8h_a245169439dd789a907e87ab3291db588}{00249}}\ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{SPI__program_8c_a245169439dd789a907e87ab3291db588}{SPI\_enumReceive}}(\doxymbox{\hyperlink{structSPI__Config__t}{SPI\_Config\_t}}\ *ChannelConfig,\ uint16\_t\ *RX\_Data)}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00250}00250\ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00251}00251\ \ \ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00252}00252\ \ \ uint32\_t\ Local\_u32TimeoutCounter\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00253}00253\ }
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00254}00254\ \ \ \textcolor{comment}{//\ Check\ for\ NULL\ pointers}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00255}00255\ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig\ ==\ \doxymbox{\hyperlink{group__lib_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}}\ ||\ RX\_Data\ ==\ \doxymbox{\hyperlink{group__lib_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00256}00256\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00257}00257\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00258}00258\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00259}00259\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00260}00260\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00261}00261\ \ \ \ \ \textcolor{comment}{//\ Validate\ channel\ number}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00262}00262\ \ \ \ \ \textcolor{keywordflow}{if}\ (ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}\ >\ \doxymbox{\hyperlink{SPI__private_8h_ac8ab65623984e03b92e1907f1ff5e2cd}{SPI\_CHANNEL\_COUNT}})}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00263}00263\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00264}00264\ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00265}00265\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00266}00266\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00267}00267\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00268}00268\ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ SPI\ is\ not\ busy}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00269}00269\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{SPI__program_8c_ac3c975c9f481046c6225d47ecb7ea18a}{SPI\_u8State}}\ ==\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00270}00270\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00271}00271\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{SPI__program_8c_ac3c975c9f481046c6225d47ecb7ea18a}{SPI\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_gab5be0aaddb58ffb9cb20c12530d66316}{BUSY}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00272}00272\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}((\doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\_Channel}}[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>SR\ \&\ (1\ <<\ \doxymbox{\hyperlink{USART__private_8h_aed03e243a44089845577cb6faba3f696}{SR\_RXNE}}))\ >>\ \doxymbox{\hyperlink{USART__private_8h_aed03e243a44089845577cb6faba3f696}{SR\_RXNE}}\ ==\ 0\ \&\&\ (Local\_u32TimeoutCounter\ !=\ \doxymbox{\hyperlink{SPI__private_8h_ae0b46ae81878a268de1667fdf2d76457}{SPI\_u32TIMEOUT}}))}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00273}00273\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00274}00274\ \ \ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter++;}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00275}00275\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00276}00276\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00277}00277\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ timeout\ occurred}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00278}00278\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32TimeoutCounter\ ==\ \doxymbox{\hyperlink{SPI__private_8h_ae0b46ae81878a268de1667fdf2d76457}{SPI\_u32TIMEOUT}})}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00279}00279\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00281}00281\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00282}00282\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00283}00283\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00284}00284\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Read\ received\ data}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00285}00285\ \ \ \ \ \ \ \ \ \ \ *RX\_Data\ =\ \doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\_Channel}}[ChannelConfig-\/>\doxymbox{\hyperlink{structSPI__Config__t_ac14e90b85e2440ae082e9bdb69d66539}{Channel}}]-\/>DR;}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00286}00286\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00287}00287\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00288}00288\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Mark\ SPI\ as\ idle}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00289}00289\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{SPI__program_8c_ac3c975c9f481046c6225d47ecb7ea18a}{SPI\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00290}00290\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00291}00291\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00292}00292\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00293}00293\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{SPI__program_8c_source_l00294}00294\ \}}
 
 \end{DoxyCode}

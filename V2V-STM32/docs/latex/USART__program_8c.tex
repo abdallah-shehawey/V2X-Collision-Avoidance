@@ -1,5 +1,10 @@
-\doxysection{Src/\+\+USART\+\_\+program.c File Reference}
-\hypertarget{USART__program_8c}{}\label{USART__program_8c}\index{Src/USART\_program.c@{Src/USART\_program.c}}
+\doxysection{V2\+V-\/\+STM32/\+\+Src/\+\+USART\+\_\+program.c File Reference}
+\hypertarget{USART__program_8c}{}\label{USART__program_8c}\index{V2V-\/STM32/Src/USART\_program.c@{V2V-\/STM32/Src/USART\_program.c}}
+
+
+Implementation of the USART driver — the asynchronous serial ports.  
+
+
 {\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+LIB/\+\+STM32\+F446xx.\+h"{}}\newline
 {\ttfamily \+\#include $<$stdint.\+h$>$}\newline
 {\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+LIB/\+\+Err\+Types.\+h"{}}\newline
@@ -17,18 +22,18 @@ Include dependency graph for USART\+\_\+program.\+c:\+
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__program_8c_a98f967289c40eacb31068b3becfff84f}{USART\+\_\+\+Init}} (\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__program_8c_ad840a14bcc70c1f552f2864ea2443c55}{USART\+\_\+\+Init\+IT}} (\doxymbox{\hyperlink{structUSART__Handle__t}{USART\+\_\+\+Handle\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Handle)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__program_8c_a1abd71036dad0752b737b6b4872d7111}{USART\+\_\+enum\+Transmit}} (\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint8\+\_\+t TX\+\_\+\+Data)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__program_8c_ad2e4a4a25beec1ea90558dc055ad9240}{USART\+\_\+enum\+Transmit\+String}} (\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint8\+\_\+t \texorpdfstring{$\ast$}{*}TX\+\_\+\+Data)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__program_8c_a2e8eab5dfbeeb289f33fccae5536d8ef}{USART\+\_\+enum\+Receive}} (\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint8\+\_\+t \texorpdfstring{$\ast$}{*}RX\+\_\+\+Data)
-\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__program_8c_a98f967289c40eacb31068b3becfff84f}{USART\+\_\+\+Init}} (\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config)
+\begin{DoxyCompactList}\small\item\em Bring a USART up in {\bfseries{polled}} mode:\+ baud rate, framing, parity, direction. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__program_8c_ad840a14bcc70c1f552f2864ea2443c55}{USART\+\_\+\+Init\+IT}} (\doxymbox{\hyperlink{structUSART__Handle__t}{USART\+\_\+\+Handle\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Handle)
+\begin{DoxyCompactList}\small\item\em Bring a USART up in {\bfseries{interrupt-\/driven}} mode. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__program_8c_a1abd71036dad0752b737b6b4872d7111}{USART\+\_\+enum\+Transmit}} (\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint8\+\_\+t TX\+\_\+\+Data)
+\begin{DoxyCompactList}\small\item\em Send one byte, blocking until the transmit register is free. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__program_8c_ad2e4a4a25beec1ea90558dc055ad9240}{USART\+\_\+enum\+Transmit\+String}} (\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint8\+\_\+t \texorpdfstring{$\ast$}{*}TX\+\_\+\+Data)
+\begin{DoxyCompactList}\small\item\em Send a NUL-\/terminated string, one byte at a time. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__program_8c_a2e8eab5dfbeeb289f33fccae5536d8ef}{USART\+\_\+enum\+Receive}} (\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint8\+\_\+t \texorpdfstring{$\ast$}{*}RX\+\_\+\+Data)
+\begin{DoxyCompactList}\small\item\em Receive one byte, blocking until one arrives. \end{DoxyCompactList}\item 
 uint8\+\_\+t \doxymbox{\hyperlink{USART__program_8c_a2d4d739376d35a98e6b62282fc47b25a}{USART\+\_\+\+Receive\+Byte\+Direct}} (\doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0f}{USART\+\_\+\+Channel\+\_\+t}} Channel)
-\item 
+\begin{DoxyCompactList}\small\item\em Directly read the data register without checking flags or busy state. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{USART__program_8c_a7139cd4baabbbcbab0c1fe6d7d4ae1cc}{USART1\+\_\+\+IRQHandler}} (void)
 \begin{DoxyCompactList}\small\item\em USART1 interrupt handler. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{USART__program_8c_a0ca6fd0e6f77921dd1123539857ba0a8}{USART2\+\_\+\+IRQHandler}} (void)
@@ -41,114 +46,153 @@ void \doxymbox{\hyperlink{USART__program_8c_aea1a468c29d1d6aba1bba3f58c4b3b7e}{U
 \begin{DoxyCompactList}\small\item\em USART5 interrupt handler. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{USART__program_8c_a12c827857d907ad0cccd586fd934d446}{USART6\+\_\+\+IRQHandler}} (void)
 \begin{DoxyCompactList}\small\item\em USART6 interrupt handler. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \doxymbox{\hyperlink{structUSART__RegDef__t}{USART\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{USART__program_8c_a82049e1b8dd619328b6a59449abb779d}{USART\+\_\+\+Channel}} \+[\doxymbox{\hyperlink{USART__private_8h_a9a3f69391bddeb754f135123c2850c9e}{USART\+\_\+\+CHANNEL\+\_\+\+COUNT}}]\+
+\begin{DoxyCompactList}\small\item\em Maps a \doxylink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0f}{USART\+\_\+\+Channel\+\_\+t} onto the peripheral\textquotesingle{}s register block. \end{DoxyCompactList}\item 
+static uint8\+\_\+t \doxymbox{\hyperlink{USART__program_8c_a9382df4b0d96d2e17fee183f923a7dbc}{USART\+\_\+u8\+State}} \+[\doxymbox{\hyperlink{USART__private_8h_a9a3f69391bddeb754f135123c2850c9e}{USART\+\_\+\+CHANNEL\+\_\+\+COUNT}}]\+
+\begin{DoxyCompactList}\small\item\em Per-\/port reentrancy guard:\+ \doxylink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE} or \doxylink{group__lib_gab5be0aaddb58ffb9cb20c12530d66316}{BUSY}. \end{DoxyCompactList}\item 
+static void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{USART__program_8c_ab11fc9093ef36d9fbbdc0a113fc8e3ea}{USART\+\_\+\+Call\+Back}} \+[\doxymbox{\hyperlink{USART__private_8h_a9a3f69391bddeb754f135123c2850c9e}{USART\+\_\+\+CHANNEL\+\_\+\+COUNT}}]\+)(void)
+\begin{DoxyCompactList}\small\item\em Per-\/port ISR callback, registered by \doxylink{USART__intreface_8h_ad840a14bcc70c1f552f2864ea2443c55}{USART\+\_\+\+Init\+IT}; NULL means none. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of the USART driver — the asynchronous serial ports. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
 
 
 \label{doc-func-members}
 \Hypertarget{USART__program_8c_doc-func-members}
 \doxysubsection{Function Documentation}
-\Hypertarget{USART__program_8c_a7139cd4baabbbcbab0c1fe6d7d4ae1cc}\index{USART\_program.c@{USART\_program.c}!USART1\_IRQHandler@{USART1\_IRQHandler}}
-\index{USART1\_IRQHandler@{USART1\_IRQHandler}!USART\_program.c@{USART\_program.c}}
-\doxysubsubsection{\texorpdfstring{USART1\_IRQHandler()}{USART1\_IRQHandler()}}
-{\footnotesize\ttfamily \label{USART__program_8c_a7139cd4baabbbcbab0c1fe6d7d4ae1cc} 
-void USART1\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+\Hypertarget{USART__program_8c_a98f967289c40eacb31068b3becfff84f}\index{USART\_program.c@{USART\_program.c}!USART\_Init@{USART\_Init}}
+\index{USART\_Init@{USART\_Init}!USART\_program.c@{USART\_program.c}}
+\doxysubsubsection{\texorpdfstring{USART\_Init()}{USART\_Init()}}
+{\footnotesize\ttfamily \label{USART__program_8c_a98f967289c40eacb31068b3becfff84f} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{}\end{DoxyParamCaption})}
 
 
 
-USART1 interrupt handler. 
-
-This function handles the USART1 interrupt. 
-
-Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00415}{415}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
-
-\Hypertarget{USART__program_8c_a0ca6fd0e6f77921dd1123539857ba0a8}\index{USART\_program.c@{USART\_program.c}!USART2\_IRQHandler@{USART2\_IRQHandler}}
-\index{USART2\_IRQHandler@{USART2\_IRQHandler}!USART\_program.c@{USART\_program.c}}
-\doxysubsubsection{\texorpdfstring{USART2\_IRQHandler()}{USART2\_IRQHandler()}}
-{\footnotesize\ttfamily \label{USART__program_8c_a0ca6fd0e6f77921dd1123539857ba0a8} 
-void USART2\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+Bring a USART up in {\bfseries{polled}} mode:\+ baud rate, framing, parity, direction. 
 
 
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Channel\+Config} & The port\textquotesingle{}s line settings. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK if the port was configured, NULL\+\_\+\+POINTER if {\ttfamily Channel\+Config} was NULL.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+The port\textquotesingle{}s clock must already be enabled in RCC. For a port that has to receive unprompted traffic, use \doxylink{USART__intreface_8h_ad840a14bcc70c1f552f2864ea2443c55}{USART\+\_\+\+Init\+IT} instead. 
+\end{DoxyNote}
 
-USART2 interrupt handler. 
 
-This function handles the USART2 interrupt. 
-
-Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00429}{429}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
-
-\Hypertarget{USART__program_8c_a0d108a3468b2051548183ee5ca2158a0}\index{USART\_program.c@{USART\_program.c}!USART3\_IRQHandler@{USART3\_IRQHandler}}
-\index{USART3\_IRQHandler@{USART3\_IRQHandler}!USART\_program.c@{USART\_program.c}}
-\doxysubsubsection{\texorpdfstring{USART3\_IRQHandler()}{USART3\_IRQHandler()}}
-{\footnotesize\ttfamily \label{USART__program_8c_a0d108a3468b2051548183ee5ca2158a0} 
-void USART3\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00041}{41}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
 
 
 
-USART3 interrupt handler. 
-
-This function handles the USART3 interrupt. 
-
-Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00443}{443}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
-
-\Hypertarget{USART__program_8c_ad0d53420fd047695ef9cf3fda8282d9b}\index{USART\_program.c@{USART\_program.c}!USART4\_IRQHandler@{USART4\_IRQHandler}}
-\index{USART4\_IRQHandler@{USART4\_IRQHandler}!USART\_program.c@{USART\_program.c}}
-\doxysubsubsection{\texorpdfstring{USART4\_IRQHandler()}{USART4\_IRQHandler()}}
-{\footnotesize\ttfamily \label{USART__program_8c_ad0d53420fd047695ef9cf3fda8282d9b} 
-void USART4\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+References \doxymbox{\hyperlink{USART__intreface_8h_source_l00100}{USART\+\_\+\+Config\+\_\+t::\+\+Baud\+Rate}}, \doxymbox{\hyperlink{USART__private_8h_source_l00015}{BRR\+\_\+\+DIV\+\_\+\+MANTISSA\+\_\+\+SHIFTING}}, \doxymbox{\hyperlink{USART__private_8h_source_l00013}{BRR\+\_\+\+MASKING}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00099}{USART\+\_\+\+Config\+\_\+t::\+\+Channel}}, \doxymbox{\hyperlink{USART__private_8h_source_l00031}{CR1\+\_\+\+OVER}}, \doxymbox{\hyperlink{USART__private_8h_source_l00027}{CR1\+\_\+\+PCE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00028}{CR1\+\_\+\+PS}}, \doxymbox{\hyperlink{USART__private_8h_source_l00030}{CR1\+\_\+\+RE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00029}{CR1\+\_\+\+TE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00025}{CR1\+\_\+\+WL}}, \doxymbox{\hyperlink{USART__private_8h_source_l00026}{CR2\+\_\+\+SB}}, \doxymbox{\hyperlink{USART__private_8h_source_l00032}{MAXIMUM\+\_\+\+CLOCK}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00104}{USART\+\_\+\+Config\+\_\+t::\+\+Mode}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00106}{USART\+\_\+\+Config\+\_\+t::\+\+Over\+Sampling}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00103}{USART\+\_\+\+Config\+\_\+t::\+\+Parity}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00102}{USART\+\_\+\+Config\+\_\+t::\+\+Stop\+Bits}}, \doxymbox{\hyperlink{USART__program_8c_source_l00024}{USART\+\_\+\+Channel}}, \doxymbox{\hyperlink{USART__private_8h_source_l00016}{USART\+\_\+\+CHANNEL\+\_\+\+COUNT}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00057}{USART\+\_\+\+MODE\+\_\+\+RX}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00056}{USART\+\_\+\+MODE\+\_\+\+TX}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00055}{USART\+\_\+\+MODE\+\_\+\+TX\+\_\+\+RX}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00076}{USART\+\_\+\+OVERSAMPLING\+\_\+16}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00077}{USART\+\_\+\+OVERSAMPLING\+\_\+8}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00047}{USART\+\_\+\+PARITY\+\_\+\+NONE}}, and \doxymbox{\hyperlink{USART__intreface_8h_source_l00101}{USART\+\_\+\+Config\+\_\+t::\+\+Word\+Length}}.
 
 
 
-USART4 interrupt handler. 
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}.
 
-This function handles the USART4 interrupt. 
-
-Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00457}{457}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
-
-\Hypertarget{USART__program_8c_aea1a468c29d1d6aba1bba3f58c4b3b7e}\index{USART\_program.c@{USART\_program.c}!USART5\_IRQHandler@{USART5\_IRQHandler}}
-\index{USART5\_IRQHandler@{USART5\_IRQHandler}!USART\_program.c@{USART\_program.c}}
-\doxysubsubsection{\texorpdfstring{USART5\_IRQHandler()}{USART5\_IRQHandler()}}
-{\footnotesize\ttfamily \label{USART__program_8c_aea1a468c29d1d6aba1bba3f58c4b3b7e} 
-void USART5\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
-
-
-
-USART5 interrupt handler. 
-
-This function handles the USART5 interrupt. 
-
-Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00471}{471}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
-
-\Hypertarget{USART__program_8c_a12c827857d907ad0cccd586fd934d446}\index{USART\_program.c@{USART\_program.c}!USART6\_IRQHandler@{USART6\_IRQHandler}}
-\index{USART6\_IRQHandler@{USART6\_IRQHandler}!USART\_program.c@{USART\_program.c}}
-\doxysubsubsection{\texorpdfstring{USART6\_IRQHandler()}{USART6\_IRQHandler()}}
-{\footnotesize\ttfamily \label{USART__program_8c_a12c827857d907ad0cccd586fd934d446} 
-void USART6\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{USART__program_8c_a98f967289c40eacb31068b3becfff84f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{USART__program_8c_ad840a14bcc70c1f552f2864ea2443c55}\index{USART\_program.c@{USART\_program.c}!USART\_InitIT@{USART\_InitIT}}
+\index{USART\_InitIT@{USART\_InitIT}!USART\_program.c@{USART\_program.c}}
+\doxysubsubsection{\texorpdfstring{USART\_InitIT()}{USART\_InitIT()}}
+{\footnotesize\ttfamily \label{USART__program_8c_ad840a14bcc70c1f552f2864ea2443c55} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+\+Init\+IT (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Handle__t}{USART\+\_\+\+Handle\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Handle}{}\end{DoxyParamCaption})}
 
 
 
-USART6 interrupt handler. 
+Bring a USART up in {\bfseries{interrupt-\/driven}} mode. 
 
-This function handles the USART6 interrupt. 
-
-Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00485}{485}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
-
-\Hypertarget{USART__program_8c_a2e8eab5dfbeeb289f33fccae5536d8ef}\index{USART\_program.c@{USART\_program.c}!USART\_enumReceive@{USART\_enumReceive}}
-\index{USART\_enumReceive@{USART\_enumReceive}!USART\_program.c@{USART\_program.c}}
-\doxysubsubsection{\texorpdfstring{USART\_enumReceive()}{USART\_enumReceive()}}
-{\footnotesize\ttfamily \label{USART__program_8c_a2e8eab5dfbeeb289f33fccae5536d8ef} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+enum\+Receive (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{RX\+\_\+\+Data}{}\end{DoxyParamCaption})}
+Applies the same line settings as \doxylink{USART__intreface_8h_a98f967289c40eacb31068b3becfff84f}{USART\+\_\+\+Init}, and additionally enables the interrupt sources named in the handle and registers its callback. This is what USART1 uses, since the ESP32 transmits unprompted.
 
 
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Channel\+Handle} & The port\textquotesingle{}s settings, interrupt enables and ISR callback. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK if the port was configured, NULL\+\_\+\+POINTER if {\ttfamily Channel\+Handle} was NULL.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Enabling the interrupt here is only half the job — the IRQ must also be enabled in the NVIC (\doxylink{NVIC__interface_8h_a85d98abbd23523e4abf16cc4b4501431}{NVIC\+\_\+v\+Enable\+IRQ}), and given a priority number of 6 or higher if its callback touches the Free\+RTOS API. 
+\end{DoxyNote}
 
-Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00356}{356}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
 
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00138}{138}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{USART__intreface_8h_source_l00160}{USART\+\_\+\+Handle\+\_\+t::\+\+Baud\+Rate}}, \doxymbox{\hyperlink{USART__private_8h_source_l00015}{BRR\+\_\+\+DIV\+\_\+\+MANTISSA\+\_\+\+SHIFTING}}, \doxymbox{\hyperlink{USART__private_8h_source_l00013}{BRR\+\_\+\+MASKING}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00159}{USART\+\_\+\+Handle\+\_\+t::\+\+Channel}}, \doxymbox{\hyperlink{USART__private_8h_source_l00020}{CR1\+\_\+\+IDLEIE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00031}{CR1\+\_\+\+OVER}}, \doxymbox{\hyperlink{USART__private_8h_source_l00027}{CR1\+\_\+\+PCE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00024}{CR1\+\_\+\+PEIE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00028}{CR1\+\_\+\+PS}}, \doxymbox{\hyperlink{USART__private_8h_source_l00030}{CR1\+\_\+\+RE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00021}{CR1\+\_\+\+RXNEIE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00022}{CR1\+\_\+\+TCIE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00029}{CR1\+\_\+\+TE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00023}{CR1\+\_\+\+TXEIE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00025}{CR1\+\_\+\+WL}}, \doxymbox{\hyperlink{USART__private_8h_source_l00026}{CR2\+\_\+\+SB}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00170}{USART\+\_\+\+Handle\+\_\+t::\+\+IDLEIE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00032}{MAXIMUM\+\_\+\+CLOCK}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00164}{USART\+\_\+\+Handle\+\_\+t::\+\+Mode}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00166}{USART\+\_\+\+Handle\+\_\+t::\+\+Over\+Sampling}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00163}{USART\+\_\+\+Handle\+\_\+t::\+\+Parity}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00171}{USART\+\_\+\+Handle\+\_\+t::\+\+PEIE}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00172}{USART\+\_\+\+Handle\+\_\+t::\+pfn\+Callback}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00167}{USART\+\_\+\+Handle\+\_\+t::\+\+RXNEIE}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00162}{USART\+\_\+\+Handle\+\_\+t::\+\+Stop\+Bits}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00168}{USART\+\_\+\+Handle\+\_\+t::\+\+TCIE}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00169}{USART\+\_\+\+Handle\+\_\+t::\+\+TXEIE}}, \doxymbox{\hyperlink{USART__program_8c_source_l00028}{USART\+\_\+\+Call\+Back}}, \doxymbox{\hyperlink{USART__program_8c_source_l00024}{USART\+\_\+\+Channel}}, \doxymbox{\hyperlink{USART__private_8h_source_l00016}{USART\+\_\+\+CHANNEL\+\_\+\+COUNT}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00057}{USART\+\_\+\+MODE\+\_\+\+RX}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00056}{USART\+\_\+\+MODE\+\_\+\+TX}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00055}{USART\+\_\+\+MODE\+\_\+\+TX\+\_\+\+RX}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00076}{USART\+\_\+\+OVERSAMPLING\+\_\+16}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00077}{USART\+\_\+\+OVERSAMPLING\+\_\+8}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00047}{USART\+\_\+\+PARITY\+\_\+\+NONE}}, and \doxymbox{\hyperlink{USART__intreface_8h_source_l00161}{USART\+\_\+\+Handle\+\_\+t::\+\+Word\+Length}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{USART__program_8c_ad840a14bcc70c1f552f2864ea2443c55_icgraph}
+\end{center}
+\end{figure}
 \Hypertarget{USART__program_8c_a1abd71036dad0752b737b6b4872d7111}\index{USART\_program.c@{USART\_program.c}!USART\_enumTransmit@{USART\_enumTransmit}}
 \index{USART\_enumTransmit@{USART\_enumTransmit}!USART\_program.c@{USART\_program.c}}
 \doxysubsubsection{\texorpdfstring{USART\_enumTransmit()}{USART\_enumTransmit()}}
 {\footnotesize\ttfamily \label{USART__program_8c_a1abd71036dad0752b737b6b4872d7111} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+enum\+Transmit (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint8\+\_\+t}]{TX\+\_\+\+Data}{}\end{DoxyParamCaption})}
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+enum\+Transmit (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint8\+\_\+t}]{TX\+\_\+\+Data}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00250}{250}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+Send one byte, blocking until the transmit register is free. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Channel\+Config} & Which port to send on. \\
+\hline
+ & {\em TX\+\_\+\+Data} & The byte to send. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The byte was handed to the peripheral. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily Channel\+Config} was NULL. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\+\_\+\+STATE}} & The transmit register never emptied — the peripheral is stuck. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00247}{247}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{USART__intreface_8h_source_l00099}{USART\+\_\+\+Config\+\_\+t::\+\+Channel}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{USART__private_8h_source_l00018}{SR\+\_\+\+TC}}, \doxymbox{\hyperlink{USART__private_8h_source_l00017}{SR\+\_\+\+TXE}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00046}{TIMEOUT\+\_\+\+STATE}}, \doxymbox{\hyperlink{USART__program_8c_source_l00024}{USART\+\_\+\+Channel}}, \doxymbox{\hyperlink{USART__private_8h_source_l00016}{USART\+\_\+\+CHANNEL\+\_\+\+COUNT}}, and \doxymbox{\hyperlink{USART__private_8h_source_l00047}{USART\+\_\+u32\+TIMEOUT}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{DSRC_8c_source_l00204}{DSRC\+\_\+\+Send\+Neighbor()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00309}{USART\+\_\+enum\+Transmit\+String()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
@@ -162,11 +206,41 @@ Here is the caller graph for this function:\+
 \index{USART\_enumTransmitString@{USART\_enumTransmitString}!USART\_program.c@{USART\_program.c}}
 \doxysubsubsection{\texorpdfstring{USART\_enumTransmitString()}{USART\_enumTransmitString()}}
 {\footnotesize\ttfamily \label{USART__program_8c_ad2e4a4a25beec1ea90558dc055ad9240} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+enum\+Transmit\+String (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{TX\+\_\+\+Data}{}\end{DoxyParamCaption})}
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+enum\+Transmit\+String (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{TX\+\_\+\+Data}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00313}{313}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+Send a NUL-\/terminated string, one byte at a time. 
+
+This is what carries the telemetry line to the Raspberry Pi.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Channel\+Config} & Which port to send on. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em TX\+\_\+\+Data} & The string to send; the terminating NUL is not transmitted. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The whole string was sent. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily Channel\+Config} or {\ttfamily TX\+\_\+\+Data} was NULL. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\+\_\+\+STATE}} & The peripheral stalled part-\/way through. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00309}{309}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00045}{BUSY\+\_\+\+STATE}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00099}{USART\+\_\+\+Config\+\_\+t::\+\+Channel}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{IDLE}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{USART__private_8h_source_l00016}{USART\+\_\+\+CHANNEL\+\_\+\+COUNT}}, \doxymbox{\hyperlink{USART__program_8c_source_l00247}{USART\+\_\+enum\+Transmit()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00026}{USART\+\_\+u8\+State}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00466}{v\+Task\+\_\+\+RPi\+\_\+\+Comm()}}.
 
 Here is the call graph for this function:\+
 \nopagebreak
@@ -184,42 +258,43 @@ Here is the caller graph for this function:\+
 \includegraphics[width=350pt]{USART__program_8c_ad2e4a4a25beec1ea90558dc055ad9240_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{USART__program_8c_a98f967289c40eacb31068b3becfff84f}\index{USART\_program.c@{USART\_program.c}!USART\_Init@{USART\_Init}}
-\index{USART\_Init@{USART\_Init}!USART\_program.c@{USART\_program.c}}
-\doxysubsubsection{\texorpdfstring{USART\_Init()}{USART\_Init()}}
-{\footnotesize\ttfamily \label{USART__program_8c_a98f967289c40eacb31068b3becfff84f} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{}\end{DoxyParamCaption})}
+\Hypertarget{USART__program_8c_a2e8eab5dfbeeb289f33fccae5536d8ef}\index{USART\_program.c@{USART\_program.c}!USART\_enumReceive@{USART\_enumReceive}}
+\index{USART\_enumReceive@{USART\_enumReceive}!USART\_program.c@{USART\_program.c}}
+\doxysubsubsection{\texorpdfstring{USART\_enumReceive()}{USART\_enumReceive()}}
+{\footnotesize\ttfamily \label{USART__program_8c_a2e8eab5dfbeeb289f33fccae5536d8ef} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+enum\+Receive (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{RX\+\_\+\+Data}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00042}{42}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
-
-Here is the caller graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=348pt]{USART__program_8c_a98f967289c40eacb31068b3becfff84f_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{USART__program_8c_ad840a14bcc70c1f552f2864ea2443c55}\index{USART\_program.c@{USART\_program.c}!USART\_InitIT@{USART\_InitIT}}
-\index{USART\_InitIT@{USART\_InitIT}!USART\_program.c@{USART\_program.c}}
-\doxysubsubsection{\texorpdfstring{USART\_InitIT()}{USART\_InitIT()}}
-{\footnotesize\ttfamily \label{USART__program_8c_ad840a14bcc70c1f552f2864ea2443c55} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+\+Init\+IT (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Handle__t}{USART\+\_\+\+Handle\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Handle}{}\end{DoxyParamCaption})}
+Receive one byte, blocking until one arrives. 
 
 
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Channel\+Config} & Which port to read from. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em RX\+\_\+\+Data} & Receives the byte. \\
+\hline
+\end{DoxyParams}
 
-Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00140}{140}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & A byte was read. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily Channel\+Config} or {\ttfamily RX\+\_\+\+Data} was NULL. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\+\_\+\+STATE}} & No byte arrived within the driver\textquotesingle{}s busy-\/wait bound.\\
+\hline
+\end{DoxyRetVals}
+\begin{DoxyWarning}{Warning}
+This blocks the calling task. The ESP32 link does {\bfseries{not}} use it — it is interrupt-\/driven, precisely so nothing has to sit and wait for a peer that may say nothing for seconds. 
+\end{DoxyWarning}
 
-Here is the caller graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{USART__program_8c_ad840a14bcc70c1f552f2864ea2443c55_icgraph}
-\end{center}
-\end{figure}
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00351}{351}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00035}{BUSY}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00045}{BUSY\+\_\+\+STATE}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00099}{USART\+\_\+\+Config\+\_\+t::\+\+Channel}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{IDLE}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{USART__private_8h_source_l00019}{SR\+\_\+\+RXNE}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00046}{TIMEOUT\+\_\+\+STATE}}, \doxymbox{\hyperlink{USART__program_8c_source_l00024}{USART\+\_\+\+Channel}}, \doxymbox{\hyperlink{USART__private_8h_source_l00016}{USART\+\_\+\+CHANNEL\+\_\+\+COUNT}}, \doxymbox{\hyperlink{USART__private_8h_source_l00047}{USART\+\_\+u32\+TIMEOUT}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00026}{USART\+\_\+u8\+State}}.
+
 \Hypertarget{USART__program_8c_a2d4d739376d35a98e6b62282fc47b25a}\index{USART\_program.c@{USART\_program.c}!USART\_ReceiveByteDirect@{USART\_ReceiveByteDirect}}
 \index{USART\_ReceiveByteDirect@{USART\_ReceiveByteDirect}!USART\_program.c@{USART\_program.c}}
 \doxysubsubsection{\texorpdfstring{USART\_ReceiveByteDirect()}{USART\_ReceiveByteDirect()}}
@@ -228,7 +303,27 @@ uint8\+\_\+t USART\+\_\+\+Receive\+Byte\+Direct (\begin{DoxyParamCaption}\item[{
 
 
 
-Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00397}{397}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+Directly read the data register without checking flags or busy state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Channel} & USART Channel to read from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint8\+\_\+t The received byte. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00392}{392}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{USART__program_8c_source_l00024}{USART\+\_\+\+Channel}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00580}{v\+ESP\+\_\+\+UART\+\_\+\+RX\+\_\+\+Callback()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
@@ -238,3 +333,173 @@ Here is the caller graph for this function:\+
 \includegraphics[width=350pt]{USART__program_8c_a2d4d739376d35a98e6b62282fc47b25a_icgraph}
 \end{center}
 \end{figure}
+\Hypertarget{USART__program_8c_a7139cd4baabbbcbab0c1fe6d7d4ae1cc}\index{USART\_program.c@{USART\_program.c}!USART1\_IRQHandler@{USART1\_IRQHandler}}
+\index{USART1\_IRQHandler@{USART1\_IRQHandler}!USART\_program.c@{USART\_program.c}}
+\doxysubsubsection{\texorpdfstring{USART1\_IRQHandler()}{USART1\_IRQHandler()}}
+{\footnotesize\ttfamily \label{USART__program_8c_a7139cd4baabbbcbab0c1fe6d7d4ae1cc} 
+void USART1\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+USART1 interrupt handler. 
+
+This function handles the USART1 interrupt. 
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00409}{409}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{USART__program_8c_source_l00028}{USART\+\_\+\+Call\+Back}}, and \doxymbox{\hyperlink{USART__intreface_8h_source_l00020}{USART\+\_\+\+CHANNEL1}}.
+
+\Hypertarget{USART__program_8c_a0ca6fd0e6f77921dd1123539857ba0a8}\index{USART\_program.c@{USART\_program.c}!USART2\_IRQHandler@{USART2\_IRQHandler}}
+\index{USART2\_IRQHandler@{USART2\_IRQHandler}!USART\_program.c@{USART\_program.c}}
+\doxysubsubsection{\texorpdfstring{USART2\_IRQHandler()}{USART2\_IRQHandler()}}
+{\footnotesize\ttfamily \label{USART__program_8c_a0ca6fd0e6f77921dd1123539857ba0a8} 
+void USART2\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+USART2 interrupt handler. 
+
+This function handles the USART2 interrupt. 
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00422}{422}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{USART__program_8c_source_l00028}{USART\+\_\+\+Call\+Back}}, and \doxymbox{\hyperlink{USART__intreface_8h_source_l00021}{USART\+\_\+\+CHANNEL2}}.
+
+\Hypertarget{USART__program_8c_a0d108a3468b2051548183ee5ca2158a0}\index{USART\_program.c@{USART\_program.c}!USART3\_IRQHandler@{USART3\_IRQHandler}}
+\index{USART3\_IRQHandler@{USART3\_IRQHandler}!USART\_program.c@{USART\_program.c}}
+\doxysubsubsection{\texorpdfstring{USART3\_IRQHandler()}{USART3\_IRQHandler()}}
+{\footnotesize\ttfamily \label{USART__program_8c_a0d108a3468b2051548183ee5ca2158a0} 
+void USART3\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+USART3 interrupt handler. 
+
+This function handles the USART3 interrupt. 
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00435}{435}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{USART__program_8c_source_l00028}{USART\+\_\+\+Call\+Back}}, and \doxymbox{\hyperlink{USART__intreface_8h_source_l00022}{USART\+\_\+\+CHANNEL3}}.
+
+\Hypertarget{USART__program_8c_ad0d53420fd047695ef9cf3fda8282d9b}\index{USART\_program.c@{USART\_program.c}!USART4\_IRQHandler@{USART4\_IRQHandler}}
+\index{USART4\_IRQHandler@{USART4\_IRQHandler}!USART\_program.c@{USART\_program.c}}
+\doxysubsubsection{\texorpdfstring{USART4\_IRQHandler()}{USART4\_IRQHandler()}}
+{\footnotesize\ttfamily \label{USART__program_8c_ad0d53420fd047695ef9cf3fda8282d9b} 
+void USART4\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+USART4 interrupt handler. 
+
+This function handles the USART4 interrupt. 
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00448}{448}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{USART__program_8c_source_l00028}{USART\+\_\+\+Call\+Back}}, and \doxymbox{\hyperlink{USART__intreface_8h_source_l00023}{USART\+\_\+\+CHANNEL4}}.
+
+\Hypertarget{USART__program_8c_aea1a468c29d1d6aba1bba3f58c4b3b7e}\index{USART\_program.c@{USART\_program.c}!USART5\_IRQHandler@{USART5\_IRQHandler}}
+\index{USART5\_IRQHandler@{USART5\_IRQHandler}!USART\_program.c@{USART\_program.c}}
+\doxysubsubsection{\texorpdfstring{USART5\_IRQHandler()}{USART5\_IRQHandler()}}
+{\footnotesize\ttfamily \label{USART__program_8c_aea1a468c29d1d6aba1bba3f58c4b3b7e} 
+void USART5\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+USART5 interrupt handler. 
+
+This function handles the USART5 interrupt. 
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00461}{461}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{USART__program_8c_source_l00028}{USART\+\_\+\+Call\+Back}}, and \doxymbox{\hyperlink{USART__intreface_8h_source_l00024}{USART\+\_\+\+CHANNEL5}}.
+
+\Hypertarget{USART__program_8c_a12c827857d907ad0cccd586fd934d446}\index{USART\_program.c@{USART\_program.c}!USART6\_IRQHandler@{USART6\_IRQHandler}}
+\index{USART6\_IRQHandler@{USART6\_IRQHandler}!USART\_program.c@{USART\_program.c}}
+\doxysubsubsection{\texorpdfstring{USART6\_IRQHandler()}{USART6\_IRQHandler()}}
+{\footnotesize\ttfamily \label{USART__program_8c_a12c827857d907ad0cccd586fd934d446} 
+void USART6\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+USART6 interrupt handler. 
+
+This function handles the USART6 interrupt. 
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00474}{474}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{USART__program_8c_source_l00028}{USART\+\_\+\+Call\+Back}}, and \doxymbox{\hyperlink{USART__intreface_8h_source_l00025}{USART\+\_\+\+CHANNEL6}}.
+
+
+
+\label{doc-var-members}
+\Hypertarget{USART__program_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{USART__program_8c_a82049e1b8dd619328b6a59449abb779d}\index{USART\_program.c@{USART\_program.c}!USART\_Channel@{USART\_Channel}}
+\index{USART\_Channel@{USART\_Channel}!USART\_program.c@{USART\_program.c}}
+\doxysubsubsection{\texorpdfstring{USART\_Channel}{USART\_Channel}}
+{\footnotesize\ttfamily \label{USART__program_8c_a82049e1b8dd619328b6a59449abb779d} 
+\doxymbox{\hyperlink{structUSART__RegDef__t}{USART\+\_\+\+Reg\+Def\+\_\+t}}\texorpdfstring{$\ast$}{*} USART\+\_\+\+Channel\+[\doxymbox{\hyperlink{USART__private_8h_a9a3f69391bddeb754f135123c2850c9e}{USART\+\_\+\+CHANNEL\+\_\+\+COUNT}}]\+\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Maps a \doxylink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0f}{USART\+\_\+\+Channel\+\_\+t} onto the peripheral\textquotesingle{}s register block. 
+
+\begin{DoxyNote}{Note}
+Order must match \doxylink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0f}{USART\+\_\+\+Channel\+\_\+t} — the enum indexes straight into it. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00024}{24}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{USART__program_8c_source_l00351}{USART\+\_\+enum\+Receive()}}, \doxymbox{\hyperlink{USART__program_8c_source_l00247}{USART\+\_\+enum\+Transmit()}}, \doxymbox{\hyperlink{USART__program_8c_source_l00041}{USART\+\_\+\+Init()}}, \doxymbox{\hyperlink{USART__program_8c_source_l00138}{USART\+\_\+\+Init\+IT()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00392}{USART\+\_\+\+Receive\+Byte\+Direct()}}.
+
+\Hypertarget{USART__program_8c_a9382df4b0d96d2e17fee183f923a7dbc}\index{USART\_program.c@{USART\_program.c}!USART\_u8State@{USART\_u8State}}
+\index{USART\_u8State@{USART\_u8State}!USART\_program.c@{USART\_program.c}}
+\doxysubsubsection{\texorpdfstring{USART\_u8State}{USART\_u8State}}
+{\footnotesize\ttfamily \label{USART__program_8c_a9382df4b0d96d2e17fee183f923a7dbc} 
+uint8\+\_\+t USART\+\_\+u8\+State\+[\doxymbox{\hyperlink{USART__private_8h_a9a3f69391bddeb754f135123c2850c9e}{USART\+\_\+\+CHANNEL\+\_\+\+COUNT}}]\+\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Per-\/port reentrancy guard:\+ \doxylink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE} or \doxylink{group__lib_gab5be0aaddb58ffb9cb20c12530d66316}{BUSY}. 
+
+Per-\/port, so traffic on USART1 never blocks USART2. 
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00026}{26}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{USART__program_8c_source_l00351}{USART\+\_\+enum\+Receive()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00309}{USART\+\_\+enum\+Transmit\+String()}}.
+
+\Hypertarget{USART__program_8c_ab11fc9093ef36d9fbbdc0a113fc8e3ea}\index{USART\_program.c@{USART\_program.c}!USART\_CallBack@{USART\_CallBack}}
+\index{USART\_CallBack@{USART\_CallBack}!USART\_program.c@{USART\_program.c}}
+\doxysubsubsection{\texorpdfstring{USART\_CallBack}{USART\_CallBack}}
+{\footnotesize\ttfamily \label{USART__program_8c_ab11fc9093ef36d9fbbdc0a113fc8e3ea} 
+void(\texorpdfstring{$\ast$}{*} USART\+\_\+\+Call\+Back\+[\doxymbox{\hyperlink{USART__private_8h_a9a3f69391bddeb754f135123c2850c9e}{USART\+\_\+\+CHANNEL\+\_\+\+COUNT}}]\+)(void) (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Per-\/port ISR callback, registered by \doxylink{USART__intreface_8h_ad840a14bcc70c1f552f2864ea2443c55}{USART\+\_\+\+Init\+IT}; NULL means none. 
+
+
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00028}{28}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{USART__program_8c_source_l00409}{USART1\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{USART__program_8c_source_l00422}{USART2\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{USART__program_8c_source_l00435}{USART3\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{USART__program_8c_source_l00448}{USART4\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{USART__program_8c_source_l00461}{USART5\+\_\+\+IRQHandler()}}, \doxymbox{\hyperlink{USART__program_8c_source_l00474}{USART6\+\_\+\+IRQHandler()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00138}{USART\+\_\+\+Init\+IT()}}.
+

@@ -1,20 +1,25 @@
-\doxysection{Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+private.h File Reference}
-\hypertarget{SPI__private_8h}{}\label{SPI__private_8h}\index{Inc/Drivers/MCAL/SPI/SPI\_private.h@{Inc/Drivers/MCAL/SPI/SPI\_private.h}}
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SPI/\+\+SPI\+\_\+private.h File Reference}
+\hypertarget{SPI__private_8h}{}\label{SPI__private_8h}\index{V2V-\/STM32/Inc/Drivers/MCAL/SPI/SPI\_private.h@{V2V-\/STM32/Inc/Drivers/MCAL/SPI/SPI\_private.h}}
+
+
+Register bit positions and internals of the SPI driver — not a public header.  
+
+
 This graph shows which files directly or indirectly include this file:\+
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=197pt]{SPI__private_8h__dep__incl}
+\includegraphics[width=242pt]{SPI__private_8h__dep__incl}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\+\#define \doxymbox{\hyperlink{SPI__private_8h_ac8ab65623984e03b92e1907f1ff5e2cd}{SPI\+\_\+\+CHANNEL\+\_\+\+COUNT}}~4
-\item 
-\+\#define \doxymbox{\hyperlink{SPI__private_8h_ae0b46ae81878a268de1667fdf2d76457}{SPI\+\_\+u32\+TIMEOUT}}~10000\+UL
-\end{DoxyCompactItemize}
+\+\#define \doxymbox{\hyperlink{SPI__private_8h_ac8ab65623984e03b92e1907f1ff5e2cd}{SPI\+\_\+\+CHANNEL\+\_\+\+COUNT}}
+\begin{DoxyCompactList}\small\item\em How many SPI peripherals this MCU has. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{SPI__private_8h_ae0b46ae81878a268de1667fdf2d76457}{SPI\+\_\+u32\+TIMEOUT}}
+\begin{DoxyCompactList}\small\item\em Busy-\/wait bound for the status flags, in loop iterations. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
@@ -24,7 +29,7 @@ enum \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786}{SPI
 , \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a3f3c71215abe5f7c95ff486be94a581c}{CR1\+\_\+\+MSTR}}
 , \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a4043cbff8ac59383cc7877e9aa4b19ac}{CR1\+\_\+\+BR}}
 , \newline
-\doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a466d4993f43ec8ecf2335f075b366c03}{CR1\+\_\+\+SPE}} = 6
+\doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a466d4993f43ec8ecf2335f075b366c03}{CR1\+\_\+\+SPE}}
 , \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786addc1e347bdee03e930aabc666a5c32f6}{CR1\+\_\+\+LSBFIRST}}
 , \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786abd3d3a4dd604ebb13037b54b7694126d}{CR1\+\_\+\+SSI}}
 , \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a6a135f2c8d8bc0d86303e6b14e265c54}{CR1\+\_\+\+SSM}}
@@ -37,7 +42,7 @@ enum \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786}{SPI
 \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a01240c840606af5e9a1867c01d053628}{CR1\+\_\+\+BIDIOE}}
 , \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786abd15cc78b5517df3b3bc61f3807386c1}{CR1\+\_\+\+BIDIMODE}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em Bit positions within the SPI {\ttfamily CR1} register. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22c}{SPI\+\_\+\+SR\+\_\+\+BITS}} \{ \newline
 \doxymbox{\hyperlink{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22ca9deda832438eb675c437b20951d3151c}{SR\+\_\+\+RXNE}}
 , \doxymbox{\hyperlink{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22ca5b061fdc949ca6abd1dcc8bc3c04e8d7}{SR\+\_\+\+TXE}}
@@ -51,7 +56,19 @@ enum \doxymbox{\hyperlink{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22c}{SPI
 , \newline
 \doxymbox{\hyperlink{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22ca6bcdc79d12aaaf771f171264c9feb143}{SR\+\_\+\+FRE}}
  \}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Bit positions within the SPI {\ttfamily SR} (status) register. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Register bit positions and internals of the SPI driver — not a public header. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{SPI__private_8h_source}{SPI\+\_\+private.\+h}}.
+
 
 
 \label{doc-define-members}
@@ -61,21 +78,37 @@ enum \doxymbox{\hyperlink{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22c}{SPI
 \index{SPI\_CHANNEL\_COUNT@{SPI\_CHANNEL\_COUNT}!SPI\_private.h@{SPI\_private.h}}
 \doxysubsubsection{\texorpdfstring{SPI\_CHANNEL\_COUNT}{SPI\_CHANNEL\_COUNT}}
 {\footnotesize\ttfamily \label{SPI__private_8h_ac8ab65623984e03b92e1907f1ff5e2cd} 
-\+\#define SPI\+\_\+\+CHANNEL\+\_\+\+COUNT~4}
+\+\#define SPI\+\_\+\+CHANNEL\+\_\+\+COUNT}
 
-===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} \doxylink{SPI__private_8h}{SPI\+\_\+private.\+h} \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Abdelmoemen Shehawey \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ MCAL \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} CPU :\+ Cortex-\/\+M4 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} MCU :\+ NUCLEO-\/\+F446\+RE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SWC :\+ SPI \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} 
 
-Definition at line \doxymbox{\hyperlink{SPI__private_8h_source_l00018}{18}} of file \doxymbox{\hyperlink{SPI__private_8h_source}{SPI\+\_\+private.\+h}}.
+
+How many SPI peripherals this MCU has. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SPI__private_8h_source_l00014}{14}} of file \doxymbox{\hyperlink{SPI__private_8h_source}{SPI\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SPI__program_8c_source_l00037}{SPI\+\_\+enum\+Init()}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00249}{SPI\+\_\+enum\+Receive()}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00111}{SPI\+\_\+enum\+Trancieve()}}, and \doxymbox{\hyperlink{SPI__program_8c_source_l00189}{SPI\+\_\+enum\+Transmit()}}.
 
 \Hypertarget{SPI__private_8h_ae0b46ae81878a268de1667fdf2d76457}\index{SPI\_private.h@{SPI\_private.h}!SPI\_u32TIMEOUT@{SPI\_u32TIMEOUT}}
 \index{SPI\_u32TIMEOUT@{SPI\_u32TIMEOUT}!SPI\_private.h@{SPI\_private.h}}
 \doxysubsubsection{\texorpdfstring{SPI\_u32TIMEOUT}{SPI\_u32TIMEOUT}}
 {\footnotesize\ttfamily \label{SPI__private_8h_ae0b46ae81878a268de1667fdf2d76457} 
-\+\#define SPI\+\_\+u32\+TIMEOUT~10000\+UL}
+\+\#define SPI\+\_\+u32\+TIMEOUT}
 
 
 
-Definition at line \doxymbox{\hyperlink{SPI__private_8h_source_l00051}{51}} of file \doxymbox{\hyperlink{SPI__private_8h_source}{SPI\+\_\+private.\+h}}.
+Busy-\/wait bound for the status flags, in loop iterations. 
+
+Escapes a dead peripheral rather than hanging forever. 
+
+Definition at line \doxymbox{\hyperlink{SPI__private_8h_source_l00049}{49}} of file \doxymbox{\hyperlink{SPI__private_8h_source}{SPI\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SPI__program_8c_source_l00249}{SPI\+\_\+enum\+Receive()}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00111}{SPI\+\_\+enum\+Trancieve()}}, and \doxymbox{\hyperlink{SPI__program_8c_source_l00189}{SPI\+\_\+enum\+Transmit()}}.
 
 
 
@@ -88,95 +121,99 @@ Definition at line \doxymbox{\hyperlink{SPI__private_8h_source_l00051}{51}} of f
 {\footnotesize\ttfamily \label{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786} 
 enum \doxymbox{\hyperlink{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786}{SPI\+\_\+\+CR1\+\_\+\+BITS}}}
 
-\begin{DoxyEnumFields}[2]{Enumerator}
+
+
+Bit positions within the SPI {\ttfamily CR1} register. 
+
+\begin{DoxyEnumFields}[3]{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{CR1\_CPHA@{CR1\_CPHA}!SPI\_private.h@{SPI\_private.h}}
 \index{SPI\_private.h@{SPI\_private.h}!CR1\_CPHA@{CR1\_CPHA}}
 }\Hypertarget{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786af92064a3d6b08e8c8ea749867762784f}\label{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786af92064a3d6b08e8c8ea749867762784f} 
-CR1\+\_\+\+CPHA&\\
+CR1\+\_\+\+CPHA&&Clock phase. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{CR1\_CPOL@{CR1\_CPOL}!SPI\_private.h@{SPI\_private.h}}
 \index{SPI\_private.h@{SPI\_private.h}!CR1\_CPOL@{CR1\_CPOL}}
 }\Hypertarget{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a960e68aa2d05201b29da28e636c6aefe}\label{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a960e68aa2d05201b29da28e636c6aefe} 
-CR1\+\_\+\+CPOL&\\
+CR1\+\_\+\+CPOL&&Clock polarity. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{CR1\_MSTR@{CR1\_MSTR}!SPI\_private.h@{SPI\_private.h}}
 \index{SPI\_private.h@{SPI\_private.h}!CR1\_MSTR@{CR1\_MSTR}}
 }\Hypertarget{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a3f3c71215abe5f7c95ff486be94a581c}\label{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a3f3c71215abe5f7c95ff486be94a581c} 
-CR1\+\_\+\+MSTR&\\
+CR1\+\_\+\+MSTR&&Master selection. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{CR1\_BR@{CR1\_BR}!SPI\_private.h@{SPI\_private.h}}
 \index{SPI\_private.h@{SPI\_private.h}!CR1\_BR@{CR1\_BR}}
 }\Hypertarget{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a4043cbff8ac59383cc7877e9aa4b19ac}\label{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a4043cbff8ac59383cc7877e9aa4b19ac} 
-CR1\+\_\+\+BR&\\
+CR1\+\_\+\+BR&&Baud-\/rate prescaler, 3 bits wide. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{CR1\_SPE@{CR1\_SPE}!SPI\_private.h@{SPI\_private.h}}
 \index{SPI\_private.h@{SPI\_private.h}!CR1\_SPE@{CR1\_SPE}}
 }\Hypertarget{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a466d4993f43ec8ecf2335f075b366c03}\label{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a466d4993f43ec8ecf2335f075b366c03} 
-CR1\+\_\+\+SPE&\\
+CR1\+\_\+\+SPE&6&SPI enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{CR1\_LSBFIRST@{CR1\_LSBFIRST}!SPI\_private.h@{SPI\_private.h}}
 \index{SPI\_private.h@{SPI\_private.h}!CR1\_LSBFIRST@{CR1\_LSBFIRST}}
 }\Hypertarget{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786addc1e347bdee03e930aabc666a5c32f6}\label{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786addc1e347bdee03e930aabc666a5c32f6} 
-CR1\+\_\+\+LSBFIRST&\\
+CR1\+\_\+\+LSBFIRST&&Frame format:\+ LSB first. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{CR1\_SSI@{CR1\_SSI}!SPI\_private.h@{SPI\_private.h}}
 \index{SPI\_private.h@{SPI\_private.h}!CR1\_SSI@{CR1\_SSI}}
 }\Hypertarget{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786abd3d3a4dd604ebb13037b54b7694126d}\label{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786abd3d3a4dd604ebb13037b54b7694126d} 
-CR1\+\_\+\+SSI&\\
+CR1\+\_\+\+SSI&&Internal slave select. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{CR1\_SSM@{CR1\_SSM}!SPI\_private.h@{SPI\_private.h}}
 \index{SPI\_private.h@{SPI\_private.h}!CR1\_SSM@{CR1\_SSM}}
 }\Hypertarget{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a6a135f2c8d8bc0d86303e6b14e265c54}\label{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a6a135f2c8d8bc0d86303e6b14e265c54} 
-CR1\+\_\+\+SSM&\\
+CR1\+\_\+\+SSM&&Software slave management. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{CR1\_RXONLY@{CR1\_RXONLY}!SPI\_private.h@{SPI\_private.h}}
 \index{SPI\_private.h@{SPI\_private.h}!CR1\_RXONLY@{CR1\_RXONLY}}
 }\Hypertarget{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a9189a82dfb5a96fc0866834baa268b96}\label{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a9189a82dfb5a96fc0866834baa268b96} 
-CR1\+\_\+\+RXONLY&\\
+CR1\+\_\+\+RXONLY&&Receive-\/only mode. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{CR1\_DFF@{CR1\_DFF}!SPI\_private.h@{SPI\_private.h}}
 \index{SPI\_private.h@{SPI\_private.h}!CR1\_DFF@{CR1\_DFF}}
 }\Hypertarget{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a0e32c6a55a625cec4a0582c58853a278}\label{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a0e32c6a55a625cec4a0582c58853a278} 
-CR1\+\_\+\+DFF&\\
+CR1\+\_\+\+DFF&&Data frame format:\+ 8 or 16 bits. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{CR1\_CRCNEXT@{CR1\_CRCNEXT}!SPI\_private.h@{SPI\_private.h}}
 \index{SPI\_private.h@{SPI\_private.h}!CR1\_CRCNEXT@{CR1\_CRCNEXT}}
 }\Hypertarget{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786ae4672870f40368842404dcce5592e9bf}\label{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786ae4672870f40368842404dcce5592e9bf} 
-CR1\+\_\+\+CRCNEXT&\\
+CR1\+\_\+\+CRCNEXT&&Transmit the CRC next. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{CR1\_CRCEN@{CR1\_CRCEN}!SPI\_private.h@{SPI\_private.h}}
 \index{SPI\_private.h@{SPI\_private.h}!CR1\_CRCEN@{CR1\_CRCEN}}
 }\Hypertarget{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a534a1d7f277d8cefcd7dc75e21b855c7}\label{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a534a1d7f277d8cefcd7dc75e21b855c7} 
-CR1\+\_\+\+CRCEN&\\
+CR1\+\_\+\+CRCEN&&Hardware CRC enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{CR1\_BIDIOE@{CR1\_BIDIOE}!SPI\_private.h@{SPI\_private.h}}
 \index{SPI\_private.h@{SPI\_private.h}!CR1\_BIDIOE@{CR1\_BIDIOE}}
 }\Hypertarget{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a01240c840606af5e9a1867c01d053628}\label{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786a01240c840606af5e9a1867c01d053628} 
-CR1\+\_\+\+BIDIOE&\\
+CR1\+\_\+\+BIDIOE&&Output enable in bidirectional mode. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{CR1\_BIDIMODE@{CR1\_BIDIMODE}!SPI\_private.h@{SPI\_private.h}}
 \index{SPI\_private.h@{SPI\_private.h}!CR1\_BIDIMODE@{CR1\_BIDIMODE}}
 }\Hypertarget{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786abd15cc78b5517df3b3bc61f3807386c1}\label{SPI__private_8h_a16c519bf9d2968295f34e4db15a62786abd15cc78b5517df3b3bc61f3807386c1} 
-CR1\+\_\+\+BIDIMODE&\\
+CR1\+\_\+\+BIDIMODE&&Bidirectional (one-\/line) mode. \\
 \hline
 
 \end{DoxyEnumFields}
 
 
-Definition at line \doxymbox{\hyperlink{SPI__private_8h_source_l00020}{20}} of file \doxymbox{\hyperlink{SPI__private_8h_source}{SPI\+\_\+private.\+h}}.
+Definition at line \doxymbox{\hyperlink{SPI__private_8h_source_l00017}{17}} of file \doxymbox{\hyperlink{SPI__private_8h_source}{SPI\+\_\+private.\+h}}.
 
 \Hypertarget{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22c}\index{SPI\_private.h@{SPI\_private.h}!SPI\_SR\_BITS@{SPI\_SR\_BITS}}
 \index{SPI\_SR\_BITS@{SPI\_SR\_BITS}!SPI\_private.h@{SPI\_private.h}}
@@ -184,63 +221,67 @@ Definition at line \doxymbox{\hyperlink{SPI__private_8h_source_l00020}{20}} of f
 {\footnotesize\ttfamily \label{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22c} 
 enum \doxymbox{\hyperlink{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22c}{SPI\+\_\+\+SR\+\_\+\+BITS}}}
 
+
+
+Bit positions within the SPI {\ttfamily SR} (status) register. 
+
 \begin{DoxyEnumFields}[2]{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SR\_RXNE@{SR\_RXNE}!SPI\_private.h@{SPI\_private.h}}
 \index{SPI\_private.h@{SPI\_private.h}!SR\_RXNE@{SR\_RXNE}}
 }\Hypertarget{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22ca9deda832438eb675c437b20951d3151c}\label{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22ca9deda832438eb675c437b20951d3151c} 
-SR\+\_\+\+RXNE&\\
+SR\+\_\+\+RXNE&Receive buffer not empty — a frame is waiting. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SR\_TXE@{SR\_TXE}!SPI\_private.h@{SPI\_private.h}}
 \index{SPI\_private.h@{SPI\_private.h}!SR\_TXE@{SR\_TXE}}
 }\Hypertarget{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22ca5b061fdc949ca6abd1dcc8bc3c04e8d7}\label{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22ca5b061fdc949ca6abd1dcc8bc3c04e8d7} 
-SR\+\_\+\+TXE&\\
+SR\+\_\+\+TXE&Transmit buffer empty — ready for the next frame. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SR\_CHSIDE@{SR\_CHSIDE}!SPI\_private.h@{SPI\_private.h}}
 \index{SPI\_private.h@{SPI\_private.h}!SR\_CHSIDE@{SR\_CHSIDE}}
 }\Hypertarget{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22caf713be38b6c386da9e3d929a9f0d8067}\label{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22caf713be38b6c386da9e3d929a9f0d8067} 
-SR\+\_\+\+CHSIDE&\\
+SR\+\_\+\+CHSIDE&Channel side (I2S mode only). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SR\_UDR@{SR\_UDR}!SPI\_private.h@{SPI\_private.h}}
 \index{SPI\_private.h@{SPI\_private.h}!SR\_UDR@{SR\_UDR}}
 }\Hypertarget{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22ca0bdf30e2d1ba08d5313b8ffb45fc5442}\label{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22ca0bdf30e2d1ba08d5313b8ffb45fc5442} 
-SR\+\_\+\+UDR&\\
+SR\+\_\+\+UDR&Underrun (slave mode). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SR\_CRCERR@{SR\_CRCERR}!SPI\_private.h@{SPI\_private.h}}
 \index{SPI\_private.h@{SPI\_private.h}!SR\_CRCERR@{SR\_CRCERR}}
 }\Hypertarget{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22caf243c1bb094739b803fdb947aeb51633}\label{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22caf243c1bb094739b803fdb947aeb51633} 
-SR\+\_\+\+CRCERR&\\
+SR\+\_\+\+CRCERR&CRC mismatch. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SR\_MODF@{SR\_MODF}!SPI\_private.h@{SPI\_private.h}}
 \index{SPI\_private.h@{SPI\_private.h}!SR\_MODF@{SR\_MODF}}
 }\Hypertarget{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22ca99eb2055e06c36ff2e319ecbf335e7d8}\label{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22ca99eb2055e06c36ff2e319ecbf335e7d8} 
-SR\+\_\+\+MODF&\\
+SR\+\_\+\+MODF&Mode fault — another master drove NSS low while we were master. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SR\_OVR@{SR\_OVR}!SPI\_private.h@{SPI\_private.h}}
 \index{SPI\_private.h@{SPI\_private.h}!SR\_OVR@{SR\_OVR}}
 }\Hypertarget{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22ca96b6b6be6d2c36faa96fc1744256367d}\label{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22ca96b6b6be6d2c36faa96fc1744256367d} 
-SR\+\_\+\+OVR&\\
+SR\+\_\+\+OVR&Overrun — a frame arrived before the previous one was read, and was lost. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SR\_BSY@{SR\_BSY}!SPI\_private.h@{SPI\_private.h}}
 \index{SPI\_private.h@{SPI\_private.h}!SR\_BSY@{SR\_BSY}}
 }\Hypertarget{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22cafd5b1ed556f92017d33afc222fc3eb0c}\label{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22cafd5b1ed556f92017d33afc222fc3eb0c} 
-SR\+\_\+\+BSY&\\
+SR\+\_\+\+BSY&Busy — a transfer is in progress. Must be clear before the peripheral is disabled. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SR\_FRE@{SR\_FRE}!SPI\_private.h@{SPI\_private.h}}
 \index{SPI\_private.h@{SPI\_private.h}!SR\_FRE@{SR\_FRE}}
 }\Hypertarget{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22ca6bcdc79d12aaaf771f171264c9feb143}\label{SPI__private_8h_ac7a06a9e237169f8078000aa0802a22ca6bcdc79d12aaaf771f171264c9feb143} 
-SR\+\_\+\+FRE&\\
+SR\+\_\+\+FRE&Frame format error. \\
 \hline
 
 \end{DoxyEnumFields}
 
 
-Definition at line \doxymbox{\hyperlink{SPI__private_8h_source_l00038}{38}} of file \doxymbox{\hyperlink{SPI__private_8h_source}{SPI\+\_\+private.\+h}}.
+Definition at line \doxymbox{\hyperlink{SPI__private_8h_source_l00036}{36}} of file \doxymbox{\hyperlink{SPI__private_8h_source}{SPI\+\_\+private.\+h}}.
 

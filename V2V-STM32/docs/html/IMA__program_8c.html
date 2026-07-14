@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Src/IMA_program.c File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Src/IMA_program.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,52 +90,23 @@ $(function(){initNavTree('IMA__program_8c.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">IMA_program.c File Reference</div></div>
+  <div class="headertitle"><div class="title">IMA_program.c File Reference<div class="ingroups"><a class="el" href="group__app.html">Application</a> &raquo; <a class="el" href="group__app__ima.html">IMA</a></div></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Implementation of the IMA driver — Intersection Movement Assist.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="IMA__interface_8h_source.html">../Inc/Application/IMA/IMA_interface.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="IMA__config_8h_source.html">../Inc/Application/IMA/IMA_config.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="IMA__private_8h_source.html">../Inc/Application/IMA/IMA_private.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="DSRC_8h_source.html">../Inc/Application/DSRC/DSRC.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="System_8h_source.html">../Inc/System/System.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SafetyEngine__interface_8h_source.html">../Inc/Application/SafetyEngine/SafetyEngine_interface.h</a>&quot;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for IMA_program.c:</div>
-<div class="dyncontent">
-<div class="center"><img src="IMA__program_8c__incl.png" border="0" usemap="#aSrc_2IMA__program_8c" loading="lazy" alt=""/></div>
-<map name="aSrc_2IMA__program_8c" id="aSrc_2IMA__program_8c">
-<area shape="rect" title=" " alt="" coords="350,5,493,33"/>
-<area shape="rect" href="IMA__interface_8h.html" title=" " alt="" coords="174,81,330,126"/>
-<area shape="poly" title=" " alt="" coords="392,35,312,76,309,72,397,32"/>
-<area shape="rect" href="DSRC_8h.html" title=": DSRC module implementation" alt="" coords="76,182,197,210"/>
-<area shape="poly" title=" " alt="" coords="348,30,241,51,194,65,163,83,150,101,143,123,137,167,132,166,137,122,146,99,160,79,191,61,240,46,352,27"/>
-<area shape="rect" href="SafetyEngine__interface_8h.html" title=" " alt="" coords="293,174,502,218"/>
-<area shape="poly" title=" " alt="" coords="416,31,406,56,398,82,394,121,395,159,390,157,388,121,392,80,401,54,412,36"/>
-<area shape="rect" href="IMA__config_8h.html" title=" " alt="" coords="406,81,544,126"/>
-<area shape="poly" title=" " alt="" coords="431,31,455,68,450,67,430,36"/>
-<area shape="rect" href="IMA__private_8h.html" title=" " alt="" coords="568,81,712,126"/>
-<area shape="poly" title=" " alt="" coords="457,31,571,74,566,76,457,36"/>
-<area shape="rect" href="System_8h.html" title=": System Header file" alt="" coords="736,90,907,117"/>
-<area shape="poly" title=" " alt="" coords="489,31,725,78,750,85,744,86,724,84,489,36"/>
-<area shape="rect" title=" " alt="" coords="453,359,524,387"/>
-<area shape="poly" title=" " alt="" coords="255,124,264,170,272,194,284,217,320,260,364,297,408,327,449,352,444,351,405,331,360,301,317,264,279,220,267,196,259,171,253,129"/>
-<area shape="poly" title=" " alt="" coords="223,128,167,174,163,171,227,124"/>
-<area shape="poly" title=" " alt="" coords="287,124,353,165,348,166,287,129"/>
-<area shape="poly" title=" " alt="" coords="145,208,181,258,207,286,238,309,288,333,341,349,393,360,440,368,435,368,392,365,340,354,286,338,235,313,204,290,177,261,143,213"/>
-<area shape="rect" title=" " alt="" coords="5,275,73,302"/>
-<area shape="poly" title=" " alt="" coords="121,213,66,266,62,262,123,208"/>
-<area shape="rect" title=" " alt="" coords="97,275,168,302"/>
-<area shape="poly" title=" " alt="" coords="137,208,136,260,131,259,134,213"/>
-<area shape="poly" title=" " alt="" coords="806,116,730,176,668,221,607,268,514,351,512,346,604,264,665,217,727,172,802,119"/>
-<area shape="rect" href="LED__interface_8h.html" title=" " alt="" coords="740,174,879,218"/>
-<area shape="poly" title=" " alt="" coords="822,116,817,160,812,157,818,120"/>
-<area shape="rect" href="GPIO__interface_8h.html" title=" " alt="" coords="618,266,772,311"/>
-<area shape="poly" title=" " alt="" coords="785,218,735,259,733,254,780,220"/>
-<area shape="rect" href="ErrTypes_8h.html" title=" " alt="" coords="684,359,820,387"/>
-<area shape="poly" title=" " alt="" coords="809,217,801,263,787,312,770,347,767,343,782,310,796,261,805,221"/>
-<area shape="poly" title=" " alt="" coords="643,311,536,356,535,350,638,312"/>
-<area shape="poly" title=" " alt="" coords="711,309,737,347,732,345,709,314"/>
-</map>
+</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for IMA_program.c:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="IMA__program_8c__incl.svg" width="100%" height="594"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="IMA__program_8c_source.html">Go to the source code of this file.</a></p>
@@ -145,21 +116,33 @@ Functions</h2></td></tr>
 <tr class="memitem:abd5d231970401e78bd9552c40742d1e9" id="r_abd5d231970401e78bd9552c40742d1e9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abd5d231970401e78bd9552c40742d1e9">IMA_voidInit</a> (void)</td></tr>
 <tr class="memdesc:abd5d231970401e78bd9552c40742d1e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the IMA module.  <br /></td></tr>
 <tr class="memitem:a17e1c415924f5123666b1c7436f57a94" id="r_a17e1c415924f5123666b1c7436f57a94"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a17e1c415924f5123666b1c7436f57a94">IMA_voidBeginCycle</a> (void)</td></tr>
-<tr class="memdesc:a17e1c415924f5123666b1c7436f57a94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begin a new IMA processing cycle — reset accumulators. IMA reads Host_Speed from the shared globals.  <br /></td></tr>
-<tr class="memitem:a748c4abb479229cffa75659e88bd9751" id="r_a748c4abb479229cffa75659e88bd9751"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a748c4abb479229cffa75659e88bd9751">IMA_voidProcessNeighbor</a> (const <a class="el" href="DSRC_8h.html#ac818f2e1224a1e513913a85019953e14">Neighbor</a> *n)</td></tr>
-<tr class="memdesc:a748c4abb479229cffa75659e88bd9751"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process one crossing-direction DSRC neighbor for IMA.  <br /></td></tr>
+<tr class="memdesc:a17e1c415924f5123666b1c7436f57a94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begin a new processing cycle — reset accumulators No sensor parameters needed; IMA reads Host_Speed from shared globals.  <br /></td></tr>
+<tr class="memitem:a748c4abb479229cffa75659e88bd9751" id="r_a748c4abb479229cffa75659e88bd9751"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a748c4abb479229cffa75659e88bd9751">IMA_voidProcessNeighbor</a> (const <a class="el" href="structNeighbor.html">Neighbor</a> *n)</td></tr>
+<tr class="memdesc:a748c4abb479229cffa75659e88bd9751"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process one CROSSING-direction DSRC neighbor for IMA.  <br /></td></tr>
 <tr class="memitem:a18f54786f683ab3016989275ccf9e95a" id="r_a18f54786f683ab3016989275ccf9e95a"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a18f54786f683ab3016989275ccf9e95a">IMA_u8GetFlag</a> (void)</td></tr>
-<tr class="memdesc:a18f54786f683ab3016989275ccf9e95a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current IMA flag. Any crossing vehicle raises an alert; the severity is WARNING when the host has right of way, CRITICAL when it must yield.  <br /></td></tr>
+<tr class="memdesc:a18f54786f683ab3016989275ccf9e95a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get current IMA flag (for DSRC flag broadcast).  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aa8ee3697aabf78e1aad8d7b10effba12" id="r_aa8ee3697aabf78e1aad8d7b10effba12"><td class="memItemLeft">static uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#aa8ee3697aabf78e1aad8d7b10effba12">IMA_CrossingDetected</a></td></tr>
+<tr class="memdesc:aa8ee3697aabf78e1aad8d7b10effba12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gate: is at least one neighbor crossing our path this cycle (<a class="el" href="group__app__safetyengine.html#gga2e9ec086ba61b35cfc2439306cdfdd70ac6ff9aad4173c225b2c38b1f945b9726" title="DIR_CROSSING">DIR_CROSSING</a>)?  <br /></td></tr>
+<tr class="memitem:ada0a2986b5d169695406de97638b1e43" id="r_ada0a2986b5d169695406de97638b1e43"><td class="memItemLeft">static <a class="el" href="group__app__safetyengine.html#gaa870174b113e13762b47e719bf3efa88">RiskLevel_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ada0a2986b5d169695406de97638b1e43">IMA_WorstRisk</a></td></tr>
+<tr class="memdesc:ada0a2986b5d169695406de97638b1e43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Result: the worst intersection risk across every crossing neighbor this cycle.  <br /></td></tr>
 </table>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a18f54786f683ab3016989275ccf9e95a" name="a18f54786f683ab3016989275ccf9e95a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18f54786f683ab3016989275ccf9e95a">&#9670;&#160;</a></span>IMA_u8GetFlag()</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Implementation of the IMA driver — Intersection Movement Assist. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Abdelmoemen Shehawey  </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="IMA__program_8c_source.html">IMA_program.c</a>.</p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="abd5d231970401e78bd9552c40742d1e9" name="abd5d231970401e78bd9552c40742d1e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd5d231970401e78bd9552c40742d1e9">&#9670;&#160;</a></span>IMA_voidInit()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t IMA_u8GetFlag </td>
+          <td class="memname">void IMA_voidInit </td>
           <td>(</td>
           <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -167,27 +150,18 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Current IMA flag. Any crossing vehicle raises an alert; the severity is WARNING when the host has right of way, CRITICAL when it must yield. </p>
-<p>Get current IMA flag (for DSRC flag broadcast).</p>
-<dl class="section return"><dt>Returns</dt><dd>0=Safe, 1=Warning, 2=Critical </dd></dl>
+<p>Initialize the IMA module. </p>
 
-<p class="definition">Definition at line <a class="el" href="IMA__program_8c_source.html#l00081">81</a> of file <a class="el" href="IMA__program_8c_source.html">IMA_program.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="IMA__program_8c_a18f54786f683ab3016989275ccf9e95a_icgraph.png" border="0" usemap="#aIMA__program_8c_a18f54786f683ab3016989275ccf9e95a_icgraph" loading="lazy" alt=""/></div>
-<map name="aIMA__program_8c_a18f54786f683ab3016989275ccf9e95a_icgraph" id="aIMA__program_8c_a18f54786f683ab3016989275ccf9e95a_icgraph">
-<area shape="rect" title="Current IMA flag. Any crossing vehicle raises an alert; the severity is WARNING when the host has rig..." alt="" coords="544,32,665,60"/>
-<area shape="rect" href="SafetyEngine__program_8c.html#a7b6c12632534a82b4357a73306667157" title="Single&#45;pass update over the DSRC neighbor table. Runs all safety modules in ONE pass and aggregates t..." alt="" coords="307,7,496,34"/>
-<area shape="poly" title=" " alt="" coords="526,36,497,35,497,30,532,36"/>
-<area shape="rect" href="main_8c.html#a8e83024643794f31ab8139cbdb1de5dd" title="Handles both RX and TX communication with ESP (V2X Network) using DSRC foundation." alt="" coords="114,57,253,85"/>
-<area shape="poly" title=" " alt="" coords="529,53,254,70,253,64,529,48"/>
-<area shape="rect" href="main_8c.html#a1fa00ec0e4cf92155fcaa535be5ab3a1" title="Single&#45;pass ADAS brain." alt="" coords="108,5,259,33"/>
-<area shape="poly" title=" " alt="" coords="289,20,260,22,259,17,294,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,32,60,60"/>
-<area shape="poly" title=" " alt="" coords="90,37,61,44,59,39,94,34"/>
-<area shape="poly" title=" " alt="" coords="96,58,60,53,60,48,100,56"/>
-</map>
+<p class="definition">Definition at line <a class="el" href="IMA__program_8c_source.html#l00024">24</a> of file <a class="el" href="IMA__program_8c_source.html">IMA_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="IMA__program_8c_source.html#l00019">IMA_CrossingDetected</a>, <a class="el" href="IMA__program_8c_source.html#l00021">IMA_WorstRisk</a>, and <a class="el" href="SafetyEngine__interface_8h_source.html#l00060">RISK_SAFE</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SafetyEngine__program_8c_source.html#l00033">SafetyEngine_voidInit()</a>.</p>
+<div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="IMA__program_8c_abd5d231970401e78bd9552c40742d1e9_icgraph.svg" width="427" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -207,56 +181,18 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Begin a new IMA processing cycle — reset accumulators. IMA reads Host_Speed from the shared globals. </p>
 <p>Begin a new processing cycle — reset accumulators No sensor parameters needed; IMA reads Host_Speed from shared globals. </p>
 
-<p class="definition">Definition at line <a class="el" href="IMA__program_8c_source.html#l00040">40</a> of file <a class="el" href="IMA__program_8c_source.html">IMA_program.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="IMA__program_8c_a17e1c415924f5123666b1c7436f57a94_icgraph.png" border="0" usemap="#aIMA__program_8c_a17e1c415924f5123666b1c7436f57a94_icgraph" loading="lazy" alt=""/></div>
-<map name="aIMA__program_8c_a17e1c415924f5123666b1c7436f57a94_icgraph" id="aIMA__program_8c_a17e1c415924f5123666b1c7436f57a94_icgraph">
-<area shape="rect" title="Begin a new IMA processing cycle — reset accumulators. IMA reads Host_Speed from the shared globals." alt="" coords="544,5,699,33"/>
-<area shape="rect" href="SafetyEngine__program_8c.html#a7b6c12632534a82b4357a73306667157" title="Single&#45;pass update over the DSRC neighbor table. Runs all safety modules in ONE pass and aggregates t..." alt="" coords="307,5,496,33"/>
-<area shape="poly" title=" " alt="" coords="526,19,497,22,497,17,532,19"/>
-<area shape="rect" href="main_8c.html#a1fa00ec0e4cf92155fcaa535be5ab3a1" title="Single&#45;pass ADAS brain." alt="" coords="108,5,259,33"/>
-<area shape="poly" title=" " alt="" coords="289,19,260,22,259,17,294,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,94,18"/>
-</map>
+<p class="definition">Definition at line <a class="el" href="IMA__program_8c_source.html#l00038">38</a> of file <a class="el" href="IMA__program_8c_source.html">IMA_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="IMA__program_8c_source.html#l00019">IMA_CrossingDetected</a>, <a class="el" href="IMA__program_8c_source.html#l00021">IMA_WorstRisk</a>, and <a class="el" href="SafetyEngine__interface_8h_source.html#l00060">RISK_SAFE</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SafetyEngine__program_8c_source.html#l00049">SafetyEngine_voidUpdate()</a>.</p>
+<div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
-
-</div>
-</div>
-<a id="abd5d231970401e78bd9552c40742d1e9" name="abd5d231970401e78bd9552c40742d1e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd5d231970401e78bd9552c40742d1e9">&#9670;&#160;</a></span>IMA_voidInit()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void IMA_voidInit </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Initialize the IMA module. </p>
-
-<p class="definition">Definition at line <a class="el" href="IMA__program_8c_source.html#l00026">26</a> of file <a class="el" href="IMA__program_8c_source.html">IMA_program.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="IMA__program_8c_abd5d231970401e78bd9552c40742d1e9_icgraph.png" border="0" usemap="#aIMA__program_8c_abd5d231970401e78bd9552c40742d1e9_icgraph" loading="lazy" alt=""/></div>
-<map name="aIMA__program_8c_abd5d231970401e78bd9552c40742d1e9_icgraph" id="aIMA__program_8c_abd5d231970401e78bd9552c40742d1e9_icgraph">
-<area shape="rect" title="Initialize the IMA module." alt="" coords="319,5,421,33"/>
-<area shape="rect" href="SafetyEngine__program_8c.html#ad87fdbbd1376c4cebfa69a906cfbe556" title="Initialize all safety modules (FCW/DNPW, EEBL, BSW, IMA)." alt="" coords="108,5,271,33"/>
-<area shape="poly" title=" " alt="" coords="301,19,271,22,271,17,306,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="90,20,60,22,60,17,95,18"/>
-</map>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="IMA__program_8c_a17e1c415924f5123666b1c7436f57a94_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -270,40 +206,120 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void IMA_voidProcessNeighbor </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="DSRC_8h.html#ac818f2e1224a1e513913a85019953e14">Neighbor</a> *</td>          <td class="paramname"><span class="paramname"><em>n</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="structNeighbor.html">Neighbor</a> *</td>          <td class="paramname"><span class="paramname"><em>n</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Process one crossing-direction DSRC neighbor for IMA. </p>
-<p>Process one CROSSING-direction DSRC neighbor for IMA. The SafetyEngine only dispatches crossing-direction neighbors here.</p>
-<p>Any crossing vehicle raises an alert so the driver knows an IMA case is in play; the priority rule (higher speed = right of way) only sets its severity:</p><ul>
-<li>host faster or equal → it passes first → WARNING.</li>
-<li>host slower → it must yield → CRITICAL. The SafetyEngine only dispatches crossing-direction neighbors here.</li>
-</ul>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Process one CROSSING-direction DSRC neighbor for IMA. </p>
+<p>The SafetyEngine only dispatches crossing-direction neighbors here. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">n</td><td>Pointer to neighbor data </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="IMA__program_8c_source.html#l00057">57</a> of file <a class="el" href="IMA__program_8c_source.html">IMA_program.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="IMA__program_8c_a748c4abb479229cffa75659e88bd9751_icgraph.png" border="0" usemap="#aIMA__program_8c_a748c4abb479229cffa75659e88bd9751_icgraph" loading="lazy" alt=""/></div>
-<map name="aIMA__program_8c_a748c4abb479229cffa75659e88bd9751_icgraph" id="aIMA__program_8c_a748c4abb479229cffa75659e88bd9751_icgraph">
-<area shape="rect" title="Process one crossing&#45;direction DSRC neighbor for IMA." alt="" coords="544,5,735,33"/>
-<area shape="rect" href="SafetyEngine__program_8c.html#a7b6c12632534a82b4357a73306667157" title="Single&#45;pass update over the DSRC neighbor table. Runs all safety modules in ONE pass and aggregates t..." alt="" coords="307,5,496,33"/>
-<area shape="poly" title=" " alt="" coords="526,19,497,22,497,17,532,19"/>
-<area shape="rect" href="main_8c.html#a1fa00ec0e4cf92155fcaa535be5ab3a1" title="Single&#45;pass ADAS brain." alt="" coords="108,5,259,33"/>
-<area shape="poly" title=" " alt="" coords="289,19,260,22,259,17,294,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,94,18"/>
-</map>
+<p class="definition">Definition at line <a class="el" href="IMA__program_8c_source.html#l00055">55</a> of file <a class="el" href="IMA__program_8c_source.html">IMA_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="SafetyEngine__program_8c_source.html#l00021">Host_Speed</a>, <a class="el" href="IMA__program_8c_source.html#l00019">IMA_CrossingDetected</a>, <a class="el" href="IMA__program_8c_source.html#l00021">IMA_WorstRisk</a>, <a class="el" href="SafetyEngine__interface_8h_source.html#l00062">RISK_CRITICAL</a>, <a class="el" href="SafetyEngine__interface_8h_source.html#l00061">RISK_WARNING</a>, and <a class="el" href="DSRC_8h_source.html#l00102">Neighbor::speed</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SafetyEngine__program_8c_source.html#l00049">SafetyEngine_voidUpdate()</a>.</p>
+<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="IMA__program_8c_a748c4abb479229cffa75659e88bd9751_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a18f54786f683ab3016989275ccf9e95a" name="a18f54786f683ab3016989275ccf9e95a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18f54786f683ab3016989275ccf9e95a">&#9670;&#160;</a></span>IMA_u8GetFlag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t IMA_u8GetFlag </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get current IMA flag (for DSRC flag broadcast). </p>
+<dl class="section return"><dt>Returns</dt><dd>0=Safe, 1=Warning, 2=Critical </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="IMA__program_8c_source.html#l00079">79</a> of file <a class="el" href="IMA__program_8c_source.html">IMA_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="IMA__program_8c_source.html#l00019">IMA_CrossingDetected</a>, <a class="el" href="IMA__program_8c_source.html#l00021">IMA_WorstRisk</a>, and <a class="el" href="SafetyEngine__interface_8h_source.html#l00060">RISK_SAFE</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SafetyEngine__program_8c_source.html#l00049">SafetyEngine_voidUpdate()</a>, and <a class="el" href="main_8c_source.html#l00387">vTask_ESP_Comm()</a>.</p>
+<div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="IMA__program_8c_a18f54786f683ab3016989275ccf9e95a_icgraph.svg" width="100%" height="368"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="aa8ee3697aabf78e1aad8d7b10effba12" name="aa8ee3697aabf78e1aad8d7b10effba12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8ee3697aabf78e1aad8d7b10effba12">&#9670;&#160;</a></span>IMA_CrossingDetected</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t IMA_CrossingDetected</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gate: is at least one neighbor crossing our path this cycle (<a class="el" href="group__app__safetyengine.html#gga2e9ec086ba61b35cfc2439306cdfdd70ac6ff9aad4173c225b2c38b1f945b9726" title="DIR_CROSSING">DIR_CROSSING</a>)? </p>
+
+<p class="definition">Definition at line <a class="el" href="IMA__program_8c_source.html#l00019">19</a> of file <a class="el" href="IMA__program_8c_source.html">IMA_program.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="IMA__program_8c_source.html#l00079">IMA_u8GetFlag()</a>, <a class="el" href="IMA__program_8c_source.html#l00038">IMA_voidBeginCycle()</a>, <a class="el" href="IMA__program_8c_source.html#l00024">IMA_voidInit()</a>, and <a class="el" href="IMA__program_8c_source.html#l00055">IMA_voidProcessNeighbor()</a>.</p>
+
+</div>
+</div>
+<a id="ada0a2986b5d169695406de97638b1e43" name="ada0a2986b5d169695406de97638b1e43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada0a2986b5d169695406de97638b1e43">&#9670;&#160;</a></span>IMA_WorstRisk</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__app__safetyengine.html#gaa870174b113e13762b47e719bf3efa88">RiskLevel_t</a> IMA_WorstRisk</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Result: the worst intersection risk across every crossing neighbor this cycle. </p>
+
+<p class="definition">Definition at line <a class="el" href="IMA__program_8c_source.html#l00021">21</a> of file <a class="el" href="IMA__program_8c_source.html">IMA_program.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="IMA__program_8c_source.html#l00079">IMA_u8GetFlag()</a>, <a class="el" href="IMA__program_8c_source.html#l00038">IMA_voidBeginCycle()</a>, <a class="el" href="IMA__program_8c_source.html#l00024">IMA_voidInit()</a>, and <a class="el" href="IMA__program_8c_source.html#l00055">IMA_voidProcessNeighbor()</a>.</p>
 
 </div>
 </div>
@@ -320,7 +336,7 @@ Here is the caller graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_413f4e031a85da0d68269c6fd2f76e1c.html">Src</a></li><li class="navelem"><a href="IMA__program_8c.html">IMA_program.c</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Src</b></li><li class="navelem"><a href="IMA__program_8c.html">IMA_program.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

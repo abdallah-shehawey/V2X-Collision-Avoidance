@@ -1,5 +1,10 @@
-\doxysection{Src/\+\+RCC\+\_\+program.c File Reference}
-\hypertarget{RCC__program_8c}{}\label{RCC__program_8c}\index{Src/RCC\_program.c@{Src/RCC\_program.c}}
+\doxysection{V2\+V-\/\+STM32/\+\+Src/\+\+RCC\+\_\+program.c File Reference}
+\hypertarget{RCC__program_8c}{}\label{RCC__program_8c}\index{V2V-\/STM32/Src/RCC\_program.c@{V2V-\/STM32/Src/RCC\_program.c}}
+
+
+Implementation of the RCC driver — reset and clock control.  
+
+
 {\ttfamily \+\#include $<$stdint.\+h$>$}\newline
 {\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+LIB/\+\+STM32\+F446xx.\+h"{}}\newline
 {\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+LIB/\+\+Err\+Types.\+h"{}}\newline
@@ -18,122 +23,107 @@ Include dependency graph for RCC\+\_\+program.\+c:\+
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_ac0546afcec3b849576c5b3ece143b9a9}{RCC\+\_\+enum\+Set\+Clk\+Sts}} (uint8\+\_\+t Copy\+\_\+u8\+CLK, uint8\+\_\+t Copy\+\_\+u8\+Status)
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_ac0546afcec3b849576c5b3ece143b9a9}{RCC\+\_\+enum\+Set\+Clk\+Sts}} (uint8\+\_\+t Copy\+\_\+u8\+CLK, uint8\+\_\+t Copy\+\_\+u8\+Status)
+\begin{DoxyCompactList}\small\item\em Enable or disable a specific clock source. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_a4e5060e0774aa417bf2dbf5aad8904eb}{RCC\+\_\+enum\+Set\+Sys\+Clk}} (uint8\+\_\+t Copy\+\_\+u8\+CLK)
+\begin{DoxyCompactList}\small\item\em Set the system clock source. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_a39479df13627e03c2248209d30fb6baa}{RCC\+\_\+enum\+PLLConfig}} (const \doxymbox{\hyperlink{structRCC__PLLConfig__t}{RCC\+\_\+\+PLLConfig\+\_\+t}} \texorpdfstring{$\ast$}{*}Copy\+\_\+\+PLLConfig)
+\begin{DoxyCompactList}\small\item\em Configure PLL parameters. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_a8dac8e7ec4680d99cd53a562907c8f10}{RCC\+\_\+enum\+AHBConfig}} (uint8\+\_\+t Copy\+\_\+u8\+AHPDiv)
+\begin{DoxyCompactList}\small\item\em Configure AHB bus clock prescaler. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_a32ffc31db6be174ed88867d13b6fb770}{RCC\+\_\+enum\+APB1\+Config}} (uint8\+\_\+t Copy\+\_\+u8\+APB1\+Div)
+\begin{DoxyCompactList}\small\item\em Configure APB1 bus clock prescaler. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_a528911683284afb4fc9731cfedfebc31}{RCC\+\_\+enum\+APB2\+Config}} (uint8\+\_\+t Copy\+\_\+u8\+APB2\+Div)
+\begin{DoxyCompactList}\small\item\em Configure APB2 bus clock prescaler. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_a64dea321b9d4592b409225e2b55fef5c}{RCC\+\_\+enum\+AHPPer\+Sts}} (uint8\+\_\+t Copy\+\_\+u8\+Bus, uint8\+\_\+t Copy\+\_\+u8\+AHPPer, uint8\+\_\+t Copy\+\_\+u8\+Status)
+\begin{DoxyCompactList}\small\item\em Enable or disable peripheral clock on AHB buses. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_adcf07c53ca16c6ccd1af607d3173b2dc}{RCC\+\_\+enum\+ABPPer\+Sts}} (uint8\+\_\+t Copy\+\_\+u8\+Bus, uint8\+\_\+t Copy\+\_\+u8\+ABPPer, uint8\+\_\+t Copy\+\_\+u8\+Status)
+\begin{DoxyCompactList}\small\item\em Enable or disable peripheral clock on APB buses. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
 \item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_a4e5060e0774aa417bf2dbf5aad8904eb}{RCC\+\_\+enum\+Set\+Sys\+Clk}} (uint8\+\_\+t Copy\+\_\+u8\+CLK)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_a39479df13627e03c2248209d30fb6baa}{RCC\+\_\+enum\+PLLConfig}} (const \doxymbox{\hyperlink{structRCC__PLLConfig__t}{RCC\+\_\+\+PLLConfig\+\_\+t}} \texorpdfstring{$\ast$}{*}Copy\+\_\+\+PLLConfig)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_a8dac8e7ec4680d99cd53a562907c8f10}{RCC\+\_\+enum\+AHBConfig}} (uint8\+\_\+t Copy\+\_\+u8\+AHPDiv)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_a32ffc31db6be174ed88867d13b6fb770}{RCC\+\_\+enum\+APB1\+Config}} (uint8\+\_\+t Copy\+\_\+u8\+APB1\+Div)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_a528911683284afb4fc9731cfedfebc31}{RCC\+\_\+enum\+APB2\+Config}} (uint8\+\_\+t Copy\+\_\+u8\+APB2\+Div)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_a64dea321b9d4592b409225e2b55fef5c}{RCC\+\_\+enum\+AHPPer\+Sts}} (uint8\+\_\+t Copy\+\_\+u8\+Bus, uint8\+\_\+t Copy\+\_\+u8\+AHPPer, uint8\+\_\+t Copy\+\_\+u8\+Status)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__program_8c_adcf07c53ca16c6ccd1af607d3173b2dc}{RCC\+\_\+enum\+ABPPer\+Sts}} (uint8\+\_\+t Copy\+\_\+u8\+Bus, uint8\+\_\+t Copy\+\_\+u8\+ABPPer, uint8\+\_\+t Copy\+\_\+u8\+Status)
-\end{DoxyCompactItemize}
+static uint8\+\_\+t \doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\+\_\+u8\+State}}
+\begin{DoxyCompactList}\small\item\em Reentrancy guard for the driver:\+ \doxylink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE} or \doxylink{group__lib_gab5be0aaddb58ffb9cb20c12530d66316}{BUSY}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of the RCC driver — reset and clock control. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
 
 
 \label{doc-func-members}
 \Hypertarget{RCC__program_8c_doc-func-members}
 \doxysubsection{Function Documentation}
-\Hypertarget{RCC__program_8c_adcf07c53ca16c6ccd1af607d3173b2dc}\index{RCC\_program.c@{RCC\_program.c}!RCC\_enumABPPerSts@{RCC\_enumABPPerSts}}
-\index{RCC\_enumABPPerSts@{RCC\_enumABPPerSts}!RCC\_program.c@{RCC\_program.c}}
-\doxysubsubsection{\texorpdfstring{RCC\_enumABPPerSts()}{RCC\_enumABPPerSts()}}
-{\footnotesize\ttfamily \label{RCC__program_8c_adcf07c53ca16c6ccd1af607d3173b2dc} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+ABPPer\+Sts (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Bus}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+ABPPer}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Status}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00521}{521}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
-
-Here is the caller graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{RCC__program_8c_adcf07c53ca16c6ccd1af607d3173b2dc_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{RCC__program_8c_a8dac8e7ec4680d99cd53a562907c8f10}\index{RCC\_program.c@{RCC\_program.c}!RCC\_enumAHBConfig@{RCC\_enumAHBConfig}}
-\index{RCC\_enumAHBConfig@{RCC\_enumAHBConfig}!RCC\_program.c@{RCC\_program.c}}
-\doxysubsubsection{\texorpdfstring{RCC\_enumAHBConfig()}{RCC\_enumAHBConfig()}}
-{\footnotesize\ttfamily \label{RCC__program_8c_a8dac8e7ec4680d99cd53a562907c8f10} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+AHBConfig (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+AHPDiv}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00323}{323}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
-
-\Hypertarget{RCC__program_8c_a64dea321b9d4592b409225e2b55fef5c}\index{RCC\_program.c@{RCC\_program.c}!RCC\_enumAHPPerSts@{RCC\_enumAHPPerSts}}
-\index{RCC\_enumAHPPerSts@{RCC\_enumAHPPerSts}!RCC\_program.c@{RCC\_program.c}}
-\doxysubsubsection{\texorpdfstring{RCC\_enumAHPPerSts()}{RCC\_enumAHPPerSts()}}
-{\footnotesize\ttfamily \label{RCC__program_8c_a64dea321b9d4592b409225e2b55fef5c} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+AHPPer\+Sts (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Bus}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+AHPPer}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Status}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00452}{452}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
-
-Here is the caller graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{RCC__program_8c_a64dea321b9d4592b409225e2b55fef5c_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{RCC__program_8c_a32ffc31db6be174ed88867d13b6fb770}\index{RCC\_program.c@{RCC\_program.c}!RCC\_enumAPB1Config@{RCC\_enumAPB1Config}}
-\index{RCC\_enumAPB1Config@{RCC\_enumAPB1Config}!RCC\_program.c@{RCC\_program.c}}
-\doxysubsubsection{\texorpdfstring{RCC\_enumAPB1Config()}{RCC\_enumAPB1Config()}}
-{\footnotesize\ttfamily \label{RCC__program_8c_a32ffc31db6be174ed88867d13b6fb770} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+APB1\+Config (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+APB1\+Div}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00366}{366}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
-
-\Hypertarget{RCC__program_8c_a528911683284afb4fc9731cfedfebc31}\index{RCC\_program.c@{RCC\_program.c}!RCC\_enumAPB2Config@{RCC\_enumAPB2Config}}
-\index{RCC\_enumAPB2Config@{RCC\_enumAPB2Config}!RCC\_program.c@{RCC\_program.c}}
-\doxysubsubsection{\texorpdfstring{RCC\_enumAPB2Config()}{RCC\_enumAPB2Config()}}
-{\footnotesize\ttfamily \label{RCC__program_8c_a528911683284afb4fc9731cfedfebc31} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+APB2\+Config (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+APB2\+Div}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00409}{409}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
-
-\Hypertarget{RCC__program_8c_a39479df13627e03c2248209d30fb6baa}\index{RCC\_program.c@{RCC\_program.c}!RCC\_enumPLLConfig@{RCC\_enumPLLConfig}}
-\index{RCC\_enumPLLConfig@{RCC\_enumPLLConfig}!RCC\_program.c@{RCC\_program.c}}
-\doxysubsubsection{\texorpdfstring{RCC\_enumPLLConfig()}{RCC\_enumPLLConfig()}}
-{\footnotesize\ttfamily \label{RCC__program_8c_a39479df13627e03c2248209d30fb6baa} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+PLLConfig (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structRCC__PLLConfig__t}{RCC\+\_\+\+PLLConfig\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+\+PLLConfig}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00257}{257}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
-
 \Hypertarget{RCC__program_8c_ac0546afcec3b849576c5b3ece143b9a9}\index{RCC\_program.c@{RCC\_program.c}!RCC\_enumSetClkSts@{RCC\_enumSetClkSts}}
 \index{RCC\_enumSetClkSts@{RCC\_enumSetClkSts}!RCC\_program.c@{RCC\_program.c}}
 \doxysubsubsection{\texorpdfstring{RCC\_enumSetClkSts()}{RCC\_enumSetClkSts()}}
 {\footnotesize\ttfamily \label{RCC__program_8c_ac0546afcec3b849576c5b3ece143b9a9} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+Set\+Clk\+Sts (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+CLK}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Status}{}\end{DoxyParamCaption})}
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+Set\+Clk\+Sts (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+CLK}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Status}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00053}{53}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+Enable or disable a specific clock source. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+u8\+CLK} & Clock source (HSI\+\_\+\+CLK, HSE\+\_\+\+CLK, PLL\+\_\+\+CLK) \\
+\hline
+{\em Copy\+\_\+u8\+Status} & Clock status (CLK\+\_\+\+ON, CLK\+\_\+\+OFF) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ Error status (RCC\+\_\+\+OK, TIMEOUT\+\_\+\+STATE, BUSY\+\_\+\+STATE) 
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example:\+}
+RCC\+\_\+enum\+Set\+Clk\+Sts(\+RCC\+\_\+\+HSE\+\_\+\+CLK, RCC\+\_\+\+CLK\+\_\+\+ON); 
+\end{DoxyParagraph}
+
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00048}{48}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00035}{BUSY}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00045}{BUSY\+\_\+\+STATE}}, \doxymbox{\hyperlink{STD__MACROS_8h_source_l00046}{CLR\+\_\+\+BIT}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{IDLE}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00244}{MRCC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00217}{RCC\+\_\+\+CLK\+\_\+\+OFF}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00216}{RCC\+\_\+\+CLK\+\_\+\+ON}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00202}{RCC\+\_\+\+HSE\+\_\+\+CLK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00201}{RCC\+\_\+\+HSI\+\_\+\+CLK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00205}{RCC\+\_\+\+PLL\+\_\+\+CLK}}, \doxymbox{\hyperlink{RCC__private_8h_source_l00017}{RCC\+\_\+u32\+TIMEOUT}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00028}{RCC\+\_\+u8\+State}}, \doxymbox{\hyperlink{STD__MACROS_8h_source_l00061}{READ\+\_\+\+BIT}}, \doxymbox{\hyperlink{STD__MACROS_8h_source_l00039}{SET\+\_\+\+BIT}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00046}{TIMEOUT\+\_\+\+STATE}}.
 
 \Hypertarget{RCC__program_8c_a4e5060e0774aa417bf2dbf5aad8904eb}\index{RCC\_program.c@{RCC\_program.c}!RCC\_enumSetSysClk@{RCC\_enumSetSysClk}}
 \index{RCC\_enumSetSysClk@{RCC\_enumSetSysClk}!RCC\_program.c@{RCC\_program.c}}
 \doxysubsubsection{\texorpdfstring{RCC\_enumSetSysClk()}{RCC\_enumSetSysClk()}}
 {\footnotesize\ttfamily \label{RCC__program_8c_a4e5060e0774aa417bf2dbf5aad8904eb} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+Set\+Sys\+Clk (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+CLK}{}\end{DoxyParamCaption})}
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+Set\+Sys\+Clk (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+CLK}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00191}{191}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+Set the system clock source. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+u8\+CLK} & Clock source (HSI\+\_\+\+CLK, HSE\+\_\+\+CLK, PLLP\+\_\+\+CLK, PLLR\+\_\+\+CLK) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ Error status (RCC\+\_\+\+OK, BUSY\+\_\+\+STATE) 
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example:\+}
+RCC\+\_\+enum\+Set\+Sys\+Clk(\+RCC\+\_\+\+HSE\+\_\+\+CLK); 
+\end{DoxyParagraph}
+
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00185}{185}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00035}{BUSY}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00045}{BUSY\+\_\+\+STATE}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{IDLE}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00244}{MRCC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00202}{RCC\+\_\+\+HSE\+\_\+\+CLK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00201}{RCC\+\_\+\+HSI\+\_\+\+CLK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00203}{RCC\+\_\+\+PLLP\+\_\+\+CLK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00204}{RCC\+\_\+\+PLLR\+\_\+\+CLK}}, \doxymbox{\hyperlink{RCC__private_8h_source_l00016}{RCC\+\_\+\+SYS\+\_\+\+CLK\+\_\+\+MASK}}, and \doxymbox{\hyperlink{RCC__program_8c_source_l00028}{RCC\+\_\+u8\+State}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
@@ -143,3 +133,232 @@ Here is the caller graph for this function:\+
 \includegraphics[width=350pt]{RCC__program_8c_a4e5060e0774aa417bf2dbf5aad8904eb_icgraph}
 \end{center}
 \end{figure}
+\Hypertarget{RCC__program_8c_a39479df13627e03c2248209d30fb6baa}\index{RCC\_program.c@{RCC\_program.c}!RCC\_enumPLLConfig@{RCC\_enumPLLConfig}}
+\index{RCC\_enumPLLConfig@{RCC\_enumPLLConfig}!RCC\_program.c@{RCC\_program.c}}
+\doxysubsubsection{\texorpdfstring{RCC\_enumPLLConfig()}{RCC\_enumPLLConfig()}}
+{\footnotesize\ttfamily \label{RCC__program_8c_a39479df13627e03c2248209d30fb6baa} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+PLLConfig (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structRCC__PLLConfig__t}{RCC\+\_\+\+PLLConfig\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+\+PLLConfig}{}\end{DoxyParamCaption})}
+
+
+
+Configure PLL parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+\+PLLConfig} & Pointer to PLL configuration structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ Error status (RCC\+\_\+\+OK, NOK, BUSY\+\_\+\+STATE) 
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example:\+}
+
+\end{DoxyParagraph}
+\doxylink{structRCC__PLLConfig__t}{RCC\+\_\+\+PLLConfig\+\_\+t} My\+PLL = \{RCC\+\_\+\+PLL\+\_\+\+HSE, 8, 336, RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+2\}; RCC\+\_\+enum\+PLLConfig(\&\+My\+PLL); 
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00250}{250}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00035}{BUSY}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00045}{BUSY\+\_\+\+STATE}}, \doxymbox{\hyperlink{STD__MACROS_8h_source_l00046}{CLR\+\_\+\+BIT}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{IDLE}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00244}{MRCC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00256}{RCC\+\_\+\+PLLConfig\+\_\+t::\+\+PLLM\+\_\+\+Div}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00257}{RCC\+\_\+\+PLLConfig\+\_\+t::\+\+PLLN\+\_\+\+Mult}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00258}{RCC\+\_\+\+PLLConfig\+\_\+t::\+\+PLLP\+\_\+\+Div}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00255}{RCC\+\_\+\+PLLConfig\+\_\+t::\+\+PLLSource}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00161}{RCC\+\_\+\+MPLL\+\_\+\+DIV\+\_\+2}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00162}{RCC\+\_\+\+MPLL\+\_\+\+DIV\+\_\+63}}, \doxymbox{\hyperlink{RCC__private_8h_source_l00013}{RCC\+\_\+\+MPLL\+\_\+\+DIV\+\_\+\+MASK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00169}{RCC\+\_\+\+NPLL\+\_\+\+CLK\+\_\+\+MULT\+\_\+432}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00168}{RCC\+\_\+\+NPLL\+\_\+\+CLK\+\_\+\+MULT\+\_\+50}}, \doxymbox{\hyperlink{RCC__private_8h_source_l00014}{RCC\+\_\+\+NPLL\+\_\+\+MULT\+\_\+\+MASK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00188}{RCC\+\_\+\+PLL\+\_\+\+HSE}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00187}{RCC\+\_\+\+PLL\+\_\+\+HSI}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00176}{RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+2}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00179}{RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+8}}, \doxymbox{\hyperlink{RCC__private_8h_source_l00015}{RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+\+MASK}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00028}{RCC\+\_\+u8\+State}}, and \doxymbox{\hyperlink{STD__MACROS_8h_source_l00039}{SET\+\_\+\+BIT}}.
+
+\Hypertarget{RCC__program_8c_a8dac8e7ec4680d99cd53a562907c8f10}\index{RCC\_program.c@{RCC\_program.c}!RCC\_enumAHBConfig@{RCC\_enumAHBConfig}}
+\index{RCC\_enumAHBConfig@{RCC\_enumAHBConfig}!RCC\_program.c@{RCC\_program.c}}
+\doxysubsubsection{\texorpdfstring{RCC\_enumAHBConfig()}{RCC\_enumAHBConfig()}}
+{\footnotesize\ttfamily \label{RCC__program_8c_a8dac8e7ec4680d99cd53a562907c8f10} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+AHBConfig (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+AHPDiv}{}\end{DoxyParamCaption})}
+
+
+
+Configure AHB bus clock prescaler. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+u8\+AHPDiv} & AHB prescaler value (AHB\+\_\+\+NOT\+\_\+\+DIV to AHB\+\_\+\+DIV\+\_\+512) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ Error status (RCC\+\_\+\+OK, NOK, BUSY\+\_\+\+STATE) 
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example:\+}
+RCC\+\_\+enum\+AHBConfig(\+RCC\+\_\+\+AHB\+\_\+\+NOT\+\_\+\+DIV); 
+\end{DoxyParagraph}
+
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00315}{315}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00035}{BUSY}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00045}{BUSY\+\_\+\+STATE}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{IDLE}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00244}{MRCC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00142}{RCC\+\_\+\+AHB\+\_\+\+DIV\+\_\+512}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00134}{RCC\+\_\+\+AHB\+\_\+\+NOT\+\_\+\+DIV}}, and \doxymbox{\hyperlink{RCC__program_8c_source_l00028}{RCC\+\_\+u8\+State}}.
+
+\Hypertarget{RCC__program_8c_a32ffc31db6be174ed88867d13b6fb770}\index{RCC\_program.c@{RCC\_program.c}!RCC\_enumAPB1Config@{RCC\_enumAPB1Config}}
+\index{RCC\_enumAPB1Config@{RCC\_enumAPB1Config}!RCC\_program.c@{RCC\_program.c}}
+\doxysubsubsection{\texorpdfstring{RCC\_enumAPB1Config()}{RCC\_enumAPB1Config()}}
+{\footnotesize\ttfamily \label{RCC__program_8c_a32ffc31db6be174ed88867d13b6fb770} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+APB1\+Config (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+APB1\+Div}{}\end{DoxyParamCaption})}
+
+
+
+Configure APB1 bus clock prescaler. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+u8\+APB1\+Div} & APB1 prescaler value (APB\+\_\+\+NOT\+\_\+\+DIV to APB\+\_\+\+DIV\+\_\+16) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ Error status (RCC\+\_\+\+OK, NOK, BUSY\+\_\+\+STATE) 
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example:\+}
+RCC\+\_\+enum\+APB1\+Config(\+RCC\+\_\+\+APB\+\_\+\+DIV\+\_\+2); 
+\end{DoxyParagraph}
+
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00357}{357}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00035}{BUSY}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00045}{BUSY\+\_\+\+STATE}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{IDLE}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00244}{MRCC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00154}{RCC\+\_\+\+APB\+\_\+\+DIV\+\_\+16}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00150}{RCC\+\_\+\+APB\+\_\+\+NOT\+\_\+\+DIV}}, and \doxymbox{\hyperlink{RCC__program_8c_source_l00028}{RCC\+\_\+u8\+State}}.
+
+\Hypertarget{RCC__program_8c_a528911683284afb4fc9731cfedfebc31}\index{RCC\_program.c@{RCC\_program.c}!RCC\_enumAPB2Config@{RCC\_enumAPB2Config}}
+\index{RCC\_enumAPB2Config@{RCC\_enumAPB2Config}!RCC\_program.c@{RCC\_program.c}}
+\doxysubsubsection{\texorpdfstring{RCC\_enumAPB2Config()}{RCC\_enumAPB2Config()}}
+{\footnotesize\ttfamily \label{RCC__program_8c_a528911683284afb4fc9731cfedfebc31} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+APB2\+Config (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+APB2\+Div}{}\end{DoxyParamCaption})}
+
+
+
+Configure APB2 bus clock prescaler. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+u8\+APB2\+Div} & APB2 prescaler value (APB\+\_\+\+NOT\+\_\+\+DIV to APB\+\_\+\+DIV\+\_\+16) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ Error status (RCC\+\_\+\+OK, NOK, BUSY\+\_\+\+STATE) 
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example:\+}
+RCC\+\_\+enum\+APB2\+Config(\+RCC\+\_\+\+APB\+\_\+\+NOT\+\_\+\+DIV); 
+\end{DoxyParagraph}
+
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00399}{399}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00035}{BUSY}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00045}{BUSY\+\_\+\+STATE}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{IDLE}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00244}{MRCC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00154}{RCC\+\_\+\+APB\+\_\+\+DIV\+\_\+16}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00150}{RCC\+\_\+\+APB\+\_\+\+NOT\+\_\+\+DIV}}, and \doxymbox{\hyperlink{RCC__program_8c_source_l00028}{RCC\+\_\+u8\+State}}.
+
+\Hypertarget{RCC__program_8c_a64dea321b9d4592b409225e2b55fef5c}\index{RCC\_program.c@{RCC\_program.c}!RCC\_enumAHPPerSts@{RCC\_enumAHPPerSts}}
+\index{RCC\_enumAHPPerSts@{RCC\_enumAHPPerSts}!RCC\_program.c@{RCC\_program.c}}
+\doxysubsubsection{\texorpdfstring{RCC\_enumAHPPerSts()}{RCC\_enumAHPPerSts()}}
+{\footnotesize\ttfamily \label{RCC__program_8c_a64dea321b9d4592b409225e2b55fef5c} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+AHPPer\+Sts (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Bus}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+AHPPer}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Status}{}\end{DoxyParamCaption})}
+
+
+
+Enable or disable peripheral clock on AHB buses. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+u8\+Bus} & AHB bus number (RCC\+\_\+\+AHB1, RCC\+\_\+\+AHB2, RCC\+\_\+\+AHB3) \\
+\hline
+{\em Copy\+\_\+u8\+AHPPer} & Peripheral number on the selected bus (e.\+g., RCC\+\_\+\+GPIOAEN) \\
+\hline
+{\em Copy\+\_\+u8\+Status} & Peripheral clock status (RCC\+\_\+\+PER\+\_\+\+ON, RCC\+\_\+\+PER\+\_\+\+OFF) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ Error status (RCC\+\_\+\+OK, BUSY\+\_\+\+STATE) 
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example:\+}
+RCC\+\_\+enum\+AHPPer\+Sts(\+RCC\+\_\+\+AHB1, RCC\+\_\+\+GPIOAEN, RCC\+\_\+\+PER\+\_\+\+ON); 
+\end{DoxyParagraph}
+
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00441}{441}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00035}{BUSY}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00045}{BUSY\+\_\+\+STATE}}, \doxymbox{\hyperlink{STD__MACROS_8h_source_l00046}{CLR\+\_\+\+BIT}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{IDLE}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00244}{MRCC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00024}{RCC\+\_\+\+AHB1}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00025}{RCC\+\_\+\+AHB2}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00026}{RCC\+\_\+\+AHB3}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00229}{RCC\+\_\+\+PER\+\_\+\+OFF}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00228}{RCC\+\_\+\+PER\+\_\+\+ON}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00028}{RCC\+\_\+u8\+State}}, and \doxymbox{\hyperlink{STD__MACROS_8h_source_l00039}{SET\+\_\+\+BIT}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RCC__program_8c_a64dea321b9d4592b409225e2b55fef5c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{RCC__program_8c_adcf07c53ca16c6ccd1af607d3173b2dc}\index{RCC\_program.c@{RCC\_program.c}!RCC\_enumABPPerSts@{RCC\_enumABPPerSts}}
+\index{RCC\_enumABPPerSts@{RCC\_enumABPPerSts}!RCC\_program.c@{RCC\_program.c}}
+\doxysubsubsection{\texorpdfstring{RCC\_enumABPPerSts()}{RCC\_enumABPPerSts()}}
+{\footnotesize\ttfamily \label{RCC__program_8c_adcf07c53ca16c6ccd1af607d3173b2dc} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+ABPPer\+Sts (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Bus}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+AHPPer}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Status}{}\end{DoxyParamCaption})}
+
+
+
+Enable or disable peripheral clock on APB buses. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+u8\+Bus} & APB bus number (RCC\+\_\+\+APB1, RCC\+\_\+\+APB2) \\
+\hline
+{\em Copy\+\_\+u8\+AHPPer} & Peripheral number on the selected bus (e.\+g., RCC\+\_\+\+USART2\+EN) \\
+\hline
+{\em Copy\+\_\+u8\+Status} & Peripheral clock status (RCC\+\_\+\+PER\+\_\+\+ON, RCC\+\_\+\+PER\+\_\+\+OFF) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ Error status (RCC\+\_\+\+OK, BUSY\+\_\+\+STATE) 
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example:\+}
+RCC\+\_\+enum\+ABPPer\+Sts(\+RCC\+\_\+\+APB1, RCC\+\_\+\+USART2\+EN, RCC\+\_\+\+PER\+\_\+\+ON); 
+\end{DoxyParagraph}
+
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00509}{509}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00035}{BUSY}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00045}{BUSY\+\_\+\+STATE}}, \doxymbox{\hyperlink{STD__MACROS_8h_source_l00046}{CLR\+\_\+\+BIT}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{IDLE}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00244}{MRCC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00027}{RCC\+\_\+\+APB1}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00028}{RCC\+\_\+\+APB2}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00229}{RCC\+\_\+\+PER\+\_\+\+OFF}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00228}{RCC\+\_\+\+PER\+\_\+\+ON}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00028}{RCC\+\_\+u8\+State}}, and \doxymbox{\hyperlink{STD__MACROS_8h_source_l00039}{SET\+\_\+\+BIT}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RCC__program_8c_adcf07c53ca16c6ccd1af607d3173b2dc_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-var-members}
+\Hypertarget{RCC__program_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}\index{RCC\_program.c@{RCC\_program.c}!RCC\_u8State@{RCC\_u8State}}
+\index{RCC\_u8State@{RCC\_u8State}!RCC\_program.c@{RCC\_program.c}}
+\doxysubsubsection{\texorpdfstring{RCC\_u8State}{RCC\_u8State}}
+{\footnotesize\ttfamily \label{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386} 
+uint8\+\_\+t RCC\+\_\+u8\+State\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Reentrancy guard for the driver:\+ \doxylink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE} or \doxylink{group__lib_gab5be0aaddb58ffb9cb20c12530d66316}{BUSY}. 
+
+
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00028}{28}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{RCC__program_8c_source_l00509}{RCC\+\_\+enum\+ABPPer\+Sts()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00315}{RCC\+\_\+enum\+AHBConfig()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00441}{RCC\+\_\+enum\+AHPPer\+Sts()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00357}{RCC\+\_\+enum\+APB1\+Config()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00399}{RCC\+\_\+enum\+APB2\+Config()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00250}{RCC\+\_\+enum\+PLLConfig()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00048}{RCC\+\_\+enum\+Set\+Clk\+Sts()}}, and \doxymbox{\hyperlink{RCC__program_8c_source_l00185}{RCC\+\_\+enum\+Set\+Sys\+Clk()}}.
+

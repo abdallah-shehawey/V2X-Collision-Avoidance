@@ -1,31 +1,57 @@
-\doxysection{Inc/\+\+Drivers/\+\+MCAL/\+\+SYSTIC/\+\+SYSTIC\+\_\+private.h File Reference}
-\hypertarget{SYSTIC__private_8h}{}\label{SYSTIC__private_8h}\index{Inc/Drivers/MCAL/SYSTIC/SYSTIC\_private.h@{Inc/Drivers/MCAL/SYSTIC/SYSTIC\_private.h}}
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SYSTIC/\+\+SYSTIC\+\_\+private.h File Reference}
+\hypertarget{SYSTIC__private_8h}{}\label{SYSTIC__private_8h}\index{V2V-\/STM32/Inc/Drivers/MCAL/SYSTIC/SYSTIC\_private.h@{V2V-\/STM32/Inc/Drivers/MCAL/SYSTIC/SYSTIC\_private.h}}
+
+
+Register bit positions and internals of the SYSTICK driver — not a public header.  
+
+
 This graph shows which files directly or indirectly include this file:\+
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=216pt]{SYSTIC__private_8h__dep__incl}
+\includegraphics[width=249pt]{SYSTIC__private_8h__dep__incl}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\+\#define \doxymbox{\hyperlink{group__SYSTIC__Registers_ga38d1b080e439bceb106970e8d4dd9b29}{SYSTIC\+\_\+\+CTRL\+\_\+\+ENABLE}}~(0U)
-\item 
-\+\#define \doxymbox{\hyperlink{group__SYSTIC__Registers_ga5756661e6f29f88fa14bfb0207114335}{SYSTIC\+\_\+\+CTRL\+\_\+\+TICKINT}}~(1U)
-\item 
-\+\#define \doxymbox{\hyperlink{group__SYSTIC__Registers_ga28a9ae71009dd56218f3f3ba9a3497a1}{SYSTIC\+\_\+\+CTRL\+\_\+\+CLKSOURCE}}~(2U)
-\item 
-\+\#define \doxymbox{\hyperlink{group__SYSTIC__Registers_ga08cb1583dd11d0b6822481b8e7fe97de}{SYSTIC\+\_\+\+CTRL\+\_\+\+COUNTFLAG}}~(16U)
-\item 
-\+\#define \doxymbox{\hyperlink{group__SYSTIC__Constants_gaa859133e49f79568817c4eec5ecc6a1f}{SYSTIC\+\_\+\+MAX\+\_\+\+NO\+\_\+\+OF\+\_\+\+TICKS}}~(0x00\+FFFFFF)
-\item 
-\+\#define \doxymbox{\hyperlink{group__SYSTIC__Constants_gae468065fe667882e5f951fd7f20a0c1b}{CLK\+\_\+\+SOURCE\+\_\+\+AHB}}~(1U)
+\+\#define \doxymbox{\hyperlink{group__SYSTIC__Registers_ga38d1b080e439bceb106970e8d4dd9b29}{SYSTIC\+\_\+\+CTRL\+\_\+\+ENABLE}}
+\begin{DoxyCompactList}\small\item\em Counter Enable bit -\/ Enables the counter. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__SYSTIC__Registers_ga5756661e6f29f88fa14bfb0207114335}{SYSTIC\+\_\+\+CTRL\+\_\+\+TICKINT}}
+\begin{DoxyCompactList}\small\item\em Exception Enable bit -\/ Enables Sys\+Tick exception request. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__SYSTIC__Registers_ga28a9ae71009dd56218f3f3ba9a3497a1}{SYSTIC\+\_\+\+CTRL\+\_\+\+CLKSOURCE}}
+\begin{DoxyCompactList}\small\item\em Clock Source bit -\/ Selects the clock source (AHB or AHB/\+8). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__SYSTIC__Registers_ga08cb1583dd11d0b6822481b8e7fe97de}{SYSTIC\+\_\+\+CTRL\+\_\+\+COUNTFLAG}}
+\begin{DoxyCompactList}\small\item\em Count Flag bit -\/ Indicates counter has counted to 0 since last read. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__SYSTIC__Constants_gaa859133e49f79568817c4eec5ecc6a1f}{SYSTIC\+\_\+\+MAX\+\_\+\+NO\+\_\+\+OF\+\_\+\+TICKS}}
+\begin{DoxyCompactList}\small\item\em Maximum counter value (24-\/bit counter). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__SYSTIC__Constants_gae468065fe667882e5f951fd7f20a0c1b}{CLK\+\_\+\+SOURCE\+\_\+\+AHB}}
 \begin{DoxyCompactList}\small\item\em Clock source selection values for Sys\+Tick timer. \end{DoxyCompactList}\item 
-\+\#define \doxymbox{\hyperlink{group__SYSTIC__Constants_ga3f0fad65c3d5c5c2be745f12f2cbbef4}{CLK\+\_\+\+SOURCE\+\_\+\+AHB\+\_\+\+DIV8}}~(0U)
-\item 
-\+\#define \doxymbox{\hyperlink{group__SYSTIC__Constants_ga514ad415fb6125ba296793df7d1a468a}{ENABLE}}~(1U)
+\+\#define \doxymbox{\hyperlink{group__SYSTIC__Constants_ga3f0fad65c3d5c5c2be745f12f2cbbef4}{CLK\+\_\+\+SOURCE\+\_\+\+AHB\+\_\+\+DIV8}}
+\begin{DoxyCompactList}\small\item\em Use processor clock divided by 8. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__SYSTIC__Constants_ga514ad415fb6125ba296793df7d1a468a}{ENABLE}}
 \begin{DoxyCompactList}\small\item\em Generic enable/\+disable definitions. \end{DoxyCompactList}\item 
-\+\#define \doxymbox{\hyperlink{group__SYSTIC__Constants_ga99496f7308834e8b220f7894efa0b6ab}{DISABLE}}~(0U)
-\end{DoxyCompactItemize}
+\+\#define \doxymbox{\hyperlink{group__SYSTIC__Constants_ga99496f7308834e8b220f7894efa0b6ab}{DISABLE}}
+\begin{DoxyCompactList}\small\item\em Disable a feature. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \doxymbox{\hyperlink{group__SYSTIC__Private__Functions_gaed31b8341f403a3068ea1106d1c31e09}{SYSTIC\+\_\+v\+Enable}} (void)
+\begin{DoxyCompactList}\small\item\em Enable the Sys\+Tick counter. \end{DoxyCompactList}\item 
+static void \doxymbox{\hyperlink{group__SYSTIC__Private__Functions_gac095f2dcf6262ec7bd865b1bdac25b64}{SYSTIC\+\_\+v\+Disable}} (void)
+\begin{DoxyCompactList}\small\item\em Disable the Sys\+Tick counter. \end{DoxyCompactList}\item 
+static void \doxymbox{\hyperlink{group__SYSTIC__Private__Functions_gab105192747b83b6f41fb0cc7c242649d}{SYSTIC\+\_\+v\+Wait}} (void)
+\begin{DoxyCompactList}\small\item\em Wait for the Sys\+Tick counter to reach zero. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Register bit positions and internals of the SYSTICK driver — not a public header. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{SYSTIC__private_8h_source}{SYSTIC\+\_\+private.\+h}}.
+

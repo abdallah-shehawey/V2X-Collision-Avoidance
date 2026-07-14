@@ -97,7 +97,7 @@ var searchData=
   ['read_5fchecksum_94',['READ_CHECKSUM',['../DSRC_8c.html#a99f78dec5b5884642b44f101ef1d2460a93a993275f8870e7456c9f4c83f3a9aa',1,'DSRC.c']]],
   ['read_5fdata_95',['READ_DATA',['../DSRC_8c.html#a99f78dec5b5884642b44f101ef1d2460a6c9aea235a9b44681dfcc088658ccdd6',1,'DSRC.c']]],
   ['read_5fend_96',['READ_END',['../DSRC_8c.html#a99f78dec5b5884642b44f101ef1d2460a1790dee8d2ec1e5612d374dc86385a94',1,'DSRC.c']]],
-  ['risk_5fcritical_97',['RISK_CRITICAL',['../SafetyEngine__interface_8h.html#aa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492',1,'SafetyEngine_interface.h']]],
-  ['risk_5fsafe_98',['RISK_SAFE',['../SafetyEngine__interface_8h.html#aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c',1,'SafetyEngine_interface.h']]],
-  ['risk_5fwarning_99',['RISK_WARNING',['../SafetyEngine__interface_8h.html#aa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82',1,'SafetyEngine_interface.h']]]
+  ['risk_5fcritical_97',['RISK_CRITICAL',['../group__app__safetyengine.html#ggaa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492',1,'SafetyEngine_interface.h']]],
+  ['risk_5fsafe_98',['RISK_SAFE',['../group__app__safetyengine.html#ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c',1,'SafetyEngine_interface.h']]],
+  ['risk_5fwarning_99',['RISK_WARNING',['../group__app__safetyengine.html#ggaa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82',1,'SafetyEngine_interface.h']]]
 ];

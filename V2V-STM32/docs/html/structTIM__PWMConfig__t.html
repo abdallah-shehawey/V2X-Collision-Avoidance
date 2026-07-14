@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: TIM_PWMConfig_t Struct Reference</title>
+<title>V2V Collision Avoidance Firmware: TIM_PWMConfig_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -97,25 +97,50 @@ $(function(){initNavTree('structTIM__PWMConfig__t.html','',''); });
 <p>Configuration structure for PWM Initialization.  
  <a href="#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="TIM__interface_8h_source.html">Drivers/MCAL/TIM/TIM_interface.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:aa4633263e07a027e2bf73a29333f0e96" id="r_aa4633263e07a027e2bf73a29333f0e96"><td class="memItemLeft"><a class="el" href="TIM__interface_8h.html#a2712d6a822f7d7b0ebe7411daf149b23">TIM_Num_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa4633263e07a027e2bf73a29333f0e96">Timer</a></td></tr>
+<tr class="memdesc:aa4633263e07a027e2bf73a29333f0e96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer Instance.  <br /></td></tr>
 <tr class="memitem:a2ee35d86bc1d826b62ae072fc8c84536" id="r_a2ee35d86bc1d826b62ae072fc8c84536"><td class="memItemLeft"><a class="el" href="TIM__interface_8h.html#a6692a9aa577e647a9f660c404689cd16">TIM_Channel_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2ee35d86bc1d826b62ae072fc8c84536">Channel</a></td></tr>
+<tr class="memdesc:a2ee35d86bc1d826b62ae072fc8c84536"><td class="mdescLeft">&#160;</td><td class="mdescRight">PWM Channel.  <br /></td></tr>
 <tr class="memitem:a3831b6d47bff599804fe179bed4235da" id="r_a3831b6d47bff599804fe179bed4235da"><td class="memItemLeft"><a class="el" href="TIM__interface_8h.html#afc1e5fa076e28421ccdae09b6171f646">TIM_PWMMode_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3831b6d47bff599804fe179bed4235da">Mode</a></td></tr>
+<tr class="memdesc:a3831b6d47bff599804fe179bed4235da"><td class="mdescLeft">&#160;</td><td class="mdescRight">PWM Mode.  <br /></td></tr>
 <tr class="memitem:ace48aabffc0f399bad2053db08195d7e" id="r_ace48aabffc0f399bad2053db08195d7e"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ace48aabffc0f399bad2053db08195d7e">DutyCycle</a></td></tr>
+<tr class="memdesc:ace48aabffc0f399bad2053db08195d7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initial Duty Cycle (Compare Value).  <br /></td></tr>
 <tr class="memitem:ab52dfad9863bbea750c39d37d8f5c6cb" id="r_ab52dfad9863bbea750c39d37d8f5c6cb"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ab52dfad9863bbea750c39d37d8f5c6cb">Period</a></td></tr>
+<tr class="memdesc:ab52dfad9863bbea750c39d37d8f5c6cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">PWM Period (Auto-Reload Value).  <br /></td></tr>
 <tr class="memitem:accc0fcea9d9910cfd88ba02a99132820" id="r_accc0fcea9d9910cfd88ba02a99132820"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="#accc0fcea9d9910cfd88ba02a99132820">Prescaler</a></td></tr>
+<tr class="memdesc:accc0fcea9d9910cfd88ba02a99132820"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clock Prescaler.  <br /></td></tr>
 <tr class="memitem:a734fe74890486e08c890ac3aa8c09ed5" id="r_a734fe74890486e08c890ac3aa8c09ed5"><td class="memItemLeft"><a class="el" href="TIM__interface_8h.html#ad6edd13d05def01952c9f8b6e11773d4">TIM_Polarity_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a734fe74890486e08c890ac3aa8c09ed5">Polarity</a></td></tr>
+<tr class="memdesc:a734fe74890486e08c890ac3aa8c09ed5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output Polarity.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Configuration structure for PWM Initialization. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example.html#_a25">/media/Local-Disk/Data/V2X-Collision-Avoidance/V2V-STM32/Inc/Drivers/MCAL/TIM/TIM_interface.h</a>.</dd>
-</dl>
 
 <p class="definition">Definition at line <a class="el" href="TIM__interface_8h_source.html#l00094">94</a> of file <a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
+<a id="aa4633263e07a027e2bf73a29333f0e96" name="aa4633263e07a027e2bf73a29333f0e96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4633263e07a027e2bf73a29333f0e96">&#9670;&#160;</a></span>Timer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="TIM__interface_8h.html#a2712d6a822f7d7b0ebe7411daf149b23">TIM_Num_t</a> TIM_PWMConfig_t::Timer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Timer Instance. </p>
+
+<p class="definition">Definition at line <a class="el" href="TIM__interface_8h_source.html#l00096">96</a> of file <a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00141">TIM_vPWM_Init()</a>.</p>
+
+</div>
+</div>
 <a id="a2ee35d86bc1d826b62ae072fc8c84536" name="a2ee35d86bc1d826b62ae072fc8c84536"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2ee35d86bc1d826b62ae072fc8c84536">&#9670;&#160;</a></span>Channel</h2>
 
@@ -128,23 +153,11 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>PWM Channel. </p>
+
 <p class="definition">Definition at line <a class="el" href="TIM__interface_8h_source.html#l00097">97</a> of file <a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a>.</p>
 
-</div>
-</div>
-<a id="ace48aabffc0f399bad2053db08195d7e" name="ace48aabffc0f399bad2053db08195d7e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace48aabffc0f399bad2053db08195d7e">&#9670;&#160;</a></span>DutyCycle</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t TIM_PWMConfig_t::DutyCycle</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="TIM__interface_8h_source.html#l00099">99</a> of file <a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a>.</p>
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00141">TIM_vPWM_Init()</a>.</p>
 
 </div>
 </div>
@@ -160,7 +173,31 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>PWM Mode. </p>
+
 <p class="definition">Definition at line <a class="el" href="TIM__interface_8h_source.html#l00098">98</a> of file <a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00141">TIM_vPWM_Init()</a>.</p>
+
+</div>
+</div>
+<a id="ace48aabffc0f399bad2053db08195d7e" name="ace48aabffc0f399bad2053db08195d7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace48aabffc0f399bad2053db08195d7e">&#9670;&#160;</a></span>DutyCycle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t TIM_PWMConfig_t::DutyCycle</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initial Duty Cycle (Compare Value). </p>
+
+<p class="definition">Definition at line <a class="el" href="TIM__interface_8h_source.html#l00099">99</a> of file <a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00141">TIM_vPWM_Init()</a>.</p>
 
 </div>
 </div>
@@ -176,23 +213,11 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>PWM Period (Auto-Reload Value). </p>
+
 <p class="definition">Definition at line <a class="el" href="TIM__interface_8h_source.html#l00100">100</a> of file <a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a>.</p>
 
-</div>
-</div>
-<a id="a734fe74890486e08c890ac3aa8c09ed5" name="a734fe74890486e08c890ac3aa8c09ed5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a734fe74890486e08c890ac3aa8c09ed5">&#9670;&#160;</a></span>Polarity</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="TIM__interface_8h.html#ad6edd13d05def01952c9f8b6e11773d4">TIM_Polarity_t</a> TIM_PWMConfig_t::Polarity</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="TIM__interface_8h_source.html#l00102">102</a> of file <a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a>.</p>
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00141">TIM_vPWM_Init()</a>.</p>
 
 </div>
 </div>
@@ -208,28 +233,36 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Clock Prescaler. </p>
+
 <p class="definition">Definition at line <a class="el" href="TIM__interface_8h_source.html#l00101">101</a> of file <a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00141">TIM_vPWM_Init()</a>.</p>
 
 </div>
 </div>
-<a id="aa4633263e07a027e2bf73a29333f0e96" name="aa4633263e07a027e2bf73a29333f0e96"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4633263e07a027e2bf73a29333f0e96">&#9670;&#160;</a></span>Timer</h2>
+<a id="a734fe74890486e08c890ac3aa8c09ed5" name="a734fe74890486e08c890ac3aa8c09ed5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a734fe74890486e08c890ac3aa8c09ed5">&#9670;&#160;</a></span>Polarity</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="TIM__interface_8h.html#a2712d6a822f7d7b0ebe7411daf149b23">TIM_Num_t</a> TIM_PWMConfig_t::Timer</td>
+          <td class="memname"><a class="el" href="TIM__interface_8h.html#ad6edd13d05def01952c9f8b6e11773d4">TIM_Polarity_t</a> TIM_PWMConfig_t::Polarity</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TIM__interface_8h_source.html#l00096">96</a> of file <a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a>.</p>
+<p>Output Polarity. </p>
+
+<p class="definition">Definition at line <a class="el" href="TIM__interface_8h_source.html#l00102">102</a> of file <a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00141">TIM_vPWM_Init()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>Inc/Drivers/MCAL/TIM/<a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a></li>
+<li>V2V-STM32/Inc/Drivers/MCAL/TIM/<a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

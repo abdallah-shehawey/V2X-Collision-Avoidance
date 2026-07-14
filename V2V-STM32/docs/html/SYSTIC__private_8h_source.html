@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Inc/Drivers/MCAL/SYSTIC/SYSTIC_private.h Source File</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Inc/Drivers/MCAL/SYSTIC/SYSTIC_private.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -94,38 +94,41 @@ $(function(){initNavTree('SYSTIC__private_8h_source.html','',''); });
 </div><!--header-->
 <div class="contents">
 <a href="SYSTIC__private_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#ifndef MCAL_SYSTIC_PRIVATE_H_</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#define MCAL_SYSTIC_PRIVATE_H_</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="group__SYSTIC__Registers.html#ga38d1b080e439bceb106970e8d4dd9b29">   22</a></span><span class="preprocessor">#define SYSTIC_CTRL_ENABLE     (0U)    </span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="group__SYSTIC__Registers.html#ga5756661e6f29f88fa14bfb0207114335">   23</a></span><span class="preprocessor">#define SYSTIC_CTRL_TICKINT    (1U)    </span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="group__SYSTIC__Registers.html#ga28a9ae71009dd56218f3f3ba9a3497a1">   24</a></span><span class="preprocessor">#define SYSTIC_CTRL_CLKSOURCE  (2U)    </span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="group__SYSTIC__Registers.html#ga08cb1583dd11d0b6822481b8e7fe97de">   25</a></span><span class="preprocessor">#define SYSTIC_CTRL_COUNTFLAG  (16U)   </span><span class="preprocessor"></span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="group__SYSTIC__Constants.html#gaa859133e49f79568817c4eec5ecc6a1f">   33</a></span><span class="preprocessor">#define SYSTIC_MAX_NO_OF_TICKS (0x00FFFFFF) </span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="group__SYSTIC__Constants.html#gae468065fe667882e5f951fd7f20a0c1b">   39</a></span><span class="preprocessor">#define CLK_SOURCE_AHB      (1U)      </span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="group__SYSTIC__Constants.html#ga3f0fad65c3d5c5c2be745f12f2cbbef4">   40</a></span><span class="preprocessor">#define CLK_SOURCE_AHB_DIV8 (0U) </span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="group__SYSTIC__Constants.html#ga514ad415fb6125ba296793df7d1a468a">   45</a></span><span class="preprocessor">#define ENABLE  (1U)  </span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="group__SYSTIC__Constants.html#ga99496f7308834e8b220f7894efa0b6ab">   46</a></span><span class="preprocessor">#define DISABLE (0U) </span><span class="preprocessor"></span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keyword">static</span> <span class="keywordtype">void</span> SYSTIC_vEnable(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keyword">static</span> <span class="keywordtype">void</span> SYSTIC_vDisable(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keyword">static</span> <span class="keywordtype">void</span> SYSTIC_vWait(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">#endif </span><span class="comment">/* MCAL_SYSTIC_PRIVATE_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#ifndef MCAL_SYSTIC_PRIVATE_H_</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#define MCAL_SYSTIC_PRIVATE_H_</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="group__SYSTIC__Registers.html#ga38d1b080e439bceb106970e8d4dd9b29">   18</a></span><span class="preprocessor">#define SYSTIC_CTRL_ENABLE     (0U)    </span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="group__SYSTIC__Registers.html#ga5756661e6f29f88fa14bfb0207114335">   19</a></span><span class="preprocessor">#define SYSTIC_CTRL_TICKINT    (1U)    </span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="group__SYSTIC__Registers.html#ga28a9ae71009dd56218f3f3ba9a3497a1">   20</a></span><span class="preprocessor">#define SYSTIC_CTRL_CLKSOURCE  (2U)    </span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="group__SYSTIC__Registers.html#ga08cb1583dd11d0b6822481b8e7fe97de">   21</a></span><span class="preprocessor">#define SYSTIC_CTRL_COUNTFLAG  (16U)   </span><span class="preprocessor"></span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="group__SYSTIC__Constants.html#gaa859133e49f79568817c4eec5ecc6a1f">   29</a></span><span class="preprocessor">#define SYSTIC_MAX_NO_OF_TICKS (0x00FFFFFF) </span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="group__SYSTIC__Constants.html#gae468065fe667882e5f951fd7f20a0c1b">   35</a></span><span class="preprocessor">#define CLK_SOURCE_AHB      (1U)      </span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="group__SYSTIC__Constants.html#ga3f0fad65c3d5c5c2be745f12f2cbbef4">   36</a></span><span class="preprocessor">#define CLK_SOURCE_AHB_DIV8 (0U) </span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="group__SYSTIC__Constants.html#ga514ad415fb6125ba296793df7d1a468a">   41</a></span><span class="preprocessor">#define ENABLE  (1U)  </span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="group__SYSTIC__Constants.html#ga99496f7308834e8b220f7894efa0b6ab">   42</a></span><span class="preprocessor">#define DISABLE (0U) </span><span class="preprocessor"></span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="group__SYSTIC__Private__Functions.html#gaed31b8341f403a3068ea1106d1c31e09">   55</a></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="group__SYSTIC__Private__Functions.html#gaed31b8341f403a3068ea1106d1c31e09">SYSTIC_vEnable</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="group__SYSTIC__Private__Functions.html#gac095f2dcf6262ec7bd865b1bdac25b64">   61</a></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="group__SYSTIC__Private__Functions.html#gac095f2dcf6262ec7bd865b1bdac25b64">SYSTIC_vDisable</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="group__SYSTIC__Private__Functions.html#gab105192747b83b6f41fb0cc7c242649d">   67</a></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="group__SYSTIC__Private__Functions.html#gab105192747b83b6f41fb0cc7c242649d">SYSTIC_vWait</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">#endif </span><span class="comment">/* MCAL_SYSTIC_PRIVATE_H_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="agroup__SYSTIC__Private__Functions_html_gab105192747b83b6f41fb0cc7c242649d"><div class="ttname"><a href="group__SYSTIC__Private__Functions.html#gab105192747b83b6f41fb0cc7c242649d">SYSTIC_vWait</a></div><div class="ttdeci">static void SYSTIC_vWait(void)</div><div class="ttdoc">Wait for the SysTick counter to reach zero.</div></div>
+<div class="ttc" id="agroup__SYSTIC__Private__Functions_html_gac095f2dcf6262ec7bd865b1bdac25b64"><div class="ttname"><a href="group__SYSTIC__Private__Functions.html#gac095f2dcf6262ec7bd865b1bdac25b64">SYSTIC_vDisable</a></div><div class="ttdeci">static void SYSTIC_vDisable(void)</div><div class="ttdoc">Disable the SysTick counter.</div></div>
+<div class="ttc" id="agroup__SYSTIC__Private__Functions_html_gaed31b8341f403a3068ea1106d1c31e09"><div class="ttname"><a href="group__SYSTIC__Private__Functions.html#gaed31b8341f403a3068ea1106d1c31e09">SYSTIC_vEnable</a></div><div class="ttdeci">static void SYSTIC_vEnable(void)</div><div class="ttdoc">Enable the SysTick counter.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_f93dfce691d792349f1c14ede440e2e6.html">Inc</a></li><li class="navelem"><a href="dir_5807d32f659ca06f2d44f24c89728eb8.html">Drivers</a></li><li class="navelem"><a href="dir_8b6b04023385edca15dd86450894d113.html">MCAL</a></li><li class="navelem"><a href="dir_466da87222d1ab17bc8ca9212085c729.html">SYSTIC</a></li><li class="navelem"><a href="SYSTIC__private_8h.html">SYSTIC_private.h</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Inc</b></li><li class="navelem"><b>Drivers</b></li><li class="navelem"><b>MCAL</b></li><li class="navelem"><b>SYSTIC</b></li><li class="navelem"><a href="SYSTIC__private_8h.html">SYSTIC_private.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

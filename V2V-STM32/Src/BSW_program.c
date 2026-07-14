@@ -1,14 +1,10 @@
 /**
- **===========================================================================**
- **<<<<<<<<<<<<<<<<<<<<<<<<<<    BSW_program.c   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>**
- **                                                                           **
- **                  Author : Abdallah Abdelmoemen Shehawey                   **
- **                  Layer  : APP                                             **
- **                  CPU    : Cortex-M4                                       **
- **                  MCU    : NUCLEO-F446RE                                   **
- **                  SW     : BSW (Cooperative Blind Spot Warning)            **
- **                                                                           **
- **===========================================================================**
+ ******************************************************************************
+ * @file    BSW_program.c
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Implementation of the BSW driver — Blind Spot Warning.
+ * @ingroup app_bsw
+ ******************************************************************************
  */
 
 #include "../Inc/Application/BSW/BSW_config.h"
@@ -21,20 +17,34 @@
 /* ============ Module State ============ */
 
 /* Sender flag broadcast over DSRC (this car's own side): bit0=LEFT, bit1=RIGHT */
+/** @brief What *we* broadcast: which of our own front sides is occupied. See @ref Neighbor::bsw_flag. */
 static uint8_t BSW_SenderFlag = BSW_FLAG_NONE;
 
 /* Cycle distances (latched in BeginCycle) */
+/** @brief Front-left distance latched at the top of this cycle [cm] — used in the *sender* role. */
 static float BSW_FrontLeft  = 0.0f;
+/** @brief Front-right distance latched at the top of this cycle [cm] — used in the *sender* role. */
 static float BSW_FrontRight = 0.0f;
+/** @brief Rear-left distance latched at the top of this cycle [cm] — used in the *receiver* role. */
 static float BSW_RearLeft   = 0.0f;
+/** @brief Rear-right distance latched at the top of this cycle [cm] — used in the *receiver* role. */
 static float BSW_RearRight  = 0.0f;
 
 /* Receiver-side alert severity per side (set during ProcessNeighbor):
  * 0 = safe, 1 = warning (< BSW_SIDE_THRESHOLD), 2 = critical (< BSW_SIDE_CRITICAL). */
+/** @brief Result: severity of the blind-spot alert on our LEFT (0 safe, 1 warning, 2 critical). */
 static uint8_t BSW_AlertLeft  = 0;
+/** @brief Result: severity of the blind-spot alert on our RIGHT (0 safe, 1 warning, 2 critical). */
 static uint8_t BSW_AlertRight = 0;
 
 /* Map a measured rear-side distance to a BSW severity level. */
+/**
+ * @brief Grade one side's distance into a severity.
+ * @param dist Distance read by that side's rear sensor [cm].
+ * @retval 0 Safe — beyond @ref BSW_SIDE_THRESHOLD.
+ * @retval 1 Warning — inside @ref BSW_SIDE_THRESHOLD.
+ * @retval 2 Critical — inside @ref BSW_SIDE_CRITICAL.
+ */
 static uint8_t BSW_u8DistToSeverity(float dist)
 {
   if (dist <= 0.0f || dist >= BSW_SIDE_THRESHOLD) return 0;  /* clear / out of band */
@@ -54,7 +64,7 @@ void BSW_voidInit(void)
 /* ============ Per-Neighbor API (for SafetyEngine) ============ */
 /* ============================================================ */
 
-/**
+/*
  * @brief Begin a new BSW processing cycle
  *
  *  - Latch the four side distances.
@@ -86,7 +96,7 @@ void BSW_voidBeginCycle(float front_left, float front_right, float rear_left, fl
   BSW_AlertRight = 0;
 }
 
-/**
+/*
  * @brief Process one DSRC neighbor for BSW (receiver role)
  *
  * A neighbor broadcasts the front side(s) on which it sees a car. That car sits
@@ -114,7 +124,7 @@ void BSW_voidProcessNeighbor(const Neighbor *n)
 
 /* ============ Public Getters ============ */
 
-/**
+/*
  * @brief Get the sender flag to broadcast over DSRC (my own front side(s)).
  * @return bit0 = LEFT, bit1 = RIGHT (0=none, 1=LEFT, 2=RIGHT, 3=both)
  */
@@ -123,7 +133,7 @@ uint8_t BSW_u8GetFlag(void)
   return BSW_SenderFlag;
 }
 
-/**
+/*
  * @brief Get the receiver-side blind-spot result for THIS car. The LED/buzzer
  *        is driven elsewhere by the caller — this module only computes which
  *        side(s) have a vehicle in the blind spot.
@@ -135,7 +145,7 @@ uint8_t BSW_u8GetBlindSpot(void)
   return (uint8_t)((BSW_AlertLeft ? 0x01U : 0x00U) | (BSW_AlertRight ? 0x02U : 0x00U));
 }
 
-/**
+/*
  * @brief Get the receiver-side blind-spot SEVERITY for THIS car — the worst of
  *        the two sides. Distance-graded: closer car behind → higher severity.
  * @return 0 = safe, 1 = warning (< BSW_SIDE_THRESHOLD), 2 = critical (< BSW_SIDE_CRITICAL)
@@ -145,7 +155,7 @@ uint8_t BSW_u8GetSeverity(void)
   return (BSW_AlertLeft > BSW_AlertRight) ? BSW_AlertLeft : BSW_AlertRight;
 }
 
-/**
+/*
  * @brief Get the receiver-side blind-spot severity PER SIDE, packed into one
  *        byte so the Raspberry Pi can distinguish LEFT from RIGHT (the worst-of
  *        getter above collapses both sides into a single number).

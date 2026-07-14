@@ -1,47 +1,47 @@
 \doxysection{US\+\_\+interface.\+h}
-\hypertarget{US__interface_8h_source}{}\label{US__interface_8h_source}\index{Inc/Drivers/HAL/US/US\_interface.h@{Inc/Drivers/HAL/US/US\_interface.h}}
+\hypertarget{US__interface_8h_source}{}\label{US__interface_8h_source}\index{V2V-\/STM32/Inc/Drivers/HAL/US/US\_interface.h@{V2V-\/STM32/Inc/Drivers/HAL/US/US\_interface.h}}
 \doxymbox{\hyperlink{US__interface_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00001}00001\ }
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00013}00013\ }
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00014}00014\ \textcolor{preprocessor}{\#ifndef\ US\_INTERFACE\_H\_}}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00015}00015\ \textcolor{preprocessor}{\#define\ US\_INTERFACE\_H\_}}
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00010}00010\ \textcolor{preprocessor}{\#ifndef\ US\_INTERFACE\_H\_}}
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00011}00011\ \textcolor{preprocessor}{\#define\ US\_INTERFACE\_H\_}}
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00013}00013\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00014}00014\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00015}00015\ \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00016}00016\ }
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00017}00017\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00018}00018\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00019}00019\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00018}00018\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{STD__MACROS_8h}{../../LIB/STD\_MACROS.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00019}00019\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{ErrTypes_8h}{../../LIB/ErrTypes.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00020}00020\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{STM32F446xx_8h}{../../LIB/STM32F446xx.h}}"{}}}
 \DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00021}00021\ }
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00022}00022\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{STD__MACROS_8h}{../../LIB/STD\_MACROS.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00023}00023\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{ErrTypes_8h}{../../LIB/ErrTypes.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00024}00024\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h}{../../LIB/STM32F446xx.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00025}00025\ }
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00026}00026\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{GPIO__interface_8h}{../../MCAL/GPIO/GPIO\_interface.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00027}00027\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{TIM__interface_8h}{../../MCAL/TIM/TIM\_interface.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00028}00028\ \textcolor{comment}{/**************************************\ \ \ \ \ \ \ \ \ Data\ Types}}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00029}00029\ \textcolor{comment}{\ *\ ******************************************/}}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00030}00030\ }
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00048}\doxymbox{\hyperlink{structUS__Config__t}{00048}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00049}00049\ \{}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00050}\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{00050}}\ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\_Num\_t}}\ \ \ \ \ \ \doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}};\ \ \ \ \ \textcolor{comment}{/*\ Timer\ instance\ (TIM\_TIMER1..TIM\_TIMER8)\ \ \ \ \ \ \ */}}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00051}\doxymbox{\hyperlink{structUS__Config__t_aedb2c8be49f5d1fd6443e896c8ef532b}{00051}}\ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\_Channel\_t}}\ \ \doxymbox{\hyperlink{structUS__Config__t_aedb2c8be49f5d1fd6443e896c8ef532b}{Channel}};\ \ \ \textcolor{comment}{/*\ Timer\ Channel:\ TIM\_CHANNEL1..TIM\_CHANNEL4\ \ \ \ \ */}}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00052}\doxymbox{\hyperlink{structUS__Config__t_aee06c76d7a6088e93d33302bb11c279c}{00052}}\ \ \ \doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ \ \ \ \doxymbox{\hyperlink{structUS__Config__t_aee06c76d7a6088e93d33302bb11c279c}{TrigPort}};\ \ \textcolor{comment}{/*\ GPIO\ Port\ of\ TRIG\ pin\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00053}\doxymbox{\hyperlink{structUS__Config__t_aba9acc39dd5600c1eef35b5e033c94e6}{00053}}\ \ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\_Pin\_t}}\ \ \ \ \ \doxymbox{\hyperlink{structUS__Config__t_aba9acc39dd5600c1eef35b5e033c94e6}{TrigPin}};\ \ \ \textcolor{comment}{/*\ GPIO\ Pin\ \ of\ TRIG\ pin\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00054}\doxymbox{\hyperlink{structUS__Config__t_abc84123a24f0dabcb2917be3edf9591b}{00054}}\ \ \ \doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ \ \ \ \doxymbox{\hyperlink{structUS__Config__t_abc84123a24f0dabcb2917be3edf9591b}{EchoPort}};\ \ \textcolor{comment}{/*\ GPIO\ Port\ of\ ECHO\ pin\ (Must\ match\ Timer\ AF)\ \ \ */}}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00055}\doxymbox{\hyperlink{structUS__Config__t_ab87866af565edaf58ca26dd7d7aea08d}{00055}}\ \ \ \doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\_Pin\_t}}\ \ \ \ \ \doxymbox{\hyperlink{structUS__Config__t_ab87866af565edaf58ca26dd7d7aea08d}{EchoPin}};\ \ \ \textcolor{comment}{/*\ GPIO\ Pin\ \ of\ ECHO\ pin\ (Must\ match\ Timer\ AF)\ \ \ */}}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00056}00056\ \}\ \doxymbox{\hyperlink{structUS__Config__t}{US\_Config\_t}};}
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00022}00022\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{GPIO__interface_8h}{../../MCAL/GPIO/GPIO\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00023}00023\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{TIM__interface_8h}{../../MCAL/TIM/TIM\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00024}00024\ \textcolor{comment}{/**************************************\ \ \ \ \ \ \ \ \ Data\ Types}}
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00025}00025\ \textcolor{comment}{\ *\ ******************************************/}}
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00045}\doxymbox{\hyperlink{structUS__Config__t}{00045}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00046}00046\ \{}
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00047}\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{00047}}\ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\_Num\_t}}\ \ \ \ \ \ \doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}};\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00048}\doxymbox{\hyperlink{structUS__Config__t_aedb2c8be49f5d1fd6443e896c8ef532b}{00048}}\ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\_Channel\_t}}\ \ \doxymbox{\hyperlink{structUS__Config__t_aedb2c8be49f5d1fd6443e896c8ef532b}{Channel}};\ \ \ }
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00049}\doxymbox{\hyperlink{structUS__Config__t_aee06c76d7a6088e93d33302bb11c279c}{00049}}\ \ \ \doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ \ \ \ \doxymbox{\hyperlink{structUS__Config__t_aee06c76d7a6088e93d33302bb11c279c}{TrigPort}};\ \ }
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00050}\doxymbox{\hyperlink{structUS__Config__t_aba9acc39dd5600c1eef35b5e033c94e6}{00050}}\ \ \ \doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\_Pin\_t}}\ \ \ \ \ \doxymbox{\hyperlink{structUS__Config__t_aba9acc39dd5600c1eef35b5e033c94e6}{TrigPin}};\ \ \ }
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00051}\doxymbox{\hyperlink{structUS__Config__t_abc84123a24f0dabcb2917be3edf9591b}{00051}}\ \ \ \doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\_Port\_t}}\ \ \ \ \doxymbox{\hyperlink{structUS__Config__t_abc84123a24f0dabcb2917be3edf9591b}{EchoPort}};\ \ }
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00052}\doxymbox{\hyperlink{structUS__Config__t_ab87866af565edaf58ca26dd7d7aea08d}{00052}}\ \ \ \doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\_Pin\_t}}\ \ \ \ \ \doxymbox{\hyperlink{structUS__Config__t_ab87866af565edaf58ca26dd7d7aea08d}{EchoPin}};\ \ \ }
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00053}00053\ \}\ \doxymbox{\hyperlink{structUS__Config__t}{US\_Config\_t}};}
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00055}00055\ \textcolor{comment}{/**************************************\ \ \ \ \ \ \ \ \ Function\ Prototypes}}
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00056}00056\ \textcolor{comment}{\ *\ ******************************************/}}
 \DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00057}00057\ }
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00058}00058\ \textcolor{comment}{/**************************************\ \ \ \ \ \ \ \ \ Function\ Prototypes}}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00059}00059\ \textcolor{comment}{\ *\ ******************************************/}}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00060}00060\ }
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00075}00075\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{US__interface_8h_a29b879f76d665878390dd6161d1eea84}{US\_vInit}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structUS__Config__t}{US\_Config\_t}}\ *pxSensor);}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00076}00076\ }
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00100}00100\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{US__interface_8h_a49bd64d408631fd63886cbc413453e08}{US\_u16ReadDistance\_cm}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structUS__Config__t}{US\_Config\_t}}\ *pxSensor,\ uint16\_t\ *pu16Dist\_cm);}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00101}00101\ }
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00102}00102\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00103}00103\ \}}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00104}00104\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00105}00105\ }
-\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00106}00106\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ US\_INTERFACE\_H\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00072}00072\ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{US__interface_8h_a29b879f76d665878390dd6161d1eea84}{US\_vInit}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structUS__Config__t}{US\_Config\_t}}\ *pxSensor);}
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00097}00097\ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{US__interface_8h_a49bd64d408631fd63886cbc413453e08}{US\_u16ReadDistance\_cm}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structUS__Config__t}{US\_Config\_t}}\ *pxSensor,\ uint16\_t\ *pu16Dist\_cm);}
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00099}00099\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00100}00100\ \}}
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00101}00101\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{US__interface_8h_source_l00103}00103\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ US\_INTERFACE\_H\_\ */}\textcolor{preprocessor}{}}
 
 \end{DoxyCode}

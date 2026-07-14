@@ -1,0 +1,41 @@
+\doxysection{Application }
+\hypertarget{group__app}{}\label{group__app}\index{Application@{Application}}
+
+
+The ADAS brain:\+ the DSRC transport, the shared risk model, and the five cooperative collision-\/avoidance modules.  
+
+
+Collaboration diagram for Application:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=267pt]{group__app}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Topics}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{group__app__safetyengine}{Safety\+Engine}}
+\begin{DoxyCompactList}\small\item\em Shared risk model, direction detection, and per-\/cycle orchestration of all five ADAS modules. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__app__dsrc}{DSRC}}
+\begin{DoxyCompactList}\small\item\em \doxylink{structNeighbor}{Neighbor} table and the wire protocol shared byte-\/for-\/byte with the ESP32 radio bridge. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__app__fcw__dnpw}{FCW\+\_\+\+DNPW}}
+\begin{DoxyCompactList}\small\item\em Forward Collision Warning and Do-\/\+Not-\/\+Pass Warning (one combined module). \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__app__eebl}{EEBL}}
+\begin{DoxyCompactList}\small\item\em Electronic Emergency Brake Light:\+ a vehicle ahead is braking hard. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__app__bsw}{BSW}}
+\begin{DoxyCompactList}\small\item\em Blind Spot Warning, with per-\/side severity. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__app__ima}{IMA}}
+\begin{DoxyCompactList}\small\item\em Intersection Movement Assist:\+ crossing-\/direction conflict at a junction. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The ADAS brain:\+ the DSRC transport, the shared risk model, and the five cooperative collision-\/avoidance modules. 
+
+Every module in this layer is driven from \doxylink{group__app__safetyengine_ga7b6c12632534a82b4357a73306667157}{Safety\+Engine\+\_\+void\+Update} once per 50 ms cycle, consumes the same DSRC neighbor table, and returns the same graded result:\+ 0 = safe, 1 = warning, 2 = critical. No module in this layer touches a GPIO or a UART directly — it computes a flag, and {\ttfamily Feedback\+\_\+\+Task} renders it. \input{group__app__safetyengine}
+\input{group__app__dsrc}
+\input{group__app__fcw__dnpw}
+\input{group__app__eebl}
+\input{group__app__bsw}
+\input{group__app__ima}

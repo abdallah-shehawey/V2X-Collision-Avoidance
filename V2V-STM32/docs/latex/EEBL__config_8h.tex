@@ -1,18 +1,35 @@
-\doxysection{Inc/\+\+Application/\+\+EEBL/\+\+EEBL\+\_\+config.h File Reference}
-\hypertarget{EEBL__config_8h}{}\label{EEBL__config_8h}\index{Inc/Application/EEBL/EEBL\_config.h@{Inc/Application/EEBL/EEBL\_config.h}}
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Application/\+\+EEBL/\+\+EEBL\+\_\+config.h File Reference}
+\hypertarget{EEBL__config_8h}{}\label{EEBL__config_8h}\index{V2V-\/STM32/Inc/Application/EEBL/EEBL\_config.h@{V2V-\/STM32/Inc/Application/EEBL/EEBL\_config.h}}
+
+
+Compile-\/time configuration for the EEBL driver — Electronic Emergency Brake Light.  
+
+
 This graph shows which files directly or indirectly include this file:\+
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=195pt]{EEBL__config_8h__dep__incl}
+\includegraphics[width=227pt]{EEBL__config_8h__dep__incl}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\+\#define \doxymbox{\hyperlink{EEBL__config_8h_aba76f3ff4e32fd399d378c281b86fb31}{EEBL\+\_\+\+DECEL\+\_\+\+THRESHOLD}}~(-\/0.\+20f)
-\end{DoxyCompactItemize}
+\+\#define \doxymbox{\hyperlink{EEBL__config_8h_aba76f3ff4e32fd399d378c281b86fb31}{EEBL\+\_\+\+DECEL\+\_\+\+THRESHOLD}}
+\begin{DoxyCompactList}\small\item\em How hard a neighbor must brake before EEBL calls it an emergency \+[m/\+s of speed lost per cycle]\+. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Compile-\/time configuration for the EEBL driver — Electronic Emergency Brake Light. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{EEBL__config_8h_source}{EEBL\+\_\+config.\+h}}.
+
 
 
 \label{doc-define-members}
@@ -22,9 +39,22 @@ This graph shows which files directly or indirectly include this file:\+
 \index{EEBL\_DECEL\_THRESHOLD@{EEBL\_DECEL\_THRESHOLD}!EEBL\_config.h@{EEBL\_config.h}}
 \doxysubsubsection{\texorpdfstring{EEBL\_DECEL\_THRESHOLD}{EEBL\_DECEL\_THRESHOLD}}
 {\footnotesize\ttfamily \label{EEBL__config_8h_aba76f3ff4e32fd399d378c281b86fb31} 
-\+\#define EEBL\+\_\+\+DECEL\+\_\+\+THRESHOLD~(-\/0.\+20f)}
+\+\#define EEBL\+\_\+\+DECEL\+\_\+\+THRESHOLD}
 
 
 
-Definition at line \doxymbox{\hyperlink{EEBL__config_8h_source_l00019}{19}} of file \doxymbox{\hyperlink{EEBL__config_8h_source}{EEBL\+\_\+config.\+h}}.
+How hard a neighbor must brake before EEBL calls it an emergency \+[m/\+s of speed lost per cycle]\+. 
+
+Negative by definition — it is a {\itshape drop} in speed between two consecutive cycles. At the prototype\textquotesingle{}s \texorpdfstring{$\sim$}{\string~}5 m/\+s top speed, losing 0.\+20 m/\+s in one cycle is unambiguous braking rather than noise.
+
+\begin{DoxyNote}{Note}
+Moving it closer to zero makes the module more sensitive, at the cost of firing on ordinary speed fluctuation. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{EEBL__config_8h_source_l00034}{34}} of file \doxymbox{\hyperlink{EEBL__config_8h_source}{EEBL\+\_\+config.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{EEBL__program_8c_source_l00041}{EEBL\+\_\+void\+Begin\+Cycle()}}.
 

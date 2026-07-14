@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Inc/Application/DSRC/DSRC.h File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Inc/Application/DSRC/DSRC.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,488 +90,91 @@ $(function(){initNavTree('DSRC_8h.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">DSRC.h File Reference</div></div>
+  <div class="headertitle"><div class="title">DSRC.h File Reference<div class="ingroups"><a class="el" href="group__app.html">Application</a> &raquo; <a class="el" href="group__app__dsrc.html">DSRC</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>: DSRC module implementation  
+<p>The V2V transport: the neighbor table and the over-the-air frame format shared with the ESP32 radio bridge.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;math.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for DSRC.h:</div>
-<div class="dyncontent">
-<div class="center"><img src="DSRC_8h__incl.png" border="0" usemap="#aInc_2Application_2DSRC_2DSRC_8h" loading="lazy" alt=""/></div>
-<map name="aInc_2Application_2DSRC_2DSRC_8h" id="aInc_2Application_2DSRC_2DSRC_8h">
-<area shape="rect" title=": DSRC module implementation" alt="" coords="54,5,211,50"/>
-<area shape="rect" title=" " alt="" coords="5,98,73,126"/>
-<area shape="poly" title=" " alt="" coords="110,49,67,90,64,85,105,51"/>
-<area shape="rect" title=" " alt="" coords="97,98,168,126"/>
-<area shape="poly" title=" " alt="" coords="134,48,135,84,130,81,131,52"/>
-<area shape="rect" title=" " alt="" coords="192,98,262,126"/>
-<area shape="poly" title=" " alt="" coords="158,48,203,87,198,88,156,53"/>
-</map>
+</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for DSRC.h:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="DSRC_8h__dep__incl.png" border="0" usemap="#aInc_2Application_2DSRC_2DSRC_8hdep" loading="lazy" alt=""/></div>
-<map name="aInc_2Application_2DSRC_2DSRC_8hdep" id="aInc_2Application_2DSRC_2DSRC_8hdep">
-<area shape="rect" title=": DSRC module implementation" alt="" coords="672,5,829,50"/>
-<area shape="rect" href="BSW__interface_8h.html" title=" " alt="" coords="60,98,211,143"/>
-<area shape="poly" title=" " alt="" coords="654,40,460,66,231,101,212,104,210,99,230,95,459,60,659,38"/>
-<area shape="rect" href="BSW__program_8c.html" title=" " alt="" coords="5,191,154,218"/>
-<area shape="poly" title=" " alt="" coords="654,32,490,41,299,53,134,72,79,85,49,100,43,110,41,121,45,145,57,169,71,190,66,190,52,172,40,147,36,120,38,108,46,96,77,80,134,67,299,47,490,35,659,31"/>
-<area shape="rect" href="SafetyEngine__program_8c.html" title=" " alt="" coords="264,191,468,218"/>
-<area shape="poly" title=" " alt="" coords="654,29,551,35,437,46,384,55,338,66,301,81,276,100,270,110,268,119,277,141,287,156,301,169,334,191,329,190,298,173,283,160,272,144,263,120,265,108,272,96,298,77,336,61,383,49,436,40,551,30,659,28"/>
-<area shape="rect" href="main_8c.html" title=": Main program body" alt="" coords="492,191,582,218"/>
-<area shape="poly" title=" " alt="" coords="659,50,616,73,580,100,564,122,553,146,540,192,537,188,548,145,559,119,576,96,614,68,654,52"/>
-<area shape="rect" href="EEBL__interface_8h.html" title=" " alt="" coords="760,98,914,143"/>
-<area shape="poly" title=" " alt="" coords="782,59,819,99,814,97,780,64"/>
-<area shape="rect" href="EEBL__program_8c.html" title=" " alt="" coords="992,191,1143,218"/>
-<area shape="poly" title=" " alt="" coords="844,44,910,65,973,96,1001,118,1026,143,1062,191,1057,189,1022,147,998,122,970,100,908,70,844,49"/>
-<area shape="rect" href="FCW__DNPW__interface_8h.html" title=" " alt="" coords="287,98,515,143"/>
-<area shape="poly" title=" " alt="" coords="659,53,485,100,484,95,654,54"/>
-<area shape="rect" href="FCW__DNPW__program_8c.html" title=" " alt="" coords="605,191,802,218"/>
-<area shape="poly" title=" " alt="" coords="844,50,886,67,920,87,931,100,937,114,936,129,928,144,907,160,875,173,794,193,793,187,873,168,905,155,924,141,931,127,932,115,927,103,916,92,884,71,843,55"/>
-<area shape="rect" href="IMA__interface_8h.html" title=" " alt="" coords="590,98,737,143"/>
-<area shape="poly" title=" " alt="" coords="722,60,685,100,683,96,717,62"/>
-<area shape="rect" href="IMA__program_8c.html" title=" " alt="" coords="825,191,968,218"/>
-<area shape="poly" title=" " alt="" coords="844,35,874,44,903,56,930,74,951,97,957,109,958,123,949,149,932,173,913,193,911,188,928,170,945,147,953,122,952,111,947,99,926,78,901,61,873,49,844,41"/>
-<area shape="rect" href="DSRC_8c.html" title=": DSRC module implementation" alt="" coords="1091,106,1183,134"/>
-<area shape="poly" title=" " alt="" coords="844,44,954,67,1072,95,1101,106,1096,106,1071,101,953,72,844,49"/>
-<area shape="rect" href="System_8c.html" title=": System initialization and RTOS setup" alt="" coords="1207,106,1312,134"/>
-<area shape="poly" title=" " alt="" coords="845,36,1010,59,1103,76,1196,95,1226,106,1220,106,1195,101,1102,81,1009,64,845,42"/>
-<area shape="poly" title=" " alt="" coords="115,155,90,192,87,188,110,157"/>
-<area shape="poly" title=" " alt="" coords="211,146,332,189,327,191,210,151"/>
-<area shape="poly" title=" " alt="" coords="227,137,481,188,494,193,489,193,480,193,226,142"/>
-<area shape="poly" title=" " alt="" coords="748,143,593,173,463,193,462,187,592,168,742,144"/>
-<area shape="poly" title=" " alt="" coords="748,146,583,193,582,188,742,147"/>
-<area shape="poly" title=" " alt="" coords="913,146,1033,190,1028,190,912,151"/>
-<area shape="poly" title=" " alt="" coords="388,155,373,192,370,188,384,158"/>
-<area shape="poly" title=" " alt="" coords="450,148,518,190,512,190,449,153"/>
-<area shape="poly" title=" " alt="" coords="496,145,658,190,652,190,495,150"/>
-<area shape="poly" title=" " alt="" coords="578,146,414,193,413,188,573,146"/>
-<area shape="poly" title=" " alt="" coords="620,150,558,193,556,188,615,152"/>
-<area shape="poly" title=" " alt="" coords="740,146,862,190,857,190,739,151"/>
-</map>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="DSRC_8h__incl.svg" width="268" height="131"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div><div class="textblock"><div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="DSRC_8h__dep__incl.svg" width="100%" height="481"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="DSRC_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:Neighbor" id="r_Neighbor"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structNeighbor.html">Neighbor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">One vehicle's broadcast state — this is the wire format itself.  <a href="structNeighbor.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a2b1d39159e4114f433745f15a201c93c" id="r_a2b1d39159e4114f433745f15a201c93c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a2b1d39159e4114f433745f15a201c93c">MAX_NEIGHBORS</a>&#160;&#160;&#160;20</td></tr>
-<tr class="memitem:a545233ea05ce2ada1c14377954bb8931" id="r_a545233ea05ce2ada1c14377954bb8931"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a545233ea05ce2ada1c14377954bb8931">NEIGHBOR_TIMEOUT</a>&#160;&#160;&#160;2000 /* ms (ticks @1000Hz): purge a neighbor after 2s of silence */</td></tr>
-<tr class="memitem:a9dd026e05b86378bf84c82c84dd193bf" id="r_a9dd026e05b86378bf84c82c84dd193bf"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a9dd026e05b86378bf84c82c84dd193bf">VEHICLE_ID</a>&#160;&#160;&#160;2</td></tr>
-<tr class="memitem:a30d2043ca397843e08c43ade3aaee5b2" id="r_a30d2043ca397843e08c43ade3aaee5b2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a30d2043ca397843e08c43ade3aaee5b2">START_BYTE</a>&#160;&#160;&#160;0xAA</td></tr>
-<tr class="memitem:a5126c1e2dc63cec63fc73710e48a9b5d" id="r_a5126c1e2dc63cec63fc73710e48a9b5d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a5126c1e2dc63cec63fc73710e48a9b5d">END_BYTE</a>&#160;&#160;&#160;0x55</td></tr>
-<tr class="memitem:aebdc7d8ca8e25ed8efc90bb88ef7ef5b" id="r_aebdc7d8ca8e25ed8efc90bb88ef7ef5b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aebdc7d8ca8e25ed8efc90bb88ef7ef5b">PACKET_SIZE</a>&#160;&#160;&#160;(1 + sizeof(<a class="el" href="#ac818f2e1224a1e513913a85019953e14">Neighbor</a>) + 1 + 1)</td></tr>
-<tr class="memitem:a142810068f1b99cd93d3fc9f0e160e02" id="r_a142810068f1b99cd93d3fc9f0e160e02"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a142810068f1b99cd93d3fc9f0e160e02">QUEUE_SIZE</a>&#160;&#160;&#160;10</td></tr>
+<tr id="define-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">Protocol configuration</div></td></tr>
+<tr class="memitem:ga2b1d39159e4114f433745f15a201c93c" id="r_ga2b1d39159e4114f433745f15a201c93c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__app__dsrc.html#ga2b1d39159e4114f433745f15a201c93c">MAX_NEIGHBORS</a></td></tr>
+<tr class="memdesc:ga2b1d39159e4114f433745f15a201c93c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of vehicles tracked at once; further senders are ignored until a slot frees up.  <br /></td></tr>
+<tr class="memitem:ga545233ea05ce2ada1c14377954bb8931" id="r_ga545233ea05ce2ada1c14377954bb8931"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__app__dsrc.html#ga545233ea05ce2ada1c14377954bb8931">NEIGHBOR_TIMEOUT</a></td></tr>
+<tr class="memdesc:ga545233ea05ce2ada1c14377954bb8931"><td class="mdescLeft">&#160;</td><td class="mdescRight">How long a neighbor may stay silent before it is purged from the table [ms].  <br /></td></tr>
+<tr class="memitem:ga9dd026e05b86378bf84c82c84dd193bf" id="r_ga9dd026e05b86378bf84c82c84dd193bf"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__app__dsrc.html#ga9dd026e05b86378bf84c82c84dd193bf">VEHICLE_ID</a></td></tr>
+<tr class="memdesc:ga9dd026e05b86378bf84c82c84dd193bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">This vehicle's own identity on the air.  <br /></td></tr>
+<tr class="memitem:ga30d2043ca397843e08c43ade3aaee5b2" id="r_ga30d2043ca397843e08c43ade3aaee5b2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__app__dsrc.html#ga30d2043ca397843e08c43ade3aaee5b2">START_BYTE</a></td></tr>
+<tr class="memdesc:ga30d2043ca397843e08c43ade3aaee5b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">First byte of every frame — see <a class="el" href="#dsrc_frame" title="Frame layout">Frame layout</a>.  <br /></td></tr>
+<tr class="memitem:ga5126c1e2dc63cec63fc73710e48a9b5d" id="r_ga5126c1e2dc63cec63fc73710e48a9b5d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__app__dsrc.html#ga5126c1e2dc63cec63fc73710e48a9b5d">END_BYTE</a></td></tr>
+<tr class="memdesc:ga5126c1e2dc63cec63fc73710e48a9b5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Last byte of every frame.  <br /></td></tr>
+<tr class="memitem:gaebdc7d8ca8e25ed8efc90bb88ef7ef5b" id="r_gaebdc7d8ca8e25ed8efc90bb88ef7ef5b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__app__dsrc.html#gaebdc7d8ca8e25ed8efc90bb88ef7ef5b">PACKET_SIZE</a></td></tr>
+<tr class="memdesc:gaebdc7d8ca8e25ed8efc90bb88ef7ef5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total frame length: start byte + payload + checksum + end byte.  <br /></td></tr>
+<tr class="memitem:ga142810068f1b99cd93d3fc9f0e160e02" id="r_ga142810068f1b99cd93d3fc9f0e160e02"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__app__dsrc.html#ga142810068f1b99cd93d3fc9f0e160e02">QUEUE_SIZE</a></td></tr>
+<tr class="memdesc:ga142810068f1b99cd93d3fc9f0e160e02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depth of the parser's internal byte queue.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ab898071398b359603a35c202e9c65f3b" id="r_ab898071398b359603a35c202e9c65f3b"><td class="memItemLeft">struct&#160;</td><td class="memItemRight"><a class="el" href="#ab898071398b359603a35c202e9c65f3b">__attribute__</a> ((packed))</td></tr>
-<tr class="memitem:adad268979d4c4038075346292651c8af" id="r_adad268979d4c4038075346292651c8af"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adad268979d4c4038075346292651c8af">DSRC_Init</a> (void)</td></tr>
-<tr class="memitem:aded740c50de5ea4cf786939e10ace2d9" id="r_aded740c50de5ea4cf786939e10ace2d9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aded740c50de5ea4cf786939e10ace2d9">DSRC_SendNeighbor</a> (<a class="el" href="#ac818f2e1224a1e513913a85019953e14">Neighbor</a> *n)</td></tr>
-<tr class="memitem:ac40e63c7c7041cacb1f60a1d4d710abb" id="r_ac40e63c7c7041cacb1f60a1d4d710abb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac40e63c7c7041cacb1f60a1d4d710abb">DSRC_Update</a> (void)</td></tr>
-<tr class="memitem:aa38784384016c34bf5e63add1930104b" id="r_aa38784384016c34bf5e63add1930104b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa38784384016c34bf5e63add1930104b">DSRC_RemoveStale</a> (uint32_t current_time)</td></tr>
-<tr class="memitem:a15d8d8dc4459f83b2aa2519119d037d0" id="r_a15d8d8dc4459f83b2aa2519119d037d0"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a15d8d8dc4459f83b2aa2519119d037d0">DSRC_GetCount</a> (void)</td></tr>
-<tr class="memitem:a76299bf71b1e2dc13baac26c6c4228c4" id="r_a76299bf71b1e2dc13baac26c6c4228c4"><td class="memItemLeft"><a class="el" href="#ac818f2e1224a1e513913a85019953e14">Neighbor</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a76299bf71b1e2dc13baac26c6c4228c4">DSRC_GetTable</a> (void)</td></tr>
-<tr class="memitem:a8f2c7037352677729c777df880fefd1b" id="r_a8f2c7037352677729c777df880fefd1b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8f2c7037352677729c777df880fefd1b">DSRC_RxCallback</a> (uint8_t byte)</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:ac818f2e1224a1e513913a85019953e14" id="r_ac818f2e1224a1e513913a85019953e14"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac818f2e1224a1e513913a85019953e14">Neighbor</a></td></tr>
+<tr class="memitem:gadad268979d4c4038075346292651c8af" id="r_gadad268979d4c4038075346292651c8af"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__app__dsrc.html#gadad268979d4c4038075346292651c8af">DSRC_Init</a> (void)</td></tr>
+<tr class="memdesc:gadad268979d4c4038075346292651c8af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the neighbor table and reset the frame parser.  <br /></td></tr>
+<tr class="memitem:gaded740c50de5ea4cf786939e10ace2d9" id="r_gaded740c50de5ea4cf786939e10ace2d9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__app__dsrc.html#gaded740c50de5ea4cf786939e10ace2d9">DSRC_SendNeighbor</a> (<a class="el" href="structNeighbor.html">Neighbor</a> *n)</td></tr>
+<tr class="memdesc:gaded740c50de5ea4cf786939e10ace2d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frame and transmit one <a class="el" href="structNeighbor.html" title="Neighbor">Neighbor</a> over UART1 to the ESP32 bridge.  <br /></td></tr>
+<tr class="memitem:gac40e63c7c7041cacb1f60a1d4d710abb" id="r_gac40e63c7c7041cacb1f60a1d4d710abb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__app__dsrc.html#gac40e63c7c7041cacb1f60a1d4d710abb">DSRC_Update</a> (void)</td></tr>
+<tr class="memdesc:gac40e63c7c7041cacb1f60a1d4d710abb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drain the parser's byte queue and fold any complete frames into the table.  <br /></td></tr>
+<tr class="memitem:gaa38784384016c34bf5e63add1930104b" id="r_gaa38784384016c34bf5e63add1930104b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__app__dsrc.html#gaa38784384016c34bf5e63add1930104b">DSRC_RemoveStale</a> (uint32_t current_time)</td></tr>
+<tr class="memdesc:gaa38784384016c34bf5e63add1930104b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drop every neighbor that has been silent for <a class="el" href="group__app__dsrc.html#ga545233ea05ce2ada1c14377954bb8931" title="NEIGHBOR_TIMEOUT">NEIGHBOR_TIMEOUT</a>.  <br /></td></tr>
+<tr class="memitem:ga15d8d8dc4459f83b2aa2519119d037d0" id="r_ga15d8d8dc4459f83b2aa2519119d037d0"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="group__app__dsrc.html#ga15d8d8dc4459f83b2aa2519119d037d0">DSRC_GetCount</a> (void)</td></tr>
+<tr class="memdesc:ga15d8d8dc4459f83b2aa2519119d037d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">How many neighbors are currently in the table.  <br /></td></tr>
+<tr class="memitem:ga76299bf71b1e2dc13baac26c6c4228c4" id="r_ga76299bf71b1e2dc13baac26c6c4228c4"><td class="memItemLeft"><a class="el" href="structNeighbor.html">Neighbor</a> *&#160;</td><td class="memItemRight"><a class="el" href="group__app__dsrc.html#ga76299bf71b1e2dc13baac26c6c4228c4">DSRC_GetTable</a> (void)</td></tr>
+<tr class="memdesc:ga76299bf71b1e2dc13baac26c6c4228c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Borrow the neighbor table itself.  <br /></td></tr>
+<tr class="memitem:ga8f2c7037352677729c777df880fefd1b" id="r_ga8f2c7037352677729c777df880fefd1b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__app__dsrc.html#ga8f2c7037352677729c777df880fefd1b">DSRC_RxCallback</a> (uint8_t byte)</td></tr>
+<tr class="memdesc:ga8f2c7037352677729c777df880fefd1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Feed one received byte into the frame parser.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>: DSRC module implementation </p>
-<dl class="section author"><dt>Author</dt><dd>: Abdallah Shehawey  </dd></dl>
+<div class="textblock"><p>The V2V transport: the neighbor table and the over-the-air frame format shared with the ESP32 radio bridge. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Shehawey </dd></dl>
+<p>DSRC is the layer every ADAS module sits on. It answers one question — <em>which other vehicles are near me right now, and what are they doing</em> — and keeps the answer in a table of at most <a class="el" href="group__app__dsrc.html#ga2b1d39159e4114f433745f15a201c93c" title="MAX_NEIGHBORS">MAX_NEIGHBORS</a> entries, one per vehicle heard from recently.</p>
+<h1 class="doxsection"><a class="anchor" id="dsrc_flow"></a>
+The path a message takes</h1>
+<p>The STM32 has no radio of its own. An ESP32 bridges the air interface:</p>
+<pre class="fragment">*   other car --ESP-NOW--&gt; our ESP32 --UART1--&gt; STM32   (receive)
+*   STM32 --UART1--&gt; our ESP32 --ESP-NOW--&gt; other cars  (transmit)
+* </pre><p>On the way in, USART1's ISR only enqueues raw bytes; <a class="el" href="group__app__dsrc.html#ga8f2c7037352677729c777df880fefd1b" title="DSRC_RxCallback">DSRC_RxCallback</a> is then driven from <span class="tt"><a class="el" href="main_8c.html#a8e83024643794f31ab8139cbdb1de5dd" title="Handles both RX and TX communication with ESP (V2X Network) using DSRC foundation.">vTask_ESP_Comm</a></span> in task context, one byte at a time, and reassembles frames. On the way out, <a class="el" href="group__app__dsrc.html#gaded740c50de5ea4cf786939e10ace2d9" title="DSRC_SendNeighbor">DSRC_SendNeighbor</a> frames this vehicle's own <a class="el" href="structNeighbor.html" title="Neighbor">Neighbor</a> struct and hands it to the ESP32 every 100 ms.</p>
+<h1 class="doxsection"><a class="anchor" id="dsrc_frame"></a>
+Frame layout</h1>
+<pre class="fragment">*   +------------+---------------------------+----------+----------+
+*   | START_BYTE |   Neighbor (21 bytes)     | checksum | END_BYTE |
+*   |    0xAA    |        packed             |  1 byte  |   0x55   |
+*   +------------+---------------------------+----------+----------+
+* </pre><p>A frame is only accepted if the start byte, the checksum and the end byte all agree, so a truncated or corrupted frame is dropped rather than acted on.</p>
+<dl class="section warning"><dt>Warning</dt><dd>The <a class="el" href="structNeighbor.html" title="Neighbor">Neighbor</a> layout is a <b>wire format</b>, mirrored byte for byte in the ESP32 sketches (<span class="tt">esp32/master</span>, <span class="tt">esp32/sniffer</span>). Reordering, resizing or inserting a field on one side and not the other silently misaligns every field after it — the link keeps working and the data becomes nonsense. Change both sides together, always. </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="DSRC_8h_source.html">DSRC.h</a>.</p>
-</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="a5126c1e2dc63cec63fc73710e48a9b5d" name="a5126c1e2dc63cec63fc73710e48a9b5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5126c1e2dc63cec63fc73710e48a9b5d">&#9670;&#160;</a></span>END_BYTE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define END_BYTE&#160;&#160;&#160;0x55</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="DSRC_8h_source.html#l00021">21</a> of file <a class="el" href="DSRC_8h_source.html">DSRC.h</a>.</p>
-
-</div>
-</div>
-<a id="a2b1d39159e4114f433745f15a201c93c" name="a2b1d39159e4114f433745f15a201c93c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b1d39159e4114f433745f15a201c93c">&#9670;&#160;</a></span>MAX_NEIGHBORS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MAX_NEIGHBORS&#160;&#160;&#160;20</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="DSRC_8h_source.html#l00017">17</a> of file <a class="el" href="DSRC_8h_source.html">DSRC.h</a>.</p>
-
-</div>
-</div>
-<a id="a545233ea05ce2ada1c14377954bb8931" name="a545233ea05ce2ada1c14377954bb8931"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a545233ea05ce2ada1c14377954bb8931">&#9670;&#160;</a></span>NEIGHBOR_TIMEOUT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define NEIGHBOR_TIMEOUT&#160;&#160;&#160;2000 /* ms (ticks @1000Hz): purge a neighbor after 2s of silence */</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="DSRC_8h_source.html#l00018">18</a> of file <a class="el" href="DSRC_8h_source.html">DSRC.h</a>.</p>
-
-</div>
-</div>
-<a id="aebdc7d8ca8e25ed8efc90bb88ef7ef5b" name="aebdc7d8ca8e25ed8efc90bb88ef7ef5b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aebdc7d8ca8e25ed8efc90bb88ef7ef5b">&#9670;&#160;</a></span>PACKET_SIZE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PACKET_SIZE&#160;&#160;&#160;(1 + sizeof(<a class="el" href="#ac818f2e1224a1e513913a85019953e14">Neighbor</a>) + 1 + 1)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="DSRC_8h_source.html#l00022">22</a> of file <a class="el" href="DSRC_8h_source.html">DSRC.h</a>.</p>
-
-</div>
-</div>
-<a id="a142810068f1b99cd93d3fc9f0e160e02" name="a142810068f1b99cd93d3fc9f0e160e02"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a142810068f1b99cd93d3fc9f0e160e02">&#9670;&#160;</a></span>QUEUE_SIZE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define QUEUE_SIZE&#160;&#160;&#160;10</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="DSRC_8h_source.html#l00023">23</a> of file <a class="el" href="DSRC_8h_source.html">DSRC.h</a>.</p>
-
-</div>
-</div>
-<a id="a30d2043ca397843e08c43ade3aaee5b2" name="a30d2043ca397843e08c43ade3aaee5b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a30d2043ca397843e08c43ade3aaee5b2">&#9670;&#160;</a></span>START_BYTE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define START_BYTE&#160;&#160;&#160;0xAA</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="DSRC_8h_source.html#l00020">20</a> of file <a class="el" href="DSRC_8h_source.html">DSRC.h</a>.</p>
-
-</div>
-</div>
-<a id="a9dd026e05b86378bf84c82c84dd193bf" name="a9dd026e05b86378bf84c82c84dd193bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9dd026e05b86378bf84c82c84dd193bf">&#9670;&#160;</a></span>VEHICLE_ID</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define VEHICLE_ID&#160;&#160;&#160;2</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="DSRC_8h_source.html#l00019">19</a> of file <a class="el" href="DSRC_8h_source.html">DSRC.h</a>.</p>
-
-</div>
-</div>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="ab898071398b359603a35c202e9c65f3b" name="ab898071398b359603a35c202e9c65f3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab898071398b359603a35c202e9c65f3b">&#9670;&#160;</a></span>__attribute__()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct __attribute__ </td>
-          <td>(</td>
-          <td class="paramtype">(packed)</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="DSRC_8h_source.html#l00001">1</a> of file <a class="el" href="DSRC_8h_source.html">DSRC.h</a>.</p>
-
-</div>
-</div>
-<a id="a15d8d8dc4459f83b2aa2519119d037d0" name="a15d8d8dc4459f83b2aa2519119d037d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a15d8d8dc4459f83b2aa2519119d037d0">&#9670;&#160;</a></span>DSRC_GetCount()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t DSRC_GetCount </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00176">176</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="DSRC_8h_a15d8d8dc4459f83b2aa2519119d037d0_icgraph.png" border="0" usemap="#aDSRC_8h_a15d8d8dc4459f83b2aa2519119d037d0_icgraph" loading="lazy" alt=""/></div>
-<map name="aDSRC_8h_a15d8d8dc4459f83b2aa2519119d037d0_icgraph" id="aDSRC_8h_a15d8d8dc4459f83b2aa2519119d037d0_icgraph">
-<area shape="rect" title=" " alt="" coords="544,5,670,33"/>
-<area shape="rect" href="SafetyEngine__program_8c.html#a7b6c12632534a82b4357a73306667157" title="Single&#45;pass update over the DSRC neighbor table. Runs all safety modules in ONE pass and aggregates t..." alt="" coords="307,5,496,33"/>
-<area shape="poly" title=" " alt="" coords="526,19,497,22,497,17,531,19"/>
-<area shape="rect" href="main_8c.html#a1fa00ec0e4cf92155fcaa535be5ab3a1" title="Single&#45;pass ADAS brain." alt="" coords="108,5,259,33"/>
-<area shape="poly" title=" " alt="" coords="289,19,260,22,259,17,294,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,94,18"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a76299bf71b1e2dc13baac26c6c4228c4" name="a76299bf71b1e2dc13baac26c6c4228c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76299bf71b1e2dc13baac26c6c4228c4">&#9670;&#160;</a></span>DSRC_GetTable()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="#ac818f2e1224a1e513913a85019953e14">Neighbor</a> * DSRC_GetTable </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00200">200</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="DSRC_8h_a76299bf71b1e2dc13baac26c6c4228c4_icgraph.png" border="0" usemap="#aDSRC_8h_a76299bf71b1e2dc13baac26c6c4228c4_icgraph" loading="lazy" alt=""/></div>
-<map name="aDSRC_8h_a76299bf71b1e2dc13baac26c6c4228c4_icgraph" id="aDSRC_8h_a76299bf71b1e2dc13baac26c6c4228c4_icgraph">
-<area shape="rect" title=" " alt="" coords="544,5,666,33"/>
-<area shape="rect" href="SafetyEngine__program_8c.html#a7b6c12632534a82b4357a73306667157" title="Single&#45;pass update over the DSRC neighbor table. Runs all safety modules in ONE pass and aggregates t..." alt="" coords="307,5,496,33"/>
-<area shape="poly" title=" " alt="" coords="526,19,497,22,497,17,532,19"/>
-<area shape="rect" href="main_8c.html#a1fa00ec0e4cf92155fcaa535be5ab3a1" title="Single&#45;pass ADAS brain." alt="" coords="108,5,259,33"/>
-<area shape="poly" title=" " alt="" coords="289,19,260,22,259,17,294,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,94,18"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="adad268979d4c4038075346292651c8af" name="adad268979d4c4038075346292651c8af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adad268979d4c4038075346292651c8af">&#9670;&#160;</a></span>DSRC_Init()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DSRC_Init </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00127">127</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="DSRC_8h_adad268979d4c4038075346292651c8af_icgraph.png" border="0" usemap="#aDSRC_8h_adad268979d4c4038075346292651c8af_icgraph" loading="lazy" alt=""/></div>
-<map name="aDSRC_8h_adad268979d4c4038075346292651c8af_icgraph" id="aDSRC_8h_adad268979d4c4038075346292651c8af_icgraph">
-<area shape="rect" title=" " alt="" coords="269,5,354,33"/>
-<area shape="rect" href="System_8c.html#ae436954cd2bde6634ab271317d2494a7" title=" " alt="" coords="108,5,221,33"/>
-<area shape="poly" title=" " alt="" coords="251,19,221,22,221,17,256,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,95,18"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="aa38784384016c34bf5e63add1930104b" name="aa38784384016c34bf5e63add1930104b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa38784384016c34bf5e63add1930104b">&#9670;&#160;</a></span>DSRC_RemoveStale()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DSRC_RemoveStale </td>
-          <td>(</td>
-          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>current_time</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00161">161</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="DSRC_8h_aa38784384016c34bf5e63add1930104b_icgraph.png" border="0" usemap="#aDSRC_8h_aa38784384016c34bf5e63add1930104b_icgraph" loading="lazy" alt=""/></div>
-<map name="aDSRC_8h_aa38784384016c34bf5e63add1930104b_icgraph" id="aDSRC_8h_aa38784384016c34bf5e63add1930104b_icgraph">
-<area shape="rect" title=" " alt="" coords="295,5,446,33"/>
-<area shape="rect" href="main_8c.html#a8e83024643794f31ab8139cbdb1de5dd" title="Handles both RX and TX communication with ESP (V2X Network) using DSRC foundation." alt="" coords="108,5,247,33"/>
-<area shape="poly" title=" " alt="" coords="277,19,248,22,248,17,282,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="90,20,60,22,60,17,95,18"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a8f2c7037352677729c777df880fefd1b" name="a8f2c7037352677729c777df880fefd1b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f2c7037352677729c777df880fefd1b">&#9670;&#160;</a></span>DSRC_RxCallback()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DSRC_RxCallback </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>byte</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00208">208</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="DSRC_8h_a8f2c7037352677729c777df880fefd1b_icgraph.png" border="0" usemap="#aDSRC_8h_a8f2c7037352677729c777df880fefd1b_icgraph" loading="lazy" alt=""/></div>
-<map name="aDSRC_8h_a8f2c7037352677729c777df880fefd1b_icgraph" id="aDSRC_8h_a8f2c7037352677729c777df880fefd1b_icgraph">
-<area shape="rect" title=" " alt="" coords="295,5,432,33"/>
-<area shape="rect" href="main_8c.html#a8e83024643794f31ab8139cbdb1de5dd" title="Handles both RX and TX communication with ESP (V2X Network) using DSRC foundation." alt="" coords="108,5,247,33"/>
-<area shape="poly" title=" " alt="" coords="276,19,248,22,247,17,282,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="90,20,60,22,60,17,95,18"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="aded740c50de5ea4cf786939e10ace2d9" name="aded740c50de5ea4cf786939e10ace2d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aded740c50de5ea4cf786939e10ace2d9">&#9670;&#160;</a></span>DSRC_SendNeighbor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DSRC_SendNeighbor </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="#ac818f2e1224a1e513913a85019953e14">Neighbor</a> *</td>          <td class="paramname"><span class="paramname"><em>n</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00136">136</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="DSRC_8h_aded740c50de5ea4cf786939e10ace2d9_cgraph.png" border="0" usemap="#aDSRC_8h_aded740c50de5ea4cf786939e10ace2d9_cgraph" loading="lazy" alt=""/></div>
-<map name="aDSRC_8h_aded740c50de5ea4cf786939e10ace2d9_cgraph" id="aDSRC_8h_aded740c50de5ea4cf786939e10ace2d9_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,161,33"/>
-<area shape="rect" href="USART__program_8c.html#a1abd71036dad0752b737b6b4872d7111" title=" " alt="" coords="209,5,374,33"/>
-<area shape="poly" title=" " alt="" coords="161,17,196,19,190,19,161,22"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="DSRC_8h_aded740c50de5ea4cf786939e10ace2d9_icgraph.png" border="0" usemap="#aDSRC_8h_aded740c50de5ea4cf786939e10ace2d9_icgraph" loading="lazy" alt=""/></div>
-<map name="aDSRC_8h_aded740c50de5ea4cf786939e10ace2d9_icgraph" id="aDSRC_8h_aded740c50de5ea4cf786939e10ace2d9_icgraph">
-<area shape="rect" title=" " alt="" coords="295,5,450,33"/>
-<area shape="rect" href="main_8c.html#a8e83024643794f31ab8139cbdb1de5dd" title="Handles both RX and TX communication with ESP (V2X Network) using DSRC foundation." alt="" coords="108,5,247,33"/>
-<area shape="poly" title=" " alt="" coords="277,19,248,22,248,17,282,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="90,20,60,22,60,17,95,18"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ac40e63c7c7041cacb1f60a1d4d710abb" name="ac40e63c7c7041cacb1f60a1d4d710abb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac40e63c7c7041cacb1f60a1d4d710abb">&#9670;&#160;</a></span>DSRC_Update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DSRC_Update </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="DSRC_8c_source.html#l00152">152</a> of file <a class="el" href="DSRC_8c_source.html">DSRC.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="DSRC_8h_ac40e63c7c7041cacb1f60a1d4d710abb_icgraph.png" border="0" usemap="#aDSRC_8h_ac40e63c7c7041cacb1f60a1d4d710abb_icgraph" loading="lazy" alt=""/></div>
-<map name="aDSRC_8h_ac40e63c7c7041cacb1f60a1d4d710abb_icgraph" id="aDSRC_8h_ac40e63c7c7041cacb1f60a1d4d710abb_icgraph">
-<area shape="rect" title=" " alt="" coords="295,5,406,33"/>
-<area shape="rect" href="main_8c.html#a8e83024643794f31ab8139cbdb1de5dd" title="Handles both RX and TX communication with ESP (V2X Network) using DSRC foundation." alt="" coords="108,5,247,33"/>
-<area shape="poly" title=" " alt="" coords="277,19,247,22,247,17,282,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="90,20,60,22,60,17,95,18"/>
-</map>
-</div>
-
-</div>
-</div>
-<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
-<a id="ac818f2e1224a1e513913a85019953e14" name="ac818f2e1224a1e513913a85019953e14"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac818f2e1224a1e513913a85019953e14">&#9670;&#160;</a></span>Neighbor</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Neighbor</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="DSRC_8h_source.html#l00040">40</a> of file <a class="el" href="DSRC_8h_source.html">DSRC.h</a>.</p>
-
-</div>
-</div>
-</div><!-- contents -->
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>
@@ -584,7 +187,7 @@ Here is the caller graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_f93dfce691d792349f1c14ede440e2e6.html">Inc</a></li><li class="navelem"><a href="dir_39944c0e13724f9c5fdb666d288b390a.html">Application</a></li><li class="navelem"><a href="dir_260978c056e6864301441f897b305d36.html">DSRC</a></li><li class="navelem"><a href="DSRC_8h.html">DSRC.h</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Inc</b></li><li class="navelem"><b>Application</b></li><li class="navelem"><b>DSRC</b></li><li class="navelem"><a href="DSRC_8h.html">DSRC.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

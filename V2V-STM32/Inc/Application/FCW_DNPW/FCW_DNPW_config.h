@@ -1,3 +1,12 @@
+/**
+ ******************************************************************************
+ * @file    FCW_DNPW_config.h
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Compile-time configuration for the FCW/DNPW driver — Forward Collision Warning and Do-Not-Pass Warning.
+ * @ingroup app_fcw_dnpw
+ ******************************************************************************
+ */
+
 #ifndef FCW_DNPW_CONFIG_H
 #define FCW_DNPW_CONFIG_H
 
@@ -23,12 +32,17 @@
  * ahead". FCW warns earlier (farther) than the oncoming/overtaking case, so it
  * has the wider gate; DNPW + head-on share the nearer gate.
  * Prototype scale: small car in a corridor. */
-#define FCW_FRONT_THRESHOLD        (80.0f)  /* FCW front gate: warn earlier      */
-#define DNPW_FRONT_THRESHOLD       (40.0f)  /* DNPW + head-on front gate: nearer */
+#define FCW_FRONT_THRESHOLD        (80.0f)  /**< FCW front gate: warn earlier */
+#define DNPW_FRONT_THRESHOLD       (40.0f)  /**< DNPW + head-on front gate: nearer */
 
-/* DNPW escalation gate (cm): when DNPW fires, a near front-left reading raises the
- * DNPW severity to CRITICAL. The overtaking car pulls out to the LEFT, so the
- * oncoming car it must not pass shows up on its front-LEFT sensor. */
+/**
+ * @brief Front-left reading below which a Do-Not-Pass warning escalates to critical [cm].
+ *
+ * A car overtaking pulls out to the **left**, so the oncoming vehicle it must not
+ * pass is the one that shows up on the front-*left* sensor. Seeing something there
+ * while DNPW is already firing means the overtake is actively unsafe, not merely
+ * inadvisable.
+ */
 #define DNPW_FRONT_LEFT_CRITICAL  (40.0f)
 
 #endif

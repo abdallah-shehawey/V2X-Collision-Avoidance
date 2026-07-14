@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Src/SYSTIC_program.c File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Src/SYSTIC_program.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -94,36 +94,19 @@ $(function(){initNavTree('SYSTIC__program_8c.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>SysTick Timer Driver Implementation.  
+<p>===========================================================================** &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; <a class="el" href="SYSTIC__program_8c.html" title="===========================================================================** &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;...">SYSTIC_program.c</a> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;** ** Author : Abdallah Abdelmoemen Shehawey ** Layer : MCAL ** CPU : Cortex-M4 ** MCU : NUCLEO-F446RE ** SWC : SYSTIC ** ** ===========================================================================**  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">../Inc/Drivers/LIB/STM32F446xx.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="STM32F446xx_8h_source.html">../Inc/Drivers/LIB/STM32F446xx.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ErrTypes_8h_source.html">../Inc/Drivers/LIB/ErrTypes.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SYSTIC__config_8h_source.html">../Inc/Drivers/MCAL/SYSTIC/SYSTIC_config.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SYSTIC__interface_8h_source.html">../Inc/Drivers/MCAL/SYSTIC/SYSTIC_interface.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SYSTIC__private_8h_source.html">../Inc/Drivers/MCAL/SYSTIC/SYSTIC_private.h</a>&quot;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for SYSTIC_program.c:</div>
-<div class="dyncontent">
-<div class="center"><img src="SYSTIC__program_8c__incl.png" border="0" usemap="#aSrc_2SYSTIC__program_8c" loading="lazy" alt=""/></div>
-<map name="aSrc_2SYSTIC__program_8c" id="aSrc_2SYSTIC__program_8c">
-<area shape="rect" title="SysTick Timer Driver Implementation." alt="" coords="301,5,465,33"/>
-<area shape="rect" title=" " alt="" coords="56,182,126,210"/>
-<area shape="poly" title=" " alt="" coords="299,23,220,30,135,40,61,57,34,69,16,83,10,93,8,104,17,128,37,151,61,172,56,174,33,155,13,131,3,105,5,92,12,79,31,64,59,52,134,34,220,24,303,21"/>
-<area shape="rect" href="Drivers_2LIB_2STM32F446xx_8h.html" title=" " alt="" coords="26,81,156,126"/>
-<area shape="poly" title=" " alt="" coords="335,36,172,82,170,77,338,31"/>
-<area shape="rect" href="ErrTypes_8h.html" title=" " alt="" coords="382,174,509,218"/>
-<area shape="poly" title=" " alt="" coords="462,31,540,51,572,64,592,79,599,91,601,103,592,127,579,144,562,158,525,178,523,173,559,153,575,140,587,124,595,103,594,93,588,83,569,69,539,56,462,36"/>
-<area shape="rect" href="SYSTIC__config_8h.html" title=" " alt="" coords="400,81,577,126"/>
-<area shape="poly" title=" " alt="" coords="401,31,451,71,446,71,399,36"/>
-<area shape="rect" href="SYSTIC__interface_8h.html" title=" " alt="" coords="180,81,376,126"/>
-<area shape="poly" title=" " alt="" coords="368,32,319,73,316,69,364,35"/>
-<area shape="rect" href="SYSTIC__private_8h.html" title=" " alt="" coords="652,81,837,126"/>
-<area shape="poly" title=" " alt="" coords="441,31,639,77,634,78,441,36"/>
-<area shape="poly" title=" " alt="" coords="93,124,94,167,88,166,89,128"/>
-<area shape="poly" title=" " alt="" coords="236,126,133,177,131,173,230,127"/>
-<area shape="poly" title=" " alt="" coords="319,124,395,166,390,166,317,129"/>
-</map>
+</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for SYSTIC_program.c:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="SYSTIC__program_8c__incl.svg" width="100%" height="481"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="SYSTIC__program_8c_source.html">Go to the source code of this file.</a></p>
@@ -132,101 +115,187 @@ Include dependency graph for SYSTIC_program.c:</div>
 Functions</h2></td></tr>
 <tr class="memitem:a99e63ce5310c50cf04f33715ace4023c" id="r_a99e63ce5310c50cf04f33715ace4023c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a99e63ce5310c50cf04f33715ace4023c">SYSTIC_vInit</a> (void)</td></tr>
 <tr class="memdesc:a99e63ce5310c50cf04f33715ace4023c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the SysTick timer with configured settings.  <br /></td></tr>
+<tr class="memitem:ac095f2dcf6262ec7bd865b1bdac25b64" id="r_ac095f2dcf6262ec7bd865b1bdac25b64"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#ac095f2dcf6262ec7bd865b1bdac25b64">SYSTIC_vDisable</a> (void)</td></tr>
+<tr class="memdesc:ac095f2dcf6262ec7bd865b1bdac25b64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the SysTick timer.  <br /></td></tr>
+<tr class="memitem:aed31b8341f403a3068ea1106d1c31e09" id="r_aed31b8341f403a3068ea1106d1c31e09"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#aed31b8341f403a3068ea1106d1c31e09">SYSTIC_vEnable</a> (void)</td></tr>
+<tr class="memdesc:aed31b8341f403a3068ea1106d1c31e09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the SysTick timer.  <br /></td></tr>
+<tr class="memitem:ab105192747b83b6f41fb0cc7c242649d" id="r_ab105192747b83b6f41fb0cc7c242649d"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#ab105192747b83b6f41fb0cc7c242649d">SYSTIC_vWait</a> (void)</td></tr>
+<tr class="memdesc:ab105192747b83b6f41fb0cc7c242649d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait for the SysTick timer to complete counting.  <br /></td></tr>
 <tr class="memitem:a1726b39164004495ff64017b18f6e118" id="r_a1726b39164004495ff64017b18f6e118"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1726b39164004495ff64017b18f6e118">SYSTIC_vDelayMs</a> (uint32_t Copy_u32MsTime)</td></tr>
+<tr class="memdesc:a1726b39164004495ff64017b18f6e118"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a precise millisecond delay using polling method.  <br /></td></tr>
 <tr class="memitem:ad76d8f1128b3a2cfceeca65bac33b757" id="r_ad76d8f1128b3a2cfceeca65bac33b757"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad76d8f1128b3a2cfceeca65bac33b757">SYSTIC_vDelayUs</a> (uint32_t Copy_u32UsTime)</td></tr>
-<tr class="memitem:a6f1eb3133defa3900330337cde02ddc1" id="r_a6f1eb3133defa3900330337cde02ddc1"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6f1eb3133defa3900330337cde02ddc1">SYSTIC_enumGetElapsedTickSingleShot</a> (uint32_t *Copy_pu32Tick)</td></tr>
-<tr class="memitem:a6faccf82df62191d2ba2aaf0a0dd66ea" id="r_a6faccf82df62191d2ba2aaf0a0dd66ea"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6faccf82df62191d2ba2aaf0a0dd66ea">SYSTIC_enumRemainingTickSingleShot</a> (uint32_t *Copy_pu32Tick)</td></tr>
-<tr class="memitem:a233735d97515255dbfddaaed7a4a5822" id="r_a233735d97515255dbfddaaed7a4a5822"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a233735d97515255dbfddaaed7a4a5822">SYSTIC_enumCallback</a> (void(*Copy_pvCallBack)(void), uint32_t Copy_u32Tick)</td></tr>
-<tr class="memitem:a5a2145332c475bf7e865779752a45200" id="r_a5a2145332c475bf7e865779752a45200"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5a2145332c475bf7e865779752a45200">SYSTIC_enumCallbackSingleShot</a> (void(*Copy_pvCallBack)(void), uint32_t Copy_u32Tick)</td></tr>
+<tr class="memdesc:ad76d8f1128b3a2cfceeca65bac33b757"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a precise microsecond delay using polling method.  <br /></td></tr>
+<tr class="memitem:a6f1eb3133defa3900330337cde02ddc1" id="r_a6f1eb3133defa3900330337cde02ddc1"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6f1eb3133defa3900330337cde02ddc1">SYSTIC_enumGetElapsedTickSingleShot</a> (uint32_t *Copy_pu32Tick)</td></tr>
+<tr class="memdesc:a6f1eb3133defa3900330337cde02ddc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a precise microsecond delay using polling method.  <br /></td></tr>
+<tr class="memitem:a6faccf82df62191d2ba2aaf0a0dd66ea" id="r_a6faccf82df62191d2ba2aaf0a0dd66ea"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6faccf82df62191d2ba2aaf0a0dd66ea">SYSTIC_enumRemainingTickSingleShot</a> (uint32_t *Copy_pu32Tick)</td></tr>
+<tr class="memdesc:a6faccf82df62191d2ba2aaf0a0dd66ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the remaining tick count for a single-shot SysTick timer.  <br /></td></tr>
+<tr class="memitem:a233735d97515255dbfddaaed7a4a5822" id="r_a233735d97515255dbfddaaed7a4a5822"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a233735d97515255dbfddaaed7a4a5822">SYSTIC_enumCallback</a> (void(*Copy_pvCallBack)(void), uint32_t Copy_u32Tick)</td></tr>
+<tr class="memdesc:a233735d97515255dbfddaaed7a4a5822"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a <b>periodic</b> callback, fired from the SysTick ISR every <code class="param">Copy_u32Tick</code> ticks.  <br /></td></tr>
+<tr class="memitem:a5a2145332c475bf7e865779752a45200" id="r_a5a2145332c475bf7e865779752a45200"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5a2145332c475bf7e865779752a45200">SYSTIC_enumCallbackSingleShot</a> (void(*Copy_pvCallBack)(void), uint32_t Copy_u32Tick)</td></tr>
+<tr class="memdesc:a5a2145332c475bf7e865779752a45200"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a <b>one-shot</b> callback, fired once after <code class="param">Copy_u32Tick</code> ticks.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ad7fd210618a8746df3cf57ec955c3259" id="r_ad7fd210618a8746df3cf57ec955c3259"><td class="memItemLeft">static void(*&#160;</td><td class="memItemRight"><a class="el" href="#ad7fd210618a8746df3cf57ec955c3259">SYSTIC_CallBack</a> )(void)</td></tr>
+<tr class="memdesc:ad7fd210618a8746df3cf57ec955c3259"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback invoked from the SysTick ISR; NULL means none registered.  <br /></td></tr>
+<tr class="memitem:a9721a4d0aaa47d84c581c06e153b8a87" id="r_a9721a4d0aaa47d84c581c06e153b8a87"><td class="memItemLeft">static uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a9721a4d0aaa47d84c581c06e153b8a87">SingleShot_Flag</a></td></tr>
+<tr class="memdesc:a9721a4d0aaa47d84c581c06e153b8a87"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 = the pending callback is one-shot and disarms itself after firing; 0 = periodic.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>SysTick Timer Driver Implementation. </p>
-<p>===========================================================================** &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; <a class="el" href="SYSTIC__program_8c.html" title="SysTick Timer Driver Implementation.">SYSTIC_program.c</a> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;** ** Author : Abdallah Abdelmoemen Shehawey ** Layer : MCAL ** CPU : Cortex-M4 ** MCU : NUCLEO-F446RE ** SWC : SYSTIC ** ** ===========================================================================**</p>
+<div class="textblock"><p>===========================================================================** &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; <a class="el" href="SYSTIC__program_8c.html" title="===========================================================================** &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;...">SYSTIC_program.c</a> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;** ** Author : Abdallah Abdelmoemen Shehawey ** Layer : MCAL ** CPU : Cortex-M4 ** MCU : NUCLEO-F446RE ** SWC : SYSTIC ** ** ===========================================================================** </p>
+<p>SysTick Timer Driver Implementation</p>
 <p>This file implements the SysTick timer functionality for STM32F446RE microcontroller. SysTick is a 24-bit down counter that can be used for generating precise delays and periodic interrupts. The driver supports both polling and interrupt-based operation modes. </p>
 
 <p class="definition">Definition in file <a class="el" href="SYSTIC__program_8c_source.html">SYSTIC_program.c</a>.</p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a233735d97515255dbfddaaed7a4a5822" name="a233735d97515255dbfddaaed7a4a5822"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a233735d97515255dbfddaaed7a4a5822">&#9670;&#160;</a></span>SYSTIC_enumCallback()</h2>
+<a id="a99e63ce5310c50cf04f33715ace4023c" name="a99e63ce5310c50cf04f33715ace4023c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99e63ce5310c50cf04f33715ace4023c">&#9670;&#160;</a></span>SYSTIC_vInit()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> SYSTIC_enumCallback </td>
+          <td class="memname">void SYSTIC_vInit </td>
           <td>(</td>
-          <td class="paramtype">void(*</td>          <td class="paramname"><span class="paramname"><em>Copy_pvCallBack&#160;</em></span>)(void), </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u32Tick</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SYSTIC__program_8c_source.html#l00372">372</a> of file <a class="el" href="SYSTIC__program_8c_source.html">SYSTIC_program.c</a>.</p>
+<p>Initialize the SysTick timer with configured settings. </p>
+<p>This function initializes the SysTick timer with the following:</p><ul>
+<li>Configures the clock source (AHB or AHB/8)</li>
+<li>Sets up interrupt settings if enabled</li>
+<li>Prepares the timer for delay operations</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>Must be called before using any other SYSTIC functions </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Ensure proper clock configuration before initialization </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd><a class="el" href="SYSTIC__interface_8h.html#a99e63ce5310c50cf04f33715ace4023c" title="Initialize the SysTick timer with configured settings.">SYSTIC_vInit()</a>; </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="SYSTIC__program_8c_source.html#l00049">49</a> of file <a class="el" href="SYSTIC__program_8c_source.html">SYSTIC_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="STM32F446xx_8h_source.html#l00138">MSYSTIC</a>, <a class="el" href="SYSTIC__private_8h_source.html#l00020">SYSTIC_CTRL_CLKSOURCE</a>, and <a class="el" href="SYSTIC__private_8h_source.html#l00019">SYSTIC_CTRL_TICKINT</a>.</p>
 
 </div>
 </div>
-<a id="a5a2145332c475bf7e865779752a45200" name="a5a2145332c475bf7e865779752a45200"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a2145332c475bf7e865779752a45200">&#9670;&#160;</a></span>SYSTIC_enumCallbackSingleShot()</h2>
+<a id="ac095f2dcf6262ec7bd865b1bdac25b64" name="ac095f2dcf6262ec7bd865b1bdac25b64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac095f2dcf6262ec7bd865b1bdac25b64">&#9670;&#160;</a></span>SYSTIC_vDisable()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> SYSTIC_enumCallbackSingleShot </td>
+          <td class="memname">void SYSTIC_vDisable </td>
           <td>(</td>
-          <td class="paramtype">void(*</td>          <td class="paramname"><span class="paramname"><em>Copy_pvCallBack&#160;</em></span>)(void), </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u32Tick</em></span>&#160;)</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SYSTIC__program_8c_source.html#l00428">428</a> of file <a class="el" href="SYSTIC__program_8c_source.html">SYSTIC_program.c</a>.</p>
+<p>Disable the SysTick timer. </p>
+<p>Stops the timer by clearing the ENABLE bit in the CTRL register This function is used internally by delay functions </p>
+
+<p class="definition">Definition at line <a class="el" href="SYSTIC__program_8c_source.html#l00085">85</a> of file <a class="el" href="SYSTIC__program_8c_source.html">SYSTIC_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="STM32F446xx_8h_source.html#l00138">MSYSTIC</a>, and <a class="el" href="SYSTIC__private_8h_source.html#l00018">SYSTIC_CTRL_ENABLE</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SYSTIC__program_8c_source.html#l00133">SYSTIC_vDelayMs()</a>, and <a class="el" href="SYSTIC__program_8c_source.html#l00207">SYSTIC_vDelayUs()</a>.</p>
+<div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="SYSTIC__program_8c_ac095f2dcf6262ec7bd865b1bdac25b64_icgraph.svg" width="328" height="91"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
-<a id="a6f1eb3133defa3900330337cde02ddc1" name="a6f1eb3133defa3900330337cde02ddc1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f1eb3133defa3900330337cde02ddc1">&#9670;&#160;</a></span>SYSTIC_enumGetElapsedTickSingleShot()</h2>
+<a id="aed31b8341f403a3068ea1106d1c31e09" name="aed31b8341f403a3068ea1106d1c31e09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed31b8341f403a3068ea1106d1c31e09">&#9670;&#160;</a></span>SYSTIC_vEnable()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> SYSTIC_enumGetElapsedTickSingleShot </td>
+          <td class="memname">void SYSTIC_vEnable </td>
           <td>(</td>
-          <td class="paramtype">uint32_t *</td>          <td class="paramname"><span class="paramname"><em>Copy_pu32Tick</em></span></td><td>)</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SYSTIC__program_8c_source.html#l00286">286</a> of file <a class="el" href="SYSTIC__program_8c_source.html">SYSTIC_program.c</a>.</p>
+<p>Enable the SysTick timer. </p>
+<p>Starts the timer by setting the ENABLE bit in the CTRL register This function is used internally by delay functions </p>
+
+<p class="definition">Definition at line <a class="el" href="SYSTIC__program_8c_source.html#l00097">97</a> of file <a class="el" href="SYSTIC__program_8c_source.html">SYSTIC_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="STM32F446xx_8h_source.html#l00138">MSYSTIC</a>, and <a class="el" href="SYSTIC__private_8h_source.html#l00018">SYSTIC_CTRL_ENABLE</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SYSTIC__program_8c_source.html#l00365">SYSTIC_enumCallback()</a>, <a class="el" href="SYSTIC__program_8c_source.html#l00420">SYSTIC_enumCallbackSingleShot()</a>, <a class="el" href="SYSTIC__program_8c_source.html#l00133">SYSTIC_vDelayMs()</a>, and <a class="el" href="SYSTIC__program_8c_source.html#l00207">SYSTIC_vDelayUs()</a>.</p>
+<div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="SYSTIC__program_8c_aed31b8341f403a3068ea1106d1c31e09_icgraph.svg" width="420" height="195"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
-<a id="a6faccf82df62191d2ba2aaf0a0dd66ea" name="a6faccf82df62191d2ba2aaf0a0dd66ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6faccf82df62191d2ba2aaf0a0dd66ea">&#9670;&#160;</a></span>SYSTIC_enumRemainingTickSingleShot()</h2>
+<a id="ab105192747b83b6f41fb0cc7c242649d" name="ab105192747b83b6f41fb0cc7c242649d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab105192747b83b6f41fb0cc7c242649d">&#9670;&#160;</a></span>SYSTIC_vWait()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> SYSTIC_enumRemainingTickSingleShot </td>
+          <td class="memname">void SYSTIC_vWait </td>
           <td>(</td>
-          <td class="paramtype">uint32_t *</td>          <td class="paramname"><span class="paramname"><em>Copy_pu32Tick</em></span></td><td>)</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SYSTIC__program_8c_source.html#l00327">327</a> of file <a class="el" href="SYSTIC__program_8c_source.html">SYSTIC_program.c</a>.</p>
+<p>Wait for the SysTick timer to complete counting. </p>
+<p>Polls the COUNTFLAG bit in the CTRL register until it is set, indicating that the counter has reached zero </p>
+
+<p class="definition">Definition at line <a class="el" href="SYSTIC__program_8c_source.html#l00109">109</a> of file <a class="el" href="SYSTIC__program_8c_source.html">SYSTIC_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="STM32F446xx_8h_source.html#l00138">MSYSTIC</a>, and <a class="el" href="SYSTIC__private_8h_source.html#l00021">SYSTIC_CTRL_COUNTFLAG</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SYSTIC__program_8c_source.html#l00133">SYSTIC_vDelayMs()</a>, and <a class="el" href="SYSTIC__program_8c_source.html#l00207">SYSTIC_vDelayUs()</a>.</p>
+<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="SYSTIC__program_8c_ab105192747b83b6f41fb0cc7c242649d_icgraph.svg" width="308" height="91"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -245,7 +314,27 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SYSTIC__program_8c_source.html#l00136">136</a> of file <a class="el" href="SYSTIC__program_8c_source.html">SYSTIC_program.c</a>.</p>
+<p>Generate a precise millisecond delay using polling method. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">Copy_u32MsTime</td><td>Delay duration in milliseconds (1 to 16777215 ms)</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Uses the SysTick timer to generate accurate millisecond delays by polling the COUNTFLAG bit</p>
+<dl class="section note"><dt>Note</dt><dd>This is a blocking function </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Maximum delay is limited by the 24-bit counter </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd>SYSTIC_vDelayMs(1000); </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="SYSTIC__program_8c_source.html#l00133">133</a> of file <a class="el" href="SYSTIC__program_8c_source.html">SYSTIC_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="STM32F446xx_8h_source.html#l00138">MSYSTIC</a>, <a class="el" href="SYSTIC__config_8h_source.html#l00030">SYSTEM_CLOCK_IN_KHZ</a>, <a class="el" href="SYSTIC__private_8h_source.html#l00029">SYSTIC_MAX_NO_OF_TICKS</a>, <a class="el" href="SYSTIC__program_8c_source.html#l00085">SYSTIC_vDisable()</a>, <a class="el" href="SYSTIC__program_8c_source.html#l00097">SYSTIC_vEnable()</a>, and <a class="el" href="SYSTIC__program_8c_source.html#l00109">SYSTIC_vWait()</a>.</p>
+<div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="SYSTIC__program_8c_a1726b39164004495ff64017b18f6e118_cgraph.svg" width="328" height="143"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -264,51 +353,271 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SYSTIC__program_8c_source.html#l00211">211</a> of file <a class="el" href="SYSTIC__program_8c_source.html">SYSTIC_program.c</a>.</p>
+<p>Generate a precise microsecond delay using polling method. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">Copy_u32UsTime</td><td>Delay duration in microseconds (1 to 16777215 µs)</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Uses the SysTick timer to generate accurate microsecond delays by polling the COUNTFLAG bit</p>
+<dl class="section note"><dt>Note</dt><dd>This is a blocking function </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>For very short delays (&lt;10µs), accuracy may be affected by function call overhead </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd>SYSTIC_vDelayUs(500); </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="SYSTIC__program_8c_source.html#l00207">207</a> of file <a class="el" href="SYSTIC__program_8c_source.html">SYSTIC_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="STM32F446xx_8h_source.html#l00138">MSYSTIC</a>, <a class="el" href="SYSTIC__config_8h_source.html#l00023">SYSTEM_CLOCK_IN_MHZ</a>, <a class="el" href="SYSTIC__private_8h_source.html#l00029">SYSTIC_MAX_NO_OF_TICKS</a>, <a class="el" href="SYSTIC__program_8c_source.html#l00085">SYSTIC_vDisable()</a>, <a class="el" href="SYSTIC__program_8c_source.html#l00097">SYSTIC_vEnable()</a>, and <a class="el" href="SYSTIC__program_8c_source.html#l00109">SYSTIC_vWait()</a>.</p>
+<div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="SYSTIC__program_8c_ad76d8f1128b3a2cfceeca65bac33b757_cgraph.svg" width="326" height="143"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
-<a id="a99e63ce5310c50cf04f33715ace4023c" name="a99e63ce5310c50cf04f33715ace4023c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a99e63ce5310c50cf04f33715ace4023c">&#9670;&#160;</a></span>SYSTIC_vInit()</h2>
+<a id="a6f1eb3133defa3900330337cde02ddc1" name="a6f1eb3133defa3900330337cde02ddc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f1eb3133defa3900330337cde02ddc1">&#9670;&#160;</a></span>SYSTIC_enumGetElapsedTickSingleShot()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void SYSTIC_vInit </td>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> SYSTIC_enumGetElapsedTickSingleShot </td>
           <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">uint32_t *</td>          <td class="paramname"><span class="paramname"><em>Copy_pu32Tick</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initialize the SysTick timer with configured settings. </p>
-<p>Initialize and configure the SysTick timer.</p>
-<p>===========================================================================** &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; <a class="el" href="SYSTIC__interface_8h.html">SYSTIC_interface.h</a> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;** ** Author : Abdallah Abdelmoemen Shehawey ** Layer : MCAL ** CPU : Cortex-M4 ** MCU : NUCLEO-F446RE ** SWC : SYSTIC ** ** ===========================================================================**</p>
-<p>This function initializes the SysTick timer with the following:</p><ul>
-<li>Configures the clock source (AHB or AHB/8)</li>
-<li>Sets up interrupt settings if enabled</li>
-<li>Prepares the timer for delay operations</li>
-</ul>
-<dl class="section note"><dt>Note</dt><dd>Must be called before using any other SYSTIC functions </dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>Ensure proper clock configuration before initialization</dd></dl>
-<p>This function performs the following configurations:</p><ol type="1">
-<li>Sets up the clock source based on SYSTIC_CLKSOURCE configuration<ul>
-<li>AHB clock: Maximum precision but higher power consumption</li>
-<li>AHB/8: Lower precision but more power efficient</li>
-</ul>
-</li>
-<li>Configures the interrupt state based on SYSTIC_TICKINT<ul>
-<li>Enabled: Timer will generate exceptions</li>
-<li>Disabled: Polling mode operation</li>
-</ul>
-</li>
+<p>Generate a precise microsecond delay using polling method. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">Copy_pu32Tick</td><td>Pointer to store the elapsed tick count</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This function:</p><ol type="1">
+<li>Calculates the number of ticks needed based on clock configuration</li>
+<li>Handles delays longer than maximum counter value (24-bit) by breaking them into multiple shorter delays</li>
 </ol>
-<dl class="section note"><dt>Note</dt><dd>This function must be called before using any other SYSTIC functions </dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>Ensure system clock is properly configured before calling this function </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>OK if the tick count was written to <code class="param">Copy_pu32Tick</code>, NULL_POINTER if it was NULL.<ol type="1">
+<li>Uses polling method to wait for completion</li>
+</ol>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The actual delay might be slightly longer than requested due to:<ul>
+<li>Function call overhead</li>
+<li>Context switching (if interrupts are enabled)</li>
+<li>Clock frequency rounding</li>
+</ul>
+</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>For very short delays (&lt;10µs), the actual elapsed tick count may be longer than requested due to function call overhead </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd></dd></dl>
+<p>uint32_t elapsed; SYSTIC_enumGetElapsedTickSingleShot(&amp;elapsed); </p>
 
-<p class="definition">Definition at line <a class="el" href="SYSTIC__program_8c_source.html#l00048">48</a> of file <a class="el" href="SYSTIC__program_8c_source.html">SYSTIC_program.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SYSTIC__program_8c_source.html#l00281">281</a> of file <a class="el" href="SYSTIC__program_8c_source.html">SYSTIC_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="STM32F446xx_8h_source.html#l00138">MSYSTIC</a>, <a class="el" href="ErrTypes_8h_source.html#l00024">NULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00044">NULL_POINTER</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, and <a class="el" href="SYSTIC__config_8h_source.html#l00023">SYSTEM_CLOCK_IN_MHZ</a>.</p>
+
+</div>
+</div>
+<a id="a6faccf82df62191d2ba2aaf0a0dd66ea" name="a6faccf82df62191d2ba2aaf0a0dd66ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6faccf82df62191d2ba2aaf0a0dd66ea">&#9670;&#160;</a></span>SYSTIC_enumRemainingTickSingleShot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> SYSTIC_enumRemainingTickSingleShot </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t *</td>          <td class="paramname"><span class="paramname"><em>Copy_pu32Tick</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the remaining tick count for a single-shot SysTick timer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">Copy_pu32Tick</td><td>Pointer to store the remaining tick count</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This function:</p><ol type="1">
+<li>Calculates the number of ticks remaining for a single-shot SysTick timer</li>
+</ol>
+<dl class="section return"><dt>Returns</dt><dd>OK if the remaining count was written to <code class="param">Copy_pu32Tick</code>, NULL_POINTER if it was NULL.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The actual remaining tick count might be slightly longer than requested due to:<ul>
+<li>Function call overhead</li>
+<li>Context switching (if interrupts are enabled)</li>
+<li>Clock frequency rounding</li>
+</ul>
+</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>For very short delays (&lt;10µs), the actual remaining tick count may be longer than requested due to function call overhead </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd></dd></dl>
+<p>uint32_t remaining; SYSTIC_enumRemainingTickSingleShot(&amp;remaining); </p>
+
+<p class="definition">Definition at line <a class="el" href="SYSTIC__program_8c_source.html#l00321">321</a> of file <a class="el" href="SYSTIC__program_8c_source.html">SYSTIC_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="STM32F446xx_8h_source.html#l00138">MSYSTIC</a>, <a class="el" href="ErrTypes_8h_source.html#l00024">NULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00044">NULL_POINTER</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, and <a class="el" href="SYSTIC__config_8h_source.html#l00023">SYSTEM_CLOCK_IN_MHZ</a>.</p>
+
+</div>
+</div>
+<a id="a233735d97515255dbfddaaed7a4a5822" name="a233735d97515255dbfddaaed7a4a5822"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a233735d97515255dbfddaaed7a4a5822">&#9670;&#160;</a></span>SYSTIC_enumCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> SYSTIC_enumCallback </td>
+          <td>(</td>
+          <td class="paramtype">void(*</td>          <td class="paramname"><span class="paramname"><em>Copy_pvCallBack&#160;</em></span>)(void), </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u32Tick</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Register a <b>periodic</b> callback, fired from the SysTick ISR every <code class="param">Copy_u32Tick</code> ticks. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">Copy_pvCallBack</td><td>Function to call. Runs in interrupt context, so it must be short and non-blocking. </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">Copy_u32Tick</td><td>Period, in SysTick ticks. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="group__lib.html#gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59" title="The call completed successfully.">OK</a></td><td>The callback was registered and the timer started. </td></tr>
+    <tr><td class="paramname"><a class="el" href="group__lib.html#gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd" title="A required pointer argument was NULL.">NULL_POINTER</a></td><td><code class="param">Copy_pvCallBack</code> was NULL.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd>For very short periods (under ~10 us) the call overhead is a significant fraction of the period, and the real interval will be longer than asked for. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="SYSTIC__program_8c_source.html#l00365">365</a> of file <a class="el" href="SYSTIC__program_8c_source.html">SYSTIC_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="STM32F446xx_8h_source.html#l00138">MSYSTIC</a>, <a class="el" href="ErrTypes_8h_source.html#l00024">NULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00044">NULL_POINTER</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="SYSTIC__program_8c_source.html#l00033">SingleShot_Flag</a>, <a class="el" href="SYSTIC__config_8h_source.html#l00023">SYSTEM_CLOCK_IN_MHZ</a>, <a class="el" href="SYSTIC__program_8c_source.html#l00031">SYSTIC_CallBack</a>, and <a class="el" href="SYSTIC__program_8c_source.html#l00097">SYSTIC_vEnable()</a>.</p>
+<div id="dynsection-6" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="SYSTIC__program_8c_a233735d97515255dbfddaaed7a4a5822_cgraph.svg" width="351" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a5a2145332c475bf7e865779752a45200" name="a5a2145332c475bf7e865779752a45200"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a2145332c475bf7e865779752a45200">&#9670;&#160;</a></span>SYSTIC_enumCallbackSingleShot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> SYSTIC_enumCallbackSingleShot </td>
+          <td>(</td>
+          <td class="paramtype">void(*</td>          <td class="paramname"><span class="paramname"><em>Copy_pvCallBack&#160;</em></span>)(void), </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u32Tick</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Register a <b>one-shot</b> callback, fired once after <code class="param">Copy_u32Tick</code> ticks. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">Copy_pvCallBack</td><td>Function to call. Runs in interrupt context. </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">Copy_u32Tick</td><td>Delay before it fires, in SysTick ticks. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="group__lib.html#gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59" title="The call completed successfully.">OK</a></td><td>The callback was registered and the timer started. </td></tr>
+    <tr><td class="paramname"><a class="el" href="group__lib.html#gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd" title="A required pointer argument was NULL.">NULL_POINTER</a></td><td><code class="param">Copy_pvCallBack</code> was NULL.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Disarms itself after firing — unlike <a class="el" href="SYSTIC__interface_8h.html#a233735d97515255dbfddaaed7a4a5822" title="SYSTIC_enumCallback">SYSTIC_enumCallback</a>, which repeats until it is replaced. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="SYSTIC__program_8c_source.html#l00420">420</a> of file <a class="el" href="SYSTIC__program_8c_source.html">SYSTIC_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="STM32F446xx_8h_source.html#l00138">MSYSTIC</a>, <a class="el" href="ErrTypes_8h_source.html#l00024">NULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00044">NULL_POINTER</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="SYSTIC__program_8c_source.html#l00033">SingleShot_Flag</a>, <a class="el" href="SYSTIC__config_8h_source.html#l00023">SYSTEM_CLOCK_IN_MHZ</a>, <a class="el" href="SYSTIC__program_8c_source.html#l00031">SYSTIC_CallBack</a>, and <a class="el" href="SYSTIC__program_8c_source.html#l00097">SYSTIC_vEnable()</a>.</p>
+<div id="dynsection-7" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="SYSTIC__program_8c_a5a2145332c475bf7e865779752a45200_cgraph.svg" width="420" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="ad7fd210618a8746df3cf57ec955c3259" name="ad7fd210618a8746df3cf57ec955c3259"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7fd210618a8746df3cf57ec955c3259">&#9670;&#160;</a></span>SYSTIC_CallBack</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void(* SYSTIC_CallBack) (void) </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback invoked from the SysTick ISR; NULL means none registered. </p>
+
+<p class="definition">Definition at line <a class="el" href="SYSTIC__program_8c_source.html#l00031">31</a> of file <a class="el" href="SYSTIC__program_8c_source.html">SYSTIC_program.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SYSTIC__program_8c_source.html#l00365">SYSTIC_enumCallback()</a>, and <a class="el" href="SYSTIC__program_8c_source.html#l00420">SYSTIC_enumCallbackSingleShot()</a>.</p>
+
+</div>
+</div>
+<a id="a9721a4d0aaa47d84c581c06e153b8a87" name="a9721a4d0aaa47d84c581c06e153b8a87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9721a4d0aaa47d84c581c06e153b8a87">&#9670;&#160;</a></span>SingleShot_Flag</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t SingleShot_Flag</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>1 = the pending callback is one-shot and disarms itself after firing; 0 = periodic. </p>
+
+<p class="definition">Definition at line <a class="el" href="SYSTIC__program_8c_source.html#l00033">33</a> of file <a class="el" href="SYSTIC__program_8c_source.html">SYSTIC_program.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SYSTIC__program_8c_source.html#l00365">SYSTIC_enumCallback()</a>, and <a class="el" href="SYSTIC__program_8c_source.html#l00420">SYSTIC_enumCallbackSingleShot()</a>.</p>
 
 </div>
 </div>
@@ -325,7 +634,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_413f4e031a85da0d68269c6fd2f76e1c.html">Src</a></li><li class="navelem"><a href="SYSTIC__program_8c.html">SYSTIC_program.c</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Src</b></li><li class="navelem"><a href="SYSTIC__program_8c.html">SYSTIC_program.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Src/SYSCFG_program.c File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Src/SYSCFG_program.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,40 +90,24 @@ $(function(){initNavTree('SYSCFG__program_8c.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">SYSCFG_program.c File Reference</div></div>
+  <div class="headertitle"><div class="title">SYSCFG_program.c File Reference<div class="ingroups"><a class="el" href="group__mcal.html">MCAL</a> &raquo; <a class="el" href="group__mcal__syscfg.html">SYSCFG</a></div></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Implementation of the SYSCFG driver — the system configuration controller.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">../Inc/Drivers/LIB/STM32F446xx.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="STM32F446xx_8h_source.html">../Inc/Drivers/LIB/STM32F446xx.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="STD__MACROS_8h_source.html">../Inc/Drivers/LIB/STD_MACROS.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ErrTypes_8h_source.html">../Inc/Drivers/LIB/ErrTypes.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SYSCFG__private_8h_source.html">../Inc/Drivers/MCAL/SYSCFG/SYSCFG_private.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SYSCFG__config_8h_source.html">../Inc/Drivers/MCAL/SYSCFG/SYSCFG_config.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SYSCFG__interface_8h_source.html">../Inc/Drivers/MCAL/SYSCFG/SYSCFG_interface.h</a>&quot;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for SYSCFG_program.c:</div>
-<div class="dyncontent">
-<div class="center"><img src="SYSCFG__program_8c__incl.png" border="0" usemap="#aSrc_2SYSCFG__program_8c" loading="lazy" alt=""/></div>
-<map name="aSrc_2SYSCFG__program_8c" id="aSrc_2SYSCFG__program_8c">
-<area shape="rect" title=" " alt="" coords="381,5,551,33"/>
-<area shape="rect" title=" " alt="" coords="138,182,208,210"/>
-<area shape="poly" title=" " alt="" coords="379,31,274,52,229,66,200,83,187,101,179,123,173,168,169,165,174,122,182,99,196,79,227,61,273,47,383,29"/>
-<area shape="rect" href="Drivers_2LIB_2STM32F446xx_8h.html" title=" " alt="" coords="5,81,135,126"/>
-<area shape="poly" title=" " alt="" coords="392,36,155,84,151,84,149,80,153,78,393,31"/>
-<area shape="rect" href="STD__MACROS_8h.html" title=" " alt="" coords="210,81,338,126"/>
-<area shape="poly" title=" " alt="" coords="433,35,340,77,338,72,438,33"/>
-<area shape="rect" href="ErrTypes_8h.html" title=" " alt="" coords="690,174,818,218"/>
-<area shape="poly" title=" " alt="" coords="551,21,681,28,828,39,952,56,995,67,1019,79,1032,103,1029,125,1011,142,984,156,911,177,833,190,833,185,910,172,982,151,1008,138,1024,122,1027,104,1015,83,993,72,951,61,827,45,681,33,551,26"/>
-<area shape="rect" href="SYSCFG__private_8h.html" title=" " alt="" coords="594,81,791,126"/>
-<area shape="poly" title=" " alt="" coords="503,31,621,75,616,76,502,36"/>
-<area shape="rect" href="SYSCFG__config_8h.html" title=" " alt="" coords="815,81,1005,126"/>
-<area shape="poly" title=" " alt="" coords="542,31,803,80,798,81,541,36"/>
-<area shape="rect" href="SYSCFG__interface_8h.html" title=" " alt="" coords="362,81,570,126"/>
-<area shape="poly" title=" " alt="" coords="468,31,468,66,464,64,464,36"/>
-<area shape="poly" title=" " alt="" coords="95,123,149,171,144,172,93,128"/>
-<area shape="poly" title=" " alt="" coords="398,126,223,182,222,177,393,126"/>
-<area shape="poly" title=" " alt="" coords="535,124,678,170,673,170,535,129"/>
-</map>
+</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for SYSCFG_program.c:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="SYSCFG__program_8c__incl.svg" width="100%" height="481"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="SYSCFG__program_8c_source.html">Go to the source code of this file.</a></p>
@@ -131,8 +115,14 @@ Include dependency graph for SYSCFG_program.c:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ae89860feecf5f8fa39db3d67b9ebe08a" id="r_ae89860feecf5f8fa39db3d67b9ebe08a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae89860feecf5f8fa39db3d67b9ebe08a">SYSCFG_vSetEXTIConfig</a> (<a class="el" href="SYSCFG__interface_8h.html#a167a1c03ff4651ed14a78d12f7ebc6db">SYSCFG_EXTI_t</a> Copy_u8EXTI, <a class="el" href="SYSCFG__interface_8h.html#ad439ac89243300683e9b6570620c5219">SYSCFG_Port_t</a> Copy_u8Port)</td></tr>
+<tr class="memdesc:ae89860feecf5f8fa39db3d67b9ebe08a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choose which GPIO port drives a given EXTI line.  <br /></td></tr>
 </table>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Implementation of the SYSCFG driver — the system configuration controller. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Abdelmoemen Shehawey  </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="SYSCFG__program_8c_source.html">SYSCFG_program.c</a>.</p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ae89860feecf5f8fa39db3d67b9ebe08a" name="ae89860feecf5f8fa39db3d67b9ebe08a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae89860feecf5f8fa39db3d67b9ebe08a">&#9670;&#160;</a></span>SYSCFG_vSetEXTIConfig()</h2>
 
@@ -152,7 +142,24 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SYSCFG__program_8c_source.html#l00042">42</a> of file <a class="el" href="SYSCFG__program_8c_source.html">SYSCFG_program.c</a>.</p>
+<p>Choose which GPIO port drives a given EXTI line. </p>
+<p>EXTI line <em>N</em> is shared by pin <em>N</em> of every port — PA3, PB3 and PC3 all map to EXTI3 — and only one of them can own the line. This is where that choice is made.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Copy_u8EXTI</td><td>EXTI line to route, 0..15. </td></tr>
+    <tr><td class="paramname">Copy_u8Port</td><td>The port whose pin should drive it.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Without this call an EXTI line defaults to port A, so an interrupt configured on, say, PB4 is simply never delivered. It has to run <b>before</b> <a class="el" href="EXTI__interface_8h.html#afbfd6cb04f146da7b0f90eb974c5629d" title="EXTI_vLineInit">EXTI_vLineInit</a>.</dd></dl>
+<div class="fragment"><div class="line"><a class="code hl_function" href="SYSCFG__interface_8h.html#ae89860feecf5f8fa39db3d67b9ebe08a">SYSCFG_vSetEXTIConfig</a>(<a class="code hl_enumvalue" href="SYSCFG__interface_8h.html#a167a1c03ff4651ed14a78d12f7ebc6dbaff8aa542f103b5665eb76422e1a89d63">SYSCFG_EXTI0</a>, <a class="code hl_enumvalue" href="SYSCFG__interface_8h.html#ad439ac89243300683e9b6570620c5219a51c6e700e364b735a1e7f718f6c27f02">SYSCFG_PORTA</a>);</div>
+<div class="ttc" id="aSYSCFG__interface_8h_html_a167a1c03ff4651ed14a78d12f7ebc6dbaff8aa542f103b5665eb76422e1a89d63"><div class="ttname"><a href="SYSCFG__interface_8h.html#a167a1c03ff4651ed14a78d12f7ebc6dbaff8aa542f103b5665eb76422e1a89d63">SYSCFG_EXTI0</a></div><div class="ttdeci">@ SYSCFG_EXTI0</div><div class="ttdoc">Route EXTI line 0 to pin 0 of the chosen port.</div><div class="ttdef"><b>Definition</b> <a href="SYSCFG__interface_8h_source.html#l00023">SYSCFG_interface.h:23</a></div></div>
+<div class="ttc" id="aSYSCFG__interface_8h_html_ad439ac89243300683e9b6570620c5219a51c6e700e364b735a1e7f718f6c27f02"><div class="ttname"><a href="SYSCFG__interface_8h.html#ad439ac89243300683e9b6570620c5219a51c6e700e364b735a1e7f718f6c27f02">SYSCFG_PORTA</a></div><div class="ttdeci">@ SYSCFG_PORTA</div><div class="ttdoc">GPIO Port A.</div><div class="ttdef"><b>Definition</b> <a href="SYSCFG__interface_8h_source.html#l00048">SYSCFG_interface.h:48</a></div></div>
+<div class="ttc" id="aSYSCFG__interface_8h_html_ae89860feecf5f8fa39db3d67b9ebe08a"><div class="ttname"><a href="SYSCFG__interface_8h.html#ae89860feecf5f8fa39db3d67b9ebe08a">SYSCFG_vSetEXTIConfig</a></div><div class="ttdeci">void SYSCFG_vSetEXTIConfig(SYSCFG_EXTI_t Copy_u8EXTI, SYSCFG_Port_t Copy_u8Port)</div><div class="ttdoc">Choose which GPIO port drives a given EXTI line.</div><div class="ttdef"><b>Definition</b> <a href="SYSCFG__program_8c_source.html#l00038">SYSCFG_program.c:38</a></div></div>
+</div><!-- fragment --> 
+<p class="definition">Definition at line <a class="el" href="SYSCFG__program_8c_source.html#l00038">38</a> of file <a class="el" href="SYSCFG__program_8c_source.html">SYSCFG_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="SYSCFG__private_8h_source.html#l00013">EXTI_CTRL_REG_LINEBITS</a>, <a class="el" href="SYSCFG__private_8h_source.html#l00015">EXTI_CTRL_REG_MASK</a>, and <a class="el" href="STM32F446xx_8h_source.html#l00347">MSYSCFG</a>.</p>
 
 </div>
 </div>
@@ -169,7 +176,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_413f4e031a85da0d68269c6fd2f76e1c.html">Src</a></li><li class="navelem"><a href="SYSCFG__program_8c.html">SYSCFG_program.c</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Src</b></li><li class="navelem"><a href="SYSCFG__program_8c.html">SYSCFG_program.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

@@ -1,20 +1,37 @@
-\doxysection{Inc/\+\+Drivers/\+\+MCAL/\+\+SYSCFG/\+\+SYSCFG\+\_\+private.h File Reference}
-\hypertarget{SYSCFG__private_8h}{}\label{SYSCFG__private_8h}\index{Inc/Drivers/MCAL/SYSCFG/SYSCFG\_private.h@{Inc/Drivers/MCAL/SYSCFG/SYSCFG\_private.h}}
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SYSCFG/\+\+SYSCFG\+\_\+private.h File Reference}
+\hypertarget{SYSCFG__private_8h}{}\label{SYSCFG__private_8h}\index{V2V-\/STM32/Inc/Drivers/MCAL/SYSCFG/SYSCFG\_private.h@{V2V-\/STM32/Inc/Drivers/MCAL/SYSCFG/SYSCFG\_private.h}}
+
+
+Register bit positions and internals of the SYSCFG driver — not a public header.  
+
+
 This graph shows which files directly or indirectly include this file:\+
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=221pt]{SYSCFG__private_8h__dep__incl}
+\includegraphics[width=258pt]{SYSCFG__private_8h__dep__incl}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\+\#define \doxymbox{\hyperlink{SYSCFG__private_8h_a6c05ce4b718c5501c935c0e4b071d03c}{EXTI\+\_\+\+CTRL\+\_\+\+REG\+\_\+\+LINEBITS}}~4U
-\item 
-\+\#define \doxymbox{\hyperlink{SYSCFG__private_8h_a6d80a0cf729edb26a0b3b044c7c06bde}{EXTI\+\_\+\+CTRL\+\_\+\+REG\+\_\+\+MASK}}~0x0F
-\end{DoxyCompactItemize}
+\+\#define \doxymbox{\hyperlink{SYSCFG__private_8h_a6c05ce4b718c5501c935c0e4b071d03c}{EXTI\+\_\+\+CTRL\+\_\+\+REG\+\_\+\+LINEBITS}}
+\begin{DoxyCompactList}\small\item\em Bits per EXTI line in {\ttfamily EXTICR} — so four lines fit in each of the four words. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{SYSCFG__private_8h_a6d80a0cf729edb26a0b3b044c7c06bde}{EXTI\+\_\+\+CTRL\+\_\+\+REG\+\_\+\+MASK}}
+\begin{DoxyCompactList}\small\item\em Mask of one line\textquotesingle{}s 4-\/bit port-\/selection field in {\ttfamily EXTICR}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Register bit positions and internals of the SYSCFG driver — not a public header. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{SYSCFG__private_8h_source}{SYSCFG\+\_\+private.\+h}}.
+
 
 
 \label{doc-define-members}
@@ -24,25 +41,35 @@ This graph shows which files directly or indirectly include this file:\+
 \index{EXTI\_CTRL\_REG\_LINEBITS@{EXTI\_CTRL\_REG\_LINEBITS}!SYSCFG\_private.h@{SYSCFG\_private.h}}
 \doxysubsubsection{\texorpdfstring{EXTI\_CTRL\_REG\_LINEBITS}{EXTI\_CTRL\_REG\_LINEBITS}}
 {\footnotesize\ttfamily \label{SYSCFG__private_8h_a6c05ce4b718c5501c935c0e4b071d03c} 
-\+\#define EXTI\+\_\+\+CTRL\+\_\+\+REG\+\_\+\+LINEBITS~4U}
-
-===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} \doxylink{SYSCFG__private_8h}{SYSCFG\+\_\+private.\+h} \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Abdelmoemen Shehawey \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ MCAL \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} CPU :\+ Cortex-\/\+M4 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} MCU :\+ NUCLEO-\/\+F446\+RE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SWC :\+ SYSCFG \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Src_2SYSCFG_program_8c-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Src/\+\+SYSCFG\+\_\+program.\+c}}.\end{Desc}
+\+\#define EXTI\+\_\+\+CTRL\+\_\+\+REG\+\_\+\+LINEBITS}
 
 
-Definition at line \doxymbox{\hyperlink{SYSCFG__private_8h_source_l00017}{17}} of file \doxymbox{\hyperlink{SYSCFG__private_8h_source}{SYSCFG\+\_\+private.\+h}}.
+
+Bits per EXTI line in {\ttfamily EXTICR} — so four lines fit in each of the four words. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SYSCFG__private_8h_source_l00013}{13}} of file \doxymbox{\hyperlink{SYSCFG__private_8h_source}{SYSCFG\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SYSCFG__program_8c_source_l00038}{SYSCFG\+\_\+v\+Set\+EXTIConfig()}}.
 
 \Hypertarget{SYSCFG__private_8h_a6d80a0cf729edb26a0b3b044c7c06bde}\index{SYSCFG\_private.h@{SYSCFG\_private.h}!EXTI\_CTRL\_REG\_MASK@{EXTI\_CTRL\_REG\_MASK}}
 \index{EXTI\_CTRL\_REG\_MASK@{EXTI\_CTRL\_REG\_MASK}!SYSCFG\_private.h@{SYSCFG\_private.h}}
 \doxysubsubsection{\texorpdfstring{EXTI\_CTRL\_REG\_MASK}{EXTI\_CTRL\_REG\_MASK}}
 {\footnotesize\ttfamily \label{SYSCFG__private_8h_a6d80a0cf729edb26a0b3b044c7c06bde} 
-\+\#define EXTI\+\_\+\+CTRL\+\_\+\+REG\+\_\+\+MASK~0x0F}
-
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Src_2SYSCFG_program_8c-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Src/\+\+SYSCFG\+\_\+program.\+c}}.\end{Desc}
+\+\#define EXTI\+\_\+\+CTRL\+\_\+\+REG\+\_\+\+MASK}
 
 
-Definition at line \doxymbox{\hyperlink{SYSCFG__private_8h_source_l00019}{19}} of file \doxymbox{\hyperlink{SYSCFG__private_8h_source}{SYSCFG\+\_\+private.\+h}}.
+
+Mask of one line\textquotesingle{}s 4-\/bit port-\/selection field in {\ttfamily EXTICR}. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SYSCFG__private_8h_source_l00015}{15}} of file \doxymbox{\hyperlink{SYSCFG__private_8h_source}{SYSCFG\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SYSCFG__program_8c_source_l00038}{SYSCFG\+\_\+v\+Set\+EXTIConfig()}}.
 

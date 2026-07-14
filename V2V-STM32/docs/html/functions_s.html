@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Data Fields</title>
+<title>V2V Collision Avoidance Firmware: Data Fields</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,7 +90,7 @@ $(function(){initNavTree('functions_s.html','',''); });
 </div>
 
 <div class="contents">
-<div class="textblock">Here is a list of all struct and union fields with links to the structures/unions they belong to:</div>
+<div class="textblock">Here is a list of all documented struct and union fields with links to the struct/union documentation for each field:</div>
 
 <h3 class="doxsection"><a id="index_s" name="index_s"></a>- s -</h3><ul>
 <li>SCR&#160;:&#160;<a class="el" href="structSCB__RegDef__t.html#abe2e96f513798c546cfce1f4e4840b3b">SCB_RegDef_t</a></li>
@@ -102,13 +102,16 @@ $(function(){initNavTree('functions_s.html','',''); });
 <li>SMCR&#160;:&#160;<a class="el" href="structTIM__TypeDef.html#ae7b9de08df06d01dc22a4fb65ddc76cc">TIM_TypeDef</a></li>
 <li>SPE&#160;:&#160;<a class="el" href="structSPI__Config__t.html#a40158d2ab4973bd7305cc09188e3a75d">SPI_Config_t</a></li>
 <li>Speed&#160;:&#160;<a class="el" href="structGPIO__4PinsConfig__t.html#a10b4c8780f700c7b512ded000d0589de">GPIO_4PinsConfig_t</a>, <a class="el" href="structGPIO__8PinsConfig__t.html#a3d75ac7403998824ea73f35c0eb7874d">GPIO_8PinsConfig_t</a>, <a class="el" href="structGPIO__ByteConfig__t.html#a60cd80a7cdea8f3d7265093a8cdfb15d">GPIO_ByteConfig_t</a>, <a class="el" href="structGPIO__HalfPortConfig__t.html#a73b8a310cd643882bd678a9e07971309">GPIO_HalfPortConfig_t</a>, <a class="el" href="structGPIO__HighNibbleConfig__t.html#a1593cbe6b8a7e5859c687918e1dcf45b">GPIO_HighNibbleConfig_t</a>, <a class="el" href="structGPIO__LowNibbleConfig__t.html#a156636c1deda77d16a8f34080ca187e2">GPIO_LowNibbleConfig_t</a>, <a class="el" href="structGPIO__PinConfig__t.html#a36b8f605779ef1be01909dd91eea4e8b">GPIO_PinConfig_t</a>, <a class="el" href="structGPIO__PortConfig__t.html#a5a7992fc6bbd35a6169815f83845b47b">GPIO_PortConfig_t</a>, <a class="el" href="structHostVehicleState__t.html#a84e0032012bf423fa2aecee96d0bb087">HostVehicleState_t</a></li>
+<li>speed&#160;:&#160;<a class="el" href="structNeighbor.html#a69c6cf461fb3746631e7019c5fede46d">Neighbor</a>, <a class="el" href="structRPi__Packet__t.html#ab729ad2fe55d2b13eb0179f4c9c4a554">RPi_Packet_t</a></li>
 <li>SR&#160;:&#160;<a class="el" href="structIWDG__RegDef__t.html#a2fc54da78e15238279372f2c48f52e8d">IWDG_RegDef_t</a>, <a class="el" href="structSPI__RegDef__t.html#a4024f8b3b2956d3b0da456db820ff4bd">SPI_RegDef_t</a>, <a class="el" href="structTIM__TypeDef.html#ad4c239c905a84b69f7bc24d1cf63512e">TIM_TypeDef</a>, <a class="el" href="structUSART__RegDef__t.html#a0d7d2a31ed6dbff8e396f7b439a16b08">USART_RegDef_t</a></li>
 <li>SSCGR&#160;:&#160;<a class="el" href="structRCC__RegDef__t.html#a0addf6bf7447e8de71be463cbaa317f9">RCC_RegDef_t</a></li>
+<li>start&#160;:&#160;<a class="el" href="structRPi__Packet__t.html#aeaa9458317dfdd181c24849b736f72d3">RPi_Packet_t</a></li>
 <li>StartPin&#160;:&#160;<a class="el" href="structGPIO__4PinsConfig__t.html#aec6315aeb2923dcb34a45a6c255e22aa">GPIO_4PinsConfig_t</a>, <a class="el" href="structGPIO__8PinsConfig__t.html#af8ada7e75d350749365e04a11734fc05">GPIO_8PinsConfig_t</a>, <a class="el" href="structGPIO__ByteConfig__t.html#a16f6667894cd274cfac4dca7870bf01e">GPIO_ByteConfig_t</a>, <a class="el" href="structGPIO__HalfPortConfig__t.html#afeca9662cb6f9215e72880077f8df0fc">GPIO_HalfPortConfig_t</a>, <a class="el" href="structGPIO__HighNibbleConfig__t.html#a72cf132afdd987b05dc0b6bb97fe4e89">GPIO_HighNibbleConfig_t</a>, <a class="el" href="structGPIO__LowNibbleConfig__t.html#a6f54c6a71c3892e935888d2f6d28c309">GPIO_LowNibbleConfig_t</a>, <a class="el" href="structGPIO__PortConfig__t.html#a0137eb748b05e68b0c554727618e17b9">GPIO_PortConfig_t</a></li>
 <li>STIR&#160;:&#160;<a class="el" href="structNVIC__RegDef__t.html#ae5d28eb51c43c333293dbf312fbaede9">NVIC_RegDef_t</a></li>
 <li>StopBits&#160;:&#160;<a class="el" href="structUSART__Config__t.html#a475626d82d69c98459c7798f9bd729c7">USART_Config_t</a>, <a class="el" href="structUSART__Handle__t.html#a1ae2c8c6693a2a60291c3248164f7717">USART_Handle_t</a></li>
-<li>Stream&#160;:&#160;<a class="el" href="structDMA__REGDEF__t.html#acd824b519f64179d8449695e26409594">DMA_REGDEF_t</a></li>
+<li>Stream&#160;:&#160;<a class="el" href="structDMA__REGDEF__t.html#ab8ccd5a098b023e7e66218ea475a6b5d">DMA_REGDEF_t</a></li>
 <li>SWIER&#160;:&#160;<a class="el" href="structEXTI__RegDef__t.html#a495f9c6c179b66917b4f552be80720e2">EXTI_RegDef_t</a></li>
+<li>sys_flags&#160;:&#160;<a class="el" href="structRPi__Packet__t.html#a205ab0969a6d33d43802b088811a969e">RPi_Packet_t</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

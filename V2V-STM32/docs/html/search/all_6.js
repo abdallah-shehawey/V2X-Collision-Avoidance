@@ -1,31 +1,4 @@
 var searchData=
 [
-  ['fcr_0',['FCR',['../structDMA__STREAM__REGDEF__t.html#a0691111d3b8fc17e938acdac7812dbba',1,'DMA_STREAM_REGDEF_t']]],
-  ['fcw_20dnpw_20—_20forward_20collision_20do_20not_20pass_20warning_1',['🔹 FCW / DNPW — Forward Collision + Do-Not-Pass Warning',['../md_README.html#autotoc_md11',1,'']]],
-  ['fcw_5fdnpw_5fconfig_2eh_2',['FCW_DNPW_config.h',['../FCW__DNPW__config_8h.html',1,'']]],
-  ['fcw_5fdnpw_5finterface_2eh_3',['FCW_DNPW_interface.h',['../FCW__DNPW__interface_8h.html',1,'']]],
-  ['fcw_5fdnpw_5fprivate_2eh_4',['FCW_DNPW_private.h',['../FCW__DNPW__private_8h.html',1,'']]],
-  ['fcw_5fdnpw_5fprogram_2ec_5',['FCW_DNPW_program.c',['../FCW__DNPW__program_8c.html',1,'']]],
-  ['fcw_5fdnpw_5fvoidbegincycle_6',['FCW_DNPW_voidBeginCycle',['../FCW__DNPW__interface_8h.html#add7c6969ea4668acaa5a1684c9d2b8a6',1,'FCW_DNPW_voidBeginCycle(float front_distance, float front_left_distance):&#160;FCW_DNPW_program.c'],['../FCW__DNPW__program_8c.html#add7c6969ea4668acaa5a1684c9d2b8a6',1,'FCW_DNPW_voidBeginCycle(float front_distance, float front_left_distance):&#160;FCW_DNPW_program.c']]],
-  ['fcw_5fdnpw_5fvoidinit_7',['FCW_DNPW_voidInit',['../FCW__DNPW__interface_8h.html#a3e8b7f3192f0f7284e9b4b5811019225',1,'FCW_DNPW_voidInit(void):&#160;FCW_DNPW_program.c'],['../FCW__DNPW__program_8c.html#a3e8b7f3192f0f7284e9b4b5811019225',1,'FCW_DNPW_voidInit(void):&#160;FCW_DNPW_program.c']]],
-  ['fcw_5fdnpw_5fvoidprocessoppositedirection_8',['FCW_DNPW_voidProcessOppositeDirection',['../FCW__DNPW__interface_8h.html#ae4036f8bfcac20167bbb36b1c2b168e9',1,'FCW_DNPW_voidProcessOppositeDirection(const Neighbor *n):&#160;FCW_DNPW_program.c'],['../FCW__DNPW__program_8c.html#ae4036f8bfcac20167bbb36b1c2b168e9',1,'FCW_DNPW_voidProcessOppositeDirection(const Neighbor *n):&#160;FCW_DNPW_program.c']]],
-  ['fcw_5fdnpw_5fvoidprocesssamedirection_9',['FCW_DNPW_voidProcessSameDirection',['../FCW__DNPW__interface_8h.html#a39ed4f5fd853ab1d88dcfc504f67b057',1,'FCW_DNPW_voidProcessSameDirection(void):&#160;FCW_DNPW_program.c'],['../FCW__DNPW__program_8c.html#a39ed4f5fd853ab1d88dcfc504f67b057',1,'FCW_DNPW_voidProcessSameDirection(void):&#160;FCW_DNPW_program.c']]],
-  ['fcw_5ffront_5fthreshold_10',['FCW_FRONT_THRESHOLD',['../FCW__DNPW__config_8h.html#a62efb4f170f9fe499586d377133fa412',1,'FCW_DNPW_config.h']]],
-  ['fcw_5fgetfrontflag_11',['FCW_GetFrontFlag',['../FCW__DNPW__interface_8h.html#a724d10fbe6405476d140c3f113e787de',1,'FCW_GetFrontFlag(void):&#160;FCW_DNPW_program.c'],['../FCW__DNPW__program_8c.html#a724d10fbe6405476d140c3f113e787de',1,'FCW_GetFrontFlag(void):&#160;FCW_DNPW_program.c']]],
-  ['fcw_5fgetheadonconfirmed_12',['FCW_GetHeadonConfirmed',['../FCW__DNPW__interface_8h.html#a0eb1ff382b2898d1d05b62fdeaf96eee',1,'FCW_GetHeadonConfirmed(void):&#160;FCW_DNPW_program.c'],['../FCW__DNPW__program_8c.html#a0eb1ff382b2898d1d05b62fdeaf96eee',1,'FCW_GetHeadonConfirmed(void):&#160;FCW_DNPW_program.c']]],
-  ['fcw_5fgetheadonflag_13',['FCW_GetHeadonFlag',['../FCW__DNPW__interface_8h.html#a2a96028174e72e3bc92ab13f333d4e6c',1,'FCW_GetHeadonFlag(void):&#160;FCW_DNPW_program.c'],['../FCW__DNPW__program_8c.html#a2a96028174e72e3bc92ab13f333d4e6c',1,'FCW_GetHeadonFlag(void):&#160;FCW_DNPW_program.c']]],
-  ['fifo_5fen_14',['FIFO_EN',['../MPU9250__private_8h.html#a53954ec7f9dc790f00548da08ccd5ed6',1,'MPU9250_private.h']]],
-  ['filter_15',['Filter',['../structTIM__ICConfig__t.html#a2ce59ab6904a3d403449ce06df6df3ed',1,'TIM_ICConfig_t']]],
-  ['five_16',['DSRC — the transport underneath all five',['../md_README.html#autotoc_md15',1,'']]],
-  ['flash_5fbaseaddr_17',['FLASH_BASEADDR',['../Drivers_2LIB_2STM32F446xx_8h.html#af6863e7094aca292453684fa2af16686',1,'FLASH_BASEADDR:&#160;STM32F446xx.h'],['../System_2STM32F446xx_8h.html#af6863e7094aca292453684fa2af16686',1,'FLASH_BASEADDR:&#160;STM32F446xx.h']]],
-  ['forward_20collision_20do_20not_20pass_20warning_18',['🔹 FCW / DNPW — Forward Collision + Do-Not-Pass Warning',['../md_README.html#autotoc_md11',1,'']]],
-  ['freertos_20task_20pipeline_19',['FreeRTOS task pipeline',['../md_README.html#autotoc_md6',1,'']]],
-  ['frontcenterus_20',['FrontCenterUS',['../structHostVehicleState__t.html#ae4b8720527d5bed97dff0c8fb7b1463d',1,'HostVehicleState_t']]],
-  ['frontl_5fled_21',['FrontL_LED',['../System_8h.html#a2ab79e3f6235026ef8d29a9446511f48',1,'FrontL_LED:&#160;System.h'],['../main_8c.html#a2ab79e3f6235026ef8d29a9446511f48',1,'FrontL_LED:&#160;main.c'],['../System_8c.html#a2ab79e3f6235026ef8d29a9446511f48',1,'FrontL_LED:&#160;System.c']]],
-  ['frontleftus_22',['FrontLeftUS',['../structHostVehicleState__t.html#a9f56bbdb2cab29267dbf08e8701f4e01',1,'HostVehicleState_t']]],
-  ['frontr_5fled_23',['FrontR_LED',['../System_8h.html#af1fb4a43ba68d1fdc94fd35a7d901cd4',1,'FrontR_LED:&#160;System.c'],['../main_8c.html#af1fb4a43ba68d1fdc94fd35a7d901cd4',1,'FrontR_LED:&#160;System.c'],['../System_8c.html#af1fb4a43ba68d1fdc94fd35a7d901cd4',1,'FrontR_LED:&#160;System.c']]],
-  ['frontrightus_24',['FrontRightUS',['../structHostVehicleState__t.html#ae2395ee925d80eb9e8310bef5a987d48',1,'HostVehicleState_t']]],
-  ['frontus_25',['FrontUS',['../main_8c.html#aed057ac0b23c05f6b02ef3bfed8bfa27',1,'FrontUS:&#160;System.c'],['../System_8c.html#aed057ac0b23c05f6b02ef3bfed8bfa27',1,'FrontUS:&#160;System.c']]],
-  ['ftsr_26',['FTSR',['../structEXTI__RegDef__t.html#a5864335570202ab9be74e760ceadb734',1,'EXTI_RegDef_t']]],
-  ['functions_27',['SysTick Private Functions',['../group__SYSTIC__Private__Functions.html',1,'']]]
+  ['7_20—_20motor_20driver_20block_20l298n_20—_20a_20base_20wired_20by_20cable_0',['STAGE 7 — MOTOR DRIVER BLOCK (L298N — a base, wired by cable)',['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md70',1,'']]]
 ];

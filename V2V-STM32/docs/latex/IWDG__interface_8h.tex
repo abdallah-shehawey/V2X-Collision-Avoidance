@@ -1,12 +1,17 @@
-\doxysection{Inc/\+\+Drivers/\+\+MCAL/\+\+IWDG/\+\+IWDG\+\_\+interface.h File Reference}
-\hypertarget{IWDG__interface_8h}{}\label{IWDG__interface_8h}\index{Inc/Drivers/MCAL/IWDG/IWDG\_interface.h@{Inc/Drivers/MCAL/IWDG/IWDG\_interface.h}}
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+IWDG/\+\+IWDG\+\_\+interface.h File Reference}
+\hypertarget{IWDG__interface_8h}{}\label{IWDG__interface_8h}\index{V2V-\/STM32/Inc/Drivers/MCAL/IWDG/IWDG\_interface.h@{V2V-\/STM32/Inc/Drivers/MCAL/IWDG/IWDG\_interface.h}}
+
+
+Public API of the IWDG driver — the independent watchdog.  
+
+
 {\ttfamily \+\#include $<$stdint.\+h$>$}\newline
 Include dependency graph for IWDG\+\_\+interface.\+h:\+
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=210pt]{IWDG__interface_8h__incl}
+\includegraphics[width=246pt]{IWDG__interface_8h__incl}
 \end{center}
 \end{figure}
 This graph shows which files directly or indirectly include this file:\+
@@ -14,7 +19,7 @@ This graph shows which files directly or indirectly include this file:\+
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=282pt]{IWDG__interface_8h__dep__incl}
+\includegraphics[width=344pt]{IWDG__interface_8h__dep__incl}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Functions}
@@ -23,7 +28,19 @@ This graph shows which files directly or indirectly include this file:\+
 void \doxymbox{\hyperlink{IWDG__interface_8h_aaa08e67683aa75f91aabc14cb9c1253d}{IWDG\+\_\+void\+Init}} (uint16\+\_\+t timeout\+\_\+ms)
 \begin{DoxyCompactList}\small\item\em Start the Independent Watchdog with the given timeout. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{IWDG__interface_8h_afdf15cddaf966d918224d78b50c4b6d5}{IWDG\+\_\+void\+Refresh}} (void)
-\begin{DoxyCompactList}\small\item\em Reload the watchdog counter ("{}kick the dog"{}). Call periodically. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Reload the watchdog counter ("{}kick the dog"{}). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Public API of the IWDG driver — the independent watchdog. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{IWDG__interface_8h_source}{IWDG\+\_\+interface.\+h}}.
+
 
 
 \label{doc-func-members}
@@ -39,7 +56,7 @@ void IWDG\+\_\+void\+Init (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{timeou
 
 Start the Independent Watchdog with the given timeout. 
 
-===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} \doxylink{IWDG__interface_8h}{IWDG\+\_\+interface.\+h} \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Saleh \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ MCAL \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} CPU :\+ Cortex-\/\+M4 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} MCU :\+ NUCLEO-\/\+F446\+RE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SWC :\+ IWDG (Independent Watchdog) \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} 
+
 \begin{DoxyParams}{Parameters}
 {\em timeout\+\_\+ms} & Reset timeout in milliseconds (≈ 4 .. 8000 ms).\\
 \hline
@@ -53,7 +70,15 @@ Start the Independent Watchdog with the given timeout.
 \end{DoxyNote}
 
 
-Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00045}{45}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
+Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00073}{73}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{IWDG__program_8c_source_l00070}{DBG\+\_\+\+IWDG\+\_\+\+STOP}}, \doxymbox{\hyperlink{IWDG__program_8c_source_l00069}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ}}, \doxymbox{\hyperlink{IWDG__program_8c_source_l00044}{IWDG\+\_\+\+KEY\+\_\+\+ENABLE}}, \doxymbox{\hyperlink{IWDG__program_8c_source_l00045}{IWDG\+\_\+\+KEY\+\_\+\+REFRESH}}, \doxymbox{\hyperlink{IWDG__program_8c_source_l00046}{IWDG\+\_\+\+KEY\+\_\+\+START}}, \doxymbox{\hyperlink{IWDG__program_8c_source_l00056}{IWDG\+\_\+\+PR\+\_\+\+DIV64}}, \doxymbox{\hyperlink{IWDG__program_8c_source_l00058}{IWDG\+\_\+\+RLR\+\_\+\+MAX}}, \doxymbox{\hyperlink{IWDG__program_8c_source_l00057}{IWDG\+\_\+\+TICK\+\_\+\+MS}}, and \doxymbox{\hyperlink{IWDG__program_8c_source_l00036}{MIWDG}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00147}{main()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
@@ -71,11 +96,19 @@ void IWDG\+\_\+void\+Refresh (\begin{DoxyParamCaption}\item[{void}]{}{}\end{Doxy
 
 
 
-Reload the watchdog counter ("{}kick the dog"{}). Call periodically. 
+Reload the watchdog counter ("{}kick the dog"{}). 
+
+Call periodically. 
+
+Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00089}{89}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
 
 
 
-Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00061}{61}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
+References \doxymbox{\hyperlink{IWDG__program_8c_source_l00045}{IWDG\+\_\+\+KEY\+\_\+\+REFRESH}}, and \doxymbox{\hyperlink{IWDG__program_8c_source_l00036}{MIWDG}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00534}{v\+Task\+\_\+\+Watchdog()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak

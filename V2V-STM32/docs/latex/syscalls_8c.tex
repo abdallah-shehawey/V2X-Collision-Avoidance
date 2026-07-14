@@ -1,8 +1,8 @@
-\doxysection{Src/\+syscalls.c File Reference}
-\hypertarget{syscalls_8c}{}\label{syscalls_8c}\index{Src/syscalls.c@{Src/syscalls.c}}
+\doxysection{V2\+V-\/\+STM32/\+\+Src/\+syscalls.c File Reference}
+\hypertarget{syscalls_8c}{}\label{syscalls_8c}\index{V2V-\/STM32/Src/syscalls.c@{V2V-\/STM32/Src/syscalls.c}}
 
 
-STM32\+Cube\+IDE Minimal System calls file.  
+Newlib low-\/level stubs, plus {\ttfamily printf} retargeting over the ITM.  
 
 
 {\ttfamily \+\#include $<$sys/\+stat.\+h$>$}\newline
@@ -24,72 +24,85 @@ Include dependency graph for syscalls.\+c:\+
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\+\#define \doxymbox{\hyperlink{syscalls_8c_ab6c5b1baf444f12ba50bfc3b0e40e05c}{DEMCR}}~\texorpdfstring{$\ast$}{*}((volatile uint32\+\_\+t\texorpdfstring{$\ast$}{*}) 0x\+E000\+EDFCU )
-\item 
-\+\#define \doxymbox{\hyperlink{syscalls_8c_a05e6eb6b842a39d2628d9b3e89260f69}{ITM\+\_\+\+STIMULUS\+\_\+\+PORT0}}~\texorpdfstring{$\ast$}{*}((volatile uint32\+\_\+t\texorpdfstring{$\ast$}{*}) 0x\+E0000000 )
-\item 
-\+\#define \doxymbox{\hyperlink{syscalls_8c_a2e73b1c1bbc5140aac835e2f388c15ee}{ITM\+\_\+\+TRACE\+\_\+\+EN}}~\texorpdfstring{$\ast$}{*}((volatile uint32\+\_\+t\texorpdfstring{$\ast$}{*}) 0x\+E0000\+E00 )
-\end{DoxyCompactItemize}
+\+\#define \doxymbox{\hyperlink{syscalls_8c_ab6c5b1baf444f12ba50bfc3b0e40e05c}{DEMCR}}
+\begin{DoxyCompactList}\small\item\em Debug Exception and Monitor Control Register — bit 24 (TRCENA) gates all trace, including the ITM. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{syscalls_8c_a05e6eb6b842a39d2628d9b3e89260f69}{ITM\+\_\+\+STIMULUS\+\_\+\+PORT0}}
+\begin{DoxyCompactList}\small\item\em ITM stimulus port 0:\+ writing a byte here emits it on the SWO pin. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{syscalls_8c_a2e73b1c1bbc5140aac835e2f388c15ee}{ITM\+\_\+\+TRACE\+\_\+\+EN}}
+\begin{DoxyCompactList}\small\item\em ITM Trace Enable:\+ one bit per stimulus port; port 0 must be enabled before a write is accepted. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \doxymbox{\hyperlink{syscalls_8c_a044830d2e9de5ea57c8478e72a02ae9c}{ITM\+\_\+\+Send\+Char}} (uint8\+\_\+t ch)
-\item 
-int \doxymbox{\hyperlink{syscalls_8c_aa53ed4b191897a1bfc205aa1da005d24}{\+\_\+\+\_\+io\+\_\+putchar}} (int ch) \doxymbox{\hyperlink{syscalls_8c_af9aace1b44b73111e15aa39f06f43456}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}((weak))
-\item 
+\begin{DoxyCompactList}\small\item\em Emit one character on the ITM stimulus port (the SWO trace pin). \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{syscalls_8c_abc513dd972081ae765b6949a62872eb7}{\+\_\+\+\_\+io\+\_\+putchar}} (int ch)
+\begin{DoxyCompactList}\small\item\em Character sink for {\ttfamily printf}, overridable by the application. \end{DoxyCompactList}\item 
 int \doxymbox{\hyperlink{syscalls_8c_ad0122671640a3af49792ddaa59e8294e}{\+\_\+\+\_\+io\+\_\+getchar}} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Character source for {\ttfamily scanf}, overridable by the application. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{syscalls_8c_a25c7f100d498300fff65568c2fcfe639}{initialise\+\_\+monitor\+\_\+handles}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Semihosting hook Newlib may call; nothing to do without a debug monitor. \end{DoxyCompactList}\item 
 int \doxymbox{\hyperlink{syscalls_8c_a945e539df8e0f66d3c73c533fe1968ee}{\+\_\+getpid}} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Process ID of the "{}current process"{}. \end{DoxyCompactList}\item 
 int \doxymbox{\hyperlink{syscalls_8c_a062a5101199c3128edd5170f2575bb10}{\+\_\+kill}} (int pid, int sig)
-\item 
+\begin{DoxyCompactList}\small\item\em Send a signal to a process. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{syscalls_8c_abc96bd69b58b2deaddb484478d911c1b}{\+\_\+exit}} (int status)
-\item 
-\doxymbox{\hyperlink{syscalls_8c_af9aace1b44b73111e15aa39f06f43456}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}} ((weak))
-\item 
+\begin{DoxyCompactList}\small\item\em Terminate the program. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{syscalls_8c_a4f9bf1e1602f2828e0a54e70c3b2dccb}{\+\_\+read}} (int file, char \texorpdfstring{$\ast$}{*}ptr, int len)
+\begin{DoxyCompactList}\small\item\em Backend for {\ttfamily scanf} and friends:\+ read {\ttfamily len} characters via {\ttfamily \doxylink{syscalls_8c_ad0122671640a3af49792ddaa59e8294e}{\+\_\+\+\_\+io\+\_\+getchar}}. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{syscalls_8c_aa025a12d45f60c7d0eae249e61f0c7f9}{\+\_\+write}} (int file, char \texorpdfstring{$\ast$}{*}ptr, int len)
+\begin{DoxyCompactList}\small\item\em Backend for {\ttfamily printf}:\+ push {\ttfamily len} characters out over the ITM. \end{DoxyCompactList}\item 
 int \doxymbox{\hyperlink{syscalls_8c_a5aab5e2acfd600e3667dc915a2bbc7cb}{\+\_\+close}} (int file)
-\item 
+\begin{DoxyCompactList}\small\item\em Close a file descriptor. \end{DoxyCompactList}\item 
 int \doxymbox{\hyperlink{syscalls_8c_a41eef54307912a82d20e71c3d47315aa}{\+\_\+fstat}} (int file, struct stat \texorpdfstring{$\ast$}{*}st)
-\item 
+\begin{DoxyCompactList}\small\item\em Report the type of an open file descriptor. \end{DoxyCompactList}\item 
 int \doxymbox{\hyperlink{syscalls_8c_ad3134a3dc296622b8d1c5456e481505b}{\+\_\+isatty}} (int file)
-\item 
+\begin{DoxyCompactList}\small\item\em Is this descriptor a terminal? \end{DoxyCompactList}\item 
 int \doxymbox{\hyperlink{syscalls_8c_a7a61311bdf1cb025fc07dc2bdae22ce4}{\+\_\+lseek}} (int file, int ptr, int dir)
-\item 
+\begin{DoxyCompactList}\small\item\em Seek within a file. \end{DoxyCompactList}\item 
 int \doxymbox{\hyperlink{syscalls_8c_a270c9113047edd8d64186710ad76062b}{\+\_\+open}} (char \texorpdfstring{$\ast$}{*}path, int flags,...)
-\item 
+\begin{DoxyCompactList}\small\item\em Open a file. \end{DoxyCompactList}\item 
 int \doxymbox{\hyperlink{syscalls_8c_aeef0c3372d04caa1bcc99fed2ab6ec72}{\+\_\+wait}} (int \texorpdfstring{$\ast$}{*}status)
-\item 
+\begin{DoxyCompactList}\small\item\em Wait for a child process. \end{DoxyCompactList}\item 
 int \doxymbox{\hyperlink{syscalls_8c_a70b2f211d665cded5637065aa2bb89dc}{\+\_\+unlink}} (char \texorpdfstring{$\ast$}{*}name)
-\item 
+\begin{DoxyCompactList}\small\item\em Delete a file. \end{DoxyCompactList}\item 
 int \doxymbox{\hyperlink{syscalls_8c_aaf727ebf57cd64d6c58b23e6ee4a4a69}{\+\_\+times}} (struct tms \texorpdfstring{$\ast$}{*}buf)
-\item 
+\begin{DoxyCompactList}\small\item\em Report process CPU times. \end{DoxyCompactList}\item 
 int \doxymbox{\hyperlink{syscalls_8c_a4711e961db985ed2c850a8be6597af50}{\+\_\+stat}} (char \texorpdfstring{$\ast$}{*}file, struct stat \texorpdfstring{$\ast$}{*}st)
-\item 
+\begin{DoxyCompactList}\small\item\em Report the type of a named file. \end{DoxyCompactList}\item 
 int \doxymbox{\hyperlink{syscalls_8c_a31da4cd5328defa76a9e2246992aba12}{\+\_\+link}} (char \texorpdfstring{$\ast$}{*}old, char \texorpdfstring{$\ast$}{*}new)
-\item 
+\begin{DoxyCompactList}\small\item\em Create a hard link. \end{DoxyCompactList}\item 
 int \doxymbox{\hyperlink{syscalls_8c_a6cb6331c9d166180903d5fb78b9c9dd7}{\+\_\+fork}} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Fork a process. \end{DoxyCompactList}\item 
 int \doxymbox{\hyperlink{syscalls_8c_ad2a07db8fdf26151eb98ba5711fad8c5}{\+\_\+execve}} (char \texorpdfstring{$\ast$}{*}name, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}env)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Replace the running program. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{syscalls_8c_aa006daaf11f1e2e45a6ababaf463212b}{environ}} = \+\_\+\+\_\+env
-\end{DoxyCompactItemize}
+char \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{syscalls_8c_a5428d66981cb84e60b899495874618b2}{\+\_\+\+\_\+env}} \+[1]\+
+\begin{DoxyCompactList}\small\item\em Backing store for \doxylink{syscalls_8c_aa006daaf11f1e2e45a6ababaf463212b}{environ} — an empty environment. \end{DoxyCompactList}\item 
+char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{syscalls_8c_aa006daaf11f1e2e45a6ababaf463212b}{environ}}
+\begin{DoxyCompactList}\small\item\em The process environment Newlib hands to {\ttfamily getenv}; always empty here. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-STM32\+Cube\+IDE Minimal System calls file. 
+Newlib low-\/level stubs, plus {\ttfamily printf} retargeting over the ITM. 
 
 \begin{DoxyAuthor}{Author}
-Auto-\/generated by STM32\+Cube\+IDE \begin{DoxyVerb}       For more information about which c-functions
-       need which of these lowlevel functions
-       please consult the Newlib libc-manual
-\end{DoxyVerb}
-
+Auto-\/generated by STM32\+Cube\+IDE 
 \end{DoxyAuthor}
+Newlib expects a hosted operating system underneath it. There isn\textquotesingle{}t one here, so every POSIX call it might reach for has to be answered by something. This file provides those answers.
+
+Two kinds of function live here:\+
+
+
+\begin{DoxyItemize}
+\item {\bfseries{The one that does real work.}} \doxylink{syscalls_8c_aa025a12d45f60c7d0eae249e61f0c7f9}{\+\_\+write} is what {\ttfamily printf} ultimately calls, and it is retargeted onto the Cortex-\/\+M4\textquotesingle{}s ITM trace port via \doxylink{syscalls_8c_a044830d2e9de5ea57c8478e72a02ae9c}{ITM\+\_\+\+Send\+Char}. That is what makes {\ttfamily printf} show up in the debugger\textquotesingle{}s SWO console with no UART involved.
+\item {\bfseries{Everything else.}} {\ttfamily \doxylink{syscalls_8c_a6cb6331c9d166180903d5fb78b9c9dd7}{\+\_\+fork}}, {\ttfamily \doxylink{syscalls_8c_ad2a07db8fdf26151eb98ba5711fad8c5}{\+\_\+execve}}, {\ttfamily \doxylink{syscalls_8c_a31da4cd5328defa76a9e2246992aba12}{\+\_\+link}}, {\ttfamily \doxylink{syscalls_8c_a70b2f211d665cded5637065aa2bb89dc}{\+\_\+unlink}} and friends are stubs that fail politely:\+ they set {\ttfamily errno} and return -\/1. They exist only so the linker resolves them; nothing in the firmware calls them.
+\end{DoxyItemize}
+
+\begin{DoxyNote}{Note}
+The ITM is a Cortex-\/\+M3/\+\+M4/\+\+M7 feature. This file would not work on an M0/\+\+M0+, which has no ITM.
+\end{DoxyNote}
 \begin{DoxyAttention}{Attention}
 
 \end{DoxyAttention}
@@ -108,55 +121,120 @@ Definition in file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
 \index{DEMCR@{DEMCR}!syscalls.c@{syscalls.c}}
 \doxysubsubsection{\texorpdfstring{DEMCR}{DEMCR}}
 {\footnotesize\ttfamily \label{syscalls_8c_ab6c5b1baf444f12ba50bfc3b0e40e05c} 
-\+\#define DEMCR~\texorpdfstring{$\ast$}{*}((volatile uint32\+\_\+t\texorpdfstring{$\ast$}{*}) 0x\+E000\+EDFCU )}
+\+\#define DEMCR}
 
 
 
-Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00041}{41}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Debug Exception and Monitor Control Register — bit 24 (TRCENA) gates all trace, including the ITM. 
+
+
+
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00057}{57}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{syscalls_8c_source_l00072}{ITM\+\_\+\+Send\+Char()}}.
 
 \Hypertarget{syscalls_8c_a05e6eb6b842a39d2628d9b3e89260f69}\index{syscalls.c@{syscalls.c}!ITM\_STIMULUS\_PORT0@{ITM\_STIMULUS\_PORT0}}
 \index{ITM\_STIMULUS\_PORT0@{ITM\_STIMULUS\_PORT0}!syscalls.c@{syscalls.c}}
 \doxysubsubsection{\texorpdfstring{ITM\_STIMULUS\_PORT0}{ITM\_STIMULUS\_PORT0}}
 {\footnotesize\ttfamily \label{syscalls_8c_a05e6eb6b842a39d2628d9b3e89260f69} 
-\+\#define ITM\+\_\+\+STIMULUS\+\_\+\+PORT0~\texorpdfstring{$\ast$}{*}((volatile uint32\+\_\+t\texorpdfstring{$\ast$}{*}) 0x\+E0000000 )}
+\+\#define ITM\+\_\+\+STIMULUS\+\_\+\+PORT0}
 
 
 
-Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00044}{44}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+ITM stimulus port 0:\+ writing a byte here emits it on the SWO pin. 
+
+Bit 0 reads back as "{}\+FIFO ready"{}. 
+
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00061}{61}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{syscalls_8c_source_l00072}{ITM\+\_\+\+Send\+Char()}}.
 
 \Hypertarget{syscalls_8c_a2e73b1c1bbc5140aac835e2f388c15ee}\index{syscalls.c@{syscalls.c}!ITM\_TRACE\_EN@{ITM\_TRACE\_EN}}
 \index{ITM\_TRACE\_EN@{ITM\_TRACE\_EN}!syscalls.c@{syscalls.c}}
 \doxysubsubsection{\texorpdfstring{ITM\_TRACE\_EN}{ITM\_TRACE\_EN}}
 {\footnotesize\ttfamily \label{syscalls_8c_a2e73b1c1bbc5140aac835e2f388c15ee} 
-\+\#define ITM\+\_\+\+TRACE\+\_\+\+EN~\texorpdfstring{$\ast$}{*}((volatile uint32\+\_\+t\texorpdfstring{$\ast$}{*}) 0x\+E0000\+E00 )}
+\+\#define ITM\+\_\+\+TRACE\+\_\+\+EN}
 
 
 
-Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00045}{45}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+ITM Trace Enable:\+ one bit per stimulus port; port 0 must be enabled before a write is accepted. 
+
+
+
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00063}{63}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{syscalls_8c_source_l00072}{ITM\+\_\+\+Send\+Char()}}.
 
 
 
 \label{doc-func-members}
 \Hypertarget{syscalls_8c_doc-func-members}
 \doxysubsection{Function Documentation}
-\Hypertarget{syscalls_8c_af9aace1b44b73111e15aa39f06f43456}\index{syscalls.c@{syscalls.c}!\_\_attribute\_\_@{\_\_attribute\_\_}}
-\index{\_\_attribute\_\_@{\_\_attribute\_\_}!syscalls.c@{syscalls.c}}
-\doxysubsubsection{\texorpdfstring{\_\_attribute\_\_()}{\_\_attribute\_\_()}}
-{\footnotesize\ttfamily \label{syscalls_8c_af9aace1b44b73111e15aa39f06f43456} 
-\+\_\+\+\_\+attribute\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{(weak)}]{}{}\end{DoxyParamCaption})}
+\Hypertarget{syscalls_8c_a044830d2e9de5ea57c8478e72a02ae9c}\index{syscalls.c@{syscalls.c}!ITM\_SendChar@{ITM\_SendChar}}
+\index{ITM\_SendChar@{ITM\_SendChar}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{ITM\_SendChar()}{ITM\_SendChar()}}
+{\footnotesize\ttfamily \label{syscalls_8c_a044830d2e9de5ea57c8478e72a02ae9c} 
+void ITM\+\_\+\+Send\+Char (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{ch}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00097}{97}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Emit one character on the ITM stimulus port (the SWO trace pin). 
 
-Here is the call graph for this function:\+
+
+\begin{DoxyParams}{Parameters}
+{\em ch} & The character to send. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Busy-\/waits for the ITM FIFO to drain, so with no debugger attached and the trace port unclocked this can spin. It is a debug path only — the ADAS tasks never call {\ttfamily printf}. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00072}{72}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{syscalls_8c_source_l00057}{DEMCR}}, \doxymbox{\hyperlink{syscalls_8c_source_l00061}{ITM\+\_\+\+STIMULUS\+\_\+\+PORT0}}, and \doxymbox{\hyperlink{syscalls_8c_source_l00063}{ITM\+\_\+\+TRACE\+\_\+\+EN}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{syscalls_8c_source_l00180}{\+\_\+write()}}.
+
+Here is the caller graph for this function:\+
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=273pt]{syscalls_8c_af9aace1b44b73111e15aa39f06f43456_cgraph}
+\includegraphics[width=248pt]{syscalls_8c_a044830d2e9de5ea57c8478e72a02ae9c_icgraph}
 \end{center}
 \end{figure}
+\Hypertarget{syscalls_8c_abc513dd972081ae765b6949a62872eb7}\index{syscalls.c@{syscalls.c}!\_\_io\_putchar@{\_\_io\_putchar}}
+\index{\_\_io\_putchar@{\_\_io\_putchar}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_\_io\_putchar()}{\_\_io\_putchar()}}
+{\footnotesize\ttfamily \label{syscalls_8c_abc513dd972081ae765b6949a62872eb7} 
+int \+\_\+\+\_\+io\+\_\+putchar (\begin{DoxyParamCaption}\item[{int}]{ch}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Character sink for {\ttfamily printf}, overridable by the application. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ch} & The character to emit. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The character written. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Weak, and not overridden here:\+ \doxylink{syscalls_8c_aa025a12d45f60c7d0eae249e61f0c7f9}{\+\_\+write} goes straight to the ITM. 
+\end{DoxyNote}
 \Hypertarget{syscalls_8c_ad0122671640a3af49792ddaa59e8294e}\index{syscalls.c@{syscalls.c}!\_\_io\_getchar@{\_\_io\_getchar}}
 \index{\_\_io\_getchar@{\_\_io\_getchar}!syscalls.c@{syscalls.c}}
 \doxysubsubsection{\texorpdfstring{\_\_io\_getchar()}{\_\_io\_getchar()}}
@@ -165,79 +243,36 @@ int \+\_\+\+\_\+io\+\_\+getchar (\begin{DoxyParamCaption}\item[{void}]{}{}\end{D
 
 
 
-Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00066}{66}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Character source for {\ttfamily scanf}, overridable by the application. 
+
+\begin{DoxyReturn}{Returns}
+The character read. 
+\end{DoxyReturn}
+
+
+Referenced by \doxymbox{\hyperlink{syscalls_8c_source_l00160}{\+\_\+read()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=273pt]{syscalls_8c_ad0122671640a3af49792ddaa59e8294e_icgraph}
+\includegraphics[width=237pt]{syscalls_8c_ad0122671640a3af49792ddaa59e8294e_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{syscalls_8c_aa53ed4b191897a1bfc205aa1da005d24}\index{syscalls.c@{syscalls.c}!\_\_io\_putchar@{\_\_io\_putchar}}
-\index{\_\_io\_putchar@{\_\_io\_putchar}!syscalls.c@{syscalls.c}}
-\doxysubsubsection{\texorpdfstring{\_\_io\_putchar()}{\_\_io\_putchar()}}
-{\footnotesize\ttfamily \label{syscalls_8c_aa53ed4b191897a1bfc205aa1da005d24} 
-int \+\_\+\+\_\+io\+\_\+putchar (\begin{DoxyParamCaption}\item[{int}]{ch}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
-
-\Hypertarget{syscalls_8c_a5aab5e2acfd600e3667dc915a2bbc7cb}\index{syscalls.c@{syscalls.c}!\_close@{\_close}}
-\index{\_close@{\_close}!syscalls.c@{syscalls.c}}
-\doxysubsubsection{\texorpdfstring{\_close()}{\_close()}}
-{\footnotesize\ttfamily \label{syscalls_8c_a5aab5e2acfd600e3667dc915a2bbc7cb} 
-int \+\_\+close (\begin{DoxyParamCaption}\item[{int}]{file}{}\end{DoxyParamCaption})}
+\Hypertarget{syscalls_8c_a25c7f100d498300fff65568c2fcfe639}\index{syscalls.c@{syscalls.c}!initialise\_monitor\_handles@{initialise\_monitor\_handles}}
+\index{initialise\_monitor\_handles@{initialise\_monitor\_handles}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{initialise\_monitor\_handles()}{initialise\_monitor\_handles()}}
+{\footnotesize\ttfamily \label{syscalls_8c_a25c7f100d498300fff65568c2fcfe639} 
+void initialise\+\_\+monitor\+\_\+handles (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00122}{122}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
-
-\Hypertarget{syscalls_8c_ad2a07db8fdf26151eb98ba5711fad8c5}\index{syscalls.c@{syscalls.c}!\_execve@{\_execve}}
-\index{\_execve@{\_execve}!syscalls.c@{syscalls.c}}
-\doxysubsubsection{\texorpdfstring{\_execve()}{\_execve()}}
-{\footnotesize\ttfamily \label{syscalls_8c_ad2a07db8fdf26151eb98ba5711fad8c5} 
-int \+\_\+execve (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{argv}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{env}{}\end{DoxyParamCaption})}
+Semihosting hook Newlib may call; nothing to do without a debug monitor. 
 
 
 
-Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00199}{199}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
-
-\Hypertarget{syscalls_8c_abc96bd69b58b2deaddb484478d911c1b}\index{syscalls.c@{syscalls.c}!\_exit@{\_exit}}
-\index{\_exit@{\_exit}!syscalls.c@{syscalls.c}}
-\doxysubsubsection{\texorpdfstring{\_exit()}{\_exit()}}
-{\footnotesize\ttfamily \label{syscalls_8c_abc96bd69b58b2deaddb484478d911c1b} 
-void \+\_\+exit (\begin{DoxyParamCaption}\item[{int}]{status}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00091}{91}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
-
-Here is the call graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=192pt]{syscalls_8c_abc96bd69b58b2deaddb484478d911c1b_cgraph}
-\end{center}
-\end{figure}
-\Hypertarget{syscalls_8c_a6cb6331c9d166180903d5fb78b9c9dd7}\index{syscalls.c@{syscalls.c}!\_fork@{\_fork}}
-\index{\_fork@{\_fork}!syscalls.c@{syscalls.c}}
-\doxysubsubsection{\texorpdfstring{\_fork()}{\_fork()}}
-{\footnotesize\ttfamily \label{syscalls_8c_a6cb6331c9d166180903d5fb78b9c9dd7} 
-int \+\_\+fork (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00193}{193}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
-
-\Hypertarget{syscalls_8c_a41eef54307912a82d20e71c3d47315aa}\index{syscalls.c@{syscalls.c}!\_fstat@{\_fstat}}
-\index{\_fstat@{\_fstat}!syscalls.c@{syscalls.c}}
-\doxysubsubsection{\texorpdfstring{\_fstat()}{\_fstat()}}
-{\footnotesize\ttfamily \label{syscalls_8c_a41eef54307912a82d20e71c3d47315aa} 
-int \+\_\+fstat (\begin{DoxyParamCaption}\item[{int}]{file}{, }\item[{struct stat \texorpdfstring{$\ast$}{*}}]{st}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00129}{129}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00114}{114}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
 
 \Hypertarget{syscalls_8c_a945e539df8e0f66d3c73c533fe1968ee}\index{syscalls.c@{syscalls.c}!\_getpid@{\_getpid}}
 \index{\_getpid@{\_getpid}!syscalls.c@{syscalls.c}}
@@ -247,17 +282,14 @@ int \+\_\+getpid (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption
 
 
 
-Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00078}{78}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Process ID of the "{}current process"{}. 
 
-\Hypertarget{syscalls_8c_ad3134a3dc296622b8d1c5456e481505b}\index{syscalls.c@{syscalls.c}!\_isatty@{\_isatty}}
-\index{\_isatty@{\_isatty}!syscalls.c@{syscalls.c}}
-\doxysubsubsection{\texorpdfstring{\_isatty()}{\_isatty()}}
-{\footnotesize\ttfamily \label{syscalls_8c_ad3134a3dc296622b8d1c5456e481505b} 
-int \+\_\+isatty (\begin{DoxyParamCaption}\item[{int}]{file}{}\end{DoxyParamCaption})}
+\begin{DoxyReturn}{Returns}
+Always 1 — there is only ever one program on the MCU. 
+\end{DoxyReturn}
 
 
-
-Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00136}{136}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00122}{122}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
 
 \Hypertarget{syscalls_8c_a062a5101199c3128edd5170f2575bb10}\index{syscalls.c@{syscalls.c}!\_kill@{\_kill}}
 \index{\_kill@{\_kill}!syscalls.c@{syscalls.c}}
@@ -267,7 +299,25 @@ int \+\_\+kill (\begin{DoxyParamCaption}\item[{int}]{pid}{, }\item[{int}]{sig}{}
 
 
 
-Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00083}{83}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Send a signal to a process. 
+
+There are no processes, so this always fails. 
+\begin{DoxyParams}{Parameters}
+{\em pid} & Ignored. \\
+\hline
+{\em sig} & Ignored. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1, with {\ttfamily errno} set to {\ttfamily EINVAL}. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00133}{133}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{syscalls_8c_source_l00147}{\+\_\+exit()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
@@ -277,15 +327,183 @@ Here is the caller graph for this function:\+
 \includegraphics[width=192pt]{syscalls_8c_a062a5101199c3128edd5170f2575bb10_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{syscalls_8c_a31da4cd5328defa76a9e2246992aba12}\index{syscalls.c@{syscalls.c}!\_link@{\_link}}
-\index{\_link@{\_link}!syscalls.c@{syscalls.c}}
-\doxysubsubsection{\texorpdfstring{\_link()}{\_link()}}
-{\footnotesize\ttfamily \label{syscalls_8c_a31da4cd5328defa76a9e2246992aba12} 
-int \+\_\+link (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{old}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{new}{}\end{DoxyParamCaption})}
+\Hypertarget{syscalls_8c_abc96bd69b58b2deaddb484478d911c1b}\index{syscalls.c@{syscalls.c}!\_exit@{\_exit}}
+\index{\_exit@{\_exit}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_exit()}{\_exit()}}
+{\footnotesize\ttfamily \label{syscalls_8c_abc96bd69b58b2deaddb484478d911c1b} 
+void \+\_\+exit (\begin{DoxyParamCaption}\item[{int}]{status}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00185}{185}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Terminate the program. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em status} & Exit status; passed to \doxylink{syscalls_8c_a062a5101199c3128edd5170f2575bb10}{\+\_\+kill} and otherwise ignored. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Does not return — there is nowhere to exit {\itshape to}, so it hangs in a loop. In practice the watchdog then resets the MCU. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00147}{147}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{syscalls_8c_source_l00133}{\+\_\+kill()}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=192pt]{syscalls_8c_abc96bd69b58b2deaddb484478d911c1b_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{syscalls_8c_a4f9bf1e1602f2828e0a54e70c3b2dccb}\index{syscalls.c@{syscalls.c}!\_read@{\_read}}
+\index{\_read@{\_read}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_read()}{\_read()}}
+{\footnotesize\ttfamily \label{syscalls_8c_a4f9bf1e1602f2828e0a54e70c3b2dccb} 
+int \+\_\+read (\begin{DoxyParamCaption}\item[{int}]{file}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{ptr}{, }\item[{int}]{len}{}\end{DoxyParamCaption})}
+
+
+
+Backend for {\ttfamily scanf} and friends:\+ read {\ttfamily len} characters via {\ttfamily \doxylink{syscalls_8c_ad0122671640a3af49792ddaa59e8294e}{\+\_\+\+\_\+io\+\_\+getchar}}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em file} & Ignored — there is no file system. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em ptr} & Buffer to fill. \\
+\hline
+ & {\em len} & Number of characters to read. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily len}, always:\+ the read is assumed to succeed. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00160}{160}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{syscalls_8c_ad0122671640a3af49792ddaa59e8294e}{\+\_\+\+\_\+io\+\_\+getchar()}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=237pt]{syscalls_8c_a4f9bf1e1602f2828e0a54e70c3b2dccb_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{syscalls_8c_aa025a12d45f60c7d0eae249e61f0c7f9}\index{syscalls.c@{syscalls.c}!\_write@{\_write}}
+\index{\_write@{\_write}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_write()}{\_write()}}
+{\footnotesize\ttfamily \label{syscalls_8c_aa025a12d45f60c7d0eae249e61f0c7f9} 
+int \+\_\+write (\begin{DoxyParamCaption}\item[{int}]{file}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{ptr}{, }\item[{int}]{len}{}\end{DoxyParamCaption})}
+
+
+
+Backend for {\ttfamily printf}:\+ push {\ttfamily len} characters out over the ITM. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em file} & Ignored — stdout and stderr both land here. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em ptr} & Characters to write. \\
+\hline
+ & {\em len} & How many to write. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily len}, always. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00180}{180}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{syscalls_8c_source_l00072}{ITM\+\_\+\+Send\+Char()}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{syscalls_8c_aa025a12d45f60c7d0eae249e61f0c7f9_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{syscalls_8c_a5aab5e2acfd600e3667dc915a2bbc7cb}\index{syscalls.c@{syscalls.c}!\_close@{\_close}}
+\index{\_close@{\_close}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_close()}{\_close()}}
+{\footnotesize\ttfamily \label{syscalls_8c_a5aab5e2acfd600e3667dc915a2bbc7cb} 
+int \+\_\+close (\begin{DoxyParamCaption}\item[{int}]{file}{}\end{DoxyParamCaption})}
+
+
+
+Close a file descriptor. 
+
+There are none. 
+\begin{DoxyParams}{Parameters}
+{\em file} & Ignored. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1, always. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00197}{197}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+
+\Hypertarget{syscalls_8c_a41eef54307912a82d20e71c3d47315aa}\index{syscalls.c@{syscalls.c}!\_fstat@{\_fstat}}
+\index{\_fstat@{\_fstat}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_fstat()}{\_fstat()}}
+{\footnotesize\ttfamily \label{syscalls_8c_a41eef54307912a82d20e71c3d47315aa} 
+int \+\_\+fstat (\begin{DoxyParamCaption}\item[{int}]{file}{, }\item[{struct stat \texorpdfstring{$\ast$}{*}}]{st}{}\end{DoxyParamCaption})}
+
+
+
+Report the type of an open file descriptor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em file} & Ignored. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em st} & Receives {\ttfamily S\+\_\+\+IFCHR} — every descriptor is a character device. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0, always. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00210}{210}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+
+\Hypertarget{syscalls_8c_ad3134a3dc296622b8d1c5456e481505b}\index{syscalls.c@{syscalls.c}!\_isatty@{\_isatty}}
+\index{\_isatty@{\_isatty}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_isatty()}{\_isatty()}}
+{\footnotesize\ttfamily \label{syscalls_8c_ad3134a3dc296622b8d1c5456e481505b} 
+int \+\_\+isatty (\begin{DoxyParamCaption}\item[{int}]{file}{}\end{DoxyParamCaption})}
+
+
+
+Is this descriptor a terminal? 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & Ignored. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1, always — which is what makes stdout line-\/buffered rather than block-\/buffered. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00222}{222}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
 
 \Hypertarget{syscalls_8c_a7a61311bdf1cb025fc07dc2bdae22ce4}\index{syscalls.c@{syscalls.c}!\_lseek@{\_lseek}}
 \index{\_lseek@{\_lseek}!syscalls.c@{syscalls.c}}
@@ -295,7 +513,23 @@ int \+\_\+lseek (\begin{DoxyParamCaption}\item[{int}]{file}{, }\item[{int}]{ptr}
 
 
 
-Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00142}{142}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Seek within a file. 
+
+Nothing here is seekable. 
+\begin{DoxyParams}{Parameters}
+{\em file} & Ignored. \\
+\hline
+{\em ptr} & Ignored. \\
+\hline
+{\em dir} & Ignored. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0, always. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00235}{235}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
 
 \Hypertarget{syscalls_8c_a270c9113047edd8d64186710ad76062b}\index{syscalls.c@{syscalls.c}!\_open@{\_open}}
 \index{\_open@{\_open}!syscalls.c@{syscalls.c}}
@@ -305,37 +539,21 @@ int \+\_\+open (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]
 
 
 
-Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00150}{150}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Open a file. 
 
-\Hypertarget{syscalls_8c_a4711e961db985ed2c850a8be6597af50}\index{syscalls.c@{syscalls.c}!\_stat@{\_stat}}
-\index{\_stat@{\_stat}!syscalls.c@{syscalls.c}}
-\doxysubsubsection{\texorpdfstring{\_stat()}{\_stat()}}
-{\footnotesize\ttfamily \label{syscalls_8c_a4711e961db985ed2c850a8be6597af50} 
-int \+\_\+stat (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{file}{, }\item[{struct stat \texorpdfstring{$\ast$}{*}}]{st}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00178}{178}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
-
-\Hypertarget{syscalls_8c_aaf727ebf57cd64d6c58b23e6ee4a4a69}\index{syscalls.c@{syscalls.c}!\_times@{\_times}}
-\index{\_times@{\_times}!syscalls.c@{syscalls.c}}
-\doxysubsubsection{\texorpdfstring{\_times()}{\_times()}}
-{\footnotesize\ttfamily \label{syscalls_8c_aaf727ebf57cd64d6c58b23e6ee4a4a69} 
-int \+\_\+times (\begin{DoxyParamCaption}\item[{struct tms \texorpdfstring{$\ast$}{*}}]{buf}{}\end{DoxyParamCaption})}
+There is no file system, so this always fails. 
+\begin{DoxyParams}{Parameters}
+{\em path} & Ignored. \\
+\hline
+{\em flags} & Ignored. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1, always. 
+\end{DoxyReturn}
 
 
-
-Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00172}{172}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
-
-\Hypertarget{syscalls_8c_a70b2f211d665cded5637065aa2bb89dc}\index{syscalls.c@{syscalls.c}!\_unlink@{\_unlink}}
-\index{\_unlink@{\_unlink}!syscalls.c@{syscalls.c}}
-\doxysubsubsection{\texorpdfstring{\_unlink()}{\_unlink()}}
-{\footnotesize\ttfamily \label{syscalls_8c_a70b2f211d665cded5637065aa2bb89dc} 
-int \+\_\+unlink (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{name}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00165}{165}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00249}{249}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
 
 \Hypertarget{syscalls_8c_aeef0c3372d04caa1bcc99fed2ab6ec72}\index{syscalls.c@{syscalls.c}!\_wait@{\_wait}}
 \index{\_wait@{\_wait}!syscalls.c@{syscalls.c}}
@@ -345,40 +563,185 @@ int \+\_\+wait (\begin{DoxyParamCaption}\item[{int \texorpdfstring{$\ast$}{*}}]{
 
 
 
-Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00158}{158}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Wait for a child process. 
 
-\Hypertarget{syscalls_8c_a25c7f100d498300fff65568c2fcfe639}\index{syscalls.c@{syscalls.c}!initialise\_monitor\_handles@{initialise\_monitor\_handles}}
-\index{initialise\_monitor\_handles@{initialise\_monitor\_handles}!syscalls.c@{syscalls.c}}
-\doxysubsubsection{\texorpdfstring{initialise\_monitor\_handles()}{initialise\_monitor\_handles()}}
-{\footnotesize\ttfamily \label{syscalls_8c_a25c7f100d498300fff65568c2fcfe639} 
-void initialise\+\_\+monitor\+\_\+handles (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00074}{74}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
-
-\Hypertarget{syscalls_8c_a044830d2e9de5ea57c8478e72a02ae9c}\index{syscalls.c@{syscalls.c}!ITM\_SendChar@{ITM\_SendChar}}
-\index{ITM\_SendChar@{ITM\_SendChar}!syscalls.c@{syscalls.c}}
-\doxysubsubsection{\texorpdfstring{ITM\_SendChar()}{ITM\_SendChar()}}
-{\footnotesize\ttfamily \label{syscalls_8c_a044830d2e9de5ea57c8478e72a02ae9c} 
-void ITM\+\_\+\+Send\+Char (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{ch}{}\end{DoxyParamCaption})}
+There are no processes. 
+\begin{DoxyParams}{Parameters}
+{\em status} & Ignored. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1, with {\ttfamily errno} set to {\ttfamily ECHILD}. 
+\end{DoxyReturn}
 
 
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00262}{262}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
 
-Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00047}{47}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+\Hypertarget{syscalls_8c_a70b2f211d665cded5637065aa2bb89dc}\index{syscalls.c@{syscalls.c}!\_unlink@{\_unlink}}
+\index{\_unlink@{\_unlink}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_unlink()}{\_unlink()}}
+{\footnotesize\ttfamily \label{syscalls_8c_a70b2f211d665cded5637065aa2bb89dc} 
+int \+\_\+unlink (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{name}{}\end{DoxyParamCaption})}
+
+
+
+Delete a file. 
+
+There is no file system. 
+\begin{DoxyParams}{Parameters}
+{\em name} & Ignored. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1, with {\ttfamily errno} set to {\ttfamily ENOENT}. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00274}{274}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+
+\Hypertarget{syscalls_8c_aaf727ebf57cd64d6c58b23e6ee4a4a69}\index{syscalls.c@{syscalls.c}!\_times@{\_times}}
+\index{\_times@{\_times}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_times()}{\_times()}}
+{\footnotesize\ttfamily \label{syscalls_8c_aaf727ebf57cd64d6c58b23e6ee4a4a69} 
+int \+\_\+times (\begin{DoxyParamCaption}\item[{struct tms \texorpdfstring{$\ast$}{*}}]{buf}{}\end{DoxyParamCaption})}
+
+
+
+Report process CPU times. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buf} & Ignored. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1, always — the firmware keeps time with the Free\+RTOS tick instead. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00286}{286}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+
+\Hypertarget{syscalls_8c_a4711e961db985ed2c850a8be6597af50}\index{syscalls.c@{syscalls.c}!\_stat@{\_stat}}
+\index{\_stat@{\_stat}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_stat()}{\_stat()}}
+{\footnotesize\ttfamily \label{syscalls_8c_a4711e961db985ed2c850a8be6597af50} 
+int \+\_\+stat (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{file}{, }\item[{struct stat \texorpdfstring{$\ast$}{*}}]{st}{}\end{DoxyParamCaption})}
+
+
+
+Report the type of a named file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em file} & Ignored. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em st} & Receives {\ttfamily S\+\_\+\+IFCHR}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0, always. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00298}{298}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+
+\Hypertarget{syscalls_8c_a31da4cd5328defa76a9e2246992aba12}\index{syscalls.c@{syscalls.c}!\_link@{\_link}}
+\index{\_link@{\_link}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_link()}{\_link()}}
+{\footnotesize\ttfamily \label{syscalls_8c_a31da4cd5328defa76a9e2246992aba12} 
+int \+\_\+link (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{old}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{new}{}\end{DoxyParamCaption})}
+
+
+
+Create a hard link. 
+
+There is no file system. 
+\begin{DoxyParams}{Parameters}
+{\em old} & Ignored. \\
+\hline
+{\em new} & Ignored. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1, with {\ttfamily errno} set to {\ttfamily EMLINK}. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00311}{311}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+
+\Hypertarget{syscalls_8c_a6cb6331c9d166180903d5fb78b9c9dd7}\index{syscalls.c@{syscalls.c}!\_fork@{\_fork}}
+\index{\_fork@{\_fork}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_fork()}{\_fork()}}
+{\footnotesize\ttfamily \label{syscalls_8c_a6cb6331c9d166180903d5fb78b9c9dd7} 
+int \+\_\+fork (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Fork a process. 
+
+There are no processes. \begin{DoxyReturn}{Returns}
+-\/1, with {\ttfamily errno} set to {\ttfamily EAGAIN}. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00323}{323}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+
+\Hypertarget{syscalls_8c_ad2a07db8fdf26151eb98ba5711fad8c5}\index{syscalls.c@{syscalls.c}!\_execve@{\_execve}}
+\index{\_execve@{\_execve}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_execve()}{\_execve()}}
+{\footnotesize\ttfamily \label{syscalls_8c_ad2a07db8fdf26151eb98ba5711fad8c5} 
+int \+\_\+execve (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{argv}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{env}{}\end{DoxyParamCaption})}
+
+
+
+Replace the running program. 
+
+Not possible on bare metal. 
+\begin{DoxyParams}{Parameters}
+{\em name} & Ignored. \\
+\hline
+{\em argv} & Ignored. \\
+\hline
+{\em env} & Ignored. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1, with {\ttfamily errno} set to {\ttfamily ENOMEM}. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00336}{336}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
 
 
 
 \label{doc-var-members}
 \Hypertarget{syscalls_8c_doc-var-members}
 \doxysubsection{Variable Documentation}
+\Hypertarget{syscalls_8c_a5428d66981cb84e60b899495874618b2}\index{syscalls.c@{syscalls.c}!\_\_env@{\_\_env}}
+\index{\_\_env@{\_\_env}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_\_env}{\_\_env}}
+{\footnotesize\ttfamily \label{syscalls_8c_a5428d66981cb84e60b899495874618b2} 
+char\texorpdfstring{$\ast$}{*} \+\_\+\+\_\+env\+[1]\+}
+
+
+
+Backing store for \doxylink{syscalls_8c_aa006daaf11f1e2e45a6ababaf463212b}{environ} — an empty environment. 
+
+
+
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00106}{106}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+
 \Hypertarget{syscalls_8c_aa006daaf11f1e2e45a6ababaf463212b}\index{syscalls.c@{syscalls.c}!environ@{environ}}
 \index{environ@{environ}!syscalls.c@{syscalls.c}}
 \doxysubsubsection{\texorpdfstring{environ}{environ}}
 {\footnotesize\ttfamily \label{syscalls_8c_aa006daaf11f1e2e45a6ababaf463212b} 
-char\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} environ = \+\_\+\+\_\+env}
+char\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} environ}
 
 
 
-Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00070}{70}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+The process environment Newlib hands to {\ttfamily getenv}; always empty here. 
+
+
+
+Definition at line \doxymbox{\hyperlink{syscalls_8c_source_l00109}{109}} of file \doxymbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
 

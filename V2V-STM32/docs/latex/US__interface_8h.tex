@@ -1,5 +1,10 @@
-\doxysection{Inc/\+\+Drivers/\+\+HAL/\+\+US/\+\+US\+\_\+interface.h File Reference}
-\hypertarget{US__interface_8h}{}\label{US__interface_8h}\index{Inc/Drivers/HAL/US/US\_interface.h@{Inc/Drivers/HAL/US/US\_interface.h}}
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+HAL/\+\+US/\+\+US\+\_\+interface.h File Reference}
+\hypertarget{US__interface_8h}{}\label{US__interface_8h}\index{V2V-\/STM32/Inc/Drivers/HAL/US/US\_interface.h@{V2V-\/STM32/Inc/Drivers/HAL/US/US\_interface.h}}
+
+
+Public API of the US driver — the HC-\/\+SR04 ultrasonic rangefinders.  
+
+
 {\ttfamily \+\#include "{}../\+../\+\+LIB/\+\+STD\+\_\+\+MACROS.\+h"{}}\newline
 {\ttfamily \+\#include "{}../\+../\+\+LIB/\+\+Err\+Types.\+h"{}}\newline
 {\ttfamily \+\#include "{}../\+../\+\+LIB/\+\+STM32\+F446xx.\+h"{}}\newline
@@ -18,7 +23,7 @@ This graph shows which files directly or indirectly include this file:\+
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=345pt]{US__interface_8h__dep__incl}
+\includegraphics[width=350pt]{US__interface_8h__dep__incl}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Data Structures}
@@ -29,34 +34,124 @@ struct \doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{US__interface_8h_a29b879f76d665878390dd6161d1eea84}{US\+\_\+v\+Init}} (const \doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}px\+Sensor)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{US__interface_8h_a49bd64d408631fd63886cbc413453e08}{US\+\_\+u16\+Read\+Distance\+\_\+cm}} (const \doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}px\+Sensor, uint16\+\_\+t \texorpdfstring{$\ast$}{*}pu16\+Dist\+\_\+cm)
-\begin{DoxyCompactList}\small\item\em Trigger sensor and measure distance (cm). The calling task SLEEPS on a semaphore while the echo is in flight (CPU free), then the IC ISR wakes it with the result. Returns TIMEOUT\+\_\+\+STATE if no echo within the window. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{US__interface_8h_a29b879f76d665878390dd6161d1eea84}{US\+\_\+v\+Init}} (const \doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}px\+Sensor)
+\begin{DoxyCompactList}\small\item\em Initialize GPIO pins and Timer for the given ultrasonic sensor. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{US__interface_8h_a49bd64d408631fd63886cbc413453e08}{US\+\_\+u16\+Read\+Distance\+\_\+cm}} (const \doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}px\+Sensor, uint16\+\_\+t \texorpdfstring{$\ast$}{*}pu16\+Dist\+\_\+cm)
+\begin{DoxyCompactList}\small\item\em Trigger sensor and measure distance in centimeters (blocking). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Public API of the US driver — the HC-\/\+SR04 ultrasonic rangefinders. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{US__interface_8h_source}{US\+\_\+interface.\+h}}.
+
 
 
 \label{doc-func-members}
 \Hypertarget{US__interface_8h_doc-func-members}
 \doxysubsection{Function Documentation}
+\Hypertarget{US__interface_8h_a29b879f76d665878390dd6161d1eea84}\index{US\_interface.h@{US\_interface.h}!US\_vInit@{US\_vInit}}
+\index{US\_vInit@{US\_vInit}!US\_interface.h@{US\_interface.h}}
+\doxysubsubsection{\texorpdfstring{US\_vInit()}{US\_vInit()}}
+{\footnotesize\ttfamily \label{US__interface_8h_a29b879f76d665878390dd6161d1eea84} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} US\+\_\+v\+Init (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{px\+Sensor}{}\end{DoxyParamCaption})}
+
+
+
+Initialize GPIO pins and Timer for the given ultrasonic sensor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em px\+Sensor} & Pointer to sensor configuration structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ OK if successful, NULL\+\_\+\+POINTER /\+ NOK on error.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+-\/ TRIG pin → Output Push-\/\+Pull
+\begin{DoxyItemize}
+\item ECHO pin → Input Floating (No Pull)
+\item RCC clock for GPIO port(s) and Timer must be enabled BEFORE calling this.
+\end{DoxyItemize}
+\end{DoxyNote}
+\begin{DoxyParagraph}{Example:\+}
+
+\end{DoxyParagraph}
+\doxylink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t} sensor = \{TIM\+\_\+\+TIMER2, GPIO\+\_\+\+PORTA, GPIO\+\_\+\+PIN0, GPIO\+\_\+\+PORTA, GPIO\+\_\+\+PIN1\}; US\+\_\+v\+Init(\&sensor); 
+
+Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00196}{196}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__interface_8h_source_l00159}{GPIO\+\_\+\+Pin\+Config\+\_\+t::\+\+Alternate\+Function}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00415}{TIM\+\_\+\+Type\+Def::\+\+ARR}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00421}{TIM\+\_\+\+Type\+Def::\+\+BDTR}}, \doxymbox{\hyperlink{US__interface_8h_source_l00048}{US\+\_\+\+Config\+\_\+t::\+\+Channel}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00404}{TIM\+\_\+\+Type\+Def::\+\+CR1}}, \doxymbox{\hyperlink{US__interface_8h_source_l00052}{US\+\_\+\+Config\+\_\+t::\+\+Echo\+Pin}}, \doxymbox{\hyperlink{US__interface_8h_source_l00051}{US\+\_\+\+Config\+\_\+t::\+\+Echo\+Port}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00409}{TIM\+\_\+\+Type\+Def::\+\+EGR}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00122}{GPIO\+\_\+\+AF1}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00123}{GPIO\+\_\+\+AF2}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00124}{GPIO\+\_\+\+AF3}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00079}{GPIO\+\_\+\+ALTFN}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00041}{GPIO\+\_\+enum\+Pin\+Init()}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00102}{GPIO\+\_\+\+MEDIUM\+\_\+\+SPEED}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00109}{GPIO\+\_\+\+NO\+\_\+\+PULL}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00078}{GPIO\+\_\+\+OUTPUT}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00085}{GPIO\+\_\+\+PUSH\+\_\+\+PULL}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00104}{GPIO\+\_\+\+VERY\+\_\+\+HIGH\+\_\+\+SPEED}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{NVIC__program_8c_source_l00037}{NVIC\+\_\+v\+Enable\+IRQ()}}, \doxymbox{\hyperlink{NVIC__program_8c_source_l00141}{NVIC\+\_\+v\+Set\+Priority()}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00414}{TIM\+\_\+\+Type\+Def::\+\+PSC}}, \doxymbox{\hyperlink{STD__MACROS_8h_source_l00039}{SET\+\_\+\+BIT}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00408}{TIM\+\_\+\+Type\+Def::\+\+SR}}, \doxymbox{\hyperlink{TIM__private_8h_source_l00015}{TIM\+\_\+\+CR1\+\_\+\+CEN}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00122}{TIM\+\_\+\+IC\+\_\+\+PSC\+\_\+\+DIV1}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00111}{TIM\+\_\+\+IC\+\_\+\+SELECTION\+\_\+\+DIRECT\+\_\+\+TI}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00074}{TIM\+\_\+\+POLARITY\+\_\+\+HIGH}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00029}{TIM\+\_\+\+TIMER1}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00025}{TIM\+\_\+\+TIMER2}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00026}{TIM\+\_\+\+TIMER3}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00028}{TIM\+\_\+\+TIMER5}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00031}{TIM\+\_\+\+TIMER6}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00030}{TIM\+\_\+\+TIMER8}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00239}{TIM\+\_\+v\+IC\+\_\+\+Init()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00551}{TIM\+\_\+v\+Set\+CCCallback()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00103}{TIM\+\_\+v\+Start()}}, \doxymbox{\hyperlink{US__interface_8h_source_l00047}{US\+\_\+\+Config\+\_\+t::\+\+Timer}}, \doxymbox{\hyperlink{US__interface_8h_source_l00050}{US\+\_\+\+Config\+\_\+t::\+\+Trig\+Pin}}, \doxymbox{\hyperlink{US__interface_8h_source_l00049}{US\+\_\+\+Config\+\_\+t::\+\+Trig\+Port}}, \doxymbox{\hyperlink{US__prog_8c_source_l00145}{US\+\_\+\+CC\+\_\+\+Handler()}}, \doxymbox{\hyperlink{US__config_8h_source_l00020}{US\+\_\+\+SYS\+\_\+\+CLK\+\_\+\+HZ}}, \doxymbox{\hyperlink{US__prog_8c_source_l00030}{US\+\_\+\+TIM\+\_\+\+Array}}, \doxymbox{\hyperlink{US__prog_8c_source_l00113}{US\+\_\+u8\+Nvic\+Irq\+For\+Timer()}}, and \doxymbox{\hyperlink{US__prog_8c_source_l00078}{US\+\_\+x\+Done\+Sem}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{US__interface_8h_a29b879f76d665878390dd6161d1eea84_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{US__interface_8h_a29b879f76d665878390dd6161d1eea84_icgraph}
+\end{center}
+\end{figure}
 \Hypertarget{US__interface_8h_a49bd64d408631fd63886cbc413453e08}\index{US\_interface.h@{US\_interface.h}!US\_u16ReadDistance\_cm@{US\_u16ReadDistance\_cm}}
 \index{US\_u16ReadDistance\_cm@{US\_u16ReadDistance\_cm}!US\_interface.h@{US\_interface.h}}
 \doxysubsubsection{\texorpdfstring{US\_u16ReadDistance\_cm()}{US\_u16ReadDistance\_cm()}}
 {\footnotesize\ttfamily \label{US__interface_8h_a49bd64d408631fd63886cbc413453e08} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} US\+\_\+u16\+Read\+Distance\+\_\+cm (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{px\+Sensor}{, }\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{pu16\+Dist\+\_\+cm}{}\end{DoxyParamCaption})}
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} US\+\_\+u16\+Read\+Distance\+\_\+cm (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{px\+Sensor}{, }\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{pu16\+Dist\+\_\+cm}{}\end{DoxyParamCaption})}
 
 
 
-Trigger sensor and measure distance (cm). The calling task SLEEPS on a semaphore while the echo is in flight (CPU free), then the IC ISR wakes it with the result. Returns TIMEOUT\+\_\+\+STATE if no echo within the window. 
+Trigger sensor and measure distance in centimeters (blocking). 
 
+
+\begin{DoxyParams}{Parameters}
+{\em px\+Sensor} & Pointer to sensor configuration structure. \\
+\hline
+{\em pu16\+Dist\+\_\+cm} & Pointer to store the measured distance (cm). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ OK if successful, TIMEOUT\+\_\+\+STATE if no echo received (no object /\+ out of range), NULL\+\_\+\+POINTER if any pointer is NULL, NOK if invalid parameters.
+\end{DoxyReturn}
 \begin{DoxyNote}{Note}
-MUST be called from a task context (uses a Free\+RTOS semaphore). Not reentrant:\+ one measurement at a time (sequential by design). 
+-\/ Effective range:\+ \texorpdfstring{$\sim$}{\string~}2 cm to \texorpdfstring{$\sim$}{\string~}400 cm.
+\begin{DoxyItemize}
+\item Interrupt-\/driven:\+ the calling task SLEEPS on a semaphore while the echo is in flight (CPU is free for other tasks), then the IC ISR wakes it with the result. MUST be called from a task context.
+\item Not reentrant:\+ one measurement at a time (sequential by design).
+\end{DoxyItemize}
 \end{DoxyNote}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2HAL_2US_2US_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+HAL/\+\+US/\+\+US\+\_\+interface.\+h}}.\end{Desc}
+\begin{DoxyParagraph}{Example:\+}
+
+\end{DoxyParagraph}
+uint16\+\_\+t dist; if (US\+\_\+u16\+Read\+Distance\+\_\+cm(\&sensor, \&dist) == OK) \{ /\+/\+ use dist \} 
+
+Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00278}{278}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
 
 
-Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00234}{234}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
+
+References \doxymbox{\hyperlink{US__interface_8h_source_l00048}{US\+\_\+\+Config\+\_\+t::\+\+Channel}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00408}{TIM\+\_\+\+Type\+Def::\+\+SR}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00074}{TIM\+\_\+\+POLARITY\+\_\+\+HIGH}}, \doxymbox{\hyperlink{TIM__private_8h_source_l00059}{TIM\+\_\+\+SR\+\_\+\+CC1\+IF}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00025}{TIM\+\_\+\+TIMER2}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00028}{TIM\+\_\+\+TIMER5}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00544}{TIM\+\_\+v\+Disable\+CCInterrupt()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00536}{TIM\+\_\+v\+Enable\+CCInterrupt()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00361}{TIM\+\_\+v\+Set\+ICPolarity()}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00046}{TIMEOUT\+\_\+\+STATE}}, \doxymbox{\hyperlink{US__interface_8h_source_l00047}{US\+\_\+\+Config\+\_\+t::\+\+Timer}}, \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\+\_\+\+Active}}, \doxymbox{\hyperlink{US__prog_8c_source_l00045}{US\+\_\+\+PHASE\+\_\+\+DONE}}, \doxymbox{\hyperlink{US__prog_8c_source_l00043}{US\+\_\+\+PHASE\+\_\+\+RISING}}, \doxymbox{\hyperlink{US__config_8h_source_l00069}{US\+\_\+\+TASK\+\_\+\+TIMEOUT\+\_\+\+MS}}, \doxymbox{\hyperlink{US__prog_8c_source_l00030}{US\+\_\+\+TIM\+\_\+\+Array}}, \doxymbox{\hyperlink{US__prog_8c_source_l00096}{US\+\_\+v\+Send\+Trigger()}}, and \doxymbox{\hyperlink{US__prog_8c_source_l00078}{US\+\_\+x\+Done\+Sem}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00247}{v\+Task\+\_\+\+Sensors()}}.
 
 Here is the call graph for this function:\+
 \nopagebreak
@@ -72,34 +167,5 @@ Here is the caller graph for this function:\+
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{US__interface_8h_a49bd64d408631fd63886cbc413453e08_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{US__interface_8h_a29b879f76d665878390dd6161d1eea84}\index{US\_interface.h@{US\_interface.h}!US\_vInit@{US\_vInit}}
-\index{US\_vInit@{US\_vInit}!US\_interface.h@{US\_interface.h}}
-\doxysubsubsection{\texorpdfstring{US\_vInit()}{US\_vInit()}}
-{\footnotesize\ttfamily \label{US__interface_8h_a29b879f76d665878390dd6161d1eea84} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} US\+\_\+v\+Init (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{px\+Sensor}{}\end{DoxyParamCaption})}
-
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2HAL_2US_2US_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+HAL/\+\+US/\+\+US\+\_\+interface.\+h}}.\end{Desc}
-
-
-Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00152}{152}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
-
-Here is the call graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=289pt]{US__interface_8h_a29b879f76d665878390dd6161d1eea84_cgraph}
-\end{center}
-\end{figure}
-Here is the caller graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=334pt]{US__interface_8h_a29b879f76d665878390dd6161d1eea84_icgraph}
 \end{center}
 \end{figure}

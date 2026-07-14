@@ -1,258 +1,443 @@
-\doxysection{Inc/\+\+Drivers/\+\+MCAL/\+\+USART/\+\+USART\+\_\+private.h File Reference}
-\hypertarget{USART__private_8h}{}\label{USART__private_8h}\index{Inc/Drivers/MCAL/USART/USART\_private.h@{Inc/Drivers/MCAL/USART/USART\_private.h}}
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+USART/\+\+USART\+\_\+private.h File Reference}
+\hypertarget{USART__private_8h}{}\label{USART__private_8h}\index{V2V-\/STM32/Inc/Drivers/MCAL/USART/USART\_private.h@{V2V-\/STM32/Inc/Drivers/MCAL/USART/USART\_private.h}}
+
+
+Register bit positions and internals of the USART driver — not a public header.  
+
+
 This graph shows which files directly or indirectly include this file:\+
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=215pt]{USART__private_8h__dep__incl}
+\includegraphics[width=248pt]{USART__private_8h__dep__incl}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\+\#define \doxymbox{\hyperlink{USART__private_8h_a72e5ce393f2e53b730e0f17bcbf640e4}{BRR\+\_\+\+MASKING}}~(0\+XFFFF)
-\item 
-\+\#define \doxymbox{\hyperlink{USART__private_8h_a7ba8f0efd7140202e1a7821a0153ba57}{BRR\+\_\+\+DIV\+\_\+\+MANTISSA\+\_\+\+SHIFTING}}~4U
-\item 
-\+\#define \doxymbox{\hyperlink{USART__private_8h_a9a3f69391bddeb754f135123c2850c9e}{USART\+\_\+\+CHANNEL\+\_\+\+COUNT}}~6U
-\item 
-\+\#define \doxymbox{\hyperlink{USART__private_8h_ad887ad91dd88c31c68a8d8af35e1487a}{SR\+\_\+\+TXE}}~7U
-\item 
-\+\#define \doxymbox{\hyperlink{USART__private_8h_a176af068481f1ab6cc4fb651649c6101}{SR\+\_\+\+TC}}~6U
-\item 
-\+\#define \doxymbox{\hyperlink{USART__private_8h_aed03e243a44089845577cb6faba3f696}{SR\+\_\+\+RXNE}}~5U
-\item 
-\+\#define \doxymbox{\hyperlink{USART__private_8h_a8f527263c044a71b0187c2213cea76e5}{CR1\+\_\+\+IDLEIE}}~4U
-\item 
-\+\#define \doxymbox{\hyperlink{USART__private_8h_a7eaac9a8c9e6f8c05e17bb82e6cb04fa}{CR1\+\_\+\+RXNEIE}}~5U
-\item 
-\+\#define \doxymbox{\hyperlink{USART__private_8h_a7b7fdcc0d8b02518cd9439f2e7487dfd}{CR1\+\_\+\+TCIE}}~6U
-\item 
-\+\#define \doxymbox{\hyperlink{USART__private_8h_a446178044b4cfdf91082e6108a28728c}{CR1\+\_\+\+TXEIE}}~7U
-\item 
-\+\#define \doxymbox{\hyperlink{USART__private_8h_ad507c4cd6a3f331b07d0d5d376cfd3c4}{CR1\+\_\+\+PEIE}}~8U
-\item 
-\+\#define \doxymbox{\hyperlink{USART__private_8h_a8310f0b3f3150434ea4ded82d73f7196}{CR1\+\_\+\+WL}}~12U
-\item 
-\+\#define \doxymbox{\hyperlink{USART__private_8h_ad07b476d303d97dd1055c0e44aa202d9}{CR2\+\_\+\+SB}}~12U
-\item 
-\+\#define \doxymbox{\hyperlink{USART__private_8h_adc08bf66bfdbf6e3e9f5b11fc51868ed}{CR1\+\_\+\+PCE}}~10U
-\item 
-\+\#define \doxymbox{\hyperlink{USART__private_8h_af23a6ce408149f107f92991616c49bd1}{CR1\+\_\+\+PS}}~9U
-\item 
-\+\#define \doxymbox{\hyperlink{USART__private_8h_a33e90b554e956f63783de3ec55fccb2a}{CR1\+\_\+\+TE}}~3U
-\item 
-\+\#define \doxymbox{\hyperlink{USART__private_8h_a525a42341ba9922554fe28824e666719}{CR1\+\_\+\+RE}}~2U
-\item 
-\+\#define \doxymbox{\hyperlink{USART__private_8h_a093fe2d53bab79fe3481e3593abdd1d4}{CR1\+\_\+\+OVER}}~15U
-\item 
-\+\#define \doxymbox{\hyperlink{USART__private_8h_afb8c57081cb4c682a84f252a6205a0d6}{MAXIMUM\+\_\+\+CLOCK}}~16000000\+UL
-\item 
-\+\#define \doxymbox{\hyperlink{USART__private_8h_a233fec06ea448151a75382777a68d1d6}{USART\+\_\+u32\+TIMEOUT}}~2000000\+UL
-\end{DoxyCompactItemize}
+\+\#define \doxymbox{\hyperlink{USART__private_8h_a72e5ce393f2e53b730e0f17bcbf640e4}{BRR\+\_\+\+MASKING}}
+\begin{DoxyCompactList}\small\item\em Mask of the 16 significant bits of {\ttfamily BRR}. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{USART__private_8h_a7ba8f0efd7140202e1a7821a0153ba57}{BRR\+\_\+\+DIV\+\_\+\+MANTISSA\+\_\+\+SHIFTING}}
+\begin{DoxyCompactList}\small\item\em Bit position of the mantissa field within {\ttfamily BRR}; the low 4 bits are the fraction. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{USART__private_8h_a9a3f69391bddeb754f135123c2850c9e}{USART\+\_\+\+CHANNEL\+\_\+\+COUNT}}
+\begin{DoxyCompactList}\small\item\em How many USART/\+\+UART peripherals this MCU has. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{USART__private_8h_ad887ad91dd88c31c68a8d8af35e1487a}{SR\+\_\+\+TXE}}
+\begin{DoxyCompactList}\small\item\em {\ttfamily SR} bit:\+ transmit data register empty. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{USART__private_8h_a176af068481f1ab6cc4fb651649c6101}{SR\+\_\+\+TC}}
+\begin{DoxyCompactList}\small\item\em {\ttfamily SR} bit:\+ transmission complete — the last bit has left the shift register. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{USART__private_8h_aed03e243a44089845577cb6faba3f696}{SR\+\_\+\+RXNE}}
+\begin{DoxyCompactList}\small\item\em {\ttfamily SR} bit:\+ read data register not empty — a byte is waiting. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{USART__private_8h_a8f527263c044a71b0187c2213cea76e5}{CR1\+\_\+\+IDLEIE}}
+\begin{DoxyCompactList}\small\item\em {\ttfamily CR1} bit:\+ idle-\/line interrupt enable. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{USART__private_8h_a7eaac9a8c9e6f8c05e17bb82e6cb04fa}{CR1\+\_\+\+RXNEIE}}
+\begin{DoxyCompactList}\small\item\em {\ttfamily CR1} bit:\+ RXNE interrupt enable. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{USART__private_8h_a7b7fdcc0d8b02518cd9439f2e7487dfd}{CR1\+\_\+\+TCIE}}
+\begin{DoxyCompactList}\small\item\em {\ttfamily CR1} bit:\+ transmission-\/complete interrupt enable. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{USART__private_8h_a446178044b4cfdf91082e6108a28728c}{CR1\+\_\+\+TXEIE}}
+\begin{DoxyCompactList}\small\item\em {\ttfamily CR1} bit:\+ TXE interrupt enable. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{USART__private_8h_ad507c4cd6a3f331b07d0d5d376cfd3c4}{CR1\+\_\+\+PEIE}}
+\begin{DoxyCompactList}\small\item\em {\ttfamily CR1} bit:\+ parity-\/error interrupt enable. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{USART__private_8h_a8310f0b3f3150434ea4ded82d73f7196}{CR1\+\_\+\+WL}}
+\begin{DoxyCompactList}\small\item\em {\ttfamily CR1} bit:\+ word length (0 = 8 bits, 1 = 9 bits). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{USART__private_8h_ad07b476d303d97dd1055c0e44aa202d9}{CR2\+\_\+\+SB}}
+\begin{DoxyCompactList}\small\item\em {\ttfamily CR2} bit:\+ stop-\/bit field. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{USART__private_8h_adc08bf66bfdbf6e3e9f5b11fc51868ed}{CR1\+\_\+\+PCE}}
+\begin{DoxyCompactList}\small\item\em {\ttfamily CR1} bit:\+ parity control enable. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{USART__private_8h_af23a6ce408149f107f92991616c49bd1}{CR1\+\_\+\+PS}}
+\begin{DoxyCompactList}\small\item\em {\ttfamily CR1} bit:\+ parity selection (0 = even, 1 = odd). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{USART__private_8h_a33e90b554e956f63783de3ec55fccb2a}{CR1\+\_\+\+TE}}
+\begin{DoxyCompactList}\small\item\em {\ttfamily CR1} bit:\+ transmitter enable. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{USART__private_8h_a525a42341ba9922554fe28824e666719}{CR1\+\_\+\+RE}}
+\begin{DoxyCompactList}\small\item\em {\ttfamily CR1} bit:\+ receiver enable. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{USART__private_8h_a093fe2d53bab79fe3481e3593abdd1d4}{CR1\+\_\+\+OVER}}
+\begin{DoxyCompactList}\small\item\em {\ttfamily CR1} bit:\+ oversampling mode (0 = 16x, 1 = 8x). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{USART__private_8h_afb8c57081cb4c682a84f252a6205a0d6}{MAXIMUM\+\_\+\+CLOCK}}
+\begin{DoxyCompactList}\small\item\em Peripheral clock assumed when computing the baud-\/rate divider \+[Hz]\+. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{USART__private_8h_a233fec06ea448151a75382777a68d1d6}{USART\+\_\+u32\+TIMEOUT}}
+\begin{DoxyCompactList}\small\item\em Busy-\/wait bound for the TXE/\+\+RXNE flags, in loop iterations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Register bit positions and internals of the USART driver — not a public header. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
+
 
 
 \label{doc-define-members}
 \Hypertarget{USART__private_8h_doc-define-members}
 \doxysubsection{Macro Definition Documentation}
-\Hypertarget{USART__private_8h_a7ba8f0efd7140202e1a7821a0153ba57}\index{USART\_private.h@{USART\_private.h}!BRR\_DIV\_MANTISSA\_SHIFTING@{BRR\_DIV\_MANTISSA\_SHIFTING}}
-\index{BRR\_DIV\_MANTISSA\_SHIFTING@{BRR\_DIV\_MANTISSA\_SHIFTING}!USART\_private.h@{USART\_private.h}}
-\doxysubsubsection{\texorpdfstring{BRR\_DIV\_MANTISSA\_SHIFTING}{BRR\_DIV\_MANTISSA\_SHIFTING}}
-{\footnotesize\ttfamily \label{USART__private_8h_a7ba8f0efd7140202e1a7821a0153ba57} 
-\+\#define BRR\+\_\+\+DIV\+\_\+\+MANTISSA\+\_\+\+SHIFTING~4U}
-
-
-
-Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00019}{19}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
-
 \Hypertarget{USART__private_8h_a72e5ce393f2e53b730e0f17bcbf640e4}\index{USART\_private.h@{USART\_private.h}!BRR\_MASKING@{BRR\_MASKING}}
 \index{BRR\_MASKING@{BRR\_MASKING}!USART\_private.h@{USART\_private.h}}
 \doxysubsubsection{\texorpdfstring{BRR\_MASKING}{BRR\_MASKING}}
 {\footnotesize\ttfamily \label{USART__private_8h_a72e5ce393f2e53b730e0f17bcbf640e4} 
-\+\#define BRR\+\_\+\+MASKING~(0\+XFFFF)}
+\+\#define BRR\+\_\+\+MASKING}
 
-===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} \doxylink{USART__private_8h}{USART\+\_\+private.\+h} \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Abdelmoemen Shehawey \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ MCAL \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} CPU :\+ Cortex-\/\+M4 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} MCU :\+ NUCLEO-\/\+F446\+RE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SWC :\+ USART \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} 
 
-Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00017}{17}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
 
-\Hypertarget{USART__private_8h_a8f527263c044a71b0187c2213cea76e5}\index{USART\_private.h@{USART\_private.h}!CR1\_IDLEIE@{CR1\_IDLEIE}}
-\index{CR1\_IDLEIE@{CR1\_IDLEIE}!USART\_private.h@{USART\_private.h}}
-\doxysubsubsection{\texorpdfstring{CR1\_IDLEIE}{CR1\_IDLEIE}}
-{\footnotesize\ttfamily \label{USART__private_8h_a8f527263c044a71b0187c2213cea76e5} 
-\+\#define CR1\+\_\+\+IDLEIE~4U}
+Mask of the 16 significant bits of {\ttfamily BRR}. 
 
 
 
-Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00027}{27}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
+Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00013}{13}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
 
-\Hypertarget{USART__private_8h_a093fe2d53bab79fe3481e3593abdd1d4}\index{USART\_private.h@{USART\_private.h}!CR1\_OVER@{CR1\_OVER}}
-\index{CR1\_OVER@{CR1\_OVER}!USART\_private.h@{USART\_private.h}}
-\doxysubsubsection{\texorpdfstring{CR1\_OVER}{CR1\_OVER}}
-{\footnotesize\ttfamily \label{USART__private_8h_a093fe2d53bab79fe3481e3593abdd1d4} 
-\+\#define CR1\+\_\+\+OVER~15U}
 
 
+Referenced by \doxymbox{\hyperlink{USART__program_8c_source_l00041}{USART\+\_\+\+Init()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00138}{USART\+\_\+\+Init\+IT()}}.
 
-Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00039}{39}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
+\Hypertarget{USART__private_8h_a7ba8f0efd7140202e1a7821a0153ba57}\index{USART\_private.h@{USART\_private.h}!BRR\_DIV\_MANTISSA\_SHIFTING@{BRR\_DIV\_MANTISSA\_SHIFTING}}
+\index{BRR\_DIV\_MANTISSA\_SHIFTING@{BRR\_DIV\_MANTISSA\_SHIFTING}!USART\_private.h@{USART\_private.h}}
+\doxysubsubsection{\texorpdfstring{BRR\_DIV\_MANTISSA\_SHIFTING}{BRR\_DIV\_MANTISSA\_SHIFTING}}
+{\footnotesize\ttfamily \label{USART__private_8h_a7ba8f0efd7140202e1a7821a0153ba57} 
+\+\#define BRR\+\_\+\+DIV\+\_\+\+MANTISSA\+\_\+\+SHIFTING}
 
-\Hypertarget{USART__private_8h_adc08bf66bfdbf6e3e9f5b11fc51868ed}\index{USART\_private.h@{USART\_private.h}!CR1\_PCE@{CR1\_PCE}}
-\index{CR1\_PCE@{CR1\_PCE}!USART\_private.h@{USART\_private.h}}
-\doxysubsubsection{\texorpdfstring{CR1\_PCE}{CR1\_PCE}}
-{\footnotesize\ttfamily \label{USART__private_8h_adc08bf66bfdbf6e3e9f5b11fc51868ed} 
-\+\#define CR1\+\_\+\+PCE~10U}
 
 
+Bit position of the mantissa field within {\ttfamily BRR}; the low 4 bits are the fraction. 
 
-Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00035}{35}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
 
-\Hypertarget{USART__private_8h_ad507c4cd6a3f331b07d0d5d376cfd3c4}\index{USART\_private.h@{USART\_private.h}!CR1\_PEIE@{CR1\_PEIE}}
-\index{CR1\_PEIE@{CR1\_PEIE}!USART\_private.h@{USART\_private.h}}
-\doxysubsubsection{\texorpdfstring{CR1\_PEIE}{CR1\_PEIE}}
-{\footnotesize\ttfamily \label{USART__private_8h_ad507c4cd6a3f331b07d0d5d376cfd3c4} 
-\+\#define CR1\+\_\+\+PEIE~8U}
 
+Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00015}{15}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
 
 
-Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00031}{31}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
 
-\Hypertarget{USART__private_8h_af23a6ce408149f107f92991616c49bd1}\index{USART\_private.h@{USART\_private.h}!CR1\_PS@{CR1\_PS}}
-\index{CR1\_PS@{CR1\_PS}!USART\_private.h@{USART\_private.h}}
-\doxysubsubsection{\texorpdfstring{CR1\_PS}{CR1\_PS}}
-{\footnotesize\ttfamily \label{USART__private_8h_af23a6ce408149f107f92991616c49bd1} 
-\+\#define CR1\+\_\+\+PS~9U}
-
-
-
-Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00036}{36}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
-
-\Hypertarget{USART__private_8h_a525a42341ba9922554fe28824e666719}\index{USART\_private.h@{USART\_private.h}!CR1\_RE@{CR1\_RE}}
-\index{CR1\_RE@{CR1\_RE}!USART\_private.h@{USART\_private.h}}
-\doxysubsubsection{\texorpdfstring{CR1\_RE}{CR1\_RE}}
-{\footnotesize\ttfamily \label{USART__private_8h_a525a42341ba9922554fe28824e666719} 
-\+\#define CR1\+\_\+\+RE~2U}
-
-
-
-Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00038}{38}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
-
-\Hypertarget{USART__private_8h_a7eaac9a8c9e6f8c05e17bb82e6cb04fa}\index{USART\_private.h@{USART\_private.h}!CR1\_RXNEIE@{CR1\_RXNEIE}}
-\index{CR1\_RXNEIE@{CR1\_RXNEIE}!USART\_private.h@{USART\_private.h}}
-\doxysubsubsection{\texorpdfstring{CR1\_RXNEIE}{CR1\_RXNEIE}}
-{\footnotesize\ttfamily \label{USART__private_8h_a7eaac9a8c9e6f8c05e17bb82e6cb04fa} 
-\+\#define CR1\+\_\+\+RXNEIE~5U}
-
-
-
-Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00028}{28}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
-
-\Hypertarget{USART__private_8h_a7b7fdcc0d8b02518cd9439f2e7487dfd}\index{USART\_private.h@{USART\_private.h}!CR1\_TCIE@{CR1\_TCIE}}
-\index{CR1\_TCIE@{CR1\_TCIE}!USART\_private.h@{USART\_private.h}}
-\doxysubsubsection{\texorpdfstring{CR1\_TCIE}{CR1\_TCIE}}
-{\footnotesize\ttfamily \label{USART__private_8h_a7b7fdcc0d8b02518cd9439f2e7487dfd} 
-\+\#define CR1\+\_\+\+TCIE~6U}
-
-
-
-Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00029}{29}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
-
-\Hypertarget{USART__private_8h_a33e90b554e956f63783de3ec55fccb2a}\index{USART\_private.h@{USART\_private.h}!CR1\_TE@{CR1\_TE}}
-\index{CR1\_TE@{CR1\_TE}!USART\_private.h@{USART\_private.h}}
-\doxysubsubsection{\texorpdfstring{CR1\_TE}{CR1\_TE}}
-{\footnotesize\ttfamily \label{USART__private_8h_a33e90b554e956f63783de3ec55fccb2a} 
-\+\#define CR1\+\_\+\+TE~3U}
-
-
-
-Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00037}{37}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
-
-\Hypertarget{USART__private_8h_a446178044b4cfdf91082e6108a28728c}\index{USART\_private.h@{USART\_private.h}!CR1\_TXEIE@{CR1\_TXEIE}}
-\index{CR1\_TXEIE@{CR1\_TXEIE}!USART\_private.h@{USART\_private.h}}
-\doxysubsubsection{\texorpdfstring{CR1\_TXEIE}{CR1\_TXEIE}}
-{\footnotesize\ttfamily \label{USART__private_8h_a446178044b4cfdf91082e6108a28728c} 
-\+\#define CR1\+\_\+\+TXEIE~7U}
-
-
-
-Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00030}{30}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
-
-\Hypertarget{USART__private_8h_a8310f0b3f3150434ea4ded82d73f7196}\index{USART\_private.h@{USART\_private.h}!CR1\_WL@{CR1\_WL}}
-\index{CR1\_WL@{CR1\_WL}!USART\_private.h@{USART\_private.h}}
-\doxysubsubsection{\texorpdfstring{CR1\_WL}{CR1\_WL}}
-{\footnotesize\ttfamily \label{USART__private_8h_a8310f0b3f3150434ea4ded82d73f7196} 
-\+\#define CR1\+\_\+\+WL~12U}
-
-
-
-Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00033}{33}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
-
-\Hypertarget{USART__private_8h_ad07b476d303d97dd1055c0e44aa202d9}\index{USART\_private.h@{USART\_private.h}!CR2\_SB@{CR2\_SB}}
-\index{CR2\_SB@{CR2\_SB}!USART\_private.h@{USART\_private.h}}
-\doxysubsubsection{\texorpdfstring{CR2\_SB}{CR2\_SB}}
-{\footnotesize\ttfamily \label{USART__private_8h_ad07b476d303d97dd1055c0e44aa202d9} 
-\+\#define CR2\+\_\+\+SB~12U}
-
-
-
-Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00034}{34}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
-
-\Hypertarget{USART__private_8h_afb8c57081cb4c682a84f252a6205a0d6}\index{USART\_private.h@{USART\_private.h}!MAXIMUM\_CLOCK@{MAXIMUM\_CLOCK}}
-\index{MAXIMUM\_CLOCK@{MAXIMUM\_CLOCK}!USART\_private.h@{USART\_private.h}}
-\doxysubsubsection{\texorpdfstring{MAXIMUM\_CLOCK}{MAXIMUM\_CLOCK}}
-{\footnotesize\ttfamily \label{USART__private_8h_afb8c57081cb4c682a84f252a6205a0d6} 
-\+\#define MAXIMUM\+\_\+\+CLOCK~16000000\+UL}
-
-
-
-Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00041}{41}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
-
-\Hypertarget{USART__private_8h_aed03e243a44089845577cb6faba3f696}\index{USART\_private.h@{USART\_private.h}!SR\_RXNE@{SR\_RXNE}}
-\index{SR\_RXNE@{SR\_RXNE}!USART\_private.h@{USART\_private.h}}
-\doxysubsubsection{\texorpdfstring{SR\_RXNE}{SR\_RXNE}}
-{\footnotesize\ttfamily \label{USART__private_8h_aed03e243a44089845577cb6faba3f696} 
-\+\#define SR\+\_\+\+RXNE~5U}
-
-
-
-Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00025}{25}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
-
-\Hypertarget{USART__private_8h_a176af068481f1ab6cc4fb651649c6101}\index{USART\_private.h@{USART\_private.h}!SR\_TC@{SR\_TC}}
-\index{SR\_TC@{SR\_TC}!USART\_private.h@{USART\_private.h}}
-\doxysubsubsection{\texorpdfstring{SR\_TC}{SR\_TC}}
-{\footnotesize\ttfamily \label{USART__private_8h_a176af068481f1ab6cc4fb651649c6101} 
-\+\#define SR\+\_\+\+TC~6U}
-
-
-
-Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00024}{24}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
-
-\Hypertarget{USART__private_8h_ad887ad91dd88c31c68a8d8af35e1487a}\index{USART\_private.h@{USART\_private.h}!SR\_TXE@{SR\_TXE}}
-\index{SR\_TXE@{SR\_TXE}!USART\_private.h@{USART\_private.h}}
-\doxysubsubsection{\texorpdfstring{SR\_TXE}{SR\_TXE}}
-{\footnotesize\ttfamily \label{USART__private_8h_ad887ad91dd88c31c68a8d8af35e1487a} 
-\+\#define SR\+\_\+\+TXE~7U}
-
-
-
-Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00023}{23}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
+Referenced by \doxymbox{\hyperlink{USART__program_8c_source_l00041}{USART\+\_\+\+Init()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00138}{USART\+\_\+\+Init\+IT()}}.
 
 \Hypertarget{USART__private_8h_a9a3f69391bddeb754f135123c2850c9e}\index{USART\_private.h@{USART\_private.h}!USART\_CHANNEL\_COUNT@{USART\_CHANNEL\_COUNT}}
 \index{USART\_CHANNEL\_COUNT@{USART\_CHANNEL\_COUNT}!USART\_private.h@{USART\_private.h}}
 \doxysubsubsection{\texorpdfstring{USART\_CHANNEL\_COUNT}{USART\_CHANNEL\_COUNT}}
 {\footnotesize\ttfamily \label{USART__private_8h_a9a3f69391bddeb754f135123c2850c9e} 
-\+\#define USART\+\_\+\+CHANNEL\+\_\+\+COUNT~6U}
+\+\#define USART\+\_\+\+CHANNEL\+\_\+\+COUNT}
+
+
+
+How many USART/\+\+UART peripherals this MCU has. 
+
+
+
+Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00016}{16}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{USART__program_8c_source_l00351}{USART\+\_\+enum\+Receive()}}, \doxymbox{\hyperlink{USART__program_8c_source_l00247}{USART\+\_\+enum\+Transmit()}}, \doxymbox{\hyperlink{USART__program_8c_source_l00309}{USART\+\_\+enum\+Transmit\+String()}}, \doxymbox{\hyperlink{USART__program_8c_source_l00041}{USART\+\_\+\+Init()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00138}{USART\+\_\+\+Init\+IT()}}.
+
+\Hypertarget{USART__private_8h_ad887ad91dd88c31c68a8d8af35e1487a}\index{USART\_private.h@{USART\_private.h}!SR\_TXE@{SR\_TXE}}
+\index{SR\_TXE@{SR\_TXE}!USART\_private.h@{USART\_private.h}}
+\doxysubsubsection{\texorpdfstring{SR\_TXE}{SR\_TXE}}
+{\footnotesize\ttfamily \label{USART__private_8h_ad887ad91dd88c31c68a8d8af35e1487a} 
+\+\#define SR\+\_\+\+TXE}
+
+
+
+{\ttfamily SR} bit:\+ transmit data register empty. 
+
+
+
+Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00017}{17}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SPI__program_8c_source_l00111}{SPI\+\_\+enum\+Trancieve()}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00189}{SPI\+\_\+enum\+Transmit()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00247}{USART\+\_\+enum\+Transmit()}}.
+
+\Hypertarget{USART__private_8h_a176af068481f1ab6cc4fb651649c6101}\index{USART\_private.h@{USART\_private.h}!SR\_TC@{SR\_TC}}
+\index{SR\_TC@{SR\_TC}!USART\_private.h@{USART\_private.h}}
+\doxysubsubsection{\texorpdfstring{SR\_TC}{SR\_TC}}
+{\footnotesize\ttfamily \label{USART__private_8h_a176af068481f1ab6cc4fb651649c6101} 
+\+\#define SR\+\_\+\+TC}
+
+
+
+{\ttfamily SR} bit:\+ transmission complete — the last bit has left the shift register. 
+
+
+
+Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00018}{18}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{USART__program_8c_source_l00247}{USART\+\_\+enum\+Transmit()}}.
+
+\Hypertarget{USART__private_8h_aed03e243a44089845577cb6faba3f696}\index{USART\_private.h@{USART\_private.h}!SR\_RXNE@{SR\_RXNE}}
+\index{SR\_RXNE@{SR\_RXNE}!USART\_private.h@{USART\_private.h}}
+\doxysubsubsection{\texorpdfstring{SR\_RXNE}{SR\_RXNE}}
+{\footnotesize\ttfamily \label{USART__private_8h_aed03e243a44089845577cb6faba3f696} 
+\+\#define SR\+\_\+\+RXNE}
+
+
+
+{\ttfamily SR} bit:\+ read data register not empty — a byte is waiting. 
+
+
+
+Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00019}{19}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SPI__program_8c_source_l00249}{SPI\+\_\+enum\+Receive()}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00111}{SPI\+\_\+enum\+Trancieve()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00351}{USART\+\_\+enum\+Receive()}}.
+
+\Hypertarget{USART__private_8h_a8f527263c044a71b0187c2213cea76e5}\index{USART\_private.h@{USART\_private.h}!CR1\_IDLEIE@{CR1\_IDLEIE}}
+\index{CR1\_IDLEIE@{CR1\_IDLEIE}!USART\_private.h@{USART\_private.h}}
+\doxysubsubsection{\texorpdfstring{CR1\_IDLEIE}{CR1\_IDLEIE}}
+{\footnotesize\ttfamily \label{USART__private_8h_a8f527263c044a71b0187c2213cea76e5} 
+\+\#define CR1\+\_\+\+IDLEIE}
+
+
+
+{\ttfamily CR1} bit:\+ idle-\/line interrupt enable. 
+
+
+
+Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00020}{20}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{USART__program_8c_source_l00138}{USART\+\_\+\+Init\+IT()}}.
+
+\Hypertarget{USART__private_8h_a7eaac9a8c9e6f8c05e17bb82e6cb04fa}\index{USART\_private.h@{USART\_private.h}!CR1\_RXNEIE@{CR1\_RXNEIE}}
+\index{CR1\_RXNEIE@{CR1\_RXNEIE}!USART\_private.h@{USART\_private.h}}
+\doxysubsubsection{\texorpdfstring{CR1\_RXNEIE}{CR1\_RXNEIE}}
+{\footnotesize\ttfamily \label{USART__private_8h_a7eaac9a8c9e6f8c05e17bb82e6cb04fa} 
+\+\#define CR1\+\_\+\+RXNEIE}
+
+
+
+{\ttfamily CR1} bit:\+ RXNE interrupt enable. 
 
 
 
 Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00021}{21}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
 
+
+
+Referenced by \doxymbox{\hyperlink{USART__program_8c_source_l00138}{USART\+\_\+\+Init\+IT()}}.
+
+\Hypertarget{USART__private_8h_a7b7fdcc0d8b02518cd9439f2e7487dfd}\index{USART\_private.h@{USART\_private.h}!CR1\_TCIE@{CR1\_TCIE}}
+\index{CR1\_TCIE@{CR1\_TCIE}!USART\_private.h@{USART\_private.h}}
+\doxysubsubsection{\texorpdfstring{CR1\_TCIE}{CR1\_TCIE}}
+{\footnotesize\ttfamily \label{USART__private_8h_a7b7fdcc0d8b02518cd9439f2e7487dfd} 
+\+\#define CR1\+\_\+\+TCIE}
+
+
+
+{\ttfamily CR1} bit:\+ transmission-\/complete interrupt enable. 
+
+
+
+Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00022}{22}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{USART__program_8c_source_l00138}{USART\+\_\+\+Init\+IT()}}.
+
+\Hypertarget{USART__private_8h_a446178044b4cfdf91082e6108a28728c}\index{USART\_private.h@{USART\_private.h}!CR1\_TXEIE@{CR1\_TXEIE}}
+\index{CR1\_TXEIE@{CR1\_TXEIE}!USART\_private.h@{USART\_private.h}}
+\doxysubsubsection{\texorpdfstring{CR1\_TXEIE}{CR1\_TXEIE}}
+{\footnotesize\ttfamily \label{USART__private_8h_a446178044b4cfdf91082e6108a28728c} 
+\+\#define CR1\+\_\+\+TXEIE}
+
+
+
+{\ttfamily CR1} bit:\+ TXE interrupt enable. 
+
+
+
+Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00023}{23}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{USART__program_8c_source_l00138}{USART\+\_\+\+Init\+IT()}}.
+
+\Hypertarget{USART__private_8h_ad507c4cd6a3f331b07d0d5d376cfd3c4}\index{USART\_private.h@{USART\_private.h}!CR1\_PEIE@{CR1\_PEIE}}
+\index{CR1\_PEIE@{CR1\_PEIE}!USART\_private.h@{USART\_private.h}}
+\doxysubsubsection{\texorpdfstring{CR1\_PEIE}{CR1\_PEIE}}
+{\footnotesize\ttfamily \label{USART__private_8h_ad507c4cd6a3f331b07d0d5d376cfd3c4} 
+\+\#define CR1\+\_\+\+PEIE}
+
+
+
+{\ttfamily CR1} bit:\+ parity-\/error interrupt enable. 
+
+
+
+Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00024}{24}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{USART__program_8c_source_l00138}{USART\+\_\+\+Init\+IT()}}.
+
+\Hypertarget{USART__private_8h_a8310f0b3f3150434ea4ded82d73f7196}\index{USART\_private.h@{USART\_private.h}!CR1\_WL@{CR1\_WL}}
+\index{CR1\_WL@{CR1\_WL}!USART\_private.h@{USART\_private.h}}
+\doxysubsubsection{\texorpdfstring{CR1\_WL}{CR1\_WL}}
+{\footnotesize\ttfamily \label{USART__private_8h_a8310f0b3f3150434ea4ded82d73f7196} 
+\+\#define CR1\+\_\+\+WL}
+
+
+
+{\ttfamily CR1} bit:\+ word length (0 = 8 bits, 1 = 9 bits). 
+
+
+
+Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00025}{25}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{USART__program_8c_source_l00041}{USART\+\_\+\+Init()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00138}{USART\+\_\+\+Init\+IT()}}.
+
+\Hypertarget{USART__private_8h_ad07b476d303d97dd1055c0e44aa202d9}\index{USART\_private.h@{USART\_private.h}!CR2\_SB@{CR2\_SB}}
+\index{CR2\_SB@{CR2\_SB}!USART\_private.h@{USART\_private.h}}
+\doxysubsubsection{\texorpdfstring{CR2\_SB}{CR2\_SB}}
+{\footnotesize\ttfamily \label{USART__private_8h_ad07b476d303d97dd1055c0e44aa202d9} 
+\+\#define CR2\+\_\+\+SB}
+
+
+
+{\ttfamily CR2} bit:\+ stop-\/bit field. 
+
+
+
+Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00026}{26}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{USART__program_8c_source_l00041}{USART\+\_\+\+Init()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00138}{USART\+\_\+\+Init\+IT()}}.
+
+\Hypertarget{USART__private_8h_adc08bf66bfdbf6e3e9f5b11fc51868ed}\index{USART\_private.h@{USART\_private.h}!CR1\_PCE@{CR1\_PCE}}
+\index{CR1\_PCE@{CR1\_PCE}!USART\_private.h@{USART\_private.h}}
+\doxysubsubsection{\texorpdfstring{CR1\_PCE}{CR1\_PCE}}
+{\footnotesize\ttfamily \label{USART__private_8h_adc08bf66bfdbf6e3e9f5b11fc51868ed} 
+\+\#define CR1\+\_\+\+PCE}
+
+
+
+{\ttfamily CR1} bit:\+ parity control enable. 
+
+
+
+Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00027}{27}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{USART__program_8c_source_l00041}{USART\+\_\+\+Init()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00138}{USART\+\_\+\+Init\+IT()}}.
+
+\Hypertarget{USART__private_8h_af23a6ce408149f107f92991616c49bd1}\index{USART\_private.h@{USART\_private.h}!CR1\_PS@{CR1\_PS}}
+\index{CR1\_PS@{CR1\_PS}!USART\_private.h@{USART\_private.h}}
+\doxysubsubsection{\texorpdfstring{CR1\_PS}{CR1\_PS}}
+{\footnotesize\ttfamily \label{USART__private_8h_af23a6ce408149f107f92991616c49bd1} 
+\+\#define CR1\+\_\+\+PS}
+
+
+
+{\ttfamily CR1} bit:\+ parity selection (0 = even, 1 = odd). 
+
+
+
+Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00028}{28}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{USART__program_8c_source_l00041}{USART\+\_\+\+Init()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00138}{USART\+\_\+\+Init\+IT()}}.
+
+\Hypertarget{USART__private_8h_a33e90b554e956f63783de3ec55fccb2a}\index{USART\_private.h@{USART\_private.h}!CR1\_TE@{CR1\_TE}}
+\index{CR1\_TE@{CR1\_TE}!USART\_private.h@{USART\_private.h}}
+\doxysubsubsection{\texorpdfstring{CR1\_TE}{CR1\_TE}}
+{\footnotesize\ttfamily \label{USART__private_8h_a33e90b554e956f63783de3ec55fccb2a} 
+\+\#define CR1\+\_\+\+TE}
+
+
+
+{\ttfamily CR1} bit:\+ transmitter enable. 
+
+
+
+Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00029}{29}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{USART__program_8c_source_l00041}{USART\+\_\+\+Init()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00138}{USART\+\_\+\+Init\+IT()}}.
+
+\Hypertarget{USART__private_8h_a525a42341ba9922554fe28824e666719}\index{USART\_private.h@{USART\_private.h}!CR1\_RE@{CR1\_RE}}
+\index{CR1\_RE@{CR1\_RE}!USART\_private.h@{USART\_private.h}}
+\doxysubsubsection{\texorpdfstring{CR1\_RE}{CR1\_RE}}
+{\footnotesize\ttfamily \label{USART__private_8h_a525a42341ba9922554fe28824e666719} 
+\+\#define CR1\+\_\+\+RE}
+
+
+
+{\ttfamily CR1} bit:\+ receiver enable. 
+
+
+
+Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00030}{30}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{USART__program_8c_source_l00041}{USART\+\_\+\+Init()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00138}{USART\+\_\+\+Init\+IT()}}.
+
+\Hypertarget{USART__private_8h_a093fe2d53bab79fe3481e3593abdd1d4}\index{USART\_private.h@{USART\_private.h}!CR1\_OVER@{CR1\_OVER}}
+\index{CR1\_OVER@{CR1\_OVER}!USART\_private.h@{USART\_private.h}}
+\doxysubsubsection{\texorpdfstring{CR1\_OVER}{CR1\_OVER}}
+{\footnotesize\ttfamily \label{USART__private_8h_a093fe2d53bab79fe3481e3593abdd1d4} 
+\+\#define CR1\+\_\+\+OVER}
+
+
+
+{\ttfamily CR1} bit:\+ oversampling mode (0 = 16x, 1 = 8x). 
+
+
+
+Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00031}{31}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{USART__program_8c_source_l00041}{USART\+\_\+\+Init()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00138}{USART\+\_\+\+Init\+IT()}}.
+
+\Hypertarget{USART__private_8h_afb8c57081cb4c682a84f252a6205a0d6}\index{USART\_private.h@{USART\_private.h}!MAXIMUM\_CLOCK@{MAXIMUM\_CLOCK}}
+\index{MAXIMUM\_CLOCK@{MAXIMUM\_CLOCK}!USART\_private.h@{USART\_private.h}}
+\doxysubsubsection{\texorpdfstring{MAXIMUM\_CLOCK}{MAXIMUM\_CLOCK}}
+{\footnotesize\ttfamily \label{USART__private_8h_afb8c57081cb4c682a84f252a6205a0d6} 
+\+\#define MAXIMUM\+\_\+\+CLOCK}
+
+
+
+Peripheral clock assumed when computing the baud-\/rate divider \+[Hz]\+. 
+
+
+
+Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00032}{32}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{USART__program_8c_source_l00041}{USART\+\_\+\+Init()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00138}{USART\+\_\+\+Init\+IT()}}.
+
 \Hypertarget{USART__private_8h_a233fec06ea448151a75382777a68d1d6}\index{USART\_private.h@{USART\_private.h}!USART\_u32TIMEOUT@{USART\_u32TIMEOUT}}
 \index{USART\_u32TIMEOUT@{USART\_u32TIMEOUT}!USART\_private.h@{USART\_private.h}}
 \doxysubsubsection{\texorpdfstring{USART\_u32TIMEOUT}{USART\_u32TIMEOUT}}
 {\footnotesize\ttfamily \label{USART__private_8h_a233fec06ea448151a75382777a68d1d6} 
-\+\#define USART\+\_\+u32\+TIMEOUT~2000000\+UL}
+\+\#define USART\+\_\+u32\+TIMEOUT}
 
 
 
-Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00051}{51}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
+Busy-\/wait bound for the TXE/\+\+RXNE flags, in loop iterations. 
+
+This is a {\bfseries{stuck-\/hardware}} bound and nothing else. It must never expire during a legitimate byte transfer.
+
+\begin{DoxyWarning}{Warning}
+It was previously 20000, which was far too small:\+ under load it expired mid-\/stream while TXE was still 0, so \doxylink{USART__intreface_8h_a1abd71036dad0752b737b6b4872d7111}{USART\+\_\+enum\+Transmit} dropped the byte {\itshape silently} and the DSRC frame arrived truncated — the ESP32 saw 14-\/20 bytes per packet instead of 23 and failed every checksum. A single byte takes \texorpdfstring{$\sim$}{\string~}87 us at 115200 baud and \texorpdfstring{$\sim$}{\string~}174 us at
+\begin{DoxyEnumerate}
+\item The value is sized to cover many milliseconds of waiting even at -\/O3, while still escaping a genuinely dead peripheral. 
+\end{DoxyEnumerate}
+\end{DoxyWarning}
+
+
+Definition at line \doxymbox{\hyperlink{USART__private_8h_source_l00047}{47}} of file \doxymbox{\hyperlink{USART__private_8h_source}{USART\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{USART__program_8c_source_l00351}{USART\+\_\+enum\+Receive()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00247}{USART\+\_\+enum\+Transmit()}}.
 

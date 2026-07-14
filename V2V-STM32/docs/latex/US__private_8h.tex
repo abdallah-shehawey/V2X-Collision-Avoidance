@@ -1,10 +1,54 @@
-\doxysection{Inc/\+\+Drivers/\+\+HAL/\+\+US/\+\+US\+\_\+private.h File Reference}
-\hypertarget{US__private_8h}{}\label{US__private_8h}\index{Inc/Drivers/HAL/US/US\_private.h@{Inc/Drivers/HAL/US/US\_private.h}}
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+HAL/\+\+US/\+\+US\+\_\+private.h File Reference}
+\hypertarget{US__private_8h}{}\label{US__private_8h}\index{V2V-\/STM32/Inc/Drivers/HAL/US/US\_private.h@{V2V-\/STM32/Inc/Drivers/HAL/US/US\_private.h}}
+
+
+Register bit positions and internals of the US driver — not a public header.  
+
+
 This graph shows which files directly or indirectly include this file:\+
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=188pt]{US__private_8h__dep__incl}
+\includegraphics[width=221pt]{US__private_8h__dep__incl}
 \end{center}
 \end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \doxymbox{\hyperlink{US__private_8h_adc51941ea05da40c9e35a99928a4ac37}{US\+\_\+v\+Send\+Trigger}} (const \doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}px\+Sensor)
+\begin{DoxyCompactList}\small\item\em Fire the trigger pulse that starts one sensor\textquotesingle{}s measurement. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Register bit positions and internals of the US driver — not a public header. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{US__private_8h_source}{US\+\_\+private.\+h}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{US__private_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{US__private_8h_adc51941ea05da40c9e35a99928a4ac37}\index{US\_private.h@{US\_private.h}!US\_vSendTrigger@{US\_vSendTrigger}}
+\index{US\_vSendTrigger@{US\_vSendTrigger}!US\_private.h@{US\_private.h}}
+\doxysubsubsection{\texorpdfstring{US\_vSendTrigger()}{US\_vSendTrigger()}}
+{\footnotesize\ttfamily \label{US__private_8h_adc51941ea05da40c9e35a99928a4ac37} 
+void US\+\_\+v\+Send\+Trigger (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{px\+Sensor}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Fire the trigger pulse that starts one sensor\textquotesingle{}s measurement. 
+
+Holds TRIG low for \doxylink{US__config_8h_ac82821dff0173e63bfc7953f43c50066}{US\+\_\+\+TRIG\+\_\+\+SETTLE\+\_\+\+US}, then high for \doxylink{US__config_8h_a8a95e538fdb97455266761408d1db73e}{US\+\_\+\+TRIG\+\_\+\+PULSE\+\_\+\+US}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em px\+Sensor} & The sensor to trigger. \\
+\hline
+\end{DoxyParams}

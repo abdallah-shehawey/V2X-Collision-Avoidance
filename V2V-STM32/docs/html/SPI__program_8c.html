@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Src/SPI_program.c File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Src/SPI_program.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,53 +90,51 @@ $(function(){initNavTree('SPI__program_8c.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">SPI_program.c File Reference</div></div>
+  <div class="headertitle"><div class="title">SPI_program.c File Reference<div class="ingroups"><a class="el" href="group__mcal.html">MCAL</a> &raquo; <a class="el" href="group__mcal__spi.html">SPI</a></div></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Implementation of the SPI driver — the serial peripheral interface.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;stdint.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="ErrTypes_8h_source.html">../Inc/Drivers/LIB/ErrTypes.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">../Inc/Drivers/LIB/STM32F446xx.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="STM32F446xx_8h_source.html">../Inc/Drivers/LIB/STM32F446xx.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SPI__private_8h_source.html">../Inc/Drivers/MCAL/SPI/SPI_private.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SPI__config_8h_source.html">../Inc/Drivers/MCAL/SPI/SPI_config.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SPI__interface_8h_source.html">../Inc/Drivers/MCAL/SPI/SPI_interface.h</a>&quot;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for SPI_program.c:</div>
-<div class="dyncontent">
-<div class="center"><img src="SPI__program_8c__incl.png" border="0" usemap="#aSrc_2SPI__program_8c" loading="lazy" alt=""/></div>
-<map name="aSrc_2SPI__program_8c" id="aSrc_2SPI__program_8c">
-<area shape="rect" title=" " alt="" coords="267,5,405,33"/>
-<area shape="rect" title=" " alt="" coords="56,182,126,210"/>
-<area shape="poly" title=" " alt="" coords="264,25,196,32,120,43,55,59,31,70,16,83,10,93,8,104,17,128,37,151,61,172,56,174,33,155,13,131,3,105,4,92,12,79,29,66,53,54,119,37,195,27,269,22"/>
-<area shape="rect" href="ErrTypes_8h.html" title=" " alt="" coords="411,174,539,218"/>
-<area shape="poly" title=" " alt="" coords="405,20,481,26,561,36,631,53,657,65,676,79,686,98,685,116,675,131,657,144,609,166,554,182,553,177,608,161,655,140,671,127,680,114,681,99,672,83,655,69,629,58,560,41,480,31,406,25"/>
-<area shape="rect" href="Drivers_2LIB_2STM32F446xx_8h.html" title=" " alt="" coords="26,81,156,126"/>
-<area shape="poly" title=" " alt="" coords="295,35,171,78,169,73,299,32"/>
-<area shape="rect" href="SPI__private_8h.html" title=" " alt="" coords="349,81,494,126"/>
-<area shape="poly" title=" " alt="" coords="351,31,391,70,385,70,349,36"/>
-<area shape="rect" href="SPI__config_8h.html" title=" " alt="" coords="517,81,662,126"/>
-<area shape="poly" title=" " alt="" coords="377,31,510,75,505,76,377,36"/>
-<area shape="rect" href="SPI__interface_8h.html" title=" " alt="" coords="179,81,325,126"/>
-<area shape="poly" title=" " alt="" coords="325,32,287,72,284,68,321,35"/>
-<area shape="poly" title=" " alt="" coords="93,124,93,167,88,166,89,128"/>
-<area shape="poly" title=" " alt="" coords="216,126,129,177,126,172,211,127"/>
-<area shape="poly" title=" " alt="" coords="306,124,410,167,405,168,305,129"/>
-</map>
+</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for SPI_program.c:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="SPI__program_8c__incl.svg" width="100%" height="468"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="SPI__program_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a4b6f9d4ba67bb037ab88265f09945a33" id="r_a4b6f9d4ba67bb037ab88265f09945a33"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4b6f9d4ba67bb037ab88265f09945a33">SPI_enumInit</a> (<a class="el" href="structSPI__Config__t.html">SPI_Config_t</a> *ChannelConfig)</td></tr>
+<tr class="memitem:a4b6f9d4ba67bb037ab88265f09945a33" id="r_a4b6f9d4ba67bb037ab88265f09945a33"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4b6f9d4ba67bb037ab88265f09945a33">SPI_enumInit</a> (<a class="el" href="structSPI__Config__t.html">SPI_Config_t</a> *ChannelConfig)</td></tr>
 <tr class="memdesc:a4b6f9d4ba67bb037ab88265f09945a33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the SPI peripheral with the provided configuration.  <br /></td></tr>
-<tr class="memitem:a09703b6224fb5ab17478e4f7e309e734" id="r_a09703b6224fb5ab17478e4f7e309e734"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a09703b6224fb5ab17478e4f7e309e734">SPI_enumTrancieve</a> (<a class="el" href="structSPI__Config__t.html">SPI_Config_t</a> *ChannelConfig, uint16_t TX_Data, uint16_t *RX_Data)</td></tr>
+<tr class="memitem:a09703b6224fb5ab17478e4f7e309e734" id="r_a09703b6224fb5ab17478e4f7e309e734"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a09703b6224fb5ab17478e4f7e309e734">SPI_enumTrancieve</a> (<a class="el" href="structSPI__Config__t.html">SPI_Config_t</a> *ChannelConfig, uint16_t TX_Data, uint16_t *RX_Data)</td></tr>
 <tr class="memdesc:a09703b6224fb5ab17478e4f7e309e734"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform full-duplex SPI transaction (transmit and receive).  <br /></td></tr>
-<tr class="memitem:ab4a020e4e95e27e7414af8bc9f9b9c91" id="r_ab4a020e4e95e27e7414af8bc9f9b9c91"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab4a020e4e95e27e7414af8bc9f9b9c91">SPI_enumTransmit</a> (<a class="el" href="structSPI__Config__t.html">SPI_Config_t</a> *ChannelConfig, uint16_t TX_Data)</td></tr>
-<tr class="memdesc:ab4a020e4e95e27e7414af8bc9f9b9c91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit data through SPI interface.  <br /></td></tr>
-<tr class="memitem:a245169439dd789a907e87ab3291db588" id="r_a245169439dd789a907e87ab3291db588"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a245169439dd789a907e87ab3291db588">SPI_enumReceive</a> (<a class="el" href="structSPI__Config__t.html">SPI_Config_t</a> *ChannelConfig, uint16_t *RX_Data)</td></tr>
-<tr class="memdesc:a245169439dd789a907e87ab3291db588"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive data through SPI interface.  <br /></td></tr>
+<tr class="memitem:ab4a020e4e95e27e7414af8bc9f9b9c91" id="r_ab4a020e4e95e27e7414af8bc9f9b9c91"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab4a020e4e95e27e7414af8bc9f9b9c91">SPI_enumTransmit</a> (<a class="el" href="structSPI__Config__t.html">SPI_Config_t</a> *ChannelConfig, uint16_t TX_Data)</td></tr>
+<tr class="memdesc:ab4a020e4e95e27e7414af8bc9f9b9c91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform full-duplex SPI transaction (transmit and receive).  <br /></td></tr>
+<tr class="memitem:a245169439dd789a907e87ab3291db588" id="r_a245169439dd789a907e87ab3291db588"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a245169439dd789a907e87ab3291db588">SPI_enumReceive</a> (<a class="el" href="structSPI__Config__t.html">SPI_Config_t</a> *ChannelConfig, uint16_t *RX_Data)</td></tr>
+<tr class="memdesc:a245169439dd789a907e87ab3291db588"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform full-duplex SPI transaction (transmit and receive).  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ab1484f24c12c859f21e7dab789be7ff9" id="r_ab1484f24c12c859f21e7dab789be7ff9"><td class="memItemLeft">static <a class="el" href="structSPI__RegDef__t.html">SPI_RegDef_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ab1484f24c12c859f21e7dab789be7ff9">SPI_Channel</a> [<a class="el" href="SPI__private_8h.html#ac8ab65623984e03b92e1907f1ff5e2cd">SPI_CHANNEL_COUNT</a>]</td></tr>
+<tr class="memdesc:ab1484f24c12c859f21e7dab789be7ff9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps a <a class="el" href="SPI__interface_8h.html#a99e480c10376756fca05b64ed949a3d9" title="SPI_Channel_t">SPI_Channel_t</a> onto the peripheral's register block.  <br /></td></tr>
+<tr class="memitem:ac3c975c9f481046c6225d47ecb7ea18a" id="r_ac3c975c9f481046c6225d47ecb7ea18a"><td class="memItemLeft">static uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#ac3c975c9f481046c6225d47ecb7ea18a">SPI_u8State</a></td></tr>
+<tr class="memdesc:ac3c975c9f481046c6225d47ecb7ea18a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reentrancy guard: <a class="el" href="group__lib.html#ga9c21a7caee326d7803b94ae1952b27ca" title="IDLE">IDLE</a> or <a class="el" href="group__lib.html#gab5be0aaddb58ffb9cb20c12530d66316" title="BUSY">BUSY</a>.  <br /></td></tr>
 </table>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Implementation of the SPI driver — the serial peripheral interface. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Abdelmoemen Shehawey  </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="SPI__program_8c_source.html">SPI_program.c</a>.</p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a4b6f9d4ba67bb037ab88265f09945a33" name="a4b6f9d4ba67bb037ab88265f09945a33"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4b6f9d4ba67bb037ab88265f09945a33">&#9670;&#160;</a></span>SPI_enumInit()</h2>
 
@@ -144,7 +142,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> SPI_enumInit </td>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> SPI_enumInit </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSPI__Config__t.html">SPI_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>ChannelConfig</em></span></td><td>)</td>
           <td></td>
@@ -160,59 +158,22 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> OK if initialization successful, error code otherwise</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a> OK if initialization successful, error code otherwise</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>NULL pointer check is performed on the input parameter. </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd></dd></dl>
+<p><a class="el" href="structSPI__Config__t.html" title="Everything needed to bring one SPI peripheral up.">SPI_Config_t</a> MySPI = {SPI_CHANNEL1, SPI_CPHA_1EDGE, SPI_CPOL_LOW, SPI_MODE_MASTER, SPI_BAUDRATEPRESCALER_2, SPI_SPE_EN, SPI_MSBFIRST, SPI_NSS_SOFTWARE, SPI_NSSI_NOT_SELECT, SPI_RXONLY_DISABLE, SPI_DFF_8BIT, SPI_CRCDIS, SPI_CRCNEXT_DISABLE, SPI_UNIDIMODE, SPI_OUTPUT_EN}; SPI_enumInit(&amp;MySPI); </p>
 
-<p class="definition">Definition at line <a class="el" href="SPI__program_8c_source.html#l00038">38</a> of file <a class="el" href="SPI__program_8c_source.html">SPI_program.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="SPI__program_8c_a4b6f9d4ba67bb037ab88265f09945a33_icgraph.png" border="0" usemap="#aSPI__program_8c_a4b6f9d4ba67bb037ab88265f09945a33_icgraph" loading="lazy" alt=""/></div>
-<map name="aSPI__program_8c_a4b6f9d4ba67bb037ab88265f09945a33_icgraph" id="aSPI__program_8c_a4b6f9d4ba67bb037ab88265f09945a33_icgraph">
-<area shape="rect" title="Initialize the SPI peripheral with the provided configuration." alt="" coords="465,5,572,33"/>
-<area shape="rect" href="MPU9250__program_8c.html#a152f5e09dbda831d60bc3d5241d714ad" title="Initializes the MPU9250 sensor and its internal I2C master." alt="" coords="269,5,417,33"/>
-<area shape="poly" title=" " alt="" coords="447,19,418,22,418,17,452,19"/>
-<area shape="rect" href="System_8c.html#ae436954cd2bde6634ab271317d2494a7" title=" " alt="" coords="108,5,221,33"/>
-<area shape="poly" title=" " alt="" coords="251,19,221,22,221,17,256,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,95,18"/>
-</map>
+<p class="definition">Definition at line <a class="el" href="SPI__program_8c_source.html#l00037">37</a> of file <a class="el" href="SPI__program_8c_source.html">SPI_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="SPI__interface_8h_source.html#l00162">SPI_Config_t::BaudRatePrescaler</a>, <a class="el" href="SPI__interface_8h_source.html#l00164">SPI_Config_t::BFIRST</a>, <a class="el" href="SPI__interface_8h_source.html#l00172">SPI_Config_t::BIDIOE</a>, <a class="el" href="SPI__interface_8h_source.html#l00158">SPI_Config_t::Channel</a>, <a class="el" href="SPI__interface_8h_source.html#l00159">SPI_Config_t::CPHA</a>, <a class="el" href="SPI__interface_8h_source.html#l00160">SPI_Config_t::CPOL</a>, <a class="el" href="SPI__private_8h_source.html#l00032">CR1_BIDIMODE</a>, <a class="el" href="SPI__private_8h_source.html#l00031">CR1_BIDIOE</a>, <a class="el" href="SPI__private_8h_source.html#l00022">CR1_BR</a>, <a class="el" href="SPI__private_8h_source.html#l00019">CR1_CPHA</a>, <a class="el" href="SPI__private_8h_source.html#l00020">CR1_CPOL</a>, <a class="el" href="SPI__private_8h_source.html#l00030">CR1_CRCEN</a>, <a class="el" href="SPI__private_8h_source.html#l00029">CR1_CRCNEXT</a>, <a class="el" href="SPI__private_8h_source.html#l00028">CR1_DFF</a>, <a class="el" href="SPI__private_8h_source.html#l00024">CR1_LSBFIRST</a>, <a class="el" href="SPI__private_8h_source.html#l00021">CR1_MSTR</a>, <a class="el" href="SPI__private_8h_source.html#l00027">CR1_RXONLY</a>, <a class="el" href="SPI__private_8h_source.html#l00023">CR1_SPE</a>, <a class="el" href="SPI__private_8h_source.html#l00025">CR1_SSI</a>, <a class="el" href="SPI__private_8h_source.html#l00026">CR1_SSM</a>, <a class="el" href="SPI__interface_8h_source.html#l00169">SPI_Config_t::CRC_MODE</a>, <a class="el" href="SPI__interface_8h_source.html#l00170">SPI_Config_t::CRCNEXT</a>, <a class="el" href="SPI__interface_8h_source.html#l00168">SPI_Config_t::DFF</a>, <a class="el" href="SPI__interface_8h_source.html#l00171">SPI_Config_t::DIMODE</a>, <a class="el" href="SPI__interface_8h_source.html#l00161">SPI_Config_t::Mode</a>, <a class="el" href="ErrTypes_8h_source.html#l00043">NOK</a>, <a class="el" href="SPI__interface_8h_source.html#l00165">SPI_Config_t::NSS_MAN</a>, <a class="el" href="SPI__interface_8h_source.html#l00166">SPI_Config_t::NSSI_MODE</a>, <a class="el" href="ErrTypes_8h_source.html#l00024">NULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00044">NULL_POINTER</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="SPI__interface_8h_source.html#l00167">SPI_Config_t::RXONLY</a>, <a class="el" href="SPI__interface_8h_source.html#l00163">SPI_Config_t::SPE</a>, <a class="el" href="SPI__interface_8h_source.html#l00135">SPI_BIDIMODE</a>, <a class="el" href="SPI__program_8c_source.html#l00021">SPI_Channel</a>, <a class="el" href="SPI__private_8h_source.html#l00014">SPI_CHANNEL_COUNT</a>, <a class="el" href="SPI__interface_8h_source.html#l00128">SPI_CRCEN</a>, and <a class="el" href="SPI__interface_8h_source.html#l00093">SPI_NSS_SOFTWARE</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MPU9250__program_8c_source.html#l00156">MPU9250_enumInit()</a>.</p>
+<div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
-
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="SPI__program_8c_a4b6f9d4ba67bb037ab88265f09945a33_icgraph.svg" width="578" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
-</div>
-<a id="a245169439dd789a907e87ab3291db588" name="a245169439dd789a907e87ab3291db588"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a245169439dd789a907e87ab3291db588">&#9670;&#160;</a></span>SPI_enumReceive()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> SPI_enumReceive </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structSPI__Config__t.html">SPI_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>ChannelConfig</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t *</td>          <td class="paramname"><span class="paramname"><em>RX_Data</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Receive data through SPI interface. </p>
-<p>This function receives data through the SPI interface in a blocking manner with timeout protection.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ChannelConfig</td><td>Pointer to the SPI configuration structure </td></tr>
-    <tr><td class="paramname">RX_Data</td><td>Pointer to store received data </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> OK if successful, error code otherwise</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>NULL pointer check is performed on input parameters </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="SPI__program_8c_source.html#l00250">250</a> of file <a class="el" href="SPI__program_8c_source.html">SPI_program.c</a>.</p>
 
 </div>
 </div>
@@ -223,7 +184,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> SPI_enumTrancieve </td>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> SPI_enumTrancieve </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSPI__Config__t.html">SPI_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>ChannelConfig</em></span>, </td>
         </tr>
@@ -250,32 +211,21 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> OK if successful, error code otherwise</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This is a blocking function with timeout protection </dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>NULL pointer check is performed on input parameters </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a> OK if initialization successful, error code otherwise</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>NULL pointer check is performed on the input parameter. </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd></dd></dl>
+<p>uint16_t rx_data; SPI_enumTrancieve(&amp;MySPI, 0x55, &amp;rx_data); </p>
 
-<p class="definition">Definition at line <a class="el" href="SPI__program_8c_source.html#l00112">112</a> of file <a class="el" href="SPI__program_8c_source.html">SPI_program.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="SPI__program_8c_a09703b6224fb5ab17478e4f7e309e734_icgraph.png" border="0" usemap="#aSPI__program_8c_a09703b6224fb5ab17478e4f7e309e734_icgraph" loading="lazy" alt=""/></div>
-<map name="aSPI__program_8c_a09703b6224fb5ab17478e4f7e309e734_icgraph" id="aSPI__program_8c_a09703b6224fb5ab17478e4f7e309e734_icgraph">
-<area shape="rect" title="Perform full&#45;duplex SPI transaction (transmit and receive)." alt="" coords="774,32,921,60"/>
-<area shape="rect" href="MPU9250__program_8c.html#a152f5e09dbda831d60bc3d5241d714ad" title="Initializes the MPU9250 sensor and its internal I2C master." alt="" coords="556,5,704,33"/>
-<area shape="poly" title=" " alt="" coords="756,35,705,31,705,26,761,35"/>
-<area shape="rect" href="MPU9250__program_8c.html#a022452767b3c6ead71407af8db33696f" title="Reads all sensor data (Accel, Gyro, Mag, Temp) in a single burst." alt="" coords="534,57,726,85"/>
-<area shape="poly" title=" " alt="" coords="761,56,726,63,726,57,756,56"/>
-<area shape="rect" href="System_8c.html#ae436954cd2bde6634ab271317d2494a7" title=" " alt="" coords="109,55,222,82"/>
-<area shape="poly" title=" " alt="" coords="538,22,413,32,272,47,224,57,222,51,272,42,413,26,543,21"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,81,60,109"/>
-<area shape="poly" title=" " alt="" coords="92,84,61,92,59,87,96,81"/>
-<area shape="rect" href="MPU9250__program_8c.html#ae6d18356fb8c1619afbb6021d986abea" title="Boot&#45;time hard&#45;iron calibration. Rotate the vehicle ~360° during the window (length = MPU9250_MAGCAL_..." alt="" coords="272,56,486,84"/>
-<area shape="poly" title=" " alt="" coords="516,71,487,73,487,68,521,70"/>
-<area shape="rect" href="main_8c.html#a6124e00be85460e2af1224524c6c2278" title="Reads ALL 6 ultrasonics + MPU9250 every cycle, then a small gap." alt="" coords="108,107,224,134"/>
-<area shape="poly" title=" " alt="" coords="538,88,487,98,345,112,225,120,224,115,345,107,486,93,533,88"/>
-<area shape="poly" title=" " alt="" coords="254,70,223,72,222,66,259,69"/>
-<area shape="poly" title=" " alt="" coords="90,108,60,103,60,98,95,105"/>
-</map>
+<p class="definition">Definition at line <a class="el" href="SPI__program_8c_source.html#l00111">111</a> of file <a class="el" href="SPI__program_8c_source.html">SPI_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="ErrTypes_8h_source.html#l00035">BUSY</a>, <a class="el" href="SPI__interface_8h_source.html#l00158">SPI_Config_t::Channel</a>, <a class="el" href="ErrTypes_8h_source.html#l00033">IDLE</a>, <a class="el" href="ErrTypes_8h_source.html#l00043">NOK</a>, <a class="el" href="ErrTypes_8h_source.html#l00024">NULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00044">NULL_POINTER</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="SPI__program_8c_source.html#l00021">SPI_Channel</a>, <a class="el" href="SPI__private_8h_source.html#l00014">SPI_CHANNEL_COUNT</a>, <a class="el" href="SPI__private_8h_source.html#l00049">SPI_u32TIMEOUT</a>, <a class="el" href="SPI__program_8c_source.html#l00023">SPI_u8State</a>, <a class="el" href="USART__private_8h_source.html#l00019">SR_RXNE</a>, <a class="el" href="USART__private_8h_source.html#l00017">SR_TXE</a>, and <a class="el" href="ErrTypes_8h_source.html#l00046">TIMEOUT_STATE</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="MPU9250__program_8c_source.html#l00156">MPU9250_enumInit()</a>, <a class="el" href="MPU9250__program_8c_source.html#l00187">MPU9250_enumReadData()</a>, <a class="el" href="MPU9250__program_8c_source.html#l00078">MPU9250_u8ReadReg()</a>, and <a class="el" href="MPU9250__program_8c_source.html#l00064">MPU9250_vWriteReg()</a>.</p>
+<div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="SPI__program_8c_a09703b6224fb5ab17478e4f7e309e734_icgraph.svg" width="100%" height="472"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -287,7 +237,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> SPI_enumTransmit </td>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> SPI_enumTransmit </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSPI__Config__t.html">SPI_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>ChannelConfig</em></span>, </td>
         </tr>
@@ -299,8 +249,8 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Transmit data through SPI interface. </p>
-<p>This function sends data through the SPI interface in a blocking manner with timeout protection.</p>
+<p>Perform full-duplex SPI transaction (transmit and receive). </p>
+<p>This function sends data through the SPI interface. It implements a blocking mechanism with timeout protection.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ChannelConfig</td><td>Pointer to the SPI configuration structure </td></tr>
@@ -308,10 +258,111 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> OK if successful, error code otherwise</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>NULL pointer check is performed on input parameter </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a> OK if initialization successful, error code otherwise</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>NULL pointer check is performed on the input parameter. </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd>SPI_enumTransmit(&amp;MySPI, 0x55); </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SPI__program_8c_source.html#l00190">190</a> of file <a class="el" href="SPI__program_8c_source.html">SPI_program.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SPI__program_8c_source.html#l00189">189</a> of file <a class="el" href="SPI__program_8c_source.html">SPI_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="ErrTypes_8h_source.html#l00035">BUSY</a>, <a class="el" href="SPI__interface_8h_source.html#l00158">SPI_Config_t::Channel</a>, <a class="el" href="ErrTypes_8h_source.html#l00033">IDLE</a>, <a class="el" href="ErrTypes_8h_source.html#l00043">NOK</a>, <a class="el" href="ErrTypes_8h_source.html#l00024">NULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00044">NULL_POINTER</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="SPI__program_8c_source.html#l00021">SPI_Channel</a>, <a class="el" href="SPI__private_8h_source.html#l00014">SPI_CHANNEL_COUNT</a>, <a class="el" href="SPI__private_8h_source.html#l00049">SPI_u32TIMEOUT</a>, <a class="el" href="SPI__program_8c_source.html#l00023">SPI_u8State</a>, <a class="el" href="USART__private_8h_source.html#l00017">SR_TXE</a>, and <a class="el" href="ErrTypes_8h_source.html#l00046">TIMEOUT_STATE</a>.</p>
+
+</div>
+</div>
+<a id="a245169439dd789a907e87ab3291db588" name="a245169439dd789a907e87ab3291db588"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a245169439dd789a907e87ab3291db588">&#9670;&#160;</a></span>SPI_enumReceive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> SPI_enumReceive </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSPI__Config__t.html">SPI_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>ChannelConfig</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t *</td>          <td class="paramname"><span class="paramname"><em>RX_Data</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Perform full-duplex SPI transaction (transmit and receive). </p>
+<p>This function receives data through the SPI interface. It implements a blocking mechanism with timeout protection.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ChannelConfig</td><td>Pointer to the SPI configuration structure </td></tr>
+    <tr><td class="paramname">RX_Data</td><td>Pointer to store received data </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a> OK if initialization successful, error code otherwise</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>NULL pointer check is performed on the input parameter. </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd></dd></dl>
+<p>uint16_t data; SPI_enumReceive(&amp;MySPI, &amp;data); </p>
+
+<p class="definition">Definition at line <a class="el" href="SPI__program_8c_source.html#l00249">249</a> of file <a class="el" href="SPI__program_8c_source.html">SPI_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="ErrTypes_8h_source.html#l00035">BUSY</a>, <a class="el" href="SPI__interface_8h_source.html#l00158">SPI_Config_t::Channel</a>, <a class="el" href="ErrTypes_8h_source.html#l00033">IDLE</a>, <a class="el" href="ErrTypes_8h_source.html#l00043">NOK</a>, <a class="el" href="ErrTypes_8h_source.html#l00024">NULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00044">NULL_POINTER</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="SPI__program_8c_source.html#l00021">SPI_Channel</a>, <a class="el" href="SPI__private_8h_source.html#l00014">SPI_CHANNEL_COUNT</a>, <a class="el" href="SPI__private_8h_source.html#l00049">SPI_u32TIMEOUT</a>, <a class="el" href="SPI__program_8c_source.html#l00023">SPI_u8State</a>, <a class="el" href="USART__private_8h_source.html#l00019">SR_RXNE</a>, and <a class="el" href="ErrTypes_8h_source.html#l00046">TIMEOUT_STATE</a>.</p>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="ab1484f24c12c859f21e7dab789be7ff9" name="ab1484f24c12c859f21e7dab789be7ff9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1484f24c12c859f21e7dab789be7ff9">&#9670;&#160;</a></span>SPI_Channel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structSPI__RegDef__t.html">SPI_RegDef_t</a>* SPI_Channel[<a class="el" href="SPI__private_8h.html#ac8ab65623984e03b92e1907f1ff5e2cd">SPI_CHANNEL_COUNT</a>]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Maps a <a class="el" href="SPI__interface_8h.html#a99e480c10376756fca05b64ed949a3d9" title="SPI_Channel_t">SPI_Channel_t</a> onto the peripheral's register block. </p>
+<dl class="section note"><dt>Note</dt><dd>Order must match <a class="el" href="SPI__interface_8h.html#a99e480c10376756fca05b64ed949a3d9" title="SPI_Channel_t">SPI_Channel_t</a> — the enum indexes straight into it. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="SPI__program_8c_source.html#l00021">21</a> of file <a class="el" href="SPI__program_8c_source.html">SPI_program.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SPI__program_8c_source.html#l00037">SPI_enumInit()</a>, <a class="el" href="SPI__program_8c_source.html#l00249">SPI_enumReceive()</a>, <a class="el" href="SPI__program_8c_source.html#l00111">SPI_enumTrancieve()</a>, and <a class="el" href="SPI__program_8c_source.html#l00189">SPI_enumTransmit()</a>.</p>
+
+</div>
+</div>
+<a id="ac3c975c9f481046c6225d47ecb7ea18a" name="ac3c975c9f481046c6225d47ecb7ea18a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3c975c9f481046c6225d47ecb7ea18a">&#9670;&#160;</a></span>SPI_u8State</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t SPI_u8State</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reentrancy guard: <a class="el" href="group__lib.html#ga9c21a7caee326d7803b94ae1952b27ca" title="IDLE">IDLE</a> or <a class="el" href="group__lib.html#gab5be0aaddb58ffb9cb20c12530d66316" title="BUSY">BUSY</a>. </p>
+<p>A second caller entering while a transfer is in flight is rejected with <a class="el" href="group__lib.html#gga74f58890b599c641e4382ff49c4a3e81affe74893171dd0f0fe9331c5b5a74c66" title="BUSY_STATE">BUSY_STATE</a> rather than corrupting it. </p>
+
+<p class="definition">Definition at line <a class="el" href="SPI__program_8c_source.html#l00023">23</a> of file <a class="el" href="SPI__program_8c_source.html">SPI_program.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SPI__program_8c_source.html#l00249">SPI_enumReceive()</a>, <a class="el" href="SPI__program_8c_source.html#l00111">SPI_enumTrancieve()</a>, and <a class="el" href="SPI__program_8c_source.html#l00189">SPI_enumTransmit()</a>.</p>
 
 </div>
 </div>
@@ -328,7 +379,7 @@ Here is the caller graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_413f4e031a85da0d68269c6fd2f76e1c.html">Src</a></li><li class="navelem"><a href="SPI__program_8c.html">SPI_program.c</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Src</b></li><li class="navelem"><a href="SPI__program_8c.html">SPI_program.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

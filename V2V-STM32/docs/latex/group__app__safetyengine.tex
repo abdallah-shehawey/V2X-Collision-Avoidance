@@ -1,0 +1,593 @@
+\doxysubsection{Safety\+Engine }
+\hypertarget{group__app__safetyengine}{}\label{group__app__safetyengine}\index{SafetyEngine@{SafetyEngine}}
+
+
+Shared risk model, direction detection, and per-\/cycle orchestration of all five ADAS modules.  
+
+
+Collaboration diagram for Safety\+Engine:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=267pt]{group__app__safetyengine}
+\end{center}
+\end{figure}
+\doxysubsubsubsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file \doxymbox{\hyperlink{SafetyEngine__interface_8h}{Safety\+Engine\+\_\+interface.\+h}}
+\begin{DoxyCompactList}\small\item\em Public API of the Safety\+Engine driver — the shared risk model and per-\/cycle ADAS orchestration. \end{DoxyCompactList}\item 
+file \doxymbox{\hyperlink{SafetyEngine__program_8c}{Safety\+Engine\+\_\+program.\+c}}
+\begin{DoxyCompactList}\small\item\em Implementation of the Safety\+Engine driver — the shared risk model and per-\/cycle ADAS orchestration. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{group__app__safetyengine_ga2e9ec086ba61b35cfc2439306cdfdd70}{Direction\+\_\+t}} \{ \doxymbox{\hyperlink{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70abfd39f0e5351141b388b18956a84a61e}{DIR\+\_\+\+SAME}}
+, \doxymbox{\hyperlink{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70a30837161ea401603ea11e12bf7e910d7}{DIR\+\_\+\+OPPOSITE}}
+, \doxymbox{\hyperlink{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70ac6ff9aad4173c225b2c38b1f945b9726}{DIR\+\_\+\+CROSSING}}
+, \doxymbox{\hyperlink{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70a595694ddc9fc69be39448c7aebc29492}{DIR\+\_\+\+UNKNOWN}}
+ \}
+\begin{DoxyCompactList}\small\item\em How a neighbor is moving relative to us — the first question every cooperative module asks. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} \{ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\+\_\+\+SAFE}}
+, \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82}{RISK\+\_\+\+WARNING}}
+, \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492}{RISK\+\_\+\+CRITICAL}}
+ \}
+\begin{DoxyCompactList}\small\item\em The graded verdict every ADAS module returns. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{group__app__safetyengine_gad87fdbbd1376c4cebfa69a906cfbe556}{Safety\+Engine\+\_\+void\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initialise all five ADAS modules (FCW/\+\+DNPW, EEBL, BSW, IMA). \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group__app__safetyengine_ga7b6c12632534a82b4357a73306667157}{Safety\+Engine\+\_\+void\+Update}} (void)
+\begin{DoxyCompactList}\small\item\em Run one full ADAS cycle:\+ every module, over every neighbor, in one pass. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__app__safetyengine_ga2e9ec086ba61b35cfc2439306cdfdd70}{Direction\+\_\+t}} \doxymbox{\hyperlink{group__app__safetyengine_gab7dae45d16fd67e39cae94350eb6d0f7}{Safety\+Engine\+\_\+\+Detect\+Direction}} (float my\+\_\+heading, float other\+\_\+heading)
+\begin{DoxyCompactList}\small\item\em Detect direction relationship between two vehicles. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} \doxymbox{\hyperlink{group__app__safetyengine_ga7e73033d8b868fa66e2090ca79150677}{Safety\+Engine\+\_\+\+Evaluate\+Risk}} (float value, float warning\+\_\+thr, float critical\+\_\+thr)
+\begin{DoxyCompactList}\small\item\em Evaluate risk from a "{}lower value = higher risk"{} metric. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} \doxymbox{\hyperlink{group__app__safetyengine_gaff42a93f5f7c50d14d779e142010ae71}{Safety\+Engine\+\_\+\+Assess\+Distance\+Risk}} (float host\+\_\+speed, float distance, float dist\+\_\+per\+\_\+ms, float min\+\_\+dist, float crit\+\_\+ratio)
+\begin{DoxyCompactList}\small\item\em Assess collision risk from host speed and a measured distance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Host vehicle state for the current cycle}
+\doxylink{group__app__safetyengine_ga7b6c12632534a82b4357a73306667157}{Safety\+Engine\+\_\+void\+Update} latches these from \doxylink{group__system_gac3116f56a230ebdd81cadd527921464c}{G\+\_\+st\+Host\+Vehicle\+State} once at the top of each 50 ms cycle, and the modules then read them as they walk the neighbor table.
+
+Latching once is what guarantees every module in a given cycle reasons about the {\itshape same} vehicle state, even though the sensors keep updating. \begin{DoxyCompactItemize}
+\item 
+float \doxymbox{\hyperlink{group__app__safetyengine_ga16174df02da93c0fc96432a4bc1de57b}{Host\+\_\+\+Speed}}
+\begin{DoxyCompactList}\small\item\em This vehicle\textquotesingle{}s speed for this cycle \+[m/\+s]\+. \end{DoxyCompactList}\item 
+float \doxymbox{\hyperlink{group__app__safetyengine_gafb1ff5cedbd39f1a8b81a25a7dcdb171}{Host\+\_\+\+Heading}}
+\begin{DoxyCompactList}\small\item\em This vehicle\textquotesingle{}s heading for this cycle \+[degrees]\+, 0..360. \end{DoxyCompactList}\item 
+float \doxymbox{\hyperlink{group__app__safetyengine_ga2d869610528b06238c15ab8fb160304f}{Safety\+Engine\+\_\+\+Safe\+Dist}}
+\begin{DoxyCompactList}\small\item\em The safe gap for this cycle \+[cm]\+, from the model above. \end{DoxyCompactList}\item 
+float \doxymbox{\hyperlink{group__app__safetyengine_ga414ebc77c31778b0d2f7371abdbd2d19}{Safety\+Engine\+\_\+\+Critical\+Dist}}
+\begin{DoxyCompactList}\small\item\em The critical gap for this cycle \+[cm]\+. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Direction classification thresholds}
+How far two vehicles\textquotesingle{} headings may differ and still count as travelling the same way, opposite ways, or across each other \+[degrees]\+.
+
+\begin{DoxyNote}{Note}
+These were widened from 30° to 40° deliberately. Each car reports the heading {\itshape its own} magnetometer measured, and two magnetometers rarely agree to better than a few tens of degrees. A tight threshold therefore kept classifying genuinely same-\/direction pairs as \doxylink{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70a595694ddc9fc69be39448c7aebc29492}{DIR\+\_\+\+UNKNOWN}, which silently switched every cooperative module off. 
+\end{DoxyNote}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__app__safetyengine_gaca40a05ff74dcd2687ba7101bbdab282}{HEADING\+\_\+\+SAME\+\_\+\+THRESHOLD}}
+\begin{DoxyCompactList}\small\item\em Headings within this of each other → \doxylink{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70abfd39f0e5351141b388b18956a84a61e}{DIR\+\_\+\+SAME}. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__app__safetyengine_ga518549e49262479055bfda4ccb97c795}{HEADING\+\_\+\+OPPOSITE\+\_\+\+THRESHOLD}}
+\begin{DoxyCompactList}\small\item\em Headings within this of 180° apart → \doxylink{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70a30837161ea401603ea11e12bf7e910d7}{DIR\+\_\+\+OPPOSITE}. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__app__safetyengine_gadd0385cb7855bf3c89030696bb436e59}{HEADING\+\_\+\+CROSS\+\_\+\+THRESHOLD}}
+\begin{DoxyCompactList}\small\item\em Headings within this of 90° apart → \doxylink{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70ac6ff9aad4173c225b2c38b1f945b9726}{DIR\+\_\+\+CROSSING}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Shared safe-\/distance model}
+The one place the firmware decides how much room is "{}enough"{}.
+
+Both distance-\/based modules — local FCW and EEBL — use it, so a change here moves both, and the two can never drift out of agreement.
+
+The gap scales with speed, because stopping distance does:\+
+
+\begin{DoxyVerb}*   safe_cm     = max(Host_Speed[m/s] * SAFE_DIST_PER_MS, MIN_SAFE_DISTANCE)
+*   critical_cm = safe_cm * CRITICAL_RATIO
+* \end{DoxyVerb}
+
+
+\begin{DoxyNote}{Note}
+The constants are sized for the {\bfseries{prototype}}, not a real car:\+ a small vehicle whose top speed is around 0.\+5 m/\+s, operating in corridors where obstacles sit tens of centimetres away. At that scale the speed term is small and \doxylink{group__app__safetyengine_gae17b0ade1e41ab06c55995e9afee25ff}{MIN\+\_\+\+SAFE\+\_\+\+DISTANCE} is what actually governs — it is the dominant floor, not a rarely-\/hit corner case. 
+\end{DoxyNote}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__app__safetyengine_gaf9df724bcbcf5549ecc67e598fc3dde4}{SAFE\+\_\+\+DIST\+\_\+\+PER\+\_\+\+MS}}
+\begin{DoxyCompactList}\small\item\em Centimetres of safe gap per 1 m/\+s of speed. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__app__safetyengine_gae17b0ade1e41ab06c55995e9afee25ff}{MIN\+\_\+\+SAFE\+\_\+\+DISTANCE}}
+\begin{DoxyCompactList}\small\item\em Floor on the safe gap \+[cm]\+, whatever the speed. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__app__safetyengine_ga68fd7ab4074cc7e0c9e280582926f40b}{CRITICAL\+\_\+\+RATIO}}
+\begin{DoxyCompactList}\small\item\em Fraction of the safe gap below which the risk is critical. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+Shared risk model, direction detection, and per-\/cycle orchestration of all five ADAS modules. 
+
+
+
+\label{doc-define-members}
+\Hypertarget{group__app__safetyengine_doc-define-members}
+\doxysubsubsection{Macro Definition Documentation}
+\Hypertarget{group__app__safetyengine_gaca40a05ff74dcd2687ba7101bbdab282}\index{SafetyEngine@{SafetyEngine}!HEADING\_SAME\_THRESHOLD@{HEADING\_SAME\_THRESHOLD}}
+\index{HEADING\_SAME\_THRESHOLD@{HEADING\_SAME\_THRESHOLD}!SafetyEngine@{SafetyEngine}}
+\doxysubsubsubsection{\texorpdfstring{HEADING\_SAME\_THRESHOLD}{HEADING\_SAME\_THRESHOLD}}
+{\footnotesize\ttfamily \label{group__app__safetyengine_gaca40a05ff74dcd2687ba7101bbdab282} 
+\+\#define HEADING\+\_\+\+SAME\+\_\+\+THRESHOLD}
+
+
+
+Headings within this of each other → \doxylink{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70abfd39f0e5351141b388b18956a84a61e}{DIR\+\_\+\+SAME}. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00031}{31}} of file \doxymbox{\hyperlink{SafetyEngine__interface_8h_source}{Safety\+Engine\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00155}{Safety\+Engine\+\_\+\+Detect\+Direction()}}.
+
+\Hypertarget{group__app__safetyengine_ga518549e49262479055bfda4ccb97c795}\index{SafetyEngine@{SafetyEngine}!HEADING\_OPPOSITE\_THRESHOLD@{HEADING\_OPPOSITE\_THRESHOLD}}
+\index{HEADING\_OPPOSITE\_THRESHOLD@{HEADING\_OPPOSITE\_THRESHOLD}!SafetyEngine@{SafetyEngine}}
+\doxysubsubsubsection{\texorpdfstring{HEADING\_OPPOSITE\_THRESHOLD}{HEADING\_OPPOSITE\_THRESHOLD}}
+{\footnotesize\ttfamily \label{group__app__safetyengine_ga518549e49262479055bfda4ccb97c795} 
+\+\#define HEADING\+\_\+\+OPPOSITE\+\_\+\+THRESHOLD}
+
+
+
+Headings within this of 180° apart → \doxylink{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70a30837161ea401603ea11e12bf7e910d7}{DIR\+\_\+\+OPPOSITE}. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00032}{32}} of file \doxymbox{\hyperlink{SafetyEngine__interface_8h_source}{Safety\+Engine\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00155}{Safety\+Engine\+\_\+\+Detect\+Direction()}}.
+
+\Hypertarget{group__app__safetyengine_gadd0385cb7855bf3c89030696bb436e59}\index{SafetyEngine@{SafetyEngine}!HEADING\_CROSS\_THRESHOLD@{HEADING\_CROSS\_THRESHOLD}}
+\index{HEADING\_CROSS\_THRESHOLD@{HEADING\_CROSS\_THRESHOLD}!SafetyEngine@{SafetyEngine}}
+\doxysubsubsubsection{\texorpdfstring{HEADING\_CROSS\_THRESHOLD}{HEADING\_CROSS\_THRESHOLD}}
+{\footnotesize\ttfamily \label{group__app__safetyengine_gadd0385cb7855bf3c89030696bb436e59} 
+\+\#define HEADING\+\_\+\+CROSS\+\_\+\+THRESHOLD}
+
+
+
+Headings within this of 90° apart → \doxylink{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70ac6ff9aad4173c225b2c38b1f945b9726}{DIR\+\_\+\+CROSSING}. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00033}{33}} of file \doxymbox{\hyperlink{SafetyEngine__interface_8h_source}{Safety\+Engine\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00155}{Safety\+Engine\+\_\+\+Detect\+Direction()}}.
+
+\Hypertarget{group__app__safetyengine_gaf9df724bcbcf5549ecc67e598fc3dde4}\index{SafetyEngine@{SafetyEngine}!SAFE\_DIST\_PER\_MS@{SAFE\_DIST\_PER\_MS}}
+\index{SAFE\_DIST\_PER\_MS@{SAFE\_DIST\_PER\_MS}!SafetyEngine@{SafetyEngine}}
+\doxysubsubsubsection{\texorpdfstring{SAFE\_DIST\_PER\_MS}{SAFE\_DIST\_PER\_MS}}
+{\footnotesize\ttfamily \label{group__app__safetyengine_gaf9df724bcbcf5549ecc67e598fc3dde4} 
+\+\#define SAFE\+\_\+\+DIST\+\_\+\+PER\+\_\+\+MS}
+
+
+
+Centimetres of safe gap per 1 m/\+s of speed. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00086}{86}} of file \doxymbox{\hyperlink{SafetyEngine__interface_8h_source}{Safety\+Engine\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
+
+\Hypertarget{group__app__safetyengine_gae17b0ade1e41ab06c55995e9afee25ff}\index{SafetyEngine@{SafetyEngine}!MIN\_SAFE\_DISTANCE@{MIN\_SAFE\_DISTANCE}}
+\index{MIN\_SAFE\_DISTANCE@{MIN\_SAFE\_DISTANCE}!SafetyEngine@{SafetyEngine}}
+\doxysubsubsubsection{\texorpdfstring{MIN\_SAFE\_DISTANCE}{MIN\_SAFE\_DISTANCE}}
+{\footnotesize\ttfamily \label{group__app__safetyengine_gae17b0ade1e41ab06c55995e9afee25ff} 
+\+\#define MIN\+\_\+\+SAFE\+\_\+\+DISTANCE}
+
+
+
+Floor on the safe gap \+[cm]\+, whatever the speed. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00087}{87}} of file \doxymbox{\hyperlink{SafetyEngine__interface_8h_source}{Safety\+Engine\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
+
+\Hypertarget{group__app__safetyengine_ga68fd7ab4074cc7e0c9e280582926f40b}\index{SafetyEngine@{SafetyEngine}!CRITICAL\_RATIO@{CRITICAL\_RATIO}}
+\index{CRITICAL\_RATIO@{CRITICAL\_RATIO}!SafetyEngine@{SafetyEngine}}
+\doxysubsubsubsection{\texorpdfstring{CRITICAL\_RATIO}{CRITICAL\_RATIO}}
+{\footnotesize\ttfamily \label{group__app__safetyengine_ga68fd7ab4074cc7e0c9e280582926f40b} 
+\+\#define CRITICAL\+\_\+\+RATIO}
+
+
+
+Fraction of the safe gap below which the risk is critical. 
+
+
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00088}{88}} of file \doxymbox{\hyperlink{SafetyEngine__interface_8h_source}{Safety\+Engine\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
+
+
+
+\label{doc-enum-members}
+\Hypertarget{group__app__safetyengine_doc-enum-members}
+\doxysubsubsection{Enumeration Type Documentation}
+\Hypertarget{group__app__safetyengine_ga2e9ec086ba61b35cfc2439306cdfdd70}\index{SafetyEngine@{SafetyEngine}!Direction\_t@{Direction\_t}}
+\index{Direction\_t@{Direction\_t}!SafetyEngine@{SafetyEngine}}
+\doxysubsubsubsection{\texorpdfstring{Direction\_t}{Direction\_t}}
+{\footnotesize\ttfamily \label{group__app__safetyengine_ga2e9ec086ba61b35cfc2439306cdfdd70} 
+enum \doxymbox{\hyperlink{group__app__safetyengine_ga2e9ec086ba61b35cfc2439306cdfdd70}{Direction\+\_\+t}}}
+
+
+
+How a neighbor is moving relative to us — the first question every cooperative module asks. 
+
+It decides which module even applies:\+ EEBL only makes sense for a car ahead in \doxylink{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70abfd39f0e5351141b388b18956a84a61e}{DIR\+\_\+\+SAME}, Do-\/\+Not-\/\+Pass only for \doxylink{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70a30837161ea401603ea11e12bf7e910d7}{DIR\+\_\+\+OPPOSITE}, IMA only for \doxylink{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70ac6ff9aad4173c225b2c38b1f945b9726}{DIR\+\_\+\+CROSSING}. \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DIR\_SAME@{DIR\_SAME}!SafetyEngine@{SafetyEngine}}
+\index{SafetyEngine@{SafetyEngine}!DIR\_SAME@{DIR\_SAME}}
+}\Hypertarget{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70abfd39f0e5351141b388b18956a84a61e}\label{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70abfd39f0e5351141b388b18956a84a61e} 
+DIR\+\_\+\+SAME&Travelling the same way we are — a car ahead or behind in our lane. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DIR\_OPPOSITE@{DIR\_OPPOSITE}!SafetyEngine@{SafetyEngine}}
+\index{SafetyEngine@{SafetyEngine}!DIR\_OPPOSITE@{DIR\_OPPOSITE}}
+}\Hypertarget{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70a30837161ea401603ea11e12bf7e910d7}\label{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70a30837161ea401603ea11e12bf7e910d7} 
+DIR\+\_\+\+OPPOSITE&Coming towards us — oncoming traffic. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DIR\_CROSSING@{DIR\_CROSSING}!SafetyEngine@{SafetyEngine}}
+\index{SafetyEngine@{SafetyEngine}!DIR\_CROSSING@{DIR\_CROSSING}}
+}\Hypertarget{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70ac6ff9aad4173c225b2c38b1f945b9726}\label{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70ac6ff9aad4173c225b2c38b1f945b9726} 
+DIR\+\_\+\+CROSSING&Crossing our path at roughly a right angle — the intersection case. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DIR\_UNKNOWN@{DIR\_UNKNOWN}!SafetyEngine@{SafetyEngine}}
+\index{SafetyEngine@{SafetyEngine}!DIR\_UNKNOWN@{DIR\_UNKNOWN}}
+}\Hypertarget{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70a595694ddc9fc69be39448c7aebc29492}\label{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70a595694ddc9fc69be39448c7aebc29492} 
+DIR\+\_\+\+UNKNOWN&The headings do not fit any of the above within the thresholds. Modules skip the neighbor rather than guess. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00044}{44}} of file \doxymbox{\hyperlink{SafetyEngine__interface_8h_source}{Safety\+Engine\+\_\+interface.\+h}}.
+
+\Hypertarget{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}\index{SafetyEngine@{SafetyEngine}!RiskLevel\_t@{RiskLevel\_t}}
+\index{RiskLevel\_t@{RiskLevel\_t}!SafetyEngine@{SafetyEngine}}
+\doxysubsubsubsection{\texorpdfstring{RiskLevel\_t}{RiskLevel\_t}}
+{\footnotesize\ttfamily \label{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88} 
+enum \doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}}}
+
+
+
+The graded verdict every ADAS module returns. 
+
+These map straight onto the 2-\/bit fields of \doxylink{group__system_ga9e78367aa5b758af972838362c2b0eab}{G\+\_\+u16\+System\+Flags} — \doxylink{group__system_ga167de614bc64dfddcd8a7677b6fecda0}{SYS\+\_\+\+SAFE}, \doxylink{group__system_gad8f58f6c26f6d5da69980ba995e38c78}{SYS\+\_\+\+WARNING} and \doxylink{group__system_ga717d9a716e77febf5c57b5c7231802c8}{SYS\+\_\+\+CRITICAL} have the same numeric values. \begin{DoxyEnumFields}[3]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISK\_SAFE@{RISK\_SAFE}!SafetyEngine@{SafetyEngine}}
+\index{SafetyEngine@{SafetyEngine}!RISK\_SAFE@{RISK\_SAFE}}
+}\Hypertarget{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}\label{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c} 
+RISK\+\_\+\+SAFE&0&No hazard. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISK\_WARNING@{RISK\_WARNING}!SafetyEngine@{SafetyEngine}}
+\index{SafetyEngine@{SafetyEngine}!RISK\_WARNING@{RISK\_WARNING}}
+}\Hypertarget{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82}\label{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82} 
+RISK\+\_\+\+WARNING&&Getting close — the driver should slow down. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISK\_CRITICAL@{RISK\_CRITICAL}!SafetyEngine@{SafetyEngine}}
+\index{SafetyEngine@{SafetyEngine}!RISK\_CRITICAL@{RISK\_CRITICAL}}
+}\Hypertarget{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492}\label{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492} 
+RISK\+\_\+\+CRITICAL&&Too close — the driver should stop. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00058}{58}} of file \doxymbox{\hyperlink{SafetyEngine__interface_8h_source}{Safety\+Engine\+\_\+interface.\+h}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{group__app__safetyengine_doc-func-members}
+\doxysubsubsection{Function Documentation}
+\Hypertarget{group__app__safetyengine_gad87fdbbd1376c4cebfa69a906cfbe556}\index{SafetyEngine@{SafetyEngine}!SafetyEngine\_voidInit@{SafetyEngine\_voidInit}}
+\index{SafetyEngine\_voidInit@{SafetyEngine\_voidInit}!SafetyEngine@{SafetyEngine}}
+\doxysubsubsubsection{\texorpdfstring{SafetyEngine\_voidInit()}{SafetyEngine\_voidInit()}}
+{\footnotesize\ttfamily \label{group__app__safetyengine_gad87fdbbd1376c4cebfa69a906cfbe556} 
+void Safety\+Engine\+\_\+void\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initialise all five ADAS modules (FCW/\+\+DNPW, EEBL, BSW, IMA). 
+
+Called from {\ttfamily \doxylink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main()}} before the scheduler starts, so no task can ever observe a module in a half-\/initialised state. 
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00033}{33}} of file \doxymbox{\hyperlink{SafetyEngine__program_8c_source}{Safety\+Engine\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{BSW__program_8c_source_l00056}{BSW\+\_\+void\+Init()}}, \doxymbox{\hyperlink{EEBL__program_8c_source_l00026}{EEBL\+\_\+void\+Init()}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00069}{FCW\+\_\+\+DNPW\+\_\+void\+Init()}}, and \doxymbox{\hyperlink{IMA__program_8c_source_l00024}{IMA\+\_\+void\+Init()}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00147}{main()}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__app__safetyengine_gad87fdbbd1376c4cebfa69a906cfbe556_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=279pt]{group__app__safetyengine_gad87fdbbd1376c4cebfa69a906cfbe556_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__app__safetyengine_ga7b6c12632534a82b4357a73306667157}\index{SafetyEngine@{SafetyEngine}!SafetyEngine\_voidUpdate@{SafetyEngine\_voidUpdate}}
+\index{SafetyEngine\_voidUpdate@{SafetyEngine\_voidUpdate}!SafetyEngine@{SafetyEngine}}
+\doxysubsubsubsection{\texorpdfstring{SafetyEngine\_voidUpdate()}{SafetyEngine\_voidUpdate()}}
+{\footnotesize\ttfamily \label{group__app__safetyengine_ga7b6c12632534a82b4357a73306667157} 
+void Safety\+Engine\+\_\+void\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Run one full ADAS cycle:\+ every module, over every neighbor, in one pass. 
+
+This is the ADAS brain, and it is the only place a hazard decision is made. Each 50 ms cycle it:\+
+
+
+\begin{DoxyEnumerate}
+\item latches \doxylink{group__app__safetyengine_ga16174df02da93c0fc96432a4bc1de57b}{Host\+\_\+\+Speed} and \doxylink{group__app__safetyengine_gafb1ff5cedbd39f1a8b81a25a7dcdb171}{Host\+\_\+\+Heading}, and computes this cycle\textquotesingle{}s \doxylink{group__app__safetyengine_ga2d869610528b06238c15ab8fb160304f}{Safety\+Engine\+\_\+\+Safe\+Dist} and \doxylink{group__app__safetyengine_ga414ebc77c31778b0d2f7371abdbd2d19}{Safety\+Engine\+\_\+\+Critical\+Dist};
+\item walks the DSRC neighbor table {\bfseries{once}}, offering each neighbor to every module that its \doxylink{group__app__safetyengine_ga2e9ec086ba61b35cfc2439306cdfdd70}{Direction\+\_\+t} makes relevant;
+\item aggregates the modules\textquotesingle{} \doxylink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t} results into \doxylink{group__system_ga9e78367aa5b758af972838362c2b0eab}{G\+\_\+u16\+System\+Flags}.
+\end{DoxyEnumerate}
+
+The single pass matters:\+ the modules share the neighbor table and the latched host state, so walking it once means they all reason about one coherent snapshot of the world rather than five slightly different ones.
+
+\begin{DoxyNote}{Note}
+Makes no actuator decision whatsoever. It publishes a status word; {\ttfamily \doxylink{main_8c_a96452f43e9871212929e6e6a969bec13}{v\+Task\+\_\+\+Feedback}} is what turns that into light and sound. 
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+The caller must hold {\bfseries{both}} mutexes, taken in the order Neighbor\+Table → Data. 
+\end{DoxyWarning}
+
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{49}} of file \doxymbox{\hyperlink{SafetyEngine__program_8c_source}{Safety\+Engine\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{BSW__program_8c_source_l00153}{BSW\+\_\+u8\+Get\+Severity()}}, \doxymbox{\hyperlink{BSW__program_8c_source_l00075}{BSW\+\_\+void\+Begin\+Cycle()}}, \doxymbox{\hyperlink{BSW__program_8c_source_l00109}{BSW\+\_\+void\+Process\+Neighbor()}}, \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00088}{CRITICAL\+\_\+\+RATIO}}, \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00048}{DIR\+\_\+\+CROSSING}}, \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00047}{DIR\+\_\+\+OPPOSITE}}, \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00046}{DIR\+\_\+\+SAME}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00187}{DNPW\+\_\+\+Get\+Flag()}}, \doxymbox{\hyperlink{DSRC_8c_source_l00244}{DSRC\+\_\+\+Get\+Count()}}, \doxymbox{\hyperlink{DSRC_8c_source_l00268}{DSRC\+\_\+\+Get\+Table()}}, \doxymbox{\hyperlink{EEBL__program_8c_source_l00087}{EEBL\+\_\+u8\+Get\+Flag()}}, \doxymbox{\hyperlink{EEBL__program_8c_source_l00041}{EEBL\+\_\+void\+Begin\+Cycle()}}, \doxymbox{\hyperlink{EEBL__program_8c_source_l00060}{EEBL\+\_\+void\+Process\+Neighbor()}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00091}{FCW\+\_\+\+DNPW\+\_\+void\+Begin\+Cycle()}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00150}{FCW\+\_\+\+DNPW\+\_\+void\+Process\+Opposite\+Direction()}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00136}{FCW\+\_\+\+DNPW\+\_\+void\+Process\+Same\+Direction()}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00178}{FCW\+\_\+\+Get\+Front\+Flag()}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00184}{FCW\+\_\+\+Get\+Headon\+Confirmed()}}, \doxymbox{\hyperlink{System_8c_source_l00036}{G\+\_\+st\+Host\+Vehicle\+State}}, \doxymbox{\hyperlink{System_8c_source_l00035}{G\+\_\+u16\+System\+Flags}}, \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00023}{Host\+\_\+\+Heading}}, \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00021}{Host\+\_\+\+Speed}}, \doxymbox{\hyperlink{IMA__program_8c_source_l00079}{IMA\+\_\+u8\+Get\+Flag()}}, \doxymbox{\hyperlink{IMA__program_8c_source_l00038}{IMA\+\_\+void\+Begin\+Cycle()}}, \doxymbox{\hyperlink{IMA__program_8c_source_l00055}{IMA\+\_\+void\+Process\+Neighbor()}}, \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00087}{MIN\+\_\+\+SAFE\+\_\+\+DISTANCE}}, \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00086}{SAFE\+\_\+\+DIST\+\_\+\+PER\+\_\+\+MS}}, \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00030}{Safety\+Engine\+\_\+\+Critical\+Dist}}, \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00155}{Safety\+Engine\+\_\+\+Detect\+Direction()}}, \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00028}{Safety\+Engine\+\_\+\+Safe\+Dist}}, \doxymbox{\hyperlink{System_8h_source_l00153}{SYS\+\_\+\+BSW\+\_\+\+POS}}, \doxymbox{\hyperlink{System_8h_source_l00154}{SYS\+\_\+\+DNPW\+\_\+\+POS}}, \doxymbox{\hyperlink{System_8h_source_l00152}{SYS\+\_\+\+EEBL\+\_\+\+POS}}, \doxymbox{\hyperlink{System_8h_source_l00151}{SYS\+\_\+\+FCW\+\_\+\+POS}}, \doxymbox{\hyperlink{System_8h_source_l00155}{SYS\+\_\+\+IMA\+\_\+\+POS}}, and \doxymbox{\hyperlink{System_8h_source_l00149}{SYS\+\_\+\+MASK}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00202}{v\+Task\+\_\+\+Safety\+Engine()}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__app__safetyengine_ga7b6c12632534a82b4357a73306667157_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__app__safetyengine_ga7b6c12632534a82b4357a73306667157_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__app__safetyengine_gab7dae45d16fd67e39cae94350eb6d0f7}\index{SafetyEngine@{SafetyEngine}!SafetyEngine\_DetectDirection@{SafetyEngine\_DetectDirection}}
+\index{SafetyEngine\_DetectDirection@{SafetyEngine\_DetectDirection}!SafetyEngine@{SafetyEngine}}
+\doxysubsubsubsection{\texorpdfstring{SafetyEngine\_DetectDirection()}{SafetyEngine\_DetectDirection()}}
+{\footnotesize\ttfamily \label{group__app__safetyengine_gab7dae45d16fd67e39cae94350eb6d0f7} 
+\doxymbox{\hyperlink{group__app__safetyengine_ga2e9ec086ba61b35cfc2439306cdfdd70}{Direction\+\_\+t}} Safety\+Engine\+\_\+\+Detect\+Direction (\begin{DoxyParamCaption}\item[{float}]{my\+\_\+heading}{, }\item[{float}]{other\+\_\+heading}{}\end{DoxyParamCaption})}
+
+
+
+Detect direction relationship between two vehicles. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em my\+\_\+heading} & Host vehicle heading (0-\/360) \\
+\hline
+{\em other\+\_\+heading} & \doxylink{structNeighbor}{Neighbor} vehicle heading (0-\/360) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+DIR\+\_\+\+SAME, DIR\+\_\+\+OPPOSITE, DIR\+\_\+\+CROSSING, or DIR\+\_\+\+UNKNOWN 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00155}{155}} of file \doxymbox{\hyperlink{SafetyEngine__program_8c_source}{Safety\+Engine\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00139}{Calc\+Heading\+Diff()}}, \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00048}{DIR\+\_\+\+CROSSING}}, \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00047}{DIR\+\_\+\+OPPOSITE}}, \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00046}{DIR\+\_\+\+SAME}}, \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00049}{DIR\+\_\+\+UNKNOWN}}, \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00033}{HEADING\+\_\+\+CROSS\+\_\+\+THRESHOLD}}, \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00032}{HEADING\+\_\+\+OPPOSITE\+\_\+\+THRESHOLD}}, and \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00031}{HEADING\+\_\+\+SAME\+\_\+\+THRESHOLD}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__app__safetyengine_gab7dae45d16fd67e39cae94350eb6d0f7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__app__safetyengine_gab7dae45d16fd67e39cae94350eb6d0f7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__app__safetyengine_ga7e73033d8b868fa66e2090ca79150677}\index{SafetyEngine@{SafetyEngine}!SafetyEngine\_EvaluateRisk@{SafetyEngine\_EvaluateRisk}}
+\index{SafetyEngine\_EvaluateRisk@{SafetyEngine\_EvaluateRisk}!SafetyEngine@{SafetyEngine}}
+\doxysubsubsubsection{\texorpdfstring{SafetyEngine\_EvaluateRisk()}{SafetyEngine\_EvaluateRisk()}}
+{\footnotesize\ttfamily \label{group__app__safetyengine_ga7e73033d8b868fa66e2090ca79150677} 
+\doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} Safety\+Engine\+\_\+\+Evaluate\+Risk (\begin{DoxyParamCaption}\item[{float}]{value}{, }\item[{float}]{warning\+\_\+thr}{, }\item[{float}]{critical\+\_\+thr}{}\end{DoxyParamCaption})}
+
+
+
+Evaluate risk from a "{}lower value = higher risk"{} metric. 
+
+Used by IMA for time-\/gap/\+delay thresholds. 
+\begin{DoxyParams}{Parameters}
+{\em value} & Metric to evaluate (e.\+g. delay/\+time-\/gap in seconds) \\
+\hline
+{\em warning\+\_\+thr} & Threshold for warning level \\
+\hline
+{\em critical\+\_\+thr} & Threshold for critical level \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+RISK\+\_\+\+SAFE, RISK\+\_\+\+WARNING, or RISK\+\_\+\+CRITICAL 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00182}{182}} of file \doxymbox{\hyperlink{SafetyEngine__program_8c_source}{Safety\+Engine\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00062}{RISK\+\_\+\+CRITICAL}}, \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00060}{RISK\+\_\+\+SAFE}}, and \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00061}{RISK\+\_\+\+WARNING}}.
+
+\Hypertarget{group__app__safetyengine_gaff42a93f5f7c50d14d779e142010ae71}\index{SafetyEngine@{SafetyEngine}!SafetyEngine\_AssessDistanceRisk@{SafetyEngine\_AssessDistanceRisk}}
+\index{SafetyEngine\_AssessDistanceRisk@{SafetyEngine\_AssessDistanceRisk}!SafetyEngine@{SafetyEngine}}
+\doxysubsubsubsection{\texorpdfstring{SafetyEngine\_AssessDistanceRisk()}{SafetyEngine\_AssessDistanceRisk()}}
+{\footnotesize\ttfamily \label{group__app__safetyengine_gaff42a93f5f7c50d14d779e142010ae71} 
+\doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} Safety\+Engine\+\_\+\+Assess\+Distance\+Risk (\begin{DoxyParamCaption}\item[{float}]{host\+\_\+speed}{, }\item[{float}]{distance}{, }\item[{float}]{dist\+\_\+per\+\_\+ms}{, }\item[{float}]{min\+\_\+dist}{, }\item[{float}]{crit\+\_\+ratio}{}\end{DoxyParamCaption})}
+
+
+
+Assess collision risk from host speed and a measured distance. 
+
+safe\+\_\+dist\+\_\+cm = host\+\_\+speed(m/\+s) \texorpdfstring{$\ast$}{*} dist\+\_\+per\+\_\+ms (floored at min\+\_\+dist) distance \texorpdfstring{$>$}{>}= safe\+\_\+dist -\/\texorpdfstring{$>$}{>} RISK\+\_\+\+SAFE crit\texorpdfstring{$\ast$}{*}safe \texorpdfstring{$<$}{<}= distance \texorpdfstring{$<$}{<} safe\+\_\+dist -\/\texorpdfstring{$>$}{>} RISK\+\_\+\+WARNING distance \texorpdfstring{$<$}{<} crit\texorpdfstring{$\ast$}{*}safe -\/\texorpdfstring{$>$}{>} RISK\+\_\+\+CRITICAL
+
+
+\begin{DoxyParams}{Parameters}
+{\em host\+\_\+speed} & Host vehicle speed (m/\+s, from MPU) \\
+\hline
+{\em distance} & Measured distance to the object (cm, from ultrasonic) \\
+\hline
+{\em dist\+\_\+per\+\_\+ms} & cm of safe gap per 1 m/\+s of host speed (module-\/tuned) \\
+\hline
+{\em min\+\_\+dist} & Minimum safe-\/distance floor (cm) \\
+\hline
+{\em crit\+\_\+ratio} & Fraction of safe distance below which risk is CRITICAL \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+RISK\+\_\+\+SAFE, RISK\+\_\+\+WARNING, or RISK\+\_\+\+CRITICAL 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00204}{204}} of file \doxymbox{\hyperlink{SafetyEngine__program_8c_source}{Safety\+Engine\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00062}{RISK\+\_\+\+CRITICAL}}, \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00060}{RISK\+\_\+\+SAFE}}, and \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00061}{RISK\+\_\+\+WARNING}}.
+
+
+
+\label{doc-var-members}
+\Hypertarget{group__app__safetyengine_doc-var-members}
+\doxysubsubsection{Variable Documentation}
+\Hypertarget{group__app__safetyengine_ga16174df02da93c0fc96432a4bc1de57b}\index{SafetyEngine@{SafetyEngine}!Host\_Speed@{Host\_Speed}}
+\index{Host\_Speed@{Host\_Speed}!SafetyEngine@{SafetyEngine}}
+\doxysubsubsubsection{\texorpdfstring{Host\_Speed}{Host\_Speed}}
+{\footnotesize\ttfamily \label{group__app__safetyengine_ga16174df02da93c0fc96432a4bc1de57b} 
+float Host\+\_\+\+Speed\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+This vehicle\textquotesingle{}s speed for this cycle \+[m/\+s]\+. 
+
+This vehicle\textquotesingle{}s speed for this cycle \+[m/\+s]\+.
+
+Latched once per cycle — see \doxylink{group__app__safetyengine_ga7b6c12632534a82b4357a73306667157}{Safety\+Engine\+\_\+void\+Update}. 
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00021}{21}} of file \doxymbox{\hyperlink{SafetyEngine__program_8c_source}{Safety\+Engine\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{EEBL__program_8c_source_l00041}{EEBL\+\_\+void\+Begin\+Cycle()}}, \doxymbox{\hyperlink{IMA__program_8c_source_l00055}{IMA\+\_\+void\+Process\+Neighbor()}}, and \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
+
+\Hypertarget{group__app__safetyengine_gafb1ff5cedbd39f1a8b81a25a7dcdb171}\index{SafetyEngine@{SafetyEngine}!Host\_Heading@{Host\_Heading}}
+\index{Host\_Heading@{Host\_Heading}!SafetyEngine@{SafetyEngine}}
+\doxysubsubsubsection{\texorpdfstring{Host\_Heading}{Host\_Heading}}
+{\footnotesize\ttfamily \label{group__app__safetyengine_gafb1ff5cedbd39f1a8b81a25a7dcdb171} 
+float Host\+\_\+\+Heading\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+This vehicle\textquotesingle{}s heading for this cycle \+[degrees]\+, 0..360. 
+
+This vehicle\textquotesingle{}s heading for this cycle \+[degrees]\+, 0..360.
+
+Latched once per cycle. 
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00023}{23}} of file \doxymbox{\hyperlink{SafetyEngine__program_8c_source}{Safety\+Engine\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
+
+\Hypertarget{group__app__safetyengine_ga2d869610528b06238c15ab8fb160304f}\index{SafetyEngine@{SafetyEngine}!SafetyEngine\_SafeDist@{SafetyEngine\_SafeDist}}
+\index{SafetyEngine\_SafeDist@{SafetyEngine\_SafeDist}!SafetyEngine@{SafetyEngine}}
+\doxysubsubsubsection{\texorpdfstring{SafetyEngine\_SafeDist}{SafetyEngine\_SafeDist}}
+{\footnotesize\ttfamily \label{group__app__safetyengine_ga2d869610528b06238c15ab8fb160304f} 
+float Safety\+Engine\+\_\+\+Safe\+Dist\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+The safe gap for this cycle \+[cm]\+, from the model above. 
+
+Read-\/only to the modules.
+
+The safe gap for this cycle \+[cm]\+, from the model above. 
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00028}{28}} of file \doxymbox{\hyperlink{SafetyEngine__program_8c_source}{Safety\+Engine\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{EEBL__program_8c_source_l00060}{EEBL\+\_\+void\+Process\+Neighbor()}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00091}{FCW\+\_\+\+DNPW\+\_\+void\+Begin\+Cycle()}}, and \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
+
+\Hypertarget{group__app__safetyengine_ga414ebc77c31778b0d2f7371abdbd2d19}\index{SafetyEngine@{SafetyEngine}!SafetyEngine\_CriticalDist@{SafetyEngine\_CriticalDist}}
+\index{SafetyEngine\_CriticalDist@{SafetyEngine\_CriticalDist}!SafetyEngine@{SafetyEngine}}
+\doxysubsubsubsection{\texorpdfstring{SafetyEngine\_CriticalDist}{SafetyEngine\_CriticalDist}}
+{\footnotesize\ttfamily \label{group__app__safetyengine_ga414ebc77c31778b0d2f7371abdbd2d19} 
+float Safety\+Engine\+\_\+\+Critical\+Dist\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+The critical gap for this cycle \+[cm]\+. 
+
+Read-\/only to the modules.
+
+The critical gap for this cycle \+[cm]\+. 
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00030}{30}} of file \doxymbox{\hyperlink{SafetyEngine__program_8c_source}{Safety\+Engine\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{EEBL__program_8c_source_l00060}{EEBL\+\_\+void\+Process\+Neighbor()}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00091}{FCW\+\_\+\+DNPW\+\_\+void\+Begin\+Cycle()}}, and \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
+

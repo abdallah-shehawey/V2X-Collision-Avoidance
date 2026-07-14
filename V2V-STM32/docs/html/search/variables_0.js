@@ -1,28 +1,4 @@
 var searchData=
 [
-  ['accelx_0',['AccelX',['../structMPU9250__Data__t.html#a0847b8c4ee83cb47a048534b6c8144ed',1,'MPU9250_Data_t']]],
-  ['accely_1',['AccelY',['../structMPU9250__Data__t.html#a5480b2d87c0b736b31324ffee108c163',1,'MPU9250_Data_t']]],
-  ['accelz_2',['AccelZ',['../structMPU9250__Data__t.html#a926e46afa81b71e780029a34e12b8e72',1,'MPU9250_Data_t']]],
-  ['activestate_3',['ActiveState',['../structBUZ__Config__t.html#ad353577f1afb89c9608c5e1158efb5b8',1,'BUZ_Config_t::ActiveState'],['../structLED__Config__t.html#a569c6b77190bc29ef3c64bea8fb8b1c9',1,'LED_Config_t::ActiveState']]],
-  ['afr_4',['AFR',['../structGPIO__REGDEF__t.html#a8c8407eb13488ed840fd68506712df0e',1,'GPIO_REGDEF_t']]],
-  ['afsr_5',['AFSR',['../structSCB__RegDef__t.html#a04fcc308d4be14f2d3f99c9ee1b4e19e',1,'SCB_RegDef_t']]],
-  ['ahb1lpenr_6',['AHB1LPENR',['../structRCC__RegDef__t.html#a0f1e1666ec1c7f05d30ba69d4cdb2357',1,'RCC_RegDef_t']]],
-  ['ahp1enr_7',['AHP1ENR',['../structRCC__RegDef__t.html#a4699fc21ca4baabea10c31f5a3345eb9',1,'RCC_RegDef_t']]],
-  ['ahp1rstr_8',['AHP1RSTR',['../structRCC__RegDef__t.html#aa51cfc869a18dcef6582fe03b084f190',1,'RCC_RegDef_t']]],
-  ['ahp2enr_9',['AHP2ENR',['../structRCC__RegDef__t.html#a0f2f8fc2ae28cb6b1a7e1c03be790f5a',1,'RCC_RegDef_t']]],
-  ['ahp2lpenr_10',['AHP2LPENR',['../structRCC__RegDef__t.html#ab5841853987e5949d2b8d3198d0f1758',1,'RCC_RegDef_t']]],
-  ['ahp2rstr_11',['AHP2RSTR',['../structRCC__RegDef__t.html#ad4a102fe08ef6add30294ebe58b37d78',1,'RCC_RegDef_t']]],
-  ['ahp3enr_12',['AHP3ENR',['../structRCC__RegDef__t.html#a9a55373cd5c86a208fe8d732f8e5ee7b',1,'RCC_RegDef_t']]],
-  ['ahp3lpenr_13',['AHP3LPENR',['../structRCC__RegDef__t.html#a420aaa63ddd2bac5d17d4096f92a6a8f',1,'RCC_RegDef_t']]],
-  ['ahp3rstr_14',['AHP3RSTR',['../structRCC__RegDef__t.html#a855ac0627d225fab67263622b80d05ec',1,'RCC_RegDef_t']]],
-  ['aircr_15',['AIRCR',['../structSCB__RegDef__t.html#a84f257690573cbdd3825a13e2d556d36',1,'SCB_RegDef_t']]],
-  ['alternatefunction_16',['AlternateFunction',['../structGPIO__PinConfig__t.html#a1c2bc696e86f5de665fb14d452d2ccca',1,'GPIO_PinConfig_t']]],
-  ['apb1enr_17',['APB1ENR',['../structRCC__RegDef__t.html#a389643cd117089ebb8dd10ec060488d8',1,'RCC_RegDef_t']]],
-  ['apb1lpenr_18',['APB1LPENR',['../structRCC__RegDef__t.html#af3e9349611ac0807a4b8ad3b9092490a',1,'RCC_RegDef_t']]],
-  ['apb1rstr_19',['APB1RSTR',['../structRCC__RegDef__t.html#acfa79aca8487958412be8f32e4632b47',1,'RCC_RegDef_t']]],
-  ['apb2enr_20',['APB2ENR',['../structRCC__RegDef__t.html#aa5211a53246098ec97c0e360759c5ad8',1,'RCC_RegDef_t']]],
-  ['apb2lpenr_21',['APB2LPENR',['../structRCC__RegDef__t.html#ab7a6c876d40b24bc87fa77108508271d',1,'RCC_RegDef_t']]],
-  ['apb2rstr_22',['APB2RSTR',['../structRCC__RegDef__t.html#a6c1588013b885c32b78b912e8249a26c',1,'RCC_RegDef_t']]],
-  ['arr_23',['ARR',['../structTIM__TypeDef.html#aa574282b4226fefc866df9beea6f41cd',1,'TIM_TypeDef']]],
-  ['autoreloadvalue_24',['AutoReloadValue',['../structTIM__Config__t.html#a472831a1ee559a2f182812ba63663dc3',1,'TIM_Config_t']]]
+  ['_5f_5fenv_0',['__env',['../syscalls_8c.html#a5428d66981cb84e60b899495874618b2',1,'syscalls.c']]]
 ];

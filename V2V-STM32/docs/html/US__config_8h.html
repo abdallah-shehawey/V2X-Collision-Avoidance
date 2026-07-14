@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Inc/Drivers/HAL/US/US_config.h File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Inc/Drivers/HAL/US/US_config.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,64 +90,42 @@ $(function(){initNavTree('US__config_8h.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">US_config.h File Reference</div></div>
+  <div class="headertitle"><div class="title">US_config.h File Reference<div class="ingroups"><a class="el" href="group__hal.html">HAL</a> &raquo; <a class="el" href="group__hal__us.html">US</a></div></div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="US__config_8h__dep__incl.png" border="0" usemap="#aInc_2Drivers_2HAL_2US_2US__config_8hdep" loading="lazy" alt=""/></div>
-<map name="aInc_2Drivers_2HAL_2US_2US__config_8hdep" id="aInc_2Drivers_2HAL_2US_2US__config_8hdep">
-<area shape="rect" title=" " alt="" coords="5,5,149,50"/>
-<area shape="rect" href="US__prog_8c.html" title=" " alt="" coords="22,98,132,126"/>
-<area shape="poly" title=" " alt="" coords="79,64,80,98,74,97,75,68"/>
-</map>
+
+<p>Compile-time configuration for the US driver — the HC-SR04 ultrasonic rangefinders.  
+<a href="#details">More...</a></p>
+<div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="US__config_8h__dep__incl.svg" width="199" height="131"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="US__config_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ade28eff697a4ce6ca90ed4af010179c4" id="r_ade28eff697a4ce6ca90ed4af010179c4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ade28eff697a4ce6ca90ed4af010179c4">US_SYS_CLK_HZ</a>&#160;&#160;&#160;16000000UL</td></tr>
-<tr class="memitem:ac82821dff0173e63bfc7953f43c50066" id="r_ac82821dff0173e63bfc7953f43c50066"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ac82821dff0173e63bfc7953f43c50066">US_TRIG_SETTLE_US</a>&#160;&#160;&#160;2U</td></tr>
-<tr class="memitem:a8a95e538fdb97455266761408d1db73e" id="r_a8a95e538fdb97455266761408d1db73e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a8a95e538fdb97455266761408d1db73e">US_TRIG_PULSE_US</a>&#160;&#160;&#160;10U</td></tr>
-<tr class="memitem:a1acbfc782dd65e3000e6373d863e3333" id="r_a1acbfc782dd65e3000e6373d863e3333"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a1acbfc782dd65e3000e6373d863e3333">US_MAX_RANGE_CM</a>&#160;&#160;&#160;400U</td></tr>
-<tr class="memitem:ab0e1472cbc6dcaabb8233a418a55b6fe" id="r_ab0e1472cbc6dcaabb8233a418a55b6fe"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ab0e1472cbc6dcaabb8233a418a55b6fe">US_SOUND_SPEED_FACTOR</a>&#160;&#160;&#160;58U</td></tr>
-<tr class="memitem:a4d35bb6b344954434449832b9e53037c" id="r_a4d35bb6b344954434449832b9e53037c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a4d35bb6b344954434449832b9e53037c">US_TASK_TIMEOUT_MS</a>&#160;&#160;&#160;((((<a class="el" href="#a1acbfc782dd65e3000e6373d863e3333">US_MAX_RANGE_CM</a> * <a class="el" href="#ab0e1472cbc6dcaabb8233a418a55b6fe">US_SOUND_SPEED_FACTOR</a>) + 999U) / 1000U) + 1U)</td></tr>
+<tr class="memitem:ade28eff697a4ce6ca90ed4af010179c4" id="r_ade28eff697a4ce6ca90ed4af010179c4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ade28eff697a4ce6ca90ed4af010179c4">US_SYS_CLK_HZ</a></td></tr>
+<tr class="memdesc:ade28eff697a4ce6ca90ed4af010179c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">System clock the echo timing is derived from [Hz].  <br /></td></tr>
+<tr class="memitem:ac82821dff0173e63bfc7953f43c50066" id="r_ac82821dff0173e63bfc7953f43c50066"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ac82821dff0173e63bfc7953f43c50066">US_TRIG_SETTLE_US</a></td></tr>
+<tr class="memdesc:ac82821dff0173e63bfc7953f43c50066"><td class="mdescLeft">&#160;</td><td class="mdescRight">How long TRIG is held low before the pulse [us], to guarantee a clean edge with no glitch left over from the previous measurement.  <br /></td></tr>
+<tr class="memitem:a8a95e538fdb97455266761408d1db73e" id="r_a8a95e538fdb97455266761408d1db73e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a8a95e538fdb97455266761408d1db73e">US_TRIG_PULSE_US</a></td></tr>
+<tr class="memdesc:a8a95e538fdb97455266761408d1db73e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Width of the TRIG pulse [us].  <br /></td></tr>
+<tr class="memitem:a1acbfc782dd65e3000e6373d863e3333" id="r_a1acbfc782dd65e3000e6373d863e3333"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a1acbfc782dd65e3000e6373d863e3333">US_MAX_RANGE_CM</a></td></tr>
+<tr class="memdesc:a1acbfc782dd65e3000e6373d863e3333"><td class="mdescLeft">&#160;</td><td class="mdescRight">Range ceiling [cm].  <br /></td></tr>
+<tr class="memitem:ab0e1472cbc6dcaabb8233a418a55b6fe" id="r_ab0e1472cbc6dcaabb8233a418a55b6fe"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ab0e1472cbc6dcaabb8233a418a55b6fe">US_SOUND_SPEED_FACTOR</a></td></tr>
+<tr class="memdesc:ab0e1472cbc6dcaabb8233a418a55b6fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Microseconds of echo per centimetre of distance.  <br /></td></tr>
+<tr class="memitem:a4d35bb6b344954434449832b9e53037c" id="r_a4d35bb6b344954434449832b9e53037c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a4d35bb6b344954434449832b9e53037c">US_TASK_TIMEOUT_MS</a></td></tr>
+<tr class="memdesc:a4d35bb6b344954434449832b9e53037c"><td class="mdescLeft">&#160;</td><td class="mdescRight">How long the reading task sleeps waiting for one echo before giving up [ms].  <br /></td></tr>
 </table>
-<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="a1acbfc782dd65e3000e6373d863e3333" name="a1acbfc782dd65e3000e6373d863e3333"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1acbfc782dd65e3000e6373d863e3333">&#9670;&#160;</a></span>US_MAX_RANGE_CM</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Compile-time configuration for the US driver — the HC-SR04 ultrasonic rangefinders. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Abdelmoemen Shehawey  </dd></dl>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define US_MAX_RANGE_CM&#160;&#160;&#160;400U</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="US__config_8h_source.html#l00051">51</a> of file <a class="el" href="US__config_8h_source.html">US_config.h</a>.</p>
-
-</div>
-</div>
-<a id="ab0e1472cbc6dcaabb8233a418a55b6fe" name="ab0e1472cbc6dcaabb8233a418a55b6fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0e1472cbc6dcaabb8233a418a55b6fe">&#9670;&#160;</a></span>US_SOUND_SPEED_FACTOR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define US_SOUND_SPEED_FACTOR&#160;&#160;&#160;58U</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="US__config_8h_source.html#l00059">59</a> of file <a class="el" href="US__config_8h_source.html">US_config.h</a>.</p>
-
-</div>
-</div>
+<p class="definition">Definition in file <a class="el" href="US__config_8h_source.html">US_config.h</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="ade28eff697a4ce6ca90ed4af010179c4" name="ade28eff697a4ce6ca90ed4af010179c4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ade28eff697a4ce6ca90ed4af010179c4">&#9670;&#160;</a></span>US_SYS_CLK_HZ</h2>
 
@@ -155,45 +133,17 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define US_SYS_CLK_HZ&#160;&#160;&#160;16000000UL</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>===========================================================================** &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; <a class="el" href="US__config_8h.html">US_config.h</a> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;** ** Author : Abdallah Saleh ** Layer : HAL ** CPU : Cortex-M4 ** MCU : NUCLEO-F446RE ** SWC : US (Ultrasonic Distance Sensor) ** ** ===========================================================================** </p>
-
-<p class="definition">Definition at line <a class="el" href="US__config_8h_source.html#l00024">24</a> of file <a class="el" href="US__config_8h_source.html">US_config.h</a>.</p>
-
-</div>
-</div>
-<a id="a4d35bb6b344954434449832b9e53037c" name="a4d35bb6b344954434449832b9e53037c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d35bb6b344954434449832b9e53037c">&#9670;&#160;</a></span>US_TASK_TIMEOUT_MS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define US_TASK_TIMEOUT_MS&#160;&#160;&#160;((((<a class="el" href="#a1acbfc782dd65e3000e6373d863e3333">US_MAX_RANGE_CM</a> * <a class="el" href="#ab0e1472cbc6dcaabb8233a418a55b6fe">US_SOUND_SPEED_FACTOR</a>) + 999U) / 1000U) + 1U)</td>
+          <td class="memname">#define US_SYS_CLK_HZ</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="US__config_8h_source.html#l00071">71</a> of file <a class="el" href="US__config_8h_source.html">US_config.h</a>.</p>
+<p>System clock the echo timing is derived from [Hz]. </p>
+<p>If this is wrong, every distance is scaled by the same factor. </p>
 
-</div>
-</div>
-<a id="a8a95e538fdb97455266761408d1db73e" name="a8a95e538fdb97455266761408d1db73e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a95e538fdb97455266761408d1db73e">&#9670;&#160;</a></span>US_TRIG_PULSE_US</h2>
+<p class="definition">Definition at line <a class="el" href="US__config_8h_source.html#l00020">20</a> of file <a class="el" href="US__config_8h_source.html">US_config.h</a>.</p>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define US_TRIG_PULSE_US&#160;&#160;&#160;10U</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="US__config_8h_source.html#l00040">40</a> of file <a class="el" href="US__config_8h_source.html">US_config.h</a>.</p>
+<p class="reference">Referenced by <a class="el" href="US__prog_8c_source.html#l00196">US_vInit()</a>.</p>
 
 </div>
 </div>
@@ -204,12 +154,100 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define US_TRIG_SETTLE_US&#160;&#160;&#160;2U</td>
+          <td class="memname">#define US_TRIG_SETTLE_US</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="US__config_8h_source.html#l00032">32</a> of file <a class="el" href="US__config_8h_source.html">US_config.h</a>.</p>
+<p>How long TRIG is held low before the pulse [us], to guarantee a clean edge with no glitch left over from the previous measurement. </p>
+
+<p class="definition">Definition at line <a class="el" href="US__config_8h_source.html#l00027">27</a> of file <a class="el" href="US__config_8h_source.html">US_config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="US__prog_8c_source.html#l00096">US_vSendTrigger()</a>.</p>
+
+</div>
+</div>
+<a id="a8a95e538fdb97455266761408d1db73e" name="a8a95e538fdb97455266761408d1db73e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a95e538fdb97455266761408d1db73e">&#9670;&#160;</a></span>US_TRIG_PULSE_US</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define US_TRIG_PULSE_US</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Width of the TRIG pulse [us]. </p>
+<p>The HC-SR04 datasheet requires <b>at least</b> 10 us — do not lower this. </p>
+
+<p class="definition">Definition at line <a class="el" href="US__config_8h_source.html#l00034">34</a> of file <a class="el" href="US__config_8h_source.html">US_config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="US__prog_8c_source.html#l00096">US_vSendTrigger()</a>.</p>
+
+</div>
+</div>
+<a id="a1acbfc782dd65e3000e6373d863e3333" name="a1acbfc782dd65e3000e6373d863e3333"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1acbfc782dd65e3000e6373d863e3333">&#9670;&#160;</a></span>US_MAX_RANGE_CM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define US_MAX_RANGE_CM</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Range ceiling [cm]. </p>
+<p>The single source of truth for "out of range": it clamps the distance in the capture ISR <em>and</em> derives the task-level echo timeout. An echo decoding past it is reported as a timeout (object lost), not as a huge distance. </p>
+
+<p class="definition">Definition at line <a class="el" href="US__config_8h_source.html#l00044">44</a> of file <a class="el" href="US__config_8h_source.html">US_config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="US__prog_8c_source.html#l00145">US_CC_Handler()</a>.</p>
+
+</div>
+</div>
+<a id="ab0e1472cbc6dcaabb8233a418a55b6fe" name="ab0e1472cbc6dcaabb8233a418a55b6fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0e1472cbc6dcaabb8233a418a55b6fe">&#9670;&#160;</a></span>US_SOUND_SPEED_FACTOR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define US_SOUND_SPEED_FACTOR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Microseconds of echo per centimetre of distance. </p>
+<p>Sound travels ~343 m/s, and the pulse makes a round trip, so distance_cm = echo_us / 58. </p>
+
+<p class="definition">Definition at line <a class="el" href="US__config_8h_source.html#l00051">51</a> of file <a class="el" href="US__config_8h_source.html">US_config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="US__prog_8c_source.html#l00145">US_CC_Handler()</a>.</p>
+
+</div>
+</div>
+<a id="a4d35bb6b344954434449832b9e53037c" name="a4d35bb6b344954434449832b9e53037c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d35bb6b344954434449832b9e53037c">&#9670;&#160;</a></span>US_TASK_TIMEOUT_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define US_TASK_TIMEOUT_MS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>How long the reading task sleeps waiting for one echo before giving up [ms]. </p>
+<p>Derived from <a class="el" href="#a1acbfc782dd65e3000e6373d863e3333" title="US_MAX_RANGE_CM">US_MAX_RANGE_CM</a> rather than hard-coded, so raising the range ceiling automatically gives the echo the extra flight time it now needs. Worst case, with all six sensors out of range, a full scan takes about 6 x 25 = 150 ms. </p>
+
+<p class="definition">Definition at line <a class="el" href="US__config_8h_source.html#l00069">69</a> of file <a class="el" href="US__config_8h_source.html">US_config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="US__prog_8c_source.html#l00278">US_u16ReadDistance_cm()</a>.</p>
 
 </div>
 </div>
@@ -226,7 +264,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_f93dfce691d792349f1c14ede440e2e6.html">Inc</a></li><li class="navelem"><a href="dir_5807d32f659ca06f2d44f24c89728eb8.html">Drivers</a></li><li class="navelem"><a href="dir_2c576cc013bc705cce6153db29f6dfa3.html">HAL</a></li><li class="navelem"><a href="dir_6fe23bfa12d824557f1521aef27d29b7.html">US</a></li><li class="navelem"><a href="US__config_8h.html">US_config.h</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Inc</b></li><li class="navelem"><b>Drivers</b></li><li class="navelem"><b>HAL</b></li><li class="navelem"><b>US</b></li><li class="navelem"><a href="US__config_8h.html">US_config.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

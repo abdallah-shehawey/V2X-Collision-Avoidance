@@ -1,451 +1,555 @@
 \doxysection{RCC\+\_\+program.\+c}
-\hypertarget{RCC__program_8c_source}{}\label{RCC__program_8c_source}\index{Src/RCC\_program.c@{Src/RCC\_program.c}}
+\hypertarget{RCC__program_8c_source}{}\label{RCC__program_8c_source}\index{V2V-\/STM32/Src/RCC\_program.c@{V2V-\/STM32/Src/RCC\_program.c}}
 \doxymbox{\hyperlink{RCC__program_8c}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00010}00010\ \textcolor{comment}{/*******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00011}00011\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Includes\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00012}00012\ \textcolor{comment}{\ *******************************************************************************/}}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00013}00013\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00014}00014\ \textcolor{comment}{/*******************************************************************************}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00015}00015\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Includes\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00016}00016\ \textcolor{comment}{\ *******************************************************************************/}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00017}00017\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00018}00018\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00016}00016\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{STM32F446xx_8h}{../Inc/Drivers/LIB/STM32F446xx.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{ErrTypes_8h}{../Inc/Drivers/LIB/ErrTypes.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00018}00018\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{STD__MACROS_8h}{../Inc/Drivers/LIB/STD\_MACROS.h}}"{}}}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00019}00019\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00020}00020\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h}{../Inc/Drivers/LIB/STM32F446xx.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00021}00021\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{ErrTypes_8h}{../Inc/Drivers/LIB/ErrTypes.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00022}00022\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{STD__MACROS_8h}{../Inc/Drivers/LIB/STD\_MACROS.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00020}00020\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{RCC__config_8h}{../Inc/Drivers/MCAL/RCC/RCC\_config.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00021}00021\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{RCC__interface_8h}{../Inc/Drivers/MCAL/RCC/RCC\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00022}00022\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{RCC__private_8h}{../Inc/Drivers/MCAL/RCC/RCC\_private.h}}"{}}}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00023}00023\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00024}00024\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{RCC__config_8h}{../Inc/Drivers/MCAL/RCC/RCC\_config.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00025}00025\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{RCC__interface_8h}{../Inc/Drivers/MCAL/RCC/RCC\_interface.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00026}00026\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{RCC__private_8h}{../Inc/Drivers/MCAL/RCC/RCC\_private.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00027}00027\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00028}00028\ \textcolor{comment}{/*******************************************************************************}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00029}00029\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Global\ Variables\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00030}00030\ \textcolor{comment}{\ *******************************************************************************/}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00031}00031\ \textcolor{comment}{/*\ Global\ variable\ to\ track\ RCC\ driver\ state\ (IDLE/BUSY)\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00032}00032\ \textcolor{keyword}{static}\ uint8\_t\ RCC\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00024}00024\ \textcolor{comment}{/*******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00025}00025\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Global\ Variables\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00026}00026\ \textcolor{comment}{\ *******************************************************************************/}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00028}\doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{00028}}\ \textcolor{keyword}{static}\ uint8\_t\ \doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00030}00030\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00031}00031\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Functions\ Definitions\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00032}00032\ \textcolor{comment}{\ *******************************************************************************/}}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00033}00033\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00034}00034\ \textcolor{comment}{/*******************************************************************************}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00035}00035\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Functions\ Definitions\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00036}00036\ \textcolor{comment}{\ *******************************************************************************/}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00037}00037\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00053}\doxymbox{\hyperlink{RCC__interface_8h_ac0546afcec3b849576c5b3ece143b9a9}{00053}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{RCC__program_8c_ac0546afcec3b849576c5b3ece143b9a9}{RCC\_enumSetClkSts}}(uint8\_t\ Copy\_u8CLK,\ uint8\_t\ Copy\_u8Status)}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00054}00054\ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00055}00055\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00056}00056\ \ \ uint32\_t\ Local\_u32TimeoutCounter\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00057}00057\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00058}00058\ \ \ \textcolor{keywordflow}{if}\ (RCC\_u8State\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00059}00059\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00060}00060\ \ \ \ \ RCC\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_ab5be0aaddb58ffb9cb20c12530d66316}{BUSY}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00061}00061\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00062}00062\ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8CLK\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0a2849eefd5c20741226460df608cff2d7}{RCC\_HSI\_CLK}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00063}00063\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00064}00064\ \ \ \ \ \ \ \textcolor{comment}{/*\ HSI\ Clock\ Control\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00065}00065\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75a0938a3d5fa759965e8c1b12ca3fd2cbf}{RCC\_CLK\_ON}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00066}00066\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Enable\ HSI\ and\ wait\ for\ it\ to\ be\ ready\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00068}00068\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{STD__MACROS_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 0);}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00069}00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\doxymbox{\hyperlink{STD__MACROS_8h_aaef49ab0462bf902b59383f592140b05}{READ\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 1)\ ==\ 0\ \&\&\ Local\_u32TimeoutCounter\ !=\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00034}00034\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00035}00035\ \textcolor{comment}{\ *\ @brief\ \ This\ function\ controls\ the\ state\ (ON/OFF)\ of\ the\ main\ clock\ sources}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00036}00036\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ It\ handles\ enabling/disabling\ of\ HSI,\ HSE,\ and\ PLL\ clocks\ with\ timeout\ protection}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00037}00037\ \textcolor{comment}{\ *\ @param\ \ Copy\_u8CLK\ Clock\ source\ to\ control\ (HSI\_CLK,\ HSE\_CLK,\ PLL\_CLK)}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00038}00038\ \textcolor{comment}{\ *\ @param\ \ Copy\_u8Status\ Desired\ clock\ state\ (CLK\_ON,\ CLK\_OFF)}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00039}00039\ \textcolor{comment}{\ *\ @return\ ErrorState\_t:}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00040}00040\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ OK:\ Operation\ completed\ successfully}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00041}00041\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ TIMEOUT\_STATE:\ Clock\ failed\ to\ stabilize\ within\ timeout\ period}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00042}00042\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ BUSY\_STATE:\ RCC\ driver\ is\ busy\ with\ another\ operation}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00043}00043\ \textcolor{comment}{\ *\ @details}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00044}00044\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ For\ HSI:\ Controls\ bit\ 0\ in\ CR\ register\ and\ checks\ HSIRDY\ (bit\ 1)}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00045}00045\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ For\ HSE:\ Controls\ bit\ 16\ in\ CR\ register\ and\ checks\ HSERDY\ (bit\ 17)}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00046}00046\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ For\ PLL:\ Controls\ bit\ 24\ in\ CR\ register\ and\ checks\ PLLRDY\ (bit\ 25)}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00047}00047\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00048}\doxymbox{\hyperlink{RCC__interface_8h_ac0546afcec3b849576c5b3ece143b9a9}{00048}}\ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{RCC__program_8c_ac0546afcec3b849576c5b3ece143b9a9}{RCC\_enumSetClkSts}}(uint8\_t\ Copy\_u8CLK,\ uint8\_t\ Copy\_u8Status)}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00049}00049\ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00050}00050\ \ \ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00051}00051\ \ \ uint32\_t\ Local\_u32TimeoutCounter\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00053}00053\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ ==\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00054}00054\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00055}00055\ \ \ \ \ \doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_gab5be0aaddb58ffb9cb20c12530d66316}{BUSY}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00057}00057\ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8CLK\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0a2849eefd5c20741226460df608cff2d7}{RCC\_HSI\_CLK}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00058}00058\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00059}00059\ \ \ \ \ \ \ \textcolor{comment}{/*\ HSI\ Clock\ Control\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00060}00060\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75a0938a3d5fa759965e8c1b12ca3fd2cbf}{RCC\_CLK\_ON}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00061}00061\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00062}00062\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Enable\ HSI\ and\ wait\ for\ it\ to\ be\ ready\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00063}00063\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 0);}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\doxymbox{\hyperlink{group__lib_gaaef49ab0462bf902b59383f592140b05}{READ\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 1)\ ==\ 0\ \&\&\ Local\_u32TimeoutCounter\ !=\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00065}00065\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter++;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00067}00067\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00069}00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32TimeoutCounter\ ==\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00070}00070\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter++;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00072}00072\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00073}00073\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32TimeoutCounter\ ==\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00075}00075\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00077}00077\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00078}00078\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00079}00079\ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75acdc70da92fc82565f7311ec1f75b7a54}{RCC\_CLK\_OFF}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00080}00080\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00081}00081\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00082}00082\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{STD__MACROS_8h_a50ef806053a11c75cd2570f58e742de4}{CLR\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 0);}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00083}00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\doxymbox{\hyperlink{STD__MACROS_8h_aaef49ab0462bf902b59383f592140b05}{READ\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 1)\ ==\ 1\ \&\&\ Local\_u32TimeoutCounter\ !=\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00073}00073\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00074}00074\ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75acdc70da92fc82565f7311ec1f75b7a54}{RCC\_CLK\_OFF}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00075}00075\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00077}00077\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga50ef806053a11c75cd2570f58e742de4}{CLR\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 0);}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00078}00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\doxymbox{\hyperlink{group__lib_gaaef49ab0462bf902b59383f592140b05}{READ\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 1)\ ==\ 1\ \&\&\ Local\_u32TimeoutCounter\ !=\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00079}00079\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter++;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00081}00081\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00083}00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32TimeoutCounter\ ==\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00084}00084\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter++;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00086}00086\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00087}00087\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00088}00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32TimeoutCounter\ ==\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00089}00089\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00091}00091\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00092}00092\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00093}00093\ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00094}00094\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00095}00095\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00096}00096\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00097}00097\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (Copy\_u8CLK\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0ab4431e8de3b3f1fd064fbd17d36c1ba3}{RCC\_HSE\_CLK}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00098}00098\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00099}00099\ \ \ \ \ \ \ \textcolor{comment}{/*\ HSE\ Clock\ Control\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00100}00100\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75a0938a3d5fa759965e8c1b12ca3fd2cbf}{RCC\_CLK\_ON}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00101}00101\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Enable\ HSE\ bypass\ and\ HSE\ clock,\ then\ wait\ for\ it\ to\ be\ ready\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00103}00103\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{STD__MACROS_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 18);\ \textcolor{comment}{/*\ Enable\ HSE\ bypass\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00104}00104\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{STD__MACROS_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 16);\ \textcolor{comment}{/*\ Enable\ HSE\ clock\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00105}00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\doxymbox{\hyperlink{STD__MACROS_8h_aaef49ab0462bf902b59383f592140b05}{READ\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 17)\ ==\ 0\ \&\&\ Local\_u32TimeoutCounter\ !=\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00087}00087\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00088}00088\ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00089}00089\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00090}00090\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00091}00091\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00092}00092\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (Copy\_u8CLK\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0ab4431e8de3b3f1fd064fbd17d36c1ba3}{RCC\_HSE\_CLK}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00093}00093\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00094}00094\ \ \ \ \ \ \ \textcolor{comment}{/*\ HSE\ Clock\ Control\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00095}00095\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75a0938a3d5fa759965e8c1b12ca3fd2cbf}{RCC\_CLK\_ON}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00096}00096\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00097}00097\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Enable\ HSE\ bypass\ and\ HSE\ clock,\ then\ wait\ for\ it\ to\ be\ ready\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00098}00098\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 18);\ \textcolor{comment}{/*\ Enable\ HSE\ bypass\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00099}00099\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 16);\ \textcolor{comment}{/*\ Enable\ HSE\ clock\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\doxymbox{\hyperlink{group__lib_gaaef49ab0462bf902b59383f592140b05}{READ\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 17)\ ==\ 0\ \&\&\ Local\_u32TimeoutCounter\ !=\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00101}00101\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter++;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00103}00103\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00105}00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32TimeoutCounter\ ==\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00106}00106\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter++;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00108}00108\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00109}00109\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00110}00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32TimeoutCounter\ ==\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00111}00111\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00113}00113\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00114}00114\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00115}00115\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00116}00116\ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75acdc70da92fc82565f7311ec1f75b7a54}{RCC\_CLK\_OFF}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00117}00117\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00118}00118\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Disable\ HSE\ clock\ and\ wait\ for\ it\ to\ stop\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00119}00119\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{STD__MACROS_8h_a50ef806053a11c75cd2570f58e742de4}{CLR\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 16);}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\doxymbox{\hyperlink{STD__MACROS_8h_aaef49ab0462bf902b59383f592140b05}{READ\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 17)\ ==\ 1\ \&\&\ Local\_u32TimeoutCounter\ !=\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00109}00109\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00111}00111\ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75acdc70da92fc82565f7311ec1f75b7a54}{RCC\_CLK\_OFF}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00112}00112\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00113}00113\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Disable\ HSE\ clock\ and\ wait\ for\ it\ to\ stop\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00114}00114\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga50ef806053a11c75cd2570f58e742de4}{CLR\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 16);}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00115}00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\doxymbox{\hyperlink{group__lib_gaaef49ab0462bf902b59383f592140b05}{READ\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 17)\ ==\ 1\ \&\&\ Local\_u32TimeoutCounter\ !=\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00116}00116\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter++;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00118}00118\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32TimeoutCounter\ ==\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00121}00121\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter++;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00123}00123\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00124}00124\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00125}00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32TimeoutCounter\ ==\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00126}00126\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00128}00128\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00129}00129\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00130}00130\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00131}00131\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (Copy\_u8CLK\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0af8a2a97d356e388c78d06ef236eeadbc}{RCC\_PLL\_CLK}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00132}00132\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00133}00133\ \ \ \ \ \ \ \textcolor{comment}{/*\ PLL\ Clock\ Control\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00134}00134\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75a0938a3d5fa759965e8c1b12ca3fd2cbf}{RCC\_CLK\_ON}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00135}00135\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00136}00136\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Enable\ PLL\ and\ wait\ for\ it\ to\ be\ ready\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00137}00137\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{STD__MACROS_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 24);}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00138}00138\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\doxymbox{\hyperlink{STD__MACROS_8h_aaef49ab0462bf902b59383f592140b05}{READ\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 25)\ ==\ 0\ \&\&\ Local\_u32TimeoutCounter\ !=\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00124}00124\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00125}00125\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00126}00126\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (Copy\_u8CLK\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0af8a2a97d356e388c78d06ef236eeadbc}{RCC\_PLL\_CLK}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00127}00127\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00128}00128\ \ \ \ \ \ \ \textcolor{comment}{/*\ PLL\ Clock\ Control\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00129}00129\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75a0938a3d5fa759965e8c1b12ca3fd2cbf}{RCC\_CLK\_ON}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00130}00130\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00131}00131\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Enable\ PLL\ and\ wait\ for\ it\ to\ be\ ready\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00132}00132\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 24);}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00133}00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\doxymbox{\hyperlink{group__lib_gaaef49ab0462bf902b59383f592140b05}{READ\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 25)\ ==\ 0\ \&\&\ Local\_u32TimeoutCounter\ !=\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00134}00134\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter++;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00136}00136\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00138}00138\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32TimeoutCounter\ ==\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00139}00139\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter++;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00141}00141\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00142}00142\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00143}00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32TimeoutCounter\ ==\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00144}00144\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00146}00146\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00147}00147\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00148}00148\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00149}00149\ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75acdc70da92fc82565f7311ec1f75b7a54}{RCC\_CLK\_OFF}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00150}00150\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00151}00151\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Disable\ PLL\ and\ wait\ for\ it\ to\ stop\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00152}00152\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{STD__MACROS_8h_a50ef806053a11c75cd2570f58e742de4}{CLR\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 24);}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00153}00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\doxymbox{\hyperlink{STD__MACROS_8h_aaef49ab0462bf902b59383f592140b05}{READ\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 25)\ ==\ 1\ \&\&\ Local\_u32TimeoutCounter\ !=\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00142}00142\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00144}00144\ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75acdc70da92fc82565f7311ec1f75b7a54}{RCC\_CLK\_OFF}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00145}00145\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00146}00146\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Disable\ PLL\ and\ wait\ for\ it\ to\ stop\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00147}00147\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga50ef806053a11c75cd2570f58e742de4}{CLR\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 24);}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00148}00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\doxymbox{\hyperlink{group__lib_gaaef49ab0462bf902b59383f592140b05}{READ\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CR,\ 25)\ ==\ 1\ \&\&\ Local\_u32TimeoutCounter\ !=\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00149}00149\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter++;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00151}00151\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00153}00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32TimeoutCounter\ ==\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00154}00154\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ Local\_u32TimeoutCounter++;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00156}00156\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00157}00157\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00158}00158\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u32TimeoutCounter\ ==\ \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\_u32TIMEOUT}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00159}00159\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00161}00161\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00162}00162\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00163}00163\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00164}00164\ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00165}00165\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00166}00166\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00167}00167\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00168}00168\ \ \ \ \ RCC\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00169}00169\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00170}00170\ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00171}00171\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00172}00172\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81affe74893171dd0f0fe9331c5b5a74c66}{BUSY\_STATE}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00173}00173\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00174}00174\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00175}00175\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00176}00176\ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00177}00177\ \textcolor{comment}{/*=================================================================================================================*/}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00191}\doxymbox{\hyperlink{RCC__interface_8h_a4e5060e0774aa417bf2dbf5aad8904eb}{00191}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{RCC__program_8c_a4e5060e0774aa417bf2dbf5aad8904eb}{RCC\_enumSetSysClk}}(uint8\_t\ Copy\_u8CLK)}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00192}00192\ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00193}00193\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00194}00194\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00195}00195\ \ \ \textcolor{keywordflow}{if}\ (RCC\_u8State\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00196}00196\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00197}00197\ \ \ \ \ RCC\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_ab5be0aaddb58ffb9cb20c12530d66316}{BUSY}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00198}00198\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00199}00199\ \ \ \ \ \textcolor{keywordflow}{switch}\ (Copy\_u8CLK)}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00200}00200\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00201}00201\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0a2849eefd5c20741226460df608cff2d7}{RCC\_HSI\_CLK}}:}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00202}00202\ \ \ \ \ \ \ \textcolor{comment}{/*\ Select\ HSI\ as\ system\ clock\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00203}00203\ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ \&=\ \string~(\doxymbox{\hyperlink{RCC__private_8h_a1549d0577a2af5b6a0e7960eb838ed28}{RCC\_SYS\_CLK\_MASK}});}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00204}00204\ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ |=\ Copy\_u8CLK;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00157}00157\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00158}00158\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00159}00159\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00160}00160\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00161}00161\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00163}00163\ \ \ \ \ \doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00164}00164\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00165}00165\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00166}00166\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00167}00167\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81affe74893171dd0f0fe9331c5b5a74c66}{BUSY\_STATE}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00168}00168\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00170}00170\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00171}00171\ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00172}00172\ \textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00173}00173\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00174}00174\ \textcolor{comment}{\ *\ @brief\ \ This\ function\ configures\ the\ system\ clock\ source}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00175}00175\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ It\ allows\ switching\ between\ different\ clock\ sources\ as\ the\ main\ system\ clock}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00176}00176\ \textcolor{comment}{\ *\ @param\ \ Copy\_u8CLK\ Clock\ source\ to\ be\ used\ as\ system\ clock}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00177}00177\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ (HSI\_CLK,\ HSE\_CLK,\ PLLP\_CLK,\ PLLR\_CLK)}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00178}00178\ \textcolor{comment}{\ *\ @return\ RCC\_ErrorState:}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00179}00179\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ RCC\_OK:\ System\ clock\ switched\ successfully}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00180}00180\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ BUSY\_STATE:\ RCC\ driver\ is\ busy\ with\ another\ operation}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00181}00181\ \textcolor{comment}{\ *\ @details}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00182}00182\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ Modifies\ SW\ bits\ in\ CFGR\ register\ to\ select\ system\ clock\ source}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00183}00183\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ Ensures\ proper\ clock\ switching\ by\ clearing\ and\ setting\ appropriate\ bits}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00184}00184\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00185}\doxymbox{\hyperlink{RCC__interface_8h_a4e5060e0774aa417bf2dbf5aad8904eb}{00185}}\ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{RCC__program_8c_a4e5060e0774aa417bf2dbf5aad8904eb}{RCC\_enumSetSysClk}}(uint8\_t\ Copy\_u8CLK)}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00186}00186\ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00187}00187\ \ \ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00189}00189\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ ==\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00190}00190\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00191}00191\ \ \ \ \ \doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_gab5be0aaddb58ffb9cb20c12530d66316}{BUSY}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00192}00192\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00193}00193\ \ \ \ \ \textcolor{keywordflow}{switch}\ (Copy\_u8CLK)}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00194}00194\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00195}00195\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0a2849eefd5c20741226460df608cff2d7}{RCC\_HSI\_CLK}}:}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00196}00196\ \ \ \ \ \ \ \textcolor{comment}{/*\ Select\ HSI\ as\ system\ clock\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00197}00197\ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ \&=\ \string~(\doxymbox{\hyperlink{RCC__private_8h_a1549d0577a2af5b6a0e7960eb838ed28}{RCC\_SYS\_CLK\_MASK}});}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00198}00198\ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ |=\ Copy\_u8CLK;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00199}00199\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00200}00200\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00201}00201\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0ab4431e8de3b3f1fd064fbd17d36c1ba3}{RCC\_HSE\_CLK}}:}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00202}00202\ \ \ \ \ \ \ \textcolor{comment}{/*\ Select\ HSE\ as\ system\ clock\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00203}00203\ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ \&=\ \string~(\doxymbox{\hyperlink{RCC__private_8h_a1549d0577a2af5b6a0e7960eb838ed28}{RCC\_SYS\_CLK\_MASK}});}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00204}00204\ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ |=\ Copy\_u8CLK;}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00205}00205\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00206}00206\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00207}00207\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0ab4431e8de3b3f1fd064fbd17d36c1ba3}{RCC\_HSE\_CLK}}:}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00208}00208\ \ \ \ \ \ \ \textcolor{comment}{/*\ Select\ HSE\ as\ system\ clock\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00209}00209\ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ \&=\ \string~(\doxymbox{\hyperlink{RCC__private_8h_a1549d0577a2af5b6a0e7960eb838ed28}{RCC\_SYS\_CLK\_MASK}});}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00210}00210\ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ |=\ Copy\_u8CLK;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00207}00207\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0a7268cddff85dbd4d2b3f9b10ace3b66b}{RCC\_PLLP\_CLK}}:}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00208}00208\ \ \ \ \ \ \ \textcolor{comment}{/*\ Select\ PLL\ P\ output\ as\ system\ clock\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00209}00209\ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ \&=\ \string~(\doxymbox{\hyperlink{RCC__private_8h_a1549d0577a2af5b6a0e7960eb838ed28}{RCC\_SYS\_CLK\_MASK}});}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00210}00210\ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ |=\ Copy\_u8CLK;}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00211}00211\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00212}00212\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00213}00213\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0a7268cddff85dbd4d2b3f9b10ace3b66b}{RCC\_PLLP\_CLK}}:}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00214}00214\ \ \ \ \ \ \ \textcolor{comment}{/*\ Select\ PLL\ P\ output\ as\ system\ clock\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00215}00215\ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ \&=\ \string~(\doxymbox{\hyperlink{RCC__private_8h_a1549d0577a2af5b6a0e7960eb838ed28}{RCC\_SYS\_CLK\_MASK}});}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00216}00216\ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ |=\ Copy\_u8CLK;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00213}00213\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0aa147b3c8e97a9429702c19866511a2ed}{RCC\_PLLR\_CLK}}:}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00214}00214\ \ \ \ \ \ \ \textcolor{comment}{/*\ Select\ PLL\ R\ output\ as\ system\ clock\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00215}00215\ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ \&=\ \string~(\doxymbox{\hyperlink{RCC__private_8h_a1549d0577a2af5b6a0e7960eb838ed28}{RCC\_SYS\_CLK\_MASK}});}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00216}00216\ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ |=\ Copy\_u8CLK;}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00217}00217\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00218}00218\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00219}00219\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0aa147b3c8e97a9429702c19866511a2ed}{RCC\_PLLR\_CLK}}:}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00220}00220\ \ \ \ \ \ \ \textcolor{comment}{/*\ Select\ PLL\ R\ output\ as\ system\ clock\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00221}00221\ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ \&=\ \string~(\doxymbox{\hyperlink{RCC__private_8h_a1549d0577a2af5b6a0e7960eb838ed28}{RCC\_SYS\_CLK\_MASK}});}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00222}00222\ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ |=\ Copy\_u8CLK;}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00223}00223\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00224}00224\ \ \ \ \ \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00225}00225\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00226}00226\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00227}00227\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00228}00228\ \ \ \ \ RCC\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00229}00229\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00230}00230\ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00231}00231\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00232}00232\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81affe74893171dd0f0fe9331c5b5a74c66}{BUSY\_STATE}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00233}00233\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00234}00234\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00235}00235\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00236}00236\ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00237}00237\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00238}00238\ \textcolor{comment}{/*=================================================================================================================*/}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00257}\doxymbox{\hyperlink{RCC__interface_8h_a39479df13627e03c2248209d30fb6baa}{00257}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{RCC__program_8c_a39479df13627e03c2248209d30fb6baa}{RCC\_enumPLLConfig}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structRCC__PLLConfig__t}{RCC\_PLLConfig\_t}}\ *Copy\_PLLConfig)}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00258}00258\ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00259}00259\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00260}00260\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00261}00261\ \ \ \textcolor{keywordflow}{if}\ (RCC\_u8State\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00262}00262\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00263}00263\ \ \ \ \ RCC\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_ab5be0aaddb58ffb9cb20c12530d66316}{BUSY}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00264}00264\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00265}00265\ \ \ \ \ \textcolor{comment}{/*\ Validate\ configuration\ parameters\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00266}00266\ \ \ \ \ \textcolor{keywordflow}{if}\ ((Copy\_PLLConfig\ !=\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})\ \&\&}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00267}00267\ \ \ \ \ \ \ \ \ (Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_a4ced7907a8b3208d084ef5835e62466f}{PLLM\_Div}}\ >=\ \doxymbox{\hyperlink{RCC__interface_8h_a9bc683f819655771e6ccd69918b7ab8f}{RCC\_MPLL\_DIV\_2}}\ \&\&\ Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_a4ced7907a8b3208d084ef5835e62466f}{PLLM\_Div}}\ <=\ \doxymbox{\hyperlink{RCC__interface_8h_af62964e9d26ee49a3bcd5e71ca2e2491}{RCC\_MPLL\_DIV\_63}})\ \&\&}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00268}00268\ \ \ \ \ \ \ \ \ (Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_aac81bf0a8a6b4773f37ae33dd426bbf2}{PLLN\_Mult}}\ >=\ \doxymbox{\hyperlink{RCC__interface_8h_aaf88478f7a98ec5399c7657e37a49c0a}{RCC\_NPLL\_CLK\_MULT\_50}}\ \&\&\ Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_aac81bf0a8a6b4773f37ae33dd426bbf2}{PLLN\_Mult}}\ <=\ \doxymbox{\hyperlink{RCC__interface_8h_a8a02545773f814aff776ce2f00785679}{RCC\_NPLL\_CLK\_MULT\_432}})\ \&\&}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00269}00269\ \ \ \ \ \ \ \ \ (Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_a6cc22cade4aa9139e8126737b13f263b}{PLLSource}}\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455a2dd04293cbf5c5be599c73c365f53c78}{RCC\_PLL\_HSI}}\ ||\ Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_a6cc22cade4aa9139e8126737b13f263b}{PLLSource}}\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455aeeade9ac9dc4bccb2c6296fdcb0d9555}{RCC\_PLL\_HSE}})\ \&\&}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00270}00270\ \ \ \ \ \ \ \ \ (Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_a1c948324f41858be945f948a1a5751c9}{PLLP\_Div}}\ >=\ \doxymbox{\hyperlink{RCC__interface_8h_a2fc8ece77236e47c265f8205802c711caf11250a4840fcb74aaa60657aae6fb59}{RCC\_PPLL\_DIV\_2}}\ \&\&\ Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_a1c948324f41858be945f948a1a5751c9}{PLLP\_Div}}\ <=\ \doxymbox{\hyperlink{RCC__interface_8h_a2fc8ece77236e47c265f8205802c711cad7888a0d3b879be5bb9a3279a1492c96}{RCC\_PPLL\_DIV\_8}}))}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00271}00271\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00272}00272\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ PLL\ source\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00273}00273\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_a6cc22cade4aa9139e8126737b13f263b}{PLLSource}}\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455a2dd04293cbf5c5be599c73c365f53c78}{RCC\_PLL\_HSI}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00274}00274\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00275}00275\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{STD__MACROS_8h_a50ef806053a11c75cd2570f58e742de4}{CLR\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>PLLCFGR,\ 22);}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00276}00276\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00277}00277\ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_a6cc22cade4aa9139e8126737b13f263b}{PLLSource}}\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455aeeade9ac9dc4bccb2c6296fdcb0d9555}{RCC\_PLL\_HSE}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00278}00278\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00279}00279\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{STD__MACROS_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>PLLCFGR,\ 22);}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00280}00280\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00281}00281\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00282}00282\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ PLL\ M\ division\ factor\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00283}00283\ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>PLLCFGR\ \&=\ (\string~(\doxymbox{\hyperlink{RCC__private_8h_a43b33b72bb100bc3f43c4ccfa0da5e1b}{RCC\_MPLL\_DIV\_MASK}}));}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00284}00284\ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>PLLCFGR\ |=\ (Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_a4ced7907a8b3208d084ef5835e62466f}{PLLM\_Div}});}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00285}00285\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00286}00286\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ PLL\ N\ multiplication\ factor\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00287}00287\ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>PLLCFGR\ \&=\ (\string~(\doxymbox{\hyperlink{RCC__private_8h_a9fc70219da462d4ea6e442f67ccbb500}{RCC\_NPLL\_MULT\_MASK}}\ <<\ 6));}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00288}00288\ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>PLLCFGR\ |=\ (Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_aac81bf0a8a6b4773f37ae33dd426bbf2}{PLLN\_Mult}}\ <<\ 6);}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00289}00289\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00290}00290\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ PLL\ P\ division\ factor\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00291}00291\ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>PLLCFGR\ \&=\ (\string~(\doxymbox{\hyperlink{RCC__private_8h_a991ffc2843311a8006557e2e0bee2171}{RCC\_PPLL\_DIV\_MASK}}\ <<\ 16));}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00292}00292\ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>PLLCFGR\ |=\ ((Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_a1c948324f41858be945f948a1a5751c9}{PLLP\_Div}}\ *\ 2\ +\ 2)\ <<\ 16);}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00293}00293\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00294}00294\ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00295}00295\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00296}00296\ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00297}00297\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00218}00218\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00219}00219\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00220}00220\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00221}00221\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00222}00222\ \ \ \ \ \doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00223}00223\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00224}00224\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00225}00225\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00226}00226\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81affe74893171dd0f0fe9331c5b5a74c66}{BUSY\_STATE}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00227}00227\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00228}00228\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00229}00229\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00230}00230\ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00231}00231\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00232}00232\ \textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00233}00233\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00234}00234\ \textcolor{comment}{\ *\ @brief\ \ This\ function\ configures\ the\ PLL\ clock\ parameters}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00235}00235\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ It\ sets\ up\ PLL\ multiplication\ and\ division\ factors\ for\ desired\ frequency}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00236}00236\ \textcolor{comment}{\ *\ @param\ \ Copy\_PLLConfig\ Pointer\ to\ PLL\ configuration\ structure\ containing:}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00237}00237\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ PLLSource:\ Clock\ source\ for\ PLL\ (HSI\ or\ HSE)}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00238}00238\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ PLLM\_Div:\ Division\ factor\ for\ PLL\ input\ (2-\/63)}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00239}00239\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ PLLN\_Mult:\ Multiplication\ factor\ (50-\/432)}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00240}00240\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ PLLP\_Div:\ Division\ factor\ for\ main\ PLL\ output\ (2,4,6,8)}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00241}00241\ \textcolor{comment}{\ *\ @return\ RCC\_ErrorState:}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00242}00242\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ RCC\_OK:\ PLL\ configured\ successfully}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00243}00243\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ NOK:\ Invalid\ configuration\ parameters}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00244}00244\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ BUSY\_STATE:\ RCC\ driver\ is\ busy}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00245}00245\ \textcolor{comment}{\ *\ @details}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00246}00246\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ Configures\ PLLCFGR\ register\ for\ PLL\ clock\ setup}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00247}00247\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ Validates\ all\ configuration\ parameters\ before\ applying}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00248}00248\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ Ensures\ proper\ frequency\ ranges\ for\ stable\ operation}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00249}00249\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00250}\doxymbox{\hyperlink{RCC__interface_8h_a39479df13627e03c2248209d30fb6baa}{00250}}\ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{RCC__program_8c_a39479df13627e03c2248209d30fb6baa}{RCC\_enumPLLConfig}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structRCC__PLLConfig__t}{RCC\_PLLConfig\_t}}\ *Copy\_PLLConfig)}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00251}00251\ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00252}00252\ \ \ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00253}00253\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00254}00254\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ ==\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00255}00255\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00256}00256\ \ \ \ \ \doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_gab5be0aaddb58ffb9cb20c12530d66316}{BUSY}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00257}00257\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00258}00258\ \ \ \ \ \textcolor{comment}{/*\ Validate\ configuration\ parameters\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00259}00259\ \ \ \ \ \textcolor{keywordflow}{if}\ ((Copy\_PLLConfig\ !=\ \doxymbox{\hyperlink{group__lib_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})\ \&\&}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00260}00260\ \ \ \ \ \ \ \ \ (Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_a4ced7907a8b3208d084ef5835e62466f}{PLLM\_Div}}\ >=\ \doxymbox{\hyperlink{RCC__interface_8h_a9bc683f819655771e6ccd69918b7ab8f}{RCC\_MPLL\_DIV\_2}}\ \&\&\ Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_a4ced7907a8b3208d084ef5835e62466f}{PLLM\_Div}}\ <=\ \doxymbox{\hyperlink{RCC__interface_8h_af62964e9d26ee49a3bcd5e71ca2e2491}{RCC\_MPLL\_DIV\_63}})\ \&\&}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00261}00261\ \ \ \ \ \ \ \ \ (Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_aac81bf0a8a6b4773f37ae33dd426bbf2}{PLLN\_Mult}}\ >=\ \doxymbox{\hyperlink{RCC__interface_8h_aaf88478f7a98ec5399c7657e37a49c0a}{RCC\_NPLL\_CLK\_MULT\_50}}\ \&\&\ Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_aac81bf0a8a6b4773f37ae33dd426bbf2}{PLLN\_Mult}}\ <=\ \doxymbox{\hyperlink{RCC__interface_8h_a8a02545773f814aff776ce2f00785679}{RCC\_NPLL\_CLK\_MULT\_432}})\ \&\&}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00262}00262\ \ \ \ \ \ \ \ \ (Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_a6cc22cade4aa9139e8126737b13f263b}{PLLSource}}\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455a2dd04293cbf5c5be599c73c365f53c78}{RCC\_PLL\_HSI}}\ ||\ Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_a6cc22cade4aa9139e8126737b13f263b}{PLLSource}}\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455aeeade9ac9dc4bccb2c6296fdcb0d9555}{RCC\_PLL\_HSE}})\ \&\&}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00263}00263\ \ \ \ \ \ \ \ \ (Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_a1c948324f41858be945f948a1a5751c9}{PLLP\_Div}}\ >=\ \doxymbox{\hyperlink{RCC__interface_8h_a2fc8ece77236e47c265f8205802c711caf11250a4840fcb74aaa60657aae6fb59}{RCC\_PPLL\_DIV\_2}}\ \&\&\ Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_a1c948324f41858be945f948a1a5751c9}{PLLP\_Div}}\ <=\ \doxymbox{\hyperlink{RCC__interface_8h_a2fc8ece77236e47c265f8205802c711cad7888a0d3b879be5bb9a3279a1492c96}{RCC\_PPLL\_DIV\_8}}))}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00264}00264\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00265}00265\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ PLL\ source\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00266}00266\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_a6cc22cade4aa9139e8126737b13f263b}{PLLSource}}\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455a2dd04293cbf5c5be599c73c365f53c78}{RCC\_PLL\_HSI}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00267}00267\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00268}00268\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga50ef806053a11c75cd2570f58e742de4}{CLR\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>PLLCFGR,\ 22);}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00269}00269\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00270}00270\ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_a6cc22cade4aa9139e8126737b13f263b}{PLLSource}}\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455aeeade9ac9dc4bccb2c6296fdcb0d9555}{RCC\_PLL\_HSE}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00271}00271\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00272}00272\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>PLLCFGR,\ 22);}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00273}00273\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00274}00274\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00275}00275\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ PLL\ M\ division\ factor\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00276}00276\ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>PLLCFGR\ \&=\ (\string~(\doxymbox{\hyperlink{RCC__private_8h_a43b33b72bb100bc3f43c4ccfa0da5e1b}{RCC\_MPLL\_DIV\_MASK}}));}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00277}00277\ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>PLLCFGR\ |=\ (Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_a4ced7907a8b3208d084ef5835e62466f}{PLLM\_Div}});}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00278}00278\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00279}00279\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ PLL\ N\ multiplication\ factor\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00280}00280\ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>PLLCFGR\ \&=\ (\string~(\doxymbox{\hyperlink{RCC__private_8h_a9fc70219da462d4ea6e442f67ccbb500}{RCC\_NPLL\_MULT\_MASK}}\ <<\ 6));}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00281}00281\ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>PLLCFGR\ |=\ (Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_aac81bf0a8a6b4773f37ae33dd426bbf2}{PLLN\_Mult}}\ <<\ 6);}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00282}00282\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00283}00283\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ PLL\ P\ division\ factor\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00284}00284\ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>PLLCFGR\ \&=\ (\string~(\doxymbox{\hyperlink{RCC__private_8h_a991ffc2843311a8006557e2e0bee2171}{RCC\_PPLL\_DIV\_MASK}}\ <<\ 16));}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00285}00285\ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>PLLCFGR\ |=\ ((Copy\_PLLConfig-\/>\doxymbox{\hyperlink{structRCC__PLLConfig__t_a1c948324f41858be945f948a1a5751c9}{PLLP\_Div}}\ *\ 2\ +\ 2)\ <<\ 16);}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00286}00286\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00287}00287\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00288}00288\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00289}00289\ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00290}00290\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00291}00291\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00292}00292\ \ \ \ \ \doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00293}00293\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00294}00294\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00295}00295\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00296}00296\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81affe74893171dd0f0fe9331c5b5a74c66}{BUSY\_STATE}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00297}00297\ \ \ \}}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00298}00298\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00299}00299\ \ \ \ \ RCC\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00300}00300\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00301}00301\ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00302}00302\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00303}00303\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81affe74893171dd0f0fe9331c5b5a74c66}{BUSY\_STATE}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00304}00304\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00305}00305\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00306}00306\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00307}00307\ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00308}00308\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00309}00309\ \textcolor{comment}{/*=================================================================================================================*/}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00323}\doxymbox{\hyperlink{RCC__interface_8h_a8dac8e7ec4680d99cd53a562907c8f10}{00323}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{RCC__program_8c_a8dac8e7ec4680d99cd53a562907c8f10}{RCC\_enumAHBConfig}}(uint8\_t\ Copy\_u8AHPDiv)}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00324}00324\ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00325}00325\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00326}00326\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00327}00327\ \ \ \textcolor{keywordflow}{if}\ (RCC\_u8State\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00328}00328\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00329}00329\ \ \ \ \ RCC\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_ab5be0aaddb58ffb9cb20c12530d66316}{BUSY}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00330}00330\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00331}00331\ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8AHPDiv\ >=\ \doxymbox{\hyperlink{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aa8dbf0c5736c6f88176ba204b9110f3b2}{RCC\_AHB\_NOT\_DIV}}\ ||\ Copy\_u8AHPDiv\ <=\ \doxymbox{\hyperlink{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aafe9a8217bd96eddc93086bfa13f8723f}{RCC\_AHB\_DIV\_512}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00332}00332\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00333}00333\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ AHB\ prescaler\ in\ CFGR\ register\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00334}00334\ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ \&=\ (\string~(0xF\ <<\ 4));}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00335}00335\ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ |=\ (Copy\_u8AHPDiv\ <<\ 4);}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00336}00336\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00337}00337\ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00338}00338\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00339}00339\ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00340}00340\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00341}00341\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00342}00342\ \ \ \ \ RCC\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00343}00343\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00344}00344\ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00345}00345\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00346}00346\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81affe74893171dd0f0fe9331c5b5a74c66}{BUSY\_STATE}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00347}00347\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00348}00348\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00349}00349\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00350}00350\ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00351}00351\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00352}00352\ \textcolor{comment}{/*=================================================================================================================*/}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00366}\doxymbox{\hyperlink{RCC__interface_8h_a32ffc31db6be174ed88867d13b6fb770}{00366}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{RCC__program_8c_a32ffc31db6be174ed88867d13b6fb770}{RCC\_enumAPB1Config}}(uint8\_t\ Copy\_u8APB1Div)}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00367}00367\ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00368}00368\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00369}00369\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00370}00370\ \ \ \textcolor{keywordflow}{if}\ (RCC\_u8State\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00371}00371\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00372}00372\ \ \ \ \ RCC\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_ab5be0aaddb58ffb9cb20c12530d66316}{BUSY}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00373}00373\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00374}00374\ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8APB1Div\ >=\ \doxymbox{\hyperlink{RCC__interface_8h_a6a950980135f66c49402eca289ba8154a75d5f1176559c60c38e3333d9c79bd68}{RCC\_APB\_NOT\_DIV}}\ ||\ Copy\_u8APB1Div\ <=\ \doxymbox{\hyperlink{RCC__interface_8h_a6a950980135f66c49402eca289ba8154ae4e30d0da064a6d0c73018e9594476e4}{RCC\_APB\_DIV\_16}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00375}00375\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00376}00376\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ APB1\ prescaler\ in\ CFGR\ register\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00377}00377\ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ \&=\ (\string~(0x7\ <<\ 10));}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00378}00378\ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ |=\ (Copy\_u8APB1Div\ <<\ 10);}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00379}00379\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00380}00380\ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00381}00381\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00382}00382\ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00383}00383\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00384}00384\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00385}00385\ \ \ \ \ RCC\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00386}00386\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00387}00387\ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00388}00388\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00389}00389\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81affe74893171dd0f0fe9331c5b5a74c66}{BUSY\_STATE}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00390}00390\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00391}00391\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00392}00392\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00393}00393\ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00394}00394\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00395}00395\ \textcolor{comment}{/*=================================================================================================================*/}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00409}\doxymbox{\hyperlink{RCC__interface_8h_a528911683284afb4fc9731cfedfebc31}{00409}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{RCC__program_8c_a528911683284afb4fc9731cfedfebc31}{RCC\_enumAPB2Config}}(uint8\_t\ Copy\_u8APB2Div)}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00410}00410\ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00411}00411\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00412}00412\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00413}00413\ \ \ \textcolor{keywordflow}{if}\ (RCC\_u8State\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00414}00414\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00415}00415\ \ \ \ \ RCC\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_ab5be0aaddb58ffb9cb20c12530d66316}{BUSY}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00416}00416\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00417}00417\ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8APB2Div\ >=\ \doxymbox{\hyperlink{RCC__interface_8h_a6a950980135f66c49402eca289ba8154a75d5f1176559c60c38e3333d9c79bd68}{RCC\_APB\_NOT\_DIV}}\ ||\ Copy\_u8APB2Div\ <=\ \doxymbox{\hyperlink{RCC__interface_8h_a6a950980135f66c49402eca289ba8154ae4e30d0da064a6d0c73018e9594476e4}{RCC\_APB\_DIV\_16}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00418}00418\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00419}00419\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ APB2\ prescaler\ in\ CFGR\ register\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00420}00420\ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ \&=\ (\string~(0x7\ <<\ 13));}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00421}00421\ \ \ \ \ \ \ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ |=\ (Copy\_u8APB2Div\ <<\ 13);}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00422}00422\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00423}00423\ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00424}00424\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00425}00425\ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00426}00426\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00427}00427\ \ \ \ \ RCC\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00428}00428\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00429}00429\ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00430}00430\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00431}00431\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81affe74893171dd0f0fe9331c5b5a74c66}{BUSY\_STATE}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00432}00432\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00433}00433\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00434}00434\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00435}00435\ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00436}00436\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00437}00437\ \textcolor{comment}{/*=================================================================================================================*/}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00452}\doxymbox{\hyperlink{RCC__interface_8h_a64dea321b9d4592b409225e2b55fef5c}{00452}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{RCC__program_8c_a64dea321b9d4592b409225e2b55fef5c}{RCC\_enumAHPPerSts}}(uint8\_t\ Copy\_u8Bus,\ uint8\_t\ Copy\_u8AHPPer,\ uint8\_t\ Copy\_u8Status)}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00453}00453\ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00454}00454\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00455}00455\ \ \ \textcolor{keywordflow}{if}\ (RCC\_u8State\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00456}00456\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00457}00457\ \ \ \ \ RCC\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_ab5be0aaddb58ffb9cb20c12530d66316}{BUSY}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00458}00458\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00459}00459\ \ \ \ \ \textcolor{keywordflow}{switch}\ (Copy\_u8Bus)}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00460}00460\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00461}00461\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a42f2806c9b4b64b90c7a23fc5cf0b3f1}{RCC\_AHB1}}:}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00462}00462\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ AHB1\ peripheral\ clock\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00299}00299\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00300}00300\ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00301}00301\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00302}00302\ \textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00303}00303\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00304}00304\ \textcolor{comment}{\ *\ @brief\ \ This\ function\ configures\ the\ AHB\ bus\ clock\ prescaler}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00305}00305\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ It\ sets\ the\ division\ factor\ for\ the\ AHB\ clock\ relative\ to\ system\ clock}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00306}00306\ \textcolor{comment}{\ *\ @param\ \ Copy\_u8AHPDiv\ AHB\ prescaler\ value\ (AHB\_NOT\_DIV\ to\ AHB\_DIV\_512)}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00307}00307\ \textcolor{comment}{\ *\ @return\ RCC\_ErrorState:}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00308}00308\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ RCC\_OK:\ AHB\ prescaler\ configured\ successfully}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00309}00309\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ NOK:\ Invalid\ prescaler\ value}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00310}00310\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ BUSY\_STATE:\ RCC\ driver\ is\ busy}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00311}00311\ \textcolor{comment}{\ *\ @details}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00312}00312\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ Modifies\ HPRE\ bits\ in\ CFGR\ register}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00313}00313\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ Supports\ division\ factors:\ 1,2,4,8,16,64,128,256,512}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00314}00314\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00315}\doxymbox{\hyperlink{RCC__interface_8h_a8dac8e7ec4680d99cd53a562907c8f10}{00315}}\ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{RCC__program_8c_a8dac8e7ec4680d99cd53a562907c8f10}{RCC\_enumAHBConfig}}(uint8\_t\ Copy\_u8AHPDiv)}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00316}00316\ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00317}00317\ \ \ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00318}00318\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00319}00319\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ ==\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00320}00320\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00321}00321\ \ \ \ \ \doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_gab5be0aaddb58ffb9cb20c12530d66316}{BUSY}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00322}00322\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00323}00323\ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8AHPDiv\ >=\ \doxymbox{\hyperlink{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aa8dbf0c5736c6f88176ba204b9110f3b2}{RCC\_AHB\_NOT\_DIV}}\ ||\ Copy\_u8AHPDiv\ <=\ \doxymbox{\hyperlink{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aafe9a8217bd96eddc93086bfa13f8723f}{RCC\_AHB\_DIV\_512}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00324}00324\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00325}00325\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ AHB\ prescaler\ in\ CFGR\ register\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00326}00326\ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ \&=\ (\string~(0xF\ <<\ 4));}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00327}00327\ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ |=\ (Copy\_u8AHPDiv\ <<\ 4);}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00328}00328\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00329}00329\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00330}00330\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00331}00331\ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00332}00332\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00333}00333\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00334}00334\ \ \ \ \ \doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00335}00335\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00336}00336\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00337}00337\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00338}00338\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81affe74893171dd0f0fe9331c5b5a74c66}{BUSY\_STATE}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00339}00339\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00340}00340\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00341}00341\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00342}00342\ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00343}00343\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00344}00344\ \textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00345}00345\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00346}00346\ \textcolor{comment}{\ *\ @brief\ \ This\ function\ configures\ the\ APB1\ bus\ clock\ prescaler}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00347}00347\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ It\ sets\ the\ division\ factor\ for\ the\ APB1\ clock\ relative\ to\ AHB\ clock}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00348}00348\ \textcolor{comment}{\ *\ @param\ \ Copy\_u8APB1Div\ APB1\ prescaler\ value\ (APB\_NOT\_DIV\ to\ APB\_DIV\_16)}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00349}00349\ \textcolor{comment}{\ *\ @return\ RCC\_ErrorState:}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00350}00350\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ RCC\_OK:\ APB1\ prescaler\ configured\ successfully}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00351}00351\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ NOK:\ Invalid\ prescaler\ value}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00352}00352\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ BUSY\_STATE:\ RCC\ driver\ is\ busy}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00353}00353\ \textcolor{comment}{\ *\ @details}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00354}00354\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ Modifies\ PPRE1\ bits\ in\ CFGR\ register}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00355}00355\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ Supports\ division\ factors:\ 1,2,4,8,16}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00356}00356\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00357}\doxymbox{\hyperlink{RCC__interface_8h_a32ffc31db6be174ed88867d13b6fb770}{00357}}\ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{RCC__program_8c_a32ffc31db6be174ed88867d13b6fb770}{RCC\_enumAPB1Config}}(uint8\_t\ Copy\_u8APB1Div)}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00358}00358\ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00359}00359\ \ \ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00360}00360\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00361}00361\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ ==\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00362}00362\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00363}00363\ \ \ \ \ \doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_gab5be0aaddb58ffb9cb20c12530d66316}{BUSY}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00364}00364\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00365}00365\ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8APB1Div\ >=\ \doxymbox{\hyperlink{RCC__interface_8h_a6a950980135f66c49402eca289ba8154a75d5f1176559c60c38e3333d9c79bd68}{RCC\_APB\_NOT\_DIV}}\ ||\ Copy\_u8APB1Div\ <=\ \doxymbox{\hyperlink{RCC__interface_8h_a6a950980135f66c49402eca289ba8154ae4e30d0da064a6d0c73018e9594476e4}{RCC\_APB\_DIV\_16}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00366}00366\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00367}00367\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ APB1\ prescaler\ in\ CFGR\ register\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00368}00368\ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ \&=\ (\string~(0x7\ <<\ 10));}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00369}00369\ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ |=\ (Copy\_u8APB1Div\ <<\ 10);}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00370}00370\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00371}00371\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00372}00372\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00373}00373\ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00374}00374\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00375}00375\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00376}00376\ \ \ \ \ \doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00377}00377\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00378}00378\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00379}00379\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00380}00380\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81affe74893171dd0f0fe9331c5b5a74c66}{BUSY\_STATE}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00381}00381\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00382}00382\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00383}00383\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00384}00384\ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00385}00385\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00386}00386\ \textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00387}00387\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00388}00388\ \textcolor{comment}{\ *\ @brief\ \ This\ function\ configures\ the\ APB2\ bus\ clock\ prescaler}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00389}00389\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ It\ sets\ the\ division\ factor\ for\ the\ APB2\ clock\ relative\ to\ AHB\ clock}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00390}00390\ \textcolor{comment}{\ *\ @param\ \ Copy\_u8APB2Div\ APB2\ prescaler\ value\ (APB\_NOT\_DIV\ to\ APB\_DIV\_16)}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00391}00391\ \textcolor{comment}{\ *\ @return\ RCC\_ErrorState:}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00392}00392\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ RCC\_OK:\ APB2\ prescaler\ configured\ successfully}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00393}00393\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ NOK:\ Invalid\ prescaler\ value}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00394}00394\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ BUSY\_STATE:\ RCC\ driver\ is\ busy}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00395}00395\ \textcolor{comment}{\ *\ @details}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00396}00396\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ Modifies\ PPRE2\ bits\ in\ CFGR\ register}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00397}00397\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ Supports\ division\ factors:\ 1,2,4,8,16}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00398}00398\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00399}\doxymbox{\hyperlink{RCC__interface_8h_a528911683284afb4fc9731cfedfebc31}{00399}}\ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{RCC__program_8c_a528911683284afb4fc9731cfedfebc31}{RCC\_enumAPB2Config}}(uint8\_t\ Copy\_u8APB2Div)}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00400}00400\ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00401}00401\ \ \ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00402}00402\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00403}00403\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ ==\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00404}00404\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00405}00405\ \ \ \ \ \doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_gab5be0aaddb58ffb9cb20c12530d66316}{BUSY}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00406}00406\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00407}00407\ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8APB2Div\ >=\ \doxymbox{\hyperlink{RCC__interface_8h_a6a950980135f66c49402eca289ba8154a75d5f1176559c60c38e3333d9c79bd68}{RCC\_APB\_NOT\_DIV}}\ ||\ Copy\_u8APB2Div\ <=\ \doxymbox{\hyperlink{RCC__interface_8h_a6a950980135f66c49402eca289ba8154ae4e30d0da064a6d0c73018e9594476e4}{RCC\_APB\_DIV\_16}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00408}00408\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00409}00409\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ APB2\ prescaler\ in\ CFGR\ register\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00410}00410\ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ \&=\ (\string~(0x7\ <<\ 13));}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00411}00411\ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>CFGR\ |=\ (Copy\_u8APB2Div\ <<\ 13);}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00412}00412\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00413}00413\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00414}00414\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00415}00415\ \ \ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00416}00416\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00417}00417\ \ \ \ \ \doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00418}00418\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00419}00419\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00420}00420\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00421}00421\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81affe74893171dd0f0fe9331c5b5a74c66}{BUSY\_STATE}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00422}00422\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00423}00423\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00424}00424\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00425}00425\ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00426}00426\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00427}00427\ \textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00428}00428\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00429}00429\ \textcolor{comment}{\ *\ @brief\ \ This\ function\ controls\ the\ clock\ enable/disable\ for\ peripherals\ on\ AHB\ buses}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00430}00430\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ It\ manages\ peripheral\ clock\ gating\ for\ power\ optimization}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00431}00431\ \textcolor{comment}{\ *\ @param\ \ Copy\_u8Bus\ AHB\ bus\ number\ (AHB1,\ AHB2,\ AHB3)}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00432}00432\ \textcolor{comment}{\ *\ @param\ \ Copy\_u8AHPPer\ Peripheral\ number\ on\ the\ selected\ bus}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00433}00433\ \textcolor{comment}{\ *\ @param\ \ Copy\_u8Status\ Peripheral\ clock\ status\ (PER\_ON,\ PER\_OFF)}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00434}00434\ \textcolor{comment}{\ *\ @return\ RCC\_ErrorState:}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00435}00435\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ RCC\_OK:\ Peripheral\ clock\ state\ changed\ successfully}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00436}00436\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ BUSY\_STATE:\ RCC\ driver\ is\ busy}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00437}00437\ \textcolor{comment}{\ *\ @details}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00438}00438\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ Controls\ bits\ in\ AHB1ENR,\ AHB2ENR,\ AHB3ENR\ registers}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00439}00439\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ Enables/disables\ clock\ for\ specific\ peripherals\ on\ AHB\ buses}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00440}00440\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00441}\doxymbox{\hyperlink{RCC__interface_8h_a64dea321b9d4592b409225e2b55fef5c}{00441}}\ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{RCC__program_8c_a64dea321b9d4592b409225e2b55fef5c}{RCC\_enumAHPPerSts}}(uint8\_t\ Copy\_u8Bus,\ uint8\_t\ Copy\_u8AHPPer,\ uint8\_t\ Copy\_u8Status)}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00442}00442\ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00443}00443\ \ \ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00444}00444\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ ==\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00445}00445\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00446}00446\ \ \ \ \ \doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_gab5be0aaddb58ffb9cb20c12530d66316}{BUSY}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00447}00447\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00448}00448\ \ \ \ \ \textcolor{keywordflow}{switch}\ (Copy\_u8Bus)}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00449}00449\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00450}00450\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a42f2806c9b4b64b90c7a23fc5cf0b3f1}{RCC\_AHB1}}:}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00451}00451\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ AHB1\ peripheral\ clock\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00452}00452\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda7b3c654637d9a549b83b41c762d08c16}{RCC\_PER\_ON}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00453}00453\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00454}00454\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>AHP1ENR,\ Copy\_u8AHPPer);}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00455}00455\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00456}00456\ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda851fb285d14f03e3c7def04bed4c96ee}{RCC\_PER\_OFF}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00457}00457\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00458}00458\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga50ef806053a11c75cd2570f58e742de4}{CLR\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>AHP1ENR,\ Copy\_u8AHPPer);}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00459}00459\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00460}00460\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00461}00461\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553ab7dcc9786d60b3d6a3ee299792523a4d}{RCC\_AHB2}}:}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00462}00462\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ AHB2\ peripheral\ clock\ */}}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00463}00463\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda7b3c654637d9a549b83b41c762d08c16}{RCC\_PER\_ON}})}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00464}00464\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00465}00465\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{STD__MACROS_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>AHP1ENR,\ Copy\_u8AHPPer);}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00465}00465\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>AHP2ENR,\ Copy\_u8AHPPer);}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00466}00466\ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00467}00467\ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda851fb285d14f03e3c7def04bed4c96ee}{RCC\_PER\_OFF}})}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00468}00468\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00469}00469\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{STD__MACROS_8h_a50ef806053a11c75cd2570f58e742de4}{CLR\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>AHP1ENR,\ Copy\_u8AHPPer);}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00469}00469\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga50ef806053a11c75cd2570f58e742de4}{CLR\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>AHP2ENR,\ Copy\_u8AHPPer);}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00470}00470\ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00471}00471\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00472}00472\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553ab7dcc9786d60b3d6a3ee299792523a4d}{RCC\_AHB2}}:}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00473}00473\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ AHB2\ peripheral\ clock\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00472}00472\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a2ec525812c33ffdd2066c0d551787711}{RCC\_AHB3}}:}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00473}00473\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ AHB3\ peripheral\ clock\ */}}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00474}00474\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda7b3c654637d9a549b83b41c762d08c16}{RCC\_PER\_ON}})}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00475}00475\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00476}00476\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{STD__MACROS_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>AHP2ENR,\ Copy\_u8AHPPer);}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00476}00476\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>AHP3ENR,\ Copy\_u8AHPPer);}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00477}00477\ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00478}00478\ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda851fb285d14f03e3c7def04bed4c96ee}{RCC\_PER\_OFF}})}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00479}00479\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00480}00480\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{STD__MACROS_8h_a50ef806053a11c75cd2570f58e742de4}{CLR\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>AHP2ENR,\ Copy\_u8AHPPer);}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00480}00480\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga50ef806053a11c75cd2570f58e742de4}{CLR\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>AHP3ENR,\ Copy\_u8AHPPer);}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00481}00481\ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00482}00482\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00483}00483\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a2ec525812c33ffdd2066c0d551787711}{RCC\_AHB3}}:}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00484}00484\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ AHB3\ peripheral\ clock\ */}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00485}00485\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda7b3c654637d9a549b83b41c762d08c16}{RCC\_PER\_ON}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00486}00486\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00487}00487\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{STD__MACROS_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>AHP3ENR,\ Copy\_u8AHPPer);}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00488}00488\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00489}00489\ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda851fb285d14f03e3c7def04bed4c96ee}{RCC\_PER\_OFF}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00490}00490\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00491}00491\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{STD__MACROS_8h_a50ef806053a11c75cd2570f58e742de4}{CLR\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>AHP3ENR,\ Copy\_u8AHPPer);}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00492}00492\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00493}00493\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00494}00494\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00495}00495\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00496}00496\ \ \ \ \ RCC\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00497}00497\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00498}00498\ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00499}00499\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00500}00500\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81affe74893171dd0f0fe9331c5b5a74c66}{BUSY\_STATE}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00501}00501\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00502}00502\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00503}00503\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00504}00504\ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00505}00505\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00506}00506\ \textcolor{comment}{/*=================================================================================================================*/}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00521}\doxymbox{\hyperlink{RCC__interface_8h_a1d4e148d8519b4eb0ad9237d5f930a93}{00521}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{RCC__program_8c_adcf07c53ca16c6ccd1af607d3173b2dc}{RCC\_enumABPPerSts}}(uint8\_t\ Copy\_u8Bus,\ uint8\_t\ Copy\_u8ABPPer,\ uint8\_t\ Copy\_u8Status)}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00522}00522\ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00523}00523\ \ \ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00524}00524\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00525}00525\ \ \ \textcolor{keywordflow}{if}\ (RCC\_u8State\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00526}00526\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00527}00527\ \ \ \ \ RCC\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_ab5be0aaddb58ffb9cb20c12530d66316}{BUSY}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00528}00528\ \ \ \ \ \textcolor{keywordflow}{switch}\ (Copy\_u8Bus)}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00529}00529\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00530}00530\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a13aff41d960da028bb68e745d74a63b5}{RCC\_APB1}}:}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00531}00531\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda7b3c654637d9a549b83b41c762d08c16}{RCC\_PER\_ON}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00532}00532\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00533}00533\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{STD__MACROS_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>APB1ENR,\ Copy\_u8ABPPer);}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00534}00534\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00535}00535\ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda851fb285d14f03e3c7def04bed4c96ee}{RCC\_PER\_OFF}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00536}00536\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00537}00537\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{STD__MACROS_8h_a50ef806053a11c75cd2570f58e742de4}{CLR\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>APB1ENR,\ Copy\_u8ABPPer);}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00538}00538\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00539}00539\ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00540}00540\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00541}00541\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00542}00542\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00543}00543\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a0abf9a51f75b8a4a1b3ddf7441c32e76}{RCC\_APB2}}:}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00544}00544\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda7b3c654637d9a549b83b41c762d08c16}{RCC\_PER\_ON}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00545}00545\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00546}00546\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{STD__MACROS_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>APB2ENR,\ Copy\_u8ABPPer);}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00547}00547\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00548}00548\ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda851fb285d14f03e3c7def04bed4c96ee}{RCC\_PER\_OFF}})}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00549}00549\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00550}00550\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{STD__MACROS_8h_a50ef806053a11c75cd2570f58e742de4}{CLR\_BIT}}(\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>APB2ENR,\ Copy\_u8ABPPer);}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00551}00551\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00552}00552\ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00553}00553\ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00554}00554\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00555}00555\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00556}00556\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00557}00557\ \ \ \ \ \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00558}00558\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00559}00559\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00560}00560\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00561}00561\ \ \ \ \ RCC\_u8State\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00562}00562\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00563}00563\ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00564}00564\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00565}00565\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81affe74893171dd0f0fe9331c5b5a74c66}{BUSY\_STATE}};}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00566}00566\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00567}00567\ }
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00568}00568\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
-\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00569}00569\ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00483}00483\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00484}00484\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00485}00485\ \ \ \ \ \doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00486}00486\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00487}00487\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00488}00488\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00489}00489\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81affe74893171dd0f0fe9331c5b5a74c66}{BUSY\_STATE}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00490}00490\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00491}00491\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00492}00492\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00493}00493\ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00494}00494\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00495}00495\ \textcolor{comment}{/*=================================================================================================================*/}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00496}00496\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00497}00497\ \textcolor{comment}{\ *\ @brief\ \ This\ function\ controls\ the\ clock\ enable/disable\ for\ peripherals\ on\ APB\ buses}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00498}00498\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ It\ manages\ peripheral\ clock\ gating\ for\ power\ optimization}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00499}00499\ \textcolor{comment}{\ *\ @param\ \ Copy\_u8Bus\ APB\ bus\ number\ (APB1,\ APB2)}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00500}00500\ \textcolor{comment}{\ *\ @param\ \ Copy\_u8AHPPer\ Peripheral\ number\ on\ the\ selected\ bus}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00501}00501\ \textcolor{comment}{\ *\ @param\ \ Copy\_u8Status\ Peripheral\ clock\ status\ (PER\_ON,\ PER\_OFF)}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00502}00502\ \textcolor{comment}{\ *\ @return\ RCC\_ErrorState:}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00503}00503\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ RCC\_OK:\ Peripheral\ clock\ state\ changed\ successfully}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00504}00504\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ BUSY\_STATE:\ RCC\ driver\ is\ busy}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00505}00505\ \textcolor{comment}{\ *\ @details}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00506}00506\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ Controls\ bits\ in\ APB1ENR\ and\ APB2ENR\ registers}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00507}00507\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ -\/\ Enables/disables\ clock\ for\ specific\ peripherals\ on\ APB\ buses}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00508}00508\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00509}\doxymbox{\hyperlink{RCC__interface_8h_a1d4e148d8519b4eb0ad9237d5f930a93}{00509}}\ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{RCC__program_8c_adcf07c53ca16c6ccd1af607d3173b2dc}{RCC\_enumABPPerSts}}(uint8\_t\ Copy\_u8Bus,\ uint8\_t\ Copy\_u8ABPPer,\ uint8\_t\ Copy\_u8Status)}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00510}00510\ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00511}00511\ \ \ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00512}00512\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00513}00513\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ ==\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00514}00514\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00515}00515\ \ \ \ \ \doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_gab5be0aaddb58ffb9cb20c12530d66316}{BUSY}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00516}00516\ \ \ \ \ \textcolor{keywordflow}{switch}\ (Copy\_u8Bus)}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00517}00517\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00518}00518\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a13aff41d960da028bb68e745d74a63b5}{RCC\_APB1}}:}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00519}00519\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda7b3c654637d9a549b83b41c762d08c16}{RCC\_PER\_ON}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00520}00520\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00521}00521\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>APB1ENR,\ Copy\_u8ABPPer);}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00522}00522\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00523}00523\ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda851fb285d14f03e3c7def04bed4c96ee}{RCC\_PER\_OFF}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00524}00524\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00525}00525\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga50ef806053a11c75cd2570f58e742de4}{CLR\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>APB1ENR,\ Copy\_u8ABPPer);}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00526}00526\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00527}00527\ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00528}00528\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00529}00529\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00530}00530\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00531}00531\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a0abf9a51f75b8a4a1b3ddf7441c32e76}{RCC\_APB2}}:}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00532}00532\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda7b3c654637d9a549b83b41c762d08c16}{RCC\_PER\_ON}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00533}00533\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00534}00534\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>APB2ENR,\ Copy\_u8ABPPer);}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00535}00535\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00536}00536\ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (Copy\_u8Status\ ==\ \doxymbox{\hyperlink{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda851fb285d14f03e3c7def04bed4c96ee}{RCC\_PER\_OFF}})}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00537}00537\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00538}00538\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga50ef806053a11c75cd2570f58e742de4}{CLR\_BIT}}(\doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}-\/>APB2ENR,\ Copy\_u8ABPPer);}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00539}00539\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00540}00540\ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00541}00541\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00542}00542\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00543}00543\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00544}00544\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00545}00545\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00546}00546\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00547}00547\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00548}00548\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00549}00549\ \ \ \ \ \doxymbox{\hyperlink{RCC__program_8c_a537fc4bb205f0f47b72f30d2ed70a386}{RCC\_u8State}}\ =\ \doxymbox{\hyperlink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00550}00550\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00551}00551\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00552}00552\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00553}00553\ \ \ \ \ Local\_u8ErrorState\ =\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81affe74893171dd0f0fe9331c5b5a74c66}{BUSY\_STATE}};}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00554}00554\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00555}00555\ }
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00556}00556\ \ \ \textcolor{keywordflow}{return}\ Local\_u8ErrorState;}
+\DoxyCodeLine{\Hypertarget{RCC__program_8c_source_l00557}00557\ \}}
 
 \end{DoxyCode}

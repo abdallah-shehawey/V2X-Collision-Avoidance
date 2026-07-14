@@ -1,8 +1,8 @@
-\doxysection{Src/\+\+DSRC.c File Reference}
-\hypertarget{DSRC_8c}{}\label{DSRC_8c}\index{Src/DSRC.c@{Src/DSRC.c}}
+\doxysection{V2\+V-\/\+STM32/\+\+Src/\+\+DSRC.c File Reference}
+\hypertarget{DSRC_8c}{}\label{DSRC_8c}\index{V2V-\/STM32/Src/DSRC.c@{V2V-\/STM32/Src/DSRC.c}}
 
 
-:\+ DSRC module implementation  
+\doxylink{structNeighbor}{Neighbor} table, frame parser and transmitter for the V2V link.  
 
 
 {\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+USART/\+\+USART\+\_\+intreface.\+h"{}}\newline
@@ -25,38 +25,79 @@ enum \doxymbox{\hyperlink{DSRC_8c_a99f78dec5b5884642b44f101ef1d2460}{Parse\+Stat
 , \doxymbox{\hyperlink{DSRC_8c_a99f78dec5b5884642b44f101ef1d2460a93a993275f8870e7456c9f4c83f3a9aa}{READ\+\_\+\+CHECKSUM}}
 , \doxymbox{\hyperlink{DSRC_8c_a99f78dec5b5884642b44f101ef1d2460a1790dee8d2ec1e5612d374dc86385a94}{READ\+\_\+\+END}}
  \}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em States of the receive state machine, in the order a good frame walks them. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \doxymbox{\hyperlink{DSRC_8c_adad268979d4c4038075346292651c8af}{DSRC\+\_\+\+Init}} (void)
-\item 
-void \doxymbox{\hyperlink{DSRC_8c_aded740c50de5ea4cf786939e10ace2d9}{DSRC\+\_\+\+Send\+Neighbor}} (\doxymbox{\hyperlink{DSRC_8h_ac818f2e1224a1e513913a85019953e14}{Neighbor}} \texorpdfstring{$\ast$}{*}n)
-\item 
-void \doxymbox{\hyperlink{DSRC_8c_ac40e63c7c7041cacb1f60a1d4d710abb}{DSRC\+\_\+\+Update}} (void)
-\item 
-void \doxymbox{\hyperlink{DSRC_8c_aa38784384016c34bf5e63add1930104b}{DSRC\+\_\+\+Remove\+Stale}} (uint32\+\_\+t current\+\_\+time)
-\item 
-uint8\+\_\+t \doxymbox{\hyperlink{DSRC_8c_a15d8d8dc4459f83b2aa2519119d037d0}{DSRC\+\_\+\+Get\+Count}} (void)
-\item 
-\doxymbox{\hyperlink{DSRC_8h_ac818f2e1224a1e513913a85019953e14}{Neighbor}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{DSRC_8c_a76299bf71b1e2dc13baac26c6c4228c4}{DSRC\+\_\+\+Get\+Table}} (void)
-\item 
-void \doxymbox{\hyperlink{DSRC_8c_a8f2c7037352677729c777df880fefd1b}{DSRC\+\_\+\+Rx\+Callback}} (uint8\+\_\+t byte)
-\end{DoxyCompactItemize}
+static uint8\+\_\+t \doxymbox{\hyperlink{DSRC_8c_adf230eff7bb998e7580c3170513c4748}{calc\+\_\+checksum}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, uint8\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em XOR checksum over a byte range — the same one the ESP32 computes. \end{DoxyCompactList}\item 
+static void \doxymbox{\hyperlink{DSRC_8c_a9581430d0464dbd16bb9526564fb1299}{queue\+\_\+push}} (\doxymbox{\hyperlink{structNeighbor}{Neighbor}} \texorpdfstring{$\ast$}{*}n)
+\begin{DoxyCompactList}\small\item\em Append a parsed frame to \doxylink{DSRC_8c_ae475e643d0ef2f075c1418f4c4ea33f0}{rx\+\_\+queue}. \end{DoxyCompactList}\item 
+static uint8\+\_\+t \doxymbox{\hyperlink{DSRC_8c_abccb8c604d9cb8da589d0dfc1a6995b2}{queue\+\_\+pop}} (\doxymbox{\hyperlink{structNeighbor}{Neighbor}} \texorpdfstring{$\ast$}{*}out)
+\begin{DoxyCompactList}\small\item\em Take the oldest frame out of \doxylink{DSRC_8c_ae475e643d0ef2f075c1418f4c4ea33f0}{rx\+\_\+queue}. \end{DoxyCompactList}\item 
+static void \doxymbox{\hyperlink{DSRC_8c_a8ee22cdf259d59d18812ac85cf9e88a9}{update\+\_\+neighbor}} (const \doxymbox{\hyperlink{structNeighbor}{Neighbor}} \texorpdfstring{$\ast$}{*}msg)
+\begin{DoxyCompactList}\small\item\em Fold one received frame into the neighbor table. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group__app__dsrc_gadad268979d4c4038075346292651c8af}{DSRC\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Clear the neighbor table and reset the frame parser. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group__app__dsrc_gaded740c50de5ea4cf786939e10ace2d9}{DSRC\+\_\+\+Send\+Neighbor}} (\doxymbox{\hyperlink{structNeighbor}{Neighbor}} \texorpdfstring{$\ast$}{*}n)
+\begin{DoxyCompactList}\small\item\em Frame and transmit one \doxylink{structNeighbor}{Neighbor} over UART1 to the ESP32 bridge. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group__app__dsrc_gac40e63c7c7041cacb1f60a1d4d710abb}{DSRC\+\_\+\+Update}} (void)
+\begin{DoxyCompactList}\small\item\em Drain the parser\textquotesingle{}s byte queue and fold any complete frames into the table. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group__app__dsrc_gaa38784384016c34bf5e63add1930104b}{DSRC\+\_\+\+Remove\+Stale}} (uint32\+\_\+t current\+\_\+time)
+\begin{DoxyCompactList}\small\item\em Drop every neighbor that has been silent for \doxylink{group__app__dsrc_ga545233ea05ce2ada1c14377954bb8931}{NEIGHBOR\+\_\+\+TIMEOUT}. \end{DoxyCompactList}\item 
+uint8\+\_\+t \doxymbox{\hyperlink{group__app__dsrc_ga15d8d8dc4459f83b2aa2519119d037d0}{DSRC\+\_\+\+Get\+Count}} (void)
+\begin{DoxyCompactList}\small\item\em How many neighbors are currently in the table. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structNeighbor}{Neighbor}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__app__dsrc_ga76299bf71b1e2dc13baac26c6c4228c4}{DSRC\+\_\+\+Get\+Table}} (void)
+\begin{DoxyCompactList}\small\item\em Borrow the neighbor table itself. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group__app__dsrc_ga8f2c7037352677729c777df880fefd1b}{DSRC\+\_\+\+Rx\+Callback}} (uint8\+\_\+t byte)
+\begin{DoxyCompactList}\small\item\em Feed one received byte into the frame parser. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
 \doxymbox{\hyperlink{structUSART__Handle__t}{USART\+\_\+\+Handle\+\_\+t}} \doxymbox{\hyperlink{DSRC_8c_a6380af5ae8a47d62dd6de27b01504cd2}{USART\+\_\+1}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em USART1 — the link to the ESP32 radio bridge. \end{DoxyCompactList}\item 
+static \doxymbox{\hyperlink{structNeighbor}{Neighbor}} \doxymbox{\hyperlink{DSRC_8c_ab81c561c155a828fdd542f1506b8a14b}{neighbor\+\_\+table}} \+[\doxymbox{\hyperlink{group__app__dsrc_ga2b1d39159e4114f433745f15a201c93c}{MAX\+\_\+\+NEIGHBORS}}]\+
+\begin{DoxyCompactList}\small\item\em The neighbor table:\+ one row per vehicle heard from recently. \end{DoxyCompactList}\item 
+static uint8\+\_\+t \doxymbox{\hyperlink{DSRC_8c_a89c07c5539fe52e085d729b16b7adbf3}{neighbor\+\_\+count}}
+\begin{DoxyCompactList}\small\item\em How many rows of \doxylink{DSRC_8c_ab81c561c155a828fdd542f1506b8a14b}{neighbor\+\_\+table} are in use. \end{DoxyCompactList}\item 
+static \doxymbox{\hyperlink{DSRC_8c_a99f78dec5b5884642b44f101ef1d2460}{Parse\+State}} \doxymbox{\hyperlink{DSRC_8c_af6601d6caee138a71d57ec1a648a129c}{parse\+\_\+state}}
+\begin{DoxyCompactList}\small\item\em Where the frame parser currently is. \end{DoxyCompactList}\item 
+static uint8\+\_\+t \doxymbox{\hyperlink{DSRC_8c_ad8551a5eade2706b9a9febd30eeccf72}{rx\+\_\+buf}} \+[sizeof(\doxymbox{\hyperlink{structNeighbor}{Neighbor}})]\+
+\begin{DoxyCompactList}\small\item\em Payload bytes collected so far during \doxylink{DSRC_8c_a99f78dec5b5884642b44f101ef1d2460a6c9aea235a9b44681dfcc088658ccdd6}{READ\+\_\+\+DATA}. \end{DoxyCompactList}\item 
+static uint8\+\_\+t \doxymbox{\hyperlink{DSRC_8c_afa50670d960de8bf72255273abefae07}{rx\+\_\+idx}}
+\begin{DoxyCompactList}\small\item\em How many payload bytes \doxylink{DSRC_8c_ad8551a5eade2706b9a9febd30eeccf72}{rx\+\_\+buf} currently holds. \end{DoxyCompactList}\item 
+static uint8\+\_\+t \doxymbox{\hyperlink{DSRC_8c_af7ae33ec078d1850f461a9ee7d7b7335}{rx\+\_\+checksum}}
+\begin{DoxyCompactList}\small\item\em Checksum byte received, held until the frame is validated. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{Indent}\textbf{ Parsed-\/frame queue}\par
+{\em A single-\/producer /\+ single-\/consumer ring buffer sitting between the parser and \doxylink{group__app__dsrc_gac40e63c7c7041cacb1f60a1d4d710abb}{DSRC\+\_\+\+Update}.
+
+It is deliberately allowed to {\itshape drop} a frame when full rather than block or overwrite:\+ losing one 100 ms broadcast is harmless, since the sender repeats it, whereas stalling the parser would back up the UART. }\begin{DoxyCompactItemize}
+\item 
+static \doxymbox{\hyperlink{structNeighbor}{Neighbor}} \doxymbox{\hyperlink{DSRC_8c_ae475e643d0ef2f075c1418f4c4ea33f0}{rx\+\_\+queue}} \+[\doxymbox{\hyperlink{group__app__dsrc_ga142810068f1b99cd93d3fc9f0e160e02}{QUEUE\+\_\+\+SIZE}}]\+
+\begin{DoxyCompactList}\small\item\em The queued frames. \end{DoxyCompactList}\item 
+static volatile uint8\+\_\+t \doxymbox{\hyperlink{DSRC_8c_a1a5bdba5ad46709632528c6d50d23f21}{queue\+\_\+head}}
+\begin{DoxyCompactList}\small\item\em Read index — advanced by \doxylink{DSRC_8c_abccb8c604d9cb8da589d0dfc1a6995b2}{queue\+\_\+pop}. \end{DoxyCompactList}\item 
+static volatile uint8\+\_\+t \doxymbox{\hyperlink{DSRC_8c_aace80fbfca2f194e2e4a47e3c42cf890}{queue\+\_\+tail}}
+\begin{DoxyCompactList}\small\item\em Write index — advanced by \doxylink{DSRC_8c_a9581430d0464dbd16bb9526564fb1299}{queue\+\_\+push}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
 
 
 \doxysubsection{Detailed Description}
-:\+ DSRC module implementation 
+\doxylink{structNeighbor}{Neighbor} table, frame parser and transmitter for the V2V link. 
 
 \begin{DoxyAuthor}{Author}
-:\+ Abdallah Shehawey  
+Abdallah Shehawey 
 \end{DoxyAuthor}
+Three pieces live here:\+
 
+
+\begin{DoxyEnumerate}
+\item a {\bfseries{byte-\/at-\/a-\/time frame parser}} (\doxylink{group__app__dsrc_ga8f2c7037352677729c777df880fefd1b}{DSRC\+\_\+\+Rx\+Callback}), written as an explicit state machine so a garbled or half-\/received frame can never leave the parser stuck — it simply falls back to \doxylink{DSRC_8c_a99f78dec5b5884642b44f101ef1d2460ad672f41b357cfe8db0e7b262a428fd66}{WAIT\+\_\+\+START};
+\item a small {\bfseries{queue}} of successfully parsed frames, which decouples parsing from the table update;
+\item the {\bfseries{neighbor table}} itself, one row per vehicle heard from recently.
+\end{DoxyEnumerate}
+
+See \doxysectlink{DSRC_8h_dsrc_frame}{Frame layout}{1} in \doxylink{DSRC_8h}{DSRC.\+h} for the frame layout. 
 
 Definition in file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
 
@@ -71,173 +112,202 @@ Definition in file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
 {\footnotesize\ttfamily \label{DSRC_8c_a99f78dec5b5884642b44f101ef1d2460} 
 enum \doxymbox{\hyperlink{DSRC_8c_a99f78dec5b5884642b44f101ef1d2460}{Parse\+State}}}
 
+
+
+States of the receive state machine, in the order a good frame walks them. 
+
 \begin{DoxyEnumFields}[2]{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{WAIT\_START@{WAIT\_START}!DSRC.c@{DSRC.c}}
 \index{DSRC.c@{DSRC.c}!WAIT\_START@{WAIT\_START}}
 }\Hypertarget{DSRC_8c_a99f78dec5b5884642b44f101ef1d2460ad672f41b357cfe8db0e7b262a428fd66}\label{DSRC_8c_a99f78dec5b5884642b44f101ef1d2460ad672f41b357cfe8db0e7b262a428fd66} 
-WAIT\+\_\+\+START&\\
+WAIT\+\_\+\+START&Discarding bytes until \doxylink{group__app__dsrc_ga30d2043ca397843e08c43ade3aaee5b2}{START\+\_\+\+BYTE} shows up. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{READ\_DATA@{READ\_DATA}!DSRC.c@{DSRC.c}}
 \index{DSRC.c@{DSRC.c}!READ\_DATA@{READ\_DATA}}
 }\Hypertarget{DSRC_8c_a99f78dec5b5884642b44f101ef1d2460a6c9aea235a9b44681dfcc088658ccdd6}\label{DSRC_8c_a99f78dec5b5884642b44f101ef1d2460a6c9aea235a9b44681dfcc088658ccdd6} 
-READ\+\_\+\+DATA&\\
+READ\+\_\+\+DATA&Collecting the {\ttfamily sizeof(\+Neighbor)} payload bytes. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{READ\_CHECKSUM@{READ\_CHECKSUM}!DSRC.c@{DSRC.c}}
 \index{DSRC.c@{DSRC.c}!READ\_CHECKSUM@{READ\_CHECKSUM}}
 }\Hypertarget{DSRC_8c_a99f78dec5b5884642b44f101ef1d2460a93a993275f8870e7456c9f4c83f3a9aa}\label{DSRC_8c_a99f78dec5b5884642b44f101ef1d2460a93a993275f8870e7456c9f4c83f3a9aa} 
-READ\+\_\+\+CHECKSUM&\\
+READ\+\_\+\+CHECKSUM&Reading the checksum byte and comparing it with the running XOR. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{READ\_END@{READ\_END}!DSRC.c@{DSRC.c}}
 \index{DSRC.c@{DSRC.c}!READ\_END@{READ\_END}}
 }\Hypertarget{DSRC_8c_a99f78dec5b5884642b44f101ef1d2460a1790dee8d2ec1e5612d374dc86385a94}\label{DSRC_8c_a99f78dec5b5884642b44f101ef1d2460a1790dee8d2ec1e5612d374dc86385a94} 
-READ\+\_\+\+END&\\
+READ\+\_\+\+END&Expecting \doxylink{group__app__dsrc_ga5126c1e2dc63cec63fc73710e48a9b5d}{END\+\_\+\+BYTE}; only now is the frame accepted. \\
 \hline
 
 \end{DoxyEnumFields}
 
 
-Definition at line \doxymbox{\hyperlink{DSRC_8c_source_l00027}{27}} of file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
+Definition at line \doxymbox{\hyperlink{DSRC_8c_source_l00053}{53}} of file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
 
 
 
 \label{doc-func-members}
 \Hypertarget{DSRC_8c_doc-func-members}
 \doxysubsection{Function Documentation}
-\Hypertarget{DSRC_8c_a15d8d8dc4459f83b2aa2519119d037d0}\index{DSRC.c@{DSRC.c}!DSRC\_GetCount@{DSRC\_GetCount}}
-\index{DSRC\_GetCount@{DSRC\_GetCount}!DSRC.c@{DSRC.c}}
-\doxysubsubsection{\texorpdfstring{DSRC\_GetCount()}{DSRC\_GetCount()}}
-{\footnotesize\ttfamily \label{DSRC_8c_a15d8d8dc4459f83b2aa2519119d037d0} 
-uint8\+\_\+t DSRC\+\_\+\+Get\+Count (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+\Hypertarget{DSRC_8c_adf230eff7bb998e7580c3170513c4748}\index{DSRC.c@{DSRC.c}!calc\_checksum@{calc\_checksum}}
+\index{calc\_checksum@{calc\_checksum}!DSRC.c@{DSRC.c}}
+\doxysubsubsection{\texorpdfstring{calc\_checksum()}{calc\_checksum()}}
+{\footnotesize\ttfamily \label{DSRC_8c_adf230eff7bb998e7580c3170513c4748} 
+uint8\+\_\+t calc\+\_\+checksum (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{uint8\+\_\+t}]{len}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-Definition at line \doxymbox{\hyperlink{DSRC_8c_source_l00176}{176}} of file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
-
-Here is the caller graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{DSRC_8c_a15d8d8dc4459f83b2aa2519119d037d0_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{DSRC_8c_a76299bf71b1e2dc13baac26c6c4228c4}\index{DSRC.c@{DSRC.c}!DSRC\_GetTable@{DSRC\_GetTable}}
-\index{DSRC\_GetTable@{DSRC\_GetTable}!DSRC.c@{DSRC.c}}
-\doxysubsubsection{\texorpdfstring{DSRC\_GetTable()}{DSRC\_GetTable()}}
-{\footnotesize\ttfamily \label{DSRC_8c_a76299bf71b1e2dc13baac26c6c4228c4} 
-\doxymbox{\hyperlink{DSRC_8h_ac818f2e1224a1e513913a85019953e14}{Neighbor}} \texorpdfstring{$\ast$}{*} DSRC\+\_\+\+Get\+Table (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+XOR checksum over a byte range — the same one the ESP32 computes. 
 
 
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em data} & First byte to fold in. \\
+\hline
+ & {\em len} & Number of bytes. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The XOR of all {\ttfamily len} bytes.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+An XOR is weak as error detection goes:\+ it catches any single-\/bit error and any odd number of flipped bits, but two bits flipped in the same column cancel out. It is what the ESP32 side computes, so the two must match. 
+\end{DoxyNote}
 
-Definition at line \doxymbox{\hyperlink{DSRC_8c_source_l00200}{200}} of file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
 
-Here is the caller graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{DSRC_8c_a76299bf71b1e2dc13baac26c6c4228c4_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{DSRC_8c_adad268979d4c4038075346292651c8af}\index{DSRC.c@{DSRC.c}!DSRC\_Init@{DSRC\_Init}}
-\index{DSRC\_Init@{DSRC\_Init}!DSRC.c@{DSRC.c}}
-\doxysubsubsection{\texorpdfstring{DSRC\_Init()}{DSRC\_Init()}}
-{\footnotesize\ttfamily \label{DSRC_8c_adad268979d4c4038075346292651c8af} 
-void DSRC\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+Definition at line \doxymbox{\hyperlink{DSRC_8c_source_l00084}{84}} of file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
 
 
 
-Definition at line \doxymbox{\hyperlink{DSRC_8c_source_l00127}{127}} of file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
+Referenced by \doxymbox{\hyperlink{DSRC_8c_source_l00276}{DSRC\+\_\+\+Rx\+Callback()}}, and \doxymbox{\hyperlink{DSRC_8c_source_l00204}{DSRC\+\_\+\+Send\+Neighbor()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=342pt]{DSRC_8c_adad268979d4c4038075346292651c8af_icgraph}
+\includegraphics[width=350pt]{DSRC_8c_adf230eff7bb998e7580c3170513c4748_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{DSRC_8c_aa38784384016c34bf5e63add1930104b}\index{DSRC.c@{DSRC.c}!DSRC\_RemoveStale@{DSRC\_RemoveStale}}
-\index{DSRC\_RemoveStale@{DSRC\_RemoveStale}!DSRC.c@{DSRC.c}}
-\doxysubsubsection{\texorpdfstring{DSRC\_RemoveStale()}{DSRC\_RemoveStale()}}
-{\footnotesize\ttfamily \label{DSRC_8c_aa38784384016c34bf5e63add1930104b} 
-void DSRC\+\_\+\+Remove\+Stale (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{current\+\_\+time}{}\end{DoxyParamCaption})}
+\Hypertarget{DSRC_8c_a9581430d0464dbd16bb9526564fb1299}\index{DSRC.c@{DSRC.c}!queue\_push@{queue\_push}}
+\index{queue\_push@{queue\_push}!DSRC.c@{DSRC.c}}
+\doxysubsubsection{\texorpdfstring{queue\_push()}{queue\_push()}}
+{\footnotesize\ttfamily \label{DSRC_8c_a9581430d0464dbd16bb9526564fb1299} 
+void queue\+\_\+push (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structNeighbor}{Neighbor}} \texorpdfstring{$\ast$}{*}}]{n}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-Definition at line \doxymbox{\hyperlink{DSRC_8c_source_l00161}{161}} of file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
+Append a parsed frame to \doxylink{DSRC_8c_ae475e643d0ef2f075c1418f4c4ea33f0}{rx\+\_\+queue}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em n} & The frame to enqueue. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+If the queue is full the frame is {\bfseries{dropped silently}}. That is the intended behaviour — see the note on the queue itself. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{DSRC_8c_source_l00104}{104}} of file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{DSRC_8c_source_l00046}{queue\+\_\+head}}, \doxymbox{\hyperlink{DSRC_8h_source_l00085}{QUEUE\+\_\+\+SIZE}}, \doxymbox{\hyperlink{DSRC_8c_source_l00047}{queue\+\_\+tail}}, and \doxymbox{\hyperlink{DSRC_8c_source_l00045}{rx\+\_\+queue}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{DSRC_8c_source_l00276}{DSRC\+\_\+\+Rx\+Callback()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{DSRC_8c_aa38784384016c34bf5e63add1930104b_icgraph}
+\includegraphics[width=350pt]{DSRC_8c_a9581430d0464dbd16bb9526564fb1299_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{DSRC_8c_a8f2c7037352677729c777df880fefd1b}\index{DSRC.c@{DSRC.c}!DSRC\_RxCallback@{DSRC\_RxCallback}}
-\index{DSRC\_RxCallback@{DSRC\_RxCallback}!DSRC.c@{DSRC.c}}
-\doxysubsubsection{\texorpdfstring{DSRC\_RxCallback()}{DSRC\_RxCallback()}}
-{\footnotesize\ttfamily \label{DSRC_8c_a8f2c7037352677729c777df880fefd1b} 
-void DSRC\+\_\+\+Rx\+Callback (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{byte}{}\end{DoxyParamCaption})}
+\Hypertarget{DSRC_8c_abccb8c604d9cb8da589d0dfc1a6995b2}\index{DSRC.c@{DSRC.c}!queue\_pop@{queue\_pop}}
+\index{queue\_pop@{queue\_pop}!DSRC.c@{DSRC.c}}
+\doxysubsubsection{\texorpdfstring{queue\_pop()}{queue\_pop()}}
+{\footnotesize\ttfamily \label{DSRC_8c_abccb8c604d9cb8da589d0dfc1a6995b2} 
+uint8\+\_\+t queue\+\_\+pop (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structNeighbor}{Neighbor}} \texorpdfstring{$\ast$}{*}}]{out}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-Definition at line \doxymbox{\hyperlink{DSRC_8c_source_l00208}{208}} of file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
+Take the oldest frame out of \doxylink{DSRC_8c_ae475e643d0ef2f075c1418f4c4ea33f0}{rx\+\_\+queue}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{out}}  & {\em out} & Receives the frame; untouched when the queue is empty. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em 1} & A frame was dequeued into {\ttfamily out}. \\
+\hline
+{\em 0} & The queue was empty. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{DSRC_8c_source_l00120}{120}} of file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{DSRC_8c_source_l00046}{queue\+\_\+head}}, \doxymbox{\hyperlink{DSRC_8h_source_l00085}{QUEUE\+\_\+\+SIZE}}, \doxymbox{\hyperlink{DSRC_8c_source_l00047}{queue\+\_\+tail}}, and \doxymbox{\hyperlink{DSRC_8c_source_l00045}{rx\+\_\+queue}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{DSRC_8c_source_l00220}{DSRC\+\_\+\+Update()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{DSRC_8c_a8f2c7037352677729c777df880fefd1b_icgraph}
+\includegraphics[width=350pt]{DSRC_8c_abccb8c604d9cb8da589d0dfc1a6995b2_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{DSRC_8c_aded740c50de5ea4cf786939e10ace2d9}\index{DSRC.c@{DSRC.c}!DSRC\_SendNeighbor@{DSRC\_SendNeighbor}}
-\index{DSRC\_SendNeighbor@{DSRC\_SendNeighbor}!DSRC.c@{DSRC.c}}
-\doxysubsubsection{\texorpdfstring{DSRC\_SendNeighbor()}{DSRC\_SendNeighbor()}}
-{\footnotesize\ttfamily \label{DSRC_8c_aded740c50de5ea4cf786939e10ace2d9} 
-void DSRC\+\_\+\+Send\+Neighbor (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{DSRC_8h_ac818f2e1224a1e513913a85019953e14}{Neighbor}} \texorpdfstring{$\ast$}{*}}]{n}{}\end{DoxyParamCaption})}
+\Hypertarget{DSRC_8c_a8ee22cdf259d59d18812ac85cf9e88a9}\index{DSRC.c@{DSRC.c}!update\_neighbor@{update\_neighbor}}
+\index{update\_neighbor@{update\_neighbor}!DSRC.c@{DSRC.c}}
+\doxysubsubsection{\texorpdfstring{update\_neighbor()}{update\_neighbor()}}
+{\footnotesize\ttfamily \label{DSRC_8c_a8ee22cdf259d59d18812ac85cf9e88a9} 
+void update\+\_\+neighbor (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structNeighbor}{Neighbor}} \texorpdfstring{$\ast$}{*}}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-Definition at line \doxymbox{\hyperlink{DSRC_8c_source_l00136}{136}} of file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
+Fold one received frame into the neighbor table. 
 
-Here is the call graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{DSRC_8c_aded740c50de5ea4cf786939e10ace2d9_cgraph}
-\end{center}
-\end{figure}
+A sender already in the table overwrites its own row; a new sender takes the next free slot. Once the table holds \doxylink{group__app__dsrc_ga2b1d39159e4114f433745f15a201c93c}{MAX\+\_\+\+NEIGHBORS} vehicles, further new senders are ignored.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em msg} & The frame to merge in.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+The row is stamped with the {\bfseries{local}} Free\+RTOS tick, not the sender\textquotesingle{}s {\ttfamily last\+\_\+update}. The sender\textquotesingle{}s timestamp comes from its own clock, which has no fixed relationship to ours, so it cannot be compared against anything here — \doxylink{group__app__dsrc_gaa38784384016c34bf5e63add1930104b}{DSRC\+\_\+\+Remove\+Stale} would either purge everyone or no one. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{DSRC_8c_source_l00151}{151}} of file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{DSRC_8h_source_l00066}{MAX\+\_\+\+NEIGHBORS}}, \doxymbox{\hyperlink{DSRC_8c_source_l00034}{neighbor\+\_\+count}}, \doxymbox{\hyperlink{DSRC_8c_source_l00031}{neighbor\+\_\+table}}, and \doxymbox{\hyperlink{DSRC_8h_source_l00101}{Neighbor::\+vehicle\+\_\+id}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{DSRC_8c_source_l00220}{DSRC\+\_\+\+Update()}}.
+
 Here is the caller graph for this function:\+
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{DSRC_8c_aded740c50de5ea4cf786939e10ace2d9_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{DSRC_8c_ac40e63c7c7041cacb1f60a1d4d710abb}\index{DSRC.c@{DSRC.c}!DSRC\_Update@{DSRC\_Update}}
-\index{DSRC\_Update@{DSRC\_Update}!DSRC.c@{DSRC.c}}
-\doxysubsubsection{\texorpdfstring{DSRC\_Update()}{DSRC\_Update()}}
-{\footnotesize\ttfamily \label{DSRC_8c_ac40e63c7c7041cacb1f60a1d4d710abb} 
-void DSRC\+\_\+\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{DSRC_8c_source_l00152}{152}} of file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
-
-Here is the caller graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{DSRC_8c_ac40e63c7c7041cacb1f60a1d4d710abb_icgraph}
+\includegraphics[width=350pt]{DSRC_8c_a8ee22cdf259d59d18812ac85cf9e88a9_icgraph}
 \end{center}
 \end{figure}
 
@@ -253,5 +323,175 @@ Here is the caller graph for this function:\+
 
 
 
-Definition at line \doxymbox{\hyperlink{System_8c_source_l00061}{61}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+USART1 — the link to the ESP32 radio bridge. 
+
+Defined in {\ttfamily \doxylink{System_8c}{System.\+c}}. 
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00062}{62}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{DSRC_8c_source_l00204}{DSRC\+\_\+\+Send\+Neighbor()}}, and \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}.
+
+\Hypertarget{DSRC_8c_ab81c561c155a828fdd542f1506b8a14b}\index{DSRC.c@{DSRC.c}!neighbor\_table@{neighbor\_table}}
+\index{neighbor\_table@{neighbor\_table}!DSRC.c@{DSRC.c}}
+\doxysubsubsection{\texorpdfstring{neighbor\_table}{neighbor\_table}}
+{\footnotesize\ttfamily \label{DSRC_8c_ab81c561c155a828fdd542f1506b8a14b} 
+\doxymbox{\hyperlink{structNeighbor}{Neighbor}} neighbor\+\_\+table\+[\doxymbox{\hyperlink{group__app__dsrc_ga2b1d39159e4114f433745f15a201c93c}{MAX\+\_\+\+NEIGHBORS}}]\+\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The neighbor table:\+ one row per vehicle heard from recently. 
+
+
+
+Definition at line \doxymbox{\hyperlink{DSRC_8c_source_l00031}{31}} of file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{DSRC_8c_source_l00268}{DSRC\+\_\+\+Get\+Table()}}, \doxymbox{\hyperlink{DSRC_8c_source_l00195}{DSRC\+\_\+\+Init()}}, \doxymbox{\hyperlink{DSRC_8c_source_l00229}{DSRC\+\_\+\+Remove\+Stale()}}, and \doxymbox{\hyperlink{DSRC_8c_source_l00151}{update\+\_\+neighbor()}}.
+
+\Hypertarget{DSRC_8c_a89c07c5539fe52e085d729b16b7adbf3}\index{DSRC.c@{DSRC.c}!neighbor\_count@{neighbor\_count}}
+\index{neighbor\_count@{neighbor\_count}!DSRC.c@{DSRC.c}}
+\doxysubsubsection{\texorpdfstring{neighbor\_count}{neighbor\_count}}
+{\footnotesize\ttfamily \label{DSRC_8c_a89c07c5539fe52e085d729b16b7adbf3} 
+uint8\+\_\+t neighbor\+\_\+count\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+How many rows of \doxylink{DSRC_8c_ab81c561c155a828fdd542f1506b8a14b}{neighbor\+\_\+table} are in use. 
+
+
+
+Definition at line \doxymbox{\hyperlink{DSRC_8c_source_l00034}{34}} of file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{DSRC_8c_source_l00244}{DSRC\+\_\+\+Get\+Count()}}, \doxymbox{\hyperlink{DSRC_8c_source_l00195}{DSRC\+\_\+\+Init()}}, \doxymbox{\hyperlink{DSRC_8c_source_l00229}{DSRC\+\_\+\+Remove\+Stale()}}, and \doxymbox{\hyperlink{DSRC_8c_source_l00151}{update\+\_\+neighbor()}}.
+
+\Hypertarget{DSRC_8c_ae475e643d0ef2f075c1418f4c4ea33f0}\index{DSRC.c@{DSRC.c}!rx\_queue@{rx\_queue}}
+\index{rx\_queue@{rx\_queue}!DSRC.c@{DSRC.c}}
+\doxysubsubsection{\texorpdfstring{rx\_queue}{rx\_queue}}
+{\footnotesize\ttfamily \label{DSRC_8c_ae475e643d0ef2f075c1418f4c4ea33f0} 
+\doxymbox{\hyperlink{structNeighbor}{Neighbor}} rx\+\_\+queue\+[\doxymbox{\hyperlink{group__app__dsrc_ga142810068f1b99cd93d3fc9f0e160e02}{QUEUE\+\_\+\+SIZE}}]\+\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The queued frames. 
+
+
+
+Definition at line \doxymbox{\hyperlink{DSRC_8c_source_l00045}{45}} of file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{DSRC_8c_source_l00120}{queue\+\_\+pop()}}, and \doxymbox{\hyperlink{DSRC_8c_source_l00104}{queue\+\_\+push()}}.
+
+\Hypertarget{DSRC_8c_a1a5bdba5ad46709632528c6d50d23f21}\index{DSRC.c@{DSRC.c}!queue\_head@{queue\_head}}
+\index{queue\_head@{queue\_head}!DSRC.c@{DSRC.c}}
+\doxysubsubsection{\texorpdfstring{queue\_head}{queue\_head}}
+{\footnotesize\ttfamily \label{DSRC_8c_a1a5bdba5ad46709632528c6d50d23f21} 
+volatile uint8\+\_\+t queue\+\_\+head\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Read index — advanced by \doxylink{DSRC_8c_abccb8c604d9cb8da589d0dfc1a6995b2}{queue\+\_\+pop}. 
+
+
+
+Definition at line \doxymbox{\hyperlink{DSRC_8c_source_l00046}{46}} of file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{DSRC_8c_source_l00195}{DSRC\+\_\+\+Init()}}, \doxymbox{\hyperlink{DSRC_8c_source_l00120}{queue\+\_\+pop()}}, and \doxymbox{\hyperlink{DSRC_8c_source_l00104}{queue\+\_\+push()}}.
+
+\Hypertarget{DSRC_8c_aace80fbfca2f194e2e4a47e3c42cf890}\index{DSRC.c@{DSRC.c}!queue\_tail@{queue\_tail}}
+\index{queue\_tail@{queue\_tail}!DSRC.c@{DSRC.c}}
+\doxysubsubsection{\texorpdfstring{queue\_tail}{queue\_tail}}
+{\footnotesize\ttfamily \label{DSRC_8c_aace80fbfca2f194e2e4a47e3c42cf890} 
+volatile uint8\+\_\+t queue\+\_\+tail\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Write index — advanced by \doxylink{DSRC_8c_a9581430d0464dbd16bb9526564fb1299}{queue\+\_\+push}. 
+
+
+
+Definition at line \doxymbox{\hyperlink{DSRC_8c_source_l00047}{47}} of file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{DSRC_8c_source_l00195}{DSRC\+\_\+\+Init()}}, \doxymbox{\hyperlink{DSRC_8c_source_l00120}{queue\+\_\+pop()}}, and \doxymbox{\hyperlink{DSRC_8c_source_l00104}{queue\+\_\+push()}}.
+
+\Hypertarget{DSRC_8c_af6601d6caee138a71d57ec1a648a129c}\index{DSRC.c@{DSRC.c}!parse\_state@{parse\_state}}
+\index{parse\_state@{parse\_state}!DSRC.c@{DSRC.c}}
+\doxysubsubsection{\texorpdfstring{parse\_state}{parse\_state}}
+{\footnotesize\ttfamily \label{DSRC_8c_af6601d6caee138a71d57ec1a648a129c} 
+\doxymbox{\hyperlink{DSRC_8c_a99f78dec5b5884642b44f101ef1d2460}{Parse\+State}} parse\+\_\+state\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Where the frame parser currently is. 
+
+
+
+Definition at line \doxymbox{\hyperlink{DSRC_8c_source_l00062}{62}} of file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{DSRC_8c_source_l00195}{DSRC\+\_\+\+Init()}}, and \doxymbox{\hyperlink{DSRC_8c_source_l00276}{DSRC\+\_\+\+Rx\+Callback()}}.
+
+\Hypertarget{DSRC_8c_ad8551a5eade2706b9a9febd30eeccf72}\index{DSRC.c@{DSRC.c}!rx\_buf@{rx\_buf}}
+\index{rx\_buf@{rx\_buf}!DSRC.c@{DSRC.c}}
+\doxysubsubsection{\texorpdfstring{rx\_buf}{rx\_buf}}
+{\footnotesize\ttfamily \label{DSRC_8c_ad8551a5eade2706b9a9febd30eeccf72} 
+uint8\+\_\+t rx\+\_\+buf\+[sizeof(\doxymbox{\hyperlink{structNeighbor}{Neighbor}})]\+\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Payload bytes collected so far during \doxylink{DSRC_8c_a99f78dec5b5884642b44f101ef1d2460a6c9aea235a9b44681dfcc088658ccdd6}{READ\+\_\+\+DATA}. 
+
+
+
+Definition at line \doxymbox{\hyperlink{DSRC_8c_source_l00065}{65}} of file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{DSRC_8c_source_l00276}{DSRC\+\_\+\+Rx\+Callback()}}.
+
+\Hypertarget{DSRC_8c_afa50670d960de8bf72255273abefae07}\index{DSRC.c@{DSRC.c}!rx\_idx@{rx\_idx}}
+\index{rx\_idx@{rx\_idx}!DSRC.c@{DSRC.c}}
+\doxysubsubsection{\texorpdfstring{rx\_idx}{rx\_idx}}
+{\footnotesize\ttfamily \label{DSRC_8c_afa50670d960de8bf72255273abefae07} 
+uint8\+\_\+t rx\+\_\+idx\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+How many payload bytes \doxylink{DSRC_8c_ad8551a5eade2706b9a9febd30eeccf72}{rx\+\_\+buf} currently holds. 
+
+
+
+Definition at line \doxymbox{\hyperlink{DSRC_8c_source_l00068}{68}} of file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{DSRC_8c_source_l00276}{DSRC\+\_\+\+Rx\+Callback()}}.
+
+\Hypertarget{DSRC_8c_af7ae33ec078d1850f461a9ee7d7b7335}\index{DSRC.c@{DSRC.c}!rx\_checksum@{rx\_checksum}}
+\index{rx\_checksum@{rx\_checksum}!DSRC.c@{DSRC.c}}
+\doxysubsubsection{\texorpdfstring{rx\_checksum}{rx\_checksum}}
+{\footnotesize\ttfamily \label{DSRC_8c_af7ae33ec078d1850f461a9ee7d7b7335} 
+uint8\+\_\+t rx\+\_\+checksum\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Checksum byte received, held until the frame is validated. 
+
+
+
+Definition at line \doxymbox{\hyperlink{DSRC_8c_source_l00071}{71}} of file \doxymbox{\hyperlink{DSRC_8c_source}{DSRC.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{DSRC_8c_source_l00276}{DSRC\+\_\+\+Rx\+Callback()}}.
 

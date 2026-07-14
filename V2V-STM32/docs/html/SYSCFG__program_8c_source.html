@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Src/SYSCFG_program.c Source File</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Src/SYSCFG_program.c Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -94,52 +94,70 @@ $(function(){initNavTree('SYSCFG__program_8c_source.html','',''); });
 </div><!--header-->
 <div class="contents">
 <a href="SYSCFG__program_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="Drivers_2LIB_2STM32F446xx_8h.html">../Inc/Drivers/LIB/STM32F446xx.h</a>&quot;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="STD__MACROS_8h.html">../Inc/Drivers/LIB/STD_MACROS.h</a>&quot;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="ErrTypes_8h.html">../Inc/Drivers/LIB/ErrTypes.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="STM32F446xx_8h.html">../Inc/Drivers/LIB/STM32F446xx.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="STD__MACROS_8h.html">../Inc/Drivers/LIB/STD_MACROS.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="ErrTypes_8h.html">../Inc/Drivers/LIB/ErrTypes.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="SYSCFG__private_8h.html">../Inc/Drivers/MCAL/SYSCFG/SYSCFG_private.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="SYSCFG__config_8h.html">../Inc/Drivers/MCAL/SYSCFG/SYSCFG_config.h</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="SYSCFG__interface_8h.html">../Inc/Drivers/MCAL/SYSCFG/SYSCFG_interface.h</a>&quot;</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;<a class="code" href="SYSCFG__private_8h.html">../Inc/Drivers/MCAL/SYSCFG/SYSCFG_private.h</a>&quot;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &quot;<a class="code" href="SYSCFG__config_8h.html">../Inc/Drivers/MCAL/SYSCFG/SYSCFG_config.h</a>&quot;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="SYSCFG__interface_8h.html">../Inc/Drivers/MCAL/SYSCFG/SYSCFG_interface.h</a>&quot;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span></div>
-<div class="foldopen" id="foldopen00042" data-start="{" data-end="}">
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="SYSCFG__interface_8h.html#ae89860feecf5f8fa39db3d67b9ebe08a">   42</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="SYSCFG__program_8c.html#ae89860feecf5f8fa39db3d67b9ebe08a">SYSCFG_vSetEXTIConfig</a>(<a class="code hl_enumeration" href="SYSCFG__interface_8h.html#a167a1c03ff4651ed14a78d12f7ebc6db">SYSCFG_EXTI_t</a> Copy_u8EXTI, <a class="code hl_enumeration" href="SYSCFG__interface_8h.html#ad439ac89243300683e9b6570620c5219">SYSCFG_Port_t</a> Copy_u8Port)</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>{</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  <span class="comment">/* Calculate register number (0-3) based on EXTI line number */</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  uint8_t Local_u8RegNum = Copy_u8EXTI / <a class="code hl_define" href="SYSCFG__private_8h.html#a6c05ce4b718c5501c935c0e4b071d03c">EXTI_CTRL_REG_LINEBITS</a>;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="comment">/* Calculate bit position within register (0-12) */</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  uint8_t Local_u8BitNum = (Copy_u8EXTI % <a class="code hl_define" href="SYSCFG__private_8h.html#a6c05ce4b718c5501c935c0e4b071d03c">EXTI_CTRL_REG_LINEBITS</a>) * <a class="code hl_define" href="SYSCFG__private_8h.html#a6c05ce4b718c5501c935c0e4b071d03c">EXTI_CTRL_REG_LINEBITS</a>;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  <span class="comment">/* Clear current port mapping for this EXTI line */</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  <a class="code hl_define" href="Drivers_2LIB_2STM32F446xx_8h.html#a531c08f5a73855527d044114a066fbb4">MSYSCFG</a>-&gt;EXTICR[Local_u8RegNum] &amp;= ~(<a class="code hl_define" href="SYSCFG__private_8h.html#a6d80a0cf729edb26a0b3b044c7c06bde">EXTI_CTRL_REG_MASK</a> &lt;&lt; Local_u8BitNum);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="comment">/* Set new port mapping for this EXTI line */</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  <a class="code hl_define" href="Drivers_2LIB_2STM32F446xx_8h.html#a531c08f5a73855527d044114a066fbb4">MSYSCFG</a>-&gt;EXTICR[Local_u8RegNum] |= (Copy_u8Port &lt;&lt; Local_u8BitNum);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment"> * @brief Configure EXTI line mapping to GPIO port</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment"> * @details Maps a specific EXTI line to a GPIO port in the SYSCFG peripheral</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment"> * @param Copy_u8EXTI - EXTI line number (0-15)</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment"> *         Copy_u8Port - GPIO port identifier (A-H)</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment"> * @return void</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment"> * @note </span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment"> *   1. Each EXTI line is mapped to a 4-bit field in one of four EXTICR registers</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment"> *   2. The mapping is done in groups of 4 EXTI lines per register</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment"> *   3. Must be called before configuring EXTI line</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment"> * @par Example:</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment"> * </span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment"> *   SYSCFG_vSetEXTIConfig(SYSCFG_EXTI0, SYSCFG_PORTA); // Map EXTI0 to Port A</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment"> * @internal:</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment"> *   - Local_u8RegNum: Calculates which EXTICR register to use (0-3)</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment"> *   - Local_u8BitNum: Calculates the bit position within the register (0-12)</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment"> *   - 0x0F mask: Clears the current port mapping (4 bits)</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="}">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="SYSCFG__interface_8h.html#ae89860feecf5f8fa39db3d67b9ebe08a">   38</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="SYSCFG__program_8c.html#ae89860feecf5f8fa39db3d67b9ebe08a">SYSCFG_vSetEXTIConfig</a>(<a class="code hl_enumeration" href="SYSCFG__interface_8h.html#a167a1c03ff4651ed14a78d12f7ebc6db">SYSCFG_EXTI_t</a> Copy_u8EXTI, <a class="code hl_enumeration" href="SYSCFG__interface_8h.html#ad439ac89243300683e9b6570620c5219">SYSCFG_Port_t</a> Copy_u8Port)</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>{</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  <span class="comment">/* Calculate register number (0-3) based on EXTI line number */</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  uint8_t Local_u8RegNum = Copy_u8EXTI / <a class="code hl_define" href="SYSCFG__private_8h.html#a6c05ce4b718c5501c935c0e4b071d03c">EXTI_CTRL_REG_LINEBITS</a>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  <span class="comment">/* Calculate bit position within register (0-12) */</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  uint8_t Local_u8BitNum = (Copy_u8EXTI % <a class="code hl_define" href="SYSCFG__private_8h.html#a6c05ce4b718c5501c935c0e4b071d03c">EXTI_CTRL_REG_LINEBITS</a>) * <a class="code hl_define" href="SYSCFG__private_8h.html#a6c05ce4b718c5501c935c0e4b071d03c">EXTI_CTRL_REG_LINEBITS</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  <span class="comment">/* Clear current port mapping for this EXTI line */</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <a class="code hl_define" href="group__lib.html#ga531c08f5a73855527d044114a066fbb4">MSYSCFG</a>-&gt;EXTICR[Local_u8RegNum] &amp;= ~(<a class="code hl_define" href="SYSCFG__private_8h.html#a6d80a0cf729edb26a0b3b044c7c06bde">EXTI_CTRL_REG_MASK</a> &lt;&lt; Local_u8BitNum);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  <span class="comment">/* Set new port mapping for this EXTI line */</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  <a class="code hl_define" href="group__lib.html#ga531c08f5a73855527d044114a066fbb4">MSYSCFG</a>-&gt;EXTICR[Local_u8RegNum] |= (Copy_u8Port &lt;&lt; Local_u8BitNum);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}</div>
 </div>
-<div class="ttc" id="aDrivers_2LIB_2STM32F446xx_8h_html"><div class="ttname"><a href="Drivers_2LIB_2STM32F446xx_8h.html">STM32F446xx.h</a></div></div>
-<div class="ttc" id="aDrivers_2LIB_2STM32F446xx_8h_html_a531c08f5a73855527d044114a066fbb4"><div class="ttname"><a href="Drivers_2LIB_2STM32F446xx_8h.html#a531c08f5a73855527d044114a066fbb4">MSYSCFG</a></div><div class="ttdeci">#define MSYSCFG</div><div class="ttdef"><b>Definition</b> <a href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00287">STM32F446xx.h:287</a></div></div>
-<div class="ttc" id="aErrTypes_8h_html"><div class="ttname"><a href="ErrTypes_8h.html">ErrTypes.h</a></div></div>
-<div class="ttc" id="aSTD__MACROS_8h_html"><div class="ttname"><a href="STD__MACROS_8h.html">STD_MACROS.h</a></div></div>
-<div class="ttc" id="aSYSCFG__config_8h_html"><div class="ttname"><a href="SYSCFG__config_8h.html">SYSCFG_config.h</a></div></div>
-<div class="ttc" id="aSYSCFG__interface_8h_html"><div class="ttname"><a href="SYSCFG__interface_8h.html">SYSCFG_interface.h</a></div></div>
-<div class="ttc" id="aSYSCFG__interface_8h_html_a167a1c03ff4651ed14a78d12f7ebc6db"><div class="ttname"><a href="SYSCFG__interface_8h.html#a167a1c03ff4651ed14a78d12f7ebc6db">SYSCFG_EXTI_t</a></div><div class="ttdeci">SYSCFG_EXTI_t</div><div class="ttdoc">: System configuration for EXTI lines</div><div class="ttdef"><b>Definition</b> <a href="SYSCFG__interface_8h_source.html#l00027">SYSCFG_interface.h:28</a></div></div>
-<div class="ttc" id="aSYSCFG__interface_8h_html_ad439ac89243300683e9b6570620c5219"><div class="ttname"><a href="SYSCFG__interface_8h.html#ad439ac89243300683e9b6570620c5219">SYSCFG_Port_t</a></div><div class="ttdeci">SYSCFG_Port_t</div><div class="ttdoc">: System configuration for GPIO ports</div><div class="ttdef"><b>Definition</b> <a href="SYSCFG__interface_8h_source.html#l00054">SYSCFG_interface.h:55</a></div></div>
-<div class="ttc" id="aSYSCFG__private_8h_html"><div class="ttname"><a href="SYSCFG__private_8h.html">SYSCFG_private.h</a></div></div>
-<div class="ttc" id="aSYSCFG__private_8h_html_a6c05ce4b718c5501c935c0e4b071d03c"><div class="ttname"><a href="SYSCFG__private_8h.html#a6c05ce4b718c5501c935c0e4b071d03c">EXTI_CTRL_REG_LINEBITS</a></div><div class="ttdeci">#define EXTI_CTRL_REG_LINEBITS</div><div class="ttdef"><b>Definition</b> <a href="SYSCFG__private_8h_source.html#l00017">SYSCFG_private.h:17</a></div></div>
-<div class="ttc" id="aSYSCFG__private_8h_html_a6d80a0cf729edb26a0b3b044c7c06bde"><div class="ttname"><a href="SYSCFG__private_8h.html#a6d80a0cf729edb26a0b3b044c7c06bde">EXTI_CTRL_REG_MASK</a></div><div class="ttdeci">#define EXTI_CTRL_REG_MASK</div><div class="ttdef"><b>Definition</b> <a href="SYSCFG__private_8h_source.html#l00019">SYSCFG_private.h:19</a></div></div>
-<div class="ttc" id="aSYSCFG__program_8c_html_ae89860feecf5f8fa39db3d67b9ebe08a"><div class="ttname"><a href="SYSCFG__program_8c.html#ae89860feecf5f8fa39db3d67b9ebe08a">SYSCFG_vSetEXTIConfig</a></div><div class="ttdeci">void SYSCFG_vSetEXTIConfig(SYSCFG_EXTI_t Copy_u8EXTI, SYSCFG_Port_t Copy_u8Port)</div><div class="ttdef"><b>Definition</b> <a href="#l00042">SYSCFG_program.c:42</a></div></div>
+<div class="ttc" id="aErrTypes_8h_html"><div class="ttname"><a href="ErrTypes_8h.html">ErrTypes.h</a></div><div class="ttdoc">Project-wide return codes and boolean-style constants.</div></div>
+<div class="ttc" id="aSTD__MACROS_8h_html"><div class="ttname"><a href="STD__MACROS_8h.html">STD_MACROS.h</a></div><div class="ttdoc">Bit-manipulation macros used by every register access in the MCAL.</div></div>
+<div class="ttc" id="aSTM32F446xx_8h_html"><div class="ttname"><a href="STM32F446xx_8h.html">STM32F446xx.h</a></div><div class="ttdoc">STM32F446RE register map: peripheral base addresses, register layout structs, and the typed pointers ...</div></div>
+<div class="ttc" id="aSYSCFG__config_8h_html"><div class="ttname"><a href="SYSCFG__config_8h.html">SYSCFG_config.h</a></div><div class="ttdoc">Compile-time configuration for the SYSCFG driver — the system configuration controller.</div></div>
+<div class="ttc" id="aSYSCFG__interface_8h_html"><div class="ttname"><a href="SYSCFG__interface_8h.html">SYSCFG_interface.h</a></div><div class="ttdoc">Public API of the SYSCFG driver — the system configuration controller.</div></div>
+<div class="ttc" id="aSYSCFG__interface_8h_html_a167a1c03ff4651ed14a78d12f7ebc6db"><div class="ttname"><a href="SYSCFG__interface_8h.html#a167a1c03ff4651ed14a78d12f7ebc6db">SYSCFG_EXTI_t</a></div><div class="ttdeci">SYSCFG_EXTI_t</div><div class="ttdoc">System configuration for EXTI lines.</div><div class="ttdef"><b>Definition</b> <a href="SYSCFG__interface_8h_source.html#l00021">SYSCFG_interface.h:22</a></div></div>
+<div class="ttc" id="aSYSCFG__interface_8h_html_ad439ac89243300683e9b6570620c5219"><div class="ttname"><a href="SYSCFG__interface_8h.html#ad439ac89243300683e9b6570620c5219">SYSCFG_Port_t</a></div><div class="ttdeci">SYSCFG_Port_t</div><div class="ttdoc">System configuration for GPIO ports.</div><div class="ttdef"><b>Definition</b> <a href="SYSCFG__interface_8h_source.html#l00046">SYSCFG_interface.h:47</a></div></div>
+<div class="ttc" id="aSYSCFG__private_8h_html"><div class="ttname"><a href="SYSCFG__private_8h.html">SYSCFG_private.h</a></div><div class="ttdoc">Register bit positions and internals of the SYSCFG driver — not a public header.</div></div>
+<div class="ttc" id="aSYSCFG__private_8h_html_a6c05ce4b718c5501c935c0e4b071d03c"><div class="ttname"><a href="SYSCFG__private_8h.html#a6c05ce4b718c5501c935c0e4b071d03c">EXTI_CTRL_REG_LINEBITS</a></div><div class="ttdeci">#define EXTI_CTRL_REG_LINEBITS</div><div class="ttdoc">Bits per EXTI line in EXTICR — so four lines fit in each of the four words.</div><div class="ttdef"><b>Definition</b> <a href="SYSCFG__private_8h_source.html#l00013">SYSCFG_private.h:13</a></div></div>
+<div class="ttc" id="aSYSCFG__private_8h_html_a6d80a0cf729edb26a0b3b044c7c06bde"><div class="ttname"><a href="SYSCFG__private_8h.html#a6d80a0cf729edb26a0b3b044c7c06bde">EXTI_CTRL_REG_MASK</a></div><div class="ttdeci">#define EXTI_CTRL_REG_MASK</div><div class="ttdoc">Mask of one line&#39;s 4-bit port-selection field in EXTICR.</div><div class="ttdef"><b>Definition</b> <a href="SYSCFG__private_8h_source.html#l00015">SYSCFG_private.h:15</a></div></div>
+<div class="ttc" id="aSYSCFG__program_8c_html_ae89860feecf5f8fa39db3d67b9ebe08a"><div class="ttname"><a href="SYSCFG__program_8c.html#ae89860feecf5f8fa39db3d67b9ebe08a">SYSCFG_vSetEXTIConfig</a></div><div class="ttdeci">void SYSCFG_vSetEXTIConfig(SYSCFG_EXTI_t Copy_u8EXTI, SYSCFG_Port_t Copy_u8Port)</div><div class="ttdoc">Choose which GPIO port drives a given EXTI line.</div><div class="ttdef"><b>Definition</b> <a href="#l00038">SYSCFG_program.c:38</a></div></div>
+<div class="ttc" id="agroup__lib_html_ga531c08f5a73855527d044114a066fbb4"><div class="ttname"><a href="group__lib.html#ga531c08f5a73855527d044114a066fbb4">MSYSCFG</a></div><div class="ttdeci">#define MSYSCFG</div><div class="ttdoc">Typed pointer to the SYSCFG peripheral.</div><div class="ttdef"><b>Definition</b> <a href="STM32F446xx_8h_source.html#l00347">STM32F446xx.h:347</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_413f4e031a85da0d68269c6fd2f76e1c.html">Src</a></li><li class="navelem"><a href="SYSCFG__program_8c.html">SYSCFG_program.c</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Src</b></li><li class="navelem"><a href="SYSCFG__program_8c.html">SYSCFG_program.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

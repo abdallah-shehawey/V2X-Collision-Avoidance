@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: TIM_Config_t Struct Reference</title>
+<title>V2V Collision Avoidance Firmware: TIM_Config_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -97,51 +97,41 @@ $(function(){initNavTree('structTIM__Config__t.html','',''); });
 <p>Configuration structure for Timer Initialization.  
  <a href="#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="TIM__interface_8h_source.html">Drivers/MCAL/TIM/TIM_interface.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a4b232636616286926c0e51eabc35ab5a" id="r_a4b232636616286926c0e51eabc35ab5a"><td class="memItemLeft"><a class="el" href="TIM__interface_8h.html#a2712d6a822f7d7b0ebe7411daf149b23">TIM_Num_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4b232636616286926c0e51eabc35ab5a">Timer</a></td></tr>
+<tr class="memdesc:a4b232636616286926c0e51eabc35ab5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer Instance.  <br /></td></tr>
 <tr class="memitem:ad1fb494b6ff4c72034fd176a0fa5b117" id="r_ad1fb494b6ff4c72034fd176a0fa5b117"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="#ad1fb494b6ff4c72034fd176a0fa5b117">Prescaler</a></td></tr>
+<tr class="memdesc:ad1fb494b6ff4c72034fd176a0fa5b117"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clock Prescaler (0-65535).  <br /></td></tr>
 <tr class="memitem:a472831a1ee559a2f182812ba63663dc3" id="r_a472831a1ee559a2f182812ba63663dc3"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a472831a1ee559a2f182812ba63663dc3">AutoReloadValue</a></td></tr>
+<tr class="memdesc:a472831a1ee559a2f182812ba63663dc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auto-Reload Value (Period).  <br /></td></tr>
 <tr class="memitem:a2c0e5651926ff837ec0e8f8665d2c49e" id="r_a2c0e5651926ff837ec0e8f8665d2c49e"><td class="memItemLeft"><a class="el" href="TIM__interface_8h.html#a0047e30e2a1ba7a8d59f2da4f0cf6eb4">TIM_CounterMode_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2c0e5651926ff837ec0e8f8665d2c49e">Mode</a></td></tr>
+<tr class="memdesc:a2c0e5651926ff837ec0e8f8665d2c49e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counter Mode (Up/Down).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Configuration structure for Timer Initialization. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example.html#_a24">/media/Local-Disk/Data/V2X-Collision-Avoidance/V2V-STM32/Inc/Drivers/MCAL/TIM/TIM_interface.h</a>.</dd>
-</dl>
 
 <p class="definition">Definition at line <a class="el" href="TIM__interface_8h_source.html#l00082">82</a> of file <a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
-<a id="a472831a1ee559a2f182812ba63663dc3" name="a472831a1ee559a2f182812ba63663dc3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a472831a1ee559a2f182812ba63663dc3">&#9670;&#160;</a></span>AutoReloadValue</h2>
+<a id="a4b232636616286926c0e51eabc35ab5a" name="a4b232636616286926c0e51eabc35ab5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b232636616286926c0e51eabc35ab5a">&#9670;&#160;</a></span>Timer</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t TIM_Config_t::AutoReloadValue</td>
+          <td class="memname"><a class="el" href="TIM__interface_8h.html#a2712d6a822f7d7b0ebe7411daf149b23">TIM_Num_t</a> TIM_Config_t::Timer</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TIM__interface_8h_source.html#l00086">86</a> of file <a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a>.</p>
+<p>Timer Instance. </p>
 
-</div>
-</div>
-<a id="a2c0e5651926ff837ec0e8f8665d2c49e" name="a2c0e5651926ff837ec0e8f8665d2c49e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c0e5651926ff837ec0e8f8665d2c49e">&#9670;&#160;</a></span>Mode</h2>
+<p class="definition">Definition at line <a class="el" href="TIM__interface_8h_source.html#l00084">84</a> of file <a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a>.</p>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="TIM__interface_8h.html#a0047e30e2a1ba7a8d59f2da4f0cf6eb4">TIM_CounterMode_t</a> TIM_Config_t::Mode</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="TIM__interface_8h_source.html#l00087">87</a> of file <a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a>.</p>
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00056">TIM_vInit()</a>.</p>
 
 </div>
 </div>
@@ -157,28 +147,56 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Clock Prescaler (0-65535). </p>
+
 <p class="definition">Definition at line <a class="el" href="TIM__interface_8h_source.html#l00085">85</a> of file <a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00056">TIM_vInit()</a>.</p>
 
 </div>
 </div>
-<a id="a4b232636616286926c0e51eabc35ab5a" name="a4b232636616286926c0e51eabc35ab5a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b232636616286926c0e51eabc35ab5a">&#9670;&#160;</a></span>Timer</h2>
+<a id="a472831a1ee559a2f182812ba63663dc3" name="a472831a1ee559a2f182812ba63663dc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a472831a1ee559a2f182812ba63663dc3">&#9670;&#160;</a></span>AutoReloadValue</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="TIM__interface_8h.html#a2712d6a822f7d7b0ebe7411daf149b23">TIM_Num_t</a> TIM_Config_t::Timer</td>
+          <td class="memname">uint32_t TIM_Config_t::AutoReloadValue</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TIM__interface_8h_source.html#l00084">84</a> of file <a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a>.</p>
+<p>Auto-Reload Value (Period). </p>
+
+<p class="definition">Definition at line <a class="el" href="TIM__interface_8h_source.html#l00086">86</a> of file <a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00056">TIM_vInit()</a>.</p>
+
+</div>
+</div>
+<a id="a2c0e5651926ff837ec0e8f8665d2c49e" name="a2c0e5651926ff837ec0e8f8665d2c49e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c0e5651926ff837ec0e8f8665d2c49e">&#9670;&#160;</a></span>Mode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="TIM__interface_8h.html#a0047e30e2a1ba7a8d59f2da4f0cf6eb4">TIM_CounterMode_t</a> TIM_Config_t::Mode</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Counter Mode (Up/Down). </p>
+
+<p class="definition">Definition at line <a class="el" href="TIM__interface_8h_source.html#l00087">87</a> of file <a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00056">TIM_vInit()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>Inc/Drivers/MCAL/TIM/<a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a></li>
+<li>V2V-STM32/Inc/Drivers/MCAL/TIM/<a class="el" href="TIM__interface_8h_source.html">TIM_interface.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

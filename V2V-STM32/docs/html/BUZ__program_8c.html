@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Src/BUZ_program.c File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Src/BUZ_program.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,49 +90,41 @@ $(function(){initNavTree('BUZ__program_8c.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">BUZ_program.c File Reference</div></div>
+  <div class="headertitle"><div class="title">BUZ_program.c File Reference<div class="ingroups"><a class="el" href="group__hal.html">HAL</a> &raquo; <a class="el" href="group__hal__buzz.html">BUZZ</a></div></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Implementation of the BUZZ driver — the piezo buzzer.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="BUZ__interface_8h_source.html">../Inc/Drivers/HAL/BUZZ/BUZ_interface.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="BUZ__private_8h_source.html">../Inc/Drivers/HAL/BUZZ/BUZ_private.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="BUZ__config_8h_source.html">../Inc/Drivers/HAL/BUZZ/BUZ_config.h</a>&quot;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for BUZ_program.c:</div>
-<div class="dyncontent">
-<div class="center"><img src="BUZ__program_8c__incl.png" border="0" usemap="#aSrc_2BUZ__program_8c" loading="lazy" alt=""/></div>
-<map name="aSrc_2BUZ__program_8c" id="aSrc_2BUZ__program_8c">
-<area shape="rect" title=" " alt="" coords="207,5,354,33"/>
-<area shape="rect" href="BUZ__interface_8h.html" title=" " alt="" coords="5,81,177,126"/>
-<area shape="poly" title=" " alt="" coords="248,36,157,77,154,72,252,32"/>
-<area shape="rect" href="BUZ__private_8h.html" title=" " alt="" coords="201,81,360,126"/>
-<area shape="poly" title=" " alt="" coords="282,31,283,66,278,64,279,36"/>
-<area shape="rect" href="BUZ__config_8h.html" title=" " alt="" coords="384,81,536,126"/>
-<area shape="poly" title=" " alt="" coords="309,31,401,73,396,75,309,36"/>
-<area shape="rect" href="GPIO__interface_8h.html" title=" " alt="" coords="135,174,290,218"/>
-<area shape="poly" title=" " alt="" coords="120,123,174,164,169,165,119,129"/>
-<area shape="rect" href="ErrTypes_8h.html" title=" " alt="" coords="23,266,159,294"/>
-<area shape="poly" title=" " alt="" coords="93,125,94,251,88,250,89,127"/>
-<area shape="poly" title=" " alt="" coords="183,218,124,260,122,255,178,219"/>
-<area shape="rect" title=" " alt="" coords="184,266,254,294"/>
-<area shape="poly" title=" " alt="" coords="216,217,219,252,214,249,212,221"/>
-<area shape="poly" title=" " alt="" coords="398,127,287,170,285,165,403,125"/>
-</map>
+</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for BUZ_program.c:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="BUZ__program_8c__incl.svg" width="542" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="BUZ__program_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aee43f9ae5f162980c0e95c9a96694e4a" id="r_aee43f9ae5f162980c0e95c9a96694e4a"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aee43f9ae5f162980c0e95c9a96694e4a">BUZ_Init</a> (const <a class="el" href="structBUZ__Config__t.html">BUZ_Config_t</a> *BUZ_Configuration)</td></tr>
+<tr class="memitem:aee43f9ae5f162980c0e95c9a96694e4a" id="r_aee43f9ae5f162980c0e95c9a96694e4a"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aee43f9ae5f162980c0e95c9a96694e4a">BUZ_Init</a> (const <a class="el" href="structBUZ__Config__t.html">BUZ_Config_t</a> *BUZ_Configuration)</td></tr>
 <tr class="memdesc:aee43f9ae5f162980c0e95c9a96694e4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the buzzer pin.  <br /></td></tr>
-<tr class="memitem:ab7f7f6ad4821bcc1ce356a6912597511" id="r_ab7f7f6ad4821bcc1ce356a6912597511"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab7f7f6ad4821bcc1ce356a6912597511">BUZ_On</a> (const <a class="el" href="structBUZ__Config__t.html">BUZ_Config_t</a> *BUZ_Configuration)</td></tr>
+<tr class="memitem:ab7f7f6ad4821bcc1ce356a6912597511" id="r_ab7f7f6ad4821bcc1ce356a6912597511"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab7f7f6ad4821bcc1ce356a6912597511">BUZ_On</a> (const <a class="el" href="structBUZ__Config__t.html">BUZ_Config_t</a> *BUZ_Configuration)</td></tr>
 <tr class="memdesc:ab7f7f6ad4821bcc1ce356a6912597511"><td class="mdescLeft">&#160;</td><td class="mdescRight">Turn on the buzzer.  <br /></td></tr>
-<tr class="memitem:a6ea5cda725dca71e4c638f57f43eecd7" id="r_a6ea5cda725dca71e4c638f57f43eecd7"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6ea5cda725dca71e4c638f57f43eecd7">BUZ_Off</a> (const <a class="el" href="structBUZ__Config__t.html">BUZ_Config_t</a> *BUZ_Configuration)</td></tr>
+<tr class="memitem:a6ea5cda725dca71e4c638f57f43eecd7" id="r_a6ea5cda725dca71e4c638f57f43eecd7"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6ea5cda725dca71e4c638f57f43eecd7">BUZ_Off</a> (const <a class="el" href="structBUZ__Config__t.html">BUZ_Config_t</a> *BUZ_Configuration)</td></tr>
 <tr class="memdesc:a6ea5cda725dca71e4c638f57f43eecd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Turn off the buzzer.  <br /></td></tr>
-<tr class="memitem:aaee2a85a84cc58a2be5fa0e7c32e5837" id="r_aaee2a85a84cc58a2be5fa0e7c32e5837"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aaee2a85a84cc58a2be5fa0e7c32e5837">BUZ_Toggle</a> (const <a class="el" href="structBUZ__Config__t.html">BUZ_Config_t</a> *BUZ_Configuration)</td></tr>
+<tr class="memitem:aaee2a85a84cc58a2be5fa0e7c32e5837" id="r_aaee2a85a84cc58a2be5fa0e7c32e5837"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aaee2a85a84cc58a2be5fa0e7c32e5837">BUZ_Toggle</a> (const <a class="el" href="structBUZ__Config__t.html">BUZ_Config_t</a> *BUZ_Configuration)</td></tr>
 <tr class="memdesc:aaee2a85a84cc58a2be5fa0e7c32e5837"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggle the buzzer state.  <br /></td></tr>
 </table>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Implementation of the BUZZ driver — the piezo buzzer. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Abdelmoemen Shehawey  </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="BUZ__program_8c_source.html">BUZ_program.c</a>.</p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="aee43f9ae5f162980c0e95c9a96694e4a" name="aee43f9ae5f162980c0e95c9a96694e4a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aee43f9ae5f162980c0e95c9a96694e4a">&#9670;&#160;</a></span>BUZ_Init()</h2>
 
@@ -140,55 +132,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> BUZ_Init </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structBUZ__Config__t.html">BUZ_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>BUZ_Configuration</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Initialize the buzzer pin. </p>
-<p>===========================================================================** &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; <a class="el" href="BUZ__program_8c.html">BUZ_program.c</a> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;** ** Author : Abdallah Abdelmoemen Shehawey ** Layer : HAL ** SWC : BUZZER ** ** ===========================================================================** </p>
-
-<p class="definition">Definition at line <a class="el" href="BUZ__program_8c_source.html#l00019">19</a> of file <a class="el" href="BUZ__program_8c_source.html">BUZ_program.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="BUZ__program_8c_aee43f9ae5f162980c0e95c9a96694e4a_cgraph.png" border="0" usemap="#aBUZ__program_8c_aee43f9ae5f162980c0e95c9a96694e4a_cgraph" loading="lazy" alt=""/></div>
-<map name="aBUZ__program_8c_aee43f9ae5f162980c0e95c9a96694e4a_cgraph" id="aBUZ__program_8c_aee43f9ae5f162980c0e95c9a96694e4a_cgraph">
-<area shape="rect" title="Initialize the buzzer pin." alt="" coords="5,32,83,60"/>
-<area shape="rect" href="BUZ__program_8c.html#a6ea5cda725dca71e4c638f57f43eecd7" title="Turn off the buzzer." alt="" coords="162,5,238,33"/>
-<area shape="poly" title=" " alt="" coords="83,37,149,26,145,30,84,42"/>
-<area shape="rect" href="GPIO__prog_8c.html#a2a5e7c89bc6bb7103d96334a8481ea9b" title=" " alt="" coords="131,57,269,85"/>
-<area shape="poly" title=" " alt="" coords="83,49,117,57,112,58,83,55"/>
-<area shape="rect" href="GPIO__prog_8c.html#ab8efebd278bcf731012c238a3f69fb5c" title=" " alt="" coords="317,5,489,33"/>
-<area shape="poly" title=" " alt="" coords="238,17,304,19,299,20,238,22"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="BUZ__program_8c_aee43f9ae5f162980c0e95c9a96694e4a_icgraph.png" border="0" usemap="#aBUZ__program_8c_aee43f9ae5f162980c0e95c9a96694e4a_icgraph" loading="lazy" alt=""/></div>
-<map name="aBUZ__program_8c_aee43f9ae5f162980c0e95c9a96694e4a_icgraph" id="aBUZ__program_8c_aee43f9ae5f162980c0e95c9a96694e4a_icgraph">
-<area shape="rect" title="Initialize the buzzer pin." alt="" coords="269,5,346,33"/>
-<area shape="rect" href="System_8c.html#ae436954cd2bde6634ab271317d2494a7" title=" " alt="" coords="108,5,221,33"/>
-<area shape="poly" title=" " alt="" coords="251,19,222,22,221,17,256,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,95,18"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a6ea5cda725dca71e4c638f57f43eecd7" name="a6ea5cda725dca71e4c638f57f43eecd7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ea5cda725dca71e4c638f57f43eecd7">&#9670;&#160;</a></span>BUZ_Off()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> BUZ_Off </td>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> BUZ_Init </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structBUZ__Config__t.html">BUZ_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>Config</em></span></td><td>)</td>
           <td></td>
@@ -196,43 +140,31 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Turn off the buzzer. </p>
+<p>Initialize the buzzer pin. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">Config</td><td>Pointer to buzzer configuration structure </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>: Error state </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a>: Error state </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="BUZ__program_8c_source.html#l00075">75</a> of file <a class="el" href="BUZ__program_8c_source.html">BUZ_program.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="BUZ__program_8c_a6ea5cda725dca71e4c638f57f43eecd7_cgraph.png" border="0" usemap="#aBUZ__program_8c_a6ea5cda725dca71e4c638f57f43eecd7_cgraph" loading="lazy" alt=""/></div>
-<map name="aBUZ__program_8c_a6ea5cda725dca71e4c638f57f43eecd7_cgraph" id="aBUZ__program_8c_a6ea5cda725dca71e4c638f57f43eecd7_cgraph">
-<area shape="rect" title="Turn off the buzzer." alt="" coords="5,5,81,33"/>
-<area shape="rect" href="GPIO__prog_8c.html#ab8efebd278bcf731012c238a3f69fb5c" title=" " alt="" coords="129,5,301,33"/>
-<area shape="poly" title=" " alt="" coords="81,17,116,19,111,20,81,22"/>
-</map>
+<p class="definition">Definition at line <a class="el" href="BUZ__program_8c_source.html#l00017">17</a> of file <a class="el" href="BUZ__program_8c_source.html">BUZ_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="BUZ__program_8c_source.html#l00073">BUZ_Off()</a>, <a class="el" href="GPIO__prog_8c_source.html#l00041">GPIO_enumPinInit()</a>, <a class="el" href="GPIO__interface_8h_source.html#l00102">GPIO_MEDIUM_SPEED</a>, <a class="el" href="GPIO__interface_8h_source.html#l00109">GPIO_NO_PULL</a>, <a class="el" href="GPIO__interface_8h_source.html#l00078">GPIO_OUTPUT</a>, <a class="el" href="GPIO__interface_8h_source.html#l00085">GPIO_PUSH_PULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00024">NULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00044">NULL_POINTER</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="BUZ__interface_8h_source.html#l00032">BUZ_Config_t::Pin</a>, and <a class="el" href="BUZ__interface_8h_source.html#l00031">BUZ_Config_t::Port</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="System_8c_source.html#l00133">System_setup()</a>.</p>
+<div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="BUZ__program_8c_a6ea5cda725dca71e4c638f57f43eecd7_icgraph.png" border="0" usemap="#aBUZ__program_8c_a6ea5cda725dca71e4c638f57f43eecd7_icgraph" loading="lazy" alt=""/></div>
-<map name="aBUZ__program_8c_a6ea5cda725dca71e4c638f57f43eecd7_icgraph" id="aBUZ__program_8c_a6ea5cda725dca71e4c638f57f43eecd7_icgraph">
-<area shape="rect" title="Turn off the buzzer." alt="" coords="408,56,484,84"/>
-<area shape="rect" href="BUZ__program_8c.html#aee43f9ae5f162980c0e95c9a96694e4a" title="Initialize the buzzer pin." alt="" coords="283,5,360,33"/>
-<area shape="poly" title=" " alt="" coords="393,50,357,36,358,31,399,50"/>
-<area shape="rect" href="System_8c.html#ae436954cd2bde6634ab271317d2494a7" title=" " alt="" coords="115,55,228,82"/>
-<area shape="poly" title=" " alt="" coords="391,71,229,71,228,66,395,68"/>
-<area shape="rect" href="main_8c.html#a96452f43e9871212929e6e6a969bec13" title="Alert manager (the &quot;Muscle&quot;): drives the LEDs + buzzer from the ADAS status word. It makes NO decisio..." alt="" coords="108,107,235,134"/>
-<area shape="poly" title=" " alt="" coords="396,79,236,111,235,106,390,80"/>
-<area shape="poly" title=" " alt="" coords="266,37,217,57,215,52,271,36"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,81,60,109"/>
-<area shape="poly" title=" " alt="" coords="97,84,61,93,59,87,101,81"/>
-<area shape="poly" title=" " alt="" coords="90,107,60,103,60,97,95,105"/>
-</map>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="BUZ__program_8c_aee43f9ae5f162980c0e95c9a96694e4a_cgraph.svg" width="495" height="91"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="BUZ__program_8c_aee43f9ae5f162980c0e95c9a96694e4a_icgraph.svg" width="352" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -244,7 +176,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> BUZ_On </td>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> BUZ_On </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structBUZ__Config__t.html">BUZ_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>Config</em></span></td><td>)</td>
           <td></td>
@@ -259,33 +191,68 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>: Error state </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a>: Error state </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="BUZ__program_8c_source.html#l00055">55</a> of file <a class="el" href="BUZ__program_8c_source.html">BUZ_program.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="BUZ__program_8c_ab7f7f6ad4821bcc1ce356a6912597511_cgraph.png" border="0" usemap="#aBUZ__program_8c_ab7f7f6ad4821bcc1ce356a6912597511_cgraph" loading="lazy" alt=""/></div>
-<map name="aBUZ__program_8c_ab7f7f6ad4821bcc1ce356a6912597511_cgraph" id="aBUZ__program_8c_ab7f7f6ad4821bcc1ce356a6912597511_cgraph">
-<area shape="rect" title="Turn on the buzzer." alt="" coords="5,5,80,33"/>
-<area shape="rect" href="GPIO__prog_8c.html#ab8efebd278bcf731012c238a3f69fb5c" title=" " alt="" coords="128,5,300,33"/>
-<area shape="poly" title=" " alt="" coords="80,17,115,19,109,20,80,22"/>
-</map>
+<p class="definition">Definition at line <a class="el" href="BUZ__program_8c_source.html#l00053">53</a> of file <a class="el" href="BUZ__program_8c_source.html">BUZ_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="BUZ__interface_8h_source.html#l00033">BUZ_Config_t::ActiveState</a>, <a class="el" href="BUZ__interface_8h_source.html#l00023">BUZ_ACTIVE_HIGH</a>, <a class="el" href="GPIO__prog_8c_source.html#l00475">GPIO_enumWritePinVal()</a>, <a class="el" href="GPIO__interface_8h_source.html#l00142">GPIO_PIN_HIGH</a>, <a class="el" href="GPIO__interface_8h_source.html#l00141">GPIO_PIN_LOW</a>, <a class="el" href="ErrTypes_8h_source.html#l00043">NOK</a>, <a class="el" href="ErrTypes_8h_source.html#l00024">NULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="BUZ__interface_8h_source.html#l00032">BUZ_Config_t::Pin</a>, and <a class="el" href="BUZ__interface_8h_source.html#l00031">BUZ_Config_t::Port</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="System_8c_source.html#l00133">System_setup()</a>, and <a class="el" href="main_8c_source.html#l00334">vTask_Feedback()</a>.</p>
+<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="BUZ__program_8c_ab7f7f6ad4821bcc1ce356a6912597511_icgraph.png" border="0" usemap="#aBUZ__program_8c_ab7f7f6ad4821bcc1ce356a6912597511_icgraph" loading="lazy" alt=""/></div>
-<map name="aBUZ__program_8c_ab7f7f6ad4821bcc1ce356a6912597511_icgraph" id="aBUZ__program_8c_ab7f7f6ad4821bcc1ce356a6912597511_icgraph">
-<area shape="rect" title="Turn on the buzzer." alt="" coords="283,32,357,60"/>
-<area shape="rect" href="System_8c.html#ae436954cd2bde6634ab271317d2494a7" title=" " alt="" coords="115,5,228,33"/>
-<area shape="poly" title=" " alt="" coords="265,37,228,32,228,27,270,36"/>
-<area shape="rect" href="main_8c.html#a96452f43e9871212929e6e6a969bec13" title="Alert manager (the &quot;Muscle&quot;): drives the LEDs + buzzer from the ADAS status word. It makes NO decisio..." alt="" coords="108,57,235,85"/>
-<area shape="poly" title=" " alt="" coords="270,54,236,63,235,58,265,55"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,32,60,60"/>
-<area shape="poly" title=" " alt="" coords="97,35,61,43,59,38,101,31"/>
-<area shape="poly" title=" " alt="" coords="90,58,60,53,60,48,95,56"/>
-</map>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="BUZ__program_8c_ab7f7f6ad4821bcc1ce356a6912597511_cgraph.svg" width="306" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="BUZ__program_8c_ab7f7f6ad4821bcc1ce356a6912597511_icgraph.svg" width="363" height="91"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a6ea5cda725dca71e4c638f57f43eecd7" name="a6ea5cda725dca71e4c638f57f43eecd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ea5cda725dca71e4c638f57f43eecd7">&#9670;&#160;</a></span>BUZ_Off()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> BUZ_Off </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structBUZ__Config__t.html">BUZ_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>Config</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Turn off the buzzer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Config</td><td>Pointer to buzzer configuration structure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a>: Error state </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="BUZ__program_8c_source.html#l00073">73</a> of file <a class="el" href="BUZ__program_8c_source.html">BUZ_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="BUZ__interface_8h_source.html#l00033">BUZ_Config_t::ActiveState</a>, <a class="el" href="BUZ__interface_8h_source.html#l00023">BUZ_ACTIVE_HIGH</a>, <a class="el" href="GPIO__prog_8c_source.html#l00475">GPIO_enumWritePinVal()</a>, <a class="el" href="GPIO__interface_8h_source.html#l00142">GPIO_PIN_HIGH</a>, <a class="el" href="GPIO__interface_8h_source.html#l00141">GPIO_PIN_LOW</a>, <a class="el" href="ErrTypes_8h_source.html#l00043">NOK</a>, <a class="el" href="ErrTypes_8h_source.html#l00024">NULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="BUZ__interface_8h_source.html#l00032">BUZ_Config_t::Pin</a>, and <a class="el" href="BUZ__interface_8h_source.html#l00031">BUZ_Config_t::Port</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="BUZ__program_8c_source.html#l00017">BUZ_Init()</a>, <a class="el" href="System_8c_source.html#l00133">System_setup()</a>, and <a class="el" href="main_8c_source.html#l00334">vTask_Feedback()</a>.</p>
+<div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="BUZ__program_8c_a6ea5cda725dca71e4c638f57f43eecd7_cgraph.svg" width="307" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-6" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="BUZ__program_8c_a6ea5cda725dca71e4c638f57f43eecd7_icgraph.svg" width="490" height="140"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -297,7 +264,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> BUZ_Toggle </td>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> BUZ_Toggle </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structBUZ__Config__t.html">BUZ_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>Config</em></span></td><td>)</td>
           <td></td>
@@ -312,18 +279,16 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>: Error state </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a>: Error state </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="BUZ__program_8c_source.html#l00096">96</a> of file <a class="el" href="BUZ__program_8c_source.html">BUZ_program.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="BUZ__program_8c_aaee2a85a84cc58a2be5fa0e7c32e5837_cgraph.png" border="0" usemap="#aBUZ__program_8c_aaee2a85a84cc58a2be5fa0e7c32e5837_cgraph" loading="lazy" alt=""/></div>
-<map name="aBUZ__program_8c_aaee2a85a84cc58a2be5fa0e7c32e5837_cgraph" id="aBUZ__program_8c_aaee2a85a84cc58a2be5fa0e7c32e5837_cgraph">
-<area shape="rect" title="Toggle the buzzer state." alt="" coords="5,5,104,33"/>
-<area shape="rect" href="GPIO__prog_8c.html#aacd1fe5ce0d15fd5040c41745409ca20" title=" " alt="" coords="152,5,311,33"/>
-<area shape="poly" title=" " alt="" coords="104,17,139,19,133,19,104,22"/>
-</map>
+<p class="definition">Definition at line <a class="el" href="BUZ__program_8c_source.html#l00094">94</a> of file <a class="el" href="BUZ__program_8c_source.html">BUZ_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="GPIO__prog_8c_source.html#l00543">GPIO_enumTogPinVal()</a>, <a class="el" href="ErrTypes_8h_source.html#l00043">NOK</a>, <a class="el" href="ErrTypes_8h_source.html#l00024">NULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="BUZ__interface_8h_source.html#l00032">BUZ_Config_t::Pin</a>, and <a class="el" href="BUZ__interface_8h_source.html#l00031">BUZ_Config_t::Port</a>.</p>
+<div id="dynsection-7" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="BUZ__program_8c_aaee2a85a84cc58a2be5fa0e7c32e5837_cgraph.svg" width="316" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -341,7 +306,7 @@ Here is the call graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_413f4e031a85da0d68269c6fd2f76e1c.html">Src</a></li><li class="navelem"><a href="BUZ__program_8c.html">BUZ_program.c</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Src</b></li><li class="navelem"><a href="BUZ__program_8c.html">BUZ_program.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

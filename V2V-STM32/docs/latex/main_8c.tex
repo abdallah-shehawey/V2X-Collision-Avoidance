@@ -1,8 +1,8 @@
-\doxysection{Src/\+main.c File Reference}
-\hypertarget{main_8c}{}\label{main_8c}\index{Src/main.c@{Src/main.c}}
+\doxysection{V2\+V-\/\+STM32/\+\+Src/\+main.c File Reference}
+\hypertarget{main_8c}{}\label{main_8c}\index{V2V-\/STM32/Src/main.c@{V2V-\/STM32/Src/main.c}}
 
 
-:\+ Main program body  
+Entry point, the six Free\+RTOS tasks, and the watchdog liveness net.  
 
 
 {\ttfamily \+\#include $<$stdint.\+h$>$}\newline
@@ -37,25 +37,25 @@ Include dependency graph for main.\+c:\+
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\+\#define \doxymbox{\hyperlink{main_8c_a83bb26015dd24416bf6b59ad49e55c9b}{WDG\+\_\+\+TIMEOUT\+\_\+\+MS}}~2000U   /\+\texorpdfstring{$\ast$}{*} IWDG hardware reset timeout (LSI-\/backed) \texorpdfstring{$\ast$}{*}/\+
-\item 
-\+\#define \doxymbox{\hyperlink{main_8c_afee5313facd23b9a57c62ae9212967da}{WDG\+\_\+\+CHECK\+\_\+\+PERIOD\+\_\+\+MS}}~300U   /\+\texorpdfstring{$\ast$}{*} how often the monitor verifies + kicks   \texorpdfstring{$\ast$}{*}/\+
-\item 
-\+\#define \doxymbox{\hyperlink{main_8c_a78b344cdce85e4af3d1925ebfe42b907}{SENSORS\+\_\+\+CYCLE\+\_\+\+GAP\+\_\+\+MS}}~10U
-\end{DoxyCompactItemize}
+\+\#define \doxymbox{\hyperlink{main_8c_a83bb26015dd24416bf6b59ad49e55c9b}{WDG\+\_\+\+TIMEOUT\+\_\+\+MS}}
+\begin{DoxyCompactList}\small\item\em How long the IWDG will wait before resetting the MCU \+[ms]\+. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{main_8c_afee5313facd23b9a57c62ae9212967da}{WDG\+\_\+\+CHECK\+\_\+\+PERIOD\+\_\+\+MS}}
+\begin{DoxyCompactList}\small\item\em How often \doxylink{main_8c_ae1bcb9c7fb7ee6cb777db33125685421}{v\+Task\+\_\+\+Watchdog} checks the heartbeats and kicks the IWDG \+[ms]\+. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{main_8c_a78b344cdce85e4af3d1925ebfe42b907}{SENSORS\+\_\+\+CYCLE\+\_\+\+GAP\+\_\+\+MS}}
+\begin{DoxyCompactList}\small\item\em Rest inserted after each full 6-\/sensor scan \+[ms]\+. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
 enum \{ \newline
-\doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a6ee3238ee2d20bffcd8978324484c80d}{HB\+\_\+\+SAFETY}} = 0
-, \doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a1b3618ccc2aaf62c2c021f869a7a963a}{HB\+\_\+\+SENSORS}}
-, \doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a7c5b8595d98f89afda7c3c33f78fa1b3}{HB\+\_\+\+ESP}}
-, \doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a8a36182c5a9963f01fdf377df752c75f}{HB\+\_\+\+FEEDBACK}}
+\doxymbox{\hyperlink{main_8c_a8b46a0a2e186c5a4e1157910e1117839a6ee3238ee2d20bffcd8978324484c80d}{HB\+\_\+\+SAFETY}}
+, \doxymbox{\hyperlink{main_8c_a8b46a0a2e186c5a4e1157910e1117839a1b3618ccc2aaf62c2c021f869a7a963a}{HB\+\_\+\+SENSORS}}
+, \doxymbox{\hyperlink{main_8c_a8b46a0a2e186c5a4e1157910e1117839a7c5b8595d98f89afda7c3c33f78fa1b3}{HB\+\_\+\+ESP}}
+, \doxymbox{\hyperlink{main_8c_a8b46a0a2e186c5a4e1157910e1117839a8a36182c5a9963f01fdf377df752c75f}{HB\+\_\+\+FEEDBACK}}
 , \newline
-\doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4adf27abbb63f7e1861230371663fd6036}{HB\+\_\+\+RPI}}
-, \doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a23545dde189472e9f2a5d3f98b441486}{HB\+\_\+\+COUNT}}
+\doxymbox{\hyperlink{main_8c_a8b46a0a2e186c5a4e1157910e1117839adf27abbb63f7e1861230371663fd6036}{HB\+\_\+\+RPI}}
+, \doxymbox{\hyperlink{main_8c_a8b46a0a2e186c5a4e1157910e1117839a23545dde189472e9f2a5d3f98b441486}{HB\+\_\+\+COUNT}}
  \}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em One heartbeat slot per monitored task — see \doxysectlink{main_8c_main_wdg}{The watchdog net}{1}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -64,55 +64,64 @@ void \doxymbox{\hyperlink{main_8c_a1fa00ec0e4cf92155fcaa535be5ab3a1}{v\+Task\+\_
 void \doxymbox{\hyperlink{main_8c_a6124e00be85460e2af1224524c6c2278}{v\+Task\+\_\+\+Sensors}} (void \texorpdfstring{$\ast$}{*}pv\+Parameters)
 \begin{DoxyCompactList}\small\item\em Reads ALL 6 ultrasonics + MPU9250 every cycle, then a small gap. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{main_8c_a96452f43e9871212929e6e6a969bec13}{v\+Task\+\_\+\+Feedback}} (void \texorpdfstring{$\ast$}{*}pv\+Parameters)
-\begin{DoxyCompactList}\small\item\em Alert manager (the "{}\+Muscle"{}):\+ drives the LEDs + buzzer from the ADAS status word. It makes NO decision of its own — it only renders the severity that v\+Task\+\_\+\+Safety\+Engine already published. (Motors are driven by the Raspberry Pi, not here.). \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Alert manager (the "{}\+Muscle"{}):\+ drives the LEDs + buzzer from the ADAS status word. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{main_8c_a8e83024643794f31ab8139cbdb1de5dd}{v\+Task\+\_\+\+ESP\+\_\+\+Comm}} (void \texorpdfstring{$\ast$}{*}pv\+Parameters)
 \begin{DoxyCompactList}\small\item\em Handles both RX and TX communication with ESP (V2X Network) using DSRC foundation. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{main_8c_a0d8bacb322388f8284803eeccc5612c0}{v\+Task\+\_\+\+RPi\+\_\+\+Comm}} (void \texorpdfstring{$\ast$}{*}pv\+Parameters)
-\item 
+\begin{DoxyCompactList}\small\item\em Streams one ASCII CSV telemetry line to the Raspberry Pi every 100 ms. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{main_8c_ae1bcb9c7fb7ee6cb777db33125685421}{v\+Task\+\_\+\+Watchdog}} (void \texorpdfstring{$\ast$}{*}pv\+Parameters)
 \begin{DoxyCompactList}\small\item\em Liveness monitor + watchdog kicker (lowest priority). \end{DoxyCompactList}\item 
 int \doxymbox{\hyperlink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Firmware entry point:\+ bring up the board, create the tasks, start the OS. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{main_8c_a88b12403f1d9bc8cff413fbbde56e15d}{v\+ESP\+\_\+\+UART\+\_\+\+RX\+\_\+\+Callback}} (void)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em USART1 receive ISR callback:\+ push one byte onto \doxylink{main_8c_a2c251aeac2c84008a206658c306be262}{G\+\_\+x\+ESP\+\_\+\+RX\+\_\+\+Queue}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-\doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{main_8c_a4f097a0ea23201e71704715ba21668a1}{V2\+X\+\_\+\+Buzzer}}
-\item 
-\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{main_8c_a305c18e4f4654cb56286827ae4d3883b}{RPi\+\_\+\+UART}}
-\item 
-\doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{main_8c_aed057ac0b23c05f6b02ef3bfed8bfa27}{Front\+US}} \+[3]\+
-\item 
-\doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{main_8c_a2b0e497a0b4ecc48b5dd5fef9623d4f3}{Back\+US}} \+[3]\+
-\item 
-\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{main_8c_af1fb4a43ba68d1fdc94fd35a7d901cd4}{Front\+R\+\_\+\+LED}}
-\item 
-\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{main_8c_a2ab79e3f6235026ef8d29a9446511f48}{Front\+L\+\_\+\+LED}}
-\item 
-\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{main_8c_ae41df9dd37d7c4d27b829fd46cd1e5e3}{Back\+R\+\_\+\+LED}}
-\item 
-\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{main_8c_abfc8237214cfd1267c607aaff66a96da}{Back\+L\+\_\+\+LED}}
-\item 
-\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{main_8c_aa7037844a95faca4f50aae714fe5048a}{Interior\+\_\+\+LED}}
-\item 
 Queue\+Handle\+\_\+t \doxymbox{\hyperlink{main_8c_a2c251aeac2c84008a206658c306be262}{G\+\_\+x\+ESP\+\_\+\+RX\+\_\+\+Queue}}
-\item 
+\begin{DoxyCompactList}\small\item\em Bytes received on USART1, handed from the RX ISR to \doxylink{main_8c_a8e83024643794f31ab8139cbdb1de5dd}{v\+Task\+\_\+\+ESP\+\_\+\+Comm}. \end{DoxyCompactList}\item 
 Semaphore\+Handle\+\_\+t \doxymbox{\hyperlink{main_8c_a101fd1911cf8e567c729470ceb6d2fb8}{G\+\_\+x\+Data\+Mutex}}
-\item 
+\begin{DoxyCompactList}\small\item\em Guards \doxylink{group__system_gac3116f56a230ebdd81cadd527921464c}{G\+\_\+st\+Host\+Vehicle\+State} and \doxylink{group__system_ga9e78367aa5b758af972838362c2b0eab}{G\+\_\+u16\+System\+Flags}. \end{DoxyCompactList}\item 
 Semaphore\+Handle\+\_\+t \doxymbox{\hyperlink{main_8c_ab31e36f89b28f343b708712d4346780a}{G\+\_\+x\+Neighbor\+Table\+Mutex}}
+\begin{DoxyCompactList}\small\item\em Guards the DSRC neighbor table. \end{DoxyCompactList}\item 
+volatile uint32\+\_\+t \doxymbox{\hyperlink{main_8c_abf287e574f76db7ad0c43062a788d58c}{G\+\_\+au32\+Heartbeat}} \+[\doxymbox{\hyperlink{main_8c_a8b46a0a2e186c5a4e1157910e1117839a23545dde189472e9f2a5d3f98b441486}{HB\+\_\+\+COUNT}}]\+
+\begin{DoxyCompactList}\small\item\em The heartbeat counters, one per entry of the enum above. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{Indent}\textbf{ Board objects}\par
+{\em Defined in {\ttfamily \doxylink{System_8c}{System.\+c}}; declared here because the tasks below drive them. }\begin{DoxyCompactItemize}
 \item 
-volatile uint32\+\_\+t \doxymbox{\hyperlink{main_8c_abf287e574f76db7ad0c43062a788d58c}{G\+\_\+au32\+Heartbeat}} \+[\doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a23545dde189472e9f2a5d3f98b441486}{HB\+\_\+\+COUNT}}]\+ = \{0\}
-\end{DoxyCompactItemize}
+\doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{main_8c_a4f097a0ea23201e71704715ba21668a1}{V2\+X\+\_\+\+Buzzer}}
+\begin{DoxyCompactList}\small\item\em The piezo buzzer (PC4). \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{main_8c_a305c18e4f4654cb56286827ae4d3883b}{RPi\+\_\+\+UART}}
+\begin{DoxyCompactList}\small\item\em USART2 — the Raspberry Pi telemetry link. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{main_8c_aed057ac0b23c05f6b02ef3bfed8bfa27}{Front\+US}} \+[3]\+
+\begin{DoxyCompactList}\small\item\em Front ultrasonics, in the order left, centre, right. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{main_8c_a2b0e497a0b4ecc48b5dd5fef9623d4f3}{Back\+US}} \+[3]\+
+\begin{DoxyCompactList}\small\item\em Rear ultrasonics, in the order left, centre, right. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{group__system_gaf1fb4a43ba68d1fdc94fd35a7d901cd4}{Front\+R\+\_\+\+LED}}
+\begin{DoxyCompactList}\small\item\em Front-\/right LED (PC0). \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{group__system_ga2ab79e3f6235026ef8d29a9446511f48}{Front\+L\+\_\+\+LED}}
+\begin{DoxyCompactList}\small\item\em Front-\/left LED (PC1). \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{group__system_gae41df9dd37d7c4d27b829fd46cd1e5e3}{Back\+R\+\_\+\+LED}}
+\begin{DoxyCompactList}\small\item\em Rear-\/right LED (PC2). \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{group__system_gabfc8237214cfd1267c607aaff66a96da}{Back\+L\+\_\+\+LED}}
+\begin{DoxyCompactList}\small\item\em Rear-\/left LED (PC3). \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{group__system_gaa7037844a95faca4f50aae714fe5048a}{Interior\+\_\+\+LED}}
+\begin{DoxyCompactList}\small\item\em Interior/\+dashboard LED (PC7). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
 
 
 \doxysubsection{Detailed Description}
-:\+ Main program body 
+Entry point, the six Free\+RTOS tasks, and the watchdog liveness net. 
 
 \begin{DoxyAuthor}{Author}
-:\+ Abdallah Saleh  
+Abdallah Saleh 
 \end{DoxyAuthor}
+{\ttfamily \doxylink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main()}} brings the board up (\doxylink{group__system_gae436954cd2bde6634ab271317d2494a7}{System\+\_\+setup}), then hands control to the scheduler (\doxylink{group__system_ga9f28a641641de8e783815ab1fa92549f}{RTOS\+\_\+setup}). Everything after that happens in one of six tasks; see \doxysectlink{System_8h_sys_tasks}{Task set}{1} for their priorities and periods.
 
+The tasks are deliberately split {\bfseries{brain /\+ muscle}}:\+ \doxylink{main_8c_a1fa00ec0e4cf92155fcaa535be5ab3a1}{v\+Task\+\_\+\+Safety\+Engine} decides, and nothing else does. It writes its verdict into \doxylink{group__system_ga9e78367aa5b758af972838362c2b0eab}{G\+\_\+u16\+System\+Flags}, and \doxylink{main_8c_a96452f43e9871212929e6e6a969bec13}{v\+Task\+\_\+\+Feedback} simply renders that word onto the LEDs and buzzer without re-\/deriving anything.\hypertarget{main_8c_main_wdg}{}\doxysubsection{\texorpdfstring{The watchdog net}{The watchdog net}}\label{main_8c_main_wdg}
+Every monitored task bumps its own slot in \doxylink{main_8c_abf287e574f76db7ad0c43062a788d58c}{G\+\_\+au32\+Heartbeat} on each loop. \doxylink{main_8c_ae1bcb9c7fb7ee6cb777db33125685421}{v\+Task\+\_\+\+Watchdog} refreshes the hardware IWDG {\bfseries{only while every slot is still advancing}}. If any single task stalls — hard fault, stack overflow, infinite loop, ISR storm, or simple starvation — its slot freezes, the refresh stops, and the IWDG hardware-\/resets the MCU after \doxylink{main_8c_a83bb26015dd24416bf6b59ad49e55c9b}{WDG\+\_\+\+TIMEOUT\+\_\+\+MS}.
+
+This is why the check is per-\/task rather than a single "{}\+I\textquotesingle{}m alive"{} flag:\+ a watchdog kicked from one healthy task would happily keep the MCU running with a dead ADAS task. 
 
 Definition in file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
 
@@ -121,214 +130,123 @@ Definition in file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
 \label{doc-define-members}
 \Hypertarget{main_8c_doc-define-members}
 \doxysubsection{Macro Definition Documentation}
-\Hypertarget{main_8c_a78b344cdce85e4af3d1925ebfe42b907}\index{main.c@{main.c}!SENSORS\_CYCLE\_GAP\_MS@{SENSORS\_CYCLE\_GAP\_MS}}
-\index{SENSORS\_CYCLE\_GAP\_MS@{SENSORS\_CYCLE\_GAP\_MS}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{SENSORS\_CYCLE\_GAP\_MS}{SENSORS\_CYCLE\_GAP\_MS}}
-{\footnotesize\ttfamily \label{main_8c_a78b344cdce85e4af3d1925ebfe42b907} 
-\+\#define SENSORS\+\_\+\+CYCLE\+\_\+\+GAP\+\_\+\+MS~10U}
+\Hypertarget{main_8c_a83bb26015dd24416bf6b59ad49e55c9b}\index{main.c@{main.c}!WDG\_TIMEOUT\_MS@{WDG\_TIMEOUT\_MS}}
+\index{WDG\_TIMEOUT\_MS@{WDG\_TIMEOUT\_MS}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{WDG\_TIMEOUT\_MS}{WDG\_TIMEOUT\_MS}}
+{\footnotesize\ttfamily \label{main_8c_a83bb26015dd24416bf6b59ad49e55c9b} 
+\+\#define WDG\+\_\+\+TIMEOUT\+\_\+\+MS}
 
 
 
-Definition at line \doxymbox{\hyperlink{main_8c_source_l00148}{148}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+How long the IWDG will wait before resetting the MCU \+[ms]\+. 
+
+\begin{DoxyNote}{Note}
+Clocked from the LSI, which is only accurate to about ±50\%, so this is a generous multiple of \doxylink{main_8c_afee5313facd23b9a57c62ae9212967da}{WDG\+\_\+\+CHECK\+\_\+\+PERIOD\+\_\+\+MS} rather than a tight bound. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{main_8c_source_l00117}{117}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00147}{main()}}.
 
 \Hypertarget{main_8c_afee5313facd23b9a57c62ae9212967da}\index{main.c@{main.c}!WDG\_CHECK\_PERIOD\_MS@{WDG\_CHECK\_PERIOD\_MS}}
 \index{WDG\_CHECK\_PERIOD\_MS@{WDG\_CHECK\_PERIOD\_MS}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{WDG\_CHECK\_PERIOD\_MS}{WDG\_CHECK\_PERIOD\_MS}}
 {\footnotesize\ttfamily \label{main_8c_afee5313facd23b9a57c62ae9212967da} 
-\+\#define WDG\+\_\+\+CHECK\+\_\+\+PERIOD\+\_\+\+MS~300U   /\+\texorpdfstring{$\ast$}{*} how often the monitor verifies + kicks   \texorpdfstring{$\ast$}{*}/\+}
+\+\#define WDG\+\_\+\+CHECK\+\_\+\+PERIOD\+\_\+\+MS}
 
 
 
-Definition at line \doxymbox{\hyperlink{main_8c_source_l00056}{56}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
-
-\Hypertarget{main_8c_a83bb26015dd24416bf6b59ad49e55c9b}\index{main.c@{main.c}!WDG\_TIMEOUT\_MS@{WDG\_TIMEOUT\_MS}}
-\index{WDG\_TIMEOUT\_MS@{WDG\_TIMEOUT\_MS}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{WDG\_TIMEOUT\_MS}{WDG\_TIMEOUT\_MS}}
-{\footnotesize\ttfamily \label{main_8c_a83bb26015dd24416bf6b59ad49e55c9b} 
-\+\#define WDG\+\_\+\+TIMEOUT\+\_\+\+MS~2000U   /\+\texorpdfstring{$\ast$}{*} IWDG hardware reset timeout (LSI-\/backed) \texorpdfstring{$\ast$}{*}/\+}
+How often \doxylink{main_8c_ae1bcb9c7fb7ee6cb777db33125685421}{v\+Task\+\_\+\+Watchdog} checks the heartbeats and kicks the IWDG \+[ms]\+. 
 
 
 
-Definition at line \doxymbox{\hyperlink{main_8c_source_l00055}{55}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \doxymbox{\hyperlink{main_8c_source_l00120}{120}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00534}{v\+Task\+\_\+\+Watchdog()}}.
+
+\Hypertarget{main_8c_a78b344cdce85e4af3d1925ebfe42b907}\index{main.c@{main.c}!SENSORS\_CYCLE\_GAP\_MS@{SENSORS\_CYCLE\_GAP\_MS}}
+\index{SENSORS\_CYCLE\_GAP\_MS@{SENSORS\_CYCLE\_GAP\_MS}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{SENSORS\_CYCLE\_GAP\_MS}{SENSORS\_CYCLE\_GAP\_MS}}
+{\footnotesize\ttfamily \label{main_8c_a78b344cdce85e4af3d1925ebfe42b907} 
+\+\#define SENSORS\+\_\+\+CYCLE\+\_\+\+GAP\+\_\+\+MS}
+
+
+
+Rest inserted after each full 6-\/sensor scan \+[ms]\+. 
+
+Two jobs:\+ it guarantees the lower-\/priority tasks some CPU, and it sets the minimum spacing between scans. The scan itself has no fixed length — it is adaptive, because each reading takes as long as its echo takes to come back, so near objects produce a naturally faster refresh than distant ones. 
+
+Definition at line \doxymbox{\hyperlink{main_8c_source_l00230}{230}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00247}{v\+Task\+\_\+\+Sensors()}}.
 
 
 
 \label{doc-enum-members}
 \Hypertarget{main_8c_doc-enum-members}
 \doxysubsection{Enumeration Type Documentation}
-\Hypertarget{main_8c_a2fb3f953ca886909cc9636f8a3660fc4}\doxysubsubsection{\texorpdfstring{anonymous enum}{anonymous enum}}
-{\footnotesize\ttfamily \label{main_8c_a2fb3f953ca886909cc9636f8a3660fc4} 
+\Hypertarget{main_8c_a8b46a0a2e186c5a4e1157910e1117839}\doxysubsubsection{\texorpdfstring{anonymous enum}{anonymous enum}}
+{\footnotesize\ttfamily \label{main_8c_a8b46a0a2e186c5a4e1157910e1117839} 
 anonymous enum}
 
-\begin{DoxyEnumFields}[2]{Enumerator}
+
+
+One heartbeat slot per monitored task — see \doxysectlink{main_8c_main_wdg}{The watchdog net}{1}. 
+
+\begin{DoxyEnumFields}[3]{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{HB\_SAFETY@{HB\_SAFETY}!main.c@{main.c}}
 \index{main.c@{main.c}!HB\_SAFETY@{HB\_SAFETY}}
-}\Hypertarget{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a6ee3238ee2d20bffcd8978324484c80d}\label{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a6ee3238ee2d20bffcd8978324484c80d} 
-HB\+\_\+\+SAFETY&\\
+}\Hypertarget{main_8c_a8b46a0a2e186c5a4e1157910e1117839a6ee3238ee2d20bffcd8978324484c80d}\label{main_8c_a8b46a0a2e186c5a4e1157910e1117839a6ee3238ee2d20bffcd8978324484c80d} 
+HB\+\_\+\+SAFETY&0&Slot bumped by \doxylink{main_8c_a1fa00ec0e4cf92155fcaa535be5ab3a1}{v\+Task\+\_\+\+Safety\+Engine}. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{HB\_SENSORS@{HB\_SENSORS}!main.c@{main.c}}
 \index{main.c@{main.c}!HB\_SENSORS@{HB\_SENSORS}}
-}\Hypertarget{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a1b3618ccc2aaf62c2c021f869a7a963a}\label{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a1b3618ccc2aaf62c2c021f869a7a963a} 
-HB\+\_\+\+SENSORS&\\
+}\Hypertarget{main_8c_a8b46a0a2e186c5a4e1157910e1117839a1b3618ccc2aaf62c2c021f869a7a963a}\label{main_8c_a8b46a0a2e186c5a4e1157910e1117839a1b3618ccc2aaf62c2c021f869a7a963a} 
+HB\+\_\+\+SENSORS&&Slot bumped by \doxylink{main_8c_a6124e00be85460e2af1224524c6c2278}{v\+Task\+\_\+\+Sensors}. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{HB\_ESP@{HB\_ESP}!main.c@{main.c}}
 \index{main.c@{main.c}!HB\_ESP@{HB\_ESP}}
-}\Hypertarget{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a7c5b8595d98f89afda7c3c33f78fa1b3}\label{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a7c5b8595d98f89afda7c3c33f78fa1b3} 
-HB\+\_\+\+ESP&\\
+}\Hypertarget{main_8c_a8b46a0a2e186c5a4e1157910e1117839a7c5b8595d98f89afda7c3c33f78fa1b3}\label{main_8c_a8b46a0a2e186c5a4e1157910e1117839a7c5b8595d98f89afda7c3c33f78fa1b3} 
+HB\+\_\+\+ESP&&Slot bumped by \doxylink{main_8c_a8e83024643794f31ab8139cbdb1de5dd}{v\+Task\+\_\+\+ESP\+\_\+\+Comm}. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{HB\_FEEDBACK@{HB\_FEEDBACK}!main.c@{main.c}}
 \index{main.c@{main.c}!HB\_FEEDBACK@{HB\_FEEDBACK}}
-}\Hypertarget{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a8a36182c5a9963f01fdf377df752c75f}\label{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a8a36182c5a9963f01fdf377df752c75f} 
-HB\+\_\+\+FEEDBACK&\\
+}\Hypertarget{main_8c_a8b46a0a2e186c5a4e1157910e1117839a8a36182c5a9963f01fdf377df752c75f}\label{main_8c_a8b46a0a2e186c5a4e1157910e1117839a8a36182c5a9963f01fdf377df752c75f} 
+HB\+\_\+\+FEEDBACK&&Slot bumped by \doxylink{main_8c_a96452f43e9871212929e6e6a969bec13}{v\+Task\+\_\+\+Feedback}. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{HB\_RPI@{HB\_RPI}!main.c@{main.c}}
 \index{main.c@{main.c}!HB\_RPI@{HB\_RPI}}
-}\Hypertarget{main_8c_a2fb3f953ca886909cc9636f8a3660fc4adf27abbb63f7e1861230371663fd6036}\label{main_8c_a2fb3f953ca886909cc9636f8a3660fc4adf27abbb63f7e1861230371663fd6036} 
-HB\+\_\+\+RPI&\\
+}\Hypertarget{main_8c_a8b46a0a2e186c5a4e1157910e1117839adf27abbb63f7e1861230371663fd6036}\label{main_8c_a8b46a0a2e186c5a4e1157910e1117839adf27abbb63f7e1861230371663fd6036} 
+HB\+\_\+\+RPI&&Slot bumped by \doxylink{main_8c_a0d8bacb322388f8284803eeccc5612c0}{v\+Task\+\_\+\+RPi\+\_\+\+Comm}. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{HB\_COUNT@{HB\_COUNT}!main.c@{main.c}}
 \index{main.c@{main.c}!HB\_COUNT@{HB\_COUNT}}
-}\Hypertarget{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a23545dde189472e9f2a5d3f98b441486}\label{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a23545dde189472e9f2a5d3f98b441486} 
-HB\+\_\+\+COUNT&\\
+}\Hypertarget{main_8c_a8b46a0a2e186c5a4e1157910e1117839a23545dde189472e9f2a5d3f98b441486}\label{main_8c_a8b46a0a2e186c5a4e1157910e1117839a23545dde189472e9f2a5d3f98b441486} 
+HB\+\_\+\+COUNT&&Number of monitored tasks; not a slot itself. \\
 \hline
 
 \end{DoxyEnumFields}
 
 
-Definition at line \doxymbox{\hyperlink{main_8c_source_l00052}{52}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \doxymbox{\hyperlink{main_8c_source_l00095}{95}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
 \label{doc-func-members}
 \Hypertarget{main_8c_doc-func-members}
 \doxysubsection{Function Documentation}
-\Hypertarget{main_8c_a840291bc02cba5474a4cb46a9b9566fe}\index{main.c@{main.c}!main@{main}}
-\index{main@{main}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{main()}{main()}}
-{\footnotesize\ttfamily \label{main_8c_a840291bc02cba5474a4cb46a9b9566fe} 
-int main (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{main_8c_source_l00072}{72}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
-
-Here is the call graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[height=550pt]{main_8c_a840291bc02cba5474a4cb46a9b9566fe_cgraph}
-\end{center}
-\end{figure}
-\Hypertarget{main_8c_a88b12403f1d9bc8cff413fbbde56e15d}\index{main.c@{main.c}!vESP\_UART\_RX\_Callback@{vESP\_UART\_RX\_Callback}}
-\index{vESP\_UART\_RX\_Callback@{vESP\_UART\_RX\_Callback}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{vESP\_UART\_RX\_Callback()}{vESP\_UART\_RX\_Callback()}}
-{\footnotesize\ttfamily \label{main_8c_a88b12403f1d9bc8cff413fbbde56e15d} 
-void v\+ESP\+\_\+\+UART\+\_\+\+RX\+\_\+\+Callback (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{main_8c_source_l00460}{460}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
-
-Here is the call graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{main_8c_a88b12403f1d9bc8cff413fbbde56e15d_cgraph}
-\end{center}
-\end{figure}
-\Hypertarget{main_8c_a8e83024643794f31ab8139cbdb1de5dd}\index{main.c@{main.c}!vTask\_ESP\_Comm@{vTask\_ESP\_Comm}}
-\index{vTask\_ESP\_Comm@{vTask\_ESP\_Comm}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{vTask\_ESP\_Comm()}{vTask\_ESP\_Comm()}}
-{\footnotesize\ttfamily \label{main_8c_a8e83024643794f31ab8139cbdb1de5dd} 
-void v\+Task\+\_\+\+ESP\+\_\+\+Comm (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Parameters}{}\end{DoxyParamCaption})}
-
-
-
-Handles both RX and TX communication with ESP (V2X Network) using DSRC foundation. 
-
-RX path (event-\/driven):\+ blocks on G\+\_\+x\+ESP\+\_\+\+RX\+\_\+\+Queue, drains all pending bytes into DSRC state machine, then flushes assembled packets into neighbor table. TX path (periodic 100ms):\+ builds a Neighbor from current host state + ADAS flags and broadcasts via DSRC\+\_\+\+Send\+Neighbor. 
-
-Definition at line \doxymbox{\hyperlink{main_8c_source_l00299}{299}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
-
-Here is the call graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{main_8c_a8e83024643794f31ab8139cbdb1de5dd_cgraph}
-\end{center}
-\end{figure}
-Here is the caller graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=261pt]{main_8c_a8e83024643794f31ab8139cbdb1de5dd_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{main_8c_a96452f43e9871212929e6e6a969bec13}\index{main.c@{main.c}!vTask\_Feedback@{vTask\_Feedback}}
-\index{vTask\_Feedback@{vTask\_Feedback}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{vTask\_Feedback()}{vTask\_Feedback()}}
-{\footnotesize\ttfamily \label{main_8c_a96452f43e9871212929e6e6a969bec13} 
-void v\+Task\+\_\+\+Feedback (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Parameters}{}\end{DoxyParamCaption})}
-
-
-
-Alert manager (the "{}\+Muscle"{}):\+ drives the LEDs + buzzer from the ADAS status word. It makes NO decision of its own — it only renders the severity that v\+Task\+\_\+\+Safety\+Engine already published. (Motors are driven by the Raspberry Pi, not here.). 
-
-Reads G\+\_\+u16\+System\+Flags (2 bits/\+module:\+ 00 safe /\+ 01 warning /\+ 10 critical) and maps it to the actuators exactly as agreed:\+ • all safe (word == 0) → everything OFF. • ANY alert (warning or crit) → interior dashboard LED + buzzer ON. • FCW == CRITICAL → additionally the FRONT LEDs. • EEBL == CRITICAL → additionally the REAR LEDs. • everything else (BSW/\+\+DNPW/\+\+IMA, or FCW/\+\+EEBL at WARNING) adds no extra LED — the interior LED + buzzer is their full response. 
-
-Definition at line \doxymbox{\hyperlink{main_8c_source_l00248}{248}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
-
-Here is the call graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{main_8c_a96452f43e9871212929e6e6a969bec13_cgraph}
-\end{center}
-\end{figure}
-Here is the caller graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=252pt]{main_8c_a96452f43e9871212929e6e6a969bec13_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{main_8c_a0d8bacb322388f8284803eeccc5612c0}\index{main.c@{main.c}!vTask\_RPi\_Comm@{vTask\_RPi\_Comm}}
-\index{vTask\_RPi\_Comm@{vTask\_RPi\_Comm}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{vTask\_RPi\_Comm()}{vTask\_RPi\_Comm()}}
-{\footnotesize\ttfamily \label{main_8c_a0d8bacb322388f8284803eeccc5612c0} 
-void v\+Task\+\_\+\+RPi\+\_\+\+Comm (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Parameters}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{main_8c_source_l00365}{365}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
-
-Here is the call graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{main_8c_a0d8bacb322388f8284803eeccc5612c0_cgraph}
-\end{center}
-\end{figure}
-Here is the caller graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=259pt]{main_8c_a0d8bacb322388f8284803eeccc5612c0_icgraph}
-\end{center}
-\end{figure}
 \Hypertarget{main_8c_a1fa00ec0e4cf92155fcaa535be5ab3a1}\index{main.c@{main.c}!vTask\_SafetyEngine@{vTask\_SafetyEngine}}
 \index{vTask\_SafetyEngine@{vTask\_SafetyEngine}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{vTask\_SafetyEngine()}{vTask\_SafetyEngine()}}
@@ -339,11 +257,24 @@ void v\+Task\+\_\+\+Safety\+Engine (\begin{DoxyParamCaption}\item[{void \texorpd
 
 Single-\/pass ADAS brain. 
 
-Every 50ms:\+ takes BOTH mutexes (neighbor table + host state), then \doxylink{SafetyEngine__interface_8h_a7b6c12632534a82b4357a73306667157}{Safety\+Engine\+\_\+void\+Update()} runs detection for ALL modules in one pass and aggregates the result into the G\+\_\+u16\+System\+Flags status word (2 bits/\+module) consumed by v\+Task\+\_\+\+Feedback and v\+Task\+\_\+\+RPi\+\_\+\+Comm.
+Every 50ms:\+ takes BOTH mutexes (neighbor table + host state), then \doxylink{group__app__safetyengine_ga7b6c12632534a82b4357a73306667157}{Safety\+Engine\+\_\+void\+Update()} runs detection for ALL modules in one pass and aggregates the result into the G\+\_\+u16\+System\+Flags status word (2 bits/\+module) consumed by v\+Task\+\_\+\+Feedback and v\+Task\+\_\+\+RPi\+\_\+\+Comm.
 
 Lock order:\+ Neighbor\+Table → Data. v\+Task\+\_\+\+ESP\+\_\+\+Comm takes them separately (never nested) and v\+Task\+\_\+\+Sensors takes Data only → no deadlock possible. 
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameters} & Unused. Free\+RTOS hands the task the argument given to {\ttfamily x\+Task\+Create}, which is NULL for every task here. \\
+\hline
+\end{DoxyParams}
 
-Definition at line \doxymbox{\hyperlink{main_8c_source_l00125}{125}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+Definition at line \doxymbox{\hyperlink{main_8c_source_l00202}{202}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{main_8c_source_l00110}{G\+\_\+au32\+Heartbeat}}, \doxymbox{\hyperlink{main_8c_source_l00082}{G\+\_\+x\+Data\+Mutex}}, \doxymbox{\hyperlink{main_8c_source_l00090}{G\+\_\+x\+Neighbor\+Table\+Mutex}}, \doxymbox{\hyperlink{main_8c_source_l00096}{HB\+\_\+\+SAFETY}}, and \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00147}{main()}}.
 
 Here is the call graph for this function:\+
 \nopagebreak
@@ -376,8 +307,21 @@ The US driver is interrupt-\/driven:\+ the task SLEEPS during each echo flight (
 Adaptive refresh:\+ full scan ≈ sum of echo times (near objects → \texorpdfstring{$\sim$}{\string~}15-\/45ms, all out of range → \texorpdfstring{$\sim$}{\string~}150ms with the 4m cap). Much faster than the old 300ms.
 
 All values are computed into locals first, then published in ONE short mutex section. Speed stored as cm/\+s so ADAS TTC (distance\+\_\+cm /\+ speed\+\_\+cm\+\_\+s) = seconds. 
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameters} & Unused. Free\+RTOS hands the task the argument given to {\ttfamily x\+Task\+Create}, which is NULL for every task here. \\
+\hline
+\end{DoxyParams}
 
-Definition at line \doxymbox{\hyperlink{main_8c_source_l00163}{163}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+Definition at line \doxymbox{\hyperlink{main_8c_source_l00247}{247}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{System_8c_source_l00057}{Back\+US}}, \doxymbox{\hyperlink{System_8c_source_l00056}{Front\+US}}, \doxymbox{\hyperlink{main_8c_source_l00110}{G\+\_\+au32\+Heartbeat}}, \doxymbox{\hyperlink{System_8c_source_l00036}{G\+\_\+st\+Host\+Vehicle\+State}}, \doxymbox{\hyperlink{main_8c_source_l00082}{G\+\_\+x\+Data\+Mutex}}, \doxymbox{\hyperlink{main_8c_source_l00097}{HB\+\_\+\+SENSORS}}, \doxymbox{\hyperlink{MPU9250__program_8c_source_l00205}{MPU9250\+\_\+enum\+Get\+Attitude()}}, \doxymbox{\hyperlink{MPU9250__program_8c_source_l00252}{MPU9250\+\_\+enum\+Get\+Heading()}}, \doxymbox{\hyperlink{MPU9250__program_8c_source_l00323}{MPU9250\+\_\+enum\+Get\+Position()}}, \doxymbox{\hyperlink{MPU9250__program_8c_source_l00290}{MPU9250\+\_\+enum\+Get\+Speed()}}, \doxymbox{\hyperlink{MPU9250__program_8c_source_l00187}{MPU9250\+\_\+enum\+Read\+Data()}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{main_8c_source_l00230}{SENSORS\+\_\+\+CYCLE\+\_\+\+GAP\+\_\+\+MS}}, \doxymbox{\hyperlink{US__prog_8c_source_l00278}{US\+\_\+u16\+Read\+Distance\+\_\+cm()}}, \doxymbox{\hyperlink{MPU9250__interface_8h_source_l00037}{MPU9250\+\_\+\+Position\+\_\+t::\+X}}, \doxymbox{\hyperlink{MPU9250__interface_8h_source_l00038}{MPU9250\+\_\+\+Position\+\_\+t::\+Y}}, and \doxymbox{\hyperlink{MPU9250__interface_8h_source_l00039}{MPU9250\+\_\+\+Position\+\_\+t::\+Z}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00147}{main()}}.
 
 Here is the call graph for this function:\+
 \nopagebreak
@@ -395,6 +339,141 @@ Here is the caller graph for this function:\+
 \includegraphics[width=244pt]{main_8c_a6124e00be85460e2af1224524c6c2278_icgraph}
 \end{center}
 \end{figure}
+\Hypertarget{main_8c_a96452f43e9871212929e6e6a969bec13}\index{main.c@{main.c}!vTask\_Feedback@{vTask\_Feedback}}
+\index{vTask\_Feedback@{vTask\_Feedback}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{vTask\_Feedback()}{vTask\_Feedback()}}
+{\footnotesize\ttfamily \label{main_8c_a96452f43e9871212929e6e6a969bec13} 
+void v\+Task\+\_\+\+Feedback (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Parameters}{}\end{DoxyParamCaption})}
+
+
+
+Alert manager (the "{}\+Muscle"{}):\+ drives the LEDs + buzzer from the ADAS status word. 
+
+It makes NO decision of its own — it only renders the severity that v\+Task\+\_\+\+Safety\+Engine already published. (Motors are driven by the Raspberry Pi, not here.)
+
+Reads G\+\_\+u16\+System\+Flags (2 bits/\+module:\+ 00 safe /\+ 01 warning /\+ 10 critical) and maps it to the actuators exactly as agreed:\+ • all safe (word == 0) → everything OFF. • ANY alert (warning or crit) → interior dashboard LED + buzzer ON. • FCW == CRITICAL → additionally the FRONT LEDs. • EEBL == CRITICAL → additionally the REAR LEDs. • everything else (BSW/\+\+DNPW/\+\+IMA, or FCW/\+\+EEBL at WARNING) adds no extra LED — the interior LED + buzzer is their full response. 
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameters} & Unused. Free\+RTOS hands the task the argument given to {\ttfamily x\+Task\+Create}, which is NULL for every task here. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{main_8c_source_l00334}{334}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{System_8c_source_l00053}{Back\+L\+\_\+\+LED}}, \doxymbox{\hyperlink{System_8c_source_l00052}{Back\+R\+\_\+\+LED}}, \doxymbox{\hyperlink{BUZ__program_8c_source_l00073}{BUZ\+\_\+\+Off()}}, \doxymbox{\hyperlink{BUZ__program_8c_source_l00053}{BUZ\+\_\+\+On()}}, \doxymbox{\hyperlink{System_8c_source_l00051}{Front\+L\+\_\+\+LED}}, \doxymbox{\hyperlink{System_8c_source_l00050}{Front\+R\+\_\+\+LED}}, \doxymbox{\hyperlink{main_8c_source_l00110}{G\+\_\+au32\+Heartbeat}}, \doxymbox{\hyperlink{System_8c_source_l00035}{G\+\_\+u16\+System\+Flags}}, \doxymbox{\hyperlink{main_8c_source_l00099}{HB\+\_\+\+FEEDBACK}}, \doxymbox{\hyperlink{System_8c_source_l00054}{Interior\+\_\+\+LED}}, \doxymbox{\hyperlink{LED__prog_8c_source_l00089}{LED\+\_\+\+Turn\+Off()}}, \doxymbox{\hyperlink{LED__prog_8c_source_l00059}{LED\+\_\+\+Turn\+On()}}, \doxymbox{\hyperlink{System_8h_source_l00148}{SYS\+\_\+\+CRITICAL}}, \doxymbox{\hyperlink{System_8h_source_l00152}{SYS\+\_\+\+EEBL\+\_\+\+POS}}, \doxymbox{\hyperlink{System_8h_source_l00151}{SYS\+\_\+\+FCW\+\_\+\+POS}}, \doxymbox{\hyperlink{System_8h_source_l00163}{SYS\+\_\+\+GET}}, and \doxymbox{\hyperlink{System_8c_source_l00049}{V2\+X\+\_\+\+Buzzer}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00147}{main()}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8c_a96452f43e9871212929e6e6a969bec13_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{main_8c_a96452f43e9871212929e6e6a969bec13_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{main_8c_a8e83024643794f31ab8139cbdb1de5dd}\index{main.c@{main.c}!vTask\_ESP\_Comm@{vTask\_ESP\_Comm}}
+\index{vTask\_ESP\_Comm@{vTask\_ESP\_Comm}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{vTask\_ESP\_Comm()}{vTask\_ESP\_Comm()}}
+{\footnotesize\ttfamily \label{main_8c_a8e83024643794f31ab8139cbdb1de5dd} 
+void v\+Task\+\_\+\+ESP\+\_\+\+Comm (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Parameters}{}\end{DoxyParamCaption})}
+
+
+
+Handles both RX and TX communication with ESP (V2X Network) using DSRC foundation. 
+
+RX path (event-\/driven):\+ blocks on G\+\_\+x\+ESP\+\_\+\+RX\+\_\+\+Queue, drains all pending bytes into DSRC state machine, then flushes assembled packets into neighbor table. TX path (periodic 100ms):\+ builds a \doxylink{structNeighbor}{Neighbor} from current host state + ADAS flags and broadcasts via DSRC\+\_\+\+Send\+Neighbor. 
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameters} & Unused. Free\+RTOS hands the task the argument given to {\ttfamily x\+Task\+Create}, which is NULL for every task here. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{main_8c_source_l00387}{387}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{DSRC_8h_source_l00123}{Neighbor::\+bsw\+\_\+flag}}, \doxymbox{\hyperlink{BSW__program_8c_source_l00131}{BSW\+\_\+u8\+Get\+Flag()}}, \doxymbox{\hyperlink{DSRC_8h_source_l00125}{Neighbor::\+distance\+\_\+to\+\_\+intersection}}, \doxymbox{\hyperlink{DSRC_8c_source_l00229}{DSRC\+\_\+\+Remove\+Stale()}}, \doxymbox{\hyperlink{DSRC_8c_source_l00276}{DSRC\+\_\+\+Rx\+Callback()}}, \doxymbox{\hyperlink{DSRC_8c_source_l00204}{DSRC\+\_\+\+Send\+Neighbor()}}, \doxymbox{\hyperlink{DSRC_8c_source_l00220}{DSRC\+\_\+\+Update()}}, \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00181}{FCW\+\_\+\+Get\+Headon\+Flag()}}, \doxymbox{\hyperlink{DSRC_8h_source_l00114}{Neighbor::\+fcw\+\_\+headon\+\_\+flag}}, \doxymbox{\hyperlink{main_8c_source_l00110}{G\+\_\+au32\+Heartbeat}}, \doxymbox{\hyperlink{System_8c_source_l00036}{G\+\_\+st\+Host\+Vehicle\+State}}, \doxymbox{\hyperlink{main_8c_source_l00082}{G\+\_\+x\+Data\+Mutex}}, \doxymbox{\hyperlink{main_8c_source_l00079}{G\+\_\+x\+ESP\+\_\+\+RX\+\_\+\+Queue}}, \doxymbox{\hyperlink{main_8c_source_l00090}{G\+\_\+x\+Neighbor\+Table\+Mutex}}, \doxymbox{\hyperlink{main_8c_source_l00098}{HB\+\_\+\+ESP}}, \doxymbox{\hyperlink{DSRC_8h_source_l00103}{Neighbor::\+heading}}, \doxymbox{\hyperlink{System_8c_source_l00044}{Host\+\_\+\+Dist\+To\+Intersection}}, \doxymbox{\hyperlink{DSRC_8h_source_l00126}{Neighbor::\+ima\+\_\+flag}}, \doxymbox{\hyperlink{IMA__program_8c_source_l00079}{IMA\+\_\+u8\+Get\+Flag()}}, \doxymbox{\hyperlink{DSRC_8h_source_l00102}{Neighbor::\+speed}}, \doxymbox{\hyperlink{DSRC_8h_source_l00076}{VEHICLE\+\_\+\+ID}}, and \doxymbox{\hyperlink{DSRC_8h_source_l00101}{Neighbor::\+vehicle\+\_\+id}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00147}{main()}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8c_a8e83024643794f31ab8139cbdb1de5dd_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=261pt]{main_8c_a8e83024643794f31ab8139cbdb1de5dd_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{main_8c_a0d8bacb322388f8284803eeccc5612c0}\index{main.c@{main.c}!vTask\_RPi\_Comm@{vTask\_RPi\_Comm}}
+\index{vTask\_RPi\_Comm@{vTask\_RPi\_Comm}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{vTask\_RPi\_Comm()}{vTask\_RPi\_Comm()}}
+{\footnotesize\ttfamily \label{main_8c_a0d8bacb322388f8284803eeccc5612c0} 
+void v\+Task\+\_\+\+RPi\+\_\+\+Comm (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Parameters}{}\end{DoxyParamCaption})}
+
+
+
+Streams one ASCII CSV telemetry line to the Raspberry Pi every 100 ms. 
+
+The line format and its column order are specified on \doxylink{structRPi__Packet__t}{RPi\+\_\+\+Packet\+\_\+t} — the Raspberry Pi parser must agree with it field for field.
+
+ASCII is used rather than the packed binary struct because the binary layout contains {\ttfamily 0x00} bytes, and those were being dropped on the UART link, which silently truncated entire runs.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameters} & Unused. Free\+RTOS hands the task the argument given to {\ttfamily x\+Task\+Create}, which is NULL for every task here. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{main_8c_source_l00466}{466}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{BSW__program_8c_source_l00165}{BSW\+\_\+u8\+Get\+Sides\+Severity()}}, \doxymbox{\hyperlink{main_8c_source_l00110}{G\+\_\+au32\+Heartbeat}}, \doxymbox{\hyperlink{System_8c_source_l00036}{G\+\_\+st\+Host\+Vehicle\+State}}, \doxymbox{\hyperlink{System_8c_source_l00035}{G\+\_\+u16\+System\+Flags}}, \doxymbox{\hyperlink{main_8c_source_l00082}{G\+\_\+x\+Data\+Mutex}}, \doxymbox{\hyperlink{main_8c_source_l00100}{HB\+\_\+\+RPI}}, \doxymbox{\hyperlink{System_8c_source_l00074}{RPi\+\_\+\+UART}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00309}{USART\+\_\+enum\+Transmit\+String()}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00147}{main()}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8c_a0d8bacb322388f8284803eeccc5612c0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=259pt]{main_8c_a0d8bacb322388f8284803eeccc5612c0_icgraph}
+\end{center}
+\end{figure}
 \Hypertarget{main_8c_ae1bcb9c7fb7ee6cb777db33125685421}\index{main.c@{main.c}!vTask\_Watchdog@{vTask\_Watchdog}}
 \index{vTask\_Watchdog@{vTask\_Watchdog}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{vTask\_Watchdog()}{vTask\_Watchdog()}}
@@ -408,8 +487,21 @@ Liveness monitor + watchdog kicker (lowest priority).
 Every WDG\+\_\+\+CHECK\+\_\+\+PERIOD\+\_\+\+MS it snapshots every task\textquotesingle{}s heartbeat. It refreshes the IWDG ONLY if ALL of them advanced since the last check. If any task stalled — hard fault /\+ stack-\/overflow halt /\+ infinite loop /\+ ISR storm /\+ starvation — its heartbeat freezes, the refresh is skipped, and the IWDG hardware-\/resets the MCU after WDG\+\_\+\+TIMEOUT\+\_\+\+MS. Transient stalls shorter than the IWDG timeout are tolerated (the next healthy check kicks the dog again).
 
 Runs at the LOWEST user priority so that CPU starvation by ANY other task also stops the kicks. The task is self-\/covering:\+ if IT hangs, no kicks → reset. 
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameters} & Unused. Free\+RTOS hands the task the argument given to {\ttfamily x\+Task\+Create}, which is NULL for every task here. \\
+\hline
+\end{DoxyParams}
 
-Definition at line \doxymbox{\hyperlink{main_8c_source_l00431}{431}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+Definition at line \doxymbox{\hyperlink{main_8c_source_l00534}{534}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{main_8c_source_l00110}{G\+\_\+au32\+Heartbeat}}, \doxymbox{\hyperlink{main_8c_source_l00101}{HB\+\_\+\+COUNT}}, \doxymbox{\hyperlink{IWDG__program_8c_source_l00089}{IWDG\+\_\+void\+Refresh()}}, and \doxymbox{\hyperlink{main_8c_source_l00120}{WDG\+\_\+\+CHECK\+\_\+\+PERIOD\+\_\+\+MS}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00147}{main()}}.
 
 Here is the call graph for this function:\+
 \nopagebreak
@@ -427,120 +519,92 @@ Here is the caller graph for this function:\+
 \includegraphics[width=254pt]{main_8c_ae1bcb9c7fb7ee6cb777db33125685421_icgraph}
 \end{center}
 \end{figure}
+\Hypertarget{main_8c_a840291bc02cba5474a4cb46a9b9566fe}\index{main.c@{main.c}!main@{main}}
+\index{main@{main}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{main_8c_a840291bc02cba5474a4cb46a9b9566fe} 
+int main (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Firmware entry point:\+ bring up the board, create the tasks, start the OS. 
+
+The order here matters. The ADAS modules are initialised {\itshape before} any task can run, and the IWDG is started {\bfseries{last}}, immediately before the scheduler:\+ from the moment \doxylink{IWDG__interface_8h_aaa08e67683aa75f91aabc14cb9c1253d}{IWDG\+\_\+void\+Init} returns, something must kick the watchdog within \doxylink{main_8c_a83bb26015dd24416bf6b59ad49e55c9b}{WDG\+\_\+\+TIMEOUT\+\_\+\+MS} or the MCU resets — so it must not be armed while there is still setup work left to do.
+
+\begin{DoxyReturn}{Returns}
+Never returns. If the scheduler ever fails to start, the function traps in an infinite loop and the watchdog resets the MCU. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{main_8c_source_l00147}{147}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{main_8c_source_l00082}{G\+\_\+x\+Data\+Mutex}}, \doxymbox{\hyperlink{main_8c_source_l00079}{G\+\_\+x\+ESP\+\_\+\+RX\+\_\+\+Queue}}, \doxymbox{\hyperlink{main_8c_source_l00090}{G\+\_\+x\+Neighbor\+Table\+Mutex}}, \doxymbox{\hyperlink{IWDG__program_8c_source_l00073}{IWDG\+\_\+void\+Init()}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{System_8c_source_l00307}{RTOS\+\_\+setup()}}, \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00033}{Safety\+Engine\+\_\+void\+Init()}}, \doxymbox{\hyperlink{System_8c_source_l00300}{SEGGER\+\_\+setup()}}, \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}, \doxymbox{\hyperlink{main_8c_source_l00387}{v\+Task\+\_\+\+ESP\+\_\+\+Comm()}}, \doxymbox{\hyperlink{main_8c_source_l00334}{v\+Task\+\_\+\+Feedback()}}, \doxymbox{\hyperlink{main_8c_source_l00466}{v\+Task\+\_\+\+RPi\+\_\+\+Comm()}}, \doxymbox{\hyperlink{main_8c_source_l00202}{v\+Task\+\_\+\+Safety\+Engine()}}, \doxymbox{\hyperlink{main_8c_source_l00247}{v\+Task\+\_\+\+Sensors()}}, \doxymbox{\hyperlink{main_8c_source_l00534}{v\+Task\+\_\+\+Watchdog()}}, and \doxymbox{\hyperlink{main_8c_source_l00117}{WDG\+\_\+\+TIMEOUT\+\_\+\+MS}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8c_a840291bc02cba5474a4cb46a9b9566fe_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{main_8c_a88b12403f1d9bc8cff413fbbde56e15d}\index{main.c@{main.c}!vESP\_UART\_RX\_Callback@{vESP\_UART\_RX\_Callback}}
+\index{vESP\_UART\_RX\_Callback@{vESP\_UART\_RX\_Callback}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{vESP\_UART\_RX\_Callback()}{vESP\_UART\_RX\_Callback()}}
+{\footnotesize\ttfamily \label{main_8c_a88b12403f1d9bc8cff413fbbde56e15d} 
+void v\+ESP\+\_\+\+UART\+\_\+\+RX\+\_\+\+Callback (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+USART1 receive ISR callback:\+ push one byte onto \doxylink{main_8c_a2c251aeac2c84008a206658c306be262}{G\+\_\+x\+ESP\+\_\+\+RX\+\_\+\+Queue}. 
+
+Called from interrupt context for every byte the ESP32 sends. It does the minimum possible — read the byte, enqueue it — and leaves all DSRC framing and parsing to \doxylink{main_8c_a8e83024643794f31ab8139cbdb1de5dd}{v\+Task\+\_\+\+ESP\+\_\+\+Comm}, which can afford to block on a mutex.
+
+The byte is read straight out of the USART data register rather than through the driver\textquotesingle{}s blocking receive, because polling the busy flag here would deadlock against a transmission already in progress.
+
+\begin{DoxyWarning}{Warning}
+Runs in interrupt context, so it may only use the {\ttfamily ...From\+ISR} Free\+RTOS API. That in turn requires USART1\textquotesingle{}s NVIC priority to be numerically {\bfseries{at or above}} {\ttfamily config\+MAX\+\_\+\+SYSCALL\+\_\+\+INTERRUPT\+\_\+\+PRIORITY} (5) — see the warning on \doxysectlink{System_8h_sys_tasks}{Task set}{1}. 
+\end{DoxyWarning}
+
+
+Definition at line \doxymbox{\hyperlink{main_8c_source_l00580}{580}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{main_8c_source_l00079}{G\+\_\+x\+ESP\+\_\+\+RX\+\_\+\+Queue}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00020}{USART\+\_\+\+CHANNEL1}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00392}{USART\+\_\+\+Receive\+Byte\+Direct()}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8c_a88b12403f1d9bc8cff413fbbde56e15d_cgraph}
+\end{center}
+\end{figure}
 
 
 \label{doc-var-members}
 \Hypertarget{main_8c_doc-var-members}
 \doxysubsection{Variable Documentation}
-\Hypertarget{main_8c_abfc8237214cfd1267c607aaff66a96da}\index{main.c@{main.c}!BackL\_LED@{BackL\_LED}}
-\index{BackL\_LED@{BackL\_LED}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{BackL\_LED}{BackL\_LED}}
-{\footnotesize\ttfamily \label{main_8c_abfc8237214cfd1267c607aaff66a96da} 
-\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} Back\+L\+\_\+\+LED}
+\Hypertarget{main_8c_a4f097a0ea23201e71704715ba21668a1}\index{main.c@{main.c}!V2X\_Buzzer@{V2X\_Buzzer}}
+\index{V2X\_Buzzer@{V2X\_Buzzer}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{V2X\_Buzzer}{V2X\_Buzzer}}
+{\footnotesize\ttfamily \label{main_8c_a4f097a0ea23201e71704715ba21668a1} 
+\doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} V2\+X\+\_\+\+Buzzer\hspace{0.3cm}{\ttfamily [extern]}}
 
 
 
-Definition at line \doxymbox{\hyperlink{main_8c_source_l00039}{39}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
-
-\Hypertarget{main_8c_ae41df9dd37d7c4d27b829fd46cd1e5e3}\index{main.c@{main.c}!BackR\_LED@{BackR\_LED}}
-\index{BackR\_LED@{BackR\_LED}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{BackR\_LED}{BackR\_LED}}
-{\footnotesize\ttfamily \label{main_8c_ae41df9dd37d7c4d27b829fd46cd1e5e3} 
-\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} Back\+R\+\_\+\+LED}
-
-
-
-Definition at line \doxymbox{\hyperlink{main_8c_source_l00039}{39}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
-
-\Hypertarget{main_8c_a2b0e497a0b4ecc48b5dd5fef9623d4f3}\index{main.c@{main.c}!BackUS@{BackUS}}
-\index{BackUS@{BackUS}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{BackUS}{BackUS}}
-{\footnotesize\ttfamily \label{main_8c_a2b0e497a0b4ecc48b5dd5fef9623d4f3} 
-\doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} Back\+US\+[3]\+\hspace{0.3cm}{\ttfamily [extern]}}
-
-
-
-Definition at line \doxymbox{\hyperlink{System_8c_source_l00056}{56}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
-
-\Hypertarget{main_8c_a2ab79e3f6235026ef8d29a9446511f48}\index{main.c@{main.c}!FrontL\_LED@{FrontL\_LED}}
-\index{FrontL\_LED@{FrontL\_LED}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{FrontL\_LED}{FrontL\_LED}}
-{\footnotesize\ttfamily \label{main_8c_a2ab79e3f6235026ef8d29a9446511f48} 
-\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} Front\+L\+\_\+\+LED}
-
-
-
-Definition at line \doxymbox{\hyperlink{main_8c_source_l00039}{39}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
-
-\Hypertarget{main_8c_af1fb4a43ba68d1fdc94fd35a7d901cd4}\index{main.c@{main.c}!FrontR\_LED@{FrontR\_LED}}
-\index{FrontR\_LED@{FrontR\_LED}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{FrontR\_LED}{FrontR\_LED}}
-{\footnotesize\ttfamily \label{main_8c_af1fb4a43ba68d1fdc94fd35a7d901cd4} 
-\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} Front\+R\+\_\+\+LED\hspace{0.3cm}{\ttfamily [extern]}}
+The piezo buzzer (PC4). 
 
 
 
 Definition at line \doxymbox{\hyperlink{System_8c_source_l00049}{49}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
 
-\Hypertarget{main_8c_aed057ac0b23c05f6b02ef3bfed8bfa27}\index{main.c@{main.c}!FrontUS@{FrontUS}}
-\index{FrontUS@{FrontUS}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{FrontUS}{FrontUS}}
-{\footnotesize\ttfamily \label{main_8c_aed057ac0b23c05f6b02ef3bfed8bfa27} 
-\doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} Front\+US\+[3]\+\hspace{0.3cm}{\ttfamily [extern]}}
 
 
-
-Definition at line \doxymbox{\hyperlink{System_8c_source_l00055}{55}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
-
-\Hypertarget{main_8c_abf287e574f76db7ad0c43062a788d58c}\index{main.c@{main.c}!G\_au32Heartbeat@{G\_au32Heartbeat}}
-\index{G\_au32Heartbeat@{G\_au32Heartbeat}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{G\_au32Heartbeat}{G\_au32Heartbeat}}
-{\footnotesize\ttfamily \label{main_8c_abf287e574f76db7ad0c43062a788d58c} 
-volatile uint32\+\_\+t G\+\_\+au32\+Heartbeat\+[\doxymbox{\hyperlink{main_8c_a2fb3f953ca886909cc9636f8a3660fc4a23545dde189472e9f2a5d3f98b441486}{HB\+\_\+\+COUNT}}]\+ = \{0\}}
-
-
-
-Definition at line \doxymbox{\hyperlink{main_8c_source_l00053}{53}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
-
-\Hypertarget{main_8c_a101fd1911cf8e567c729470ceb6d2fb8}\index{main.c@{main.c}!G\_xDataMutex@{G\_xDataMutex}}
-\index{G\_xDataMutex@{G\_xDataMutex}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{G\_xDataMutex}{G\_xDataMutex}}
-{\footnotesize\ttfamily \label{main_8c_a101fd1911cf8e567c729470ceb6d2fb8} 
-Semaphore\+Handle\+\_\+t G\+\_\+x\+Data\+Mutex}
-
-
-
-Definition at line \doxymbox{\hyperlink{main_8c_source_l00043}{43}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
-
-\Hypertarget{main_8c_a2c251aeac2c84008a206658c306be262}\index{main.c@{main.c}!G\_xESP\_RX\_Queue@{G\_xESP\_RX\_Queue}}
-\index{G\_xESP\_RX\_Queue@{G\_xESP\_RX\_Queue}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{G\_xESP\_RX\_Queue}{G\_xESP\_RX\_Queue}}
-{\footnotesize\ttfamily \label{main_8c_a2c251aeac2c84008a206658c306be262} 
-Queue\+Handle\+\_\+t G\+\_\+x\+ESP\+\_\+\+RX\+\_\+\+Queue}
-
-
-
-Definition at line \doxymbox{\hyperlink{main_8c_source_l00042}{42}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
-
-\Hypertarget{main_8c_ab31e36f89b28f343b708712d4346780a}\index{main.c@{main.c}!G\_xNeighborTableMutex@{G\_xNeighborTableMutex}}
-\index{G\_xNeighborTableMutex@{G\_xNeighborTableMutex}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{G\_xNeighborTableMutex}{G\_xNeighborTableMutex}}
-{\footnotesize\ttfamily \label{main_8c_ab31e36f89b28f343b708712d4346780a} 
-Semaphore\+Handle\+\_\+t G\+\_\+x\+Neighbor\+Table\+Mutex}
-
-
-
-Definition at line \doxymbox{\hyperlink{main_8c_source_l00044}{44}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
-
-\Hypertarget{main_8c_aa7037844a95faca4f50aae714fe5048a}\index{main.c@{main.c}!Interior\_LED@{Interior\_LED}}
-\index{Interior\_LED@{Interior\_LED}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{Interior\_LED}{Interior\_LED}}
-{\footnotesize\ttfamily \label{main_8c_aa7037844a95faca4f50aae714fe5048a} 
-\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} Interior\+\_\+\+LED}
-
-
-
-Definition at line \doxymbox{\hyperlink{main_8c_source_l00039}{39}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}, and \doxymbox{\hyperlink{main_8c_source_l00334}{v\+Task\+\_\+\+Feedback()}}.
 
 \Hypertarget{main_8c_a305c18e4f4654cb56286827ae4d3883b}\index{main.c@{main.c}!RPi\_UART@{RPi\_UART}}
 \index{RPi\_UART@{RPi\_UART}!main.c@{main.c}}
@@ -550,15 +614,124 @@ Definition at line \doxymbox{\hyperlink{main_8c_source_l00039}{39}} of file \dox
 
 
 
-Definition at line \doxymbox{\hyperlink{System_8c_source_l00073}{73}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
-
-\Hypertarget{main_8c_a4f097a0ea23201e71704715ba21668a1}\index{main.c@{main.c}!V2X\_Buzzer@{V2X\_Buzzer}}
-\index{V2X\_Buzzer@{V2X\_Buzzer}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{V2X\_Buzzer}{V2X\_Buzzer}}
-{\footnotesize\ttfamily \label{main_8c_a4f097a0ea23201e71704715ba21668a1} 
-\doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} V2\+X\+\_\+\+Buzzer\hspace{0.3cm}{\ttfamily [extern]}}
+USART2 — the Raspberry Pi telemetry link. 
 
 
 
-Definition at line \doxymbox{\hyperlink{System_8c_source_l00048}{48}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00074}{74}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}, and \doxymbox{\hyperlink{main_8c_source_l00466}{v\+Task\+\_\+\+RPi\+\_\+\+Comm()}}.
+
+\Hypertarget{main_8c_aed057ac0b23c05f6b02ef3bfed8bfa27}\index{main.c@{main.c}!FrontUS@{FrontUS}}
+\index{FrontUS@{FrontUS}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{FrontUS}{FrontUS}}
+{\footnotesize\ttfamily \label{main_8c_aed057ac0b23c05f6b02ef3bfed8bfa27} 
+\doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} Front\+US\+[3]\+\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Front ultrasonics, in the order left, centre, right. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00056}{56}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}, and \doxymbox{\hyperlink{main_8c_source_l00247}{v\+Task\+\_\+\+Sensors()}}.
+
+\Hypertarget{main_8c_a2b0e497a0b4ecc48b5dd5fef9623d4f3}\index{main.c@{main.c}!BackUS@{BackUS}}
+\index{BackUS@{BackUS}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{BackUS}{BackUS}}
+{\footnotesize\ttfamily \label{main_8c_a2b0e497a0b4ecc48b5dd5fef9623d4f3} 
+\doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} Back\+US\+[3]\+\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Rear ultrasonics, in the order left, centre, right. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00057}{57}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}, and \doxymbox{\hyperlink{main_8c_source_l00247}{v\+Task\+\_\+\+Sensors()}}.
+
+\Hypertarget{main_8c_a2c251aeac2c84008a206658c306be262}\index{main.c@{main.c}!G\_xESP\_RX\_Queue@{G\_xESP\_RX\_Queue}}
+\index{G\_xESP\_RX\_Queue@{G\_xESP\_RX\_Queue}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{G\_xESP\_RX\_Queue}{G\_xESP\_RX\_Queue}}
+{\footnotesize\ttfamily \label{main_8c_a2c251aeac2c84008a206658c306be262} 
+Queue\+Handle\+\_\+t G\+\_\+x\+ESP\+\_\+\+RX\+\_\+\+Queue}
+
+
+
+Bytes received on USART1, handed from the RX ISR to \doxylink{main_8c_a8e83024643794f31ab8139cbdb1de5dd}{v\+Task\+\_\+\+ESP\+\_\+\+Comm}. 
+
+The ISR only enqueues; all DSRC parsing happens in task context, so the ISR stays short and the parser can take mutexes. 
+
+Definition at line \doxymbox{\hyperlink{main_8c_source_l00079}{79}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00147}{main()}}, \doxymbox{\hyperlink{main_8c_source_l00580}{v\+ESP\+\_\+\+UART\+\_\+\+RX\+\_\+\+Callback()}}, and \doxymbox{\hyperlink{main_8c_source_l00387}{v\+Task\+\_\+\+ESP\+\_\+\+Comm()}}.
+
+\Hypertarget{main_8c_a101fd1911cf8e567c729470ceb6d2fb8}\index{main.c@{main.c}!G\_xDataMutex@{G\_xDataMutex}}
+\index{G\_xDataMutex@{G\_xDataMutex}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{G\_xDataMutex}{G\_xDataMutex}}
+{\footnotesize\ttfamily \label{main_8c_a101fd1911cf8e567c729470ceb6d2fb8} 
+Semaphore\+Handle\+\_\+t G\+\_\+x\+Data\+Mutex}
+
+
+
+Guards \doxylink{group__system_gac3116f56a230ebdd81cadd527921464c}{G\+\_\+st\+Host\+Vehicle\+State} and \doxylink{group__system_ga9e78367aa5b758af972838362c2b0eab}{G\+\_\+u16\+System\+Flags}. 
+
+
+
+Definition at line \doxymbox{\hyperlink{main_8c_source_l00082}{82}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00147}{main()}}, \doxymbox{\hyperlink{main_8c_source_l00387}{v\+Task\+\_\+\+ESP\+\_\+\+Comm()}}, \doxymbox{\hyperlink{main_8c_source_l00466}{v\+Task\+\_\+\+RPi\+\_\+\+Comm()}}, \doxymbox{\hyperlink{main_8c_source_l00202}{v\+Task\+\_\+\+Safety\+Engine()}}, and \doxymbox{\hyperlink{main_8c_source_l00247}{v\+Task\+\_\+\+Sensors()}}.
+
+\Hypertarget{main_8c_ab31e36f89b28f343b708712d4346780a}\index{main.c@{main.c}!G\_xNeighborTableMutex@{G\_xNeighborTableMutex}}
+\index{G\_xNeighborTableMutex@{G\_xNeighborTableMutex}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{G\_xNeighborTableMutex}{G\_xNeighborTableMutex}}
+{\footnotesize\ttfamily \label{main_8c_ab31e36f89b28f343b708712d4346780a} 
+Semaphore\+Handle\+\_\+t G\+\_\+x\+Neighbor\+Table\+Mutex}
+
+
+
+Guards the DSRC neighbor table. 
+
+\begin{DoxyWarning}{Warning}
+When both mutexes are needed they are always taken {\bfseries{Neighbor\+Table → Data}}, never the other way round. That fixed order is what makes the task set deadlock-\/free. 
+\end{DoxyWarning}
+
+
+Definition at line \doxymbox{\hyperlink{main_8c_source_l00090}{90}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00147}{main()}}, \doxymbox{\hyperlink{main_8c_source_l00387}{v\+Task\+\_\+\+ESP\+\_\+\+Comm()}}, and \doxymbox{\hyperlink{main_8c_source_l00202}{v\+Task\+\_\+\+Safety\+Engine()}}.
+
+\Hypertarget{main_8c_abf287e574f76db7ad0c43062a788d58c}\index{main.c@{main.c}!G\_au32Heartbeat@{G\_au32Heartbeat}}
+\index{G\_au32Heartbeat@{G\_au32Heartbeat}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{G\_au32Heartbeat}{G\_au32Heartbeat}}
+{\footnotesize\ttfamily \label{main_8c_abf287e574f76db7ad0c43062a788d58c} 
+volatile uint32\+\_\+t G\+\_\+au32\+Heartbeat\+[\doxymbox{\hyperlink{main_8c_a8b46a0a2e186c5a4e1157910e1117839a23545dde189472e9f2a5d3f98b441486}{HB\+\_\+\+COUNT}}]\+}
+
+
+
+The heartbeat counters, one per entry of the enum above. 
+
+Each task increments its own slot and no other, so no locking is needed:\+ there is exactly one writer per slot, and the watchdog only ever reads. 
+
+Definition at line \doxymbox{\hyperlink{main_8c_source_l00110}{110}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00387}{v\+Task\+\_\+\+ESP\+\_\+\+Comm()}}, \doxymbox{\hyperlink{main_8c_source_l00334}{v\+Task\+\_\+\+Feedback()}}, \doxymbox{\hyperlink{main_8c_source_l00466}{v\+Task\+\_\+\+RPi\+\_\+\+Comm()}}, \doxymbox{\hyperlink{main_8c_source_l00202}{v\+Task\+\_\+\+Safety\+Engine()}}, \doxymbox{\hyperlink{main_8c_source_l00247}{v\+Task\+\_\+\+Sensors()}}, and \doxymbox{\hyperlink{main_8c_source_l00534}{v\+Task\+\_\+\+Watchdog()}}.
 

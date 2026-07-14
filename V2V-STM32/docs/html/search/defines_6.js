@@ -1,21 +1,5 @@
 var searchData=
 [
   ['gpio_5fpin_5fcount_0',['GPIO_PIN_COUNT',['../GPIO__private_8h.html#a226e7ff497e286c3391041c1dc2f2bc2',1,'GPIO_private.h']]],
-  ['gpio_5fport_5fcount_1',['GPIO_PORT_COUNT',['../GPIO__private_8h.html#af5eb82977ded49e09b93e0c7ae9468d6',1,'GPIO_private.h']]],
-  ['gpioa_5fbaseaddr_2',['GPIOA_BASEADDR',['../Drivers_2LIB_2STM32F446xx_8h.html#a3e615727451fa1abc89e436a7158d4aa',1,'GPIOA_BASEADDR:&#160;STM32F446xx.h'],['../System_2STM32F446xx_8h.html#a3e615727451fa1abc89e436a7158d4aa',1,'GPIOA_BASEADDR:&#160;STM32F446xx.h']]],
-  ['gpiob_5fbaseaddr_3',['GPIOB_BASEADDR',['../Drivers_2LIB_2STM32F446xx_8h.html#a583cafe206b45c6e3507b0493b96bdf0',1,'GPIOB_BASEADDR:&#160;STM32F446xx.h'],['../System_2STM32F446xx_8h.html#a583cafe206b45c6e3507b0493b96bdf0',1,'GPIOB_BASEADDR:&#160;STM32F446xx.h']]],
-  ['gpioc_5fbaseaddr_4',['GPIOC_BASEADDR',['../Drivers_2LIB_2STM32F446xx_8h.html#a05e89040a5ad3c3e5f5bbd62b434512b',1,'GPIOC_BASEADDR:&#160;STM32F446xx.h'],['../System_2STM32F446xx_8h.html#a05e89040a5ad3c3e5f5bbd62b434512b',1,'GPIOC_BASEADDR:&#160;STM32F446xx.h']]],
-  ['gpiod_5fbaseaddr_5',['GPIOD_BASEADDR',['../Drivers_2LIB_2STM32F446xx_8h.html#a807336d6c75feb8d0e943d618b5eaf26',1,'GPIOD_BASEADDR:&#160;STM32F446xx.h'],['../System_2STM32F446xx_8h.html#a807336d6c75feb8d0e943d618b5eaf26',1,'GPIOD_BASEADDR:&#160;STM32F446xx.h']]],
-  ['gpioe_5fbaseaddr_6',['GPIOE_BASEADDR',['../Drivers_2LIB_2STM32F446xx_8h.html#ac248e8d8a7113113481c2abb31d7660a',1,'GPIOE_BASEADDR:&#160;STM32F446xx.h'],['../System_2STM32F446xx_8h.html#ac248e8d8a7113113481c2abb31d7660a',1,'GPIOE_BASEADDR:&#160;STM32F446xx.h']]],
-  ['gpiof_5fbaseaddr_7',['GPIOF_BASEADDR',['../Drivers_2LIB_2STM32F446xx_8h.html#a5f0323ec1e9720a76beebf3081bad9dc',1,'GPIOF_BASEADDR:&#160;STM32F446xx.h'],['../System_2STM32F446xx_8h.html#a5f0323ec1e9720a76beebf3081bad9dc',1,'GPIOF_BASEADDR:&#160;STM32F446xx.h']]],
-  ['gpiog_5fbaseaddr_8',['GPIOG_BASEADDR',['../Drivers_2LIB_2STM32F446xx_8h.html#a90f006630c69a7540d8b0b1c0073f3d2',1,'GPIOG_BASEADDR:&#160;STM32F446xx.h'],['../System_2STM32F446xx_8h.html#a90f006630c69a7540d8b0b1c0073f3d2',1,'GPIOG_BASEADDR:&#160;STM32F446xx.h']]],
-  ['gpioh_5fbaseaddr_9',['GPIOH_BASEADDR',['../Drivers_2LIB_2STM32F446xx_8h.html#a63f9598aea50d8c995a9037578bb0907',1,'GPIOH_BASEADDR:&#160;STM32F446xx.h'],['../System_2STM32F446xx_8h.html#a63f9598aea50d8c995a9037578bb0907',1,'GPIOH_BASEADDR:&#160;STM32F446xx.h']]],
-  ['gyro_5fconfig_10',['GYRO_CONFIG',['../MPU9250__private_8h.html#ac57e8c3192c859321b447c07089f20f0',1,'MPU9250_private.h']]],
-  ['gyro_5fsens_5f250_11',['GYRO_SENS_250',['../MPU9250__private_8h.html#a763555a07ac8afb9614649becdee67d5',1,'MPU9250_private.h']]],
-  ['gyro_5fxout_5fh_12',['GYRO_XOUT_H',['../MPU9250__private_8h.html#a0016198ccf5ca2b7f41d7a23e6554373',1,'MPU9250_private.h']]],
-  ['gyro_5fxout_5fl_13',['GYRO_XOUT_L',['../MPU9250__private_8h.html#af07374691962c7531539cfcd36aa1c4b',1,'MPU9250_private.h']]],
-  ['gyro_5fyout_5fh_14',['GYRO_YOUT_H',['../MPU9250__private_8h.html#a0970193c5ba295a66f057c017663adf1',1,'MPU9250_private.h']]],
-  ['gyro_5fyout_5fl_15',['GYRO_YOUT_L',['../MPU9250__private_8h.html#af2403ccc9042c6a869278a7c211a396d',1,'MPU9250_private.h']]],
-  ['gyro_5fzout_5fh_16',['GYRO_ZOUT_H',['../MPU9250__private_8h.html#ac0fcd61ece1f100c02494fc94f0b0dad',1,'MPU9250_private.h']]],
-  ['gyro_5fzout_5fl_17',['GYRO_ZOUT_L',['../MPU9250__private_8h.html#a5466aa6a32d0b17e834ef9792e7f415d',1,'MPU9250_private.h']]]
+  ['gpio_5fport_5fcount_1',['GPIO_PORT_COUNT',['../GPIO__private_8h.html#af5eb82977ded49e09b93e0c7ae9468d6',1,'GPIO_private.h']]]
 ];

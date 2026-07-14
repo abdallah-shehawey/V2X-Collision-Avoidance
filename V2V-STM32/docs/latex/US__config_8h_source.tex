@@ -1,102 +1,97 @@
 \doxysection{US\+\_\+config.\+h}
-\hypertarget{US__config_8h_source}{}\label{US__config_8h_source}\index{Inc/Drivers/HAL/US/US\_config.h@{Inc/Drivers/HAL/US/US\_config.h}}
+\hypertarget{US__config_8h_source}{}\label{US__config_8h_source}\index{V2V-\/STM32/Inc/Drivers/HAL/US/US\_config.h@{V2V-\/STM32/Inc/Drivers/HAL/US/US\_config.h}}
 \doxymbox{\hyperlink{US__config_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{US__config_8h_source_l00001}00001\ }
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00013}00013\ }
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00014}00014\ \textcolor{preprocessor}{\#ifndef\ US\_CONFIG\_H\_}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00015}00015\ \textcolor{preprocessor}{\#define\ US\_CONFIG\_H\_}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00016}00016\ }
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00017}00017\ \textcolor{comment}{/*\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*/}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00018}00018\ \textcolor{comment}{/*}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00019}00019\ \textcolor{comment}{\ *\ System\ Clock\ Frequency\ (Hz)}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00020}00020\ \textcolor{comment}{\ *\ Used\ to\ calculate\ timer\ prescaler\ for\ 1us\ tick.}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00021}00021\ \textcolor{comment}{\ *\ Default:\ 16MHz\ (HSI)}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00022}00022\ \textcolor{comment}{\ *\ Change\ this\ if\ you\ are\ using\ a\ different\ clock\ (e.g.\ 180000000UL\ for\ 180MHz\ PLL)}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00023}00023\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00024}\doxymbox{\hyperlink{US__config_8h_ade28eff697a4ce6ca90ed4af010179c4}{00024}}\ \textcolor{preprocessor}{\#define\ US\_SYS\_CLK\_HZ\ \ \ \ 16000000UL}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00025}00025\ }
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00026}00026\ \textcolor{comment}{/*\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*/}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00027}00027\ \textcolor{comment}{/*}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00028}00028\ \textcolor{comment}{\ *\ Settle\ time\ before\ the\ trigger\ (microseconds)}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00029}00029\ \textcolor{comment}{\ *\ TRIG\ is\ driven\ LOW\ for\ this\ long\ before\ the\ HIGH\ pulse\ to\ guarantee\ a\ clean}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00030}00030\ \textcolor{comment}{\ *\ edge\ (no\ glitch\ from\ a\ previous\ measurement).}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00031}00031\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00032}\doxymbox{\hyperlink{US__config_8h_ac82821dff0173e63bfc7953f43c50066}{00032}}\ \textcolor{preprocessor}{\#define\ US\_TRIG\_SETTLE\_US\ \ \ 2U}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00033}00033\ }
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00034}00034\ \textcolor{comment}{/*\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*/}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00035}00035\ \textcolor{comment}{/*}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00036}00036\ \textcolor{comment}{\ *\ Trigger\ Pulse\ Duration\ (microseconds)}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00037}00037\ \textcolor{comment}{\ *\ HC-\/SR04\ requires\ a\ minimum\ 10us\ HIGH\ pulse\ on\ TRIG\ pin\ (datasheet).}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00038}00038\ \textcolor{comment}{\ *\ Do\ NOT\ lower\ this\ below\ 10us.}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00039}00039\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00040}\doxymbox{\hyperlink{US__config_8h_a8a95e538fdb97455266761408d1db73e}{00040}}\ \textcolor{preprocessor}{\#define\ US\_TRIG\_PULSE\_US\ \ \ \ 10U}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00041}00041\ }
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00042}00042\ \textcolor{comment}{/*\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*/}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00043}00043\ \textcolor{comment}{/*}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00044}00044\ \textcolor{comment}{\ *\ Maximum\ range\ (centimeters).}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00045}00045\ \textcolor{comment}{\ *\ HC-\/SR04\ useful\ range\ is\ \string~2..400\ cm.\ Any\ echo\ that\ decodes\ to\ a\ larger}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00046}00046\ \textcolor{comment}{\ *\ distance\ is\ treated\ as\ out-\/of-\/range\ (object\ lost)\ and\ reported\ as\ a\ timeout.}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00047}00047\ \textcolor{comment}{\ *\ This\ is\ the\ SINGLE\ source\ of\ truth\ for\ "{}max\ range"{}:}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00048}00048\ \textcolor{comment}{\ *\ \ \ -\/\ it\ clamps\ the\ decoded\ distance\ in\ the\ IC\ ISR,\ and}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00049}00049\ \textcolor{comment}{\ *\ \ \ -\/\ it\ derives\ the\ task-\/level\ echo\ timeout\ below.}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00010}00010\ \textcolor{preprocessor}{\#ifndef\ US\_CONFIG\_H\_}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00011}00011\ \textcolor{preprocessor}{\#define\ US\_CONFIG\_H\_}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00013}00013\ \textcolor{comment}{/*\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*/}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00014}00014\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00015}00015\ \textcolor{comment}{\ *\ System\ Clock\ Frequency\ (Hz)}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00016}00016\ \textcolor{comment}{\ *\ Used\ to\ calculate\ timer\ prescaler\ for\ 1us\ tick.}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00017}00017\ \textcolor{comment}{\ *\ Default:\ 16MHz\ (HSI)}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00018}00018\ \textcolor{comment}{\ *\ Change\ this\ if\ you\ are\ using\ a\ different\ clock\ (e.g.\ 180000000UL\ for\ 180MHz\ PLL)}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00019}00019\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00020}\doxymbox{\hyperlink{US__config_8h_ade28eff697a4ce6ca90ed4af010179c4}{00020}}\ \textcolor{preprocessor}{\#define\ US\_SYS\_CLK\_HZ\ \ \ \ 16000000UL\ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00021}00021\ \textcolor{comment}{/*\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*/}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00022}00022\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00023}00023\ \textcolor{comment}{\ *\ Settle\ time\ before\ the\ trigger\ (microseconds)}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00024}00024\ \textcolor{comment}{\ *\ TRIG\ is\ driven\ LOW\ for\ this\ long\ before\ the\ HIGH\ pulse\ to\ guarantee\ a\ clean}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00025}00025\ \textcolor{comment}{\ *\ edge\ (no\ glitch\ from\ a\ previous\ measurement).}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00026}00026\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00027}\doxymbox{\hyperlink{US__config_8h_ac82821dff0173e63bfc7953f43c50066}{00027}}\ \textcolor{preprocessor}{\#define\ US\_TRIG\_SETTLE\_US\ \ \ 2U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00028}00028\ \textcolor{comment}{/*\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*/}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00029}00029\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00030}00030\ \textcolor{comment}{\ *\ Trigger\ Pulse\ Duration\ (microseconds)}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00031}00031\ \textcolor{comment}{\ *\ HC-\/SR04\ requires\ a\ minimum\ 10us\ HIGH\ pulse\ on\ TRIG\ pin\ (datasheet).}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00032}00032\ \textcolor{comment}{\ *\ Do\ NOT\ lower\ this\ below\ 10us.}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00033}00033\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00034}\doxymbox{\hyperlink{US__config_8h_a8a95e538fdb97455266761408d1db73e}{00034}}\ \textcolor{preprocessor}{\#define\ US\_TRIG\_PULSE\_US\ \ \ \ 10U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00035}00035\ \textcolor{comment}{/*\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*/}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00036}00036\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00037}00037\ \textcolor{comment}{\ *\ Maximum\ range\ (centimeters).}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00038}00038\ \textcolor{comment}{\ *\ HC-\/SR04\ useful\ range\ is\ \string~2..400\ cm.\ Any\ echo\ that\ decodes\ to\ a\ larger}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00039}00039\ \textcolor{comment}{\ *\ distance\ is\ treated\ as\ out-\/of-\/range\ (object\ lost)\ and\ reported\ as\ a\ timeout.}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00040}00040\ \textcolor{comment}{\ *\ This\ is\ the\ SINGLE\ source\ of\ truth\ for\ "{}max\ range"{}:}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00041}00041\ \textcolor{comment}{\ *\ \ \ -\/\ it\ clamps\ the\ decoded\ distance\ in\ the\ IC\ ISR,\ and}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00042}00042\ \textcolor{comment}{\ *\ \ \ -\/\ it\ derives\ the\ task-\/level\ echo\ timeout\ below.}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00043}00043\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00044}\doxymbox{\hyperlink{US__config_8h_a1acbfc782dd65e3000e6373d863e3333}{00044}}\ \textcolor{preprocessor}{\#define\ US\_MAX\_RANGE\_CM\ \ \ \ \ 400U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00045}00045\ \textcolor{comment}{/*\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*/}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00046}00046\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00047}00047\ \textcolor{comment}{\ *\ Sound\ Speed\ Factor}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00048}00048\ \textcolor{comment}{\ *\ Distance\ (cm)\ =\ Echo\_pulse\_us\ /\ 58}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00049}00049\ \textcolor{comment}{\ *\ (Speed\ of\ sound\ \string~343\ m/s\ =>\ \string~58\ us/cm\ round-\/trip)}}
 \DoxyCodeLine{\Hypertarget{US__config_8h_source_l00050}00050\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00051}\doxymbox{\hyperlink{US__config_8h_a1acbfc782dd65e3000e6373d863e3333}{00051}}\ \textcolor{preprocessor}{\#define\ US\_MAX\_RANGE\_CM\ \ \ \ \ 400U}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00052}00052\ }
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00053}00053\ \textcolor{comment}{/*\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*/}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00054}00054\ \textcolor{comment}{/*}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00055}00055\ \textcolor{comment}{\ *\ Sound\ Speed\ Factor}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00056}00056\ \textcolor{comment}{\ *\ Distance\ (cm)\ =\ Echo\_pulse\_us\ /\ 58}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00057}00057\ \textcolor{comment}{\ *\ (Speed\ of\ sound\ \string~343\ m/s\ =>\ \string~58\ us/cm\ round-\/trip)}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00058}00058\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00059}\doxymbox{\hyperlink{US__config_8h_ab0e1472cbc6dcaabb8233a418a55b6fe}{00059}}\ \textcolor{preprocessor}{\#define\ US\_SOUND\_SPEED\_FACTOR\ \ \ \ 58U}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00060}00060\ }
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00061}00061\ \textcolor{comment}{/*\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*/}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00062}00062\ \textcolor{comment}{/*}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00063}00063\ \textcolor{comment}{\ *\ Task-\/level\ Echo\ Timeout\ (milliseconds)\ —\ interrupt-\/driven\ driver.}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00064}00064\ \textcolor{comment}{\ *\ The\ reading\ task\ SLEEPS\ (vTask/semaphore)\ up\ to\ this\ long\ waiting\ for\ the}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00065}00065\ \textcolor{comment}{\ *\ IC\ interrupt\ to\ deliver\ both\ echo\ edges.\ It\ is\ DERIVED\ from\ US\_MAX\_RANGE\_CM\ so}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00066}00066\ \textcolor{comment}{\ *\ the\ timeout\ and\ the\ range\ clamp\ can\ never\ drift\ apart:}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00067}00067\ \textcolor{comment}{\ *\ \ \ timeout\_ms\ =\ ceil(MAX\_RANGE\_CM\ *\ 58us/cm\ /\ 1000)\ +\ 1ms\ slack}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00068}00068\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ ceil(400\ *\ 58\ /\ 1000)\ +\ 1\ =\ 24\ +\ 1\ =\ 25ms\ \ →\ full\ 4m\ range.}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00069}00069\ \textcolor{comment}{\ *\ Worst\ case\ (all\ 6\ sensors\ out\ of\ range)\ ≈\ 6\ *\ 25\ =\ 150ms\ per\ scan.}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00070}00070\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00071}\doxymbox{\hyperlink{US__config_8h_a4d35bb6b344954434449832b9e53037c}{00071}}\ \textcolor{preprocessor}{\#define\ US\_TASK\_TIMEOUT\_MS\ \ \(\backslash\)}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00072}00072\ \textcolor{preprocessor}{\ \ \ \ ((((US\_MAX\_RANGE\_CM\ *\ US\_SOUND\_SPEED\_FACTOR)\ +\ 999U)\ /\ 1000U)\ +\ 1U)}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00073}00073\ }
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00074}00074\ \textcolor{comment}{/*\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*/}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00075}00075\ \textcolor{comment}{/*}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00076}00076\ \textcolor{comment}{\ *\ TIMER\ /\ CHANNEL\ /\ PIN\ MAPPING\ TABLE\ (STM32F446RE\ Nucleo)}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00077}00077\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00078}00078\ \textcolor{comment}{\ *\ TIMER\ \ \ \ |\ CHANNEL\ |\ REDO\_PIN\ (Echo)\ \ \ \ \ |\ STATUS\ /\ CONFLICTS}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00079}00079\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00080}00080\ \textcolor{comment}{\ *\ TIM1\ ADV\ |\ CH1\ \ \ \ \ |\ PA8\ \ (D7)\ \ \ \ \ \ \ \ \ \ \ |\ FREE\ (Excellent)}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00081}00081\ \textcolor{comment}{\ *\ [APB2]\ \ \ |\ CH3\ \ \ \ \ |\ PA10\ (D2)\ \ \ \ \ \ \ \ \ \ \ |\ FREE\ (Excellent)}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00082}00082\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ |\ CH4\ \ \ \ \ |\ PA11\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ FREE\ (Excellent)}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00083}00083\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00084}00084\ \textcolor{comment}{\ *\ TIM2\ 32B\ |\ CH2\ \ \ \ \ |\ PA1\ \ (A1)\ \ \ \ \ \ \ \ \ \ \ |\ FREE\ (Best\ Choice)}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00085}00085\ \textcolor{comment}{\ *\ [APB1]\ \ \ |\ CH1/4\ \ \ |\ PA0\ /\ PA3\ \ \ \ \ \ \ \ \ \ \ |\ PA0\ (UserBtn),\ PA3\ (Serial\ RX)}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00086}00086\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00087}00087\ \textcolor{comment}{\ *\ TIM3\ 16B\ |\ CH1\ \ \ \ \ |\ PA6\ \ (D12)\ /\ PB4\ \ \ \ |\ FREE\ (D12)}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00088}00088\ \textcolor{comment}{\ *\ [APB1]\ \ \ |\ CH2\ \ \ \ \ |\ PA7\ \ (D11)\ /\ PB5\ \ \ \ |\ FREE\ (D11)}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00089}00089\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ |\ CH3\ \ \ \ \ |\ PB0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ FREE}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00090}00090\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ |\ CH4\ \ \ \ \ |\ PB1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ FREE}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00091}00091\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00092}00092\ \textcolor{comment}{\ *\ TIM4\ 16B\ |\ CH1\ \ \ \ \ |\ PB6\ \ (D10)\ \ \ \ \ \ \ \ \ \ |\ FREE}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00093}00093\ \textcolor{comment}{\ *\ [APB1]\ \ \ |\ CH2\ \ \ \ \ |\ PB7\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ FREE}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00094}00094\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ |\ CH3/4\ \ \ |\ PB8\ /\ PB9\ \ \ \ \ \ \ \ \ \ \ |\ PB8/9\ Conflict\ with\ I2C}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00095}00095\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00096}00096\ \textcolor{comment}{\ *\ TIM5\ 32B\ |\ CH2\ \ \ \ \ |\ PA1\ \ (A1)\ \ \ \ \ \ \ \ \ \ \ |\ FREE}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00097}00097\ \textcolor{comment}{\ *\ [APB1]\ \ \ |\ CH4\ \ \ \ \ |\ PA3\ \ (A2)\ \ \ \ \ \ \ \ \ \ \ |\ Conflict\ with\ Serial\ RX\ (Debug)}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00098}00098\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00099}00099\ \textcolor{comment}{\ *\ TIM8\ ADV\ |\ CH1\ \ \ \ \ |\ PC6\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ FREE\ (Morpho\ Header)}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00100}00100\ \textcolor{comment}{\ *\ [APB2]\ \ \ |\ CH2\ \ \ \ \ |\ PC7\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ FREE\ (Morpho\ Header)}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00101}00101\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ |\ CH3\ \ \ \ \ |\ PC8\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ FREE\ (Morpho\ Header)}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00102}00102\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ |\ CH4\ \ \ \ \ |\ PC9\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ FREE\ (Morpho\ Header)}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00103}00103\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00104}00104\ \textcolor{comment}{\ *\ TRIG\ PIN:\ Can\ be\ ANY\ GPIO\ PIN\ (Output\ Mode).\ No\ specific\ hardware\ required.}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00105}00105\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00106}00106\ }
-\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00107}00107\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ US\_CONFIG\_H\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00051}\doxymbox{\hyperlink{US__config_8h_ab0e1472cbc6dcaabb8233a418a55b6fe}{00051}}\ \textcolor{preprocessor}{\#define\ US\_SOUND\_SPEED\_FACTOR\ \ \ \ 58U\ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00052}00052\ \textcolor{comment}{/*\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*/}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00053}00053\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00054}00054\ \textcolor{comment}{\ *\ Task-\/level\ Echo\ Timeout\ (milliseconds)\ —\ interrupt-\/driven\ driver.}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00055}00055\ \textcolor{comment}{\ *\ The\ reading\ task\ SLEEPS\ (vTask/semaphore)\ up\ to\ this\ long\ waiting\ for\ the}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00056}00056\ \textcolor{comment}{\ *\ IC\ interrupt\ to\ deliver\ both\ echo\ edges.\ It\ is\ DERIVED\ from\ US\_MAX\_RANGE\_CM\ so}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00057}00057\ \textcolor{comment}{\ *\ the\ timeout\ and\ the\ range\ clamp\ can\ never\ drift\ apart:}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00058}00058\ \textcolor{comment}{\ *\ \ \ timeout\_ms\ =\ ceil(MAX\_RANGE\_CM\ *\ 58us/cm\ /\ 1000)\ +\ 1ms\ slack}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00059}00059\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ ceil(400\ *\ 58\ /\ 1000)\ +\ 1\ =\ 24\ +\ 1\ =\ 25ms\ \ →\ full\ 4m\ range.}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00060}00060\ \textcolor{comment}{\ *\ Worst\ case\ (all\ 6\ sensors\ out\ of\ range)\ ≈\ 6\ *\ 25\ =\ 150ms\ per\ scan.}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00061}00061\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00069}\doxymbox{\hyperlink{US__config_8h_a4d35bb6b344954434449832b9e53037c}{00069}}\ \textcolor{preprocessor}{\#define\ US\_TASK\_TIMEOUT\_MS\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00070}00070\ \textcolor{preprocessor}{\ \ \ \ ((((US\_MAX\_RANGE\_CM\ *\ US\_SOUND\_SPEED\_FACTOR)\ +\ 999U)\ /\ 1000U)\ +\ 1U)}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00072}00072\ \textcolor{comment}{/*\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*/}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00073}00073\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00074}00074\ \textcolor{comment}{\ *\ TIMER\ /\ CHANNEL\ /\ PIN\ MAPPING\ TABLE\ (STM32F446RE\ Nucleo)}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00075}00075\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00076}00076\ \textcolor{comment}{\ *\ TIMER\ \ \ \ |\ CHANNEL\ |\ REDO\_PIN\ (Echo)\ \ \ \ \ |\ STATUS\ /\ CONFLICTS}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00077}00077\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00078}00078\ \textcolor{comment}{\ *\ TIM1\ ADV\ |\ CH1\ \ \ \ \ |\ PA8\ \ (D7)\ \ \ \ \ \ \ \ \ \ \ |\ FREE\ (Excellent)}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00079}00079\ \textcolor{comment}{\ *\ [APB2]\ \ \ |\ CH3\ \ \ \ \ |\ PA10\ (D2)\ \ \ \ \ \ \ \ \ \ \ |\ FREE\ (Excellent)}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00080}00080\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ |\ CH4\ \ \ \ \ |\ PA11\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ FREE\ (Excellent)}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00081}00081\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00082}00082\ \textcolor{comment}{\ *\ TIM2\ 32B\ |\ CH2\ \ \ \ \ |\ PA1\ \ (A1)\ \ \ \ \ \ \ \ \ \ \ |\ FREE\ (Best\ Choice)}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00083}00083\ \textcolor{comment}{\ *\ [APB1]\ \ \ |\ CH1/4\ \ \ |\ PA0\ /\ PA3\ \ \ \ \ \ \ \ \ \ \ |\ PA0\ (UserBtn),\ PA3\ (Serial\ RX)}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00084}00084\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00085}00085\ \textcolor{comment}{\ *\ TIM3\ 16B\ |\ CH1\ \ \ \ \ |\ PA6\ \ (D12)\ /\ PB4\ \ \ \ |\ FREE\ (D12)}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00086}00086\ \textcolor{comment}{\ *\ [APB1]\ \ \ |\ CH2\ \ \ \ \ |\ PA7\ \ (D11)\ /\ PB5\ \ \ \ |\ FREE\ (D11)}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00087}00087\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ |\ CH3\ \ \ \ \ |\ PB0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ FREE}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00088}00088\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ |\ CH4\ \ \ \ \ |\ PB1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ FREE}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00089}00089\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00090}00090\ \textcolor{comment}{\ *\ TIM4\ 16B\ |\ CH1\ \ \ \ \ |\ PB6\ \ (D10)\ \ \ \ \ \ \ \ \ \ |\ FREE}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00091}00091\ \textcolor{comment}{\ *\ [APB1]\ \ \ |\ CH2\ \ \ \ \ |\ PB7\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ FREE}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00092}00092\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ |\ CH3/4\ \ \ |\ PB8\ /\ PB9\ \ \ \ \ \ \ \ \ \ \ |\ PB8/9\ Conflict\ with\ I2C}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00093}00093\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00094}00094\ \textcolor{comment}{\ *\ TIM5\ 32B\ |\ CH2\ \ \ \ \ |\ PA1\ \ (A1)\ \ \ \ \ \ \ \ \ \ \ |\ FREE}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00095}00095\ \textcolor{comment}{\ *\ [APB1]\ \ \ |\ CH4\ \ \ \ \ |\ PA3\ \ (A2)\ \ \ \ \ \ \ \ \ \ \ |\ Conflict\ with\ Serial\ RX\ (Debug)}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00096}00096\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00097}00097\ \textcolor{comment}{\ *\ TIM8\ ADV\ |\ CH1\ \ \ \ \ |\ PC6\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ FREE\ (Morpho\ Header)}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00098}00098\ \textcolor{comment}{\ *\ [APB2]\ \ \ |\ CH2\ \ \ \ \ |\ PC7\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ FREE\ (Morpho\ Header)}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00099}00099\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ |\ CH3\ \ \ \ \ |\ PC8\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ FREE\ (Morpho\ Header)}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00100}00100\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ |\ CH4\ \ \ \ \ |\ PC9\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ FREE\ (Morpho\ Header)}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00101}00101\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00102}00102\ \textcolor{comment}{\ *\ TRIG\ PIN:\ Can\ be\ ANY\ GPIO\ PIN\ (Output\ Mode).\ No\ specific\ hardware\ required.}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00103}00103\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{US__config_8h_source_l00105}00105\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ US\_CONFIG\_H\_\ */}\textcolor{preprocessor}{}}
 
 \end{DoxyCode}

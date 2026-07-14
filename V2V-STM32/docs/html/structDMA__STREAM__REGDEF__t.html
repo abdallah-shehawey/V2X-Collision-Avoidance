@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: DMA_STREAM_REGDEF_t Struct Reference</title>
+<title>V2V Collision Avoidance Firmware: DMA_STREAM_REGDEF_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,24 +90,35 @@ $(function(){initNavTree('structDMA__STREAM__REGDEF__t.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">DMA_STREAM_REGDEF_t Struct Reference</div></div>
+  <div class="headertitle"><div class="title">DMA_STREAM_REGDEF_t Struct Reference<div class="ingroups"><a class="el" href="group__lib.html">LIB</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>&gt;</code></p>
+<p>Register layout of a single DMA stream.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="STM32F446xx_8h_source.html">Drivers/LIB/STM32F446xx.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:aa9400f549c950d709f56aff9b5ced213" id="r_aa9400f549c950d709f56aff9b5ced213"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#aa9400f549c950d709f56aff9b5ced213">CR</a></td></tr>
+<tr class="memdesc:aa9400f549c950d709f56aff9b5ced213"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream configuration: channel, direction, priority, enable.  <br /></td></tr>
 <tr class="memitem:a782cd608abd5ad34a42b625f5d14a680" id="r_a782cd608abd5ad34a42b625f5d14a680"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a782cd608abd5ad34a42b625f5d14a680">NDTR</a></td></tr>
+<tr class="memdesc:a782cd608abd5ad34a42b625f5d14a680"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of data items still to transfer.  <br /></td></tr>
 <tr class="memitem:ab3d8addb40d47ece5b6e0ad114f7a84e" id="r_ab3d8addb40d47ece5b6e0ad114f7a84e"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ab3d8addb40d47ece5b6e0ad114f7a84e">PAR</a></td></tr>
+<tr class="memdesc:ab3d8addb40d47ece5b6e0ad114f7a84e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peripheral address the stream reads from or writes to.  <br /></td></tr>
 <tr class="memitem:ae726ec40e70fb412cd5354e5c0bec261" id="r_ae726ec40e70fb412cd5354e5c0bec261"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ae726ec40e70fb412cd5354e5c0bec261">M0AR</a></td></tr>
+<tr class="memdesc:ae726ec40e70fb412cd5354e5c0bec261"><td class="mdescLeft">&#160;</td><td class="mdescRight">Memory 0 address (the buffer used in single-buffer mode).  <br /></td></tr>
 <tr class="memitem:a81395e9d564c25c5f42cd5a605d8c3c2" id="r_a81395e9d564c25c5f42cd5a605d8c3c2"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a81395e9d564c25c5f42cd5a605d8c3c2">M1AR</a></td></tr>
+<tr class="memdesc:a81395e9d564c25c5f42cd5a605d8c3c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Memory 1 address (the second buffer in double-buffer mode).  <br /></td></tr>
 <tr class="memitem:a0691111d3b8fc17e938acdac7812dbba" id="r_a0691111d3b8fc17e938acdac7812dbba"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a0691111d3b8fc17e938acdac7812dbba">FCR</a></td></tr>
+<tr class="memdesc:a0691111d3b8fc17e938acdac7812dbba"><td class="mdescLeft">&#160;</td><td class="mdescRight">FIFO control: threshold and FIFO status.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00110">110</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<div class="textblock"><p>Register layout of a single DMA stream. </p>
+<dl class="section note"><dt>Note</dt><dd>Declared for completeness — the firmware drives every peripheral by interrupt, not by DMA, so no driver uses this. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00174">174</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
 <a id="aa9400f549c950d709f56aff9b5ced213" name="aa9400f549c950d709f56aff9b5ced213"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa9400f549c950d709f56aff9b5ced213">&#9670;&#160;</a></span>CR</h2>
@@ -121,55 +132,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00111">111</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Stream configuration: channel, direction, priority, enable. </p>
 
-</div>
-</div>
-<a id="a0691111d3b8fc17e938acdac7812dbba" name="a0691111d3b8fc17e938acdac7812dbba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0691111d3b8fc17e938acdac7812dbba">&#9670;&#160;</a></span>FCR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t DMA_STREAM_REGDEF_t::FCR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00116">116</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="ae726ec40e70fb412cd5354e5c0bec261" name="ae726ec40e70fb412cd5354e5c0bec261"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae726ec40e70fb412cd5354e5c0bec261">&#9670;&#160;</a></span>M0AR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t DMA_STREAM_REGDEF_t::M0AR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00114">114</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a81395e9d564c25c5f42cd5a605d8c3c2" name="a81395e9d564c25c5f42cd5a605d8c3c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81395e9d564c25c5f42cd5a605d8c3c2">&#9670;&#160;</a></span>M1AR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t DMA_STREAM_REGDEF_t::M1AR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00115">115</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00175">175</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
@@ -185,7 +150,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00112">112</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Number of data items still to transfer. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00176">176</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
@@ -201,13 +168,68 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00113">113</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Peripheral address the stream reads from or writes to. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00177">177</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>Inc/Drivers/LIB/<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
-<li>Inc/System/<a class="el" href="System_2STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
+<a id="ae726ec40e70fb412cd5354e5c0bec261" name="ae726ec40e70fb412cd5354e5c0bec261"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae726ec40e70fb412cd5354e5c0bec261">&#9670;&#160;</a></span>M0AR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t DMA_STREAM_REGDEF_t::M0AR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Memory 0 address (the buffer used in single-buffer mode). </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00178">178</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a81395e9d564c25c5f42cd5a605d8c3c2" name="a81395e9d564c25c5f42cd5a605d8c3c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81395e9d564c25c5f42cd5a605d8c3c2">&#9670;&#160;</a></span>M1AR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t DMA_STREAM_REGDEF_t::M1AR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Memory 1 address (the second buffer in double-buffer mode). </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00179">179</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a0691111d3b8fc17e938acdac7812dbba" name="a0691111d3b8fc17e938acdac7812dbba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0691111d3b8fc17e938acdac7812dbba">&#9670;&#160;</a></span>FCR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t DMA_STREAM_REGDEF_t::FCR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>FIFO control: threshold and FIFO status. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00180">180</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>V2V-STM32/Inc/Drivers/LIB/<a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

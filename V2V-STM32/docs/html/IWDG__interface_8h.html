@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Inc/Drivers/MCAL/IWDG/IWDG_interface.h File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Inc/Drivers/MCAL/IWDG/IWDG_interface.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,31 +90,24 @@ $(function(){initNavTree('IWDG__interface_8h.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">IWDG_interface.h File Reference</div></div>
+  <div class="headertitle"><div class="title">IWDG_interface.h File Reference<div class="ingroups"><a class="el" href="group__mcal.html">MCAL</a> &raquo; <a class="el" href="group__mcal__iwdg.html">IWDG</a></div></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Public API of the IWDG driver — the independent watchdog.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for IWDG_interface.h:</div>
-<div class="dyncontent">
-<div class="center"><img src="IWDG__interface_8h__incl.png" border="0" usemap="#aInc_2Drivers_2MCAL_2IWDG_2IWDG__interface_8h" loading="lazy" alt=""/></div>
-<map name="aInc_2Drivers_2MCAL_2IWDG_2IWDG__interface_8h" id="aInc_2Drivers_2MCAL_2IWDG_2IWDG__interface_8h">
-<area shape="rect" title=" " alt="" coords="5,5,179,50"/>
-<area shape="rect" title=" " alt="" coords="57,98,127,126"/>
-<area shape="poly" title=" " alt="" coords="94,48,95,83,89,81,90,52"/>
-</map>
+</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for IWDG_interface.h:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="IWDG__interface_8h__dep__incl.png" border="0" usemap="#aInc_2Drivers_2MCAL_2IWDG_2IWDG__interface_8hdep" loading="lazy" alt=""/></div>
-<map name="aInc_2Drivers_2MCAL_2IWDG_2IWDG__interface_8hdep" id="aInc_2Drivers_2MCAL_2IWDG_2IWDG__interface_8hdep">
-<area shape="rect" title=" " alt="" coords="70,5,243,50"/>
-<area shape="rect" href="IWDG__program_8c.html" title=" " alt="" coords="5,98,161,126"/>
-<area shape="poly" title=" " alt="" coords="130,61,97,99,93,95,125,62"/>
-<area shape="rect" href="main_8c.html" title=": Main program body" alt="" coords="185,98,274,126"/>
-<area shape="poly" title=" " alt="" coords="187,59,221,98,215,97,184,64"/>
-</map>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="IWDG__interface_8h__incl.svg" width="232" height="131"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div><div class="textblock"><div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="IWDG__interface_8h__dep__incl.svg" width="363" height="148"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="IWDG__interface_8h_source.html">Go to the source code of this file.</a></p>
@@ -124,9 +117,14 @@ Functions</h2></td></tr>
 <tr class="memitem:aaa08e67683aa75f91aabc14cb9c1253d" id="r_aaa08e67683aa75f91aabc14cb9c1253d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aaa08e67683aa75f91aabc14cb9c1253d">IWDG_voidInit</a> (uint16_t timeout_ms)</td></tr>
 <tr class="memdesc:aaa08e67683aa75f91aabc14cb9c1253d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the Independent Watchdog with the given timeout.  <br /></td></tr>
 <tr class="memitem:afdf15cddaf966d918224d78b50c4b6d5" id="r_afdf15cddaf966d918224d78b50c4b6d5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afdf15cddaf966d918224d78b50c4b6d5">IWDG_voidRefresh</a> (void)</td></tr>
-<tr class="memdesc:afdf15cddaf966d918224d78b50c4b6d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reload the watchdog counter ("kick the dog"). Call periodically.  <br /></td></tr>
+<tr class="memdesc:afdf15cddaf966d918224d78b50c4b6d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reload the watchdog counter ("kick the dog").  <br /></td></tr>
 </table>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Public API of the IWDG driver — the independent watchdog. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Abdelmoemen Shehawey  </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="IWDG__interface_8h_source.html">IWDG_interface.h</a>.</p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="aaa08e67683aa75f91aabc14cb9c1253d" name="aaa08e67683aa75f91aabc14cb9c1253d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaa08e67683aa75f91aabc14cb9c1253d">&#9670;&#160;</a></span>IWDG_voidInit()</h2>
 
@@ -143,28 +141,28 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Start the Independent Watchdog with the given timeout. </p>
-<p>===========================================================================** &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; <a class="el" href="IWDG__interface_8h.html">IWDG_interface.h</a> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;** ** Author : Abdallah Saleh ** Layer : MCAL ** CPU : Cortex-M4 ** MCU : NUCLEO-F446RE ** SWC : IWDG (Independent Watchdog) ** ** ===========================================================================** </p><dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">timeout_ms</td><td>Reset timeout in milliseconds (≈ 4 .. 8000 ms).</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>- Clocked by the LSI (~32 kHz, imprecise → keep a healthy margin).<ul>
-<li>Once started the IWDG CANNOT be stopped; it MUST be refreshed via <a class="el" href="#afdf15cddaf966d918224d78b50c4b6d5" title="Reload the watchdog counter (&quot;kick the dog&quot;). Call periodically.">IWDG_voidRefresh()</a> more often than timeout_ms or the MCU resets.</li>
+<li>Once started the IWDG CANNOT be stopped; it MUST be refreshed via <a class="el" href="#afdf15cddaf966d918224d78b50c4b6d5" title="Reload the watchdog counter (&quot;kick the dog&quot;).">IWDG_voidRefresh()</a> more often than timeout_ms or the MCU resets.</li>
 <li>The IWDG is frozen while the core is halted by the debugger (so breakpoints don't trigger spurious resets). </li>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="IWDG__program_8c_source.html#l00045">45</a> of file <a class="el" href="IWDG__program_8c_source.html">IWDG_program.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="IWDG__interface_8h_aaa08e67683aa75f91aabc14cb9c1253d_icgraph.png" border="0" usemap="#aIWDG__interface_8h_aaa08e67683aa75f91aabc14cb9c1253d_icgraph" loading="lazy" alt=""/></div>
-<map name="aIWDG__interface_8h_aaa08e67683aa75f91aabc14cb9c1253d_icgraph" id="aIWDG__interface_8h_aaa08e67683aa75f91aabc14cb9c1253d_icgraph">
-<area shape="rect" title="Start the Independent Watchdog with the given timeout." alt="" coords="108,5,222,33"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,94,18"/>
-</map>
+<p class="definition">Definition at line <a class="el" href="IWDG__program_8c_source.html#l00073">73</a> of file <a class="el" href="IWDG__program_8c_source.html">IWDG_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="IWDG__program_8c_source.html#l00070">DBG_IWDG_STOP</a>, <a class="el" href="IWDG__program_8c_source.html#l00069">DBGMCU_APB1_FZ</a>, <a class="el" href="IWDG__program_8c_source.html#l00044">IWDG_KEY_ENABLE</a>, <a class="el" href="IWDG__program_8c_source.html#l00045">IWDG_KEY_REFRESH</a>, <a class="el" href="IWDG__program_8c_source.html#l00046">IWDG_KEY_START</a>, <a class="el" href="IWDG__program_8c_source.html#l00056">IWDG_PR_DIV64</a>, <a class="el" href="IWDG__program_8c_source.html#l00058">IWDG_RLR_MAX</a>, <a class="el" href="IWDG__program_8c_source.html#l00057">IWDG_TICK_MS</a>, and <a class="el" href="IWDG__program_8c_source.html#l00036">MIWDG</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00147">main()</a>.</p>
+<div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="IWDG__interface_8h_aaa08e67683aa75f91aabc14cb9c1253d_icgraph.svg" width="228" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -184,20 +182,19 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Reload the watchdog counter ("kick the dog"). Call periodically. </p>
+<p>Reload the watchdog counter ("kick the dog"). </p>
+<p>Call periodically. </p>
 
-<p class="definition">Definition at line <a class="el" href="IWDG__program_8c_source.html#l00061">61</a> of file <a class="el" href="IWDG__program_8c_source.html">IWDG_program.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="IWDG__interface_8h_afdf15cddaf966d918224d78b50c4b6d5_icgraph.png" border="0" usemap="#aIWDG__interface_8h_afdf15cddaf966d918224d78b50c4b6d5_icgraph" loading="lazy" alt=""/></div>
-<map name="aIWDG__interface_8h_afdf15cddaf966d918224d78b50c4b6d5_icgraph" id="aIWDG__interface_8h_afdf15cddaf966d918224d78b50c4b6d5_icgraph">
-<area shape="rect" title="Reload the watchdog counter (&quot;kick the dog&quot;). Call periodically." alt="" coords="285,5,428,33"/>
-<area shape="rect" href="main_8c.html#ae1bcb9c7fb7ee6cb777db33125685421" title="Liveness monitor + watchdog kicker (lowest priority)." alt="" coords="108,5,237,33"/>
-<area shape="poly" title=" " alt="" coords="267,19,237,22,237,17,272,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,95,18"/>
-</map>
+<p class="definition">Definition at line <a class="el" href="IWDG__program_8c_source.html#l00089">89</a> of file <a class="el" href="IWDG__program_8c_source.html">IWDG_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="IWDG__program_8c_source.html#l00045">IWDG_KEY_REFRESH</a>, and <a class="el" href="IWDG__program_8c_source.html#l00036">MIWDG</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00534">vTask_Watchdog()</a>.</p>
+<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="IWDG__interface_8h_afdf15cddaf966d918224d78b50c4b6d5_icgraph.svg" width="434" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -215,7 +212,7 @@ Here is the caller graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_f93dfce691d792349f1c14ede440e2e6.html">Inc</a></li><li class="navelem"><a href="dir_5807d32f659ca06f2d44f24c89728eb8.html">Drivers</a></li><li class="navelem"><a href="dir_8b6b04023385edca15dd86450894d113.html">MCAL</a></li><li class="navelem"><a href="dir_009231207bdf76d93bef455fb338957c.html">IWDG</a></li><li class="navelem"><a href="IWDG__interface_8h.html">IWDG_interface.h</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Inc</b></li><li class="navelem"><b>Drivers</b></li><li class="navelem"><b>MCAL</b></li><li class="navelem"><b>IWDG</b></li><li class="navelem"><a href="IWDG__interface_8h.html">IWDG_interface.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

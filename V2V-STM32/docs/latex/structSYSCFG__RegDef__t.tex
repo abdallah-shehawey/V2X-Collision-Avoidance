@@ -2,67 +2,44 @@
 \hypertarget{structSYSCFG__RegDef__t}{}\label{structSYSCFG__RegDef__t}\index{SYSCFG\_RegDef\_t@{SYSCFG\_RegDef\_t}}
 
 
-{\ttfamily \+\#include $<$STM32\+F446xx.\+h$>$}
+SYSCFG (system configuration controller) register layout.  
+
+
+
+
+{\ttfamily \+\#include $<$Drivers/\+\+LIB/\+\+STM32\+F446xx.\+h$>$}
 
 \doxysubsubsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
 uint32\+\_\+t \doxymbox{\hyperlink{structSYSCFG__RegDef__t_afb7ac1eeb76a8eedc6220dc146c96d6a}{MEMRMP}}
-\item 
+\begin{DoxyCompactList}\small\item\em Memory remap:\+ what is mapped at address 0x00000000. \end{DoxyCompactList}\item 
 uint32\+\_\+t \doxymbox{\hyperlink{structSYSCFG__RegDef__t_aac0299c67b47e4c96c2bc2ba13019d47}{PMC}}
-\item 
-uint32\+\_\+t \doxymbox{\hyperlink{structSYSCFG__RegDef__t_af52f202cfb4930ff2f821d2dfb1b01d2}{EXTICR}} \+[4]\+
-\item 
-uint32\+\_\+t \doxymbox{\hyperlink{structSYSCFG__RegDef__t_a159604ad33935960ee6fc9ff5c24d1a6}{Reserved1}} \+[2]\+
-\item 
+\begin{DoxyCompactList}\small\item\em Peripheral mode configuration. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{structSYSCFG__RegDef__t_a4fd64f8698981dfb7505cdb4bfcd6b6a}{EXTICR}} \+[4]\+
+\begin{DoxyCompactList}\small\item\em EXTI port routing:\+ 4 bits per EXTI line, 4 lines per word. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{structSYSCFG__RegDef__t_adf8c7bf432a49ea430a454b20211594e}{Reserved1}} \+[2]\+
+\begin{DoxyCompactList}\small\item\em Padding — keeps CMPCR at its hardware offset. \end{DoxyCompactList}\item 
 uint32\+\_\+t \doxymbox{\hyperlink{structSYSCFG__RegDef__t_a8df57c2991c18a97c7a48487950c68fa}{CMPCR}}
-\item 
-uint32\+\_\+t \doxymbox{\hyperlink{structSYSCFG__RegDef__t_a41a8d9dd312e6d537b763ca114692af5}{Reserved2}} \+[2]\+
-\item 
+\begin{DoxyCompactList}\small\item\em Compensation cell control. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{structSYSCFG__RegDef__t_abb1d8ec928bff2103e51442a8154df00}{Reserved2}} \+[2]\+
+\begin{DoxyCompactList}\small\item\em Padding — keeps CFGR at its hardware offset. \end{DoxyCompactList}\item 
 uint32\+\_\+t \doxymbox{\hyperlink{structSYSCFG__RegDef__t_a9a921131581d7c3b0336b740dc580e97}{CFGR}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Configuration register. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
+SYSCFG (system configuration controller) register layout. 
 
+Its only job in this firmware is EXTICR:\+ choosing {\itshape which port\textquotesingle{}s} pin N drives EXTI line N. Without it, every EXTI line would default to port A, and the six ultrasonic echo interrupts would never fire. 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00277}{277}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00336}{336}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
 
 
 
 \label{doc-variable-members}
 \Hypertarget{structSYSCFG__RegDef__t_doc-variable-members}
 \doxysubsection{Field Documentation}
-\Hypertarget{structSYSCFG__RegDef__t_a9a921131581d7c3b0336b740dc580e97}\index{SYSCFG\_RegDef\_t@{SYSCFG\_RegDef\_t}!CFGR@{CFGR}}
-\index{CFGR@{CFGR}!SYSCFG\_RegDef\_t@{SYSCFG\_RegDef\_t}}
-\doxysubsubsection{\texorpdfstring{CFGR}{CFGR}}
-{\footnotesize\ttfamily \label{structSYSCFG__RegDef__t_a9a921131581d7c3b0336b740dc580e97} 
-uint32\+\_\+t SYSCFG\+\_\+\+Reg\+Def\+\_\+t::\+\+CFGR}
-
-
-
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00284}{284}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
-
-\Hypertarget{structSYSCFG__RegDef__t_a8df57c2991c18a97c7a48487950c68fa}\index{SYSCFG\_RegDef\_t@{SYSCFG\_RegDef\_t}!CMPCR@{CMPCR}}
-\index{CMPCR@{CMPCR}!SYSCFG\_RegDef\_t@{SYSCFG\_RegDef\_t}}
-\doxysubsubsection{\texorpdfstring{CMPCR}{CMPCR}}
-{\footnotesize\ttfamily \label{structSYSCFG__RegDef__t_a8df57c2991c18a97c7a48487950c68fa} 
-uint32\+\_\+t SYSCFG\+\_\+\+Reg\+Def\+\_\+t::\+\+CMPCR}
-
-
-
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00282}{282}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
-
-\Hypertarget{structSYSCFG__RegDef__t_af52f202cfb4930ff2f821d2dfb1b01d2}\index{SYSCFG\_RegDef\_t@{SYSCFG\_RegDef\_t}!EXTICR@{EXTICR}}
-\index{EXTICR@{EXTICR}!SYSCFG\_RegDef\_t@{SYSCFG\_RegDef\_t}}
-\doxysubsubsection{\texorpdfstring{EXTICR}{EXTICR}}
-{\footnotesize\ttfamily \label{structSYSCFG__RegDef__t_af52f202cfb4930ff2f821d2dfb1b01d2} 
-uint32\+\_\+t SYSCFG\+\_\+\+Reg\+Def\+\_\+t::\+\+EXTICR}
-
-
-
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00280}{280}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
-
 \Hypertarget{structSYSCFG__RegDef__t_afb7ac1eeb76a8eedc6220dc146c96d6a}\index{SYSCFG\_RegDef\_t@{SYSCFG\_RegDef\_t}!MEMRMP@{MEMRMP}}
 \index{MEMRMP@{MEMRMP}!SYSCFG\_RegDef\_t@{SYSCFG\_RegDef\_t}}
 \doxysubsubsection{\texorpdfstring{MEMRMP}{MEMRMP}}
@@ -71,7 +48,11 @@ uint32\+\_\+t SYSCFG\+\_\+\+Reg\+Def\+\_\+t::\+\+MEMRMP}
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00278}{278}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Memory remap:\+ what is mapped at address 0x00000000. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00337}{337}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
 
 \Hypertarget{structSYSCFG__RegDef__t_aac0299c67b47e4c96c2bc2ba13019d47}\index{SYSCFG\_RegDef\_t@{SYSCFG\_RegDef\_t}!PMC@{PMC}}
 \index{PMC@{PMC}!SYSCFG\_RegDef\_t@{SYSCFG\_RegDef\_t}}
@@ -81,31 +62,84 @@ uint32\+\_\+t SYSCFG\+\_\+\+Reg\+Def\+\_\+t::\+\+PMC}
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00279}{279}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Peripheral mode configuration. 
 
-\Hypertarget{structSYSCFG__RegDef__t_a159604ad33935960ee6fc9ff5c24d1a6}\index{SYSCFG\_RegDef\_t@{SYSCFG\_RegDef\_t}!Reserved1@{Reserved1}}
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00338}{338}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structSYSCFG__RegDef__t_a4fd64f8698981dfb7505cdb4bfcd6b6a}\index{SYSCFG\_RegDef\_t@{SYSCFG\_RegDef\_t}!EXTICR@{EXTICR}}
+\index{EXTICR@{EXTICR}!SYSCFG\_RegDef\_t@{SYSCFG\_RegDef\_t}}
+\doxysubsubsection{\texorpdfstring{EXTICR}{EXTICR}}
+{\footnotesize\ttfamily \label{structSYSCFG__RegDef__t_a4fd64f8698981dfb7505cdb4bfcd6b6a} 
+uint32\+\_\+t SYSCFG\+\_\+\+Reg\+Def\+\_\+t::\+\+EXTICR\+[4]\+}
+
+
+
+EXTI port routing:\+ 4 bits per EXTI line, 4 lines per word. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00339}{339}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structSYSCFG__RegDef__t_adf8c7bf432a49ea430a454b20211594e}\index{SYSCFG\_RegDef\_t@{SYSCFG\_RegDef\_t}!Reserved1@{Reserved1}}
 \index{Reserved1@{Reserved1}!SYSCFG\_RegDef\_t@{SYSCFG\_RegDef\_t}}
 \doxysubsubsection{\texorpdfstring{Reserved1}{Reserved1}}
-{\footnotesize\ttfamily \label{structSYSCFG__RegDef__t_a159604ad33935960ee6fc9ff5c24d1a6} 
-uint32\+\_\+t SYSCFG\+\_\+\+Reg\+Def\+\_\+t::\+\+Reserved1}
+{\footnotesize\ttfamily \label{structSYSCFG__RegDef__t_adf8c7bf432a49ea430a454b20211594e} 
+uint32\+\_\+t SYSCFG\+\_\+\+Reg\+Def\+\_\+t::\+\+Reserved1\+[2]\+}
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00281}{281}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Padding — keeps CMPCR at its hardware offset. 
 
-\Hypertarget{structSYSCFG__RegDef__t_a41a8d9dd312e6d537b763ca114692af5}\index{SYSCFG\_RegDef\_t@{SYSCFG\_RegDef\_t}!Reserved2@{Reserved2}}
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00340}{340}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structSYSCFG__RegDef__t_a8df57c2991c18a97c7a48487950c68fa}\index{SYSCFG\_RegDef\_t@{SYSCFG\_RegDef\_t}!CMPCR@{CMPCR}}
+\index{CMPCR@{CMPCR}!SYSCFG\_RegDef\_t@{SYSCFG\_RegDef\_t}}
+\doxysubsubsection{\texorpdfstring{CMPCR}{CMPCR}}
+{\footnotesize\ttfamily \label{structSYSCFG__RegDef__t_a8df57c2991c18a97c7a48487950c68fa} 
+uint32\+\_\+t SYSCFG\+\_\+\+Reg\+Def\+\_\+t::\+\+CMPCR}
+
+
+
+Compensation cell control. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00341}{341}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structSYSCFG__RegDef__t_abb1d8ec928bff2103e51442a8154df00}\index{SYSCFG\_RegDef\_t@{SYSCFG\_RegDef\_t}!Reserved2@{Reserved2}}
 \index{Reserved2@{Reserved2}!SYSCFG\_RegDef\_t@{SYSCFG\_RegDef\_t}}
 \doxysubsubsection{\texorpdfstring{Reserved2}{Reserved2}}
-{\footnotesize\ttfamily \label{structSYSCFG__RegDef__t_a41a8d9dd312e6d537b763ca114692af5} 
-uint32\+\_\+t SYSCFG\+\_\+\+Reg\+Def\+\_\+t::\+\+Reserved2}
+{\footnotesize\ttfamily \label{structSYSCFG__RegDef__t_abb1d8ec928bff2103e51442a8154df00} 
+uint32\+\_\+t SYSCFG\+\_\+\+Reg\+Def\+\_\+t::\+\+Reserved2\+[2]\+}
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00283}{283}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Padding — keeps CFGR at its hardware offset. 
 
 
 
-The documentation for this struct was generated from the following files:\+\begin{DoxyCompactItemize}
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00342}{342}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structSYSCFG__RegDef__t_a9a921131581d7c3b0336b740dc580e97}\index{SYSCFG\_RegDef\_t@{SYSCFG\_RegDef\_t}!CFGR@{CFGR}}
+\index{CFGR@{CFGR}!SYSCFG\_RegDef\_t@{SYSCFG\_RegDef\_t}}
+\doxysubsubsection{\texorpdfstring{CFGR}{CFGR}}
+{\footnotesize\ttfamily \label{structSYSCFG__RegDef__t_a9a921131581d7c3b0336b740dc580e97} 
+uint32\+\_\+t SYSCFG\+\_\+\+Reg\+Def\+\_\+t::\+\+CFGR}
+
+
+
+Configuration register. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00343}{343}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
 \item 
-Inc/\+\+Drivers/\+\+LIB/\+\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h}{STM32\+F446xx.\+h}}\item 
-Inc/\+\+System/\+\doxymbox{\hyperlink{System_2STM32F446xx_8h}{STM32\+F446xx.\+h}}\end{DoxyCompactItemize}
+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+LIB/\+\doxymbox{\hyperlink{STM32F446xx_8h}{STM32\+F446xx.\+h}}\end{DoxyCompactItemize}

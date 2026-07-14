@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['register_20bit_20definitions_0',['SysTick Register Bit Definitions',['../group__SYSTIC__Registers.html',1,'']]]
+  ['fcw_5fdnpw_0',['FCW_DNPW',['../group__app__fcw__dnpw.html',1,'']]],
+  ['functions_1',['SysTick Private Functions',['../group__SYSTIC__Private__Functions.html',1,'']]]
 ];

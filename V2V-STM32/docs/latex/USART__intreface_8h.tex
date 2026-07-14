@@ -1,5 +1,10 @@
-\doxysection{Inc/\+\+Drivers/\+\+MCAL/\+\+USART/\+\+USART\+\_\+intreface.h File Reference}
-\hypertarget{USART__intreface_8h}{}\label{USART__intreface_8h}\index{Inc/Drivers/MCAL/USART/USART\_intreface.h@{Inc/Drivers/MCAL/USART/USART\_intreface.h}}
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+USART/\+\+USART\+\_\+intreface.h File Reference}
+\hypertarget{USART__intreface_8h}{}\label{USART__intreface_8h}\index{V2V-\/STM32/Inc/Drivers/MCAL/USART/USART\_intreface.h@{V2V-\/STM32/Inc/Drivers/MCAL/USART/USART\_intreface.h}}
+
+
+Public API of the USART driver — the asynchronous serial ports.  
+
+
 {\ttfamily \+\#include "{}../\+../\+\+LIB/\+\+Err\+Types.\+h"{}}\newline
 {\ttfamily \+\#include $<$stdint.\+h$>$}\newline
 Include dependency graph for USART\+\_\+intreface.\+h:\+
@@ -7,7 +12,7 @@ Include dependency graph for USART\+\_\+intreface.\+h:\+
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=254pt]{USART__intreface_8h__incl}
+\includegraphics[width=267pt]{USART__intreface_8h__incl}
 \end{center}
 \end{figure}
 This graph shows which files directly or indirectly include this file:\+
@@ -22,9 +27,9 @@ This graph shows which files directly or indirectly include this file:\+
 \begin{DoxyCompactItemize}
 \item 
 struct \doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}}
-\item 
+\begin{DoxyCompactList}\small\item\em Line settings for a USART used in {\bfseries{polled}} mode. \end{DoxyCompactList}\item 
 struct \doxymbox{\hyperlink{structUSART__Handle__t}{USART\+\_\+\+Handle\+\_\+t}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em A USART used in {\bfseries{interrupt-\/driven}} mode:\+ line settings plus the ISR hookup. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
@@ -37,76 +42,88 @@ enum \doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0f}
 \doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa99640cff96d12f56b1ce87609f82c11d}{USART\+\_\+\+CHANNEL5}}
 , \doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa391e253a32e8c4f08f078e319f4dbb3c}{USART\+\_\+\+CHANNEL6}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em Which USART peripheral a call applies to. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{USART__intreface_8h_a4e501b68f85dbe9be3c75f1bfc5b81bf}{USART\+\_\+\+Word\+Length\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_a4e501b68f85dbe9be3c75f1bfc5b81bfa11e0fe52228151363c3e93f67240aa72}{USART\+\_\+\+WORDLENGTH\+\_\+8B}}
 , \doxymbox{\hyperlink{USART__intreface_8h_a4e501b68f85dbe9be3c75f1bfc5b81bfafb039010a4915f7ea1115883f2328820}{USART\+\_\+\+WORDLENGTH\+\_\+9B}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em Data bits per frame. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00a}{USART\+\_\+\+Stop\+Bits\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa46d2a77c3f07e66a624b75975c37782e}{USART\+\_\+\+STOPBITS\+\_\+0\+\_\+5}}
 , \doxymbox{\hyperlink{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa9011413422d1340bb5c343a1f3b57341}{USART\+\_\+\+STOPBITS\+\_\+1}}
 , \doxymbox{\hyperlink{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aad2786662250834f04b72156aebff3050}{USART\+\_\+\+STOPBITS\+\_\+1\+\_\+5}}
 , \doxymbox{\hyperlink{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa1e3cd9a88a519d93c0c300e873437a2c}{USART\+\_\+\+STOPBITS\+\_\+2}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em Stop bits appended to each frame. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85}{USART\+\_\+\+Parity\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85aecf52ec650226bdc63e12a21d3b5585d}{USART\+\_\+\+PARITY\+\_\+\+NONE}}
 , \doxymbox{\hyperlink{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85a69c6cdd4d354d3b26c8d2f09f49d2ede}{USART\+\_\+\+PARITY\+\_\+\+ODD}}
 , \doxymbox{\hyperlink{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85ae5d22c99a30184aff19d77c1a970fb23}{USART\+\_\+\+PARITY\+\_\+\+EVEN}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em Parity checking. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2}{USART\+\_\+\+Mode\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2ace5b471384e2a4cbf3b933796507304b}{USART\+\_\+\+MODE\+\_\+\+TX\+\_\+\+RX}}
 , \doxymbox{\hyperlink{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2af50f1777647d119d6b7d0c5f80e0b9d4}{USART\+\_\+\+MODE\+\_\+\+TX}}
 , \doxymbox{\hyperlink{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2ad5e3d2e29fa3f05889723d0aff5285c0}{USART\+\_\+\+MODE\+\_\+\+RX}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em Which direction(s) of the peripheral to switch on. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0b}{USART\+\_\+\+State\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0ba305b79709e4eabff936a0b5a5b54892c}{USART\+\_\+\+DIS}}
 , \doxymbox{\hyperlink{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0ba393929613a131863ec9ae705082419d4}{USART\+\_\+\+EN}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em Generic enable/\+disable for a USART feature. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{USART__intreface_8h_abafac9366efc163949f648cb90e719a3}{USART\+\_\+\+Over\+Sampling\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_abafac9366efc163949f648cb90e719a3a5f7f986fd4559ee42850714b3906faca}{USART\+\_\+\+OVERSAMPLING\+\_\+16}}
 , \doxymbox{\hyperlink{USART__intreface_8h_abafac9366efc163949f648cb90e719a3af5782198bea5f0a044a84a117cf9dec0}{USART\+\_\+\+OVERSAMPLING\+\_\+8}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em How many times the receiver samples each bit. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912f}{USART\+\_\+\+Hardware\+Flow\+Control\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa3abfc51474e9b5def1151e7c2c731e85}{UART\+\_\+\+HWCONTROL\+\_\+\+NONE}}
 , \doxymbox{\hyperlink{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa38f199baa537d07cc6e56bae52406f50}{UART\+\_\+\+HWCONTROL\+\_\+\+RTS}}
 , \doxymbox{\hyperlink{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa3343d11dbb64750bde8dc28650118581}{UART\+\_\+\+HWCONTROL\+\_\+\+CTS}}
 , \doxymbox{\hyperlink{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fab67d687b8058f03397e00c462ab5fd43}{UART\+\_\+\+HWCONTROL\+\_\+\+RTS\+\_\+\+CTS}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em RTS/\+\+CTS hardware flow control. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9}{USART\+\_\+\+RXNEIE\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9a87c3f6c4240ed23001cf3856bca6627d}{USART\+\_\+\+RXNEIE\+\_\+\+DIS}}
 , \doxymbox{\hyperlink{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9afdc3b405c26fccce585184e05cca91ef}{USART\+\_\+\+RXNEIE\+\_\+\+EN}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em "{}\+Byte received"{} interrupt enable. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5}{USART\+\_\+\+TCIE\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5a0ae09f6d4d7a420010e559f94af5d90f}{USART\+\_\+\+TCIE\+\_\+\+DIS}}
 , \doxymbox{\hyperlink{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5ac1cf02980c4eac018b15bb0fc33959d0}{USART\+\_\+\+TCIE\+\_\+\+EN}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em "{}\+Transmission complete"{} interrupt enable. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{USART__intreface_8h_a671c995d7fa209fff941711681dcc559}{USART\+\_\+\+TXEIE\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_a671c995d7fa209fff941711681dcc559af03e1b14ff7cb6a9d3b78e2d3960cc3f}{USART\+\_\+\+TXEIE\+\_\+\+DIS}}
 , \doxymbox{\hyperlink{USART__intreface_8h_a671c995d7fa209fff941711681dcc559a63165aa1407782dab6a7c4476ef2532c}{USART\+\_\+\+TXEIE\+\_\+\+EN}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em "{}\+Transmit register empty"{} interrupt enable. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95}{USART\+\_\+\+IDLEIE\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95a7f6040cad225e6b17e708e8ad29faaee}{USART\+\_\+\+IDLEIE\+\_\+\+DIS}}
 , \doxymbox{\hyperlink{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95a35e1c3f7e0f09edadbc7e9cd3fa79e5d}{USART\+\_\+\+IDLEIE\+\_\+\+EN}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em "{}\+Line went idle"{} interrupt enable. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83}{USART\+\_\+\+PEIE\+\_\+t}} \{ \doxymbox{\hyperlink{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83a4c7890981a65bd1f93f46b58a3cbf5e5}{USART\+\_\+\+PEIE\+\_\+\+DIS}}
 , \doxymbox{\hyperlink{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83a98a9f40e6ca4ee6bf2c43e7657b8da42}{USART\+\_\+\+PEIE\+\_\+\+EN}}
  \}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em "{}\+Parity error"{} interrupt enable. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__intreface_8h_a98f967289c40eacb31068b3becfff84f}{USART\+\_\+\+Init}} (\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__intreface_8h_ad840a14bcc70c1f552f2864ea2443c55}{USART\+\_\+\+Init\+IT}} (\doxymbox{\hyperlink{structUSART__Handle__t}{USART\+\_\+\+Handle\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Handle)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__intreface_8h_a1abd71036dad0752b737b6b4872d7111}{USART\+\_\+enum\+Transmit}} (\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint8\+\_\+t TX\+\_\+\+Data)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__intreface_8h_a2e8eab5dfbeeb289f33fccae5536d8ef}{USART\+\_\+enum\+Receive}} (\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint8\+\_\+t \texorpdfstring{$\ast$}{*}RX\+\_\+\+Data)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__intreface_8h_ad2e4a4a25beec1ea90558dc055ad9240}{USART\+\_\+enum\+Transmit\+String}} (\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint8\+\_\+t \texorpdfstring{$\ast$}{*}TX\+\_\+\+Data)
-\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__intreface_8h_a98f967289c40eacb31068b3becfff84f}{USART\+\_\+\+Init}} (\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config)
+\begin{DoxyCompactList}\small\item\em Bring a USART up in {\bfseries{polled}} mode:\+ baud rate, framing, parity, direction. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__intreface_8h_ad840a14bcc70c1f552f2864ea2443c55}{USART\+\_\+\+Init\+IT}} (\doxymbox{\hyperlink{structUSART__Handle__t}{USART\+\_\+\+Handle\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Handle)
+\begin{DoxyCompactList}\small\item\em Bring a USART up in {\bfseries{interrupt-\/driven}} mode. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__intreface_8h_a1abd71036dad0752b737b6b4872d7111}{USART\+\_\+enum\+Transmit}} (\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint8\+\_\+t TX\+\_\+\+Data)
+\begin{DoxyCompactList}\small\item\em Send one byte, blocking until the transmit register is free. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__intreface_8h_a2e8eab5dfbeeb289f33fccae5536d8ef}{USART\+\_\+enum\+Receive}} (\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint8\+\_\+t \texorpdfstring{$\ast$}{*}RX\+\_\+\+Data)
+\begin{DoxyCompactList}\small\item\em Receive one byte, blocking until one arrives. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{USART__intreface_8h_ad2e4a4a25beec1ea90558dc055ad9240}{USART\+\_\+enum\+Transmit\+String}} (\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint8\+\_\+t \texorpdfstring{$\ast$}{*}TX\+\_\+\+Data)
+\begin{DoxyCompactList}\small\item\em Send a NUL-\/terminated string, one byte at a time. \end{DoxyCompactList}\item 
 uint8\+\_\+t \doxymbox{\hyperlink{USART__intreface_8h_a2d4d739376d35a98e6b62282fc47b25a}{USART\+\_\+\+Receive\+Byte\+Direct}} (\doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0f}{USART\+\_\+\+Channel\+\_\+t}} Channel)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Directly read the data register without checking flags or busy state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Public API of the USART driver — the asynchronous serial ports. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
 
 
 \label{doc-enum-members}
@@ -118,347 +135,51 @@ uint8\+\_\+t \doxymbox{\hyperlink{USART__intreface_8h_a2d4d739376d35a98e6b62282f
 {\footnotesize\ttfamily \label{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0f} 
 enum \doxymbox{\hyperlink{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0f}{USART\+\_\+\+Channel\+\_\+t}}}
 
-===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} USART\+\_\+intrefac.\+h \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Abdelmoemen Shehawey \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ MCAL \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} CPU :\+ Cortex-\/\+M4 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} MCU :\+ NUCLEO-\/\+F446\+RE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SWC :\+ USART \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \begin{DoxyEnumFields}[2]{Enumerator}
+
+
+Which USART peripheral a call applies to. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_CHANNEL1@{USART\_CHANNEL1}!USART\_intreface.h@{USART\_intreface.h}}
 \index{USART\_intreface.h@{USART\_intreface.h}!USART\_CHANNEL1@{USART\_CHANNEL1}}
 }\Hypertarget{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa79bbc21727c50fad950ff76e76d924ab}\label{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa79bbc21727c50fad950ff76e76d924ab} 
-USART\+\_\+\+CHANNEL1&\\
+USART\+\_\+\+CHANNEL1&USART1 — the ESP32 V2V link. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_CHANNEL2@{USART\_CHANNEL2}!USART\_intreface.h@{USART\_intreface.h}}
 \index{USART\_intreface.h@{USART\_intreface.h}!USART\_CHANNEL2@{USART\_CHANNEL2}}
 }\Hypertarget{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0faaf4df48c4888878aacaea333fd164b28}\label{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0faaf4df48c4888878aacaea333fd164b28} 
-USART\+\_\+\+CHANNEL2&\\
+USART\+\_\+\+CHANNEL2&USART2 — the Raspberry Pi telemetry link. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_CHANNEL3@{USART\_CHANNEL3}!USART\_intreface.h@{USART\_intreface.h}}
 \index{USART\_intreface.h@{USART\_intreface.h}!USART\_CHANNEL3@{USART\_CHANNEL3}}
 }\Hypertarget{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa14f0c0083a3e5ba62f2d8ae6fcc8f5c3}\label{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa14f0c0083a3e5ba62f2d8ae6fcc8f5c3} 
-USART\+\_\+\+CHANNEL3&\\
+USART\+\_\+\+CHANNEL3&USART3. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_CHANNEL4@{USART\_CHANNEL4}!USART\_intreface.h@{USART\_intreface.h}}
 \index{USART\_intreface.h@{USART\_intreface.h}!USART\_CHANNEL4@{USART\_CHANNEL4}}
 }\Hypertarget{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa6909ff4ed1b6cf9ed37711a3a802a635}\label{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa6909ff4ed1b6cf9ed37711a3a802a635} 
-USART\+\_\+\+CHANNEL4&\\
+USART\+\_\+\+CHANNEL4&UART4. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_CHANNEL5@{USART\_CHANNEL5}!USART\_intreface.h@{USART\_intreface.h}}
 \index{USART\_intreface.h@{USART\_intreface.h}!USART\_CHANNEL5@{USART\_CHANNEL5}}
 }\Hypertarget{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa99640cff96d12f56b1ce87609f82c11d}\label{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa99640cff96d12f56b1ce87609f82c11d} 
-USART\+\_\+\+CHANNEL5&\\
+USART\+\_\+\+CHANNEL5&UART5. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_CHANNEL6@{USART\_CHANNEL6}!USART\_intreface.h@{USART\_intreface.h}}
 \index{USART\_intreface.h@{USART\_intreface.h}!USART\_CHANNEL6@{USART\_CHANNEL6}}
 }\Hypertarget{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa391e253a32e8c4f08f078e319f4dbb3c}\label{USART__intreface_8h_a19facc44fdef5d4b8d0c1d3beea79b0fa391e253a32e8c4f08f078e319f4dbb3c} 
-USART\+\_\+\+CHANNEL6&\\
+USART\+\_\+\+CHANNEL6&USART6. \\
 \hline
 
 \end{DoxyEnumFields}
 
 
-Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00021}{21}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
-
-\Hypertarget{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912f}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_HardwareFlowControl\_t@{USART\_HardwareFlowControl\_t}}
-\index{USART\_HardwareFlowControl\_t@{USART\_HardwareFlowControl\_t}!USART\_intreface.h@{USART\_intreface.h}}
-\doxysubsubsection{\texorpdfstring{USART\_HardwareFlowControl\_t}{USART\_HardwareFlowControl\_t}}
-{\footnotesize\ttfamily \label{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912f} 
-enum \doxymbox{\hyperlink{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912f}{USART\+\_\+\+Hardware\+Flow\+Control\+\_\+t}}}
-
-\begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{UART\_HWCONTROL\_NONE@{UART\_HWCONTROL\_NONE}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!UART\_HWCONTROL\_NONE@{UART\_HWCONTROL\_NONE}}
-}\Hypertarget{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa3abfc51474e9b5def1151e7c2c731e85}\label{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa3abfc51474e9b5def1151e7c2c731e85} 
-UART\+\_\+\+HWCONTROL\+\_\+\+NONE&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{UART\_HWCONTROL\_RTS@{UART\_HWCONTROL\_RTS}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!UART\_HWCONTROL\_RTS@{UART\_HWCONTROL\_RTS}}
-}\Hypertarget{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa38f199baa537d07cc6e56bae52406f50}\label{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa38f199baa537d07cc6e56bae52406f50} 
-UART\+\_\+\+HWCONTROL\+\_\+\+RTS&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{UART\_HWCONTROL\_CTS@{UART\_HWCONTROL\_CTS}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!UART\_HWCONTROL\_CTS@{UART\_HWCONTROL\_CTS}}
-}\Hypertarget{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa3343d11dbb64750bde8dc28650118581}\label{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa3343d11dbb64750bde8dc28650118581} 
-UART\+\_\+\+HWCONTROL\+\_\+\+CTS&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{UART\_HWCONTROL\_RTS\_CTS@{UART\_HWCONTROL\_RTS\_CTS}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!UART\_HWCONTROL\_RTS\_CTS@{UART\_HWCONTROL\_RTS\_CTS}}
-}\Hypertarget{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fab67d687b8058f03397e00c462ab5fd43}\label{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fab67d687b8058f03397e00c462ab5fd43} 
-UART\+\_\+\+HWCONTROL\+\_\+\+RTS\+\_\+\+CTS&\\
-\hline
-
-\end{DoxyEnumFields}
-
-
-Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00071}{71}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
-
-\Hypertarget{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_IDLEIE\_t@{USART\_IDLEIE\_t}}
-\index{USART\_IDLEIE\_t@{USART\_IDLEIE\_t}!USART\_intreface.h@{USART\_intreface.h}}
-\doxysubsubsection{\texorpdfstring{USART\_IDLEIE\_t}{USART\_IDLEIE\_t}}
-{\footnotesize\ttfamily \label{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95} 
-enum \doxymbox{\hyperlink{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95}{USART\+\_\+\+IDLEIE\+\_\+t}}}
-
-\begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_IDLEIE\_DIS@{USART\_IDLEIE\_DIS}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_IDLEIE\_DIS@{USART\_IDLEIE\_DIS}}
-}\Hypertarget{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95a7f6040cad225e6b17e708e8ad29faaee}\label{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95a7f6040cad225e6b17e708e8ad29faaee} 
-USART\+\_\+\+IDLEIE\+\_\+\+DIS&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_IDLEIE\_EN@{USART\_IDLEIE\_EN}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_IDLEIE\_EN@{USART\_IDLEIE\_EN}}
-}\Hypertarget{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95a35e1c3f7e0f09edadbc7e9cd3fa79e5d}\label{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95a35e1c3f7e0f09edadbc7e9cd3fa79e5d} 
-USART\+\_\+\+IDLEIE\+\_\+\+EN&\\
-\hline
-
-\end{DoxyEnumFields}
-
-
-Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00109}{109}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
-
-\Hypertarget{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_Mode\_t@{USART\_Mode\_t}}
-\index{USART\_Mode\_t@{USART\_Mode\_t}!USART\_intreface.h@{USART\_intreface.h}}
-\doxysubsubsection{\texorpdfstring{USART\_Mode\_t}{USART\_Mode\_t}}
-{\footnotesize\ttfamily \label{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2} 
-enum \doxymbox{\hyperlink{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2}{USART\+\_\+\+Mode\+\_\+t}}}
-
-\begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_MODE\_TX\_RX@{USART\_MODE\_TX\_RX}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_MODE\_TX\_RX@{USART\_MODE\_TX\_RX}}
-}\Hypertarget{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2ace5b471384e2a4cbf3b933796507304b}\label{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2ace5b471384e2a4cbf3b933796507304b} 
-USART\+\_\+\+MODE\+\_\+\+TX\+\_\+\+RX&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_MODE\_TX@{USART\_MODE\_TX}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_MODE\_TX@{USART\_MODE\_TX}}
-}\Hypertarget{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2af50f1777647d119d6b7d0c5f80e0b9d4}\label{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2af50f1777647d119d6b7d0c5f80e0b9d4} 
-USART\+\_\+\+MODE\+\_\+\+TX&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_MODE\_RX@{USART\_MODE\_RX}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_MODE\_RX@{USART\_MODE\_RX}}
-}\Hypertarget{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2ad5e3d2e29fa3f05889723d0aff5285c0}\label{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2ad5e3d2e29fa3f05889723d0aff5285c0} 
-USART\+\_\+\+MODE\+\_\+\+RX&\\
-\hline
-
-\end{DoxyEnumFields}
-
-
-Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00052}{52}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
-
-\Hypertarget{USART__intreface_8h_abafac9366efc163949f648cb90e719a3}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_OverSampling\_t@{USART\_OverSampling\_t}}
-\index{USART\_OverSampling\_t@{USART\_OverSampling\_t}!USART\_intreface.h@{USART\_intreface.h}}
-\doxysubsubsection{\texorpdfstring{USART\_OverSampling\_t}{USART\_OverSampling\_t}}
-{\footnotesize\ttfamily \label{USART__intreface_8h_abafac9366efc163949f648cb90e719a3} 
-enum \doxymbox{\hyperlink{USART__intreface_8h_abafac9366efc163949f648cb90e719a3}{USART\+\_\+\+Over\+Sampling\+\_\+t}}}
-
-\begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_OVERSAMPLING\_16@{USART\_OVERSAMPLING\_16}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_OVERSAMPLING\_16@{USART\_OVERSAMPLING\_16}}
-}\Hypertarget{USART__intreface_8h_abafac9366efc163949f648cb90e719a3a5f7f986fd4559ee42850714b3906faca}\label{USART__intreface_8h_abafac9366efc163949f648cb90e719a3a5f7f986fd4559ee42850714b3906faca} 
-USART\+\_\+\+OVERSAMPLING\+\_\+16&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_OVERSAMPLING\_8@{USART\_OVERSAMPLING\_8}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_OVERSAMPLING\_8@{USART\_OVERSAMPLING\_8}}
-}\Hypertarget{USART__intreface_8h_abafac9366efc163949f648cb90e719a3af5782198bea5f0a044a84a117cf9dec0}\label{USART__intreface_8h_abafac9366efc163949f648cb90e719a3af5782198bea5f0a044a84a117cf9dec0} 
-USART\+\_\+\+OVERSAMPLING\+\_\+8&\\
-\hline
-
-\end{DoxyEnumFields}
-
-
-Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00065}{65}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
-
-\Hypertarget{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_Parity\_t@{USART\_Parity\_t}}
-\index{USART\_Parity\_t@{USART\_Parity\_t}!USART\_intreface.h@{USART\_intreface.h}}
-\doxysubsubsection{\texorpdfstring{USART\_Parity\_t}{USART\_Parity\_t}}
-{\footnotesize\ttfamily \label{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85} 
-enum \doxymbox{\hyperlink{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85}{USART\+\_\+\+Parity\+\_\+t}}}
-
-\begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_PARITY\_NONE@{USART\_PARITY\_NONE}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_PARITY\_NONE@{USART\_PARITY\_NONE}}
-}\Hypertarget{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85aecf52ec650226bdc63e12a21d3b5585d}\label{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85aecf52ec650226bdc63e12a21d3b5585d} 
-USART\+\_\+\+PARITY\+\_\+\+NONE&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_PARITY\_ODD@{USART\_PARITY\_ODD}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_PARITY\_ODD@{USART\_PARITY\_ODD}}
-}\Hypertarget{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85a69c6cdd4d354d3b26c8d2f09f49d2ede}\label{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85a69c6cdd4d354d3b26c8d2f09f49d2ede} 
-USART\+\_\+\+PARITY\+\_\+\+ODD&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_PARITY\_EVEN@{USART\_PARITY\_EVEN}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_PARITY\_EVEN@{USART\_PARITY\_EVEN}}
-}\Hypertarget{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85ae5d22c99a30184aff19d77c1a970fb23}\label{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85ae5d22c99a30184aff19d77c1a970fb23} 
-USART\+\_\+\+PARITY\+\_\+\+EVEN&\\
-\hline
-
-\end{DoxyEnumFields}
-
-
-Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00045}{45}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
-
-\Hypertarget{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_PEIE\_t@{USART\_PEIE\_t}}
-\index{USART\_PEIE\_t@{USART\_PEIE\_t}!USART\_intreface.h@{USART\_intreface.h}}
-\doxysubsubsection{\texorpdfstring{USART\_PEIE\_t}{USART\_PEIE\_t}}
-{\footnotesize\ttfamily \label{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83} 
-enum \doxymbox{\hyperlink{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83}{USART\+\_\+\+PEIE\+\_\+t}}}
-
-\begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_PEIE\_DIS@{USART\_PEIE\_DIS}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_PEIE\_DIS@{USART\_PEIE\_DIS}}
-}\Hypertarget{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83a4c7890981a65bd1f93f46b58a3cbf5e5}\label{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83a4c7890981a65bd1f93f46b58a3cbf5e5} 
-USART\+\_\+\+PEIE\+\_\+\+DIS&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_PEIE\_EN@{USART\_PEIE\_EN}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_PEIE\_EN@{USART\_PEIE\_EN}}
-}\Hypertarget{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83a98a9f40e6ca4ee6bf2c43e7657b8da42}\label{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83a98a9f40e6ca4ee6bf2c43e7657b8da42} 
-USART\+\_\+\+PEIE\+\_\+\+EN&\\
-\hline
-
-\end{DoxyEnumFields}
-
-
-Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00115}{115}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
-
-\Hypertarget{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_RXNEIE\_t@{USART\_RXNEIE\_t}}
-\index{USART\_RXNEIE\_t@{USART\_RXNEIE\_t}!USART\_intreface.h@{USART\_intreface.h}}
-\doxysubsubsection{\texorpdfstring{USART\_RXNEIE\_t}{USART\_RXNEIE\_t}}
-{\footnotesize\ttfamily \label{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9} 
-enum \doxymbox{\hyperlink{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9}{USART\+\_\+\+RXNEIE\+\_\+t}}}
-
-\begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_RXNEIE\_DIS@{USART\_RXNEIE\_DIS}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_RXNEIE\_DIS@{USART\_RXNEIE\_DIS}}
-}\Hypertarget{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9a87c3f6c4240ed23001cf3856bca6627d}\label{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9a87c3f6c4240ed23001cf3856bca6627d} 
-USART\+\_\+\+RXNEIE\+\_\+\+DIS&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_RXNEIE\_EN@{USART\_RXNEIE\_EN}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_RXNEIE\_EN@{USART\_RXNEIE\_EN}}
-}\Hypertarget{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9afdc3b405c26fccce585184e05cca91ef}\label{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9afdc3b405c26fccce585184e05cca91ef} 
-USART\+\_\+\+RXNEIE\+\_\+\+EN&\\
-\hline
-
-\end{DoxyEnumFields}
-
-
-Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00091}{91}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
-
-\Hypertarget{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0b}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_State\_t@{USART\_State\_t}}
-\index{USART\_State\_t@{USART\_State\_t}!USART\_intreface.h@{USART\_intreface.h}}
-\doxysubsubsection{\texorpdfstring{USART\_State\_t}{USART\_State\_t}}
-{\footnotesize\ttfamily \label{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0b} 
-enum \doxymbox{\hyperlink{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0b}{USART\+\_\+\+State\+\_\+t}}}
-
-\begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_DIS@{USART\_DIS}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_DIS@{USART\_DIS}}
-}\Hypertarget{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0ba305b79709e4eabff936a0b5a5b54892c}\label{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0ba305b79709e4eabff936a0b5a5b54892c} 
-USART\+\_\+\+DIS&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_EN@{USART\_EN}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_EN@{USART\_EN}}
-}\Hypertarget{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0ba393929613a131863ec9ae705082419d4}\label{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0ba393929613a131863ec9ae705082419d4} 
-USART\+\_\+\+EN&\\
-\hline
-
-\end{DoxyEnumFields}
-
-
-Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00059}{59}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
-
-\Hypertarget{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00a}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_StopBits\_t@{USART\_StopBits\_t}}
-\index{USART\_StopBits\_t@{USART\_StopBits\_t}!USART\_intreface.h@{USART\_intreface.h}}
-\doxysubsubsection{\texorpdfstring{USART\_StopBits\_t}{USART\_StopBits\_t}}
-{\footnotesize\ttfamily \label{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00a} 
-enum \doxymbox{\hyperlink{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00a}{USART\+\_\+\+Stop\+Bits\+\_\+t}}}
-
-\begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_STOPBITS\_0\_5@{USART\_STOPBITS\_0\_5}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_STOPBITS\_0\_5@{USART\_STOPBITS\_0\_5}}
-}\Hypertarget{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa46d2a77c3f07e66a624b75975c37782e}\label{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa46d2a77c3f07e66a624b75975c37782e} 
-USART\+\_\+\+STOPBITS\+\_\+0\+\_\+5&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_STOPBITS\_1@{USART\_STOPBITS\_1}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_STOPBITS\_1@{USART\_STOPBITS\_1}}
-}\Hypertarget{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa9011413422d1340bb5c343a1f3b57341}\label{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa9011413422d1340bb5c343a1f3b57341} 
-USART\+\_\+\+STOPBITS\+\_\+1&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_STOPBITS\_1\_5@{USART\_STOPBITS\_1\_5}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_STOPBITS\_1\_5@{USART\_STOPBITS\_1\_5}}
-}\Hypertarget{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aad2786662250834f04b72156aebff3050}\label{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aad2786662250834f04b72156aebff3050} 
-USART\+\_\+\+STOPBITS\+\_\+1\+\_\+5&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_STOPBITS\_2@{USART\_STOPBITS\_2}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_STOPBITS\_2@{USART\_STOPBITS\_2}}
-}\Hypertarget{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa1e3cd9a88a519d93c0c300e873437a2c}\label{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa1e3cd9a88a519d93c0c300e873437a2c} 
-USART\+\_\+\+STOPBITS\+\_\+2&\\
-\hline
-
-\end{DoxyEnumFields}
-
-
-Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00037}{37}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
-
-\Hypertarget{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_TCIE\_t@{USART\_TCIE\_t}}
-\index{USART\_TCIE\_t@{USART\_TCIE\_t}!USART\_intreface.h@{USART\_intreface.h}}
-\doxysubsubsection{\texorpdfstring{USART\_TCIE\_t}{USART\_TCIE\_t}}
-{\footnotesize\ttfamily \label{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5} 
-enum \doxymbox{\hyperlink{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5}{USART\+\_\+\+TCIE\+\_\+t}}}
-
-\begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_TCIE\_DIS@{USART\_TCIE\_DIS}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_TCIE\_DIS@{USART\_TCIE\_DIS}}
-}\Hypertarget{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5a0ae09f6d4d7a420010e559f94af5d90f}\label{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5a0ae09f6d4d7a420010e559f94af5d90f} 
-USART\+\_\+\+TCIE\+\_\+\+DIS&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_TCIE\_EN@{USART\_TCIE\_EN}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_TCIE\_EN@{USART\_TCIE\_EN}}
-}\Hypertarget{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5ac1cf02980c4eac018b15bb0fc33959d0}\label{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5ac1cf02980c4eac018b15bb0fc33959d0} 
-USART\+\_\+\+TCIE\+\_\+\+EN&\\
-\hline
-
-\end{DoxyEnumFields}
-
-
-Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00097}{97}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
-
-\Hypertarget{USART__intreface_8h_a671c995d7fa209fff941711681dcc559}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_TXEIE\_t@{USART\_TXEIE\_t}}
-\index{USART\_TXEIE\_t@{USART\_TXEIE\_t}!USART\_intreface.h@{USART\_intreface.h}}
-\doxysubsubsection{\texorpdfstring{USART\_TXEIE\_t}{USART\_TXEIE\_t}}
-{\footnotesize\ttfamily \label{USART__intreface_8h_a671c995d7fa209fff941711681dcc559} 
-enum \doxymbox{\hyperlink{USART__intreface_8h_a671c995d7fa209fff941711681dcc559}{USART\+\_\+\+TXEIE\+\_\+t}}}
-
-\begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_TXEIE\_DIS@{USART\_TXEIE\_DIS}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_TXEIE\_DIS@{USART\_TXEIE\_DIS}}
-}\Hypertarget{USART__intreface_8h_a671c995d7fa209fff941711681dcc559af03e1b14ff7cb6a9d3b78e2d3960cc3f}\label{USART__intreface_8h_a671c995d7fa209fff941711681dcc559af03e1b14ff7cb6a9d3b78e2d3960cc3f} 
-USART\+\_\+\+TXEIE\+\_\+\+DIS&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_TXEIE\_EN@{USART\_TXEIE\_EN}!USART\_intreface.h@{USART\_intreface.h}}
-\index{USART\_intreface.h@{USART\_intreface.h}!USART\_TXEIE\_EN@{USART\_TXEIE\_EN}}
-}\Hypertarget{USART__intreface_8h_a671c995d7fa209fff941711681dcc559a63165aa1407782dab6a7c4476ef2532c}\label{USART__intreface_8h_a671c995d7fa209fff941711681dcc559a63165aa1407782dab6a7c4476ef2532c} 
-USART\+\_\+\+TXEIE\+\_\+\+EN&\\
-\hline
-
-\end{DoxyEnumFields}
-
-
-Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00103}{103}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00018}{18}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
 
 \Hypertarget{USART__intreface_8h_a4e501b68f85dbe9be3c75f1bfc5b81bf}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_WordLength\_t@{USART\_WordLength\_t}}
 \index{USART\_WordLength\_t@{USART\_WordLength\_t}!USART\_intreface.h@{USART\_intreface.h}}
@@ -466,48 +187,498 @@ Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00103}{103}}
 {\footnotesize\ttfamily \label{USART__intreface_8h_a4e501b68f85dbe9be3c75f1bfc5b81bf} 
 enum \doxymbox{\hyperlink{USART__intreface_8h_a4e501b68f85dbe9be3c75f1bfc5b81bf}{USART\+\_\+\+Word\+Length\+\_\+t}}}
 
+
+
+Data bits per frame. 
+
 \begin{DoxyEnumFields}[2]{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_WORDLENGTH\_8B@{USART\_WORDLENGTH\_8B}!USART\_intreface.h@{USART\_intreface.h}}
 \index{USART\_intreface.h@{USART\_intreface.h}!USART\_WORDLENGTH\_8B@{USART\_WORDLENGTH\_8B}}
 }\Hypertarget{USART__intreface_8h_a4e501b68f85dbe9be3c75f1bfc5b81bfa11e0fe52228151363c3e93f67240aa72}\label{USART__intreface_8h_a4e501b68f85dbe9be3c75f1bfc5b81bfa11e0fe52228151363c3e93f67240aa72} 
-USART\+\_\+\+WORDLENGTH\+\_\+8B&\\
+USART\+\_\+\+WORDLENGTH\+\_\+8B&8 data bits per frame — the usual choice. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_WORDLENGTH\_9B@{USART\_WORDLENGTH\_9B}!USART\_intreface.h@{USART\_intreface.h}}
 \index{USART\_intreface.h@{USART\_intreface.h}!USART\_WORDLENGTH\_9B@{USART\_WORDLENGTH\_9B}}
 }\Hypertarget{USART__intreface_8h_a4e501b68f85dbe9be3c75f1bfc5b81bfafb039010a4915f7ea1115883f2328820}\label{USART__intreface_8h_a4e501b68f85dbe9be3c75f1bfc5b81bfafb039010a4915f7ea1115883f2328820} 
-USART\+\_\+\+WORDLENGTH\+\_\+9B&\\
+USART\+\_\+\+WORDLENGTH\+\_\+9B&9 data bits per frame; the 9th is normally the parity bit. \\
 \hline
 
 \end{DoxyEnumFields}
 
 
-Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00031}{31}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00029}{29}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+\Hypertarget{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00a}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_StopBits\_t@{USART\_StopBits\_t}}
+\index{USART\_StopBits\_t@{USART\_StopBits\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_StopBits\_t}{USART\_StopBits\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00a} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00a}{USART\+\_\+\+Stop\+Bits\+\_\+t}}}
+
+
+
+Stop bits appended to each frame. 
+
+Both ends must agree. \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_STOPBITS\_0\_5@{USART\_STOPBITS\_0\_5}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_STOPBITS\_0\_5@{USART\_STOPBITS\_0\_5}}
+}\Hypertarget{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa46d2a77c3f07e66a624b75975c37782e}\label{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa46d2a77c3f07e66a624b75975c37782e} 
+USART\+\_\+\+STOPBITS\+\_\+0\+\_\+5&Half a stop bit (smartcard mode). \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_STOPBITS\_1@{USART\_STOPBITS\_1}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_STOPBITS\_1@{USART\_STOPBITS\_1}}
+}\Hypertarget{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa9011413422d1340bb5c343a1f3b57341}\label{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa9011413422d1340bb5c343a1f3b57341} 
+USART\+\_\+\+STOPBITS\+\_\+1&One stop bit — the usual choice. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_STOPBITS\_1\_5@{USART\_STOPBITS\_1\_5}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_STOPBITS\_1\_5@{USART\_STOPBITS\_1\_5}}
+}\Hypertarget{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aad2786662250834f04b72156aebff3050}\label{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aad2786662250834f04b72156aebff3050} 
+USART\+\_\+\+STOPBITS\+\_\+1\+\_\+5&One and a half stop bits (smartcard mode). \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_STOPBITS\_2@{USART\_STOPBITS\_2}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_STOPBITS\_2@{USART\_STOPBITS\_2}}
+}\Hypertarget{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa1e3cd9a88a519d93c0c300e873437a2c}\label{USART__intreface_8h_abec0b9e0949c0192d3882c9c5f0cb00aa1e3cd9a88a519d93c0c300e873437a2c} 
+USART\+\_\+\+STOPBITS\+\_\+2&Two stop bits; gives a slow receiver more time to keep up. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00036}{36}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+\Hypertarget{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_Parity\_t@{USART\_Parity\_t}}
+\index{USART\_Parity\_t@{USART\_Parity\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_Parity\_t}{USART\_Parity\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85}{USART\+\_\+\+Parity\+\_\+t}}}
+
+
+
+Parity checking. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_PARITY\_NONE@{USART\_PARITY\_NONE}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_PARITY\_NONE@{USART\_PARITY\_NONE}}
+}\Hypertarget{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85aecf52ec650226bdc63e12a21d3b5585d}\label{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85aecf52ec650226bdc63e12a21d3b5585d} 
+USART\+\_\+\+PARITY\+\_\+\+NONE&No parity bit. Both links here run without parity. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_PARITY\_ODD@{USART\_PARITY\_ODD}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_PARITY\_ODD@{USART\_PARITY\_ODD}}
+}\Hypertarget{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85a69c6cdd4d354d3b26c8d2f09f49d2ede}\label{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85a69c6cdd4d354d3b26c8d2f09f49d2ede} 
+USART\+\_\+\+PARITY\+\_\+\+ODD&Odd parity. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_PARITY\_EVEN@{USART\_PARITY\_EVEN}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_PARITY\_EVEN@{USART\_PARITY\_EVEN}}
+}\Hypertarget{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85ae5d22c99a30184aff19d77c1a970fb23}\label{USART__intreface_8h_a0bf5457d1d0c0d8d85fe765331b2ef85ae5d22c99a30184aff19d77c1a970fb23} 
+USART\+\_\+\+PARITY\+\_\+\+EVEN&Even parity. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00045}{45}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+\Hypertarget{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_Mode\_t@{USART\_Mode\_t}}
+\index{USART\_Mode\_t@{USART\_Mode\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_Mode\_t}{USART\_Mode\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2}{USART\+\_\+\+Mode\+\_\+t}}}
+
+
+
+Which direction(s) of the peripheral to switch on. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_MODE\_TX\_RX@{USART\_MODE\_TX\_RX}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_MODE\_TX\_RX@{USART\_MODE\_TX\_RX}}
+}\Hypertarget{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2ace5b471384e2a4cbf3b933796507304b}\label{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2ace5b471384e2a4cbf3b933796507304b} 
+USART\+\_\+\+MODE\+\_\+\+TX\+\_\+\+RX&Transmitter and receiver both enabled. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_MODE\_TX@{USART\_MODE\_TX}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_MODE\_TX@{USART\_MODE\_TX}}
+}\Hypertarget{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2af50f1777647d119d6b7d0c5f80e0b9d4}\label{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2af50f1777647d119d6b7d0c5f80e0b9d4} 
+USART\+\_\+\+MODE\+\_\+\+TX&Transmit only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_MODE\_RX@{USART\_MODE\_RX}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_MODE\_RX@{USART\_MODE\_RX}}
+}\Hypertarget{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2ad5e3d2e29fa3f05889723d0aff5285c0}\label{USART__intreface_8h_a2af94f01f7385eb7c2bd27faa4ce4ef2ad5e3d2e29fa3f05889723d0aff5285c0} 
+USART\+\_\+\+MODE\+\_\+\+RX&Receive only. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00053}{53}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+\Hypertarget{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0b}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_State\_t@{USART\_State\_t}}
+\index{USART\_State\_t@{USART\_State\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_State\_t}{USART\_State\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0b} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0b}{USART\+\_\+\+State\+\_\+t}}}
+
+
+
+Generic enable/\+disable for a USART feature. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_DIS@{USART\_DIS}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_DIS@{USART\_DIS}}
+}\Hypertarget{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0ba305b79709e4eabff936a0b5a5b54892c}\label{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0ba305b79709e4eabff936a0b5a5b54892c} 
+USART\+\_\+\+DIS&Peripheral disabled. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_EN@{USART\_EN}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_EN@{USART\_EN}}
+}\Hypertarget{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0ba393929613a131863ec9ae705082419d4}\label{USART__intreface_8h_a4bcc63cb807b3f3647695c462b10be0ba393929613a131863ec9ae705082419d4} 
+USART\+\_\+\+EN&Peripheral enabled. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00061}{61}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+\Hypertarget{USART__intreface_8h_abafac9366efc163949f648cb90e719a3}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_OverSampling\_t@{USART\_OverSampling\_t}}
+\index{USART\_OverSampling\_t@{USART\_OverSampling\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_OverSampling\_t}{USART\_OverSampling\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_abafac9366efc163949f648cb90e719a3} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_abafac9366efc163949f648cb90e719a3}{USART\+\_\+\+Over\+Sampling\+\_\+t}}}
+
+
+
+How many times the receiver samples each bit. 
+
+The trade is noise margin against top speed:\+ 16x recovers the bit from a majority vote and tolerates a sloppier clock, 8x doubles the achievable baud rate but leaves far less room for drift. \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_OVERSAMPLING\_16@{USART\_OVERSAMPLING\_16}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_OVERSAMPLING\_16@{USART\_OVERSAMPLING\_16}}
+}\Hypertarget{USART__intreface_8h_abafac9366efc163949f648cb90e719a3a5f7f986fd4559ee42850714b3906faca}\label{USART__intreface_8h_abafac9366efc163949f648cb90e719a3a5f7f986fd4559ee42850714b3906faca} 
+USART\+\_\+\+OVERSAMPLING\+\_\+16&Sample each bit 16 times — more tolerant of noise and clock error. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_OVERSAMPLING\_8@{USART\_OVERSAMPLING\_8}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_OVERSAMPLING\_8@{USART\_OVERSAMPLING\_8}}
+}\Hypertarget{USART__intreface_8h_abafac9366efc163949f648cb90e719a3af5782198bea5f0a044a84a117cf9dec0}\label{USART__intreface_8h_abafac9366efc163949f648cb90e719a3af5782198bea5f0a044a84a117cf9dec0} 
+USART\+\_\+\+OVERSAMPLING\+\_\+8&Sample each bit 8 times — allows twice the baud rate, with less margin. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00074}{74}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+\Hypertarget{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912f}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_HardwareFlowControl\_t@{USART\_HardwareFlowControl\_t}}
+\index{USART\_HardwareFlowControl\_t@{USART\_HardwareFlowControl\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_HardwareFlowControl\_t}{USART\_HardwareFlowControl\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912f} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912f}{USART\+\_\+\+Hardware\+Flow\+Control\+\_\+t}}}
+
+
+
+RTS/\+\+CTS hardware flow control. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UART\_HWCONTROL\_NONE@{UART\_HWCONTROL\_NONE}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!UART\_HWCONTROL\_NONE@{UART\_HWCONTROL\_NONE}}
+}\Hypertarget{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa3abfc51474e9b5def1151e7c2c731e85}\label{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa3abfc51474e9b5def1151e7c2c731e85} 
+UART\+\_\+\+HWCONTROL\+\_\+\+NONE&No flow control. This is what both links use. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UART\_HWCONTROL\_RTS@{UART\_HWCONTROL\_RTS}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!UART\_HWCONTROL\_RTS@{UART\_HWCONTROL\_RTS}}
+}\Hypertarget{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa38f199baa537d07cc6e56bae52406f50}\label{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa38f199baa537d07cc6e56bae52406f50} 
+UART\+\_\+\+HWCONTROL\+\_\+\+RTS&Request-\/to-\/send only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UART\_HWCONTROL\_CTS@{UART\_HWCONTROL\_CTS}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!UART\_HWCONTROL\_CTS@{UART\_HWCONTROL\_CTS}}
+}\Hypertarget{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa3343d11dbb64750bde8dc28650118581}\label{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fa3343d11dbb64750bde8dc28650118581} 
+UART\+\_\+\+HWCONTROL\+\_\+\+CTS&Clear-\/to-\/send only. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UART\_HWCONTROL\_RTS\_CTS@{UART\_HWCONTROL\_RTS\_CTS}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!UART\_HWCONTROL\_RTS\_CTS@{UART\_HWCONTROL\_RTS\_CTS}}
+}\Hypertarget{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fab67d687b8058f03397e00c462ab5fd43}\label{USART__intreface_8h_ac5ca66b87d3ee5408999e504965a912fab67d687b8058f03397e00c462ab5fd43} 
+UART\+\_\+\+HWCONTROL\+\_\+\+RTS\+\_\+\+CTS&Both RTS and CTS. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00081}{81}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+\Hypertarget{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_RXNEIE\_t@{USART\_RXNEIE\_t}}
+\index{USART\_RXNEIE\_t@{USART\_RXNEIE\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_RXNEIE\_t}{USART\_RXNEIE\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9}{USART\+\_\+\+RXNEIE\+\_\+t}}}
+
+
+
+"{}\+Byte received"{} interrupt enable. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_RXNEIE\_DIS@{USART\_RXNEIE\_DIS}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_RXNEIE\_DIS@{USART\_RXNEIE\_DIS}}
+}\Hypertarget{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9a87c3f6c4240ed23001cf3856bca6627d}\label{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9a87c3f6c4240ed23001cf3856bca6627d} 
+USART\+\_\+\+RXNEIE\+\_\+\+DIS&No interrupt when a byte arrives. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_RXNEIE\_EN@{USART\_RXNEIE\_EN}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_RXNEIE\_EN@{USART\_RXNEIE\_EN}}
+}\Hypertarget{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9afdc3b405c26fccce585184e05cca91ef}\label{USART__intreface_8h_aa193aa9233cc109dd56fb82ed3b759f9afdc3b405c26fccce585184e05cca91ef} 
+USART\+\_\+\+RXNEIE\+\_\+\+EN&Interrupt when a byte arrives — what the ESP32 link runs on. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00110}{110}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+\Hypertarget{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_TCIE\_t@{USART\_TCIE\_t}}
+\index{USART\_TCIE\_t@{USART\_TCIE\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_TCIE\_t}{USART\_TCIE\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5}{USART\+\_\+\+TCIE\+\_\+t}}}
+
+
+
+"{}\+Transmission complete"{} interrupt enable. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_TCIE\_DIS@{USART\_TCIE\_DIS}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_TCIE\_DIS@{USART\_TCIE\_DIS}}
+}\Hypertarget{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5a0ae09f6d4d7a420010e559f94af5d90f}\label{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5a0ae09f6d4d7a420010e559f94af5d90f} 
+USART\+\_\+\+TCIE\+\_\+\+DIS&No transmission-\/complete interrupt. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_TCIE\_EN@{USART\_TCIE\_EN}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_TCIE\_EN@{USART\_TCIE\_EN}}
+}\Hypertarget{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5ac1cf02980c4eac018b15bb0fc33959d0}\label{USART__intreface_8h_a33a56f94f56d7ca07208bad3d49396f5ac1cf02980c4eac018b15bb0fc33959d0} 
+USART\+\_\+\+TCIE\+\_\+\+EN&Interrupt once the last bit has actually left the shift register. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00117}{117}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+\Hypertarget{USART__intreface_8h_a671c995d7fa209fff941711681dcc559}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_TXEIE\_t@{USART\_TXEIE\_t}}
+\index{USART\_TXEIE\_t@{USART\_TXEIE\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_TXEIE\_t}{USART\_TXEIE\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_a671c995d7fa209fff941711681dcc559} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_a671c995d7fa209fff941711681dcc559}{USART\+\_\+\+TXEIE\+\_\+t}}}
+
+
+
+"{}\+Transmit register empty"{} interrupt enable. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_TXEIE\_DIS@{USART\_TXEIE\_DIS}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_TXEIE\_DIS@{USART\_TXEIE\_DIS}}
+}\Hypertarget{USART__intreface_8h_a671c995d7fa209fff941711681dcc559af03e1b14ff7cb6a9d3b78e2d3960cc3f}\label{USART__intreface_8h_a671c995d7fa209fff941711681dcc559af03e1b14ff7cb6a9d3b78e2d3960cc3f} 
+USART\+\_\+\+TXEIE\+\_\+\+DIS&No transmit-\/empty interrupt. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_TXEIE\_EN@{USART\_TXEIE\_EN}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_TXEIE\_EN@{USART\_TXEIE\_EN}}
+}\Hypertarget{USART__intreface_8h_a671c995d7fa209fff941711681dcc559a63165aa1407782dab6a7c4476ef2532c}\label{USART__intreface_8h_a671c995d7fa209fff941711681dcc559a63165aa1407782dab6a7c4476ef2532c} 
+USART\+\_\+\+TXEIE\+\_\+\+EN&Interrupt as soon as the data register can take the next byte. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00124}{124}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+\Hypertarget{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_IDLEIE\_t@{USART\_IDLEIE\_t}}
+\index{USART\_IDLEIE\_t@{USART\_IDLEIE\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_IDLEIE\_t}{USART\_IDLEIE\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95}{USART\+\_\+\+IDLEIE\+\_\+t}}}
+
+
+
+"{}\+Line went idle"{} interrupt enable. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_IDLEIE\_DIS@{USART\_IDLEIE\_DIS}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_IDLEIE\_DIS@{USART\_IDLEIE\_DIS}}
+}\Hypertarget{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95a7f6040cad225e6b17e708e8ad29faaee}\label{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95a7f6040cad225e6b17e708e8ad29faaee} 
+USART\+\_\+\+IDLEIE\+\_\+\+DIS&No idle-\/line interrupt. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_IDLEIE\_EN@{USART\_IDLEIE\_EN}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_IDLEIE\_EN@{USART\_IDLEIE\_EN}}
+}\Hypertarget{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95a35e1c3f7e0f09edadbc7e9cd3fa79e5d}\label{USART__intreface_8h_adb1fce64d7ee2a64d1dc1e6fb8820a95a35e1c3f7e0f09edadbc7e9cd3fa79e5d} 
+USART\+\_\+\+IDLEIE\+\_\+\+EN&Interrupt when the line has been idle for a full frame — useful for framing variable-\/length messages. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00131}{131}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
+
+\Hypertarget{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_PEIE\_t@{USART\_PEIE\_t}}
+\index{USART\_PEIE\_t@{USART\_PEIE\_t}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_PEIE\_t}{USART\_PEIE\_t}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83} 
+enum \doxymbox{\hyperlink{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83}{USART\+\_\+\+PEIE\+\_\+t}}}
+
+
+
+"{}\+Parity error"{} interrupt enable. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_PEIE\_DIS@{USART\_PEIE\_DIS}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_PEIE\_DIS@{USART\_PEIE\_DIS}}
+}\Hypertarget{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83a4c7890981a65bd1f93f46b58a3cbf5e5}\label{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83a4c7890981a65bd1f93f46b58a3cbf5e5} 
+USART\+\_\+\+PEIE\+\_\+\+DIS&No parity-\/error interrupt. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USART\_PEIE\_EN@{USART\_PEIE\_EN}!USART\_intreface.h@{USART\_intreface.h}}
+\index{USART\_intreface.h@{USART\_intreface.h}!USART\_PEIE\_EN@{USART\_PEIE\_EN}}
+}\Hypertarget{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83a98a9f40e6ca4ee6bf2c43e7657b8da42}\label{USART__intreface_8h_a30d6992d6046924f7ad8f2dc86456d83a98a9f40e6ca4ee6bf2c43e7657b8da42} 
+USART\+\_\+\+PEIE\+\_\+\+EN&Interrupt on a parity error. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{USART__intreface_8h_source_l00138}{138}} of file \doxymbox{\hyperlink{USART__intreface_8h_source}{USART\+\_\+intreface.\+h}}.
 
 
 
 \label{doc-func-members}
 \Hypertarget{USART__intreface_8h_doc-func-members}
 \doxysubsection{Function Documentation}
-\Hypertarget{USART__intreface_8h_a2e8eab5dfbeeb289f33fccae5536d8ef}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_enumReceive@{USART\_enumReceive}}
-\index{USART\_enumReceive@{USART\_enumReceive}!USART\_intreface.h@{USART\_intreface.h}}
-\doxysubsubsection{\texorpdfstring{USART\_enumReceive()}{USART\_enumReceive()}}
-{\footnotesize\ttfamily \label{USART__intreface_8h_a2e8eab5dfbeeb289f33fccae5536d8ef} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+enum\+Receive (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{RX\+\_\+\+Data}{}\end{DoxyParamCaption})}
+\Hypertarget{USART__intreface_8h_a98f967289c40eacb31068b3becfff84f}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_Init@{USART\_Init}}
+\index{USART\_Init@{USART\_Init}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_Init()}{USART\_Init()}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_a98f967289c40eacb31068b3becfff84f} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00356}{356}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+Bring a USART up in {\bfseries{polled}} mode:\+ baud rate, framing, parity, direction. 
 
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Channel\+Config} & The port\textquotesingle{}s line settings. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK if the port was configured, NULL\+\_\+\+POINTER if {\ttfamily Channel\+Config} was NULL.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+The port\textquotesingle{}s clock must already be enabled in RCC. For a port that has to receive unprompted traffic, use \doxylink{USART__intreface_8h_ad840a14bcc70c1f552f2864ea2443c55}{USART\+\_\+\+Init\+IT} instead. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00041}{41}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{USART__intreface_8h_source_l00100}{USART\+\_\+\+Config\+\_\+t::\+\+Baud\+Rate}}, \doxymbox{\hyperlink{USART__private_8h_source_l00015}{BRR\+\_\+\+DIV\+\_\+\+MANTISSA\+\_\+\+SHIFTING}}, \doxymbox{\hyperlink{USART__private_8h_source_l00013}{BRR\+\_\+\+MASKING}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00099}{USART\+\_\+\+Config\+\_\+t::\+\+Channel}}, \doxymbox{\hyperlink{USART__private_8h_source_l00031}{CR1\+\_\+\+OVER}}, \doxymbox{\hyperlink{USART__private_8h_source_l00027}{CR1\+\_\+\+PCE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00028}{CR1\+\_\+\+PS}}, \doxymbox{\hyperlink{USART__private_8h_source_l00030}{CR1\+\_\+\+RE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00029}{CR1\+\_\+\+TE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00025}{CR1\+\_\+\+WL}}, \doxymbox{\hyperlink{USART__private_8h_source_l00026}{CR2\+\_\+\+SB}}, \doxymbox{\hyperlink{USART__private_8h_source_l00032}{MAXIMUM\+\_\+\+CLOCK}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00104}{USART\+\_\+\+Config\+\_\+t::\+\+Mode}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00106}{USART\+\_\+\+Config\+\_\+t::\+\+Over\+Sampling}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00103}{USART\+\_\+\+Config\+\_\+t::\+\+Parity}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00102}{USART\+\_\+\+Config\+\_\+t::\+\+Stop\+Bits}}, \doxymbox{\hyperlink{USART__program_8c_source_l00024}{USART\+\_\+\+Channel}}, \doxymbox{\hyperlink{USART__private_8h_source_l00016}{USART\+\_\+\+CHANNEL\+\_\+\+COUNT}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00057}{USART\+\_\+\+MODE\+\_\+\+RX}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00056}{USART\+\_\+\+MODE\+\_\+\+TX}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00055}{USART\+\_\+\+MODE\+\_\+\+TX\+\_\+\+RX}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00076}{USART\+\_\+\+OVERSAMPLING\+\_\+16}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00077}{USART\+\_\+\+OVERSAMPLING\+\_\+8}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00047}{USART\+\_\+\+PARITY\+\_\+\+NONE}}, and \doxymbox{\hyperlink{USART__intreface_8h_source_l00101}{USART\+\_\+\+Config\+\_\+t::\+\+Word\+Length}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{USART__intreface_8h_a98f967289c40eacb31068b3becfff84f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{USART__intreface_8h_ad840a14bcc70c1f552f2864ea2443c55}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_InitIT@{USART\_InitIT}}
+\index{USART\_InitIT@{USART\_InitIT}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_InitIT()}{USART\_InitIT()}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_ad840a14bcc70c1f552f2864ea2443c55} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+\+Init\+IT (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Handle__t}{USART\+\_\+\+Handle\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Handle}{}\end{DoxyParamCaption})}
+
+
+
+Bring a USART up in {\bfseries{interrupt-\/driven}} mode. 
+
+Applies the same line settings as \doxylink{USART__intreface_8h_a98f967289c40eacb31068b3becfff84f}{USART\+\_\+\+Init}, and additionally enables the interrupt sources named in the handle and registers its callback. This is what USART1 uses, since the ESP32 transmits unprompted.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Channel\+Handle} & The port\textquotesingle{}s settings, interrupt enables and ISR callback. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK if the port was configured, NULL\+\_\+\+POINTER if {\ttfamily Channel\+Handle} was NULL.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Enabling the interrupt here is only half the job — the IRQ must also be enabled in the NVIC (\doxylink{NVIC__interface_8h_a85d98abbd23523e4abf16cc4b4501431}{NVIC\+\_\+v\+Enable\+IRQ}), and given a priority number of 6 or higher if its callback touches the Free\+RTOS API. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00138}{138}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{USART__intreface_8h_source_l00160}{USART\+\_\+\+Handle\+\_\+t::\+\+Baud\+Rate}}, \doxymbox{\hyperlink{USART__private_8h_source_l00015}{BRR\+\_\+\+DIV\+\_\+\+MANTISSA\+\_\+\+SHIFTING}}, \doxymbox{\hyperlink{USART__private_8h_source_l00013}{BRR\+\_\+\+MASKING}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00159}{USART\+\_\+\+Handle\+\_\+t::\+\+Channel}}, \doxymbox{\hyperlink{USART__private_8h_source_l00020}{CR1\+\_\+\+IDLEIE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00031}{CR1\+\_\+\+OVER}}, \doxymbox{\hyperlink{USART__private_8h_source_l00027}{CR1\+\_\+\+PCE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00024}{CR1\+\_\+\+PEIE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00028}{CR1\+\_\+\+PS}}, \doxymbox{\hyperlink{USART__private_8h_source_l00030}{CR1\+\_\+\+RE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00021}{CR1\+\_\+\+RXNEIE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00022}{CR1\+\_\+\+TCIE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00029}{CR1\+\_\+\+TE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00023}{CR1\+\_\+\+TXEIE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00025}{CR1\+\_\+\+WL}}, \doxymbox{\hyperlink{USART__private_8h_source_l00026}{CR2\+\_\+\+SB}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00170}{USART\+\_\+\+Handle\+\_\+t::\+\+IDLEIE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00032}{MAXIMUM\+\_\+\+CLOCK}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00164}{USART\+\_\+\+Handle\+\_\+t::\+\+Mode}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00166}{USART\+\_\+\+Handle\+\_\+t::\+\+Over\+Sampling}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00163}{USART\+\_\+\+Handle\+\_\+t::\+\+Parity}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00171}{USART\+\_\+\+Handle\+\_\+t::\+\+PEIE}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00172}{USART\+\_\+\+Handle\+\_\+t::\+pfn\+Callback}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00167}{USART\+\_\+\+Handle\+\_\+t::\+\+RXNEIE}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00162}{USART\+\_\+\+Handle\+\_\+t::\+\+Stop\+Bits}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00168}{USART\+\_\+\+Handle\+\_\+t::\+\+TCIE}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00169}{USART\+\_\+\+Handle\+\_\+t::\+\+TXEIE}}, \doxymbox{\hyperlink{USART__program_8c_source_l00028}{USART\+\_\+\+Call\+Back}}, \doxymbox{\hyperlink{USART__program_8c_source_l00024}{USART\+\_\+\+Channel}}, \doxymbox{\hyperlink{USART__private_8h_source_l00016}{USART\+\_\+\+CHANNEL\+\_\+\+COUNT}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00057}{USART\+\_\+\+MODE\+\_\+\+RX}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00056}{USART\+\_\+\+MODE\+\_\+\+TX}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00055}{USART\+\_\+\+MODE\+\_\+\+TX\+\_\+\+RX}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00076}{USART\+\_\+\+OVERSAMPLING\+\_\+16}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00077}{USART\+\_\+\+OVERSAMPLING\+\_\+8}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00047}{USART\+\_\+\+PARITY\+\_\+\+NONE}}, and \doxymbox{\hyperlink{USART__intreface_8h_source_l00161}{USART\+\_\+\+Handle\+\_\+t::\+\+Word\+Length}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{USART__intreface_8h_ad840a14bcc70c1f552f2864ea2443c55_icgraph}
+\end{center}
+\end{figure}
 \Hypertarget{USART__intreface_8h_a1abd71036dad0752b737b6b4872d7111}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_enumTransmit@{USART\_enumTransmit}}
 \index{USART\_enumTransmit@{USART\_enumTransmit}!USART\_intreface.h@{USART\_intreface.h}}
 \doxysubsubsection{\texorpdfstring{USART\_enumTransmit()}{USART\_enumTransmit()}}
 {\footnotesize\ttfamily \label{USART__intreface_8h_a1abd71036dad0752b737b6b4872d7111} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+enum\+Transmit (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint8\+\_\+t}]{TX\+\_\+\+Data}{}\end{DoxyParamCaption})}
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+enum\+Transmit (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint8\+\_\+t}]{TX\+\_\+\+Data}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00250}{250}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+Send one byte, blocking until the transmit register is free. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Channel\+Config} & Which port to send on. \\
+\hline
+ & {\em TX\+\_\+\+Data} & The byte to send. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The byte was handed to the peripheral. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily Channel\+Config} was NULL. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\+\_\+\+STATE}} & The transmit register never emptied — the peripheral is stuck. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00247}{247}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{USART__intreface_8h_source_l00099}{USART\+\_\+\+Config\+\_\+t::\+\+Channel}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{USART__private_8h_source_l00018}{SR\+\_\+\+TC}}, \doxymbox{\hyperlink{USART__private_8h_source_l00017}{SR\+\_\+\+TXE}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00046}{TIMEOUT\+\_\+\+STATE}}, \doxymbox{\hyperlink{USART__program_8c_source_l00024}{USART\+\_\+\+Channel}}, \doxymbox{\hyperlink{USART__private_8h_source_l00016}{USART\+\_\+\+CHANNEL\+\_\+\+COUNT}}, and \doxymbox{\hyperlink{USART__private_8h_source_l00047}{USART\+\_\+u32\+TIMEOUT}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{DSRC_8c_source_l00204}{DSRC\+\_\+\+Send\+Neighbor()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00309}{USART\+\_\+enum\+Transmit\+String()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
@@ -517,15 +688,82 @@ Here is the caller graph for this function:\+
 \includegraphics[width=350pt]{USART__intreface_8h_a1abd71036dad0752b737b6b4872d7111_icgraph}
 \end{center}
 \end{figure}
+\Hypertarget{USART__intreface_8h_a2e8eab5dfbeeb289f33fccae5536d8ef}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_enumReceive@{USART\_enumReceive}}
+\index{USART\_enumReceive@{USART\_enumReceive}!USART\_intreface.h@{USART\_intreface.h}}
+\doxysubsubsection{\texorpdfstring{USART\_enumReceive()}{USART\_enumReceive()}}
+{\footnotesize\ttfamily \label{USART__intreface_8h_a2e8eab5dfbeeb289f33fccae5536d8ef} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+enum\+Receive (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{RX\+\_\+\+Data}{}\end{DoxyParamCaption})}
+
+
+
+Receive one byte, blocking until one arrives. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Channel\+Config} & Which port to read from. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em RX\+\_\+\+Data} & Receives the byte. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & A byte was read. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily Channel\+Config} or {\ttfamily RX\+\_\+\+Data} was NULL. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\+\_\+\+STATE}} & No byte arrived within the driver\textquotesingle{}s busy-\/wait bound.\\
+\hline
+\end{DoxyRetVals}
+\begin{DoxyWarning}{Warning}
+This blocks the calling task. The ESP32 link does {\bfseries{not}} use it — it is interrupt-\/driven, precisely so nothing has to sit and wait for a peer that may say nothing for seconds. 
+\end{DoxyWarning}
+
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00351}{351}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00035}{BUSY}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00045}{BUSY\+\_\+\+STATE}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00099}{USART\+\_\+\+Config\+\_\+t::\+\+Channel}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{IDLE}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{USART__private_8h_source_l00019}{SR\+\_\+\+RXNE}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00046}{TIMEOUT\+\_\+\+STATE}}, \doxymbox{\hyperlink{USART__program_8c_source_l00024}{USART\+\_\+\+Channel}}, \doxymbox{\hyperlink{USART__private_8h_source_l00016}{USART\+\_\+\+CHANNEL\+\_\+\+COUNT}}, \doxymbox{\hyperlink{USART__private_8h_source_l00047}{USART\+\_\+u32\+TIMEOUT}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00026}{USART\+\_\+u8\+State}}.
+
 \Hypertarget{USART__intreface_8h_ad2e4a4a25beec1ea90558dc055ad9240}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_enumTransmitString@{USART\_enumTransmitString}}
 \index{USART\_enumTransmitString@{USART\_enumTransmitString}!USART\_intreface.h@{USART\_intreface.h}}
 \doxysubsubsection{\texorpdfstring{USART\_enumTransmitString()}{USART\_enumTransmitString()}}
 {\footnotesize\ttfamily \label{USART__intreface_8h_ad2e4a4a25beec1ea90558dc055ad9240} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+enum\+Transmit\+String (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{TX\+\_\+\+Data}{}\end{DoxyParamCaption})}
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+enum\+Transmit\+String (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{TX\+\_\+\+Data}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00313}{313}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+Send a NUL-\/terminated string, one byte at a time. 
+
+This is what carries the telemetry line to the Raspberry Pi.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Channel\+Config} & Which port to send on. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em TX\+\_\+\+Data} & The string to send; the terminating NUL is not transmitted. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The whole string was sent. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily Channel\+Config} or {\ttfamily TX\+\_\+\+Data} was NULL. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\+\_\+\+STATE}} & The peripheral stalled part-\/way through. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00309}{309}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00045}{BUSY\+\_\+\+STATE}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00099}{USART\+\_\+\+Config\+\_\+t::\+\+Channel}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{IDLE}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{USART__private_8h_source_l00016}{USART\+\_\+\+CHANNEL\+\_\+\+COUNT}}, \doxymbox{\hyperlink{USART__program_8c_source_l00247}{USART\+\_\+enum\+Transmit()}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00026}{USART\+\_\+u8\+State}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00466}{v\+Task\+\_\+\+RPi\+\_\+\+Comm()}}.
 
 Here is the call graph for this function:\+
 \nopagebreak
@@ -543,42 +781,6 @@ Here is the caller graph for this function:\+
 \includegraphics[width=350pt]{USART__intreface_8h_ad2e4a4a25beec1ea90558dc055ad9240_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{USART__intreface_8h_a98f967289c40eacb31068b3becfff84f}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_Init@{USART\_Init}}
-\index{USART\_Init@{USART\_Init}!USART\_intreface.h@{USART\_intreface.h}}
-\doxysubsubsection{\texorpdfstring{USART\_Init()}{USART\_Init()}}
-{\footnotesize\ttfamily \label{USART__intreface_8h_a98f967289c40eacb31068b3becfff84f} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00042}{42}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
-
-Here is the caller graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=348pt]{USART__intreface_8h_a98f967289c40eacb31068b3becfff84f_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{USART__intreface_8h_ad840a14bcc70c1f552f2864ea2443c55}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_InitIT@{USART\_InitIT}}
-\index{USART\_InitIT@{USART\_InitIT}!USART\_intreface.h@{USART\_intreface.h}}
-\doxysubsubsection{\texorpdfstring{USART\_InitIT()}{USART\_InitIT()}}
-{\footnotesize\ttfamily \label{USART__intreface_8h_ad840a14bcc70c1f552f2864ea2443c55} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} USART\+\_\+\+Init\+IT (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structUSART__Handle__t}{USART\+\_\+\+Handle\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Handle}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00140}{140}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
-
-Here is the caller graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{USART__intreface_8h_ad840a14bcc70c1f552f2864ea2443c55_icgraph}
-\end{center}
-\end{figure}
 \Hypertarget{USART__intreface_8h_a2d4d739376d35a98e6b62282fc47b25a}\index{USART\_intreface.h@{USART\_intreface.h}!USART\_ReceiveByteDirect@{USART\_ReceiveByteDirect}}
 \index{USART\_ReceiveByteDirect@{USART\_ReceiveByteDirect}!USART\_intreface.h@{USART\_intreface.h}}
 \doxysubsubsection{\texorpdfstring{USART\_ReceiveByteDirect()}{USART\_ReceiveByteDirect()}}
@@ -587,7 +789,27 @@ uint8\+\_\+t USART\+\_\+\+Receive\+Byte\+Direct (\begin{DoxyParamCaption}\item[{
 
 
 
-Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00397}{397}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+Directly read the data register without checking flags or busy state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Channel} & USART Channel to read from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint8\+\_\+t The received byte. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{USART__program_8c_source_l00392}{392}} of file \doxymbox{\hyperlink{USART__program_8c_source}{USART\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{USART__program_8c_source_l00024}{USART\+\_\+\+Channel}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00580}{v\+ESP\+\_\+\+UART\+\_\+\+RX\+\_\+\+Callback()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak

@@ -1,266 +1,267 @@
 \doxysection{US\+\_\+prog.\+c}
-\hypertarget{US__prog_8c_source}{}\label{US__prog_8c_source}\index{Src/US\_prog.c@{Src/US\_prog.c}}
+\hypertarget{US__prog_8c_source}{}\label{US__prog_8c_source}\index{V2V-\/STM32/Src/US\_prog.c@{V2V-\/STM32/Src/US\_prog.c}}
 \doxymbox{\hyperlink{US__prog_8c}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00001}00001\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00018}00018\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00019}00019\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00020}00020\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h}{../Inc/Drivers/LIB/STM32F446xx.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00021}00021\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{STD__MACROS_8h}{../Inc/Drivers/LIB/STD\_MACROS.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00022}00022\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{ErrTypes_8h}{../Inc/Drivers/LIB/ErrTypes.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00023}00023\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{GPIO__interface_8h}{../Inc/Drivers/MCAL/GPIO/GPIO\_interface.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00024}00024\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{TIM__interface_8h}{../Inc/Drivers/MCAL/TIM/TIM\_interface.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00025}00025\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{TIM__private_8h}{../Inc/Drivers/MCAL/TIM/TIM\_private.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00026}00026\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{NVIC__interface_8h}{../Inc/Drivers/MCAL/NVIC/NVIC\_interface.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00027}00027\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{US__interface_8h}{../Inc/Drivers/HAL/US/US\_interface.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00028}00028\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{US__config_8h}{../Inc/Drivers/HAL/US/US\_config.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00029}00029\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{US__private_8h}{../Inc/Drivers/HAL/US/US\_private.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00030}00030\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00031}00031\ \textcolor{preprocessor}{\#include\ "{}FreeRTOS.h"{}}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00032}00032\ \textcolor{preprocessor}{\#include\ "{}task.h"{}}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00033}00033\ \textcolor{preprocessor}{\#include\ "{}semphr.h"{}}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00034}00034\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00035}00035\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{structTIM__TypeDef}{TIM\_TypeDef}}\ *US\_TIM\_Array[\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23a7c344d8927dd06f539c5b78d7d7b9166}{TIM\_TIMER\_COUNT}}]\ =\ \{\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a3cfac9f2e43673f790f8668d48b4b92b}{TIM2}},\ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a61ee4c391385607d7af432b63905fcc9}{TIM3}},\ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a91a09bad8bdc7a1cb3d85cf49c94c8ec}{TIM4}},\ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a5125ff6a23a2ed66e2e19bd196128c14}{TIM5}},\ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a2e87451fea8dc9380056d3cfc5ed81fb}{TIM1}},\ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a9a3660400b17735e91331f256095810e}{TIM8}},\ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_ac7b4ed55f9201b498b38c962cca97314}{TIM6}},\ \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_a49267c49946fd61db6af8b49bcf16394}{TIM7}}\};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00036}00036\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00037}00037\ \textcolor{comment}{/*\ =====================\ Interrupt-\/driven\ measurement\ state\ =====================\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00038}\doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673}{00038}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00039}00039\ \{}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00040}\doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673a6bfaeb80623372f5391c4466488b480a}{00040}}\ \ \ \ \ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673a6bfaeb80623372f5391c4466488b480a}{US\_PHASE\_RISING}}\ =\ 0,}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00041}\doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673a7e0cf32dbb5c103550d39bf369e6a852}{00041}}\ \ \ \ \ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673a7e0cf32dbb5c103550d39bf369e6a852}{US\_PHASE\_FALLING}},}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00042}\doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673ae210b59fe9d33ecc8a76850d05d11464}{00042}}\ \ \ \ \ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673ae210b59fe9d33ecc8a76850d05d11464}{US\_PHASE\_DONE}}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00043}00043\ \}\ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673}{US\_Phase\_t}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00044}00044\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00045}00045\ \textcolor{comment}{/*\ Exactly\ ONE\ measurement\ is\ active\ at\ a\ time\ (sequential\ reads),\ so\ a\ single}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00046}00046\ \textcolor{comment}{\ *\ shared\ context\ +\ one\ binary\ semaphore\ is\ race-\/free.\ All\ fields\ are\ touched\ by}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00047}00047\ \textcolor{comment}{\ *\ both\ the\ reading\ task\ and\ the\ ISR\ →\ volatile.\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00048}00048\ \textcolor{keyword}{static}\ \textcolor{keyword}{volatile}\ \textcolor{keyword}{struct}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00049}00049\ \{}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00050}\doxymbox{\hyperlink{US__prog_8c_a9e4d06093a8d0697179ece54c8df7bc2}{00050}}\ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\_Num\_t}}\ \doxymbox{\hyperlink{US__prog_8c_a9e4d06093a8d0697179ece54c8df7bc2}{timer}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00051}\doxymbox{\hyperlink{US__prog_8c_a715f5cb061d11eb75981741eda4dafcd}{00051}}\ \ \ \ \ uint8\_t\ \doxymbox{\hyperlink{US__prog_8c_a715f5cb061d11eb75981741eda4dafcd}{channel}};\ \textcolor{comment}{/*\ 0..3\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00052}\doxymbox{\hyperlink{US__prog_8c_ae3410746ad12451a31ab39175fb1dc70}{00052}}\ \ \ \ \ uint32\_t\ \doxymbox{\hyperlink{US__prog_8c_ae3410746ad12451a31ab39175fb1dc70}{maxval}};\ \textcolor{comment}{/*\ timer\ wrap\ value\ (0xFFFF\ or\ 0xFFFFFFFF)\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00053}\doxymbox{\hyperlink{US__prog_8c_a6858d4bf91e3f238387650930c15b7fd}{00053}}\ \ \ \ \ uint32\_t\ \doxymbox{\hyperlink{US__prog_8c_a6858d4bf91e3f238387650930c15b7fd}{t1}};\ \ \ \ \ \textcolor{comment}{/*\ rising-\/edge\ timestamp\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00054}\doxymbox{\hyperlink{US__prog_8c_a34bb55e8c64d1459517441eebc24dfca}{00054}}\ \ \ \ \ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673}{US\_Phase\_t}}\ \doxymbox{\hyperlink{US__prog_8c_a34bb55e8c64d1459517441eebc24dfca}{phase}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00055}\doxymbox{\hyperlink{US__prog_8c_a75adb1881fa5da948723d7b8807b78cd}{00055}}\ \ \ \ \ uint8\_t\ \doxymbox{\hyperlink{US__prog_8c_a75adb1881fa5da948723d7b8807b78cd}{valid}};\ \ \ \ \textcolor{comment}{/*\ 0\ =\ result\ is\ out-\/of-\/range/garbage,\ 1\ =\ a\ real\ echo\ was\ timed\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00056}\doxymbox{\hyperlink{US__prog_8c_a03af6795f10317f1531bf283279c6cff}{00056}}\ \ \ \ \ uint16\_t\ \doxymbox{\hyperlink{US__prog_8c_a03af6795f10317f1531bf283279c6cff}{dist\_cm}};\ \textcolor{comment}{/*\ result,\ valid\ when\ phase\ ==\ US\_PHASE\_DONE\ \&\&\ valid\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00057}00057\ \}\ US\_Active;}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00058}00058\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00059}00059\ \textcolor{keyword}{static}\ SemaphoreHandle\_t\ US\_xDoneSem\ =\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}};\ \textcolor{comment}{/*\ given\ by\ ISR\ on\ completion\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00060}00060\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00061}00061\ \textcolor{comment}{/*\ Private\ Function\ Prototypes\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00062}00062\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ US\_vSendTrigger(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structUS__Config__t}{US\_Config\_t}}\ *pxSensor);}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00063}00063\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ US\_CC\_Handler(\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\_Num\_t}}\ Copy\_eTimer,\ uint8\_t\ Copy\_u8Channel,\ uint32\_t\ Copy\_u32Capture);}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00064}00064\ \textcolor{keyword}{static}\ uint8\_t\ US\_u8NvicIrqForTimer(\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\_Num\_t}}\ Copy\_eTimer);}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00065}00065\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00066}00066\ \textcolor{comment}{/**************************************\ \ \ \ \ \ \ \ \ Private\ Functions}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00067}00067\ \textcolor{comment}{\ *\ ******************************************/}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00068}00068\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00069}00069\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ US\_vSendTrigger(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structUS__Config__t}{US\_Config\_t}}\ *pxSensor)}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00070}00070\ \{}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00071}00071\ \ \ \ \ \textcolor{comment}{/*\ Settle\ LOW\ for\ a\ clean\ edge,\ then\ a\ 10us\ HIGH\ pulse\ (HC-\/SR04\ datasheet).\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00072}00072\ \ \ \ \ \doxymbox{\hyperlink{GPIO__interface_8h_ab8efebd278bcf731012c238a3f69fb5c}{GPIO\_enumWritePinVal}}(pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aee06c76d7a6088e93d33302bb11c279c}{TrigPort}},\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aba9acc39dd5600c1eef35b5e033c94e6}{TrigPin}},\ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8a15615df0be390aa56563c157ddb5454e}{GPIO\_PIN\_LOW}});}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00073}00073\ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a49a60dbb20212c2ba13e4aba78e81031}{TIM\_vDelayUs}}(\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23af18bf52d47d87947df265cf9a7e3ef26}{TIM\_TIMER6}},\ \doxymbox{\hyperlink{US__config_8h_ac82821dff0173e63bfc7953f43c50066}{US\_TRIG\_SETTLE\_US}});}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00074}00074\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00075}00075\ \ \ \ \ \doxymbox{\hyperlink{GPIO__interface_8h_ab8efebd278bcf731012c238a3f69fb5c}{GPIO\_enumWritePinVal}}(pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aee06c76d7a6088e93d33302bb11c279c}{TrigPort}},\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aba9acc39dd5600c1eef35b5e033c94e6}{TrigPin}},\ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8acef36245ca64f0574b6a3381d607ee23}{GPIO\_PIN\_HIGH}});}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00076}00076\ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a49a60dbb20212c2ba13e4aba78e81031}{TIM\_vDelayUs}}(\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23af18bf52d47d87947df265cf9a7e3ef26}{TIM\_TIMER6}},\ \doxymbox{\hyperlink{US__config_8h_a8a95e538fdb97455266761408d1db73e}{US\_TRIG\_PULSE\_US}});}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00077}00077\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00078}00078\ \ \ \ \ \doxymbox{\hyperlink{GPIO__interface_8h_ab8efebd278bcf731012c238a3f69fb5c}{GPIO\_enumWritePinVal}}(pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aee06c76d7a6088e93d33302bb11c279c}{TrigPort}},\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aba9acc39dd5600c1eef35b5e033c94e6}{TrigPin}},\ \doxymbox{\hyperlink{GPIO__interface_8h_a39c3ed4d8322ee2c517bd0d8e064e4f8a15615df0be390aa56563c157ddb5454e}{GPIO\_PIN\_LOW}});}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00079}00079\ \}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00080}00080\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00081}00081\ \textcolor{comment}{/*\ Map\ a\ US\ timer\ to\ its\ NVIC\ IRQ\ number\ (US\ uses\ general-\/purpose\ TIM2..TIM5).\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00082}00082\ \textcolor{keyword}{static}\ uint8\_t\ US\_u8NvicIrqForTimer(\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\_Num\_t}}\ Copy\_eTimer)}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00083}00083\ \{}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00084}00084\ \ \ \ \ \textcolor{keywordflow}{switch}\ (Copy\_eTimer)}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00085}00085\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00086}00086\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ac5d83f7f02ed43be0c56113288ac5d6e}{TIM\_TIMER2}}:}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00087}00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a76ec1c2d3056b837063b2c3f332123ad}{NVIC\_TIM2}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00088}00088\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ad67049f6927eb2cc4c7bf01ef65506d3}{TIM\_TIMER3}}:}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a221d3cc5c8e77eea3306b909dd178d6b}{NVIC\_TIM3}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00090}00090\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ae08922f4e53624681a74304401fe70d5}{TIM\_TIMER4}}:}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00091}00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a0fb80737161641f4c14b83657f3176cb}{NVIC\_TIM4}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00092}00092\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23aeacfda3ad57699febbf392e77ad9bcd1}{TIM\_TIMER5}}:}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00093}00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a7e31df9d39b9956c6fb8615b8eacc365}{NVIC\_TIM5}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00094}00094\ \ \ \ \ \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0xFFu;\ \textcolor{comment}{/*\ unsupported\ for\ IC\ interrupt\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00096}00096\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00097}00097\ \}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00098}00098\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00099}00099\ \textcolor{comment}{/*\ Input-\/Capture\ ISR\ callback\ (timer\ IRQ\ context).\ Runs\ the\ 2-\/edge\ state\ machine}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00100}00100\ \textcolor{comment}{\ *\ for\ the\ single\ active\ measurement,\ then\ wakes\ the\ reading\ task.\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00101}00101\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ US\_CC\_Handler(\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\_Num\_t}}\ Copy\_eTimer,\ uint8\_t\ Copy\_u8Channel,\ uint32\_t\ Copy\_u32Capture)}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00102}00102\ \{}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00103}00103\ \ \ \ \ \textcolor{comment}{/*\ Ignore\ captures\ that\ don't\ belong\ to\ the\ active\ measurement\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00104}00104\ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_eTimer\ !=\ US\_Active.timer\ ||\ Copy\_u8Channel\ !=\ US\_Active.channel)}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00105}00105\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00106}00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00107}00107\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00108}00108\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00109}00109\ \ \ \ \ \textcolor{keywordflow}{if}\ (US\_Active.phase\ ==\ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673a6bfaeb80623372f5391c4466488b480a}{US\_PHASE\_RISING}})}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00110}00110\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00111}00111\ \ \ \ \ \ \ \ \ US\_Active.t1\ =\ Copy\_u32Capture;}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00112}00112\ \ \ \ \ \ \ \ \ US\_Active.phase\ =\ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673a7e0cf32dbb5c103550d39bf369e6a852}{US\_PHASE\_FALLING}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00113}00113\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Now\ look\ for\ the\ falling\ edge\ on\ the\ same\ channel\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00114}00114\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_af6ce9419f48628e54cb1110dae65e1f1}{TIM\_vSetICPolarity}}(Copy\_eTimer,\ (\doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\_Channel\_t}})Copy\_u8Channel,\ \doxymbox{\hyperlink{TIM__interface_8h_ad6edd13d05def01952c9f8b6e11773d4aee2ef1b20f37a3b93289526a21f9489d}{TIM\_POLARITY\_LOW}});}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00115}00115\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00116}00116\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (US\_Active.phase\ ==\ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673a7e0cf32dbb5c103550d39bf369e6a852}{US\_PHASE\_FALLING}})}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00117}00117\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00118}00118\ \ \ \ \ \ \ \ \ uint32\_t\ high\ =\ (Copy\_u32Capture\ >=\ US\_Active.t1)}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ (Copy\_u32Capture\ -\/\ US\_Active.t1)}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ ((US\_Active.maxval\ -\/\ US\_Active.t1)\ +\ Copy\_u32Capture\ +\ 1u);}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00121}00121\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00122}00122\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Decode\ µs\ →\ cm.\ An\ echo\ longer\ than\ the\ sensor's\ useful\ range\ means}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00123}00123\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ "{}no\ object\ within\ range"{}:\ report\ it\ as\ OUT-\/OF-\/RANGE\ (valid\ =\ 0)\ instead}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00124}00124\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ of\ silently\ clamping\ a\ bogus\ long/wrapped\ pulse\ to\ a\ fake\ 400cm\ reading}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00125}00125\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ —\ clamping\ is\ what\ made\ a\ lost\ echo\ masquerade\ as\ a\ solid\ 400cm\ fix\ and}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00126}00126\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ made\ the\ reading\ flap\ between\ a\ real\ distance\ and\ 400.\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00127}00127\ \ \ \ \ \ \ \ \ uint32\_t\ dist\ =\ high\ /\ \doxymbox{\hyperlink{US__config_8h_ab0e1472cbc6dcaabb8233a418a55b6fe}{US\_SOUND\_SPEED\_FACTOR}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00128}00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dist\ ==\ 0u\ ||\ dist\ >\ \doxymbox{\hyperlink{US__config_8h_a1acbfc782dd65e3000e6373d863e3333}{US\_MAX\_RANGE\_CM}})}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00129}00129\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ US\_Active.valid\ =\ 0u;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ out\ of\ range\ /\ spurious\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ US\_Active.dist\_cm\ =\ \doxymbox{\hyperlink{US__config_8h_a1acbfc782dd65e3000e6373d863e3333}{US\_MAX\_RANGE\_CM}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00132}00132\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00133}00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00134}00134\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ US\_Active.valid\ =\ 1u;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ a\ real,\ in-\/range\ echo\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ US\_Active.dist\_cm\ =\ (uint16\_t)dist;}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00137}00137\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00138}00138\ \ \ \ \ \ \ \ \ US\_Active.phase\ =\ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673ae210b59fe9d33ecc8a76850d05d11464}{US\_PHASE\_DONE}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00139}00139\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00140}00140\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Done\ —\ silence\ this\ channel\ and\ wake\ the\ task\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00141}00141\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a05c68c2d16e14ca08f925fc789f8c000}{TIM\_vDisableCCInterrupt}}(Copy\_eTimer,\ (\doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\_Channel\_t}})Copy\_u8Channel);}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00142}00142\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00143}00143\ \ \ \ \ \ \ \ \ BaseType\_t\ xHPW\ =\ pdFALSE;}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00144}00144\ \ \ \ \ \ \ \ \ xSemaphoreGiveFromISR(US\_xDoneSem,\ \&xHPW);}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00145}00145\ \ \ \ \ \ \ \ \ portYIELD\_FROM\_ISR(xHPW);}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00146}00146\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00147}00147\ \}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00148}00148\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00149}00149\ \textcolor{comment}{/**************************************\ \ \ \ \ \ \ \ \ Public\ Functions}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00150}00150\ \textcolor{comment}{\ *\ ******************************************/}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00151}00151\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00152}\doxymbox{\hyperlink{US__interface_8h_a29b879f76d665878390dd6161d1eea84}{00152}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{US__prog_8c_a29b879f76d665878390dd6161d1eea84}{US\_vInit}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structUS__Config__t}{US\_Config\_t}}\ *pxSensor)}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00153}00153\ \{}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00154}00154\ \ \ \ \ \textcolor{keywordflow}{if}\ (pxSensor\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00155}00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00156}00156\ \ \ \ \ \textcolor{keywordflow}{if}\ (pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ >=\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23af18bf52d47d87947df265cf9a7e3ef26}{TIM\_TIMER6}})}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00157}00157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};\ \textcolor{comment}{/*\ basic\ timers\ have\ no\ IC\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00158}00158\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00159}00159\ \ \ \ \ \textcolor{comment}{/*\ 1.\ Initialize\ GPIO\ Pins\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00160}00160\ \ \ \ \ \doxymbox{\hyperlink{structGPIO__PinConfig__t}{GPIO\_PinConfig\_t}}\ TrigCfg\ =\ \{}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00161}00161\ \ \ \ \ \ \ \ \ .Port\ =\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aee06c76d7a6088e93d33302bb11c279c}{TrigPort}},\ .PinNum\ =\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aba9acc39dd5600c1eef35b5e033c94e6}{TrigPin}},\ .Mode\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26aa248e73c1faee9c6f072fd91569cf516}{GPIO\_OUTPUT}},\ .Otype\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_a6470c88cd80e5ef53ac53602e73207f0a2ede6e0f1b50e67e840a93701323c775}{GPIO\_PUSH\_PULL}},\ .Speed\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71a83efc1b373fff74ccc8ff155acb523bb}{GPIO\_MEDIUM\_SPEED}},\ .PullType\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_af3291f1e475675bffc656c9f0c4c7399aa528b4821b033fe90e0b186ada74fa10}{GPIO\_NO\_PULL}}\};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00162}00162\ \ \ \ \ \doxymbox{\hyperlink{GPIO__interface_8h_a2a5e7c89bc6bb7103d96334a8481ea9b}{GPIO\_enumPinInit}}(\&TrigCfg);}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00163}00163\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00164}00164\ \ \ \ \ \doxymbox{\hyperlink{structGPIO__PinConfig__t}{GPIO\_PinConfig\_t}}\ EchoCfg\ =\ \{}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00165}00165\ \ \ \ \ \ \ \ \ .Port\ =\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_abc84123a24f0dabcb2917be3edf9591b}{EchoPort}},\ .PinNum\ =\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab87866af565edaf58ca26dd7d7aea08d}{EchoPin}},\ .Mode\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26afce5a104125420d39288661fe5b1d695}{GPIO\_ALTFN}},\ .Otype\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_a6470c88cd80e5ef53ac53602e73207f0a2ede6e0f1b50e67e840a93701323c775}{GPIO\_PUSH\_PULL}},\ .Speed\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71af7087f6e3a0ec17c4e20a95a42e694f1}{GPIO\_VERY\_HIGH\_SPEED}},\ .PullType\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_af3291f1e475675bffc656c9f0c4c7399aa528b4821b033fe90e0b186ada74fa10}{GPIO\_NO\_PULL}}\};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00166}00166\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00167}00167\ \ \ \ \ \textcolor{keywordflow}{if}\ (pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ ==\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23a2f11856b0dad76655c7eee9a4373fcb7}{TIM\_TIMER1}}\ ||\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ ==\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ac5d83f7f02ed43be0c56113288ac5d6e}{TIM\_TIMER2}})}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00168}00168\ \ \ \ \ \ \ \ \ EchoCfg.\doxymbox{\hyperlink{structGPIO__PinConfig__t_a1c2bc696e86f5de665fb14d452d2ccca}{AlternateFunction}}\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_ad4b5b539106097ea7ee4b71e93a45bdda0ef8189f5ce80052d8c80cde9ea8a4ef}{GPIO\_AF1}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00169}00169\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ >=\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ad67049f6927eb2cc4c7bf01ef65506d3}{TIM\_TIMER3}}\ \&\&\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ <=\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23aeacfda3ad57699febbf392e77ad9bcd1}{TIM\_TIMER5}})}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00170}00170\ \ \ \ \ \ \ \ \ EchoCfg.\doxymbox{\hyperlink{structGPIO__PinConfig__t_a1c2bc696e86f5de665fb14d452d2ccca}{AlternateFunction}}\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_ad4b5b539106097ea7ee4b71e93a45bdda115d1f06f5d9bb1d760ffc38b2d8c7d3}{GPIO\_AF2}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00171}00171\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ ==\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ac393fa6bfe307979749a0f3021608981}{TIM\_TIMER8}})}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00172}00172\ \ \ \ \ \ \ \ \ EchoCfg.\doxymbox{\hyperlink{structGPIO__PinConfig__t_a1c2bc696e86f5de665fb14d452d2ccca}{AlternateFunction}}\ =\ \doxymbox{\hyperlink{GPIO__interface_8h_ad4b5b539106097ea7ee4b71e93a45bdda6ee7ecdedade2eea2ba6459bd8f794f2}{GPIO\_AF3}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00173}00173\ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00174}00174\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00175}00175\ \ \ \ \ \doxymbox{\hyperlink{GPIO__interface_8h_a2a5e7c89bc6bb7103d96334a8481ea9b}{GPIO\_enumPinInit}}(\&EchoCfg);}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00176}00176\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00177}00177\ \ \ \ \ \textcolor{comment}{/*\ 2.\ Configure\ Timer\ Prescaler\ for\ 1us\ resolution\ (only\ if\ not\ already\ running)\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00178}00178\ \ \ \ \ \doxymbox{\hyperlink{structTIM__TypeDef}{TIM\_TypeDef}}\ *TIMx\ =\ US\_TIM\_Array[pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}];}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00179}00179\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00180}00180\ \ \ \ \ \textcolor{keywordflow}{if}\ (!(TIMx-\/>\doxymbox{\hyperlink{structTIM__TypeDef_a98ff7c0733a481643cc57b766ecd8e04}{CR1}}\ \&\ \doxymbox{\hyperlink{TIM__private_8h_a93d86355e5e3b399ed45e1ca83abed2a}{TIM\_CR1\_CEN}}))}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00181}00181\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00182}00182\ \ \ \ \ \ \ \ \ uint32\_t\ SystemBusClock\ =\ \doxymbox{\hyperlink{US__config_8h_ade28eff697a4ce6ca90ed4af010179c4}{US\_SYS\_CLK\_HZ}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00183}00183\ \ \ \ \ \ \ \ \ uint16\_t\ Local\_u16PSC\ =\ (uint16\_t)((SystemBusClock\ /\ 1000000U)\ -\/\ 1U);}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00184}00184\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00185}00185\ \ \ \ \ \ \ \ \ TIMx-\/>\doxymbox{\hyperlink{structTIM__TypeDef_a98ff7c0733a481643cc57b766ecd8e04}{CR1}}\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00186}00186\ \ \ \ \ \ \ \ \ TIMx-\/>\doxymbox{\hyperlink{structTIM__TypeDef_aebaa22c6223c63151d71070db8ff5b96}{PSC}}\ =\ Local\_u16PSC;}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00187}00187\ \ \ \ \ \ \ \ \ TIMx-\/>\doxymbox{\hyperlink{structTIM__TypeDef_aa574282b4226fefc866df9beea6f41cd}{ARR}}\ =\ (pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ ==\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ac5d83f7f02ed43be0c56113288ac5d6e}{TIM\_TIMER2}}\ ||\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ ==\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23aeacfda3ad57699febbf392e77ad9bcd1}{TIM\_TIMER5}})\ ?\ 0xFFFFFFFF\ :\ 0xFFFF;}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00188}00188\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00189}00189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ ==\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23a2f11856b0dad76655c7eee9a4373fcb7}{TIM\_TIMER1}}\ ||\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ ==\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ac393fa6bfe307979749a0f3021608981}{TIM\_TIMER8}})}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00190}00190\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{STD__MACROS_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(TIMx-\/>\doxymbox{\hyperlink{structTIM__TypeDef_a649f8669e19bc47c0488cd029832f0ab}{BDTR}},\ 15);\ \textcolor{comment}{/*\ MOE:\ Main\ Output\ Enable\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00192}00192\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00193}00193\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00194}00194\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{STD__MACROS_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(TIMx-\/>\doxymbox{\hyperlink{structTIM__TypeDef_a4db8926602a9b7f8d8d29dbc7d0580bb}{EGR}},\ 0);\ \textcolor{comment}{/*\ Force\ update\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00195}00195\ \ \ \ \ \ \ \ \ TIMx-\/>\doxymbox{\hyperlink{structTIM__TypeDef_ad4c239c905a84b69f7bc24d1cf63512e}{SR}}\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00196}00196\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00197}00197\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00198}00198\ \ \ \ \ \textcolor{comment}{/*\ 3.\ Configure\ ICU\ Channel\ (rising\ edge,\ capture\ enabled;\ CC\ interrupt\ stays\ OFF)\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00199}00199\ \ \ \ \ \doxymbox{\hyperlink{structTIM__ICConfig__t}{TIM\_ICConfig\_t}}\ IC\_Cfg\ =\ \{}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00200}00200\ \ \ \ \ \ \ \ \ .Timer\ =\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}},\ .Channel\ =\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aedb2c8be49f5d1fd6443e896c8ef532b}{Channel}},\ .Selection\ =\ \doxymbox{\hyperlink{TIM__interface_8h_a874d9ee0b93fcabcb9999efc4388e2dba5815b1cbb7c2a1b8c080ced8c8f6e4c6}{TIM\_IC\_SELECTION\_DIRECT\_TI}},\ .Prescaler\ =\ \doxymbox{\hyperlink{TIM__interface_8h_a07b622d3e7637777981cc30f40026d7daf198c740949eb704a94ee161b2c860f5}{TIM\_IC\_PSC\_DIV1}},\ .Polarity\ =\ \doxymbox{\hyperlink{TIM__interface_8h_ad6edd13d05def01952c9f8b6e11773d4aeef997c391b7f2f5bd1c1d6fe2e436d0}{TIM\_POLARITY\_HIGH}},\ .Filter\ =\ 0xF\ \textcolor{comment}{/*\ max\ digital\ filter:\ reject\ glitches\ that\ fake\ an\ early\ rising\ edge\ →\ bogus\ 400cm\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00201}00201\ \ \ \ \ \};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00202}00202\ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a8e1065f213120676872fdbbd5ccfd37a}{TIM\_vIC\_Init}}(\&IC\_Cfg);}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00203}00203\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00204}00204\ \ \ \ \ \textcolor{comment}{/*\ 4.\ Start\ Timer\ only\ if\ not\ running\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00205}00205\ \ \ \ \ \textcolor{keywordflow}{if}\ (!(TIMx-\/>\doxymbox{\hyperlink{structTIM__TypeDef_a98ff7c0733a481643cc57b766ecd8e04}{CR1}}\ \&\ \doxymbox{\hyperlink{TIM__private_8h_a93d86355e5e3b399ed45e1ca83abed2a}{TIM\_CR1\_CEN}}))}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00206}00206\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00207}00207\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a2bd184de6083fb2ccf17231557037835}{TIM\_vStart}}(pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}});}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00208}00208\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00209}00209\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00210}00210\ \ \ \ \ \textcolor{comment}{/*\ 5.\ Interrupt\ infrastructure\ (idempotent\ across\ sensors)\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00211}00211\ \ \ \ \ \textcolor{keywordflow}{if}\ (US\_xDoneSem\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00212}00212\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00213}00213\ \ \ \ \ \ \ \ \ US\_xDoneSem\ =\ xSemaphoreCreateBinary();\ \textcolor{comment}{/*\ safe\ to\ create\ before\ scheduler\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00214}00214\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00215}00215\ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a274b369957bc2526189a0d66db5bb35e}{TIM\_vSetCCCallback}}(pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}},\ US\_CC\_Handler);}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00216}00216\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00217}00217\ \ \ \ \ uint8\_t\ Local\_u8Irq\ =\ US\_u8NvicIrqForTimer(pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}});}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00218}00218\ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u8Irq\ !=\ 0xFFu)}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00219}00219\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00220}00220\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{NVIC__interface_8h_adacfc2d410ead15ca25830190e615000}{NVIC\_vSetPriority}}(Local\_u8Irq,\ 6);\ \textcolor{comment}{/*\ FreeRTOS-\/safe\ (>=\ configMAX\_SYSCALL\_INTERRUPT\_PRIORITY)\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00221}00221\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{NVIC__interface_8h_a85d98abbd23523e4abf16cc4b4501431}{NVIC\_vEnableIRQ}}(Local\_u8Irq);}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00222}00222\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{STM32F446xx_8h}{../Inc/Drivers/LIB/STM32F446xx.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{STD__MACROS_8h}{../Inc/Drivers/LIB/STD\_MACROS.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{ErrTypes_8h}{../Inc/Drivers/LIB/ErrTypes.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{GPIO__interface_8h}{../Inc/Drivers/MCAL/GPIO/GPIO\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{TIM__interface_8h}{../Inc/Drivers/MCAL/TIM/TIM\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00016}00016\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{TIM__private_8h}{../Inc/Drivers/MCAL/TIM/TIM\_private.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{NVIC__interface_8h}{../Inc/Drivers/MCAL/NVIC/NVIC\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00018}00018\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{US__interface_8h}{../Inc/Drivers/HAL/US/US\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00019}00019\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{US__config_8h}{../Inc/Drivers/HAL/US/US\_config.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00020}00020\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{US__private_8h}{../Inc/Drivers/HAL/US/US\_private.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00022}00022\ \textcolor{preprocessor}{\#include\ "{}FreeRTOS.h"{}}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00023}00023\ \textcolor{preprocessor}{\#include\ "{}task.h"{}}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00024}00024\ \textcolor{preprocessor}{\#include\ "{}semphr.h"{}}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00030}\doxymbox{\hyperlink{US__prog_8c_a1075f329baf7454c0e9a988c726d67f8}{00030}}\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{structTIM__TypeDef}{TIM\_TypeDef}}\ *\doxymbox{\hyperlink{US__prog_8c_a1075f329baf7454c0e9a988c726d67f8}{US\_TIM\_Array}}[\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23a7c344d8927dd06f539c5b78d7d7b9166}{TIM\_TIMER\_COUNT}}]\ =\ \{\doxymbox{\hyperlink{group__lib_ga3cfac9f2e43673f790f8668d48b4b92b}{TIM2}},\ \doxymbox{\hyperlink{group__lib_ga61ee4c391385607d7af432b63905fcc9}{TIM3}},\ \doxymbox{\hyperlink{group__lib_ga91a09bad8bdc7a1cb3d85cf49c94c8ec}{TIM4}},\ \doxymbox{\hyperlink{group__lib_ga5125ff6a23a2ed66e2e19bd196128c14}{TIM5}},\ \doxymbox{\hyperlink{group__lib_ga2e87451fea8dc9380056d3cfc5ed81fb}{TIM1}},\ \doxymbox{\hyperlink{group__lib_ga9a3660400b17735e91331f256095810e}{TIM8}},\ \doxymbox{\hyperlink{group__lib_gac7b4ed55f9201b498b38c962cca97314}{TIM6}},\ \doxymbox{\hyperlink{group__lib_ga49267c49946fd61db6af8b49bcf16394}{TIM7}}\};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00032}00032\ \textcolor{comment}{/*\ =====================\ Interrupt-\/driven\ measurement\ state\ =====================\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00041}\doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673}{00041}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00042}00042\ \{}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00043}\doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673a6bfaeb80623372f5391c4466488b480a}{00043}}\ \ \ \ \ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673a6bfaeb80623372f5391c4466488b480a}{US\_PHASE\_RISING}}\ =\ 0,\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00044}\doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673a7e0cf32dbb5c103550d39bf369e6a852}{00044}}\ \ \ \ \ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673a7e0cf32dbb5c103550d39bf369e6a852}{US\_PHASE\_FALLING}},\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00045}\doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673ae210b59fe9d33ecc8a76850d05d11464}{00045}}\ \ \ \ \ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673ae210b59fe9d33ecc8a76850d05d11464}{US\_PHASE\_DONE}}\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00046}00046\ \}\ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673}{US\_Phase\_t}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00059}00059\ \textcolor{keyword}{static}\ \textcolor{keyword}{volatile}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00060}00060\ \{}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00061}\doxymbox{\hyperlink{US__prog_8c_a9e4d06093a8d0697179ece54c8df7bc2}{00061}}\ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\_Num\_t}}\ \doxymbox{\hyperlink{US__prog_8c_a9e4d06093a8d0697179ece54c8df7bc2}{timer}};\ \ \ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00062}\doxymbox{\hyperlink{US__prog_8c_a715f5cb061d11eb75981741eda4dafcd}{00062}}\ \ \ \ \ uint8\_t\ \doxymbox{\hyperlink{US__prog_8c_a715f5cb061d11eb75981741eda4dafcd}{channel}};\ \ \ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00063}\doxymbox{\hyperlink{US__prog_8c_ae3410746ad12451a31ab39175fb1dc70}{00063}}\ \ \ \ \ uint32\_t\ \doxymbox{\hyperlink{US__prog_8c_ae3410746ad12451a31ab39175fb1dc70}{maxval}};\ \ \ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00064}\doxymbox{\hyperlink{US__prog_8c_a6858d4bf91e3f238387650930c15b7fd}{00064}}\ \ \ \ \ uint32\_t\ \doxymbox{\hyperlink{US__prog_8c_a6858d4bf91e3f238387650930c15b7fd}{t1}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00065}\doxymbox{\hyperlink{US__prog_8c_a34bb55e8c64d1459517441eebc24dfca}{00065}}\ \ \ \ \ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673}{US\_Phase\_t}}\ \doxymbox{\hyperlink{US__prog_8c_a34bb55e8c64d1459517441eebc24dfca}{phase}};\ \ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00066}\doxymbox{\hyperlink{US__prog_8c_a75adb1881fa5da948723d7b8807b78cd}{00066}}\ \ \ \ \ uint8\_t\ \doxymbox{\hyperlink{US__prog_8c_a75adb1881fa5da948723d7b8807b78cd}{valid}};\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00067}\doxymbox{\hyperlink{US__prog_8c_a03af6795f10317f1531bf283279c6cff}{00067}}\ \ \ \ \ uint16\_t\ \doxymbox{\hyperlink{US__prog_8c_a03af6795f10317f1531bf283279c6cff}{dist\_cm}};\ \ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00068}\doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{00068}}\ \}\ \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00078}\doxymbox{\hyperlink{US__prog_8c_a45b109c89a06e7204f4c203252f57350}{00078}}\ \textcolor{keyword}{static}\ SemaphoreHandle\_t\ \doxymbox{\hyperlink{US__prog_8c_a45b109c89a06e7204f4c203252f57350}{US\_xDoneSem}}\ =\ \doxymbox{\hyperlink{group__lib_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00080}00080\ \textcolor{comment}{/*\ Private\ Function\ Prototypes\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00089}00089\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{US__prog_8c_adc51941ea05da40c9e35a99928a4ac37}{US\_vSendTrigger}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structUS__Config__t}{US\_Config\_t}}\ *pxSensor);}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00090}00090\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{US__prog_8c_a8faec99358e42145506a962e14115d12}{US\_CC\_Handler}}(\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\_Num\_t}}\ Copy\_eTimer,\ uint8\_t\ Copy\_u8Channel,\ uint32\_t\ Copy\_u32Capture);}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00091}00091\ \textcolor{keyword}{static}\ uint8\_t\ \doxymbox{\hyperlink{US__prog_8c_a0aa4d878b57b45002e4a654f79b72fb2}{US\_u8NvicIrqForTimer}}(\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\_Num\_t}}\ Copy\_eTimer);}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00093}00093\ \textcolor{comment}{/**************************************\ \ \ \ \ \ \ \ \ Private\ Functions}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00094}00094\ \textcolor{comment}{\ *\ ******************************************/}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00096}\doxymbox{\hyperlink{US__prog_8c_adc51941ea05da40c9e35a99928a4ac37}{00096}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{US__prog_8c_adc51941ea05da40c9e35a99928a4ac37}{US\_vSendTrigger}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structUS__Config__t}{US\_Config\_t}}\ *pxSensor)}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00097}00097\ \{}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00098}00098\ \ \ \ \ \textcolor{comment}{/*\ Settle\ LOW\ for\ a\ clean\ edge,\ then\ a\ 10us\ HIGH\ pulse\ (HC-\/SR04\ datasheet).\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00099}00099\ \ \ \ \ \doxymbox{\hyperlink{group__mcal__gpio_gab8efebd278bcf731012c238a3f69fb5c}{GPIO\_enumWritePinVal}}(pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aee06c76d7a6088e93d33302bb11c279c}{TrigPort}},\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aba9acc39dd5600c1eef35b5e033c94e6}{TrigPin}},\ \doxymbox{\hyperlink{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8a15615df0be390aa56563c157ddb5454e}{GPIO\_PIN\_LOW}});}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00100}00100\ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a49a60dbb20212c2ba13e4aba78e81031}{TIM\_vDelayUs}}(\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23af18bf52d47d87947df265cf9a7e3ef26}{TIM\_TIMER6}},\ \doxymbox{\hyperlink{US__config_8h_ac82821dff0173e63bfc7953f43c50066}{US\_TRIG\_SETTLE\_US}});}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00102}00102\ \ \ \ \ \doxymbox{\hyperlink{group__mcal__gpio_gab8efebd278bcf731012c238a3f69fb5c}{GPIO\_enumWritePinVal}}(pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aee06c76d7a6088e93d33302bb11c279c}{TrigPort}},\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aba9acc39dd5600c1eef35b5e033c94e6}{TrigPin}},\ \doxymbox{\hyperlink{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8acef36245ca64f0574b6a3381d607ee23}{GPIO\_PIN\_HIGH}});}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00103}00103\ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a49a60dbb20212c2ba13e4aba78e81031}{TIM\_vDelayUs}}(\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23af18bf52d47d87947df265cf9a7e3ef26}{TIM\_TIMER6}},\ \doxymbox{\hyperlink{US__config_8h_a8a95e538fdb97455266761408d1db73e}{US\_TRIG\_PULSE\_US}});}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00105}00105\ \ \ \ \ \doxymbox{\hyperlink{group__mcal__gpio_gab8efebd278bcf731012c238a3f69fb5c}{GPIO\_enumWritePinVal}}(pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aee06c76d7a6088e93d33302bb11c279c}{TrigPort}},\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aba9acc39dd5600c1eef35b5e033c94e6}{TrigPin}},\ \doxymbox{\hyperlink{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8a15615df0be390aa56563c157ddb5454e}{GPIO\_PIN\_LOW}});}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00106}00106\ \}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00113}\doxymbox{\hyperlink{US__prog_8c_a0aa4d878b57b45002e4a654f79b72fb2}{00113}}\ \textcolor{keyword}{static}\ uint8\_t\ \doxymbox{\hyperlink{US__prog_8c_a0aa4d878b57b45002e4a654f79b72fb2}{US\_u8NvicIrqForTimer}}(\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\_Num\_t}}\ Copy\_eTimer)}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00114}00114\ \{}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00115}00115\ \ \ \ \ \textcolor{keywordflow}{switch}\ (Copy\_eTimer)}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00116}00116\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00117}00117\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ac5d83f7f02ed43be0c56113288ac5d6e}{TIM\_TIMER2}}:}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00118}00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a76ec1c2d3056b837063b2c3f332123ad}{NVIC\_TIM2}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00119}00119\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ad67049f6927eb2cc4c7bf01ef65506d3}{TIM\_TIMER3}}:}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a221d3cc5c8e77eea3306b909dd178d6b}{NVIC\_TIM3}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00121}00121\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ae08922f4e53624681a74304401fe70d5}{TIM\_TIMER4}}:}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00122}00122\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a0fb80737161641f4c14b83657f3176cb}{NVIC\_TIM4}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00123}00123\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23aeacfda3ad57699febbf392e77ad9bcd1}{TIM\_TIMER5}}:}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00124}00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1a7e31df9d39b9956c6fb8615b8eacc365}{NVIC\_TIM5}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00125}00125\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00126}00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0xFFu;\ \textcolor{comment}{/*\ unsupported\ for\ IC\ interrupt\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00127}00127\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00128}00128\ \}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00145}\doxymbox{\hyperlink{US__prog_8c_a8faec99358e42145506a962e14115d12}{00145}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{US__prog_8c_a8faec99358e42145506a962e14115d12}{US\_CC\_Handler}}(\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\_Num\_t}}\ Copy\_eTimer,\ uint8\_t\ Copy\_u8Channel,\ uint32\_t\ Copy\_u32Capture)}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00146}00146\ \{}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00147}00147\ \ \ \ \ \textcolor{comment}{/*\ Ignore\ captures\ that\ don't\ belong\ to\ the\ active\ measurement\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00148}00148\ \ \ \ \ \textcolor{keywordflow}{if}\ (Copy\_eTimer\ !=\ \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}.timer\ ||\ Copy\_u8Channel\ !=\ \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}.channel)}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00149}00149\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00150}00150\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00151}00151\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00153}00153\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}.phase\ ==\ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673a6bfaeb80623372f5391c4466488b480a}{US\_PHASE\_RISING}})}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00154}00154\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00155}00155\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}.t1\ =\ Copy\_u32Capture;}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00156}00156\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}.phase\ =\ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673a7e0cf32dbb5c103550d39bf369e6a852}{US\_PHASE\_FALLING}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00157}00157\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Now\ look\ for\ the\ falling\ edge\ on\ the\ same\ channel\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00158}00158\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_af6ce9419f48628e54cb1110dae65e1f1}{TIM\_vSetICPolarity}}(Copy\_eTimer,\ (\doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\_Channel\_t}})Copy\_u8Channel,\ \doxymbox{\hyperlink{TIM__interface_8h_ad6edd13d05def01952c9f8b6e11773d4aee2ef1b20f37a3b93289526a21f9489d}{TIM\_POLARITY\_LOW}});}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00159}00159\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00160}00160\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}.phase\ ==\ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673a7e0cf32dbb5c103550d39bf369e6a852}{US\_PHASE\_FALLING}})}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00161}00161\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00162}00162\ \ \ \ \ \ \ \ \ uint32\_t\ high\ =\ (Copy\_u32Capture\ >=\ \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}.t1)}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ (Copy\_u32Capture\ -\/\ \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}.t1)}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ ((\doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}.maxval\ -\/\ \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}.t1)\ +\ Copy\_u32Capture\ +\ 1u);}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00166}00166\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Decode\ µs\ →\ cm.\ An\ echo\ longer\ than\ the\ sensor's\ useful\ range\ means}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00167}00167\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ "{}no\ object\ within\ range"{}:\ report\ it\ as\ OUT-\/OF-\/RANGE\ (valid\ =\ 0)\ instead}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00168}00168\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ of\ silently\ clamping\ a\ bogus\ long/wrapped\ pulse\ to\ a\ fake\ 400cm\ reading}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00169}00169\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ —\ clamping\ is\ what\ made\ a\ lost\ echo\ masquerade\ as\ a\ solid\ 400cm\ fix\ and}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00170}00170\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ made\ the\ reading\ flap\ between\ a\ real\ distance\ and\ 400.\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00171}00171\ \ \ \ \ \ \ \ \ uint32\_t\ dist\ =\ high\ /\ \doxymbox{\hyperlink{US__config_8h_ab0e1472cbc6dcaabb8233a418a55b6fe}{US\_SOUND\_SPEED\_FACTOR}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00172}00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dist\ ==\ 0u\ ||\ dist\ >\ \doxymbox{\hyperlink{US__config_8h_a1acbfc782dd65e3000e6373d863e3333}{US\_MAX\_RANGE\_CM}})}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00173}00173\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}.valid\ =\ 0u;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ out\ of\ range\ /\ spurious\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}.dist\_cm\ =\ \doxymbox{\hyperlink{US__config_8h_a1acbfc782dd65e3000e6373d863e3333}{US\_MAX\_RANGE\_CM}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00176}00176\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00177}00177\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00178}00178\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}.valid\ =\ 1u;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ a\ real,\ in-\/range\ echo\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}.dist\_cm\ =\ (uint16\_t)dist;}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00181}00181\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00182}00182\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}.phase\ =\ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673ae210b59fe9d33ecc8a76850d05d11464}{US\_PHASE\_DONE}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00184}00184\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Done\ —\ silence\ this\ channel\ and\ wake\ the\ task\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00185}00185\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a05c68c2d16e14ca08f925fc789f8c000}{TIM\_vDisableCCInterrupt}}(Copy\_eTimer,\ (\doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\_Channel\_t}})Copy\_u8Channel);}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00187}00187\ \ \ \ \ \ \ \ \ BaseType\_t\ xHPW\ =\ pdFALSE;}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00188}00188\ \ \ \ \ \ \ \ \ xSemaphoreGiveFromISR(\doxymbox{\hyperlink{US__prog_8c_a45b109c89a06e7204f4c203252f57350}{US\_xDoneSem}},\ \&xHPW);}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00189}00189\ \ \ \ \ \ \ \ \ portYIELD\_FROM\_ISR(xHPW);}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00190}00190\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00191}00191\ \}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00192}00192\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00193}00193\ \textcolor{comment}{/*************************************\ \ \ \ \ \ \ \ \ Public\ Functions}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00194}00194\ \textcolor{comment}{\ *\ ******************************************/}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00195}00195\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00196}\doxymbox{\hyperlink{US__interface_8h_a29b879f76d665878390dd6161d1eea84}{00196}}\ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{US__prog_8c_a29b879f76d665878390dd6161d1eea84}{US\_vInit}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structUS__Config__t}{US\_Config\_t}}\ *pxSensor)}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00197}00197\ \{}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00198}00198\ \ \ \ \ \textcolor{keywordflow}{if}\ (pxSensor\ ==\ \doxymbox{\hyperlink{group__lib_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00199}00199\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00200}00200\ \ \ \ \ \textcolor{keywordflow}{if}\ (pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ >=\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23af18bf52d47d87947df265cf9a7e3ef26}{TIM\_TIMER6}})}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00201}00201\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};\ \textcolor{comment}{/*\ basic\ timers\ have\ no\ IC\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00202}00202\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00203}00203\ \ \ \ \ \textcolor{comment}{/*\ 1.\ Initialize\ GPIO\ Pins\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00204}00204\ \ \ \ \ \doxymbox{\hyperlink{structGPIO__PinConfig__t}{GPIO\_PinConfig\_t}}\ TrigCfg\ =\ \{}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00205}00205\ \ \ \ \ \ \ \ \ .Port\ =\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aee06c76d7a6088e93d33302bb11c279c}{TrigPort}},\ .PinNum\ =\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aba9acc39dd5600c1eef35b5e033c94e6}{TrigPin}},\ .Mode\ =\ \doxymbox{\hyperlink{group__mcal__gpio_ggafb8ae0eef9d79d2066ab67bbf12d9f26aa248e73c1faee9c6f072fd91569cf516}{GPIO\_OUTPUT}},\ .Otype\ =\ \doxymbox{\hyperlink{group__mcal__gpio_gga6470c88cd80e5ef53ac53602e73207f0a2ede6e0f1b50e67e840a93701323c775}{GPIO\_PUSH\_PULL}},\ .Speed\ =\ \doxymbox{\hyperlink{group__mcal__gpio_ggad0390106f85689de1897dd9543754e71a83efc1b373fff74ccc8ff155acb523bb}{GPIO\_MEDIUM\_SPEED}},\ .PullType\ =\ \doxymbox{\hyperlink{group__mcal__gpio_ggaf3291f1e475675bffc656c9f0c4c7399aa528b4821b033fe90e0b186ada74fa10}{GPIO\_NO\_PULL}}\};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00206}00206\ \ \ \ \ \doxymbox{\hyperlink{group__mcal__gpio_ga2a5e7c89bc6bb7103d96334a8481ea9b}{GPIO\_enumPinInit}}(\&TrigCfg);}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00207}00207\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00208}00208\ \ \ \ \ \doxymbox{\hyperlink{structGPIO__PinConfig__t}{GPIO\_PinConfig\_t}}\ EchoCfg\ =\ \{}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00209}00209\ \ \ \ \ \ \ \ \ .Port\ =\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_abc84123a24f0dabcb2917be3edf9591b}{EchoPort}},\ .PinNum\ =\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab87866af565edaf58ca26dd7d7aea08d}{EchoPin}},\ .Mode\ =\ \doxymbox{\hyperlink{group__mcal__gpio_ggafb8ae0eef9d79d2066ab67bbf12d9f26afce5a104125420d39288661fe5b1d695}{GPIO\_ALTFN}},\ .Otype\ =\ \doxymbox{\hyperlink{group__mcal__gpio_gga6470c88cd80e5ef53ac53602e73207f0a2ede6e0f1b50e67e840a93701323c775}{GPIO\_PUSH\_PULL}},\ .Speed\ =\ \doxymbox{\hyperlink{group__mcal__gpio_ggad0390106f85689de1897dd9543754e71af7087f6e3a0ec17c4e20a95a42e694f1}{GPIO\_VERY\_HIGH\_SPEED}},\ .PullType\ =\ \doxymbox{\hyperlink{group__mcal__gpio_ggaf3291f1e475675bffc656c9f0c4c7399aa528b4821b033fe90e0b186ada74fa10}{GPIO\_NO\_PULL}}\};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00211}00211\ \ \ \ \ \textcolor{keywordflow}{if}\ (pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ ==\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23a2f11856b0dad76655c7eee9a4373fcb7}{TIM\_TIMER1}}\ ||\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ ==\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ac5d83f7f02ed43be0c56113288ac5d6e}{TIM\_TIMER2}})}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00212}00212\ \ \ \ \ \ \ \ \ EchoCfg.\doxymbox{\hyperlink{structGPIO__PinConfig__t_a1c2bc696e86f5de665fb14d452d2ccca}{AlternateFunction}}\ =\ \doxymbox{\hyperlink{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda0ef8189f5ce80052d8c80cde9ea8a4ef}{GPIO\_AF1}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00213}00213\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ >=\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ad67049f6927eb2cc4c7bf01ef65506d3}{TIM\_TIMER3}}\ \&\&\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ <=\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23aeacfda3ad57699febbf392e77ad9bcd1}{TIM\_TIMER5}})}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00214}00214\ \ \ \ \ \ \ \ \ EchoCfg.\doxymbox{\hyperlink{structGPIO__PinConfig__t_a1c2bc696e86f5de665fb14d452d2ccca}{AlternateFunction}}\ =\ \doxymbox{\hyperlink{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda115d1f06f5d9bb1d760ffc38b2d8c7d3}{GPIO\_AF2}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00215}00215\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ ==\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ac393fa6bfe307979749a0f3021608981}{TIM\_TIMER8}})}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00216}00216\ \ \ \ \ \ \ \ \ EchoCfg.\doxymbox{\hyperlink{structGPIO__PinConfig__t_a1c2bc696e86f5de665fb14d452d2ccca}{AlternateFunction}}\ =\ \doxymbox{\hyperlink{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda6ee7ecdedade2eea2ba6459bd8f794f2}{GPIO\_AF3}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00217}00217\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00218}00218\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00219}00219\ \ \ \ \ \doxymbox{\hyperlink{group__mcal__gpio_ga2a5e7c89bc6bb7103d96334a8481ea9b}{GPIO\_enumPinInit}}(\&EchoCfg);}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00220}00220\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00221}00221\ \ \ \ \ \textcolor{comment}{/*\ 2.\ Configure\ Timer\ Prescaler\ for\ 1us\ resolution\ (only\ if\ not\ already\ running)\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00222}00222\ \ \ \ \ \doxymbox{\hyperlink{structTIM__TypeDef}{TIM\_TypeDef}}\ *TIMx\ =\ \doxymbox{\hyperlink{US__prog_8c_a1075f329baf7454c0e9a988c726d67f8}{US\_TIM\_Array}}[pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}];}
 \DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00223}00223\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00224}00224\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00225}00225\ \}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00226}00226\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00234}\doxymbox{\hyperlink{US__interface_8h_a49bd64d408631fd63886cbc413453e08}{00234}}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{US__prog_8c_a49bd64d408631fd63886cbc413453e08}{US\_u16ReadDistance\_cm}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structUS__Config__t}{US\_Config\_t}}\ *pxSensor,\ uint16\_t\ *pu16Dist\_cm)}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00235}00235\ \{}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00236}00236\ \ \ \ \ \textcolor{keywordflow}{if}\ (pxSensor\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}}\ ||\ pu16Dist\_cm\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00237}00237\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00238}00238\ \ \ \ \ \textcolor{keywordflow}{if}\ (US\_xDoneSem\ ==\ \doxymbox{\hyperlink{ErrTypes_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00239}00239\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};\ \textcolor{comment}{/*\ US\_vInit\ not\ done\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00240}00240\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00241}00241\ \ \ \ \ \doxymbox{\hyperlink{structTIM__TypeDef}{TIM\_TypeDef}}\ *TIMx\ =\ US\_TIM\_Array[pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}];}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00242}00242\ \ \ \ \ uint8\_t\ ch\ =\ (uint8\_t)pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aedb2c8be49f5d1fd6443e896c8ef532b}{Channel}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00243}00243\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00244}00244\ \ \ \ \ \textcolor{comment}{/*\ Drain\ any\ stale\ completion\ signal\ left\ by\ a\ previous\ (late)\ measurement\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00245}00245\ \ \ \ \ (void)xSemaphoreTake(US\_xDoneSem,\ 0);}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00246}00246\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00247}00247\ \ \ \ \ \textcolor{comment}{/*\ Prepare\ the\ active-\/measurement\ context\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00248}00248\ \ \ \ \ US\_Active.timer\ =\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00249}00249\ \ \ \ \ US\_Active.channel\ =\ ch;}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00250}00250\ \ \ \ \ US\_Active.maxval\ =\ (pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ ==\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ac5d83f7f02ed43be0c56113288ac5d6e}{TIM\_TIMER2}}\ ||\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ ==\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23aeacfda3ad57699febbf392e77ad9bcd1}{TIM\_TIMER5}})\ ?\ 0xFFFFFFFFu\ :\ 0xFFFFu;}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00251}00251\ \ \ \ \ US\_Active.phase\ =\ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673a6bfaeb80623372f5391c4466488b480a}{US\_PHASE\_RISING}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00252}00252\ \ \ \ \ US\_Active.valid\ =\ 0u;}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00224}00224\ \ \ \ \ \textcolor{keywordflow}{if}\ (!(TIMx-\/>\doxymbox{\hyperlink{structTIM__TypeDef_a98ff7c0733a481643cc57b766ecd8e04}{CR1}}\ \&\ \doxymbox{\hyperlink{TIM__private_8h_a93d86355e5e3b399ed45e1ca83abed2a}{TIM\_CR1\_CEN}}))}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00225}00225\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00226}00226\ \ \ \ \ \ \ \ \ uint32\_t\ SystemBusClock\ =\ \doxymbox{\hyperlink{US__config_8h_ade28eff697a4ce6ca90ed4af010179c4}{US\_SYS\_CLK\_HZ}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00227}00227\ \ \ \ \ \ \ \ \ uint16\_t\ Local\_u16PSC\ =\ (uint16\_t)((SystemBusClock\ /\ 1000000U)\ -\/\ 1U);}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00228}00228\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00229}00229\ \ \ \ \ \ \ \ \ TIMx-\/>\doxymbox{\hyperlink{structTIM__TypeDef_a98ff7c0733a481643cc57b766ecd8e04}{CR1}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00230}00230\ \ \ \ \ \ \ \ \ TIMx-\/>\doxymbox{\hyperlink{structTIM__TypeDef_aebaa22c6223c63151d71070db8ff5b96}{PSC}}\ =\ Local\_u16PSC;}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00231}00231\ \ \ \ \ \ \ \ \ TIMx-\/>\doxymbox{\hyperlink{structTIM__TypeDef_aa574282b4226fefc866df9beea6f41cd}{ARR}}\ =\ (pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ ==\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ac5d83f7f02ed43be0c56113288ac5d6e}{TIM\_TIMER2}}\ ||\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ ==\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23aeacfda3ad57699febbf392e77ad9bcd1}{TIM\_TIMER5}})\ ?\ 0xFFFFFFFF\ :\ 0xFFFF;}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00232}00232\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00233}00233\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ ==\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23a2f11856b0dad76655c7eee9a4373fcb7}{TIM\_TIMER1}}\ ||\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ ==\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ac393fa6bfe307979749a0f3021608981}{TIM\_TIMER8}})}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00234}00234\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00235}00235\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(TIMx-\/>\doxymbox{\hyperlink{structTIM__TypeDef_a649f8669e19bc47c0488cd029832f0ab}{BDTR}},\ 15);\ \textcolor{comment}{/*\ MOE:\ Main\ Output\ Enable\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00236}00236\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00237}00237\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00238}00238\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__lib_ga62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(TIMx-\/>\doxymbox{\hyperlink{structTIM__TypeDef_a4db8926602a9b7f8d8d29dbc7d0580bb}{EGR}},\ 0);\ \textcolor{comment}{/*\ Force\ update\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00239}00239\ \ \ \ \ \ \ \ \ TIMx-\/>\doxymbox{\hyperlink{structTIM__TypeDef_ad4c239c905a84b69f7bc24d1cf63512e}{SR}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00240}00240\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00242}00242\ \ \ \ \ \textcolor{comment}{/*\ 3.\ Configure\ ICU\ Channel\ (rising\ edge,\ capture\ enabled;\ CC\ interrupt\ stays\ OFF)\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00243}00243\ \ \ \ \ \doxymbox{\hyperlink{structTIM__ICConfig__t}{TIM\_ICConfig\_t}}\ IC\_Cfg\ =\ \{}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00244}00244\ \ \ \ \ \ \ \ \ .Timer\ =\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}},\ .Channel\ =\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aedb2c8be49f5d1fd6443e896c8ef532b}{Channel}},\ .Selection\ =\ \doxymbox{\hyperlink{TIM__interface_8h_a874d9ee0b93fcabcb9999efc4388e2dba5815b1cbb7c2a1b8c080ced8c8f6e4c6}{TIM\_IC\_SELECTION\_DIRECT\_TI}},\ .Prescaler\ =\ \doxymbox{\hyperlink{TIM__interface_8h_a07b622d3e7637777981cc30f40026d7daf198c740949eb704a94ee161b2c860f5}{TIM\_IC\_PSC\_DIV1}},\ .Polarity\ =\ \doxymbox{\hyperlink{TIM__interface_8h_ad6edd13d05def01952c9f8b6e11773d4aeef997c391b7f2f5bd1c1d6fe2e436d0}{TIM\_POLARITY\_HIGH}},\ .Filter\ =\ 0xF\ \textcolor{comment}{/*\ max\ digital\ filter:\ reject\ glitches\ that\ fake\ an\ early\ rising\ edge\ →\ bogus\ 400cm\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00245}00245\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00246}00246\ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a8e1065f213120676872fdbbd5ccfd37a}{TIM\_vIC\_Init}}(\&IC\_Cfg);}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00247}00247\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00248}00248\ \ \ \ \ \textcolor{comment}{/*\ 4.\ Start\ Timer\ only\ if\ not\ running\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00249}00249\ \ \ \ \ \textcolor{keywordflow}{if}\ (!(TIMx-\/>\doxymbox{\hyperlink{structTIM__TypeDef_a98ff7c0733a481643cc57b766ecd8e04}{CR1}}\ \&\ \doxymbox{\hyperlink{TIM__private_8h_a93d86355e5e3b399ed45e1ca83abed2a}{TIM\_CR1\_CEN}}))}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00250}00250\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00251}00251\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a2bd184de6083fb2ccf17231557037835}{TIM\_vStart}}(pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}});}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00252}00252\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00253}00253\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00254}00254\ \ \ \ \ \textcolor{comment}{/*\ Arm\ rising\ edge\ →\ clear\ ONLY\ this\ channel's\ stale\ capture\ flag\ →\ enable\ CC\ IRQ.}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00255}00255\ \textcolor{comment}{\ \ \ \ \ *\ TIM\ SR\ flags\ are\ "{}rc\_w0"{}:\ writing\ 0\ clears,\ writing\ 1\ leaves\ untouched.\ So\ to}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00256}00256\ \textcolor{comment}{\ \ \ \ \ *\ clear\ just\ CCxIF\ we\ write\ all-\/ones\ EXCEPT\ that\ bit\ (\string~mask).\ The\ old\ code\ wrote}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00257}00257\ \textcolor{comment}{\ \ \ \ \ *\ \string~(1<<(ch+1))\ which\ is\ the\ same\ intent,\ but\ built\ the\ bit\ from\ a\ raw\ shift;\ use}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00258}00258\ \textcolor{comment}{\ \ \ \ \ *\ the\ named\ CCxIF\ position\ and\ a\ clear\ comment\ so\ it\ can't\ be\ misread\ as\ "{}write}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00259}00259\ \textcolor{comment}{\ \ \ \ \ *\ the\ whole\ register"{}.\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00260}00260\ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_af6ce9419f48628e54cb1110dae65e1f1}{TIM\_vSetICPolarity}}(pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}},\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aedb2c8be49f5d1fd6443e896c8ef532b}{Channel}},\ \doxymbox{\hyperlink{TIM__interface_8h_ad6edd13d05def01952c9f8b6e11773d4aeef997c391b7f2f5bd1c1d6fe2e436d0}{TIM\_POLARITY\_HIGH}});}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00261}00261\ \ \ \ \ TIMx-\/>\doxymbox{\hyperlink{structTIM__TypeDef_ad4c239c905a84b69f7bc24d1cf63512e}{SR}}\ =\ \string~(1UL\ <<\ (\doxymbox{\hyperlink{TIM__private_8h_a449a61344a97608d85384c29f003c0e9}{TIM\_SR\_CC1IF}}\ +\ ch));\ \textcolor{comment}{/*\ clear\ this\ channel's\ CCxIF\ only\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00262}00262\ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a78dfd09e838628d35bd9fc18ddd575ad}{TIM\_vEnableCCInterrupt}}(pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}},\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aedb2c8be49f5d1fd6443e896c8ef532b}{Channel}});}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00263}00263\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00264}00264\ \ \ \ \ \textcolor{comment}{/*\ Fire\ the\ trigger\ pulse\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00265}00265\ \ \ \ \ US\_vSendTrigger(pxSensor);}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00266}00266\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00267}00267\ \ \ \ \ \textcolor{comment}{/*\ Sleep\ until\ the\ ISR\ delivers\ both\ edges,\ or\ until\ the\ echo\ window\ expires\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00268}00268\ \ \ \ \ \textcolor{keywordflow}{if}\ (xSemaphoreTake(US\_xDoneSem,\ pdMS\_TO\_TICKS(\doxymbox{\hyperlink{US__config_8h_a4d35bb6b344954434449832b9e53037c}{US\_TASK\_TIMEOUT\_MS}}))\ ==\ pdTRUE\ \&\&\ US\_Active.phase\ ==\ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673ae210b59fe9d33ecc8a76850d05d11464}{US\_PHASE\_DONE}})}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00269}00269\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00270}00270\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ An\ out-\/of-\/range\ /\ spurious\ echo\ (valid==0)\ is\ reported\ like\ "{}no\ object"{}}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00271}00271\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ so\ the\ caller's\ default\ (400\ /\ clear)\ kicks\ in,\ instead\ of\ returning\ a}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00272}00272\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ fake\ solid\ 400cm\ reading\ that\ flaps\ against\ the\ real\ distance.\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00273}00273\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!US\_Active.valid)}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00274}00274\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00275}00275\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00276}00276\ \ \ \ \ \ \ \ \ *pu16Dist\_cm\ =\ US\_Active.dist\_cm;}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00277}00277\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00278}00278\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00279}00279\ }
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00280}00280\ \ \ \ \ \textcolor{comment}{/*\ Timeout:\ no\ echo\ (out\ of\ range\ /\ no\ object)\ —\ disarm\ and\ report\ */}}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00281}00281\ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a05c68c2d16e14ca08f925fc789f8c000}{TIM\_vDisableCCInterrupt}}(pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}},\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aedb2c8be49f5d1fd6443e896c8ef532b}{Channel}});}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00282}00282\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
-\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00283}00283\ \}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00254}00254\ \ \ \ \ \textcolor{comment}{/*\ 5.\ Interrupt\ infrastructure\ (idempotent\ across\ sensors)\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00255}00255\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{US__prog_8c_a45b109c89a06e7204f4c203252f57350}{US\_xDoneSem}}\ ==\ \doxymbox{\hyperlink{group__lib_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00256}00256\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00257}00257\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{US__prog_8c_a45b109c89a06e7204f4c203252f57350}{US\_xDoneSem}}\ =\ xSemaphoreCreateBinary();\ \textcolor{comment}{/*\ safe\ to\ create\ before\ scheduler\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00258}00258\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00259}00259\ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a274b369957bc2526189a0d66db5bb35e}{TIM\_vSetCCCallback}}(pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}},\ \doxymbox{\hyperlink{US__prog_8c_a8faec99358e42145506a962e14115d12}{US\_CC\_Handler}});}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00260}00260\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00261}00261\ \ \ \ \ uint8\_t\ Local\_u8Irq\ =\ \doxymbox{\hyperlink{US__prog_8c_a0aa4d878b57b45002e4a654f79b72fb2}{US\_u8NvicIrqForTimer}}(pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}});}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00262}00262\ \ \ \ \ \textcolor{keywordflow}{if}\ (Local\_u8Irq\ !=\ 0xFFu)}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00263}00263\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00264}00264\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{NVIC__interface_8h_adacfc2d410ead15ca25830190e615000}{NVIC\_vSetPriority}}(Local\_u8Irq,\ 6);\ \textcolor{comment}{/*\ FreeRTOS-\/safe\ (>=\ configMAX\_SYSCALL\_INTERRUPT\_PRIORITY)\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00265}00265\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{NVIC__interface_8h_a85d98abbd23523e4abf16cc4b4501431}{NVIC\_vEnableIRQ}}(Local\_u8Irq);}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00266}00266\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00267}00267\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00268}00268\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00269}00269\ \}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00270}00270\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00271}00271\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00272}00272\ \textcolor{comment}{\ *\ @brief\ Trigger\ sensor\ and\ measure\ distance\ (cm).\ The\ calling\ task\ SLEEPS\ on\ a}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00273}00273\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ semaphore\ while\ the\ echo\ is\ in\ flight\ (CPU\ free),\ then\ the\ IC\ ISR\ wakes}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00274}00274\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ it\ with\ the\ result.\ Returns\ TIMEOUT\_STATE\ if\ no\ echo\ within\ the\ window.}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00275}00275\ \textcolor{comment}{\ *\ @note\ \ MUST\ be\ called\ from\ a\ task\ context\ (uses\ a\ FreeRTOS\ semaphore).}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00276}00276\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ Not\ reentrant:\ one\ measurement\ at\ a\ time\ (sequential\ by\ design).}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00277}00277\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00278}\doxymbox{\hyperlink{US__interface_8h_a49bd64d408631fd63886cbc413453e08}{00278}}\ \doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{ErrorState\_t}}\ \doxymbox{\hyperlink{US__prog_8c_a49bd64d408631fd63886cbc413453e08}{US\_u16ReadDistance\_cm}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structUS__Config__t}{US\_Config\_t}}\ *pxSensor,\ uint16\_t\ *pu16Dist\_cm)}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00279}00279\ \{}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00280}00280\ \ \ \ \ \textcolor{keywordflow}{if}\ (pxSensor\ ==\ \doxymbox{\hyperlink{group__lib_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}}\ ||\ pu16Dist\_cm\ ==\ \doxymbox{\hyperlink{group__lib_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00281}00281\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\_POINTER}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00282}00282\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{US__prog_8c_a45b109c89a06e7204f4c203252f57350}{US\_xDoneSem}}\ ==\ \doxymbox{\hyperlink{group__lib_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00283}00283\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}};\ \textcolor{comment}{/*\ US\_vInit\ not\ done\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00284}00284\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00285}00285\ \ \ \ \ \doxymbox{\hyperlink{structTIM__TypeDef}{TIM\_TypeDef}}\ *TIMx\ =\ \doxymbox{\hyperlink{US__prog_8c_a1075f329baf7454c0e9a988c726d67f8}{US\_TIM\_Array}}[pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}];}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00286}00286\ \ \ \ \ uint8\_t\ ch\ =\ (uint8\_t)pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aedb2c8be49f5d1fd6443e896c8ef532b}{Channel}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00287}00287\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00288}00288\ \ \ \ \ \textcolor{comment}{/*\ Drain\ any\ stale\ completion\ signal\ left\ by\ a\ previous\ (late)\ measurement\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00289}00289\ \ \ \ \ (void)xSemaphoreTake(\doxymbox{\hyperlink{US__prog_8c_a45b109c89a06e7204f4c203252f57350}{US\_xDoneSem}},\ 0);}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00290}00290\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00291}00291\ \ \ \ \ \textcolor{comment}{/*\ Prepare\ the\ active-\/measurement\ context\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00292}00292\ \ \ \ \ \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}.timer\ =\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00293}00293\ \ \ \ \ \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}.channel\ =\ ch;}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00294}00294\ \ \ \ \ \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}.maxval\ =\ (pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ ==\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23ac5d83f7f02ed43be0c56113288ac5d6e}{TIM\_TIMER2}}\ ||\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}\ ==\ \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23aeacfda3ad57699febbf392e77ad9bcd1}{TIM\_TIMER5}})\ ?\ 0xFFFFFFFFu\ :\ 0xFFFFu;}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00295}00295\ \ \ \ \ \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}.phase\ =\ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673a6bfaeb80623372f5391c4466488b480a}{US\_PHASE\_RISING}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00296}00296\ \ \ \ \ \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}.valid\ =\ 0u;}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00297}00297\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00298}00298\ \ \ \ \ \textcolor{comment}{/*\ Arm\ rising\ edge\ →\ clear\ ONLY\ this\ channel's\ stale\ capture\ flag\ →\ enable\ CC\ IRQ.}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00299}00299\ \textcolor{comment}{\ \ \ \ \ *\ TIM\ SR\ flags\ are\ "{}rc\_w0"{}:\ writing\ 0\ clears,\ writing\ 1\ leaves\ untouched.\ So\ to}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00300}00300\ \textcolor{comment}{\ \ \ \ \ *\ clear\ just\ CCxIF\ we\ write\ all-\/ones\ EXCEPT\ that\ bit\ (\string~mask).\ The\ old\ code\ wrote}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00301}00301\ \textcolor{comment}{\ \ \ \ \ *\ \string~(1<<(ch+1))\ which\ is\ the\ same\ intent,\ but\ built\ the\ bit\ from\ a\ raw\ shift;\ use}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00302}00302\ \textcolor{comment}{\ \ \ \ \ *\ the\ named\ CCxIF\ position\ and\ a\ clear\ comment\ so\ it\ can't\ be\ misread\ as\ "{}write}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00303}00303\ \textcolor{comment}{\ \ \ \ \ *\ the\ whole\ register"{}.\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00304}00304\ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_af6ce9419f48628e54cb1110dae65e1f1}{TIM\_vSetICPolarity}}(pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}},\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aedb2c8be49f5d1fd6443e896c8ef532b}{Channel}},\ \doxymbox{\hyperlink{TIM__interface_8h_ad6edd13d05def01952c9f8b6e11773d4aeef997c391b7f2f5bd1c1d6fe2e436d0}{TIM\_POLARITY\_HIGH}});}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00305}00305\ \ \ \ \ TIMx-\/>\doxymbox{\hyperlink{structTIM__TypeDef_ad4c239c905a84b69f7bc24d1cf63512e}{SR}}\ =\ \string~(1UL\ <<\ (\doxymbox{\hyperlink{TIM__private_8h_a449a61344a97608d85384c29f003c0e9}{TIM\_SR\_CC1IF}}\ +\ ch));\ \textcolor{comment}{/*\ clear\ this\ channel's\ CCxIF\ only\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00306}00306\ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a78dfd09e838628d35bd9fc18ddd575ad}{TIM\_vEnableCCInterrupt}}(pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}},\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aedb2c8be49f5d1fd6443e896c8ef532b}{Channel}});}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00307}00307\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00308}00308\ \ \ \ \ \textcolor{comment}{/*\ Fire\ the\ trigger\ pulse\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00309}00309\ \ \ \ \ \doxymbox{\hyperlink{US__prog_8c_adc51941ea05da40c9e35a99928a4ac37}{US\_vSendTrigger}}(pxSensor);}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00310}00310\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00311}00311\ \ \ \ \ \textcolor{comment}{/*\ Sleep\ until\ the\ ISR\ delivers\ both\ edges,\ or\ until\ the\ echo\ window\ expires\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00312}00312\ \ \ \ \ \textcolor{keywordflow}{if}\ (xSemaphoreTake(\doxymbox{\hyperlink{US__prog_8c_a45b109c89a06e7204f4c203252f57350}{US\_xDoneSem}},\ pdMS\_TO\_TICKS(\doxymbox{\hyperlink{US__config_8h_a4d35bb6b344954434449832b9e53037c}{US\_TASK\_TIMEOUT\_MS}}))\ ==\ pdTRUE\ \&\&\ \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}.phase\ ==\ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673ae210b59fe9d33ecc8a76850d05d11464}{US\_PHASE\_DONE}})}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00313}00313\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00314}00314\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ An\ out-\/of-\/range\ /\ spurious\ echo\ (valid==0)\ is\ reported\ like\ "{}no\ object"{}}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00315}00315\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ so\ the\ caller's\ default\ (400\ /\ clear)\ kicks\ in,\ instead\ of\ returning\ a}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00316}00316\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ fake\ solid\ 400cm\ reading\ that\ flaps\ against\ the\ real\ distance.\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00317}00317\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}.valid)}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00318}00318\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00319}00319\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00320}00320\ \ \ \ \ \ \ \ \ *pu16Dist\_cm\ =\ \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}.dist\_cm;}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00321}00321\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00322}00322\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00323}00323\ }
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00324}00324\ \ \ \ \ \textcolor{comment}{/*\ Timeout:\ no\ echo\ (out\ of\ range\ /\ no\ object)\ —\ disarm\ and\ report\ */}}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00325}00325\ \ \ \ \ \doxymbox{\hyperlink{TIM__interface_8h_a05c68c2d16e14ca08f925fc789f8c000}{TIM\_vDisableCCInterrupt}}(pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}},\ pxSensor-\/>\doxymbox{\hyperlink{structUS__Config__t_aedb2c8be49f5d1fd6443e896c8ef532b}{Channel}});}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00326}00326\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{group__lib_gga74f58890b599c641e4382ff49c4a3e81aab3f615aed4df1e6db0441574c3adfb3}{TIMEOUT\_STATE}};}
+\DoxyCodeLine{\Hypertarget{US__prog_8c_source_l00327}00327\ \}}
 
 \end{DoxyCode}

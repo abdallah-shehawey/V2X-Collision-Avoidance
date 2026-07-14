@@ -7,75 +7,43 @@ Configuration structure for a single Ultrasonic sensor instance.
 
 
 
-{\ttfamily \+\#include $<$US\+\_\+interface.\+h$>$}
+{\ttfamily \+\#include $<$Drivers/\+\+HAL/\+\+US/\+\+US\+\_\+interface.\+h$>$}
 
 \doxysubsubsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
 \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} \doxymbox{\hyperlink{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}{Timer}}
-\item 
+\begin{DoxyCompactList}\small\item\em Timer instance (TIM\+\_\+\+TIMER1..TIM\+\_\+\+TIMER8). \end{DoxyCompactList}\item 
 \doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}} \doxymbox{\hyperlink{structUS__Config__t_aedb2c8be49f5d1fd6443e896c8ef532b}{Channel}}
-\item 
-\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} \doxymbox{\hyperlink{structUS__Config__t_aee06c76d7a6088e93d33302bb11c279c}{Trig\+Port}}
-\item 
-\doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} \doxymbox{\hyperlink{structUS__Config__t_aba9acc39dd5600c1eef35b5e033c94e6}{Trig\+Pin}}
-\item 
-\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} \doxymbox{\hyperlink{structUS__Config__t_abc84123a24f0dabcb2917be3edf9591b}{Echo\+Port}}
-\item 
-\doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} \doxymbox{\hyperlink{structUS__Config__t_ab87866af565edaf58ca26dd7d7aea08d}{Echo\+Pin}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Timer Channel:\+ TIM\+\_\+\+CHANNEL1..TIM\+\_\+\+CHANNEL4. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} \doxymbox{\hyperlink{structUS__Config__t_aee06c76d7a6088e93d33302bb11c279c}{Trig\+Port}}
+\begin{DoxyCompactList}\small\item\em GPIO Port of TRIG pin. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} \doxymbox{\hyperlink{structUS__Config__t_aba9acc39dd5600c1eef35b5e033c94e6}{Trig\+Pin}}
+\begin{DoxyCompactList}\small\item\em GPIO Pin of TRIG pin. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} \doxymbox{\hyperlink{structUS__Config__t_abc84123a24f0dabcb2917be3edf9591b}{Echo\+Port}}
+\begin{DoxyCompactList}\small\item\em GPIO Port of ECHO pin (Must match Timer AF). \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} \doxymbox{\hyperlink{structUS__Config__t_ab87866af565edaf58ca26dd7d7aea08d}{Echo\+Pin}}
+\begin{DoxyCompactList}\small\item\em GPIO Pin of ECHO pin (Must match Timer AF). \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 Configuration structure for a single Ultrasonic sensor instance. 
 
-===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} \doxylink{US__interface_8h}{US\+\_\+interface.\+h} \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Saleh \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ HAL \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} CPU :\+ Cortex-\/\+M4 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} MCU :\+ NUCLEO-\/\+F446\+RE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SWC :\+ US (Ultrasonic Distance Sensor) \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}
-
 \begin{DoxyNote}{Note}
-Each sensor MUST be assigned its own unique Timer (TIM\+\_\+\+TIMER2..TIM\+\_\+\+TIMER8). This allows multiple sensors to operate simultaneously without conflict. TRIG and ECHO can be ANY available GPIO pin — no pin restriction. 
+Each sensor MUST be assigned its own unique Timer (TIM\+\_\+\+TIMER2..TIM\+\_\+\+TIMER8). This allows multiple sensors to operate simultaneously without conflict. TRIG and ECHO can be ANY available GPIO pin — no pin restriction.
 \end{DoxyNote}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2HAL_2US_2US_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+HAL/\+\+US/\+\+US\+\_\+interface.\+h}}.\end{Desc}
+\begin{DoxyParagraph}{Example:\+}
 
+\end{DoxyParagraph}
+\doxylink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t} my\+Sensor = \{ .Timer = TIM\+\_\+\+TIMER2, .Trig\+Port = GPIO\+\_\+\+PORTA, .Trig\+Pin = GPIO\+\_\+\+PIN0, .Echo\+Port = GPIO\+\_\+\+PORTA, .Echo\+Pin = GPIO\+\_\+\+PIN1 \}; 
 
-Definition at line \doxymbox{\hyperlink{US__interface_8h_source_l00048}{48}} of file \doxymbox{\hyperlink{US__interface_8h_source}{US\+\_\+interface.\+h}}.
+Definition at line \doxymbox{\hyperlink{US__interface_8h_source_l00045}{45}} of file \doxymbox{\hyperlink{US__interface_8h_source}{US\+\_\+interface.\+h}}.
 
 
 
 \label{doc-variable-members}
 \Hypertarget{structUS__Config__t_doc-variable-members}
 \doxysubsection{Field Documentation}
-\Hypertarget{structUS__Config__t_aedb2c8be49f5d1fd6443e896c8ef532b}\index{US\_Config\_t@{US\_Config\_t}!Channel@{Channel}}
-\index{Channel@{Channel}!US\_Config\_t@{US\_Config\_t}}
-\doxysubsubsection{\texorpdfstring{Channel}{Channel}}
-{\footnotesize\ttfamily \label{structUS__Config__t_aedb2c8be49f5d1fd6443e896c8ef532b} 
-\doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}} US\+\_\+\+Config\+\_\+t::\+\+Channel}
-
-
-
-Definition at line \doxymbox{\hyperlink{US__interface_8h_source_l00051}{51}} of file \doxymbox{\hyperlink{US__interface_8h_source}{US\+\_\+interface.\+h}}.
-
-\Hypertarget{structUS__Config__t_ab87866af565edaf58ca26dd7d7aea08d}\index{US\_Config\_t@{US\_Config\_t}!EchoPin@{EchoPin}}
-\index{EchoPin@{EchoPin}!US\_Config\_t@{US\_Config\_t}}
-\doxysubsubsection{\texorpdfstring{EchoPin}{EchoPin}}
-{\footnotesize\ttfamily \label{structUS__Config__t_ab87866af565edaf58ca26dd7d7aea08d} 
-\doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} US\+\_\+\+Config\+\_\+t::\+\+Echo\+Pin}
-
-
-
-Definition at line \doxymbox{\hyperlink{US__interface_8h_source_l00055}{55}} of file \doxymbox{\hyperlink{US__interface_8h_source}{US\+\_\+interface.\+h}}.
-
-\Hypertarget{structUS__Config__t_abc84123a24f0dabcb2917be3edf9591b}\index{US\_Config\_t@{US\_Config\_t}!EchoPort@{EchoPort}}
-\index{EchoPort@{EchoPort}!US\_Config\_t@{US\_Config\_t}}
-\doxysubsubsection{\texorpdfstring{EchoPort}{EchoPort}}
-{\footnotesize\ttfamily \label{structUS__Config__t_abc84123a24f0dabcb2917be3edf9591b} 
-\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} US\+\_\+\+Config\+\_\+t::\+\+Echo\+Port}
-
-
-
-Definition at line \doxymbox{\hyperlink{US__interface_8h_source_l00054}{54}} of file \doxymbox{\hyperlink{US__interface_8h_source}{US\+\_\+interface.\+h}}.
-
 \Hypertarget{structUS__Config__t_ab9f915b857e31dc693e8fbe0b1db0113}\index{US\_Config\_t@{US\_Config\_t}!Timer@{Timer}}
 \index{Timer@{Timer}!US\_Config\_t@{US\_Config\_t}}
 \doxysubsubsection{\texorpdfstring{Timer}{Timer}}
@@ -84,23 +52,97 @@ Definition at line \doxymbox{\hyperlink{US__interface_8h_source_l00054}{54}} of 
 
 
 
-Definition at line \doxymbox{\hyperlink{US__interface_8h_source_l00050}{50}} of file \doxymbox{\hyperlink{US__interface_8h_source}{US\+\_\+interface.\+h}}.
-
-\Hypertarget{structUS__Config__t_aba9acc39dd5600c1eef35b5e033c94e6}\index{US\_Config\_t@{US\_Config\_t}!TrigPin@{TrigPin}}
-\index{TrigPin@{TrigPin}!US\_Config\_t@{US\_Config\_t}}
-\doxysubsubsection{\texorpdfstring{TrigPin}{TrigPin}}
-{\footnotesize\ttfamily \label{structUS__Config__t_aba9acc39dd5600c1eef35b5e033c94e6} 
-\doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} US\+\_\+\+Config\+\_\+t::\+\+Trig\+Pin}
+Timer instance (TIM\+\_\+\+TIMER1..TIM\+\_\+\+TIMER8). 
 
 
 
-Definition at line \doxymbox{\hyperlink{US__interface_8h_source_l00053}{53}} of file \doxymbox{\hyperlink{US__interface_8h_source}{US\+\_\+interface.\+h}}.
+Definition at line \doxymbox{\hyperlink{US__interface_8h_source_l00047}{47}} of file \doxymbox{\hyperlink{US__interface_8h_source}{US\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{US__prog_8c_source_l00278}{US\+\_\+u16\+Read\+Distance\+\_\+cm()}}, and \doxymbox{\hyperlink{US__prog_8c_source_l00196}{US\+\_\+v\+Init()}}.
+
+\Hypertarget{structUS__Config__t_aedb2c8be49f5d1fd6443e896c8ef532b}\index{US\_Config\_t@{US\_Config\_t}!Channel@{Channel}}
+\index{Channel@{Channel}!US\_Config\_t@{US\_Config\_t}}
+\doxysubsubsection{\texorpdfstring{Channel}{Channel}}
+{\footnotesize\ttfamily \label{structUS__Config__t_aedb2c8be49f5d1fd6443e896c8ef532b} 
+\doxymbox{\hyperlink{TIM__interface_8h_a6692a9aa577e647a9f660c404689cd16}{TIM\+\_\+\+Channel\+\_\+t}} US\+\_\+\+Config\+\_\+t::\+\+Channel}
+
+
+
+Timer Channel:\+ TIM\+\_\+\+CHANNEL1..TIM\+\_\+\+CHANNEL4. 
+
+
+
+Definition at line \doxymbox{\hyperlink{US__interface_8h_source_l00048}{48}} of file \doxymbox{\hyperlink{US__interface_8h_source}{US\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{US__prog_8c_source_l00278}{US\+\_\+u16\+Read\+Distance\+\_\+cm()}}, and \doxymbox{\hyperlink{US__prog_8c_source_l00196}{US\+\_\+v\+Init()}}.
 
 \Hypertarget{structUS__Config__t_aee06c76d7a6088e93d33302bb11c279c}\index{US\_Config\_t@{US\_Config\_t}!TrigPort@{TrigPort}}
 \index{TrigPort@{TrigPort}!US\_Config\_t@{US\_Config\_t}}
 \doxysubsubsection{\texorpdfstring{TrigPort}{TrigPort}}
 {\footnotesize\ttfamily \label{structUS__Config__t_aee06c76d7a6088e93d33302bb11c279c} 
-\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} US\+\_\+\+Config\+\_\+t::\+\+Trig\+Port}
+\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} US\+\_\+\+Config\+\_\+t::\+\+Trig\+Port}
+
+
+
+GPIO Port of TRIG pin. 
+
+
+
+Definition at line \doxymbox{\hyperlink{US__interface_8h_source_l00049}{49}} of file \doxymbox{\hyperlink{US__interface_8h_source}{US\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{US__prog_8c_source_l00196}{US\+\_\+v\+Init()}}, and \doxymbox{\hyperlink{US__prog_8c_source_l00096}{US\+\_\+v\+Send\+Trigger()}}.
+
+\Hypertarget{structUS__Config__t_aba9acc39dd5600c1eef35b5e033c94e6}\index{US\_Config\_t@{US\_Config\_t}!TrigPin@{TrigPin}}
+\index{TrigPin@{TrigPin}!US\_Config\_t@{US\_Config\_t}}
+\doxysubsubsection{\texorpdfstring{TrigPin}{TrigPin}}
+{\footnotesize\ttfamily \label{structUS__Config__t_aba9acc39dd5600c1eef35b5e033c94e6} 
+\doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} US\+\_\+\+Config\+\_\+t::\+\+Trig\+Pin}
+
+
+
+GPIO Pin of TRIG pin. 
+
+
+
+Definition at line \doxymbox{\hyperlink{US__interface_8h_source_l00050}{50}} of file \doxymbox{\hyperlink{US__interface_8h_source}{US\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{US__prog_8c_source_l00196}{US\+\_\+v\+Init()}}, and \doxymbox{\hyperlink{US__prog_8c_source_l00096}{US\+\_\+v\+Send\+Trigger()}}.
+
+\Hypertarget{structUS__Config__t_abc84123a24f0dabcb2917be3edf9591b}\index{US\_Config\_t@{US\_Config\_t}!EchoPort@{EchoPort}}
+\index{EchoPort@{EchoPort}!US\_Config\_t@{US\_Config\_t}}
+\doxysubsubsection{\texorpdfstring{EchoPort}{EchoPort}}
+{\footnotesize\ttfamily \label{structUS__Config__t_abc84123a24f0dabcb2917be3edf9591b} 
+\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} US\+\_\+\+Config\+\_\+t::\+\+Echo\+Port}
+
+
+
+GPIO Port of ECHO pin (Must match Timer AF). 
+
+
+
+Definition at line \doxymbox{\hyperlink{US__interface_8h_source_l00051}{51}} of file \doxymbox{\hyperlink{US__interface_8h_source}{US\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{US__prog_8c_source_l00196}{US\+\_\+v\+Init()}}.
+
+\Hypertarget{structUS__Config__t_ab87866af565edaf58ca26dd7d7aea08d}\index{US\_Config\_t@{US\_Config\_t}!EchoPin@{EchoPin}}
+\index{EchoPin@{EchoPin}!US\_Config\_t@{US\_Config\_t}}
+\doxysubsubsection{\texorpdfstring{EchoPin}{EchoPin}}
+{\footnotesize\ttfamily \label{structUS__Config__t_ab87866af565edaf58ca26dd7d7aea08d} 
+\doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} US\+\_\+\+Config\+\_\+t::\+\+Echo\+Pin}
+
+
+
+GPIO Pin of ECHO pin (Must match Timer AF). 
 
 
 
@@ -108,6 +150,10 @@ Definition at line \doxymbox{\hyperlink{US__interface_8h_source_l00052}{52}} of 
 
 
 
+Referenced by \doxymbox{\hyperlink{US__prog_8c_source_l00196}{US\+\_\+v\+Init()}}.
+
+
+
 The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
 \item 
-Inc/\+\+Drivers/\+\+HAL/\+\+US/\+\doxymbox{\hyperlink{US__interface_8h}{US\+\_\+interface.\+h}}\end{DoxyCompactItemize}
+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+HAL/\+\+US/\+\doxymbox{\hyperlink{US__interface_8h}{US\+\_\+interface.\+h}}\end{DoxyCompactItemize}

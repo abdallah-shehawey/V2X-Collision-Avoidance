@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: NVIC_RegDef_t Struct Reference</title>
+<title>V2V Collision Avoidance Firmware: NVIC_RegDef_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,221 +90,263 @@ $(function(){initNavTree('structNVIC__RegDef__t.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">NVIC_RegDef_t Struct Reference</div></div>
+  <div class="headertitle"><div class="title">NVIC_RegDef_t Struct Reference<div class="ingroups"><a class="el" href="group__lib.html">LIB</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>&gt;</code></p>
+<p>NVIC register layout (Cortex-M4 interrupt controller).  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="STM32F446xx_8h_source.html">Drivers/LIB/STM32F446xx.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a9840c321f40a0aabb4320226b6ae40a3" id="r_a9840c321f40a0aabb4320226b6ae40a3"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a9840c321f40a0aabb4320226b6ae40a3">ISER</a> [8]</td></tr>
-<tr class="memitem:a9ec4b03eea5c2d1e9b3d43aa50c5349d" id="r_a9ec4b03eea5c2d1e9b3d43aa50c5349d"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a9ec4b03eea5c2d1e9b3d43aa50c5349d">RESERVED1</a> [24]</td></tr>
-<tr class="memitem:a4e45b39ff3cf819eba410a22021da245" id="r_a4e45b39ff3cf819eba410a22021da245"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a4e45b39ff3cf819eba410a22021da245">ICER</a> [8]</td></tr>
-<tr class="memitem:a1c5eb15a2079331f45faad53383ece34" id="r_a1c5eb15a2079331f45faad53383ece34"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a1c5eb15a2079331f45faad53383ece34">RESERVED2</a> [24]</td></tr>
-<tr class="memitem:ae5ee26efd9e78b0c7c443bcfb26f4ea4" id="r_ae5ee26efd9e78b0c7c443bcfb26f4ea4"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ae5ee26efd9e78b0c7c443bcfb26f4ea4">ISPR</a> [8]</td></tr>
-<tr class="memitem:ae58f447d9ab602b59dfcb196e4ced492" id="r_ae58f447d9ab602b59dfcb196e4ced492"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ae58f447d9ab602b59dfcb196e4ced492">RESERVED3</a> [24]</td></tr>
-<tr class="memitem:aae54255e121b6cd99f0f5d902b7c3d74" id="r_aae54255e121b6cd99f0f5d902b7c3d74"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#aae54255e121b6cd99f0f5d902b7c3d74">ICPR</a> [8]</td></tr>
-<tr class="memitem:ae7bcfdb802cd40145b8f80ae00f1722d" id="r_ae7bcfdb802cd40145b8f80ae00f1722d"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ae7bcfdb802cd40145b8f80ae00f1722d">RESERVED4</a> [24]</td></tr>
-<tr class="memitem:ac8297f941a65008972a5f61cf61235c3" id="r_ac8297f941a65008972a5f61cf61235c3"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ac8297f941a65008972a5f61cf61235c3">IABR</a> [8]</td></tr>
-<tr class="memitem:acaf9158282150e747937816cc8b588af" id="r_acaf9158282150e747937816cc8b588af"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#acaf9158282150e747937816cc8b588af">RESERVED5</a> [56]</td></tr>
-<tr class="memitem:aaaf9d287c167cf93b518c160495bd581" id="r_aaaf9d287c167cf93b518c160495bd581"><td class="memItemLeft">volatile uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#aaaf9d287c167cf93b518c160495bd581">IPR</a> [240]</td></tr>
-<tr class="memitem:a9272c031a5560830b426f98a4788362c" id="r_a9272c031a5560830b426f98a4788362c"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a9272c031a5560830b426f98a4788362c">RESERVED6</a> [580]</td></tr>
+<tr class="memitem:ac00a34631cedcc431ca68e634410bac3" id="r_ac00a34631cedcc431ca68e634410bac3"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ac00a34631cedcc431ca68e634410bac3">ISER</a> [8]</td></tr>
+<tr class="memdesc:ac00a34631cedcc431ca68e634410bac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set-enable: writing a 1 enables that IRQ.  <br /></td></tr>
+<tr class="memitem:ae629efce9ceca844dc80bb2a6c721681" id="r_ae629efce9ceca844dc80bb2a6c721681"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ae629efce9ceca844dc80bb2a6c721681">RESERVED1</a> [24]</td></tr>
+<tr class="memdesc:ae629efce9ceca844dc80bb2a6c721681"><td class="mdescLeft">&#160;</td><td class="mdescRight">Padding — keeps ICER at its hardware offset.  <br /></td></tr>
+<tr class="memitem:a9277c2bfdae8353c09f1f696e7f00462" id="r_a9277c2bfdae8353c09f1f696e7f00462"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a9277c2bfdae8353c09f1f696e7f00462">ICER</a> [8]</td></tr>
+<tr class="memdesc:a9277c2bfdae8353c09f1f696e7f00462"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear-enable: writing a 1 disables that IRQ.  <br /></td></tr>
+<tr class="memitem:aadecb61dd511ed3119b31a087e1d3288" id="r_aadecb61dd511ed3119b31a087e1d3288"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#aadecb61dd511ed3119b31a087e1d3288">RESERVED2</a> [24]</td></tr>
+<tr class="memdesc:aadecb61dd511ed3119b31a087e1d3288"><td class="mdescLeft">&#160;</td><td class="mdescRight">Padding — keeps ISPR at its hardware offset.  <br /></td></tr>
+<tr class="memitem:add8b1c3105369c0842f5f9923740b632" id="r_add8b1c3105369c0842f5f9923740b632"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#add8b1c3105369c0842f5f9923740b632">ISPR</a> [8]</td></tr>
+<tr class="memdesc:add8b1c3105369c0842f5f9923740b632"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set-pending: writing a 1 forces that IRQ pending.  <br /></td></tr>
+<tr class="memitem:afdc4fa880390121169740bb3211db10d" id="r_afdc4fa880390121169740bb3211db10d"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#afdc4fa880390121169740bb3211db10d">RESERVED3</a> [24]</td></tr>
+<tr class="memdesc:afdc4fa880390121169740bb3211db10d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Padding — keeps ICPR at its hardware offset.  <br /></td></tr>
+<tr class="memitem:add0d559fb755dc4375545ff3f5919f10" id="r_add0d559fb755dc4375545ff3f5919f10"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#add0d559fb755dc4375545ff3f5919f10">ICPR</a> [8]</td></tr>
+<tr class="memdesc:add0d559fb755dc4375545ff3f5919f10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear-pending: writing a 1 drops a pending IRQ.  <br /></td></tr>
+<tr class="memitem:a2e251fae000cf45c4d116493a1e7a69c" id="r_a2e251fae000cf45c4d116493a1e7a69c"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a2e251fae000cf45c4d116493a1e7a69c">RESERVED4</a> [24]</td></tr>
+<tr class="memdesc:a2e251fae000cf45c4d116493a1e7a69c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Padding — keeps IABR at its hardware offset.  <br /></td></tr>
+<tr class="memitem:ae0350e505f697df1c5d5516f9dc434c3" id="r_ae0350e505f697df1c5d5516f9dc434c3"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ae0350e505f697df1c5d5516f9dc434c3">IABR</a> [8]</td></tr>
+<tr class="memdesc:ae0350e505f697df1c5d5516f9dc434c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Active-bit (read-only): 1 while that IRQ's handler is running.  <br /></td></tr>
+<tr class="memitem:a4d4eac6d68bbdec6667f8b8f3d56235a" id="r_a4d4eac6d68bbdec6667f8b8f3d56235a"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a4d4eac6d68bbdec6667f8b8f3d56235a">RESERVED5</a> [56]</td></tr>
+<tr class="memdesc:a4d4eac6d68bbdec6667f8b8f3d56235a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Padding — keeps IPR at its hardware offset.  <br /></td></tr>
+<tr class="memitem:a1b46b5eaaec7f70f80c2beed65877ec1" id="r_a1b46b5eaaec7f70f80c2beed65877ec1"><td class="memItemLeft">volatile uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a1b46b5eaaec7f70f80c2beed65877ec1">IPR</a> [240]</td></tr>
+<tr class="memdesc:a1b46b5eaaec7f70f80c2beed65877ec1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Priority: one byte per IRQ (only the upper 4 bits are implemented).  <br /></td></tr>
+<tr class="memitem:ade1d536b6d8e052b625de2ec85f4b4b6" id="r_ade1d536b6d8e052b625de2ec85f4b4b6"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ade1d536b6d8e052b625de2ec85f4b4b6">RESERVED6</a> [580]</td></tr>
+<tr class="memdesc:ade1d536b6d8e052b625de2ec85f4b4b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Padding — keeps STIR at its hardware offset.  <br /></td></tr>
 <tr class="memitem:ae5d28eb51c43c333293dbf312fbaede9" id="r_ae5d28eb51c43c333293dbf312fbaede9"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ae5d28eb51c43c333293dbf312fbaede9">STIR</a></td></tr>
+<tr class="memdesc:ae5d28eb51c43c333293dbf312fbaede9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Software trigger: writing an IRQ number raises it from software.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00211">211</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<div class="textblock"><p>NVIC register layout (Cortex-M4 interrupt controller). </p>
+<p>Each of the array registers holds one bit per interrupt, so IRQ number <span class="tt">n</span> lives in bit <span class="tt">n % 32</span> of word <span class="tt">n / 32</span> — which is exactly the arithmetic the MCAL NVIC driver does. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00280">280</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
-<a id="ac8297f941a65008972a5f61cf61235c3" name="ac8297f941a65008972a5f61cf61235c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac8297f941a65008972a5f61cf61235c3">&#9670;&#160;</a></span>IABR</h2>
+<a id="ac00a34631cedcc431ca68e634410bac3" name="ac00a34631cedcc431ca68e634410bac3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac00a34631cedcc431ca68e634410bac3">&#9670;&#160;</a></span>ISER</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile uint32_t NVIC_RegDef_t::IABR</td>
+          <td class="memname">volatile uint32_t NVIC_RegDef_t::ISER[8]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00220">220</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Set-enable: writing a 1 enables that IRQ. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00281">281</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<a id="a4e45b39ff3cf819eba410a22021da245" name="a4e45b39ff3cf819eba410a22021da245"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e45b39ff3cf819eba410a22021da245">&#9670;&#160;</a></span>ICER</h2>
+<a id="ae629efce9ceca844dc80bb2a6c721681" name="ae629efce9ceca844dc80bb2a6c721681"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae629efce9ceca844dc80bb2a6c721681">&#9670;&#160;</a></span>RESERVED1</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile uint32_t NVIC_RegDef_t::ICER</td>
+          <td class="memname">volatile uint32_t NVIC_RegDef_t::RESERVED1[24]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00214">214</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Padding — keeps ICER at its hardware offset. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00282">282</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<a id="aae54255e121b6cd99f0f5d902b7c3d74" name="aae54255e121b6cd99f0f5d902b7c3d74"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae54255e121b6cd99f0f5d902b7c3d74">&#9670;&#160;</a></span>ICPR</h2>
+<a id="a9277c2bfdae8353c09f1f696e7f00462" name="a9277c2bfdae8353c09f1f696e7f00462"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9277c2bfdae8353c09f1f696e7f00462">&#9670;&#160;</a></span>ICER</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile uint32_t NVIC_RegDef_t::ICPR</td>
+          <td class="memname">volatile uint32_t NVIC_RegDef_t::ICER[8]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00218">218</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Clear-enable: writing a 1 disables that IRQ. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00283">283</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<a id="aaaf9d287c167cf93b518c160495bd581" name="aaaf9d287c167cf93b518c160495bd581"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaaf9d287c167cf93b518c160495bd581">&#9670;&#160;</a></span>IPR</h2>
+<a id="aadecb61dd511ed3119b31a087e1d3288" name="aadecb61dd511ed3119b31a087e1d3288"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadecb61dd511ed3119b31a087e1d3288">&#9670;&#160;</a></span>RESERVED2</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile uint8_t NVIC_RegDef_t::IPR</td>
+          <td class="memname">volatile uint32_t NVIC_RegDef_t::RESERVED2[24]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00222">222</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Padding — keeps ISPR at its hardware offset. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00284">284</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<a id="a9840c321f40a0aabb4320226b6ae40a3" name="a9840c321f40a0aabb4320226b6ae40a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9840c321f40a0aabb4320226b6ae40a3">&#9670;&#160;</a></span>ISER</h2>
+<a id="add8b1c3105369c0842f5f9923740b632" name="add8b1c3105369c0842f5f9923740b632"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add8b1c3105369c0842f5f9923740b632">&#9670;&#160;</a></span>ISPR</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile uint32_t NVIC_RegDef_t::ISER</td>
+          <td class="memname">volatile uint32_t NVIC_RegDef_t::ISPR[8]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00212">212</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Set-pending: writing a 1 forces that IRQ pending. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00285">285</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<a id="ae5ee26efd9e78b0c7c443bcfb26f4ea4" name="ae5ee26efd9e78b0c7c443bcfb26f4ea4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5ee26efd9e78b0c7c443bcfb26f4ea4">&#9670;&#160;</a></span>ISPR</h2>
+<a id="afdc4fa880390121169740bb3211db10d" name="afdc4fa880390121169740bb3211db10d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdc4fa880390121169740bb3211db10d">&#9670;&#160;</a></span>RESERVED3</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile uint32_t NVIC_RegDef_t::ISPR</td>
+          <td class="memname">volatile uint32_t NVIC_RegDef_t::RESERVED3[24]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00216">216</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Padding — keeps ICPR at its hardware offset. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00286">286</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<a id="a9ec4b03eea5c2d1e9b3d43aa50c5349d" name="a9ec4b03eea5c2d1e9b3d43aa50c5349d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ec4b03eea5c2d1e9b3d43aa50c5349d">&#9670;&#160;</a></span>RESERVED1</h2>
+<a id="add0d559fb755dc4375545ff3f5919f10" name="add0d559fb755dc4375545ff3f5919f10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add0d559fb755dc4375545ff3f5919f10">&#9670;&#160;</a></span>ICPR</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile uint32_t NVIC_RegDef_t::RESERVED1</td>
+          <td class="memname">volatile uint32_t NVIC_RegDef_t::ICPR[8]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00213">213</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Clear-pending: writing a 1 drops a pending IRQ. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00287">287</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<a id="a1c5eb15a2079331f45faad53383ece34" name="a1c5eb15a2079331f45faad53383ece34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c5eb15a2079331f45faad53383ece34">&#9670;&#160;</a></span>RESERVED2</h2>
+<a id="a2e251fae000cf45c4d116493a1e7a69c" name="a2e251fae000cf45c4d116493a1e7a69c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e251fae000cf45c4d116493a1e7a69c">&#9670;&#160;</a></span>RESERVED4</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile uint32_t NVIC_RegDef_t::RESERVED2</td>
+          <td class="memname">volatile uint32_t NVIC_RegDef_t::RESERVED4[24]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00215">215</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Padding — keeps IABR at its hardware offset. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00288">288</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<a id="ae58f447d9ab602b59dfcb196e4ced492" name="ae58f447d9ab602b59dfcb196e4ced492"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae58f447d9ab602b59dfcb196e4ced492">&#9670;&#160;</a></span>RESERVED3</h2>
+<a id="ae0350e505f697df1c5d5516f9dc434c3" name="ae0350e505f697df1c5d5516f9dc434c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0350e505f697df1c5d5516f9dc434c3">&#9670;&#160;</a></span>IABR</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile uint32_t NVIC_RegDef_t::RESERVED3</td>
+          <td class="memname">volatile uint32_t NVIC_RegDef_t::IABR[8]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00217">217</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Active-bit (read-only): 1 while that IRQ's handler is running. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00289">289</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<a id="ae7bcfdb802cd40145b8f80ae00f1722d" name="ae7bcfdb802cd40145b8f80ae00f1722d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae7bcfdb802cd40145b8f80ae00f1722d">&#9670;&#160;</a></span>RESERVED4</h2>
+<a id="a4d4eac6d68bbdec6667f8b8f3d56235a" name="a4d4eac6d68bbdec6667f8b8f3d56235a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d4eac6d68bbdec6667f8b8f3d56235a">&#9670;&#160;</a></span>RESERVED5</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile uint32_t NVIC_RegDef_t::RESERVED4</td>
+          <td class="memname">volatile uint32_t NVIC_RegDef_t::RESERVED5[56]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00219">219</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Padding — keeps IPR at its hardware offset. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00290">290</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<a id="acaf9158282150e747937816cc8b588af" name="acaf9158282150e747937816cc8b588af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acaf9158282150e747937816cc8b588af">&#9670;&#160;</a></span>RESERVED5</h2>
+<a id="a1b46b5eaaec7f70f80c2beed65877ec1" name="a1b46b5eaaec7f70f80c2beed65877ec1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b46b5eaaec7f70f80c2beed65877ec1">&#9670;&#160;</a></span>IPR</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile uint32_t NVIC_RegDef_t::RESERVED5</td>
+          <td class="memname">volatile uint8_t NVIC_RegDef_t::IPR[240]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00221">221</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Priority: one byte per IRQ (only the upper 4 bits are implemented). </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00291">291</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<a id="a9272c031a5560830b426f98a4788362c" name="a9272c031a5560830b426f98a4788362c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9272c031a5560830b426f98a4788362c">&#9670;&#160;</a></span>RESERVED6</h2>
+<a id="ade1d536b6d8e052b625de2ec85f4b4b6" name="ade1d536b6d8e052b625de2ec85f4b4b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade1d536b6d8e052b625de2ec85f4b4b6">&#9670;&#160;</a></span>RESERVED6</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile uint32_t NVIC_RegDef_t::RESERVED6</td>
+          <td class="memname">volatile uint32_t NVIC_RegDef_t::RESERVED6[580]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00223">223</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Padding — keeps STIR at its hardware offset. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00292">292</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
@@ -320,13 +362,14 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00224">224</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Software trigger: writing an IRQ number raises it from software. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00293">293</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>Inc/Drivers/LIB/<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
-<li>Inc/System/<a class="el" href="System_2STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>V2V-STM32/Inc/Drivers/LIB/<a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

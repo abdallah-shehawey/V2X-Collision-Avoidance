@@ -1,14 +1,10 @@
 /**
- **===========================================================================**
- **<<<<<<<<<<<<<<<<<<<<<<<<<<    LED_config.h     >>>>>>>>>>>>>>>>>>>>>>>>>>>>**
- **                                                                           **
- **                  Author : Abdallah Abdelmoemen Shehawey                   **
- **                  Layer  : HAL                                             **
- **                  CPU    : Cortex-M4                                       **
- **                  MCU    : F446RE                                          **
- **                  SWC    : LED                                             **
- **                                                                           **
- **===========================================================================**
+ ******************************************************************************
+ * @file    LED_config.h
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Compile-time configuration for the LED driver — the indicator LEDs.
+ * @ingroup hal_led
+ ******************************************************************************
  */
 
 #ifndef LED_CONFIG_H_

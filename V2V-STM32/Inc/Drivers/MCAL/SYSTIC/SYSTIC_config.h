@@ -1,16 +1,10 @@
 /**
- **===========================================================================**
- **<<<<<<<<<<<<<<<<<<<<<<<<<<    SYSTIC_config.h    >>>>>>>>>>>>>>>>>>>>>>>>>>**
- **                                                                           **
- **                  Author : Abdallah Abdelmoemen Shehawey                   **
- **                  Layer  : MCAL                                            **
- **                  CPU    : Cortex-M4                                       **
- **                  MCU    : NUCLEO-F446RE                                   **
- **                  SWC    : SYSTIC                                          **
- **                                                                           **
- ** Important: All configurations in this file affect the timer's behavior    **
- **           and must match your system's requirements.                      **
- **===========================================================================**
+ ******************************************************************************
+ * @file    SYSTIC_config.h
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Compile-time configuration for the SYSTICK driver — the Cortex-M system timer.
+ * @ingroup mcal_systic
+ ******************************************************************************
  */
 
 #ifndef MCAL_SYSTIC_CONFIG_H_
@@ -35,6 +29,12 @@
  */
 #define SYSTEM_CLOCK_IN_KHZ (SYSTEM_CLOCK_IN_MHZ * 1000U)
 
+/**
+ * @brief System clock in hertz, derived from @ref SYSTEM_CLOCK_IN_KHZ.
+ * @warning Do not edit directly — change @ref SYSTEM_CLOCK_IN_MHZ instead. If this
+ *          disagrees with what RCC actually produces, every SysTick delay is off by
+ *          the same ratio.
+ */
 #define SYSTEM_CLOCK_IN_HZ  (SYSTEM_CLOCK_IN_KHZ * 1000U)
 /** @} */
 
@@ -47,7 +47,6 @@
  * @brief SysTick Clock Source Configuration
  * @note Select the clock source for the SysTick timer
  *
- * @options:
  * - CLK_SOURCE_AHB: Use processor clock (maximum precision)
  *   Suitable for: High-precision timing requirements
  *
@@ -60,7 +59,6 @@
  * @brief SysTick Exception Configuration
  * @note Controls whether the SysTick timer generates exceptions
  *
- * @options:
  * - ENABLE: Timer will generate an exception when it reaches zero
  *   Use this for: RTOS tick source or regular interval interrupts
  *

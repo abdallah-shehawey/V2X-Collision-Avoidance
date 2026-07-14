@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Src/syscalls.c Source File</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Src/syscalls.c Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -94,258 +94,262 @@ $(function(){initNavTree('syscalls_8c_source.html','',''); });
 </div><!--header-->
 <div class="contents">
 <a href="syscalls_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">/* Includes */</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;sys/stat.h&gt;</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;errno.h&gt;</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;signal.h&gt;</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &lt;time.h&gt;</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &lt;sys/time.h&gt;</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &lt;sys/times.h&gt;</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">//                  Implementation of printf like feature using ARM Cortex M3/M4/ ITM functionality</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">//                  This function will not work for ARM Cortex M0/M0+</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">//Debug Exception and Monitor Control Register base address</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="syscalls_8c.html#ab6c5b1baf444f12ba50bfc3b0e40e05c">   41</a></span><span class="preprocessor">#define DEMCR                   *((volatile uint32_t*) 0xE000EDFCU )</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">/* ITM register addresses */</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a05e6eb6b842a39d2628d9b3e89260f69">   44</a></span><span class="preprocessor">#define ITM_STIMULUS_PORT0      *((volatile uint32_t*) 0xE0000000 )</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a2e73b1c1bbc5140aac835e2f388c15ee">   45</a></span><span class="preprocessor">#define ITM_TRACE_EN            *((volatile uint32_t*) 0xE0000E00 )</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a044830d2e9de5ea57c8478e72a02ae9c">   47</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="syscalls_8c.html#a044830d2e9de5ea57c8478e72a02ae9c">ITM_SendChar</a>(uint8_t ch)</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>{</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="comment">//Enable TRCENA</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <a class="code hl_define" href="syscalls_8c.html#ab6c5b1baf444f12ba50bfc3b0e40e05c">DEMCR</a> |= ( 1 &lt;&lt; 24);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="comment">//enable stimulus port 0</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_define" href="syscalls_8c.html#a2e73b1c1bbc5140aac835e2f388c15ee">ITM_TRACE_EN</a> |= ( 1 &lt;&lt; 0);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="comment">// read FIFO status in bit [0]:</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">while</span>(!(<a class="code hl_define" href="syscalls_8c.html#a05e6eb6b842a39d2628d9b3e89260f69">ITM_STIMULUS_PORT0</a> &amp; 1));</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">/* Includes */</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#include &lt;sys/stat.h&gt;</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#include &lt;errno.h&gt;</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#include &lt;signal.h&gt;</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#include &lt;time.h&gt;</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#include &lt;sys/time.h&gt;</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#include &lt;sys/times.h&gt;</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">//                  Implementation of printf like feature using ARM Cortex M3/M4/ ITM functionality</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">//                  This function will not work for ARM Cortex M0/M0+</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">//Debug Exception and Monitor Control Register base address</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="syscalls_8c.html#ab6c5b1baf444f12ba50bfc3b0e40e05c">   57</a></span><span class="preprocessor">#define DEMCR                   *((volatile uint32_t*) 0xE000EDFCU )</span></div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="comment">//Write to ITM stimulus port0</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <a class="code hl_define" href="syscalls_8c.html#a05e6eb6b842a39d2628d9b3e89260f69">ITM_STIMULUS_PORT0</a> = ch;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>}</div>
-</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">/* Variables */</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="syscalls_8c.html#aa53ed4b191897a1bfc205aa1da005d24">   65</a></span><span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#aa53ed4b191897a1bfc205aa1da005d24">__io_putchar</a>(<span class="keywordtype">int</span> ch) <a class="code hl_function" href="syscalls_8c.html#af9aace1b44b73111e15aa39f06f43456">__attribute__</a>((weak));</div>
-<div class="foldopen" id="foldopen00066" data-start="{" data-end="}">
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="syscalls_8c.html#ad0122671640a3af49792ddaa59e8294e">   66</a></span><span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#ad0122671640a3af49792ddaa59e8294e">__io_getchar</a>(<span class="keywordtype">void</span>) <a class="code hl_function" href="syscalls_8c.html#af9aace1b44b73111e15aa39f06f43456">__attribute__</a>((weak));</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keywordtype">char</span> *__env[1] = { 0 };</div>
-</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="syscalls_8c.html#aa006daaf11f1e2e45a6ababaf463212b">   70</a></span><span class="keywordtype">char</span> **<a class="code hl_variable" href="syscalls_8c.html#aa006daaf11f1e2e45a6ababaf463212b">environ</a> = __env;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment">/* Functions */</span></div>
-<div class="foldopen" id="foldopen00074" data-start="{" data-end="}">
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a25c7f100d498300fff65568c2fcfe639">   74</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="syscalls_8c.html#a25c7f100d498300fff65568c2fcfe639">initialise_monitor_handles</a>()</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>{</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>}</div>
-</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">/* ITM register addresses */</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a05e6eb6b842a39d2628d9b3e89260f69">   61</a></span><span class="preprocessor">#define ITM_STIMULUS_PORT0      *((volatile uint32_t*) 0xE0000000 )</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a2e73b1c1bbc5140aac835e2f388c15ee">   63</a></span><span class="preprocessor">#define ITM_TRACE_EN            *((volatile uint32_t*) 0xE0000E00 )</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span></div>
+<div class="foldopen" id="foldopen00072" data-start="{" data-end="}">
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a044830d2e9de5ea57c8478e72a02ae9c">   72</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="syscalls_8c.html#a044830d2e9de5ea57c8478e72a02ae9c">ITM_SendChar</a>(uint8_t ch)</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>{</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="comment">//Enable TRCENA</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <a class="code hl_define" href="syscalls_8c.html#ab6c5b1baf444f12ba50bfc3b0e40e05c">DEMCR</a> |= ( 1 &lt;&lt; 24);</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="foldopen" id="foldopen00078" data-start="{" data-end="}">
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a945e539df8e0f66d3c73c533fe1968ee">   78</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#a945e539df8e0f66d3c73c533fe1968ee">_getpid</a>(<span class="keywordtype">void</span>)</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>{</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>  <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>}</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="comment">//enable stimulus port 0</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <a class="code hl_define" href="syscalls_8c.html#a2e73b1c1bbc5140aac835e2f388c15ee">ITM_TRACE_EN</a> |= ( 1 &lt;&lt; 0);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="comment">// read FIFO status in bit [0]:</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">while</span>(!(<a class="code hl_define" href="syscalls_8c.html#a05e6eb6b842a39d2628d9b3e89260f69">ITM_STIMULUS_PORT0</a> &amp; 1));</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="comment">//Write to ITM stimulus port0</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <a class="code hl_define" href="syscalls_8c.html#a05e6eb6b842a39d2628d9b3e89260f69">ITM_STIMULUS_PORT0</a> = ch;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>}</div>
 </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="foldopen" id="foldopen00083" data-start="{" data-end="}">
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a062a5101199c3128edd5170f2575bb10">   83</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#a062a5101199c3128edd5170f2575bb10">_kill</a>(<span class="keywordtype">int</span> pid, <span class="keywordtype">int</span> sig)</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>{</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>  (void)pid;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  (void)sig;</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>  errno = EINVAL;</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>  <span class="keywordflow">return</span> -1;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment">/* Variables */</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="syscalls_8c.html#abc513dd972081ae765b6949a62872eb7">   97</a></span><span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#abc513dd972081ae765b6949a62872eb7">__io_putchar</a>(<span class="keywordtype">int</span> ch) __attribute__((weak));</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="syscalls_8c.html#ad0122671640a3af49792ddaa59e8294e">  103</a></span><span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#ad0122671640a3af49792ddaa59e8294e">__io_getchar</a>(<span class="keywordtype">void</span>) __attribute__((weak));</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a5428d66981cb84e60b899495874618b2">  106</a></span><span class="keywordtype">char</span> *<a class="code hl_variable" href="syscalls_8c.html#a5428d66981cb84e60b899495874618b2">__env</a>[1] = { 0 };</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="syscalls_8c.html#aa006daaf11f1e2e45a6ababaf463212b">  109</a></span><span class="keywordtype">char</span> **<a class="code hl_variable" href="syscalls_8c.html#aa006daaf11f1e2e45a6ababaf463212b">environ</a> = <a class="code hl_variable" href="syscalls_8c.html#a5428d66981cb84e60b899495874618b2">__env</a>;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="comment">/* Functions */</span></div>
+<div class="foldopen" id="foldopen00114" data-start="{" data-end="}">
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a25c7f100d498300fff65568c2fcfe639">  114</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="syscalls_8c.html#a25c7f100d498300fff65568c2fcfe639">initialise_monitor_handles</a>()</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>{</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>}</div>
 </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="foldopen" id="foldopen00091" data-start="{" data-end="}">
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="syscalls_8c.html#abc96bd69b58b2deaddb484478d911c1b">   91</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="syscalls_8c.html#abc96bd69b58b2deaddb484478d911c1b">_exit</a> (<span class="keywordtype">int</span> status)</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>{</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>  <a class="code hl_function" href="syscalls_8c.html#a062a5101199c3128edd5170f2575bb10">_kill</a>(status, -1);</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>  <span class="keywordflow">while</span> (1) {}    <span class="comment">/* Make sure we hang here */</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>}</div>
-</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="foldopen" id="foldopen00097" data-start="{" data-end="}">
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="syscalls_8c.html#af9aace1b44b73111e15aa39f06f43456">   97</a></span><a class="code hl_function" href="syscalls_8c.html#af9aace1b44b73111e15aa39f06f43456">__attribute__</a>((weak)) <span class="keywordtype">int</span> _read(<span class="keywordtype">int</span> file, <span class="keywordtype">char</span> *ptr, <span class="keywordtype">int</span> len)</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>{</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>  (void)file;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>  <span class="keywordtype">int</span> DataIdx;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>  <span class="keywordflow">for</span> (DataIdx = 0; DataIdx &lt; len; DataIdx++)</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>  {</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    *ptr++ = <a class="code hl_function" href="syscalls_8c.html#ad0122671640a3af49792ddaa59e8294e">__io_getchar</a>();</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>  }</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>  <span class="keywordflow">return</span> len;</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>}</div>
-</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><a class="code hl_function" href="syscalls_8c.html#af9aace1b44b73111e15aa39f06f43456">__attribute__</a>((weak)) <span class="keywordtype">int</span> _write(<span class="keywordtype">int</span> file, <span class="keywordtype">char</span> *ptr, <span class="keywordtype">int</span> len)</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>{</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>  (void)file;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>  <span class="keywordtype">int</span> DataIdx;</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>  <span class="keywordflow">for</span> (DataIdx = 0; DataIdx &lt; len; DataIdx++)</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>  {</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>      <a class="code hl_function" href="syscalls_8c.html#a044830d2e9de5ea57c8478e72a02ae9c">ITM_SendChar</a>(*ptr++);</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>  }</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>  <span class="keywordflow">return</span> len;</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>}</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span></div>
 <div class="foldopen" id="foldopen00122" data-start="{" data-end="}">
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a5aab5e2acfd600e3667dc915a2bbc7cb">  122</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#a5aab5e2acfd600e3667dc915a2bbc7cb">_close</a>(<span class="keywordtype">int</span> file)</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a945e539df8e0f66d3c73c533fe1968ee">  122</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#a945e539df8e0f66d3c73c533fe1968ee">_getpid</a>(<span class="keywordtype">void</span>)</div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>{</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>  (void)file;</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>  <span class="keywordflow">return</span> -1;</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>}</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>  <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>}</div>
 </div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="foldopen" id="foldopen00129" data-start="{" data-end="}">
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a41eef54307912a82d20e71c3d47315aa">  129</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#a41eef54307912a82d20e71c3d47315aa">_fstat</a>(<span class="keywordtype">int</span> file, <span class="keyword">struct</span> stat *st)</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>{</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>  (void)file;</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>  st-&gt;st_mode = S_IFCHR;</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>  <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>}</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span></div>
+<div class="foldopen" id="foldopen00133" data-start="{" data-end="}">
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a062a5101199c3128edd5170f2575bb10">  133</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#a062a5101199c3128edd5170f2575bb10">_kill</a>(<span class="keywordtype">int</span> pid, <span class="keywordtype">int</span> sig)</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>{</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>  (void)pid;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>  (void)sig;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>  errno = EINVAL;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>  <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>}</div>
 </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
-<div class="foldopen" id="foldopen00136" data-start="{" data-end="}">
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno"><a class="line" href="syscalls_8c.html#ad3134a3dc296622b8d1c5456e481505b">  136</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#ad3134a3dc296622b8d1c5456e481505b">_isatty</a>(<span class="keywordtype">int</span> file)</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>{</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>  (void)file;</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>  <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>}</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span></div>
+<div class="foldopen" id="foldopen00147" data-start="{" data-end="}">
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="syscalls_8c.html#abc96bd69b58b2deaddb484478d911c1b">  147</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="syscalls_8c.html#abc96bd69b58b2deaddb484478d911c1b">_exit</a> (<span class="keywordtype">int</span> status)</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>{</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>  <a class="code hl_function" href="syscalls_8c.html#a062a5101199c3128edd5170f2575bb10">_kill</a>(status, -1);</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>  <span class="keywordflow">while</span> (1) {}    <span class="comment">/* Make sure we hang here */</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>}</div>
 </div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
-<div class="foldopen" id="foldopen00142" data-start="{" data-end="}">
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a7a61311bdf1cb025fc07dc2bdae22ce4">  142</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#a7a61311bdf1cb025fc07dc2bdae22ce4">_lseek</a>(<span class="keywordtype">int</span> file, <span class="keywordtype">int</span> ptr, <span class="keywordtype">int</span> dir)</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>{</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>  (void)file;</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>  (void)ptr;</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>  (void)dir;</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>  <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>}</div>
-</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
-<div class="foldopen" id="foldopen00150" data-start="{" data-end="}">
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a270c9113047edd8d64186710ad76062b">  150</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#a270c9113047edd8d64186710ad76062b">_open</a>(<span class="keywordtype">char</span> *path, <span class="keywordtype">int</span> flags, ...)</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>{</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>  (void)path;</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>  (void)flags;</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>  <span class="comment">/* Pretend like we always fail */</span></div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>  <span class="keywordflow">return</span> -1;</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>}</div>
-</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
-<div class="foldopen" id="foldopen00158" data-start="{" data-end="}">
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="syscalls_8c.html#aeef0c3372d04caa1bcc99fed2ab6ec72">  158</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#aeef0c3372d04caa1bcc99fed2ab6ec72">_wait</a>(<span class="keywordtype">int</span> *status)</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>{</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>  (void)status;</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>  errno = ECHILD;</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>  <span class="keywordflow">return</span> -1;</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>}</div>
-</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span></div>
+<div class="foldopen" id="foldopen00160" data-start="{" data-end="}">
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a4f9bf1e1602f2828e0a54e70c3b2dccb">  160</a></span>__attribute__((weak)) <span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#a4f9bf1e1602f2828e0a54e70c3b2dccb">_read</a>(<span class="keywordtype">int</span> file, <span class="keywordtype">char</span> *ptr, <span class="keywordtype">int</span> len)</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>{</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>  (void)file;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>  <span class="keywordtype">int</span> DataIdx;</div>
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
-<div class="foldopen" id="foldopen00165" data-start="{" data-end="}">
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a70b2f211d665cded5637065aa2bb89dc">  165</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#a70b2f211d665cded5637065aa2bb89dc">_unlink</a>(<span class="keywordtype">char</span> *name)</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>{</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>  (void)name;</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>  errno = ENOENT;</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>  <span class="keywordflow">return</span> -1;</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>}</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>  <span class="keywordflow">for</span> (DataIdx = 0; DataIdx &lt; len; DataIdx++)</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>  {</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    *ptr++ = <a class="code hl_function" href="syscalls_8c.html#ad0122671640a3af49792ddaa59e8294e">__io_getchar</a>();</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>  }</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>  <span class="keywordflow">return</span> len;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>}</div>
 </div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
-<div class="foldopen" id="foldopen00172" data-start="{" data-end="}">
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="syscalls_8c.html#aaf727ebf57cd64d6c58b23e6ee4a4a69">  172</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#aaf727ebf57cd64d6c58b23e6ee4a4a69">_times</a>(<span class="keyword">struct</span> tms *buf)</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>{</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>  (void)buf;</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>  <span class="keywordflow">return</span> -1;</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>}</div>
-</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
-<div class="foldopen" id="foldopen00178" data-start="{" data-end="}">
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a4711e961db985ed2c850a8be6597af50">  178</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#a4711e961db985ed2c850a8be6597af50">_stat</a>(<span class="keywordtype">char</span> *file, <span class="keyword">struct</span> stat *st)</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>{</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>  (void)file;</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>  st-&gt;st_mode = S_IFCHR;</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>  <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>}</div>
-</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span></div>
+<div class="foldopen" id="foldopen00180" data-start="{" data-end="}">
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno"><a class="line" href="syscalls_8c.html#aa025a12d45f60c7d0eae249e61f0c7f9">  180</a></span>__attribute__((weak)) <span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#aa025a12d45f60c7d0eae249e61f0c7f9">_write</a>(<span class="keywordtype">int</span> file, <span class="keywordtype">char</span> *ptr, <span class="keywordtype">int</span> len)</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>{</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>  (void)file;</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>  <span class="keywordtype">int</span> DataIdx;</div>
 <div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
-<div class="foldopen" id="foldopen00185" data-start="{" data-end="}">
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a31da4cd5328defa76a9e2246992aba12">  185</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#a31da4cd5328defa76a9e2246992aba12">_link</a>(<span class="keywordtype">char</span> *old, <span class="keywordtype">char</span> *<span class="keyword">new</span>)</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>{</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>  (void)old;</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>  (void)<span class="keyword">new</span>;</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>  errno = EMLINK;</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>  <span class="keywordflow">return</span> -1;</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>}</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>  <span class="keywordflow">for</span> (DataIdx = 0; DataIdx &lt; len; DataIdx++)</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>  {</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>      <a class="code hl_function" href="syscalls_8c.html#a044830d2e9de5ea57c8478e72a02ae9c">ITM_SendChar</a>(*ptr++);</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>  }</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>  <span class="keywordflow">return</span> len;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>}</div>
 </div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
-<div class="foldopen" id="foldopen00193" data-start="{" data-end="}">
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a6cb6331c9d166180903d5fb78b9c9dd7">  193</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#a6cb6331c9d166180903d5fb78b9c9dd7">_fork</a>(<span class="keywordtype">void</span>)</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>{</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>  errno = EAGAIN;</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>  <span class="keywordflow">return</span> -1;</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>}</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span></div>
+<div class="foldopen" id="foldopen00197" data-start="{" data-end="}">
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a5aab5e2acfd600e3667dc915a2bbc7cb">  197</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#a5aab5e2acfd600e3667dc915a2bbc7cb">_close</a>(<span class="keywordtype">int</span> file)</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>{</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>  (void)file;</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>  <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>}</div>
 </div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
-<div class="foldopen" id="foldopen00199" data-start="{" data-end="}">
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno"><a class="line" href="syscalls_8c.html#ad2a07db8fdf26151eb98ba5711fad8c5">  199</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#ad2a07db8fdf26151eb98ba5711fad8c5">_execve</a>(<span class="keywordtype">char</span> *name, <span class="keywordtype">char</span> **argv, <span class="keywordtype">char</span> **env)</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>{</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>  (void)name;</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>  (void)argv;</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>  (void)env;</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>  errno = ENOMEM;</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>  <span class="keywordflow">return</span> -1;</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>}</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span></div>
+<div class="foldopen" id="foldopen00210" data-start="{" data-end="}">
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a41eef54307912a82d20e71c3d47315aa">  210</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#a41eef54307912a82d20e71c3d47315aa">_fstat</a>(<span class="keywordtype">int</span> file, <span class="keyword">struct</span> stat *st)</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>{</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>  (void)file;</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>  st-&gt;st_mode = S_IFCHR;</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>  <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>}</div>
 </div>
-<div class="ttc" id="asyscalls_8c_html_a044830d2e9de5ea57c8478e72a02ae9c"><div class="ttname"><a href="syscalls_8c.html#a044830d2e9de5ea57c8478e72a02ae9c">ITM_SendChar</a></div><div class="ttdeci">void ITM_SendChar(uint8_t ch)</div><div class="ttdef"><b>Definition</b> <a href="#l00047">syscalls.c:47</a></div></div>
-<div class="ttc" id="asyscalls_8c_html_a05e6eb6b842a39d2628d9b3e89260f69"><div class="ttname"><a href="syscalls_8c.html#a05e6eb6b842a39d2628d9b3e89260f69">ITM_STIMULUS_PORT0</a></div><div class="ttdeci">#define ITM_STIMULUS_PORT0</div><div class="ttdef"><b>Definition</b> <a href="#l00044">syscalls.c:44</a></div></div>
-<div class="ttc" id="asyscalls_8c_html_a062a5101199c3128edd5170f2575bb10"><div class="ttname"><a href="syscalls_8c.html#a062a5101199c3128edd5170f2575bb10">_kill</a></div><div class="ttdeci">int _kill(int pid, int sig)</div><div class="ttdef"><b>Definition</b> <a href="#l00083">syscalls.c:83</a></div></div>
-<div class="ttc" id="asyscalls_8c_html_a25c7f100d498300fff65568c2fcfe639"><div class="ttname"><a href="syscalls_8c.html#a25c7f100d498300fff65568c2fcfe639">initialise_monitor_handles</a></div><div class="ttdeci">void initialise_monitor_handles()</div><div class="ttdef"><b>Definition</b> <a href="#l00074">syscalls.c:74</a></div></div>
-<div class="ttc" id="asyscalls_8c_html_a270c9113047edd8d64186710ad76062b"><div class="ttname"><a href="syscalls_8c.html#a270c9113047edd8d64186710ad76062b">_open</a></div><div class="ttdeci">int _open(char *path, int flags,...)</div><div class="ttdef"><b>Definition</b> <a href="#l00150">syscalls.c:150</a></div></div>
-<div class="ttc" id="asyscalls_8c_html_a2e73b1c1bbc5140aac835e2f388c15ee"><div class="ttname"><a href="syscalls_8c.html#a2e73b1c1bbc5140aac835e2f388c15ee">ITM_TRACE_EN</a></div><div class="ttdeci">#define ITM_TRACE_EN</div><div class="ttdef"><b>Definition</b> <a href="#l00045">syscalls.c:45</a></div></div>
-<div class="ttc" id="asyscalls_8c_html_a31da4cd5328defa76a9e2246992aba12"><div class="ttname"><a href="syscalls_8c.html#a31da4cd5328defa76a9e2246992aba12">_link</a></div><div class="ttdeci">int _link(char *old, char *new)</div><div class="ttdef"><b>Definition</b> <a href="#l00185">syscalls.c:185</a></div></div>
-<div class="ttc" id="asyscalls_8c_html_a41eef54307912a82d20e71c3d47315aa"><div class="ttname"><a href="syscalls_8c.html#a41eef54307912a82d20e71c3d47315aa">_fstat</a></div><div class="ttdeci">int _fstat(int file, struct stat *st)</div><div class="ttdef"><b>Definition</b> <a href="#l00129">syscalls.c:129</a></div></div>
-<div class="ttc" id="asyscalls_8c_html_a4711e961db985ed2c850a8be6597af50"><div class="ttname"><a href="syscalls_8c.html#a4711e961db985ed2c850a8be6597af50">_stat</a></div><div class="ttdeci">int _stat(char *file, struct stat *st)</div><div class="ttdef"><b>Definition</b> <a href="#l00178">syscalls.c:178</a></div></div>
-<div class="ttc" id="asyscalls_8c_html_a5aab5e2acfd600e3667dc915a2bbc7cb"><div class="ttname"><a href="syscalls_8c.html#a5aab5e2acfd600e3667dc915a2bbc7cb">_close</a></div><div class="ttdeci">int _close(int file)</div><div class="ttdef"><b>Definition</b> <a href="#l00122">syscalls.c:122</a></div></div>
-<div class="ttc" id="asyscalls_8c_html_a6cb6331c9d166180903d5fb78b9c9dd7"><div class="ttname"><a href="syscalls_8c.html#a6cb6331c9d166180903d5fb78b9c9dd7">_fork</a></div><div class="ttdeci">int _fork(void)</div><div class="ttdef"><b>Definition</b> <a href="#l00193">syscalls.c:193</a></div></div>
-<div class="ttc" id="asyscalls_8c_html_a70b2f211d665cded5637065aa2bb89dc"><div class="ttname"><a href="syscalls_8c.html#a70b2f211d665cded5637065aa2bb89dc">_unlink</a></div><div class="ttdeci">int _unlink(char *name)</div><div class="ttdef"><b>Definition</b> <a href="#l00165">syscalls.c:165</a></div></div>
-<div class="ttc" id="asyscalls_8c_html_a7a61311bdf1cb025fc07dc2bdae22ce4"><div class="ttname"><a href="syscalls_8c.html#a7a61311bdf1cb025fc07dc2bdae22ce4">_lseek</a></div><div class="ttdeci">int _lseek(int file, int ptr, int dir)</div><div class="ttdef"><b>Definition</b> <a href="#l00142">syscalls.c:142</a></div></div>
-<div class="ttc" id="asyscalls_8c_html_a945e539df8e0f66d3c73c533fe1968ee"><div class="ttname"><a href="syscalls_8c.html#a945e539df8e0f66d3c73c533fe1968ee">_getpid</a></div><div class="ttdeci">int _getpid(void)</div><div class="ttdef"><b>Definition</b> <a href="#l00078">syscalls.c:78</a></div></div>
-<div class="ttc" id="asyscalls_8c_html_aa006daaf11f1e2e45a6ababaf463212b"><div class="ttname"><a href="syscalls_8c.html#aa006daaf11f1e2e45a6ababaf463212b">environ</a></div><div class="ttdeci">char ** environ</div><div class="ttdef"><b>Definition</b> <a href="#l00070">syscalls.c:70</a></div></div>
-<div class="ttc" id="asyscalls_8c_html_aa53ed4b191897a1bfc205aa1da005d24"><div class="ttname"><a href="syscalls_8c.html#aa53ed4b191897a1bfc205aa1da005d24">__io_putchar</a></div><div class="ttdeci">int __io_putchar(int ch) __attribute__((weak))</div></div>
-<div class="ttc" id="asyscalls_8c_html_aaf727ebf57cd64d6c58b23e6ee4a4a69"><div class="ttname"><a href="syscalls_8c.html#aaf727ebf57cd64d6c58b23e6ee4a4a69">_times</a></div><div class="ttdeci">int _times(struct tms *buf)</div><div class="ttdef"><b>Definition</b> <a href="#l00172">syscalls.c:172</a></div></div>
-<div class="ttc" id="asyscalls_8c_html_ab6c5b1baf444f12ba50bfc3b0e40e05c"><div class="ttname"><a href="syscalls_8c.html#ab6c5b1baf444f12ba50bfc3b0e40e05c">DEMCR</a></div><div class="ttdeci">#define DEMCR</div><div class="ttdef"><b>Definition</b> <a href="#l00041">syscalls.c:41</a></div></div>
-<div class="ttc" id="asyscalls_8c_html_abc96bd69b58b2deaddb484478d911c1b"><div class="ttname"><a href="syscalls_8c.html#abc96bd69b58b2deaddb484478d911c1b">_exit</a></div><div class="ttdeci">void _exit(int status)</div><div class="ttdef"><b>Definition</b> <a href="#l00091">syscalls.c:91</a></div></div>
-<div class="ttc" id="asyscalls_8c_html_ad0122671640a3af49792ddaa59e8294e"><div class="ttname"><a href="syscalls_8c.html#ad0122671640a3af49792ddaa59e8294e">__io_getchar</a></div><div class="ttdeci">int __io_getchar(void)</div><div class="ttdef"><b>Definition</b> <a href="#l00066">syscalls.c:66</a></div></div>
-<div class="ttc" id="asyscalls_8c_html_ad2a07db8fdf26151eb98ba5711fad8c5"><div class="ttname"><a href="syscalls_8c.html#ad2a07db8fdf26151eb98ba5711fad8c5">_execve</a></div><div class="ttdeci">int _execve(char *name, char **argv, char **env)</div><div class="ttdef"><b>Definition</b> <a href="#l00199">syscalls.c:199</a></div></div>
-<div class="ttc" id="asyscalls_8c_html_ad3134a3dc296622b8d1c5456e481505b"><div class="ttname"><a href="syscalls_8c.html#ad3134a3dc296622b8d1c5456e481505b">_isatty</a></div><div class="ttdeci">int _isatty(int file)</div><div class="ttdef"><b>Definition</b> <a href="#l00136">syscalls.c:136</a></div></div>
-<div class="ttc" id="asyscalls_8c_html_aeef0c3372d04caa1bcc99fed2ab6ec72"><div class="ttname"><a href="syscalls_8c.html#aeef0c3372d04caa1bcc99fed2ab6ec72">_wait</a></div><div class="ttdeci">int _wait(int *status)</div><div class="ttdef"><b>Definition</b> <a href="#l00158">syscalls.c:158</a></div></div>
-<div class="ttc" id="asyscalls_8c_html_af9aace1b44b73111e15aa39f06f43456"><div class="ttname"><a href="syscalls_8c.html#af9aace1b44b73111e15aa39f06f43456">__attribute__</a></div><div class="ttdeci">__attribute__((weak))</div><div class="ttdef"><b>Definition</b> <a href="#l00097">syscalls.c:97</a></div></div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span></div>
+<div class="foldopen" id="foldopen00222" data-start="{" data-end="}">
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno"><a class="line" href="syscalls_8c.html#ad3134a3dc296622b8d1c5456e481505b">  222</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#ad3134a3dc296622b8d1c5456e481505b">_isatty</a>(<span class="keywordtype">int</span> file)</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>{</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>  (void)file;</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>  <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>}</div>
+</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span></div>
+<div class="foldopen" id="foldopen00235" data-start="{" data-end="}">
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a7a61311bdf1cb025fc07dc2bdae22ce4">  235</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#a7a61311bdf1cb025fc07dc2bdae22ce4">_lseek</a>(<span class="keywordtype">int</span> file, <span class="keywordtype">int</span> ptr, <span class="keywordtype">int</span> dir)</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>{</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>  (void)file;</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>  (void)ptr;</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>  (void)dir;</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>  <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>}</div>
+</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span></div>
+<div class="foldopen" id="foldopen00249" data-start="{" data-end="}">
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a270c9113047edd8d64186710ad76062b">  249</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#a270c9113047edd8d64186710ad76062b">_open</a>(<span class="keywordtype">char</span> *path, <span class="keywordtype">int</span> flags, ...)</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>{</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>  (void)path;</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>  (void)flags;</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>  <span class="comment">/* Pretend like we always fail */</span></div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>  <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>}</div>
+</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span></div>
+<div class="foldopen" id="foldopen00262" data-start="{" data-end="}">
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno"><a class="line" href="syscalls_8c.html#aeef0c3372d04caa1bcc99fed2ab6ec72">  262</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#aeef0c3372d04caa1bcc99fed2ab6ec72">_wait</a>(<span class="keywordtype">int</span> *status)</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>{</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>  (void)status;</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>  errno = ECHILD;</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>  <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>}</div>
+</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span></div>
+<div class="foldopen" id="foldopen00274" data-start="{" data-end="}">
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a70b2f211d665cded5637065aa2bb89dc">  274</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#a70b2f211d665cded5637065aa2bb89dc">_unlink</a>(<span class="keywordtype">char</span> *name)</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>{</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>  (void)name;</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>  errno = ENOENT;</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>  <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>}</div>
+</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span></div>
+<div class="foldopen" id="foldopen00286" data-start="{" data-end="}">
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno"><a class="line" href="syscalls_8c.html#aaf727ebf57cd64d6c58b23e6ee4a4a69">  286</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#aaf727ebf57cd64d6c58b23e6ee4a4a69">_times</a>(<span class="keyword">struct</span> tms *buf)</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>{</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>  (void)buf;</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>  <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>}</div>
+</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span></div>
+<div class="foldopen" id="foldopen00298" data-start="{" data-end="}">
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a4711e961db985ed2c850a8be6597af50">  298</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#a4711e961db985ed2c850a8be6597af50">_stat</a>(<span class="keywordtype">char</span> *file, <span class="keyword">struct</span> stat *st)</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>{</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>  (void)file;</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>  st-&gt;st_mode = S_IFCHR;</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>  <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>}</div>
+</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span></div>
+<div class="foldopen" id="foldopen00311" data-start="{" data-end="}">
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a31da4cd5328defa76a9e2246992aba12">  311</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#a31da4cd5328defa76a9e2246992aba12">_link</a>(<span class="keywordtype">char</span> *old, <span class="keywordtype">char</span> *<span class="keyword">new</span>)</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>{</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>  (void)old;</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>  (void)<span class="keyword">new</span>;</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>  errno = EMLINK;</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>  <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>}</div>
+</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span></div>
+<div class="foldopen" id="foldopen00323" data-start="{" data-end="}">
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno"><a class="line" href="syscalls_8c.html#a6cb6331c9d166180903d5fb78b9c9dd7">  323</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#a6cb6331c9d166180903d5fb78b9c9dd7">_fork</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>{</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>  errno = EAGAIN;</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>  <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>}</div>
+</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span></div>
+<div class="foldopen" id="foldopen00336" data-start="{" data-end="}">
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno"><a class="line" href="syscalls_8c.html#ad2a07db8fdf26151eb98ba5711fad8c5">  336</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="syscalls_8c.html#ad2a07db8fdf26151eb98ba5711fad8c5">_execve</a>(<span class="keywordtype">char</span> *name, <span class="keywordtype">char</span> **argv, <span class="keywordtype">char</span> **env)</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>{</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>  (void)name;</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>  (void)argv;</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>  (void)env;</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>  errno = ENOMEM;</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>  <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>}</div>
+</div>
+<div class="ttc" id="asyscalls_8c_html_a044830d2e9de5ea57c8478e72a02ae9c"><div class="ttname"><a href="syscalls_8c.html#a044830d2e9de5ea57c8478e72a02ae9c">ITM_SendChar</a></div><div class="ttdeci">void ITM_SendChar(uint8_t ch)</div><div class="ttdoc">Emit one character on the ITM stimulus port (the SWO trace pin).</div><div class="ttdef"><b>Definition</b> <a href="#l00072">syscalls.c:72</a></div></div>
+<div class="ttc" id="asyscalls_8c_html_a05e6eb6b842a39d2628d9b3e89260f69"><div class="ttname"><a href="syscalls_8c.html#a05e6eb6b842a39d2628d9b3e89260f69">ITM_STIMULUS_PORT0</a></div><div class="ttdeci">#define ITM_STIMULUS_PORT0</div><div class="ttdoc">ITM stimulus port 0: writing a byte here emits it on the SWO pin.</div><div class="ttdef"><b>Definition</b> <a href="#l00061">syscalls.c:61</a></div></div>
+<div class="ttc" id="asyscalls_8c_html_a062a5101199c3128edd5170f2575bb10"><div class="ttname"><a href="syscalls_8c.html#a062a5101199c3128edd5170f2575bb10">_kill</a></div><div class="ttdeci">int _kill(int pid, int sig)</div><div class="ttdoc">Send a signal to a process.</div><div class="ttdef"><b>Definition</b> <a href="#l00133">syscalls.c:133</a></div></div>
+<div class="ttc" id="asyscalls_8c_html_a25c7f100d498300fff65568c2fcfe639"><div class="ttname"><a href="syscalls_8c.html#a25c7f100d498300fff65568c2fcfe639">initialise_monitor_handles</a></div><div class="ttdeci">void initialise_monitor_handles()</div><div class="ttdoc">Semihosting hook Newlib may call; nothing to do without a debug monitor.</div><div class="ttdef"><b>Definition</b> <a href="#l00114">syscalls.c:114</a></div></div>
+<div class="ttc" id="asyscalls_8c_html_a270c9113047edd8d64186710ad76062b"><div class="ttname"><a href="syscalls_8c.html#a270c9113047edd8d64186710ad76062b">_open</a></div><div class="ttdeci">int _open(char *path, int flags,...)</div><div class="ttdoc">Open a file.</div><div class="ttdef"><b>Definition</b> <a href="#l00249">syscalls.c:249</a></div></div>
+<div class="ttc" id="asyscalls_8c_html_a2e73b1c1bbc5140aac835e2f388c15ee"><div class="ttname"><a href="syscalls_8c.html#a2e73b1c1bbc5140aac835e2f388c15ee">ITM_TRACE_EN</a></div><div class="ttdeci">#define ITM_TRACE_EN</div><div class="ttdoc">ITM Trace Enable: one bit per stimulus port; port 0 must be enabled before a write is accepted.</div><div class="ttdef"><b>Definition</b> <a href="#l00063">syscalls.c:63</a></div></div>
+<div class="ttc" id="asyscalls_8c_html_a31da4cd5328defa76a9e2246992aba12"><div class="ttname"><a href="syscalls_8c.html#a31da4cd5328defa76a9e2246992aba12">_link</a></div><div class="ttdeci">int _link(char *old, char *new)</div><div class="ttdoc">Create a hard link.</div><div class="ttdef"><b>Definition</b> <a href="#l00311">syscalls.c:311</a></div></div>
+<div class="ttc" id="asyscalls_8c_html_a41eef54307912a82d20e71c3d47315aa"><div class="ttname"><a href="syscalls_8c.html#a41eef54307912a82d20e71c3d47315aa">_fstat</a></div><div class="ttdeci">int _fstat(int file, struct stat *st)</div><div class="ttdoc">Report the type of an open file descriptor.</div><div class="ttdef"><b>Definition</b> <a href="#l00210">syscalls.c:210</a></div></div>
+<div class="ttc" id="asyscalls_8c_html_a4711e961db985ed2c850a8be6597af50"><div class="ttname"><a href="syscalls_8c.html#a4711e961db985ed2c850a8be6597af50">_stat</a></div><div class="ttdeci">int _stat(char *file, struct stat *st)</div><div class="ttdoc">Report the type of a named file.</div><div class="ttdef"><b>Definition</b> <a href="#l00298">syscalls.c:298</a></div></div>
+<div class="ttc" id="asyscalls_8c_html_a4f9bf1e1602f2828e0a54e70c3b2dccb"><div class="ttname"><a href="syscalls_8c.html#a4f9bf1e1602f2828e0a54e70c3b2dccb">_read</a></div><div class="ttdeci">int _read(int file, char *ptr, int len)</div><div class="ttdoc">Backend for scanf and friends: read len characters via __io_getchar.</div><div class="ttdef"><b>Definition</b> <a href="#l00160">syscalls.c:160</a></div></div>
+<div class="ttc" id="asyscalls_8c_html_a5428d66981cb84e60b899495874618b2"><div class="ttname"><a href="syscalls_8c.html#a5428d66981cb84e60b899495874618b2">__env</a></div><div class="ttdeci">char * __env[1]</div><div class="ttdoc">Backing store for environ — an empty environment.</div><div class="ttdef"><b>Definition</b> <a href="#l00106">syscalls.c:106</a></div></div>
+<div class="ttc" id="asyscalls_8c_html_a5aab5e2acfd600e3667dc915a2bbc7cb"><div class="ttname"><a href="syscalls_8c.html#a5aab5e2acfd600e3667dc915a2bbc7cb">_close</a></div><div class="ttdeci">int _close(int file)</div><div class="ttdoc">Close a file descriptor.</div><div class="ttdef"><b>Definition</b> <a href="#l00197">syscalls.c:197</a></div></div>
+<div class="ttc" id="asyscalls_8c_html_a6cb6331c9d166180903d5fb78b9c9dd7"><div class="ttname"><a href="syscalls_8c.html#a6cb6331c9d166180903d5fb78b9c9dd7">_fork</a></div><div class="ttdeci">int _fork(void)</div><div class="ttdoc">Fork a process.</div><div class="ttdef"><b>Definition</b> <a href="#l00323">syscalls.c:323</a></div></div>
+<div class="ttc" id="asyscalls_8c_html_a70b2f211d665cded5637065aa2bb89dc"><div class="ttname"><a href="syscalls_8c.html#a70b2f211d665cded5637065aa2bb89dc">_unlink</a></div><div class="ttdeci">int _unlink(char *name)</div><div class="ttdoc">Delete a file.</div><div class="ttdef"><b>Definition</b> <a href="#l00274">syscalls.c:274</a></div></div>
+<div class="ttc" id="asyscalls_8c_html_a7a61311bdf1cb025fc07dc2bdae22ce4"><div class="ttname"><a href="syscalls_8c.html#a7a61311bdf1cb025fc07dc2bdae22ce4">_lseek</a></div><div class="ttdeci">int _lseek(int file, int ptr, int dir)</div><div class="ttdoc">Seek within a file.</div><div class="ttdef"><b>Definition</b> <a href="#l00235">syscalls.c:235</a></div></div>
+<div class="ttc" id="asyscalls_8c_html_a945e539df8e0f66d3c73c533fe1968ee"><div class="ttname"><a href="syscalls_8c.html#a945e539df8e0f66d3c73c533fe1968ee">_getpid</a></div><div class="ttdeci">int _getpid(void)</div><div class="ttdoc">Process ID of the &quot;current process&quot;.</div><div class="ttdef"><b>Definition</b> <a href="#l00122">syscalls.c:122</a></div></div>
+<div class="ttc" id="asyscalls_8c_html_aa006daaf11f1e2e45a6ababaf463212b"><div class="ttname"><a href="syscalls_8c.html#aa006daaf11f1e2e45a6ababaf463212b">environ</a></div><div class="ttdeci">char ** environ</div><div class="ttdoc">The process environment Newlib hands to getenv; always empty here.</div><div class="ttdef"><b>Definition</b> <a href="#l00109">syscalls.c:109</a></div></div>
+<div class="ttc" id="asyscalls_8c_html_aa025a12d45f60c7d0eae249e61f0c7f9"><div class="ttname"><a href="syscalls_8c.html#aa025a12d45f60c7d0eae249e61f0c7f9">_write</a></div><div class="ttdeci">int _write(int file, char *ptr, int len)</div><div class="ttdoc">Backend for printf: push len characters out over the ITM.</div><div class="ttdef"><b>Definition</b> <a href="#l00180">syscalls.c:180</a></div></div>
+<div class="ttc" id="asyscalls_8c_html_aaf727ebf57cd64d6c58b23e6ee4a4a69"><div class="ttname"><a href="syscalls_8c.html#aaf727ebf57cd64d6c58b23e6ee4a4a69">_times</a></div><div class="ttdeci">int _times(struct tms *buf)</div><div class="ttdoc">Report process CPU times.</div><div class="ttdef"><b>Definition</b> <a href="#l00286">syscalls.c:286</a></div></div>
+<div class="ttc" id="asyscalls_8c_html_ab6c5b1baf444f12ba50bfc3b0e40e05c"><div class="ttname"><a href="syscalls_8c.html#ab6c5b1baf444f12ba50bfc3b0e40e05c">DEMCR</a></div><div class="ttdeci">#define DEMCR</div><div class="ttdoc">Debug Exception and Monitor Control Register — bit 24 (TRCENA) gates all trace, including the ITM.</div><div class="ttdef"><b>Definition</b> <a href="#l00057">syscalls.c:57</a></div></div>
+<div class="ttc" id="asyscalls_8c_html_abc513dd972081ae765b6949a62872eb7"><div class="ttname"><a href="syscalls_8c.html#abc513dd972081ae765b6949a62872eb7">__io_putchar</a></div><div class="ttdeci">int __io_putchar(int ch)</div><div class="ttdoc">Character sink for printf, overridable by the application.</div></div>
+<div class="ttc" id="asyscalls_8c_html_abc96bd69b58b2deaddb484478d911c1b"><div class="ttname"><a href="syscalls_8c.html#abc96bd69b58b2deaddb484478d911c1b">_exit</a></div><div class="ttdeci">void _exit(int status)</div><div class="ttdoc">Terminate the program.</div><div class="ttdef"><b>Definition</b> <a href="#l00147">syscalls.c:147</a></div></div>
+<div class="ttc" id="asyscalls_8c_html_ad0122671640a3af49792ddaa59e8294e"><div class="ttname"><a href="syscalls_8c.html#ad0122671640a3af49792ddaa59e8294e">__io_getchar</a></div><div class="ttdeci">int __io_getchar(void)</div><div class="ttdoc">Character source for scanf, overridable by the application.</div></div>
+<div class="ttc" id="asyscalls_8c_html_ad2a07db8fdf26151eb98ba5711fad8c5"><div class="ttname"><a href="syscalls_8c.html#ad2a07db8fdf26151eb98ba5711fad8c5">_execve</a></div><div class="ttdeci">int _execve(char *name, char **argv, char **env)</div><div class="ttdoc">Replace the running program.</div><div class="ttdef"><b>Definition</b> <a href="#l00336">syscalls.c:336</a></div></div>
+<div class="ttc" id="asyscalls_8c_html_ad3134a3dc296622b8d1c5456e481505b"><div class="ttname"><a href="syscalls_8c.html#ad3134a3dc296622b8d1c5456e481505b">_isatty</a></div><div class="ttdeci">int _isatty(int file)</div><div class="ttdoc">Is this descriptor a terminal?</div><div class="ttdef"><b>Definition</b> <a href="#l00222">syscalls.c:222</a></div></div>
+<div class="ttc" id="asyscalls_8c_html_aeef0c3372d04caa1bcc99fed2ab6ec72"><div class="ttname"><a href="syscalls_8c.html#aeef0c3372d04caa1bcc99fed2ab6ec72">_wait</a></div><div class="ttdeci">int _wait(int *status)</div><div class="ttdoc">Wait for a child process.</div><div class="ttdef"><b>Definition</b> <a href="#l00262">syscalls.c:262</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_413f4e031a85da0d68269c6fd2f76e1c.html">Src</a></li><li class="navelem"><a href="syscalls_8c.html">syscalls.c</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Src</b></li><li class="navelem"><a href="syscalls_8c.html">syscalls.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

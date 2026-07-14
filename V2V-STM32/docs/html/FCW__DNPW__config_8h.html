@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Inc/Application/FCW_DNPW/FCW_DNPW_config.h File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Inc/Application/FCW_DNPW/FCW_DNPW_config.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,42 +90,53 @@ $(function(){initNavTree('FCW__DNPW__config_8h.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">FCW_DNPW_config.h File Reference</div></div>
+  <div class="headertitle"><div class="title">FCW_DNPW_config.h File Reference<div class="ingroups"><a class="el" href="group__app.html">Application</a> &raquo; <a class="el" href="group__app__fcw__dnpw.html">FCW_DNPW</a></div></div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="FCW__DNPW__config_8h__dep__incl.png" border="0" usemap="#aInc_2Application_2FCW__DNPW_2FCW__DNPW__config_8hdep" loading="lazy" alt=""/></div>
-<map name="aInc_2Application_2FCW__DNPW_2FCW__DNPW__config_8hdep" id="aInc_2Application_2FCW__DNPW_2FCW__DNPW__config_8hdep">
-<area shape="rect" title=" " alt="" coords="5,5,215,50"/>
-<area shape="rect" href="FCW__DNPW__program_8c.html" title=" " alt="" coords="12,98,208,126"/>
-<area shape="poly" title=" " alt="" coords="112,64,112,98,108,96,108,68"/>
-</map>
+
+<p>Compile-time configuration for the FCW/DNPW driver — Forward Collision Warning and Do-Not-Pass Warning.  
+<a href="#details">More...</a></p>
+<div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="FCW__DNPW__config_8h__dep__incl.svg" width="255" height="148"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="FCW__DNPW__config_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a62efb4f170f9fe499586d377133fa412" id="r_a62efb4f170f9fe499586d377133fa412"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a62efb4f170f9fe499586d377133fa412">FCW_FRONT_THRESHOLD</a>&#160;&#160;&#160;(80.0f)  /* FCW front gate: warn earlier      */</td></tr>
-<tr class="memitem:a1f9edf3bbe77d932d8881a76d853ee6d" id="r_a1f9edf3bbe77d932d8881a76d853ee6d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a1f9edf3bbe77d932d8881a76d853ee6d">DNPW_FRONT_THRESHOLD</a>&#160;&#160;&#160;(40.0f)  /* DNPW + head-on front gate: nearer */</td></tr>
-<tr class="memitem:a434f5b4f70cfa6ddea3651a08b646ccd" id="r_a434f5b4f70cfa6ddea3651a08b646ccd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a434f5b4f70cfa6ddea3651a08b646ccd">DNPW_FRONT_LEFT_CRITICAL</a>&#160;&#160;&#160;(40.0f)</td></tr>
+<tr class="memitem:a62efb4f170f9fe499586d377133fa412" id="r_a62efb4f170f9fe499586d377133fa412"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a62efb4f170f9fe499586d377133fa412">FCW_FRONT_THRESHOLD</a></td></tr>
+<tr class="memdesc:a62efb4f170f9fe499586d377133fa412"><td class="mdescLeft">&#160;</td><td class="mdescRight">FCW front gate: warn earlier.  <br /></td></tr>
+<tr class="memitem:a1f9edf3bbe77d932d8881a76d853ee6d" id="r_a1f9edf3bbe77d932d8881a76d853ee6d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a1f9edf3bbe77d932d8881a76d853ee6d">DNPW_FRONT_THRESHOLD</a></td></tr>
+<tr class="memdesc:a1f9edf3bbe77d932d8881a76d853ee6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">DNPW + head-on front gate: nearer.  <br /></td></tr>
+<tr class="memitem:a434f5b4f70cfa6ddea3651a08b646ccd" id="r_a434f5b4f70cfa6ddea3651a08b646ccd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a434f5b4f70cfa6ddea3651a08b646ccd">DNPW_FRONT_LEFT_CRITICAL</a></td></tr>
+<tr class="memdesc:a434f5b4f70cfa6ddea3651a08b646ccd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Front-left reading below which a Do-Not-Pass warning escalates to critical [cm].  <br /></td></tr>
 </table>
-<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="a434f5b4f70cfa6ddea3651a08b646ccd" name="a434f5b4f70cfa6ddea3651a08b646ccd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a434f5b4f70cfa6ddea3651a08b646ccd">&#9670;&#160;</a></span>DNPW_FRONT_LEFT_CRITICAL</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Compile-time configuration for the FCW/DNPW driver — Forward Collision Warning and Do-Not-Pass Warning. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Abdelmoemen Shehawey  </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="FCW__DNPW__config_8h_source.html">FCW_DNPW_config.h</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="a62efb4f170f9fe499586d377133fa412" name="a62efb4f170f9fe499586d377133fa412"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62efb4f170f9fe499586d377133fa412">&#9670;&#160;</a></span>FCW_FRONT_THRESHOLD</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DNPW_FRONT_LEFT_CRITICAL&#160;&#160;&#160;(40.0f)</td>
+          <td class="memname">#define FCW_FRONT_THRESHOLD</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="FCW__DNPW__config_8h_source.html#l00032">32</a> of file <a class="el" href="FCW__DNPW__config_8h_source.html">FCW_DNPW_config.h</a>.</p>
+<p>FCW front gate: warn earlier. </p>
+
+<p class="definition">Definition at line <a class="el" href="FCW__DNPW__config_8h_source.html#l00035">35</a> of file <a class="el" href="FCW__DNPW__config_8h_source.html">FCW_DNPW_config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="FCW__DNPW__program_8c_source.html#l00091">FCW_DNPW_voidBeginCycle()</a>.</p>
 
 </div>
 </div>
@@ -136,28 +147,37 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DNPW_FRONT_THRESHOLD&#160;&#160;&#160;(40.0f)  /* DNPW + head-on front gate: nearer */</td>
+          <td class="memname">#define DNPW_FRONT_THRESHOLD</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="FCW__DNPW__config_8h_source.html#l00027">27</a> of file <a class="el" href="FCW__DNPW__config_8h_source.html">FCW_DNPW_config.h</a>.</p>
+<p>DNPW + head-on front gate: nearer. </p>
+
+<p class="definition">Definition at line <a class="el" href="FCW__DNPW__config_8h_source.html#l00036">36</a> of file <a class="el" href="FCW__DNPW__config_8h_source.html">FCW_DNPW_config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="FCW__DNPW__program_8c_source.html#l00091">FCW_DNPW_voidBeginCycle()</a>.</p>
 
 </div>
 </div>
-<a id="a62efb4f170f9fe499586d377133fa412" name="a62efb4f170f9fe499586d377133fa412"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a62efb4f170f9fe499586d377133fa412">&#9670;&#160;</a></span>FCW_FRONT_THRESHOLD</h2>
+<a id="a434f5b4f70cfa6ddea3651a08b646ccd" name="a434f5b4f70cfa6ddea3651a08b646ccd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a434f5b4f70cfa6ddea3651a08b646ccd">&#9670;&#160;</a></span>DNPW_FRONT_LEFT_CRITICAL</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define FCW_FRONT_THRESHOLD&#160;&#160;&#160;(80.0f)  /* FCW front gate: warn earlier      */</td>
+          <td class="memname">#define DNPW_FRONT_LEFT_CRITICAL</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="FCW__DNPW__config_8h_source.html#l00026">26</a> of file <a class="el" href="FCW__DNPW__config_8h_source.html">FCW_DNPW_config.h</a>.</p>
+<p>Front-left reading below which a Do-Not-Pass warning escalates to critical [cm]. </p>
+<p>A car overtaking pulls out to the <b>left</b>, so the oncoming vehicle it must not pass is the one that shows up on the front-*left* sensor. Seeing something there while DNPW is already firing means the overtake is actively unsafe, not merely inadvisable. </p>
+
+<p class="definition">Definition at line <a class="el" href="FCW__DNPW__config_8h_source.html#l00046">46</a> of file <a class="el" href="FCW__DNPW__config_8h_source.html">FCW_DNPW_config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="FCW__DNPW__program_8c_source.html#l00091">FCW_DNPW_voidBeginCycle()</a>.</p>
 
 </div>
 </div>
@@ -174,7 +194,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_f93dfce691d792349f1c14ede440e2e6.html">Inc</a></li><li class="navelem"><a href="dir_39944c0e13724f9c5fdb666d288b390a.html">Application</a></li><li class="navelem"><a href="dir_cc68db5eb5ac49cfa2e89f9a0e502fcb.html">FCW_DNPW</a></li><li class="navelem"><a href="FCW__DNPW__config_8h.html">FCW_DNPW_config.h</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Inc</b></li><li class="navelem"><b>Application</b></li><li class="navelem"><b>FCW_DNPW</b></li><li class="navelem"><a href="FCW__DNPW__config_8h.html">FCW_DNPW_config.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

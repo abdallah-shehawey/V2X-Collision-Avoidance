@@ -3,7 +3,7 @@
  ******************************************************************************
  * @file           : System.c
  * @author         : Abdallah Saleh
- * @brief          : System initialization and RTOS setup
+ * @brief System initialization and RTOS setup
  ******************************************************************************
  **/
 
@@ -25,6 +25,7 @@
 /******************************************
  *  System Variables Required by FreeRTOS *
  ******************************************/
+/** @brief The system clock frequency [Hz]. FreeRTOS and the delay routines read this; it must match what RCC was actually configured to produce. */
 uint32_t SystemCoreClock = 16000000;
 
 /* Central Management Global Variables */
@@ -80,14 +81,27 @@ USART_Config_t RPi_UART = {
 		.HardwareFlowControl = UART_HWCONTROL_NONE,
 		.OverSampling = USART_OVERSAMPLING_16};
 
-/******************************************
+/*****************************************
  *  FreeRTOS Hooks & Callbacks           *
  ******************************************/
+/** @brief FreeRTOS idle hook: called whenever no task is ready to run. Deliberately empty. */
 void vApplicationIdleHook(void)
 {
 	/* Runs when OS has no tasks to execute */
 }
 
+/**
+ * @brief FreeRTOS stack-overflow hook: a task ran off the end of its stack.
+ *
+ * @param xTask      Handle of the offending task.
+ * @param pcTaskName Its name, which is the useful part when this fires under a debugger.
+ *
+ * @note Halts with interrupts disabled rather than trying to recover. There is no
+ *       recovering: the task's stack has already overwritten whatever sat below it,
+ *       so memory is corrupt and continuing would just hide the cause. Stopping
+ *       here also stops the watchdog being kicked, so the MCU resets — which is
+ *       the safe outcome in a vehicle.
+ */
 void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName)
 {
 	(void)xTask;
@@ -98,6 +112,13 @@ void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName)
 		;
 }
 
+/**
+ * @brief FreeRTOS malloc-failed hook: the heap could not satisfy an allocation.
+ *
+ * @note Halts, for the same reason as @ref vApplicationStackOverflowHook. All
+ *       allocation here happens at startup, so a failure means the heap was
+ *       mis-sized — a build-time bug, not a runtime condition to ride out.
+ */
 void vApplicationMallocFailedHook(void)
 {
 	/* Heap exhausted — halt for debugging */
@@ -106,7 +127,7 @@ void vApplicationMallocFailedHook(void)
 		;
 }
 
-/******************************************
+/*****************************************
  *  System Initialization                *
  ******************************************/
 void System_setup(void)
@@ -273,7 +294,7 @@ void System_setup(void)
 	DSRC_Init();
 }
 
-/******************************************
+/*****************************************
  *  RTOS Initialization & Task Creation  *
  ******************************************/
 void SEGGER_setup(void)

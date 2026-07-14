@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: TIM_TypeDef Struct Reference</title>
+<title>V2V Collision Avoidance Firmware: TIM_TypeDef Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,200 +90,66 @@ $(function(){initNavTree('structTIM__TypeDef.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">TIM_TypeDef Struct Reference</div></div>
+  <div class="headertitle"><div class="title">TIM_TypeDef Struct Reference<div class="ingroups"><a class="el" href="group__lib.html">LIB</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>&gt;</code></p>
+<p>Timer register layout, in the superset form used by TIM1/TIM8.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="STM32F446xx_8h_source.html">Drivers/LIB/STM32F446xx.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a98ff7c0733a481643cc57b766ecd8e04" id="r_a98ff7c0733a481643cc57b766ecd8e04"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a98ff7c0733a481643cc57b766ecd8e04">CR1</a></td></tr>
+<tr class="memdesc:a98ff7c0733a481643cc57b766ecd8e04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Control 1: counter enable, direction, auto-reload preload.  <br /></td></tr>
 <tr class="memitem:aa8c562340b9b683b8c79976b64b36be3" id="r_aa8c562340b9b683b8c79976b64b36be3"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#aa8c562340b9b683b8c79976b64b36be3">CR2</a></td></tr>
+<tr class="memdesc:aa8c562340b9b683b8c79976b64b36be3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Control 2: master mode selection.  <br /></td></tr>
 <tr class="memitem:ae7b9de08df06d01dc22a4fb65ddc76cc" id="r_ae7b9de08df06d01dc22a4fb65ddc76cc"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ae7b9de08df06d01dc22a4fb65ddc76cc">SMCR</a></td></tr>
+<tr class="memdesc:ae7b9de08df06d01dc22a4fb65ddc76cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Slave mode control: trigger source and slave mode (reset/gated/trigger).  <br /></td></tr>
 <tr class="memitem:a10c688aa3463744d5baaa2602c300ba7" id="r_a10c688aa3463744d5baaa2602c300ba7"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a10c688aa3463744d5baaa2602c300ba7">DIER</a></td></tr>
+<tr class="memdesc:a10c688aa3463744d5baaa2602c300ba7"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA/interrupt enable: update and capture/compare interrupt enables.  <br /></td></tr>
 <tr class="memitem:ad4c239c905a84b69f7bc24d1cf63512e" id="r_ad4c239c905a84b69f7bc24d1cf63512e"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ad4c239c905a84b69f7bc24d1cf63512e">SR</a></td></tr>
+<tr class="memdesc:ad4c239c905a84b69f7bc24d1cf63512e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status: update and capture/compare flags.  <br /></td></tr>
 <tr class="memitem:a4db8926602a9b7f8d8d29dbc7d0580bb" id="r_a4db8926602a9b7f8d8d29dbc7d0580bb"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a4db8926602a9b7f8d8d29dbc7d0580bb">EGR</a></td></tr>
+<tr class="memdesc:a4db8926602a9b7f8d8d29dbc7d0580bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event generation: forces an update or a capture/compare event from software.  <br /></td></tr>
 <tr class="memitem:a407d56a232172686e7276fcc4628ad96" id="r_a407d56a232172686e7276fcc4628ad96"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a407d56a232172686e7276fcc4628ad96">CCMR1</a></td></tr>
+<tr class="memdesc:a407d56a232172686e7276fcc4628ad96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Capture/compare mode for channels 1 and 2 (input capture filter, or PWM mode).  <br /></td></tr>
 <tr class="memitem:a84c9a3da30a61bfab94d1909a1d136c3" id="r_a84c9a3da30a61bfab94d1909a1d136c3"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a84c9a3da30a61bfab94d1909a1d136c3">CCMR2</a></td></tr>
+<tr class="memdesc:a84c9a3da30a61bfab94d1909a1d136c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Capture/compare mode for channels 3 and 4.  <br /></td></tr>
 <tr class="memitem:a85d9f90d85fa2e955a5ca3b6c0fcd576" id="r_a85d9f90d85fa2e955a5ca3b6c0fcd576"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a85d9f90d85fa2e955a5ca3b6c0fcd576">CCER</a></td></tr>
+<tr class="memdesc:a85d9f90d85fa2e955a5ca3b6c0fcd576"><td class="mdescLeft">&#160;</td><td class="mdescRight">Capture/compare enable: per-channel output/capture enable and polarity.  <br /></td></tr>
 <tr class="memitem:a56ecb78beaea466c45e479d5ee787892" id="r_a56ecb78beaea466c45e479d5ee787892"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a56ecb78beaea466c45e479d5ee787892">CNT</a></td></tr>
+<tr class="memdesc:a56ecb78beaea466c45e479d5ee787892"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counter: the current count value.  <br /></td></tr>
 <tr class="memitem:aebaa22c6223c63151d71070db8ff5b96" id="r_aebaa22c6223c63151d71070db8ff5b96"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#aebaa22c6223c63151d71070db8ff5b96">PSC</a></td></tr>
+<tr class="memdesc:aebaa22c6223c63151d71070db8ff5b96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prescaler: divides the timer clock, so 1 count = (PSC+1) timer clocks.  <br /></td></tr>
 <tr class="memitem:aa574282b4226fefc866df9beea6f41cd" id="r_aa574282b4226fefc866df9beea6f41cd"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#aa574282b4226fefc866df9beea6f41cd">ARR</a></td></tr>
+<tr class="memdesc:aa574282b4226fefc866df9beea6f41cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auto-reload: the value the counter wraps at; sets the PWM period.  <br /></td></tr>
 <tr class="memitem:a3ce15d6fba90cec62bcf010b08f6dd1e" id="r_a3ce15d6fba90cec62bcf010b08f6dd1e"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a3ce15d6fba90cec62bcf010b08f6dd1e">RCR</a></td></tr>
+<tr class="memdesc:a3ce15d6fba90cec62bcf010b08f6dd1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repetition counter (advanced-control timers only).  <br /></td></tr>
 <tr class="memitem:a46ee15b8b6ba0f5bb9a2abd64451ee3e" id="r_a46ee15b8b6ba0f5bb9a2abd64451ee3e"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a46ee15b8b6ba0f5bb9a2abd64451ee3e">CCR1</a></td></tr>
+<tr class="memdesc:a46ee15b8b6ba0f5bb9a2abd64451ee3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Capture/compare 1: the captured count, or the PWM duty for channel 1.  <br /></td></tr>
 <tr class="memitem:a3ed501413025f852689f7330601e6c75" id="r_a3ed501413025f852689f7330601e6c75"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a3ed501413025f852689f7330601e6c75">CCR2</a></td></tr>
+<tr class="memdesc:a3ed501413025f852689f7330601e6c75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Capture/compare 2.  <br /></td></tr>
 <tr class="memitem:a833d3ad84756f2d067132227216ae511" id="r_a833d3ad84756f2d067132227216ae511"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a833d3ad84756f2d067132227216ae511">CCR3</a></td></tr>
+<tr class="memdesc:a833d3ad84756f2d067132227216ae511"><td class="mdescLeft">&#160;</td><td class="mdescRight">Capture/compare 3.  <br /></td></tr>
 <tr class="memitem:a74d6fb56f893f67fac401b6195e80dad" id="r_a74d6fb56f893f67fac401b6195e80dad"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a74d6fb56f893f67fac401b6195e80dad">CCR4</a></td></tr>
+<tr class="memdesc:a74d6fb56f893f67fac401b6195e80dad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Capture/compare 4.  <br /></td></tr>
 <tr class="memitem:a649f8669e19bc47c0488cd029832f0ab" id="r_a649f8669e19bc47c0488cd029832f0ab"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a649f8669e19bc47c0488cd029832f0ab">BDTR</a></td></tr>
+<tr class="memdesc:a649f8669e19bc47c0488cd029832f0ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Break and dead-time (advanced-control timers only).  <br /></td></tr>
 <tr class="memitem:aad5d51c173a47fc21f39621b4ea9543b" id="r_aad5d51c173a47fc21f39621b4ea9543b"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#aad5d51c173a47fc21f39621b4ea9543b">DCR</a></td></tr>
+<tr class="memdesc:aad5d51c173a47fc21f39621b4ea9543b"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA control.  <br /></td></tr>
 <tr class="memitem:a5f6c7a3d81a893b02c26ece41b8beb15" id="r_a5f6c7a3d81a893b02c26ece41b8beb15"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a5f6c7a3d81a893b02c26ece41b8beb15">DMAR</a></td></tr>
+<tr class="memdesc:a5f6c7a3d81a893b02c26ece41b8beb15"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA address for full transfer.  <br /></td></tr>
 <tr class="memitem:aeea643edf962e60b2d099051a7bff137" id="r_aeea643edf962e60b2d099051a7bff137"><td class="memItemLeft">volatile uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#aeea643edf962e60b2d099051a7bff137">OR</a></td></tr>
+<tr class="memdesc:aeea643edf962e60b2d099051a7bff137"><td class="mdescLeft">&#160;</td><td class="mdescRight">Option register: timer-specific input remapping.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00344">344</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<div class="textblock"><p>Timer register layout, in the superset form used by TIM1/TIM8. </p>
+<p>The general-purpose and basic timers implement only part of this layout; the members they lack read as zero. The firmware uses the timers as the time base for the ultrasonic echo measurement and for PWM. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00403">403</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
-<a id="aa574282b4226fefc866df9beea6f41cd" name="aa574282b4226fefc866df9beea6f41cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa574282b4226fefc866df9beea6f41cd">&#9670;&#160;</a></span>ARR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t TIM_TypeDef::ARR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00356">356</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a649f8669e19bc47c0488cd029832f0ab" name="a649f8669e19bc47c0488cd029832f0ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a649f8669e19bc47c0488cd029832f0ab">&#9670;&#160;</a></span>BDTR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t TIM_TypeDef::BDTR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00362">362</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a85d9f90d85fa2e955a5ca3b6c0fcd576" name="a85d9f90d85fa2e955a5ca3b6c0fcd576"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85d9f90d85fa2e955a5ca3b6c0fcd576">&#9670;&#160;</a></span>CCER</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t TIM_TypeDef::CCER</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00353">353</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a407d56a232172686e7276fcc4628ad96" name="a407d56a232172686e7276fcc4628ad96"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a407d56a232172686e7276fcc4628ad96">&#9670;&#160;</a></span>CCMR1</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t TIM_TypeDef::CCMR1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00351">351</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a84c9a3da30a61bfab94d1909a1d136c3" name="a84c9a3da30a61bfab94d1909a1d136c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84c9a3da30a61bfab94d1909a1d136c3">&#9670;&#160;</a></span>CCMR2</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t TIM_TypeDef::CCMR2</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00352">352</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a46ee15b8b6ba0f5bb9a2abd64451ee3e" name="a46ee15b8b6ba0f5bb9a2abd64451ee3e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46ee15b8b6ba0f5bb9a2abd64451ee3e">&#9670;&#160;</a></span>CCR1</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t TIM_TypeDef::CCR1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00358">358</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a3ed501413025f852689f7330601e6c75" name="a3ed501413025f852689f7330601e6c75"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ed501413025f852689f7330601e6c75">&#9670;&#160;</a></span>CCR2</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t TIM_TypeDef::CCR2</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00359">359</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a833d3ad84756f2d067132227216ae511" name="a833d3ad84756f2d067132227216ae511"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a833d3ad84756f2d067132227216ae511">&#9670;&#160;</a></span>CCR3</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t TIM_TypeDef::CCR3</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00360">360</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a74d6fb56f893f67fac401b6195e80dad" name="a74d6fb56f893f67fac401b6195e80dad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a74d6fb56f893f67fac401b6195e80dad">&#9670;&#160;</a></span>CCR4</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t TIM_TypeDef::CCR4</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00361">361</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a56ecb78beaea466c45e479d5ee787892" name="a56ecb78beaea466c45e479d5ee787892"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56ecb78beaea466c45e479d5ee787892">&#9670;&#160;</a></span>CNT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t TIM_TypeDef::CNT</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00354">354</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
 <a id="a98ff7c0733a481643cc57b766ecd8e04" name="a98ff7c0733a481643cc57b766ecd8e04"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a98ff7c0733a481643cc57b766ecd8e04">&#9670;&#160;</a></span>CR1</h2>
 
@@ -296,7 +162,11 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00345">345</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Control 1: counter enable, direction, auto-reload preload. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00404">404</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00442">TIM_vDelayMs()</a>, <a class="el" href="TIM__program_8c_source.html#l00480">TIM_vDelayUs()</a>, <a class="el" href="TIM__program_8c_source.html#l00239">TIM_vIC_Init()</a>, <a class="el" href="TIM__program_8c_source.html#l00056">TIM_vInit()</a>, <a class="el" href="TIM__program_8c_source.html#l00141">TIM_vPWM_Init()</a>, and <a class="el" href="US__prog_8c_source.html#l00196">US_vInit()</a>.</p>
 
 </div>
 </div>
@@ -312,119 +182,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00346">346</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Control 2: master mode selection. </p>
 
-</div>
-</div>
-<a id="aad5d51c173a47fc21f39621b4ea9543b" name="aad5d51c173a47fc21f39621b4ea9543b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad5d51c173a47fc21f39621b4ea9543b">&#9670;&#160;</a></span>DCR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t TIM_TypeDef::DCR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00363">363</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a10c688aa3463744d5baaa2602c300ba7" name="a10c688aa3463744d5baaa2602c300ba7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10c688aa3463744d5baaa2602c300ba7">&#9670;&#160;</a></span>DIER</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t TIM_TypeDef::DIER</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00348">348</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a5f6c7a3d81a893b02c26ece41b8beb15" name="a5f6c7a3d81a893b02c26ece41b8beb15"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f6c7a3d81a893b02c26ece41b8beb15">&#9670;&#160;</a></span>DMAR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t TIM_TypeDef::DMAR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00364">364</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a4db8926602a9b7f8d8d29dbc7d0580bb" name="a4db8926602a9b7f8d8d29dbc7d0580bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4db8926602a9b7f8d8d29dbc7d0580bb">&#9670;&#160;</a></span>EGR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t TIM_TypeDef::EGR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00350">350</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="aeea643edf962e60b2d099051a7bff137" name="aeea643edf962e60b2d099051a7bff137"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeea643edf962e60b2d099051a7bff137">&#9670;&#160;</a></span>OR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t TIM_TypeDef::OR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00365">365</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="aebaa22c6223c63151d71070db8ff5b96" name="aebaa22c6223c63151d71070db8ff5b96"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aebaa22c6223c63151d71070db8ff5b96">&#9670;&#160;</a></span>PSC</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t TIM_TypeDef::PSC</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00355">355</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a3ce15d6fba90cec62bcf010b08f6dd1e" name="a3ce15d6fba90cec62bcf010b08f6dd1e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ce15d6fba90cec62bcf010b08f6dd1e">&#9670;&#160;</a></span>RCR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t TIM_TypeDef::RCR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00357">357</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00405">405</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
@@ -440,7 +200,29 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00347">347</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Slave mode control: trigger source and slave mode (reset/gated/trigger). </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00406">406</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a10c688aa3463744d5baaa2602c300ba7" name="a10c688aa3463744d5baaa2602c300ba7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10c688aa3463744d5baaa2602c300ba7">&#9670;&#160;</a></span>DIER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t TIM_TypeDef::DIER</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>DMA/interrupt enable: update and capture/compare interrupt enables. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00407">407</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00442">TIM_vDelayMs()</a>, <a class="el" href="TIM__program_8c_source.html#l00480">TIM_vDelayUs()</a>, and <a class="el" href="TIM__program_8c_source.html#l00567">TIM_voidHandleCC()</a>.</p>
 
 </div>
 </div>
@@ -456,13 +238,329 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00349">349</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Status: update and capture/compare flags. </p>
+<p>Cleared by writing a 0 to the flag. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00408">408</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00442">TIM_vDelayMs()</a>, <a class="el" href="TIM__program_8c_source.html#l00480">TIM_vDelayUs()</a>, <a class="el" href="TIM__program_8c_source.html#l00056">TIM_vInit()</a>, <a class="el" href="TIM__program_8c_source.html#l00567">TIM_voidHandleCC()</a>, <a class="el" href="US__prog_8c_source.html#l00278">US_u16ReadDistance_cm()</a>, and <a class="el" href="US__prog_8c_source.html#l00196">US_vInit()</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>Inc/Drivers/LIB/<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
-<li>Inc/System/<a class="el" href="System_2STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
+<a id="a4db8926602a9b7f8d8d29dbc7d0580bb" name="a4db8926602a9b7f8d8d29dbc7d0580bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4db8926602a9b7f8d8d29dbc7d0580bb">&#9670;&#160;</a></span>EGR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t TIM_TypeDef::EGR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Event generation: forces an update or a capture/compare event from software. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00409">409</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00056">TIM_vInit()</a>, <a class="el" href="TIM__program_8c_source.html#l00141">TIM_vPWM_Init()</a>, and <a class="el" href="US__prog_8c_source.html#l00196">US_vInit()</a>.</p>
+
+</div>
+</div>
+<a id="a407d56a232172686e7276fcc4628ad96" name="a407d56a232172686e7276fcc4628ad96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a407d56a232172686e7276fcc4628ad96">&#9670;&#160;</a></span>CCMR1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t TIM_TypeDef::CCMR1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Capture/compare mode for channels 1 and 2 (input capture filter, or PWM mode). </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00410">410</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00239">TIM_vIC_Init()</a>, and <a class="el" href="TIM__program_8c_source.html#l00141">TIM_vPWM_Init()</a>.</p>
+
+</div>
+</div>
+<a id="a84c9a3da30a61bfab94d1909a1d136c3" name="a84c9a3da30a61bfab94d1909a1d136c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84c9a3da30a61bfab94d1909a1d136c3">&#9670;&#160;</a></span>CCMR2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t TIM_TypeDef::CCMR2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Capture/compare mode for channels 3 and 4. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00411">411</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00239">TIM_vIC_Init()</a>, and <a class="el" href="TIM__program_8c_source.html#l00141">TIM_vPWM_Init()</a>.</p>
+
+</div>
+</div>
+<a id="a85d9f90d85fa2e955a5ca3b6c0fcd576" name="a85d9f90d85fa2e955a5ca3b6c0fcd576"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85d9f90d85fa2e955a5ca3b6c0fcd576">&#9670;&#160;</a></span>CCER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t TIM_TypeDef::CCER</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Capture/compare enable: per-channel output/capture enable and polarity. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00412">412</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00239">TIM_vIC_Init()</a>, <a class="el" href="TIM__program_8c_source.html#l00141">TIM_vPWM_Init()</a>, and <a class="el" href="TIM__program_8c_source.html#l00361">TIM_vSetICPolarity()</a>.</p>
+
+</div>
+</div>
+<a id="a56ecb78beaea466c45e479d5ee787892" name="a56ecb78beaea466c45e479d5ee787892"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56ecb78beaea466c45e479d5ee787892">&#9670;&#160;</a></span>CNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t TIM_TypeDef::CNT</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Counter: the current count value. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00413">413</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00350">TIM_u32GetCounterValue()</a>, <a class="el" href="TIM__program_8c_source.html#l00442">TIM_vDelayMs()</a>, and <a class="el" href="TIM__program_8c_source.html#l00480">TIM_vDelayUs()</a>.</p>
+
+</div>
+</div>
+<a id="aebaa22c6223c63151d71070db8ff5b96" name="aebaa22c6223c63151d71070db8ff5b96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebaa22c6223c63151d71070db8ff5b96">&#9670;&#160;</a></span>PSC</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t TIM_TypeDef::PSC</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prescaler: divides the timer clock, so 1 count = (PSC+1) timer clocks. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00414">414</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00442">TIM_vDelayMs()</a>, <a class="el" href="TIM__program_8c_source.html#l00480">TIM_vDelayUs()</a>, <a class="el" href="TIM__program_8c_source.html#l00056">TIM_vInit()</a>, <a class="el" href="TIM__program_8c_source.html#l00141">TIM_vPWM_Init()</a>, and <a class="el" href="US__prog_8c_source.html#l00196">US_vInit()</a>.</p>
+
+</div>
+</div>
+<a id="aa574282b4226fefc866df9beea6f41cd" name="aa574282b4226fefc866df9beea6f41cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa574282b4226fefc866df9beea6f41cd">&#9670;&#160;</a></span>ARR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t TIM_TypeDef::ARR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Auto-reload: the value the counter wraps at; sets the PWM period. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00415">415</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00442">TIM_vDelayMs()</a>, <a class="el" href="TIM__program_8c_source.html#l00480">TIM_vDelayUs()</a>, <a class="el" href="TIM__program_8c_source.html#l00056">TIM_vInit()</a>, <a class="el" href="TIM__program_8c_source.html#l00141">TIM_vPWM_Init()</a>, and <a class="el" href="US__prog_8c_source.html#l00196">US_vInit()</a>.</p>
+
+</div>
+</div>
+<a id="a3ce15d6fba90cec62bcf010b08f6dd1e" name="a3ce15d6fba90cec62bcf010b08f6dd1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ce15d6fba90cec62bcf010b08f6dd1e">&#9670;&#160;</a></span>RCR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t TIM_TypeDef::RCR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Repetition counter (advanced-control timers only). </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00416">416</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a46ee15b8b6ba0f5bb9a2abd64451ee3e" name="a46ee15b8b6ba0f5bb9a2abd64451ee3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46ee15b8b6ba0f5bb9a2abd64451ee3e">&#9670;&#160;</a></span>CCR1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t TIM_TypeDef::CCR1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Capture/compare 1: the captured count, or the PWM duty for channel 1. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00417">417</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00333">TIM_u32GetCaptureValue()</a>, <a class="el" href="TIM__program_8c_source.html#l00567">TIM_voidHandleCC()</a>, <a class="el" href="TIM__program_8c_source.html#l00141">TIM_vPWM_Init()</a>, and <a class="el" href="TIM__program_8c_source.html#l00393">TIM_vSetCompareValue()</a>.</p>
+
+</div>
+</div>
+<a id="a3ed501413025f852689f7330601e6c75" name="a3ed501413025f852689f7330601e6c75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ed501413025f852689f7330601e6c75">&#9670;&#160;</a></span>CCR2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t TIM_TypeDef::CCR2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Capture/compare 2. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00418">418</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00333">TIM_u32GetCaptureValue()</a>, <a class="el" href="TIM__program_8c_source.html#l00567">TIM_voidHandleCC()</a>, <a class="el" href="TIM__program_8c_source.html#l00141">TIM_vPWM_Init()</a>, and <a class="el" href="TIM__program_8c_source.html#l00393">TIM_vSetCompareValue()</a>.</p>
+
+</div>
+</div>
+<a id="a833d3ad84756f2d067132227216ae511" name="a833d3ad84756f2d067132227216ae511"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a833d3ad84756f2d067132227216ae511">&#9670;&#160;</a></span>CCR3</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t TIM_TypeDef::CCR3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Capture/compare 3. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00419">419</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00333">TIM_u32GetCaptureValue()</a>, <a class="el" href="TIM__program_8c_source.html#l00567">TIM_voidHandleCC()</a>, <a class="el" href="TIM__program_8c_source.html#l00141">TIM_vPWM_Init()</a>, and <a class="el" href="TIM__program_8c_source.html#l00393">TIM_vSetCompareValue()</a>.</p>
+
+</div>
+</div>
+<a id="a74d6fb56f893f67fac401b6195e80dad" name="a74d6fb56f893f67fac401b6195e80dad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74d6fb56f893f67fac401b6195e80dad">&#9670;&#160;</a></span>CCR4</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t TIM_TypeDef::CCR4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Capture/compare 4. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00420">420</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TIM__program_8c_source.html#l00333">TIM_u32GetCaptureValue()</a>, <a class="el" href="TIM__program_8c_source.html#l00567">TIM_voidHandleCC()</a>, <a class="el" href="TIM__program_8c_source.html#l00141">TIM_vPWM_Init()</a>, and <a class="el" href="TIM__program_8c_source.html#l00393">TIM_vSetCompareValue()</a>.</p>
+
+</div>
+</div>
+<a id="a649f8669e19bc47c0488cd029832f0ab" name="a649f8669e19bc47c0488cd029832f0ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a649f8669e19bc47c0488cd029832f0ab">&#9670;&#160;</a></span>BDTR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t TIM_TypeDef::BDTR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Break and dead-time (advanced-control timers only). </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00421">421</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="US__prog_8c_source.html#l00196">US_vInit()</a>.</p>
+
+</div>
+</div>
+<a id="aad5d51c173a47fc21f39621b4ea9543b" name="aad5d51c173a47fc21f39621b4ea9543b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad5d51c173a47fc21f39621b4ea9543b">&#9670;&#160;</a></span>DCR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t TIM_TypeDef::DCR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>DMA control. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00422">422</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a5f6c7a3d81a893b02c26ece41b8beb15" name="a5f6c7a3d81a893b02c26ece41b8beb15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f6c7a3d81a893b02c26ece41b8beb15">&#9670;&#160;</a></span>DMAR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t TIM_TypeDef::DMAR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>DMA address for full transfer. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00423">423</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="aeea643edf962e60b2d099051a7bff137" name="aeea643edf962e60b2d099051a7bff137"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeea643edf962e60b2d099051a7bff137">&#9670;&#160;</a></span>OR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t TIM_TypeDef::OR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Option register: timer-specific input remapping. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00424">424</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>V2V-STM32/Inc/Drivers/LIB/<a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,11 +1,10 @@
 var searchData=
 [
-  ['safety_20core_0',['🔧 V2V-STM32 — Real-Time Safety Core',['../md_README.html',1,'']]],
-  ['safety_20critical_20core_1',['🚗 V2V Safety-Critical Core',['../md_README.html#autotoc_md1',1,'']]],
-  ['safety_20determinism_2',['🔐 Safety &amp;amp; Determinism',['../md_README.html#autotoc_md21',1,'']]],
-  ['spot_20warning_3',['🔹 BSW — Blind Spot Warning',['../md_README.html#autotoc_md13',1,'']]],
-  ['stm32_20—_20real_20time_20safety_20core_4',['🔧 V2V-STM32 — Real-Time Safety Core',['../md_README.html',1,'']]],
-  ['structure_5',['📁 Directory Structure',['../md_README.html#autotoc_md8',1,'']]],
-  ['subsystems_6',['🚘 Implemented V2V Subsystems',['../md_README.html#autotoc_md10',1,'']]],
-  ['summary_7',['🏁 Summary',['../md_README.html#autotoc_md23',1,'']]]
+  ['eebl_20—_20electronic_20emergency_20brake_20light_0',['🔹 EEBL — Electronic Emergency Brake Light',['../index.html#autotoc_md12',1,'']]],
+  ['electronic_20emergency_20brake_20light_1',['🔹 EEBL — Electronic Emergency Brake Light',['../index.html#autotoc_md12',1,'']]],
+  ['emergency_20brake_20light_2',['🔹 EEBL — Electronic Emergency Brake Light',['../index.html#autotoc_md12',1,'']]],
+  ['esp32_20s3_20block_20v2x_20usart1_3',['STAGE 6 — ESP32-S3 BLOCK (V2X / USART1)',['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md63',1,'']]],
+  ['esp32_20workflow_4',['Arduino CLI ESP32 Workflow',['../dir_59e7f8d29184d0656f3182488763fc33.html#autotoc_md88',1,'']]],
+  ['every_20stage_5',['Where to get Altium libraries (applies to every stage)',['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md27',1,'']]],
+  ['example_20workflow_6',['Example Workflow',['../dir_59e7f8d29184d0656f3182488763fc33.html#autotoc_md93',1,'']]]
 ];

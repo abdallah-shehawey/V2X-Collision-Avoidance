@@ -5,8 +5,61 @@
 Internal helper functions for Sys\+Tick operations.  
 
 
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \doxymbox{\hyperlink{group__SYSTIC__Private__Functions_gaed31b8341f403a3068ea1106d1c31e09}{SYSTIC\+\_\+v\+Enable}} (void)
+\begin{DoxyCompactList}\small\item\em Enable the Sys\+Tick counter. \end{DoxyCompactList}\item 
+static void \doxymbox{\hyperlink{group__SYSTIC__Private__Functions_gac095f2dcf6262ec7bd865b1bdac25b64}{SYSTIC\+\_\+v\+Disable}} (void)
+\begin{DoxyCompactList}\small\item\em Disable the Sys\+Tick counter. \end{DoxyCompactList}\item 
+static void \doxymbox{\hyperlink{group__SYSTIC__Private__Functions_gab105192747b83b6f41fb0cc7c242649d}{SYSTIC\+\_\+v\+Wait}} (void)
+\begin{DoxyCompactList}\small\item\em Wait for the Sys\+Tick counter to reach zero. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 Internal helper functions for Sys\+Tick operations. 
 
+
+
+\label{doc-func-members}
+\Hypertarget{group__SYSTIC__Private__Functions_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{group__SYSTIC__Private__Functions_gaed31b8341f403a3068ea1106d1c31e09}\index{SysTick Private Functions@{SysTick Private Functions}!SYSTIC\_vEnable@{SYSTIC\_vEnable}}
+\index{SYSTIC\_vEnable@{SYSTIC\_vEnable}!SysTick Private Functions@{SysTick Private Functions}}
+\doxysubsubsection{\texorpdfstring{SYSTIC\_vEnable()}{SYSTIC\_vEnable()}}
+{\footnotesize\ttfamily \label{group__SYSTIC__Private__Functions_gaed31b8341f403a3068ea1106d1c31e09} 
+void SYSTIC\+\_\+v\+Enable (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Enable the Sys\+Tick counter. 
+
+\begin{DoxyNote}{Note}
+Sets the ENABLE bit in STK\+\_\+\+CTRL register 
+\end{DoxyNote}
+\Hypertarget{group__SYSTIC__Private__Functions_gac095f2dcf6262ec7bd865b1bdac25b64}\index{SysTick Private Functions@{SysTick Private Functions}!SYSTIC\_vDisable@{SYSTIC\_vDisable}}
+\index{SYSTIC\_vDisable@{SYSTIC\_vDisable}!SysTick Private Functions@{SysTick Private Functions}}
+\doxysubsubsection{\texorpdfstring{SYSTIC\_vDisable()}{SYSTIC\_vDisable()}}
+{\footnotesize\ttfamily \label{group__SYSTIC__Private__Functions_gac095f2dcf6262ec7bd865b1bdac25b64} 
+void SYSTIC\+\_\+v\+Disable (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Disable the Sys\+Tick counter. 
+
+\begin{DoxyNote}{Note}
+Clears the ENABLE bit in STK\+\_\+\+CTRL register 
+\end{DoxyNote}
+\Hypertarget{group__SYSTIC__Private__Functions_gab105192747b83b6f41fb0cc7c242649d}\index{SysTick Private Functions@{SysTick Private Functions}!SYSTIC\_vWait@{SYSTIC\_vWait}}
+\index{SYSTIC\_vWait@{SYSTIC\_vWait}!SysTick Private Functions@{SysTick Private Functions}}
+\doxysubsubsection{\texorpdfstring{SYSTIC\_vWait()}{SYSTIC\_vWait()}}
+{\footnotesize\ttfamily \label{group__SYSTIC__Private__Functions_gab105192747b83b6f41fb0cc7c242649d} 
+void SYSTIC\+\_\+v\+Wait (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Wait for the Sys\+Tick counter to reach zero. 
+
+\begin{DoxyNote}{Note}
+Polls the COUNTFLAG bit in STK\+\_\+\+CTRL register 
+\end{DoxyNote}

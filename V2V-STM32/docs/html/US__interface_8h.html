@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Inc/Drivers/HAL/US/US_interface.h File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Inc/Drivers/HAL/US/US_interface.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,52 +90,28 @@ $(function(){initNavTree('US__interface_8h.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">US_interface.h File Reference</div></div>
+  <div class="headertitle"><div class="title">US_interface.h File Reference<div class="ingroups"><a class="el" href="group__hal.html">HAL</a> &raquo; <a class="el" href="group__hal__us.html">US</a></div></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Public API of the US driver — the HC-SR04 ultrasonic rangefinders.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="STD__MACROS_8h_source.html">../../LIB/STD_MACROS.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ErrTypes_8h_source.html">../../LIB/ErrTypes.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">../../LIB/STM32F446xx.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="STM32F446xx_8h_source.html">../../LIB/STM32F446xx.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GPIO__interface_8h_source.html">../../MCAL/GPIO/GPIO_interface.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TIM__interface_8h_source.html">../../MCAL/TIM/TIM_interface.h</a>&quot;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for US_interface.h:</div>
-<div class="dyncontent">
-<div class="center"><img src="US__interface_8h__incl.png" border="0" usemap="#aInc_2Drivers_2HAL_2US_2US__interface_8h" loading="lazy" alt=""/></div>
-<map name="aInc_2Drivers_2HAL_2US_2US__interface_8h" id="aInc_2Drivers_2HAL_2US_2US__interface_8h">
-<area shape="rect" title=" " alt="" coords="177,5,320,50"/>
-<area shape="rect" href="STD__MACROS_8h.html" title=" " alt="" coords="5,191,177,218"/>
-<area shape="poly" title=" " alt="" coords="211,52,185,74,157,100,128,139,106,178,101,175,123,136,153,96,182,70,215,49"/>
-<area shape="rect" href="ErrTypes_8h.html" title=" " alt="" coords="200,191,336,218"/>
-<area shape="poly" title=" " alt="" coords="213,49,188,73,169,99,163,121,169,141,189,164,216,184,211,183,186,168,165,144,158,121,165,97,184,69,208,52"/>
-<area shape="rect" href="Drivers_2LIB_2STM32F446xx_8h.html" title=" " alt="" coords="520,106,694,134"/>
-<area shape="poly" title=" " alt="" coords="321,44,542,101,538,103,320,50"/>
-<area shape="rect" href="GPIO__interface_8h.html" title=" " alt="" coords="342,98,496,143"/>
-<area shape="poly" title=" " alt="" coords="290,48,368,90,362,91,289,53"/>
-<area shape="rect" href="TIM__interface_8h.html" title="Timer (TIM) Interface Header File." alt="" coords="179,98,318,143"/>
-<area shape="poly" title=" " alt="" coords="250,48,251,84,246,81,247,53"/>
-<area shape="rect" title=" " alt="" coords="384,191,454,218"/>
-<area shape="poly" title=" " alt="" coords="579,134,464,187,462,182,574,135"/>
-<area shape="poly" title=" " alt="" coords="382,143,306,186,305,181,376,144"/>
-<area shape="poly" title=" " alt="" coords="421,141,421,177,417,173,417,145"/>
-<area shape="poly" title=" " alt="" coords="209,143,131,185,129,181,204,144"/>
-<area shape="poly" title=" " alt="" coords="255,141,264,177,259,174,252,145"/>
-<area shape="poly" title=" " alt="" coords="294,141,381,183,375,184,293,146"/>
-</map>
+</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for US_interface.h:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="US__interface_8h__dep__incl.png" border="0" usemap="#aInc_2Drivers_2HAL_2US_2US__interface_8hdep" loading="lazy" alt=""/></div>
-<map name="aInc_2Drivers_2HAL_2US_2US__interface_8hdep" id="aInc_2Drivers_2HAL_2US_2US__interface_8hdep">
-<area shape="rect" title=" " alt="" coords="118,5,262,50"/>
-<area shape="rect" href="System_8c.html" title=": System initialization and RTOS setup" alt="" coords="5,98,111,126"/>
-<area shape="poly" title=" " alt="" coords="145,59,80,100,78,95,139,58"/>
-<area shape="rect" href="US__prog_8c.html" title=" " alt="" coords="135,98,245,126"/>
-<area shape="poly" title=" " alt="" coords="192,64,192,99,188,96,188,68"/>
-<area shape="rect" href="main_8c.html" title=": Main program body" alt="" coords="269,98,359,126"/>
-<area shape="poly" title=" " alt="" coords="236,56,297,97,291,97,235,61"/>
-</map>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="US__interface_8h__incl.svg" width="100%" height="468"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div><div class="textblock"><div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="US__interface_8h__dep__incl.svg" width="598" height="131"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="US__interface_8h_source.html">Go to the source code of this file.</a></p>
@@ -147,11 +123,68 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a29b879f76d665878390dd6161d1eea84" id="r_a29b879f76d665878390dd6161d1eea84"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a29b879f76d665878390dd6161d1eea84">US_vInit</a> (const <a class="el" href="structUS__Config__t.html">US_Config_t</a> *pxSensor)</td></tr>
-<tr class="memitem:a49bd64d408631fd63886cbc413453e08" id="r_a49bd64d408631fd63886cbc413453e08"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a49bd64d408631fd63886cbc413453e08">US_u16ReadDistance_cm</a> (const <a class="el" href="structUS__Config__t.html">US_Config_t</a> *pxSensor, uint16_t *pu16Dist_cm)</td></tr>
-<tr class="memdesc:a49bd64d408631fd63886cbc413453e08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trigger sensor and measure distance (cm). The calling task SLEEPS on a semaphore while the echo is in flight (CPU free), then the IC ISR wakes it with the result. Returns TIMEOUT_STATE if no echo within the window.  <br /></td></tr>
+<tr class="memitem:a29b879f76d665878390dd6161d1eea84" id="r_a29b879f76d665878390dd6161d1eea84"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a29b879f76d665878390dd6161d1eea84">US_vInit</a> (const <a class="el" href="structUS__Config__t.html">US_Config_t</a> *pxSensor)</td></tr>
+<tr class="memdesc:a29b879f76d665878390dd6161d1eea84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize GPIO pins and Timer for the given ultrasonic sensor.  <br /></td></tr>
+<tr class="memitem:a49bd64d408631fd63886cbc413453e08" id="r_a49bd64d408631fd63886cbc413453e08"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a49bd64d408631fd63886cbc413453e08">US_u16ReadDistance_cm</a> (const <a class="el" href="structUS__Config__t.html">US_Config_t</a> *pxSensor, uint16_t *pu16Dist_cm)</td></tr>
+<tr class="memdesc:a49bd64d408631fd63886cbc413453e08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trigger sensor and measure distance in centimeters (blocking).  <br /></td></tr>
 </table>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Public API of the US driver — the HC-SR04 ultrasonic rangefinders. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Abdelmoemen Shehawey  </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="US__interface_8h_source.html">US_interface.h</a>.</p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a29b879f76d665878390dd6161d1eea84" name="a29b879f76d665878390dd6161d1eea84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29b879f76d665878390dd6161d1eea84">&#9670;&#160;</a></span>US_vInit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> US_vInit </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structUS__Config__t.html">US_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>pxSensor</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize GPIO pins and Timer for the given ultrasonic sensor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pxSensor</td><td>Pointer to sensor configuration structure. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a>: OK if successful, NULL_POINTER / NOK on error.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>- TRIG pin → Output Push-Pull<ul>
+<li>ECHO pin → Input Floating (No Pull)</li>
+<li>RCC clock for GPIO port(s) and Timer must be enabled BEFORE calling this.</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>Example:</dt><dd></dd></dl>
+<p><a class="el" href="structUS__Config__t.html" title="Configuration structure for a single Ultrasonic sensor instance.">US_Config_t</a> sensor = {TIM_TIMER2, GPIO_PORTA, GPIO_PIN0, GPIO_PORTA, GPIO_PIN1}; US_vInit(&amp;sensor); </p>
+
+<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00196">196</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
+
+<p class="reference">References <a class="el" href="GPIO__interface_8h_source.html#l00159">GPIO_PinConfig_t::AlternateFunction</a>, <a class="el" href="STM32F446xx_8h_source.html#l00415">TIM_TypeDef::ARR</a>, <a class="el" href="STM32F446xx_8h_source.html#l00421">TIM_TypeDef::BDTR</a>, <a class="el" href="US__interface_8h_source.html#l00048">US_Config_t::Channel</a>, <a class="el" href="STM32F446xx_8h_source.html#l00404">TIM_TypeDef::CR1</a>, <a class="el" href="US__interface_8h_source.html#l00052">US_Config_t::EchoPin</a>, <a class="el" href="US__interface_8h_source.html#l00051">US_Config_t::EchoPort</a>, <a class="el" href="STM32F446xx_8h_source.html#l00409">TIM_TypeDef::EGR</a>, <a class="el" href="GPIO__interface_8h_source.html#l00122">GPIO_AF1</a>, <a class="el" href="GPIO__interface_8h_source.html#l00123">GPIO_AF2</a>, <a class="el" href="GPIO__interface_8h_source.html#l00124">GPIO_AF3</a>, <a class="el" href="GPIO__interface_8h_source.html#l00079">GPIO_ALTFN</a>, <a class="el" href="GPIO__prog_8c_source.html#l00041">GPIO_enumPinInit()</a>, <a class="el" href="GPIO__interface_8h_source.html#l00102">GPIO_MEDIUM_SPEED</a>, <a class="el" href="GPIO__interface_8h_source.html#l00109">GPIO_NO_PULL</a>, <a class="el" href="GPIO__interface_8h_source.html#l00078">GPIO_OUTPUT</a>, <a class="el" href="GPIO__interface_8h_source.html#l00085">GPIO_PUSH_PULL</a>, <a class="el" href="GPIO__interface_8h_source.html#l00104">GPIO_VERY_HIGH_SPEED</a>, <a class="el" href="ErrTypes_8h_source.html#l00043">NOK</a>, <a class="el" href="ErrTypes_8h_source.html#l00024">NULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00044">NULL_POINTER</a>, <a class="el" href="NVIC__program_8c_source.html#l00037">NVIC_vEnableIRQ()</a>, <a class="el" href="NVIC__program_8c_source.html#l00141">NVIC_vSetPriority()</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="STM32F446xx_8h_source.html#l00414">TIM_TypeDef::PSC</a>, <a class="el" href="STD__MACROS_8h_source.html#l00039">SET_BIT</a>, <a class="el" href="STM32F446xx_8h_source.html#l00408">TIM_TypeDef::SR</a>, <a class="el" href="TIM__private_8h_source.html#l00015">TIM_CR1_CEN</a>, <a class="el" href="TIM__interface_8h_source.html#l00122">TIM_IC_PSC_DIV1</a>, <a class="el" href="TIM__interface_8h_source.html#l00111">TIM_IC_SELECTION_DIRECT_TI</a>, <a class="el" href="TIM__interface_8h_source.html#l00074">TIM_POLARITY_HIGH</a>, <a class="el" href="TIM__interface_8h_source.html#l00029">TIM_TIMER1</a>, <a class="el" href="TIM__interface_8h_source.html#l00025">TIM_TIMER2</a>, <a class="el" href="TIM__interface_8h_source.html#l00026">TIM_TIMER3</a>, <a class="el" href="TIM__interface_8h_source.html#l00028">TIM_TIMER5</a>, <a class="el" href="TIM__interface_8h_source.html#l00031">TIM_TIMER6</a>, <a class="el" href="TIM__interface_8h_source.html#l00030">TIM_TIMER8</a>, <a class="el" href="TIM__program_8c_source.html#l00239">TIM_vIC_Init()</a>, <a class="el" href="TIM__program_8c_source.html#l00551">TIM_vSetCCCallback()</a>, <a class="el" href="TIM__program_8c_source.html#l00103">TIM_vStart()</a>, <a class="el" href="US__interface_8h_source.html#l00047">US_Config_t::Timer</a>, <a class="el" href="US__interface_8h_source.html#l00050">US_Config_t::TrigPin</a>, <a class="el" href="US__interface_8h_source.html#l00049">US_Config_t::TrigPort</a>, <a class="el" href="US__prog_8c_source.html#l00145">US_CC_Handler()</a>, <a class="el" href="US__config_8h_source.html#l00020">US_SYS_CLK_HZ</a>, <a class="el" href="US__prog_8c_source.html#l00030">US_TIM_Array</a>, <a class="el" href="US__prog_8c_source.html#l00113">US_u8NvicIrqForTimer()</a>, and <a class="el" href="US__prog_8c_source.html#l00078">US_xDoneSem</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="System_8c_source.html#l00133">System_setup()</a>.</p>
+<div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="US__interface_8h_a29b879f76d665878390dd6161d1eea84_cgraph.svg" width="532" height="403"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="US__interface_8h_a29b879f76d665878390dd6161d1eea84_icgraph.svg" width="350" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
 <a id="a49bd64d408631fd63886cbc413453e08" name="a49bd64d408631fd63886cbc413453e08"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a49bd64d408631fd63886cbc413453e08">&#9670;&#160;</a></span>US_u16ReadDistance_cm()</h2>
 
@@ -159,7 +192,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> US_u16ReadDistance_cm </td>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> US_u16ReadDistance_cm </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structUS__Config__t.html">US_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>pxSensor</em></span>, </td>
         </tr>
@@ -171,90 +204,39 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Trigger sensor and measure distance (cm). The calling task SLEEPS on a semaphore while the echo is in flight (CPU free), then the IC ISR wakes it with the result. Returns TIMEOUT_STATE if no echo within the window. </p>
-<dl class="section note"><dt>Note</dt><dd>MUST be called from a task context (uses a FreeRTOS semaphore). Not reentrant: one measurement at a time (sequential by design). </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2HAL_2US_2US_interface_8h-example.html#a7">/media/Local-Disk/Data/V2X-Collision-Avoidance/V2V-STM32/Inc/Drivers/HAL/US/US_interface.h</a>.</dd>
+<p>Trigger sensor and measure distance in centimeters (blocking). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pxSensor</td><td>Pointer to sensor configuration structure. </td></tr>
+    <tr><td class="paramname">pu16Dist_cm</td><td>Pointer to store the measured distance (cm). </td></tr>
+  </table>
+  </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a>: OK if successful, TIMEOUT_STATE if no echo received (no object / out of range), NULL_POINTER if any pointer is NULL, NOK if invalid parameters.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>- Effective range: ~2 cm to ~400 cm.<ul>
+<li>Interrupt-driven: the calling task SLEEPS on a semaphore while the echo is in flight (CPU is free for other tasks), then the IC ISR wakes it with the result. MUST be called from a task context.</li>
+<li>Not reentrant: one measurement at a time (sequential by design).</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>Example:</dt><dd></dd></dl>
+<p>uint16_t dist; if (US_u16ReadDistance_cm(&amp;sensor, &amp;dist) == OK) { // use dist } </p>
 
-<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00234">234</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="US__interface_8h_a49bd64d408631fd63886cbc413453e08_cgraph.png" border="0" usemap="#aUS__interface_8h_a49bd64d408631fd63886cbc413453e08_cgraph" loading="lazy" alt=""/></div>
-<map name="aUS__interface_8h_a49bd64d408631fd63886cbc413453e08_cgraph" id="aUS__interface_8h_a49bd64d408631fd63886cbc413453e08_cgraph">
-<area shape="rect" title="Trigger sensor and measure distance (cm). The calling task SLEEPS on a semaphore while the echo is in..." alt="" coords="5,57,193,85"/>
-<area shape="rect" href="TIM__program_8c.html#a05c68c2d16e14ca08f925fc789f8c000" title=" " alt="" coords="241,5,424,33"/>
-<area shape="poly" title=" " alt="" coords="164,54,254,36,249,38,165,59"/>
-<area shape="rect" href="TIM__program_8c.html#a78dfd09e838628d35bd9fc18ddd575ad" title=" " alt="" coords="243,57,422,85"/>
-<area shape="poly" title=" " alt="" coords="192,69,230,71,225,72,193,74"/>
-<area shape="rect" href="TIM__program_8c.html#af6ce9419f48628e54cb1110dae65e1f1" title=" " alt="" coords="260,109,404,137"/>
-<area shape="poly" title=" " alt="" coords="165,83,254,105,249,106,164,88"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="US__interface_8h_a49bd64d408631fd63886cbc413453e08_icgraph.png" border="0" usemap="#aUS__interface_8h_a49bd64d408631fd63886cbc413453e08_icgraph" loading="lazy" alt=""/></div>
-<map name="aUS__interface_8h_a49bd64d408631fd63886cbc413453e08_icgraph" id="aUS__interface_8h_a49bd64d408631fd63886cbc413453e08_icgraph">
-<area shape="rect" title="Trigger sensor and measure distance (cm). The calling task SLEEPS on a semaphore while the echo is in..." alt="" coords="272,5,459,33"/>
-<area shape="rect" href="main_8c.html#a6124e00be85460e2af1224524c6c2278" title="Reads ALL 6 ultrasonics + MPU9250 every cycle, then a small gap." alt="" coords="108,5,224,33"/>
-<area shape="poly" title=" " alt="" coords="254,19,225,22,225,17,259,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="90,20,60,22,60,17,95,18"/>
-</map>
-</div>
+<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00278">278</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
 
-</div>
-</div>
-<a id="a29b879f76d665878390dd6161d1eea84" name="a29b879f76d665878390dd6161d1eea84"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29b879f76d665878390dd6161d1eea84">&#9670;&#160;</a></span>US_vInit()</h2>
+<p class="reference">References <a class="el" href="US__interface_8h_source.html#l00048">US_Config_t::Channel</a>, <a class="el" href="ErrTypes_8h_source.html#l00043">NOK</a>, <a class="el" href="ErrTypes_8h_source.html#l00024">NULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00044">NULL_POINTER</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="STM32F446xx_8h_source.html#l00408">TIM_TypeDef::SR</a>, <a class="el" href="TIM__interface_8h_source.html#l00074">TIM_POLARITY_HIGH</a>, <a class="el" href="TIM__private_8h_source.html#l00059">TIM_SR_CC1IF</a>, <a class="el" href="TIM__interface_8h_source.html#l00025">TIM_TIMER2</a>, <a class="el" href="TIM__interface_8h_source.html#l00028">TIM_TIMER5</a>, <a class="el" href="TIM__program_8c_source.html#l00544">TIM_vDisableCCInterrupt()</a>, <a class="el" href="TIM__program_8c_source.html#l00536">TIM_vEnableCCInterrupt()</a>, <a class="el" href="TIM__program_8c_source.html#l00361">TIM_vSetICPolarity()</a>, <a class="el" href="ErrTypes_8h_source.html#l00046">TIMEOUT_STATE</a>, <a class="el" href="US__interface_8h_source.html#l00047">US_Config_t::Timer</a>, <a class="el" href="US__prog_8c.html#a6e45c6ae507b29bc14bd9f3a65271abf">US_Active</a>, <a class="el" href="US__prog_8c_source.html#l00045">US_PHASE_DONE</a>, <a class="el" href="US__prog_8c_source.html#l00043">US_PHASE_RISING</a>, <a class="el" href="US__config_8h_source.html#l00069">US_TASK_TIMEOUT_MS</a>, <a class="el" href="US__prog_8c_source.html#l00030">US_TIM_Array</a>, <a class="el" href="US__prog_8c_source.html#l00096">US_vSendTrigger()</a>, and <a class="el" href="US__prog_8c_source.html#l00078">US_xDoneSem</a>.</p>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> US_vInit </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structUS__Config__t.html">US_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>pxSensor</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2HAL_2US_2US_interface_8h-example.html#a6">/media/Local-Disk/Data/V2X-Collision-Avoidance/V2V-STM32/Inc/Drivers/HAL/US/US_interface.h</a>.</dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00152">152</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="US__interface_8h_a29b879f76d665878390dd6161d1eea84_cgraph.png" border="0" usemap="#aUS__interface_8h_a29b879f76d665878390dd6161d1eea84_cgraph" loading="lazy" alt=""/></div>
-<map name="aUS__interface_8h_a29b879f76d665878390dd6161d1eea84_cgraph" id="aUS__interface_8h_a29b879f76d665878390dd6161d1eea84_cgraph">
-<area shape="rect" title=" " alt="" coords="5,136,81,164"/>
-<area shape="rect" href="GPIO__prog_8c.html#a2a5e7c89bc6bb7103d96334a8481ea9b" title=" " alt="" coords="137,5,276,33"/>
-<area shape="poly" title=" " alt="" coords="50,134,80,90,102,65,127,44,140,38,136,42,130,48,106,69,84,93,55,137"/>
-<area shape="rect" href="NVIC__program_8c.html#a85d98abbd23523e4abf16cc4b4501431" title="Enable an IRQ number in the NVIC." alt="" coords="139,57,274,85"/>
-<area shape="poly" title=" " alt="" coords="63,133,127,95,146,89,142,93,130,100,67,138"/>
-<area shape="rect" href="NVIC__program_8c.html#adacfc2d410ead15ca25830190e615000" title="Set priority for an IRQ number in the NVIC." alt="" coords="138,109,274,137"/>
-<area shape="poly" title=" " alt="" coords="80,141,125,135,121,139,82,146"/>
-<area shape="rect" href="TIM__program_8c.html#a8e1065f213120676872fdbbd5ccfd37a" title=" " alt="" coords="156,161,257,189"/>
-<area shape="poly" title=" " alt="" coords="81,153,143,163,138,167,82,158"/>
-<area shape="rect" href="TIM__program_8c.html#a3a4b086e0c4a0656e57a585ec35734d3" title=" " alt="" coords="129,213,284,241"/>
-<area shape="poly" title=" " alt="" coords="66,162,130,198,147,207,142,208,127,203,65,167"/>
-<area shape="rect" href="TIM__program_8c.html#a2bd184de6083fb2ccf17231557037835" title=" " alt="" coords="161,265,252,293"/>
-<area shape="poly" title=" " alt="" coords="53,162,85,206,106,230,130,250,149,263,144,262,127,255,102,234,81,209,52,167"/>
-</map>
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00247">vTask_Sensors()</a>.</p>
+<div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="US__interface_8h_a29b879f76d665878390dd6161d1eea84_icgraph.png" border="0" usemap="#aUS__interface_8h_a29b879f76d665878390dd6161d1eea84_icgraph" loading="lazy" alt=""/></div>
-<map name="aUS__interface_8h_a29b879f76d665878390dd6161d1eea84_icgraph" id="aUS__interface_8h_a29b879f76d665878390dd6161d1eea84_icgraph">
-<area shape="rect" title=" " alt="" coords="269,5,344,33"/>
-<area shape="rect" href="System_8c.html#ae436954cd2bde6634ab271317d2494a7" title=" " alt="" coords="108,5,221,33"/>
-<area shape="poly" title=" " alt="" coords="251,19,222,22,222,17,256,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,95,18"/>
-</map>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="US__interface_8h_a49bd64d408631fd63886cbc413453e08_cgraph.svg" width="650" height="220"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="US__interface_8h_a49bd64d408631fd63886cbc413453e08_icgraph.svg" width="466" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -272,7 +254,7 @@ Here is the caller graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_f93dfce691d792349f1c14ede440e2e6.html">Inc</a></li><li class="navelem"><a href="dir_5807d32f659ca06f2d44f24c89728eb8.html">Drivers</a></li><li class="navelem"><a href="dir_2c576cc013bc705cce6153db29f6dfa3.html">HAL</a></li><li class="navelem"><a href="dir_6fe23bfa12d824557f1521aef27d29b7.html">US</a></li><li class="navelem"><a href="US__interface_8h.html">US_interface.h</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Inc</b></li><li class="navelem"><b>Drivers</b></li><li class="navelem"><b>HAL</b></li><li class="navelem"><b>US</b></li><li class="navelem"><a href="US__interface_8h.html">US_interface.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

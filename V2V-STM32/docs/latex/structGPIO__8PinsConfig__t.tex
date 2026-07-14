@@ -2,100 +2,152 @@
 \hypertarget{structGPIO__8PinsConfig__t}{}\label{structGPIO__8PinsConfig__t}\index{GPIO\_8PinsConfig\_t@{GPIO\_8PinsConfig\_t}}
 
 
-{\ttfamily \+\#include $<$GPIO\+\_\+interface.\+h$>$}
+Configuration of 8 consecutive pins, as passed to \doxylink{group__mcal__gpio_ga0e3f73a3160885bf15f427e9e894f2de}{GPIO\+\_\+enum\+Port8\+Pins\+Init}.  
+
+
+
+
+{\ttfamily \+\#include $<$Drivers/\+\+MCAL/\+\+GPIO/\+\+GPIO\+\_\+interface.\+h$>$}
 
 \doxysubsubsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
-\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} \doxymbox{\hyperlink{structGPIO__8PinsConfig__t_afabe43e5f9415c325b7724d977acbe94}{Port}}
-\item 
-\doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} \doxymbox{\hyperlink{structGPIO__8PinsConfig__t_af8ada7e75d350749365e04a11734fc05}{Start\+Pin}}
-\item 
-\doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26}{GPIO\+\_\+\+Mode\+\_\+t}} \doxymbox{\hyperlink{structGPIO__8PinsConfig__t_a93f5c691aa838b8422d318587739096b}{Mode}}
-\item 
-\doxymbox{\hyperlink{GPIO__interface_8h_a6470c88cd80e5ef53ac53602e73207f0}{GPIO\+\_\+\+Output\+Type\+\_\+t}} \doxymbox{\hyperlink{structGPIO__8PinsConfig__t_a8f5b77a082cd3c5009adfd3d292b7b01}{Otype}}
-\item 
-\doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71}{GPIO\+\_\+\+Output\+Speed\+\_\+t}} \doxymbox{\hyperlink{structGPIO__8PinsConfig__t_a3d75ac7403998824ea73f35c0eb7874d}{Speed}}
-\item 
-\doxymbox{\hyperlink{GPIO__interface_8h_af3291f1e475675bffc656c9f0c4c7399}{GPIO\+\_\+\+Pull\+Up\+Down\+\_\+t}} \doxymbox{\hyperlink{structGPIO__8PinsConfig__t_a7cf5313a1a5111313f7f5b89ede16444}{Pull\+Type}}
-\end{DoxyCompactItemize}
+\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} \doxymbox{\hyperlink{structGPIO__8PinsConfig__t_afabe43e5f9415c325b7724d977acbe94}{Port}}
+\begin{DoxyCompactList}\small\item\em Which port. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} \doxymbox{\hyperlink{structGPIO__8PinsConfig__t_af8ada7e75d350749365e04a11734fc05}{Start\+Pin}}
+\begin{DoxyCompactList}\small\item\em First of the 8 pins; must be \doxylink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a451abbd2d09eb906813528a1ceccdd03}{GPIO\+\_\+\+PIN8} or below so the run fits in the port. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__gpio_gafb8ae0eef9d79d2066ab67bbf12d9f26}{GPIO\+\_\+\+Mode\+\_\+t}} \doxymbox{\hyperlink{structGPIO__8PinsConfig__t_a93f5c691aa838b8422d318587739096b}{Mode}}
+\begin{DoxyCompactList}\small\item\em Mode applied to all 8 pins. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__gpio_ga6470c88cd80e5ef53ac53602e73207f0}{GPIO\+\_\+\+Output\+Type\+\_\+t}} \doxymbox{\hyperlink{structGPIO__8PinsConfig__t_a8f5b77a082cd3c5009adfd3d292b7b01}{Otype}}
+\begin{DoxyCompactList}\small\item\em Output type applied to all 8 pins. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__gpio_gad0390106f85689de1897dd9543754e71}{GPIO\+\_\+\+Output\+Speed\+\_\+t}} \doxymbox{\hyperlink{structGPIO__8PinsConfig__t_a3d75ac7403998824ea73f35c0eb7874d}{Speed}}
+\begin{DoxyCompactList}\small\item\em Output speed applied to all 8 pins. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__gpio_gaf3291f1e475675bffc656c9f0c4c7399}{GPIO\+\_\+\+Pull\+Up\+Down\+\_\+t}} \doxymbox{\hyperlink{structGPIO__8PinsConfig__t_a7cf5313a1a5111313f7f5b89ede16444}{Pull\+Type}}
+\begin{DoxyCompactList}\small\item\em Pull configuration applied to all 8 pins. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2GPIO_2GPIO_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+GPIO/\+\+GPIO\+\_\+interface.\+h}}.\end{Desc}
+Configuration of 8 consecutive pins, as passed to \doxylink{group__mcal__gpio_ga0e3f73a3160885bf15f427e9e894f2de}{GPIO\+\_\+enum\+Port8\+Pins\+Init}. 
 
+All eight pins get the same mode, output type, speed and pull. 
 
-Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00211}{211}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00173}{173}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
 
 
 
 \label{doc-variable-members}
 \Hypertarget{structGPIO__8PinsConfig__t_doc-variable-members}
 \doxysubsection{Field Documentation}
-\Hypertarget{structGPIO__8PinsConfig__t_a93f5c691aa838b8422d318587739096b}\index{GPIO\_8PinsConfig\_t@{GPIO\_8PinsConfig\_t}!Mode@{Mode}}
-\index{Mode@{Mode}!GPIO\_8PinsConfig\_t@{GPIO\_8PinsConfig\_t}}
-\doxysubsubsection{\texorpdfstring{Mode}{Mode}}
-{\footnotesize\ttfamily \label{structGPIO__8PinsConfig__t_a93f5c691aa838b8422d318587739096b} 
-\doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26}{GPIO\+\_\+\+Mode\+\_\+t}} GPIO\+\_\+8\+Pins\+Config\+\_\+t::\+\+Mode}
-
-
-
-Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00214}{214}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
-
-\Hypertarget{structGPIO__8PinsConfig__t_a8f5b77a082cd3c5009adfd3d292b7b01}\index{GPIO\_8PinsConfig\_t@{GPIO\_8PinsConfig\_t}!Otype@{Otype}}
-\index{Otype@{Otype}!GPIO\_8PinsConfig\_t@{GPIO\_8PinsConfig\_t}}
-\doxysubsubsection{\texorpdfstring{Otype}{Otype}}
-{\footnotesize\ttfamily \label{structGPIO__8PinsConfig__t_a8f5b77a082cd3c5009adfd3d292b7b01} 
-\doxymbox{\hyperlink{GPIO__interface_8h_a6470c88cd80e5ef53ac53602e73207f0}{GPIO\+\_\+\+Output\+Type\+\_\+t}} GPIO\+\_\+8\+Pins\+Config\+\_\+t::\+\+Otype}
-
-
-
-Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00216}{216}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
-
 \Hypertarget{structGPIO__8PinsConfig__t_afabe43e5f9415c325b7724d977acbe94}\index{GPIO\_8PinsConfig\_t@{GPIO\_8PinsConfig\_t}!Port@{Port}}
 \index{Port@{Port}!GPIO\_8PinsConfig\_t@{GPIO\_8PinsConfig\_t}}
 \doxysubsubsection{\texorpdfstring{Port}{Port}}
 {\footnotesize\ttfamily \label{structGPIO__8PinsConfig__t_afabe43e5f9415c325b7724d977acbe94} 
-\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} GPIO\+\_\+8\+Pins\+Config\+\_\+t::\+\+Port}
+\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} GPIO\+\_\+8\+Pins\+Config\+\_\+t::\+\+Port}
 
 
 
-Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00212}{212}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
-
-\Hypertarget{structGPIO__8PinsConfig__t_a7cf5313a1a5111313f7f5b89ede16444}\index{GPIO\_8PinsConfig\_t@{GPIO\_8PinsConfig\_t}!PullType@{PullType}}
-\index{PullType@{PullType}!GPIO\_8PinsConfig\_t@{GPIO\_8PinsConfig\_t}}
-\doxysubsubsection{\texorpdfstring{PullType}{PullType}}
-{\footnotesize\ttfamily \label{structGPIO__8PinsConfig__t_a7cf5313a1a5111313f7f5b89ede16444} 
-\doxymbox{\hyperlink{GPIO__interface_8h_af3291f1e475675bffc656c9f0c4c7399}{GPIO\+\_\+\+Pull\+Up\+Down\+\_\+t}} GPIO\+\_\+8\+Pins\+Config\+\_\+t::\+\+Pull\+Type}
+Which port. 
 
 
 
-Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00220}{220}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
-
-\Hypertarget{structGPIO__8PinsConfig__t_a3d75ac7403998824ea73f35c0eb7874d}\index{GPIO\_8PinsConfig\_t@{GPIO\_8PinsConfig\_t}!Speed@{Speed}}
-\index{Speed@{Speed}!GPIO\_8PinsConfig\_t@{GPIO\_8PinsConfig\_t}}
-\doxysubsubsection{\texorpdfstring{Speed}{Speed}}
-{\footnotesize\ttfamily \label{structGPIO__8PinsConfig__t_a3d75ac7403998824ea73f35c0eb7874d} 
-\doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71}{GPIO\+\_\+\+Output\+Speed\+\_\+t}} GPIO\+\_\+8\+Pins\+Config\+\_\+t::\+\+Speed}
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00174}{174}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
 
 
 
-Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00218}{218}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+Referenced by \doxymbox{\hyperlink{GPIO__prog_8c_source_l00323}{GPIO\+\_\+enum\+Port8\+Pins\+Init()}}.
 
 \Hypertarget{structGPIO__8PinsConfig__t_af8ada7e75d350749365e04a11734fc05}\index{GPIO\_8PinsConfig\_t@{GPIO\_8PinsConfig\_t}!StartPin@{StartPin}}
 \index{StartPin@{StartPin}!GPIO\_8PinsConfig\_t@{GPIO\_8PinsConfig\_t}}
 \doxysubsubsection{\texorpdfstring{StartPin}{StartPin}}
 {\footnotesize\ttfamily \label{structGPIO__8PinsConfig__t_af8ada7e75d350749365e04a11734fc05} 
-\doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} GPIO\+\_\+8\+Pins\+Config\+\_\+t::\+\+Start\+Pin}
+\doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} GPIO\+\_\+8\+Pins\+Config\+\_\+t::\+\+Start\+Pin}
 
 
 
-Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00213}{213}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+First of the 8 pins; must be \doxylink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a451abbd2d09eb906813528a1ceccdd03}{GPIO\+\_\+\+PIN8} or below so the run fits in the port. 
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00175}{175}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{GPIO__prog_8c_source_l00323}{GPIO\+\_\+enum\+Port8\+Pins\+Init()}}.
+
+\Hypertarget{structGPIO__8PinsConfig__t_a93f5c691aa838b8422d318587739096b}\index{GPIO\_8PinsConfig\_t@{GPIO\_8PinsConfig\_t}!Mode@{Mode}}
+\index{Mode@{Mode}!GPIO\_8PinsConfig\_t@{GPIO\_8PinsConfig\_t}}
+\doxysubsubsection{\texorpdfstring{Mode}{Mode}}
+{\footnotesize\ttfamily \label{structGPIO__8PinsConfig__t_a93f5c691aa838b8422d318587739096b} 
+\doxymbox{\hyperlink{group__mcal__gpio_gafb8ae0eef9d79d2066ab67bbf12d9f26}{GPIO\+\_\+\+Mode\+\_\+t}} GPIO\+\_\+8\+Pins\+Config\+\_\+t::\+\+Mode}
+
+
+
+Mode applied to all 8 pins. 
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00176}{176}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{GPIO__prog_8c_source_l00323}{GPIO\+\_\+enum\+Port8\+Pins\+Init()}}.
+
+\Hypertarget{structGPIO__8PinsConfig__t_a8f5b77a082cd3c5009adfd3d292b7b01}\index{GPIO\_8PinsConfig\_t@{GPIO\_8PinsConfig\_t}!Otype@{Otype}}
+\index{Otype@{Otype}!GPIO\_8PinsConfig\_t@{GPIO\_8PinsConfig\_t}}
+\doxysubsubsection{\texorpdfstring{Otype}{Otype}}
+{\footnotesize\ttfamily \label{structGPIO__8PinsConfig__t_a8f5b77a082cd3c5009adfd3d292b7b01} 
+\doxymbox{\hyperlink{group__mcal__gpio_ga6470c88cd80e5ef53ac53602e73207f0}{GPIO\+\_\+\+Output\+Type\+\_\+t}} GPIO\+\_\+8\+Pins\+Config\+\_\+t::\+\+Otype}
+
+
+
+Output type applied to all 8 pins. 
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00177}{177}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{GPIO__prog_8c_source_l00323}{GPIO\+\_\+enum\+Port8\+Pins\+Init()}}.
+
+\Hypertarget{structGPIO__8PinsConfig__t_a3d75ac7403998824ea73f35c0eb7874d}\index{GPIO\_8PinsConfig\_t@{GPIO\_8PinsConfig\_t}!Speed@{Speed}}
+\index{Speed@{Speed}!GPIO\_8PinsConfig\_t@{GPIO\_8PinsConfig\_t}}
+\doxysubsubsection{\texorpdfstring{Speed}{Speed}}
+{\footnotesize\ttfamily \label{structGPIO__8PinsConfig__t_a3d75ac7403998824ea73f35c0eb7874d} 
+\doxymbox{\hyperlink{group__mcal__gpio_gad0390106f85689de1897dd9543754e71}{GPIO\+\_\+\+Output\+Speed\+\_\+t}} GPIO\+\_\+8\+Pins\+Config\+\_\+t::\+\+Speed}
+
+
+
+Output speed applied to all 8 pins. 
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00178}{178}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{GPIO__prog_8c_source_l00323}{GPIO\+\_\+enum\+Port8\+Pins\+Init()}}.
+
+\Hypertarget{structGPIO__8PinsConfig__t_a7cf5313a1a5111313f7f5b89ede16444}\index{GPIO\_8PinsConfig\_t@{GPIO\_8PinsConfig\_t}!PullType@{PullType}}
+\index{PullType@{PullType}!GPIO\_8PinsConfig\_t@{GPIO\_8PinsConfig\_t}}
+\doxysubsubsection{\texorpdfstring{PullType}{PullType}}
+{\footnotesize\ttfamily \label{structGPIO__8PinsConfig__t_a7cf5313a1a5111313f7f5b89ede16444} 
+\doxymbox{\hyperlink{group__mcal__gpio_gaf3291f1e475675bffc656c9f0c4c7399}{GPIO\+\_\+\+Pull\+Up\+Down\+\_\+t}} GPIO\+\_\+8\+Pins\+Config\+\_\+t::\+\+Pull\+Type}
+
+
+
+Pull configuration applied to all 8 pins. 
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00179}{179}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{GPIO__prog_8c_source_l00323}{GPIO\+\_\+enum\+Port8\+Pins\+Init()}}.
 
 
 
 The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
 \item 
-Inc/\+\+Drivers/\+\+MCAL/\+\+GPIO/\+\doxymbox{\hyperlink{GPIO__interface_8h}{GPIO\+\_\+interface.\+h}}\end{DoxyCompactItemize}
+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+GPIO/\+\doxymbox{\hyperlink{GPIO__interface_8h}{GPIO\+\_\+interface.\+h}}\end{DoxyCompactItemize}

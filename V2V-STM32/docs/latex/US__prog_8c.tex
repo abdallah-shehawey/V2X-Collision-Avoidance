@@ -1,5 +1,10 @@
-\doxysection{Src/\+\+US\+\_\+prog.c File Reference}
-\hypertarget{US__prog_8c}{}\label{US__prog_8c}\index{Src/US\_prog.c@{Src/US\_prog.c}}
+\doxysection{V2\+V-\/\+STM32/\+\+Src/\+\+US\+\_\+prog.c File Reference}
+\hypertarget{US__prog_8c}{}\label{US__prog_8c}\index{V2V-\/STM32/Src/US\_prog.c@{V2V-\/STM32/Src/US\_prog.c}}
+
+
+Implementation of the US driver — the HC-\/\+SR04 ultrasonic rangefinders.  
+
+
 {\ttfamily \+\#include $<$stdint.\+h$>$}\newline
 {\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+LIB/\+\+STM32\+F446xx.\+h"{}}\newline
 {\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+LIB/\+\+STD\+\_\+\+MACROS.\+h"{}}\newline
@@ -25,18 +30,63 @@ Include dependency graph for US\+\_\+prog.\+c:\+
 \doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
-enum \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673}{US\+\_\+\+Phase\+\_\+t}} \{ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673a6bfaeb80623372f5391c4466488b480a}{US\+\_\+\+PHASE\+\_\+\+RISING}} = 0
+enum \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673}{US\+\_\+\+Phase\+\_\+t}} \{ \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673a6bfaeb80623372f5391c4466488b480a}{US\+\_\+\+PHASE\+\_\+\+RISING}}
 , \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673a7e0cf32dbb5c103550d39bf369e6a852}{US\+\_\+\+PHASE\+\_\+\+FALLING}}
 , \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673ae210b59fe9d33ecc8a76850d05d11464}{US\+\_\+\+PHASE\+\_\+\+DONE}}
  \}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Where a single echo measurement has got to. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{US__prog_8c_a29b879f76d665878390dd6161d1eea84}{US\+\_\+v\+Init}} (const \doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}px\+Sensor)
+static void \doxymbox{\hyperlink{US__prog_8c_adc51941ea05da40c9e35a99928a4ac37}{US\+\_\+v\+Send\+Trigger}} (const \doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}px\+Sensor)
+\begin{DoxyCompactList}\small\item\em Fire the trigger pulse that starts one sensor\textquotesingle{}s measurement. \end{DoxyCompactList}\item 
+static void \doxymbox{\hyperlink{US__prog_8c_a8faec99358e42145506a962e14115d12}{US\+\_\+\+CC\+\_\+\+Handler}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer, uint8\+\_\+t Copy\+\_\+u8\+Channel, uint32\+\_\+t Copy\+\_\+u32\+Capture)
+\begin{DoxyCompactList}\small\item\em Input-\/capture callback — runs the two-\/edge state machine for the active echo. \end{DoxyCompactList}\item 
+static uint8\+\_\+t \doxymbox{\hyperlink{US__prog_8c_a0aa4d878b57b45002e4a654f79b72fb2}{US\+\_\+u8\+Nvic\+Irq\+For\+Timer}} (\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} Copy\+\_\+e\+Timer)
+\begin{DoxyCompactList}\small\item\em Map one of the ultrasonic timers to its NVIC IRQ number. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{US__prog_8c_a29b879f76d665878390dd6161d1eea84}{US\+\_\+v\+Init}} (const \doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}px\+Sensor)
+\begin{DoxyCompactList}\small\item\em Initialize GPIO pins and Timer for the given ultrasonic sensor. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{US__prog_8c_a49bd64d408631fd63886cbc413453e08}{US\+\_\+u16\+Read\+Distance\+\_\+cm}} (const \doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}px\+Sensor, uint16\+\_\+t \texorpdfstring{$\ast$}{*}pu16\+Dist\+\_\+cm)
+\begin{DoxyCompactList}\small\item\em Trigger sensor and measure distance in centimeters (blocking). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
 \item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{US__prog_8c_a49bd64d408631fd63886cbc413453e08}{US\+\_\+u16\+Read\+Distance\+\_\+cm}} (const \doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}px\+Sensor, uint16\+\_\+t \texorpdfstring{$\ast$}{*}pu16\+Dist\+\_\+cm)
-\begin{DoxyCompactList}\small\item\em Trigger sensor and measure distance (cm). The calling task SLEEPS on a semaphore while the echo is in flight (CPU free), then the IC ISR wakes it with the result. Returns TIMEOUT\+\_\+\+STATE if no echo within the window. \end{DoxyCompactList}\end{DoxyCompactItemize}
+static \doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{US__prog_8c_a1075f329baf7454c0e9a988c726d67f8}{US\+\_\+\+TIM\+\_\+\+Array}} \+[\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23a7c344d8927dd06f539c5b78d7d7b9166}{TIM\+\_\+\+TIMER\+\_\+\+COUNT}}]\+
+\begin{DoxyCompactList}\small\item\em Maps a \doxylink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t} onto its register block. \end{DoxyCompactList}\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\_Num\_t}} \doxymbox{\hyperlink{US__prog_8c_a9e4d06093a8d0697179ece54c8df7bc2}{timer}}\\
+\>\>{\em Timer doing the capture for the active sensor. }\\
+\>uint8\_t \doxymbox{\hyperlink{US__prog_8c_a715f5cb061d11eb75981741eda4dafcd}{channel}}\\
+\>\>{\em Its capture/compare channel, 0..3. }\\
+\>uint32\_t \doxymbox{\hyperlink{US__prog_8c_ae3410746ad12451a31ab39175fb1dc70}{maxval}}\\
+\>\>{\em The timer\textquotesingle{}s wrap value (0xFFFF or 0xFFFFFFFF), needed to unwrap a counter that rolled over mid-\/echo. }\\
+\>uint32\_t \doxymbox{\hyperlink{US__prog_8c_a6858d4bf91e3f238387650930c15b7fd}{t1}}\\
+\>\>{\em Counter value captured on the rising edge. }\\
+\>\doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673}{US\_Phase\_t}} \doxymbox{\hyperlink{US__prog_8c_a34bb55e8c64d1459517441eebc24dfca}{phase}}\\
+\>\>{\em Which edge we are waiting for. }\\
+\>uint8\_t \doxymbox{\hyperlink{US__prog_8c_a75adb1881fa5da948723d7b8807b78cd}{valid}}\\
+\>\>{\em 1 if a real echo was timed; 0 if it was out of range or garbage. }\\
+\>uint16\_t \doxymbox{\hyperlink{US__prog_8c_a03af6795f10317f1531bf283279c6cff}{dist\_cm}}\\
+\>\>{\em The result \+[cm]\+; meaningful only once {\ttfamily \doxylink{US__prog_8c_a34bb55e8c64d1459517441eebc24dfca}{phase} == \doxylink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673ae210b59fe9d33ecc8a76850d05d11464}{US\_PHASE\_DONE}} and {\ttfamily \doxylink{US__prog_8c_a75adb1881fa5da948723d7b8807b78cd}{valid}} is 1. }\\
+\} \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\_Active}}\\
+
+\end{tabbing}\begin{DoxyCompactList}\small\item\em The one measurement currently in flight. \end{DoxyCompactList}\item 
+static Semaphore\+Handle\+\_\+t \doxymbox{\hyperlink{US__prog_8c_a45b109c89a06e7204f4c203252f57350}{US\+\_\+x\+Done\+Sem}}
+\begin{DoxyCompactList}\small\item\em Given by the capture ISR when a measurement completes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of the US driver — the HC-\/\+SR04 ultrasonic rangefinders. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
+
 
 
 \label{doc-enum-members}
@@ -48,51 +98,271 @@ enum \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673}{US\+\_\
 {\footnotesize\ttfamily \label{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673} 
 enum \doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673}{US\+\_\+\+Phase\+\_\+t}}}
 
-\begin{DoxyEnumFields}[2]{Enumerator}
+
+
+Where a single echo measurement has got to. 
+
+An HC-\/\+SR04 reports distance as the {\itshape width} of its echo pulse, so timing it takes two interrupts:\+ one on the rising edge to start the clock, one on the falling edge to stop it. This enum is what the ISR uses to know which of the two it is looking at. \begin{DoxyEnumFields}[3]{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{US\_PHASE\_RISING@{US\_PHASE\_RISING}!US\_prog.c@{US\_prog.c}}
 \index{US\_prog.c@{US\_prog.c}!US\_PHASE\_RISING@{US\_PHASE\_RISING}}
 }\Hypertarget{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673a6bfaeb80623372f5391c4466488b480a}\label{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673a6bfaeb80623372f5391c4466488b480a} 
-US\+\_\+\+PHASE\+\_\+\+RISING&\\
+US\+\_\+\+PHASE\+\_\+\+RISING&0&Waiting for the rising edge — the echo has not started yet. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{US\_PHASE\_FALLING@{US\_PHASE\_FALLING}!US\_prog.c@{US\_prog.c}}
 \index{US\_prog.c@{US\_prog.c}!US\_PHASE\_FALLING@{US\_PHASE\_FALLING}}
 }\Hypertarget{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673a7e0cf32dbb5c103550d39bf369e6a852}\label{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673a7e0cf32dbb5c103550d39bf369e6a852} 
-US\+\_\+\+PHASE\+\_\+\+FALLING&\\
+US\+\_\+\+PHASE\+\_\+\+FALLING&&Rising edge seen and timestamped; waiting for the falling edge. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{US\_PHASE\_DONE@{US\_PHASE\_DONE}!US\_prog.c@{US\_prog.c}}
 \index{US\_prog.c@{US\_prog.c}!US\_PHASE\_DONE@{US\_PHASE\_DONE}}
 }\Hypertarget{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673ae210b59fe9d33ecc8a76850d05d11464}\label{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673ae210b59fe9d33ecc8a76850d05d11464} 
-US\+\_\+\+PHASE\+\_\+\+DONE&\\
+US\+\_\+\+PHASE\+\_\+\+DONE&&Both edges seen; the distance is ready. \\
 \hline
 
 \end{DoxyEnumFields}
 
 
-Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00038}{38}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
+Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00041}{41}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
 
 
 
 \label{doc-func-members}
 \Hypertarget{US__prog_8c_doc-func-members}
 \doxysubsection{Function Documentation}
+\Hypertarget{US__prog_8c_adc51941ea05da40c9e35a99928a4ac37}\index{US\_prog.c@{US\_prog.c}!US\_vSendTrigger@{US\_vSendTrigger}}
+\index{US\_vSendTrigger@{US\_vSendTrigger}!US\_prog.c@{US\_prog.c}}
+\doxysubsubsection{\texorpdfstring{US\_vSendTrigger()}{US\_vSendTrigger()}}
+{\footnotesize\ttfamily \label{US__prog_8c_adc51941ea05da40c9e35a99928a4ac37} 
+void US\+\_\+v\+Send\+Trigger (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{px\+Sensor}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Fire the trigger pulse that starts one sensor\textquotesingle{}s measurement. 
+
+Holds TRIG low for \doxylink{US__config_8h_ac82821dff0173e63bfc7953f43c50066}{US\+\_\+\+TRIG\+\_\+\+SETTLE\+\_\+\+US} to guarantee a clean edge, then high for \doxylink{US__config_8h_a8a95e538fdb97455266761408d1db73e}{US\+\_\+\+TRIG\+\_\+\+PULSE\+\_\+\+US} — the minimum the HC-\/\+SR04 datasheet demands.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em px\+Sensor} & The sensor to trigger. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00096}{96}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__prog_8c_source_l00475}{GPIO\+\_\+enum\+Write\+Pin\+Val()}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00142}{GPIO\+\_\+\+PIN\+\_\+\+HIGH}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00141}{GPIO\+\_\+\+PIN\+\_\+\+LOW}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00031}{TIM\+\_\+\+TIMER6}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00480}{TIM\+\_\+v\+Delay\+Us()}}, \doxymbox{\hyperlink{US__interface_8h_source_l00050}{US\+\_\+\+Config\+\_\+t::\+\+Trig\+Pin}}, \doxymbox{\hyperlink{US__interface_8h_source_l00049}{US\+\_\+\+Config\+\_\+t::\+\+Trig\+Port}}, \doxymbox{\hyperlink{US__config_8h_source_l00034}{US\+\_\+\+TRIG\+\_\+\+PULSE\+\_\+\+US}}, and \doxymbox{\hyperlink{US__config_8h_source_l00027}{US\+\_\+\+TRIG\+\_\+\+SETTLE\+\_\+\+US}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{US__prog_8c_source_l00278}{US\+\_\+u16\+Read\+Distance\+\_\+cm()}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=343pt]{US__prog_8c_adc51941ea05da40c9e35a99928a4ac37_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{US__prog_8c_adc51941ea05da40c9e35a99928a4ac37_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{US__prog_8c_a8faec99358e42145506a962e14115d12}\index{US\_prog.c@{US\_prog.c}!US\_CC\_Handler@{US\_CC\_Handler}}
+\index{US\_CC\_Handler@{US\_CC\_Handler}!US\_prog.c@{US\_prog.c}}
+\doxysubsubsection{\texorpdfstring{US\_CC\_Handler()}{US\_CC\_Handler()}}
+{\footnotesize\ttfamily \label{US__prog_8c_a8faec99358e42145506a962e14115d12} 
+void US\+\_\+\+CC\+\_\+\+Handler (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Channel}{, }\item[{uint32\+\_\+t}]{Copy\+\_\+u32\+Capture}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Input-\/capture callback — runs the two-\/edge state machine for the active echo. 
+
+Called from timer IRQ context on each captured edge. On the rising edge it timestamps the start; on the falling edge it works out the pulse width, converts it to a distance via \doxylink{US__config_8h_ab0e1472cbc6dcaabb8233a418a55b6fe}{US\+\_\+\+SOUND\+\_\+\+SPEED\+\_\+\+FACTOR}, clamps it against \doxylink{US__config_8h_a1acbfc782dd65e3000e6373d863e3333}{US\+\_\+\+MAX\+\_\+\+RANGE\+\_\+\+CM}, and gives \doxylink{US__prog_8c_a45b109c89a06e7204f4c203252f57350}{US\+\_\+x\+Done\+Sem} to wake the reading task.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+e\+Timer} & Which timer fired. \\
+\hline
+{\em Copy\+\_\+u8\+Channel} & Which of its channels captured, 0..3. \\
+\hline
+{\em Copy\+\_\+u32\+Capture} & The captured counter value.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Captures that do not belong to the active measurement are ignored — a stray edge on an idle sensor must not be mistaken for our echo. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00145}{145}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{TIM__interface_8h_source_l00075}{TIM\+\_\+\+POLARITY\+\_\+\+LOW}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00544}{TIM\+\_\+v\+Disable\+CCInterrupt()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00361}{TIM\+\_\+v\+Set\+ICPolarity()}}, \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\+\_\+\+Active}}, \doxymbox{\hyperlink{US__config_8h_source_l00044}{US\+\_\+\+MAX\+\_\+\+RANGE\+\_\+\+CM}}, \doxymbox{\hyperlink{US__prog_8c_source_l00045}{US\+\_\+\+PHASE\+\_\+\+DONE}}, \doxymbox{\hyperlink{US__prog_8c_source_l00044}{US\+\_\+\+PHASE\+\_\+\+FALLING}}, \doxymbox{\hyperlink{US__prog_8c_source_l00043}{US\+\_\+\+PHASE\+\_\+\+RISING}}, \doxymbox{\hyperlink{US__config_8h_source_l00051}{US\+\_\+\+SOUND\+\_\+\+SPEED\+\_\+\+FACTOR}}, and \doxymbox{\hyperlink{US__prog_8c_source_l00078}{US\+\_\+x\+Done\+Sem}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{US__prog_8c_source_l00196}{US\+\_\+v\+Init()}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=345pt]{US__prog_8c_a8faec99358e42145506a962e14115d12_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{US__prog_8c_a8faec99358e42145506a962e14115d12_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{US__prog_8c_a0aa4d878b57b45002e4a654f79b72fb2}\index{US\_prog.c@{US\_prog.c}!US\_u8NvicIrqForTimer@{US\_u8NvicIrqForTimer}}
+\index{US\_u8NvicIrqForTimer@{US\_u8NvicIrqForTimer}!US\_prog.c@{US\_prog.c}}
+\doxysubsubsection{\texorpdfstring{US\_u8NvicIrqForTimer()}{US\_u8NvicIrqForTimer()}}
+{\footnotesize\ttfamily \label{US__prog_8c_a0aa4d878b57b45002e4a654f79b72fb2} 
+uint8\+\_\+t US\+\_\+u8\+Nvic\+Irq\+For\+Timer (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}}}]{Copy\+\_\+e\+Timer}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Map one of the ultrasonic timers to its NVIC IRQ number. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+e\+Timer} & The timer (the ultrasonics only use TIM2..TIM5). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The matching \doxylink{NVIC__interface_8h_a65e707f1e0baee3fd079df3704b78ed1}{NVIC\+\_\+\+IRQNumber\+\_\+t} value. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00113}{113}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{NVIC__interface_8h_source_l00062}{NVIC\+\_\+\+TIM2}}, \doxymbox{\hyperlink{NVIC__interface_8h_source_l00063}{NVIC\+\_\+\+TIM3}}, \doxymbox{\hyperlink{NVIC__interface_8h_source_l00064}{NVIC\+\_\+\+TIM4}}, \doxymbox{\hyperlink{NVIC__interface_8h_source_l00079}{NVIC\+\_\+\+TIM5}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00025}{TIM\+\_\+\+TIMER2}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00026}{TIM\+\_\+\+TIMER3}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00027}{TIM\+\_\+\+TIMER4}}, and \doxymbox{\hyperlink{TIM__interface_8h_source_l00028}{TIM\+\_\+\+TIMER5}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{US__prog_8c_source_l00196}{US\+\_\+v\+Init()}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{US__prog_8c_a0aa4d878b57b45002e4a654f79b72fb2_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{US__prog_8c_a29b879f76d665878390dd6161d1eea84}\index{US\_prog.c@{US\_prog.c}!US\_vInit@{US\_vInit}}
+\index{US\_vInit@{US\_vInit}!US\_prog.c@{US\_prog.c}}
+\doxysubsubsection{\texorpdfstring{US\_vInit()}{US\_vInit()}}
+{\footnotesize\ttfamily \label{US__prog_8c_a29b879f76d665878390dd6161d1eea84} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} US\+\_\+v\+Init (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{px\+Sensor}{}\end{DoxyParamCaption})}
+
+
+
+Initialize GPIO pins and Timer for the given ultrasonic sensor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em px\+Sensor} & Pointer to sensor configuration structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ OK if successful, NULL\+\_\+\+POINTER /\+ NOK on error.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+-\/ TRIG pin → Output Push-\/\+Pull
+\begin{DoxyItemize}
+\item ECHO pin → Input Floating (No Pull)
+\item RCC clock for GPIO port(s) and Timer must be enabled BEFORE calling this.
+\end{DoxyItemize}
+\end{DoxyNote}
+\begin{DoxyParagraph}{Example:\+}
+
+\end{DoxyParagraph}
+\doxylink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t} sensor = \{TIM\+\_\+\+TIMER2, GPIO\+\_\+\+PORTA, GPIO\+\_\+\+PIN0, GPIO\+\_\+\+PORTA, GPIO\+\_\+\+PIN1\}; US\+\_\+v\+Init(\&sensor); 
+
+Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00196}{196}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__interface_8h_source_l00159}{GPIO\+\_\+\+Pin\+Config\+\_\+t::\+\+Alternate\+Function}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00415}{TIM\+\_\+\+Type\+Def::\+\+ARR}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00421}{TIM\+\_\+\+Type\+Def::\+\+BDTR}}, \doxymbox{\hyperlink{US__interface_8h_source_l00048}{US\+\_\+\+Config\+\_\+t::\+\+Channel}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00404}{TIM\+\_\+\+Type\+Def::\+\+CR1}}, \doxymbox{\hyperlink{US__interface_8h_source_l00052}{US\+\_\+\+Config\+\_\+t::\+\+Echo\+Pin}}, \doxymbox{\hyperlink{US__interface_8h_source_l00051}{US\+\_\+\+Config\+\_\+t::\+\+Echo\+Port}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00409}{TIM\+\_\+\+Type\+Def::\+\+EGR}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00122}{GPIO\+\_\+\+AF1}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00123}{GPIO\+\_\+\+AF2}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00124}{GPIO\+\_\+\+AF3}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00079}{GPIO\+\_\+\+ALTFN}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00041}{GPIO\+\_\+enum\+Pin\+Init()}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00102}{GPIO\+\_\+\+MEDIUM\+\_\+\+SPEED}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00109}{GPIO\+\_\+\+NO\+\_\+\+PULL}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00078}{GPIO\+\_\+\+OUTPUT}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00085}{GPIO\+\_\+\+PUSH\+\_\+\+PULL}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00104}{GPIO\+\_\+\+VERY\+\_\+\+HIGH\+\_\+\+SPEED}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{NVIC__program_8c_source_l00037}{NVIC\+\_\+v\+Enable\+IRQ()}}, \doxymbox{\hyperlink{NVIC__program_8c_source_l00141}{NVIC\+\_\+v\+Set\+Priority()}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00414}{TIM\+\_\+\+Type\+Def::\+\+PSC}}, \doxymbox{\hyperlink{STD__MACROS_8h_source_l00039}{SET\+\_\+\+BIT}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00408}{TIM\+\_\+\+Type\+Def::\+\+SR}}, \doxymbox{\hyperlink{TIM__private_8h_source_l00015}{TIM\+\_\+\+CR1\+\_\+\+CEN}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00122}{TIM\+\_\+\+IC\+\_\+\+PSC\+\_\+\+DIV1}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00111}{TIM\+\_\+\+IC\+\_\+\+SELECTION\+\_\+\+DIRECT\+\_\+\+TI}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00074}{TIM\+\_\+\+POLARITY\+\_\+\+HIGH}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00029}{TIM\+\_\+\+TIMER1}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00025}{TIM\+\_\+\+TIMER2}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00026}{TIM\+\_\+\+TIMER3}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00028}{TIM\+\_\+\+TIMER5}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00031}{TIM\+\_\+\+TIMER6}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00030}{TIM\+\_\+\+TIMER8}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00239}{TIM\+\_\+v\+IC\+\_\+\+Init()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00551}{TIM\+\_\+v\+Set\+CCCallback()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00103}{TIM\+\_\+v\+Start()}}, \doxymbox{\hyperlink{US__interface_8h_source_l00047}{US\+\_\+\+Config\+\_\+t::\+\+Timer}}, \doxymbox{\hyperlink{US__interface_8h_source_l00050}{US\+\_\+\+Config\+\_\+t::\+\+Trig\+Pin}}, \doxymbox{\hyperlink{US__interface_8h_source_l00049}{US\+\_\+\+Config\+\_\+t::\+\+Trig\+Port}}, \doxymbox{\hyperlink{US__prog_8c_source_l00145}{US\+\_\+\+CC\+\_\+\+Handler()}}, \doxymbox{\hyperlink{US__config_8h_source_l00020}{US\+\_\+\+SYS\+\_\+\+CLK\+\_\+\+HZ}}, \doxymbox{\hyperlink{US__prog_8c_source_l00030}{US\+\_\+\+TIM\+\_\+\+Array}}, \doxymbox{\hyperlink{US__prog_8c_source_l00113}{US\+\_\+u8\+Nvic\+Irq\+For\+Timer()}}, and \doxymbox{\hyperlink{US__prog_8c_source_l00078}{US\+\_\+x\+Done\+Sem}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{US__prog_8c_a29b879f76d665878390dd6161d1eea84_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{US__prog_8c_a29b879f76d665878390dd6161d1eea84_icgraph}
+\end{center}
+\end{figure}
 \Hypertarget{US__prog_8c_a49bd64d408631fd63886cbc413453e08}\index{US\_prog.c@{US\_prog.c}!US\_u16ReadDistance\_cm@{US\_u16ReadDistance\_cm}}
 \index{US\_u16ReadDistance\_cm@{US\_u16ReadDistance\_cm}!US\_prog.c@{US\_prog.c}}
 \doxysubsubsection{\texorpdfstring{US\_u16ReadDistance\_cm()}{US\_u16ReadDistance\_cm()}}
 {\footnotesize\ttfamily \label{US__prog_8c_a49bd64d408631fd63886cbc413453e08} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} US\+\_\+u16\+Read\+Distance\+\_\+cm (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{px\+Sensor}{, }\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{pu16\+Dist\+\_\+cm}{}\end{DoxyParamCaption})}
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} US\+\_\+u16\+Read\+Distance\+\_\+cm (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{px\+Sensor}{, }\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{pu16\+Dist\+\_\+cm}{}\end{DoxyParamCaption})}
 
 
 
-Trigger sensor and measure distance (cm). The calling task SLEEPS on a semaphore while the echo is in flight (CPU free), then the IC ISR wakes it with the result. Returns TIMEOUT\+\_\+\+STATE if no echo within the window. 
+Trigger sensor and measure distance in centimeters (blocking). 
 
+
+\begin{DoxyParams}{Parameters}
+{\em px\+Sensor} & Pointer to sensor configuration structure. \\
+\hline
+{\em pu16\+Dist\+\_\+cm} & Pointer to store the measured distance (cm). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ OK if successful, TIMEOUT\+\_\+\+STATE if no echo received (no object /\+ out of range), NULL\+\_\+\+POINTER if any pointer is NULL, NOK if invalid parameters.
+\end{DoxyReturn}
 \begin{DoxyNote}{Note}
-MUST be called from a task context (uses a Free\+RTOS semaphore). Not reentrant:\+ one measurement at a time (sequential by design). 
+-\/ Effective range:\+ \texorpdfstring{$\sim$}{\string~}2 cm to \texorpdfstring{$\sim$}{\string~}400 cm.
+\begin{DoxyItemize}
+\item Interrupt-\/driven:\+ the calling task SLEEPS on a semaphore while the echo is in flight (CPU is free for other tasks), then the IC ISR wakes it with the result. MUST be called from a task context.
+\item Not reentrant:\+ one measurement at a time (sequential by design).
+\end{DoxyItemize}
 \end{DoxyNote}
+\begin{DoxyParagraph}{Example:\+}
+
+\end{DoxyParagraph}
+uint16\+\_\+t dist; if (US\+\_\+u16\+Read\+Distance\+\_\+cm(\&sensor, \&dist) == OK) \{ /\+/\+ use dist \} 
+
+Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00278}{278}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
 
 
-Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00234}{234}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
+
+References \doxymbox{\hyperlink{US__interface_8h_source_l00048}{US\+\_\+\+Config\+\_\+t::\+\+Channel}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00408}{TIM\+\_\+\+Type\+Def::\+\+SR}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00074}{TIM\+\_\+\+POLARITY\+\_\+\+HIGH}}, \doxymbox{\hyperlink{TIM__private_8h_source_l00059}{TIM\+\_\+\+SR\+\_\+\+CC1\+IF}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00025}{TIM\+\_\+\+TIMER2}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00028}{TIM\+\_\+\+TIMER5}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00544}{TIM\+\_\+v\+Disable\+CCInterrupt()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00536}{TIM\+\_\+v\+Enable\+CCInterrupt()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00361}{TIM\+\_\+v\+Set\+ICPolarity()}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00046}{TIMEOUT\+\_\+\+STATE}}, \doxymbox{\hyperlink{US__interface_8h_source_l00047}{US\+\_\+\+Config\+\_\+t::\+\+Timer}}, \doxymbox{\hyperlink{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}{US\+\_\+\+Active}}, \doxymbox{\hyperlink{US__prog_8c_source_l00045}{US\+\_\+\+PHASE\+\_\+\+DONE}}, \doxymbox{\hyperlink{US__prog_8c_source_l00043}{US\+\_\+\+PHASE\+\_\+\+RISING}}, \doxymbox{\hyperlink{US__config_8h_source_l00069}{US\+\_\+\+TASK\+\_\+\+TIMEOUT\+\_\+\+MS}}, \doxymbox{\hyperlink{US__prog_8c_source_l00030}{US\+\_\+\+TIM\+\_\+\+Array}}, \doxymbox{\hyperlink{US__prog_8c_source_l00096}{US\+\_\+v\+Send\+Trigger()}}, and \doxymbox{\hyperlink{US__prog_8c_source_l00078}{US\+\_\+x\+Done\+Sem}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00247}{v\+Task\+\_\+\+Sensors()}}.
 
 Here is the call graph for this function:\+
 \nopagebreak
@@ -110,86 +380,31 @@ Here is the caller graph for this function:\+
 \includegraphics[width=350pt]{US__prog_8c_a49bd64d408631fd63886cbc413453e08_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{US__prog_8c_a29b879f76d665878390dd6161d1eea84}\index{US\_prog.c@{US\_prog.c}!US\_vInit@{US\_vInit}}
-\index{US\_vInit@{US\_vInit}!US\_prog.c@{US\_prog.c}}
-\doxysubsubsection{\texorpdfstring{US\_vInit()}{US\_vInit()}}
-{\footnotesize\ttfamily \label{US__prog_8c_a29b879f76d665878390dd6161d1eea84} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} US\+\_\+v\+Init (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{px\+Sensor}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00152}{152}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
-
-Here is the call graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=289pt]{US__prog_8c_a29b879f76d665878390dd6161d1eea84_cgraph}
-\end{center}
-\end{figure}
-Here is the caller graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=334pt]{US__prog_8c_a29b879f76d665878390dd6161d1eea84_icgraph}
-\end{center}
-\end{figure}
 
 
 \label{doc-var-members}
 \Hypertarget{US__prog_8c_doc-var-members}
 \doxysubsection{Variable Documentation}
-\Hypertarget{US__prog_8c_a715f5cb061d11eb75981741eda4dafcd}\index{US\_prog.c@{US\_prog.c}!channel@{channel}}
-\index{channel@{channel}!US\_prog.c@{US\_prog.c}}
-\doxysubsubsection{\texorpdfstring{channel}{channel}}
-{\footnotesize\ttfamily \label{US__prog_8c_a715f5cb061d11eb75981741eda4dafcd} 
-uint8\+\_\+t channel}
+\Hypertarget{US__prog_8c_a1075f329baf7454c0e9a988c726d67f8}\index{US\_prog.c@{US\_prog.c}!US\_TIM\_Array@{US\_TIM\_Array}}
+\index{US\_TIM\_Array@{US\_TIM\_Array}!US\_prog.c@{US\_prog.c}}
+\doxysubsubsection{\texorpdfstring{US\_TIM\_Array}{US\_TIM\_Array}}
+{\footnotesize\ttfamily \label{US__prog_8c_a1075f329baf7454c0e9a988c726d67f8} 
+\doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}}\texorpdfstring{$\ast$}{*} US\+\_\+\+TIM\+\_\+\+Array\+[\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23a7c344d8927dd06f539c5b78d7d7b9166}{TIM\+\_\+\+TIMER\+\_\+\+COUNT}}]\+\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00051}{51}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
+Maps a \doxylink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t} onto its register block. 
 
-\Hypertarget{US__prog_8c_a03af6795f10317f1531bf283279c6cff}\index{US\_prog.c@{US\_prog.c}!dist\_cm@{dist\_cm}}
-\index{dist\_cm@{dist\_cm}!US\_prog.c@{US\_prog.c}}
-\doxysubsubsection{\texorpdfstring{dist\_cm}{dist\_cm}}
-{\footnotesize\ttfamily \label{US__prog_8c_a03af6795f10317f1531bf283279c6cff} 
-uint16\+\_\+t dist\+\_\+cm}
+\begin{DoxyNote}{Note}
+Order must match \doxylink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t} — the enum indexes straight into it. 
+\end{DoxyNote}
 
 
-
-Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00056}{56}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
-
-\Hypertarget{US__prog_8c_ae3410746ad12451a31ab39175fb1dc70}\index{US\_prog.c@{US\_prog.c}!maxval@{maxval}}
-\index{maxval@{maxval}!US\_prog.c@{US\_prog.c}}
-\doxysubsubsection{\texorpdfstring{maxval}{maxval}}
-{\footnotesize\ttfamily \label{US__prog_8c_ae3410746ad12451a31ab39175fb1dc70} 
-uint32\+\_\+t maxval}
+Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00030}{30}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
 
 
 
-Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00052}{52}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
-
-\Hypertarget{US__prog_8c_a34bb55e8c64d1459517441eebc24dfca}\index{US\_prog.c@{US\_prog.c}!phase@{phase}}
-\index{phase@{phase}!US\_prog.c@{US\_prog.c}}
-\doxysubsubsection{\texorpdfstring{phase}{phase}}
-{\footnotesize\ttfamily \label{US__prog_8c_a34bb55e8c64d1459517441eebc24dfca} 
-\doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673}{US\+\_\+\+Phase\+\_\+t}} phase}
-
-
-
-Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00054}{54}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
-
-\Hypertarget{US__prog_8c_a6858d4bf91e3f238387650930c15b7fd}\index{US\_prog.c@{US\_prog.c}!t1@{t1}}
-\index{t1@{t1}!US\_prog.c@{US\_prog.c}}
-\doxysubsubsection{\texorpdfstring{t1}{t1}}
-{\footnotesize\ttfamily \label{US__prog_8c_a6858d4bf91e3f238387650930c15b7fd} 
-uint32\+\_\+t t1}
-
-
-
-Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00053}{53}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
+Referenced by \doxymbox{\hyperlink{US__prog_8c_source_l00278}{US\+\_\+u16\+Read\+Distance\+\_\+cm()}}, and \doxymbox{\hyperlink{US__prog_8c_source_l00196}{US\+\_\+v\+Init()}}.
 
 \Hypertarget{US__prog_8c_a9e4d06093a8d0697179ece54c8df7bc2}\index{US\_prog.c@{US\_prog.c}!timer@{timer}}
 \index{timer@{timer}!US\_prog.c@{US\_prog.c}}
@@ -199,7 +414,67 @@ Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00053}{53}} of file 
 
 
 
-Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00050}{50}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
+Timer doing the capture for the active sensor. 
+
+
+
+Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00061}{61}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
+
+\Hypertarget{US__prog_8c_a715f5cb061d11eb75981741eda4dafcd}\index{US\_prog.c@{US\_prog.c}!channel@{channel}}
+\index{channel@{channel}!US\_prog.c@{US\_prog.c}}
+\doxysubsubsection{\texorpdfstring{channel}{channel}}
+{\footnotesize\ttfamily \label{US__prog_8c_a715f5cb061d11eb75981741eda4dafcd} 
+uint8\+\_\+t channel}
+
+
+
+Its capture/\+compare channel, 0..3. 
+
+
+
+Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00062}{62}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
+
+\Hypertarget{US__prog_8c_ae3410746ad12451a31ab39175fb1dc70}\index{US\_prog.c@{US\_prog.c}!maxval@{maxval}}
+\index{maxval@{maxval}!US\_prog.c@{US\_prog.c}}
+\doxysubsubsection{\texorpdfstring{maxval}{maxval}}
+{\footnotesize\ttfamily \label{US__prog_8c_ae3410746ad12451a31ab39175fb1dc70} 
+uint32\+\_\+t maxval}
+
+
+
+The timer\textquotesingle{}s wrap value (0x\+FFFF or 0x\+FFFFFFFF), needed to unwrap a counter that rolled over mid-\/echo. 
+
+
+
+Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00063}{63}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
+
+\Hypertarget{US__prog_8c_a6858d4bf91e3f238387650930c15b7fd}\index{US\_prog.c@{US\_prog.c}!t1@{t1}}
+\index{t1@{t1}!US\_prog.c@{US\_prog.c}}
+\doxysubsubsection{\texorpdfstring{t1}{t1}}
+{\footnotesize\ttfamily \label{US__prog_8c_a6858d4bf91e3f238387650930c15b7fd} 
+uint32\+\_\+t t1}
+
+
+
+Counter value captured on the rising edge. 
+
+
+
+Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00064}{64}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
+
+\Hypertarget{US__prog_8c_a34bb55e8c64d1459517441eebc24dfca}\index{US\_prog.c@{US\_prog.c}!phase@{phase}}
+\index{phase@{phase}!US\_prog.c@{US\_prog.c}}
+\doxysubsubsection{\texorpdfstring{phase}{phase}}
+{\footnotesize\ttfamily \label{US__prog_8c_a34bb55e8c64d1459517441eebc24dfca} 
+\doxymbox{\hyperlink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673}{US\+\_\+\+Phase\+\_\+t}} phase}
+
+
+
+Which edge we are waiting for. 
+
+
+
+Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00065}{65}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
 
 \Hypertarget{US__prog_8c_a75adb1881fa5da948723d7b8807b78cd}\index{US\_prog.c@{US\_prog.c}!valid@{valid}}
 \index{valid@{valid}!US\_prog.c@{US\_prog.c}}
@@ -209,5 +484,57 @@ uint8\+\_\+t valid}
 
 
 
-Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00055}{55}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
+1 if a real echo was timed; 0 if it was out of range or garbage. 
+
+
+
+Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00066}{66}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
+
+\Hypertarget{US__prog_8c_a03af6795f10317f1531bf283279c6cff}\index{US\_prog.c@{US\_prog.c}!dist\_cm@{dist\_cm}}
+\index{dist\_cm@{dist\_cm}!US\_prog.c@{US\_prog.c}}
+\doxysubsubsection{\texorpdfstring{dist\_cm}{dist\_cm}}
+{\footnotesize\ttfamily \label{US__prog_8c_a03af6795f10317f1531bf283279c6cff} 
+uint16\+\_\+t dist\+\_\+cm}
+
+
+
+The result \+[cm]\+; meaningful only once {\ttfamily \doxylink{US__prog_8c_a34bb55e8c64d1459517441eebc24dfca}{phase} == \doxylink{US__prog_8c_a1bf618c1c297fae1fbd121d4f0231673ae210b59fe9d33ecc8a76850d05d11464}{US\+\_\+\+PHASE\+\_\+\+DONE}} and {\ttfamily \doxylink{US__prog_8c_a75adb1881fa5da948723d7b8807b78cd}{valid}} is 1. 
+
+
+
+Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00067}{67}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
+
+\Hypertarget{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf}\index{US\_prog.c@{US\_prog.c}!US\_Active@{US\_Active}}
+\index{US\_Active@{US\_Active}!US\_prog.c@{US\_prog.c}}
+\doxysubsubsection{\texorpdfstring{[struct]}{[struct]}}
+{\footnotesize\ttfamily \label{US__prog_8c_a6e45c6ae507b29bc14bd9f3a65271abf} 
+volatile struct  \{ ... \}  US\+\_\+\+Active\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The one measurement currently in flight. 
+
+There is deliberately only one. The six sensors are read strictly one after another — partly to avoid acoustic cross-\/talk, where one sensor hears another\textquotesingle{}s ping and reports a phantom object, and partly because it makes a single shared context and one binary semaphore sufficient. No per-\/sensor state, and no race.
+
+Every field is touched by both the reading task and the capture ISR, hence {\ttfamily volatile}. 
+
+Referenced by \doxymbox{\hyperlink{US__prog_8c_source_l00145}{US\+\_\+\+CC\+\_\+\+Handler()}}, and \doxymbox{\hyperlink{US__prog_8c_source_l00278}{US\+\_\+u16\+Read\+Distance\+\_\+cm()}}.
+
+\Hypertarget{US__prog_8c_a45b109c89a06e7204f4c203252f57350}\index{US\_prog.c@{US\_prog.c}!US\_xDoneSem@{US\_xDoneSem}}
+\index{US\_xDoneSem@{US\_xDoneSem}!US\_prog.c@{US\_prog.c}}
+\doxysubsubsection{\texorpdfstring{US\_xDoneSem}{US\_xDoneSem}}
+{\footnotesize\ttfamily \label{US__prog_8c_a45b109c89a06e7204f4c203252f57350} 
+Semaphore\+Handle\+\_\+t US\+\_\+x\+Done\+Sem\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Given by the capture ISR when a measurement completes. 
+
+This is what lets the reading task {\bfseries{sleep}} through the echo\textquotesingle{}s flight time instead of busy-\/waiting on a flag. An echo from a distant object can take tens of milliseconds; spending that spinning would starve every lower-\/priority task in the system. 
+
+Definition at line \doxymbox{\hyperlink{US__prog_8c_source_l00078}{78}} of file \doxymbox{\hyperlink{US__prog_8c_source}{US\+\_\+prog.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{US__prog_8c_source_l00145}{US\+\_\+\+CC\+\_\+\+Handler()}}, \doxymbox{\hyperlink{US__prog_8c_source_l00278}{US\+\_\+u16\+Read\+Distance\+\_\+cm()}}, and \doxymbox{\hyperlink{US__prog_8c_source_l00196}{US\+\_\+v\+Init()}}.
 

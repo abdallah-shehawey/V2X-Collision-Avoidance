@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Inc/Drivers/HAL/MPU9250/MPU9250_config.h File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Inc/Drivers/HAL/MPU9250/MPU9250_config.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,222 +90,66 @@ $(function(){initNavTree('MPU9250__config_8h.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">MPU9250_config.h File Reference</div></div>
+  <div class="headertitle"><div class="title">MPU9250_config.h File Reference<div class="ingroups"><a class="el" href="group__hal.html">HAL</a> &raquo; <a class="el" href="group__hal__mpu9250.html">MPU9250</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Configuration file for MPU9250 driver.  
+<p>Compile-time tuning for the MPU9250 driver: wiring, ranges, and the two filters whose constants actually change how the car behaves.  
 <a href="#details">More...</a></p>
-<div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="MPU9250__config_8h__dep__incl.png" border="0" usemap="#aInc_2Drivers_2HAL_2MPU9250_2MPU9250__config_8hdep" loading="lazy" alt=""/></div>
-<map name="aInc_2Drivers_2HAL_2MPU9250_2MPU9250__config_8hdep" id="aInc_2Drivers_2HAL_2MPU9250_2MPU9250__config_8hdep">
-<area shape="rect" title="Configuration file for MPU9250 driver." alt="" coords="5,5,193,50"/>
-<area shape="rect" href="MPU9250__program_8c.html" title="Professional MPU9250 driver: High&#45;Accuracy Speed (m/s) &amp; Gravity&#45;Compensated Altitude." alt="" coords="9,98,189,126"/>
-<area shape="poly" title=" " alt="" coords="101,64,101,98,97,96,97,68"/>
-</map>
+<div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="MPU9250__config_8h__dep__incl.svg" width="196" height="166"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="MPU9250__config_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ab37fb1e677db2f2d4a411c7fa5471582" id="r_ab37fb1e677db2f2d4a411c7fa5471582"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ab37fb1e677db2f2d4a411c7fa5471582">MPU9250_SPI_CHANNEL</a>&#160;&#160;&#160;<a class="el" href="SPI__interface_8h.html#a99e480c10376756fca05b64ed949a3d9ae01f25f2493c2b0a1406ee1371a2752d">SPI_CHANNEL1</a></td></tr>
-<tr class="memitem:ae9a84707f27c348f8b3be6afebe3e81e" id="r_ae9a84707f27c348f8b3be6afebe3e81e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ae9a84707f27c348f8b3be6afebe3e81e">MPU9250_CS_PORT</a>&#160;&#160;&#160;<a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24a0d36b47f173bbc4bdced28d8a54fe4ac">GPIO_PORTA</a></td></tr>
-<tr class="memitem:acda4019666ca12c31828d1d9500d95a2" id="r_acda4019666ca12c31828d1d9500d95a2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#acda4019666ca12c31828d1d9500d95a2">MPU9250_CS_PIN</a>&#160;&#160;&#160;<a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14a088dbea6be5692ef5375d1710404ad46">GPIO_PIN4</a></td></tr>
-<tr class="memitem:afe68799dd7a046597c1128b2412765c0" id="r_afe68799dd7a046597c1128b2412765c0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#afe68799dd7a046597c1128b2412765c0">MPU9250_ACCEL_FS</a>&#160;&#160;&#160;0</td></tr>
-<tr class="memitem:a1e563d08f7338494561b5ad5ec2de5ac" id="r_a1e563d08f7338494561b5ad5ec2de5ac"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a1e563d08f7338494561b5ad5ec2de5ac">MPU9250_GYRO_FS</a>&#160;&#160;&#160;0</td></tr>
-<tr class="memitem:ab47f5236c3e559be3208494c14372364" id="r_ab47f5236c3e559be3208494c14372364"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ab47f5236c3e559be3208494c14372364">MPU9250_DELAY_TIMER</a>&#160;&#160;&#160;<a class="el" href="TIM__interface_8h.html#a2712d6a822f7d7b0ebe7411daf149b23af18bf52d47d87947df265cf9a7e3ef26">TIM_TIMER6</a></td></tr>
-<tr class="memitem:aef19ab7bc44d9f0a0539f8f2d93c6120" id="r_aef19ab7bc44d9f0a0539f8f2d93c6120"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aef19ab7bc44d9f0a0539f8f2d93c6120">MPU9250_MAGCAL_DURATION_MS</a>&#160;&#160;&#160;(12000U)</td></tr>
-<tr class="memitem:adf1960101390d5c997e7669062fbde93" id="r_adf1960101390d5c997e7669062fbde93"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#adf1960101390d5c997e7669062fbde93">MPU9250_MAGCAL_SAMPLE_MS</a>&#160;&#160;&#160;(20U)</td></tr>
-<tr class="memitem:ac368b845d39d5d5dfafd34fbc1747410" id="r_ac368b845d39d5d5dfafd34fbc1747410"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ac368b845d39d5d5dfafd34fbc1747410">MPU9250_MAG_MIN_SPAN</a>&#160;&#160;&#160;(60.0f)</td></tr>
-<tr class="memitem:a48e78568f16e0c878d4c677585afcd00" id="r_a48e78568f16e0c878d4c677585afcd00"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a48e78568f16e0c878d4c677585afcd00">MPU9250_HEADING_ALPHA</a>&#160;&#160;&#160;(0.98f)</td></tr>
-<tr class="memitem:a003047f11f906d55b43a4922e61ab551" id="r_a003047f11f906d55b43a4922e61ab551"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a003047f11f906d55b43a4922e61ab551">MPU9250_GYROZ_SIGN</a>&#160;&#160;&#160;(+1.0f)</td></tr>
+<tr id="define-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">Wiring</div></td></tr>
+<tr class="memitem:gab37fb1e677db2f2d4a411c7fa5471582" id="r_gab37fb1e677db2f2d4a411c7fa5471582"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__hal__mpu9250.html#gab37fb1e677db2f2d4a411c7fa5471582">MPU9250_SPI_CHANNEL</a></td></tr>
+<tr class="memdesc:gab37fb1e677db2f2d4a411c7fa5471582"><td class="mdescLeft">&#160;</td><td class="mdescRight">The SPI peripheral the IMU hangs off.  <br /></td></tr>
+<tr class="memitem:gae9a84707f27c348f8b3be6afebe3e81e" id="r_gae9a84707f27c348f8b3be6afebe3e81e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__hal__mpu9250.html#gae9a84707f27c348f8b3be6afebe3e81e">MPU9250_CS_PORT</a></td></tr>
+<tr class="memdesc:gae9a84707f27c348f8b3be6afebe3e81e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Port of the chip-select line.  <br /></td></tr>
+<tr class="memitem:gacda4019666ca12c31828d1d9500d95a2" id="r_gacda4019666ca12c31828d1d9500d95a2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__hal__mpu9250.html#gacda4019666ca12c31828d1d9500d95a2">MPU9250_CS_PIN</a></td></tr>
+<tr class="memdesc:gacda4019666ca12c31828d1d9500d95a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pin of the chip-select line.  <br /></td></tr>
+<tr class="memitem:gab47f5236c3e559be3208494c14372364" id="r_gab47f5236c3e559be3208494c14372364"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__hal__mpu9250.html#gab47f5236c3e559be3208494c14372364">MPU9250_DELAY_TIMER</a></td></tr>
+<tr class="memdesc:gab47f5236c3e559be3208494c14372364"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer used for the driver's microsecond delays.  <br /></td></tr>
+<tr id="define-members-1" class="groupHeader"><td colspan="2"><div class="groupHeader">Full-scale ranges</div></td></tr>
+<tr><td colspan="2" class="ititle"><div class="groupText"><p>A narrower range gives finer resolution but saturates sooner.</p>
+<p>A road vehicle never pulls multiple g or spins at hundreds of degrees per second, so the narrowest range of each is the right trade. </p>
+</div></td></tr>
+<tr class="memitem:gafe68799dd7a046597c1128b2412765c0" id="r_gafe68799dd7a046597c1128b2412765c0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__hal__mpu9250.html#gafe68799dd7a046597c1128b2412765c0">MPU9250_ACCEL_FS</a></td></tr>
+<tr class="memdesc:gafe68799dd7a046597c1128b2412765c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accelerometer range: 0 = ±2 g, 1 = ±4 g, 2 = ±8 g, 3 = ±16 g.  <br /></td></tr>
+<tr class="memitem:ga1e563d08f7338494561b5ad5ec2de5ac" id="r_ga1e563d08f7338494561b5ad5ec2de5ac"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__hal__mpu9250.html#ga1e563d08f7338494561b5ad5ec2de5ac">MPU9250_GYRO_FS</a></td></tr>
+<tr class="memdesc:ga1e563d08f7338494561b5ad5ec2de5ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gyroscope range: 0 = ±250 °/s, 1 = ±500, 2 = ±1000, 3 = ±2000.  <br /></td></tr>
+<tr id="define-members-2" class="groupHeader"><td colspan="2"><div class="groupHeader">Magnetometer hard-iron calibration</div></td></tr>
+<tr><td colspan="2" class="ititle"><div class="groupText"><p>"Hard iron" is the constant magnetic offset the car itself adds — the motors, the battery, the steel chassis.</p>
+<p>It shifts the whole field reading off centre, so an uncalibrated compass reads a heading that is simply wrong, and wrong by a different amount in every direction.</p>
+<p>The fix is to turn the car through a full circle at boot and watch the field trace out a ring; the centre of that ring <em>is</em> the offset. That is what these three constants govern. </p>
+</div></td></tr>
+<tr class="memitem:gaef19ab7bc44d9f0a0539f8f2d93c6120" id="r_gaef19ab7bc44d9f0a0539f8f2d93c6120"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__hal__mpu9250.html#gaef19ab7bc44d9f0a0539f8f2d93c6120">MPU9250_MAGCAL_DURATION_MS</a></td></tr>
+<tr class="memdesc:gaef19ab7bc44d9f0a0539f8f2d93c6120"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of the boot-time calibration window [ms].  <br /></td></tr>
+<tr class="memitem:gadf1960101390d5c997e7669062fbde93" id="r_gadf1960101390d5c997e7669062fbde93"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__hal__mpu9250.html#gadf1960101390d5c997e7669062fbde93">MPU9250_MAGCAL_SAMPLE_MS</a></td></tr>
+<tr class="memdesc:gadf1960101390d5c997e7669062fbde93"><td class="mdescLeft">&#160;</td><td class="mdescRight">How often the magnetometer is sampled inside the calibration window [ms].  <br /></td></tr>
+<tr class="memitem:gac368b845d39d5d5dfafd34fbc1747410" id="r_gac368b845d39d5d5dfafd34fbc1747410"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__hal__mpu9250.html#gac368b845d39d5d5dfafd34fbc1747410">MPU9250_MAG_MIN_SPAN</a></td></tr>
+<tr class="memdesc:gac368b845d39d5d5dfafd34fbc1747410"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimum field span required on <b>both</b> axes before a calibration is accepted.  <br /></td></tr>
+<tr id="define-members-3" class="groupHeader"><td colspan="2"><div class="groupHeader">Heading fusion (complementary filter)</div></td></tr>
+<tr><td colspan="2" class="ititle"><div class="groupText"><p>Neither sensor can give the heading alone.</p>
+<p>The gyroscope is smooth and immune to magnetic noise but <b>drifts</b> without bound; the magnetometer has no drift but is noisy and is thrown off by the motors. So the driver integrates the gyro for the short term and lets the magnetometer slowly pull it back to the truth. </p>
+</div></td></tr>
+<tr class="memitem:ga48e78568f16e0c878d4c677585afcd00" id="r_ga48e78568f16e0c878d4c677585afcd00"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__hal__mpu9250.html#ga48e78568f16e0c878d4c677585afcd00">MPU9250_HEADING_ALPHA</a></td></tr>
+<tr class="memdesc:ga48e78568f16e0c878d4c677585afcd00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Weight given to the gyroscope on each update, 0..1.  <br /></td></tr>
+<tr class="memitem:ga003047f11f906d55b43a4922e61ab551" id="r_ga003047f11f906d55b43a4922e61ab551"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__hal__mpu9250.html#ga003047f11f906d55b43a4922e61ab551">MPU9250_GYROZ_SIGN</a></td></tr>
+<tr class="memdesc:ga003047f11f906d55b43a4922e61ab551"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sign of the gyroscope's contribution to the fused heading: +1.0f or -1.0f.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Configuration file for MPU9250 driver. </p>
-<dl class="section author"><dt>Author</dt><dd>Abdallah Saleh </dd></dl>
+<div class="textblock"><p>Compile-time tuning for the MPU9250 driver: wiring, ranges, and the two filters whose constants actually change how the car behaves. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Saleh  </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="MPU9250__config_8h_source.html">MPU9250_config.h</a>.</p>
-</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="afe68799dd7a046597c1128b2412765c0" name="afe68799dd7a046597c1128b2412765c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afe68799dd7a046597c1128b2412765c0">&#9670;&#160;</a></span>MPU9250_ACCEL_FS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MPU9250_ACCEL_FS&#160;&#160;&#160;0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="MPU9250__config_8h_source.html#l00020">20</a> of file <a class="el" href="MPU9250__config_8h_source.html">MPU9250_config.h</a>.</p>
-
-</div>
-</div>
-<a id="acda4019666ca12c31828d1d9500d95a2" name="acda4019666ca12c31828d1d9500d95a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acda4019666ca12c31828d1d9500d95a2">&#9670;&#160;</a></span>MPU9250_CS_PIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MPU9250_CS_PIN&#160;&#160;&#160;<a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14a088dbea6be5692ef5375d1710404ad46">GPIO_PIN4</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="MPU9250__config_8h_source.html#l00016">16</a> of file <a class="el" href="MPU9250__config_8h_source.html">MPU9250_config.h</a>.</p>
-
-</div>
-</div>
-<a id="ae9a84707f27c348f8b3be6afebe3e81e" name="ae9a84707f27c348f8b3be6afebe3e81e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9a84707f27c348f8b3be6afebe3e81e">&#9670;&#160;</a></span>MPU9250_CS_PORT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MPU9250_CS_PORT&#160;&#160;&#160;<a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24a0d36b47f173bbc4bdced28d8a54fe4ac">GPIO_PORTA</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="MPU9250__config_8h_source.html#l00015">15</a> of file <a class="el" href="MPU9250__config_8h_source.html">MPU9250_config.h</a>.</p>
-
-</div>
-</div>
-<a id="ab47f5236c3e559be3208494c14372364" name="ab47f5236c3e559be3208494c14372364"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab47f5236c3e559be3208494c14372364">&#9670;&#160;</a></span>MPU9250_DELAY_TIMER</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MPU9250_DELAY_TIMER&#160;&#160;&#160;<a class="el" href="TIM__interface_8h.html#a2712d6a822f7d7b0ebe7411daf149b23af18bf52d47d87947df265cf9a7e3ef26">TIM_TIMER6</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="MPU9250__config_8h_source.html#l00026">26</a> of file <a class="el" href="MPU9250__config_8h_source.html">MPU9250_config.h</a>.</p>
-
-</div>
-</div>
-<a id="a1e563d08f7338494561b5ad5ec2de5ac" name="a1e563d08f7338494561b5ad5ec2de5ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e563d08f7338494561b5ad5ec2de5ac">&#9670;&#160;</a></span>MPU9250_GYRO_FS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MPU9250_GYRO_FS&#160;&#160;&#160;0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="MPU9250__config_8h_source.html#l00023">23</a> of file <a class="el" href="MPU9250__config_8h_source.html">MPU9250_config.h</a>.</p>
-
-</div>
-</div>
-<a id="a003047f11f906d55b43a4922e61ab551" name="a003047f11f906d55b43a4922e61ab551"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a003047f11f906d55b43a4922e61ab551">&#9670;&#160;</a></span>MPU9250_GYROZ_SIGN</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MPU9250_GYROZ_SIGN&#160;&#160;&#160;(+1.0f)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="MPU9250__config_8h_source.html#l00050">50</a> of file <a class="el" href="MPU9250__config_8h_source.html">MPU9250_config.h</a>.</p>
-
-</div>
-</div>
-<a id="a48e78568f16e0c878d4c677585afcd00" name="a48e78568f16e0c878d4c677585afcd00"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a48e78568f16e0c878d4c677585afcd00">&#9670;&#160;</a></span>MPU9250_HEADING_ALPHA</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MPU9250_HEADING_ALPHA&#160;&#160;&#160;(0.98f)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="MPU9250__config_8h_source.html#l00044">44</a> of file <a class="el" href="MPU9250__config_8h_source.html">MPU9250_config.h</a>.</p>
-
-</div>
-</div>
-<a id="ac368b845d39d5d5dfafd34fbc1747410" name="ac368b845d39d5d5dfafd34fbc1747410"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac368b845d39d5d5dfafd34fbc1747410">&#9670;&#160;</a></span>MPU9250_MAG_MIN_SPAN</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MPU9250_MAG_MIN_SPAN&#160;&#160;&#160;(60.0f)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="MPU9250__config_8h_source.html#l00039">39</a> of file <a class="el" href="MPU9250__config_8h_source.html">MPU9250_config.h</a>.</p>
-
-</div>
-</div>
-<a id="aef19ab7bc44d9f0a0539f8f2d93c6120" name="aef19ab7bc44d9f0a0539f8f2d93c6120"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef19ab7bc44d9f0a0539f8f2d93c6120">&#9670;&#160;</a></span>MPU9250_MAGCAL_DURATION_MS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MPU9250_MAGCAL_DURATION_MS&#160;&#160;&#160;(12000U)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="MPU9250__config_8h_source.html#l00031">31</a> of file <a class="el" href="MPU9250__config_8h_source.html">MPU9250_config.h</a>.</p>
-
-</div>
-</div>
-<a id="adf1960101390d5c997e7669062fbde93" name="adf1960101390d5c997e7669062fbde93"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf1960101390d5c997e7669062fbde93">&#9670;&#160;</a></span>MPU9250_MAGCAL_SAMPLE_MS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MPU9250_MAGCAL_SAMPLE_MS&#160;&#160;&#160;(20U)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="MPU9250__config_8h_source.html#l00034">34</a> of file <a class="el" href="MPU9250__config_8h_source.html">MPU9250_config.h</a>.</p>
-
-</div>
-</div>
-<a id="ab37fb1e677db2f2d4a411c7fa5471582" name="ab37fb1e677db2f2d4a411c7fa5471582"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab37fb1e677db2f2d4a411c7fa5471582">&#9670;&#160;</a></span>MPU9250_SPI_CHANNEL</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MPU9250_SPI_CHANNEL&#160;&#160;&#160;<a class="el" href="SPI__interface_8h.html#a99e480c10376756fca05b64ed949a3d9ae01f25f2493c2b0a1406ee1371a2752d">SPI_CHANNEL1</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="MPU9250__config_8h_source.html#l00011">11</a> of file <a class="el" href="MPU9250__config_8h_source.html">MPU9250_config.h</a>.</p>
-
-</div>
-</div>
-</div><!-- contents -->
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>
@@ -318,7 +162,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_f93dfce691d792349f1c14ede440e2e6.html">Inc</a></li><li class="navelem"><a href="dir_5807d32f659ca06f2d44f24c89728eb8.html">Drivers</a></li><li class="navelem"><a href="dir_2c576cc013bc705cce6153db29f6dfa3.html">HAL</a></li><li class="navelem"><a href="dir_fef3381ce70f4b894e3d73986ca89618.html">MPU9250</a></li><li class="navelem"><a href="MPU9250__config_8h.html">MPU9250_config.h</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Inc</b></li><li class="navelem"><b>Drivers</b></li><li class="navelem"><b>HAL</b></li><li class="navelem"><b>MPU9250</b></li><li class="navelem"><a href="MPU9250__config_8h.html">MPU9250_config.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

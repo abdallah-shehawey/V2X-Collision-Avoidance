@@ -1,8 +1,4 @@
 var searchData=
 [
-  ['lckr_0',['LCKR',['../structGPIO__REGDEF__t.html#ad4478841787679cbee8f4eaba61c1a3b',1,'GPIO_REGDEF_t']]],
-  ['lifcr_1',['LIFCR',['../structDMA__REGDEF__t.html#abced759dda358c55201498933b3d94c0',1,'DMA_REGDEF_t']]],
-  ['line_2',['Line',['../structEXTI__LineConfig__t.html#a7bb57c6477e14aa8abd22e5a4cc6ab18',1,'EXTI_LineConfig_t']]],
-  ['lisr_3',['LISR',['../structDMA__REGDEF__t.html#a0ce52045b6dae39c2ba7faa5106615cf',1,'DMA_REGDEF_t']]],
-  ['load_4',['LOAD',['../structSYSTIC__RegDef__t.html#a157c72c817316587b65517604bd2fb0f',1,'SYSTIC_RegDef_t']]]
+  ['kr_0',['KR',['../structIWDG__RegDef__t.html#a5570985723cddb8ac076b566bb0f9585',1,'IWDG_RegDef_t']]]
 ];

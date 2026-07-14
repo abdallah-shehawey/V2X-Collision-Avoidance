@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: DMA_REGDEF_t Struct Reference</title>
+<title>V2V Collision Avoidance Firmware: DMA_REGDEF_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,47 +90,55 @@ $(function(){initNavTree('structDMA__REGDEF__t.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">DMA_REGDEF_t Struct Reference</div></div>
+  <div class="headertitle"><div class="title">DMA_REGDEF_t Struct Reference<div class="ingroups"><a class="el" href="group__lib.html">LIB</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for DMA_REGDEF_t:</div>
-<div class="dyncontent">
-<div class="center"><img src="structDMA__REGDEF__t__coll__graph.png" border="0" usemap="#aDMA__REGDEF__t_coll__map" loading="lazy" alt="Collaboration graph"/></div>
-<map name="aDMA__REGDEF__t_coll__map" id="aDMA__REGDEF__t_coll__map">
-<area shape="rect" title=" " alt="" coords="36,106,160,134"/>
-<area shape="rect" href="structDMA__STREAM__REGDEF__t.html" title=" " alt="" coords="5,5,191,33"/>
-<area shape="poly" title=" " alt="" coords="100,47,101,106,95,105,96,50"/>
-</map>
+<p>DMA controller register layout: the shared registers plus 8 streams.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="STM32F446xx_8h_source.html">Drivers/LIB/STM32F446xx.h</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Collaboration diagram for DMA_REGDEF_t:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structDMA__REGDEF__t__coll__graph.svg" width="196" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a0ce52045b6dae39c2ba7faa5106615cf" id="r_a0ce52045b6dae39c2ba7faa5106615cf"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a0ce52045b6dae39c2ba7faa5106615cf">LISR</a></td></tr>
+<tr class="memdesc:a0ce52045b6dae39c2ba7faa5106615cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt status for streams 0..3.  <br /></td></tr>
 <tr class="memitem:acd5571fbbd1857188cd600fa6d362b6b" id="r_acd5571fbbd1857188cd600fa6d362b6b"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#acd5571fbbd1857188cd600fa6d362b6b">HISR</a></td></tr>
+<tr class="memdesc:acd5571fbbd1857188cd600fa6d362b6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt status for streams 4..7.  <br /></td></tr>
 <tr class="memitem:abced759dda358c55201498933b3d94c0" id="r_abced759dda358c55201498933b3d94c0"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#abced759dda358c55201498933b3d94c0">LIFCR</a></td></tr>
+<tr class="memdesc:abced759dda358c55201498933b3d94c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt flag clear for streams 0..3.  <br /></td></tr>
 <tr class="memitem:a1dd1a05b840b21db17dc4db9056b1488" id="r_a1dd1a05b840b21db17dc4db9056b1488"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a1dd1a05b840b21db17dc4db9056b1488">HIFCR</a></td></tr>
-<tr class="memitem:acd824b519f64179d8449695e26409594" id="r_acd824b519f64179d8449695e26409594"><td class="memItemLeft"><a class="el" href="structDMA__STREAM__REGDEF__t.html">DMA_STREAM_REGDEF_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#acd824b519f64179d8449695e26409594">Stream</a> [8]</td></tr>
+<tr class="memdesc:a1dd1a05b840b21db17dc4db9056b1488"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt flag clear for streams 4..7.  <br /></td></tr>
+<tr class="memitem:ab8ccd5a098b023e7e66218ea475a6b5d" id="r_ab8ccd5a098b023e7e66218ea475a6b5d"><td class="memItemLeft"><a class="el" href="structDMA__STREAM__REGDEF__t.html">DMA_STREAM_REGDEF_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab8ccd5a098b023e7e66218ea475a6b5d">Stream</a> [8]</td></tr>
+<tr class="memdesc:ab8ccd5a098b023e7e66218ea475a6b5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The 8 per-stream register blocks.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00119">119</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<div class="textblock"><p>DMA controller register layout: the shared registers plus 8 streams. </p>
+<dl class="section note"><dt>Note</dt><dd>Declared for completeness — see <a class="el" href="structDMA__STREAM__REGDEF__t.html" title="DMA_STREAM_REGDEF_t">DMA_STREAM_REGDEF_t</a>. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00187">187</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
-<a id="a1dd1a05b840b21db17dc4db9056b1488" name="a1dd1a05b840b21db17dc4db9056b1488"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1dd1a05b840b21db17dc4db9056b1488">&#9670;&#160;</a></span>HIFCR</h2>
+<a id="a0ce52045b6dae39c2ba7faa5106615cf" name="a0ce52045b6dae39c2ba7faa5106615cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ce52045b6dae39c2ba7faa5106615cf">&#9670;&#160;</a></span>LISR</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t DMA_REGDEF_t::HIFCR</td>
+          <td class="memname">uint32_t DMA_REGDEF_t::LISR</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00123">123</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Interrupt status for streams 0..3. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00188">188</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
@@ -146,7 +154,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00121">121</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Interrupt status for streams 4..7. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00189">189</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
@@ -162,45 +172,50 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00122">122</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Interrupt flag clear for streams 0..3. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00190">190</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<a id="a0ce52045b6dae39c2ba7faa5106615cf" name="a0ce52045b6dae39c2ba7faa5106615cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ce52045b6dae39c2ba7faa5106615cf">&#9670;&#160;</a></span>LISR</h2>
+<a id="a1dd1a05b840b21db17dc4db9056b1488" name="a1dd1a05b840b21db17dc4db9056b1488"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dd1a05b840b21db17dc4db9056b1488">&#9670;&#160;</a></span>HIFCR</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t DMA_REGDEF_t::LISR</td>
+          <td class="memname">uint32_t DMA_REGDEF_t::HIFCR</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00120">120</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Interrupt flag clear for streams 4..7. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00191">191</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<a id="acd824b519f64179d8449695e26409594" name="acd824b519f64179d8449695e26409594"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd824b519f64179d8449695e26409594">&#9670;&#160;</a></span>Stream</h2>
+<a id="ab8ccd5a098b023e7e66218ea475a6b5d" name="ab8ccd5a098b023e7e66218ea475a6b5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8ccd5a098b023e7e66218ea475a6b5d">&#9670;&#160;</a></span>Stream</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structDMA__STREAM__REGDEF__t.html">DMA_STREAM_REGDEF_t</a> DMA_REGDEF_t::Stream</td>
+          <td class="memname"><a class="el" href="structDMA__STREAM__REGDEF__t.html">DMA_STREAM_REGDEF_t</a> DMA_REGDEF_t::Stream[8]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00124">124</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>The 8 per-stream register blocks. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00192">192</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>Inc/Drivers/LIB/<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
-<li>Inc/System/<a class="el" href="System_2STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>V2V-STM32/Inc/Drivers/LIB/<a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

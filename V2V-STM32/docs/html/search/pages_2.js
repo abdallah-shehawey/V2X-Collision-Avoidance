@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['collision_20do_20not_20pass_20warning_0',['🔹 FCW / DNPW — Forward Collision + Do-Not-Pass Warning',['../md_README.html#autotoc_md11',1,'']]],
-  ['core_1',['Core',['../md_README.html',1,'🔧 V2V-STM32 — Real-Time Safety Core'],['../md_README.html#autotoc_md1',1,'🚗 V2V Safety-Critical Core']]],
-  ['critical_20core_2',['🚗 V2V Safety-Critical Core',['../md_README.html#autotoc_md1',1,'']]]
+  ['3_20—_20feedback_20block_205_20leds_20buzzer_20⭐_20start_20testing_20with_20this_20one_0',['STAGE 3 — FEEDBACK BLOCK (5 LEDs + buzzer) ⭐ start testing with this one',['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md43',1,'']]],
+  ['3_20upload_20the_20firmware_1',['3. Upload the Firmware',['../dir_59e7f8d29184d0656f3182488763fc33.html#autotoc_md91',1,'']]]
 ];

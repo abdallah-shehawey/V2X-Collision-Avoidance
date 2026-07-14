@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Src/IMA_program.c Source File</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Src/IMA_program.c Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -94,93 +94,116 @@ $(function(){initNavTree('IMA__program_8c_source.html','',''); });
 </div><!--header-->
 <div class="contents">
 <a href="IMA__program_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="IMA__interface_8h.html">../Inc/Application/IMA/IMA_interface.h</a>&quot;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="IMA__config_8h.html">../Inc/Application/IMA/IMA_config.h</a>&quot;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="IMA__private_8h.html">../Inc/Application/IMA/IMA_private.h</a>&quot;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="DSRC_8h.html">../Inc/Application/DSRC/DSRC.h</a>&quot;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="System_8h.html">../Inc/System/System.h</a>&quot;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;<a class="code" href="SafetyEngine__interface_8h.html">../Inc/Application/SafetyEngine/SafetyEngine_interface.h</a>&quot;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">/* ============ Module State (cycle accumulators) ============ */</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">static</span> uint8_t     IMA_CrossingDetected = 0; <span class="comment">/* At least one crossing-dir neighbor */</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">static</span> <a class="code hl_enumeration" href="SafetyEngine__interface_8h.html#aa870174b113e13762b47e719bf3efa88">RiskLevel_t</a> IMA_WorstRisk        = <a class="code hl_enumvalue" href="SafetyEngine__interface_8h.html#aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c">RISK_SAFE</a>;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">/* ============ Init ============ */</span></div>
-<div class="foldopen" id="foldopen00026" data-start="{" data-end="}">
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="IMA__interface_8h.html#abd5d231970401e78bd9552c40742d1e9">   26</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="IMA__program_8c.html#abd5d231970401e78bd9552c40742d1e9">IMA_voidInit</a>(<span class="keywordtype">void</span>)</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>{</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  IMA_CrossingDetected = 0;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  IMA_WorstRisk        = <a class="code hl_enumvalue" href="SafetyEngine__interface_8h.html#aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c">RISK_SAFE</a>;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="IMA__interface_8h.html">../Inc/Application/IMA/IMA_interface.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="IMA__config_8h.html">../Inc/Application/IMA/IMA_config.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="IMA__private_8h.html">../Inc/Application/IMA/IMA_private.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="DSRC_8h.html">../Inc/Application/DSRC/DSRC.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="System_8h.html">../Inc/System/System.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="SafetyEngine__interface_8h.html">../Inc/Application/SafetyEngine/SafetyEngine_interface.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">/* ============ Module State (cycle accumulators) ============ */</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="IMA__program_8c.html#aa8ee3697aabf78e1aad8d7b10effba12">   19</a></span><span class="keyword">static</span> uint8_t     <a class="code hl_variable" href="IMA__program_8c.html#aa8ee3697aabf78e1aad8d7b10effba12">IMA_CrossingDetected</a> = 0;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="IMA__program_8c.html#ada0a2986b5d169695406de97638b1e43">   21</a></span><span class="keyword">static</span> <a class="code hl_enumeration" href="group__app__safetyengine.html#gaa870174b113e13762b47e719bf3efa88">RiskLevel_t</a> <a class="code hl_variable" href="IMA__program_8c.html#ada0a2986b5d169695406de97638b1e43">IMA_WorstRisk</a>        = <a class="code hl_enumvalue" href="group__app__safetyengine.html#ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c">RISK_SAFE</a>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">/* ============ Init ============ */</span></div>
+<div class="foldopen" id="foldopen00024" data-start="{" data-end="}">
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="IMA__interface_8h.html#abd5d231970401e78bd9552c40742d1e9">   24</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="IMA__program_8c.html#abd5d231970401e78bd9552c40742d1e9">IMA_voidInit</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>{</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  <a class="code hl_variable" href="IMA__program_8c.html#aa8ee3697aabf78e1aad8d7b10effba12">IMA_CrossingDetected</a> = 0;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <a class="code hl_variable" href="IMA__program_8c.html#ada0a2986b5d169695406de97638b1e43">IMA_WorstRisk</a>        = <a class="code hl_enumvalue" href="group__app__safetyengine.html#ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c">RISK_SAFE</a>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
 </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">/* ============================================================ */</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">/* ============ Per-Neighbor API (for SafetyEngine) ============ */</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">/* ============================================================ */</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">/* ============ Per-Neighbor API (for SafetyEngine) ============ */</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">/* ============================================================ */</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span></div>
-<div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="IMA__interface_8h.html#a17e1c415924f5123666b1c7436f57a94">   40</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="IMA__program_8c.html#a17e1c415924f5123666b1c7436f57a94">IMA_voidBeginCycle</a>(<span class="keywordtype">void</span>)</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>{</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  IMA_CrossingDetected = 0;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  IMA_WorstRisk        = <a class="code hl_enumvalue" href="SafetyEngine__interface_8h.html#aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c">RISK_SAFE</a>;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment"> * @brief Begin a new IMA processing cycle — reset accumulators.</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment"> *        IMA reads Host_Speed from the shared globals.</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="}">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="IMA__interface_8h.html#a17e1c415924f5123666b1c7436f57a94">   38</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="IMA__program_8c.html#a17e1c415924f5123666b1c7436f57a94">IMA_voidBeginCycle</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>{</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  <a class="code hl_variable" href="IMA__program_8c.html#aa8ee3697aabf78e1aad8d7b10effba12">IMA_CrossingDetected</a> = 0;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  <a class="code hl_variable" href="IMA__program_8c.html#ada0a2986b5d169695406de97638b1e43">IMA_WorstRisk</a>        = <a class="code hl_enumvalue" href="group__app__safetyengine.html#ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c">RISK_SAFE</a>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
 </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span></div>
-<div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="IMA__interface_8h.html#a748c4abb479229cffa75659e88bd9751">   57</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="IMA__program_8c.html#a748c4abb479229cffa75659e88bd9751">IMA_voidProcessNeighbor</a>(<span class="keyword">const</span> <a class="code hl_variable" href="DSRC_8h.html#ac818f2e1224a1e513913a85019953e14">Neighbor</a> *n)</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>{</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  <span class="comment">/* A crossing vehicle is detected */</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  IMA_CrossingDetected = 1;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  <span class="comment">/* Severity from the priority rule: the slower vehicle yields (CRITICAL), the</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment">   * faster/equal one has right of way and passes first (WARNING). Either way an</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">   * alert fires so both drivers know an IMA case is in play. */</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  <a class="code hl_enumeration" href="SafetyEngine__interface_8h.html#aa870174b113e13762b47e719bf3efa88">RiskLevel_t</a> risk = (<a class="code hl_variable" href="SafetyEngine__interface_8h.html#a16174df02da93c0fc96432a4bc1de57b">Host_Speed</a> &lt; n-&gt;speed) ? <a class="code hl_enumvalue" href="SafetyEngine__interface_8h.html#aa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492">RISK_CRITICAL</a>  <span class="comment">/* host slower → yield */</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                                             : <a class="code hl_enumvalue" href="SafetyEngine__interface_8h.html#aa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82">RISK_WARNING</a>;  <span class="comment">/* host faster/equal → right of way */</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  <span class="keywordflow">if</span> (risk &gt; IMA_WorstRisk)</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  {</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    IMA_WorstRisk = risk;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  }</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment"> * @brief Process one crossing-direction DSRC neighbor for IMA.</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment"> * Any crossing vehicle raises an alert so the driver knows an IMA case is in</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment"> * play; the priority rule (higher speed = right of way) only sets its severity:</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment"> *   - host faster or equal → it passes first → WARNING.</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment"> *   - host slower          → it must yield   → CRITICAL.</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment"> * The SafetyEngine only dispatches crossing-direction neighbors here.</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment"> * @param n Pointer to neighbor data</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00055" data-start="{" data-end="}">
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="IMA__interface_8h.html#a748c4abb479229cffa75659e88bd9751">   55</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="IMA__program_8c.html#a748c4abb479229cffa75659e88bd9751">IMA_voidProcessNeighbor</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structNeighbor.html">Neighbor</a> *n)</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>{</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  <span class="comment">/* A crossing vehicle is detected */</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  <a class="code hl_variable" href="IMA__program_8c.html#aa8ee3697aabf78e1aad8d7b10effba12">IMA_CrossingDetected</a> = 1;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  <span class="comment">/* Severity from the priority rule: the slower vehicle yields (CRITICAL), the</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">   * faster/equal one has right of way and passes first (WARNING). Either way an</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">   * alert fires so both drivers know an IMA case is in play. */</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  <a class="code hl_enumeration" href="group__app__safetyengine.html#gaa870174b113e13762b47e719bf3efa88">RiskLevel_t</a> risk = (<a class="code hl_variable" href="group__app__safetyengine.html#ga16174df02da93c0fc96432a4bc1de57b">Host_Speed</a> &lt; n-&gt;<a class="code hl_variable" href="structNeighbor.html#a69c6cf461fb3746631e7019c5fede46d">speed</a>) ? <a class="code hl_enumvalue" href="group__app__safetyengine.html#ggaa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492">RISK_CRITICAL</a>  <span class="comment">/* host slower → yield */</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                                             : <a class="code hl_enumvalue" href="group__app__safetyengine.html#ggaa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82">RISK_WARNING</a>;  <span class="comment">/* host faster/equal → right of way */</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  <span class="keywordflow">if</span> (risk &gt; <a class="code hl_variable" href="IMA__program_8c.html#ada0a2986b5d169695406de97638b1e43">IMA_WorstRisk</a>)</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <a class="code hl_variable" href="IMA__program_8c.html#ada0a2986b5d169695406de97638b1e43">IMA_WorstRisk</a> = risk;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  }</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
 </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">/* ============ Public Getter ============ */</span></div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment">/* ============ Public Getter ============ */</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span></div>
-<div class="foldopen" id="foldopen00081" data-start="{" data-end="}">
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="IMA__interface_8h.html#a18f54786f683ab3016989275ccf9e95a">   81</a></span>uint8_t <a class="code hl_function" href="IMA__program_8c.html#a18f54786f683ab3016989275ccf9e95a">IMA_u8GetFlag</a>(<span class="keywordtype">void</span>)</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>{</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>  <span class="keywordflow">if</span> (IMA_CrossingDetected &amp;&amp; IMA_WorstRisk &gt; <a class="code hl_enumvalue" href="SafetyEngine__interface_8h.html#aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c">RISK_SAFE</a>)</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>  {</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordflow">return</span> (uint8_t)IMA_WorstRisk;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  }</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>  <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>}</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment"> * @brief Current IMA flag. Any crossing vehicle raises an alert; the severity is</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment"> *        WARNING when the host has right of way, CRITICAL when it must yield.</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment"> * @return 0=Safe, 1=Warning, 2=Critical</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00079" data-start="{" data-end="}">
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="IMA__interface_8h.html#a18f54786f683ab3016989275ccf9e95a">   79</a></span>uint8_t <a class="code hl_function" href="IMA__program_8c.html#a18f54786f683ab3016989275ccf9e95a">IMA_u8GetFlag</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>{</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>  <span class="keywordflow">if</span> (<a class="code hl_variable" href="IMA__program_8c.html#aa8ee3697aabf78e1aad8d7b10effba12">IMA_CrossingDetected</a> &amp;&amp; <a class="code hl_variable" href="IMA__program_8c.html#ada0a2986b5d169695406de97638b1e43">IMA_WorstRisk</a> &gt; <a class="code hl_enumvalue" href="group__app__safetyengine.html#ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c">RISK_SAFE</a>)</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>  {</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordflow">return</span> (uint8_t)<a class="code hl_variable" href="IMA__program_8c.html#ada0a2986b5d169695406de97638b1e43">IMA_WorstRisk</a>;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>  }</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>  <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>}</div>
 </div>
-<div class="ttc" id="aDSRC_8h_html"><div class="ttname"><a href="DSRC_8h.html">DSRC.h</a></div><div class="ttdoc">: DSRC module implementation</div></div>
-<div class="ttc" id="aDSRC_8h_html_ac818f2e1224a1e513913a85019953e14"><div class="ttname"><a href="DSRC_8h.html#ac818f2e1224a1e513913a85019953e14">Neighbor</a></div><div class="ttdeci">Neighbor</div><div class="ttdef"><b>Definition</b> <a href="DSRC_8h_source.html#l00040">DSRC.h:40</a></div></div>
-<div class="ttc" id="aIMA__config_8h_html"><div class="ttname"><a href="IMA__config_8h.html">IMA_config.h</a></div></div>
-<div class="ttc" id="aIMA__interface_8h_html"><div class="ttname"><a href="IMA__interface_8h.html">IMA_interface.h</a></div></div>
-<div class="ttc" id="aIMA__private_8h_html"><div class="ttname"><a href="IMA__private_8h.html">IMA_private.h</a></div></div>
-<div class="ttc" id="aIMA__program_8c_html_a17e1c415924f5123666b1c7436f57a94"><div class="ttname"><a href="IMA__program_8c.html#a17e1c415924f5123666b1c7436f57a94">IMA_voidBeginCycle</a></div><div class="ttdeci">void IMA_voidBeginCycle(void)</div><div class="ttdoc">Begin a new IMA processing cycle — reset accumulators. IMA reads Host_Speed from the shared globals.</div><div class="ttdef"><b>Definition</b> <a href="#l00040">IMA_program.c:40</a></div></div>
-<div class="ttc" id="aIMA__program_8c_html_a18f54786f683ab3016989275ccf9e95a"><div class="ttname"><a href="IMA__program_8c.html#a18f54786f683ab3016989275ccf9e95a">IMA_u8GetFlag</a></div><div class="ttdeci">uint8_t IMA_u8GetFlag(void)</div><div class="ttdoc">Current IMA flag. Any crossing vehicle raises an alert; the severity is WARNING when the host has rig...</div><div class="ttdef"><b>Definition</b> <a href="#l00081">IMA_program.c:81</a></div></div>
-<div class="ttc" id="aIMA__program_8c_html_a748c4abb479229cffa75659e88bd9751"><div class="ttname"><a href="IMA__program_8c.html#a748c4abb479229cffa75659e88bd9751">IMA_voidProcessNeighbor</a></div><div class="ttdeci">void IMA_voidProcessNeighbor(const Neighbor *n)</div><div class="ttdoc">Process one crossing-direction DSRC neighbor for IMA.</div><div class="ttdef"><b>Definition</b> <a href="#l00057">IMA_program.c:57</a></div></div>
-<div class="ttc" id="aIMA__program_8c_html_abd5d231970401e78bd9552c40742d1e9"><div class="ttname"><a href="IMA__program_8c.html#abd5d231970401e78bd9552c40742d1e9">IMA_voidInit</a></div><div class="ttdeci">void IMA_voidInit(void)</div><div class="ttdoc">Initialize the IMA module.</div><div class="ttdef"><b>Definition</b> <a href="#l00026">IMA_program.c:26</a></div></div>
-<div class="ttc" id="aSafetyEngine__interface_8h_html"><div class="ttname"><a href="SafetyEngine__interface_8h.html">SafetyEngine_interface.h</a></div></div>
-<div class="ttc" id="aSafetyEngine__interface_8h_html_a16174df02da93c0fc96432a4bc1de57b"><div class="ttname"><a href="SafetyEngine__interface_8h.html#a16174df02da93c0fc96432a4bc1de57b">Host_Speed</a></div><div class="ttdeci">float Host_Speed</div><div class="ttdef"><b>Definition</b> <a href="SafetyEngine__program_8c_source.html#l00024">SafetyEngine_program.c:24</a></div></div>
-<div class="ttc" id="aSafetyEngine__interface_8h_html_aa870174b113e13762b47e719bf3efa88"><div class="ttname"><a href="SafetyEngine__interface_8h.html#aa870174b113e13762b47e719bf3efa88">RiskLevel_t</a></div><div class="ttdeci">RiskLevel_t</div><div class="ttdef"><b>Definition</b> <a href="SafetyEngine__interface_8h_source.html#l00022">SafetyEngine_interface.h:23</a></div></div>
-<div class="ttc" id="aSafetyEngine__interface_8h_html_aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c"><div class="ttname"><a href="SafetyEngine__interface_8h.html#aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c">RISK_SAFE</a></div><div class="ttdeci">@ RISK_SAFE</div><div class="ttdef"><b>Definition</b> <a href="SafetyEngine__interface_8h_source.html#l00024">SafetyEngine_interface.h:24</a></div></div>
-<div class="ttc" id="aSafetyEngine__interface_8h_html_aa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492"><div class="ttname"><a href="SafetyEngine__interface_8h.html#aa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492">RISK_CRITICAL</a></div><div class="ttdeci">@ RISK_CRITICAL</div><div class="ttdef"><b>Definition</b> <a href="SafetyEngine__interface_8h_source.html#l00026">SafetyEngine_interface.h:26</a></div></div>
-<div class="ttc" id="aSafetyEngine__interface_8h_html_aa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82"><div class="ttname"><a href="SafetyEngine__interface_8h.html#aa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82">RISK_WARNING</a></div><div class="ttdeci">@ RISK_WARNING</div><div class="ttdef"><b>Definition</b> <a href="SafetyEngine__interface_8h_source.html#l00025">SafetyEngine_interface.h:25</a></div></div>
-<div class="ttc" id="aSystem_8h_html"><div class="ttname"><a href="System_8h.html">System.h</a></div><div class="ttdoc">: System Header file</div></div>
+<div class="ttc" id="aDSRC_8h_html"><div class="ttname"><a href="DSRC_8h.html">DSRC.h</a></div><div class="ttdoc">The V2V transport: the neighbor table and the over-the-air frame format shared with the ESP32 radio b...</div></div>
+<div class="ttc" id="aIMA__config_8h_html"><div class="ttname"><a href="IMA__config_8h.html">IMA_config.h</a></div><div class="ttdoc">Compile-time configuration for the IMA driver — Intersection Movement Assist.</div></div>
+<div class="ttc" id="aIMA__interface_8h_html"><div class="ttname"><a href="IMA__interface_8h.html">IMA_interface.h</a></div><div class="ttdoc">Public API of the IMA driver — Intersection Movement Assist.</div></div>
+<div class="ttc" id="aIMA__private_8h_html"><div class="ttname"><a href="IMA__private_8h.html">IMA_private.h</a></div><div class="ttdoc">Register bit positions and internals of the IMA driver — not a public header.</div></div>
+<div class="ttc" id="aIMA__program_8c_html_a17e1c415924f5123666b1c7436f57a94"><div class="ttname"><a href="IMA__program_8c.html#a17e1c415924f5123666b1c7436f57a94">IMA_voidBeginCycle</a></div><div class="ttdeci">void IMA_voidBeginCycle(void)</div><div class="ttdoc">Begin a new processing cycle — reset accumulators No sensor parameters needed; IMA reads Host_Speed f...</div><div class="ttdef"><b>Definition</b> <a href="#l00038">IMA_program.c:38</a></div></div>
+<div class="ttc" id="aIMA__program_8c_html_a18f54786f683ab3016989275ccf9e95a"><div class="ttname"><a href="IMA__program_8c.html#a18f54786f683ab3016989275ccf9e95a">IMA_u8GetFlag</a></div><div class="ttdeci">uint8_t IMA_u8GetFlag(void)</div><div class="ttdoc">Get current IMA flag (for DSRC flag broadcast).</div><div class="ttdef"><b>Definition</b> <a href="#l00079">IMA_program.c:79</a></div></div>
+<div class="ttc" id="aIMA__program_8c_html_a748c4abb479229cffa75659e88bd9751"><div class="ttname"><a href="IMA__program_8c.html#a748c4abb479229cffa75659e88bd9751">IMA_voidProcessNeighbor</a></div><div class="ttdeci">void IMA_voidProcessNeighbor(const Neighbor *n)</div><div class="ttdoc">Process one CROSSING-direction DSRC neighbor for IMA.</div><div class="ttdef"><b>Definition</b> <a href="#l00055">IMA_program.c:55</a></div></div>
+<div class="ttc" id="aIMA__program_8c_html_aa8ee3697aabf78e1aad8d7b10effba12"><div class="ttname"><a href="IMA__program_8c.html#aa8ee3697aabf78e1aad8d7b10effba12">IMA_CrossingDetected</a></div><div class="ttdeci">static uint8_t IMA_CrossingDetected</div><div class="ttdoc">Gate: is at least one neighbor crossing our path this cycle (DIR_CROSSING)?</div><div class="ttdef"><b>Definition</b> <a href="#l00019">IMA_program.c:19</a></div></div>
+<div class="ttc" id="aIMA__program_8c_html_abd5d231970401e78bd9552c40742d1e9"><div class="ttname"><a href="IMA__program_8c.html#abd5d231970401e78bd9552c40742d1e9">IMA_voidInit</a></div><div class="ttdeci">void IMA_voidInit(void)</div><div class="ttdoc">Initialize the IMA module.</div><div class="ttdef"><b>Definition</b> <a href="#l00024">IMA_program.c:24</a></div></div>
+<div class="ttc" id="aIMA__program_8c_html_ada0a2986b5d169695406de97638b1e43"><div class="ttname"><a href="IMA__program_8c.html#ada0a2986b5d169695406de97638b1e43">IMA_WorstRisk</a></div><div class="ttdeci">static RiskLevel_t IMA_WorstRisk</div><div class="ttdoc">Result: the worst intersection risk across every crossing neighbor this cycle.</div><div class="ttdef"><b>Definition</b> <a href="#l00021">IMA_program.c:21</a></div></div>
+<div class="ttc" id="aSafetyEngine__interface_8h_html"><div class="ttname"><a href="SafetyEngine__interface_8h.html">SafetyEngine_interface.h</a></div><div class="ttdoc">Public API of the SafetyEngine driver — the shared risk model and per-cycle ADAS orchestration.</div></div>
+<div class="ttc" id="aSystem_8h_html"><div class="ttname"><a href="System_8h.html">System.h</a></div><div class="ttdoc">System-wide contract: the board wiring map, the shared vehicle state, the packed ADAS status word,...</div></div>
+<div class="ttc" id="agroup__app__safetyengine_html_ga16174df02da93c0fc96432a4bc1de57b"><div class="ttname"><a href="group__app__safetyengine.html#ga16174df02da93c0fc96432a4bc1de57b">Host_Speed</a></div><div class="ttdeci">float Host_Speed</div><div class="ttdoc">This vehicle&#39;s speed for this cycle [m/s].</div><div class="ttdef"><b>Definition</b> <a href="SafetyEngine__program_8c_source.html#l00021">SafetyEngine_program.c:21</a></div></div>
+<div class="ttc" id="agroup__app__safetyengine_html_gaa870174b113e13762b47e719bf3efa88"><div class="ttname"><a href="group__app__safetyengine.html#gaa870174b113e13762b47e719bf3efa88">RiskLevel_t</a></div><div class="ttdeci">RiskLevel_t</div><div class="ttdoc">The graded verdict every ADAS module returns.</div><div class="ttdef"><b>Definition</b> <a href="SafetyEngine__interface_8h_source.html#l00058">SafetyEngine_interface.h:59</a></div></div>
+<div class="ttc" id="agroup__app__safetyengine_html_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c"><div class="ttname"><a href="group__app__safetyengine.html#ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c">RISK_SAFE</a></div><div class="ttdeci">@ RISK_SAFE</div><div class="ttdoc">No hazard.</div><div class="ttdef"><b>Definition</b> <a href="SafetyEngine__interface_8h_source.html#l00060">SafetyEngine_interface.h:60</a></div></div>
+<div class="ttc" id="agroup__app__safetyengine_html_ggaa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492"><div class="ttname"><a href="group__app__safetyengine.html#ggaa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492">RISK_CRITICAL</a></div><div class="ttdeci">@ RISK_CRITICAL</div><div class="ttdoc">Too close — the driver should stop.</div><div class="ttdef"><b>Definition</b> <a href="SafetyEngine__interface_8h_source.html#l00062">SafetyEngine_interface.h:62</a></div></div>
+<div class="ttc" id="agroup__app__safetyengine_html_ggaa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82"><div class="ttname"><a href="group__app__safetyengine.html#ggaa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82">RISK_WARNING</a></div><div class="ttdeci">@ RISK_WARNING</div><div class="ttdoc">Getting close — the driver should slow down.</div><div class="ttdef"><b>Definition</b> <a href="SafetyEngine__interface_8h_source.html#l00061">SafetyEngine_interface.h:61</a></div></div>
+<div class="ttc" id="astructNeighbor_html"><div class="ttname"><a href="structNeighbor.html">Neighbor</a></div><div class="ttdoc">One vehicle&#39;s broadcast state — this is the wire format itself.</div><div class="ttdef"><b>Definition</b> <a href="DSRC_8h_source.html#l00099">DSRC.h:100</a></div></div>
+<div class="ttc" id="astructNeighbor_html_a69c6cf461fb3746631e7019c5fede46d"><div class="ttname"><a href="structNeighbor.html#a69c6cf461fb3746631e7019c5fede46d">Neighbor::speed</a></div><div class="ttdeci">float speed</div><div class="ttdoc">The sender&#39;s ground speed [cm/s].</div><div class="ttdef"><b>Definition</b> <a href="DSRC_8h_source.html#l00102">DSRC.h:102</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_413f4e031a85da0d68269c6fd2f76e1c.html">Src</a></li><li class="navelem"><a href="IMA__program_8c.html">IMA_program.c</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Src</b></li><li class="navelem"><a href="IMA__program_8c.html">IMA_program.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

@@ -1,5 +1,6 @@
 var files_dup =
 [
-    [ "Inc", "dir_f93dfce691d792349f1c14ede440e2e6.html", "dir_f93dfce691d792349f1c14ede440e2e6" ],
-    [ "Src", "dir_413f4e031a85da0d68269c6fd2f76e1c.html", "dir_413f4e031a85da0d68269c6fd2f76e1c" ]
+    [ "esp32", "dir_59e7f8d29184d0656f3182488763fc33.html", null ],
+    [ "RPI", "dir_8abd7e4ac8b6e1a87e5cac2abe130fac.html", "dir_8abd7e4ac8b6e1a87e5cac2abe130fac" ],
+    [ "V2V-STM32", "dir_adae351cf8a5e7d8aec2f0922b56b5bd.html", "dir_adae351cf8a5e7d8aec2f0922b56b5bd" ]
 ];

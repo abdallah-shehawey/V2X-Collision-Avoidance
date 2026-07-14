@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: SysTick Register Bit Definitions</title>
+<title>V2V Collision Avoidance Firmware: SysTick Register Bit Definitions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -99,49 +99,18 @@ $(function(){initNavTree('group__SYSTIC__Registers.html','',''); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga38d1b080e439bceb106970e8d4dd9b29" id="r_ga38d1b080e439bceb106970e8d4dd9b29"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga38d1b080e439bceb106970e8d4dd9b29">SYSTIC_CTRL_ENABLE</a>&#160;&#160;&#160;(0U)</td></tr>
-<tr class="memitem:ga5756661e6f29f88fa14bfb0207114335" id="r_ga5756661e6f29f88fa14bfb0207114335"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga5756661e6f29f88fa14bfb0207114335">SYSTIC_CTRL_TICKINT</a>&#160;&#160;&#160;(1U)</td></tr>
-<tr class="memitem:ga28a9ae71009dd56218f3f3ba9a3497a1" id="r_ga28a9ae71009dd56218f3f3ba9a3497a1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga28a9ae71009dd56218f3f3ba9a3497a1">SYSTIC_CTRL_CLKSOURCE</a>&#160;&#160;&#160;(2U)</td></tr>
-<tr class="memitem:ga08cb1583dd11d0b6822481b8e7fe97de" id="r_ga08cb1583dd11d0b6822481b8e7fe97de"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga08cb1583dd11d0b6822481b8e7fe97de">SYSTIC_CTRL_COUNTFLAG</a>&#160;&#160;&#160;(16U)</td></tr>
+<tr class="memitem:ga38d1b080e439bceb106970e8d4dd9b29" id="r_ga38d1b080e439bceb106970e8d4dd9b29"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga38d1b080e439bceb106970e8d4dd9b29">SYSTIC_CTRL_ENABLE</a></td></tr>
+<tr class="memdesc:ga38d1b080e439bceb106970e8d4dd9b29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counter Enable bit - Enables the counter.  <br /></td></tr>
+<tr class="memitem:ga5756661e6f29f88fa14bfb0207114335" id="r_ga5756661e6f29f88fa14bfb0207114335"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga5756661e6f29f88fa14bfb0207114335">SYSTIC_CTRL_TICKINT</a></td></tr>
+<tr class="memdesc:ga5756661e6f29f88fa14bfb0207114335"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exception Enable bit - Enables SysTick exception request.  <br /></td></tr>
+<tr class="memitem:ga28a9ae71009dd56218f3f3ba9a3497a1" id="r_ga28a9ae71009dd56218f3f3ba9a3497a1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga28a9ae71009dd56218f3f3ba9a3497a1">SYSTIC_CTRL_CLKSOURCE</a></td></tr>
+<tr class="memdesc:ga28a9ae71009dd56218f3f3ba9a3497a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clock Source bit - Selects the clock source (AHB or AHB/8).  <br /></td></tr>
+<tr class="memitem:ga08cb1583dd11d0b6822481b8e7fe97de" id="r_ga08cb1583dd11d0b6822481b8e7fe97de"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga08cb1583dd11d0b6822481b8e7fe97de">SYSTIC_CTRL_COUNTFLAG</a></td></tr>
+<tr class="memdesc:ga08cb1583dd11d0b6822481b8e7fe97de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Count Flag bit - Indicates counter has counted to 0 since last read.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Bit positions in the SysTick Control and Status Register (STK_CTRL). </p>
-<p>===========================================================================** &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; <a class="el" href="SYSTIC__private_8h.html">SYSTIC_private.h</a> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;** ** Author : Abdallah Abdelmoemen Shehawey ** Layer : MCAL ** CPU : Cortex-M4 ** MCU : NUCLEO-F446RE ** SWC : SYSTIC ** ** ===========================================================================** </p>
 </div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="ga28a9ae71009dd56218f3f3ba9a3497a1" name="ga28a9ae71009dd56218f3f3ba9a3497a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga28a9ae71009dd56218f3f3ba9a3497a1">&#9670;&#160;</a></span>SYSTIC_CTRL_CLKSOURCE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SYSTIC_CTRL_CLKSOURCE&#160;&#160;&#160;(2U)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Clock Source bit - Selects the clock source (AHB or AHB/8) </p>
-
-<p class="definition">Definition at line <a class="el" href="SYSTIC__private_8h_source.html#l00024">24</a> of file <a class="el" href="SYSTIC__private_8h_source.html">SYSTIC_private.h</a>.</p>
-
-</div>
-</div>
-<a id="ga08cb1583dd11d0b6822481b8e7fe97de" name="ga08cb1583dd11d0b6822481b8e7fe97de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga08cb1583dd11d0b6822481b8e7fe97de">&#9670;&#160;</a></span>SYSTIC_CTRL_COUNTFLAG</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SYSTIC_CTRL_COUNTFLAG&#160;&#160;&#160;(16U)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Count Flag bit - Indicates counter has counted to 0 since last read </p>
-
-<p class="definition">Definition at line <a class="el" href="SYSTIC__private_8h_source.html#l00025">25</a> of file <a class="el" href="SYSTIC__private_8h_source.html">SYSTIC_private.h</a>.</p>
-
-</div>
-</div>
 <a id="ga38d1b080e439bceb106970e8d4dd9b29" name="ga38d1b080e439bceb106970e8d4dd9b29"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga38d1b080e439bceb106970e8d4dd9b29">&#9670;&#160;</a></span>SYSTIC_CTRL_ENABLE</h2>
 
@@ -149,13 +118,16 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define SYSTIC_CTRL_ENABLE&#160;&#160;&#160;(0U)</td>
+          <td class="memname">#define SYSTIC_CTRL_ENABLE</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Counter Enable bit - Enables the counter </p>
 
-<p class="definition">Definition at line <a class="el" href="SYSTIC__private_8h_source.html#l00022">22</a> of file <a class="el" href="SYSTIC__private_8h_source.html">SYSTIC_private.h</a>.</p>
+<p>Counter Enable bit - Enables the counter. </p>
+
+<p class="definition">Definition at line <a class="el" href="SYSTIC__private_8h_source.html#l00018">18</a> of file <a class="el" href="SYSTIC__private_8h_source.html">SYSTIC_private.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SYSTIC__program_8c_source.html#l00085">SYSTIC_vDisable()</a>, and <a class="el" href="SYSTIC__program_8c_source.html#l00097">SYSTIC_vEnable()</a>.</p>
 
 </div>
 </div>
@@ -166,13 +138,56 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define SYSTIC_CTRL_TICKINT&#160;&#160;&#160;(1U)</td>
+          <td class="memname">#define SYSTIC_CTRL_TICKINT</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Exception Enable bit - Enables SysTick exception request </p>
 
-<p class="definition">Definition at line <a class="el" href="SYSTIC__private_8h_source.html#l00023">23</a> of file <a class="el" href="SYSTIC__private_8h_source.html">SYSTIC_private.h</a>.</p>
+<p>Exception Enable bit - Enables SysTick exception request. </p>
+
+<p class="definition">Definition at line <a class="el" href="SYSTIC__private_8h_source.html#l00019">19</a> of file <a class="el" href="SYSTIC__private_8h_source.html">SYSTIC_private.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SYSTIC__program_8c_source.html#l00049">SYSTIC_vInit()</a>.</p>
+
+</div>
+</div>
+<a id="ga28a9ae71009dd56218f3f3ba9a3497a1" name="ga28a9ae71009dd56218f3f3ba9a3497a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga28a9ae71009dd56218f3f3ba9a3497a1">&#9670;&#160;</a></span>SYSTIC_CTRL_CLKSOURCE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SYSTIC_CTRL_CLKSOURCE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clock Source bit - Selects the clock source (AHB or AHB/8). </p>
+
+<p class="definition">Definition at line <a class="el" href="SYSTIC__private_8h_source.html#l00020">20</a> of file <a class="el" href="SYSTIC__private_8h_source.html">SYSTIC_private.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SYSTIC__program_8c_source.html#l00049">SYSTIC_vInit()</a>.</p>
+
+</div>
+</div>
+<a id="ga08cb1583dd11d0b6822481b8e7fe97de" name="ga08cb1583dd11d0b6822481b8e7fe97de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga08cb1583dd11d0b6822481b8e7fe97de">&#9670;&#160;</a></span>SYSTIC_CTRL_COUNTFLAG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SYSTIC_CTRL_COUNTFLAG</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Count Flag bit - Indicates counter has counted to 0 since last read. </p>
+
+<p class="definition">Definition at line <a class="el" href="SYSTIC__private_8h_source.html#l00021">21</a> of file <a class="el" href="SYSTIC__private_8h_source.html">SYSTIC_private.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="SYSTIC__program_8c_source.html#l00109">SYSTIC_vWait()</a>.</p>
 
 </div>
 </div>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: LED_Config_t Struct Reference</title>
+<title>V2V Collision Avoidance Firmware: LED_Config_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -94,18 +94,66 @@ $(function(){initNavTree('structLED__Config__t.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="LED__interface_8h_source.html">LED_interface.h</a>&gt;</code></p>
+<p>Describes one LED: where it is wired, and which way round it is.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="LED__interface_8h_source.html">Drivers/HAL/LED/LED_interface.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a9a6ec5acd8ad6330c8ea4fbd8e6904f5" id="r_a9a6ec5acd8ad6330c8ea4fbd8e6904f5"><td class="memItemLeft"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9a6ec5acd8ad6330c8ea4fbd8e6904f5">PortName</a></td></tr>
-<tr class="memitem:a7e866577221817fba36f18afa94438e9" id="r_a7e866577221817fba36f18afa94438e9"><td class="memItemLeft"><a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7e866577221817fba36f18afa94438e9">PinNumber</a></td></tr>
+<tr class="memitem:a9a6ec5acd8ad6330c8ea4fbd8e6904f5" id="r_a9a6ec5acd8ad6330c8ea4fbd8e6904f5"><td class="memItemLeft"><a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9a6ec5acd8ad6330c8ea4fbd8e6904f5">PortName</a></td></tr>
+<tr class="memdesc:a9a6ec5acd8ad6330c8ea4fbd8e6904f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Port the LED is on.  <br /></td></tr>
+<tr class="memitem:a7e866577221817fba36f18afa94438e9" id="r_a7e866577221817fba36f18afa94438e9"><td class="memItemLeft"><a class="el" href="group__mcal__gpio.html#ga5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7e866577221817fba36f18afa94438e9">PinNumber</a></td></tr>
+<tr class="memdesc:a7e866577221817fba36f18afa94438e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pin the LED is on.  <br /></td></tr>
 <tr class="memitem:a569c6b77190bc29ef3c64bea8fb8b1c9" id="r_a569c6b77190bc29ef3c64bea8fb8b1c9"><td class="memItemLeft"><a class="el" href="LED__interface_8h.html#a59d24514299cc1e14e907d084535e845">LED_ActiveState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a569c6b77190bc29ef3c64bea8fb8b1c9">ActiveState</a></td></tr>
+<tr class="memdesc:a569c6b77190bc29ef3c64bea8fb8b1c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the LED lights on a high or a low level.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="LED__interface_8h_source.html#l00028">28</a> of file <a class="el" href="LED__interface_8h_source.html">LED_interface.h</a>.</p>
+<div class="textblock"><p>Describes one LED: where it is wired, and which way round it is. </p>
+<p><span class="tt"><a class="el" href="#a569c6b77190bc29ef3c64bea8fb8b1c9" title="Whether the LED lights on a high or a low level.">ActiveState</a></span> is what lets the rest of the firmware say "on" and "off" without knowing how the LED is wired. An <a class="el" href="LED__interface_8h.html#a59d24514299cc1e14e907d084535e845afe240f1952811db0c18b4355fb28190f" title="ACTIVE_HIGH">ACTIVE_HIGH</a> LED lights when its pin is driven high; an <a class="el" href="LED__interface_8h.html#a59d24514299cc1e14e907d084535e845a43ad983a1a6a3c04a137ec0471cdfe85" title="ACTIVE_LOW">ACTIVE_LOW</a> one lights when the pin is driven <em>low</em> (cathode to the pin, anode to VDD). The driver inverts the level for you. </p>
+
+<p class="definition">Definition at line <a class="el" href="LED__interface_8h_source.html#l00034">34</a> of file <a class="el" href="LED__interface_8h_source.html">LED_interface.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
+<a id="a9a6ec5acd8ad6330c8ea4fbd8e6904f5" name="a9a6ec5acd8ad6330c8ea4fbd8e6904f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a6ec5acd8ad6330c8ea4fbd8e6904f5">&#9670;&#160;</a></span>PortName</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> LED_Config_t::PortName</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Port the LED is on. </p>
+
+<p class="definition">Definition at line <a class="el" href="LED__interface_8h_source.html#l00036">36</a> of file <a class="el" href="LED__interface_8h_source.html">LED_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="LED__prog_8c_source.html#l00026">LED_Init()</a>, <a class="el" href="LED__prog_8c_source.html#l00119">LED_Toggle()</a>, <a class="el" href="LED__prog_8c_source.html#l00089">LED_TurnOff()</a>, and <a class="el" href="LED__prog_8c_source.html#l00059">LED_TurnOn()</a>.</p>
+
+</div>
+</div>
+<a id="a7e866577221817fba36f18afa94438e9" name="a7e866577221817fba36f18afa94438e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e866577221817fba36f18afa94438e9">&#9670;&#160;</a></span>PinNumber</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__mcal__gpio.html#ga5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a> LED_Config_t::PinNumber</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pin the LED is on. </p>
+
+<p class="definition">Definition at line <a class="el" href="LED__interface_8h_source.html#l00037">37</a> of file <a class="el" href="LED__interface_8h_source.html">LED_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="LED__prog_8c_source.html#l00026">LED_Init()</a>, <a class="el" href="LED__prog_8c_source.html#l00119">LED_Toggle()</a>, <a class="el" href="LED__prog_8c_source.html#l00089">LED_TurnOff()</a>, and <a class="el" href="LED__prog_8c_source.html#l00059">LED_TurnOn()</a>.</p>
+
+</div>
+</div>
 <a id="a569c6b77190bc29ef3c64bea8fb8b1c9" name="a569c6b77190bc29ef3c64bea8fb8b1c9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a569c6b77190bc29ef3c64bea8fb8b1c9">&#9670;&#160;</a></span>ActiveState</h2>
 
@@ -118,44 +166,16 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="LED__interface_8h_source.html#l00032">32</a> of file <a class="el" href="LED__interface_8h_source.html">LED_interface.h</a>.</p>
+<p>Whether the LED lights on a high or a low level. </p>
 
-</div>
-</div>
-<a id="a7e866577221817fba36f18afa94438e9" name="a7e866577221817fba36f18afa94438e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e866577221817fba36f18afa94438e9">&#9670;&#160;</a></span>PinNumber</h2>
+<p class="definition">Definition at line <a class="el" href="LED__interface_8h_source.html#l00038">38</a> of file <a class="el" href="LED__interface_8h_source.html">LED_interface.h</a>.</p>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a> LED_Config_t::PinNumber</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="LED__interface_8h_source.html#l00031">31</a> of file <a class="el" href="LED__interface_8h_source.html">LED_interface.h</a>.</p>
-
-</div>
-</div>
-<a id="a9a6ec5acd8ad6330c8ea4fbd8e6904f5" name="a9a6ec5acd8ad6330c8ea4fbd8e6904f5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9a6ec5acd8ad6330c8ea4fbd8e6904f5">&#9670;&#160;</a></span>PortName</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> LED_Config_t::PortName</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="LED__interface_8h_source.html#l00030">30</a> of file <a class="el" href="LED__interface_8h_source.html">LED_interface.h</a>.</p>
+<p class="reference">Referenced by <a class="el" href="LED__prog_8c_source.html#l00089">LED_TurnOff()</a>, and <a class="el" href="LED__prog_8c_source.html#l00059">LED_TurnOn()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>Inc/Drivers/HAL/LED/<a class="el" href="LED__interface_8h_source.html">LED_interface.h</a></li>
+<li>V2V-STM32/Inc/Drivers/HAL/LED/<a class="el" href="LED__interface_8h_source.html">LED_interface.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

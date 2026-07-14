@@ -2,100 +2,150 @@
 \hypertarget{structGPIO__HighNibbleConfig__t}{}\label{structGPIO__HighNibbleConfig__t}\index{GPIO\_HighNibbleConfig\_t@{GPIO\_HighNibbleConfig\_t}}
 
 
-{\ttfamily \+\#include $<$GPIO\+\_\+interface.\+h$>$}
+Configuration of pins 4..7 of a port, as passed to \doxylink{group__mcal__gpio_gaf5bb58748b4f2cf70c674d9566b63a97}{GPIO\+\_\+enum\+High\+Nibble\+Init}.  
+
+
+
+
+{\ttfamily \+\#include $<$Drivers/\+\+MCAL/\+\+GPIO/\+\+GPIO\+\_\+interface.\+h$>$}
 
 \doxysubsubsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
-\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} \doxymbox{\hyperlink{structGPIO__HighNibbleConfig__t_aab0ce023a8b437864a3957b29c44e2cb}{Port}}
-\item 
-\doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} \doxymbox{\hyperlink{structGPIO__HighNibbleConfig__t_a72cf132afdd987b05dc0b6bb97fe4e89}{Start\+Pin}}
-\item 
-\doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26}{GPIO\+\_\+\+Mode\+\_\+t}} \doxymbox{\hyperlink{structGPIO__HighNibbleConfig__t_a822559f886ee84948f65712c998a28c9}{Mode}}
-\item 
-\doxymbox{\hyperlink{GPIO__interface_8h_a6470c88cd80e5ef53ac53602e73207f0}{GPIO\+\_\+\+Output\+Type\+\_\+t}} \doxymbox{\hyperlink{structGPIO__HighNibbleConfig__t_ae581b1aefbf0493db2f46fbd3ec0d80e}{Otype}}
-\item 
-\doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71}{GPIO\+\_\+\+Output\+Speed\+\_\+t}} \doxymbox{\hyperlink{structGPIO__HighNibbleConfig__t_a1593cbe6b8a7e5859c687918e1dcf45b}{Speed}}
-\item 
-\doxymbox{\hyperlink{GPIO__interface_8h_af3291f1e475675bffc656c9f0c4c7399}{GPIO\+\_\+\+Pull\+Up\+Down\+\_\+t}} \doxymbox{\hyperlink{structGPIO__HighNibbleConfig__t_ad3b2dddcf1c49e57cf27cccfc8429560}{Pull\+Type}}
-\end{DoxyCompactItemize}
+\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} \doxymbox{\hyperlink{structGPIO__HighNibbleConfig__t_aab0ce023a8b437864a3957b29c44e2cb}{Port}}
+\begin{DoxyCompactList}\small\item\em Which port. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} \doxymbox{\hyperlink{structGPIO__HighNibbleConfig__t_a72cf132afdd987b05dc0b6bb97fe4e89}{Start\+Pin}}
+\begin{DoxyCompactList}\small\item\em Must be \doxylink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a088dbea6be5692ef5375d1710404ad46}{GPIO\+\_\+\+PIN4} — the high nibble starts at pin 4 by definition. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__gpio_gafb8ae0eef9d79d2066ab67bbf12d9f26}{GPIO\+\_\+\+Mode\+\_\+t}} \doxymbox{\hyperlink{structGPIO__HighNibbleConfig__t_a822559f886ee84948f65712c998a28c9}{Mode}}
+\begin{DoxyCompactList}\small\item\em Mode applied to pins 4..7. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__gpio_ga6470c88cd80e5ef53ac53602e73207f0}{GPIO\+\_\+\+Output\+Type\+\_\+t}} \doxymbox{\hyperlink{structGPIO__HighNibbleConfig__t_ae581b1aefbf0493db2f46fbd3ec0d80e}{Otype}}
+\begin{DoxyCompactList}\small\item\em Output type applied to pins 4..7. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__gpio_gad0390106f85689de1897dd9543754e71}{GPIO\+\_\+\+Output\+Speed\+\_\+t}} \doxymbox{\hyperlink{structGPIO__HighNibbleConfig__t_a1593cbe6b8a7e5859c687918e1dcf45b}{Speed}}
+\begin{DoxyCompactList}\small\item\em Output speed applied to pins 4..7. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__gpio_gaf3291f1e475675bffc656c9f0c4c7399}{GPIO\+\_\+\+Pull\+Up\+Down\+\_\+t}} \doxymbox{\hyperlink{structGPIO__HighNibbleConfig__t_ad3b2dddcf1c49e57cf27cccfc8429560}{Pull\+Type}}
+\begin{DoxyCompactList}\small\item\em Pull configuration applied to pins 4..7. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2GPIO_2GPIO_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+GPIO/\+\+GPIO\+\_\+interface.\+h}}.\end{Desc}
+Configuration of pins 4..7 of a port, as passed to \doxylink{group__mcal__gpio_gaf5bb58748b4f2cf70c674d9566b63a97}{GPIO\+\_\+enum\+High\+Nibble\+Init}. 
 
-
-Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00271}{271}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00207}{207}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
 
 
 
 \label{doc-variable-members}
 \Hypertarget{structGPIO__HighNibbleConfig__t_doc-variable-members}
 \doxysubsection{Field Documentation}
-\Hypertarget{structGPIO__HighNibbleConfig__t_a822559f886ee84948f65712c998a28c9}\index{GPIO\_HighNibbleConfig\_t@{GPIO\_HighNibbleConfig\_t}!Mode@{Mode}}
-\index{Mode@{Mode}!GPIO\_HighNibbleConfig\_t@{GPIO\_HighNibbleConfig\_t}}
-\doxysubsubsection{\texorpdfstring{Mode}{Mode}}
-{\footnotesize\ttfamily \label{structGPIO__HighNibbleConfig__t_a822559f886ee84948f65712c998a28c9} 
-\doxymbox{\hyperlink{GPIO__interface_8h_afb8ae0eef9d79d2066ab67bbf12d9f26}{GPIO\+\_\+\+Mode\+\_\+t}} GPIO\+\_\+\+High\+Nibble\+Config\+\_\+t::\+\+Mode}
-
-
-
-Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00274}{274}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
-
-\Hypertarget{structGPIO__HighNibbleConfig__t_ae581b1aefbf0493db2f46fbd3ec0d80e}\index{GPIO\_HighNibbleConfig\_t@{GPIO\_HighNibbleConfig\_t}!Otype@{Otype}}
-\index{Otype@{Otype}!GPIO\_HighNibbleConfig\_t@{GPIO\_HighNibbleConfig\_t}}
-\doxysubsubsection{\texorpdfstring{Otype}{Otype}}
-{\footnotesize\ttfamily \label{structGPIO__HighNibbleConfig__t_ae581b1aefbf0493db2f46fbd3ec0d80e} 
-\doxymbox{\hyperlink{GPIO__interface_8h_a6470c88cd80e5ef53ac53602e73207f0}{GPIO\+\_\+\+Output\+Type\+\_\+t}} GPIO\+\_\+\+High\+Nibble\+Config\+\_\+t::\+\+Otype}
-
-
-
-Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00276}{276}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
-
 \Hypertarget{structGPIO__HighNibbleConfig__t_aab0ce023a8b437864a3957b29c44e2cb}\index{GPIO\_HighNibbleConfig\_t@{GPIO\_HighNibbleConfig\_t}!Port@{Port}}
 \index{Port@{Port}!GPIO\_HighNibbleConfig\_t@{GPIO\_HighNibbleConfig\_t}}
 \doxysubsubsection{\texorpdfstring{Port}{Port}}
 {\footnotesize\ttfamily \label{structGPIO__HighNibbleConfig__t_aab0ce023a8b437864a3957b29c44e2cb} 
-\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} GPIO\+\_\+\+High\+Nibble\+Config\+\_\+t::\+\+Port}
+\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} GPIO\+\_\+\+High\+Nibble\+Config\+\_\+t::\+\+Port}
 
 
 
-Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00272}{272}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
-
-\Hypertarget{structGPIO__HighNibbleConfig__t_ad3b2dddcf1c49e57cf27cccfc8429560}\index{GPIO\_HighNibbleConfig\_t@{GPIO\_HighNibbleConfig\_t}!PullType@{PullType}}
-\index{PullType@{PullType}!GPIO\_HighNibbleConfig\_t@{GPIO\_HighNibbleConfig\_t}}
-\doxysubsubsection{\texorpdfstring{PullType}{PullType}}
-{\footnotesize\ttfamily \label{structGPIO__HighNibbleConfig__t_ad3b2dddcf1c49e57cf27cccfc8429560} 
-\doxymbox{\hyperlink{GPIO__interface_8h_af3291f1e475675bffc656c9f0c4c7399}{GPIO\+\_\+\+Pull\+Up\+Down\+\_\+t}} GPIO\+\_\+\+High\+Nibble\+Config\+\_\+t::\+\+Pull\+Type}
+Which port. 
 
 
 
-Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00280}{280}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
-
-\Hypertarget{structGPIO__HighNibbleConfig__t_a1593cbe6b8a7e5859c687918e1dcf45b}\index{GPIO\_HighNibbleConfig\_t@{GPIO\_HighNibbleConfig\_t}!Speed@{Speed}}
-\index{Speed@{Speed}!GPIO\_HighNibbleConfig\_t@{GPIO\_HighNibbleConfig\_t}}
-\doxysubsubsection{\texorpdfstring{Speed}{Speed}}
-{\footnotesize\ttfamily \label{structGPIO__HighNibbleConfig__t_a1593cbe6b8a7e5859c687918e1dcf45b} 
-\doxymbox{\hyperlink{GPIO__interface_8h_ad0390106f85689de1897dd9543754e71}{GPIO\+\_\+\+Output\+Speed\+\_\+t}} GPIO\+\_\+\+High\+Nibble\+Config\+\_\+t::\+\+Speed}
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00208}{208}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
 
 
 
-Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00278}{278}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+Referenced by \doxymbox{\hyperlink{GPIO__prog_8c_source_l00144}{GPIO\+\_\+enum\+High\+Nibble\+Init()}}.
 
 \Hypertarget{structGPIO__HighNibbleConfig__t_a72cf132afdd987b05dc0b6bb97fe4e89}\index{GPIO\_HighNibbleConfig\_t@{GPIO\_HighNibbleConfig\_t}!StartPin@{StartPin}}
 \index{StartPin@{StartPin}!GPIO\_HighNibbleConfig\_t@{GPIO\_HighNibbleConfig\_t}}
 \doxysubsubsection{\texorpdfstring{StartPin}{StartPin}}
 {\footnotesize\ttfamily \label{structGPIO__HighNibbleConfig__t_a72cf132afdd987b05dc0b6bb97fe4e89} 
-\doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} GPIO\+\_\+\+High\+Nibble\+Config\+\_\+t::\+\+Start\+Pin}
+\doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} GPIO\+\_\+\+High\+Nibble\+Config\+\_\+t::\+\+Start\+Pin}
 
 
 
-Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00273}{273}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+Must be \doxylink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a088dbea6be5692ef5375d1710404ad46}{GPIO\+\_\+\+PIN4} — the high nibble starts at pin 4 by definition. 
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00209}{209}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{GPIO__prog_8c_source_l00144}{GPIO\+\_\+enum\+High\+Nibble\+Init()}}.
+
+\Hypertarget{structGPIO__HighNibbleConfig__t_a822559f886ee84948f65712c998a28c9}\index{GPIO\_HighNibbleConfig\_t@{GPIO\_HighNibbleConfig\_t}!Mode@{Mode}}
+\index{Mode@{Mode}!GPIO\_HighNibbleConfig\_t@{GPIO\_HighNibbleConfig\_t}}
+\doxysubsubsection{\texorpdfstring{Mode}{Mode}}
+{\footnotesize\ttfamily \label{structGPIO__HighNibbleConfig__t_a822559f886ee84948f65712c998a28c9} 
+\doxymbox{\hyperlink{group__mcal__gpio_gafb8ae0eef9d79d2066ab67bbf12d9f26}{GPIO\+\_\+\+Mode\+\_\+t}} GPIO\+\_\+\+High\+Nibble\+Config\+\_\+t::\+\+Mode}
+
+
+
+Mode applied to pins 4..7. 
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00210}{210}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{GPIO__prog_8c_source_l00144}{GPIO\+\_\+enum\+High\+Nibble\+Init()}}.
+
+\Hypertarget{structGPIO__HighNibbleConfig__t_ae581b1aefbf0493db2f46fbd3ec0d80e}\index{GPIO\_HighNibbleConfig\_t@{GPIO\_HighNibbleConfig\_t}!Otype@{Otype}}
+\index{Otype@{Otype}!GPIO\_HighNibbleConfig\_t@{GPIO\_HighNibbleConfig\_t}}
+\doxysubsubsection{\texorpdfstring{Otype}{Otype}}
+{\footnotesize\ttfamily \label{structGPIO__HighNibbleConfig__t_ae581b1aefbf0493db2f46fbd3ec0d80e} 
+\doxymbox{\hyperlink{group__mcal__gpio_ga6470c88cd80e5ef53ac53602e73207f0}{GPIO\+\_\+\+Output\+Type\+\_\+t}} GPIO\+\_\+\+High\+Nibble\+Config\+\_\+t::\+\+Otype}
+
+
+
+Output type applied to pins 4..7. 
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00211}{211}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{GPIO__prog_8c_source_l00144}{GPIO\+\_\+enum\+High\+Nibble\+Init()}}.
+
+\Hypertarget{structGPIO__HighNibbleConfig__t_a1593cbe6b8a7e5859c687918e1dcf45b}\index{GPIO\_HighNibbleConfig\_t@{GPIO\_HighNibbleConfig\_t}!Speed@{Speed}}
+\index{Speed@{Speed}!GPIO\_HighNibbleConfig\_t@{GPIO\_HighNibbleConfig\_t}}
+\doxysubsubsection{\texorpdfstring{Speed}{Speed}}
+{\footnotesize\ttfamily \label{structGPIO__HighNibbleConfig__t_a1593cbe6b8a7e5859c687918e1dcf45b} 
+\doxymbox{\hyperlink{group__mcal__gpio_gad0390106f85689de1897dd9543754e71}{GPIO\+\_\+\+Output\+Speed\+\_\+t}} GPIO\+\_\+\+High\+Nibble\+Config\+\_\+t::\+\+Speed}
+
+
+
+Output speed applied to pins 4..7. 
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00212}{212}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{GPIO__prog_8c_source_l00144}{GPIO\+\_\+enum\+High\+Nibble\+Init()}}.
+
+\Hypertarget{structGPIO__HighNibbleConfig__t_ad3b2dddcf1c49e57cf27cccfc8429560}\index{GPIO\_HighNibbleConfig\_t@{GPIO\_HighNibbleConfig\_t}!PullType@{PullType}}
+\index{PullType@{PullType}!GPIO\_HighNibbleConfig\_t@{GPIO\_HighNibbleConfig\_t}}
+\doxysubsubsection{\texorpdfstring{PullType}{PullType}}
+{\footnotesize\ttfamily \label{structGPIO__HighNibbleConfig__t_ad3b2dddcf1c49e57cf27cccfc8429560} 
+\doxymbox{\hyperlink{group__mcal__gpio_gaf3291f1e475675bffc656c9f0c4c7399}{GPIO\+\_\+\+Pull\+Up\+Down\+\_\+t}} GPIO\+\_\+\+High\+Nibble\+Config\+\_\+t::\+\+Pull\+Type}
+
+
+
+Pull configuration applied to pins 4..7. 
+
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00213}{213}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{GPIO__prog_8c_source_l00144}{GPIO\+\_\+enum\+High\+Nibble\+Init()}}.
 
 
 
 The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
 \item 
-Inc/\+\+Drivers/\+\+MCAL/\+\+GPIO/\+\doxymbox{\hyperlink{GPIO__interface_8h}{GPIO\+\_\+interface.\+h}}\end{DoxyCompactItemize}
+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+GPIO/\+\doxymbox{\hyperlink{GPIO__interface_8h}{GPIO\+\_\+interface.\+h}}\end{DoxyCompactItemize}

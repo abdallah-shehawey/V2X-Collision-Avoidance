@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Inc/Drivers/MCAL/SYSTIC/SYSTIC_config.h File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Inc/Drivers/MCAL/SYSTIC/SYSTIC_config.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,35 +90,40 @@ $(function(){initNavTree('SYSTIC__config_8h.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">SYSTIC_config.h File Reference</div></div>
+  <div class="headertitle"><div class="title">SYSTIC_config.h File Reference<div class="ingroups"><a class="el" href="group__mcal.html">MCAL</a> &raquo; <a class="el" href="group__mcal__systic.html">SYSTICK</a></div></div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="SYSTIC__config_8h__dep__incl.png" border="0" usemap="#aInc_2Drivers_2MCAL_2SYSTIC_2SYSTIC__config_8hdep" loading="lazy" alt=""/></div>
-<map name="aInc_2Drivers_2MCAL_2SYSTIC_2SYSTIC__config_8hdep" id="aInc_2Drivers_2MCAL_2SYSTIC_2SYSTIC__config_8hdep">
-<area shape="rect" title=" " alt="" coords="5,5,187,50"/>
-<area shape="rect" href="SYSTIC__program_8c.html" title="SysTick Timer Driver Implementation." alt="" coords="14,98,178,126"/>
-<area shape="poly" title=" " alt="" coords="98,64,98,98,94,96,94,68"/>
-</map>
+
+<p>Compile-time configuration for the SYSTICK driver — the Cortex-M system timer.  
+<a href="#details">More...</a></p>
+<div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="SYSTIC__config_8h__dep__incl.svg" width="230" height="148"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="SYSTIC__config_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:gaaf1d8e93c7d24cfcdec6e40b4581d050" id="r_gaaf1d8e93c7d24cfcdec6e40b4581d050"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__SYSTIC__Clock__Config.html#gaaf1d8e93c7d24cfcdec6e40b4581d050">SYSTEM_CLOCK_IN_MHZ</a>&#160;&#160;&#160;16U</td></tr>
+<tr class="memitem:gaaf1d8e93c7d24cfcdec6e40b4581d050" id="r_gaaf1d8e93c7d24cfcdec6e40b4581d050"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__SYSTIC__Clock__Config.html#gaaf1d8e93c7d24cfcdec6e40b4581d050">SYSTEM_CLOCK_IN_MHZ</a></td></tr>
 <tr class="memdesc:gaaf1d8e93c7d24cfcdec6e40b4581d050"><td class="mdescLeft">&#160;</td><td class="mdescRight">System clock frequency in MHz.  <br /></td></tr>
-<tr class="memitem:ga078f7b549bde874db7ebf81d1359691f" id="r_ga078f7b549bde874db7ebf81d1359691f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__SYSTIC__Clock__Config.html#ga078f7b549bde874db7ebf81d1359691f">SYSTEM_CLOCK_IN_KHZ</a>&#160;&#160;&#160;(<a class="el" href="group__SYSTIC__Clock__Config.html#gaaf1d8e93c7d24cfcdec6e40b4581d050">SYSTEM_CLOCK_IN_MHZ</a> * 1000U)</td></tr>
+<tr class="memitem:ga078f7b549bde874db7ebf81d1359691f" id="r_ga078f7b549bde874db7ebf81d1359691f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__SYSTIC__Clock__Config.html#ga078f7b549bde874db7ebf81d1359691f">SYSTEM_CLOCK_IN_KHZ</a></td></tr>
 <tr class="memdesc:ga078f7b549bde874db7ebf81d1359691f"><td class="mdescLeft">&#160;</td><td class="mdescRight">System clock frequency in KHz.  <br /></td></tr>
-<tr class="memitem:ga31b639e5923517359d82b2bab634b3f4" id="r_ga31b639e5923517359d82b2bab634b3f4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__SYSTIC__Clock__Config.html#ga31b639e5923517359d82b2bab634b3f4">SYSTEM_CLOCK_IN_HZ</a>&#160;&#160;&#160;(<a class="el" href="group__SYSTIC__Clock__Config.html#ga078f7b549bde874db7ebf81d1359691f">SYSTEM_CLOCK_IN_KHZ</a> * 1000U)</td></tr>
-<tr class="memitem:ga985a99dd0160c9e7cae843bd9d64e7b7" id="r_ga985a99dd0160c9e7cae843bd9d64e7b7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__SYSTIC__Timer__Config.html#ga985a99dd0160c9e7cae843bd9d64e7b7">SYSTIC_CLKSOURCE</a>&#160;&#160;&#160;<a class="el" href="group__SYSTIC__Constants.html#gae468065fe667882e5f951fd7f20a0c1b">CLK_SOURCE_AHB</a></td></tr>
+<tr class="memitem:ga31b639e5923517359d82b2bab634b3f4" id="r_ga31b639e5923517359d82b2bab634b3f4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__SYSTIC__Clock__Config.html#ga31b639e5923517359d82b2bab634b3f4">SYSTEM_CLOCK_IN_HZ</a></td></tr>
+<tr class="memdesc:ga31b639e5923517359d82b2bab634b3f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">System clock in hertz, derived from <a class="el" href="group__SYSTIC__Clock__Config.html#ga078f7b549bde874db7ebf81d1359691f" title="SYSTEM_CLOCK_IN_KHZ">SYSTEM_CLOCK_IN_KHZ</a>.  <br /></td></tr>
+<tr class="memitem:ga985a99dd0160c9e7cae843bd9d64e7b7" id="r_ga985a99dd0160c9e7cae843bd9d64e7b7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__SYSTIC__Timer__Config.html#ga985a99dd0160c9e7cae843bd9d64e7b7">SYSTIC_CLKSOURCE</a></td></tr>
 <tr class="memdesc:ga985a99dd0160c9e7cae843bd9d64e7b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">SysTick Clock Source Configuration.  <br /></td></tr>
-<tr class="memitem:gace3e7bfd4cee98cc45c484226a7d0ff6" id="r_gace3e7bfd4cee98cc45c484226a7d0ff6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__SYSTIC__Timer__Config.html#gace3e7bfd4cee98cc45c484226a7d0ff6">SYSTIC_TICKINT</a>&#160;&#160;&#160;<a class="el" href="ErrTypes_8h.html#a99496f7308834e8b220f7894efa0b6ab">DISABLE</a></td></tr>
+<tr class="memitem:gace3e7bfd4cee98cc45c484226a7d0ff6" id="r_gace3e7bfd4cee98cc45c484226a7d0ff6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__SYSTIC__Timer__Config.html#gace3e7bfd4cee98cc45c484226a7d0ff6">SYSTIC_TICKINT</a></td></tr>
 <tr class="memdesc:gace3e7bfd4cee98cc45c484226a7d0ff6"><td class="mdescLeft">&#160;</td><td class="mdescRight">SysTick Exception Configuration.  <br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Compile-time configuration for the SYSTICK driver — the Cortex-M system timer. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Abdelmoemen Shehawey  </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="SYSTIC__config_8h_source.html">SYSTIC_config.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>
@@ -131,7 +136,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_f93dfce691d792349f1c14ede440e2e6.html">Inc</a></li><li class="navelem"><a href="dir_5807d32f659ca06f2d44f24c89728eb8.html">Drivers</a></li><li class="navelem"><a href="dir_8b6b04023385edca15dd86450894d113.html">MCAL</a></li><li class="navelem"><a href="dir_466da87222d1ab17bc8ca9212085c729.html">SYSTIC</a></li><li class="navelem"><a href="SYSTIC__config_8h.html">SYSTIC_config.h</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Inc</b></li><li class="navelem"><b>Drivers</b></li><li class="navelem"><b>MCAL</b></li><li class="navelem"><b>SYSTIC</b></li><li class="navelem"><a href="SYSTIC__config_8h.html">SYSTIC_config.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

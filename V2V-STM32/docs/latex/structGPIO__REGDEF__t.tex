@@ -2,81 +2,46 @@
 \hypertarget{structGPIO__REGDEF__t}{}\label{structGPIO__REGDEF__t}\index{GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}}
 
 
-{\ttfamily \+\#include $<$STM32\+F446xx.\+h$>$}
+GPIO port register layout (identical for every port A..H).  
+
+
+
+
+{\ttfamily \+\#include $<$Drivers/\+\+LIB/\+\+STM32\+F446xx.\+h$>$}
 
 \doxysubsubsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
 volatile uint32\+\_\+t \doxymbox{\hyperlink{structGPIO__REGDEF__t_add8f7a178602d0b6e6627c15ef0d6194}{MODER}}
-\item 
+\begin{DoxyCompactList}\small\item\em Mode:\+ 2 bits per pin — input /\+ output /\+ alternate function /\+ analog. \end{DoxyCompactList}\item 
 volatile uint32\+\_\+t \doxymbox{\hyperlink{structGPIO__REGDEF__t_ad0f06942cdadf84ac41240d7f6b12e45}{OTYPER}}
-\item 
+\begin{DoxyCompactList}\small\item\em Output type:\+ 1 bit per pin — push-\/pull or open-\/drain. \end{DoxyCompactList}\item 
 volatile uint32\+\_\+t \doxymbox{\hyperlink{structGPIO__REGDEF__t_a1853ad64c88ec2a5996dc1ae27ce062c}{OSPEEDR}}
-\item 
+\begin{DoxyCompactList}\small\item\em Output speed:\+ 2 bits per pin — low /\+ medium /\+ fast /\+ high. \end{DoxyCompactList}\item 
 volatile uint32\+\_\+t \doxymbox{\hyperlink{structGPIO__REGDEF__t_a4ecda0ba5608662a927730f26d3c1eee}{PUPDR}}
-\item 
+\begin{DoxyCompactList}\small\item\em Pull-\/up/\+pull-\/down:\+ 2 bits per pin — none /\+ pull-\/up /\+ pull-\/down. \end{DoxyCompactList}\item 
 volatile uint32\+\_\+t \doxymbox{\hyperlink{structGPIO__REGDEF__t_ac5e9dc7200cbd1facef55fdd0b165244}{IDR}}
-\item 
+\begin{DoxyCompactList}\small\item\em Input data (read-\/only):\+ the level currently on each pin. \end{DoxyCompactList}\item 
 volatile uint32\+\_\+t \doxymbox{\hyperlink{structGPIO__REGDEF__t_abbb7f21e6eb91f382ca46cbde9eb6277}{ODR}}
-\item 
+\begin{DoxyCompactList}\small\item\em Output data:\+ the level driven onto each output pin. \end{DoxyCompactList}\item 
 volatile uint32\+\_\+t \doxymbox{\hyperlink{structGPIO__REGDEF__t_a35f835f589764c50417acd0a08dd920a}{BSRR}}
-\item 
+\begin{DoxyCompactList}\small\item\em Bit set/\+reset:\+ atomic set (low half) and reset (high half) of ODR bits. \end{DoxyCompactList}\item 
 volatile uint32\+\_\+t \doxymbox{\hyperlink{structGPIO__REGDEF__t_ad4478841787679cbee8f4eaba61c1a3b}{LCKR}}
-\item 
-volatile uint32\+\_\+t \doxymbox{\hyperlink{structGPIO__REGDEF__t_a8c8407eb13488ed840fd68506712df0e}{AFR}} \+[2]\+
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Configuration lock:\+ freezes a pin\textquotesingle{}s config until the next reset. \end{DoxyCompactList}\item 
+volatile uint32\+\_\+t \doxymbox{\hyperlink{structGPIO__REGDEF__t_a89c2a2b3b7aebda1d1d3b6ce73a579e1}{AFR}} \+[2]\+
+\begin{DoxyCompactList}\small\item\em Alternate function:\+ {\ttfamily \doxylink{structGPIO__REGDEF__t_a89c2a2b3b7aebda1d1d3b6ce73a579e1}{AFR}\+[0]\+} covers pins 0..7, {\ttfamily \doxylink{structGPIO__REGDEF__t_a89c2a2b3b7aebda1d1d3b6ce73a579e1}{AFR}\+[1]\+} covers pins 8..15, 4 bits per pin. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
+GPIO port register layout (identical for every port A..H). 
 
-
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00097}{97}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00143}{143}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
 
 
 
 \label{doc-variable-members}
 \Hypertarget{structGPIO__REGDEF__t_doc-variable-members}
 \doxysubsection{Field Documentation}
-\Hypertarget{structGPIO__REGDEF__t_a8c8407eb13488ed840fd68506712df0e}\index{GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}!AFR@{AFR}}
-\index{AFR@{AFR}!GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}}
-\doxysubsubsection{\texorpdfstring{AFR}{AFR}}
-{\footnotesize\ttfamily \label{structGPIO__REGDEF__t_a8c8407eb13488ed840fd68506712df0e} 
-volatile uint32\+\_\+t GPIO\+\_\+\+REGDEF\+\_\+t::\+\+AFR}
-
-
-
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00106}{106}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
-
-\Hypertarget{structGPIO__REGDEF__t_a35f835f589764c50417acd0a08dd920a}\index{GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}!BSRR@{BSRR}}
-\index{BSRR@{BSRR}!GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}}
-\doxysubsubsection{\texorpdfstring{BSRR}{BSRR}}
-{\footnotesize\ttfamily \label{structGPIO__REGDEF__t_a35f835f589764c50417acd0a08dd920a} 
-volatile uint32\+\_\+t GPIO\+\_\+\+REGDEF\+\_\+t::\+\+BSRR}
-
-
-
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00104}{104}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
-
-\Hypertarget{structGPIO__REGDEF__t_ac5e9dc7200cbd1facef55fdd0b165244}\index{GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}!IDR@{IDR}}
-\index{IDR@{IDR}!GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}}
-\doxysubsubsection{\texorpdfstring{IDR}{IDR}}
-{\footnotesize\ttfamily \label{structGPIO__REGDEF__t_ac5e9dc7200cbd1facef55fdd0b165244} 
-volatile uint32\+\_\+t GPIO\+\_\+\+REGDEF\+\_\+t::\+\+IDR}
-
-
-
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00102}{102}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
-
-\Hypertarget{structGPIO__REGDEF__t_ad4478841787679cbee8f4eaba61c1a3b}\index{GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}!LCKR@{LCKR}}
-\index{LCKR@{LCKR}!GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}}
-\doxysubsubsection{\texorpdfstring{LCKR}{LCKR}}
-{\footnotesize\ttfamily \label{structGPIO__REGDEF__t_ad4478841787679cbee8f4eaba61c1a3b} 
-volatile uint32\+\_\+t GPIO\+\_\+\+REGDEF\+\_\+t::\+\+LCKR}
-
-
-
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00105}{105}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
-
 \Hypertarget{structGPIO__REGDEF__t_add8f7a178602d0b6e6627c15ef0d6194}\index{GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}!MODER@{MODER}}
 \index{MODER@{MODER}!GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}}
 \doxysubsubsection{\texorpdfstring{MODER}{MODER}}
@@ -85,27 +50,11 @@ volatile uint32\+\_\+t GPIO\+\_\+\+REGDEF\+\_\+t::\+\+MODER}
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00098}{98}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
-
-\Hypertarget{structGPIO__REGDEF__t_abbb7f21e6eb91f382ca46cbde9eb6277}\index{GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}!ODR@{ODR}}
-\index{ODR@{ODR}!GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}}
-\doxysubsubsection{\texorpdfstring{ODR}{ODR}}
-{\footnotesize\ttfamily \label{structGPIO__REGDEF__t_abbb7f21e6eb91f382ca46cbde9eb6277} 
-volatile uint32\+\_\+t GPIO\+\_\+\+REGDEF\+\_\+t::\+\+ODR}
+Mode:\+ 2 bits per pin — input /\+ output /\+ alternate function /\+ analog. 
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00103}{103}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
-
-\Hypertarget{structGPIO__REGDEF__t_a1853ad64c88ec2a5996dc1ae27ce062c}\index{GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}!OSPEEDR@{OSPEEDR}}
-\index{OSPEEDR@{OSPEEDR}!GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}}
-\doxysubsubsection{\texorpdfstring{OSPEEDR}{OSPEEDR}}
-{\footnotesize\ttfamily \label{structGPIO__REGDEF__t_a1853ad64c88ec2a5996dc1ae27ce062c} 
-volatile uint32\+\_\+t GPIO\+\_\+\+REGDEF\+\_\+t::\+\+OSPEEDR}
-
-
-
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00100}{100}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00144}{144}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
 
 \Hypertarget{structGPIO__REGDEF__t_ad0f06942cdadf84ac41240d7f6b12e45}\index{GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}!OTYPER@{OTYPER}}
 \index{OTYPER@{OTYPER}!GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}}
@@ -115,7 +64,25 @@ volatile uint32\+\_\+t GPIO\+\_\+\+REGDEF\+\_\+t::\+\+OTYPER}
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00099}{99}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Output type:\+ 1 bit per pin — push-\/pull or open-\/drain. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00145}{145}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structGPIO__REGDEF__t_a1853ad64c88ec2a5996dc1ae27ce062c}\index{GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}!OSPEEDR@{OSPEEDR}}
+\index{OSPEEDR@{OSPEEDR}!GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}}
+\doxysubsubsection{\texorpdfstring{OSPEEDR}{OSPEEDR}}
+{\footnotesize\ttfamily \label{structGPIO__REGDEF__t_a1853ad64c88ec2a5996dc1ae27ce062c} 
+volatile uint32\+\_\+t GPIO\+\_\+\+REGDEF\+\_\+t::\+\+OSPEEDR}
+
+
+
+Output speed:\+ 2 bits per pin — low /\+ medium /\+ fast /\+ high. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00146}{146}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
 
 \Hypertarget{structGPIO__REGDEF__t_a4ecda0ba5608662a927730f26d3c1eee}\index{GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}!PUPDR@{PUPDR}}
 \index{PUPDR@{PUPDR}!GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}}
@@ -125,11 +92,84 @@ volatile uint32\+\_\+t GPIO\+\_\+\+REGDEF\+\_\+t::\+\+PUPDR}
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00101}{101}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Pull-\/up/\+pull-\/down:\+ 2 bits per pin — none /\+ pull-\/up /\+ pull-\/down. 
 
 
 
-The documentation for this struct was generated from the following files:\+\begin{DoxyCompactItemize}
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00147}{147}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structGPIO__REGDEF__t_ac5e9dc7200cbd1facef55fdd0b165244}\index{GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}!IDR@{IDR}}
+\index{IDR@{IDR}!GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}}
+\doxysubsubsection{\texorpdfstring{IDR}{IDR}}
+{\footnotesize\ttfamily \label{structGPIO__REGDEF__t_ac5e9dc7200cbd1facef55fdd0b165244} 
+volatile uint32\+\_\+t GPIO\+\_\+\+REGDEF\+\_\+t::\+\+IDR}
+
+
+
+Input data (read-\/only):\+ the level currently on each pin. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00148}{148}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structGPIO__REGDEF__t_abbb7f21e6eb91f382ca46cbde9eb6277}\index{GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}!ODR@{ODR}}
+\index{ODR@{ODR}!GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}}
+\doxysubsubsection{\texorpdfstring{ODR}{ODR}}
+{\footnotesize\ttfamily \label{structGPIO__REGDEF__t_abbb7f21e6eb91f382ca46cbde9eb6277} 
+volatile uint32\+\_\+t GPIO\+\_\+\+REGDEF\+\_\+t::\+\+ODR}
+
+
+
+Output data:\+ the level driven onto each output pin. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00149}{149}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structGPIO__REGDEF__t_a35f835f589764c50417acd0a08dd920a}\index{GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}!BSRR@{BSRR}}
+\index{BSRR@{BSRR}!GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}}
+\doxysubsubsection{\texorpdfstring{BSRR}{BSRR}}
+{\footnotesize\ttfamily \label{structGPIO__REGDEF__t_a35f835f589764c50417acd0a08dd920a} 
+volatile uint32\+\_\+t GPIO\+\_\+\+REGDEF\+\_\+t::\+\+BSRR}
+
+
+
+Bit set/\+reset:\+ atomic set (low half) and reset (high half) of ODR bits. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00150}{150}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structGPIO__REGDEF__t_ad4478841787679cbee8f4eaba61c1a3b}\index{GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}!LCKR@{LCKR}}
+\index{LCKR@{LCKR}!GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}}
+\doxysubsubsection{\texorpdfstring{LCKR}{LCKR}}
+{\footnotesize\ttfamily \label{structGPIO__REGDEF__t_ad4478841787679cbee8f4eaba61c1a3b} 
+volatile uint32\+\_\+t GPIO\+\_\+\+REGDEF\+\_\+t::\+\+LCKR}
+
+
+
+Configuration lock:\+ freezes a pin\textquotesingle{}s config until the next reset. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00151}{151}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structGPIO__REGDEF__t_a89c2a2b3b7aebda1d1d3b6ce73a579e1}\index{GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}!AFR@{AFR}}
+\index{AFR@{AFR}!GPIO\_REGDEF\_t@{GPIO\_REGDEF\_t}}
+\doxysubsubsection{\texorpdfstring{AFR}{AFR}}
+{\footnotesize\ttfamily \label{structGPIO__REGDEF__t_a89c2a2b3b7aebda1d1d3b6ce73a579e1} 
+volatile uint32\+\_\+t GPIO\+\_\+\+REGDEF\+\_\+t::\+\+AFR\+[2]\+}
+
+
+
+Alternate function:\+ {\ttfamily \doxylink{structGPIO__REGDEF__t_a89c2a2b3b7aebda1d1d3b6ce73a579e1}{AFR}\+[0]\+} covers pins 0..7, {\ttfamily \doxylink{structGPIO__REGDEF__t_a89c2a2b3b7aebda1d1d3b6ce73a579e1}{AFR}\+[1]\+} covers pins 8..15, 4 bits per pin. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00152}{152}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
 \item 
-Inc/\+\+Drivers/\+\+LIB/\+\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h}{STM32\+F446xx.\+h}}\item 
-Inc/\+\+System/\+\doxymbox{\hyperlink{System_2STM32F446xx_8h}{STM32\+F446xx.\+h}}\end{DoxyCompactItemize}
+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+LIB/\+\doxymbox{\hyperlink{STM32F446xx_8h}{STM32\+F446xx.\+h}}\end{DoxyCompactItemize}

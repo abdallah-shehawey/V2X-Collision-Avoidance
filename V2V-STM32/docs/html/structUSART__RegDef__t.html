@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: USART_RegDef_t Struct Reference</title>
+<title>V2V Collision Avoidance Firmware: USART_RegDef_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,87 +90,53 @@ $(function(){initNavTree('structUSART__RegDef__t.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">USART_RegDef_t Struct Reference</div></div>
+  <div class="headertitle"><div class="title">USART_RegDef_t Struct Reference<div class="ingroups"><a class="el" href="group__lib.html">LIB</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>&gt;</code></p>
+<p>USART register layout (identical for USART1..6).  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="STM32F446xx_8h_source.html">Drivers/LIB/STM32F446xx.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a0d7d2a31ed6dbff8e396f7b439a16b08" id="r_a0d7d2a31ed6dbff8e396f7b439a16b08"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a0d7d2a31ed6dbff8e396f7b439a16b08">SR</a></td></tr>
+<tr class="memdesc:a0d7d2a31ed6dbff8e396f7b439a16b08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status: TXE, TC, RXNE, IDLE and the error flags (parity, framing, noise, overrun).  <br /></td></tr>
 <tr class="memitem:a42cea8579d721749a86a211e316435c4" id="r_a42cea8579d721749a86a211e316435c4"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a42cea8579d721749a86a211e316435c4">DR</a></td></tr>
+<tr class="memdesc:a42cea8579d721749a86a211e316435c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data: writing transmits a byte, reading takes the received one and clears RXNE.  <br /></td></tr>
 <tr class="memitem:a37c91b3e10f36a6b70ed994e2dfef0f7" id="r_a37c91b3e10f36a6b70ed994e2dfef0f7"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a37c91b3e10f36a6b70ed994e2dfef0f7">BRR</a></td></tr>
+<tr class="memdesc:a37c91b3e10f36a6b70ed994e2dfef0f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Baud rate: the mantissa/fraction divider applied to the peripheral clock.  <br /></td></tr>
 <tr class="memitem:a6c23c95ba24780a1c63897cf63362fd1" id="r_a6c23c95ba24780a1c63897cf63362fd1"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a6c23c95ba24780a1c63897cf63362fd1">CR1</a></td></tr>
+<tr class="memdesc:a6c23c95ba24780a1c63897cf63362fd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Control 1: USART enable, TX/RX enable, word length, parity, the RXNE/TXE interrupt enables.  <br /></td></tr>
 <tr class="memitem:a912c6acddb3992d5f1d5a2c33a74eb15" id="r_a912c6acddb3992d5f1d5a2c33a74eb15"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a912c6acddb3992d5f1d5a2c33a74eb15">CR2</a></td></tr>
+<tr class="memdesc:a912c6acddb3992d5f1d5a2c33a74eb15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Control 2: stop bits, clock settings.  <br /></td></tr>
 <tr class="memitem:a1d9f81555572f9d684ca3d067e9ace76" id="r_a1d9f81555572f9d684ca3d067e9ace76"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a1d9f81555572f9d684ca3d067e9ace76">CR3</a></td></tr>
+<tr class="memdesc:a1d9f81555572f9d684ca3d067e9ace76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Control 3: flow control, DMA enables, error-interrupt enable.  <br /></td></tr>
 <tr class="memitem:a6d46f9ac36092986bc73e0fb140ac9cb" id="r_a6d46f9ac36092986bc73e0fb140ac9cb"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a6d46f9ac36092986bc73e0fb140ac9cb">GTPR</a></td></tr>
+<tr class="memdesc:a6d46f9ac36092986bc73e0fb140ac9cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Guard time and prescaler (smartcard/IrDA modes — unused here).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00305">305</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<div class="textblock"><p>USART register layout (identical for USART1..6). </p>
+<p>USART1 carries the DSRC frames to and from the ESP32 radio bridge; USART2 carries the ASCII telemetry line to the Raspberry Pi. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00374">374</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
-<a id="a37c91b3e10f36a6b70ed994e2dfef0f7" name="a37c91b3e10f36a6b70ed994e2dfef0f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a37c91b3e10f36a6b70ed994e2dfef0f7">&#9670;&#160;</a></span>BRR</h2>
+<a id="a0d7d2a31ed6dbff8e396f7b439a16b08" name="a0d7d2a31ed6dbff8e396f7b439a16b08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d7d2a31ed6dbff8e396f7b439a16b08">&#9670;&#160;</a></span>SR</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t USART_RegDef_t::BRR</td>
+          <td class="memname">uint32_t USART_RegDef_t::SR</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00308">308</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Status: TXE, TC, RXNE, IDLE and the error flags (parity, framing, noise, overrun). </p>
 
-</div>
-</div>
-<a id="a6c23c95ba24780a1c63897cf63362fd1" name="a6c23c95ba24780a1c63897cf63362fd1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c23c95ba24780a1c63897cf63362fd1">&#9670;&#160;</a></span>CR1</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t USART_RegDef_t::CR1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00309">309</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a912c6acddb3992d5f1d5a2c33a74eb15" name="a912c6acddb3992d5f1d5a2c33a74eb15"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a912c6acddb3992d5f1d5a2c33a74eb15">&#9670;&#160;</a></span>CR2</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t USART_RegDef_t::CR2</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00310">310</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a1d9f81555572f9d684ca3d067e9ace76" name="a1d9f81555572f9d684ca3d067e9ace76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d9f81555572f9d684ca3d067e9ace76">&#9670;&#160;</a></span>CR3</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t USART_RegDef_t::CR3</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00311">311</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00375">375</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
@@ -186,7 +152,81 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00307">307</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Data: writing transmits a byte, reading takes the received one and clears RXNE. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00376">376</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a37c91b3e10f36a6b70ed994e2dfef0f7" name="a37c91b3e10f36a6b70ed994e2dfef0f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37c91b3e10f36a6b70ed994e2dfef0f7">&#9670;&#160;</a></span>BRR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t USART_RegDef_t::BRR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Baud rate: the mantissa/fraction divider applied to the peripheral clock. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00377">377</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a6c23c95ba24780a1c63897cf63362fd1" name="a6c23c95ba24780a1c63897cf63362fd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c23c95ba24780a1c63897cf63362fd1">&#9670;&#160;</a></span>CR1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t USART_RegDef_t::CR1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Control 1: USART enable, TX/RX enable, word length, parity, the RXNE/TXE interrupt enables. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00378">378</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a912c6acddb3992d5f1d5a2c33a74eb15" name="a912c6acddb3992d5f1d5a2c33a74eb15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a912c6acddb3992d5f1d5a2c33a74eb15">&#9670;&#160;</a></span>CR2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t USART_RegDef_t::CR2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Control 2: stop bits, clock settings. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00379">379</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a1d9f81555572f9d684ca3d067e9ace76" name="a1d9f81555572f9d684ca3d067e9ace76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d9f81555572f9d684ca3d067e9ace76">&#9670;&#160;</a></span>CR3</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t USART_RegDef_t::CR3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Control 3: flow control, DMA enables, error-interrupt enable. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00380">380</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
@@ -202,29 +242,14 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00312">312</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Guard time and prescaler (smartcard/IrDA modes — unused here). </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00381">381</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<a id="a0d7d2a31ed6dbff8e396f7b439a16b08" name="a0d7d2a31ed6dbff8e396f7b439a16b08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d7d2a31ed6dbff8e396f7b439a16b08">&#9670;&#160;</a></span>SR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t USART_RegDef_t::SR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00306">306</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>Inc/Drivers/LIB/<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
-<li>Inc/System/<a class="el" href="System_2STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>V2V-STM32/Inc/Drivers/LIB/<a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

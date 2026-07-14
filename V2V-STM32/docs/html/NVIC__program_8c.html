@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Src/NVIC_program.c File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Src/NVIC_program.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -94,117 +94,45 @@ $(function(){initNavTree('NVIC__program_8c.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>NVIC driver source file for Cortex-M4 MCU (NUCLEO-F446RE).  
+<p>===========================================================================** &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; <a class="el" href="NVIC__program_8c.html" title="===========================================================================** &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;...">NVIC_program.c</a> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;** ** Author : Abdallah Abdelmoemen Shehawey ** Layer : MCAL ** CPU : Cortex-M4 ** MCU : NUCLEO-F446RE ** SWC : NVIC ** ** ===========================================================================**  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="ErrTypes_8h_source.html">../Inc/Drivers/LIB/ErrTypes.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="NVIC__interface_8h_source.html">../Inc/Drivers/MCAL/NVIC/NVIC_interface.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="NVIC__private_8h_source.html">../Inc/Drivers/MCAL/NVIC/NVIC_private.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="NVIC__config_8h_source.html">../Inc/Drivers/MCAL/NVIC/NVIC_config.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">../Inc/Drivers/LIB/STM32F446xx.h</a>&quot;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for NVIC_program.c:</div>
-<div class="dyncontent">
-<div class="center"><img src="NVIC__program_8c__incl.png" border="0" usemap="#aSrc_2NVIC__program_8c" loading="lazy" alt=""/></div>
-<map name="aSrc_2NVIC__program_8c" id="aSrc_2NVIC__program_8c">
-<area shape="rect" title="NVIC driver source file for Cortex&#45;M4 MCU (NUCLEO&#45;F446RE)." alt="" coords="243,5,394,33"/>
-<area shape="rect" href="ErrTypes_8h.html" title=" " alt="" coords="5,174,133,218"/>
-<area shape="poly" title=" " alt="" coords="240,27,182,36,120,47,67,62,48,72,35,83,27,100,28,120,35,140,45,160,40,161,30,142,23,121,22,99,31,79,45,68,65,57,119,42,181,30,245,25"/>
-<area shape="rect" href="NVIC__interface_8h.html" title=" " alt="" coords="45,81,216,126"/>
-<area shape="poly" title=" " alt="" coords="286,35,195,77,193,72,290,32"/>
-<area shape="rect" href="NVIC__private_8h.html" title=" " alt="" coords="239,81,398,126"/>
-<area shape="poly" title=" " alt="" coords="320,31,321,66,316,64,317,36"/>
-<area shape="rect" href="NVIC__config_8h.html" title=" " alt="" coords="421,81,573,126"/>
-<area shape="poly" title=" " alt="" coords="347,31,438,74,433,74,347,36"/>
-<area shape="rect" href="Drivers_2LIB_2STM32F446xx_8h.html" title=" " alt="" coords="596,81,726,126"/>
-<area shape="poly" title=" " alt="" coords="380,31,584,79,579,81,380,36"/>
-<area shape="poly" title=" " alt="" coords="118,124,94,163,90,159,114,128"/>
-<area shape="rect" title=" " alt="" coords="391,182,462,210"/>
-<area shape="poly" title=" " alt="" coords="202,124,378,178,374,181,201,129"/>
-<area shape="poly" title=" " alt="" coords="607,126,476,179,474,173,602,127"/>
-</map>
+<code>#include &quot;<a class="el" href="STM32F446xx_8h_source.html">../Inc/Drivers/LIB/STM32F446xx.h</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for NVIC_program.c:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="NVIC__program_8c__incl.svg" width="100%" height="481"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="NVIC__program_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a85d98abbd23523e4abf16cc4b4501431" id="r_a85d98abbd23523e4abf16cc4b4501431"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a85d98abbd23523e4abf16cc4b4501431">NVIC_vEnableIRQ</a> (uint8_t Copy_u8IRQNumber)</td></tr>
+<tr class="memitem:a85d98abbd23523e4abf16cc4b4501431" id="r_a85d98abbd23523e4abf16cc4b4501431"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a85d98abbd23523e4abf16cc4b4501431">NVIC_vEnableIRQ</a> (uint8_t Copy_u8IRQNumber)</td></tr>
 <tr class="memdesc:a85d98abbd23523e4abf16cc4b4501431"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable an IRQ number in the NVIC.  <br /></td></tr>
-<tr class="memitem:a8d97ac945c4d8195e2d4c5de802dd747" id="r_a8d97ac945c4d8195e2d4c5de802dd747"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8d97ac945c4d8195e2d4c5de802dd747">NVIC_vDisableIRQ</a> (uint8_t Copy_u8IRQNumber)</td></tr>
+<tr class="memitem:a8d97ac945c4d8195e2d4c5de802dd747" id="r_a8d97ac945c4d8195e2d4c5de802dd747"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8d97ac945c4d8195e2d4c5de802dd747">NVIC_vDisableIRQ</a> (uint8_t Copy_u8IRQNumber)</td></tr>
 <tr class="memdesc:a8d97ac945c4d8195e2d4c5de802dd747"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable an IRQ number in the NVIC.  <br /></td></tr>
-<tr class="memitem:ae356a904164941f246e6603db421e081" id="r_ae356a904164941f246e6603db421e081"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae356a904164941f246e6603db421e081">NVIC_vSetPendingFlag</a> (uint8_t Copy_u8IRQNumber)</td></tr>
+<tr class="memitem:ae356a904164941f246e6603db421e081" id="r_ae356a904164941f246e6603db421e081"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae356a904164941f246e6603db421e081">NVIC_vSetPendingFlag</a> (uint8_t Copy_u8IRQNumber)</td></tr>
 <tr class="memdesc:ae356a904164941f246e6603db421e081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set pending flag for an IRQ number in the NVIC.  <br /></td></tr>
-<tr class="memitem:a4ef3db3ed7f9fd593fc38ab943c6e228" id="r_a4ef3db3ed7f9fd593fc38ab943c6e228"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4ef3db3ed7f9fd593fc38ab943c6e228">NVIC_vClearPendingFlag</a> (uint8_t Copy_u8IRQNumber)</td></tr>
+<tr class="memitem:a4ef3db3ed7f9fd593fc38ab943c6e228" id="r_a4ef3db3ed7f9fd593fc38ab943c6e228"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4ef3db3ed7f9fd593fc38ab943c6e228">NVIC_vClearPendingFlag</a> (uint8_t Copy_u8IRQNumber)</td></tr>
 <tr class="memdesc:a4ef3db3ed7f9fd593fc38ab943c6e228"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear pending flag for an IRQ number in the NVIC.  <br /></td></tr>
-<tr class="memitem:aee982de5e4f7bd4192063d4ca975f3c4" id="r_aee982de5e4f7bd4192063d4ca975f3c4"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aee982de5e4f7bd4192063d4ca975f3c4">NVIC_vGetActiveFlag</a> (uint8_t Copy_u8IRQNumber, uint8_t *Copy_pu8Flag)</td></tr>
+<tr class="memitem:aee982de5e4f7bd4192063d4ca975f3c4" id="r_aee982de5e4f7bd4192063d4ca975f3c4"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aee982de5e4f7bd4192063d4ca975f3c4">NVIC_vGetActiveFlag</a> (uint8_t Copy_u8IRQNumber, uint8_t *Copy_pu8Flag)</td></tr>
 <tr class="memdesc:aee982de5e4f7bd4192063d4ca975f3c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get active flag status for an IRQ number in the NVIC.  <br /></td></tr>
-<tr class="memitem:adacfc2d410ead15ca25830190e615000" id="r_adacfc2d410ead15ca25830190e615000"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#adacfc2d410ead15ca25830190e615000">NVIC_vSetPriority</a> (uint8_t Copy_u8IRQNumber, uint8_t Copy_u8Priority)</td></tr>
+<tr class="memitem:adacfc2d410ead15ca25830190e615000" id="r_adacfc2d410ead15ca25830190e615000"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#adacfc2d410ead15ca25830190e615000">NVIC_vSetPriority</a> (uint8_t Copy_u8IRQNumber, uint8_t Copy_u8Priority)</td></tr>
 <tr class="memdesc:adacfc2d410ead15ca25830190e615000"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set priority for an IRQ number in the NVIC.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>NVIC driver source file for Cortex-M4 MCU (NUCLEO-F446RE). </p>
-<p>===========================================================================** &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; <a class="el" href="NVIC__program_8c.html" title="NVIC driver source file for Cortex-M4 MCU (NUCLEO-F446RE).">NVIC_program.c</a> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;** ** Author : Abdallah Abdelmoemen Shehawey ** Layer : MCAL ** CPU : Cortex-M4 ** MCU : NUCLEO-F446RE ** SWC : NVIC ** ** ===========================================================================**</p>
+<div class="textblock"><p>===========================================================================** &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; <a class="el" href="NVIC__program_8c.html" title="===========================================================================** &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;...">NVIC_program.c</a> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;** ** Author : Abdallah Abdelmoemen Shehawey ** Layer : MCAL ** CPU : Cortex-M4 ** MCU : NUCLEO-F446RE ** SWC : NVIC ** ** ===========================================================================** </p>
+<p>NVIC driver source file for Cortex-M4 MCU (NUCLEO-F446RE).</p>
 <p>This file contains functions to enable, disable, set pending, clear pending, get active flags, and set priority of interrupts in the NVIC.</p>
 <p>Author: Abdallah Abdelmoemen Shehawey </p>
 
 <p class="definition">Definition in file <a class="el" href="NVIC__program_8c_source.html">NVIC_program.c</a>.</p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a4ef3db3ed7f9fd593fc38ab943c6e228" name="a4ef3db3ed7f9fd593fc38ab943c6e228"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ef3db3ed7f9fd593fc38ab943c6e228">&#9670;&#160;</a></span>NVIC_vClearPendingFlag()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> NVIC_vClearPendingFlag </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8IRQNumber</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Clear pending flag for an IRQ number in the NVIC. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Copy_u8IRQNumber</td><td>IRQ number to clear pending flag. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> Returns OK if successful, NOK if IRQ number is invalid. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="NVIC__program_8c_source.html#l00094">94</a> of file <a class="el" href="NVIC__program_8c_source.html">NVIC_program.c</a>.</p>
-
-</div>
-</div>
-<a id="a8d97ac945c4d8195e2d4c5de802dd747" name="a8d97ac945c4d8195e2d4c5de802dd747"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d97ac945c4d8195e2d4c5de802dd747">&#9670;&#160;</a></span>NVIC_vDisableIRQ()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> NVIC_vDisableIRQ </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8IRQNumber</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Disable an IRQ number in the NVIC. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Copy_u8IRQNumber</td><td>IRQ number to disable. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> Returns OK if successful, NOK if IRQ number is invalid. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="NVIC__program_8c_source.html#l00056">56</a> of file <a class="el" href="NVIC__program_8c_source.html">NVIC_program.c</a>.</p>
-
-</div>
-</div>
 <a id="a85d98abbd23523e4abf16cc4b4501431" name="a85d98abbd23523e4abf16cc4b4501431"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a85d98abbd23523e4abf16cc4b4501431">&#9670;&#160;</a></span>NVIC_vEnableIRQ()</h2>
 
@@ -212,7 +140,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> NVIC_vEnableIRQ </td>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> NVIC_vEnableIRQ </td>
           <td>(</td>
           <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8IRQNumber</em></span></td><td>)</td>
           <td></td>
@@ -227,24 +155,113 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> Returns OK if successful, NOK if IRQ number is invalid. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a> Returns OK if successful, NOK if IRQ number is invalid. </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd>NVIC_vEnableIRQ(NVIC_EXTI0); </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="NVIC__program_8c_source.html#l00037">37</a> of file <a class="el" href="NVIC__program_8c_source.html">NVIC_program.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="NVIC__program_8c_a85d98abbd23523e4abf16cc4b4501431_icgraph.png" border="0" usemap="#aNVIC__program_8c_a85d98abbd23523e4abf16cc4b4501431_icgraph" loading="lazy" alt=""/></div>
-<map name="aNVIC__program_8c_a85d98abbd23523e4abf16cc4b4501431_icgraph" id="aNVIC__program_8c_a85d98abbd23523e4abf16cc4b4501431_icgraph">
-<area shape="rect" title="Enable an IRQ number in the NVIC." alt="" coords="392,5,528,33"/>
-<area shape="rect" href="System_8c.html#ae436954cd2bde6634ab271317d2494a7" title=" " alt="" coords="108,5,221,33"/>
-<area shape="poly" title=" " alt="" coords="374,20,222,22,221,17,379,18"/>
-<area shape="rect" href="US__prog_8c.html#a29b879f76d665878390dd6161d1eea84" title=" " alt="" coords="269,31,344,58"/>
-<area shape="poly" title=" " alt="" coords="379,33,345,41,344,36,374,33"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="90,20,60,22,60,17,94,18"/>
-<area shape="poly" title=" " alt="" coords="251,35,221,32,222,27,256,35"/>
-</map>
+
+<p class="reference">References <a class="el" href="STM32F446xx_8h_source.html#l00297">MNVIC</a>, <a class="el" href="ErrTypes_8h_source.html#l00043">NOK</a>, <a class="el" href="NVIC__interface_8h_source.html#l00102">NVIC_FMPI2C1_ER</a>, and <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="System_8c_source.html#l00133">System_setup()</a>, and <a class="el" href="US__prog_8c_source.html#l00196">US_vInit()</a>.</p>
+<div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="NVIC__program_8c_a85d98abbd23523e4abf16cc4b4501431_icgraph.svg" width="534" height="64"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a8d97ac945c4d8195e2d4c5de802dd747" name="a8d97ac945c4d8195e2d4c5de802dd747"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d97ac945c4d8195e2d4c5de802dd747">&#9670;&#160;</a></span>NVIC_vDisableIRQ()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> NVIC_vDisableIRQ </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8IRQNumber</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Disable an IRQ number in the NVIC. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Copy_u8IRQNumber</td><td>IRQ number to disable. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a> Returns OK if successful, NOK if IRQ number is invalid. </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd>NVIC_vDisableIRQ(NVIC_EXTI0); </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="NVIC__program_8c_source.html#l00056">56</a> of file <a class="el" href="NVIC__program_8c_source.html">NVIC_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="STM32F446xx_8h_source.html#l00297">MNVIC</a>, <a class="el" href="ErrTypes_8h_source.html#l00043">NOK</a>, <a class="el" href="NVIC__interface_8h_source.html#l00102">NVIC_FMPI2C1_ER</a>, and <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>.</p>
+
+</div>
+</div>
+<a id="ae356a904164941f246e6603db421e081" name="ae356a904164941f246e6603db421e081"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae356a904164941f246e6603db421e081">&#9670;&#160;</a></span>NVIC_vSetPendingFlag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> NVIC_vSetPendingFlag </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8IRQNumber</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set pending flag for an IRQ number in the NVIC. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Copy_u8IRQNumber</td><td>IRQ number to set pending flag. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a> Returns OK if successful, NOK if IRQ number is invalid. </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd>NVIC_vSetPendingFlag(NVIC_EXTI0); </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="NVIC__program_8c_source.html#l00075">75</a> of file <a class="el" href="NVIC__program_8c_source.html">NVIC_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="STM32F446xx_8h_source.html#l00297">MNVIC</a>, <a class="el" href="ErrTypes_8h_source.html#l00043">NOK</a>, <a class="el" href="NVIC__interface_8h_source.html#l00102">NVIC_FMPI2C1_ER</a>, and <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>.</p>
+
+</div>
+</div>
+<a id="a4ef3db3ed7f9fd593fc38ab943c6e228" name="a4ef3db3ed7f9fd593fc38ab943c6e228"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ef3db3ed7f9fd593fc38ab943c6e228">&#9670;&#160;</a></span>NVIC_vClearPendingFlag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> NVIC_vClearPendingFlag </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8IRQNumber</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clear pending flag for an IRQ number in the NVIC. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Copy_u8IRQNumber</td><td>IRQ number to clear pending flag. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a> Returns OK if successful, NOK if IRQ number is invalid. </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd>NVIC_vClearPendingFlag(NVIC_EXTI0); </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="NVIC__program_8c_source.html#l00094">94</a> of file <a class="el" href="NVIC__program_8c_source.html">NVIC_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="STM32F446xx_8h_source.html#l00297">MNVIC</a>, <a class="el" href="ErrTypes_8h_source.html#l00043">NOK</a>, <a class="el" href="NVIC__interface_8h_source.html#l00102">NVIC_FMPI2C1_ER</a>, and <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>.</p>
 
 </div>
 </div>
@@ -255,7 +272,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> NVIC_vGetActiveFlag </td>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> NVIC_vGetActiveFlag </td>
           <td>(</td>
           <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8IRQNumber</em></span>, </td>
         </tr>
@@ -275,37 +292,13 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> Returns OK if successful, NOK if IRQ number invalid, or NULL_POINTER if pointer is NULL. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a> Returns OK if successful, NOK if IRQ number invalid, or NULL_POINTER if pointer is NULL. </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd></dd></dl>
+<p>uint8_t flag; NVIC_vGetActiveFlag(NVIC_EXTI0, &amp;flag); </p>
 
 <p class="definition">Definition at line <a class="el" href="NVIC__program_8c_source.html#l00114">114</a> of file <a class="el" href="NVIC__program_8c_source.html">NVIC_program.c</a>.</p>
 
-</div>
-</div>
-<a id="ae356a904164941f246e6603db421e081" name="ae356a904164941f246e6603db421e081"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae356a904164941f246e6603db421e081">&#9670;&#160;</a></span>NVIC_vSetPendingFlag()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> NVIC_vSetPendingFlag </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8IRQNumber</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set pending flag for an IRQ number in the NVIC. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Copy_u8IRQNumber</td><td>IRQ number to set pending flag. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> Returns OK if successful, NOK if IRQ number is invalid. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="NVIC__program_8c_source.html#l00075">75</a> of file <a class="el" href="NVIC__program_8c_source.html">NVIC_program.c</a>.</p>
+<p class="reference">References <a class="el" href="STM32F446xx_8h_source.html#l00297">MNVIC</a>, <a class="el" href="ErrTypes_8h_source.html#l00043">NOK</a>, <a class="el" href="ErrTypes_8h_source.html#l00024">NULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00044">NULL_POINTER</a>, <a class="el" href="NVIC__interface_8h_source.html#l00102">NVIC_FMPI2C1_ER</a>, and <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>.</p>
 
 </div>
 </div>
@@ -316,7 +309,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> NVIC_vSetPriority </td>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> NVIC_vSetPriority </td>
           <td>(</td>
           <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8IRQNumber</em></span>, </td>
         </tr>
@@ -336,23 +329,19 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> Returns OK if successful, NOK if IRQ number or priority is invalid. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a> Returns OK if successful, NOK if IRQ number or priority is invalid. </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd>NVIC_vSetPriority(NVIC_EXTI0, 2); </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="NVIC__program_8c_source.html#l00141">141</a> of file <a class="el" href="NVIC__program_8c_source.html">NVIC_program.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="NVIC__program_8c_adacfc2d410ead15ca25830190e615000_icgraph.png" border="0" usemap="#aNVIC__program_8c_adacfc2d410ead15ca25830190e615000_icgraph" loading="lazy" alt=""/></div>
-<map name="aNVIC__program_8c_adacfc2d410ead15ca25830190e615000_icgraph" id="aNVIC__program_8c_adacfc2d410ead15ca25830190e615000_icgraph">
-<area shape="rect" title="Set priority for an IRQ number in the NVIC." alt="" coords="392,5,529,33"/>
-<area shape="rect" href="System_8c.html#ae436954cd2bde6634ab271317d2494a7" title=" " alt="" coords="108,5,221,33"/>
-<area shape="poly" title=" " alt="" coords="374,20,221,22,221,17,379,18"/>
-<area shape="rect" href="US__prog_8c.html#a29b879f76d665878390dd6161d1eea84" title=" " alt="" coords="269,31,344,58"/>
-<area shape="poly" title=" " alt="" coords="380,33,345,41,344,36,374,33"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="90,20,60,22,60,17,94,18"/>
-<area shape="poly" title=" " alt="" coords="251,35,221,32,222,27,256,35"/>
-</map>
+
+<p class="reference">References <a class="el" href="STM32F446xx_8h_source.html#l00297">MNVIC</a>, <a class="el" href="ErrTypes_8h_source.html#l00043">NOK</a>, <a class="el" href="NVIC__interface_8h_source.html#l00102">NVIC_FMPI2C1_ER</a>, and <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="System_8c_source.html#l00133">System_setup()</a>, and <a class="el" href="US__prog_8c_source.html#l00196">US_vInit()</a>.</p>
+<div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="NVIC__program_8c_adacfc2d410ead15ca25830190e615000_icgraph.svg" width="535" height="64"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -370,7 +359,7 @@ Here is the caller graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_413f4e031a85da0d68269c6fd2f76e1c.html">Src</a></li><li class="navelem"><a href="NVIC__program_8c.html">NVIC_program.c</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Src</b></li><li class="navelem"><a href="NVIC__program_8c.html">NVIC_program.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

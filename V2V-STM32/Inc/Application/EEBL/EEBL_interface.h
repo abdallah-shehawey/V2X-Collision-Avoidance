@@ -1,3 +1,12 @@
+/**
+ ******************************************************************************
+ * @file    EEBL_interface.h
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Public API of the EEBL driver — Electronic Emergency Brake Light.
+ * @ingroup app_eebl
+ ******************************************************************************
+ */
+
 #ifndef EEBL_INTERFACE_H
 #define EEBL_INTERFACE_H
 

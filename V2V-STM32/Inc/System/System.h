@@ -1,217 +1,292 @@
-
 /**
  ******************************************************************************
- * @file           : System.h
- * @author         : Abdallah Saleh
- * @brief          : System Header file
+ * @file    System.h
+ * @author  Abdallah Saleh
+ * @brief   System-wide contract: the board wiring map, the shared vehicle
+ *          state, the packed ADAS status word, and the telemetry format.
+ * @ingroup system
+ *
+ * @details
+ * Everything in this header is shared between tasks, so it is also where the
+ * concurrency rules live. Three globals cross task boundaries:
+ *
+ * - @ref G_stHostVehicleState — written by `Sensors_Task`, read by everyone else.
+ * - @ref G_u16SystemFlags     — written by `SafetyEngine_Task`, read by
+ *   `Feedback_Task` and `RPi_Comm_Task`.
+ * - @ref Host_DistToIntersection — written by whatever supplies intersection
+ *   geometry, read by IMA.
+ *
+ * Both mutexes are always taken in the order **NeighborTable → Data**, and never
+ * nested from more than one place, which is what makes the task set deadlock-free
+ * by construction.
+ *
+ * @section sys_wiring Board wiring map
+ *
+ * **Ultrasonic sensors — 3 front, 3 rear.** Echo pins are EXTI inputs; trigger
+ * pins are plain outputs. The echo pins were chosen to leave PA0..PA3 free for
+ * the UARTs.
+ *
+ * | ID | Location     | Echo | Trigger | Timer channel |
+ * |----|--------------|------|---------|---------------|
+ * | S1 | Front left   | PA15 | PB0     | TIM2_CH1      |
+ * | S2 | Front centre | PB3  | PB1     | TIM2_CH2      |
+ * | S3 | Front right  | PB4  | PB2     | TIM3_CH1      |
+ * | S4 | Rear left    | PB5  | PB12    | TIM3_CH2      |
+ * | S5 | Rear centre  | PC8  | PB13    | TIM3_CH3      |
+ * | S6 | Rear right   | PC9  | PB14    | TIM3_CH4      |
+ *
+ * **MPU9250 IMU** — SPI1 on PA5 (SCK), PA6 (MISO/ADO), PA7 (MOSI/SDA), AF5.
+ *
+ * **Feedback devices** — all on port C:
+ *
+ * | Device   | Pin | Role                              |
+ * |----------|-----|-----------------------------------|
+ * | LED 1    | PC0 | Front right                       |
+ * | LED 2    | PC1 | Front left                        |
+ * | LED 3    | PC2 | Rear right                        |
+ * | LED 4    | PC3 | Rear left                         |
+ * | LED 5    | PC7 | Interior / dashboard driver alert |
+ * | Buzzer   | PC4 | Audible warning                   |
+ *
+ * **Serial links:**
+ *
+ * | Port   | Pins             | Use                                      |
+ * |--------|------------------|------------------------------------------|
+ * | USART1 | PA9 TX, PA10 RX  | ESP32 radio bridge (ESP-NOW / V2V)       |
+ * | USART2 | PA2 TX, PA3 RX   | Raspberry Pi telemetry                   |
+ * | UART4  | PA0 TX, PA1 RX   | free (previously the Raspberry Pi link)  |
+ *
+ * @note There is **no motor driver on the STM32**. The Raspberry Pi drives the
+ *       motors from the telemetry this firmware sends, so no pin here is a
+ *       motor pin.
+ *
+ * @section sys_tasks Task set
+ *
+ * `configMAX_PRIORITIES` is 5, so priority 4 is the highest available to a task
+ * and priority 0 belongs to the FreeRTOS idle task.
+ *
+ * | Task                 | Priority | Period              | Role |
+ * |----------------------|----------|---------------------|------|
+ * | `vTask_SafetyEngine` | 4        | 50 ms               | The **brain**: runs every ADAS module over the neighbor table in one pass and publishes @ref G_u16SystemFlags. Decides nothing about actuators. Holds both mutexes. |
+ * | `vTask_ESP_Comm`     | 4        | RX ~10 ms / TX 100 ms | V2V traffic over USART1. Takes the two mutexes separately. |
+ * | `vTask_Sensors`      | 3        | ~25–82 ms, adaptive | Reads all 6 ultrasonics (interrupt-driven — the task *sleeps* during each echo) and the IMU. Sequential reads, so no acoustic cross-talk. |
+ * | `vTask_Feedback`     | 2        | 25 ms               | The **muscle**: renders @ref G_u16SystemFlags onto the LEDs and buzzer. |
+ * | `vTask_RPi_Comm`     | 1        | 100 ms              | Streams the telemetry line to the Raspberry Pi. |
+ *
+ * @warning `configMAX_SYSCALL_INTERRUPT_PRIORITY` is 5, so any interrupt that
+ *          calls a FreeRTOS `...FromISR` API — USART1 included — must be given an
+ *          NVIC priority number of **6 or higher** (i.e. a *lower* urgency).
  ******************************************************************************
- **/
+ */
 
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
 #include <stdint.h>
 
-/*
- * ========================================================================================
- * 🚗 V2X HARDWARE WIRING MAPPING
- * ========================================================================================
- *
- * 1. ULTRASONIC SENSORS (3 Front / 3 Back)
- * ----------------------------------------------------------------------------------------
- * | ID | Location       | Echo Pin | Trig Pin | Timer Channel | Note                     |
- * |----|----------------|----------|----------|---------------|--------------------------|
- * | S1 | FRONT LEFT     | PA15     | PB0      | TIM2_CH1      | UART-Friendly (Free PA0) |
- * | S2 | FRONT CENTER   | PB3      | PB1      | TIM2_CH2      | UART-Friendly (Free PA1) |
- * | S3 | FRONT RIGHT    | PB4      | PB2      | TIM3_CH1      | UART-Friendly (Free PA2) |
- * | S4 | BACK  LEFT     | PB5      | PB12     | TIM3_CH2      | UART-Friendly (Free PA3) |
- * | S5 | BACK  CENTER   | PC8      | PB13     | TIM3_CH3      |                          |
- * | S6 | BACK  RIGHT    | PC9      | PB14     | TIM3_CH4      |                          |
- *
- * 2. MOTION SENSOR (MPU9250)
- * ----------------------------------------------------------------------------------------
- * | Sensor Type | SPI Signals           | Pins                | Mode / AF |
- * |-------------|-----------------------|---------------------|-----------|
- * | IMU (9-Axis)| SCK, MISO(ADO), MOSI(SDA)       | PA5, PA6, PA7       | SPI1 - AF5|
- *
- * 3. FEEDBACK SYSTEM
- * ----------------------------------------------------------------------------------------
- * | Component | Pin | Port  | Description      |
- * |-----------|-----|-------|------------------|
- * | LED 1     | PC0 | PORTC | Status Color 1   | Front Right
- * | LED 2     | PC1 | PORTC | Status Color 2   | Front Left
- * | LED 3     | PC2 | PORTC | Status Color 3   | Back Right
- * | LED 4     | PC3 | PORTC | Status Color 4   | Back Left
- * | LED 5     | PC7 | PORTC | Interior Driver Alert (dashboard) |
- * | BUZZER    | PC4 | PORTC | Warning Sound    |
- *
- * NOTE: There is NO motor driver on the STM32 — the Raspberry Pi drives the
- *       motors using the telemetry this firmware sends. No motor pins are used.
- *
- * 4. COMMUNICATION INTERFACES (UARTs)
- * ----------------------------------------------------------------------------------------
- * | Interface | Pin Mapping          | Status  | Description                 |
- * |-----------|----------------------|---------|-----------------------------|
- * | USART1    | PA9(TX), PA10(RX)    | IN USE  | ESP-NOW (V2X Comm)          |
- * | USART2    | PA2(TX), PA3(RX)     | IN USE  | Raspberry Pi telemetry (USB VCP) |
- * | UART4     | PA0(TX), PA1(RX)     | FREE ✅ | (was RPi; now on USART2)    |
- *
- * ========================================================================================
+/**
+ * @addtogroup system
+ * @{
  */
 
-/*
- * ========================================================================================
- * 🧠 RTOS TASKS ARCHITECTURE & PRIORITIES (configMAX_PRIORITIES = 5)
- * ========================================================================================
+/**
+ * @brief Everything the sensors know about *this* vehicle, in one place.
  *
- * | Task Name              | Priority | Stack (+base) | Freq               | Description                                   |
- * |------------------------|----------|---------------|--------------------|-----------------------------------------------|
- * | [1] vTask_SafetyEngine | 4 (MAX)  | +256          | ~50 ms             | Single-pass ADAS brain (FCW/EEBL/BSW/DNPW/IMA)|
- * |                        |          |               |                    | + feedback aggregation → command channel      |
- * | [1] vTask_ESP_Comm     | 4 (MAX)  | +128          | ~10ms RX/100ms TX  | ESP-NOW V2X communication                     |
- * | [2] vTask_Sensors      | 3        | +256          | ~25-82 ms adaptive | All 6 US (interrupt, 2m cap) + MPU9250         |
- * | [3] vTask_Feedback     | 2        | +128          | ~25 ms             | Alert manager (LEDs + Buzzer; motors on RPi)  |
- * | [4] vTask_RPi_Comm     | 1 (LOW)  | +100          | ~100 ms            | Raspberry Pi telemetry TX (status + sensors)  |
+ * Produced by `Sensors_Task` once per scan and consumed by the ADAS modules, the
+ * telemetry task and the DSRC broadcast. Access is serialised by the Data mutex.
  *
- * NOTE: Priority 4 is the highest user priority. Priority 0 is the FreeRTOS Idle task.
- *       configMAX_SYSCALL_INTERRUPT_PRIORITY = 5  → NVIC_USART1 must be set to ≥ 6.
- *       vTask_Sensors reads all 6 US per cycle (interrupt-driven: the task SLEEPS
- *       during each echo, CPU free) + MPU, then a 10ms gap. Scan is adaptive:
- *       near objects → ~25ms, all out-of-range → ~72ms (2m cap). Reads are
- *       sequential → no acoustic cross-talk. Priority 3 (producer) sits below the
- *       priority-4 ADAS/comm tasks but above the priority-2 Feedback consumer.
- *
- *       ADAS architecture = SINGLE-PASS, with a clean Brain/Muscle split:
- *         • vTask_SafetyEngine (Brain, detection-only): runs all modules over the
- *           neighbor table in ONE pass; each module reports its risk level. Then it
- *           publishes G_u16SystemFlags (2 bits/module: 00 safe / 01 warning / 10 crit).
- *           It makes NO actuator decision. Holds both mutexes (NeighborTable → Data).
- *         • vTask_Feedback (Muscle): reads G_u16SystemFlags; if 0 → everything off.
- *           Any alert → interior LED + buzzer ON. Additionally: FCW CRITICAL → front
- *           LEDs, EEBL CRITICAL → rear LEDs. All other states add no external LED.
- *           NO motor control — the Raspberry Pi drives the motors from the telemetry.
- *       Lock usage: ESP_Comm takes the two mutexes separately, Sensors & Feedback take
- *       Data only → deadlock-free.
- * ========================================================================================
+ * The six ultrasonic readings are distances in centimetres; a sensor that saw no
+ * echo reports its out-of-range ceiling (about 200 cm) rather than 0, so "far
+ * away" never looks like "touching".
  */
-
-/* Unified Sensor State Structure */
 typedef struct
 {
-  float FrontLeftUS;
-  float FrontCenterUS;
-  float FrontRightUS;
-  float BackLeftUS;
-  float BackCenterUS;
-  float BackRightUS;
+  float FrontLeftUS;   /**< Front-left ultrasonic distance [cm]. */
+  float FrontCenterUS; /**< Front-centre ultrasonic distance [cm]. */
+  float FrontRightUS;  /**< Front-right ultrasonic distance [cm]. */
+  float BackLeftUS;    /**< Rear-left ultrasonic distance [cm]. */
+  float BackCenterUS;  /**< Rear-centre ultrasonic distance [cm]. */
+  float BackRightUS;   /**< Rear-right ultrasonic distance [cm]. */
 
-  float Speed;
-  float Heading;
-  float Pitch;
-  float Roll;
-  float PosX;
-  float PosY;
-  float PosZ;
+  float Speed;   /**< Ground speed [cm/s], integrated from the IMU's accelerometer. */
+  float Heading; /**< Compass heading [degrees], 0..360, from the magnetometer. */
+  float Pitch;   /**< Pitch angle [degrees], from the fused accelerometer/gyro. */
+  float Roll;    /**< Roll angle [degrees], from the fused accelerometer/gyro. */
+  float PosX;    /**< Dead-reckoned X position [cm] since startup. */
+  float PosY;    /**< Dead-reckoned Y position [cm] since startup. */
+  float PosZ;    /**< Dead-reckoned Z position [cm] since startup. */
 } HostVehicleState_t;
 
-/* ════════════════════════════════════════════════════════════════════════
- *  G_u16SystemFlags — system status word (2 bits per ADAS module)
- * ════════════════════════════════════════════════════════════════════════
- *  SafetyEngine writes it; vTask_Feedback and vTask_RPi_Comm read it.
- *  Each module occupies 2 bits:
- *        0b00 = SAFE      (no hazard)
- *        0b01 = WARNING   (caution — slow down)
- *        0b10 = CRITICAL  (danger — stop)
+/**
+ * @name ADAS status word (G_u16SystemFlags)
  *
- *  Bit layout (uint16_t):
- *        bits  1:0  → FCW   (Forward Collision Warning)
- *        bits  3:2  → EEBL  (Emergency Electronic Brake Light)
- *        bits  5:4  → BSW   (Blind Spot Warning)        [WARNING only]
- *        bits  7:6  → DNPW  (Do Not Pass Warning)
- *        bits  9:8  → IMA   (Intersection Movement Assist)
- *        bits 15:10 → reserved (0)
+ * @ref G_u16SystemFlags packs the result of all five ADAS modules into one
+ * 16-bit word, two bits per module. `SafetyEngine_Task` is its only writer;
+ * `Feedback_Task` and `RPi_Comm_Task` are its readers.
  *
- *  0x0000 = everything safe.
- *  Extract one module:  status = (G_u16SystemFlags >> SYS_xxx_POS) & SYS_MASK
+ * Each 2-bit field holds @ref SYS_SAFE, @ref SYS_WARNING or @ref SYS_CRITICAL.
+ * The layout is:
  *
- *  Worked examples (binary grouped as IMA|DNPW|BSW|EEBL|FCW):
- *     0x0001  00 00 00 00 01  → FCW  WARNING
- *     0x0002  00 00 00 00 10  → FCW  CRITICAL
- *     0x0004  00 00 00 01 00  → EEBL WARNING
- *     0x0010  00 00 01 00 00  → BSW  WARNING
- *     0x0040  00 01 00 00 00  → DNPW WARNING
- *     0x0100  01 00 00 00 00  → IMA  WARNING
- *     0x0006  00 00 00 01 10  → FCW CRITICAL + EEBL WARNING
- *     0x0101  01 00 00 00 01  → FCW WARNING  + IMA WARNING
- * ════════════════════════════════════════════════════════════════════════ */
-#define SYS_SAFE 0x0u
-#define SYS_WARNING 0x1u
-#define SYS_CRITICAL 0x2u
-#define SYS_MASK 0x3u /* 2-bit field mask */
+ * | Bits  | Module |
+ * |-------|--------|
+ * | 1:0   | FCW — Forward Collision Warning |
+ * | 3:2   | EEBL — Emergency Electronic Brake Light |
+ * | 5:4   | BSW — Blind Spot Warning (warning level only) |
+ * | 7:6   | DNPW — Do Not Pass Warning |
+ * | 9:8   | IMA — Intersection Movement Assist |
+ * | 15:10 | reserved, always 0 |
+ *
+ * So `0x0000` means everything is safe, `0x0002` is "FCW critical", and
+ * `0x0006` is "FCW critical **and** EEBL warning" at the same time.
+ *
+ * Read one module's status with @ref SYS_GET, e.g.
+ * `SYS_GET(G_u16SystemFlags, SYS_FCW_POS)`.
+ * @{
+ */
+#define SYS_SAFE     0x0u /**< No hazard from this module. */
+#define SYS_WARNING  0x1u /**< Caution — the driver should slow down. */
+#define SYS_CRITICAL 0x2u /**< Danger — the driver should stop. */
+#define SYS_MASK     0x3u /**< Mask of one 2-bit module field. */
 
-#define SYS_FCW_POS 0u
-#define SYS_EEBL_POS 2u
-#define SYS_BSW_POS 4u
-#define SYS_DNPW_POS 6u
-#define SYS_IMA_POS 8u
+#define SYS_FCW_POS  0u /**< Bit position of the FCW field. */
+#define SYS_EEBL_POS 2u /**< Bit position of the EEBL field. */
+#define SYS_BSW_POS  4u /**< Bit position of the BSW field. */
+#define SYS_DNPW_POS 6u /**< Bit position of the DNPW field. */
+#define SYS_IMA_POS  8u /**< Bit position of the IMA field. */
 
-/* status (0/1/2) of one module from the packed word */
+/**
+ * @brief Extract one module's 2-bit status from the packed word.
+ * @param flags The status word, normally @ref G_u16SystemFlags.
+ * @param pos   The module's bit position, e.g. @ref SYS_FCW_POS.
+ * @return @ref SYS_SAFE, @ref SYS_WARNING or @ref SYS_CRITICAL.
+ */
 #define SYS_GET(flags, pos) (((flags) >> (pos)) & SYS_MASK)
+/** @} */
 
-/* ── RPi telemetry ──
- * Sent every 100ms by vTask_RPi_Comm as an ASCII, '\n'-delimited CSV line (the
- * old binary 0xAA..0x55 packet was dropped because its zero-bytes were lost on
- * the UART link). The RPi parser (server.py PACKET_FIELDS) must match this
- * column order EXACTLY — change one side, change the other.
+/**
+ * @brief Legacy binary telemetry packet — **kept for reference only**.
  *
- *   T,speed,heading,pitch,roll,FL,FC,FR,BL,BC,BR,flags,bsw_sides\n
+ * @deprecated Nothing sends this any more. `RPi_Comm_Task` streams an ASCII CSV
+ * line instead, because this packed layout contains `0x00` bytes and those were
+ * being lost on the UART link, which silently truncated whole runs.
  *
- *     speed              cm/s
- *     heading            degrees 0-360
- *     pitch, roll        degrees
- *     FL..BR             6 ultrasonic distances [cm]
- *     flags              G_u16SystemFlags: 2 bits/module (00 safe/01 warn/10 crit)
- *     bsw_sides          per-side BSW severity: bits 1:0 LEFT, bits 3:2 RIGHT
- *                        (lets the RPi report left / right / both — the
- *                         aggregated BSW severity is already inside `flags`)
+ * The wire format actually in use is one `\n`-terminated line every 100 ms:
  *
- * The struct below is the legacy binary layout, kept for reference only. */
+ * @code
+ * T,speed,heading,pitch,roll,FL,FC,FR,BL,BC,BR,flags,bsw_sides\n
+ * @endcode
+ *
+ * | Field       | Meaning |
+ * |-------------|---------|
+ * | `speed`     | cm/s |
+ * | `heading`   | degrees, 0..360 |
+ * | `pitch`, `roll` | degrees |
+ * | `FL`..`BR`  | the six ultrasonic distances [cm] |
+ * | `flags`     | @ref G_u16SystemFlags — 2 bits per module |
+ * | `bsw_sides` | per-side blind-spot severity: bits 1:0 LEFT, bits 3:2 RIGHT |
+ *
+ * `bsw_sides` is sent separately because the BSW field inside `flags` is already
+ * aggregated to the worst side and no longer says *which* side triggered.
+ *
+ * @warning The column order here must match the Raspberry Pi parser
+ *          (`server.py`, `PACKET_FIELDS`) exactly. Change one side, change the other.
+ */
 typedef struct __attribute__((packed))
 {
-  uint8_t start;      /* 0xAA */
-  uint16_t sys_flags; /* G_u16SystemFlags: 2 bits/module (00/01/10) */
-  float speed;        /* cm/s */
-  float heading;      /* degrees 0-360 */
-  float front_left;   /* ultrasonic distance [cm] */
-  float front_center;
-  float front_right;
-  float back_left;
-  float back_center;
-  float back_right;
-  uint8_t end; /* 0x55 */
+  uint8_t start;       /**< Start-of-frame marker, always 0xAA. */
+  uint16_t sys_flags;  /**< A copy of @ref G_u16SystemFlags. */
+  float speed;         /**< Ground speed [cm/s]. */
+  float heading;       /**< Compass heading [degrees], 0..360. */
+  float front_left;    /**< Front-left ultrasonic distance [cm]. */
+  float front_center;  /**< Front-centre ultrasonic distance [cm]. */
+  float front_right;   /**< Front-right ultrasonic distance [cm]. */
+  float back_left;     /**< Rear-left ultrasonic distance [cm]. */
+  float back_center;   /**< Rear-centre ultrasonic distance [cm]. */
+  float back_right;    /**< Rear-right ultrasonic distance [cm]. */
+  uint8_t end;         /**< End-of-frame marker, always 0x55. */
 } RPi_Packet_t;
 
-/* Global variables for centralized management */
+/*============================================================================*/
+/*                              SHARED STATE                                  */
+/*============================================================================*/
 
-extern volatile uint16_t G_u16SystemFlags; /* 2 bits/module; 0 = all safe */
+/**
+ * @brief The packed ADAS status word — see @ref SYS_GET for how to read it.
+ *
+ * Written only by `SafetyEngine_Task`; read by `Feedback_Task` and
+ * `RPi_Comm_Task`. `0x0000` means every module reports safe.
+ */
+extern volatile uint16_t G_u16SystemFlags;
 
-/* Unified Host Vehicle State */
+/**
+ * @brief The shared sensor picture of this vehicle.
+ *
+ * Written by `Sensors_Task`, read by the ADAS modules, the DSRC broadcast and the
+ * telemetry task, all under the Data mutex.
+ */
 extern HostVehicleState_t G_stHostVehicleState;
 
-/* Distance to nearest intersection (cm), 0 = not near. Read by IMA and broadcast
- * over DSRC. Set by whatever provides intersection geometry (map/RPi). */
+/**
+ * @brief Distance to the nearest intersection [cm]; 0 means "not near one".
+ *
+ * Read by IMA and broadcast over DSRC so other cars can reason about the same
+ * junction. It is set by whatever supplies intersection geometry (the map layer
+ * on the Raspberry Pi), not by this firmware.
+ */
 extern float Host_DistToIntersection;
 
-/* Hardware objects — defined in System.c, used across tasks */
 #include "../Drivers/HAL/LED/LED_interface.h"
-extern LED_Config_t FrontR_LED, FrontL_LED, BackR_LED, BackL_LED, Interior_LED;
 
-/* Function Prototypes */
+/**
+ * @name Indicator LEDs
+ *
+ * The five LEDs, defined in `System.c` and shared across tasks. `Feedback_Task`
+ * is the only task that drives them: the interior LED on any alert, the front
+ * pair on an FCW-critical, the rear pair on an EEBL-critical.
+ * @{
+ */
+extern LED_Config_t FrontR_LED;   /**< Front-right LED (PC0) — lit on an FCW-critical. */
+extern LED_Config_t FrontL_LED;   /**< Front-left LED (PC1) — lit on an FCW-critical. */
+extern LED_Config_t BackR_LED;    /**< Rear-right LED (PC2) — lit on an EEBL-critical. */
+extern LED_Config_t BackL_LED;    /**< Rear-left LED (PC3) — lit on an EEBL-critical. */
+extern LED_Config_t Interior_LED; /**< Interior/dashboard LED (PC7) — lit on any alert. */
+/** @} */
+
+/*============================================================================*/
+/*                                  SETUP                                     */
+/*============================================================================*/
+
+/**
+ * @brief Cortex-M4 Data Watchpoint and Trace control register.
+ *
+ * Enabling the DWT cycle counter through this register is what lets SEGGER
+ * SystemView timestamp events; nothing in the ADAS path depends on it.
+ */
 #define DWT_CTRL *((volatile uint32_t *)0xE0001000)
 
+/**
+ * @brief Start SEGGER SystemView tracing (enables the DWT cycle counter first).
+ * @note  Debug instrumentation only — the firmware runs fine without it.
+ */
 void SEGGER_setup(void);
 
+/**
+ * @brief Bring up the board: clock tree, then every MCAL and HAL peripheral.
+ *
+ * Runs before the scheduler starts. Enables the peripheral clocks in RCC,
+ * configures the GPIO pins listed in @ref sys_wiring, and initialises the
+ * ultrasonics, the IMU, the LEDs, the buzzer, both UARTs and the watchdog.
+ */
 void System_setup(void);
+
+/**
+ * @brief Create the mutexes and the six FreeRTOS tasks, then start the scheduler.
+ *
+ * @note Does not return: control passes to the scheduler. See @ref sys_tasks for
+ *       the priorities and periods it hands out.
+ */
 void RTOS_setup(void);
+
+/** @} */ /* end of system */
 
 #endif /* SYSTEM_H */

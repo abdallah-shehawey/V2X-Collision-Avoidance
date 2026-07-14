@@ -27,12 +27,13 @@
 #include "../Inc/Drivers/MCAL/SYSTIC/SYSTIC_interface.h"
 #include "../Inc/Drivers/MCAL/SYSTIC/SYSTIC_private.h"
 
+/** @brief Callback invoked from the SysTick ISR; NULL means none registered. */
 static void (*SYSTIC_CallBack)(void) = NULL;
+/** @brief 1 = the pending callback is one-shot and disarms itself after firing; 0 = periodic. */
 static uint8_t SingleShot_Flag = 1;
 
 /*=================================================================================================================*/
-/**
- * @fn SYSTIC_vInit
+/*
  * @brief Initialize and configure the SysTick timer
  * @details This function performs the following configurations:
  *          1. Sets up the clock source based on SYSTIC_CLKSOURCE configuration
@@ -77,7 +78,6 @@ void SYSTIC_vInit(void)
 
 /*=================================================================================================================*/
 /**
- * @fn SYSTIC_vDisable
  * @brief Disable the SysTick timer
  * @details Stops the timer by clearing the ENABLE bit in the CTRL register
  *          This function is used internally by delay functions
@@ -89,7 +89,6 @@ static void SYSTIC_vDisable(void)
 
 /*=================================================================================================================*/
 /**
- * @fn SYSTIC_vEnable
  * @brief Enable the SysTick timer
  *
  * @details Starts the timer by setting the ENABLE bit in the CTRL register
@@ -102,7 +101,6 @@ static void SYSTIC_vEnable(void)
 
 /*=================================================================================================================*/
 /**
- * @fn SYSTIC_vWait
  * @brief Wait for the SysTick timer to complete counting
  *
  * @details Polls the COUNTFLAG bit in the CTRL register until it is set,
@@ -114,8 +112,7 @@ static void SYSTIC_vWait(void)
 }
 
 /*=================================================================================================================*/
-/**
- * @fn SYSTIC_vDelayMs
+/*
  * @brief Generate a precise millisecond delay
  *
  * @param[in] Copy_u32MsTime Delay duration in milliseconds
@@ -188,8 +185,7 @@ void SYSTIC_vDelayMs(uint32_t Copy_u32MsTime)
 }
 
 /*=================================================================================================================*/
-/**
- * @fn SYSTIC_vDelayUs
+/*
  * @brief Generate a precise microsecond delay
  *
  * @param[in] Copy_u32UsTime Delay duration in microseconds
@@ -263,8 +259,7 @@ void SYSTIC_vDelayUs(uint32_t Copy_u32UsTime)
 }
 
 /*=================================================================================================================*/
-/**
- * @fn SYSTIC_enumGetElapsedTickSingleShot
+/*
  * @brief Generate a precise microsecond delay using polling method
  *
  * @param[in] Copy_pu32Tick Pointer to store the elapsed tick count
@@ -310,8 +305,7 @@ double Local_f32TickTimeInUs = 1.0 / SYSTEM_CLOCK_IN_MHZ;
 }
 
 /*=================================================================================================================*/
-/**
- * @fn SYSTIC_enumRemainingTickSingleShot
+/*
  * @brief Generate a precise microsecond delay using polling method
  *
  * @param[in] Copy_pvCallBack Pointer to the callback function
@@ -348,8 +342,7 @@ double Local_f32TickTimeInUs = 1.0 / SYSTEM_CLOCK_IN_MHZ;
 }
 
 /*=================================================================================================================*/
-/**
- * @fn SYSTIC_enumCallback
+/*
  * @brief Generate a precise microsecond delay using polling method with callback function
  *
  * @param[in] Copy_pvCallBack Pointer to the callback function
@@ -404,8 +397,7 @@ ErrorState_t SYSTIC_enumCallback(void(*Copy_pvCallBack)(void), uint32_t Copy_u32
 }
 
 /*=================================================================================================================*/
-/**
- * @fn SYSTIC_enumCallbackSingleShot
+/*
  * @brief Generate a precise microsecond delay using polling method with callback function
  *
  * @param[in] Copy_pvCallBack Pointer to the callback function

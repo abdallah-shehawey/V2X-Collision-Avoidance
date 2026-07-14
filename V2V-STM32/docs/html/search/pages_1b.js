@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['🔹_20bsw_20—_20blind_20spot_20warning_0',['🔹 BSW — Blind Spot Warning',['../md_README.html#autotoc_md13',1,'']]],
-  ['🔹_20eebl_20—_20electronic_20emergency_20brake_20light_1',['🔹 EEBL — Electronic Emergency Brake Light',['../md_README.html#autotoc_md12',1,'']]],
-  ['🔹_20fcw_20dnpw_20—_20forward_20collision_20do_20not_20pass_20warning_2',['🔹 FCW / DNPW — Forward Collision + Do-Not-Pass Warning',['../md_README.html#autotoc_md11',1,'']]],
-  ['🔹_20ima_20—_20intersection_20movement_20assist_3',['🔹 IMA — Intersection Movement Assist',['../md_README.html#autotoc_md14',1,'']]]
+  ['uart_0',['Auto mode (later): real UART',['../dir_55122db787629eaf0bcbfbf6ffd453bc.html#autotoc_md98',1,'']]],
+  ['ultrasonics_20block_20×6_20—_20the_20most_20important_20one_1',['STAGE 4 — ULTRASONICS BLOCK (×6) — the most important one',['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md49',1,'']]],
+  ['underneath_20all_20five_2',['DSRC — the transport underneath all five',['../index.html#autotoc_md15',1,'']]],
+  ['upload_20the_20firmware_3',['3. Upload the Firmware',['../dir_59e7f8d29184d0656f3182488763fc33.html#autotoc_md91',1,'']]],
+  ['usart1_4',['STAGE 6 — ESP32-S3 BLOCK (V2X / USART1)',['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md63',1,'']]]
 ];

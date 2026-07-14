@@ -1,5 +1,10 @@
-\doxysection{Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.h File Reference}
-\hypertarget{RCC__interface_8h}{}\label{RCC__interface_8h}\index{Inc/Drivers/MCAL/RCC/RCC\_interface.h@{Inc/Drivers/MCAL/RCC/RCC\_interface.h}}
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.h File Reference}
+\hypertarget{RCC__interface_8h}{}\label{RCC__interface_8h}\index{V2V-\/STM32/Inc/Drivers/MCAL/RCC/RCC\_interface.h@{V2V-\/STM32/Inc/Drivers/MCAL/RCC/RCC\_interface.h}}
+
+
+Public API of the RCC driver — reset and clock control.  
+
+
 {\ttfamily \+\#include "{}../\+../\+\+LIB/\+\+Err\+Types.\+h"{}}\newline
 {\ttfamily \+\#include $<$stdint.\+h$>$}\newline
 Include dependency graph for RCC\+\_\+interface.\+h:\+
@@ -7,7 +12,7 @@ Include dependency graph for RCC\+\_\+interface.\+h:\+
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=254pt]{RCC__interface_8h__incl}
+\includegraphics[width=255pt]{RCC__interface_8h__incl}
 \end{center}
 \end{figure}
 This graph shows which files directly or indirectly include this file:\+
@@ -15,25 +20,25 @@ This graph shows which files directly or indirectly include this file:\+
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=286pt]{RCC__interface_8h__dep__incl}
+\includegraphics[width=350pt]{RCC__interface_8h__dep__incl}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
 struct \doxymbox{\hyperlink{structRCC__PLLConfig__t}{RCC\+\_\+\+PLLConfig\+\_\+t}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em The PLL dividers that set the system clock frequency. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\+\#define \doxymbox{\hyperlink{RCC__interface_8h_a9bc683f819655771e6ccd69918b7ab8f}{RCC\+\_\+\+MPLL\+\_\+\+DIV\+\_\+2}}~2   /\+\texorpdfstring{$\ast$}{*} Minimum PLL division \texorpdfstring{$\ast$}{*}/\+
-\item 
-\+\#define \doxymbox{\hyperlink{RCC__interface_8h_af62964e9d26ee49a3bcd5e71ca2e2491}{RCC\+\_\+\+MPLL\+\_\+\+DIV\+\_\+63}}~63 /\+\texorpdfstring{$\ast$}{*} Maximum PLL division \texorpdfstring{$\ast$}{*}/\+
-\item 
-\+\#define \doxymbox{\hyperlink{RCC__interface_8h_aaf88478f7a98ec5399c7657e37a49c0a}{RCC\+\_\+\+NPLL\+\_\+\+CLK\+\_\+\+MULT\+\_\+50}}~50   /\+\texorpdfstring{$\ast$}{*} Minimum PLL multiplication \texorpdfstring{$\ast$}{*}/\+
-\item 
-\+\#define \doxymbox{\hyperlink{RCC__interface_8h_a8a02545773f814aff776ce2f00785679}{RCC\+\_\+\+NPLL\+\_\+\+CLK\+\_\+\+MULT\+\_\+432}}~432 /\+\texorpdfstring{$\ast$}{*} Maximum PLL multiplication \texorpdfstring{$\ast$}{*}/\+
-\end{DoxyCompactItemize}
+\+\#define \doxymbox{\hyperlink{RCC__interface_8h_a9bc683f819655771e6ccd69918b7ab8f}{RCC\+\_\+\+MPLL\+\_\+\+DIV\+\_\+2}}
+\begin{DoxyCompactList}\small\item\em Main PLL division factors. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{RCC__interface_8h_af62964e9d26ee49a3bcd5e71ca2e2491}{RCC\+\_\+\+MPLL\+\_\+\+DIV\+\_\+63}}
+\begin{DoxyCompactList}\small\item\em Maximum PLL division. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{RCC__interface_8h_aaf88478f7a98ec5399c7657e37a49c0a}{RCC\+\_\+\+NPLL\+\_\+\+CLK\+\_\+\+MULT\+\_\+50}}
+\begin{DoxyCompactList}\small\item\em NPLL multiplication factors. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{RCC__interface_8h_a8a02545773f814aff776ce2f00785679}{RCC\+\_\+\+NPLL\+\_\+\+CLK\+\_\+\+MULT\+\_\+432}}
+\begin{DoxyCompactList}\small\item\em Maximum PLL multiplication. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
@@ -45,7 +50,7 @@ enum \doxymbox{\hyperlink{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553}{R
 , \newline
 \doxymbox{\hyperlink{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a0abf9a51f75b8a4a1b3ddf7441c32e76}{RCC\+\_\+\+APB2}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em Microcontroller bus selection. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850}{RCC\+\_\+\+AHB1\+\_\+\+BUS\+\_\+t}} \{ \newline
 \doxymbox{\hyperlink{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a3ed9b7229ffda7ddbf62f1dafc976b7c}{RCC\+\_\+\+GPIOAEN}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a3a9ce6d2bf8edb81d37427bc0e8a5329}{RCC\+\_\+\+GPIOBEN}}
@@ -57,30 +62,30 @@ enum \doxymbox{\hyperlink{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850}{R
 , \doxymbox{\hyperlink{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a1d58a9a39b9bd7ec87b95f841c83d569}{RCC\+\_\+\+GPIOGEN}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850aaa725c1297e9c416e653b8a1be817341}{RCC\+\_\+\+GPIOHEN}}
 , \newline
-\doxymbox{\hyperlink{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a77e52d238e4efbbdbb995155766b4338}{RCC\+\_\+\+CRCEN}} = 12
-, \doxymbox{\hyperlink{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850ae305ea05feeee7763555972659e4760d}{RCC\+\_\+\+BKPSRAMEN}} = 18
-, \doxymbox{\hyperlink{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850aaa7e576ba4f503a25e963522e7a685f7}{RCC\+\_\+\+DMA1\+EN}} = 21
-, \doxymbox{\hyperlink{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850acdd4302184c00509db828b02586a89d0}{RCC\+\_\+\+DMA2\+EN}} = 22
+\doxymbox{\hyperlink{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a77e52d238e4efbbdbb995155766b4338}{RCC\+\_\+\+CRCEN}}
+, \doxymbox{\hyperlink{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850ae305ea05feeee7763555972659e4760d}{RCC\+\_\+\+BKPSRAMEN}}
+, \doxymbox{\hyperlink{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850aaa7e576ba4f503a25e963522e7a685f7}{RCC\+\_\+\+DMA1\+EN}}
+, \doxymbox{\hyperlink{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850acdd4302184c00509db828b02586a89d0}{RCC\+\_\+\+DMA2\+EN}}
 , \newline
-\doxymbox{\hyperlink{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a2f7360c52aa46cc7d02712613d3c14de}{RCC\+\_\+\+OTGHSEN}} = 29
-, \doxymbox{\hyperlink{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a6eb9520df747a7911e927ab3a101b170}{RCC\+\_\+\+OTGHSULPIEN}} = 30
+\doxymbox{\hyperlink{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a2f7360c52aa46cc7d02712613d3c14de}{RCC\+\_\+\+OTGHSEN}}
+, \doxymbox{\hyperlink{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a6eb9520df747a7911e927ab3a101b170}{RCC\+\_\+\+OTGHSULPIEN}}
  \}
-\item 
-enum \doxymbox{\hyperlink{RCC__interface_8h_a1654179504daa216777e9d540efababa}{RCC\+\_\+\+AHB2\+\_\+\+BUS\+\_\+t}} \{ \doxymbox{\hyperlink{RCC__interface_8h_a1654179504daa216777e9d540efababaa089f9244f54766a9d6d2b74699b04963}{RCC\+\_\+\+DCMIEN}} = 0
-, \doxymbox{\hyperlink{RCC__interface_8h_a1654179504daa216777e9d540efababaaa64644ed10d6def8d09051132971adf9}{RCC\+\_\+\+OTGFSEN}} = 7
+\begin{DoxyCompactList}\small\item\em Peripherals connected to AHB1 bus. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{RCC__interface_8h_a1654179504daa216777e9d540efababa}{RCC\+\_\+\+AHB2\+\_\+\+BUS\+\_\+t}} \{ \doxymbox{\hyperlink{RCC__interface_8h_a1654179504daa216777e9d540efababaa089f9244f54766a9d6d2b74699b04963}{RCC\+\_\+\+DCMIEN}}
+, \doxymbox{\hyperlink{RCC__interface_8h_a1654179504daa216777e9d540efababaaa64644ed10d6def8d09051132971adf9}{RCC\+\_\+\+OTGFSEN}}
  \}
-\item 
-enum \doxymbox{\hyperlink{RCC__interface_8h_a99a6e82804c9a474409e3d7c0664809b}{RCC\+\_\+\+AHB3\+\_\+\+BUS\+\_\+t}} \{ \doxymbox{\hyperlink{RCC__interface_8h_a99a6e82804c9a474409e3d7c0664809baa2e0ad40e706bf4260b22281a83f10d0}{RCC\+\_\+\+FMCEN}} = 0
-, \doxymbox{\hyperlink{RCC__interface_8h_a99a6e82804c9a474409e3d7c0664809ba990d3cb8b20a8aaafceda99e08b24030}{RCC\+\_\+\+QSPIEN}} = 1
+\begin{DoxyCompactList}\small\item\em Peripherals connected to AHB2 bus. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{RCC__interface_8h_a99a6e82804c9a474409e3d7c0664809b}{RCC\+\_\+\+AHB3\+\_\+\+BUS\+\_\+t}} \{ \doxymbox{\hyperlink{RCC__interface_8h_a99a6e82804c9a474409e3d7c0664809baa2e0ad40e706bf4260b22281a83f10d0}{RCC\+\_\+\+FMCEN}}
+, \doxymbox{\hyperlink{RCC__interface_8h_a99a6e82804c9a474409e3d7c0664809ba990d3cb8b20a8aaafceda99e08b24030}{RCC\+\_\+\+QSPIEN}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em Peripherals connected to AHB3 bus. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805}{RCC\+\_\+\+APB2\+\_\+\+BUS\+\_\+t}} \{ \newline
-\doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805abc3363e004aa364db5e1bac897fd6483}{RCC\+\_\+\+TIM1\+EN}} = 0
+\doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805abc3363e004aa364db5e1bac897fd6483}{RCC\+\_\+\+TIM1\+EN}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a2e9c94c9c1753fb92bf3cb9b03a18177}{RCC\+\_\+\+TIM8\+EN}}
-, \doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a6f9bc1664f1972e622f9228606caa3b8}{RCC\+\_\+\+USART1}} = 4
+, \doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a6f9bc1664f1972e622f9228606caa3b8}{RCC\+\_\+\+USART1}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805af5e7cede1d1b7c4b6897b58cf3d7f516}{RCC\+\_\+\+USART6}}
 , \newline
-\doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805af055395282bf999654dd9690cf0707b8}{RCC\+\_\+\+ADC1\+EN}} = 8
+\doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805af055395282bf999654dd9690cf0707b8}{RCC\+\_\+\+ADC1\+EN}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a7dfc02f35dfcfdf1f05b561a2311706a}{RCC\+\_\+\+ADC2\+EN}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805ae51183018fe37d4ca70d364c67730a78}{RCC\+\_\+\+ADC3\+EN}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a67736ef7448fb8dec460344ff0ec502d}{RCC\+\_\+\+SDIOEN}}
@@ -88,14 +93,14 @@ enum \doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805}{R
 \doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805aabe02fa77ddcf5090afdbb70f385276f}{RCC\+\_\+\+SPI1\+EN}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a7387a53035d75cd41efd905a1be46125}{RCC\+\_\+\+SPI4\+EN}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a739496a24b485cc154b269375312d243}{RCC\+\_\+\+SYSCFGEN}}
-, \doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a95ea1023a4c98193f7eca64e8a36f8e9}{RCC\+\_\+\+TIM9\+EN}} = 16
+, \doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a95ea1023a4c98193f7eca64e8a36f8e9}{RCC\+\_\+\+TIM9\+EN}}
 , \newline
 \doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a87aac4b2badb5bffe5cc5f130bc18527}{RCC\+\_\+\+TIM10\+EN}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a904702a1dd125fffddc71586ce388947}{RCC\+\_\+\+TIM11\+EN}}
-, \doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805af80523a8f4cedad5f27d3a9cb417dff2}{RCC\+\_\+\+SAI1\+EN}} = 22
+, \doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805af80523a8f4cedad5f27d3a9cb417dff2}{RCC\+\_\+\+SAI1\+EN}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a8183a882dd9a1c90a07def6f6c148a29}{RCC\+\_\+\+SAI2\+EN}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em Peripherals connected to APB2 bus. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0}{RCC\+\_\+\+APB1\+\_\+\+BUS\+\_\+t}} \{ \newline
 \doxymbox{\hyperlink{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a8bbd578980591ba6e7205dac5088529d}{RCC\+\_\+\+TIM2\+EN}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a913b6a9d8207e886862424761144f0ee}{RCC\+\_\+\+TIM3\+EN}}
@@ -108,8 +113,8 @@ enum \doxymbox{\hyperlink{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0}{R
 , \doxymbox{\hyperlink{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a2f16f5a0ead72762aceec50c76bd83f1}{RCC\+\_\+\+TIM13\+EN}}
 , \newline
 \doxymbox{\hyperlink{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a6dfcb66a46edfd29559d8cde133de523}{RCC\+\_\+\+TIM14\+EN}}
-, \doxymbox{\hyperlink{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a3d45bbd38d0f967f103f86068a5fd996}{RCC\+\_\+\+WWDGEN}} = 11
-, \doxymbox{\hyperlink{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a76cc02950e10b6b874b3952c3132ad28}{RCC\+\_\+\+SPI2\+EN}} = 14
+, \doxymbox{\hyperlink{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a3d45bbd38d0f967f103f86068a5fd996}{RCC\+\_\+\+WWDGEN}}
+, \doxymbox{\hyperlink{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a76cc02950e10b6b874b3952c3132ad28}{RCC\+\_\+\+SPI2\+EN}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a074cf52061eda59a371f9f66da1539fe}{RCC\+\_\+\+SPI3\+EN}}
 , \newline
 \doxymbox{\hyperlink{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a17e4fddbb84ac3eb19085094d5dc5e5e}{RCC\+\_\+\+SPDIFRX}}
@@ -130,9 +135,9 @@ enum \doxymbox{\hyperlink{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0}{R
 \doxymbox{\hyperlink{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a0f00f4117c39ec39c43b1f2228d294be}{RCC\+\_\+\+PWREN}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0aa00a5baea89df9ab841bfc513e989e45}{RCC\+\_\+\+DACEN}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em Peripherals connected to APB1 bus. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816a}{RCC\+\_\+\+AHB\+\_\+\+BUS\+\_\+\+DIV\+\_\+t}} \{ \newline
-\doxymbox{\hyperlink{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aa8dbf0c5736c6f88176ba204b9110f3b2}{RCC\+\_\+\+AHB\+\_\+\+NOT\+\_\+\+DIV}} = 7
+\doxymbox{\hyperlink{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aa8dbf0c5736c6f88176ba204b9110f3b2}{RCC\+\_\+\+AHB\+\_\+\+NOT\+\_\+\+DIV}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aa9e0945a87b9ba3f9c46de49cbe9ff957}{RCC\+\_\+\+AHB\+\_\+\+DIV\+\_\+2}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aaf8248e200ae6bb45150f8f1174ce4868}{RCC\+\_\+\+AHB\+\_\+\+DIV\+\_\+4}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aacfb82f33fb6f71c42356350d86637d8c}{RCC\+\_\+\+AHB\+\_\+\+DIV\+\_\+8}}
@@ -144,26 +149,26 @@ enum \doxymbox{\hyperlink{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816a}{R
 , \newline
 \doxymbox{\hyperlink{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aafe9a8217bd96eddc93086bfa13f8723f}{RCC\+\_\+\+AHB\+\_\+\+DIV\+\_\+512}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em AHB bus clock division factors. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{RCC__interface_8h_a6a950980135f66c49402eca289ba8154}{RCC\+\_\+\+APB\+\_\+\+BUS\+\_\+\+DIV\+\_\+t}} \{ \newline
-\doxymbox{\hyperlink{RCC__interface_8h_a6a950980135f66c49402eca289ba8154a75d5f1176559c60c38e3333d9c79bd68}{RCC\+\_\+\+APB\+\_\+\+NOT\+\_\+\+DIV}} = 3
+\doxymbox{\hyperlink{RCC__interface_8h_a6a950980135f66c49402eca289ba8154a75d5f1176559c60c38e3333d9c79bd68}{RCC\+\_\+\+APB\+\_\+\+NOT\+\_\+\+DIV}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a6a950980135f66c49402eca289ba8154a5a32688fa0159a900a655fd466fa1205}{RCC\+\_\+\+APB\+\_\+\+DIV\+\_\+2}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a6a950980135f66c49402eca289ba8154ada81311d5873eae58a24d8569c3e46e5}{RCC\+\_\+\+APB\+\_\+\+DIV\+\_\+4}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a6a950980135f66c49402eca289ba8154a6febd734f8d8def30cb4b70ac7cb5f06}{RCC\+\_\+\+APB\+\_\+\+DIV\+\_\+8}}
 , \newline
 \doxymbox{\hyperlink{RCC__interface_8h_a6a950980135f66c49402eca289ba8154ae4e30d0da064a6d0c73018e9594476e4}{RCC\+\_\+\+APB\+\_\+\+DIV\+\_\+16}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em APB bus clock division factors. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{RCC__interface_8h_a2fc8ece77236e47c265f8205802c711c}{RCC\+\_\+\+PPLL\+\_\+\+CLK\+\_\+\+DIV\+\_\+t}} \{ \doxymbox{\hyperlink{RCC__interface_8h_a2fc8ece77236e47c265f8205802c711caf11250a4840fcb74aaa60657aae6fb59}{RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+2}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a2fc8ece77236e47c265f8205802c711ca729065422c3404af55ce0dd1d946f660}{RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+4}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a2fc8ece77236e47c265f8205802c711ca083ac28676d8c390fad1f5b9601c3468}{RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+6}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a2fc8ece77236e47c265f8205802c711cad7888a0d3b879be5bb9a3279a1492c96}{RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+8}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em PLLP clock division factors. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455}{RCC\+\_\+\+PLL\+\_\+\+CLK\+\_\+\+SRC\+\_\+t}} \{ \doxymbox{\hyperlink{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455a2dd04293cbf5c5be599c73c365f53c78}{RCC\+\_\+\+PLL\+\_\+\+HSI}}
 , \doxymbox{\hyperlink{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455aeeade9ac9dc4bccb2c6296fdcb0d9555}{RCC\+\_\+\+PLL\+\_\+\+HSE}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em PLL clock source selection. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0}{RCC\+\_\+\+CLK\+\_\+\+SRC\+\_\+t}} \{ \newline
 \doxymbox{\hyperlink{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0a2849eefd5c20741226460df608cff2d7}{RCC\+\_\+\+HSI\+\_\+\+CLK}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0ab4431e8de3b3f1fd064fbd17d36c1ba3}{RCC\+\_\+\+HSE\+\_\+\+CLK}}
@@ -172,34 +177,46 @@ enum \doxymbox{\hyperlink{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0}{R
 , \newline
 \doxymbox{\hyperlink{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0af8a2a97d356e388c78d06ef236eeadbc}{RCC\+\_\+\+PLL\+\_\+\+CLK}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em Clock source selection for system clock. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75}{RCC\+\_\+\+CLK\+\_\+\+EN\+\_\+t}} \{ \doxymbox{\hyperlink{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75a0938a3d5fa759965e8c1b12ca3fd2cbf}{RCC\+\_\+\+CLK\+\_\+\+ON}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75acdc70da92fc82565f7311ec1f75b7a54}{RCC\+\_\+\+CLK\+\_\+\+OFF}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em Clock enable/\+disable selection. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dd}{RCC\+\_\+\+PER\+\_\+\+EN\+\_\+t}} \{ \doxymbox{\hyperlink{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda7b3c654637d9a549b83b41c762d08c16}{RCC\+\_\+\+PER\+\_\+\+ON}}
 , \doxymbox{\hyperlink{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda851fb285d14f03e3c7def04bed4c96ee}{RCC\+\_\+\+PER\+\_\+\+OFF}}
  \}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Peripheral enable/\+disable selection. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__interface_8h_ac0546afcec3b849576c5b3ece143b9a9}{RCC\+\_\+enum\+Set\+Clk\+Sts}} (uint8\+\_\+t Copy\+\_\+u8\+CLK, uint8\+\_\+t Copy\+\_\+u8\+Status)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__interface_8h_a4e5060e0774aa417bf2dbf5aad8904eb}{RCC\+\_\+enum\+Set\+Sys\+Clk}} (uint8\+\_\+t Copy\+\_\+u8\+CLK)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__interface_8h_a39479df13627e03c2248209d30fb6baa}{RCC\+\_\+enum\+PLLConfig}} (const \doxymbox{\hyperlink{structRCC__PLLConfig__t}{RCC\+\_\+\+PLLConfig\+\_\+t}} \texorpdfstring{$\ast$}{*}Copy\+\_\+\+PLLConfig)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__interface_8h_a8dac8e7ec4680d99cd53a562907c8f10}{RCC\+\_\+enum\+AHBConfig}} (uint8\+\_\+t Copy\+\_\+u8\+AHPDiv)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__interface_8h_a32ffc31db6be174ed88867d13b6fb770}{RCC\+\_\+enum\+APB1\+Config}} (uint8\+\_\+t Copy\+\_\+u8\+APB1\+Div)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__interface_8h_a528911683284afb4fc9731cfedfebc31}{RCC\+\_\+enum\+APB2\+Config}} (uint8\+\_\+t Copy\+\_\+u8\+APB2\+Div)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__interface_8h_a64dea321b9d4592b409225e2b55fef5c}{RCC\+\_\+enum\+AHPPer\+Sts}} (uint8\+\_\+t Copy\+\_\+u8\+Bus, uint8\+\_\+t Copy\+\_\+u8\+AHPPer, uint8\+\_\+t Copy\+\_\+u8\+Status)
-\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__interface_8h_a1d4e148d8519b4eb0ad9237d5f930a93}{RCC\+\_\+enum\+ABPPer\+Sts}} (uint8\+\_\+t Copy\+\_\+u8\+Bus, uint8\+\_\+t Copy\+\_\+u8\+AHPPer, uint8\+\_\+t Copy\+\_\+u8\+Status)
-\end{DoxyCompactItemize}
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__interface_8h_ac0546afcec3b849576c5b3ece143b9a9}{RCC\+\_\+enum\+Set\+Clk\+Sts}} (uint8\+\_\+t Copy\+\_\+u8\+CLK, uint8\+\_\+t Copy\+\_\+u8\+Status)
+\begin{DoxyCompactList}\small\item\em Enable or disable a specific clock source. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__interface_8h_a4e5060e0774aa417bf2dbf5aad8904eb}{RCC\+\_\+enum\+Set\+Sys\+Clk}} (uint8\+\_\+t Copy\+\_\+u8\+CLK)
+\begin{DoxyCompactList}\small\item\em Set the system clock source. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__interface_8h_a39479df13627e03c2248209d30fb6baa}{RCC\+\_\+enum\+PLLConfig}} (const \doxymbox{\hyperlink{structRCC__PLLConfig__t}{RCC\+\_\+\+PLLConfig\+\_\+t}} \texorpdfstring{$\ast$}{*}Copy\+\_\+\+PLLConfig)
+\begin{DoxyCompactList}\small\item\em Configure PLL parameters. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__interface_8h_a8dac8e7ec4680d99cd53a562907c8f10}{RCC\+\_\+enum\+AHBConfig}} (uint8\+\_\+t Copy\+\_\+u8\+AHPDiv)
+\begin{DoxyCompactList}\small\item\em Configure AHB bus clock prescaler. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__interface_8h_a32ffc31db6be174ed88867d13b6fb770}{RCC\+\_\+enum\+APB1\+Config}} (uint8\+\_\+t Copy\+\_\+u8\+APB1\+Div)
+\begin{DoxyCompactList}\small\item\em Configure APB1 bus clock prescaler. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__interface_8h_a528911683284afb4fc9731cfedfebc31}{RCC\+\_\+enum\+APB2\+Config}} (uint8\+\_\+t Copy\+\_\+u8\+APB2\+Div)
+\begin{DoxyCompactList}\small\item\em Configure APB2 bus clock prescaler. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__interface_8h_a64dea321b9d4592b409225e2b55fef5c}{RCC\+\_\+enum\+AHPPer\+Sts}} (uint8\+\_\+t Copy\+\_\+u8\+Bus, uint8\+\_\+t Copy\+\_\+u8\+AHPPer, uint8\+\_\+t Copy\+\_\+u8\+Status)
+\begin{DoxyCompactList}\small\item\em Enable or disable peripheral clock on AHB buses. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{RCC__interface_8h_a1d4e148d8519b4eb0ad9237d5f930a93}{RCC\+\_\+enum\+ABPPer\+Sts}} (uint8\+\_\+t Copy\+\_\+u8\+Bus, uint8\+\_\+t Copy\+\_\+u8\+AHPPer, uint8\+\_\+t Copy\+\_\+u8\+Status)
+\begin{DoxyCompactList}\small\item\em Enable or disable peripheral clock on APB buses. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Public API of the RCC driver — reset and clock control. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+
 
 
 \label{doc-define-members}
@@ -209,145 +226,227 @@ enum \doxymbox{\hyperlink{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dd}{R
 \index{RCC\_MPLL\_DIV\_2@{RCC\_MPLL\_DIV\_2}!RCC\_interface.h@{RCC\_interface.h}}
 \doxysubsubsection{\texorpdfstring{RCC\_MPLL\_DIV\_2}{RCC\_MPLL\_DIV\_2}}
 {\footnotesize\ttfamily \label{RCC__interface_8h_a9bc683f819655771e6ccd69918b7ab8f} 
-\+\#define RCC\+\_\+\+MPLL\+\_\+\+DIV\+\_\+2~2   /\+\texorpdfstring{$\ast$}{*} Minimum PLL division \texorpdfstring{$\ast$}{*}/\+}
+\+\#define RCC\+\_\+\+MPLL\+\_\+\+DIV\+\_\+2}
 
 
 
-Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00174}{174}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+Main PLL division factors. 
+
+Defines minimum and maximum division values Minimum PLL division 
+
+Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00161}{161}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{RCC__program_8c_source_l00250}{RCC\+\_\+enum\+PLLConfig()}}.
 
 \Hypertarget{RCC__interface_8h_af62964e9d26ee49a3bcd5e71ca2e2491}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_MPLL\_DIV\_63@{RCC\_MPLL\_DIV\_63}}
 \index{RCC\_MPLL\_DIV\_63@{RCC\_MPLL\_DIV\_63}!RCC\_interface.h@{RCC\_interface.h}}
 \doxysubsubsection{\texorpdfstring{RCC\_MPLL\_DIV\_63}{RCC\_MPLL\_DIV\_63}}
 {\footnotesize\ttfamily \label{RCC__interface_8h_af62964e9d26ee49a3bcd5e71ca2e2491} 
-\+\#define RCC\+\_\+\+MPLL\+\_\+\+DIV\+\_\+63~63 /\+\texorpdfstring{$\ast$}{*} Maximum PLL division \texorpdfstring{$\ast$}{*}/\+}
+\+\#define RCC\+\_\+\+MPLL\+\_\+\+DIV\+\_\+63}
 
 
 
-Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00175}{175}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
-
-\Hypertarget{RCC__interface_8h_a8a02545773f814aff776ce2f00785679}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_NPLL\_CLK\_MULT\_432@{RCC\_NPLL\_CLK\_MULT\_432}}
-\index{RCC\_NPLL\_CLK\_MULT\_432@{RCC\_NPLL\_CLK\_MULT\_432}!RCC\_interface.h@{RCC\_interface.h}}
-\doxysubsubsection{\texorpdfstring{RCC\_NPLL\_CLK\_MULT\_432}{RCC\_NPLL\_CLK\_MULT\_432}}
-{\footnotesize\ttfamily \label{RCC__interface_8h_a8a02545773f814aff776ce2f00785679} 
-\+\#define RCC\+\_\+\+NPLL\+\_\+\+CLK\+\_\+\+MULT\+\_\+432~432 /\+\texorpdfstring{$\ast$}{*} Maximum PLL multiplication \texorpdfstring{$\ast$}{*}/\+}
+Maximum PLL division. 
 
 
 
-Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00182}{182}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00162}{162}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{RCC__program_8c_source_l00250}{RCC\+\_\+enum\+PLLConfig()}}.
 
 \Hypertarget{RCC__interface_8h_aaf88478f7a98ec5399c7657e37a49c0a}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_NPLL\_CLK\_MULT\_50@{RCC\_NPLL\_CLK\_MULT\_50}}
 \index{RCC\_NPLL\_CLK\_MULT\_50@{RCC\_NPLL\_CLK\_MULT\_50}!RCC\_interface.h@{RCC\_interface.h}}
 \doxysubsubsection{\texorpdfstring{RCC\_NPLL\_CLK\_MULT\_50}{RCC\_NPLL\_CLK\_MULT\_50}}
 {\footnotesize\ttfamily \label{RCC__interface_8h_aaf88478f7a98ec5399c7657e37a49c0a} 
-\+\#define RCC\+\_\+\+NPLL\+\_\+\+CLK\+\_\+\+MULT\+\_\+50~50   /\+\texorpdfstring{$\ast$}{*} Minimum PLL multiplication \texorpdfstring{$\ast$}{*}/\+}
+\+\#define RCC\+\_\+\+NPLL\+\_\+\+CLK\+\_\+\+MULT\+\_\+50}
 
 
 
-Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00181}{181}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+NPLL multiplication factors. 
+
+Defines minimum and maximum multiplication values Minimum PLL multiplication 
+
+Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00168}{168}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{RCC__program_8c_source_l00250}{RCC\+\_\+enum\+PLLConfig()}}.
+
+\Hypertarget{RCC__interface_8h_a8a02545773f814aff776ce2f00785679}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_NPLL\_CLK\_MULT\_432@{RCC\_NPLL\_CLK\_MULT\_432}}
+\index{RCC\_NPLL\_CLK\_MULT\_432@{RCC\_NPLL\_CLK\_MULT\_432}!RCC\_interface.h@{RCC\_interface.h}}
+\doxysubsubsection{\texorpdfstring{RCC\_NPLL\_CLK\_MULT\_432}{RCC\_NPLL\_CLK\_MULT\_432}}
+{\footnotesize\ttfamily \label{RCC__interface_8h_a8a02545773f814aff776ce2f00785679} 
+\+\#define RCC\+\_\+\+NPLL\+\_\+\+CLK\+\_\+\+MULT\+\_\+432}
+
+
+
+Maximum PLL multiplication. 
+
+
+
+Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00169}{169}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{RCC__program_8c_source_l00250}{RCC\+\_\+enum\+PLLConfig()}}.
 
 
 
 \label{doc-enum-members}
 \Hypertarget{RCC__interface_8h_doc-enum-members}
 \doxysubsection{Enumeration Type Documentation}
+\Hypertarget{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_uC\_BUS\_t@{RCC\_uC\_BUS\_t}}
+\index{RCC\_uC\_BUS\_t@{RCC\_uC\_BUS\_t}!RCC\_interface.h@{RCC\_interface.h}}
+\doxysubsubsection{\texorpdfstring{RCC\_uC\_BUS\_t}{RCC\_uC\_BUS\_t}}
+{\footnotesize\ttfamily \label{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553} 
+enum \doxymbox{\hyperlink{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553}{RCC\+\_\+u\+C\+\_\+\+BUS\+\_\+t}}}
+
+
+
+Microcontroller bus selection. 
+
+
+\begin{DoxyItemize}
+\item AHB1, AHB2, AHB3 -\/ Advanced High-\/performance Bus APB1, APB2 -\/ Advanced Peripheral Bus 
+\end{DoxyItemize}\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB1@{RCC\_AHB1}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB1@{RCC\_AHB1}}
+}\Hypertarget{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a42f2806c9b4b64b90c7a23fc5cf0b3f1}\label{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a42f2806c9b4b64b90c7a23fc5cf0b3f1} 
+RCC\+\_\+\+AHB1&Advanced High-\/performance Bus 1. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB2@{RCC\_AHB2}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB2@{RCC\_AHB2}}
+}\Hypertarget{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553ab7dcc9786d60b3d6a3ee299792523a4d}\label{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553ab7dcc9786d60b3d6a3ee299792523a4d} 
+RCC\+\_\+\+AHB2&Advanced High-\/performance Bus 2. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB3@{RCC\_AHB3}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB3@{RCC\_AHB3}}
+}\Hypertarget{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a2ec525812c33ffdd2066c0d551787711}\label{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a2ec525812c33ffdd2066c0d551787711} 
+RCC\+\_\+\+AHB3&Advanced High-\/performance Bus 3. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_APB1@{RCC\_APB1}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_APB1@{RCC\_APB1}}
+}\Hypertarget{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a13aff41d960da028bb68e745d74a63b5}\label{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a13aff41d960da028bb68e745d74a63b5} 
+RCC\+\_\+\+APB1&Advanced Peripheral Bus 1. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_APB2@{RCC\_APB2}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_APB2@{RCC\_APB2}}
+}\Hypertarget{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a0abf9a51f75b8a4a1b3ddf7441c32e76}\label{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a0abf9a51f75b8a4a1b3ddf7441c32e76} 
+RCC\+\_\+\+APB2&Advanced Peripheral Bus 2. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00023}{23}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+
 \Hypertarget{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB1\_BUS\_t@{RCC\_AHB1\_BUS\_t}}
 \index{RCC\_AHB1\_BUS\_t@{RCC\_AHB1\_BUS\_t}!RCC\_interface.h@{RCC\_interface.h}}
 \doxysubsubsection{\texorpdfstring{RCC\_AHB1\_BUS\_t}{RCC\_AHB1\_BUS\_t}}
 {\footnotesize\ttfamily \label{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850} 
 enum \doxymbox{\hyperlink{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850}{RCC\+\_\+\+AHB1\+\_\+\+BUS\+\_\+t}}}
 
-\begin{DoxyEnumFields}[2]{Enumerator}
+
+
+Peripherals connected to AHB1 bus. 
+
+Contains GPIO ports A-\/H, CRC, Backup SRAM, DMA1/\+2, USB OTG HS and ULPI \begin{DoxyEnumFields}[3]{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_GPIOAEN@{RCC\_GPIOAEN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_GPIOAEN@{RCC\_GPIOAEN}}
 }\Hypertarget{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a3ed9b7229ffda7ddbf62f1dafc976b7c}\label{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a3ed9b7229ffda7ddbf62f1dafc976b7c} 
-RCC\+\_\+\+GPIOAEN&\\
+RCC\+\_\+\+GPIOAEN&&GPIO Port A Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_GPIOBEN@{RCC\_GPIOBEN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_GPIOBEN@{RCC\_GPIOBEN}}
 }\Hypertarget{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a3a9ce6d2bf8edb81d37427bc0e8a5329}\label{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a3a9ce6d2bf8edb81d37427bc0e8a5329} 
-RCC\+\_\+\+GPIOBEN&\\
+RCC\+\_\+\+GPIOBEN&&GPIO Port B Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_GPIOCEN@{RCC\_GPIOCEN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_GPIOCEN@{RCC\_GPIOCEN}}
 }\Hypertarget{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a811b2c1eeb10d23c2e4f4fe4d23b39af}\label{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a811b2c1eeb10d23c2e4f4fe4d23b39af} 
-RCC\+\_\+\+GPIOCEN&\\
+RCC\+\_\+\+GPIOCEN&&GPIO Port C Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_GPIODEN@{RCC\_GPIODEN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_GPIODEN@{RCC\_GPIODEN}}
 }\Hypertarget{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a8c5b03da750a183091e97ba89a86f8ae}\label{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a8c5b03da750a183091e97ba89a86f8ae} 
-RCC\+\_\+\+GPIODEN&\\
+RCC\+\_\+\+GPIODEN&&GPIO Port D Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_GPIOEEN@{RCC\_GPIOEEN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_GPIOEEN@{RCC\_GPIOEEN}}
 }\Hypertarget{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a8e30b72ee1453f56bb7e439e0b69546c}\label{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a8e30b72ee1453f56bb7e439e0b69546c} 
-RCC\+\_\+\+GPIOEEN&\\
+RCC\+\_\+\+GPIOEEN&&GPIO Port E Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_GPIOFEN@{RCC\_GPIOFEN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_GPIOFEN@{RCC\_GPIOFEN}}
 }\Hypertarget{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a21381e8f0a66f842521d14665497cb60}\label{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a21381e8f0a66f842521d14665497cb60} 
-RCC\+\_\+\+GPIOFEN&\\
+RCC\+\_\+\+GPIOFEN&&GPIO Port F Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_GPIOGEN@{RCC\_GPIOGEN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_GPIOGEN@{RCC\_GPIOGEN}}
 }\Hypertarget{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a1d58a9a39b9bd7ec87b95f841c83d569}\label{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a1d58a9a39b9bd7ec87b95f841c83d569} 
-RCC\+\_\+\+GPIOGEN&\\
+RCC\+\_\+\+GPIOGEN&&GPIO Port G Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_GPIOHEN@{RCC\_GPIOHEN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_GPIOHEN@{RCC\_GPIOHEN}}
 }\Hypertarget{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850aaa725c1297e9c416e653b8a1be817341}\label{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850aaa725c1297e9c416e653b8a1be817341} 
-RCC\+\_\+\+GPIOHEN&\\
+RCC\+\_\+\+GPIOHEN&&GPIO Port H Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_CRCEN@{RCC\_CRCEN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_CRCEN@{RCC\_CRCEN}}
 }\Hypertarget{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a77e52d238e4efbbdbb995155766b4338}\label{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a77e52d238e4efbbdbb995155766b4338} 
-RCC\+\_\+\+CRCEN&\\
+RCC\+\_\+\+CRCEN&12&CRC Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_BKPSRAMEN@{RCC\_BKPSRAMEN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_BKPSRAMEN@{RCC\_BKPSRAMEN}}
 }\Hypertarget{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850ae305ea05feeee7763555972659e4760d}\label{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850ae305ea05feeee7763555972659e4760d} 
-RCC\+\_\+\+BKPSRAMEN&\\
+RCC\+\_\+\+BKPSRAMEN&18&Backup SRAM Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_DMA1EN@{RCC\_DMA1EN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_DMA1EN@{RCC\_DMA1EN}}
 }\Hypertarget{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850aaa7e576ba4f503a25e963522e7a685f7}\label{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850aaa7e576ba4f503a25e963522e7a685f7} 
-RCC\+\_\+\+DMA1\+EN&\\
+RCC\+\_\+\+DMA1\+EN&21&DMA1 Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_DMA2EN@{RCC\_DMA2EN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_DMA2EN@{RCC\_DMA2EN}}
 }\Hypertarget{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850acdd4302184c00509db828b02586a89d0}\label{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850acdd4302184c00509db828b02586a89d0} 
-RCC\+\_\+\+DMA2\+EN&\\
+RCC\+\_\+\+DMA2\+EN&22&DMA2 Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_OTGHSEN@{RCC\_OTGHSEN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_OTGHSEN@{RCC\_OTGHSEN}}
 }\Hypertarget{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a2f7360c52aa46cc7d02712613d3c14de}\label{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a2f7360c52aa46cc7d02712613d3c14de} 
-RCC\+\_\+\+OTGHSEN&\\
+RCC\+\_\+\+OTGHSEN&29&USB OTG HS Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_OTGHSULPIEN@{RCC\_OTGHSULPIEN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_OTGHSULPIEN@{RCC\_OTGHSULPIEN}}
 }\Hypertarget{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a6eb9520df747a7911e927ab3a101b170}\label{RCC__interface_8h_a552e326d6d1787caeeb0d595c9886850a6eb9520df747a7911e927ab3a101b170} 
-RCC\+\_\+\+OTGHSULPIEN&\\
+RCC\+\_\+\+OTGHSULPIEN&30&USB OTG ULPI Enable. \\
 \hline
 
 \end{DoxyEnumFields}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2RCC_2RCC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h}}.\end{Desc}
 
 
-Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00043}{43}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00036}{36}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
 
 \Hypertarget{RCC__interface_8h_a1654179504daa216777e9d540efababa}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB2\_BUS\_t@{RCC\_AHB2\_BUS\_t}}
 \index{RCC\_AHB2\_BUS\_t@{RCC\_AHB2\_BUS\_t}!RCC\_interface.h@{RCC\_interface.h}}
@@ -355,26 +454,27 @@ Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00043}{43}} of
 {\footnotesize\ttfamily \label{RCC__interface_8h_a1654179504daa216777e9d540efababa} 
 enum \doxymbox{\hyperlink{RCC__interface_8h_a1654179504daa216777e9d540efababa}{RCC\+\_\+\+AHB2\+\_\+\+BUS\+\_\+t}}}
 
-\begin{DoxyEnumFields}[2]{Enumerator}
+
+
+Peripherals connected to AHB2 bus. 
+
+Contains DCMI and USB OTG FS \begin{DoxyEnumFields}[3]{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_DCMIEN@{RCC\_DCMIEN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_DCMIEN@{RCC\_DCMIEN}}
 }\Hypertarget{RCC__interface_8h_a1654179504daa216777e9d540efababaa089f9244f54766a9d6d2b74699b04963}\label{RCC__interface_8h_a1654179504daa216777e9d540efababaa089f9244f54766a9d6d2b74699b04963} 
-RCC\+\_\+\+DCMIEN&\\
+RCC\+\_\+\+DCMIEN&0&Digital Camera Interface Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_OTGFSEN@{RCC\_OTGFSEN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_OTGFSEN@{RCC\_OTGFSEN}}
 }\Hypertarget{RCC__interface_8h_a1654179504daa216777e9d540efababaaa64644ed10d6def8d09051132971adf9}\label{RCC__interface_8h_a1654179504daa216777e9d540efababaaa64644ed10d6def8d09051132971adf9} 
-RCC\+\_\+\+OTGFSEN&\\
+RCC\+\_\+\+OTGFSEN&7&USB OTG FS Enable. \\
 \hline
 
 \end{DoxyEnumFields}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2RCC_2RCC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h}}.\end{Desc}
 
 
-Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00065}{65}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00057}{57}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
 
 \Hypertarget{RCC__interface_8h_a99a6e82804c9a474409e3d7c0664809b}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB3\_BUS\_t@{RCC\_AHB3\_BUS\_t}}
 \index{RCC\_AHB3\_BUS\_t@{RCC\_AHB3\_BUS\_t}!RCC\_interface.h@{RCC\_interface.h}}
@@ -382,266 +482,27 @@ Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00065}{65}} of
 {\footnotesize\ttfamily \label{RCC__interface_8h_a99a6e82804c9a474409e3d7c0664809b} 
 enum \doxymbox{\hyperlink{RCC__interface_8h_a99a6e82804c9a474409e3d7c0664809b}{RCC\+\_\+\+AHB3\+\_\+\+BUS\+\_\+t}}}
 
-\begin{DoxyEnumFields}[2]{Enumerator}
+
+
+Peripherals connected to AHB3 bus. 
+
+Contains FMC and QSPI \begin{DoxyEnumFields}[3]{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_FMCEN@{RCC\_FMCEN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_FMCEN@{RCC\_FMCEN}}
 }\Hypertarget{RCC__interface_8h_a99a6e82804c9a474409e3d7c0664809baa2e0ad40e706bf4260b22281a83f10d0}\label{RCC__interface_8h_a99a6e82804c9a474409e3d7c0664809baa2e0ad40e706bf4260b22281a83f10d0} 
-RCC\+\_\+\+FMCEN&\\
+RCC\+\_\+\+FMCEN&0&Flexible Memory Controller Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_QSPIEN@{RCC\_QSPIEN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_QSPIEN@{RCC\_QSPIEN}}
 }\Hypertarget{RCC__interface_8h_a99a6e82804c9a474409e3d7c0664809ba990d3cb8b20a8aaafceda99e08b24030}\label{RCC__interface_8h_a99a6e82804c9a474409e3d7c0664809ba990d3cb8b20a8aaafceda99e08b24030} 
-RCC\+\_\+\+QSPIEN&\\
+RCC\+\_\+\+QSPIEN&1&Quad SPI Enable. \\
 \hline
 
 \end{DoxyEnumFields}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2RCC_2RCC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h}}.\end{Desc}
 
 
-Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00075}{75}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
-
-\Hypertarget{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816a}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB\_BUS\_DIV\_t@{RCC\_AHB\_BUS\_DIV\_t}}
-\index{RCC\_AHB\_BUS\_DIV\_t@{RCC\_AHB\_BUS\_DIV\_t}!RCC\_interface.h@{RCC\_interface.h}}
-\doxysubsubsection{\texorpdfstring{RCC\_AHB\_BUS\_DIV\_t}{RCC\_AHB\_BUS\_DIV\_t}}
-{\footnotesize\ttfamily \label{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816a} 
-enum \doxymbox{\hyperlink{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816a}{RCC\+\_\+\+AHB\+\_\+\+BUS\+\_\+\+DIV\+\_\+t}}}
-
-\begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB\_NOT\_DIV@{RCC\_AHB\_NOT\_DIV}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB\_NOT\_DIV@{RCC\_AHB\_NOT\_DIV}}
-}\Hypertarget{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aa8dbf0c5736c6f88176ba204b9110f3b2}\label{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aa8dbf0c5736c6f88176ba204b9110f3b2} 
-RCC\+\_\+\+AHB\+\_\+\+NOT\+\_\+\+DIV&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB\_DIV\_2@{RCC\_AHB\_DIV\_2}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB\_DIV\_2@{RCC\_AHB\_DIV\_2}}
-}\Hypertarget{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aa9e0945a87b9ba3f9c46de49cbe9ff957}\label{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aa9e0945a87b9ba3f9c46de49cbe9ff957} 
-RCC\+\_\+\+AHB\+\_\+\+DIV\+\_\+2&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB\_DIV\_4@{RCC\_AHB\_DIV\_4}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB\_DIV\_4@{RCC\_AHB\_DIV\_4}}
-}\Hypertarget{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aaf8248e200ae6bb45150f8f1174ce4868}\label{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aaf8248e200ae6bb45150f8f1174ce4868} 
-RCC\+\_\+\+AHB\+\_\+\+DIV\+\_\+4&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB\_DIV\_8@{RCC\_AHB\_DIV\_8}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB\_DIV\_8@{RCC\_AHB\_DIV\_8}}
-}\Hypertarget{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aacfb82f33fb6f71c42356350d86637d8c}\label{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aacfb82f33fb6f71c42356350d86637d8c} 
-RCC\+\_\+\+AHB\+\_\+\+DIV\+\_\+8&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB\_DIV\_16@{RCC\_AHB\_DIV\_16}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB\_DIV\_16@{RCC\_AHB\_DIV\_16}}
-}\Hypertarget{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aa5cfee490fd866a24ccfaa2e8dd9114db}\label{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aa5cfee490fd866a24ccfaa2e8dd9114db} 
-RCC\+\_\+\+AHB\+\_\+\+DIV\+\_\+16&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB\_DIV\_64@{RCC\_AHB\_DIV\_64}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB\_DIV\_64@{RCC\_AHB\_DIV\_64}}
-}\Hypertarget{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aab7f53f6e2dc9a7cd4d51415c9c496d9f}\label{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aab7f53f6e2dc9a7cd4d51415c9c496d9f} 
-RCC\+\_\+\+AHB\+\_\+\+DIV\+\_\+64&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB\_DIV\_128@{RCC\_AHB\_DIV\_128}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB\_DIV\_128@{RCC\_AHB\_DIV\_128}}
-}\Hypertarget{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aa9b9d31fa57dfa7939f9fd7d6dcbfef1a}\label{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aa9b9d31fa57dfa7939f9fd7d6dcbfef1a} 
-RCC\+\_\+\+AHB\+\_\+\+DIV\+\_\+128&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB\_DIV\_256@{RCC\_AHB\_DIV\_256}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB\_DIV\_256@{RCC\_AHB\_DIV\_256}}
-}\Hypertarget{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aadf205163ce89c1dfd413f19cb1fbcff8}\label{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aadf205163ce89c1dfd413f19cb1fbcff8} 
-RCC\+\_\+\+AHB\+\_\+\+DIV\+\_\+256&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB\_DIV\_512@{RCC\_AHB\_DIV\_512}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB\_DIV\_512@{RCC\_AHB\_DIV\_512}}
-}\Hypertarget{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aafe9a8217bd96eddc93086bfa13f8723f}\label{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aafe9a8217bd96eddc93086bfa13f8723f} 
-RCC\+\_\+\+AHB\+\_\+\+DIV\+\_\+512&\\
-\hline
-
-\end{DoxyEnumFields}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2RCC_2RCC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h}}.\end{Desc}
-
-
-Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00145}{145}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
-
-\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_APB1\_BUS\_t@{RCC\_APB1\_BUS\_t}}
-\index{RCC\_APB1\_BUS\_t@{RCC\_APB1\_BUS\_t}!RCC\_interface.h@{RCC\_interface.h}}
-\doxysubsubsection{\texorpdfstring{RCC\_APB1\_BUS\_t}{RCC\_APB1\_BUS\_t}}
-{\footnotesize\ttfamily \label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0} 
-enum \doxymbox{\hyperlink{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0}{RCC\+\_\+\+APB1\+\_\+\+BUS\+\_\+t}}}
-
-\begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_TIM2EN@{RCC\_TIM2EN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_TIM2EN@{RCC\_TIM2EN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a8bbd578980591ba6e7205dac5088529d}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a8bbd578980591ba6e7205dac5088529d} 
-RCC\+\_\+\+TIM2\+EN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_TIM3EN@{RCC\_TIM3EN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_TIM3EN@{RCC\_TIM3EN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a913b6a9d8207e886862424761144f0ee}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a913b6a9d8207e886862424761144f0ee} 
-RCC\+\_\+\+TIM3\+EN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_TIM4EN@{RCC\_TIM4EN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_TIM4EN@{RCC\_TIM4EN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a2b8664e51a633c5473b215a6fda68693}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a2b8664e51a633c5473b215a6fda68693} 
-RCC\+\_\+\+TIM4\+EN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_TIM5EN@{RCC\_TIM5EN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_TIM5EN@{RCC\_TIM5EN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a8ef64074997fd3ff0e6a07072fa0d7ea}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a8ef64074997fd3ff0e6a07072fa0d7ea} 
-RCC\+\_\+\+TIM5\+EN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_TIM6EN@{RCC\_TIM6EN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_TIM6EN@{RCC\_TIM6EN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a17e6c278c5f936a98e47fe1d39568ebc}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a17e6c278c5f936a98e47fe1d39568ebc} 
-RCC\+\_\+\+TIM6\+EN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_TIM7EN@{RCC\_TIM7EN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_TIM7EN@{RCC\_TIM7EN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a57c73d1f95544a7951a18bbbfa474738}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a57c73d1f95544a7951a18bbbfa474738} 
-RCC\+\_\+\+TIM7\+EN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_TIM12EN@{RCC\_TIM12EN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_TIM12EN@{RCC\_TIM12EN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a8dac5f6fa903616efd48059e4eb3a602}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a8dac5f6fa903616efd48059e4eb3a602} 
-RCC\+\_\+\+TIM12\+EN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_TIM13EN@{RCC\_TIM13EN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_TIM13EN@{RCC\_TIM13EN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a2f16f5a0ead72762aceec50c76bd83f1}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a2f16f5a0ead72762aceec50c76bd83f1} 
-RCC\+\_\+\+TIM13\+EN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_TIM14EN@{RCC\_TIM14EN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_TIM14EN@{RCC\_TIM14EN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a6dfcb66a46edfd29559d8cde133de523}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a6dfcb66a46edfd29559d8cde133de523} 
-RCC\+\_\+\+TIM14\+EN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_WWDGEN@{RCC\_WWDGEN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_WWDGEN@{RCC\_WWDGEN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a3d45bbd38d0f967f103f86068a5fd996}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a3d45bbd38d0f967f103f86068a5fd996} 
-RCC\+\_\+\+WWDGEN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_SPI2EN@{RCC\_SPI2EN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_SPI2EN@{RCC\_SPI2EN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a76cc02950e10b6b874b3952c3132ad28}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a76cc02950e10b6b874b3952c3132ad28} 
-RCC\+\_\+\+SPI2\+EN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_SPI3EN@{RCC\_SPI3EN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_SPI3EN@{RCC\_SPI3EN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a074cf52061eda59a371f9f66da1539fe}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a074cf52061eda59a371f9f66da1539fe} 
-RCC\+\_\+\+SPI3\+EN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_SPDIFRX@{RCC\_SPDIFRX}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_SPDIFRX@{RCC\_SPDIFRX}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a17e4fddbb84ac3eb19085094d5dc5e5e}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a17e4fddbb84ac3eb19085094d5dc5e5e} 
-RCC\+\_\+\+SPDIFRX&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_USART2EN@{RCC\_USART2EN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_USART2EN@{RCC\_USART2EN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0add9dbc104c0809be2f94e5eb80fcce47}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0add9dbc104c0809be2f94e5eb80fcce47} 
-RCC\+\_\+\+USART2\+EN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_USART3EN@{RCC\_USART3EN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_USART3EN@{RCC\_USART3EN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a143f840b13fb6dc8a1727978bd66a3e9}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a143f840b13fb6dc8a1727978bd66a3e9} 
-RCC\+\_\+\+USART3\+EN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_USART4EN@{RCC\_USART4EN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_USART4EN@{RCC\_USART4EN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a0679cedb955913843bac84290488d38f}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a0679cedb955913843bac84290488d38f} 
-RCC\+\_\+\+USART4\+EN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_USART5EN@{RCC\_USART5EN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_USART5EN@{RCC\_USART5EN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a7c5f581bff810d27c5b3205af885de79}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a7c5f581bff810d27c5b3205af885de79} 
-RCC\+\_\+\+USART5\+EN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_I2C1EN@{RCC\_I2C1EN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_I2C1EN@{RCC\_I2C1EN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a23d043d8ae1b6428556af4f4877bd820}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a23d043d8ae1b6428556af4f4877bd820} 
-RCC\+\_\+\+I2\+C1\+EN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_I2C2EN@{RCC\_I2C2EN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_I2C2EN@{RCC\_I2C2EN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a4fd3f6b986eececa532660173c7b9559}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a4fd3f6b986eececa532660173c7b9559} 
-RCC\+\_\+\+I2\+C2\+EN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_I2C3EN@{RCC\_I2C3EN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_I2C3EN@{RCC\_I2C3EN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a0cd502b8a2d6be12002663f024b4a64e}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a0cd502b8a2d6be12002663f024b4a64e} 
-RCC\+\_\+\+I2\+C3\+EN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_FMPI2C1EN@{RCC\_FMPI2C1EN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_FMPI2C1EN@{RCC\_FMPI2C1EN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a7d59828197562076cff1593ee64f8acf}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a7d59828197562076cff1593ee64f8acf} 
-RCC\+\_\+\+FMPI2\+C1\+EN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_CAN1EN@{RCC\_CAN1EN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_CAN1EN@{RCC\_CAN1EN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0af56e52fbd88428cee849b94a16d91136}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0af56e52fbd88428cee849b94a16d91136} 
-RCC\+\_\+\+CAN1\+EN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_CAN2EN@{RCC\_CAN2EN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_CAN2EN@{RCC\_CAN2EN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a51e44f3ef6b8370a832f57cf2a1db9f8}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a51e44f3ef6b8370a832f57cf2a1db9f8} 
-RCC\+\_\+\+CAN2\+EN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_CECEN@{RCC\_CECEN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_CECEN@{RCC\_CECEN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0ab70e54a5cc1d425758fb64ef2cd2b337}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0ab70e54a5cc1d425758fb64ef2cd2b337} 
-RCC\+\_\+\+CECEN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_PWREN@{RCC\_PWREN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PWREN@{RCC\_PWREN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a0f00f4117c39ec39c43b1f2228d294be}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a0f00f4117c39ec39c43b1f2228d294be} 
-RCC\+\_\+\+PWREN&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_DACEN@{RCC\_DACEN}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_DACEN@{RCC\_DACEN}}
-}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0aa00a5baea89df9ab841bfc513e989e45}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0aa00a5baea89df9ab841bfc513e989e45} 
-RCC\+\_\+\+DACEN&\\
-\hline
-
-\end{DoxyEnumFields}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2RCC_2RCC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h}}.\end{Desc}
-
-
-Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00111}{111}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00066}{66}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
 
 \Hypertarget{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_APB2\_BUS\_t@{RCC\_APB2\_BUS\_t}}
 \index{RCC\_APB2\_BUS\_t@{RCC\_APB2\_BUS\_t}!RCC\_interface.h@{RCC\_interface.h}}
@@ -649,110 +510,353 @@ Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00111}{111}} o
 {\footnotesize\ttfamily \label{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805} 
 enum \doxymbox{\hyperlink{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805}{RCC\+\_\+\+APB2\+\_\+\+BUS\+\_\+t}}}
 
-\begin{DoxyEnumFields}[2]{Enumerator}
+
+
+Peripherals connected to APB2 bus. 
+
+Contains timers, USART1/\+6, ADCs, SDIO, SPI1/\+4, SYSCFG, and SAI1/\+2 \begin{DoxyEnumFields}[3]{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_TIM1EN@{RCC\_TIM1EN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_TIM1EN@{RCC\_TIM1EN}}
 }\Hypertarget{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805abc3363e004aa364db5e1bac897fd6483}\label{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805abc3363e004aa364db5e1bac897fd6483} 
-RCC\+\_\+\+TIM1\+EN&\\
+RCC\+\_\+\+TIM1\+EN&0&Timer 1 Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_TIM8EN@{RCC\_TIM8EN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_TIM8EN@{RCC\_TIM8EN}}
 }\Hypertarget{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a2e9c94c9c1753fb92bf3cb9b03a18177}\label{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a2e9c94c9c1753fb92bf3cb9b03a18177} 
-RCC\+\_\+\+TIM8\+EN&\\
+RCC\+\_\+\+TIM8\+EN&&Timer 8 Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_USART1@{RCC\_USART1}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_USART1@{RCC\_USART1}}
 }\Hypertarget{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a6f9bc1664f1972e622f9228606caa3b8}\label{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a6f9bc1664f1972e622f9228606caa3b8} 
-RCC\+\_\+\+USART1&\\
+RCC\+\_\+\+USART1&4&USART1 Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_USART6@{RCC\_USART6}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_USART6@{RCC\_USART6}}
 }\Hypertarget{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805af5e7cede1d1b7c4b6897b58cf3d7f516}\label{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805af5e7cede1d1b7c4b6897b58cf3d7f516} 
-RCC\+\_\+\+USART6&\\
+RCC\+\_\+\+USART6&&USART6 Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_ADC1EN@{RCC\_ADC1EN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_ADC1EN@{RCC\_ADC1EN}}
 }\Hypertarget{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805af055395282bf999654dd9690cf0707b8}\label{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805af055395282bf999654dd9690cf0707b8} 
-RCC\+\_\+\+ADC1\+EN&\\
+RCC\+\_\+\+ADC1\+EN&8&ADC1 Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_ADC2EN@{RCC\_ADC2EN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_ADC2EN@{RCC\_ADC2EN}}
 }\Hypertarget{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a7dfc02f35dfcfdf1f05b561a2311706a}\label{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a7dfc02f35dfcfdf1f05b561a2311706a} 
-RCC\+\_\+\+ADC2\+EN&\\
+RCC\+\_\+\+ADC2\+EN&&ADC2 Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_ADC3EN@{RCC\_ADC3EN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_ADC3EN@{RCC\_ADC3EN}}
 }\Hypertarget{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805ae51183018fe37d4ca70d364c67730a78}\label{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805ae51183018fe37d4ca70d364c67730a78} 
-RCC\+\_\+\+ADC3\+EN&\\
+RCC\+\_\+\+ADC3\+EN&&ADC3 Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_SDIOEN@{RCC\_SDIOEN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_SDIOEN@{RCC\_SDIOEN}}
 }\Hypertarget{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a67736ef7448fb8dec460344ff0ec502d}\label{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a67736ef7448fb8dec460344ff0ec502d} 
-RCC\+\_\+\+SDIOEN&\\
+RCC\+\_\+\+SDIOEN&&SDIO Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_SPI1EN@{RCC\_SPI1EN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_SPI1EN@{RCC\_SPI1EN}}
 }\Hypertarget{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805aabe02fa77ddcf5090afdbb70f385276f}\label{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805aabe02fa77ddcf5090afdbb70f385276f} 
-RCC\+\_\+\+SPI1\+EN&\\
+RCC\+\_\+\+SPI1\+EN&&SPI1 Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_SPI4EN@{RCC\_SPI4EN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_SPI4EN@{RCC\_SPI4EN}}
 }\Hypertarget{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a7387a53035d75cd41efd905a1be46125}\label{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a7387a53035d75cd41efd905a1be46125} 
-RCC\+\_\+\+SPI4\+EN&\\
+RCC\+\_\+\+SPI4\+EN&&SPI4 Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_SYSCFGEN@{RCC\_SYSCFGEN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_SYSCFGEN@{RCC\_SYSCFGEN}}
 }\Hypertarget{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a739496a24b485cc154b269375312d243}\label{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a739496a24b485cc154b269375312d243} 
-RCC\+\_\+\+SYSCFGEN&\\
+RCC\+\_\+\+SYSCFGEN&&System Configuration Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_TIM9EN@{RCC\_TIM9EN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_TIM9EN@{RCC\_TIM9EN}}
 }\Hypertarget{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a95ea1023a4c98193f7eca64e8a36f8e9}\label{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a95ea1023a4c98193f7eca64e8a36f8e9} 
-RCC\+\_\+\+TIM9\+EN&\\
+RCC\+\_\+\+TIM9\+EN&16&Timer 9 Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_TIM10EN@{RCC\_TIM10EN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_TIM10EN@{RCC\_TIM10EN}}
 }\Hypertarget{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a87aac4b2badb5bffe5cc5f130bc18527}\label{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a87aac4b2badb5bffe5cc5f130bc18527} 
-RCC\+\_\+\+TIM10\+EN&\\
+RCC\+\_\+\+TIM10\+EN&&Timer 10 Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_TIM11EN@{RCC\_TIM11EN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_TIM11EN@{RCC\_TIM11EN}}
 }\Hypertarget{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a904702a1dd125fffddc71586ce388947}\label{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a904702a1dd125fffddc71586ce388947} 
-RCC\+\_\+\+TIM11\+EN&\\
+RCC\+\_\+\+TIM11\+EN&&Timer 11 Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_SAI1EN@{RCC\_SAI1EN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_SAI1EN@{RCC\_SAI1EN}}
 }\Hypertarget{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805af80523a8f4cedad5f27d3a9cb417dff2}\label{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805af80523a8f4cedad5f27d3a9cb417dff2} 
-RCC\+\_\+\+SAI1\+EN&\\
+RCC\+\_\+\+SAI1\+EN&22&SAI1 Enable. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_SAI2EN@{RCC\_SAI2EN}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_SAI2EN@{RCC\_SAI2EN}}
 }\Hypertarget{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a8183a882dd9a1c90a07def6f6c148a29}\label{RCC__interface_8h_a3088ded1499d9e3881e080ca7a101805a8183a882dd9a1c90a07def6f6c148a29} 
-RCC\+\_\+\+SAI2\+EN&\\
+RCC\+\_\+\+SAI2\+EN&&SAI2 Enable. \\
 \hline
 
 \end{DoxyEnumFields}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2RCC_2RCC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h}}.\end{Desc}
 
 
-Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00086}{86}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00076}{76}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+
+\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_APB1\_BUS\_t@{RCC\_APB1\_BUS\_t}}
+\index{RCC\_APB1\_BUS\_t@{RCC\_APB1\_BUS\_t}!RCC\_interface.h@{RCC\_interface.h}}
+\doxysubsubsection{\texorpdfstring{RCC\_APB1\_BUS\_t}{RCC\_APB1\_BUS\_t}}
+{\footnotesize\ttfamily \label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0} 
+enum \doxymbox{\hyperlink{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0}{RCC\+\_\+\+APB1\+\_\+\+BUS\+\_\+t}}}
+
+
+
+Peripherals connected to APB1 bus. 
+
+Contains timers, watchdog, SPI2/\+3, USART2-\/5, I2C, CAN, CEC, PWR and DAC \begin{DoxyEnumFields}[3]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_TIM2EN@{RCC\_TIM2EN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_TIM2EN@{RCC\_TIM2EN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a8bbd578980591ba6e7205dac5088529d}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a8bbd578980591ba6e7205dac5088529d} 
+RCC\+\_\+\+TIM2\+EN&&Timer 2 Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_TIM3EN@{RCC\_TIM3EN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_TIM3EN@{RCC\_TIM3EN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a913b6a9d8207e886862424761144f0ee}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a913b6a9d8207e886862424761144f0ee} 
+RCC\+\_\+\+TIM3\+EN&&Timer 3 Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_TIM4EN@{RCC\_TIM4EN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_TIM4EN@{RCC\_TIM4EN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a2b8664e51a633c5473b215a6fda68693}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a2b8664e51a633c5473b215a6fda68693} 
+RCC\+\_\+\+TIM4\+EN&&Timer 4 Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_TIM5EN@{RCC\_TIM5EN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_TIM5EN@{RCC\_TIM5EN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a8ef64074997fd3ff0e6a07072fa0d7ea}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a8ef64074997fd3ff0e6a07072fa0d7ea} 
+RCC\+\_\+\+TIM5\+EN&&Timer 5 Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_TIM6EN@{RCC\_TIM6EN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_TIM6EN@{RCC\_TIM6EN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a17e6c278c5f936a98e47fe1d39568ebc}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a17e6c278c5f936a98e47fe1d39568ebc} 
+RCC\+\_\+\+TIM6\+EN&&Timer 6 Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_TIM7EN@{RCC\_TIM7EN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_TIM7EN@{RCC\_TIM7EN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a57c73d1f95544a7951a18bbbfa474738}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a57c73d1f95544a7951a18bbbfa474738} 
+RCC\+\_\+\+TIM7\+EN&&Timer 7 Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_TIM12EN@{RCC\_TIM12EN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_TIM12EN@{RCC\_TIM12EN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a8dac5f6fa903616efd48059e4eb3a602}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a8dac5f6fa903616efd48059e4eb3a602} 
+RCC\+\_\+\+TIM12\+EN&&Timer 12 Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_TIM13EN@{RCC\_TIM13EN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_TIM13EN@{RCC\_TIM13EN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a2f16f5a0ead72762aceec50c76bd83f1}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a2f16f5a0ead72762aceec50c76bd83f1} 
+RCC\+\_\+\+TIM13\+EN&&Timer 13 Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_TIM14EN@{RCC\_TIM14EN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_TIM14EN@{RCC\_TIM14EN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a6dfcb66a46edfd29559d8cde133de523}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a6dfcb66a46edfd29559d8cde133de523} 
+RCC\+\_\+\+TIM14\+EN&&Timer 14 Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_WWDGEN@{RCC\_WWDGEN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_WWDGEN@{RCC\_WWDGEN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a3d45bbd38d0f967f103f86068a5fd996}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a3d45bbd38d0f967f103f86068a5fd996} 
+RCC\+\_\+\+WWDGEN&11&Window Watchdog Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_SPI2EN@{RCC\_SPI2EN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_SPI2EN@{RCC\_SPI2EN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a76cc02950e10b6b874b3952c3132ad28}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a76cc02950e10b6b874b3952c3132ad28} 
+RCC\+\_\+\+SPI2\+EN&14&SPI2 Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_SPI3EN@{RCC\_SPI3EN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_SPI3EN@{RCC\_SPI3EN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a074cf52061eda59a371f9f66da1539fe}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a074cf52061eda59a371f9f66da1539fe} 
+RCC\+\_\+\+SPI3\+EN&&SPI3 Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_SPDIFRX@{RCC\_SPDIFRX}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_SPDIFRX@{RCC\_SPDIFRX}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a17e4fddbb84ac3eb19085094d5dc5e5e}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a17e4fddbb84ac3eb19085094d5dc5e5e} 
+RCC\+\_\+\+SPDIFRX&&SPDIF-\/\+RX Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_USART2EN@{RCC\_USART2EN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_USART2EN@{RCC\_USART2EN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0add9dbc104c0809be2f94e5eb80fcce47}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0add9dbc104c0809be2f94e5eb80fcce47} 
+RCC\+\_\+\+USART2\+EN&&USART2 Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_USART3EN@{RCC\_USART3EN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_USART3EN@{RCC\_USART3EN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a143f840b13fb6dc8a1727978bd66a3e9}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a143f840b13fb6dc8a1727978bd66a3e9} 
+RCC\+\_\+\+USART3\+EN&&USART3 Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_USART4EN@{RCC\_USART4EN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_USART4EN@{RCC\_USART4EN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a0679cedb955913843bac84290488d38f}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a0679cedb955913843bac84290488d38f} 
+RCC\+\_\+\+USART4\+EN&&USART4 Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_USART5EN@{RCC\_USART5EN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_USART5EN@{RCC\_USART5EN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a7c5f581bff810d27c5b3205af885de79}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a7c5f581bff810d27c5b3205af885de79} 
+RCC\+\_\+\+USART5\+EN&&USART5 Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_I2C1EN@{RCC\_I2C1EN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_I2C1EN@{RCC\_I2C1EN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a23d043d8ae1b6428556af4f4877bd820}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a23d043d8ae1b6428556af4f4877bd820} 
+RCC\+\_\+\+I2\+C1\+EN&&I2\+C1 Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_I2C2EN@{RCC\_I2C2EN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_I2C2EN@{RCC\_I2C2EN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a4fd3f6b986eececa532660173c7b9559}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a4fd3f6b986eececa532660173c7b9559} 
+RCC\+\_\+\+I2\+C2\+EN&&I2\+C2 Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_I2C3EN@{RCC\_I2C3EN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_I2C3EN@{RCC\_I2C3EN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a0cd502b8a2d6be12002663f024b4a64e}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a0cd502b8a2d6be12002663f024b4a64e} 
+RCC\+\_\+\+I2\+C3\+EN&&I2\+C3 Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_FMPI2C1EN@{RCC\_FMPI2C1EN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_FMPI2C1EN@{RCC\_FMPI2C1EN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a7d59828197562076cff1593ee64f8acf}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a7d59828197562076cff1593ee64f8acf} 
+RCC\+\_\+\+FMPI2\+C1\+EN&&FMPI2\+C1 Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_CAN1EN@{RCC\_CAN1EN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_CAN1EN@{RCC\_CAN1EN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0af56e52fbd88428cee849b94a16d91136}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0af56e52fbd88428cee849b94a16d91136} 
+RCC\+\_\+\+CAN1\+EN&&CAN1 Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_CAN2EN@{RCC\_CAN2EN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_CAN2EN@{RCC\_CAN2EN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a51e44f3ef6b8370a832f57cf2a1db9f8}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a51e44f3ef6b8370a832f57cf2a1db9f8} 
+RCC\+\_\+\+CAN2\+EN&&CAN2 Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_CECEN@{RCC\_CECEN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_CECEN@{RCC\_CECEN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0ab70e54a5cc1d425758fb64ef2cd2b337}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0ab70e54a5cc1d425758fb64ef2cd2b337} 
+RCC\+\_\+\+CECEN&&HDMI-\/\+CEC Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_PWREN@{RCC\_PWREN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PWREN@{RCC\_PWREN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a0f00f4117c39ec39c43b1f2228d294be}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0a0f00f4117c39ec39c43b1f2228d294be} 
+RCC\+\_\+\+PWREN&&Power Interface Enable. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_DACEN@{RCC\_DACEN}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_DACEN@{RCC\_DACEN}}
+}\Hypertarget{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0aa00a5baea89df9ab841bfc513e989e45}\label{RCC__interface_8h_a65576cdb66a28ddbc61cc0eb138389e0aa00a5baea89df9ab841bfc513e989e45} 
+RCC\+\_\+\+DACEN&&DAC Enable. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00100}{100}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+
+\Hypertarget{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816a}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB\_BUS\_DIV\_t@{RCC\_AHB\_BUS\_DIV\_t}}
+\index{RCC\_AHB\_BUS\_DIV\_t@{RCC\_AHB\_BUS\_DIV\_t}!RCC\_interface.h@{RCC\_interface.h}}
+\doxysubsubsection{\texorpdfstring{RCC\_AHB\_BUS\_DIV\_t}{RCC\_AHB\_BUS\_DIV\_t}}
+{\footnotesize\ttfamily \label{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816a} 
+enum \doxymbox{\hyperlink{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816a}{RCC\+\_\+\+AHB\+\_\+\+BUS\+\_\+\+DIV\+\_\+t}}}
+
+
+
+AHB bus clock division factors. 
+
+Defines division ratios from 1 to 512 \begin{DoxyEnumFields}[3]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB\_NOT\_DIV@{RCC\_AHB\_NOT\_DIV}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB\_NOT\_DIV@{RCC\_AHB\_NOT\_DIV}}
+}\Hypertarget{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aa8dbf0c5736c6f88176ba204b9110f3b2}\label{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aa8dbf0c5736c6f88176ba204b9110f3b2} 
+RCC\+\_\+\+AHB\+\_\+\+NOT\+\_\+\+DIV&7&No Division. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB\_DIV\_2@{RCC\_AHB\_DIV\_2}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB\_DIV\_2@{RCC\_AHB\_DIV\_2}}
+}\Hypertarget{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aa9e0945a87b9ba3f9c46de49cbe9ff957}\label{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aa9e0945a87b9ba3f9c46de49cbe9ff957} 
+RCC\+\_\+\+AHB\+\_\+\+DIV\+\_\+2&&Divide by 2. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB\_DIV\_4@{RCC\_AHB\_DIV\_4}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB\_DIV\_4@{RCC\_AHB\_DIV\_4}}
+}\Hypertarget{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aaf8248e200ae6bb45150f8f1174ce4868}\label{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aaf8248e200ae6bb45150f8f1174ce4868} 
+RCC\+\_\+\+AHB\+\_\+\+DIV\+\_\+4&&Divide by 4. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB\_DIV\_8@{RCC\_AHB\_DIV\_8}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB\_DIV\_8@{RCC\_AHB\_DIV\_8}}
+}\Hypertarget{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aacfb82f33fb6f71c42356350d86637d8c}\label{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aacfb82f33fb6f71c42356350d86637d8c} 
+RCC\+\_\+\+AHB\+\_\+\+DIV\+\_\+8&&Divide by 8. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB\_DIV\_16@{RCC\_AHB\_DIV\_16}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB\_DIV\_16@{RCC\_AHB\_DIV\_16}}
+}\Hypertarget{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aa5cfee490fd866a24ccfaa2e8dd9114db}\label{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aa5cfee490fd866a24ccfaa2e8dd9114db} 
+RCC\+\_\+\+AHB\+\_\+\+DIV\+\_\+16&&Divide by 16. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB\_DIV\_64@{RCC\_AHB\_DIV\_64}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB\_DIV\_64@{RCC\_AHB\_DIV\_64}}
+}\Hypertarget{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aab7f53f6e2dc9a7cd4d51415c9c496d9f}\label{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aab7f53f6e2dc9a7cd4d51415c9c496d9f} 
+RCC\+\_\+\+AHB\+\_\+\+DIV\+\_\+64&&Divide by 64. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB\_DIV\_128@{RCC\_AHB\_DIV\_128}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB\_DIV\_128@{RCC\_AHB\_DIV\_128}}
+}\Hypertarget{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aa9b9d31fa57dfa7939f9fd7d6dcbfef1a}\label{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aa9b9d31fa57dfa7939f9fd7d6dcbfef1a} 
+RCC\+\_\+\+AHB\+\_\+\+DIV\+\_\+128&&Divide by 128. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB\_DIV\_256@{RCC\_AHB\_DIV\_256}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB\_DIV\_256@{RCC\_AHB\_DIV\_256}}
+}\Hypertarget{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aadf205163ce89c1dfd413f19cb1fbcff8}\label{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aadf205163ce89c1dfd413f19cb1fbcff8} 
+RCC\+\_\+\+AHB\+\_\+\+DIV\+\_\+256&&Divide by 256. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB\_DIV\_512@{RCC\_AHB\_DIV\_512}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB\_DIV\_512@{RCC\_AHB\_DIV\_512}}
+}\Hypertarget{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aafe9a8217bd96eddc93086bfa13f8723f}\label{RCC__interface_8h_a44b04d36cfb7ad2632f963c39e16816aafe9a8217bd96eddc93086bfa13f8723f} 
+RCC\+\_\+\+AHB\+\_\+\+DIV\+\_\+512&&Divide by 512. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00133}{133}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
 
 \Hypertarget{RCC__interface_8h_a6a950980135f66c49402eca289ba8154}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_APB\_BUS\_DIV\_t@{RCC\_APB\_BUS\_DIV\_t}}
 \index{RCC\_APB\_BUS\_DIV\_t@{RCC\_APB\_BUS\_DIV\_t}!RCC\_interface.h@{RCC\_interface.h}}
@@ -760,170 +864,45 @@ Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00086}{86}} of
 {\footnotesize\ttfamily \label{RCC__interface_8h_a6a950980135f66c49402eca289ba8154} 
 enum \doxymbox{\hyperlink{RCC__interface_8h_a6a950980135f66c49402eca289ba8154}{RCC\+\_\+\+APB\+\_\+\+BUS\+\_\+\+DIV\+\_\+t}}}
 
-\begin{DoxyEnumFields}[2]{Enumerator}
+
+
+APB bus clock division factors. 
+
+Defines division ratios from 1 to 16 \begin{DoxyEnumFields}[3]{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_APB\_NOT\_DIV@{RCC\_APB\_NOT\_DIV}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_APB\_NOT\_DIV@{RCC\_APB\_NOT\_DIV}}
 }\Hypertarget{RCC__interface_8h_a6a950980135f66c49402eca289ba8154a75d5f1176559c60c38e3333d9c79bd68}\label{RCC__interface_8h_a6a950980135f66c49402eca289ba8154a75d5f1176559c60c38e3333d9c79bd68} 
-RCC\+\_\+\+APB\+\_\+\+NOT\+\_\+\+DIV&\\
+RCC\+\_\+\+APB\+\_\+\+NOT\+\_\+\+DIV&3&No Division. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_APB\_DIV\_2@{RCC\_APB\_DIV\_2}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_APB\_DIV\_2@{RCC\_APB\_DIV\_2}}
 }\Hypertarget{RCC__interface_8h_a6a950980135f66c49402eca289ba8154a5a32688fa0159a900a655fd466fa1205}\label{RCC__interface_8h_a6a950980135f66c49402eca289ba8154a5a32688fa0159a900a655fd466fa1205} 
-RCC\+\_\+\+APB\+\_\+\+DIV\+\_\+2&\\
+RCC\+\_\+\+APB\+\_\+\+DIV\+\_\+2&&Divide by 2. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_APB\_DIV\_4@{RCC\_APB\_DIV\_4}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_APB\_DIV\_4@{RCC\_APB\_DIV\_4}}
 }\Hypertarget{RCC__interface_8h_a6a950980135f66c49402eca289ba8154ada81311d5873eae58a24d8569c3e46e5}\label{RCC__interface_8h_a6a950980135f66c49402eca289ba8154ada81311d5873eae58a24d8569c3e46e5} 
-RCC\+\_\+\+APB\+\_\+\+DIV\+\_\+4&\\
+RCC\+\_\+\+APB\+\_\+\+DIV\+\_\+4&&Divide by 4. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_APB\_DIV\_8@{RCC\_APB\_DIV\_8}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_APB\_DIV\_8@{RCC\_APB\_DIV\_8}}
 }\Hypertarget{RCC__interface_8h_a6a950980135f66c49402eca289ba8154a6febd734f8d8def30cb4b70ac7cb5f06}\label{RCC__interface_8h_a6a950980135f66c49402eca289ba8154a6febd734f8d8def30cb4b70ac7cb5f06} 
-RCC\+\_\+\+APB\+\_\+\+DIV\+\_\+8&\\
+RCC\+\_\+\+APB\+\_\+\+DIV\+\_\+8&&Divide by 8. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_APB\_DIV\_16@{RCC\_APB\_DIV\_16}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_APB\_DIV\_16@{RCC\_APB\_DIV\_16}}
 }\Hypertarget{RCC__interface_8h_a6a950980135f66c49402eca289ba8154ae4e30d0da064a6d0c73018e9594476e4}\label{RCC__interface_8h_a6a950980135f66c49402eca289ba8154ae4e30d0da064a6d0c73018e9594476e4} 
-RCC\+\_\+\+APB\+\_\+\+DIV\+\_\+16&\\
+RCC\+\_\+\+APB\+\_\+\+DIV\+\_\+16&&Divide by 16. \\
 \hline
 
 \end{DoxyEnumFields}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2RCC_2RCC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h}}.\end{Desc}
 
 
-Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00162}{162}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
-
-\Hypertarget{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_CLK\_EN\_t@{RCC\_CLK\_EN\_t}}
-\index{RCC\_CLK\_EN\_t@{RCC\_CLK\_EN\_t}!RCC\_interface.h@{RCC\_interface.h}}
-\doxysubsubsection{\texorpdfstring{RCC\_CLK\_EN\_t}{RCC\_CLK\_EN\_t}}
-{\footnotesize\ttfamily \label{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75} 
-enum \doxymbox{\hyperlink{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75}{RCC\+\_\+\+CLK\+\_\+\+EN\+\_\+t}}}
-
-\begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_CLK\_ON@{RCC\_CLK\_ON}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_CLK\_ON@{RCC\_CLK\_ON}}
-}\Hypertarget{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75a0938a3d5fa759965e8c1b12ca3fd2cbf}\label{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75a0938a3d5fa759965e8c1b12ca3fd2cbf} 
-RCC\+\_\+\+CLK\+\_\+\+ON&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_CLK\_OFF@{RCC\_CLK\_OFF}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_CLK\_OFF@{RCC\_CLK\_OFF}}
-}\Hypertarget{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75acdc70da92fc82565f7311ec1f75b7a54}\label{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75acdc70da92fc82565f7311ec1f75b7a54} 
-RCC\+\_\+\+CLK\+\_\+\+OFF&\\
-\hline
-
-\end{DoxyEnumFields}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2RCC_2RCC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h}}.\end{Desc}
-
-
-Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00235}{235}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
-
-\Hypertarget{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_CLK\_SRC\_t@{RCC\_CLK\_SRC\_t}}
-\index{RCC\_CLK\_SRC\_t@{RCC\_CLK\_SRC\_t}!RCC\_interface.h@{RCC\_interface.h}}
-\doxysubsubsection{\texorpdfstring{RCC\_CLK\_SRC\_t}{RCC\_CLK\_SRC\_t}}
-{\footnotesize\ttfamily \label{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0} 
-enum \doxymbox{\hyperlink{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0}{RCC\+\_\+\+CLK\+\_\+\+SRC\+\_\+t}}}
-
-\begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_HSI\_CLK@{RCC\_HSI\_CLK}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_HSI\_CLK@{RCC\_HSI\_CLK}}
-}\Hypertarget{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0a2849eefd5c20741226460df608cff2d7}\label{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0a2849eefd5c20741226460df608cff2d7} 
-RCC\+\_\+\+HSI\+\_\+\+CLK&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_HSE\_CLK@{RCC\_HSE\_CLK}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_HSE\_CLK@{RCC\_HSE\_CLK}}
-}\Hypertarget{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0ab4431e8de3b3f1fd064fbd17d36c1ba3}\label{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0ab4431e8de3b3f1fd064fbd17d36c1ba3} 
-RCC\+\_\+\+HSE\+\_\+\+CLK&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_PLLP\_CLK@{RCC\_PLLP\_CLK}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PLLP\_CLK@{RCC\_PLLP\_CLK}}
-}\Hypertarget{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0a7268cddff85dbd4d2b3f9b10ace3b66b}\label{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0a7268cddff85dbd4d2b3f9b10ace3b66b} 
-RCC\+\_\+\+PLLP\+\_\+\+CLK&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_PLLR\_CLK@{RCC\_PLLR\_CLK}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PLLR\_CLK@{RCC\_PLLR\_CLK}}
-}\Hypertarget{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0aa147b3c8e97a9429702c19866511a2ed}\label{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0aa147b3c8e97a9429702c19866511a2ed} 
-RCC\+\_\+\+PLLR\+\_\+\+CLK&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_PLL\_CLK@{RCC\_PLL\_CLK}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PLL\_CLK@{RCC\_PLL\_CLK}}
-}\Hypertarget{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0af8a2a97d356e388c78d06ef236eeadbc}\label{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0af8a2a97d356e388c78d06ef236eeadbc} 
-RCC\+\_\+\+PLL\+\_\+\+CLK&\\
-\hline
-
-\end{DoxyEnumFields}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2RCC_2RCC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h}}.\end{Desc}
-
-
-Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00217}{217}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
-
-\Hypertarget{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dd}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PER\_EN\_t@{RCC\_PER\_EN\_t}}
-\index{RCC\_PER\_EN\_t@{RCC\_PER\_EN\_t}!RCC\_interface.h@{RCC\_interface.h}}
-\doxysubsubsection{\texorpdfstring{RCC\_PER\_EN\_t}{RCC\_PER\_EN\_t}}
-{\footnotesize\ttfamily \label{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dd} 
-enum \doxymbox{\hyperlink{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dd}{RCC\+\_\+\+PER\+\_\+\+EN\+\_\+t}}}
-
-\begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_PER\_ON@{RCC\_PER\_ON}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PER\_ON@{RCC\_PER\_ON}}
-}\Hypertarget{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda7b3c654637d9a549b83b41c762d08c16}\label{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda7b3c654637d9a549b83b41c762d08c16} 
-RCC\+\_\+\+PER\+\_\+\+ON&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_PER\_OFF@{RCC\_PER\_OFF}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PER\_OFF@{RCC\_PER\_OFF}}
-}\Hypertarget{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda851fb285d14f03e3c7def04bed4c96ee}\label{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda851fb285d14f03e3c7def04bed4c96ee} 
-RCC\+\_\+\+PER\+\_\+\+OFF&\\
-\hline
-
-\end{DoxyEnumFields}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2RCC_2RCC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h}}.\end{Desc}
-
-
-Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00249}{249}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
-
-\Hypertarget{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PLL\_CLK\_SRC\_t@{RCC\_PLL\_CLK\_SRC\_t}}
-\index{RCC\_PLL\_CLK\_SRC\_t@{RCC\_PLL\_CLK\_SRC\_t}!RCC\_interface.h@{RCC\_interface.h}}
-\doxysubsubsection{\texorpdfstring{RCC\_PLL\_CLK\_SRC\_t}{RCC\_PLL\_CLK\_SRC\_t}}
-{\footnotesize\ttfamily \label{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455} 
-enum \doxymbox{\hyperlink{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455}{RCC\+\_\+\+PLL\+\_\+\+CLK\+\_\+\+SRC\+\_\+t}}}
-
-\begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_PLL\_HSI@{RCC\_PLL\_HSI}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PLL\_HSI@{RCC\_PLL\_HSI}}
-}\Hypertarget{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455a2dd04293cbf5c5be599c73c365f53c78}\label{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455a2dd04293cbf5c5be599c73c365f53c78} 
-RCC\+\_\+\+PLL\+\_\+\+HSI&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_PLL\_HSE@{RCC\_PLL\_HSE}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PLL\_HSE@{RCC\_PLL\_HSE}}
-}\Hypertarget{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455aeeade9ac9dc4bccb2c6296fdcb0d9555}\label{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455aeeade9ac9dc4bccb2c6296fdcb0d9555} 
-RCC\+\_\+\+PLL\+\_\+\+HSE&\\
-\hline
-
-\end{DoxyEnumFields}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2RCC_2RCC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h}}.\end{Desc}
-
-
-Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00201}{201}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00149}{149}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
 
 \Hypertarget{RCC__interface_8h_a2fc8ece77236e47c265f8205802c711c}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PPLL\_CLK\_DIV\_t@{RCC\_PPLL\_CLK\_DIV\_t}}
 \index{RCC\_PPLL\_CLK\_DIV\_t@{RCC\_PPLL\_CLK\_DIV\_t}!RCC\_interface.h@{RCC\_interface.h}}
@@ -931,135 +910,408 @@ Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00201}{201}} o
 {\footnotesize\ttfamily \label{RCC__interface_8h_a2fc8ece77236e47c265f8205802c711c} 
 enum \doxymbox{\hyperlink{RCC__interface_8h_a2fc8ece77236e47c265f8205802c711c}{RCC\+\_\+\+PPLL\+\_\+\+CLK\+\_\+\+DIV\+\_\+t}}}
 
-\begin{DoxyEnumFields}[2]{Enumerator}
+
+
+PLLP clock division factors. 
+
+Defines even division ratios from 2 to 8 \begin{DoxyEnumFields}[2]{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_PPLL\_DIV\_2@{RCC\_PPLL\_DIV\_2}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PPLL\_DIV\_2@{RCC\_PPLL\_DIV\_2}}
 }\Hypertarget{RCC__interface_8h_a2fc8ece77236e47c265f8205802c711caf11250a4840fcb74aaa60657aae6fb59}\label{RCC__interface_8h_a2fc8ece77236e47c265f8205802c711caf11250a4840fcb74aaa60657aae6fb59} 
-RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+2&\\
+RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+2&Divide by 2. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_PPLL\_DIV\_4@{RCC\_PPLL\_DIV\_4}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PPLL\_DIV\_4@{RCC\_PPLL\_DIV\_4}}
 }\Hypertarget{RCC__interface_8h_a2fc8ece77236e47c265f8205802c711ca729065422c3404af55ce0dd1d946f660}\label{RCC__interface_8h_a2fc8ece77236e47c265f8205802c711ca729065422c3404af55ce0dd1d946f660} 
-RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+4&\\
+RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+4&Divide by 4. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_PPLL\_DIV\_6@{RCC\_PPLL\_DIV\_6}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PPLL\_DIV\_6@{RCC\_PPLL\_DIV\_6}}
 }\Hypertarget{RCC__interface_8h_a2fc8ece77236e47c265f8205802c711ca083ac28676d8c390fad1f5b9601c3468}\label{RCC__interface_8h_a2fc8ece77236e47c265f8205802c711ca083ac28676d8c390fad1f5b9601c3468} 
-RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+6&\\
+RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+6&Divide by 6. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_PPLL\_DIV\_8@{RCC\_PPLL\_DIV\_8}!RCC\_interface.h@{RCC\_interface.h}}
 \index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PPLL\_DIV\_8@{RCC\_PPLL\_DIV\_8}}
 }\Hypertarget{RCC__interface_8h_a2fc8ece77236e47c265f8205802c711cad7888a0d3b879be5bb9a3279a1492c96}\label{RCC__interface_8h_a2fc8ece77236e47c265f8205802c711cad7888a0d3b879be5bb9a3279a1492c96} 
-RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+8&\\
+RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+8&Divide by 8. \\
 \hline
 
 \end{DoxyEnumFields}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2RCC_2RCC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h}}.\end{Desc}
 
 
-Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00189}{189}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00175}{175}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
 
-\Hypertarget{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_uC\_BUS\_t@{RCC\_uC\_BUS\_t}}
-\index{RCC\_uC\_BUS\_t@{RCC\_uC\_BUS\_t}!RCC\_interface.h@{RCC\_interface.h}}
-\doxysubsubsection{\texorpdfstring{RCC\_uC\_BUS\_t}{RCC\_uC\_BUS\_t}}
-{\footnotesize\ttfamily \label{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553} 
-enum \doxymbox{\hyperlink{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553}{RCC\+\_\+u\+C\+\_\+\+BUS\+\_\+t}}}
+\Hypertarget{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PLL\_CLK\_SRC\_t@{RCC\_PLL\_CLK\_SRC\_t}}
+\index{RCC\_PLL\_CLK\_SRC\_t@{RCC\_PLL\_CLK\_SRC\_t}!RCC\_interface.h@{RCC\_interface.h}}
+\doxysubsubsection{\texorpdfstring{RCC\_PLL\_CLK\_SRC\_t}{RCC\_PLL\_CLK\_SRC\_t}}
+{\footnotesize\ttfamily \label{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455} 
+enum \doxymbox{\hyperlink{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455}{RCC\+\_\+\+PLL\+\_\+\+CLK\+\_\+\+SRC\+\_\+t}}}
 
-===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} \doxylink{RCC__interface_8h}{RCC\+\_\+interface.\+h} \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Abdelmoemen Shehawey \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ MCAL \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} CPU :\+ Cortex-\/\+M4 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} MCU :\+ NUCLEO-\/\+F446\+RE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SWC :\+ RCC \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB1@{RCC\_AHB1}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB1@{RCC\_AHB1}}
-}\Hypertarget{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a42f2806c9b4b64b90c7a23fc5cf0b3f1}\label{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a42f2806c9b4b64b90c7a23fc5cf0b3f1} 
-RCC\+\_\+\+AHB1&\\
+
+
+PLL clock source selection. 
+
+Selects between HSI and HSE as PLL input \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_PLL\_HSI@{RCC\_PLL\_HSI}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PLL\_HSI@{RCC\_PLL\_HSI}}
+}\Hypertarget{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455a2dd04293cbf5c5be599c73c365f53c78}\label{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455a2dd04293cbf5c5be599c73c365f53c78} 
+RCC\+\_\+\+PLL\+\_\+\+HSI&High Speed Internal Clock Source. \\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB2@{RCC\_AHB2}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB2@{RCC\_AHB2}}
-}\Hypertarget{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553ab7dcc9786d60b3d6a3ee299792523a4d}\label{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553ab7dcc9786d60b3d6a3ee299792523a4d} 
-RCC\+\_\+\+AHB2&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_AHB3@{RCC\_AHB3}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_AHB3@{RCC\_AHB3}}
-}\Hypertarget{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a2ec525812c33ffdd2066c0d551787711}\label{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a2ec525812c33ffdd2066c0d551787711} 
-RCC\+\_\+\+AHB3&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_APB1@{RCC\_APB1}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_APB1@{RCC\_APB1}}
-}\Hypertarget{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a13aff41d960da028bb68e745d74a63b5}\label{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a13aff41d960da028bb68e745d74a63b5} 
-RCC\+\_\+\+APB1&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_APB2@{RCC\_APB2}!RCC\_interface.h@{RCC\_interface.h}}
-\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_APB2@{RCC\_APB2}}
-}\Hypertarget{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a0abf9a51f75b8a4a1b3ddf7441c32e76}\label{RCC__interface_8h_a62b5b7fee8df02fbf7524fe42ea61553a0abf9a51f75b8a4a1b3ddf7441c32e76} 
-RCC\+\_\+\+APB2&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_PLL\_HSE@{RCC\_PLL\_HSE}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PLL\_HSE@{RCC\_PLL\_HSE}}
+}\Hypertarget{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455aeeade9ac9dc4bccb2c6296fdcb0d9555}\label{RCC__interface_8h_ad79bab7d985e3c44db6a9230bd54c455aeeade9ac9dc4bccb2c6296fdcb0d9555} 
+RCC\+\_\+\+PLL\+\_\+\+HSE&High Speed External Clock Source. \\
 \hline
 
 \end{DoxyEnumFields}
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2RCC_2RCC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h}}.\end{Desc}
 
 
-Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00029}{29}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00186}{186}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+
+\Hypertarget{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_CLK\_SRC\_t@{RCC\_CLK\_SRC\_t}}
+\index{RCC\_CLK\_SRC\_t@{RCC\_CLK\_SRC\_t}!RCC\_interface.h@{RCC\_interface.h}}
+\doxysubsubsection{\texorpdfstring{RCC\_CLK\_SRC\_t}{RCC\_CLK\_SRC\_t}}
+{\footnotesize\ttfamily \label{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0} 
+enum \doxymbox{\hyperlink{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0}{RCC\+\_\+\+CLK\+\_\+\+SRC\+\_\+t}}}
+
+
+
+Clock source selection for system clock. 
+
+
+\begin{DoxyItemize}
+\item HSI\+\_\+\+CLK -\/ High Speed Internal Clock HSE\+\_\+\+CLK -\/ High Speed External Clock PLLP\+\_\+\+CLK -\/ PLL P output Clock PLLR\+\_\+\+CLK -\/ PLL R output Clock PLL\+\_\+\+CLK -\/ Phase Locked Loop Clock 
+\end{DoxyItemize}\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_HSI\_CLK@{RCC\_HSI\_CLK}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_HSI\_CLK@{RCC\_HSI\_CLK}}
+}\Hypertarget{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0a2849eefd5c20741226460df608cff2d7}\label{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0a2849eefd5c20741226460df608cff2d7} 
+RCC\+\_\+\+HSI\+\_\+\+CLK&High Speed Internal Clock (16 MHz RC oscillator). \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_HSE\_CLK@{RCC\_HSE\_CLK}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_HSE\_CLK@{RCC\_HSE\_CLK}}
+}\Hypertarget{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0ab4431e8de3b3f1fd064fbd17d36c1ba3}\label{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0ab4431e8de3b3f1fd064fbd17d36c1ba3} 
+RCC\+\_\+\+HSE\+\_\+\+CLK&High-\/speed external clock:\+ a 4–26 MHz crystal or ceramic resonator. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_PLLP\_CLK@{RCC\_PLLP\_CLK}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PLLP\_CLK@{RCC\_PLLP\_CLK}}
+}\Hypertarget{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0a7268cddff85dbd4d2b3f9b10ace3b66b}\label{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0a7268cddff85dbd4d2b3f9b10ace3b66b} 
+RCC\+\_\+\+PLLP\+\_\+\+CLK&Main PLL P output Clock. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_PLLR\_CLK@{RCC\_PLLR\_CLK}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PLLR\_CLK@{RCC\_PLLR\_CLK}}
+}\Hypertarget{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0aa147b3c8e97a9429702c19866511a2ed}\label{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0aa147b3c8e97a9429702c19866511a2ed} 
+RCC\+\_\+\+PLLR\+\_\+\+CLK&Main PLL R output Clock. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_PLL\_CLK@{RCC\_PLL\_CLK}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PLL\_CLK@{RCC\_PLL\_CLK}}
+}\Hypertarget{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0af8a2a97d356e388c78d06ef236eeadbc}\label{RCC__interface_8h_a24e073452623d8139d790c4a5de223e0af8a2a97d356e388c78d06ef236eeadbc} 
+RCC\+\_\+\+PLL\+\_\+\+CLK&Phase Locked Loop Clock. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00200}{200}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+
+\Hypertarget{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_CLK\_EN\_t@{RCC\_CLK\_EN\_t}}
+\index{RCC\_CLK\_EN\_t@{RCC\_CLK\_EN\_t}!RCC\_interface.h@{RCC\_interface.h}}
+\doxysubsubsection{\texorpdfstring{RCC\_CLK\_EN\_t}{RCC\_CLK\_EN\_t}}
+{\footnotesize\ttfamily \label{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75} 
+enum \doxymbox{\hyperlink{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75}{RCC\+\_\+\+CLK\+\_\+\+EN\+\_\+t}}}
+
+
+
+Clock enable/\+disable selection. 
+
+
+\begin{DoxyItemize}
+\item CLK\+\_\+\+ON -\/ Enable selected clock CLK\+\_\+\+OFF -\/ Disable selected clock 
+\end{DoxyItemize}\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_CLK\_ON@{RCC\_CLK\_ON}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_CLK\_ON@{RCC\_CLK\_ON}}
+}\Hypertarget{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75a0938a3d5fa759965e8c1b12ca3fd2cbf}\label{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75a0938a3d5fa759965e8c1b12ca3fd2cbf} 
+RCC\+\_\+\+CLK\+\_\+\+ON&Enable the selected clock. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_CLK\_OFF@{RCC\_CLK\_OFF}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_CLK\_OFF@{RCC\_CLK\_OFF}}
+}\Hypertarget{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75acdc70da92fc82565f7311ec1f75b7a54}\label{RCC__interface_8h_a2eeebdf48f45787732f686eee2b86e75acdc70da92fc82565f7311ec1f75b7a54} 
+RCC\+\_\+\+CLK\+\_\+\+OFF&Disable the selected clock. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00215}{215}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
+
+\Hypertarget{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dd}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PER\_EN\_t@{RCC\_PER\_EN\_t}}
+\index{RCC\_PER\_EN\_t@{RCC\_PER\_EN\_t}!RCC\_interface.h@{RCC\_interface.h}}
+\doxysubsubsection{\texorpdfstring{RCC\_PER\_EN\_t}{RCC\_PER\_EN\_t}}
+{\footnotesize\ttfamily \label{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dd} 
+enum \doxymbox{\hyperlink{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dd}{RCC\+\_\+\+PER\+\_\+\+EN\+\_\+t}}}
+
+
+
+Peripheral enable/\+disable selection. 
+
+
+\begin{DoxyItemize}
+\item PER\+\_\+\+ON -\/ Enable selected peripheral PER\+\_\+\+OFF -\/ Disable selected peripheral 
+\end{DoxyItemize}\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_PER\_ON@{RCC\_PER\_ON}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PER\_ON@{RCC\_PER\_ON}}
+}\Hypertarget{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda7b3c654637d9a549b83b41c762d08c16}\label{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda7b3c654637d9a549b83b41c762d08c16} 
+RCC\+\_\+\+PER\+\_\+\+ON&Enable the selected peripheral. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RCC\_PER\_OFF@{RCC\_PER\_OFF}!RCC\_interface.h@{RCC\_interface.h}}
+\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_PER\_OFF@{RCC\_PER\_OFF}}
+}\Hypertarget{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda851fb285d14f03e3c7def04bed4c96ee}\label{RCC__interface_8h_a06aba0568a800f189a3c419c515c07dda851fb285d14f03e3c7def04bed4c96ee} 
+RCC\+\_\+\+PER\+\_\+\+OFF&Disable the selected peripheral. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{RCC__interface_8h_source_l00227}{227}} of file \doxymbox{\hyperlink{RCC__interface_8h_source}{RCC\+\_\+interface.\+h}}.
 
 
 
 \label{doc-func-members}
 \Hypertarget{RCC__interface_8h_doc-func-members}
 \doxysubsection{Function Documentation}
-\Hypertarget{RCC__interface_8h_a1d4e148d8519b4eb0ad9237d5f930a93}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_enumABPPerSts@{RCC\_enumABPPerSts}}
-\index{RCC\_enumABPPerSts@{RCC\_enumABPPerSts}!RCC\_interface.h@{RCC\_interface.h}}
-\doxysubsubsection{\texorpdfstring{RCC\_enumABPPerSts()}{RCC\_enumABPPerSts()}}
-{\footnotesize\ttfamily \label{RCC__interface_8h_a1d4e148d8519b4eb0ad9237d5f930a93} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+ABPPer\+Sts (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Bus}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+AHPPer}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Status}{}\end{DoxyParamCaption})}
-
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2RCC_2RCC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h}}.\end{Desc}
+\Hypertarget{RCC__interface_8h_ac0546afcec3b849576c5b3ece143b9a9}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_enumSetClkSts@{RCC\_enumSetClkSts}}
+\index{RCC\_enumSetClkSts@{RCC\_enumSetClkSts}!RCC\_interface.h@{RCC\_interface.h}}
+\doxysubsubsection{\texorpdfstring{RCC\_enumSetClkSts()}{RCC\_enumSetClkSts()}}
+{\footnotesize\ttfamily \label{RCC__interface_8h_ac0546afcec3b849576c5b3ece143b9a9} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+Set\+Clk\+Sts (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+CLK}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Status}{}\end{DoxyParamCaption})}
 
 
-Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00521}{521}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+Enable or disable a specific clock source. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+u8\+CLK} & Clock source (HSI\+\_\+\+CLK, HSE\+\_\+\+CLK, PLL\+\_\+\+CLK) \\
+\hline
+{\em Copy\+\_\+u8\+Status} & Clock status (CLK\+\_\+\+ON, CLK\+\_\+\+OFF) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ Error status (RCC\+\_\+\+OK, TIMEOUT\+\_\+\+STATE, BUSY\+\_\+\+STATE) 
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example:\+}
+RCC\+\_\+enum\+Set\+Clk\+Sts(\+RCC\+\_\+\+HSE\+\_\+\+CLK, RCC\+\_\+\+CLK\+\_\+\+ON); 
+\end{DoxyParagraph}
+
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00048}{48}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00035}{BUSY}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00045}{BUSY\+\_\+\+STATE}}, \doxymbox{\hyperlink{STD__MACROS_8h_source_l00046}{CLR\+\_\+\+BIT}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{IDLE}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00244}{MRCC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00217}{RCC\+\_\+\+CLK\+\_\+\+OFF}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00216}{RCC\+\_\+\+CLK\+\_\+\+ON}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00202}{RCC\+\_\+\+HSE\+\_\+\+CLK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00201}{RCC\+\_\+\+HSI\+\_\+\+CLK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00205}{RCC\+\_\+\+PLL\+\_\+\+CLK}}, \doxymbox{\hyperlink{RCC__private_8h_source_l00017}{RCC\+\_\+u32\+TIMEOUT}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00028}{RCC\+\_\+u8\+State}}, \doxymbox{\hyperlink{STD__MACROS_8h_source_l00061}{READ\+\_\+\+BIT}}, \doxymbox{\hyperlink{STD__MACROS_8h_source_l00039}{SET\+\_\+\+BIT}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00046}{TIMEOUT\+\_\+\+STATE}}.
+
+\Hypertarget{RCC__interface_8h_a4e5060e0774aa417bf2dbf5aad8904eb}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_enumSetSysClk@{RCC\_enumSetSysClk}}
+\index{RCC\_enumSetSysClk@{RCC\_enumSetSysClk}!RCC\_interface.h@{RCC\_interface.h}}
+\doxysubsubsection{\texorpdfstring{RCC\_enumSetSysClk()}{RCC\_enumSetSysClk()}}
+{\footnotesize\ttfamily \label{RCC__interface_8h_a4e5060e0774aa417bf2dbf5aad8904eb} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+Set\+Sys\+Clk (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+CLK}{}\end{DoxyParamCaption})}
+
+
+
+Set the system clock source. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+u8\+CLK} & Clock source (HSI\+\_\+\+CLK, HSE\+\_\+\+CLK, PLLP\+\_\+\+CLK, PLLR\+\_\+\+CLK) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ Error status (RCC\+\_\+\+OK, BUSY\+\_\+\+STATE) 
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example:\+}
+RCC\+\_\+enum\+Set\+Sys\+Clk(\+RCC\+\_\+\+HSE\+\_\+\+CLK); 
+\end{DoxyParagraph}
+
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00185}{185}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00035}{BUSY}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00045}{BUSY\+\_\+\+STATE}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{IDLE}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00244}{MRCC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00202}{RCC\+\_\+\+HSE\+\_\+\+CLK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00201}{RCC\+\_\+\+HSI\+\_\+\+CLK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00203}{RCC\+\_\+\+PLLP\+\_\+\+CLK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00204}{RCC\+\_\+\+PLLR\+\_\+\+CLK}}, \doxymbox{\hyperlink{RCC__private_8h_source_l00016}{RCC\+\_\+\+SYS\+\_\+\+CLK\+\_\+\+MASK}}, and \doxymbox{\hyperlink{RCC__program_8c_source_l00028}{RCC\+\_\+u8\+State}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{RCC__interface_8h_a1d4e148d8519b4eb0ad9237d5f930a93_icgraph}
+\includegraphics[width=350pt]{RCC__interface_8h_a4e5060e0774aa417bf2dbf5aad8904eb_icgraph}
 \end{center}
 \end{figure}
+\Hypertarget{RCC__interface_8h_a39479df13627e03c2248209d30fb6baa}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_enumPLLConfig@{RCC\_enumPLLConfig}}
+\index{RCC\_enumPLLConfig@{RCC\_enumPLLConfig}!RCC\_interface.h@{RCC\_interface.h}}
+\doxysubsubsection{\texorpdfstring{RCC\_enumPLLConfig()}{RCC\_enumPLLConfig()}}
+{\footnotesize\ttfamily \label{RCC__interface_8h_a39479df13627e03c2248209d30fb6baa} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+PLLConfig (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structRCC__PLLConfig__t}{RCC\+\_\+\+PLLConfig\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+\+PLLConfig}{}\end{DoxyParamCaption})}
+
+
+
+Configure PLL parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+\+PLLConfig} & Pointer to PLL configuration structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ Error status (RCC\+\_\+\+OK, NOK, BUSY\+\_\+\+STATE) 
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example:\+}
+
+\end{DoxyParagraph}
+\doxylink{structRCC__PLLConfig__t}{RCC\+\_\+\+PLLConfig\+\_\+t} My\+PLL = \{RCC\+\_\+\+PLL\+\_\+\+HSE, 8, 336, RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+2\}; RCC\+\_\+enum\+PLLConfig(\&\+My\+PLL); 
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00250}{250}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00035}{BUSY}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00045}{BUSY\+\_\+\+STATE}}, \doxymbox{\hyperlink{STD__MACROS_8h_source_l00046}{CLR\+\_\+\+BIT}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{IDLE}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00244}{MRCC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00256}{RCC\+\_\+\+PLLConfig\+\_\+t::\+\+PLLM\+\_\+\+Div}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00257}{RCC\+\_\+\+PLLConfig\+\_\+t::\+\+PLLN\+\_\+\+Mult}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00258}{RCC\+\_\+\+PLLConfig\+\_\+t::\+\+PLLP\+\_\+\+Div}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00255}{RCC\+\_\+\+PLLConfig\+\_\+t::\+\+PLLSource}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00161}{RCC\+\_\+\+MPLL\+\_\+\+DIV\+\_\+2}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00162}{RCC\+\_\+\+MPLL\+\_\+\+DIV\+\_\+63}}, \doxymbox{\hyperlink{RCC__private_8h_source_l00013}{RCC\+\_\+\+MPLL\+\_\+\+DIV\+\_\+\+MASK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00169}{RCC\+\_\+\+NPLL\+\_\+\+CLK\+\_\+\+MULT\+\_\+432}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00168}{RCC\+\_\+\+NPLL\+\_\+\+CLK\+\_\+\+MULT\+\_\+50}}, \doxymbox{\hyperlink{RCC__private_8h_source_l00014}{RCC\+\_\+\+NPLL\+\_\+\+MULT\+\_\+\+MASK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00188}{RCC\+\_\+\+PLL\+\_\+\+HSE}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00187}{RCC\+\_\+\+PLL\+\_\+\+HSI}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00176}{RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+2}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00179}{RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+8}}, \doxymbox{\hyperlink{RCC__private_8h_source_l00015}{RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+\+MASK}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00028}{RCC\+\_\+u8\+State}}, and \doxymbox{\hyperlink{STD__MACROS_8h_source_l00039}{SET\+\_\+\+BIT}}.
+
 \Hypertarget{RCC__interface_8h_a8dac8e7ec4680d99cd53a562907c8f10}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_enumAHBConfig@{RCC\_enumAHBConfig}}
 \index{RCC\_enumAHBConfig@{RCC\_enumAHBConfig}!RCC\_interface.h@{RCC\_interface.h}}
 \doxysubsubsection{\texorpdfstring{RCC\_enumAHBConfig()}{RCC\_enumAHBConfig()}}
 {\footnotesize\ttfamily \label{RCC__interface_8h_a8dac8e7ec4680d99cd53a562907c8f10} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+AHBConfig (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+AHPDiv}{}\end{DoxyParamCaption})}
-
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2RCC_2RCC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h}}.\end{Desc}
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+AHBConfig (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+AHPDiv}{}\end{DoxyParamCaption})}
 
 
-Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00323}{323}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+Configure AHB bus clock prescaler. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+u8\+AHPDiv} & AHB prescaler value (AHB\+\_\+\+NOT\+\_\+\+DIV to AHB\+\_\+\+DIV\+\_\+512) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ Error status (RCC\+\_\+\+OK, NOK, BUSY\+\_\+\+STATE) 
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example:\+}
+RCC\+\_\+enum\+AHBConfig(\+RCC\+\_\+\+AHB\+\_\+\+NOT\+\_\+\+DIV); 
+\end{DoxyParagraph}
+
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00315}{315}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00035}{BUSY}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00045}{BUSY\+\_\+\+STATE}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{IDLE}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00244}{MRCC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00142}{RCC\+\_\+\+AHB\+\_\+\+DIV\+\_\+512}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00134}{RCC\+\_\+\+AHB\+\_\+\+NOT\+\_\+\+DIV}}, and \doxymbox{\hyperlink{RCC__program_8c_source_l00028}{RCC\+\_\+u8\+State}}.
+
+\Hypertarget{RCC__interface_8h_a32ffc31db6be174ed88867d13b6fb770}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_enumAPB1Config@{RCC\_enumAPB1Config}}
+\index{RCC\_enumAPB1Config@{RCC\_enumAPB1Config}!RCC\_interface.h@{RCC\_interface.h}}
+\doxysubsubsection{\texorpdfstring{RCC\_enumAPB1Config()}{RCC\_enumAPB1Config()}}
+{\footnotesize\ttfamily \label{RCC__interface_8h_a32ffc31db6be174ed88867d13b6fb770} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+APB1\+Config (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+APB1\+Div}{}\end{DoxyParamCaption})}
+
+
+
+Configure APB1 bus clock prescaler. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+u8\+APB1\+Div} & APB1 prescaler value (APB\+\_\+\+NOT\+\_\+\+DIV to APB\+\_\+\+DIV\+\_\+16) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ Error status (RCC\+\_\+\+OK, NOK, BUSY\+\_\+\+STATE) 
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example:\+}
+RCC\+\_\+enum\+APB1\+Config(\+RCC\+\_\+\+APB\+\_\+\+DIV\+\_\+2); 
+\end{DoxyParagraph}
+
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00357}{357}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00035}{BUSY}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00045}{BUSY\+\_\+\+STATE}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{IDLE}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00244}{MRCC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00154}{RCC\+\_\+\+APB\+\_\+\+DIV\+\_\+16}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00150}{RCC\+\_\+\+APB\+\_\+\+NOT\+\_\+\+DIV}}, and \doxymbox{\hyperlink{RCC__program_8c_source_l00028}{RCC\+\_\+u8\+State}}.
+
+\Hypertarget{RCC__interface_8h_a528911683284afb4fc9731cfedfebc31}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_enumAPB2Config@{RCC\_enumAPB2Config}}
+\index{RCC\_enumAPB2Config@{RCC\_enumAPB2Config}!RCC\_interface.h@{RCC\_interface.h}}
+\doxysubsubsection{\texorpdfstring{RCC\_enumAPB2Config()}{RCC\_enumAPB2Config()}}
+{\footnotesize\ttfamily \label{RCC__interface_8h_a528911683284afb4fc9731cfedfebc31} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+APB2\+Config (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+APB2\+Div}{}\end{DoxyParamCaption})}
+
+
+
+Configure APB2 bus clock prescaler. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+u8\+APB2\+Div} & APB2 prescaler value (APB\+\_\+\+NOT\+\_\+\+DIV to APB\+\_\+\+DIV\+\_\+16) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ Error status (RCC\+\_\+\+OK, NOK, BUSY\+\_\+\+STATE) 
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example:\+}
+RCC\+\_\+enum\+APB2\+Config(\+RCC\+\_\+\+APB\+\_\+\+NOT\+\_\+\+DIV); 
+\end{DoxyParagraph}
+
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00399}{399}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00035}{BUSY}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00045}{BUSY\+\_\+\+STATE}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{IDLE}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00244}{MRCC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00154}{RCC\+\_\+\+APB\+\_\+\+DIV\+\_\+16}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00150}{RCC\+\_\+\+APB\+\_\+\+NOT\+\_\+\+DIV}}, and \doxymbox{\hyperlink{RCC__program_8c_source_l00028}{RCC\+\_\+u8\+State}}.
 
 \Hypertarget{RCC__interface_8h_a64dea321b9d4592b409225e2b55fef5c}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_enumAHPPerSts@{RCC\_enumAHPPerSts}}
 \index{RCC\_enumAHPPerSts@{RCC\_enumAHPPerSts}!RCC\_interface.h@{RCC\_interface.h}}
 \doxysubsubsection{\texorpdfstring{RCC\_enumAHPPerSts()}{RCC\_enumAHPPerSts()}}
 {\footnotesize\ttfamily \label{RCC__interface_8h_a64dea321b9d4592b409225e2b55fef5c} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+AHPPer\+Sts (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Bus}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+AHPPer}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Status}{}\end{DoxyParamCaption})}
-
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2RCC_2RCC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h}}.\end{Desc}
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+AHPPer\+Sts (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Bus}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+AHPPer}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Status}{}\end{DoxyParamCaption})}
 
 
-Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00452}{452}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+Enable or disable peripheral clock on AHB buses. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+u8\+Bus} & AHB bus number (RCC\+\_\+\+AHB1, RCC\+\_\+\+AHB2, RCC\+\_\+\+AHB3) \\
+\hline
+{\em Copy\+\_\+u8\+AHPPer} & Peripheral number on the selected bus (e.\+g., RCC\+\_\+\+GPIOAEN) \\
+\hline
+{\em Copy\+\_\+u8\+Status} & Peripheral clock status (RCC\+\_\+\+PER\+\_\+\+ON, RCC\+\_\+\+PER\+\_\+\+OFF) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ Error status (RCC\+\_\+\+OK, BUSY\+\_\+\+STATE) 
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example:\+}
+RCC\+\_\+enum\+AHPPer\+Sts(\+RCC\+\_\+\+AHB1, RCC\+\_\+\+GPIOAEN, RCC\+\_\+\+PER\+\_\+\+ON); 
+\end{DoxyParagraph}
+
+
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00441}{441}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00035}{BUSY}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00045}{BUSY\+\_\+\+STATE}}, \doxymbox{\hyperlink{STD__MACROS_8h_source_l00046}{CLR\+\_\+\+BIT}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{IDLE}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00244}{MRCC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00024}{RCC\+\_\+\+AHB1}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00025}{RCC\+\_\+\+AHB2}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00026}{RCC\+\_\+\+AHB3}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00229}{RCC\+\_\+\+PER\+\_\+\+OFF}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00228}{RCC\+\_\+\+PER\+\_\+\+ON}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00028}{RCC\+\_\+u8\+State}}, and \doxymbox{\hyperlink{STD__MACROS_8h_source_l00039}{SET\+\_\+\+BIT}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
@@ -1069,76 +1321,48 @@ Here is the caller graph for this function:\+
 \includegraphics[width=350pt]{RCC__interface_8h_a64dea321b9d4592b409225e2b55fef5c_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{RCC__interface_8h_a32ffc31db6be174ed88867d13b6fb770}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_enumAPB1Config@{RCC\_enumAPB1Config}}
-\index{RCC\_enumAPB1Config@{RCC\_enumAPB1Config}!RCC\_interface.h@{RCC\_interface.h}}
-\doxysubsubsection{\texorpdfstring{RCC\_enumAPB1Config()}{RCC\_enumAPB1Config()}}
-{\footnotesize\ttfamily \label{RCC__interface_8h_a32ffc31db6be174ed88867d13b6fb770} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+APB1\+Config (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+APB1\+Div}{}\end{DoxyParamCaption})}
-
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2RCC_2RCC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h}}.\end{Desc}
+\Hypertarget{RCC__interface_8h_a1d4e148d8519b4eb0ad9237d5f930a93}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_enumABPPerSts@{RCC\_enumABPPerSts}}
+\index{RCC\_enumABPPerSts@{RCC\_enumABPPerSts}!RCC\_interface.h@{RCC\_interface.h}}
+\doxysubsubsection{\texorpdfstring{RCC\_enumABPPerSts()}{RCC\_enumABPPerSts()}}
+{\footnotesize\ttfamily \label{RCC__interface_8h_a1d4e148d8519b4eb0ad9237d5f930a93} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+ABPPer\+Sts (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Bus}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+AHPPer}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Status}{}\end{DoxyParamCaption})}
 
 
-Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00366}{366}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
 
-\Hypertarget{RCC__interface_8h_a528911683284afb4fc9731cfedfebc31}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_enumAPB2Config@{RCC\_enumAPB2Config}}
-\index{RCC\_enumAPB2Config@{RCC\_enumAPB2Config}!RCC\_interface.h@{RCC\_interface.h}}
-\doxysubsubsection{\texorpdfstring{RCC\_enumAPB2Config()}{RCC\_enumAPB2Config()}}
-{\footnotesize\ttfamily \label{RCC__interface_8h_a528911683284afb4fc9731cfedfebc31} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+APB2\+Config (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+APB2\+Div}{}\end{DoxyParamCaption})}
-
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2RCC_2RCC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h}}.\end{Desc}
+Enable or disable peripheral clock on APB buses. 
 
 
-Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00409}{409}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
-
-\Hypertarget{RCC__interface_8h_a39479df13627e03c2248209d30fb6baa}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_enumPLLConfig@{RCC\_enumPLLConfig}}
-\index{RCC\_enumPLLConfig@{RCC\_enumPLLConfig}!RCC\_interface.h@{RCC\_interface.h}}
-\doxysubsubsection{\texorpdfstring{RCC\_enumPLLConfig()}{RCC\_enumPLLConfig()}}
-{\footnotesize\ttfamily \label{RCC__interface_8h_a39479df13627e03c2248209d30fb6baa} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+PLLConfig (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structRCC__PLLConfig__t}{RCC\+\_\+\+PLLConfig\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Copy\+\_\+\+PLLConfig}{}\end{DoxyParamCaption})}
-
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2RCC_2RCC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h}}.\end{Desc}
-
-
-Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00257}{257}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
-
-\Hypertarget{RCC__interface_8h_ac0546afcec3b849576c5b3ece143b9a9}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_enumSetClkSts@{RCC\_enumSetClkSts}}
-\index{RCC\_enumSetClkSts@{RCC\_enumSetClkSts}!RCC\_interface.h@{RCC\_interface.h}}
-\doxysubsubsection{\texorpdfstring{RCC\_enumSetClkSts()}{RCC\_enumSetClkSts()}}
-{\footnotesize\ttfamily \label{RCC__interface_8h_ac0546afcec3b849576c5b3ece143b9a9} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+Set\+Clk\+Sts (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+CLK}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Status}{}\end{DoxyParamCaption})}
-
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2RCC_2RCC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h}}.\end{Desc}
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+u8\+Bus} & APB bus number (RCC\+\_\+\+APB1, RCC\+\_\+\+APB2) \\
+\hline
+{\em Copy\+\_\+u8\+AHPPer} & Peripheral number on the selected bus (e.\+g., RCC\+\_\+\+USART2\+EN) \\
+\hline
+{\em Copy\+\_\+u8\+Status} & Peripheral clock status (RCC\+\_\+\+PER\+\_\+\+ON, RCC\+\_\+\+PER\+\_\+\+OFF) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ Error status (RCC\+\_\+\+OK, BUSY\+\_\+\+STATE) 
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example:\+}
+RCC\+\_\+enum\+ABPPer\+Sts(\+RCC\+\_\+\+APB1, RCC\+\_\+\+USART2\+EN, RCC\+\_\+\+PER\+\_\+\+ON); 
+\end{DoxyParagraph}
 
 
-Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00053}{53}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
-
-\Hypertarget{RCC__interface_8h_a4e5060e0774aa417bf2dbf5aad8904eb}\index{RCC\_interface.h@{RCC\_interface.h}!RCC\_enumSetSysClk@{RCC\_enumSetSysClk}}
-\index{RCC\_enumSetSysClk@{RCC\_enumSetSysClk}!RCC\_interface.h@{RCC\_interface.h}}
-\doxysubsubsection{\texorpdfstring{RCC\_enumSetSysClk()}{RCC\_enumSetSysClk()}}
-{\footnotesize\ttfamily \label{RCC__interface_8h_a4e5060e0774aa417bf2dbf5aad8904eb} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} RCC\+\_\+enum\+Set\+Sys\+Clk (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+CLK}{}\end{DoxyParamCaption})}
-
-\begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2RCC_2RCC_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h}}.\end{Desc}
+Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00509}{509}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
 
 
-Definition at line \doxymbox{\hyperlink{RCC__program_8c_source_l00191}{191}} of file \doxymbox{\hyperlink{RCC__program_8c_source}{RCC\+\_\+program.\+c}}.
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00035}{BUSY}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00045}{BUSY\+\_\+\+STATE}}, \doxymbox{\hyperlink{STD__MACROS_8h_source_l00046}{CLR\+\_\+\+BIT}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{IDLE}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00244}{MRCC}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00027}{RCC\+\_\+\+APB1}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00028}{RCC\+\_\+\+APB2}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00229}{RCC\+\_\+\+PER\+\_\+\+OFF}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00228}{RCC\+\_\+\+PER\+\_\+\+ON}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00028}{RCC\+\_\+u8\+State}}, and \doxymbox{\hyperlink{STD__MACROS_8h_source_l00039}{SET\+\_\+\+BIT}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{RCC__interface_8h_a4e5060e0774aa417bf2dbf5aad8904eb_icgraph}
+\includegraphics[width=350pt]{RCC__interface_8h_a1d4e148d8519b4eb0ad9237d5f930a93_icgraph}
 \end{center}
 \end{figure}

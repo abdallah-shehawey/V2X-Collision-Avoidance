@@ -1,5 +1,10 @@
-\doxysection{Src/\+\+SYSCFG\+\_\+program.c File Reference}
-\hypertarget{SYSCFG__program_8c}{}\label{SYSCFG__program_8c}\index{Src/SYSCFG\_program.c@{Src/SYSCFG\_program.c}}
+\doxysection{V2\+V-\/\+STM32/\+\+Src/\+\+SYSCFG\+\_\+program.c File Reference}
+\hypertarget{SYSCFG__program_8c}{}\label{SYSCFG__program_8c}\index{V2V-\/STM32/Src/SYSCFG\_program.c@{V2V-\/STM32/Src/SYSCFG\_program.c}}
+
+
+Implementation of the SYSCFG driver — the system configuration controller.  
+
+
 {\ttfamily \+\#include $<$stdint.\+h$>$}\newline
 {\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+LIB/\+\+STM32\+F446xx.\+h"{}}\newline
 {\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+LIB/\+\+STD\+\_\+\+MACROS.\+h"{}}\newline
@@ -19,7 +24,19 @@ Include dependency graph for SYSCFG\+\_\+program.\+c:\+
 \begin{DoxyCompactItemize}
 \item 
 void \doxymbox{\hyperlink{SYSCFG__program_8c_ae89860feecf5f8fa39db3d67b9ebe08a}{SYSCFG\+\_\+v\+Set\+EXTIConfig}} (\doxymbox{\hyperlink{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6db}{SYSCFG\+\_\+\+EXTI\+\_\+t}} Copy\+\_\+u8\+EXTI, \doxymbox{\hyperlink{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219}{SYSCFG\+\_\+\+Port\+\_\+t}} Copy\+\_\+u8\+Port)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Choose which GPIO port drives a given EXTI line. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of the SYSCFG driver — the system configuration controller. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{SYSCFG__program_8c_source}{SYSCFG\+\_\+program.\+c}}.
+
 
 
 \label{doc-func-members}
@@ -33,5 +50,30 @@ void SYSCFG\+\_\+v\+Set\+EXTIConfig (\begin{DoxyParamCaption}\item[{\doxymbox{\h
 
 
 
-Definition at line \doxymbox{\hyperlink{SYSCFG__program_8c_source_l00042}{42}} of file \doxymbox{\hyperlink{SYSCFG__program_8c_source}{SYSCFG\+\_\+program.\+c}}.
+Choose which GPIO port drives a given EXTI line. 
+
+EXTI line {\itshape N} is shared by pin {\itshape N} of every port — PA3, PB3 and PC3 all map to EXTI3 — and only one of them can own the line. This is where that choice is made.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+u8\+EXTI} & EXTI line to route, 0..15. \\
+\hline
+{\em Copy\+\_\+u8\+Port} & The port whose pin should drive it.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Without this call an EXTI line defaults to port A, so an interrupt configured on, say, PB4 is simply never delivered. It has to run {\bfseries{before}} \doxylink{EXTI__interface_8h_afbfd6cb04f146da7b0f90eb974c5629d}{EXTI\+\_\+v\+Line\+Init}.
+\end{DoxyNote}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\doxymbox{\hyperlink{SYSCFG__interface_8h_ae89860feecf5f8fa39db3d67b9ebe08a}{SYSCFG\_vSetEXTIConfig}}(\doxymbox{\hyperlink{SYSCFG__interface_8h_a167a1c03ff4651ed14a78d12f7ebc6dbaff8aa542f103b5665eb76422e1a89d63}{SYSCFG\_EXTI0}},\ \doxymbox{\hyperlink{SYSCFG__interface_8h_ad439ac89243300683e9b6570620c5219a51c6e700e364b735a1e7f718f6c27f02}{SYSCFG\_PORTA}});}
+
+\end{DoxyCode}
+ 
+
+Definition at line \doxymbox{\hyperlink{SYSCFG__program_8c_source_l00038}{38}} of file \doxymbox{\hyperlink{SYSCFG__program_8c_source}{SYSCFG\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{SYSCFG__private_8h_source_l00013}{EXTI\+\_\+\+CTRL\+\_\+\+REG\+\_\+\+LINEBITS}}, \doxymbox{\hyperlink{SYSCFG__private_8h_source_l00015}{EXTI\+\_\+\+CTRL\+\_\+\+REG\+\_\+\+MASK}}, and \doxymbox{\hyperlink{STM32F446xx_8h_source_l00347}{MSYSCFG}}.
 

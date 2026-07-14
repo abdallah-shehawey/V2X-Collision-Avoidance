@@ -1,5 +1,10 @@
-\doxysection{Inc/\+\+Application/\+\+IMA/\+\+IMA\+\_\+interface.h File Reference}
-\hypertarget{IMA__interface_8h}{}\label{IMA__interface_8h}\index{Inc/Application/IMA/IMA\_interface.h@{Inc/Application/IMA/IMA\_interface.h}}
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Application/\+\+IMA/\+\+IMA\+\_\+interface.h File Reference}
+\hypertarget{IMA__interface_8h}{}\label{IMA__interface_8h}\index{V2V-\/STM32/Inc/Application/IMA/IMA\_interface.h@{V2V-\/STM32/Inc/Application/IMA/IMA\_interface.h}}
+
+
+Public API of the IMA driver — Intersection Movement Assist.  
+
+
 {\ttfamily \+\#include $<$stdint.\+h$>$}\newline
 {\ttfamily \+\#include "{}../\+\+DSRC/\+\+DSRC.\+h"{}}\newline
 {\ttfamily \+\#include "{}../\+\+Safety\+Engine/\+\+Safety\+Engine\+\_\+interface.\+h"{}}\newline
@@ -28,13 +33,55 @@ uint8\+\_\+t \doxymbox{\hyperlink{IMA__interface_8h_a18f54786f683ab3016989275ccf
 \begin{DoxyCompactList}\small\item\em Get current IMA flag (for DSRC flag broadcast). \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{IMA__interface_8h_a17e1c415924f5123666b1c7436f57a94}{IMA\+\_\+void\+Begin\+Cycle}} (void)
 \begin{DoxyCompactList}\small\item\em Begin a new processing cycle — reset accumulators No sensor parameters needed; IMA reads Host\+\_\+\+Speed from shared globals. \end{DoxyCompactList}\item 
-void \doxymbox{\hyperlink{IMA__interface_8h_a748c4abb479229cffa75659e88bd9751}{IMA\+\_\+void\+Process\+Neighbor}} (const \doxymbox{\hyperlink{DSRC_8h_ac818f2e1224a1e513913a85019953e14}{Neighbor}} \texorpdfstring{$\ast$}{*}n)
-\begin{DoxyCompactList}\small\item\em Process one CROSSING-\/direction DSRC neighbor for IMA. The Safety\+Engine only dispatches crossing-\/direction neighbors here. \end{DoxyCompactList}\end{DoxyCompactItemize}
+void \doxymbox{\hyperlink{IMA__interface_8h_a748c4abb479229cffa75659e88bd9751}{IMA\+\_\+void\+Process\+Neighbor}} (const \doxymbox{\hyperlink{structNeighbor}{Neighbor}} \texorpdfstring{$\ast$}{*}n)
+\begin{DoxyCompactList}\small\item\em Process one CROSSING-\/direction DSRC neighbor for IMA. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Public API of the IMA driver — Intersection Movement Assist. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{IMA__interface_8h_source}{IMA\+\_\+interface.\+h}}.
+
 
 
 \label{doc-func-members}
 \Hypertarget{IMA__interface_8h_doc-func-members}
 \doxysubsection{Function Documentation}
+\Hypertarget{IMA__interface_8h_abd5d231970401e78bd9552c40742d1e9}\index{IMA\_interface.h@{IMA\_interface.h}!IMA\_voidInit@{IMA\_voidInit}}
+\index{IMA\_voidInit@{IMA\_voidInit}!IMA\_interface.h@{IMA\_interface.h}}
+\doxysubsubsection{\texorpdfstring{IMA\_voidInit()}{IMA\_voidInit()}}
+{\footnotesize\ttfamily \label{IMA__interface_8h_abd5d231970401e78bd9552c40742d1e9} 
+void IMA\+\_\+void\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initialize the IMA module. 
+
+
+
+Definition at line \doxymbox{\hyperlink{IMA__program_8c_source_l00024}{24}} of file \doxymbox{\hyperlink{IMA__program_8c_source}{IMA\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{IMA__program_8c_source_l00019}{IMA\+\_\+\+Crossing\+Detected}}, \doxymbox{\hyperlink{IMA__program_8c_source_l00021}{IMA\+\_\+\+Worst\+Risk}}, and \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00060}{RISK\+\_\+\+SAFE}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00033}{Safety\+Engine\+\_\+void\+Init()}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{IMA__interface_8h_abd5d231970401e78bd9552c40742d1e9_icgraph}
+\end{center}
+\end{figure}
 \Hypertarget{IMA__interface_8h_a18f54786f683ab3016989275ccf9e95a}\index{IMA\_interface.h@{IMA\_interface.h}!IMA\_u8GetFlag@{IMA\_u8GetFlag}}
 \index{IMA\_u8GetFlag@{IMA\_u8GetFlag}!IMA\_interface.h@{IMA\_interface.h}}
 \doxysubsubsection{\texorpdfstring{IMA\_u8GetFlag()}{IMA\_u8GetFlag()}}
@@ -46,16 +93,19 @@ uint8\+\_\+t IMA\+\_\+u8\+Get\+Flag (\begin{DoxyParamCaption}\item[{void}]{}{}\e
 Get current IMA flag (for DSRC flag broadcast). 
 
 \begin{DoxyReturn}{Returns}
-0=Safe, 1=Warning, 2=Critical
-\end{DoxyReturn}
-Get current IMA flag (for DSRC flag broadcast).
-
-\begin{DoxyReturn}{Returns}
 0=Safe, 1=Warning, 2=Critical 
 \end{DoxyReturn}
 
 
-Definition at line \doxymbox{\hyperlink{IMA__program_8c_source_l00081}{81}} of file \doxymbox{\hyperlink{IMA__program_8c_source}{IMA\+\_\+program.\+c}}.
+Definition at line \doxymbox{\hyperlink{IMA__program_8c_source_l00079}{79}} of file \doxymbox{\hyperlink{IMA__program_8c_source}{IMA\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{IMA__program_8c_source_l00019}{IMA\+\_\+\+Crossing\+Detected}}, \doxymbox{\hyperlink{IMA__program_8c_source_l00021}{IMA\+\_\+\+Worst\+Risk}}, and \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00060}{RISK\+\_\+\+SAFE}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}, and \doxymbox{\hyperlink{main_8c_source_l00387}{v\+Task\+\_\+\+ESP\+\_\+\+Comm()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
@@ -75,9 +125,17 @@ void IMA\+\_\+void\+Begin\+Cycle (\begin{DoxyParamCaption}\item[{void}]{}{}\end{
 
 Begin a new processing cycle — reset accumulators No sensor parameters needed; IMA reads Host\+\_\+\+Speed from shared globals. 
 
-Begin a new processing cycle — reset accumulators No sensor parameters needed; IMA reads Host\+\_\+\+Speed from shared globals. 
 
-Definition at line \doxymbox{\hyperlink{IMA__program_8c_source_l00040}{40}} of file \doxymbox{\hyperlink{IMA__program_8c_source}{IMA\+\_\+program.\+c}}.
+
+Definition at line \doxymbox{\hyperlink{IMA__program_8c_source_l00038}{38}} of file \doxymbox{\hyperlink{IMA__program_8c_source}{IMA\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{IMA__program_8c_source_l00019}{IMA\+\_\+\+Crossing\+Detected}}, \doxymbox{\hyperlink{IMA__program_8c_source_l00021}{IMA\+\_\+\+Worst\+Risk}}, and \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00060}{RISK\+\_\+\+SAFE}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
@@ -87,59 +145,32 @@ Here is the caller graph for this function:\+
 \includegraphics[width=350pt]{IMA__interface_8h_a17e1c415924f5123666b1c7436f57a94_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{IMA__interface_8h_abd5d231970401e78bd9552c40742d1e9}\index{IMA\_interface.h@{IMA\_interface.h}!IMA\_voidInit@{IMA\_voidInit}}
-\index{IMA\_voidInit@{IMA\_voidInit}!IMA\_interface.h@{IMA\_interface.h}}
-\doxysubsubsection{\texorpdfstring{IMA\_voidInit()}{IMA\_voidInit()}}
-{\footnotesize\ttfamily \label{IMA__interface_8h_abd5d231970401e78bd9552c40742d1e9} 
-void IMA\+\_\+void\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
-
-
-
-Initialize the IMA module. 
-
-
-
-Definition at line \doxymbox{\hyperlink{IMA__program_8c_source_l00026}{26}} of file \doxymbox{\hyperlink{IMA__program_8c_source}{IMA\+\_\+program.\+c}}.
-
-Here is the caller graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{IMA__interface_8h_abd5d231970401e78bd9552c40742d1e9_icgraph}
-\end{center}
-\end{figure}
 \Hypertarget{IMA__interface_8h_a748c4abb479229cffa75659e88bd9751}\index{IMA\_interface.h@{IMA\_interface.h}!IMA\_voidProcessNeighbor@{IMA\_voidProcessNeighbor}}
 \index{IMA\_voidProcessNeighbor@{IMA\_voidProcessNeighbor}!IMA\_interface.h@{IMA\_interface.h}}
 \doxysubsubsection{\texorpdfstring{IMA\_voidProcessNeighbor()}{IMA\_voidProcessNeighbor()}}
 {\footnotesize\ttfamily \label{IMA__interface_8h_a748c4abb479229cffa75659e88bd9751} 
-void IMA\+\_\+void\+Process\+Neighbor (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{DSRC_8h_ac818f2e1224a1e513913a85019953e14}{Neighbor}} \texorpdfstring{$\ast$}{*}}]{n}{}\end{DoxyParamCaption})}
+void IMA\+\_\+void\+Process\+Neighbor (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structNeighbor}{Neighbor}} \texorpdfstring{$\ast$}{*}}]{n}{}\end{DoxyParamCaption})}
 
 
 
-Process one CROSSING-\/direction DSRC neighbor for IMA. The Safety\+Engine only dispatches crossing-\/direction neighbors here. 
+Process one CROSSING-\/direction DSRC neighbor for IMA. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em n} & Pointer to neighbor data\\
-\hline
-\end{DoxyParams}
-Process one CROSSING-\/direction DSRC neighbor for IMA. The Safety\+Engine only dispatches crossing-\/direction neighbors here.
-
-Any crossing vehicle raises an alert so the driver knows an IMA case is in play; the priority rule (higher speed = right of way) only sets its severity:\+
-\begin{DoxyItemize}
-\item host faster or equal → it passes first → WARNING.
-\item host slower → it must yield → CRITICAL. The Safety\+Engine only dispatches crossing-\/direction neighbors here.
-\end{DoxyItemize}
-
-
+The Safety\+Engine only dispatches crossing-\/direction neighbors here. 
 \begin{DoxyParams}{Parameters}
 {\em n} & Pointer to neighbor data \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line \doxymbox{\hyperlink{IMA__program_8c_source_l00057}{57}} of file \doxymbox{\hyperlink{IMA__program_8c_source}{IMA\+\_\+program.\+c}}.
+Definition at line \doxymbox{\hyperlink{IMA__program_8c_source_l00055}{55}} of file \doxymbox{\hyperlink{IMA__program_8c_source}{IMA\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00021}{Host\+\_\+\+Speed}}, \doxymbox{\hyperlink{IMA__program_8c_source_l00019}{IMA\+\_\+\+Crossing\+Detected}}, \doxymbox{\hyperlink{IMA__program_8c_source_l00021}{IMA\+\_\+\+Worst\+Risk}}, \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00062}{RISK\+\_\+\+CRITICAL}}, \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00061}{RISK\+\_\+\+WARNING}}, and \doxymbox{\hyperlink{DSRC_8h_source_l00102}{Neighbor::\+speed}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak

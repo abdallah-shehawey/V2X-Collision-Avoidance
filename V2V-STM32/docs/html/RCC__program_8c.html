@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Src/RCC_program.c File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Src/RCC_program.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,71 +90,68 @@ $(function(){initNavTree('RCC__program_8c.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">RCC_program.c File Reference</div></div>
+  <div class="headertitle"><div class="title">RCC_program.c File Reference<div class="ingroups"><a class="el" href="group__mcal.html">MCAL</a> &raquo; <a class="el" href="group__mcal__rcc.html">RCC</a></div></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Implementation of the RCC driver — reset and clock control.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">../Inc/Drivers/LIB/STM32F446xx.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="STM32F446xx_8h_source.html">../Inc/Drivers/LIB/STM32F446xx.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ErrTypes_8h_source.html">../Inc/Drivers/LIB/ErrTypes.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="STD__MACROS_8h_source.html">../Inc/Drivers/LIB/STD_MACROS.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RCC__config_8h_source.html">../Inc/Drivers/MCAL/RCC/RCC_config.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RCC__interface_8h_source.html">../Inc/Drivers/MCAL/RCC/RCC_interface.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RCC__private_8h_source.html">../Inc/Drivers/MCAL/RCC/RCC_private.h</a>&quot;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for RCC_program.c:</div>
-<div class="dyncontent">
-<div class="center"><img src="RCC__program_8c__incl.png" border="0" usemap="#aSrc_2RCC__program_8c" loading="lazy" alt=""/></div>
-<map name="aSrc_2RCC__program_8c" id="aSrc_2RCC__program_8c">
-<area shape="rect" title=" " alt="" coords="385,5,531,33"/>
-<area shape="rect" title=" " alt="" coords="138,182,208,210"/>
-<area shape="poly" title=" " alt="" coords="382,30,276,51,230,66,200,83,187,101,179,123,173,168,169,165,174,122,182,99,196,79,228,61,275,46,387,28"/>
-<area shape="rect" href="Drivers_2LIB_2STM32F446xx_8h.html" title=" " alt="" coords="5,81,135,126"/>
-<area shape="poly" title=" " alt="" coords="386,36,155,84,151,84,149,80,153,78,388,31"/>
-<area shape="rect" href="ErrTypes_8h.html" title=" " alt="" coords="448,174,575,218"/>
-<area shape="poly" title=" " alt="" coords="531,26,633,46,677,60,704,79,713,98,712,115,703,130,687,144,642,165,590,181,589,176,640,160,684,139,699,127,707,113,708,99,700,83,674,65,632,51,531,31"/>
-<area shape="rect" href="STD__MACROS_8h.html" title=" " alt="" coords="394,81,522,126"/>
-<area shape="poly" title=" " alt="" coords="460,31,460,66,456,64,456,36"/>
-<area shape="rect" href="RCC__config_8h.html" title=" " alt="" coords="546,81,690,126"/>
-<area shape="poly" title=" " alt="" coords="484,31,565,73,559,74,483,36"/>
-<area shape="rect" href="RCC__interface_8h.html" title=" " alt="" coords="210,81,370,126"/>
-<area shape="poly" title=" " alt="" coords="433,33,350,76,347,71,429,35"/>
-<area shape="rect" href="RCC__private_8h.html" title=" " alt="" coords="765,81,914,126"/>
-<area shape="poly" title=" " alt="" coords="522,31,747,78,753,82,747,82,745,84,521,36"/>
-<area shape="poly" title=" " alt="" coords="95,123,149,171,144,172,93,128"/>
-<area shape="poly" title=" " alt="" coords="265,125,203,175,200,170,260,127"/>
-<area shape="poly" title=" " alt="" coords="344,124,447,167,442,168,343,129"/>
-</map>
+</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for RCC_program.c:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="RCC__program_8c__incl.svg" width="100%" height="468"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="RCC__program_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ac0546afcec3b849576c5b3ece143b9a9" id="r_ac0546afcec3b849576c5b3ece143b9a9"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac0546afcec3b849576c5b3ece143b9a9">RCC_enumSetClkSts</a> (uint8_t Copy_u8CLK, uint8_t Copy_u8Status)</td></tr>
-<tr class="memitem:a4e5060e0774aa417bf2dbf5aad8904eb" id="r_a4e5060e0774aa417bf2dbf5aad8904eb"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4e5060e0774aa417bf2dbf5aad8904eb">RCC_enumSetSysClk</a> (uint8_t Copy_u8CLK)</td></tr>
-<tr class="memitem:a39479df13627e03c2248209d30fb6baa" id="r_a39479df13627e03c2248209d30fb6baa"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a39479df13627e03c2248209d30fb6baa">RCC_enumPLLConfig</a> (const <a class="el" href="structRCC__PLLConfig__t.html">RCC_PLLConfig_t</a> *Copy_PLLConfig)</td></tr>
-<tr class="memitem:a8dac8e7ec4680d99cd53a562907c8f10" id="r_a8dac8e7ec4680d99cd53a562907c8f10"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8dac8e7ec4680d99cd53a562907c8f10">RCC_enumAHBConfig</a> (uint8_t Copy_u8AHPDiv)</td></tr>
-<tr class="memitem:a32ffc31db6be174ed88867d13b6fb770" id="r_a32ffc31db6be174ed88867d13b6fb770"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a32ffc31db6be174ed88867d13b6fb770">RCC_enumAPB1Config</a> (uint8_t Copy_u8APB1Div)</td></tr>
-<tr class="memitem:a528911683284afb4fc9731cfedfebc31" id="r_a528911683284afb4fc9731cfedfebc31"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a528911683284afb4fc9731cfedfebc31">RCC_enumAPB2Config</a> (uint8_t Copy_u8APB2Div)</td></tr>
-<tr class="memitem:a64dea321b9d4592b409225e2b55fef5c" id="r_a64dea321b9d4592b409225e2b55fef5c"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a64dea321b9d4592b409225e2b55fef5c">RCC_enumAHPPerSts</a> (uint8_t Copy_u8Bus, uint8_t Copy_u8AHPPer, uint8_t Copy_u8Status)</td></tr>
-<tr class="memitem:adcf07c53ca16c6ccd1af607d3173b2dc" id="r_adcf07c53ca16c6ccd1af607d3173b2dc"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#adcf07c53ca16c6ccd1af607d3173b2dc">RCC_enumABPPerSts</a> (uint8_t Copy_u8Bus, uint8_t Copy_u8ABPPer, uint8_t Copy_u8Status)</td></tr>
+<tr class="memitem:ac0546afcec3b849576c5b3ece143b9a9" id="r_ac0546afcec3b849576c5b3ece143b9a9"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac0546afcec3b849576c5b3ece143b9a9">RCC_enumSetClkSts</a> (uint8_t Copy_u8CLK, uint8_t Copy_u8Status)</td></tr>
+<tr class="memdesc:ac0546afcec3b849576c5b3ece143b9a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable a specific clock source.  <br /></td></tr>
+<tr class="memitem:a4e5060e0774aa417bf2dbf5aad8904eb" id="r_a4e5060e0774aa417bf2dbf5aad8904eb"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4e5060e0774aa417bf2dbf5aad8904eb">RCC_enumSetSysClk</a> (uint8_t Copy_u8CLK)</td></tr>
+<tr class="memdesc:a4e5060e0774aa417bf2dbf5aad8904eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the system clock source.  <br /></td></tr>
+<tr class="memitem:a39479df13627e03c2248209d30fb6baa" id="r_a39479df13627e03c2248209d30fb6baa"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a39479df13627e03c2248209d30fb6baa">RCC_enumPLLConfig</a> (const <a class="el" href="structRCC__PLLConfig__t.html">RCC_PLLConfig_t</a> *Copy_PLLConfig)</td></tr>
+<tr class="memdesc:a39479df13627e03c2248209d30fb6baa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure PLL parameters.  <br /></td></tr>
+<tr class="memitem:a8dac8e7ec4680d99cd53a562907c8f10" id="r_a8dac8e7ec4680d99cd53a562907c8f10"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8dac8e7ec4680d99cd53a562907c8f10">RCC_enumAHBConfig</a> (uint8_t Copy_u8AHPDiv)</td></tr>
+<tr class="memdesc:a8dac8e7ec4680d99cd53a562907c8f10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure AHB bus clock prescaler.  <br /></td></tr>
+<tr class="memitem:a32ffc31db6be174ed88867d13b6fb770" id="r_a32ffc31db6be174ed88867d13b6fb770"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a32ffc31db6be174ed88867d13b6fb770">RCC_enumAPB1Config</a> (uint8_t Copy_u8APB1Div)</td></tr>
+<tr class="memdesc:a32ffc31db6be174ed88867d13b6fb770"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure APB1 bus clock prescaler.  <br /></td></tr>
+<tr class="memitem:a528911683284afb4fc9731cfedfebc31" id="r_a528911683284afb4fc9731cfedfebc31"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a528911683284afb4fc9731cfedfebc31">RCC_enumAPB2Config</a> (uint8_t Copy_u8APB2Div)</td></tr>
+<tr class="memdesc:a528911683284afb4fc9731cfedfebc31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure APB2 bus clock prescaler.  <br /></td></tr>
+<tr class="memitem:a64dea321b9d4592b409225e2b55fef5c" id="r_a64dea321b9d4592b409225e2b55fef5c"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a64dea321b9d4592b409225e2b55fef5c">RCC_enumAHPPerSts</a> (uint8_t Copy_u8Bus, uint8_t Copy_u8AHPPer, uint8_t Copy_u8Status)</td></tr>
+<tr class="memdesc:a64dea321b9d4592b409225e2b55fef5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable peripheral clock on AHB buses.  <br /></td></tr>
+<tr class="memitem:adcf07c53ca16c6ccd1af607d3173b2dc" id="r_adcf07c53ca16c6ccd1af607d3173b2dc"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#adcf07c53ca16c6ccd1af607d3173b2dc">RCC_enumABPPerSts</a> (uint8_t Copy_u8Bus, uint8_t Copy_u8ABPPer, uint8_t Copy_u8Status)</td></tr>
+<tr class="memdesc:adcf07c53ca16c6ccd1af607d3173b2dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable peripheral clock on APB buses.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a537fc4bb205f0f47b72f30d2ed70a386" id="r_a537fc4bb205f0f47b72f30d2ed70a386"><td class="memItemLeft">static uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a537fc4bb205f0f47b72f30d2ed70a386">RCC_u8State</a></td></tr>
+<tr class="memdesc:a537fc4bb205f0f47b72f30d2ed70a386"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reentrancy guard for the driver: <a class="el" href="group__lib.html#ga9c21a7caee326d7803b94ae1952b27ca" title="IDLE">IDLE</a> or <a class="el" href="group__lib.html#gab5be0aaddb58ffb9cb20c12530d66316" title="BUSY">BUSY</a>.  <br /></td></tr>
 </table>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="adcf07c53ca16c6ccd1af607d3173b2dc" name="adcf07c53ca16c6ccd1af607d3173b2dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adcf07c53ca16c6ccd1af607d3173b2dc">&#9670;&#160;</a></span>RCC_enumABPPerSts()</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Implementation of the RCC driver — reset and clock control. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Abdelmoemen Shehawey  </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="RCC__program_8c_source.html">RCC_program.c</a>.</p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="ac0546afcec3b849576c5b3ece143b9a9" name="ac0546afcec3b849576c5b3ece143b9a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0546afcec3b849576c5b3ece143b9a9">&#9670;&#160;</a></span>RCC_enumSetClkSts()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> RCC_enumABPPerSts </td>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> RCC_enumSetClkSts </td>
           <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8Bus</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8ABPPer</em></span>, </td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8CLK</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -164,19 +161,91 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="RCC__program_8c_source.html#l00521">521</a> of file <a class="el" href="RCC__program_8c_source.html">RCC_program.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="RCC__program_8c_adcf07c53ca16c6ccd1af607d3173b2dc_icgraph.png" border="0" usemap="#aRCC__program_8c_adcf07c53ca16c6ccd1af607d3173b2dc_icgraph" loading="lazy" alt=""/></div>
-<map name="aRCC__program_8c_adcf07c53ca16c6ccd1af607d3173b2dc_icgraph" id="aRCC__program_8c_adcf07c53ca16c6ccd1af607d3173b2dc_icgraph">
-<area shape="rect" title=" " alt="" coords="269,5,428,33"/>
-<area shape="rect" href="System_8c.html#ae436954cd2bde6634ab271317d2494a7" title=" " alt="" coords="108,5,221,33"/>
-<area shape="poly" title=" " alt="" coords="251,19,221,22,221,17,256,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,95,18"/>
-</map>
+<p>Enable or disable a specific clock source. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Copy_u8CLK</td><td>Clock source (HSI_CLK, HSE_CLK, PLL_CLK) </td></tr>
+    <tr><td class="paramname">Copy_u8Status</td><td>Clock status (CLK_ON, CLK_OFF) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a>: Error status (RCC_OK, TIMEOUT_STATE, BUSY_STATE) </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd>RCC_enumSetClkSts(RCC_HSE_CLK, RCC_CLK_ON); </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="RCC__program_8c_source.html#l00048">48</a> of file <a class="el" href="RCC__program_8c_source.html">RCC_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="ErrTypes_8h_source.html#l00035">BUSY</a>, <a class="el" href="ErrTypes_8h_source.html#l00045">BUSY_STATE</a>, <a class="el" href="STD__MACROS_8h_source.html#l00046">CLR_BIT</a>, <a class="el" href="ErrTypes_8h_source.html#l00033">IDLE</a>, <a class="el" href="STM32F446xx_8h_source.html#l00244">MRCC</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="RCC__interface_8h_source.html#l00217">RCC_CLK_OFF</a>, <a class="el" href="RCC__interface_8h_source.html#l00216">RCC_CLK_ON</a>, <a class="el" href="RCC__interface_8h_source.html#l00202">RCC_HSE_CLK</a>, <a class="el" href="RCC__interface_8h_source.html#l00201">RCC_HSI_CLK</a>, <a class="el" href="RCC__interface_8h_source.html#l00205">RCC_PLL_CLK</a>, <a class="el" href="RCC__private_8h_source.html#l00017">RCC_u32TIMEOUT</a>, <a class="el" href="RCC__program_8c_source.html#l00028">RCC_u8State</a>, <a class="el" href="STD__MACROS_8h_source.html#l00061">READ_BIT</a>, <a class="el" href="STD__MACROS_8h_source.html#l00039">SET_BIT</a>, and <a class="el" href="ErrTypes_8h_source.html#l00046">TIMEOUT_STATE</a>.</p>
+
 </div>
+</div>
+<a id="a4e5060e0774aa417bf2dbf5aad8904eb" name="a4e5060e0774aa417bf2dbf5aad8904eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e5060e0774aa417bf2dbf5aad8904eb">&#9670;&#160;</a></span>RCC_enumSetSysClk()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> RCC_enumSetSysClk </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8CLK</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the system clock source. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Copy_u8CLK</td><td>Clock source (HSI_CLK, HSE_CLK, PLLP_CLK, PLLR_CLK) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a>: Error status (RCC_OK, BUSY_STATE) </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd>RCC_enumSetSysClk(RCC_HSE_CLK); </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="RCC__program_8c_source.html#l00185">185</a> of file <a class="el" href="RCC__program_8c_source.html">RCC_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="ErrTypes_8h_source.html#l00035">BUSY</a>, <a class="el" href="ErrTypes_8h_source.html#l00045">BUSY_STATE</a>, <a class="el" href="ErrTypes_8h_source.html#l00033">IDLE</a>, <a class="el" href="STM32F446xx_8h_source.html#l00244">MRCC</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="RCC__interface_8h_source.html#l00202">RCC_HSE_CLK</a>, <a class="el" href="RCC__interface_8h_source.html#l00201">RCC_HSI_CLK</a>, <a class="el" href="RCC__interface_8h_source.html#l00203">RCC_PLLP_CLK</a>, <a class="el" href="RCC__interface_8h_source.html#l00204">RCC_PLLR_CLK</a>, <a class="el" href="RCC__private_8h_source.html#l00016">RCC_SYS_CLK_MASK</a>, and <a class="el" href="RCC__program_8c_source.html#l00028">RCC_u8State</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="System_8c_source.html#l00133">System_setup()</a>.</p>
+<div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="RCC__program_8c_a4e5060e0774aa417bf2dbf5aad8904eb_icgraph.svg" width="432" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a39479df13627e03c2248209d30fb6baa" name="a39479df13627e03c2248209d30fb6baa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39479df13627e03c2248209d30fb6baa">&#9670;&#160;</a></span>RCC_enumPLLConfig()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> RCC_enumPLLConfig </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structRCC__PLLConfig__t.html">RCC_PLLConfig_t</a> *</td>          <td class="paramname"><span class="paramname"><em>Copy_PLLConfig</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configure PLL parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Copy_PLLConfig</td><td>Pointer to PLL configuration structure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a>: Error status (RCC_OK, NOK, BUSY_STATE) </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd></dd></dl>
+<p><a class="el" href="structRCC__PLLConfig__t.html" title="The PLL dividers that set the system clock frequency.">RCC_PLLConfig_t</a> MyPLL = {RCC_PLL_HSE, 8, 336, RCC_PPLL_DIV_2}; RCC_enumPLLConfig(&amp;MyPLL); </p>
+
+<p class="definition">Definition at line <a class="el" href="RCC__program_8c_source.html#l00250">250</a> of file <a class="el" href="RCC__program_8c_source.html">RCC_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="ErrTypes_8h_source.html#l00035">BUSY</a>, <a class="el" href="ErrTypes_8h_source.html#l00045">BUSY_STATE</a>, <a class="el" href="STD__MACROS_8h_source.html#l00046">CLR_BIT</a>, <a class="el" href="ErrTypes_8h_source.html#l00033">IDLE</a>, <a class="el" href="STM32F446xx_8h_source.html#l00244">MRCC</a>, <a class="el" href="ErrTypes_8h_source.html#l00043">NOK</a>, <a class="el" href="ErrTypes_8h_source.html#l00024">NULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="RCC__interface_8h_source.html#l00256">RCC_PLLConfig_t::PLLM_Div</a>, <a class="el" href="RCC__interface_8h_source.html#l00257">RCC_PLLConfig_t::PLLN_Mult</a>, <a class="el" href="RCC__interface_8h_source.html#l00258">RCC_PLLConfig_t::PLLP_Div</a>, <a class="el" href="RCC__interface_8h_source.html#l00255">RCC_PLLConfig_t::PLLSource</a>, <a class="el" href="RCC__interface_8h_source.html#l00161">RCC_MPLL_DIV_2</a>, <a class="el" href="RCC__interface_8h_source.html#l00162">RCC_MPLL_DIV_63</a>, <a class="el" href="RCC__private_8h_source.html#l00013">RCC_MPLL_DIV_MASK</a>, <a class="el" href="RCC__interface_8h_source.html#l00169">RCC_NPLL_CLK_MULT_432</a>, <a class="el" href="RCC__interface_8h_source.html#l00168">RCC_NPLL_CLK_MULT_50</a>, <a class="el" href="RCC__private_8h_source.html#l00014">RCC_NPLL_MULT_MASK</a>, <a class="el" href="RCC__interface_8h_source.html#l00188">RCC_PLL_HSE</a>, <a class="el" href="RCC__interface_8h_source.html#l00187">RCC_PLL_HSI</a>, <a class="el" href="RCC__interface_8h_source.html#l00176">RCC_PPLL_DIV_2</a>, <a class="el" href="RCC__interface_8h_source.html#l00179">RCC_PPLL_DIV_8</a>, <a class="el" href="RCC__private_8h_source.html#l00015">RCC_PPLL_DIV_MASK</a>, <a class="el" href="RCC__program_8c_source.html#l00028">RCC_u8State</a>, and <a class="el" href="STD__MACROS_8h_source.html#l00039">SET_BIT</a>.</p>
 
 </div>
 </div>
@@ -187,7 +256,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> RCC_enumAHBConfig </td>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> RCC_enumAHBConfig </td>
           <td>(</td>
           <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8AHPDiv</em></span></td><td>)</td>
           <td></td>
@@ -195,7 +264,81 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="RCC__program_8c_source.html#l00323">323</a> of file <a class="el" href="RCC__program_8c_source.html">RCC_program.c</a>.</p>
+<p>Configure AHB bus clock prescaler. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Copy_u8AHPDiv</td><td>AHB prescaler value (AHB_NOT_DIV to AHB_DIV_512) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a>: Error status (RCC_OK, NOK, BUSY_STATE) </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd>RCC_enumAHBConfig(RCC_AHB_NOT_DIV); </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="RCC__program_8c_source.html#l00315">315</a> of file <a class="el" href="RCC__program_8c_source.html">RCC_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="ErrTypes_8h_source.html#l00035">BUSY</a>, <a class="el" href="ErrTypes_8h_source.html#l00045">BUSY_STATE</a>, <a class="el" href="ErrTypes_8h_source.html#l00033">IDLE</a>, <a class="el" href="STM32F446xx_8h_source.html#l00244">MRCC</a>, <a class="el" href="ErrTypes_8h_source.html#l00043">NOK</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="RCC__interface_8h_source.html#l00142">RCC_AHB_DIV_512</a>, <a class="el" href="RCC__interface_8h_source.html#l00134">RCC_AHB_NOT_DIV</a>, and <a class="el" href="RCC__program_8c_source.html#l00028">RCC_u8State</a>.</p>
+
+</div>
+</div>
+<a id="a32ffc31db6be174ed88867d13b6fb770" name="a32ffc31db6be174ed88867d13b6fb770"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32ffc31db6be174ed88867d13b6fb770">&#9670;&#160;</a></span>RCC_enumAPB1Config()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> RCC_enumAPB1Config </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8APB1Div</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configure APB1 bus clock prescaler. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Copy_u8APB1Div</td><td>APB1 prescaler value (APB_NOT_DIV to APB_DIV_16) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a>: Error status (RCC_OK, NOK, BUSY_STATE) </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd>RCC_enumAPB1Config(RCC_APB_DIV_2); </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="RCC__program_8c_source.html#l00357">357</a> of file <a class="el" href="RCC__program_8c_source.html">RCC_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="ErrTypes_8h_source.html#l00035">BUSY</a>, <a class="el" href="ErrTypes_8h_source.html#l00045">BUSY_STATE</a>, <a class="el" href="ErrTypes_8h_source.html#l00033">IDLE</a>, <a class="el" href="STM32F446xx_8h_source.html#l00244">MRCC</a>, <a class="el" href="ErrTypes_8h_source.html#l00043">NOK</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="RCC__interface_8h_source.html#l00154">RCC_APB_DIV_16</a>, <a class="el" href="RCC__interface_8h_source.html#l00150">RCC_APB_NOT_DIV</a>, and <a class="el" href="RCC__program_8c_source.html#l00028">RCC_u8State</a>.</p>
+
+</div>
+</div>
+<a id="a528911683284afb4fc9731cfedfebc31" name="a528911683284afb4fc9731cfedfebc31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a528911683284afb4fc9731cfedfebc31">&#9670;&#160;</a></span>RCC_enumAPB2Config()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> RCC_enumAPB2Config </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8APB2Div</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configure APB2 bus clock prescaler. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Copy_u8APB2Div</td><td>APB2 prescaler value (APB_NOT_DIV to APB_DIV_16) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a>: Error status (RCC_OK, NOK, BUSY_STATE) </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd>RCC_enumAPB2Config(RCC_APB_NOT_DIV); </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="RCC__program_8c_source.html#l00399">399</a> of file <a class="el" href="RCC__program_8c_source.html">RCC_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="ErrTypes_8h_source.html#l00035">BUSY</a>, <a class="el" href="ErrTypes_8h_source.html#l00045">BUSY_STATE</a>, <a class="el" href="ErrTypes_8h_source.html#l00033">IDLE</a>, <a class="el" href="STM32F446xx_8h_source.html#l00244">MRCC</a>, <a class="el" href="ErrTypes_8h_source.html#l00043">NOK</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="RCC__interface_8h_source.html#l00154">RCC_APB_DIV_16</a>, <a class="el" href="RCC__interface_8h_source.html#l00150">RCC_APB_NOT_DIV</a>, and <a class="el" href="RCC__program_8c_source.html#l00028">RCC_u8State</a>.</p>
 
 </div>
 </div>
@@ -206,7 +349,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> RCC_enumAHPPerSts </td>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> RCC_enumAHPPerSts </td>
           <td>(</td>
           <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8Bus</em></span>, </td>
         </tr>
@@ -223,89 +366,47 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="RCC__program_8c_source.html#l00452">452</a> of file <a class="el" href="RCC__program_8c_source.html">RCC_program.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="RCC__program_8c_a64dea321b9d4592b409225e2b55fef5c_icgraph.png" border="0" usemap="#aRCC__program_8c_a64dea321b9d4592b409225e2b55fef5c_icgraph" loading="lazy" alt=""/></div>
-<map name="aRCC__program_8c_a64dea321b9d4592b409225e2b55fef5c_icgraph" id="aRCC__program_8c_a64dea321b9d4592b409225e2b55fef5c_icgraph">
-<area shape="rect" title=" " alt="" coords="269,5,429,33"/>
-<area shape="rect" href="System_8c.html#ae436954cd2bde6634ab271317d2494a7" title=" " alt="" coords="108,5,221,33"/>
-<area shape="poly" title=" " alt="" coords="251,19,221,22,221,17,256,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,95,18"/>
-</map>
+<p>Enable or disable peripheral clock on AHB buses. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Copy_u8Bus</td><td>AHB bus number (RCC_AHB1, RCC_AHB2, RCC_AHB3) </td></tr>
+    <tr><td class="paramname">Copy_u8AHPPer</td><td>Peripheral number on the selected bus (e.g., RCC_GPIOAEN) </td></tr>
+    <tr><td class="paramname">Copy_u8Status</td><td>Peripheral clock status (RCC_PER_ON, RCC_PER_OFF) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a>: Error status (RCC_OK, BUSY_STATE) </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd>RCC_enumAHPPerSts(RCC_AHB1, RCC_GPIOAEN, RCC_PER_ON); </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="RCC__program_8c_source.html#l00441">441</a> of file <a class="el" href="RCC__program_8c_source.html">RCC_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="ErrTypes_8h_source.html#l00035">BUSY</a>, <a class="el" href="ErrTypes_8h_source.html#l00045">BUSY_STATE</a>, <a class="el" href="STD__MACROS_8h_source.html#l00046">CLR_BIT</a>, <a class="el" href="ErrTypes_8h_source.html#l00033">IDLE</a>, <a class="el" href="STM32F446xx_8h_source.html#l00244">MRCC</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="RCC__interface_8h_source.html#l00024">RCC_AHB1</a>, <a class="el" href="RCC__interface_8h_source.html#l00025">RCC_AHB2</a>, <a class="el" href="RCC__interface_8h_source.html#l00026">RCC_AHB3</a>, <a class="el" href="RCC__interface_8h_source.html#l00229">RCC_PER_OFF</a>, <a class="el" href="RCC__interface_8h_source.html#l00228">RCC_PER_ON</a>, <a class="el" href="RCC__program_8c_source.html#l00028">RCC_u8State</a>, and <a class="el" href="STD__MACROS_8h_source.html#l00039">SET_BIT</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="System_8c_source.html#l00133">System_setup()</a>.</p>
+<div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="RCC__program_8c_a64dea321b9d4592b409225e2b55fef5c_icgraph.svg" width="435" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
 </div>
-<a id="a32ffc31db6be174ed88867d13b6fb770" name="a32ffc31db6be174ed88867d13b6fb770"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32ffc31db6be174ed88867d13b6fb770">&#9670;&#160;</a></span>RCC_enumAPB1Config()</h2>
+<a id="adcf07c53ca16c6ccd1af607d3173b2dc" name="adcf07c53ca16c6ccd1af607d3173b2dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcf07c53ca16c6ccd1af607d3173b2dc">&#9670;&#160;</a></span>RCC_enumABPPerSts()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> RCC_enumAPB1Config </td>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> RCC_enumABPPerSts </td>
           <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8APB1Div</em></span></td><td>)</td>
-          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8Bus</em></span>, </td>
         </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="RCC__program_8c_source.html#l00366">366</a> of file <a class="el" href="RCC__program_8c_source.html">RCC_program.c</a>.</p>
-
-</div>
-</div>
-<a id="a528911683284afb4fc9731cfedfebc31" name="a528911683284afb4fc9731cfedfebc31"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a528911683284afb4fc9731cfedfebc31">&#9670;&#160;</a></span>RCC_enumAPB2Config()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> RCC_enumAPB2Config </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8APB2Div</em></span></td><td>)</td>
+          <td class="paramkey"></td>
           <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="RCC__program_8c_source.html#l00409">409</a> of file <a class="el" href="RCC__program_8c_source.html">RCC_program.c</a>.</p>
-
-</div>
-</div>
-<a id="a39479df13627e03c2248209d30fb6baa" name="a39479df13627e03c2248209d30fb6baa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39479df13627e03c2248209d30fb6baa">&#9670;&#160;</a></span>RCC_enumPLLConfig()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> RCC_enumPLLConfig </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structRCC__PLLConfig__t.html">RCC_PLLConfig_t</a> *</td>          <td class="paramname"><span class="paramname"><em>Copy_PLLConfig</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="RCC__program_8c_source.html#l00257">257</a> of file <a class="el" href="RCC__program_8c_source.html">RCC_program.c</a>.</p>
-
-</div>
-</div>
-<a id="ac0546afcec3b849576c5b3ece143b9a9" name="ac0546afcec3b849576c5b3ece143b9a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0546afcec3b849576c5b3ece143b9a9">&#9670;&#160;</a></span>RCC_enumSetClkSts()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> RCC_enumSetClkSts </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8CLK</em></span>, </td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8AHPPer</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -315,38 +416,58 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="RCC__program_8c_source.html#l00053">53</a> of file <a class="el" href="RCC__program_8c_source.html">RCC_program.c</a>.</p>
+<p>Enable or disable peripheral clock on APB buses. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Copy_u8Bus</td><td>APB bus number (RCC_APB1, RCC_APB2) </td></tr>
+    <tr><td class="paramname">Copy_u8AHPPer</td><td>Peripheral number on the selected bus (e.g., RCC_USART2EN) </td></tr>
+    <tr><td class="paramname">Copy_u8Status</td><td>Peripheral clock status (RCC_PER_ON, RCC_PER_OFF) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a>: Error status (RCC_OK, BUSY_STATE) </dd></dl>
+<dl class="section user"><dt>Example:</dt><dd>RCC_enumABPPerSts(RCC_APB1, RCC_USART2EN, RCC_PER_ON); </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="RCC__program_8c_source.html#l00509">509</a> of file <a class="el" href="RCC__program_8c_source.html">RCC_program.c</a>.</p>
+
+<p class="reference">References <a class="el" href="ErrTypes_8h_source.html#l00035">BUSY</a>, <a class="el" href="ErrTypes_8h_source.html#l00045">BUSY_STATE</a>, <a class="el" href="STD__MACROS_8h_source.html#l00046">CLR_BIT</a>, <a class="el" href="ErrTypes_8h_source.html#l00033">IDLE</a>, <a class="el" href="STM32F446xx_8h_source.html#l00244">MRCC</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="RCC__interface_8h_source.html#l00027">RCC_APB1</a>, <a class="el" href="RCC__interface_8h_source.html#l00028">RCC_APB2</a>, <a class="el" href="RCC__interface_8h_source.html#l00229">RCC_PER_OFF</a>, <a class="el" href="RCC__interface_8h_source.html#l00228">RCC_PER_ON</a>, <a class="el" href="RCC__program_8c_source.html#l00028">RCC_u8State</a>, and <a class="el" href="STD__MACROS_8h_source.html#l00039">SET_BIT</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="System_8c_source.html#l00133">System_setup()</a>.</p>
+<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="RCC__program_8c_adcf07c53ca16c6ccd1af607d3173b2dc_icgraph.svg" width="434" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
-<a id="a4e5060e0774aa417bf2dbf5aad8904eb" name="a4e5060e0774aa417bf2dbf5aad8904eb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e5060e0774aa417bf2dbf5aad8904eb">&#9670;&#160;</a></span>RCC_enumSetSysClk()</h2>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="a537fc4bb205f0f47b72f30d2ed70a386" name="a537fc4bb205f0f47b72f30d2ed70a386"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a537fc4bb205f0f47b72f30d2ed70a386">&#9670;&#160;</a></span>RCC_u8State</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> RCC_enumSetSysClk </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8CLK</em></span></td><td>)</td>
-          <td></td>
+          <td class="memname">uint8_t RCC_u8State</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="RCC__program_8c_source.html#l00191">191</a> of file <a class="el" href="RCC__program_8c_source.html">RCC_program.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="RCC__program_8c_a4e5060e0774aa417bf2dbf5aad8904eb_icgraph.png" border="0" usemap="#aRCC__program_8c_a4e5060e0774aa417bf2dbf5aad8904eb_icgraph" loading="lazy" alt=""/></div>
-<map name="aRCC__program_8c_a4e5060e0774aa417bf2dbf5aad8904eb_icgraph" id="aRCC__program_8c_a4e5060e0774aa417bf2dbf5aad8904eb_icgraph">
-<area shape="rect" title=" " alt="" coords="269,5,426,33"/>
-<area shape="rect" href="System_8c.html#ae436954cd2bde6634ab271317d2494a7" title=" " alt="" coords="108,5,221,33"/>
-<area shape="poly" title=" " alt="" coords="251,19,222,22,221,17,256,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,95,18"/>
-</map>
-</div>
+<p>Reentrancy guard for the driver: <a class="el" href="group__lib.html#ga9c21a7caee326d7803b94ae1952b27ca" title="IDLE">IDLE</a> or <a class="el" href="group__lib.html#gab5be0aaddb58ffb9cb20c12530d66316" title="BUSY">BUSY</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="RCC__program_8c_source.html#l00028">28</a> of file <a class="el" href="RCC__program_8c_source.html">RCC_program.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RCC__program_8c_source.html#l00509">RCC_enumABPPerSts()</a>, <a class="el" href="RCC__program_8c_source.html#l00315">RCC_enumAHBConfig()</a>, <a class="el" href="RCC__program_8c_source.html#l00441">RCC_enumAHPPerSts()</a>, <a class="el" href="RCC__program_8c_source.html#l00357">RCC_enumAPB1Config()</a>, <a class="el" href="RCC__program_8c_source.html#l00399">RCC_enumAPB2Config()</a>, <a class="el" href="RCC__program_8c_source.html#l00250">RCC_enumPLLConfig()</a>, <a class="el" href="RCC__program_8c_source.html#l00048">RCC_enumSetClkSts()</a>, and <a class="el" href="RCC__program_8c_source.html#l00185">RCC_enumSetSysClk()</a>.</p>
 
 </div>
 </div>
@@ -363,7 +484,7 @@ Here is the caller graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_413f4e031a85da0d68269c6fd2f76e1c.html">Src</a></li><li class="navelem"><a href="RCC__program_8c.html">RCC_program.c</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Src</b></li><li class="navelem"><a href="RCC__program_8c.html">RCC_program.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

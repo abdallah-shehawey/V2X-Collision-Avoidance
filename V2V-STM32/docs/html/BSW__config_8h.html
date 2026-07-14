@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Inc/Application/BSW/BSW_config.h File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Inc/Application/BSW/BSW_config.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,44 +90,34 @@ $(function(){initNavTree('BSW__config_8h.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">BSW_config.h File Reference</div></div>
+  <div class="headertitle"><div class="title">BSW_config.h File Reference<div class="ingroups"><a class="el" href="group__app.html">Application</a> &raquo; <a class="el" href="group__app__bsw.html">BSW</a></div></div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="BSW__config_8h__dep__incl.png" border="0" usemap="#aInc_2Application_2BSW_2BSW__config_8hdep" loading="lazy" alt=""/></div>
-<map name="aInc_2Application_2BSW_2BSW__config_8hdep" id="aInc_2Application_2BSW_2BSW__config_8hdep">
-<area shape="rect" title=" " alt="" coords="5,5,157,50"/>
-<area shape="rect" href="BSW__program_8c.html" title=" " alt="" coords="7,98,155,126"/>
-<area shape="poly" title=" " alt="" coords="83,64,84,98,78,96,79,68"/>
-</map>
+
+<p>Compile-time configuration for the BSW driver — Blind Spot Warning.  
+<a href="#details">More...</a></p>
+<div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="BSW__config_8h__dep__incl.svg" width="238" height="131"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="BSW__config_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:aeb97789f4baf3ec92a8a71924b6271e9" id="r_aeb97789f4baf3ec92a8a71924b6271e9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aeb97789f4baf3ec92a8a71924b6271e9">BSW_SIDE_THRESHOLD</a>&#160;&#160;&#160;(60.0f)</td></tr>
-<tr class="memitem:a8b6f2ee7e091070e69743e594090dc95" id="r_a8b6f2ee7e091070e69743e594090dc95"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a8b6f2ee7e091070e69743e594090dc95">BSW_SIDE_CRITICAL</a>&#160;&#160;&#160;(40.0f)</td></tr>
+<tr class="memitem:aeb97789f4baf3ec92a8a71924b6271e9" id="r_aeb97789f4baf3ec92a8a71924b6271e9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aeb97789f4baf3ec92a8a71924b6271e9">BSW_SIDE_THRESHOLD</a></td></tr>
+<tr class="memdesc:aeb97789f4baf3ec92a8a71924b6271e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">A side ultrasonic reading below this means a vehicle is there [cm].  <br /></td></tr>
+<tr class="memitem:a8b6f2ee7e091070e69743e594090dc95" id="r_a8b6f2ee7e091070e69743e594090dc95"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a8b6f2ee7e091070e69743e594090dc95">BSW_SIDE_CRITICAL</a></td></tr>
+<tr class="memdesc:a8b6f2ee7e091070e69743e594090dc95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closer than this escalates the blind-spot alert to critical [cm].  <br /></td></tr>
 </table>
-<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="a8b6f2ee7e091070e69743e594090dc95" name="a8b6f2ee7e091070e69743e594090dc95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b6f2ee7e091070e69743e594090dc95">&#9670;&#160;</a></span>BSW_SIDE_CRITICAL</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Compile-time configuration for the BSW driver — Blind Spot Warning. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Abdelmoemen Shehawey  </dd></dl>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define BSW_SIDE_CRITICAL&#160;&#160;&#160;(40.0f)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="BSW__config_8h_source.html#l00022">22</a> of file <a class="el" href="BSW__config_8h_source.html">BSW_config.h</a>.</p>
-
-</div>
-</div>
+<p class="definition">Definition in file <a class="el" href="BSW__config_8h_source.html">BSW_config.h</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="aeb97789f4baf3ec92a8a71924b6271e9" name="aeb97789f4baf3ec92a8a71924b6271e9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeb97789f4baf3ec92a8a71924b6271e9">&#9670;&#160;</a></span>BSW_SIDE_THRESHOLD</h2>
 
@@ -135,12 +125,38 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define BSW_SIDE_THRESHOLD&#160;&#160;&#160;(60.0f)</td>
+          <td class="memname">#define BSW_SIDE_THRESHOLD</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="BSW__config_8h_source.html#l00018">18</a> of file <a class="el" href="BSW__config_8h_source.html">BSW_config.h</a>.</p>
+<p>A side ultrasonic reading below this means a vehicle is there [cm]. </p>
+<p>This is the <b>warning</b> band: a neighbor inside this distance raises a BSW warning. Tuned for the prototype — a small car in a tight corridor. </p>
+
+<p class="definition">Definition at line <a class="el" href="BSW__config_8h_source.html#l00030">30</a> of file <a class="el" href="BSW__config_8h_source.html">BSW_config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="BSW__program_8c_source.html#l00048">BSW_u8DistToSeverity()</a>, and <a class="el" href="BSW__program_8c_source.html#l00075">BSW_voidBeginCycle()</a>.</p>
+
+</div>
+</div>
+<a id="a8b6f2ee7e091070e69743e594090dc95" name="a8b6f2ee7e091070e69743e594090dc95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b6f2ee7e091070e69743e594090dc95">&#9670;&#160;</a></span>BSW_SIDE_CRITICAL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BSW_SIDE_CRITICAL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Closer than this escalates the blind-spot alert to critical [cm]. </p>
+<dl class="section warning"><dt>Warning</dt><dd>Must be <b>strictly less than</b> <a class="el" href="#aeb97789f4baf3ec92a8a71924b6271e9" title="BSW_SIDE_THRESHOLD">BSW_SIDE_THRESHOLD</a>. The two carve the range into <span class="tt">[CRITICAL, THRESHOLD)</span> = warning and <span class="tt">[0, CRITICAL)</span> = critical; making this the larger of the two collapses the warning band to nothing and the module would only ever report critical or safe. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="BSW__config_8h_source.html#l00040">40</a> of file <a class="el" href="BSW__config_8h_source.html">BSW_config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="BSW__program_8c_source.html#l00048">BSW_u8DistToSeverity()</a>.</p>
 
 </div>
 </div>
@@ -157,7 +173,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_f93dfce691d792349f1c14ede440e2e6.html">Inc</a></li><li class="navelem"><a href="dir_39944c0e13724f9c5fdb666d288b390a.html">Application</a></li><li class="navelem"><a href="dir_f53180c4c4aeadb870e7b95fc493e28a.html">BSW</a></li><li class="navelem"><a href="BSW__config_8h.html">BSW_config.h</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Inc</b></li><li class="navelem"><b>Application</b></li><li class="navelem"><b>BSW</b></li><li class="navelem"><a href="BSW__config_8h.html">BSW_config.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

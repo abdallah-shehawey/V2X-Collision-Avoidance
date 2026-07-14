@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Src/GPIO_prog.c File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Src/GPIO_prog.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,820 +90,118 @@ $(function(){initNavTree('GPIO__prog_8c.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">GPIO_prog.c File Reference</div></div>
+  <div class="headertitle"><div class="title">GPIO_prog.c File Reference<div class="ingroups"><a class="el" href="group__mcal.html">MCAL</a> &raquo; <a class="el" href="group__mcal__gpio.html">GPIO</a></div></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Implementation of the GPIO driver — the general-purpose I/O ports.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">../Inc/Drivers/LIB/STM32F446xx.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="STM32F446xx_8h_source.html">../Inc/Drivers/LIB/STM32F446xx.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="STD__MACROS_8h_source.html">../Inc/Drivers/LIB/STD_MACROS.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ErrTypes_8h_source.html">../Inc/Drivers/LIB/ErrTypes.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GPIO__interface_8h_source.html">../Inc/Drivers/MCAL/GPIO/GPIO_interface.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GPIO__private_8h_source.html">../Inc/Drivers/MCAL/GPIO/GPIO_private.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GPIO__config_8h_source.html">../Inc/Drivers/MCAL/GPIO/GPIO_config.h</a>&quot;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for GPIO_prog.c:</div>
-<div class="dyncontent">
-<div class="center"><img src="GPIO__prog_8c__incl.png" border="0" usemap="#aSrc_2GPIO__prog_8c" loading="lazy" alt=""/></div>
-<map name="aSrc_2GPIO__prog_8c" id="aSrc_2GPIO__prog_8c">
-<area shape="rect" title=" " alt="" coords="354,5,479,33"/>
-<area shape="rect" title=" " alt="" coords="56,182,126,210"/>
-<area shape="poly" title=" " alt="" coords="351,22,264,26,162,35,114,43,72,53,38,66,16,83,10,93,8,104,17,128,37,151,61,172,56,174,33,155,13,131,3,105,5,92,12,79,35,62,70,48,113,38,161,30,264,21,356,19"/>
-<area shape="rect" href="Drivers_2LIB_2STM32F446xx_8h.html" title=" " alt="" coords="26,81,156,126"/>
-<area shape="poly" title=" " alt="" coords="359,36,171,83,170,78,362,31"/>
-<area shape="rect" href="STD__MACROS_8h.html" title=" " alt="" coords="179,81,307,126"/>
-<area shape="poly" title=" " alt="" coords="386,35,304,76,302,71,391,32"/>
-<area shape="rect" href="ErrTypes_8h.html" title=" " alt="" coords="414,174,541,218"/>
-<area shape="poly" title=" " alt="" coords="455,31,489,50,504,64,516,80,522,100,521,122,504,162,501,158,516,121,517,101,511,82,500,67,486,55,455,36"/>
-<area shape="rect" href="GPIO__interface_8h.html" title=" " alt="" coords="331,81,502,126"/>
-<area shape="poly" title=" " alt="" coords="418,31,419,66,414,64,415,36"/>
-<area shape="rect" href="GPIO__private_8h.html" title=" " alt="" coords="576,81,734,126"/>
-<area shape="poly" title=" " alt="" coords="455,31,580,75,575,76,455,36"/>
-<area shape="rect" href="GPIO__config_8h.html" title=" " alt="" coords="758,81,909,126"/>
-<area shape="poly" title=" " alt="" coords="479,28,745,80,740,81,479,34"/>
-<area shape="poly" title=" " alt="" coords="93,124,94,167,89,166,89,128"/>
-<area shape="poly" title=" " alt="" coords="339,129,142,183,140,178,338,124"/>
-<area shape="poly" title=" " alt="" coords="432,124,457,162,452,160,430,128"/>
-</map>
+</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for GPIO_prog.c:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="GPIO__prog_8c__incl.svg" width="100%" height="481"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="GPIO__prog_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a2a5e7c89bc6bb7103d96334a8481ea9b" id="r_a2a5e7c89bc6bb7103d96334a8481ea9b"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2a5e7c89bc6bb7103d96334a8481ea9b">GPIO_enumPinInit</a> (const <a class="el" href="structGPIO__PinConfig__t.html">GPIO_PinConfig_t</a> *PinConfig)</td></tr>
-<tr class="memitem:ace91b940fa22755a89e086016721f8aa" id="r_ace91b940fa22755a89e086016721f8aa"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ace91b940fa22755a89e086016721f8aa">GPIO_enumLowNibbleInit</a> (<a class="el" href="structGPIO__LowNibbleConfig__t.html">GPIO_LowNibbleConfig_t</a> *LowNibbleConfig)</td></tr>
-<tr class="memitem:af5bb58748b4f2cf70c674d9566b63a97" id="r_af5bb58748b4f2cf70c674d9566b63a97"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#af5bb58748b4f2cf70c674d9566b63a97">GPIO_enumHighNibbleInit</a> (<a class="el" href="structGPIO__HighNibbleConfig__t.html">GPIO_HighNibbleConfig_t</a> *HighNibbleConfig)</td></tr>
-<tr class="memitem:a593d4ac1bc1d7198c9c3d56d05e23a07" id="r_a593d4ac1bc1d7198c9c3d56d05e23a07"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a593d4ac1bc1d7198c9c3d56d05e23a07">GPIO_enumByteInit</a> (<a class="el" href="structGPIO__ByteConfig__t.html">GPIO_ByteConfig_t</a> *ByteConfig)</td></tr>
-<tr class="memitem:a47aacfc99199904d2956173186b94d7f" id="r_a47aacfc99199904d2956173186b94d7f"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a47aacfc99199904d2956173186b94d7f">GPIO_enumHalfPortInit</a> (<a class="el" href="structGPIO__HalfPortConfig__t.html">GPIO_HalfPortConfig_t</a> *HalfPortConfig)</td></tr>
-<tr class="memitem:a2c01501f7ac9ed6dc2c172776c9203fa" id="r_a2c01501f7ac9ed6dc2c172776c9203fa"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2c01501f7ac9ed6dc2c172776c9203fa">GPIO_enumPortInit</a> (<a class="el" href="structGPIO__PortConfig__t.html">GPIO_PortConfig_t</a> *PortConfig)</td></tr>
-<tr class="memitem:a0e3f73a3160885bf15f427e9e894f2de" id="r_a0e3f73a3160885bf15f427e9e894f2de"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0e3f73a3160885bf15f427e9e894f2de">GPIO_enumPort8PinsInit</a> (<a class="el" href="structGPIO__8PinsConfig__t.html">GPIO_8PinsConfig_t</a> *GPIO_8PinsConfig)</td></tr>
-<tr class="memitem:a50576e5cecad40f4fa820bdacf2c270a" id="r_a50576e5cecad40f4fa820bdacf2c270a"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a50576e5cecad40f4fa820bdacf2c270a">GPIO_enumPort4PinsInit</a> (<a class="el" href="structGPIO__4PinsConfig__t.html">GPIO_4PinsConfig_t</a> *GPIO_4PinsConfig)</td></tr>
-<tr class="memitem:a5df6200f9c0d12a785ab2086f7e441ff" id="r_a5df6200f9c0d12a785ab2086f7e441ff"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5df6200f9c0d12a785ab2086f7e441ff">GPIO_enumWrite4PinsVal</a> (<a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> Port, <a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a> StartPin, uint8_t Value)</td></tr>
-<tr class="memitem:a87a110f35c3bd9d61a84e5dee20df70d" id="r_a87a110f35c3bd9d61a84e5dee20df70d"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a87a110f35c3bd9d61a84e5dee20df70d">GPIO_enumWrite8PinsVal</a> (<a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> Port, <a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a> StartPin, uint8_t Value)</td></tr>
-<tr class="memitem:ab8efebd278bcf731012c238a3f69fb5c" id="r_ab8efebd278bcf731012c238a3f69fb5c"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab8efebd278bcf731012c238a3f69fb5c">GPIO_enumWritePinVal</a> (<a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> Port, <a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a> PinNum, <a class="el" href="GPIO__interface_8h.html#a39c3ed4d8322ee2c517bd0d8e064e4f8">GPIO_PinValue_t</a> PinVal)</td></tr>
-<tr class="memitem:a3f0a533051c125627062a50e8a38fded" id="r_a3f0a533051c125627062a50e8a38fded"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3f0a533051c125627062a50e8a38fded">GPIO_enumReadPinVal</a> (<a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> Port, <a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a> PinNum, <a class="el" href="GPIO__interface_8h.html#a39c3ed4d8322ee2c517bd0d8e064e4f8">GPIO_PinValue_t</a> *PinVal)</td></tr>
-<tr class="memitem:aacd1fe5ce0d15fd5040c41745409ca20" id="r_aacd1fe5ce0d15fd5040c41745409ca20"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aacd1fe5ce0d15fd5040c41745409ca20">GPIO_enumTogPinVal</a> (<a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> Port, <a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a> PinNum)</td></tr>
-<tr class="memitem:a4456597da20f47afdce69e0a87b6ef21" id="r_a4456597da20f47afdce69e0a87b6ef21"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4456597da20f47afdce69e0a87b6ef21">GPIO_enumRead4PinsVal</a> (<a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> Port, <a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a> StartPin, uint8_t *PinsValue)</td></tr>
-<tr class="memitem:ab9623ca12f3b7738af049c3bbb858359" id="r_ab9623ca12f3b7738af049c3bbb858359"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab9623ca12f3b7738af049c3bbb858359">GPIO_enumRead8PinsVal</a> (<a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> Port, <a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a> StartPin, uint8_t *PinsValue)</td></tr>
-<tr class="memitem:aceac4c116796951c90c5ec500e6eb602" id="r_aceac4c116796951c90c5ec500e6eb602"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aceac4c116796951c90c5ec500e6eb602">GPIO_enumWriteLowNibbleVal</a> (<a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> port, uint8_t Copy_u8Val, <a class="el" href="GPIO__interface_8h.html#a39c3ed4d8322ee2c517bd0d8e064e4f8">GPIO_PinValue_t</a> PinsVal)</td></tr>
-<tr class="memitem:ab099300bf9c8765081d9e1d79f8325cb" id="r_ab099300bf9c8765081d9e1d79f8325cb"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab099300bf9c8765081d9e1d79f8325cb">GPIO_enumWriteHighNibbleVal</a> (<a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> port, uint8_t Copy_u8Val, <a class="el" href="GPIO__interface_8h.html#a39c3ed4d8322ee2c517bd0d8e064e4f8">GPIO_PinValue_t</a> PinsVal)</td></tr>
-<tr class="memitem:ab7a2804415a4ada1da55f247f7d251aa" id="r_ab7a2804415a4ada1da55f247f7d251aa"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab7a2804415a4ada1da55f247f7d251aa">GPIO_enumWriteByteVal</a> (<a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> port, uint8_t Copy_u8Val, <a class="el" href="GPIO__interface_8h.html#a39c3ed4d8322ee2c517bd0d8e064e4f8">GPIO_PinValue_t</a> PinsVal)</td></tr>
-<tr class="memitem:a3e3bfad526b91ab38ea3fdb971d015a7" id="r_a3e3bfad526b91ab38ea3fdb971d015a7"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3e3bfad526b91ab38ea3fdb971d015a7">GPIO_enumWriteHalfWordVal</a> (<a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> port, uint16_t Copy_u16Val, <a class="el" href="GPIO__interface_8h.html#a39c3ed4d8322ee2c517bd0d8e064e4f8">GPIO_PinValue_t</a> PinsVal)</td></tr>
-<tr class="memitem:aad5061927697c0d2f8f99c6aa146c605" id="r_aad5061927697c0d2f8f99c6aa146c605"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aad5061927697c0d2f8f99c6aa146c605">GPIO_enumWritePortVal</a> (<a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> port, uint16_t Copy_u16Val, <a class="el" href="GPIO__interface_8h.html#a39c3ed4d8322ee2c517bd0d8e064e4f8">GPIO_PinValue_t</a> PinsVal)</td></tr>
-<tr class="memitem:aa9ab64bad7421597169c43d8bd3e16e3" id="r_aa9ab64bad7421597169c43d8bd3e16e3"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa9ab64bad7421597169c43d8bd3e16e3">GPIO_enumReadLowNibbleVal</a> (<a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> port, uint8_t *LowNibbleVal)</td></tr>
-<tr class="memitem:ab0614709e608d60a6da511e6382c5448" id="r_ab0614709e608d60a6da511e6382c5448"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab0614709e608d60a6da511e6382c5448">GPIO_enumReadHighNibbleVal</a> (<a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> port, uint8_t *HighNibbleVal)</td></tr>
-<tr class="memitem:a1a62e3dea2ba83b5492640e9f8f88bcf" id="r_a1a62e3dea2ba83b5492640e9f8f88bcf"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1a62e3dea2ba83b5492640e9f8f88bcf">GPIO_enumReadByteVal</a> (<a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> port, uint8_t *ByteVal)</td></tr>
-<tr class="memitem:adccafed2049928790efb22602bfcef67" id="r_adccafed2049928790efb22602bfcef67"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#adccafed2049928790efb22602bfcef67">GPIO_enumReadHalfPortVal</a> (<a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> port, uint16_t *HalfPortVal)</td></tr>
-<tr class="memitem:a518fc2c707c44cdc8a356ba08d27f4a6" id="r_a518fc2c707c44cdc8a356ba08d27f4a6"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a518fc2c707c44cdc8a356ba08d27f4a6">GPIO_enumReadPortVal</a> (<a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> port, uint32_t *PortVal)</td></tr>
+<tr class="memitem:ga2a5e7c89bc6bb7103d96334a8481ea9b" id="r_ga2a5e7c89bc6bb7103d96334a8481ea9b"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#ga2a5e7c89bc6bb7103d96334a8481ea9b">GPIO_enumPinInit</a> (const <a class="el" href="structGPIO__PinConfig__t.html">GPIO_PinConfig_t</a> *PinConfig)</td></tr>
+<tr class="memdesc:ga2a5e7c89bc6bb7103d96334a8481ea9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure a single pin: mode, output type, speed, pull and AF.  <br /></td></tr>
+<tr class="memitem:gace91b940fa22755a89e086016721f8aa" id="r_gace91b940fa22755a89e086016721f8aa"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#gace91b940fa22755a89e086016721f8aa">GPIO_enumLowNibbleInit</a> (<a class="el" href="structGPIO__LowNibbleConfig__t.html">GPIO_LowNibbleConfig_t</a> *LowNibbleConfig)</td></tr>
+<tr class="memdesc:gace91b940fa22755a89e086016721f8aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure pins 0..3 of a port identically, in one call.  <br /></td></tr>
+<tr class="memitem:gaf5bb58748b4f2cf70c674d9566b63a97" id="r_gaf5bb58748b4f2cf70c674d9566b63a97"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#gaf5bb58748b4f2cf70c674d9566b63a97">GPIO_enumHighNibbleInit</a> (<a class="el" href="structGPIO__HighNibbleConfig__t.html">GPIO_HighNibbleConfig_t</a> *HighNibbleConfig)</td></tr>
+<tr class="memdesc:gaf5bb58748b4f2cf70c674d9566b63a97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure pins 4..7 of a port identically, in one call.  <br /></td></tr>
+<tr class="memitem:ga593d4ac1bc1d7198c9c3d56d05e23a07" id="r_ga593d4ac1bc1d7198c9c3d56d05e23a07"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#ga593d4ac1bc1d7198c9c3d56d05e23a07">GPIO_enumByteInit</a> (<a class="el" href="structGPIO__ByteConfig__t.html">GPIO_ByteConfig_t</a> *ByteConfig)</td></tr>
+<tr class="memdesc:ga593d4ac1bc1d7198c9c3d56d05e23a07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure pins 0..7 of a port identically, in one call.  <br /></td></tr>
+<tr class="memitem:ga47aacfc99199904d2956173186b94d7f" id="r_ga47aacfc99199904d2956173186b94d7f"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#ga47aacfc99199904d2956173186b94d7f">GPIO_enumHalfPortInit</a> (<a class="el" href="structGPIO__HalfPortConfig__t.html">GPIO_HalfPortConfig_t</a> *HalfPortConfig)</td></tr>
+<tr class="memdesc:ga47aacfc99199904d2956173186b94d7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure half a port identically, in one call.  <br /></td></tr>
+<tr class="memitem:ga2c01501f7ac9ed6dc2c172776c9203fa" id="r_ga2c01501f7ac9ed6dc2c172776c9203fa"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#ga2c01501f7ac9ed6dc2c172776c9203fa">GPIO_enumPortInit</a> (<a class="el" href="structGPIO__PortConfig__t.html">GPIO_PortConfig_t</a> *PortConfig)</td></tr>
+<tr class="memdesc:ga2c01501f7ac9ed6dc2c172776c9203fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure all 16 pins of a port identically, in one call.  <br /></td></tr>
+<tr class="memitem:ga0e3f73a3160885bf15f427e9e894f2de" id="r_ga0e3f73a3160885bf15f427e9e894f2de"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#ga0e3f73a3160885bf15f427e9e894f2de">GPIO_enumPort8PinsInit</a> (<a class="el" href="structGPIO__8PinsConfig__t.html">GPIO_8PinsConfig_t</a> *GPIO_8PinsConfig)</td></tr>
+<tr class="memdesc:ga0e3f73a3160885bf15f427e9e894f2de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure 8 consecutive pins starting at an arbitrary pin.  <br /></td></tr>
+<tr class="memitem:ga50576e5cecad40f4fa820bdacf2c270a" id="r_ga50576e5cecad40f4fa820bdacf2c270a"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#ga50576e5cecad40f4fa820bdacf2c270a">GPIO_enumPort4PinsInit</a> (<a class="el" href="structGPIO__4PinsConfig__t.html">GPIO_4PinsConfig_t</a> *GPIO_4PinsConfig)</td></tr>
+<tr class="memdesc:ga50576e5cecad40f4fa820bdacf2c270a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure 4 consecutive pins starting at an arbitrary pin.  <br /></td></tr>
+<tr class="memitem:ga5df6200f9c0d12a785ab2086f7e441ff" id="r_ga5df6200f9c0d12a785ab2086f7e441ff"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#ga5df6200f9c0d12a785ab2086f7e441ff">GPIO_enumWrite4PinsVal</a> (<a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> Port, <a class="el" href="group__mcal__gpio.html#ga5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a> StartPin, uint8_t Value)</td></tr>
+<tr class="memdesc:ga5df6200f9c0d12a785ab2086f7e441ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a 4-bit value onto 4 consecutive output pins.  <br /></td></tr>
+<tr class="memitem:ga87a110f35c3bd9d61a84e5dee20df70d" id="r_ga87a110f35c3bd9d61a84e5dee20df70d"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#ga87a110f35c3bd9d61a84e5dee20df70d">GPIO_enumWrite8PinsVal</a> (<a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> Port, <a class="el" href="group__mcal__gpio.html#ga5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a> StartPin, uint8_t Value)</td></tr>
+<tr class="memdesc:ga87a110f35c3bd9d61a84e5dee20df70d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write an 8-bit value onto 8 consecutive output pins.  <br /></td></tr>
+<tr class="memitem:gab8efebd278bcf731012c238a3f69fb5c" id="r_gab8efebd278bcf731012c238a3f69fb5c"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#gab8efebd278bcf731012c238a3f69fb5c">GPIO_enumWritePinVal</a> (<a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> Port, <a class="el" href="group__mcal__gpio.html#ga5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a> PinNum, <a class="el" href="group__mcal__gpio.html#ga39c3ed4d8322ee2c517bd0d8e064e4f8">GPIO_PinValue_t</a> PinVal)</td></tr>
+<tr class="memdesc:gab8efebd278bcf731012c238a3f69fb5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drive one output pin high or low.  <br /></td></tr>
+<tr class="memitem:ga3f0a533051c125627062a50e8a38fded" id="r_ga3f0a533051c125627062a50e8a38fded"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#ga3f0a533051c125627062a50e8a38fded">GPIO_enumReadPinVal</a> (<a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> Port, <a class="el" href="group__mcal__gpio.html#ga5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a> PinNum, <a class="el" href="group__mcal__gpio.html#ga39c3ed4d8322ee2c517bd0d8e064e4f8">GPIO_PinValue_t</a> *PinVal)</td></tr>
+<tr class="memdesc:ga3f0a533051c125627062a50e8a38fded"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the level currently present on one pin.  <br /></td></tr>
+<tr class="memitem:gaacd1fe5ce0d15fd5040c41745409ca20" id="r_gaacd1fe5ce0d15fd5040c41745409ca20"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#gaacd1fe5ce0d15fd5040c41745409ca20">GPIO_enumTogPinVal</a> (<a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> Port, <a class="el" href="group__mcal__gpio.html#ga5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a> PinNum)</td></tr>
+<tr class="memdesc:gaacd1fe5ce0d15fd5040c41745409ca20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invert the current output level of one pin.  <br /></td></tr>
+<tr class="memitem:ga4456597da20f47afdce69e0a87b6ef21" id="r_ga4456597da20f47afdce69e0a87b6ef21"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#ga4456597da20f47afdce69e0a87b6ef21">GPIO_enumRead4PinsVal</a> (<a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> Port, <a class="el" href="group__mcal__gpio.html#ga5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a> StartPin, uint8_t *PinsValue)</td></tr>
+<tr class="memdesc:ga4456597da20f47afdce69e0a87b6ef21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read 4 consecutive pins as a 4-bit value.  <br /></td></tr>
+<tr class="memitem:gab9623ca12f3b7738af049c3bbb858359" id="r_gab9623ca12f3b7738af049c3bbb858359"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#gab9623ca12f3b7738af049c3bbb858359">GPIO_enumRead8PinsVal</a> (<a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> Port, <a class="el" href="group__mcal__gpio.html#ga5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a> StartPin, uint8_t *PinsValue)</td></tr>
+<tr class="memdesc:gab9623ca12f3b7738af049c3bbb858359"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read 8 consecutive pins as an 8-bit value.  <br /></td></tr>
+<tr class="memitem:gaceac4c116796951c90c5ec500e6eb602" id="r_gaceac4c116796951c90c5ec500e6eb602"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#gaceac4c116796951c90c5ec500e6eb602">GPIO_enumWriteLowNibbleVal</a> (<a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> port, uint8_t Copy_u8Val, <a class="el" href="group__mcal__gpio.html#ga39c3ed4d8322ee2c517bd0d8e064e4f8">GPIO_PinValue_t</a> PinsVal)</td></tr>
+<tr class="memdesc:gaceac4c116796951c90c5ec500e6eb602"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set or clear a chosen subset of pins 0..3, atomically.  <br /></td></tr>
+<tr class="memitem:gab099300bf9c8765081d9e1d79f8325cb" id="r_gab099300bf9c8765081d9e1d79f8325cb"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#gab099300bf9c8765081d9e1d79f8325cb">GPIO_enumWriteHighNibbleVal</a> (<a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> port, uint8_t Copy_u8Val, <a class="el" href="group__mcal__gpio.html#ga39c3ed4d8322ee2c517bd0d8e064e4f8">GPIO_PinValue_t</a> PinsVal)</td></tr>
+<tr class="memdesc:gab099300bf9c8765081d9e1d79f8325cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set or clear a chosen subset of pins 4..7, atomically.  <br /></td></tr>
+<tr class="memitem:gab7a2804415a4ada1da55f247f7d251aa" id="r_gab7a2804415a4ada1da55f247f7d251aa"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#gab7a2804415a4ada1da55f247f7d251aa">GPIO_enumWriteByteVal</a> (<a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> port, uint8_t Copy_u8Val, <a class="el" href="group__mcal__gpio.html#ga39c3ed4d8322ee2c517bd0d8e064e4f8">GPIO_PinValue_t</a> PinsVal)</td></tr>
+<tr class="memdesc:gab7a2804415a4ada1da55f247f7d251aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set or clear a chosen subset of pins 0..7, atomically.  <br /></td></tr>
+<tr class="memitem:ga3e3bfad526b91ab38ea3fdb971d015a7" id="r_ga3e3bfad526b91ab38ea3fdb971d015a7"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#ga3e3bfad526b91ab38ea3fdb971d015a7">GPIO_enumWriteHalfWordVal</a> (<a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> port, uint16_t Copy_u16Val, <a class="el" href="group__mcal__gpio.html#ga39c3ed4d8322ee2c517bd0d8e064e4f8">GPIO_PinValue_t</a> PinsVal)</td></tr>
+<tr class="memdesc:ga3e3bfad526b91ab38ea3fdb971d015a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set or clear a chosen subset of all 16 pins, atomically.  <br /></td></tr>
+<tr class="memitem:gaad5061927697c0d2f8f99c6aa146c605" id="r_gaad5061927697c0d2f8f99c6aa146c605"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#gaad5061927697c0d2f8f99c6aa146c605">GPIO_enumWritePortVal</a> (<a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> port, uint16_t Copy_u16Val, <a class="el" href="group__mcal__gpio.html#ga39c3ed4d8322ee2c517bd0d8e064e4f8">GPIO_PinValue_t</a> PinsVal)</td></tr>
+<tr class="memdesc:gaad5061927697c0d2f8f99c6aa146c605"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set or clear a chosen subset of all 16 pins, atomically.  <br /></td></tr>
+<tr class="memitem:gaa9ab64bad7421597169c43d8bd3e16e3" id="r_gaa9ab64bad7421597169c43d8bd3e16e3"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#gaa9ab64bad7421597169c43d8bd3e16e3">GPIO_enumReadLowNibbleVal</a> (<a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> port, uint8_t *LowNibbleVal)</td></tr>
+<tr class="memdesc:gaa9ab64bad7421597169c43d8bd3e16e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read pins 0..3 of a port as a nibble.  <br /></td></tr>
+<tr class="memitem:gab0614709e608d60a6da511e6382c5448" id="r_gab0614709e608d60a6da511e6382c5448"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#gab0614709e608d60a6da511e6382c5448">GPIO_enumReadHighNibbleVal</a> (<a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> port, uint8_t *HighNibbleVal)</td></tr>
+<tr class="memdesc:gab0614709e608d60a6da511e6382c5448"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read pins 4..7 of a port as a nibble.  <br /></td></tr>
+<tr class="memitem:ga1a62e3dea2ba83b5492640e9f8f88bcf" id="r_ga1a62e3dea2ba83b5492640e9f8f88bcf"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#ga1a62e3dea2ba83b5492640e9f8f88bcf">GPIO_enumReadByteVal</a> (<a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> port, uint8_t *ByteVal)</td></tr>
+<tr class="memdesc:ga1a62e3dea2ba83b5492640e9f8f88bcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read pins 0..7 of a port as a byte.  <br /></td></tr>
+<tr class="memitem:gadccafed2049928790efb22602bfcef67" id="r_gadccafed2049928790efb22602bfcef67"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#gadccafed2049928790efb22602bfcef67">GPIO_enumReadHalfPortVal</a> (<a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> port, uint16_t *HalfPortVal)</td></tr>
+<tr class="memdesc:gadccafed2049928790efb22602bfcef67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read all 16 pins of a port as a half word.  <br /></td></tr>
+<tr class="memitem:ga518fc2c707c44cdc8a356ba08d27f4a6" id="r_ga518fc2c707c44cdc8a356ba08d27f4a6"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__mcal__gpio.html#ga518fc2c707c44cdc8a356ba08d27f4a6">GPIO_enumReadPortVal</a> (<a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> port, uint32_t *PortVal)</td></tr>
+<tr class="memdesc:ga518fc2c707c44cdc8a356ba08d27f4a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the whole <span class="tt">IDR</span> register of a port.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a1c4f329a4b2087fabcff2288dcc3e2bc" id="r_a1c4f329a4b2087fabcff2288dcc3e2bc"><td class="memItemLeft">static <a class="el" href="structGPIO__REGDEF__t.html">GPIO_REGDEF_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a1c4f329a4b2087fabcff2288dcc3e2bc">GPIO_Port</a> [<a class="el" href="GPIO__private_8h.html#af5eb82977ded49e09b93e0c7ae9468d6">GPIO_PORT_COUNT</a>]</td></tr>
+<tr class="memdesc:a1c4f329a4b2087fabcff2288dcc3e2bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps a <a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24" title="GPIO_Port_t">GPIO_Port_t</a> onto the port's register block.  <br /></td></tr>
 </table>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a593d4ac1bc1d7198c9c3d56d05e23a07" name="a593d4ac1bc1d7198c9c3d56d05e23a07"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a593d4ac1bc1d7198c9c3d56d05e23a07">&#9670;&#160;</a></span>GPIO_enumByteInit()</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Implementation of the GPIO driver — the general-purpose I/O ports. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Abdelmoemen Shehawey  </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
+</div><a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="a1c4f329a4b2087fabcff2288dcc3e2bc" name="a1c4f329a4b2087fabcff2288dcc3e2bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c4f329a4b2087fabcff2288dcc3e2bc">&#9670;&#160;</a></span>GPIO_Port</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumByteInit </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structGPIO__ByteConfig__t.html">GPIO_ByteConfig_t</a> *</td>          <td class="paramname"><span class="paramname"><em>ByteConfig</em></span></td><td>)</td>
-          <td></td>
+          <td class="memname"><a class="el" href="structGPIO__REGDEF__t.html">GPIO_REGDEF_t</a>* GPIO_Port[<a class="el" href="GPIO__private_8h.html#af5eb82977ded49e09b93e0c7ae9468d6">GPIO_PORT_COUNT</a>]</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00190">190</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="GPIO__prog_8c_a593d4ac1bc1d7198c9c3d56d05e23a07_cgraph.png" border="0" usemap="#aGPIO__prog_8c_a593d4ac1bc1d7198c9c3d56d05e23a07_cgraph" loading="lazy" alt=""/></div>
-<map name="aGPIO__prog_8c_a593d4ac1bc1d7198c9c3d56d05e23a07_cgraph" id="aGPIO__prog_8c_a593d4ac1bc1d7198c9c3d56d05e23a07_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,154,33"/>
-<area shape="rect" href="GPIO__prog_8c.html#a2a5e7c89bc6bb7103d96334a8481ea9b" title=" " alt="" coords="202,5,340,33"/>
-<area shape="poly" title=" " alt="" coords="154,17,189,19,183,19,154,22"/>
-</map>
-</div>
+<p>Maps a <a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24" title="GPIO_Port_t">GPIO_Port_t</a> onto the port's register block. </p>
+<dl class="section note"><dt>Note</dt><dd>The order must match <a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24" title="GPIO_Port_t">GPIO_Port_t</a> exactly — the enum indexes straight into this table. </dd></dl>
 
-</div>
-</div>
-<a id="a47aacfc99199904d2956173186b94d7f" name="a47aacfc99199904d2956173186b94d7f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47aacfc99199904d2956173186b94d7f">&#9670;&#160;</a></span>GPIO_enumHalfPortInit()</h2>
+<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00026">26</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumHalfPortInit </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structGPIO__HalfPortConfig__t.html">GPIO_HalfPortConfig_t</a> *</td>          <td class="paramname"><span class="paramname"><em>HalfPortConfig</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00234">234</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="GPIO__prog_8c_a47aacfc99199904d2956173186b94d7f_cgraph.png" border="0" usemap="#aGPIO__prog_8c_a47aacfc99199904d2956173186b94d7f_cgraph" loading="lazy" alt=""/></div>
-<map name="aGPIO__prog_8c_a47aacfc99199904d2956173186b94d7f_cgraph" id="aGPIO__prog_8c_a47aacfc99199904d2956173186b94d7f_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,177,33"/>
-<area shape="rect" href="GPIO__prog_8c.html#a2a5e7c89bc6bb7103d96334a8481ea9b" title=" " alt="" coords="225,5,363,33"/>
-<area shape="poly" title=" " alt="" coords="177,17,212,19,207,19,177,22"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="af5bb58748b4f2cf70c674d9566b63a97" name="af5bb58748b4f2cf70c674d9566b63a97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5bb58748b4f2cf70c674d9566b63a97">&#9670;&#160;</a></span>GPIO_enumHighNibbleInit()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumHighNibbleInit </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structGPIO__HighNibbleConfig__t.html">GPIO_HighNibbleConfig_t</a> *</td>          <td class="paramname"><span class="paramname"><em>HighNibbleConfig</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00146">146</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="GPIO__prog_8c_af5bb58748b4f2cf70c674d9566b63a97_cgraph.png" border="0" usemap="#aGPIO__prog_8c_af5bb58748b4f2cf70c674d9566b63a97_cgraph" loading="lazy" alt=""/></div>
-<map name="aGPIO__prog_8c_af5bb58748b4f2cf70c674d9566b63a97_cgraph" id="aGPIO__prog_8c_af5bb58748b4f2cf70c674d9566b63a97_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,196,33"/>
-<area shape="rect" href="GPIO__prog_8c.html#a2a5e7c89bc6bb7103d96334a8481ea9b" title=" " alt="" coords="244,5,382,33"/>
-<area shape="poly" title=" " alt="" coords="196,17,231,19,226,19,196,22"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ace91b940fa22755a89e086016721f8aa" name="ace91b940fa22755a89e086016721f8aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace91b940fa22755a89e086016721f8aa">&#9670;&#160;</a></span>GPIO_enumLowNibbleInit()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumLowNibbleInit </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structGPIO__LowNibbleConfig__t.html">GPIO_LowNibbleConfig_t</a> *</td>          <td class="paramname"><span class="paramname"><em>LowNibbleConfig</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00102">102</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="GPIO__prog_8c_ace91b940fa22755a89e086016721f8aa_cgraph.png" border="0" usemap="#aGPIO__prog_8c_ace91b940fa22755a89e086016721f8aa_cgraph" loading="lazy" alt=""/></div>
-<map name="aGPIO__prog_8c_ace91b940fa22755a89e086016721f8aa_cgraph" id="aGPIO__prog_8c_ace91b940fa22755a89e086016721f8aa_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,192,33"/>
-<area shape="rect" href="GPIO__prog_8c.html#a2a5e7c89bc6bb7103d96334a8481ea9b" title=" " alt="" coords="240,5,378,33"/>
-<area shape="poly" title=" " alt="" coords="192,17,227,19,221,19,192,22"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a2a5e7c89bc6bb7103d96334a8481ea9b" name="a2a5e7c89bc6bb7103d96334a8481ea9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a5e7c89bc6bb7103d96334a8481ea9b">&#9670;&#160;</a></span>GPIO_enumPinInit()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumPinInit </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structGPIO__PinConfig__t.html">GPIO_PinConfig_t</a> *</td>          <td class="paramname"><span class="paramname"><em>PinConfig</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00041">41</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="GPIO__prog_8c_a2a5e7c89bc6bb7103d96334a8481ea9b_icgraph.png" border="0" usemap="#aGPIO__prog_8c_a2a5e7c89bc6bb7103d96334a8481ea9b_icgraph" loading="lazy" alt=""/></div>
-<map name="aGPIO__prog_8c_a2a5e7c89bc6bb7103d96334a8481ea9b_icgraph" id="aGPIO__prog_8c_a2a5e7c89bc6bb7103d96334a8481ea9b_icgraph">
-<area shape="rect" title=" " alt="" coords="507,289,646,317"/>
-<area shape="rect" href="BUZ__program_8c.html#aee43f9ae5f162980c0e95c9a96694e4a" title="Initialize the buzzer pin." alt="" coords="326,5,403,33"/>
-<area shape="poly" title=" " alt="" coords="567,273,555,227,533,167,501,106,481,78,458,53,431,37,404,27,403,22,434,32,461,49,485,75,506,103,538,165,560,225,572,275"/>
-<area shape="rect" href="System_8c.html#ae436954cd2bde6634ab271317d2494a7" title=" " alt="" coords="108,471,221,498"/>
-<area shape="poly" title=" " alt="" coords="566,274,554,233,532,183,501,135,481,114,458,97,407,72,384,65,362,62,340,64,318,70,295,81,271,97,249,124,230,166,214,218,200,277,180,391,170,471,165,469,175,390,195,276,209,217,225,164,245,121,267,93,292,76,316,65,339,59,362,57,385,60,409,67,461,93,484,110,505,131,537,181,559,231,572,275"/>
-<area shape="rect" href="GPIO__prog_8c.html#a593d4ac1bc1d7198c9c3d56d05e23a07" title=" " alt="" coords="290,107,438,134"/>
-<area shape="poly" title=" " alt="" coords="559,275,520,212,491,178,458,149,436,138,436,132,461,145,495,175,524,209,565,276"/>
-<area shape="rect" href="GPIO__prog_8c.html#a47aacfc99199904d2956173186b94d7f" title=" " alt="" coords="278,159,450,186"/>
-<area shape="poly" title=" " alt="" coords="550,278,510,239,458,201,432,190,431,184,461,197,514,235,556,278"/>
-<area shape="rect" href="GPIO__prog_8c.html#af5bb58748b4f2cf70c674d9566b63a97" title=" " alt="" coords="269,211,459,238"/>
-<area shape="poly" title=" " alt="" coords="530,283,458,254,422,242,421,236,460,249,535,282"/>
-<area shape="rect" href="GPIO__prog_8c.html#ace91b940fa22755a89e086016721f8aa" title=" " alt="" coords="271,263,457,290"/>
-<area shape="poly" title=" " alt="" coords="489,293,458,291,457,286,495,292"/>
-<area shape="rect" href="GPIO__prog_8c.html#a50576e5cecad40f4fa820bdacf2c270a" title=" " alt="" coords="274,315,454,342"/>
-<area shape="poly" title=" " alt="" coords="490,314,455,320,453,315,495,312"/>
-<area shape="rect" href="GPIO__prog_8c.html#a0e3f73a3160885bf15f427e9e894f2de" title=" " alt="" coords="274,367,454,394"/>
-<area shape="poly" title=" " alt="" coords="529,325,460,356,422,369,420,364,458,351,534,323"/>
-<area shape="rect" href="GPIO__prog_8c.html#a2c01501f7ac9ed6dc2c172776c9203fa" title=" " alt="" coords="292,419,436,446"/>
-<area shape="poly" title=" " alt="" coords="555,327,514,370,461,408,432,421,430,416,458,404,510,366,551,330"/>
-<area shape="rect" href="LED__prog_8c.html#a332224917c43c9232229ad1d349501e4" title=" " alt="" coords="327,471,401,498"/>
-<area shape="poly" title=" " alt="" coords="564,329,524,397,495,431,461,460,432,474,402,482,401,477,430,469,458,456,491,427,519,393,560,332"/>
-<area shape="rect" href="MPU9250__program_8c.html#a152f5e09dbda831d60bc3d5241d714ad" title="Initializes the MPU9250 sensor and its internal I2C master." alt="" coords="290,523,438,550"/>
-<area shape="poly" title=" " alt="" coords="569,330,555,373,532,421,501,470,461,512,439,525,438,520,458,508,497,467,528,419,550,371,565,334"/>
-<area shape="rect" href="US__prog_8c.html#a29b879f76d665878390dd6161d1eea84" title=" " alt="" coords="326,575,402,602"/>
-<area shape="poly" title=" " alt="" coords="572,330,561,383,540,445,508,509,486,538,461,564,433,580,403,588,402,583,431,575,458,560,482,535,503,506,535,443,556,381,569,334"/>
-<area shape="poly" title=" " alt="" coords="309,29,290,39,271,53,250,86,232,135,202,260,181,386,170,471,165,469,175,385,196,259,227,134,246,84,267,49,287,34,313,25"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,471,60,498"/>
-<area shape="poly" title=" " alt="" coords="90,486,61,487,59,482,94,483"/>
-<area shape="poly" title=" " alt="" coords="309,485,222,487,221,482,314,484"/>
-<area shape="poly" title=" " alt="" coords="290,519,221,502,221,496,296,518"/>
-<area shape="poly" title=" " alt="" coords="309,577,268,564,218,533,180,501,182,496,221,528,270,559,314,578"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a50576e5cecad40f4fa820bdacf2c270a" name="a50576e5cecad40f4fa820bdacf2c270a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50576e5cecad40f4fa820bdacf2c270a">&#9670;&#160;</a></span>GPIO_enumPort4PinsInit()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumPort4PinsInit </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structGPIO__4PinsConfig__t.html">GPIO_4PinsConfig_t</a> *</td>          <td class="paramname"><span class="paramname"><em>GPIO_4PinsConfig</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00383">383</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="GPIO__prog_8c_a50576e5cecad40f4fa820bdacf2c270a_cgraph.png" border="0" usemap="#aGPIO__prog_8c_a50576e5cecad40f4fa820bdacf2c270a_cgraph" loading="lazy" alt=""/></div>
-<map name="aGPIO__prog_8c_a50576e5cecad40f4fa820bdacf2c270a_cgraph" id="aGPIO__prog_8c_a50576e5cecad40f4fa820bdacf2c270a_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,185,33"/>
-<area shape="rect" href="GPIO__prog_8c.html#a2a5e7c89bc6bb7103d96334a8481ea9b" title=" " alt="" coords="233,5,371,33"/>
-<area shape="poly" title=" " alt="" coords="185,17,220,19,214,19,185,22"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a0e3f73a3160885bf15f427e9e894f2de" name="a0e3f73a3160885bf15f427e9e894f2de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e3f73a3160885bf15f427e9e894f2de">&#9670;&#160;</a></span>GPIO_enumPort8PinsInit()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumPort8PinsInit </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structGPIO__8PinsConfig__t.html">GPIO_8PinsConfig_t</a> *</td>          <td class="paramname"><span class="paramname"><em>GPIO_8PinsConfig</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00329">329</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="GPIO__prog_8c_a0e3f73a3160885bf15f427e9e894f2de_cgraph.png" border="0" usemap="#aGPIO__prog_8c_a0e3f73a3160885bf15f427e9e894f2de_cgraph" loading="lazy" alt=""/></div>
-<map name="aGPIO__prog_8c_a0e3f73a3160885bf15f427e9e894f2de_cgraph" id="aGPIO__prog_8c_a0e3f73a3160885bf15f427e9e894f2de_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,185,33"/>
-<area shape="rect" href="GPIO__prog_8c.html#a2a5e7c89bc6bb7103d96334a8481ea9b" title=" " alt="" coords="233,5,371,33"/>
-<area shape="poly" title=" " alt="" coords="185,17,220,19,214,19,185,22"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a2c01501f7ac9ed6dc2c172776c9203fa" name="a2c01501f7ac9ed6dc2c172776c9203fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c01501f7ac9ed6dc2c172776c9203fa">&#9670;&#160;</a></span>GPIO_enumPortInit()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumPortInit </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structGPIO__PortConfig__t.html">GPIO_PortConfig_t</a> *</td>          <td class="paramname"><span class="paramname"><em>PortConfig</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00278">278</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="GPIO__prog_8c_a2c01501f7ac9ed6dc2c172776c9203fa_cgraph.png" border="0" usemap="#aGPIO__prog_8c_a2c01501f7ac9ed6dc2c172776c9203fa_cgraph" loading="lazy" alt=""/></div>
-<map name="aGPIO__prog_8c_a2c01501f7ac9ed6dc2c172776c9203fa_cgraph" id="aGPIO__prog_8c_a2c01501f7ac9ed6dc2c172776c9203fa_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,150,33"/>
-<area shape="rect" href="GPIO__prog_8c.html#a2a5e7c89bc6bb7103d96334a8481ea9b" title=" " alt="" coords="198,5,336,33"/>
-<area shape="poly" title=" " alt="" coords="150,17,185,19,179,19,150,22"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a4456597da20f47afdce69e0a87b6ef21" name="a4456597da20f47afdce69e0a87b6ef21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4456597da20f47afdce69e0a87b6ef21">&#9670;&#160;</a></span>GPIO_enumRead4PinsVal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumRead4PinsVal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a></td>          <td class="paramname"><span class="paramname"><em>Port</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a></td>          <td class="paramname"><span class="paramname"><em>StartPin</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>PinsValue</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00580">580</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-
-</div>
-</div>
-<a id="ab9623ca12f3b7738af049c3bbb858359" name="ab9623ca12f3b7738af049c3bbb858359"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9623ca12f3b7738af049c3bbb858359">&#9670;&#160;</a></span>GPIO_enumRead8PinsVal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumRead8PinsVal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a></td>          <td class="paramname"><span class="paramname"><em>Port</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a></td>          <td class="paramname"><span class="paramname"><em>StartPin</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>PinsValue</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00611">611</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-
-</div>
-</div>
-<a id="a1a62e3dea2ba83b5492640e9f8f88bcf" name="a1a62e3dea2ba83b5492640e9f8f88bcf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a62e3dea2ba83b5492640e9f8f88bcf">&#9670;&#160;</a></span>GPIO_enumReadByteVal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumReadByteVal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a></td>          <td class="paramname"><span class="paramname"><em>port</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>ByteVal</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00871">871</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-
-</div>
-</div>
-<a id="adccafed2049928790efb22602bfcef67" name="adccafed2049928790efb22602bfcef67"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adccafed2049928790efb22602bfcef67">&#9670;&#160;</a></span>GPIO_enumReadHalfPortVal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumReadHalfPortVal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a></td>          <td class="paramname"><span class="paramname"><em>port</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t *</td>          <td class="paramname"><span class="paramname"><em>HalfPortVal</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00899">899</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-
-</div>
-</div>
-<a id="ab0614709e608d60a6da511e6382c5448" name="ab0614709e608d60a6da511e6382c5448"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0614709e608d60a6da511e6382c5448">&#9670;&#160;</a></span>GPIO_enumReadHighNibbleVal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumReadHighNibbleVal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a></td>          <td class="paramname"><span class="paramname"><em>port</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>HighNibbleVal</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00843">843</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-
-</div>
-</div>
-<a id="aa9ab64bad7421597169c43d8bd3e16e3" name="aa9ab64bad7421597169c43d8bd3e16e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9ab64bad7421597169c43d8bd3e16e3">&#9670;&#160;</a></span>GPIO_enumReadLowNibbleVal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumReadLowNibbleVal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a></td>          <td class="paramname"><span class="paramname"><em>port</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>LowNibbleVal</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00815">815</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-
-</div>
-</div>
-<a id="a3f0a533051c125627062a50e8a38fded" name="a3f0a533051c125627062a50e8a38fded"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f0a533051c125627062a50e8a38fded">&#9670;&#160;</a></span>GPIO_enumReadPinVal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumReadPinVal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a></td>          <td class="paramname"><span class="paramname"><em>Port</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a></td>          <td class="paramname"><span class="paramname"><em>PinNum</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#a39c3ed4d8322ee2c517bd0d8e064e4f8">GPIO_PinValue_t</a> *</td>          <td class="paramname"><span class="paramname"><em>PinVal</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00524">524</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-
-</div>
-</div>
-<a id="a518fc2c707c44cdc8a356ba08d27f4a6" name="a518fc2c707c44cdc8a356ba08d27f4a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a518fc2c707c44cdc8a356ba08d27f4a6">&#9670;&#160;</a></span>GPIO_enumReadPortVal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumReadPortVal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a></td>          <td class="paramname"><span class="paramname"><em>port</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t *</td>          <td class="paramname"><span class="paramname"><em>PortVal</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00927">927</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-
-</div>
-</div>
-<a id="aacd1fe5ce0d15fd5040c41745409ca20" name="aacd1fe5ce0d15fd5040c41745409ca20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aacd1fe5ce0d15fd5040c41745409ca20">&#9670;&#160;</a></span>GPIO_enumTogPinVal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumTogPinVal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a></td>          <td class="paramname"><span class="paramname"><em>Port</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a></td>          <td class="paramname"><span class="paramname"><em>PinNum</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00555">555</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="GPIO__prog_8c_aacd1fe5ce0d15fd5040c41745409ca20_icgraph.png" border="0" usemap="#aGPIO__prog_8c_aacd1fe5ce0d15fd5040c41745409ca20_icgraph" loading="lazy" alt=""/></div>
-<map name="aGPIO__prog_8c_aacd1fe5ce0d15fd5040c41745409ca20_icgraph" id="aGPIO__prog_8c_aacd1fe5ce0d15fd5040c41745409ca20_icgraph">
-<area shape="rect" title=" " alt="" coords="152,32,311,60"/>
-<area shape="rect" href="BUZ__program_8c.html#aaee2a85a84cc58a2be5fa0e7c32e5837" title="Toggle the buzzer state." alt="" coords="5,5,104,33"/>
-<area shape="poly" title=" " alt="" coords="133,32,104,29,104,24,139,31"/>
-<area shape="rect" href="LED__prog_8c.html#afeefd0dfa8d890b751881b215366b63b" title=" " alt="" coords="7,57,102,85"/>
-<area shape="poly" title=" " alt="" coords="133,60,103,67,102,62,139,59"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a5df6200f9c0d12a785ab2086f7e441ff" name="a5df6200f9c0d12a785ab2086f7e441ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5df6200f9c0d12a785ab2086f7e441ff">&#9670;&#160;</a></span>GPIO_enumWrite4PinsVal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumWrite4PinsVal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a></td>          <td class="paramname"><span class="paramname"><em>Port</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a></td>          <td class="paramname"><span class="paramname"><em>StartPin</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Value</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00433">433</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-
-</div>
-</div>
-<a id="a87a110f35c3bd9d61a84e5dee20df70d" name="a87a110f35c3bd9d61a84e5dee20df70d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87a110f35c3bd9d61a84e5dee20df70d">&#9670;&#160;</a></span>GPIO_enumWrite8PinsVal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumWrite8PinsVal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a></td>          <td class="paramname"><span class="paramname"><em>Port</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a></td>          <td class="paramname"><span class="paramname"><em>StartPin</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Value</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00460">460</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-
-</div>
-</div>
-<a id="ab7a2804415a4ada1da55f247f7d251aa" name="ab7a2804415a4ada1da55f247f7d251aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7a2804415a4ada1da55f247f7d251aa">&#9670;&#160;</a></span>GPIO_enumWriteByteVal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumWriteByteVal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a></td>          <td class="paramname"><span class="paramname"><em>port</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8Val</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#a39c3ed4d8322ee2c517bd0d8e064e4f8">GPIO_PinValue_t</a></td>          <td class="paramname"><span class="paramname"><em>PinsVal</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00710">710</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-
-</div>
-</div>
-<a id="a3e3bfad526b91ab38ea3fdb971d015a7" name="a3e3bfad526b91ab38ea3fdb971d015a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e3bfad526b91ab38ea3fdb971d015a7">&#9670;&#160;</a></span>GPIO_enumWriteHalfWordVal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumWriteHalfWordVal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a></td>          <td class="paramname"><span class="paramname"><em>port</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u16Val</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#a39c3ed4d8322ee2c517bd0d8e064e4f8">GPIO_PinValue_t</a></td>          <td class="paramname"><span class="paramname"><em>PinsVal</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00745">745</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-
-</div>
-</div>
-<a id="ab099300bf9c8765081d9e1d79f8325cb" name="ab099300bf9c8765081d9e1d79f8325cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab099300bf9c8765081d9e1d79f8325cb">&#9670;&#160;</a></span>GPIO_enumWriteHighNibbleVal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumWriteHighNibbleVal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a></td>          <td class="paramname"><span class="paramname"><em>port</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8Val</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#a39c3ed4d8322ee2c517bd0d8e064e4f8">GPIO_PinValue_t</a></td>          <td class="paramname"><span class="paramname"><em>PinsVal</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00675">675</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-
-</div>
-</div>
-<a id="aceac4c116796951c90c5ec500e6eb602" name="aceac4c116796951c90c5ec500e6eb602"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aceac4c116796951c90c5ec500e6eb602">&#9670;&#160;</a></span>GPIO_enumWriteLowNibbleVal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumWriteLowNibbleVal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a></td>          <td class="paramname"><span class="paramname"><em>port</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8Val</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#a39c3ed4d8322ee2c517bd0d8e064e4f8">GPIO_PinValue_t</a></td>          <td class="paramname"><span class="paramname"><em>PinsVal</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00640">640</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-
-</div>
-</div>
-<a id="ab8efebd278bcf731012c238a3f69fb5c" name="ab8efebd278bcf731012c238a3f69fb5c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8efebd278bcf731012c238a3f69fb5c">&#9670;&#160;</a></span>GPIO_enumWritePinVal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumWritePinVal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a></td>          <td class="paramname"><span class="paramname"><em>Port</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a></td>          <td class="paramname"><span class="paramname"><em>PinNum</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#a39c3ed4d8322ee2c517bd0d8e064e4f8">GPIO_PinValue_t</a></td>          <td class="paramname"><span class="paramname"><em>PinVal</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00485">485</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="GPIO__prog_8c_ab8efebd278bcf731012c238a3f69fb5c_icgraph.png" border="0" usemap="#aGPIO__prog_8c_ab8efebd278bcf731012c238a3f69fb5c_icgraph" loading="lazy" alt=""/></div>
-<map name="aGPIO__prog_8c_ab8efebd278bcf731012c238a3f69fb5c_icgraph" id="aGPIO__prog_8c_ab8efebd278bcf731012c238a3f69fb5c_icgraph">
-<area shape="rect" title=" " alt="" coords="592,105,764,133"/>
-<area shape="rect" href="BUZ__program_8c.html#a6ea5cda725dca71e4c638f57f43eecd7" title="Turn off the buzzer." alt="" coords="456,27,532,54"/>
-<area shape="poly" title=" " alt="" coords="627,99,528,57,529,52,632,99"/>
-<area shape="rect" href="BUZ__program_8c.html#ab7f7f6ad4821bcc1ce356a6912597511" title="Turn on the buzzer." alt="" coords="457,79,531,106"/>
-<area shape="poly" title=" " alt="" coords="574,105,532,101,532,95,579,104"/>
-<area shape="rect" href="LED__prog_8c.html#ab3011d692cf858177af7261a76b1a654" title=" " alt="" coords="444,131,544,158"/>
-<area shape="poly" title=" " alt="" coords="579,133,545,140,544,135,573,134"/>
-<area shape="rect" href="LED__prog_8c.html#aa4c69b1b0028cbaebddb177443aa022a" title=" " alt="" coords="445,183,543,210"/>
-<area shape="poly" title=" " alt="" coords="632,139,530,185,528,180,626,140"/>
-<area shape="rect" href="BUZ__program_8c.html#aee43f9ae5f162980c0e95c9a96694e4a" title="Initialize the buzzer pin." alt="" coords="294,27,371,54"/>
-<area shape="poly" title=" " alt="" coords="438,41,372,43,371,38,443,40"/>
-<area shape="rect" href="System_8c.html#ae436954cd2bde6634ab271317d2494a7" title=" " alt="" coords="108,77,221,105"/>
-<area shape="poly" title=" " alt="" coords="439,23,403,16,359,10,314,9,270,18,243,30,218,46,180,79,177,75,215,42,240,25,268,13,313,4,360,4,404,11,444,22"/>
-<area shape="rect" href="main_8c.html#a96452f43e9871212929e6e6a969bec13" title="Alert manager (the &quot;Muscle&quot;): drives the LEDs + buzzer from the ADAS status word. It makes NO decisio..." alt="" coords="269,128,396,156"/>
-<area shape="poly" title=" " alt="" coords="455,61,446,69,355,130,353,125,443,65,450,63"/>
-<area shape="poly" title=" " alt="" coords="277,58,214,79,212,74,282,55"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,103,60,130"/>
-<area shape="poly" title=" " alt="" coords="90,107,61,114,59,109,94,103"/>
-<area shape="poly" title=" " alt="" coords="253,138,60,121,60,116,255,133"/>
-<area shape="poly" title=" " alt="" coords="439,94,221,94,221,89,443,90"/>
-<area shape="poly" title=" " alt="" coords="444,108,381,130,380,125,439,109"/>
-<area shape="poly" title=" " alt="" coords="439,162,399,174,356,179,312,178,268,170,240,157,215,141,178,108,179,103,218,136,243,153,270,165,312,173,356,174,398,168,433,163"/>
-<area shape="poly" title=" " alt="" coords="426,144,397,146,396,140,431,143"/>
-<area shape="poly" title=" " alt="" coords="427,203,351,204,308,197,268,184,239,168,212,147,176,108,177,103,216,143,241,164,270,179,310,192,351,198,432,203"/>
-<area shape="poly" title=" " alt="" coords="434,177,376,159,376,154,440,177"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="aad5061927697c0d2f8f99c6aa146c605" name="aad5061927697c0d2f8f99c6aa146c605"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad5061927697c0d2f8f99c6aa146c605">&#9670;&#160;</a></span>GPIO_enumWritePortVal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> GPIO_enumWritePortVal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a></td>          <td class="paramname"><span class="paramname"><em>port</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u16Val</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="GPIO__interface_8h.html#a39c3ed4d8322ee2c517bd0d8e064e4f8">GPIO_PinValue_t</a></td>          <td class="paramname"><span class="paramname"><em>PinsVal</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="GPIO__prog_8c_source.html#l00780">780</a> of file <a class="el" href="GPIO__prog_8c_source.html">GPIO_prog.c</a>.</p>
+<p class="reference">Referenced by <a class="el" href="GPIO__prog_8c_source.html#l00041">GPIO_enumPinInit()</a>, <a class="el" href="GPIO__prog_8c_source.html#l00567">GPIO_enumRead4PinsVal()</a>, <a class="el" href="GPIO__prog_8c_source.html#l00597">GPIO_enumRead8PinsVal()</a>, <a class="el" href="GPIO__prog_8c_source.html#l00849">GPIO_enumReadByteVal()</a>, <a class="el" href="GPIO__prog_8c_source.html#l00876">GPIO_enumReadHalfPortVal()</a>, <a class="el" href="GPIO__prog_8c_source.html#l00822">GPIO_enumReadHighNibbleVal()</a>, <a class="el" href="GPIO__prog_8c_source.html#l00795">GPIO_enumReadLowNibbleVal()</a>, <a class="el" href="GPIO__prog_8c_source.html#l00513">GPIO_enumReadPinVal()</a>, <a class="el" href="GPIO__prog_8c_source.html#l00903">GPIO_enumReadPortVal()</a>, <a class="el" href="GPIO__prog_8c_source.html#l00543">GPIO_enumTogPinVal()</a>, <a class="el" href="GPIO__prog_8c_source.html#l00425">GPIO_enumWrite4PinsVal()</a>, <a class="el" href="GPIO__prog_8c_source.html#l00451">GPIO_enumWrite8PinsVal()</a>, <a class="el" href="GPIO__prog_8c_source.html#l00693">GPIO_enumWriteByteVal()</a>, <a class="el" href="GPIO__prog_8c_source.html#l00727">GPIO_enumWriteHalfWordVal()</a>, <a class="el" href="GPIO__prog_8c_source.html#l00659">GPIO_enumWriteHighNibbleVal()</a>, <a class="el" href="GPIO__prog_8c_source.html#l00625">GPIO_enumWriteLowNibbleVal()</a>, <a class="el" href="GPIO__prog_8c_source.html#l00475">GPIO_enumWritePinVal()</a>, and <a class="el" href="GPIO__prog_8c_source.html#l00761">GPIO_enumWritePortVal()</a>.</p>
 
 </div>
 </div>
@@ -920,7 +218,7 @@ Here is the caller graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_413f4e031a85da0d68269c6fd2f76e1c.html">Src</a></li><li class="navelem"><a href="GPIO__prog_8c.html">GPIO_prog.c</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Src</b></li><li class="navelem"><a href="GPIO__prog_8c.html">GPIO_prog.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

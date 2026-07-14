@@ -1,3 +1,12 @@
+/**
+ ******************************************************************************
+ * @file    FCW_DNPW_interface.h
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Public API of the FCW/DNPW driver — Forward Collision Warning and Do-Not-Pass Warning.
+ * @ingroup app_fcw_dnpw
+ ******************************************************************************
+ */
+
 #ifndef FCW_DNPW_INTERFACE_H
 #define FCW_DNPW_INTERFACE_H
 

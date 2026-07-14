@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['🔧_20v2v_20stm32_20—_20real_20time_20safety_20core_0',['🔧 V2V-STM32 — Real-Time Safety Core',['../md_README.html',1,'']]]
+  ['x_0',['X',['../structMPU9250__Position__t.html#a4fe225ef27b2b7f0ee9e0b7a3064f0b6',1,'MPU9250_Position_t']]],
+  ['xg_5foffset_5fh_1',['XG_OFFSET_H',['../group__hal__mpu9250.html#ga2dff8273af3bfe1bb8d2565df1f1444d',1,'MPU9250_private.h']]],
+  ['xg_5foffset_5fl_2',['XG_OFFSET_L',['../group__hal__mpu9250.html#ga0e3a6dea62584e862fe3c9132268618d',1,'MPU9250_private.h']]]
 ];

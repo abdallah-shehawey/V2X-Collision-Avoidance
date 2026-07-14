@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: US_Config_t Struct Reference</title>
+<title>V2V Collision Avoidance Firmware: US_Config_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -97,74 +97,31 @@ $(function(){initNavTree('structUS__Config__t.html','',''); });
 <p>Configuration structure for a single Ultrasonic sensor instance.  
  <a href="#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="US__interface_8h_source.html">US_interface.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="US__interface_8h_source.html">Drivers/HAL/US/US_interface.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:ab9f915b857e31dc693e8fbe0b1db0113" id="r_ab9f915b857e31dc693e8fbe0b1db0113"><td class="memItemLeft"><a class="el" href="TIM__interface_8h.html#a2712d6a822f7d7b0ebe7411daf149b23">TIM_Num_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab9f915b857e31dc693e8fbe0b1db0113">Timer</a></td></tr>
+<tr class="memdesc:ab9f915b857e31dc693e8fbe0b1db0113"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer instance (TIM_TIMER1..TIM_TIMER8).  <br /></td></tr>
 <tr class="memitem:aedb2c8be49f5d1fd6443e896c8ef532b" id="r_aedb2c8be49f5d1fd6443e896c8ef532b"><td class="memItemLeft"><a class="el" href="TIM__interface_8h.html#a6692a9aa577e647a9f660c404689cd16">TIM_Channel_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aedb2c8be49f5d1fd6443e896c8ef532b">Channel</a></td></tr>
-<tr class="memitem:aee06c76d7a6088e93d33302bb11c279c" id="r_aee06c76d7a6088e93d33302bb11c279c"><td class="memItemLeft"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aee06c76d7a6088e93d33302bb11c279c">TrigPort</a></td></tr>
-<tr class="memitem:aba9acc39dd5600c1eef35b5e033c94e6" id="r_aba9acc39dd5600c1eef35b5e033c94e6"><td class="memItemLeft"><a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aba9acc39dd5600c1eef35b5e033c94e6">TrigPin</a></td></tr>
-<tr class="memitem:abc84123a24f0dabcb2917be3edf9591b" id="r_abc84123a24f0dabcb2917be3edf9591b"><td class="memItemLeft"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#abc84123a24f0dabcb2917be3edf9591b">EchoPort</a></td></tr>
-<tr class="memitem:ab87866af565edaf58ca26dd7d7aea08d" id="r_ab87866af565edaf58ca26dd7d7aea08d"><td class="memItemLeft"><a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab87866af565edaf58ca26dd7d7aea08d">EchoPin</a></td></tr>
+<tr class="memdesc:aedb2c8be49f5d1fd6443e896c8ef532b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer Channel: TIM_CHANNEL1..TIM_CHANNEL4.  <br /></td></tr>
+<tr class="memitem:aee06c76d7a6088e93d33302bb11c279c" id="r_aee06c76d7a6088e93d33302bb11c279c"><td class="memItemLeft"><a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aee06c76d7a6088e93d33302bb11c279c">TrigPort</a></td></tr>
+<tr class="memdesc:aee06c76d7a6088e93d33302bb11c279c"><td class="mdescLeft">&#160;</td><td class="mdescRight">GPIO Port of TRIG pin.  <br /></td></tr>
+<tr class="memitem:aba9acc39dd5600c1eef35b5e033c94e6" id="r_aba9acc39dd5600c1eef35b5e033c94e6"><td class="memItemLeft"><a class="el" href="group__mcal__gpio.html#ga5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aba9acc39dd5600c1eef35b5e033c94e6">TrigPin</a></td></tr>
+<tr class="memdesc:aba9acc39dd5600c1eef35b5e033c94e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">GPIO Pin of TRIG pin.  <br /></td></tr>
+<tr class="memitem:abc84123a24f0dabcb2917be3edf9591b" id="r_abc84123a24f0dabcb2917be3edf9591b"><td class="memItemLeft"><a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#abc84123a24f0dabcb2917be3edf9591b">EchoPort</a></td></tr>
+<tr class="memdesc:abc84123a24f0dabcb2917be3edf9591b"><td class="mdescLeft">&#160;</td><td class="mdescRight">GPIO Port of ECHO pin (Must match Timer AF).  <br /></td></tr>
+<tr class="memitem:ab87866af565edaf58ca26dd7d7aea08d" id="r_ab87866af565edaf58ca26dd7d7aea08d"><td class="memItemLeft"><a class="el" href="group__mcal__gpio.html#ga5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab87866af565edaf58ca26dd7d7aea08d">EchoPin</a></td></tr>
+<tr class="memdesc:ab87866af565edaf58ca26dd7d7aea08d"><td class="mdescLeft">&#160;</td><td class="mdescRight">GPIO Pin of ECHO pin (Must match Timer AF).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Configuration structure for a single Ultrasonic sensor instance. </p>
-<p>===========================================================================** &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; <a class="el" href="US__interface_8h.html">US_interface.h</a> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;** ** Author : Abdallah Saleh ** Layer : HAL ** CPU : Cortex-M4 ** MCU : NUCLEO-F446RE ** SWC : US (Ultrasonic Distance Sensor) ** ** ===========================================================================**</p>
-<dl class="section note"><dt>Note</dt><dd>Each sensor MUST be assigned its own unique Timer (TIM_TIMER2..TIM_TIMER8). This allows multiple sensors to operate simultaneously without conflict. TRIG and ECHO can be ANY available GPIO pin — no pin restriction. </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2HAL_2US_2US_interface_8h-example.html#_a4">/media/Local-Disk/Data/V2X-Collision-Avoidance/V2V-STM32/Inc/Drivers/HAL/US/US_interface.h</a>.</dd>
-</dl>
+<dl class="section note"><dt>Note</dt><dd>Each sensor MUST be assigned its own unique Timer (TIM_TIMER2..TIM_TIMER8). This allows multiple sensors to operate simultaneously without conflict. TRIG and ECHO can be ANY available GPIO pin — no pin restriction.</dd></dl>
+<dl class="section user"><dt>Example:</dt><dd></dd></dl>
+<p><a class="el" href="structUS__Config__t.html" title="Configuration structure for a single Ultrasonic sensor instance.">US_Config_t</a> mySensor = { .Timer = TIM_TIMER2, .TrigPort = GPIO_PORTA, .TrigPin = GPIO_PIN0, .EchoPort = GPIO_PORTA, .EchoPin = GPIO_PIN1 }; </p>
 
-<p class="definition">Definition at line <a class="el" href="US__interface_8h_source.html#l00048">48</a> of file <a class="el" href="US__interface_8h_source.html">US_interface.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="US__interface_8h_source.html#l00045">45</a> of file <a class="el" href="US__interface_8h_source.html">US_interface.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
-<a id="aedb2c8be49f5d1fd6443e896c8ef532b" name="aedb2c8be49f5d1fd6443e896c8ef532b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aedb2c8be49f5d1fd6443e896c8ef532b">&#9670;&#160;</a></span>Channel</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="TIM__interface_8h.html#a6692a9aa577e647a9f660c404689cd16">TIM_Channel_t</a> US_Config_t::Channel</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="US__interface_8h_source.html#l00051">51</a> of file <a class="el" href="US__interface_8h_source.html">US_interface.h</a>.</p>
-
-</div>
-</div>
-<a id="ab87866af565edaf58ca26dd7d7aea08d" name="ab87866af565edaf58ca26dd7d7aea08d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab87866af565edaf58ca26dd7d7aea08d">&#9670;&#160;</a></span>EchoPin</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a> US_Config_t::EchoPin</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="US__interface_8h_source.html#l00055">55</a> of file <a class="el" href="US__interface_8h_source.html">US_interface.h</a>.</p>
-
-</div>
-</div>
-<a id="abc84123a24f0dabcb2917be3edf9591b" name="abc84123a24f0dabcb2917be3edf9591b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc84123a24f0dabcb2917be3edf9591b">&#9670;&#160;</a></span>EchoPort</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> US_Config_t::EchoPort</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="US__interface_8h_source.html#l00054">54</a> of file <a class="el" href="US__interface_8h_source.html">US_interface.h</a>.</p>
-
-</div>
-</div>
 <a id="ab9f915b857e31dc693e8fbe0b1db0113" name="ab9f915b857e31dc693e8fbe0b1db0113"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab9f915b857e31dc693e8fbe0b1db0113">&#9670;&#160;</a></span>Timer</h2>
 
@@ -177,23 +134,31 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="US__interface_8h_source.html#l00050">50</a> of file <a class="el" href="US__interface_8h_source.html">US_interface.h</a>.</p>
+<p>Timer instance (TIM_TIMER1..TIM_TIMER8). </p>
+
+<p class="definition">Definition at line <a class="el" href="US__interface_8h_source.html#l00047">47</a> of file <a class="el" href="US__interface_8h_source.html">US_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="US__prog_8c_source.html#l00278">US_u16ReadDistance_cm()</a>, and <a class="el" href="US__prog_8c_source.html#l00196">US_vInit()</a>.</p>
 
 </div>
 </div>
-<a id="aba9acc39dd5600c1eef35b5e033c94e6" name="aba9acc39dd5600c1eef35b5e033c94e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba9acc39dd5600c1eef35b5e033c94e6">&#9670;&#160;</a></span>TrigPin</h2>
+<a id="aedb2c8be49f5d1fd6443e896c8ef532b" name="aedb2c8be49f5d1fd6443e896c8ef532b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedb2c8be49f5d1fd6443e896c8ef532b">&#9670;&#160;</a></span>Channel</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="GPIO__interface_8h.html#a5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a> US_Config_t::TrigPin</td>
+          <td class="memname"><a class="el" href="TIM__interface_8h.html#a6692a9aa577e647a9f660c404689cd16">TIM_Channel_t</a> US_Config_t::Channel</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="US__interface_8h_source.html#l00053">53</a> of file <a class="el" href="US__interface_8h_source.html">US_interface.h</a>.</p>
+<p>Timer Channel: TIM_CHANNEL1..TIM_CHANNEL4. </p>
+
+<p class="definition">Definition at line <a class="el" href="US__interface_8h_source.html#l00048">48</a> of file <a class="el" href="US__interface_8h_source.html">US_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="US__prog_8c_source.html#l00278">US_u16ReadDistance_cm()</a>, and <a class="el" href="US__prog_8c_source.html#l00196">US_vInit()</a>.</p>
 
 </div>
 </div>
@@ -204,17 +169,81 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="GPIO__interface_8h.html#abbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> US_Config_t::TrigPort</td>
+          <td class="memname"><a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> US_Config_t::TrigPort</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>GPIO Port of TRIG pin. </p>
+
+<p class="definition">Definition at line <a class="el" href="US__interface_8h_source.html#l00049">49</a> of file <a class="el" href="US__interface_8h_source.html">US_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="US__prog_8c_source.html#l00196">US_vInit()</a>, and <a class="el" href="US__prog_8c_source.html#l00096">US_vSendTrigger()</a>.</p>
+
+</div>
+</div>
+<a id="aba9acc39dd5600c1eef35b5e033c94e6" name="aba9acc39dd5600c1eef35b5e033c94e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba9acc39dd5600c1eef35b5e033c94e6">&#9670;&#160;</a></span>TrigPin</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__mcal__gpio.html#ga5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a> US_Config_t::TrigPin</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>GPIO Pin of TRIG pin. </p>
+
+<p class="definition">Definition at line <a class="el" href="US__interface_8h_source.html#l00050">50</a> of file <a class="el" href="US__interface_8h_source.html">US_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="US__prog_8c_source.html#l00196">US_vInit()</a>, and <a class="el" href="US__prog_8c_source.html#l00096">US_vSendTrigger()</a>.</p>
+
+</div>
+</div>
+<a id="abc84123a24f0dabcb2917be3edf9591b" name="abc84123a24f0dabcb2917be3edf9591b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc84123a24f0dabcb2917be3edf9591b">&#9670;&#160;</a></span>EchoPort</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__mcal__gpio.html#gabbc5bc638e4c5bb9b75558412fd47e24">GPIO_Port_t</a> US_Config_t::EchoPort</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>GPIO Port of ECHO pin (Must match Timer AF). </p>
+
+<p class="definition">Definition at line <a class="el" href="US__interface_8h_source.html#l00051">51</a> of file <a class="el" href="US__interface_8h_source.html">US_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="US__prog_8c_source.html#l00196">US_vInit()</a>.</p>
+
+</div>
+</div>
+<a id="ab87866af565edaf58ca26dd7d7aea08d" name="ab87866af565edaf58ca26dd7d7aea08d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab87866af565edaf58ca26dd7d7aea08d">&#9670;&#160;</a></span>EchoPin</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__mcal__gpio.html#ga5fbd1b6f232b4bf0b9ca60ea2d01da14">GPIO_Pin_t</a> US_Config_t::EchoPin</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>GPIO Pin of ECHO pin (Must match Timer AF). </p>
+
 <p class="definition">Definition at line <a class="el" href="US__interface_8h_source.html#l00052">52</a> of file <a class="el" href="US__interface_8h_source.html">US_interface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="US__prog_8c_source.html#l00196">US_vInit()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>Inc/Drivers/HAL/US/<a class="el" href="US__interface_8h_source.html">US_interface.h</a></li>
+<li>V2V-STM32/Inc/Drivers/HAL/US/<a class="el" href="US__interface_8h_source.html">US_interface.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

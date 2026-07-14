@@ -1,5 +1,10 @@
-\doxysection{Inc/\+\+Drivers/\+\+MCAL/\+\+SCB/\+\+SCB\+\_\+interface.h File Reference}
-\hypertarget{SCB__interface_8h}{}\label{SCB__interface_8h}\index{Inc/Drivers/MCAL/SCB/SCB\_interface.h@{Inc/Drivers/MCAL/SCB/SCB\_interface.h}}
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+SCB/\+\+SCB\+\_\+interface.h File Reference}
+\hypertarget{SCB__interface_8h}{}\label{SCB__interface_8h}\index{V2V-\/STM32/Inc/Drivers/MCAL/SCB/SCB\_interface.h@{V2V-\/STM32/Inc/Drivers/MCAL/SCB/SCB\_interface.h}}
+
+
+Public API of the SCB driver — the system control block.  
+
+
 {\ttfamily \+\#include "{}stdint.\+h"{}}\newline
 {\ttfamily \+\#include "{}../\+../\+\+LIB/\+\+Err\+Types.\+h"{}}\newline
 Include dependency graph for SCB\+\_\+interface.\+h:\+
@@ -15,16 +20,28 @@ This graph shows which files directly or indirectly include this file:\+
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=202pt]{SCB__interface_8h__dep__incl}
+\includegraphics[width=247pt]{SCB__interface_8h__dep__incl}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{SCB__interface_8h_aed1f54e4a731be8ec0d97a4d8517a57e}{SCB\+\_\+v\+Set\+Priority\+Grouping}} (uint8\+\_\+t Copy\+\_\+u8\+Priority\+Grouping)
-\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{SCB__interface_8h_aed1f54e4a731be8ec0d97a4d8517a57e}{SCB\+\_\+v\+Set\+Priority\+Grouping}} (uint8\+\_\+t Copy\+\_\+u8\+Priority\+Grouping)
+\begin{DoxyCompactList}\small\item\em Set the Priority Grouping in AIRCR register. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{SCB__interface_8h_a93f514700ccf00d08dbdcff7f1224eb2}{System\+Init}} (void)
 \begin{DoxyCompactList}\small\item\em System initialization called from startup file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Public API of the SCB driver — the system control block. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{SCB__interface_8h_source}{SCB\+\_\+interface.\+h}}.
+
 
 
 \label{doc-func-members}
@@ -34,11 +51,37 @@ void \doxymbox{\hyperlink{SCB__interface_8h_a93f514700ccf00d08dbdcff7f1224eb2}{S
 \index{SCB\_vSetPriorityGrouping@{SCB\_vSetPriorityGrouping}!SCB\_interface.h@{SCB\_interface.h}}
 \doxysubsubsection{\texorpdfstring{SCB\_vSetPriorityGrouping()}{SCB\_vSetPriorityGrouping()}}
 {\footnotesize\ttfamily \label{SCB__interface_8h_aed1f54e4a731be8ec0d97a4d8517a57e} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} SCB\+\_\+v\+Set\+Priority\+Grouping (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Priority\+Grouping}{}\end{DoxyParamCaption})}
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} SCB\+\_\+v\+Set\+Priority\+Grouping (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Priority\+Grouping}{}\end{DoxyParamCaption})}
 
-===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} \doxylink{SCB__program_8c}{SCB\+\_\+program.\+c} \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Abdelmoemen Shehawey \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ MCAL \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} CPU :\+ Cortex-\/\+M4 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} MCU :\+ NUCLEO-\/\+F446\+RE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SWC :\+ SCB \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} 
 
-Definition at line \doxymbox{\hyperlink{SCB__program_8c_source_l00023}{23}} of file \doxymbox{\hyperlink{SCB__program_8c_source}{SCB\+\_\+program.\+c}}.
+
+Set the Priority Grouping in AIRCR register. 
+
+Configures the split between Group Priority and Sub-\/\+Priority bits in the Interrupt Priority Register. 
+\begin{DoxyParams}{Parameters}
+{\em Copy\+\_\+u8\+Priority\+Grouping} & Priority grouping value (0-\/7)
+\begin{DoxyItemize}
+\item 3:\+ 4 bits for Group, 0 bits for Sub (16 Groups, 0 Sub)
+\item 4:\+ 3 bits for Group, 1 bit for Sub (8 Groups, 2 Sub)
+\item 5:\+ 2 bits for Group, 2 bits for Sub (4 Groups, 4 Sub)
+\item 6:\+ 1 bit for Group, 3 bits for Sub (2 Groups, 8 Sub)
+\item 7:\+ 0 bits for Group, 4 bits for Sub (1 Group, 16 Sub) 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}:\+ OK if valid, NOK if invalid grouping 
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Example:\+}
+SCB\+\_\+v\+Set\+Priority\+Grouping(0x05); 
+\end{DoxyParagraph}
+
+
+Definition at line \doxymbox{\hyperlink{SCB__program_8c_source_l00019}{19}} of file \doxymbox{\hyperlink{SCB__program_8c_source}{SCB\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{SCB__private_8h_source_l00018}{AIRCR\+\_\+\+VECTKEY}}, \doxymbox{\hyperlink{STM32F446xx_8h_source_l00327}{MSCB}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, and \doxymbox{\hyperlink{SCB__private_8h_source_l00020}{SCB\+\_\+\+MAX\+\_\+\+PRIORITY\+\_\+\+GROUPING}}.
 
 \Hypertarget{SCB__interface_8h_a93f514700ccf00d08dbdcff7f1224eb2}\index{SCB\_interface.h@{SCB\_interface.h}!SystemInit@{SystemInit}}
 \index{SystemInit@{SystemInit}!SCB\_interface.h@{SCB\_interface.h}}
@@ -52,5 +95,5 @@ System initialization called from startup file.
 
 Handles FPU enablement and potential critical system settings. 
 
-Definition at line \doxymbox{\hyperlink{SCB__program_8c_source_l00037}{37}} of file \doxymbox{\hyperlink{SCB__program_8c_source}{SCB\+\_\+program.\+c}}.
+Definition at line \doxymbox{\hyperlink{SCB__program_8c_source_l00033}{33}} of file \doxymbox{\hyperlink{SCB__program_8c_source}{SCB\+\_\+program.\+c}}.
 

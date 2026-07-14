@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Topics</title>
+<title>V2V Collision Avoidance Firmware: Topics</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -94,12 +94,38 @@ $(function(){initNavTree('topics.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock">Here is a list of all topics with brief descriptions:</div><div class="directory">
-<table class="directory">
-<tr id="row_0_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__SYSTIC__Clock__Config.html" target="_self">System Clock Configuration</a></td><td class="desc"></td></tr>
-<tr id="row_1_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__SYSTIC__Timer__Config.html" target="_self">SysTick Timer Configuration</a></td><td class="desc"></td></tr>
-<tr id="row_2_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__SYSTIC__Registers.html" target="_self">SysTick Register Bit Definitions</a></td><td class="desc">Bit positions in the SysTick Control and Status Register (STK_CTRL) </td></tr>
-<tr id="row_3_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__SYSTIC__Constants.html" target="_self">SysTick Constants</a></td><td class="desc">Important constants for SysTick configuration </td></tr>
-<tr id="row_4_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__SYSTIC__Private__Functions.html" target="_self">SysTick Private Functions</a></td><td class="desc">Internal helper functions for SysTick operations </td></tr>
+<div class="levels">[detail level <span onclick="javascript:dynsection.toggleLevel(1);">1</span><span onclick="javascript:dynsection.toggleLevel(2);">2</span>]</div><table class="directory">
+<tr id="row_0_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__system.html" target="_self">System</a></td><td class="desc">Startup, system-wide configuration and the shared vehicle state </td></tr>
+<tr id="row_1_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__lib.html" target="_self">LIB</a></td><td class="desc">Foundation layer: error codes, bit-manipulation macros, register map </td></tr>
+<tr id="row_2_" class="even"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_2_" class="arrow" onclick="dynsection.toggleFolder('2_')"><span class="arrowhead opened"></span></span><a class="el" href="group__mcal.html" target="_self">MCAL</a></td><td class="desc">Microcontroller Abstraction Layer — drivers written directly against the STM32F446RE registers </td></tr>
+<tr id="row_2_0_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="group__mcal__rcc.html" target="_self">RCC</a></td><td class="desc">Reset and clock control: clock tree setup and per-peripheral clock gating </td></tr>
+<tr id="row_2_1_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="group__mcal__gpio.html" target="_self">GPIO</a></td><td class="desc">General-purpose I/O: pin mode, speed, pull, alternate function, read/write </td></tr>
+<tr id="row_2_2_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="group__mcal__nvic.html" target="_self">NVIC</a></td><td class="desc">Nested vectored interrupt controller: enable/disable, priority grouping </td></tr>
+<tr id="row_2_3_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="group__mcal__scb.html" target="_self">SCB</a></td><td class="desc">System control block: <span class="tt"><a class="el" href="SCB__interface_8h.html#a93f514700ccf00d08dbdcff7f1224eb2" title="System initialization called from startup file.">SystemInit</a></span>, vector table relocation, software reset </td></tr>
+<tr id="row_2_4_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="group__mcal__syscfg.html" target="_self">SYSCFG</a></td><td class="desc">System configuration controller: routes a GPIO port to an EXTI line </td></tr>
+<tr id="row_2_5_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="group__mcal__systic.html" target="_self">SYSTICK</a></td><td class="desc">24-bit system timer used for the blocking/asynchronous delays </td></tr>
+<tr id="row_2_6_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="group__mcal__exti.html" target="_self">EXTI</a></td><td class="desc">External interrupt/event controller: edge-triggered pin interrupts </td></tr>
+<tr id="row_2_7_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="group__mcal__spi.html" target="_self">SPI</a></td><td class="desc">Serial peripheral interface — the MPU9250 link </td></tr>
+<tr id="row_2_8_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="group__mcal__tim.html" target="_self">TIM</a></td><td class="desc">General-purpose timers: input capture, PWM, time base </td></tr>
+<tr id="row_2_9_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="group__mcal__usart.html" target="_self">USART</a></td><td class="desc">Asynchronous serial: UART1 to the ESP32, UART2 to the Raspberry Pi </td></tr>
+<tr id="row_2_10_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="group__mcal__iwdg.html" target="_self">IWDG</a></td><td class="desc">Independent watchdog: hardware-resets the MCU if a task stalls </td></tr>
+<tr id="row_3_" class="even"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_3_" class="arrow" onclick="dynsection.toggleFolder('3_')"><span class="arrowhead opened"></span></span><a class="el" href="group__hal.html" target="_self">HAL</a></td><td class="desc">Hardware Abstraction Layer — board-level devices built on top of MCAL </td></tr>
+<tr id="row_3_0_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="group__hal__led.html" target="_self">LED</a></td><td class="desc">Discrete indicator LEDs (front L/R, rear L/R, interior) </td></tr>
+<tr id="row_3_1_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="group__hal__buzz.html" target="_self">BUZZ</a></td><td class="desc">Piezo buzzer used for the audible alert </td></tr>
+<tr id="row_3_2_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="group__hal__us.html" target="_self">US</a></td><td class="desc">HC-SR04 ultrasonic ranging, interrupt-driven (6 sensors) </td></tr>
+<tr id="row_3_3_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="group__hal__mpu9250.html" target="_self">MPU9250</a></td><td class="desc">9-axis IMU over SPI: speed, heading, pitch/roll, dead-reckoned position </td></tr>
+<tr id="row_4_" class="odd"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_4_" class="arrow" onclick="dynsection.toggleFolder('4_')"><span class="arrowhead opened"></span></span><a class="el" href="group__app.html" target="_self">Application</a></td><td class="desc">The ADAS brain: the DSRC transport, the shared risk model, and the five cooperative collision-avoidance modules </td></tr>
+<tr id="row_4_0_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="group__app__safetyengine.html" target="_self">SafetyEngine</a></td><td class="desc">Shared risk model, direction detection, and per-cycle orchestration of all five ADAS modules </td></tr>
+<tr id="row_4_1_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="group__app__dsrc.html" target="_self">DSRC</a></td><td class="desc"><a class="el" href="structNeighbor.html" title="One vehicle&#39;s broadcast state — this is the wire format itself.">Neighbor</a> table and the wire protocol shared byte-for-byte with the ESP32 radio bridge </td></tr>
+<tr id="row_4_2_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="group__app__fcw__dnpw.html" target="_self">FCW_DNPW</a></td><td class="desc">Forward Collision Warning and Do-Not-Pass Warning (one combined module) </td></tr>
+<tr id="row_4_3_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="group__app__eebl.html" target="_self">EEBL</a></td><td class="desc">Electronic Emergency Brake Light: a vehicle ahead is braking hard </td></tr>
+<tr id="row_4_4_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="group__app__bsw.html" target="_self">BSW</a></td><td class="desc">Blind Spot Warning, with per-side severity </td></tr>
+<tr id="row_4_5_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="group__app__ima.html" target="_self">IMA</a></td><td class="desc">Intersection Movement Assist: crossing-direction conflict at a junction </td></tr>
+<tr id="row_5_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__SYSTIC__Clock__Config.html" target="_self">System Clock Configuration</a></td><td class="desc"></td></tr>
+<tr id="row_6_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__SYSTIC__Timer__Config.html" target="_self">SysTick Timer Configuration</a></td><td class="desc"></td></tr>
+<tr id="row_7_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__SYSTIC__Registers.html" target="_self">SysTick Register Bit Definitions</a></td><td class="desc">Bit positions in the SysTick Control and Status Register (STK_CTRL) </td></tr>
+<tr id="row_8_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__SYSTIC__Constants.html" target="_self">SysTick Constants</a></td><td class="desc">Important constants for SysTick configuration </td></tr>
+<tr id="row_9_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="group__SYSTIC__Private__Functions.html" target="_self">SysTick Private Functions</a></td><td class="desc">Internal helper functions for SysTick operations </td></tr>
 </table>
 </div><!-- directory -->
 </div><!-- contents -->

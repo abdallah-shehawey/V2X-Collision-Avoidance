@@ -2,29 +2,39 @@
 \hypertarget{structDMA__STREAM__REGDEF__t}{}\label{structDMA__STREAM__REGDEF__t}\index{DMA\_STREAM\_REGDEF\_t@{DMA\_STREAM\_REGDEF\_t}}
 
 
-{\ttfamily \+\#include $<$STM32\+F446xx.\+h$>$}
+Register layout of a single DMA stream.  
+
+
+
+
+{\ttfamily \+\#include $<$Drivers/\+\+LIB/\+\+STM32\+F446xx.\+h$>$}
 
 \doxysubsubsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
 uint32\+\_\+t \doxymbox{\hyperlink{structDMA__STREAM__REGDEF__t_aa9400f549c950d709f56aff9b5ced213}{CR}}
-\item 
+\begin{DoxyCompactList}\small\item\em Stream configuration:\+ channel, direction, priority, enable. \end{DoxyCompactList}\item 
 uint32\+\_\+t \doxymbox{\hyperlink{structDMA__STREAM__REGDEF__t_a782cd608abd5ad34a42b625f5d14a680}{NDTR}}
-\item 
+\begin{DoxyCompactList}\small\item\em Number of data items still to transfer. \end{DoxyCompactList}\item 
 uint32\+\_\+t \doxymbox{\hyperlink{structDMA__STREAM__REGDEF__t_ab3d8addb40d47ece5b6e0ad114f7a84e}{PAR}}
-\item 
+\begin{DoxyCompactList}\small\item\em Peripheral address the stream reads from or writes to. \end{DoxyCompactList}\item 
 uint32\+\_\+t \doxymbox{\hyperlink{structDMA__STREAM__REGDEF__t_ae726ec40e70fb412cd5354e5c0bec261}{M0\+AR}}
-\item 
+\begin{DoxyCompactList}\small\item\em Memory 0 address (the buffer used in single-\/buffer mode). \end{DoxyCompactList}\item 
 uint32\+\_\+t \doxymbox{\hyperlink{structDMA__STREAM__REGDEF__t_a81395e9d564c25c5f42cd5a605d8c3c2}{M1\+AR}}
-\item 
+\begin{DoxyCompactList}\small\item\em Memory 1 address (the second buffer in double-\/buffer mode). \end{DoxyCompactList}\item 
 uint32\+\_\+t \doxymbox{\hyperlink{structDMA__STREAM__REGDEF__t_a0691111d3b8fc17e938acdac7812dbba}{FCR}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em FIFO control:\+ threshold and FIFO status. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
+Register layout of a single DMA stream. 
+
+\begin{DoxyNote}{Note}
+Declared for completeness — the firmware drives every peripheral by interrupt, not by DMA, so no driver uses this. 
+\end{DoxyNote}
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00110}{110}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00174}{174}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
 
 
 
@@ -39,37 +49,11 @@ uint32\+\_\+t DMA\+\_\+\+STREAM\+\_\+\+REGDEF\+\_\+t::\+\+CR}
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00111}{111}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
-
-\Hypertarget{structDMA__STREAM__REGDEF__t_a0691111d3b8fc17e938acdac7812dbba}\index{DMA\_STREAM\_REGDEF\_t@{DMA\_STREAM\_REGDEF\_t}!FCR@{FCR}}
-\index{FCR@{FCR}!DMA\_STREAM\_REGDEF\_t@{DMA\_STREAM\_REGDEF\_t}}
-\doxysubsubsection{\texorpdfstring{FCR}{FCR}}
-{\footnotesize\ttfamily \label{structDMA__STREAM__REGDEF__t_a0691111d3b8fc17e938acdac7812dbba} 
-uint32\+\_\+t DMA\+\_\+\+STREAM\+\_\+\+REGDEF\+\_\+t::\+\+FCR}
+Stream configuration:\+ channel, direction, priority, enable. 
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00116}{116}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
-
-\Hypertarget{structDMA__STREAM__REGDEF__t_ae726ec40e70fb412cd5354e5c0bec261}\index{DMA\_STREAM\_REGDEF\_t@{DMA\_STREAM\_REGDEF\_t}!M0AR@{M0AR}}
-\index{M0AR@{M0AR}!DMA\_STREAM\_REGDEF\_t@{DMA\_STREAM\_REGDEF\_t}}
-\doxysubsubsection{\texorpdfstring{M0AR}{M0AR}}
-{\footnotesize\ttfamily \label{structDMA__STREAM__REGDEF__t_ae726ec40e70fb412cd5354e5c0bec261} 
-uint32\+\_\+t DMA\+\_\+\+STREAM\+\_\+\+REGDEF\+\_\+t::\+\+M0\+AR}
-
-
-
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00114}{114}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
-
-\Hypertarget{structDMA__STREAM__REGDEF__t_a81395e9d564c25c5f42cd5a605d8c3c2}\index{DMA\_STREAM\_REGDEF\_t@{DMA\_STREAM\_REGDEF\_t}!M1AR@{M1AR}}
-\index{M1AR@{M1AR}!DMA\_STREAM\_REGDEF\_t@{DMA\_STREAM\_REGDEF\_t}}
-\doxysubsubsection{\texorpdfstring{M1AR}{M1AR}}
-{\footnotesize\ttfamily \label{structDMA__STREAM__REGDEF__t_a81395e9d564c25c5f42cd5a605d8c3c2} 
-uint32\+\_\+t DMA\+\_\+\+STREAM\+\_\+\+REGDEF\+\_\+t::\+\+M1\+AR}
-
-
-
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00115}{115}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00175}{175}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
 
 \Hypertarget{structDMA__STREAM__REGDEF__t_a782cd608abd5ad34a42b625f5d14a680}\index{DMA\_STREAM\_REGDEF\_t@{DMA\_STREAM\_REGDEF\_t}!NDTR@{NDTR}}
 \index{NDTR@{NDTR}!DMA\_STREAM\_REGDEF\_t@{DMA\_STREAM\_REGDEF\_t}}
@@ -79,7 +63,11 @@ uint32\+\_\+t DMA\+\_\+\+STREAM\+\_\+\+REGDEF\+\_\+t::\+\+NDTR}
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00112}{112}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Number of data items still to transfer. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00176}{176}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
 
 \Hypertarget{structDMA__STREAM__REGDEF__t_ab3d8addb40d47ece5b6e0ad114f7a84e}\index{DMA\_STREAM\_REGDEF\_t@{DMA\_STREAM\_REGDEF\_t}!PAR@{PAR}}
 \index{PAR@{PAR}!DMA\_STREAM\_REGDEF\_t@{DMA\_STREAM\_REGDEF\_t}}
@@ -89,11 +77,56 @@ uint32\+\_\+t DMA\+\_\+\+STREAM\+\_\+\+REGDEF\+\_\+t::\+\+PAR}
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00113}{113}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Peripheral address the stream reads from or writes to. 
 
 
 
-The documentation for this struct was generated from the following files:\+\begin{DoxyCompactItemize}
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00177}{177}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structDMA__STREAM__REGDEF__t_ae726ec40e70fb412cd5354e5c0bec261}\index{DMA\_STREAM\_REGDEF\_t@{DMA\_STREAM\_REGDEF\_t}!M0AR@{M0AR}}
+\index{M0AR@{M0AR}!DMA\_STREAM\_REGDEF\_t@{DMA\_STREAM\_REGDEF\_t}}
+\doxysubsubsection{\texorpdfstring{M0AR}{M0AR}}
+{\footnotesize\ttfamily \label{structDMA__STREAM__REGDEF__t_ae726ec40e70fb412cd5354e5c0bec261} 
+uint32\+\_\+t DMA\+\_\+\+STREAM\+\_\+\+REGDEF\+\_\+t::\+\+M0\+AR}
+
+
+
+Memory 0 address (the buffer used in single-\/buffer mode). 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00178}{178}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structDMA__STREAM__REGDEF__t_a81395e9d564c25c5f42cd5a605d8c3c2}\index{DMA\_STREAM\_REGDEF\_t@{DMA\_STREAM\_REGDEF\_t}!M1AR@{M1AR}}
+\index{M1AR@{M1AR}!DMA\_STREAM\_REGDEF\_t@{DMA\_STREAM\_REGDEF\_t}}
+\doxysubsubsection{\texorpdfstring{M1AR}{M1AR}}
+{\footnotesize\ttfamily \label{structDMA__STREAM__REGDEF__t_a81395e9d564c25c5f42cd5a605d8c3c2} 
+uint32\+\_\+t DMA\+\_\+\+STREAM\+\_\+\+REGDEF\+\_\+t::\+\+M1\+AR}
+
+
+
+Memory 1 address (the second buffer in double-\/buffer mode). 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00179}{179}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structDMA__STREAM__REGDEF__t_a0691111d3b8fc17e938acdac7812dbba}\index{DMA\_STREAM\_REGDEF\_t@{DMA\_STREAM\_REGDEF\_t}!FCR@{FCR}}
+\index{FCR@{FCR}!DMA\_STREAM\_REGDEF\_t@{DMA\_STREAM\_REGDEF\_t}}
+\doxysubsubsection{\texorpdfstring{FCR}{FCR}}
+{\footnotesize\ttfamily \label{structDMA__STREAM__REGDEF__t_a0691111d3b8fc17e938acdac7812dbba} 
+uint32\+\_\+t DMA\+\_\+\+STREAM\+\_\+\+REGDEF\+\_\+t::\+\+FCR}
+
+
+
+FIFO control:\+ threshold and FIFO status. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00180}{180}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
 \item 
-Inc/\+\+Drivers/\+\+LIB/\+\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h}{STM32\+F446xx.\+h}}\item 
-Inc/\+\+System/\+\doxymbox{\hyperlink{System_2STM32F446xx_8h}{STM32\+F446xx.\+h}}\end{DoxyCompactItemize}
+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+LIB/\+\doxymbox{\hyperlink{STM32F446xx_8h}{STM32\+F446xx.\+h}}\end{DoxyCompactItemize}

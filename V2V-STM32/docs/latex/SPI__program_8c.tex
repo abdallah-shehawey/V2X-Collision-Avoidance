@@ -1,5 +1,10 @@
-\doxysection{Src/\+\+SPI\+\_\+program.c File Reference}
-\hypertarget{SPI__program_8c}{}\label{SPI__program_8c}\index{Src/SPI\_program.c@{Src/SPI\_program.c}}
+\doxysection{V2\+V-\/\+STM32/\+\+Src/\+\+SPI\+\_\+program.c File Reference}
+\hypertarget{SPI__program_8c}{}\label{SPI__program_8c}\index{V2V-\/STM32/Src/SPI\_program.c@{V2V-\/STM32/Src/SPI\_program.c}}
+
+
+Implementation of the SPI driver — the serial peripheral interface.  
+
+
 {\ttfamily \+\#include "{}stdint.\+h"{}}\newline
 {\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+LIB/\+\+Err\+Types.\+h"{}}\newline
 {\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+LIB/\+\+STM32\+F446xx.\+h"{}}\newline
@@ -17,14 +22,33 @@ Include dependency graph for SPI\+\_\+program.\+c:\+
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{SPI__program_8c_a4b6f9d4ba67bb037ab88265f09945a33}{SPI\+\_\+enum\+Init}} (\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config)
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{SPI__program_8c_a4b6f9d4ba67bb037ab88265f09945a33}{SPI\+\_\+enum\+Init}} (\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config)
 \begin{DoxyCompactList}\small\item\em Initialize the SPI peripheral with the provided configuration. \end{DoxyCompactList}\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{SPI__program_8c_a09703b6224fb5ab17478e4f7e309e734}{SPI\+\_\+enum\+Trancieve}} (\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint16\+\_\+t TX\+\_\+\+Data, uint16\+\_\+t \texorpdfstring{$\ast$}{*}RX\+\_\+\+Data)
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{SPI__program_8c_a09703b6224fb5ab17478e4f7e309e734}{SPI\+\_\+enum\+Trancieve}} (\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint16\+\_\+t TX\+\_\+\+Data, uint16\+\_\+t \texorpdfstring{$\ast$}{*}RX\+\_\+\+Data)
 \begin{DoxyCompactList}\small\item\em Perform full-\/duplex SPI transaction (transmit and receive). \end{DoxyCompactList}\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{SPI__program_8c_ab4a020e4e95e27e7414af8bc9f9b9c91}{SPI\+\_\+enum\+Transmit}} (\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint16\+\_\+t TX\+\_\+\+Data)
-\begin{DoxyCompactList}\small\item\em Transmit data through SPI interface. \end{DoxyCompactList}\item 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{SPI__program_8c_a245169439dd789a907e87ab3291db588}{SPI\+\_\+enum\+Receive}} (\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint16\+\_\+t \texorpdfstring{$\ast$}{*}RX\+\_\+\+Data)
-\begin{DoxyCompactList}\small\item\em Receive data through SPI interface. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{SPI__program_8c_ab4a020e4e95e27e7414af8bc9f9b9c91}{SPI\+\_\+enum\+Transmit}} (\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint16\+\_\+t TX\+\_\+\+Data)
+\begin{DoxyCompactList}\small\item\em Perform full-\/duplex SPI transaction (transmit and receive). \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{SPI__program_8c_a245169439dd789a907e87ab3291db588}{SPI\+\_\+enum\+Receive}} (\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Channel\+Config, uint16\+\_\+t \texorpdfstring{$\ast$}{*}RX\+\_\+\+Data)
+\begin{DoxyCompactList}\small\item\em Perform full-\/duplex SPI transaction (transmit and receive). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \doxymbox{\hyperlink{structSPI__RegDef__t}{SPI\+\_\+\+Reg\+Def\+\_\+t}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}{SPI\+\_\+\+Channel}} \+[\doxymbox{\hyperlink{SPI__private_8h_ac8ab65623984e03b92e1907f1ff5e2cd}{SPI\+\_\+\+CHANNEL\+\_\+\+COUNT}}]\+
+\begin{DoxyCompactList}\small\item\em Maps a \doxylink{SPI__interface_8h_a99e480c10376756fca05b64ed949a3d9}{SPI\+\_\+\+Channel\+\_\+t} onto the peripheral\textquotesingle{}s register block. \end{DoxyCompactList}\item 
+static uint8\+\_\+t \doxymbox{\hyperlink{SPI__program_8c_ac3c975c9f481046c6225d47ecb7ea18a}{SPI\+\_\+u8\+State}}
+\begin{DoxyCompactList}\small\item\em Reentrancy guard:\+ \doxylink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE} or \doxylink{group__lib_gab5be0aaddb58ffb9cb20c12530d66316}{BUSY}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of the SPI driver — the serial peripheral interface. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{SPI__program_8c_source}{SPI\+\_\+program.\+c}}.
+
 
 
 \label{doc-func-members}
@@ -34,7 +58,7 @@ Include dependency graph for SPI\+\_\+program.\+c:\+
 \index{SPI\_enumInit@{SPI\_enumInit}!SPI\_program.c@{SPI\_program.c}}
 \doxysubsubsection{\texorpdfstring{SPI\_enumInit()}{SPI\_enumInit()}}
 {\footnotesize\ttfamily \label{SPI__program_8c_a4b6f9d4ba67bb037ab88265f09945a33} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} SPI\+\_\+enum\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{}\end{DoxyParamCaption})}
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} SPI\+\_\+enum\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{}\end{DoxyParamCaption})}
 
 
 
@@ -48,14 +72,25 @@ This function configures all SPI parameters including clock phase, polarity, mas
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-\doxylink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} OK if initialization successful, error code otherwise
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} OK if initialization successful, error code otherwise
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
 NULL pointer check is performed on the input parameter. 
 \end{DoxyWarning}
+\begin{DoxyParagraph}{Example:\+}
+
+\end{DoxyParagraph}
+\doxylink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t} My\+SPI = \{SPI\+\_\+\+CHANNEL1, SPI\+\_\+\+CPHA\+\_\+1\+EDGE, SPI\+\_\+\+CPOL\+\_\+\+LOW, SPI\+\_\+\+MODE\+\_\+\+MASTER, SPI\+\_\+\+BAUDRATEPRESCALER\+\_\+2, SPI\+\_\+\+SPE\+\_\+\+EN, SPI\+\_\+\+MSBFIRST, SPI\+\_\+\+NSS\+\_\+\+SOFTWARE, SPI\+\_\+\+NSSI\+\_\+\+NOT\+\_\+\+SELECT, SPI\+\_\+\+RXONLY\+\_\+\+DISABLE, SPI\+\_\+\+DFF\+\_\+8\+BIT, SPI\+\_\+\+CRCDIS, SPI\+\_\+\+CRCNEXT\+\_\+\+DISABLE, SPI\+\_\+\+UNIDIMODE, SPI\+\_\+\+OUTPUT\+\_\+\+EN\}; SPI\+\_\+enum\+Init(\&\+My\+SPI); 
+
+Definition at line \doxymbox{\hyperlink{SPI__program_8c_source_l00037}{37}} of file \doxymbox{\hyperlink{SPI__program_8c_source}{SPI\+\_\+program.\+c}}.
 
 
-Definition at line \doxymbox{\hyperlink{SPI__program_8c_source_l00038}{38}} of file \doxymbox{\hyperlink{SPI__program_8c_source}{SPI\+\_\+program.\+c}}.
+
+References \doxymbox{\hyperlink{SPI__interface_8h_source_l00162}{SPI\+\_\+\+Config\+\_\+t::\+\+Baud\+Rate\+Prescaler}}, \doxymbox{\hyperlink{SPI__interface_8h_source_l00164}{SPI\+\_\+\+Config\+\_\+t::\+\+BFIRST}}, \doxymbox{\hyperlink{SPI__interface_8h_source_l00172}{SPI\+\_\+\+Config\+\_\+t::\+\+BIDIOE}}, \doxymbox{\hyperlink{SPI__interface_8h_source_l00158}{SPI\+\_\+\+Config\+\_\+t::\+\+Channel}}, \doxymbox{\hyperlink{SPI__interface_8h_source_l00159}{SPI\+\_\+\+Config\+\_\+t::\+\+CPHA}}, \doxymbox{\hyperlink{SPI__interface_8h_source_l00160}{SPI\+\_\+\+Config\+\_\+t::\+\+CPOL}}, \doxymbox{\hyperlink{SPI__private_8h_source_l00032}{CR1\+\_\+\+BIDIMODE}}, \doxymbox{\hyperlink{SPI__private_8h_source_l00031}{CR1\+\_\+\+BIDIOE}}, \doxymbox{\hyperlink{SPI__private_8h_source_l00022}{CR1\+\_\+\+BR}}, \doxymbox{\hyperlink{SPI__private_8h_source_l00019}{CR1\+\_\+\+CPHA}}, \doxymbox{\hyperlink{SPI__private_8h_source_l00020}{CR1\+\_\+\+CPOL}}, \doxymbox{\hyperlink{SPI__private_8h_source_l00030}{CR1\+\_\+\+CRCEN}}, \doxymbox{\hyperlink{SPI__private_8h_source_l00029}{CR1\+\_\+\+CRCNEXT}}, \doxymbox{\hyperlink{SPI__private_8h_source_l00028}{CR1\+\_\+\+DFF}}, \doxymbox{\hyperlink{SPI__private_8h_source_l00024}{CR1\+\_\+\+LSBFIRST}}, \doxymbox{\hyperlink{SPI__private_8h_source_l00021}{CR1\+\_\+\+MSTR}}, \doxymbox{\hyperlink{SPI__private_8h_source_l00027}{CR1\+\_\+\+RXONLY}}, \doxymbox{\hyperlink{SPI__private_8h_source_l00023}{CR1\+\_\+\+SPE}}, \doxymbox{\hyperlink{SPI__private_8h_source_l00025}{CR1\+\_\+\+SSI}}, \doxymbox{\hyperlink{SPI__private_8h_source_l00026}{CR1\+\_\+\+SSM}}, \doxymbox{\hyperlink{SPI__interface_8h_source_l00169}{SPI\+\_\+\+Config\+\_\+t::\+\+CRC\+\_\+\+MODE}}, \doxymbox{\hyperlink{SPI__interface_8h_source_l00170}{SPI\+\_\+\+Config\+\_\+t::\+\+CRCNEXT}}, \doxymbox{\hyperlink{SPI__interface_8h_source_l00168}{SPI\+\_\+\+Config\+\_\+t::\+\+DFF}}, \doxymbox{\hyperlink{SPI__interface_8h_source_l00171}{SPI\+\_\+\+Config\+\_\+t::\+\+DIMODE}}, \doxymbox{\hyperlink{SPI__interface_8h_source_l00161}{SPI\+\_\+\+Config\+\_\+t::\+\+Mode}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{SPI__interface_8h_source_l00165}{SPI\+\_\+\+Config\+\_\+t::\+\+NSS\+\_\+\+MAN}}, \doxymbox{\hyperlink{SPI__interface_8h_source_l00166}{SPI\+\_\+\+Config\+\_\+t::\+\+NSSI\+\_\+\+MODE}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{SPI__interface_8h_source_l00167}{SPI\+\_\+\+Config\+\_\+t::\+\+RXONLY}}, \doxymbox{\hyperlink{SPI__interface_8h_source_l00163}{SPI\+\_\+\+Config\+\_\+t::\+\+SPE}}, \doxymbox{\hyperlink{SPI__interface_8h_source_l00135}{SPI\+\_\+\+BIDIMODE}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00021}{SPI\+\_\+\+Channel}}, \doxymbox{\hyperlink{SPI__private_8h_source_l00014}{SPI\+\_\+\+CHANNEL\+\_\+\+COUNT}}, \doxymbox{\hyperlink{SPI__interface_8h_source_l00128}{SPI\+\_\+\+CRCEN}}, and \doxymbox{\hyperlink{SPI__interface_8h_source_l00093}{SPI\+\_\+\+NSS\+\_\+\+SOFTWARE}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{MPU9250__program_8c_source_l00156}{MPU9250\+\_\+enum\+Init()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
@@ -65,40 +100,11 @@ Here is the caller graph for this function:\+
 \includegraphics[width=350pt]{SPI__program_8c_a4b6f9d4ba67bb037ab88265f09945a33_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{SPI__program_8c_a245169439dd789a907e87ab3291db588}\index{SPI\_program.c@{SPI\_program.c}!SPI\_enumReceive@{SPI\_enumReceive}}
-\index{SPI\_enumReceive@{SPI\_enumReceive}!SPI\_program.c@{SPI\_program.c}}
-\doxysubsubsection{\texorpdfstring{SPI\_enumReceive()}{SPI\_enumReceive()}}
-{\footnotesize\ttfamily \label{SPI__program_8c_a245169439dd789a907e87ab3291db588} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} SPI\+\_\+enum\+Receive (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{RX\+\_\+\+Data}{}\end{DoxyParamCaption})}
-
-
-
-Receive data through SPI interface. 
-
-This function receives data through the SPI interface in a blocking manner with timeout protection.
-
-
-\begin{DoxyParams}{Parameters}
-{\em Channel\+Config} & Pointer to the SPI configuration structure \\
-\hline
-{\em RX\+\_\+\+Data} & Pointer to store received data \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-\doxylink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} OK if successful, error code otherwise
-\end{DoxyReturn}
-\begin{DoxyWarning}{Warning}
-NULL pointer check is performed on input parameters 
-\end{DoxyWarning}
-
-
-Definition at line \doxymbox{\hyperlink{SPI__program_8c_source_l00250}{250}} of file \doxymbox{\hyperlink{SPI__program_8c_source}{SPI\+\_\+program.\+c}}.
-
 \Hypertarget{SPI__program_8c_a09703b6224fb5ab17478e4f7e309e734}\index{SPI\_program.c@{SPI\_program.c}!SPI\_enumTrancieve@{SPI\_enumTrancieve}}
 \index{SPI\_enumTrancieve@{SPI\_enumTrancieve}!SPI\_program.c@{SPI\_program.c}}
 \doxysubsubsection{\texorpdfstring{SPI\_enumTrancieve()}{SPI\_enumTrancieve()}}
 {\footnotesize\ttfamily \label{SPI__program_8c_a09703b6224fb5ab17478e4f7e309e734} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} SPI\+\_\+enum\+Trancieve (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint16\+\_\+t}]{TX\+\_\+\+Data}{, }\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{RX\+\_\+\+Data}{}\end{DoxyParamCaption})}
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} SPI\+\_\+enum\+Trancieve (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint16\+\_\+t}]{TX\+\_\+\+Data}{, }\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{RX\+\_\+\+Data}{}\end{DoxyParamCaption})}
 
 
 
@@ -116,17 +122,25 @@ This function sends data and simultaneously receives data through the SPI interf
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-\doxylink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} OK if successful, error code otherwise
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} OK if initialization successful, error code otherwise
 \end{DoxyReturn}
-\begin{DoxyNote}{Note}
-This is a blocking function with timeout protection 
-\end{DoxyNote}
 \begin{DoxyWarning}{Warning}
-NULL pointer check is performed on input parameters 
+NULL pointer check is performed on the input parameter. 
 \end{DoxyWarning}
+\begin{DoxyParagraph}{Example:\+}
+
+\end{DoxyParagraph}
+uint16\+\_\+t rx\+\_\+data; SPI\+\_\+enum\+Trancieve(\&\+My\+SPI, 0x55, \&rx\+\_\+data); 
+
+Definition at line \doxymbox{\hyperlink{SPI__program_8c_source_l00111}{111}} of file \doxymbox{\hyperlink{SPI__program_8c_source}{SPI\+\_\+program.\+c}}.
 
 
-Definition at line \doxymbox{\hyperlink{SPI__program_8c_source_l00112}{112}} of file \doxymbox{\hyperlink{SPI__program_8c_source}{SPI\+\_\+program.\+c}}.
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00035}{BUSY}}, \doxymbox{\hyperlink{SPI__interface_8h_source_l00158}{SPI\+\_\+\+Config\+\_\+t::\+\+Channel}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{IDLE}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00021}{SPI\+\_\+\+Channel}}, \doxymbox{\hyperlink{SPI__private_8h_source_l00014}{SPI\+\_\+\+CHANNEL\+\_\+\+COUNT}}, \doxymbox{\hyperlink{SPI__private_8h_source_l00049}{SPI\+\_\+u32\+TIMEOUT}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00023}{SPI\+\_\+u8\+State}}, \doxymbox{\hyperlink{USART__private_8h_source_l00019}{SR\+\_\+\+RXNE}}, \doxymbox{\hyperlink{USART__private_8h_source_l00017}{SR\+\_\+\+TXE}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00046}{TIMEOUT\+\_\+\+STATE}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{MPU9250__program_8c_source_l00156}{MPU9250\+\_\+enum\+Init()}}, \doxymbox{\hyperlink{MPU9250__program_8c_source_l00187}{MPU9250\+\_\+enum\+Read\+Data()}}, \doxymbox{\hyperlink{MPU9250__program_8c_source_l00078}{MPU9250\+\_\+u8\+Read\+Reg()}}, and \doxymbox{\hyperlink{MPU9250__program_8c_source_l00064}{MPU9250\+\_\+v\+Write\+Reg()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
@@ -140,13 +154,13 @@ Here is the caller graph for this function:\+
 \index{SPI\_enumTransmit@{SPI\_enumTransmit}!SPI\_program.c@{SPI\_program.c}}
 \doxysubsubsection{\texorpdfstring{SPI\_enumTransmit()}{SPI\_enumTransmit()}}
 {\footnotesize\ttfamily \label{SPI__program_8c_ab4a020e4e95e27e7414af8bc9f9b9c91} 
-\doxymbox{\hyperlink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} SPI\+\_\+enum\+Transmit (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint16\+\_\+t}]{TX\+\_\+\+Data}{}\end{DoxyParamCaption})}
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} SPI\+\_\+enum\+Transmit (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint16\+\_\+t}]{TX\+\_\+\+Data}{}\end{DoxyParamCaption})}
 
 
 
-Transmit data through SPI interface. 
+Perform full-\/duplex SPI transaction (transmit and receive). 
 
-This function sends data through the SPI interface in a blocking manner with timeout protection.
+This function sends data through the SPI interface. It implements a blocking mechanism with timeout protection.
 
 
 \begin{DoxyParams}{Parameters}
@@ -156,12 +170,99 @@ This function sends data through the SPI interface in a blocking manner with tim
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-\doxylink{ErrTypes_8h_a74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} OK if successful, error code otherwise
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} OK if initialization successful, error code otherwise
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
-NULL pointer check is performed on input parameter 
+NULL pointer check is performed on the input parameter. 
 \end{DoxyWarning}
+\begin{DoxyParagraph}{Example:\+}
+SPI\+\_\+enum\+Transmit(\&\+My\+SPI, 0x55); 
+\end{DoxyParagraph}
 
 
-Definition at line \doxymbox{\hyperlink{SPI__program_8c_source_l00190}{190}} of file \doxymbox{\hyperlink{SPI__program_8c_source}{SPI\+\_\+program.\+c}}.
+Definition at line \doxymbox{\hyperlink{SPI__program_8c_source_l00189}{189}} of file \doxymbox{\hyperlink{SPI__program_8c_source}{SPI\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00035}{BUSY}}, \doxymbox{\hyperlink{SPI__interface_8h_source_l00158}{SPI\+\_\+\+Config\+\_\+t::\+\+Channel}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{IDLE}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00021}{SPI\+\_\+\+Channel}}, \doxymbox{\hyperlink{SPI__private_8h_source_l00014}{SPI\+\_\+\+CHANNEL\+\_\+\+COUNT}}, \doxymbox{\hyperlink{SPI__private_8h_source_l00049}{SPI\+\_\+u32\+TIMEOUT}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00023}{SPI\+\_\+u8\+State}}, \doxymbox{\hyperlink{USART__private_8h_source_l00017}{SR\+\_\+\+TXE}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00046}{TIMEOUT\+\_\+\+STATE}}.
+
+\Hypertarget{SPI__program_8c_a245169439dd789a907e87ab3291db588}\index{SPI\_program.c@{SPI\_program.c}!SPI\_enumReceive@{SPI\_enumReceive}}
+\index{SPI\_enumReceive@{SPI\_enumReceive}!SPI\_program.c@{SPI\_program.c}}
+\doxysubsubsection{\texorpdfstring{SPI\_enumReceive()}{SPI\_enumReceive()}}
+{\footnotesize\ttfamily \label{SPI__program_8c_a245169439dd789a907e87ab3291db588} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} SPI\+\_\+enum\+Receive (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structSPI__Config__t}{SPI\+\_\+\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Channel\+Config}{, }\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{RX\+\_\+\+Data}{}\end{DoxyParamCaption})}
+
+
+
+Perform full-\/duplex SPI transaction (transmit and receive). 
+
+This function receives data through the SPI interface. It implements a blocking mechanism with timeout protection.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Channel\+Config} & Pointer to the SPI configuration structure \\
+\hline
+{\em RX\+\_\+\+Data} & Pointer to store received data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t} OK if initialization successful, error code otherwise
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+NULL pointer check is performed on the input parameter. 
+\end{DoxyWarning}
+\begin{DoxyParagraph}{Example:\+}
+
+\end{DoxyParagraph}
+uint16\+\_\+t data; SPI\+\_\+enum\+Receive(\&\+My\+SPI, \&data); 
+
+Definition at line \doxymbox{\hyperlink{SPI__program_8c_source_l00249}{249}} of file \doxymbox{\hyperlink{SPI__program_8c_source}{SPI\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{ErrTypes_8h_source_l00035}{BUSY}}, \doxymbox{\hyperlink{SPI__interface_8h_source_l00158}{SPI\+\_\+\+Config\+\_\+t::\+\+Channel}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00033}{IDLE}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00021}{SPI\+\_\+\+Channel}}, \doxymbox{\hyperlink{SPI__private_8h_source_l00014}{SPI\+\_\+\+CHANNEL\+\_\+\+COUNT}}, \doxymbox{\hyperlink{SPI__private_8h_source_l00049}{SPI\+\_\+u32\+TIMEOUT}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00023}{SPI\+\_\+u8\+State}}, \doxymbox{\hyperlink{USART__private_8h_source_l00019}{SR\+\_\+\+RXNE}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00046}{TIMEOUT\+\_\+\+STATE}}.
+
+
+
+\label{doc-var-members}
+\Hypertarget{SPI__program_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9}\index{SPI\_program.c@{SPI\_program.c}!SPI\_Channel@{SPI\_Channel}}
+\index{SPI\_Channel@{SPI\_Channel}!SPI\_program.c@{SPI\_program.c}}
+\doxysubsubsection{\texorpdfstring{SPI\_Channel}{SPI\_Channel}}
+{\footnotesize\ttfamily \label{SPI__program_8c_ab1484f24c12c859f21e7dab789be7ff9} 
+\doxymbox{\hyperlink{structSPI__RegDef__t}{SPI\+\_\+\+Reg\+Def\+\_\+t}}\texorpdfstring{$\ast$}{*} SPI\+\_\+\+Channel\+[\doxymbox{\hyperlink{SPI__private_8h_ac8ab65623984e03b92e1907f1ff5e2cd}{SPI\+\_\+\+CHANNEL\+\_\+\+COUNT}}]\+\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Maps a \doxylink{SPI__interface_8h_a99e480c10376756fca05b64ed949a3d9}{SPI\+\_\+\+Channel\+\_\+t} onto the peripheral\textquotesingle{}s register block. 
+
+\begin{DoxyNote}{Note}
+Order must match \doxylink{SPI__interface_8h_a99e480c10376756fca05b64ed949a3d9}{SPI\+\_\+\+Channel\+\_\+t} — the enum indexes straight into it. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{SPI__program_8c_source_l00021}{21}} of file \doxymbox{\hyperlink{SPI__program_8c_source}{SPI\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SPI__program_8c_source_l00037}{SPI\+\_\+enum\+Init()}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00249}{SPI\+\_\+enum\+Receive()}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00111}{SPI\+\_\+enum\+Trancieve()}}, and \doxymbox{\hyperlink{SPI__program_8c_source_l00189}{SPI\+\_\+enum\+Transmit()}}.
+
+\Hypertarget{SPI__program_8c_ac3c975c9f481046c6225d47ecb7ea18a}\index{SPI\_program.c@{SPI\_program.c}!SPI\_u8State@{SPI\_u8State}}
+\index{SPI\_u8State@{SPI\_u8State}!SPI\_program.c@{SPI\_program.c}}
+\doxysubsubsection{\texorpdfstring{SPI\_u8State}{SPI\_u8State}}
+{\footnotesize\ttfamily \label{SPI__program_8c_ac3c975c9f481046c6225d47ecb7ea18a} 
+uint8\+\_\+t SPI\+\_\+u8\+State\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Reentrancy guard:\+ \doxylink{group__lib_ga9c21a7caee326d7803b94ae1952b27ca}{IDLE} or \doxylink{group__lib_gab5be0aaddb58ffb9cb20c12530d66316}{BUSY}. 
+
+A second caller entering while a transfer is in flight is rejected with \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81affe74893171dd0f0fe9331c5b5a74c66}{BUSY\+\_\+\+STATE} rather than corrupting it. 
+
+Definition at line \doxymbox{\hyperlink{SPI__program_8c_source_l00023}{23}} of file \doxymbox{\hyperlink{SPI__program_8c_source}{SPI\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SPI__program_8c_source_l00249}{SPI\+\_\+enum\+Receive()}}, \doxymbox{\hyperlink{SPI__program_8c_source_l00111}{SPI\+\_\+enum\+Trancieve()}}, and \doxymbox{\hyperlink{SPI__program_8c_source_l00189}{SPI\+\_\+enum\+Transmit()}}.
 

@@ -1,42 +1,78 @@
-\doxysection{Inc/\+\+Application/\+\+BSW/\+\+BSW\+\_\+config.h File Reference}
-\hypertarget{BSW__config_8h}{}\label{BSW__config_8h}\index{Inc/Application/BSW/BSW\_config.h@{Inc/Application/BSW/BSW\_config.h}}
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Application/\+\+BSW/\+\+BSW\+\_\+config.h File Reference}
+\hypertarget{BSW__config_8h}{}\label{BSW__config_8h}\index{V2V-\/STM32/Inc/Application/BSW/BSW\_config.h@{V2V-\/STM32/Inc/Application/BSW/BSW\_config.h}}
+
+
+Compile-\/time configuration for the BSW driver — Blind Spot Warning.  
+
+
 This graph shows which files directly or indirectly include this file:\+
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=194pt]{BSW__config_8h__dep__incl}
+\includegraphics[width=250pt]{BSW__config_8h__dep__incl}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\+\#define \doxymbox{\hyperlink{BSW__config_8h_aeb97789f4baf3ec92a8a71924b6271e9}{BSW\+\_\+\+SIDE\+\_\+\+THRESHOLD}}~(60.\+0f)
-\item 
-\+\#define \doxymbox{\hyperlink{BSW__config_8h_a8b6f2ee7e091070e69743e594090dc95}{BSW\+\_\+\+SIDE\+\_\+\+CRITICAL}}~(40.\+0f)
-\end{DoxyCompactItemize}
+\+\#define \doxymbox{\hyperlink{BSW__config_8h_aeb97789f4baf3ec92a8a71924b6271e9}{BSW\+\_\+\+SIDE\+\_\+\+THRESHOLD}}
+\begin{DoxyCompactList}\small\item\em A side ultrasonic reading below this means a vehicle is there \+[cm]\+. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{BSW__config_8h_a8b6f2ee7e091070e69743e594090dc95}{BSW\+\_\+\+SIDE\+\_\+\+CRITICAL}}
+\begin{DoxyCompactList}\small\item\em Closer than this escalates the blind-\/spot alert to critical \+[cm]\+. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Compile-\/time configuration for the BSW driver — Blind Spot Warning. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{BSW__config_8h_source}{BSW\+\_\+config.\+h}}.
+
 
 
 \label{doc-define-members}
 \Hypertarget{BSW__config_8h_doc-define-members}
 \doxysubsection{Macro Definition Documentation}
-\Hypertarget{BSW__config_8h_a8b6f2ee7e091070e69743e594090dc95}\index{BSW\_config.h@{BSW\_config.h}!BSW\_SIDE\_CRITICAL@{BSW\_SIDE\_CRITICAL}}
-\index{BSW\_SIDE\_CRITICAL@{BSW\_SIDE\_CRITICAL}!BSW\_config.h@{BSW\_config.h}}
-\doxysubsubsection{\texorpdfstring{BSW\_SIDE\_CRITICAL}{BSW\_SIDE\_CRITICAL}}
-{\footnotesize\ttfamily \label{BSW__config_8h_a8b6f2ee7e091070e69743e594090dc95} 
-\+\#define BSW\+\_\+\+SIDE\+\_\+\+CRITICAL~(40.\+0f)}
-
-
-
-Definition at line \doxymbox{\hyperlink{BSW__config_8h_source_l00022}{22}} of file \doxymbox{\hyperlink{BSW__config_8h_source}{BSW\+\_\+config.\+h}}.
-
 \Hypertarget{BSW__config_8h_aeb97789f4baf3ec92a8a71924b6271e9}\index{BSW\_config.h@{BSW\_config.h}!BSW\_SIDE\_THRESHOLD@{BSW\_SIDE\_THRESHOLD}}
 \index{BSW\_SIDE\_THRESHOLD@{BSW\_SIDE\_THRESHOLD}!BSW\_config.h@{BSW\_config.h}}
 \doxysubsubsection{\texorpdfstring{BSW\_SIDE\_THRESHOLD}{BSW\_SIDE\_THRESHOLD}}
 {\footnotesize\ttfamily \label{BSW__config_8h_aeb97789f4baf3ec92a8a71924b6271e9} 
-\+\#define BSW\+\_\+\+SIDE\+\_\+\+THRESHOLD~(60.\+0f)}
+\+\#define BSW\+\_\+\+SIDE\+\_\+\+THRESHOLD}
 
 
 
-Definition at line \doxymbox{\hyperlink{BSW__config_8h_source_l00018}{18}} of file \doxymbox{\hyperlink{BSW__config_8h_source}{BSW\+\_\+config.\+h}}.
+A side ultrasonic reading below this means a vehicle is there \+[cm]\+. 
+
+This is the {\bfseries{warning}} band:\+ a neighbor inside this distance raises a BSW warning. Tuned for the prototype — a small car in a tight corridor. 
+
+Definition at line \doxymbox{\hyperlink{BSW__config_8h_source_l00030}{30}} of file \doxymbox{\hyperlink{BSW__config_8h_source}{BSW\+\_\+config.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{BSW__program_8c_source_l00048}{BSW\+\_\+u8\+Dist\+To\+Severity()}}, and \doxymbox{\hyperlink{BSW__program_8c_source_l00075}{BSW\+\_\+void\+Begin\+Cycle()}}.
+
+\Hypertarget{BSW__config_8h_a8b6f2ee7e091070e69743e594090dc95}\index{BSW\_config.h@{BSW\_config.h}!BSW\_SIDE\_CRITICAL@{BSW\_SIDE\_CRITICAL}}
+\index{BSW\_SIDE\_CRITICAL@{BSW\_SIDE\_CRITICAL}!BSW\_config.h@{BSW\_config.h}}
+\doxysubsubsection{\texorpdfstring{BSW\_SIDE\_CRITICAL}{BSW\_SIDE\_CRITICAL}}
+{\footnotesize\ttfamily \label{BSW__config_8h_a8b6f2ee7e091070e69743e594090dc95} 
+\+\#define BSW\+\_\+\+SIDE\+\_\+\+CRITICAL}
+
+
+
+Closer than this escalates the blind-\/spot alert to critical \+[cm]\+. 
+
+\begin{DoxyWarning}{Warning}
+Must be {\bfseries{strictly less than}} \doxylink{BSW__config_8h_aeb97789f4baf3ec92a8a71924b6271e9}{BSW\+\_\+\+SIDE\+\_\+\+THRESHOLD}. The two carve the range into {\ttfamily \+[CRITICAL, THRESHOLD)} = warning and {\ttfamily \+[0, CRITICAL)} = critical; making this the larger of the two collapses the warning band to nothing and the module would only ever report critical or safe. 
+\end{DoxyWarning}
+
+
+Definition at line \doxymbox{\hyperlink{BSW__config_8h_source_l00040}{40}} of file \doxymbox{\hyperlink{BSW__config_8h_source}{BSW\+\_\+config.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{BSW__program_8c_source_l00048}{BSW\+\_\+u8\+Dist\+To\+Severity()}}.
 

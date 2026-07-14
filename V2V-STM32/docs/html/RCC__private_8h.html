@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Inc/Drivers/MCAL/RCC/RCC_private.h File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Inc/Drivers/MCAL/RCC/RCC_private.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,31 +90,40 @@ $(function(){initNavTree('RCC__private_8h.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">RCC_private.h File Reference</div></div>
+  <div class="headertitle"><div class="title">RCC_private.h File Reference<div class="ingroups"><a class="el" href="group__mcal.html">MCAL</a> &raquo; <a class="el" href="group__mcal__rcc.html">RCC</a></div></div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="RCC__private_8h__dep__incl.png" border="0" usemap="#aInc_2Drivers_2MCAL_2RCC_2RCC__private_8hdep" loading="lazy" alt=""/></div>
-<map name="aInc_2Drivers_2MCAL_2RCC_2RCC__private_8hdep" id="aInc_2Drivers_2MCAL_2RCC_2RCC__private_8hdep">
-<area shape="rect" title=" " alt="" coords="5,5,169,50"/>
-<area shape="rect" href="RCC__program_8c.html" title=" " alt="" coords="14,98,160,126"/>
-<area shape="poly" title=" " alt="" coords="89,64,89,98,85,96,85,68"/>
-</map>
+
+<p>Register bit positions and internals of the RCC driver — not a public header.  
+<a href="#details">More...</a></p>
+<div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="RCC__private_8h__dep__incl.svg" width="235" height="131"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="RCC__private_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a43b33b72bb100bc3f43c4ccfa0da5e1b" id="r_a43b33b72bb100bc3f43c4ccfa0da5e1b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a43b33b72bb100bc3f43c4ccfa0da5e1b">RCC_MPLL_DIV_MASK</a>&#160;&#160;&#160;0X3F</td></tr>
-<tr class="memitem:a9fc70219da462d4ea6e442f67ccbb500" id="r_a9fc70219da462d4ea6e442f67ccbb500"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a9fc70219da462d4ea6e442f67ccbb500">RCC_NPLL_MULT_MASK</a>&#160;&#160;&#160;0X1FF</td></tr>
-<tr class="memitem:a991ffc2843311a8006557e2e0bee2171" id="r_a991ffc2843311a8006557e2e0bee2171"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a991ffc2843311a8006557e2e0bee2171">RCC_PPLL_DIV_MASK</a>&#160;&#160;&#160;0X3</td></tr>
-<tr class="memitem:a1549d0577a2af5b6a0e7960eb838ed28" id="r_a1549d0577a2af5b6a0e7960eb838ed28"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a1549d0577a2af5b6a0e7960eb838ed28">RCC_SYS_CLK_MASK</a>&#160;&#160;&#160;0X3</td></tr>
-<tr class="memitem:a97d72aa3d3462687b8715699bcf6248c" id="r_a97d72aa3d3462687b8715699bcf6248c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a97d72aa3d3462687b8715699bcf6248c">RCC_u32TIMEOUT</a>&#160;&#160;&#160;10000UL</td></tr>
+<tr class="memitem:a43b33b72bb100bc3f43c4ccfa0da5e1b" id="r_a43b33b72bb100bc3f43c4ccfa0da5e1b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a43b33b72bb100bc3f43c4ccfa0da5e1b">RCC_MPLL_DIV_MASK</a></td></tr>
+<tr class="memdesc:a43b33b72bb100bc3f43c4ccfa0da5e1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask of the PLL M (input divider) field in <span class="tt">PLLCFGR</span>.  <br /></td></tr>
+<tr class="memitem:a9fc70219da462d4ea6e442f67ccbb500" id="r_a9fc70219da462d4ea6e442f67ccbb500"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a9fc70219da462d4ea6e442f67ccbb500">RCC_NPLL_MULT_MASK</a></td></tr>
+<tr class="memdesc:a9fc70219da462d4ea6e442f67ccbb500"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask of the PLL N (VCO multiplier) field in <span class="tt">PLLCFGR</span>.  <br /></td></tr>
+<tr class="memitem:a991ffc2843311a8006557e2e0bee2171" id="r_a991ffc2843311a8006557e2e0bee2171"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a991ffc2843311a8006557e2e0bee2171">RCC_PPLL_DIV_MASK</a></td></tr>
+<tr class="memdesc:a991ffc2843311a8006557e2e0bee2171"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask of the PLL P (output divider) field in <span class="tt">PLLCFGR</span>.  <br /></td></tr>
+<tr class="memitem:a1549d0577a2af5b6a0e7960eb838ed28" id="r_a1549d0577a2af5b6a0e7960eb838ed28"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a1549d0577a2af5b6a0e7960eb838ed28">RCC_SYS_CLK_MASK</a></td></tr>
+<tr class="memdesc:a1549d0577a2af5b6a0e7960eb838ed28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask of the system-clock-switch field in <span class="tt">CFGR</span>.  <br /></td></tr>
+<tr class="memitem:a97d72aa3d3462687b8715699bcf6248c" id="r_a97d72aa3d3462687b8715699bcf6248c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a97d72aa3d3462687b8715699bcf6248c">RCC_u32TIMEOUT</a></td></tr>
+<tr class="memdesc:a97d72aa3d3462687b8715699bcf6248c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Busy-wait bound, in loop iterations, for a clock's "ready" flag.  <br /></td></tr>
 </table>
-<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Register bit positions and internals of the RCC driver — not a public header. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Abdelmoemen Shehawey  </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="RCC__private_8h_source.html">RCC_private.h</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="a43b33b72bb100bc3f43c4ccfa0da5e1b" name="a43b33b72bb100bc3f43c4ccfa0da5e1b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a43b33b72bb100bc3f43c4ccfa0da5e1b">&#9670;&#160;</a></span>RCC_MPLL_DIV_MASK</h2>
 
@@ -122,13 +131,16 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define RCC_MPLL_DIV_MASK&#160;&#160;&#160;0X3F</td>
+          <td class="memname">#define RCC_MPLL_DIV_MASK</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>===========================================================================** &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; <a class="el" href="RCC__private_8h.html">RCC_private.h</a> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;** ** Author : Abdallah Abdelmoemen Shehawey ** Layer : MCAL ** CPU : Cortex-M4 ** MCU : NUCLEO-F446RE ** SWC : RCC ** ** ===========================================================================** </p>
 
-<p class="definition">Definition at line <a class="el" href="RCC__private_8h_source.html#l00017">17</a> of file <a class="el" href="RCC__private_8h_source.html">RCC_private.h</a>.</p>
+<p>Mask of the PLL M (input divider) field in <span class="tt">PLLCFGR</span>. </p>
+
+<p class="definition">Definition at line <a class="el" href="RCC__private_8h_source.html#l00013">13</a> of file <a class="el" href="RCC__private_8h_source.html">RCC_private.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RCC__program_8c_source.html#l00250">RCC_enumPLLConfig()</a>.</p>
 
 </div>
 </div>
@@ -139,12 +151,16 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define RCC_NPLL_MULT_MASK&#160;&#160;&#160;0X1FF</td>
+          <td class="memname">#define RCC_NPLL_MULT_MASK</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="RCC__private_8h_source.html#l00018">18</a> of file <a class="el" href="RCC__private_8h_source.html">RCC_private.h</a>.</p>
+<p>Mask of the PLL N (VCO multiplier) field in <span class="tt">PLLCFGR</span>. </p>
+
+<p class="definition">Definition at line <a class="el" href="RCC__private_8h_source.html#l00014">14</a> of file <a class="el" href="RCC__private_8h_source.html">RCC_private.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RCC__program_8c_source.html#l00250">RCC_enumPLLConfig()</a>.</p>
 
 </div>
 </div>
@@ -155,12 +171,16 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define RCC_PPLL_DIV_MASK&#160;&#160;&#160;0X3</td>
+          <td class="memname">#define RCC_PPLL_DIV_MASK</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="RCC__private_8h_source.html#l00019">19</a> of file <a class="el" href="RCC__private_8h_source.html">RCC_private.h</a>.</p>
+<p>Mask of the PLL P (output divider) field in <span class="tt">PLLCFGR</span>. </p>
+
+<p class="definition">Definition at line <a class="el" href="RCC__private_8h_source.html#l00015">15</a> of file <a class="el" href="RCC__private_8h_source.html">RCC_private.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RCC__program_8c_source.html#l00250">RCC_enumPLLConfig()</a>.</p>
 
 </div>
 </div>
@@ -171,12 +191,16 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define RCC_SYS_CLK_MASK&#160;&#160;&#160;0X3</td>
+          <td class="memname">#define RCC_SYS_CLK_MASK</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="RCC__private_8h_source.html#l00020">20</a> of file <a class="el" href="RCC__private_8h_source.html">RCC_private.h</a>.</p>
+<p>Mask of the system-clock-switch field in <span class="tt">CFGR</span>. </p>
+
+<p class="definition">Definition at line <a class="el" href="RCC__private_8h_source.html#l00016">16</a> of file <a class="el" href="RCC__private_8h_source.html">RCC_private.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RCC__program_8c_source.html#l00185">RCC_enumSetSysClk()</a>.</p>
 
 </div>
 </div>
@@ -187,12 +211,17 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define RCC_u32TIMEOUT&#160;&#160;&#160;10000UL</td>
+          <td class="memname">#define RCC_u32TIMEOUT</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="RCC__private_8h_source.html#l00022">22</a> of file <a class="el" href="RCC__private_8h_source.html">RCC_private.h</a>.</p>
+<p>Busy-wait bound, in loop iterations, for a clock's "ready" flag. </p>
+<p>Prevents an absent crystal from hanging the boot forever. </p>
+
+<p class="definition">Definition at line <a class="el" href="RCC__private_8h_source.html#l00017">17</a> of file <a class="el" href="RCC__private_8h_source.html">RCC_private.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="RCC__program_8c_source.html#l00048">RCC_enumSetClkSts()</a>.</p>
 
 </div>
 </div>
@@ -209,7 +238,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_f93dfce691d792349f1c14ede440e2e6.html">Inc</a></li><li class="navelem"><a href="dir_5807d32f659ca06f2d44f24c89728eb8.html">Drivers</a></li><li class="navelem"><a href="dir_8b6b04023385edca15dd86450894d113.html">MCAL</a></li><li class="navelem"><a href="dir_3c6ed7b7468205093ec5753be56fa0f5.html">RCC</a></li><li class="navelem"><a href="RCC__private_8h.html">RCC_private.h</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Inc</b></li><li class="navelem"><b>Drivers</b></li><li class="navelem"><b>MCAL</b></li><li class="navelem"><b>RCC</b></li><li class="navelem"><a href="RCC__private_8h.html">RCC_private.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

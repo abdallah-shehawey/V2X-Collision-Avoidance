@@ -13,5 +13,5 @@ var searchData=
   ['rcc_5fpll_5fclk_5fsrc_5ft_10',['RCC_PLL_CLK_SRC_t',['../RCC__interface_8h.html#ad79bab7d985e3c44db6a9230bd54c455',1,'RCC_interface.h']]],
   ['rcc_5fppll_5fclk_5fdiv_5ft_11',['RCC_PPLL_CLK_DIV_t',['../RCC__interface_8h.html#a2fc8ece77236e47c265f8205802c711c',1,'RCC_interface.h']]],
   ['rcc_5fuc_5fbus_5ft_12',['RCC_uC_BUS_t',['../RCC__interface_8h.html#a62b5b7fee8df02fbf7524fe42ea61553',1,'RCC_interface.h']]],
-  ['risklevel_5ft_13',['RiskLevel_t',['../SafetyEngine__interface_8h.html#aa870174b113e13762b47e719bf3efa88',1,'SafetyEngine_interface.h']]]
+  ['risklevel_5ft_13',['RiskLevel_t',['../group__app__safetyengine.html#gaa870174b113e13762b47e719bf3efa88',1,'SafetyEngine_interface.h']]]
 ];

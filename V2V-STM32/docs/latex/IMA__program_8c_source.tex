@@ -1,63 +1,83 @@
 \doxysection{IMA\+\_\+program.\+c}
-\hypertarget{IMA__program_8c_source}{}\label{IMA__program_8c_source}\index{Src/IMA\_program.c@{Src/IMA\_program.c}}
+\hypertarget{IMA__program_8c_source}{}\label{IMA__program_8c_source}\index{V2V-\/STM32/Src/IMA\_program.c@{V2V-\/STM32/Src/IMA\_program.c}}
 \doxymbox{\hyperlink{IMA__program_8c}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00001}00001\ }
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00013}00013\ }
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{IMA__interface_8h}{../Inc/Application/IMA/IMA\_interface.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{IMA__config_8h}{../Inc/Application/IMA/IMA\_config.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00016}00016\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{IMA__private_8h}{../Inc/Application/IMA/IMA\_private.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{DSRC_8h}{../Inc/Application/DSRC/DSRC.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00018}00018\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{System_8h}{../Inc/System/System.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00019}00019\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SafetyEngine__interface_8h}{../Inc/Application/SafetyEngine/SafetyEngine\_interface.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00020}00020\ }
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00021}00021\ \textcolor{comment}{/*\ ============\ Module\ State\ (cycle\ accumulators)\ ============\ */}}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00022}00022\ \textcolor{keyword}{static}\ uint8\_t\ \ \ \ \ IMA\_CrossingDetected\ =\ 0;\ \textcolor{comment}{/*\ At\ least\ one\ crossing-\/dir\ neighbor\ */}}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00023}00023\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88}{RiskLevel\_t}}\ IMA\_WorstRisk\ \ \ \ \ \ \ \ =\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00024}00024\ }
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00025}00025\ \textcolor{comment}{/*\ ============\ Init\ ============\ */}}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00026}\doxymbox{\hyperlink{IMA__interface_8h_abd5d231970401e78bd9552c40742d1e9}{00026}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{IMA__program_8c_abd5d231970401e78bd9552c40742d1e9}{IMA\_voidInit}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00027}00027\ \{}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00028}00028\ \ \ IMA\_CrossingDetected\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00029}00029\ \ \ IMA\_WorstRisk\ \ \ \ \ \ \ \ =\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00030}00030\ \}}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{IMA__interface_8h}{../Inc/Application/IMA/IMA\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{IMA__config_8h}{../Inc/Application/IMA/IMA\_config.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{IMA__private_8h}{../Inc/Application/IMA/IMA\_private.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{DSRC_8h}{../Inc/Application/DSRC/DSRC.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{System_8h}{../Inc/System/System.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{SafetyEngine__interface_8h}{../Inc/Application/SafetyEngine/SafetyEngine\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00017}00017\ \textcolor{comment}{/*\ ============\ Module\ State\ (cycle\ accumulators)\ ============\ */}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00019}\doxymbox{\hyperlink{IMA__program_8c_aa8ee3697aabf78e1aad8d7b10effba12}{00019}}\ \textcolor{keyword}{static}\ uint8\_t\ \ \ \ \ \doxymbox{\hyperlink{IMA__program_8c_aa8ee3697aabf78e1aad8d7b10effba12}{IMA\_CrossingDetected}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00021}\doxymbox{\hyperlink{IMA__program_8c_ada0a2986b5d169695406de97638b1e43}{00021}}\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{RiskLevel\_t}}\ \doxymbox{\hyperlink{IMA__program_8c_ada0a2986b5d169695406de97638b1e43}{IMA\_WorstRisk}}\ \ \ \ \ \ \ \ =\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00023}00023\ \textcolor{comment}{/*\ ============\ Init\ ============\ */}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00024}\doxymbox{\hyperlink{IMA__interface_8h_abd5d231970401e78bd9552c40742d1e9}{00024}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{IMA__program_8c_abd5d231970401e78bd9552c40742d1e9}{IMA\_voidInit}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00025}00025\ \{}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00026}00026\ \ \ \doxymbox{\hyperlink{IMA__program_8c_aa8ee3697aabf78e1aad8d7b10effba12}{IMA\_CrossingDetected}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00027}00027\ \ \ \doxymbox{\hyperlink{IMA__program_8c_ada0a2986b5d169695406de97638b1e43}{IMA\_WorstRisk}}\ \ \ \ \ \ \ \ =\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00028}00028\ \}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00030}00030\ \textcolor{comment}{/*\ ============================================================\ */}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00031}00031\ \textcolor{comment}{/*\ ============\ Per-\/Neighbor\ API\ (for\ SafetyEngine)\ ============\ */}}
 \DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00032}00032\ \textcolor{comment}{/*\ ============================================================\ */}}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00033}00033\ \textcolor{comment}{/*\ ============\ Per-\/Neighbor\ API\ (for\ SafetyEngine)\ ============\ */}}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00034}00034\ \textcolor{comment}{/*\ ============================================================\ */}}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00035}00035\ }
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00040}\doxymbox{\hyperlink{IMA__interface_8h_a17e1c415924f5123666b1c7436f57a94}{00040}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{IMA__program_8c_a17e1c415924f5123666b1c7436f57a94}{IMA\_voidBeginCycle}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00041}00041\ \{}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00042}00042\ \ \ IMA\_CrossingDetected\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00043}00043\ \ \ IMA\_WorstRisk\ \ \ \ \ \ \ \ =\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00044}00044\ \}}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00045}00045\ }
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00057}\doxymbox{\hyperlink{IMA__interface_8h_a748c4abb479229cffa75659e88bd9751}{00057}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{IMA__program_8c_a748c4abb479229cffa75659e88bd9751}{IMA\_voidProcessNeighbor}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{DSRC_8h_ac818f2e1224a1e513913a85019953e14}{Neighbor}}\ *n)}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00058}00058\ \{}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00059}00059\ \ \ \textcolor{comment}{/*\ A\ crossing\ vehicle\ is\ detected\ */}}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00060}00060\ \ \ IMA\_CrossingDetected\ =\ 1;}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00061}00061\ }
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00062}00062\ \ \ \textcolor{comment}{/*\ Severity\ from\ the\ priority\ rule:\ the\ slower\ vehicle\ yields\ (CRITICAL),\ the}}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00063}00063\ \textcolor{comment}{\ \ \ *\ faster/equal\ one\ has\ right\ of\ way\ and\ passes\ first\ (WARNING).\ Either\ way\ an}}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00064}00064\ \textcolor{comment}{\ \ \ *\ alert\ fires\ so\ both\ drivers\ know\ an\ IMA\ case\ is\ in\ play.\ */}}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00065}00065\ \ \ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88}{RiskLevel\_t}}\ risk\ =\ (\doxymbox{\hyperlink{SafetyEngine__interface_8h_a16174df02da93c0fc96432a4bc1de57b}{Host\_Speed}}\ <\ n-\/>speed)\ ?\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492}{RISK\_CRITICAL}}\ \ \textcolor{comment}{/*\ host\ slower\ →\ yield\ */}}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82}{RISK\_WARNING}};\ \ \textcolor{comment}{/*\ host\ faster/equal\ →\ right\ of\ way\ */}}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00067}00067\ }
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00068}00068\ \ \ \textcolor{keywordflow}{if}\ (risk\ >\ IMA\_WorstRisk)}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00069}00069\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00070}00070\ \ \ \ \ IMA\_WorstRisk\ =\ risk;}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00071}00071\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00072}00072\ \}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00034}00034\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00035}00035\ \textcolor{comment}{\ *\ @brief\ Begin\ a\ new\ IMA\ processing\ cycle\ —\ reset\ accumulators.}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00036}00036\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ IMA\ reads\ Host\_Speed\ from\ the\ shared\ globals.}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00037}00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00038}\doxymbox{\hyperlink{IMA__interface_8h_a17e1c415924f5123666b1c7436f57a94}{00038}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{IMA__program_8c_a17e1c415924f5123666b1c7436f57a94}{IMA\_voidBeginCycle}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00039}00039\ \{}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00040}00040\ \ \ \doxymbox{\hyperlink{IMA__program_8c_aa8ee3697aabf78e1aad8d7b10effba12}{IMA\_CrossingDetected}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00041}00041\ \ \ \doxymbox{\hyperlink{IMA__program_8c_ada0a2986b5d169695406de97638b1e43}{IMA\_WorstRisk}}\ \ \ \ \ \ \ \ =\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}};}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00042}00042\ \}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00044}00044\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00045}00045\ \textcolor{comment}{\ *\ @brief\ Process\ one\ crossing-\/direction\ DSRC\ neighbor\ for\ IMA.}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00046}00046\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00047}00047\ \textcolor{comment}{\ *\ Any\ crossing\ vehicle\ raises\ an\ alert\ so\ the\ driver\ knows\ an\ IMA\ case\ is\ in}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00048}00048\ \textcolor{comment}{\ *\ play;\ the\ priority\ rule\ (higher\ speed\ =\ right\ of\ way)\ only\ sets\ its\ severity:}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00049}00049\ \textcolor{comment}{\ *\ \ \ -\/\ host\ faster\ or\ equal\ →\ it\ passes\ first\ →\ WARNING.}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00050}00050\ \textcolor{comment}{\ *\ \ \ -\/\ host\ slower\ \ \ \ \ \ \ \ \ \ →\ it\ must\ yield\ \ \ →\ CRITICAL.}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00051}00051\ \textcolor{comment}{\ *\ The\ SafetyEngine\ only\ dispatches\ crossing-\/direction\ neighbors\ here.}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00052}00052\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00053}00053\ \textcolor{comment}{\ *\ @param\ n\ Pointer\ to\ neighbor\ data}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00054}00054\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00055}\doxymbox{\hyperlink{IMA__interface_8h_a748c4abb479229cffa75659e88bd9751}{00055}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{IMA__program_8c_a748c4abb479229cffa75659e88bd9751}{IMA\_voidProcessNeighbor}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structNeighbor}{Neighbor}}\ *n)}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00056}00056\ \{}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00057}00057\ \ \ \textcolor{comment}{/*\ A\ crossing\ vehicle\ is\ detected\ */}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00058}00058\ \ \ \doxymbox{\hyperlink{IMA__program_8c_aa8ee3697aabf78e1aad8d7b10effba12}{IMA\_CrossingDetected}}\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00060}00060\ \ \ \textcolor{comment}{/*\ Severity\ from\ the\ priority\ rule:\ the\ slower\ vehicle\ yields\ (CRITICAL),\ the}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00061}00061\ \textcolor{comment}{\ \ \ *\ faster/equal\ one\ has\ right\ of\ way\ and\ passes\ first\ (WARNING).\ Either\ way\ an}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00062}00062\ \textcolor{comment}{\ \ \ *\ alert\ fires\ so\ both\ drivers\ know\ an\ IMA\ case\ is\ in\ play.\ */}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00063}00063\ \ \ \doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{RiskLevel\_t}}\ risk\ =\ (\doxymbox{\hyperlink{group__app__safetyengine_ga16174df02da93c0fc96432a4bc1de57b}{Host\_Speed}}\ <\ n-\/>\doxymbox{\hyperlink{structNeighbor_a69c6cf461fb3746631e7019c5fede46d}{speed}})\ ?\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492}{RISK\_CRITICAL}}\ \ \textcolor{comment}{/*\ host\ slower\ →\ yield\ */}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82}{RISK\_WARNING}};\ \ \textcolor{comment}{/*\ host\ faster/equal\ →\ right\ of\ way\ */}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00066}00066\ \ \ \textcolor{keywordflow}{if}\ (risk\ >\ \doxymbox{\hyperlink{IMA__program_8c_ada0a2986b5d169695406de97638b1e43}{IMA\_WorstRisk}})}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00067}00067\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00068}00068\ \ \ \ \ \doxymbox{\hyperlink{IMA__program_8c_ada0a2986b5d169695406de97638b1e43}{IMA\_WorstRisk}}\ =\ risk;}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00069}00069\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00070}00070\ \}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00072}00072\ \textcolor{comment}{/*\ ============\ Public\ Getter\ ============\ */}}
 \DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00073}00073\ }
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00074}00074\ \textcolor{comment}{/*\ ============\ Public\ Getter\ ============\ */}}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00075}00075\ }
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00081}\doxymbox{\hyperlink{IMA__interface_8h_a18f54786f683ab3016989275ccf9e95a}{00081}}\ uint8\_t\ \doxymbox{\hyperlink{IMA__program_8c_a18f54786f683ab3016989275ccf9e95a}{IMA\_u8GetFlag}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00082}00082\ \{}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00083}00083\ \ \ \textcolor{keywordflow}{if}\ (IMA\_CrossingDetected\ \&\&\ IMA\_WorstRisk\ >\ \doxymbox{\hyperlink{SafetyEngine__interface_8h_aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}})}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00084}00084\ \ \ \{}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00085}00085\ \ \ \ \ \textcolor{keywordflow}{return}\ (uint8\_t)IMA\_WorstRisk;}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00086}00086\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00087}00087\ \ \ \textcolor{keywordflow}{return}\ 0;}
-\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00088}00088\ \}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00074}00074\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00075}00075\ \textcolor{comment}{\ *\ @brief\ Current\ IMA\ flag.\ Any\ crossing\ vehicle\ raises\ an\ alert;\ the\ severity\ is}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00076}00076\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ WARNING\ when\ the\ host\ has\ right\ of\ way,\ CRITICAL\ when\ it\ must\ yield.}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00077}00077\ \textcolor{comment}{\ *\ @return\ 0=Safe,\ 1=Warning,\ 2=Critical}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00078}00078\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00079}\doxymbox{\hyperlink{IMA__interface_8h_a18f54786f683ab3016989275ccf9e95a}{00079}}\ uint8\_t\ \doxymbox{\hyperlink{IMA__program_8c_a18f54786f683ab3016989275ccf9e95a}{IMA\_u8GetFlag}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00080}00080\ \{}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00081}00081\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{IMA__program_8c_aa8ee3697aabf78e1aad8d7b10effba12}{IMA\_CrossingDetected}}\ \&\&\ \doxymbox{\hyperlink{IMA__program_8c_ada0a2986b5d169695406de97638b1e43}{IMA\_WorstRisk}}\ >\ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\_SAFE}})}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00082}00082\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00083}00083\ \ \ \ \ \textcolor{keywordflow}{return}\ (uint8\_t)\doxymbox{\hyperlink{IMA__program_8c_ada0a2986b5d169695406de97638b1e43}{IMA\_WorstRisk}};}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00084}00084\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00085}00085\ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{IMA__program_8c_source_l00086}00086\ \}}
 
 \end{DoxyCode}

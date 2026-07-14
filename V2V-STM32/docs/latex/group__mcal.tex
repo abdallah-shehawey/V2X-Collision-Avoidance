@@ -1,0 +1,63 @@
+\doxysection{MCAL }
+\hypertarget{group__mcal}{}\label{group__mcal}\index{MCAL@{MCAL}}
+
+
+Microcontroller Abstraction Layer — drivers written directly against the STM32\+F446\+RE registers.  
+
+
+Collaboration diagram for MCAL:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{group__mcal}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Topics}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{group__mcal__rcc}{RCC}}
+\begin{DoxyCompactList}\small\item\em Reset and clock control:\+ clock tree setup and per-\/peripheral clock gating. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__gpio}{GPIO}}
+\begin{DoxyCompactList}\small\item\em General-\/purpose I/\+O:\+ pin mode, speed, pull, alternate function, read/\+write. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__nvic}{NVIC}}
+\begin{DoxyCompactList}\small\item\em Nested vectored interrupt controller:\+ enable/\+disable, priority grouping. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__scb}{SCB}}
+\begin{DoxyCompactList}\small\item\em System control block:\+ {\ttfamily \doxylink{SCB__interface_8h_a93f514700ccf00d08dbdcff7f1224eb2}{System\+Init}}, vector table relocation, software reset. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__syscfg}{SYSCFG}}
+\begin{DoxyCompactList}\small\item\em System configuration controller:\+ routes a GPIO port to an EXTI line. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__systic}{SYSTICK}}
+\begin{DoxyCompactList}\small\item\em 24-\/bit system timer used for the blocking/\+asynchronous delays. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__exti}{EXTI}}
+\begin{DoxyCompactList}\small\item\em External interrupt/\+event controller:\+ edge-\/triggered pin interrupts. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__spi}{SPI}}
+\begin{DoxyCompactList}\small\item\em Serial peripheral interface — the MPU9250 link. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__tim}{TIM}}
+\begin{DoxyCompactList}\small\item\em General-\/purpose timers:\+ input capture, PWM, time base. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__usart}{USART}}
+\begin{DoxyCompactList}\small\item\em Asynchronous serial:\+ UART1 to the ESP32, UART2 to the Raspberry Pi. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__mcal__iwdg}{IWDG}}
+\begin{DoxyCompactList}\small\item\em Independent watchdog:\+ hardware-\/resets the MCU if a task stalls. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Microcontroller Abstraction Layer — drivers written directly against the STM32\+F446\+RE registers. 
+
+No vendor HAL/\+\+LL library is used anywhere in this project:\+ every peripheral driver below writes the peripheral\textquotesingle{}s registers itself, through the register map in \doxylink{group__lib}{LIB}. An MCAL driver knows about the MCU but nothing about the board, so it never refers to a specific LED, sensor or vehicle concept.
+
+Each driver follows the same three-\/file convention:\+
+\begin{DoxyItemize}
+\item {\ttfamily \texorpdfstring{$<$}{<}NAME\texorpdfstring{$>$}{>}\+\_\+interface.\+h} — the public API, the enums and the config structs
+\item {\ttfamily \texorpdfstring{$<$}{<}NAME\texorpdfstring{$>$}{>}\+\_\+config.\+h} — compile-\/time tuning knobs for this build
+\item {\ttfamily \texorpdfstring{$<$}{<}NAME\texorpdfstring{$>$}{>}\+\_\+private.\+h} — register bit positions and internal helpers 
+\end{DoxyItemize}\input{group__mcal__rcc}
+\input{group__mcal__gpio}
+\input{group__mcal__nvic}
+\input{group__mcal__scb}
+\input{group__mcal__syscfg}
+\input{group__mcal__systic}
+\input{group__mcal__exti}
+\input{group__mcal__spi}
+\input{group__mcal__tim}
+\input{group__mcal__usart}
+\input{group__mcal__iwdg}

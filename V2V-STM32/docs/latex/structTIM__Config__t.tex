@@ -7,26 +7,23 @@ Configuration structure for Timer Initialization.
 
 
 
-{\ttfamily \+\#include $<$TIM\+\_\+interface.\+h$>$}
+{\ttfamily \+\#include $<$Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h$>$}
 
 \doxysubsubsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
 \doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} \doxymbox{\hyperlink{structTIM__Config__t_a4b232636616286926c0e51eabc35ab5a}{Timer}}
-\item 
+\begin{DoxyCompactList}\small\item\em Timer Instance. \end{DoxyCompactList}\item 
 uint16\+\_\+t \doxymbox{\hyperlink{structTIM__Config__t_ad1fb494b6ff4c72034fd176a0fa5b117}{Prescaler}}
-\item 
+\begin{DoxyCompactList}\small\item\em Clock Prescaler (0-\/65535). \end{DoxyCompactList}\item 
 uint32\+\_\+t \doxymbox{\hyperlink{structTIM__Config__t_a472831a1ee559a2f182812ba63663dc3}{Auto\+Reload\+Value}}
-\item 
+\begin{DoxyCompactList}\small\item\em Auto-\/\+Reload Value (Period). \end{DoxyCompactList}\item 
 \doxymbox{\hyperlink{TIM__interface_8h_a0047e30e2a1ba7a8d59f2da4f0cf6eb4}{TIM\+\_\+\+Counter\+Mode\+\_\+t}} \doxymbox{\hyperlink{structTIM__Config__t_a2c0e5651926ff837ec0e8f8665d2c49e}{Mode}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Counter Mode (Up/\+\+Down). \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Configuration structure for Timer Initialization. \begin{Desc}
-\item[Examples]\par
-\doxymbox{\hyperlink{_2media_2Local-Disk_2Data_2V2X-Collision-Avoidance_2V2V-STM32_2Inc_2Drivers_2MCAL_2TIM_2TIM_interface_8h-example}{/\+media/\+\+Local-\/\+Disk/\+\+Data/\+\+V2\+X-\/\+Collision-\/\+Avoidance/\+\+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h}}.\end{Desc}
-
+Configuration structure for Timer Initialization. 
 
 Definition at line \doxymbox{\hyperlink{TIM__interface_8h_source_l00082}{82}} of file \doxymbox{\hyperlink{TIM__interface_8h_source}{TIM\+\_\+interface.\+h}}.
 
@@ -35,25 +32,23 @@ Definition at line \doxymbox{\hyperlink{TIM__interface_8h_source_l00082}{82}} of
 \label{doc-variable-members}
 \Hypertarget{structTIM__Config__t_doc-variable-members}
 \doxysubsection{Field Documentation}
-\Hypertarget{structTIM__Config__t_a472831a1ee559a2f182812ba63663dc3}\index{TIM\_Config\_t@{TIM\_Config\_t}!AutoReloadValue@{AutoReloadValue}}
-\index{AutoReloadValue@{AutoReloadValue}!TIM\_Config\_t@{TIM\_Config\_t}}
-\doxysubsubsection{\texorpdfstring{AutoReloadValue}{AutoReloadValue}}
-{\footnotesize\ttfamily \label{structTIM__Config__t_a472831a1ee559a2f182812ba63663dc3} 
-uint32\+\_\+t TIM\+\_\+\+Config\+\_\+t::\+\+Auto\+Reload\+Value}
+\Hypertarget{structTIM__Config__t_a4b232636616286926c0e51eabc35ab5a}\index{TIM\_Config\_t@{TIM\_Config\_t}!Timer@{Timer}}
+\index{Timer@{Timer}!TIM\_Config\_t@{TIM\_Config\_t}}
+\doxysubsubsection{\texorpdfstring{Timer}{Timer}}
+{\footnotesize\ttfamily \label{structTIM__Config__t_a4b232636616286926c0e51eabc35ab5a} 
+\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} TIM\+\_\+\+Config\+\_\+t::\+\+Timer}
 
 
 
-Definition at line \doxymbox{\hyperlink{TIM__interface_8h_source_l00086}{86}} of file \doxymbox{\hyperlink{TIM__interface_8h_source}{TIM\+\_\+interface.\+h}}.
-
-\Hypertarget{structTIM__Config__t_a2c0e5651926ff837ec0e8f8665d2c49e}\index{TIM\_Config\_t@{TIM\_Config\_t}!Mode@{Mode}}
-\index{Mode@{Mode}!TIM\_Config\_t@{TIM\_Config\_t}}
-\doxysubsubsection{\texorpdfstring{Mode}{Mode}}
-{\footnotesize\ttfamily \label{structTIM__Config__t_a2c0e5651926ff837ec0e8f8665d2c49e} 
-\doxymbox{\hyperlink{TIM__interface_8h_a0047e30e2a1ba7a8d59f2da4f0cf6eb4}{TIM\+\_\+\+Counter\+Mode\+\_\+t}} TIM\+\_\+\+Config\+\_\+t::\+\+Mode}
+Timer Instance. 
 
 
 
-Definition at line \doxymbox{\hyperlink{TIM__interface_8h_source_l00087}{87}} of file \doxymbox{\hyperlink{TIM__interface_8h_source}{TIM\+\_\+interface.\+h}}.
+Definition at line \doxymbox{\hyperlink{TIM__interface_8h_source_l00084}{84}} of file \doxymbox{\hyperlink{TIM__interface_8h_source}{TIM\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{TIM__program_8c_source_l00056}{TIM\+\_\+v\+Init()}}.
 
 \Hypertarget{structTIM__Config__t_ad1fb494b6ff4c72034fd176a0fa5b117}\index{TIM\_Config\_t@{TIM\_Config\_t}!Prescaler@{Prescaler}}
 \index{Prescaler@{Prescaler}!TIM\_Config\_t@{TIM\_Config\_t}}
@@ -63,20 +58,54 @@ uint16\+\_\+t TIM\+\_\+\+Config\+\_\+t::\+\+Prescaler}
 
 
 
+Clock Prescaler (0-\/65535). 
+
+
+
 Definition at line \doxymbox{\hyperlink{TIM__interface_8h_source_l00085}{85}} of file \doxymbox{\hyperlink{TIM__interface_8h_source}{TIM\+\_\+interface.\+h}}.
 
-\Hypertarget{structTIM__Config__t_a4b232636616286926c0e51eabc35ab5a}\index{TIM\_Config\_t@{TIM\_Config\_t}!Timer@{Timer}}
-\index{Timer@{Timer}!TIM\_Config\_t@{TIM\_Config\_t}}
-\doxysubsubsection{\texorpdfstring{Timer}{Timer}}
-{\footnotesize\ttfamily \label{structTIM__Config__t_a4b232636616286926c0e51eabc35ab5a} 
-\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23}{TIM\+\_\+\+Num\+\_\+t}} TIM\+\_\+\+Config\+\_\+t::\+\+Timer}
+
+
+Referenced by \doxymbox{\hyperlink{TIM__program_8c_source_l00056}{TIM\+\_\+v\+Init()}}.
+
+\Hypertarget{structTIM__Config__t_a472831a1ee559a2f182812ba63663dc3}\index{TIM\_Config\_t@{TIM\_Config\_t}!AutoReloadValue@{AutoReloadValue}}
+\index{AutoReloadValue@{AutoReloadValue}!TIM\_Config\_t@{TIM\_Config\_t}}
+\doxysubsubsection{\texorpdfstring{AutoReloadValue}{AutoReloadValue}}
+{\footnotesize\ttfamily \label{structTIM__Config__t_a472831a1ee559a2f182812ba63663dc3} 
+uint32\+\_\+t TIM\+\_\+\+Config\+\_\+t::\+\+Auto\+Reload\+Value}
 
 
 
-Definition at line \doxymbox{\hyperlink{TIM__interface_8h_source_l00084}{84}} of file \doxymbox{\hyperlink{TIM__interface_8h_source}{TIM\+\_\+interface.\+h}}.
+Auto-\/\+Reload Value (Period). 
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__interface_8h_source_l00086}{86}} of file \doxymbox{\hyperlink{TIM__interface_8h_source}{TIM\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{TIM__program_8c_source_l00056}{TIM\+\_\+v\+Init()}}.
+
+\Hypertarget{structTIM__Config__t_a2c0e5651926ff837ec0e8f8665d2c49e}\index{TIM\_Config\_t@{TIM\_Config\_t}!Mode@{Mode}}
+\index{Mode@{Mode}!TIM\_Config\_t@{TIM\_Config\_t}}
+\doxysubsubsection{\texorpdfstring{Mode}{Mode}}
+{\footnotesize\ttfamily \label{structTIM__Config__t_a2c0e5651926ff837ec0e8f8665d2c49e} 
+\doxymbox{\hyperlink{TIM__interface_8h_a0047e30e2a1ba7a8d59f2da4f0cf6eb4}{TIM\+\_\+\+Counter\+Mode\+\_\+t}} TIM\+\_\+\+Config\+\_\+t::\+\+Mode}
+
+
+
+Counter Mode (Up/\+\+Down). 
+
+
+
+Definition at line \doxymbox{\hyperlink{TIM__interface_8h_source_l00087}{87}} of file \doxymbox{\hyperlink{TIM__interface_8h_source}{TIM\+\_\+interface.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{TIM__program_8c_source_l00056}{TIM\+\_\+v\+Init()}}.
 
 
 
 The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
 \item 
-Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\doxymbox{\hyperlink{TIM__interface_8h}{TIM\+\_\+interface.\+h}}\end{DoxyCompactItemize}
+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\doxymbox{\hyperlink{TIM__interface_8h}{TIM\+\_\+interface.\+h}}\end{DoxyCompactItemize}

@@ -1,14 +1,10 @@
 /**
- **===========================================================================**
- **<<<<<<<<<<<<<<<<<<<<<<<<<<    RCC_program.c    >>>>>>>>>>>>>>>>>>>>>>>>>>>>**
- **                                                                           **
- **                  Author : Abdallah Abdelmoemen Shehawey                   **
- **                  Layer  : MCAL                                            **
- **                  CPU    : Cortex-M4                                       **
- **                  MCU    : NUCLEO-F446RE                                   **
- **                  SWC    : RCC                                             **
- **                                                                           **
- **===========================================================================**
+ ******************************************************************************
+ * @file    RCC_program.c
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Implementation of the RCC driver — reset and clock control.
+ * @ingroup mcal_rcc
+ ******************************************************************************
  */
 
 /*******************************************************************************
@@ -28,19 +24,18 @@
 /*******************************************************************************
  *                                Global Variables                               *
  *******************************************************************************/
-/* Global variable to track RCC driver state (IDLE/BUSY) */
+/** @brief Reentrancy guard for the driver: @ref IDLE or @ref BUSY. */
 static uint8_t RCC_u8State = IDLE;
 
-/*******************************************************************************
+/******************************************************************************
  *                              Functions Definitions                            *
  *******************************************************************************/
 
-/**
- * @fn     RCC_enumSetClkSts
+/*
  * @brief  This function controls the state (ON/OFF) of the main clock sources
  *         It handles enabling/disabling of HSI, HSE, and PLL clocks with timeout protection
- * @param  Copy_u8CLK: Clock source to control (HSI_CLK, HSE_CLK, PLL_CLK)
- * @param  Copy_u8Status: Desired clock state (CLK_ON, CLK_OFF)
+ * @param  Copy_u8CLK Clock source to control (HSI_CLK, HSE_CLK, PLL_CLK)
+ * @param  Copy_u8Status Desired clock state (CLK_ON, CLK_OFF)
  * @return ErrorState_t:
  *         - OK: Operation completed successfully
  *         - TIMEOUT_STATE: Clock failed to stabilize within timeout period
@@ -175,11 +170,10 @@ ErrorState_t RCC_enumSetClkSts(uint8_t Copy_u8CLK, uint8_t Copy_u8Status)
   return Local_u8ErrorState;
 }
 /*=================================================================================================================*/
-/**
- * @fn     RCC_enumSetSysClk
+/*
  * @brief  This function configures the system clock source
  *         It allows switching between different clock sources as the main system clock
- * @param  Copy_u8CLK: Clock source to be used as system clock
+ * @param  Copy_u8CLK Clock source to be used as system clock
  *         (HSI_CLK, HSE_CLK, PLLP_CLK, PLLR_CLK)
  * @return RCC_ErrorState:
  *         - RCC_OK: System clock switched successfully
@@ -236,11 +230,10 @@ ErrorState_t RCC_enumSetSysClk(uint8_t Copy_u8CLK)
 }
 
 /*=================================================================================================================*/
-/**
- * @fn     RCC_enumPLLConfig
+/*
  * @brief  This function configures the PLL clock parameters
  *         It sets up PLL multiplication and division factors for desired frequency
- * @param  Copy_PLLConfig: Pointer to PLL configuration structure containing:
+ * @param  Copy_PLLConfig Pointer to PLL configuration structure containing:
  *         - PLLSource: Clock source for PLL (HSI or HSE)
  *         - PLLM_Div: Division factor for PLL input (2-63)
  *         - PLLN_Mult: Multiplication factor (50-432)
@@ -307,11 +300,10 @@ ErrorState_t RCC_enumPLLConfig(const RCC_PLLConfig_t *Copy_PLLConfig)
 }
 
 /*=================================================================================================================*/
-/**
- * @fn     RCC_enumAHBConfig
+/*
  * @brief  This function configures the AHB bus clock prescaler
  *         It sets the division factor for the AHB clock relative to system clock
- * @param  Copy_u8AHPDiv: AHB prescaler value (AHB_NOT_DIV to AHB_DIV_512)
+ * @param  Copy_u8AHPDiv AHB prescaler value (AHB_NOT_DIV to AHB_DIV_512)
  * @return RCC_ErrorState:
  *         - RCC_OK: AHB prescaler configured successfully
  *         - NOK: Invalid prescaler value
@@ -350,11 +342,10 @@ ErrorState_t RCC_enumAHBConfig(uint8_t Copy_u8AHPDiv)
 }
 
 /*=================================================================================================================*/
-/**
- * @fn     RCC_enumAPB1Config
+/*
  * @brief  This function configures the APB1 bus clock prescaler
  *         It sets the division factor for the APB1 clock relative to AHB clock
- * @param  Copy_u8APB1Div: APB1 prescaler value (APB_NOT_DIV to APB_DIV_16)
+ * @param  Copy_u8APB1Div APB1 prescaler value (APB_NOT_DIV to APB_DIV_16)
  * @return RCC_ErrorState:
  *         - RCC_OK: APB1 prescaler configured successfully
  *         - NOK: Invalid prescaler value
@@ -393,11 +384,10 @@ ErrorState_t RCC_enumAPB1Config(uint8_t Copy_u8APB1Div)
 }
 
 /*=================================================================================================================*/
-/**
- * @fn     RCC_enumAPB2Config
+/*
  * @brief  This function configures the APB2 bus clock prescaler
  *         It sets the division factor for the APB2 clock relative to AHB clock
- * @param  Copy_u8APB2Div: APB2 prescaler value (APB_NOT_DIV to APB_DIV_16)
+ * @param  Copy_u8APB2Div APB2 prescaler value (APB_NOT_DIV to APB_DIV_16)
  * @return RCC_ErrorState:
  *         - RCC_OK: APB2 prescaler configured successfully
  *         - NOK: Invalid prescaler value
@@ -435,13 +425,12 @@ ErrorState_t RCC_enumAPB2Config(uint8_t Copy_u8APB2Div)
 }
 
 /*=================================================================================================================*/
-/**
- * @fn     RCC_enumAHPPerSts
+/*
  * @brief  This function controls the clock enable/disable for peripherals on AHB buses
  *         It manages peripheral clock gating for power optimization
- * @param  Copy_u8Bus: AHB bus number (AHB1, AHB2, AHB3)
- * @param  Copy_u8AHPPer: Peripheral number on the selected bus
- * @param  Copy_u8Status: Peripheral clock status (PER_ON, PER_OFF)
+ * @param  Copy_u8Bus AHB bus number (AHB1, AHB2, AHB3)
+ * @param  Copy_u8AHPPer Peripheral number on the selected bus
+ * @param  Copy_u8Status Peripheral clock status (PER_ON, PER_OFF)
  * @return RCC_ErrorState:
  *         - RCC_OK: Peripheral clock state changed successfully
  *         - BUSY_STATE: RCC driver is busy
@@ -504,13 +493,12 @@ ErrorState_t RCC_enumAHPPerSts(uint8_t Copy_u8Bus, uint8_t Copy_u8AHPPer, uint8_
 }
 
 /*=================================================================================================================*/
-/**
- * @fn     RCC_enumABPPerSts
+/*
  * @brief  This function controls the clock enable/disable for peripherals on APB buses
  *         It manages peripheral clock gating for power optimization
- * @param  Copy_u8Bus: APB bus number (APB1, APB2)
- * @param  Copy_u8AHPPer: Peripheral number on the selected bus
- * @param  Copy_u8Status: Peripheral clock status (PER_ON, PER_OFF)
+ * @param  Copy_u8Bus APB bus number (APB1, APB2)
+ * @param  Copy_u8AHPPer Peripheral number on the selected bus
+ * @param  Copy_u8Status Peripheral clock status (PER_ON, PER_OFF)
  * @return RCC_ErrorState:
  *         - RCC_OK: Peripheral clock state changed successfully
  *         - BUSY_STATE: RCC driver is busy

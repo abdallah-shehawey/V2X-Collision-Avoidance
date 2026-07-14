@@ -1,24 +1,36 @@
 \doxysection{IWDG\+\_\+\+Reg\+Def\+\_\+t Struct Reference}
 \hypertarget{structIWDG__RegDef__t}{}\label{structIWDG__RegDef__t}\index{IWDG\_RegDef\_t@{IWDG\_RegDef\_t}}
+
+
+IWDG register block — APB1 @ 0x40003000, clocked by the LSI (\texorpdfstring{$\sim$}{\string~}32 k\+Hz).  
+
+
 \doxysubsubsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
 volatile uint32\+\_\+t \doxymbox{\hyperlink{structIWDG__RegDef__t_a5570985723cddb8ac076b566bb0f9585}{KR}}
-\item 
+\begin{DoxyCompactList}\small\item\em Key register (0x00):\+ the magic values that unlock the registers, reload the counter, or start the watchdog. \end{DoxyCompactList}\item 
 volatile uint32\+\_\+t \doxymbox{\hyperlink{structIWDG__RegDef__t_a88d7d44a8bbed9d21a0fa1b01d3033da}{PR}}
-\item 
+\begin{DoxyCompactList}\small\item\em Prescaler (0x04):\+ divides the \texorpdfstring{$\sim$}{\string~}32 k\+Hz LSI down to the counter\textquotesingle{}s tick rate. \end{DoxyCompactList}\item 
 volatile uint32\+\_\+t \doxymbox{\hyperlink{structIWDG__RegDef__t_a3abcbb874bcffb4481131681a48a679f}{RLR}}
-\item 
+\begin{DoxyCompactList}\small\item\em Reload value (0x08):\+ what the down-\/counter restarts from on each kick. \end{DoxyCompactList}\item 
 volatile uint32\+\_\+t \doxymbox{\hyperlink{structIWDG__RegDef__t_a2fc54da78e15238279372f2c48f52e8d}{SR}}
-\item 
+\begin{DoxyCompactList}\small\item\em Status (0x0C):\+ "{}an update to PR/\+\+RLR is still in progress"{}. \end{DoxyCompactList}\item 
 volatile uint32\+\_\+t \doxymbox{\hyperlink{structIWDG__RegDef__t_ad1baad23cdb6f363390bad4c5b119f46}{WINR}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Window (0x10):\+ if set, kicking {\itshape too early} also resets the MCU. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} \doxylink{IWDG__program_8c}{IWDG\+\_\+program.\+c} \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Saleh \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ MCAL \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} CPU :\+ Cortex-\/\+M4 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} MCU :\+ NUCLEO-\/\+F446\+RE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SWC :\+ IWDG (Independent Watchdog) \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} 
+IWDG register block — APB1 @ 0x40003000, clocked by the LSI (\texorpdfstring{$\sim$}{\string~}32 k\+Hz). 
 
-Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00018}{18}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
+The IWDG is deliberately hard to disarm:\+ its registers are write-\/protected, and a magic key must be written to \doxylink{structIWDG__RegDef__t_a5570985723cddb8ac076b566bb0f9585}{IWDG\+\_\+\+Reg\+Def\+\_\+t::\+\+KR} to unlock them. Once the watchdog has been started it cannot be stopped at all — only reset before it expires. That is the whole point:\+ a runaway program must not be able to switch off its own safety net.
+
+\begin{DoxyNote}{Note}
+Its clock is the LSI, an RC oscillator accurate to roughly ±50\%, so the real timeout can be substantially shorter or longer than the nominal one. Timeouts here are chosen with generous margin rather than to the millisecond. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00026}{26}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
 
 
 
@@ -33,7 +45,11 @@ volatile uint32\+\_\+t IWDG\+\_\+\+Reg\+Def\+\_\+t::\+\+KR}
 
 
 
-Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00020}{20}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
+Key register (0x00):\+ the magic values that unlock the registers, reload the counter, or start the watchdog. 
+
+
+
+Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00028}{28}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
 
 \Hypertarget{structIWDG__RegDef__t_a88d7d44a8bbed9d21a0fa1b01d3033da}\index{IWDG\_RegDef\_t@{IWDG\_RegDef\_t}!PR@{PR}}
 \index{PR@{PR}!IWDG\_RegDef\_t@{IWDG\_RegDef\_t}}
@@ -43,7 +59,11 @@ volatile uint32\+\_\+t IWDG\+\_\+\+Reg\+Def\+\_\+t::\+\+PR}
 
 
 
-Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00021}{21}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
+Prescaler (0x04):\+ divides the \texorpdfstring{$\sim$}{\string~}32 k\+Hz LSI down to the counter\textquotesingle{}s tick rate. 
+
+
+
+Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00029}{29}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
 
 \Hypertarget{structIWDG__RegDef__t_a3abcbb874bcffb4481131681a48a679f}\index{IWDG\_RegDef\_t@{IWDG\_RegDef\_t}!RLR@{RLR}}
 \index{RLR@{RLR}!IWDG\_RegDef\_t@{IWDG\_RegDef\_t}}
@@ -53,7 +73,11 @@ volatile uint32\+\_\+t IWDG\+\_\+\+Reg\+Def\+\_\+t::\+\+RLR}
 
 
 
-Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00022}{22}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
+Reload value (0x08):\+ what the down-\/counter restarts from on each kick. 
+
+Together with PR this sets the timeout. 
+
+Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00030}{30}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
 
 \Hypertarget{structIWDG__RegDef__t_a2fc54da78e15238279372f2c48f52e8d}\index{IWDG\_RegDef\_t@{IWDG\_RegDef\_t}!SR@{SR}}
 \index{SR@{SR}!IWDG\_RegDef\_t@{IWDG\_RegDef\_t}}
@@ -63,7 +87,11 @@ volatile uint32\+\_\+t IWDG\+\_\+\+Reg\+Def\+\_\+t::\+\+SR}
 
 
 
-Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00023}{23}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
+Status (0x0C):\+ "{}an update to PR/\+\+RLR is still in progress"{}. 
+
+Both must read back clear before a new write is accepted. 
+
+Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00031}{31}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
 
 \Hypertarget{structIWDG__RegDef__t_ad1baad23cdb6f363390bad4c5b119f46}\index{IWDG\_RegDef\_t@{IWDG\_RegDef\_t}!WINR@{WINR}}
 \index{WINR@{WINR}!IWDG\_RegDef\_t@{IWDG\_RegDef\_t}}
@@ -73,10 +101,14 @@ volatile uint32\+\_\+t IWDG\+\_\+\+Reg\+Def\+\_\+t::\+\+WINR}
 
 
 
-Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00024}{24}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
+Window (0x10):\+ if set, kicking {\itshape too early} also resets the MCU. 
+
+Unused here. 
+
+Definition at line \doxymbox{\hyperlink{IWDG__program_8c_source_l00032}{32}} of file \doxymbox{\hyperlink{IWDG__program_8c_source}{IWDG\+\_\+program.\+c}}.
 
 
 
 The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
 \item 
-Src/\+\doxymbox{\hyperlink{IWDG__program_8c}{IWDG\+\_\+program.\+c}}\end{DoxyCompactItemize}
+V2\+V-\/\+STM32/\+\+Src/\+\doxymbox{\hyperlink{IWDG__program_8c}{IWDG\+\_\+program.\+c}}\end{DoxyCompactItemize}

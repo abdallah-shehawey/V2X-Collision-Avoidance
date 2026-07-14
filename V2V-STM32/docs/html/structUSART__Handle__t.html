@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: USART_Handle_t Struct Reference</title>
+<title>V2V Collision Avoidance Firmware: USART_Handle_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -94,45 +94,49 @@ $(function(){initNavTree('structUSART__Handle__t.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>&gt;</code></p>
+<p>A USART used in <b>interrupt-driven</b> mode: line settings plus the ISR hookup.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="USART__intreface_8h_source.html">Drivers/MCAL/USART/USART_intreface.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:aa673757872f1a8f9ad2ceb0c60ca684b" id="r_aa673757872f1a8f9ad2ceb0c60ca684b"><td class="memItemLeft"><a class="el" href="USART__intreface_8h.html#a19facc44fdef5d4b8d0c1d3beea79b0f">USART_Channel_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa673757872f1a8f9ad2ceb0c60ca684b">Channel</a></td></tr>
+<tr class="memdesc:aa673757872f1a8f9ad2ceb0c60ca684b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Which USART peripheral (USART1..6).  <br /></td></tr>
 <tr class="memitem:ad520bfbb2b428eb005400af9478725fa" id="r_ad520bfbb2b428eb005400af9478725fa"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ad520bfbb2b428eb005400af9478725fa">BaudRate</a></td></tr>
+<tr class="memdesc:ad520bfbb2b428eb005400af9478725fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Baud rate in bits per second.  <br /></td></tr>
 <tr class="memitem:abf29e9ea811a2c70362f1b607422db8e" id="r_abf29e9ea811a2c70362f1b607422db8e"><td class="memItemLeft"><a class="el" href="USART__intreface_8h.html#a4e501b68f85dbe9be3c75f1bfc5b81bf">USART_WordLength_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#abf29e9ea811a2c70362f1b607422db8e">WordLength</a></td></tr>
+<tr class="memdesc:abf29e9ea811a2c70362f1b607422db8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">8 or 9 data bits per frame.  <br /></td></tr>
 <tr class="memitem:a1ae2c8c6693a2a60291c3248164f7717" id="r_a1ae2c8c6693a2a60291c3248164f7717"><td class="memItemLeft"><a class="el" href="USART__intreface_8h.html#abec0b9e0949c0192d3882c9c5f0cb00a">USART_StopBits_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1ae2c8c6693a2a60291c3248164f7717">StopBits</a></td></tr>
+<tr class="memdesc:a1ae2c8c6693a2a60291c3248164f7717"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of stop bits.  <br /></td></tr>
 <tr class="memitem:acd395e4c38d29098f1e24a2965235869" id="r_acd395e4c38d29098f1e24a2965235869"><td class="memItemLeft"><a class="el" href="USART__intreface_8h.html#a0bf5457d1d0c0d8d85fe765331b2ef85">USART_Parity_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#acd395e4c38d29098f1e24a2965235869">Parity</a></td></tr>
+<tr class="memdesc:acd395e4c38d29098f1e24a2965235869"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parity: none, even or odd.  <br /></td></tr>
 <tr class="memitem:a0973511afc0fc0f5169a33e4dd307dbe" id="r_a0973511afc0fc0f5169a33e4dd307dbe"><td class="memItemLeft"><a class="el" href="USART__intreface_8h.html#a2af94f01f7385eb7c2bd27faa4ce4ef2">USART_Mode_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0973511afc0fc0f5169a33e4dd307dbe">Mode</a></td></tr>
+<tr class="memdesc:a0973511afc0fc0f5169a33e4dd307dbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the transmitter, the receiver, or both.  <br /></td></tr>
 <tr class="memitem:a3c5e32bd37c88d84f0292650608fd03d" id="r_a3c5e32bd37c88d84f0292650608fd03d"><td class="memItemLeft"><a class="el" href="USART__intreface_8h.html#ac5ca66b87d3ee5408999e504965a912f">USART_HardwareFlowControl_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3c5e32bd37c88d84f0292650608fd03d">HardwareFlowControl</a></td></tr>
+<tr class="memdesc:a3c5e32bd37c88d84f0292650608fd03d"><td class="mdescLeft">&#160;</td><td class="mdescRight">RTS/CTS flow control; none on this board.  <br /></td></tr>
 <tr class="memitem:a55217ed413490db42704baa4e4c7b179" id="r_a55217ed413490db42704baa4e4c7b179"><td class="memItemLeft"><a class="el" href="USART__intreface_8h.html#abafac9366efc163949f648cb90e719a3">USART_OverSampling_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a55217ed413490db42704baa4e4c7b179">OverSampling</a></td></tr>
+<tr class="memdesc:a55217ed413490db42704baa4e4c7b179"><td class="mdescLeft">&#160;</td><td class="mdescRight">8x or 16x oversampling.  <br /></td></tr>
 <tr class="memitem:a059fec46fb1c4b0b701663a8a1189686" id="r_a059fec46fb1c4b0b701663a8a1189686"><td class="memItemLeft"><a class="el" href="USART__intreface_8h.html#aa193aa9233cc109dd56fb82ed3b759f9">USART_RXNEIE_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a059fec46fb1c4b0b701663a8a1189686">RXNEIE</a></td></tr>
+<tr class="memdesc:a059fec46fb1c4b0b701663a8a1189686"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt when a byte has been received.  <br /></td></tr>
 <tr class="memitem:a5412178ce96c8615908d2b7913dcfc6f" id="r_a5412178ce96c8615908d2b7913dcfc6f"><td class="memItemLeft"><a class="el" href="USART__intreface_8h.html#a33a56f94f56d7ca07208bad3d49396f5">USART_TCIE_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5412178ce96c8615908d2b7913dcfc6f">TCIE</a></td></tr>
+<tr class="memdesc:a5412178ce96c8615908d2b7913dcfc6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt when a transmission has fully completed.  <br /></td></tr>
 <tr class="memitem:a3a14a089db93ca1d2d55223a9480198e" id="r_a3a14a089db93ca1d2d55223a9480198e"><td class="memItemLeft"><a class="el" href="USART__intreface_8h.html#a671c995d7fa209fff941711681dcc559">USART_TXEIE_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3a14a089db93ca1d2d55223a9480198e">TXEIE</a></td></tr>
+<tr class="memdesc:a3a14a089db93ca1d2d55223a9480198e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt when the transmit register is free for the next byte.  <br /></td></tr>
 <tr class="memitem:a08ca0a058f6f219e988427a84c8406e5" id="r_a08ca0a058f6f219e988427a84c8406e5"><td class="memItemLeft"><a class="el" href="USART__intreface_8h.html#adb1fce64d7ee2a64d1dc1e6fb8820a95">USART_IDLEIE_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a08ca0a058f6f219e988427a84c8406e5">IDLEIE</a></td></tr>
+<tr class="memdesc:a08ca0a058f6f219e988427a84c8406e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt when the line has gone idle.  <br /></td></tr>
 <tr class="memitem:a5a87fe8d7a2dac7fac0e0bb0ae1fd5ed" id="r_a5a87fe8d7a2dac7fac0e0bb0ae1fd5ed"><td class="memItemLeft"><a class="el" href="USART__intreface_8h.html#a30d6992d6046924f7ad8f2dc86456d83">USART_PEIE_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5a87fe8d7a2dac7fac0e0bb0ae1fd5ed">PEIE</a></td></tr>
+<tr class="memdesc:a5a87fe8d7a2dac7fac0e0bb0ae1fd5ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt on a parity error.  <br /></td></tr>
 <tr class="memitem:a26637f53bbb7395126e999b25261259d" id="r_a26637f53bbb7395126e999b25261259d"><td class="memItemLeft">void(*&#160;</td><td class="memItemRight"><a class="el" href="#a26637f53bbb7395126e999b25261259d">pfnCallback</a> )(void)</td></tr>
+<tr class="memdesc:a26637f53bbb7395126e999b25261259d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called from the USART ISR — see the note above.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00121">121</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
+<div class="textblock"><p>A USART used in <b>interrupt-driven</b> mode: line settings plus the ISR hookup. </p>
+<p>This is <a class="el" href="structUSART__Config__t.html" title="USART_Config_t">USART_Config_t</a> with the five interrupt enables and a callback bolted on. USART1 uses it because the ESP32 talks whenever it likes: there is no request/response pattern to poll for, so a byte has to be able to interrupt us.</p>
+<dl class="section note"><dt>Note</dt><dd>The driver calls <a class="el" href="#a26637f53bbb7395126e999b25261259d" title="pfnCallback">pfnCallback</a> from the USART ISR itself. Whatever it points at must therefore be ISR-safe: short, non-blocking, and restricted to the <span class="tt">...FromISR</span> FreeRTOS API. <span class="tt"><a class="el" href="main_8c.html#a88b12403f1d9bc8cff413fbbde56e15d" title="USART1 receive ISR callback: push one byte onto G_xESP_RX_Queue.">vESP_UART_RX_Callback</a></span> in <span class="tt"><a class="el" href="main_8c.html" title="Entry point, the six FreeRTOS tasks, and the watchdog liveness net.">main.c</a></span> is the one that matters — it does nothing but enqueue the byte. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00157">157</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
-<a id="ad520bfbb2b428eb005400af9478725fa" name="ad520bfbb2b428eb005400af9478725fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad520bfbb2b428eb005400af9478725fa">&#9670;&#160;</a></span>BaudRate</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t USART_Handle_t::BaudRate</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00124">124</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
-
-</div>
-</div>
 <a id="aa673757872f1a8f9ad2ceb0c60ca684b" name="aa673757872f1a8f9ad2ceb0c60ca684b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa673757872f1a8f9ad2ceb0c60ca684b">&#9670;&#160;</a></span>Channel</h2>
 
@@ -145,183 +149,31 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00123">123</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
+<p>Which USART peripheral (USART1..6). </p>
+
+<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00159">159</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="USART__program_8c_source.html#l00138">USART_InitIT()</a>.</p>
 
 </div>
 </div>
-<a id="a3c5e32bd37c88d84f0292650608fd03d" name="a3c5e32bd37c88d84f0292650608fd03d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c5e32bd37c88d84f0292650608fd03d">&#9670;&#160;</a></span>HardwareFlowControl</h2>
+<a id="ad520bfbb2b428eb005400af9478725fa" name="ad520bfbb2b428eb005400af9478725fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad520bfbb2b428eb005400af9478725fa">&#9670;&#160;</a></span>BaudRate</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="USART__intreface_8h.html#ac5ca66b87d3ee5408999e504965a912f">USART_HardwareFlowControl_t</a> USART_Handle_t::HardwareFlowControl</td>
+          <td class="memname">uint32_t USART_Handle_t::BaudRate</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00129">129</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
+<p>Baud rate in bits per second. </p>
 
-</div>
-</div>
-<a id="a08ca0a058f6f219e988427a84c8406e5" name="a08ca0a058f6f219e988427a84c8406e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08ca0a058f6f219e988427a84c8406e5">&#9670;&#160;</a></span>IDLEIE</h2>
+<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00160">160</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="USART__intreface_8h.html#adb1fce64d7ee2a64d1dc1e6fb8820a95">USART_IDLEIE_t</a> USART_Handle_t::IDLEIE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00134">134</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
-
-</div>
-</div>
-<a id="a0973511afc0fc0f5169a33e4dd307dbe" name="a0973511afc0fc0f5169a33e4dd307dbe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0973511afc0fc0f5169a33e4dd307dbe">&#9670;&#160;</a></span>Mode</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="USART__intreface_8h.html#a2af94f01f7385eb7c2bd27faa4ce4ef2">USART_Mode_t</a> USART_Handle_t::Mode</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00128">128</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
-
-</div>
-</div>
-<a id="a55217ed413490db42704baa4e4c7b179" name="a55217ed413490db42704baa4e4c7b179"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a55217ed413490db42704baa4e4c7b179">&#9670;&#160;</a></span>OverSampling</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="USART__intreface_8h.html#abafac9366efc163949f648cb90e719a3">USART_OverSampling_t</a> USART_Handle_t::OverSampling</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00130">130</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
-
-</div>
-</div>
-<a id="acd395e4c38d29098f1e24a2965235869" name="acd395e4c38d29098f1e24a2965235869"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd395e4c38d29098f1e24a2965235869">&#9670;&#160;</a></span>Parity</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="USART__intreface_8h.html#a0bf5457d1d0c0d8d85fe765331b2ef85">USART_Parity_t</a> USART_Handle_t::Parity</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00127">127</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
-
-</div>
-</div>
-<a id="a5a87fe8d7a2dac7fac0e0bb0ae1fd5ed" name="a5a87fe8d7a2dac7fac0e0bb0ae1fd5ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a87fe8d7a2dac7fac0e0bb0ae1fd5ed">&#9670;&#160;</a></span>PEIE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="USART__intreface_8h.html#a30d6992d6046924f7ad8f2dc86456d83">USART_PEIE_t</a> USART_Handle_t::PEIE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00135">135</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
-
-</div>
-</div>
-<a id="a26637f53bbb7395126e999b25261259d" name="a26637f53bbb7395126e999b25261259d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26637f53bbb7395126e999b25261259d">&#9670;&#160;</a></span>pfnCallback</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void(* USART_Handle_t::pfnCallback) (void)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00136">136</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
-
-</div>
-</div>
-<a id="a059fec46fb1c4b0b701663a8a1189686" name="a059fec46fb1c4b0b701663a8a1189686"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a059fec46fb1c4b0b701663a8a1189686">&#9670;&#160;</a></span>RXNEIE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="USART__intreface_8h.html#aa193aa9233cc109dd56fb82ed3b759f9">USART_RXNEIE_t</a> USART_Handle_t::RXNEIE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00131">131</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
-
-</div>
-</div>
-<a id="a1ae2c8c6693a2a60291c3248164f7717" name="a1ae2c8c6693a2a60291c3248164f7717"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ae2c8c6693a2a60291c3248164f7717">&#9670;&#160;</a></span>StopBits</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="USART__intreface_8h.html#abec0b9e0949c0192d3882c9c5f0cb00a">USART_StopBits_t</a> USART_Handle_t::StopBits</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00126">126</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
-
-</div>
-</div>
-<a id="a5412178ce96c8615908d2b7913dcfc6f" name="a5412178ce96c8615908d2b7913dcfc6f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5412178ce96c8615908d2b7913dcfc6f">&#9670;&#160;</a></span>TCIE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="USART__intreface_8h.html#a33a56f94f56d7ca07208bad3d49396f5">USART_TCIE_t</a> USART_Handle_t::TCIE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00132">132</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
-
-</div>
-</div>
-<a id="a3a14a089db93ca1d2d55223a9480198e" name="a3a14a089db93ca1d2d55223a9480198e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a14a089db93ca1d2d55223a9480198e">&#9670;&#160;</a></span>TXEIE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="USART__intreface_8h.html#a671c995d7fa209fff941711681dcc559">USART_TXEIE_t</a> USART_Handle_t::TXEIE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00133">133</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
+<p class="reference">Referenced by <a class="el" href="USART__program_8c_source.html#l00138">USART_InitIT()</a>.</p>
 
 </div>
 </div>
@@ -337,12 +189,235 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00125">125</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
+<p>8 or 9 data bits per frame. </p>
+
+<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00161">161</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="USART__program_8c_source.html#l00138">USART_InitIT()</a>.</p>
+
+</div>
+</div>
+<a id="a1ae2c8c6693a2a60291c3248164f7717" name="a1ae2c8c6693a2a60291c3248164f7717"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ae2c8c6693a2a60291c3248164f7717">&#9670;&#160;</a></span>StopBits</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="USART__intreface_8h.html#abec0b9e0949c0192d3882c9c5f0cb00a">USART_StopBits_t</a> USART_Handle_t::StopBits</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of stop bits. </p>
+
+<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00162">162</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="USART__program_8c_source.html#l00138">USART_InitIT()</a>.</p>
+
+</div>
+</div>
+<a id="acd395e4c38d29098f1e24a2965235869" name="acd395e4c38d29098f1e24a2965235869"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd395e4c38d29098f1e24a2965235869">&#9670;&#160;</a></span>Parity</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="USART__intreface_8h.html#a0bf5457d1d0c0d8d85fe765331b2ef85">USART_Parity_t</a> USART_Handle_t::Parity</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Parity: none, even or odd. </p>
+
+<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00163">163</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="USART__program_8c_source.html#l00138">USART_InitIT()</a>.</p>
+
+</div>
+</div>
+<a id="a0973511afc0fc0f5169a33e4dd307dbe" name="a0973511afc0fc0f5169a33e4dd307dbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0973511afc0fc0f5169a33e4dd307dbe">&#9670;&#160;</a></span>Mode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="USART__intreface_8h.html#a2af94f01f7385eb7c2bd27faa4ce4ef2">USART_Mode_t</a> USART_Handle_t::Mode</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable the transmitter, the receiver, or both. </p>
+
+<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00164">164</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="USART__program_8c_source.html#l00138">USART_InitIT()</a>.</p>
+
+</div>
+</div>
+<a id="a3c5e32bd37c88d84f0292650608fd03d" name="a3c5e32bd37c88d84f0292650608fd03d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c5e32bd37c88d84f0292650608fd03d">&#9670;&#160;</a></span>HardwareFlowControl</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="USART__intreface_8h.html#ac5ca66b87d3ee5408999e504965a912f">USART_HardwareFlowControl_t</a> USART_Handle_t::HardwareFlowControl</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>RTS/CTS flow control; none on this board. </p>
+
+<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00165">165</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
+
+</div>
+</div>
+<a id="a55217ed413490db42704baa4e4c7b179" name="a55217ed413490db42704baa4e4c7b179"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55217ed413490db42704baa4e4c7b179">&#9670;&#160;</a></span>OverSampling</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="USART__intreface_8h.html#abafac9366efc163949f648cb90e719a3">USART_OverSampling_t</a> USART_Handle_t::OverSampling</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>8x or 16x oversampling. </p>
+
+<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00166">166</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="USART__program_8c_source.html#l00138">USART_InitIT()</a>.</p>
+
+</div>
+</div>
+<a id="a059fec46fb1c4b0b701663a8a1189686" name="a059fec46fb1c4b0b701663a8a1189686"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a059fec46fb1c4b0b701663a8a1189686">&#9670;&#160;</a></span>RXNEIE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="USART__intreface_8h.html#aa193aa9233cc109dd56fb82ed3b759f9">USART_RXNEIE_t</a> USART_Handle_t::RXNEIE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupt when a byte has been received. </p>
+<p>This is the one the ESP32 link needs. </p>
+
+<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00167">167</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="USART__program_8c_source.html#l00138">USART_InitIT()</a>.</p>
+
+</div>
+</div>
+<a id="a5412178ce96c8615908d2b7913dcfc6f" name="a5412178ce96c8615908d2b7913dcfc6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5412178ce96c8615908d2b7913dcfc6f">&#9670;&#160;</a></span>TCIE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="USART__intreface_8h.html#a33a56f94f56d7ca07208bad3d49396f5">USART_TCIE_t</a> USART_Handle_t::TCIE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupt when a transmission has fully completed. </p>
+
+<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00168">168</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="USART__program_8c_source.html#l00138">USART_InitIT()</a>.</p>
+
+</div>
+</div>
+<a id="a3a14a089db93ca1d2d55223a9480198e" name="a3a14a089db93ca1d2d55223a9480198e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a14a089db93ca1d2d55223a9480198e">&#9670;&#160;</a></span>TXEIE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="USART__intreface_8h.html#a671c995d7fa209fff941711681dcc559">USART_TXEIE_t</a> USART_Handle_t::TXEIE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupt when the transmit register is free for the next byte. </p>
+
+<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00169">169</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="USART__program_8c_source.html#l00138">USART_InitIT()</a>.</p>
+
+</div>
+</div>
+<a id="a08ca0a058f6f219e988427a84c8406e5" name="a08ca0a058f6f219e988427a84c8406e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08ca0a058f6f219e988427a84c8406e5">&#9670;&#160;</a></span>IDLEIE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="USART__intreface_8h.html#adb1fce64d7ee2a64d1dc1e6fb8820a95">USART_IDLEIE_t</a> USART_Handle_t::IDLEIE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupt when the line has gone idle. </p>
+
+<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00170">170</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="USART__program_8c_source.html#l00138">USART_InitIT()</a>.</p>
+
+</div>
+</div>
+<a id="a5a87fe8d7a2dac7fac0e0bb0ae1fd5ed" name="a5a87fe8d7a2dac7fac0e0bb0ae1fd5ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a87fe8d7a2dac7fac0e0bb0ae1fd5ed">&#9670;&#160;</a></span>PEIE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="USART__intreface_8h.html#a30d6992d6046924f7ad8f2dc86456d83">USART_PEIE_t</a> USART_Handle_t::PEIE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupt on a parity error. </p>
+
+<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00171">171</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="USART__program_8c_source.html#l00138">USART_InitIT()</a>.</p>
+
+</div>
+</div>
+<a id="a26637f53bbb7395126e999b25261259d" name="a26637f53bbb7395126e999b25261259d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26637f53bbb7395126e999b25261259d">&#9670;&#160;</a></span>pfnCallback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void(* USART_Handle_t::pfnCallback) (void)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Called from the USART ISR — see the note above. </p>
+
+<p class="definition">Definition at line <a class="el" href="USART__intreface_8h_source.html#l00172">172</a> of file <a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="USART__program_8c_source.html#l00138">USART_InitIT()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>Inc/Drivers/MCAL/USART/<a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a></li>
+<li>V2V-STM32/Inc/Drivers/MCAL/USART/<a class="el" href="USART__intreface_8h_source.html">USART_intreface.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

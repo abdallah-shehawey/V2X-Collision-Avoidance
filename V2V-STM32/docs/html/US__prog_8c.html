@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Src/US_prog.c File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Src/US_prog.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,11 +90,14 @@ $(function(){initNavTree('US__prog_8c.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">US_prog.c File Reference</div></div>
+  <div class="headertitle"><div class="title">US_prog.c File Reference<div class="ingroups"><a class="el" href="group__hal.html">HAL</a> &raquo; <a class="el" href="group__hal__us.html">US</a></div></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Implementation of the US driver — the HC-SR04 ultrasonic rangefinders.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">../Inc/Drivers/LIB/STM32F446xx.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="STM32F446xx_8h_source.html">../Inc/Drivers/LIB/STM32F446xx.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="STD__MACROS_8h_source.html">../Inc/Drivers/LIB/STD_MACROS.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ErrTypes_8h_source.html">../Inc/Drivers/LIB/ErrTypes.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GPIO__interface_8h_source.html">../Inc/Drivers/MCAL/GPIO/GPIO_interface.h</a>&quot;</code><br />
@@ -107,72 +110,66 @@ $(function(){initNavTree('US__prog_8c.html','',''); });
 <code>#include &quot;FreeRTOS.h&quot;</code><br />
 <code>#include &quot;task.h&quot;</code><br />
 <code>#include &quot;semphr.h&quot;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for US_prog.c:</div>
-<div class="dyncontent">
-<div class="center"><img src="US__prog_8c__incl.png" border="0" usemap="#aSrc_2US__prog_8c" loading="lazy" alt=""/></div>
-<map name="aSrc_2US__prog_8c" id="aSrc_2US__prog_8c">
-<area shape="rect" title=" " alt="" coords="833,5,943,33"/>
-<area shape="rect" title=" " alt="" coords="251,275,322,302"/>
-<area shape="poly" title=" " alt="" coords="830,21,643,29,521,37,393,50,269,69,159,96,112,112,72,131,40,152,18,175,11,189,8,201,10,213,16,223,38,240,71,255,111,265,155,273,238,284,233,285,154,279,110,271,69,260,35,245,11,226,5,214,3,201,6,187,14,172,37,148,69,126,110,107,157,90,268,64,392,44,520,31,643,24,835,20"/>
-<area shape="rect" href="Drivers_2LIB_2STM32F446xx_8h.html" title=" " alt="" coords="222,174,351,218"/>
-<area shape="poly" title=" " alt="" coords="830,23,762,30,675,41,580,58,487,84,444,101,402,123,330,167,327,162,399,118,442,96,486,78,579,52,674,35,762,25,835,22"/>
-<area shape="rect" href="STD__MACROS_8h.html" title=" " alt="" coords="748,266,876,311"/>
-<area shape="poly" title=" " alt="" coords="892,31,898,66,901,114,898,167,884,219,871,240,855,258,853,253,867,237,879,217,893,166,896,114,893,67,889,35"/>
-<area shape="rect" href="ErrTypes_8h.html" title=" " alt="" coords="519,266,646,311"/>
-<area shape="poly" title=" " alt="" coords="887,31,877,70,858,120,829,174,810,198,788,220,759,241,727,257,662,278,661,273,725,252,757,236,785,216,806,195,824,171,853,118,872,69,883,35"/>
-<area shape="rect" href="GPIO__interface_8h.html" title=" " alt="" coords="375,174,545,218"/>
-<area shape="poly" title=" " alt="" coords="829,25,668,46,588,62,556,72,533,83,514,99,499,119,475,161,471,157,494,116,511,96,530,79,554,67,586,57,667,41,835,24"/>
-<area shape="rect" href="TIM__interface_8h.html" title="Timer (TIM) Interface Header File." alt="" coords="620,174,774,218"/>
-<area shape="poly" title=" " alt="" coords="876,33,733,166,730,161,871,35"/>
-<area shape="rect" href="TIM__private_8h.html" title="Timer (TIM) Private Header File." alt="" coords="950,81,1095,126"/>
-<area shape="poly" title=" " alt="" coords="910,31,977,73,972,72,909,36"/>
-<area shape="rect" href="NVIC__interface_8h.html" title=" " alt="" coords="28,174,198,218"/>
-<area shape="poly" title=" " alt="" coords="830,23,746,30,636,41,513,58,391,84,331,102,272,124,171,169,168,164,270,119,329,97,390,78,512,53,635,35,746,25,835,22"/>
-<area shape="rect" href="US__interface_8h.html" title=" " alt="" coords="543,81,686,126"/>
-<area shape="poly" title=" " alt="" coords="841,34,701,79,700,74,846,33"/>
-<area shape="rect" href="US__config_8h.html" title=" " alt="" coords="1119,81,1252,126"/>
-<area shape="poly" title=" " alt="" coords="936,31,1106,79,1101,80,935,36"/>
-<area shape="rect" href="US__private_8h.html" title=" " alt="" coords="1276,81,1409,126"/>
-<area shape="poly" title=" " alt="" coords="944,25,1084,46,1263,80,1258,81,1083,51,944,30"/>
-<area shape="rect" title=" " alt="" coords="1434,90,1529,117"/>
-<area shape="poly" title=" " alt="" coords="943,20,1155,36,1288,53,1422,78,1436,84,1431,84,1421,84,1288,59,1154,42,944,25"/>
-<area shape="rect" title=" " alt="" coords="1553,90,1615,117"/>
-<area shape="poly" title=" " alt="" coords="943,20,1252,40,1420,57,1489,67,1542,78,1550,83,1545,83,1541,84,1489,72,1419,62,1251,45,944,26"/>
-<area shape="rect" title=" " alt="" coords="1639,90,1721,117"/>
-<area shape="poly" title=" " alt="" coords="943,17,1067,18,1238,25,1432,44,1531,59,1627,78,1639,84,1634,84,1626,84,1530,64,1431,49,1238,31,1067,23,944,22"/>
-<area shape="poly" title=" " alt="" coords="288,217,289,261,284,258,285,221"/>
-<area shape="poly" title=" " alt="" coords="421,218,326,270,324,265,416,219"/>
-<area shape="poly" title=" " alt="" coords="490,216,544,257,539,257,488,221"/>
-<area shape="poly" title=" " alt="" coords="622,215,337,279,336,274,617,214"/>
-<area shape="poly" title=" " alt="" coords="725,216,775,257,770,256,724,221"/>
-<area shape="poly" title=" " alt="" coords="673,218,623,259,621,254,668,220"/>
-<area shape="poly" title=" " alt="" coords="155,216,250,266,245,268,154,221"/>
-<area shape="poly" title=" " alt="" coords="199,214,210,216,505,271,502,276,209,221,199,219"/>
-<area shape="poly" title=" " alt="" coords="540,125,367,175,366,170,545,123"/>
-<area shape="poly" title=" " alt="" coords="686,114,741,135,767,152,789,172,800,190,808,210,814,252,810,249,803,212,796,192,784,175,763,156,739,140,686,120"/>
-<area shape="poly" title=" " alt="" coords="613,124,591,253,587,250,609,128"/>
-<area shape="poly" title=" " alt="" coords="580,125,511,168,509,163,575,127"/>
-<area shape="poly" title=" " alt="" coords="635,123,670,163,665,162,633,129"/>
-</map>
+</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for US_prog.c:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="US__prog_8c__incl.svg" width="100%" height="537"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="US__prog_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a1bf618c1c297fae1fbd121d4f0231673" id="r_a1bf618c1c297fae1fbd121d4f0231673"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#a1bf618c1c297fae1fbd121d4f0231673">US_Phase_t</a> { <a class="el" href="#a1bf618c1c297fae1fbd121d4f0231673a6bfaeb80623372f5391c4466488b480a">US_PHASE_RISING</a> = 0
+<tr class="memitem:a1bf618c1c297fae1fbd121d4f0231673" id="r_a1bf618c1c297fae1fbd121d4f0231673"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#a1bf618c1c297fae1fbd121d4f0231673">US_Phase_t</a> { <a class="el" href="#a1bf618c1c297fae1fbd121d4f0231673a6bfaeb80623372f5391c4466488b480a">US_PHASE_RISING</a>
 , <a class="el" href="#a1bf618c1c297fae1fbd121d4f0231673a7e0cf32dbb5c103550d39bf369e6a852">US_PHASE_FALLING</a>
 , <a class="el" href="#a1bf618c1c297fae1fbd121d4f0231673ae210b59fe9d33ecc8a76850d05d11464">US_PHASE_DONE</a>
  }</td></tr>
+<tr class="memdesc:a1bf618c1c297fae1fbd121d4f0231673"><td class="mdescLeft">&#160;</td><td class="mdescRight">Where a single echo measurement has got to.  <a href="#a1bf618c1c297fae1fbd121d4f0231673">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a29b879f76d665878390dd6161d1eea84" id="r_a29b879f76d665878390dd6161d1eea84"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a29b879f76d665878390dd6161d1eea84">US_vInit</a> (const <a class="el" href="structUS__Config__t.html">US_Config_t</a> *pxSensor)</td></tr>
-<tr class="memitem:a49bd64d408631fd63886cbc413453e08" id="r_a49bd64d408631fd63886cbc413453e08"><td class="memItemLeft"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a49bd64d408631fd63886cbc413453e08">US_u16ReadDistance_cm</a> (const <a class="el" href="structUS__Config__t.html">US_Config_t</a> *pxSensor, uint16_t *pu16Dist_cm)</td></tr>
-<tr class="memdesc:a49bd64d408631fd63886cbc413453e08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trigger sensor and measure distance (cm). The calling task SLEEPS on a semaphore while the echo is in flight (CPU free), then the IC ISR wakes it with the result. Returns TIMEOUT_STATE if no echo within the window.  <br /></td></tr>
+<tr class="memitem:adc51941ea05da40c9e35a99928a4ac37" id="r_adc51941ea05da40c9e35a99928a4ac37"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#adc51941ea05da40c9e35a99928a4ac37">US_vSendTrigger</a> (const <a class="el" href="structUS__Config__t.html">US_Config_t</a> *pxSensor)</td></tr>
+<tr class="memdesc:adc51941ea05da40c9e35a99928a4ac37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fire the trigger pulse that starts one sensor's measurement.  <br /></td></tr>
+<tr class="memitem:a8faec99358e42145506a962e14115d12" id="r_a8faec99358e42145506a962e14115d12"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a8faec99358e42145506a962e14115d12">US_CC_Handler</a> (<a class="el" href="TIM__interface_8h.html#a2712d6a822f7d7b0ebe7411daf149b23">TIM_Num_t</a> Copy_eTimer, uint8_t Copy_u8Channel, uint32_t Copy_u32Capture)</td></tr>
+<tr class="memdesc:a8faec99358e42145506a962e14115d12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input-capture callback — runs the two-edge state machine for the active echo.  <br /></td></tr>
+<tr class="memitem:a0aa4d878b57b45002e4a654f79b72fb2" id="r_a0aa4d878b57b45002e4a654f79b72fb2"><td class="memItemLeft">static uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a0aa4d878b57b45002e4a654f79b72fb2">US_u8NvicIrqForTimer</a> (<a class="el" href="TIM__interface_8h.html#a2712d6a822f7d7b0ebe7411daf149b23">TIM_Num_t</a> Copy_eTimer)</td></tr>
+<tr class="memdesc:a0aa4d878b57b45002e4a654f79b72fb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map one of the ultrasonic timers to its NVIC IRQ number.  <br /></td></tr>
+<tr class="memitem:a29b879f76d665878390dd6161d1eea84" id="r_a29b879f76d665878390dd6161d1eea84"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a29b879f76d665878390dd6161d1eea84">US_vInit</a> (const <a class="el" href="structUS__Config__t.html">US_Config_t</a> *pxSensor)</td></tr>
+<tr class="memdesc:a29b879f76d665878390dd6161d1eea84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize GPIO pins and Timer for the given ultrasonic sensor.  <br /></td></tr>
+<tr class="memitem:a49bd64d408631fd63886cbc413453e08" id="r_a49bd64d408631fd63886cbc413453e08"><td class="memItemLeft"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a49bd64d408631fd63886cbc413453e08">US_u16ReadDistance_cm</a> (const <a class="el" href="structUS__Config__t.html">US_Config_t</a> *pxSensor, uint16_t *pu16Dist_cm)</td></tr>
+<tr class="memdesc:a49bd64d408631fd63886cbc413453e08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trigger sensor and measure distance in centimeters (blocking).  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a1075f329baf7454c0e9a988c726d67f8" id="r_a1075f329baf7454c0e9a988c726d67f8"><td class="memItemLeft">static <a class="el" href="structTIM__TypeDef.html">TIM_TypeDef</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a1075f329baf7454c0e9a988c726d67f8">US_TIM_Array</a> [<a class="el" href="TIM__interface_8h.html#a2712d6a822f7d7b0ebe7411daf149b23a7c344d8927dd06f539c5b78d7d7b9166">TIM_TIMER_COUNT</a>]</td></tr>
+<tr class="memdesc:a1075f329baf7454c0e9a988c726d67f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps a <a class="el" href="TIM__interface_8h.html#a2712d6a822f7d7b0ebe7411daf149b23" title="TIM_Num_t">TIM_Num_t</a> onto its register block.  <br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft anon">struct {&#160;</td><td class="memItemRight"></td></tr>
+<tr class="memitem:a6b5fc82f52d0d420e8eeec18d2f0071c" id="r_a6b5fc82f52d0d420e8eeec18d2f0071c"><td class="memItemLeft anon">&#160;&#160;&#160;<a class="el" href="TIM__interface_8h.html#a2712d6a822f7d7b0ebe7411daf149b23">TIM_Num_t</a>&#160;&#160;&#160;<a class="el" href="#a9e4d06093a8d0697179ece54c8df7bc2">timer</a>&#160;</td><td class="memItemRight"></td></tr>
+<tr class="memdesc:a6b5fc82f52d0d420e8eeec18d2f0071c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer doing the capture for the active sensor.  <a href="#a9e4d06093a8d0697179ece54c8df7bc2">More...</a><br /></td></tr>
+<tr class="memitem:a13c367cfd01dd76d3bfe0e36b26c8ba5" id="r_a13c367cfd01dd76d3bfe0e36b26c8ba5"><td class="memItemLeft anon">&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="#a715f5cb061d11eb75981741eda4dafcd">channel</a>&#160;</td><td class="memItemRight"></td></tr>
+<tr class="memdesc:a13c367cfd01dd76d3bfe0e36b26c8ba5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Its capture/compare channel, 0..3.  <a href="#a715f5cb061d11eb75981741eda4dafcd">More...</a><br /></td></tr>
+<tr class="memitem:a56b5b86852e450bda142791d45c306d7" id="r_a56b5b86852e450bda142791d45c306d7"><td class="memItemLeft anon">&#160;&#160;&#160;uint32_t&#160;&#160;&#160;<a class="el" href="#ae3410746ad12451a31ab39175fb1dc70">maxval</a>&#160;</td><td class="memItemRight"></td></tr>
+<tr class="memdesc:a56b5b86852e450bda142791d45c306d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The timer's wrap value (0xFFFF or 0xFFFFFFFF), needed to unwrap a counter that rolled over mid-echo.  <a href="#ae3410746ad12451a31ab39175fb1dc70">More...</a><br /></td></tr>
+<tr class="memitem:a05be6f74276af429e4682361af87cabb" id="r_a05be6f74276af429e4682361af87cabb"><td class="memItemLeft anon">&#160;&#160;&#160;uint32_t&#160;&#160;&#160;<a class="el" href="#a6858d4bf91e3f238387650930c15b7fd">t1</a>&#160;</td><td class="memItemRight"></td></tr>
+<tr class="memdesc:a05be6f74276af429e4682361af87cabb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counter value captured on the rising edge.  <a href="#a6858d4bf91e3f238387650930c15b7fd">More...</a><br /></td></tr>
+<tr class="memitem:a7d4385888b8dd37638eb478542f52d2c" id="r_a7d4385888b8dd37638eb478542f52d2c"><td class="memItemLeft anon">&#160;&#160;&#160;<a class="el" href="#a1bf618c1c297fae1fbd121d4f0231673">US_Phase_t</a>&#160;&#160;&#160;<a class="el" href="#a34bb55e8c64d1459517441eebc24dfca">phase</a>&#160;</td><td class="memItemRight"></td></tr>
+<tr class="memdesc:a7d4385888b8dd37638eb478542f52d2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Which edge we are waiting for.  <a href="#a34bb55e8c64d1459517441eebc24dfca">More...</a><br /></td></tr>
+<tr class="memitem:af938c6ea62aa012641c98a931d2a375a" id="r_af938c6ea62aa012641c98a931d2a375a"><td class="memItemLeft anon">&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="#a75adb1881fa5da948723d7b8807b78cd">valid</a>&#160;</td><td class="memItemRight"></td></tr>
+<tr class="memdesc:af938c6ea62aa012641c98a931d2a375a"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 if a real echo was timed; 0 if it was out of range or garbage.  <a href="#a75adb1881fa5da948723d7b8807b78cd">More...</a><br /></td></tr>
+<tr class="memitem:ae8b0a9ec707921d6105771b404937a10" id="r_ae8b0a9ec707921d6105771b404937a10"><td class="memItemLeft anon">&#160;&#160;&#160;uint16_t&#160;&#160;&#160;<a class="el" href="#a03af6795f10317f1531bf283279c6cff">dist_cm</a>&#160;</td><td class="memItemRight"></td></tr>
+<tr class="memdesc:ae8b0a9ec707921d6105771b404937a10"><td class="mdescLeft">&#160;</td><td class="mdescRight">The result [cm]; meaningful only once <span class="tt"><a class="el" href="#a34bb55e8c64d1459517441eebc24dfca" title="Which edge we are waiting for.">phase</a> == <a class="el" href="#a1bf618c1c297fae1fbd121d4f0231673ae210b59fe9d33ecc8a76850d05d11464" title="Both edges seen; the distance is ready.">US_PHASE_DONE</a></span> and <span class="tt"><a class="el" href="#a75adb1881fa5da948723d7b8807b78cd" title="1 if a real echo was timed; 0 if it was out of range or garbage.">valid</a></span> is 1.  <a href="#a03af6795f10317f1531bf283279c6cff">More...</a><br /></td></tr>
+<tr class="memitem:a6e45c6ae507b29bc14bd9f3a65271abf" id="r_a6e45c6ae507b29bc14bd9f3a65271abf"><td class="memItemLeft anonEnd">}&#160;</td><td class="memItemRight"><a class="el" href="#a6e45c6ae507b29bc14bd9f3a65271abf">US_Active</a></td></tr>
+<tr class="memdesc:a6e45c6ae507b29bc14bd9f3a65271abf"><td class="mdescLeft">&#160;</td><td class="mdescRight">The one measurement currently in flight.  <br /></td></tr>
+<tr class="memitem:a45b109c89a06e7204f4c203252f57350" id="r_a45b109c89a06e7204f4c203252f57350"><td class="memItemLeft">static SemaphoreHandle_t&#160;</td><td class="memItemRight"><a class="el" href="#a45b109c89a06e7204f4c203252f57350">US_xDoneSem</a></td></tr>
+<tr class="memdesc:a45b109c89a06e7204f4c203252f57350"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given by the capture ISR when a measurement completes.  <br /></td></tr>
 </table>
-<a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Implementation of the US driver — the HC-SR04 ultrasonic rangefinders. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Abdelmoemen Shehawey  </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
+</div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
 <a id="a1bf618c1c297fae1fbd121d4f0231673" name="a1bf618c1c297fae1fbd121d4f0231673"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1bf618c1c297fae1fbd121d4f0231673">&#9670;&#160;</a></span>US_Phase_t</h2>
 
@@ -184,65 +181,181 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Where a single echo measurement has got to. </p>
+<p>An HC-SR04 reports distance as the <em>width</em> of its echo pulse, so timing it takes two interrupts: one on the rising edge to start the clock, one on the falling edge to stop it. This enum is what the ISR uses to know which of the two it is looking at. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a1bf618c1c297fae1fbd121d4f0231673a6bfaeb80623372f5391c4466488b480a" name="a1bf618c1c297fae1fbd121d4f0231673a6bfaeb80623372f5391c4466488b480a"></a>US_PHASE_RISING&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a1bf618c1c297fae1fbd121d4f0231673a7e0cf32dbb5c103550d39bf369e6a852" name="a1bf618c1c297fae1fbd121d4f0231673a7e0cf32dbb5c103550d39bf369e6a852"></a>US_PHASE_FALLING&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a1bf618c1c297fae1fbd121d4f0231673ae210b59fe9d33ecc8a76850d05d11464" name="a1bf618c1c297fae1fbd121d4f0231673ae210b59fe9d33ecc8a76850d05d11464"></a>US_PHASE_DONE&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="3">Enumerator</th></tr><tr><td class="fieldname"><a id="a1bf618c1c297fae1fbd121d4f0231673a6bfaeb80623372f5391c4466488b480a" name="a1bf618c1c297fae1fbd121d4f0231673a6bfaeb80623372f5391c4466488b480a"></a>US_PHASE_RISING&#160;</td><td class="fieldinit">0&#160;</td><td class="fielddoc"><p>Waiting for the rising edge — the echo has not started yet. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1bf618c1c297fae1fbd121d4f0231673a7e0cf32dbb5c103550d39bf369e6a852" name="a1bf618c1c297fae1fbd121d4f0231673a7e0cf32dbb5c103550d39bf369e6a852"></a>US_PHASE_FALLING&#160;</td><td class="fieldinit">&#160;</td><td class="fielddoc"><p>Rising edge seen and timestamped; waiting for the falling edge. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1bf618c1c297fae1fbd121d4f0231673ae210b59fe9d33ecc8a76850d05d11464" name="a1bf618c1c297fae1fbd121d4f0231673ae210b59fe9d33ecc8a76850d05d11464"></a>US_PHASE_DONE&#160;</td><td class="fieldinit">&#160;</td><td class="fielddoc"><p>Both edges seen; the distance is ready. </p>
+</td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00038">38</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00041">41</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
 
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a49bd64d408631fd63886cbc413453e08" name="a49bd64d408631fd63886cbc413453e08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49bd64d408631fd63886cbc413453e08">&#9670;&#160;</a></span>US_u16ReadDistance_cm()</h2>
+<a id="adc51941ea05da40c9e35a99928a4ac37" name="adc51941ea05da40c9e35a99928a4ac37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc51941ea05da40c9e35a99928a4ac37">&#9670;&#160;</a></span>US_vSendTrigger()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> US_u16ReadDistance_cm </td>
+          <td class="memname">void US_vSendTrigger </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="structUS__Config__t.html">US_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>pxSensor</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="structUS__Config__t.html">US_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>pxSensor</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fire the trigger pulse that starts one sensor's measurement. </p>
+<p>Holds TRIG low for <a class="el" href="US__config_8h.html#ac82821dff0173e63bfc7953f43c50066" title="US_TRIG_SETTLE_US">US_TRIG_SETTLE_US</a> to guarantee a clean edge, then high for <a class="el" href="US__config_8h.html#a8a95e538fdb97455266761408d1db73e" title="US_TRIG_PULSE_US">US_TRIG_PULSE_US</a> — the minimum the HC-SR04 datasheet demands.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">pxSensor</td><td>The sensor to trigger. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00096">96</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
+
+<p class="reference">References <a class="el" href="GPIO__prog_8c_source.html#l00475">GPIO_enumWritePinVal()</a>, <a class="el" href="GPIO__interface_8h_source.html#l00142">GPIO_PIN_HIGH</a>, <a class="el" href="GPIO__interface_8h_source.html#l00141">GPIO_PIN_LOW</a>, <a class="el" href="TIM__interface_8h_source.html#l00031">TIM_TIMER6</a>, <a class="el" href="TIM__program_8c_source.html#l00480">TIM_vDelayUs()</a>, <a class="el" href="US__interface_8h_source.html#l00050">US_Config_t::TrigPin</a>, <a class="el" href="US__interface_8h_source.html#l00049">US_Config_t::TrigPort</a>, <a class="el" href="US__config_8h_source.html#l00034">US_TRIG_PULSE_US</a>, and <a class="el" href="US__config_8h_source.html#l00027">US_TRIG_SETTLE_US</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="US__prog_8c_source.html#l00278">US_u16ReadDistance_cm()</a>.</p>
+<div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="US__prog_8c_adc51941ea05da40c9e35a99928a4ac37_cgraph.svg" width="362" height="91"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="US__prog_8c_adc51941ea05da40c9e35a99928a4ac37_icgraph.svg" width="643" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a8faec99358e42145506a962e14115d12" name="a8faec99358e42145506a962e14115d12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8faec99358e42145506a962e14115d12">&#9670;&#160;</a></span>US_CC_Handler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void US_CC_Handler </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="TIM__interface_8h.html#a2712d6a822f7d7b0ebe7411daf149b23">TIM_Num_t</a></td>          <td class="paramname"><span class="paramname"><em>Copy_eTimer</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint16_t *</td>          <td class="paramname"><span class="paramname"><em>pu16Dist_cm</em></span>&#160;)</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u8Channel</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>Copy_u32Capture</em></span>&#160;)</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Trigger sensor and measure distance (cm). The calling task SLEEPS on a semaphore while the echo is in flight (CPU free), then the IC ISR wakes it with the result. Returns TIMEOUT_STATE if no echo within the window. </p>
-<dl class="section note"><dt>Note</dt><dd>MUST be called from a task context (uses a FreeRTOS semaphore). Not reentrant: one measurement at a time (sequential by design). </dd></dl>
+<p>Input-capture callback — runs the two-edge state machine for the active echo. </p>
+<p>Called from timer IRQ context on each captured edge. On the rising edge it timestamps the start; on the falling edge it works out the pulse width, converts it to a distance via <a class="el" href="US__config_8h.html#ab0e1472cbc6dcaabb8233a418a55b6fe" title="US_SOUND_SPEED_FACTOR">US_SOUND_SPEED_FACTOR</a>, clamps it against <a class="el" href="US__config_8h.html#a1acbfc782dd65e3000e6373d863e3333" title="US_MAX_RANGE_CM">US_MAX_RANGE_CM</a>, and gives <a class="el" href="#a45b109c89a06e7204f4c203252f57350" title="US_xDoneSem">US_xDoneSem</a> to wake the reading task.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Copy_eTimer</td><td>Which timer fired. </td></tr>
+    <tr><td class="paramname">Copy_u8Channel</td><td>Which of its channels captured, 0..3. </td></tr>
+    <tr><td class="paramname">Copy_u32Capture</td><td>The captured counter value.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Captures that do not belong to the active measurement are ignored — a stray edge on an idle sensor must not be mistaken for our echo. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00234">234</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="US__prog_8c_a49bd64d408631fd63886cbc413453e08_cgraph.png" border="0" usemap="#aUS__prog_8c_a49bd64d408631fd63886cbc413453e08_cgraph" loading="lazy" alt=""/></div>
-<map name="aUS__prog_8c_a49bd64d408631fd63886cbc413453e08_cgraph" id="aUS__prog_8c_a49bd64d408631fd63886cbc413453e08_cgraph">
-<area shape="rect" title="Trigger sensor and measure distance (cm). The calling task SLEEPS on a semaphore while the echo is in..." alt="" coords="5,57,193,85"/>
-<area shape="rect" href="TIM__program_8c.html#a05c68c2d16e14ca08f925fc789f8c000" title=" " alt="" coords="241,5,424,33"/>
-<area shape="poly" title=" " alt="" coords="164,54,254,36,249,38,165,59"/>
-<area shape="rect" href="TIM__program_8c.html#a78dfd09e838628d35bd9fc18ddd575ad" title=" " alt="" coords="243,57,422,85"/>
-<area shape="poly" title=" " alt="" coords="192,69,230,71,225,72,193,74"/>
-<area shape="rect" href="TIM__program_8c.html#af6ce9419f48628e54cb1110dae65e1f1" title=" " alt="" coords="260,109,404,137"/>
-<area shape="poly" title=" " alt="" coords="165,83,254,105,249,106,164,88"/>
-</map>
+<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00145">145</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
+
+<p class="reference">References <a class="el" href="TIM__interface_8h_source.html#l00075">TIM_POLARITY_LOW</a>, <a class="el" href="TIM__program_8c_source.html#l00544">TIM_vDisableCCInterrupt()</a>, <a class="el" href="TIM__program_8c_source.html#l00361">TIM_vSetICPolarity()</a>, <a class="el" href="#a6e45c6ae507b29bc14bd9f3a65271abf">US_Active</a>, <a class="el" href="US__config_8h_source.html#l00044">US_MAX_RANGE_CM</a>, <a class="el" href="US__prog_8c_source.html#l00045">US_PHASE_DONE</a>, <a class="el" href="US__prog_8c_source.html#l00044">US_PHASE_FALLING</a>, <a class="el" href="US__prog_8c_source.html#l00043">US_PHASE_RISING</a>, <a class="el" href="US__config_8h_source.html#l00051">US_SOUND_SPEED_FACTOR</a>, and <a class="el" href="US__prog_8c_source.html#l00078">US_xDoneSem</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="US__prog_8c_source.html#l00196">US_vInit()</a>.</p>
+<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="US__prog_8c_a49bd64d408631fd63886cbc413453e08_icgraph.png" border="0" usemap="#aUS__prog_8c_a49bd64d408631fd63886cbc413453e08_icgraph" loading="lazy" alt=""/></div>
-<map name="aUS__prog_8c_a49bd64d408631fd63886cbc413453e08_icgraph" id="aUS__prog_8c_a49bd64d408631fd63886cbc413453e08_icgraph">
-<area shape="rect" title="Trigger sensor and measure distance (cm). The calling task SLEEPS on a semaphore while the echo is in..." alt="" coords="272,5,459,33"/>
-<area shape="rect" href="main_8c.html#a6124e00be85460e2af1224524c6c2278" title="Reads ALL 6 ultrasonics + MPU9250 every cycle, then a small gap." alt="" coords="108,5,224,33"/>
-<area shape="poly" title=" " alt="" coords="254,19,225,22,225,17,259,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="90,20,60,22,60,17,95,18"/>
-</map>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="US__prog_8c_a8faec99358e42145506a962e14115d12_cgraph.svg" width="364" height="91"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="US__prog_8c_a8faec99358e42145506a962e14115d12_icgraph.svg" width="520" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a0aa4d878b57b45002e4a654f79b72fb2" name="a0aa4d878b57b45002e4a654f79b72fb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0aa4d878b57b45002e4a654f79b72fb2">&#9670;&#160;</a></span>US_u8NvicIrqForTimer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t US_u8NvicIrqForTimer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="TIM__interface_8h.html#a2712d6a822f7d7b0ebe7411daf149b23">TIM_Num_t</a></td>          <td class="paramname"><span class="paramname"><em>Copy_eTimer</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Map one of the ultrasonic timers to its NVIC IRQ number. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Copy_eTimer</td><td>The timer (the ultrasonics only use TIM2..TIM5). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The matching <a class="el" href="NVIC__interface_8h.html#a65e707f1e0baee3fd079df3704b78ed1" title="NVIC_IRQNumber_t">NVIC_IRQNumber_t</a> value. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00113">113</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
+
+<p class="reference">References <a class="el" href="NVIC__interface_8h_source.html#l00062">NVIC_TIM2</a>, <a class="el" href="NVIC__interface_8h_source.html#l00063">NVIC_TIM3</a>, <a class="el" href="NVIC__interface_8h_source.html#l00064">NVIC_TIM4</a>, <a class="el" href="NVIC__interface_8h_source.html#l00079">NVIC_TIM5</a>, <a class="el" href="TIM__interface_8h_source.html#l00025">TIM_TIMER2</a>, <a class="el" href="TIM__interface_8h_source.html#l00026">TIM_TIMER3</a>, <a class="el" href="TIM__interface_8h_source.html#l00027">TIM_TIMER4</a>, and <a class="el" href="TIM__interface_8h_source.html#l00028">TIM_TIMER5</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="US__prog_8c_source.html#l00196">US_vInit()</a>.</p>
+<div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="US__prog_8c_a0aa4d878b57b45002e4a654f79b72fb2_icgraph.svg" width="564" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -254,7 +367,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ErrTypes_8h.html#a74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> US_vInit </td>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> US_vInit </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structUS__Config__t.html">US_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>pxSensor</em></span></td><td>)</td>
           <td></td>
@@ -262,120 +375,125 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00152">152</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="US__prog_8c_a29b879f76d665878390dd6161d1eea84_cgraph.png" border="0" usemap="#aUS__prog_8c_a29b879f76d665878390dd6161d1eea84_cgraph" loading="lazy" alt=""/></div>
-<map name="aUS__prog_8c_a29b879f76d665878390dd6161d1eea84_cgraph" id="aUS__prog_8c_a29b879f76d665878390dd6161d1eea84_cgraph">
-<area shape="rect" title=" " alt="" coords="5,136,81,164"/>
-<area shape="rect" href="GPIO__prog_8c.html#a2a5e7c89bc6bb7103d96334a8481ea9b" title=" " alt="" coords="137,5,276,33"/>
-<area shape="poly" title=" " alt="" coords="50,134,80,90,102,65,127,44,140,38,136,42,130,48,106,69,84,93,55,137"/>
-<area shape="rect" href="NVIC__program_8c.html#a85d98abbd23523e4abf16cc4b4501431" title="Enable an IRQ number in the NVIC." alt="" coords="139,57,274,85"/>
-<area shape="poly" title=" " alt="" coords="63,133,127,95,146,89,142,93,130,100,67,138"/>
-<area shape="rect" href="NVIC__program_8c.html#adacfc2d410ead15ca25830190e615000" title="Set priority for an IRQ number in the NVIC." alt="" coords="138,109,274,137"/>
-<area shape="poly" title=" " alt="" coords="80,141,125,135,121,139,82,146"/>
-<area shape="rect" href="TIM__program_8c.html#a8e1065f213120676872fdbbd5ccfd37a" title=" " alt="" coords="156,161,257,189"/>
-<area shape="poly" title=" " alt="" coords="81,153,143,163,138,167,82,158"/>
-<area shape="rect" href="TIM__program_8c.html#a3a4b086e0c4a0656e57a585ec35734d3" title=" " alt="" coords="129,213,284,241"/>
-<area shape="poly" title=" " alt="" coords="66,162,130,198,147,207,142,208,127,203,65,167"/>
-<area shape="rect" href="TIM__program_8c.html#a2bd184de6083fb2ccf17231557037835" title=" " alt="" coords="161,265,252,293"/>
-<area shape="poly" title=" " alt="" coords="53,162,85,206,106,230,130,250,149,263,144,262,127,255,102,234,81,209,52,167"/>
-</map>
+<p>Initialize GPIO pins and Timer for the given ultrasonic sensor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pxSensor</td><td>Pointer to sensor configuration structure. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a>: OK if successful, NULL_POINTER / NOK on error.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>- TRIG pin → Output Push-Pull<ul>
+<li>ECHO pin → Input Floating (No Pull)</li>
+<li>RCC clock for GPIO port(s) and Timer must be enabled BEFORE calling this.</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>Example:</dt><dd></dd></dl>
+<p><a class="el" href="structUS__Config__t.html" title="Configuration structure for a single Ultrasonic sensor instance.">US_Config_t</a> sensor = {TIM_TIMER2, GPIO_PORTA, GPIO_PIN0, GPIO_PORTA, GPIO_PIN1}; US_vInit(&amp;sensor); </p>
+
+<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00196">196</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
+
+<p class="reference">References <a class="el" href="GPIO__interface_8h_source.html#l00159">GPIO_PinConfig_t::AlternateFunction</a>, <a class="el" href="STM32F446xx_8h_source.html#l00415">TIM_TypeDef::ARR</a>, <a class="el" href="STM32F446xx_8h_source.html#l00421">TIM_TypeDef::BDTR</a>, <a class="el" href="US__interface_8h_source.html#l00048">US_Config_t::Channel</a>, <a class="el" href="STM32F446xx_8h_source.html#l00404">TIM_TypeDef::CR1</a>, <a class="el" href="US__interface_8h_source.html#l00052">US_Config_t::EchoPin</a>, <a class="el" href="US__interface_8h_source.html#l00051">US_Config_t::EchoPort</a>, <a class="el" href="STM32F446xx_8h_source.html#l00409">TIM_TypeDef::EGR</a>, <a class="el" href="GPIO__interface_8h_source.html#l00122">GPIO_AF1</a>, <a class="el" href="GPIO__interface_8h_source.html#l00123">GPIO_AF2</a>, <a class="el" href="GPIO__interface_8h_source.html#l00124">GPIO_AF3</a>, <a class="el" href="GPIO__interface_8h_source.html#l00079">GPIO_ALTFN</a>, <a class="el" href="GPIO__prog_8c_source.html#l00041">GPIO_enumPinInit()</a>, <a class="el" href="GPIO__interface_8h_source.html#l00102">GPIO_MEDIUM_SPEED</a>, <a class="el" href="GPIO__interface_8h_source.html#l00109">GPIO_NO_PULL</a>, <a class="el" href="GPIO__interface_8h_source.html#l00078">GPIO_OUTPUT</a>, <a class="el" href="GPIO__interface_8h_source.html#l00085">GPIO_PUSH_PULL</a>, <a class="el" href="GPIO__interface_8h_source.html#l00104">GPIO_VERY_HIGH_SPEED</a>, <a class="el" href="ErrTypes_8h_source.html#l00043">NOK</a>, <a class="el" href="ErrTypes_8h_source.html#l00024">NULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00044">NULL_POINTER</a>, <a class="el" href="NVIC__program_8c_source.html#l00037">NVIC_vEnableIRQ()</a>, <a class="el" href="NVIC__program_8c_source.html#l00141">NVIC_vSetPriority()</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="STM32F446xx_8h_source.html#l00414">TIM_TypeDef::PSC</a>, <a class="el" href="STD__MACROS_8h_source.html#l00039">SET_BIT</a>, <a class="el" href="STM32F446xx_8h_source.html#l00408">TIM_TypeDef::SR</a>, <a class="el" href="TIM__private_8h_source.html#l00015">TIM_CR1_CEN</a>, <a class="el" href="TIM__interface_8h_source.html#l00122">TIM_IC_PSC_DIV1</a>, <a class="el" href="TIM__interface_8h_source.html#l00111">TIM_IC_SELECTION_DIRECT_TI</a>, <a class="el" href="TIM__interface_8h_source.html#l00074">TIM_POLARITY_HIGH</a>, <a class="el" href="TIM__interface_8h_source.html#l00029">TIM_TIMER1</a>, <a class="el" href="TIM__interface_8h_source.html#l00025">TIM_TIMER2</a>, <a class="el" href="TIM__interface_8h_source.html#l00026">TIM_TIMER3</a>, <a class="el" href="TIM__interface_8h_source.html#l00028">TIM_TIMER5</a>, <a class="el" href="TIM__interface_8h_source.html#l00031">TIM_TIMER6</a>, <a class="el" href="TIM__interface_8h_source.html#l00030">TIM_TIMER8</a>, <a class="el" href="TIM__program_8c_source.html#l00239">TIM_vIC_Init()</a>, <a class="el" href="TIM__program_8c_source.html#l00551">TIM_vSetCCCallback()</a>, <a class="el" href="TIM__program_8c_source.html#l00103">TIM_vStart()</a>, <a class="el" href="US__interface_8h_source.html#l00047">US_Config_t::Timer</a>, <a class="el" href="US__interface_8h_source.html#l00050">US_Config_t::TrigPin</a>, <a class="el" href="US__interface_8h_source.html#l00049">US_Config_t::TrigPort</a>, <a class="el" href="US__prog_8c_source.html#l00145">US_CC_Handler()</a>, <a class="el" href="US__config_8h_source.html#l00020">US_SYS_CLK_HZ</a>, <a class="el" href="US__prog_8c_source.html#l00030">US_TIM_Array</a>, <a class="el" href="US__prog_8c_source.html#l00113">US_u8NvicIrqForTimer()</a>, and <a class="el" href="US__prog_8c_source.html#l00078">US_xDoneSem</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="System_8c_source.html#l00133">System_setup()</a>.</p>
+<div id="dynsection-6" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
 </div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="US__prog_8c_a29b879f76d665878390dd6161d1eea84_icgraph.png" border="0" usemap="#aUS__prog_8c_a29b879f76d665878390dd6161d1eea84_icgraph" loading="lazy" alt=""/></div>
-<map name="aUS__prog_8c_a29b879f76d665878390dd6161d1eea84_icgraph" id="aUS__prog_8c_a29b879f76d665878390dd6161d1eea84_icgraph">
-<area shape="rect" title=" " alt="" coords="269,5,344,33"/>
-<area shape="rect" href="System_8c.html#ae436954cd2bde6634ab271317d2494a7" title=" " alt="" coords="108,5,221,33"/>
-<area shape="poly" title=" " alt="" coords="251,19,222,22,222,17,256,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,95,18"/>
-</map>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="US__prog_8c_a29b879f76d665878390dd6161d1eea84_cgraph.svg" width="532" height="403"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-7" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="US__prog_8c_a29b879f76d665878390dd6161d1eea84_icgraph.svg" width="350" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a49bd64d408631fd63886cbc413453e08" name="a49bd64d408631fd63886cbc413453e08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49bd64d408631fd63886cbc413453e08">&#9670;&#160;</a></span>US_u16ReadDistance_cm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81">ErrorState_t</a> US_u16ReadDistance_cm </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structUS__Config__t.html">US_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>pxSensor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t *</td>          <td class="paramname"><span class="paramname"><em>pu16Dist_cm</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Trigger sensor and measure distance in centimeters (blocking). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pxSensor</td><td>Pointer to sensor configuration structure. </td></tr>
+    <tr><td class="paramname">pu16Dist_cm</td><td>Pointer to store the measured distance (cm). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__lib.html#ga74f58890b599c641e4382ff49c4a3e81" title="Return code shared by every fallible driver call in the firmware.">ErrorState_t</a>: OK if successful, TIMEOUT_STATE if no echo received (no object / out of range), NULL_POINTER if any pointer is NULL, NOK if invalid parameters.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>- Effective range: ~2 cm to ~400 cm.<ul>
+<li>Interrupt-driven: the calling task SLEEPS on a semaphore while the echo is in flight (CPU is free for other tasks), then the IC ISR wakes it with the result. MUST be called from a task context.</li>
+<li>Not reentrant: one measurement at a time (sequential by design).</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>Example:</dt><dd></dd></dl>
+<p>uint16_t dist; if (US_u16ReadDistance_cm(&amp;sensor, &amp;dist) == OK) { // use dist } </p>
+
+<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00278">278</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
+
+<p class="reference">References <a class="el" href="US__interface_8h_source.html#l00048">US_Config_t::Channel</a>, <a class="el" href="ErrTypes_8h_source.html#l00043">NOK</a>, <a class="el" href="ErrTypes_8h_source.html#l00024">NULL</a>, <a class="el" href="ErrTypes_8h_source.html#l00044">NULL_POINTER</a>, <a class="el" href="ErrTypes_8h_source.html#l00042">OK</a>, <a class="el" href="STM32F446xx_8h_source.html#l00408">TIM_TypeDef::SR</a>, <a class="el" href="TIM__interface_8h_source.html#l00074">TIM_POLARITY_HIGH</a>, <a class="el" href="TIM__private_8h_source.html#l00059">TIM_SR_CC1IF</a>, <a class="el" href="TIM__interface_8h_source.html#l00025">TIM_TIMER2</a>, <a class="el" href="TIM__interface_8h_source.html#l00028">TIM_TIMER5</a>, <a class="el" href="TIM__program_8c_source.html#l00544">TIM_vDisableCCInterrupt()</a>, <a class="el" href="TIM__program_8c_source.html#l00536">TIM_vEnableCCInterrupt()</a>, <a class="el" href="TIM__program_8c_source.html#l00361">TIM_vSetICPolarity()</a>, <a class="el" href="ErrTypes_8h_source.html#l00046">TIMEOUT_STATE</a>, <a class="el" href="US__interface_8h_source.html#l00047">US_Config_t::Timer</a>, <a class="el" href="#a6e45c6ae507b29bc14bd9f3a65271abf">US_Active</a>, <a class="el" href="US__prog_8c_source.html#l00045">US_PHASE_DONE</a>, <a class="el" href="US__prog_8c_source.html#l00043">US_PHASE_RISING</a>, <a class="el" href="US__config_8h_source.html#l00069">US_TASK_TIMEOUT_MS</a>, <a class="el" href="US__prog_8c_source.html#l00030">US_TIM_Array</a>, <a class="el" href="US__prog_8c_source.html#l00096">US_vSendTrigger()</a>, and <a class="el" href="US__prog_8c_source.html#l00078">US_xDoneSem</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00247">vTask_Sensors()</a>.</p>
+<div id="dynsection-8" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="US__prog_8c_a49bd64d408631fd63886cbc413453e08_cgraph.svg" width="650" height="220"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-9" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-9-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="US__prog_8c_a49bd64d408631fd63886cbc413453e08_icgraph.svg" width="466" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
 </div>
 <a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
-<a id="a715f5cb061d11eb75981741eda4dafcd" name="a715f5cb061d11eb75981741eda4dafcd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a715f5cb061d11eb75981741eda4dafcd">&#9670;&#160;</a></span>channel</h2>
+<a id="a1075f329baf7454c0e9a988c726d67f8" name="a1075f329baf7454c0e9a988c726d67f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1075f329baf7454c0e9a988c726d67f8">&#9670;&#160;</a></span>US_TIM_Array</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t channel</td>
+          <td class="memname"><a class="el" href="structTIM__TypeDef.html">TIM_TypeDef</a>* US_TIM_Array[<a class="el" href="TIM__interface_8h.html#a2712d6a822f7d7b0ebe7411daf149b23a7c344d8927dd06f539c5b78d7d7b9166">TIM_TIMER_COUNT</a>]</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00051">51</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
+<p>Maps a <a class="el" href="TIM__interface_8h.html#a2712d6a822f7d7b0ebe7411daf149b23" title="TIM_Num_t">TIM_Num_t</a> onto its register block. </p>
+<dl class="section note"><dt>Note</dt><dd>Order must match <a class="el" href="TIM__interface_8h.html#a2712d6a822f7d7b0ebe7411daf149b23" title="TIM_Num_t">TIM_Num_t</a> — the enum indexes straight into it. </dd></dl>
 
-</div>
-</div>
-<a id="a03af6795f10317f1531bf283279c6cff" name="a03af6795f10317f1531bf283279c6cff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03af6795f10317f1531bf283279c6cff">&#9670;&#160;</a></span>dist_cm</h2>
+<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00030">30</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t dist_cm</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00056">56</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
-
-</div>
-</div>
-<a id="ae3410746ad12451a31ab39175fb1dc70" name="ae3410746ad12451a31ab39175fb1dc70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3410746ad12451a31ab39175fb1dc70">&#9670;&#160;</a></span>maxval</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t maxval</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00052">52</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
-
-</div>
-</div>
-<a id="a34bb55e8c64d1459517441eebc24dfca" name="a34bb55e8c64d1459517441eebc24dfca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34bb55e8c64d1459517441eebc24dfca">&#9670;&#160;</a></span>phase</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="#a1bf618c1c297fae1fbd121d4f0231673">US_Phase_t</a> phase</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00054">54</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
-
-</div>
-</div>
-<a id="a6858d4bf91e3f238387650930c15b7fd" name="a6858d4bf91e3f238387650930c15b7fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6858d4bf91e3f238387650930c15b7fd">&#9670;&#160;</a></span>t1</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t t1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00053">53</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
+<p class="reference">Referenced by <a class="el" href="US__prog_8c_source.html#l00278">US_u16ReadDistance_cm()</a>, and <a class="el" href="US__prog_8c_source.html#l00196">US_vInit()</a>.</p>
 
 </div>
 </div>
@@ -391,7 +509,81 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00050">50</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
+<p>Timer doing the capture for the active sensor. </p>
+
+<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00061">61</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
+
+</div>
+</div>
+<a id="a715f5cb061d11eb75981741eda4dafcd" name="a715f5cb061d11eb75981741eda4dafcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a715f5cb061d11eb75981741eda4dafcd">&#9670;&#160;</a></span>channel</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t channel</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Its capture/compare channel, 0..3. </p>
+
+<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00062">62</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
+
+</div>
+</div>
+<a id="ae3410746ad12451a31ab39175fb1dc70" name="ae3410746ad12451a31ab39175fb1dc70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3410746ad12451a31ab39175fb1dc70">&#9670;&#160;</a></span>maxval</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t maxval</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The timer's wrap value (0xFFFF or 0xFFFFFFFF), needed to unwrap a counter that rolled over mid-echo. </p>
+
+<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00063">63</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
+
+</div>
+</div>
+<a id="a6858d4bf91e3f238387650930c15b7fd" name="a6858d4bf91e3f238387650930c15b7fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6858d4bf91e3f238387650930c15b7fd">&#9670;&#160;</a></span>t1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t t1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Counter value captured on the rising edge. </p>
+
+<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00064">64</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
+
+</div>
+</div>
+<a id="a34bb55e8c64d1459517441eebc24dfca" name="a34bb55e8c64d1459517441eebc24dfca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34bb55e8c64d1459517441eebc24dfca">&#9670;&#160;</a></span>phase</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a1bf618c1c297fae1fbd121d4f0231673">US_Phase_t</a> phase</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Which edge we are waiting for. </p>
+
+<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00065">65</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
 
 </div>
 </div>
@@ -407,7 +599,76 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00055">55</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
+<p>1 if a real echo was timed; 0 if it was out of range or garbage. </p>
+
+<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00066">66</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
+
+</div>
+</div>
+<a id="a03af6795f10317f1531bf283279c6cff" name="a03af6795f10317f1531bf283279c6cff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03af6795f10317f1531bf283279c6cff">&#9670;&#160;</a></span>dist_cm</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t dist_cm</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The result [cm]; meaningful only once <span class="tt"><a class="el" href="#a34bb55e8c64d1459517441eebc24dfca" title="Which edge we are waiting for.">phase</a> == <a class="el" href="#a1bf618c1c297fae1fbd121d4f0231673ae210b59fe9d33ecc8a76850d05d11464" title="Both edges seen; the distance is ready.">US_PHASE_DONE</a></span> and <span class="tt"><a class="el" href="#a75adb1881fa5da948723d7b8807b78cd" title="1 if a real echo was timed; 0 if it was out of range or garbage.">valid</a></span> is 1. </p>
+
+<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00067">67</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
+
+</div>
+</div>
+<a id="a6e45c6ae507b29bc14bd9f3a65271abf" name="a6e45c6ae507b29bc14bd9f3a65271abf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e45c6ae507b29bc14bd9f3a65271abf">&#9670;&#160;</a></span>[struct]</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile struct  { ... }  US_Active</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The one measurement currently in flight. </p>
+<p>There is deliberately only one. The six sensors are read strictly one after another — partly to avoid acoustic cross-talk, where one sensor hears another's ping and reports a phantom object, and partly because it makes a single shared context and one binary semaphore sufficient. No per-sensor state, and no race.</p>
+<p>Every field is touched by both the reading task and the capture ISR, hence <span class="tt">volatile</span>. </p>
+
+<p class="reference">Referenced by <a class="el" href="US__prog_8c_source.html#l00145">US_CC_Handler()</a>, and <a class="el" href="US__prog_8c_source.html#l00278">US_u16ReadDistance_cm()</a>.</p>
+
+</div>
+</div>
+<a id="a45b109c89a06e7204f4c203252f57350" name="a45b109c89a06e7204f4c203252f57350"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45b109c89a06e7204f4c203252f57350">&#9670;&#160;</a></span>US_xDoneSem</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">SemaphoreHandle_t US_xDoneSem</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Given by the capture ISR when a measurement completes. </p>
+<p>This is what lets the reading task <b>sleep</b> through the echo's flight time instead of busy-waiting on a flag. An echo from a distant object can take tens of milliseconds; spending that spinning would starve every lower-priority task in the system. </p>
+
+<p class="definition">Definition at line <a class="el" href="US__prog_8c_source.html#l00078">78</a> of file <a class="el" href="US__prog_8c_source.html">US_prog.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="US__prog_8c_source.html#l00145">US_CC_Handler()</a>, <a class="el" href="US__prog_8c_source.html#l00278">US_u16ReadDistance_cm()</a>, and <a class="el" href="US__prog_8c_source.html#l00196">US_vInit()</a>.</p>
 
 </div>
 </div>
@@ -424,7 +685,7 @@ Here is the caller graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_413f4e031a85da0d68269c6fd2f76e1c.html">Src</a></li><li class="navelem"><a href="US__prog_8c.html">US_prog.c</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Src</b></li><li class="navelem"><a href="US__prog_8c.html">US_prog.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

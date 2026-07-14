@@ -1,11 +1,37 @@
 <map id="MPU9250_enumInit" name="MPU9250_enumInit">
-<area shape="rect" id="Node000001" title="Initializes the MPU9250 sensor and its internal I2C master." alt="" coords="5,84,154,112"/>
-<area shape="rect" id="Node000002" href="$GPIO__prog_8c.html#a2a5e7c89bc6bb7103d96334a8481ea9b" title=" " alt="" coords="206,5,344,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,81,201,43,222,38,217,40,203,48,114,86"/>
-<area shape="rect" id="Node000003" href="$SPI__program_8c.html#a4b6f9d4ba67bb037ab88265f09945a33" title="Initialize the SPI peripheral with the provided configuration." alt="" coords="222,57,328,85"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="153,85,210,79,205,82,155,90"/>
-<area shape="rect" id="Node000004" href="$SPI__program_8c.html#a09703b6224fb5ab17478e4f7e309e734" title="Perform full&#45;duplex SPI transaction (transmit and receive)." alt="" coords="202,109,349,137"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="154,105,189,111,184,112,154,110"/>
-<area shape="rect" id="Node000005" href="$TIM__program_8c.html#a06dd9df822ed8f4c5635901b770230ea" title=" " alt="" coords="217,161,334,189"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="115,110,203,146,222,156,217,155,201,151,114,115"/>
+<area shape="rect" id="Node000001" title="Bring the IMU up: reset it, configure it, and enable its internal I2C master so the magnetometer beco..." alt="" coords="5,259,154,286"/>
+<area shape="rect" id="Node000002" href="$group__mcal__gpio.html#ga2a5e7c89bc6bb7103d96334a8481ea9b" title="Configure a single pin: mode, output type, speed, pull and AF." alt="" coords="206,5,344,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,257,97,217,121,162,155,102,176,74,200,49,218,38,214,43,203,53,180,78,159,105,125,164,101,219,88,259"/>
+<area shape="rect" id="Node000003" href="$MPU9250__program_8c.html#a7ba2c17c3c74891f1abf940cfad46b37" title="Read one MPU9250 register." alt="" coords="637,180,802,208"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="95,257,141,222,170,205,201,191,257,175,315,164,374,159,432,157,542,162,636,176,631,178,542,168,432,162,374,164,316,170,258,180,203,196,172,210,144,227,99,260"/>
+<area shape="rect" id="Node000004" href="$MPU9250__program_8c.html#a5342237e637aa8a15fb0df5545b7f0bc" title="Release chip&#45;select to end an SPI transaction." alt="" coords="850,180,1005,208"/>
+<area shape="poly" id="edge8_Node000001_Node000004" title=" " alt="" coords="89,257,133,206,164,179,201,158,245,141,291,128,385,112,481,108,575,113,664,124,745,140,872,174,867,175,743,145,663,130,574,118,481,113,386,118,292,133,247,146,203,163,167,184,136,210,93,260"/>
+<area shape="rect" id="Node000006" href="$MPU9250__program_8c.html#afc1119b78d1b34766f8d570ae7ca28ec" title="Pull chip&#45;select low to begin an SPI transaction." alt="" coords="858,232,996,260"/>
+<area shape="poly" id="edge19_Node000001_Node000006" title=" " alt="" coords="110,284,229,333,312,360,406,382,506,397,607,398,658,393,707,383,755,368,800,346,817,330,825,312,832,291,848,271,855,269,859,266,851,274,836,293,830,313,822,333,803,351,757,372,708,388,659,398,608,404,505,402,405,388,311,365,227,338,110,290"/>
+<area shape="rect" id="Node000007" href="$SPI__program_8c.html#a09703b6224fb5ab17478e4f7e309e734" title="Perform full&#45;duplex SPI transaction (transmit and receive)." alt="" coords="854,284,1001,312"/>
+<area shape="poly" id="edge22_Node000001_Node000007" title=" " alt="" coords="86,284,102,320,126,364,160,407,180,426,203,441,257,460,329,474,412,482,501,484,590,481,673,473,745,459,801,441,837,417,867,387,892,354,910,327,914,324,896,357,871,390,840,422,803,446,747,464,674,478,590,486,501,490,411,487,328,479,256,466,200,446,177,430,156,411,121,366,97,322,85,289"/>
+<area shape="rect" id="Node000008" href="$MPU9250__program_8c.html#a2c1947f6f0d44d63782f8d15b1b31525" title="Bring the AK8963 magnetometer up via the MPU&#39;s internal I2C master." alt="" coords="202,259,349,286"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="153,270,189,271,184,274,155,275"/>
+<area shape="rect" id="Node000010" href="$MPU9250__program_8c.html#aa9914638744c3dd8249f541b27fb0f05" title="Write one MPU9250 register." alt="" coords="640,232,799,260"/>
+<area shape="poly" id="edge20_Node000001_Node000010" title=" " alt="" coords="115,256,201,227,318,198,385,188,453,182,522,184,590,194,615,204,638,217,659,226,654,227,636,222,613,209,589,199,522,189,454,188,385,193,319,203,202,232,118,260"/>
+<area shape="rect" id="Node000011" href="$TIM__program_8c.html#a06dd9df822ed8f4c5635901b770230ea" title="Blocking Delay in Milliseconds using a specific Timer." alt="" coords="661,309,778,337"/>
+<area shape="poly" id="edge23_Node000001_Node000011" title=" " alt="" coords="141,284,202,295,324,309,445,317,648,323,643,325,445,322,323,314,201,300,143,289"/>
+<area shape="rect" id="Node000012" href="$SPI__program_8c.html#a4b6f9d4ba67bb037ab88265f09945a33" title="Initialize the SPI peripheral with the provided configuration." alt="" coords="222,512,328,540"/>
+<area shape="poly" id="edge21_Node000001_Node000012" title=" " alt="" coords="85,284,101,326,125,381,159,440,180,467,203,492,219,505,213,504,200,496,176,471,155,443,121,383,97,328,85,290"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="801,191,837,193,832,194,802,196"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="778,206,857,227,851,228,778,211"/>
+<area shape="poly" id="edge7_Node000003_Node000007" title=" " alt="" coords="777,206,803,218,819,231,828,244,837,257,851,269,863,278,858,277,848,273,833,260,824,247,815,235,800,223,777,211"/>
+<area shape="rect" id="Node000005" href="$group__mcal__gpio.html#gab8efebd278bcf731012c238a3f69fb5c" title="Drive one output pin high or low." alt="" coords="1053,207,1225,234"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1005,201,1040,207,1035,208,1006,206"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="997,235,1040,232,1035,233,998,240"/>
+<area shape="rect" id="Node000009" href="$MPU9250__program_8c.html#a2d9ee004c4d0e3fd0de564222c47cec5" title="Read one AK8963 register, through the MPU&#39;s internal I2C master." alt="" coords="397,208,589,236"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="337,256,418,238,414,241,339,261"/>
+<area shape="poly" id="edge17_Node000008_Node000010" title=" " alt="" coords="349,265,627,250,623,253,350,271"/>
+<area shape="poly" id="edge18_Node000008_Node000011" title=" " alt="" coords="349,278,647,313,643,316,350,284"/>
+<area shape="poly" id="edge11_Node000009_Node000003" title=" " alt="" coords="589,207,624,205,619,207,590,213"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="589,229,627,235,622,236,590,235"/>
+<area shape="poly" id="edge16_Node000009_Node000011" title=" " alt="" coords="526,233,675,302,670,303,526,239"/>
+<area shape="poly" id="edge13_Node000010_Node000004" title=" " alt="" coords="777,229,857,211,852,213,779,234"/>
+<area shape="poly" id="edge14_Node000010_Node000006" title=" " alt="" coords="799,243,846,245,841,246,799,248"/>
+<area shape="poly" id="edge15_Node000010_Node000007" title=" " alt="" coords="778,258,857,279,851,280,778,263"/>
 </map>

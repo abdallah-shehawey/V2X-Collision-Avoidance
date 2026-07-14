@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Inc/Drivers/HAL/US/US_private.h File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Inc/Drivers/HAL/US/US_private.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,21 +90,66 @@ $(function(){initNavTree('US__private_8h.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">US_private.h File Reference</div></div>
+  <div class="headertitle"><div class="title">US_private.h File Reference<div class="ingroups"><a class="el" href="group__hal.html">HAL</a> &raquo; <a class="el" href="group__hal__us.html">US</a></div></div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="US__private_8h__dep__incl.png" border="0" usemap="#aInc_2Drivers_2HAL_2US_2US__private_8hdep" loading="lazy" alt=""/></div>
-<map name="aInc_2Drivers_2HAL_2US_2US__private_8hdep" id="aInc_2Drivers_2HAL_2US_2US__private_8hdep">
-<area shape="rect" title=" " alt="" coords="5,5,149,50"/>
-<area shape="rect" href="US__prog_8c.html" title=" " alt="" coords="22,98,132,126"/>
-<area shape="poly" title=" " alt="" coords="79,64,80,98,74,97,75,68"/>
-</map>
+
+<p>Register bit positions and internals of the US driver — not a public header.  
+<a href="#details">More...</a></p>
+<div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="US__private_8h__dep__incl.svg" width="199" height="131"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="US__private_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:adc51941ea05da40c9e35a99928a4ac37" id="r_adc51941ea05da40c9e35a99928a4ac37"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#adc51941ea05da40c9e35a99928a4ac37">US_vSendTrigger</a> (const <a class="el" href="structUS__Config__t.html">US_Config_t</a> *pxSensor)</td></tr>
+<tr class="memdesc:adc51941ea05da40c9e35a99928a4ac37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fire the trigger pulse that starts one sensor's measurement.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Register bit positions and internals of the US driver — not a public header. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Abdelmoemen Shehawey  </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="US__private_8h_source.html">US_private.h</a>.</p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="adc51941ea05da40c9e35a99928a4ac37" name="adc51941ea05da40c9e35a99928a4ac37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc51941ea05da40c9e35a99928a4ac37">&#9670;&#160;</a></span>US_vSendTrigger()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void US_vSendTrigger </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structUS__Config__t.html">US_Config_t</a> *</td>          <td class="paramname"><span class="paramname"><em>pxSensor</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fire the trigger pulse that starts one sensor's measurement. </p>
+<p>Holds TRIG low for <a class="el" href="US__config_8h.html#ac82821dff0173e63bfc7953f43c50066" title="US_TRIG_SETTLE_US">US_TRIG_SETTLE_US</a>, then high for <a class="el" href="US__config_8h.html#a8a95e538fdb97455266761408d1db73e" title="US_TRIG_PULSE_US">US_TRIG_PULSE_US</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">pxSensor</td><td>The sensor to trigger. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -118,7 +163,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_f93dfce691d792349f1c14ede440e2e6.html">Inc</a></li><li class="navelem"><a href="dir_5807d32f659ca06f2d44f24c89728eb8.html">Drivers</a></li><li class="navelem"><a href="dir_2c576cc013bc705cce6153db29f6dfa3.html">HAL</a></li><li class="navelem"><a href="dir_6fe23bfa12d824557f1521aef27d29b7.html">US</a></li><li class="navelem"><a href="US__private_8h.html">US_private.h</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Inc</b></li><li class="navelem"><b>Drivers</b></li><li class="navelem"><b>HAL</b></li><li class="navelem"><b>US</b></li><li class="navelem"><a href="US__private_8h.html">US_private.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

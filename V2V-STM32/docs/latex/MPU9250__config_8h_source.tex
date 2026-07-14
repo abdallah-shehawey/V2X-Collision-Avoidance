@@ -1,54 +1,36 @@
 \doxysection{MPU9250\+\_\+config.\+h}
-\hypertarget{MPU9250__config_8h_source}{}\label{MPU9250__config_8h_source}\index{Inc/Drivers/HAL/MPU9250/MPU9250\_config.h@{Inc/Drivers/HAL/MPU9250/MPU9250\_config.h}}
+\hypertarget{MPU9250__config_8h_source}{}\label{MPU9250__config_8h_source}\index{V2V-\/STM32/Inc/Drivers/HAL/MPU9250/MPU9250\_config.h@{V2V-\/STM32/Inc/Drivers/HAL/MPU9250/MPU9250\_config.h}}
 \doxymbox{\hyperlink{MPU9250__config_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00001}00001\ }
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00006}00006\ }
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00007}00007\ \textcolor{preprocessor}{\#ifndef\ MPU9250\_CONFIG\_H\_}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00008}00008\ \textcolor{preprocessor}{\#define\ MPU9250\_CONFIG\_H\_}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00009}00009\ }
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00010}00010\ \textcolor{comment}{/*\ SPI\ Channel\ used\ for\ MPU9250\ */}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00011}\doxymbox{\hyperlink{MPU9250__config_8h_ab37fb1e677db2f2d4a411c7fa5471582}{00011}}\ \textcolor{preprocessor}{\#define\ MPU9250\_SPI\_CHANNEL\ \ \ \ SPI\_CHANNEL1}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00012}00012\ }
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00013}00013\ \textcolor{comment}{/*\ GPIO\ Pins\ for\ SPI\ (should\ match\ MCAL\ config)\ */}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00014}00014\ \textcolor{comment}{/*\ Usually\ handled\ by\ GPIO\ driver,\ but\ we\ define\ CS\ pin\ here\ */}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00015}\doxymbox{\hyperlink{MPU9250__config_8h_ae9a84707f27c348f8b3be6afebe3e81e}{00015}}\ \textcolor{preprocessor}{\#define\ MPU9250\_CS\_PORT\ \ \ \ \ \ \ \ GPIO\_PORTA}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00016}\doxymbox{\hyperlink{MPU9250__config_8h_acda4019666ca12c31828d1d9500d95a2}{00016}}\ \textcolor{preprocessor}{\#define\ MPU9250\_CS\_PIN\ \ \ \ \ \ \ \ \ GPIO\_PIN4}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00017}00017\ }
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00018}00018\ \textcolor{comment}{/*\ Full\ Scale\ Ranges\ */}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00019}00019\ \textcolor{comment}{/*\ 0:\ 2g,\ 1:\ 4g,\ 2:\ 8g,\ 3:\ 16g\ */}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00020}\doxymbox{\hyperlink{MPU9250__config_8h_afe68799dd7a046597c1128b2412765c0}{00020}}\ \textcolor{preprocessor}{\#define\ MPU9250\_ACCEL\_FS\ \ \ \ \ \ \ 0\ }}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00021}00021\ }
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00022}00022\ \textcolor{comment}{/*\ 0:\ 250dps,\ 1:\ 500dps,\ 2:\ 1000dps,\ 3:\ 2000dps\ */}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00023}\doxymbox{\hyperlink{MPU9250__config_8h_a1e563d08f7338494561b5ad5ec2de5ac}{00023}}\ \textcolor{preprocessor}{\#define\ MPU9250\_GYRO\_FS\ \ \ \ \ \ \ \ 0}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00024}00024\ }
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00025}00025\ \textcolor{comment}{/*\ Timer\ for\ delays\ (TIM\_TIMER6\ or\ TIM\_TIMER7\ recommended)\ */}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00026}\doxymbox{\hyperlink{MPU9250__config_8h_ab47f5236c3e559be3208494c14372364}{00026}}\ \textcolor{preprocessor}{\#define\ MPU9250\_DELAY\_TIMER\ \ \ \ TIM\_TIMER6}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00027}00027\ }
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00028}00028\ \textcolor{comment}{/*\ ======\ Magnetometer\ hard-\/iron\ calibration\ (boot-\/time\ rotation)\ ======\ */}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00029}00029\ \textcolor{comment}{/*\ Length\ of\ the\ boot\ calibration\ window.\ Rotate\ the\ car\ a\ full\ \string~360°\ (one\ or}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00030}00030\ \textcolor{comment}{\ *\ two\ slow\ turns)\ during\ it.\ Lower\ it\ for\ quick\ bench\ testing.\ */}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00031}\doxymbox{\hyperlink{MPU9250__config_8h_aef19ab7bc44d9f0a0539f8f2d93c6120}{00031}}\ \textcolor{preprocessor}{\#define\ MPU9250\_MAGCAL\_DURATION\_MS\ \ (12000U)}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00032}00032\ }
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00033}00033\ \textcolor{comment}{/*\ Magnetometer\ poll\ period\ inside\ the\ calibration\ window\ (ms).\ */}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00034}\doxymbox{\hyperlink{MPU9250__config_8h_adf1960101390d5c997e7669062fbde93}{00034}}\ \textcolor{preprocessor}{\#define\ MPU9250\_MAGCAL\_SAMPLE\_MS\ \ \ \ (20U)}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00035}00035\ }
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00036}00036\ \textcolor{comment}{/*\ Minimum\ field\ span\ (raw\ counts\ x\ ASA)\ required\ on\ BOTH\ axes\ to\ ACCEPT\ the}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00037}00037\ \textcolor{comment}{\ *\ calibration\ —\ proves\ the\ car\ actually\ turned.\ If\ the\ measured\ span\ is\ below}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00038}00038\ \textcolor{comment}{\ *\ this\ the\ cal\ is\ rejected\ (offsets\ left\ unchanged)\ and\ the\ caller\ is\ told.\ */}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00039}\doxymbox{\hyperlink{MPU9250__config_8h_ac368b845d39d5d5dfafd34fbc1747410}{00039}}\ \textcolor{preprocessor}{\#define\ MPU9250\_MAG\_MIN\_SPAN\ \ \ \ \ \ \ \ (60.0f)}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00040}00040\ }
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00041}00041\ \textcolor{comment}{/*\ ======\ Heading\ fusion\ (complementary\ filter:\ GyroZ\ +\ magnetometer)\ ======\ */}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00042}00042\ \textcolor{comment}{/*\ Gyro\ weight\ per\ update.\ τ\ ≈\ dt·α/(1−α);\ at\ dt≈50ms,\ 0.98\ →\ \string~2.5s\ mag\ pull-\/in.}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00043}00043\ \textcolor{comment}{\ *\ Higher\ =\ smoother\ \&\ more\ motor-\/noise-\/immune,\ but\ slower\ to\ correct\ drift.\ */}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00044}\doxymbox{\hyperlink{MPU9250__config_8h_a48e78568f16e0c878d4c677585afcd00}{00044}}\ \textcolor{preprocessor}{\#define\ MPU9250\_HEADING\_ALPHA\ \ \ \ \ \ \ (0.98f)}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00045}00045\ }
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00046}00046\ \textcolor{comment}{/*\ Sign\ of\ the\ GyroZ\ contribution.\ The\ gyro\ yaw-\/rate\ sign\ MUST\ match\ the}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00047}00047\ \textcolor{comment}{\ *\ direction\ the\ magnetometer\ heading\ increases,\ or\ the\ two\ fight\ each\ other.}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00048}00048\ \textcolor{comment}{\ *\ TEST:\ rotate\ the\ car\ steadily\ one\ way;\ if\ the\ fused\ heading\ diverges\ from\ the}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00049}00049\ \textcolor{comment}{\ *\ raw\ magnetometer\ heading\ instead\ of\ tracking\ it,\ flip\ this\ to\ (-\/1.0f).\ */}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00050}\doxymbox{\hyperlink{MPU9250__config_8h_a003047f11f906d55b43a4922e61ab551}{00050}}\ \textcolor{preprocessor}{\#define\ MPU9250\_GYROZ\_SIGN\ \ \ \ \ \ \ \ \ \ (+1.0f)}}
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00051}00051\ }
-\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00052}00052\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ MPU9250\_CONFIG\_H\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00011}00011\ \textcolor{preprocessor}{\#ifndef\ MPU9250\_CONFIG\_H\_}}
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00012}00012\ \textcolor{preprocessor}{\#define\ MPU9250\_CONFIG\_H\_}}
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00024}\doxymbox{\hyperlink{group__hal__mpu9250_gab37fb1e677db2f2d4a411c7fa5471582}{00024}}\ \textcolor{preprocessor}{\#define\ MPU9250\_SPI\_CHANNEL\ SPI\_CHANNEL1}}
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00027}\doxymbox{\hyperlink{group__hal__mpu9250_gae9a84707f27c348f8b3be6afebe3e81e}{00027}}\ \textcolor{preprocessor}{\#define\ MPU9250\_CS\_PORT\ GPIO\_PORTA}}
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00030}\doxymbox{\hyperlink{group__hal__mpu9250_gacda4019666ca12c31828d1d9500d95a2}{00030}}\ \textcolor{preprocessor}{\#define\ MPU9250\_CS\_PIN\ GPIO\_PIN4}}
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00037}\doxymbox{\hyperlink{group__hal__mpu9250_gab47f5236c3e559be3208494c14372364}{00037}}\ \textcolor{preprocessor}{\#define\ MPU9250\_DELAY\_TIMER\ TIM\_TIMER6}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00049}\doxymbox{\hyperlink{group__hal__mpu9250_gafe68799dd7a046597c1128b2412765c0}{00049}}\ \textcolor{preprocessor}{\#define\ MPU9250\_ACCEL\_FS\ 0}}
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00052}\doxymbox{\hyperlink{group__hal__mpu9250_ga1e563d08f7338494561b5ad5ec2de5ac}{00052}}\ \textcolor{preprocessor}{\#define\ MPU9250\_GYRO\_FS\ 0}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00073}\doxymbox{\hyperlink{group__hal__mpu9250_gaef19ab7bc44d9f0a0539f8f2d93c6120}{00073}}\ \textcolor{preprocessor}{\#define\ MPU9250\_MAGCAL\_DURATION\_MS\ (12000U)}}
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00076}\doxymbox{\hyperlink{group__hal__mpu9250_gadf1960101390d5c997e7669062fbde93}{00076}}\ \textcolor{preprocessor}{\#define\ MPU9250\_MAGCAL\_SAMPLE\_MS\ (20U)}}
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00086}\doxymbox{\hyperlink{group__hal__mpu9250_gac368b845d39d5d5dfafd34fbc1747410}{00086}}\ \textcolor{preprocessor}{\#define\ MPU9250\_MAG\_MIN\_SPAN\ (60.0f)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00107}\doxymbox{\hyperlink{group__hal__mpu9250_ga48e78568f16e0c878d4c677585afcd00}{00107}}\ \textcolor{preprocessor}{\#define\ MPU9250\_HEADING\_ALPHA\ (0.98f)}}
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00120}\doxymbox{\hyperlink{group__hal__mpu9250_ga003047f11f906d55b43a4922e61ab551}{00120}}\ \textcolor{preprocessor}{\#define\ MPU9250\_GYROZ\_SIGN\ (+1.0f)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00122}00122\ \ \textcolor{comment}{/*\ end\ of\ hal\_mpu9250\ */}}
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{MPU9250__config_8h_source_l00125}00125\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ MPU9250\_CONFIG\_H\_\ */}\textcolor{preprocessor}{}}
 
 \end{DoxyCode}

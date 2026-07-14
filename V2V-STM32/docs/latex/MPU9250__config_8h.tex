@@ -1,8 +1,8 @@
-\doxysection{Inc/\+\+Drivers/\+\+HAL/\+\+MPU9250/\+\+MPU9250\+\_\+config.h File Reference}
-\hypertarget{MPU9250__config_8h}{}\label{MPU9250__config_8h}\index{Inc/Drivers/HAL/MPU9250/MPU9250\_config.h@{Inc/Drivers/HAL/MPU9250/MPU9250\_config.h}}
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+HAL/\+\+MPU9250/\+\+MPU9250\+\_\+config.h File Reference}
+\hypertarget{MPU9250__config_8h}{}\label{MPU9250__config_8h}\index{V2V-\/STM32/Inc/Drivers/HAL/MPU9250/MPU9250\_config.h@{V2V-\/STM32/Inc/Drivers/HAL/MPU9250/MPU9250\_config.h}}
 
 
-Configuration file for MPU9250 driver.  
+Compile-\/time tuning for the MPU9250 driver:\+ wiring, ranges, and the two filters whose constants actually change how the car behaves.  
 
 
 This graph shows which files directly or indirectly include this file:\+
@@ -10,158 +10,65 @@ This graph shows which files directly or indirectly include this file:\+
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=221pt]{MPU9250__config_8h__dep__incl}
+\includegraphics[width=219pt]{MPU9250__config_8h__dep__incl}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Macros}
+\begin{Indent}\textbf{ Wiring}\par
 \begin{DoxyCompactItemize}
 \item 
-\+\#define \doxymbox{\hyperlink{MPU9250__config_8h_ab37fb1e677db2f2d4a411c7fa5471582}{MPU9250\+\_\+\+SPI\+\_\+\+CHANNEL}}~\doxymbox{\hyperlink{SPI__interface_8h_a99e480c10376756fca05b64ed949a3d9ae01f25f2493c2b0a1406ee1371a2752d}{SPI\+\_\+\+CHANNEL1}}
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gab37fb1e677db2f2d4a411c7fa5471582}{MPU9250\+\_\+\+SPI\+\_\+\+CHANNEL}}
+\begin{DoxyCompactList}\small\item\em The SPI peripheral the IMU hangs off. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gae9a84707f27c348f8b3be6afebe3e81e}{MPU9250\+\_\+\+CS\+\_\+\+PORT}}
+\begin{DoxyCompactList}\small\item\em Port of the chip-\/select line. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gacda4019666ca12c31828d1d9500d95a2}{MPU9250\+\_\+\+CS\+\_\+\+PIN}}
+\begin{DoxyCompactList}\small\item\em Pin of the chip-\/select line. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gab47f5236c3e559be3208494c14372364}{MPU9250\+\_\+\+DELAY\+\_\+\+TIMER}}
+\begin{DoxyCompactList}\small\item\em Timer used for the driver\textquotesingle{}s microsecond delays. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Full-\/scale ranges}\par
+{\em A narrower range gives finer resolution but saturates sooner.
+
+A road vehicle never pulls multiple g or spins at hundreds of degrees per second, so the narrowest range of each is the right trade. }\begin{DoxyCompactItemize}
 \item 
-\+\#define \doxymbox{\hyperlink{MPU9250__config_8h_ae9a84707f27c348f8b3be6afebe3e81e}{MPU9250\+\_\+\+CS\+\_\+\+PORT}}~\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24a0d36b47f173bbc4bdced28d8a54fe4ac}{GPIO\+\_\+\+PORTA}}
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gafe68799dd7a046597c1128b2412765c0}{MPU9250\+\_\+\+ACCEL\+\_\+\+FS}}
+\begin{DoxyCompactList}\small\item\em Accelerometer range:\+ 0 = ±2 g, 1 = ±4 g, 2 = ±8 g, 3 = ±16 g. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga1e563d08f7338494561b5ad5ec2de5ac}{MPU9250\+\_\+\+GYRO\+\_\+\+FS}}
+\begin{DoxyCompactList}\small\item\em Gyroscope range:\+ 0 = ±250 °/\+s, 1 = ±500, 2 = ±1000, 3 = ±2000. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Magnetometer hard-\/iron calibration}\par
+{\em "{}\+Hard iron"{} is the constant magnetic offset the car itself adds — the motors, the battery, the steel chassis.
+
+It shifts the whole field reading off centre, so an uncalibrated compass reads a heading that is simply wrong, and wrong by a different amount in every direction.
+
+The fix is to turn the car through a full circle at boot and watch the field trace out a ring; the centre of that ring {\itshape is} the offset. That is what these three constants govern. }\begin{DoxyCompactItemize}
 \item 
-\+\#define \doxymbox{\hyperlink{MPU9250__config_8h_acda4019666ca12c31828d1d9500d95a2}{MPU9250\+\_\+\+CS\+\_\+\+PIN}}~\doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14a088dbea6be5692ef5375d1710404ad46}{GPIO\+\_\+\+PIN4}}
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gaef19ab7bc44d9f0a0539f8f2d93c6120}{MPU9250\+\_\+\+MAGCAL\+\_\+\+DURATION\+\_\+\+MS}}
+\begin{DoxyCompactList}\small\item\em Length of the boot-\/time calibration window \+[ms]\+. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gadf1960101390d5c997e7669062fbde93}{MPU9250\+\_\+\+MAGCAL\+\_\+\+SAMPLE\+\_\+\+MS}}
+\begin{DoxyCompactList}\small\item\em How often the magnetometer is sampled inside the calibration window \+[ms]\+. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gac368b845d39d5d5dfafd34fbc1747410}{MPU9250\+\_\+\+MAG\+\_\+\+MIN\+\_\+\+SPAN}}
+\begin{DoxyCompactList}\small\item\em Minimum field span required on {\bfseries{both}} axes before a calibration is accepted. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Heading fusion (complementary filter)}\par
+{\em Neither sensor can give the heading alone.
+
+The gyroscope is smooth and immune to magnetic noise but {\bfseries{drifts}} without bound; the magnetometer has no drift but is noisy and is thrown off by the motors. So the driver integrates the gyro for the short term and lets the magnetometer slowly pull it back to the truth. }\begin{DoxyCompactItemize}
 \item 
-\+\#define \doxymbox{\hyperlink{MPU9250__config_8h_afe68799dd7a046597c1128b2412765c0}{MPU9250\+\_\+\+ACCEL\+\_\+\+FS}}~0
-\item 
-\+\#define \doxymbox{\hyperlink{MPU9250__config_8h_a1e563d08f7338494561b5ad5ec2de5ac}{MPU9250\+\_\+\+GYRO\+\_\+\+FS}}~0
-\item 
-\+\#define \doxymbox{\hyperlink{MPU9250__config_8h_ab47f5236c3e559be3208494c14372364}{MPU9250\+\_\+\+DELAY\+\_\+\+TIMER}}~\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23af18bf52d47d87947df265cf9a7e3ef26}{TIM\+\_\+\+TIMER6}}
-\item 
-\+\#define \doxymbox{\hyperlink{MPU9250__config_8h_aef19ab7bc44d9f0a0539f8f2d93c6120}{MPU9250\+\_\+\+MAGCAL\+\_\+\+DURATION\+\_\+\+MS}}~(12000U)
-\item 
-\+\#define \doxymbox{\hyperlink{MPU9250__config_8h_adf1960101390d5c997e7669062fbde93}{MPU9250\+\_\+\+MAGCAL\+\_\+\+SAMPLE\+\_\+\+MS}}~(20U)
-\item 
-\+\#define \doxymbox{\hyperlink{MPU9250__config_8h_ac368b845d39d5d5dfafd34fbc1747410}{MPU9250\+\_\+\+MAG\+\_\+\+MIN\+\_\+\+SPAN}}~(60.\+0f)
-\item 
-\+\#define \doxymbox{\hyperlink{MPU9250__config_8h_a48e78568f16e0c878d4c677585afcd00}{MPU9250\+\_\+\+HEADING\+\_\+\+ALPHA}}~(0.\+98f)
-\item 
-\+\#define \doxymbox{\hyperlink{MPU9250__config_8h_a003047f11f906d55b43a4922e61ab551}{MPU9250\+\_\+\+GYROZ\+\_\+\+SIGN}}~(+1.\+0f)
-\end{DoxyCompactItemize}
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga48e78568f16e0c878d4c677585afcd00}{MPU9250\+\_\+\+HEADING\+\_\+\+ALPHA}}
+\begin{DoxyCompactList}\small\item\em Weight given to the gyroscope on each update, 0..1. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga003047f11f906d55b43a4922e61ab551}{MPU9250\+\_\+\+GYROZ\+\_\+\+SIGN}}
+\begin{DoxyCompactList}\small\item\em Sign of the gyroscope\textquotesingle{}s contribution to the fused heading:\+ +1.\+0f or -\/1.\+0f. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
 
 
 \doxysubsection{Detailed Description}
-Configuration file for MPU9250 driver. 
+Compile-\/time tuning for the MPU9250 driver:\+ wiring, ranges, and the two filters whose constants actually change how the car behaves. 
 
 \begin{DoxyAuthor}{Author}
-Abdallah Saleh 
+Abdallah Saleh  
 \end{DoxyAuthor}
 
 
 Definition in file \doxymbox{\hyperlink{MPU9250__config_8h_source}{MPU9250\+\_\+config.\+h}}.
-
-
-
-\label{doc-define-members}
-\Hypertarget{MPU9250__config_8h_doc-define-members}
-\doxysubsection{Macro Definition Documentation}
-\Hypertarget{MPU9250__config_8h_afe68799dd7a046597c1128b2412765c0}\index{MPU9250\_config.h@{MPU9250\_config.h}!MPU9250\_ACCEL\_FS@{MPU9250\_ACCEL\_FS}}
-\index{MPU9250\_ACCEL\_FS@{MPU9250\_ACCEL\_FS}!MPU9250\_config.h@{MPU9250\_config.h}}
-\doxysubsubsection{\texorpdfstring{MPU9250\_ACCEL\_FS}{MPU9250\_ACCEL\_FS}}
-{\footnotesize\ttfamily \label{MPU9250__config_8h_afe68799dd7a046597c1128b2412765c0} 
-\+\#define MPU9250\+\_\+\+ACCEL\+\_\+\+FS~0}
-
-
-
-Definition at line \doxymbox{\hyperlink{MPU9250__config_8h_source_l00020}{20}} of file \doxymbox{\hyperlink{MPU9250__config_8h_source}{MPU9250\+\_\+config.\+h}}.
-
-\Hypertarget{MPU9250__config_8h_acda4019666ca12c31828d1d9500d95a2}\index{MPU9250\_config.h@{MPU9250\_config.h}!MPU9250\_CS\_PIN@{MPU9250\_CS\_PIN}}
-\index{MPU9250\_CS\_PIN@{MPU9250\_CS\_PIN}!MPU9250\_config.h@{MPU9250\_config.h}}
-\doxysubsubsection{\texorpdfstring{MPU9250\_CS\_PIN}{MPU9250\_CS\_PIN}}
-{\footnotesize\ttfamily \label{MPU9250__config_8h_acda4019666ca12c31828d1d9500d95a2} 
-\+\#define MPU9250\+\_\+\+CS\+\_\+\+PIN~\doxymbox{\hyperlink{GPIO__interface_8h_a5fbd1b6f232b4bf0b9ca60ea2d01da14a088dbea6be5692ef5375d1710404ad46}{GPIO\+\_\+\+PIN4}}}
-
-
-
-Definition at line \doxymbox{\hyperlink{MPU9250__config_8h_source_l00016}{16}} of file \doxymbox{\hyperlink{MPU9250__config_8h_source}{MPU9250\+\_\+config.\+h}}.
-
-\Hypertarget{MPU9250__config_8h_ae9a84707f27c348f8b3be6afebe3e81e}\index{MPU9250\_config.h@{MPU9250\_config.h}!MPU9250\_CS\_PORT@{MPU9250\_CS\_PORT}}
-\index{MPU9250\_CS\_PORT@{MPU9250\_CS\_PORT}!MPU9250\_config.h@{MPU9250\_config.h}}
-\doxysubsubsection{\texorpdfstring{MPU9250\_CS\_PORT}{MPU9250\_CS\_PORT}}
-{\footnotesize\ttfamily \label{MPU9250__config_8h_ae9a84707f27c348f8b3be6afebe3e81e} 
-\+\#define MPU9250\+\_\+\+CS\+\_\+\+PORT~\doxymbox{\hyperlink{GPIO__interface_8h_abbc5bc638e4c5bb9b75558412fd47e24a0d36b47f173bbc4bdced28d8a54fe4ac}{GPIO\+\_\+\+PORTA}}}
-
-
-
-Definition at line \doxymbox{\hyperlink{MPU9250__config_8h_source_l00015}{15}} of file \doxymbox{\hyperlink{MPU9250__config_8h_source}{MPU9250\+\_\+config.\+h}}.
-
-\Hypertarget{MPU9250__config_8h_ab47f5236c3e559be3208494c14372364}\index{MPU9250\_config.h@{MPU9250\_config.h}!MPU9250\_DELAY\_TIMER@{MPU9250\_DELAY\_TIMER}}
-\index{MPU9250\_DELAY\_TIMER@{MPU9250\_DELAY\_TIMER}!MPU9250\_config.h@{MPU9250\_config.h}}
-\doxysubsubsection{\texorpdfstring{MPU9250\_DELAY\_TIMER}{MPU9250\_DELAY\_TIMER}}
-{\footnotesize\ttfamily \label{MPU9250__config_8h_ab47f5236c3e559be3208494c14372364} 
-\+\#define MPU9250\+\_\+\+DELAY\+\_\+\+TIMER~\doxymbox{\hyperlink{TIM__interface_8h_a2712d6a822f7d7b0ebe7411daf149b23af18bf52d47d87947df265cf9a7e3ef26}{TIM\+\_\+\+TIMER6}}}
-
-
-
-Definition at line \doxymbox{\hyperlink{MPU9250__config_8h_source_l00026}{26}} of file \doxymbox{\hyperlink{MPU9250__config_8h_source}{MPU9250\+\_\+config.\+h}}.
-
-\Hypertarget{MPU9250__config_8h_a1e563d08f7338494561b5ad5ec2de5ac}\index{MPU9250\_config.h@{MPU9250\_config.h}!MPU9250\_GYRO\_FS@{MPU9250\_GYRO\_FS}}
-\index{MPU9250\_GYRO\_FS@{MPU9250\_GYRO\_FS}!MPU9250\_config.h@{MPU9250\_config.h}}
-\doxysubsubsection{\texorpdfstring{MPU9250\_GYRO\_FS}{MPU9250\_GYRO\_FS}}
-{\footnotesize\ttfamily \label{MPU9250__config_8h_a1e563d08f7338494561b5ad5ec2de5ac} 
-\+\#define MPU9250\+\_\+\+GYRO\+\_\+\+FS~0}
-
-
-
-Definition at line \doxymbox{\hyperlink{MPU9250__config_8h_source_l00023}{23}} of file \doxymbox{\hyperlink{MPU9250__config_8h_source}{MPU9250\+\_\+config.\+h}}.
-
-\Hypertarget{MPU9250__config_8h_a003047f11f906d55b43a4922e61ab551}\index{MPU9250\_config.h@{MPU9250\_config.h}!MPU9250\_GYROZ\_SIGN@{MPU9250\_GYROZ\_SIGN}}
-\index{MPU9250\_GYROZ\_SIGN@{MPU9250\_GYROZ\_SIGN}!MPU9250\_config.h@{MPU9250\_config.h}}
-\doxysubsubsection{\texorpdfstring{MPU9250\_GYROZ\_SIGN}{MPU9250\_GYROZ\_SIGN}}
-{\footnotesize\ttfamily \label{MPU9250__config_8h_a003047f11f906d55b43a4922e61ab551} 
-\+\#define MPU9250\+\_\+\+GYROZ\+\_\+\+SIGN~(+1.\+0f)}
-
-
-
-Definition at line \doxymbox{\hyperlink{MPU9250__config_8h_source_l00050}{50}} of file \doxymbox{\hyperlink{MPU9250__config_8h_source}{MPU9250\+\_\+config.\+h}}.
-
-\Hypertarget{MPU9250__config_8h_a48e78568f16e0c878d4c677585afcd00}\index{MPU9250\_config.h@{MPU9250\_config.h}!MPU9250\_HEADING\_ALPHA@{MPU9250\_HEADING\_ALPHA}}
-\index{MPU9250\_HEADING\_ALPHA@{MPU9250\_HEADING\_ALPHA}!MPU9250\_config.h@{MPU9250\_config.h}}
-\doxysubsubsection{\texorpdfstring{MPU9250\_HEADING\_ALPHA}{MPU9250\_HEADING\_ALPHA}}
-{\footnotesize\ttfamily \label{MPU9250__config_8h_a48e78568f16e0c878d4c677585afcd00} 
-\+\#define MPU9250\+\_\+\+HEADING\+\_\+\+ALPHA~(0.\+98f)}
-
-
-
-Definition at line \doxymbox{\hyperlink{MPU9250__config_8h_source_l00044}{44}} of file \doxymbox{\hyperlink{MPU9250__config_8h_source}{MPU9250\+\_\+config.\+h}}.
-
-\Hypertarget{MPU9250__config_8h_ac368b845d39d5d5dfafd34fbc1747410}\index{MPU9250\_config.h@{MPU9250\_config.h}!MPU9250\_MAG\_MIN\_SPAN@{MPU9250\_MAG\_MIN\_SPAN}}
-\index{MPU9250\_MAG\_MIN\_SPAN@{MPU9250\_MAG\_MIN\_SPAN}!MPU9250\_config.h@{MPU9250\_config.h}}
-\doxysubsubsection{\texorpdfstring{MPU9250\_MAG\_MIN\_SPAN}{MPU9250\_MAG\_MIN\_SPAN}}
-{\footnotesize\ttfamily \label{MPU9250__config_8h_ac368b845d39d5d5dfafd34fbc1747410} 
-\+\#define MPU9250\+\_\+\+MAG\+\_\+\+MIN\+\_\+\+SPAN~(60.\+0f)}
-
-
-
-Definition at line \doxymbox{\hyperlink{MPU9250__config_8h_source_l00039}{39}} of file \doxymbox{\hyperlink{MPU9250__config_8h_source}{MPU9250\+\_\+config.\+h}}.
-
-\Hypertarget{MPU9250__config_8h_aef19ab7bc44d9f0a0539f8f2d93c6120}\index{MPU9250\_config.h@{MPU9250\_config.h}!MPU9250\_MAGCAL\_DURATION\_MS@{MPU9250\_MAGCAL\_DURATION\_MS}}
-\index{MPU9250\_MAGCAL\_DURATION\_MS@{MPU9250\_MAGCAL\_DURATION\_MS}!MPU9250\_config.h@{MPU9250\_config.h}}
-\doxysubsubsection{\texorpdfstring{MPU9250\_MAGCAL\_DURATION\_MS}{MPU9250\_MAGCAL\_DURATION\_MS}}
-{\footnotesize\ttfamily \label{MPU9250__config_8h_aef19ab7bc44d9f0a0539f8f2d93c6120} 
-\+\#define MPU9250\+\_\+\+MAGCAL\+\_\+\+DURATION\+\_\+\+MS~(12000U)}
-
-
-
-Definition at line \doxymbox{\hyperlink{MPU9250__config_8h_source_l00031}{31}} of file \doxymbox{\hyperlink{MPU9250__config_8h_source}{MPU9250\+\_\+config.\+h}}.
-
-\Hypertarget{MPU9250__config_8h_adf1960101390d5c997e7669062fbde93}\index{MPU9250\_config.h@{MPU9250\_config.h}!MPU9250\_MAGCAL\_SAMPLE\_MS@{MPU9250\_MAGCAL\_SAMPLE\_MS}}
-\index{MPU9250\_MAGCAL\_SAMPLE\_MS@{MPU9250\_MAGCAL\_SAMPLE\_MS}!MPU9250\_config.h@{MPU9250\_config.h}}
-\doxysubsubsection{\texorpdfstring{MPU9250\_MAGCAL\_SAMPLE\_MS}{MPU9250\_MAGCAL\_SAMPLE\_MS}}
-{\footnotesize\ttfamily \label{MPU9250__config_8h_adf1960101390d5c997e7669062fbde93} 
-\+\#define MPU9250\+\_\+\+MAGCAL\+\_\+\+SAMPLE\+\_\+\+MS~(20U)}
-
-
-
-Definition at line \doxymbox{\hyperlink{MPU9250__config_8h_source_l00034}{34}} of file \doxymbox{\hyperlink{MPU9250__config_8h_source}{MPU9250\+\_\+config.\+h}}.
-
-\Hypertarget{MPU9250__config_8h_ab37fb1e677db2f2d4a411c7fa5471582}\index{MPU9250\_config.h@{MPU9250\_config.h}!MPU9250\_SPI\_CHANNEL@{MPU9250\_SPI\_CHANNEL}}
-\index{MPU9250\_SPI\_CHANNEL@{MPU9250\_SPI\_CHANNEL}!MPU9250\_config.h@{MPU9250\_config.h}}
-\doxysubsubsection{\texorpdfstring{MPU9250\_SPI\_CHANNEL}{MPU9250\_SPI\_CHANNEL}}
-{\footnotesize\ttfamily \label{MPU9250__config_8h_ab37fb1e677db2f2d4a411c7fa5471582} 
-\+\#define MPU9250\+\_\+\+SPI\+\_\+\+CHANNEL~\doxymbox{\hyperlink{SPI__interface_8h_a99e480c10376756fca05b64ed949a3d9ae01f25f2493c2b0a1406ee1371a2752d}{SPI\+\_\+\+CHANNEL1}}}
-
-
-
-Definition at line \doxymbox{\hyperlink{MPU9250__config_8h_source_l00011}{11}} of file \doxymbox{\hyperlink{MPU9250__config_8h_source}{MPU9250\+\_\+config.\+h}}.
 

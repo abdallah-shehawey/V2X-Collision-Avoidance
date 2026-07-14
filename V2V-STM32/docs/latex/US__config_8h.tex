@@ -1,90 +1,155 @@
-\doxysection{Inc/\+\+Drivers/\+\+HAL/\+\+US/\+\+US\+\_\+config.h File Reference}
-\hypertarget{US__config_8h}{}\label{US__config_8h}\index{Inc/Drivers/HAL/US/US\_config.h@{Inc/Drivers/HAL/US/US\_config.h}}
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+HAL/\+\+US/\+\+US\+\_\+config.h File Reference}
+\hypertarget{US__config_8h}{}\label{US__config_8h}\index{V2V-\/STM32/Inc/Drivers/HAL/US/US\_config.h@{V2V-\/STM32/Inc/Drivers/HAL/US/US\_config.h}}
+
+
+Compile-\/time configuration for the US driver — the HC-\/\+SR04 ultrasonic rangefinders.  
+
+
 This graph shows which files directly or indirectly include this file:\+
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=188pt]{US__config_8h__dep__incl}
+\includegraphics[width=221pt]{US__config_8h__dep__incl}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\+\#define \doxymbox{\hyperlink{US__config_8h_ade28eff697a4ce6ca90ed4af010179c4}{US\+\_\+\+SYS\+\_\+\+CLK\+\_\+\+HZ}}~16000000\+UL
-\item 
-\+\#define \doxymbox{\hyperlink{US__config_8h_ac82821dff0173e63bfc7953f43c50066}{US\+\_\+\+TRIG\+\_\+\+SETTLE\+\_\+\+US}}~2U
-\item 
-\+\#define \doxymbox{\hyperlink{US__config_8h_a8a95e538fdb97455266761408d1db73e}{US\+\_\+\+TRIG\+\_\+\+PULSE\+\_\+\+US}}~10U
-\item 
-\+\#define \doxymbox{\hyperlink{US__config_8h_a1acbfc782dd65e3000e6373d863e3333}{US\+\_\+\+MAX\+\_\+\+RANGE\+\_\+\+CM}}~400U
-\item 
-\+\#define \doxymbox{\hyperlink{US__config_8h_ab0e1472cbc6dcaabb8233a418a55b6fe}{US\+\_\+\+SOUND\+\_\+\+SPEED\+\_\+\+FACTOR}}~58U
-\item 
-\+\#define \doxymbox{\hyperlink{US__config_8h_a4d35bb6b344954434449832b9e53037c}{US\+\_\+\+TASK\+\_\+\+TIMEOUT\+\_\+\+MS}}~((((\doxymbox{\hyperlink{US__config_8h_a1acbfc782dd65e3000e6373d863e3333}{US\+\_\+\+MAX\+\_\+\+RANGE\+\_\+\+CM}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{US__config_8h_ab0e1472cbc6dcaabb8233a418a55b6fe}{US\+\_\+\+SOUND\+\_\+\+SPEED\+\_\+\+FACTOR}}) + 999U) /\+ 1000U) + 1U)
-\end{DoxyCompactItemize}
+\+\#define \doxymbox{\hyperlink{US__config_8h_ade28eff697a4ce6ca90ed4af010179c4}{US\+\_\+\+SYS\+\_\+\+CLK\+\_\+\+HZ}}
+\begin{DoxyCompactList}\small\item\em System clock the echo timing is derived from \+[Hz]\+. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{US__config_8h_ac82821dff0173e63bfc7953f43c50066}{US\+\_\+\+TRIG\+\_\+\+SETTLE\+\_\+\+US}}
+\begin{DoxyCompactList}\small\item\em How long TRIG is held low before the pulse \+[us]\+, to guarantee a clean edge with no glitch left over from the previous measurement. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{US__config_8h_a8a95e538fdb97455266761408d1db73e}{US\+\_\+\+TRIG\+\_\+\+PULSE\+\_\+\+US}}
+\begin{DoxyCompactList}\small\item\em Width of the TRIG pulse \+[us]\+. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{US__config_8h_a1acbfc782dd65e3000e6373d863e3333}{US\+\_\+\+MAX\+\_\+\+RANGE\+\_\+\+CM}}
+\begin{DoxyCompactList}\small\item\em Range ceiling \+[cm]\+. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{US__config_8h_ab0e1472cbc6dcaabb8233a418a55b6fe}{US\+\_\+\+SOUND\+\_\+\+SPEED\+\_\+\+FACTOR}}
+\begin{DoxyCompactList}\small\item\em Microseconds of echo per centimetre of distance. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{US__config_8h_a4d35bb6b344954434449832b9e53037c}{US\+\_\+\+TASK\+\_\+\+TIMEOUT\+\_\+\+MS}}
+\begin{DoxyCompactList}\small\item\em How long the reading task sleeps waiting for one echo before giving up \+[ms]\+. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Compile-\/time configuration for the US driver — the HC-\/\+SR04 ultrasonic rangefinders. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{US__config_8h_source}{US\+\_\+config.\+h}}.
+
 
 
 \label{doc-define-members}
 \Hypertarget{US__config_8h_doc-define-members}
 \doxysubsection{Macro Definition Documentation}
-\Hypertarget{US__config_8h_a1acbfc782dd65e3000e6373d863e3333}\index{US\_config.h@{US\_config.h}!US\_MAX\_RANGE\_CM@{US\_MAX\_RANGE\_CM}}
-\index{US\_MAX\_RANGE\_CM@{US\_MAX\_RANGE\_CM}!US\_config.h@{US\_config.h}}
-\doxysubsubsection{\texorpdfstring{US\_MAX\_RANGE\_CM}{US\_MAX\_RANGE\_CM}}
-{\footnotesize\ttfamily \label{US__config_8h_a1acbfc782dd65e3000e6373d863e3333} 
-\+\#define US\+\_\+\+MAX\+\_\+\+RANGE\+\_\+\+CM~400U}
-
-
-
-Definition at line \doxymbox{\hyperlink{US__config_8h_source_l00051}{51}} of file \doxymbox{\hyperlink{US__config_8h_source}{US\+\_\+config.\+h}}.
-
-\Hypertarget{US__config_8h_ab0e1472cbc6dcaabb8233a418a55b6fe}\index{US\_config.h@{US\_config.h}!US\_SOUND\_SPEED\_FACTOR@{US\_SOUND\_SPEED\_FACTOR}}
-\index{US\_SOUND\_SPEED\_FACTOR@{US\_SOUND\_SPEED\_FACTOR}!US\_config.h@{US\_config.h}}
-\doxysubsubsection{\texorpdfstring{US\_SOUND\_SPEED\_FACTOR}{US\_SOUND\_SPEED\_FACTOR}}
-{\footnotesize\ttfamily \label{US__config_8h_ab0e1472cbc6dcaabb8233a418a55b6fe} 
-\+\#define US\+\_\+\+SOUND\+\_\+\+SPEED\+\_\+\+FACTOR~58U}
-
-
-
-Definition at line \doxymbox{\hyperlink{US__config_8h_source_l00059}{59}} of file \doxymbox{\hyperlink{US__config_8h_source}{US\+\_\+config.\+h}}.
-
 \Hypertarget{US__config_8h_ade28eff697a4ce6ca90ed4af010179c4}\index{US\_config.h@{US\_config.h}!US\_SYS\_CLK\_HZ@{US\_SYS\_CLK\_HZ}}
 \index{US\_SYS\_CLK\_HZ@{US\_SYS\_CLK\_HZ}!US\_config.h@{US\_config.h}}
 \doxysubsubsection{\texorpdfstring{US\_SYS\_CLK\_HZ}{US\_SYS\_CLK\_HZ}}
 {\footnotesize\ttfamily \label{US__config_8h_ade28eff697a4ce6ca90ed4af010179c4} 
-\+\#define US\+\_\+\+SYS\+\_\+\+CLK\+\_\+\+HZ~16000000\+UL}
-
-===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} \doxylink{US__config_8h}{US\+\_\+config.\+h} \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Saleh \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ HAL \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} CPU :\+ Cortex-\/\+M4 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} MCU :\+ NUCLEO-\/\+F446\+RE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SWC :\+ US (Ultrasonic Distance Sensor) \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} 
-
-Definition at line \doxymbox{\hyperlink{US__config_8h_source_l00024}{24}} of file \doxymbox{\hyperlink{US__config_8h_source}{US\+\_\+config.\+h}}.
-
-\Hypertarget{US__config_8h_a4d35bb6b344954434449832b9e53037c}\index{US\_config.h@{US\_config.h}!US\_TASK\_TIMEOUT\_MS@{US\_TASK\_TIMEOUT\_MS}}
-\index{US\_TASK\_TIMEOUT\_MS@{US\_TASK\_TIMEOUT\_MS}!US\_config.h@{US\_config.h}}
-\doxysubsubsection{\texorpdfstring{US\_TASK\_TIMEOUT\_MS}{US\_TASK\_TIMEOUT\_MS}}
-{\footnotesize\ttfamily \label{US__config_8h_a4d35bb6b344954434449832b9e53037c} 
-\+\#define US\+\_\+\+TASK\+\_\+\+TIMEOUT\+\_\+\+MS~((((\doxymbox{\hyperlink{US__config_8h_a1acbfc782dd65e3000e6373d863e3333}{US\+\_\+\+MAX\+\_\+\+RANGE\+\_\+\+CM}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{US__config_8h_ab0e1472cbc6dcaabb8233a418a55b6fe}{US\+\_\+\+SOUND\+\_\+\+SPEED\+\_\+\+FACTOR}}) + 999U) /\+ 1000U) + 1U)}
+\+\#define US\+\_\+\+SYS\+\_\+\+CLK\+\_\+\+HZ}
 
 
 
-Definition at line \doxymbox{\hyperlink{US__config_8h_source_l00071}{71}} of file \doxymbox{\hyperlink{US__config_8h_source}{US\+\_\+config.\+h}}.
+System clock the echo timing is derived from \+[Hz]\+. 
 
-\Hypertarget{US__config_8h_a8a95e538fdb97455266761408d1db73e}\index{US\_config.h@{US\_config.h}!US\_TRIG\_PULSE\_US@{US\_TRIG\_PULSE\_US}}
-\index{US\_TRIG\_PULSE\_US@{US\_TRIG\_PULSE\_US}!US\_config.h@{US\_config.h}}
-\doxysubsubsection{\texorpdfstring{US\_TRIG\_PULSE\_US}{US\_TRIG\_PULSE\_US}}
-{\footnotesize\ttfamily \label{US__config_8h_a8a95e538fdb97455266761408d1db73e} 
-\+\#define US\+\_\+\+TRIG\+\_\+\+PULSE\+\_\+\+US~10U}
+If this is wrong, every distance is scaled by the same factor. 
+
+Definition at line \doxymbox{\hyperlink{US__config_8h_source_l00020}{20}} of file \doxymbox{\hyperlink{US__config_8h_source}{US\+\_\+config.\+h}}.
 
 
 
-Definition at line \doxymbox{\hyperlink{US__config_8h_source_l00040}{40}} of file \doxymbox{\hyperlink{US__config_8h_source}{US\+\_\+config.\+h}}.
+Referenced by \doxymbox{\hyperlink{US__prog_8c_source_l00196}{US\+\_\+v\+Init()}}.
 
 \Hypertarget{US__config_8h_ac82821dff0173e63bfc7953f43c50066}\index{US\_config.h@{US\_config.h}!US\_TRIG\_SETTLE\_US@{US\_TRIG\_SETTLE\_US}}
 \index{US\_TRIG\_SETTLE\_US@{US\_TRIG\_SETTLE\_US}!US\_config.h@{US\_config.h}}
 \doxysubsubsection{\texorpdfstring{US\_TRIG\_SETTLE\_US}{US\_TRIG\_SETTLE\_US}}
 {\footnotesize\ttfamily \label{US__config_8h_ac82821dff0173e63bfc7953f43c50066} 
-\+\#define US\+\_\+\+TRIG\+\_\+\+SETTLE\+\_\+\+US~2U}
+\+\#define US\+\_\+\+TRIG\+\_\+\+SETTLE\+\_\+\+US}
 
 
 
-Definition at line \doxymbox{\hyperlink{US__config_8h_source_l00032}{32}} of file \doxymbox{\hyperlink{US__config_8h_source}{US\+\_\+config.\+h}}.
+How long TRIG is held low before the pulse \+[us]\+, to guarantee a clean edge with no glitch left over from the previous measurement. 
+
+
+
+Definition at line \doxymbox{\hyperlink{US__config_8h_source_l00027}{27}} of file \doxymbox{\hyperlink{US__config_8h_source}{US\+\_\+config.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{US__prog_8c_source_l00096}{US\+\_\+v\+Send\+Trigger()}}.
+
+\Hypertarget{US__config_8h_a8a95e538fdb97455266761408d1db73e}\index{US\_config.h@{US\_config.h}!US\_TRIG\_PULSE\_US@{US\_TRIG\_PULSE\_US}}
+\index{US\_TRIG\_PULSE\_US@{US\_TRIG\_PULSE\_US}!US\_config.h@{US\_config.h}}
+\doxysubsubsection{\texorpdfstring{US\_TRIG\_PULSE\_US}{US\_TRIG\_PULSE\_US}}
+{\footnotesize\ttfamily \label{US__config_8h_a8a95e538fdb97455266761408d1db73e} 
+\+\#define US\+\_\+\+TRIG\+\_\+\+PULSE\+\_\+\+US}
+
+
+
+Width of the TRIG pulse \+[us]\+. 
+
+The HC-\/\+SR04 datasheet requires {\bfseries{at least}} 10 us — do not lower this. 
+
+Definition at line \doxymbox{\hyperlink{US__config_8h_source_l00034}{34}} of file \doxymbox{\hyperlink{US__config_8h_source}{US\+\_\+config.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{US__prog_8c_source_l00096}{US\+\_\+v\+Send\+Trigger()}}.
+
+\Hypertarget{US__config_8h_a1acbfc782dd65e3000e6373d863e3333}\index{US\_config.h@{US\_config.h}!US\_MAX\_RANGE\_CM@{US\_MAX\_RANGE\_CM}}
+\index{US\_MAX\_RANGE\_CM@{US\_MAX\_RANGE\_CM}!US\_config.h@{US\_config.h}}
+\doxysubsubsection{\texorpdfstring{US\_MAX\_RANGE\_CM}{US\_MAX\_RANGE\_CM}}
+{\footnotesize\ttfamily \label{US__config_8h_a1acbfc782dd65e3000e6373d863e3333} 
+\+\#define US\+\_\+\+MAX\+\_\+\+RANGE\+\_\+\+CM}
+
+
+
+Range ceiling \+[cm]\+. 
+
+The single source of truth for "{}out of range"{}:\+ it clamps the distance in the capture ISR {\itshape and} derives the task-\/level echo timeout. An echo decoding past it is reported as a timeout (object lost), not as a huge distance. 
+
+Definition at line \doxymbox{\hyperlink{US__config_8h_source_l00044}{44}} of file \doxymbox{\hyperlink{US__config_8h_source}{US\+\_\+config.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{US__prog_8c_source_l00145}{US\+\_\+\+CC\+\_\+\+Handler()}}.
+
+\Hypertarget{US__config_8h_ab0e1472cbc6dcaabb8233a418a55b6fe}\index{US\_config.h@{US\_config.h}!US\_SOUND\_SPEED\_FACTOR@{US\_SOUND\_SPEED\_FACTOR}}
+\index{US\_SOUND\_SPEED\_FACTOR@{US\_SOUND\_SPEED\_FACTOR}!US\_config.h@{US\_config.h}}
+\doxysubsubsection{\texorpdfstring{US\_SOUND\_SPEED\_FACTOR}{US\_SOUND\_SPEED\_FACTOR}}
+{\footnotesize\ttfamily \label{US__config_8h_ab0e1472cbc6dcaabb8233a418a55b6fe} 
+\+\#define US\+\_\+\+SOUND\+\_\+\+SPEED\+\_\+\+FACTOR}
+
+
+
+Microseconds of echo per centimetre of distance. 
+
+Sound travels \texorpdfstring{$\sim$}{\string~}343 m/\+s, and the pulse makes a round trip, so distance\+\_\+cm = echo\+\_\+us /\+ 58. 
+
+Definition at line \doxymbox{\hyperlink{US__config_8h_source_l00051}{51}} of file \doxymbox{\hyperlink{US__config_8h_source}{US\+\_\+config.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{US__prog_8c_source_l00145}{US\+\_\+\+CC\+\_\+\+Handler()}}.
+
+\Hypertarget{US__config_8h_a4d35bb6b344954434449832b9e53037c}\index{US\_config.h@{US\_config.h}!US\_TASK\_TIMEOUT\_MS@{US\_TASK\_TIMEOUT\_MS}}
+\index{US\_TASK\_TIMEOUT\_MS@{US\_TASK\_TIMEOUT\_MS}!US\_config.h@{US\_config.h}}
+\doxysubsubsection{\texorpdfstring{US\_TASK\_TIMEOUT\_MS}{US\_TASK\_TIMEOUT\_MS}}
+{\footnotesize\ttfamily \label{US__config_8h_a4d35bb6b344954434449832b9e53037c} 
+\+\#define US\+\_\+\+TASK\+\_\+\+TIMEOUT\+\_\+\+MS}
+
+
+
+How long the reading task sleeps waiting for one echo before giving up \+[ms]\+. 
+
+Derived from \doxylink{US__config_8h_a1acbfc782dd65e3000e6373d863e3333}{US\+\_\+\+MAX\+\_\+\+RANGE\+\_\+\+CM} rather than hard-\/coded, so raising the range ceiling automatically gives the echo the extra flight time it now needs. Worst case, with all six sensors out of range, a full scan takes about 6 x 25 = 150 ms. 
+
+Definition at line \doxymbox{\hyperlink{US__config_8h_source_l00069}{69}} of file \doxymbox{\hyperlink{US__config_8h_source}{US\+\_\+config.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{US__prog_8c_source_l00278}{US\+\_\+u16\+Read\+Distance\+\_\+cm()}}.
 

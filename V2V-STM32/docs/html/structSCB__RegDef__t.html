@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: SCB_RegDef_t Struct Reference</title>
+<title>V2V Collision Avoidance Firmware: SCB_RegDef_t Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,133 +90,60 @@ $(function(){initNavTree('structSCB__RegDef__t.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">SCB_RegDef_t Struct Reference</div></div>
+  <div class="headertitle"><div class="title">SCB_RegDef_t Struct Reference<div class="ingroups"><a class="el" href="group__lib.html">LIB</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>&gt;</code></p>
+<p>SCB (system control block) register layout.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="STM32F446xx_8h_source.html">Drivers/LIB/STM32F446xx.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a527f8df82a9967a8c656a65847b38701" id="r_a527f8df82a9967a8c656a65847b38701"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a527f8df82a9967a8c656a65847b38701">CPUID</a></td></tr>
+<tr class="memdesc:a527f8df82a9967a8c656a65847b38701"><td class="mdescLeft">&#160;</td><td class="mdescRight">CPU identification: core type and revision (read-only).  <br /></td></tr>
 <tr class="memitem:a3a3b7fc05c6f7d282cda6057268bf7e1" id="r_a3a3b7fc05c6f7d282cda6057268bf7e1"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a3a3b7fc05c6f7d282cda6057268bf7e1">ICSR</a></td></tr>
+<tr class="memdesc:a3a3b7fc05c6f7d282cda6057268bf7e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt control and state: pending PendSV/SysTick, the active vector number.  <br /></td></tr>
 <tr class="memitem:a01940cb0a71e93befc5f2e36c26e239a" id="r_a01940cb0a71e93befc5f2e36c26e239a"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a01940cb0a71e93befc5f2e36c26e239a">VTOR</a></td></tr>
+<tr class="memdesc:a01940cb0a71e93befc5f2e36c26e239a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector table offset: where the vector table lives in memory.  <br /></td></tr>
 <tr class="memitem:a84f257690573cbdd3825a13e2d556d36" id="r_a84f257690573cbdd3825a13e2d556d36"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a84f257690573cbdd3825a13e2d556d36">AIRCR</a></td></tr>
+<tr class="memdesc:a84f257690573cbdd3825a13e2d556d36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Application interrupt and reset control: priority grouping and the software-reset request.  <br /></td></tr>
 <tr class="memitem:abe2e96f513798c546cfce1f4e4840b3b" id="r_abe2e96f513798c546cfce1f4e4840b3b"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#abe2e96f513798c546cfce1f4e4840b3b">SCR</a></td></tr>
+<tr class="memdesc:abe2e96f513798c546cfce1f4e4840b3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">System control: sleep-on-exit, deep sleep, send-on-pend.  <br /></td></tr>
 <tr class="memitem:a3b8dd2e8a72ca23c55a9b5314c48b10f" id="r_a3b8dd2e8a72ca23c55a9b5314c48b10f"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a3b8dd2e8a72ca23c55a9b5314c48b10f">CCR</a></td></tr>
+<tr class="memdesc:a3b8dd2e8a72ca23c55a9b5314c48b10f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration and control: unaligned-access and divide-by-zero trapping.  <br /></td></tr>
 <tr class="memitem:ac94fc587c48a38d33ac14fbc25881a49" id="r_ac94fc587c48a38d33ac14fbc25881a49"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ac94fc587c48a38d33ac14fbc25881a49">SHPR1</a></td></tr>
+<tr class="memdesc:ac94fc587c48a38d33ac14fbc25881a49"><td class="mdescLeft">&#160;</td><td class="mdescRight">System handler priority: MemManage, BusFault, UsageFault.  <br /></td></tr>
 <tr class="memitem:a4a5b408b8daaf3ce38c127534f792965" id="r_a4a5b408b8daaf3ce38c127534f792965"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a4a5b408b8daaf3ce38c127534f792965">SHPR2</a></td></tr>
+<tr class="memdesc:a4a5b408b8daaf3ce38c127534f792965"><td class="mdescLeft">&#160;</td><td class="mdescRight">System handler priority: SVCall.  <br /></td></tr>
 <tr class="memitem:a1a698dc819471fb8b4c0bdaab212f91a" id="r_a1a698dc819471fb8b4c0bdaab212f91a"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a1a698dc819471fb8b4c0bdaab212f91a">SHPR3</a></td></tr>
+<tr class="memdesc:a1a698dc819471fb8b4c0bdaab212f91a"><td class="mdescLeft">&#160;</td><td class="mdescRight">System handler priority: PendSV and SysTick (FreeRTOS lowers both of these).  <br /></td></tr>
 <tr class="memitem:a13e5bd54e1a6fc0983995c5f30747c9e" id="r_a13e5bd54e1a6fc0983995c5f30747c9e"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a13e5bd54e1a6fc0983995c5f30747c9e">SHCSR</a></td></tr>
+<tr class="memdesc:a13e5bd54e1a6fc0983995c5f30747c9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">System handler control and state: enables for the configurable faults.  <br /></td></tr>
 <tr class="memitem:aee0b2efe13f500e035097e2ac2bfc943" id="r_aee0b2efe13f500e035097e2ac2bfc943"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#aee0b2efe13f500e035097e2ac2bfc943">CFSR</a></td></tr>
+<tr class="memdesc:aee0b2efe13f500e035097e2ac2bfc943"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configurable fault status: the MemManage byte.  <br /></td></tr>
 <tr class="memitem:aa6bd70604025c94d0c410af655c8ca08" id="r_aa6bd70604025c94d0c410af655c8ca08"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#aa6bd70604025c94d0c410af655c8ca08">BFSR</a></td></tr>
+<tr class="memdesc:aa6bd70604025c94d0c410af655c8ca08"><td class="mdescLeft">&#160;</td><td class="mdescRight">BusFault status.  <br /></td></tr>
 <tr class="memitem:a59c7337e4de9098071434820417aa841" id="r_a59c7337e4de9098071434820417aa841"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="#a59c7337e4de9098071434820417aa841">UFSR</a></td></tr>
+<tr class="memdesc:a59c7337e4de9098071434820417aa841"><td class="mdescLeft">&#160;</td><td class="mdescRight">UsageFault status.  <br /></td></tr>
 <tr class="memitem:a2dd433b3644c84b2e2cb93583987ab14" id="r_a2dd433b3644c84b2e2cb93583987ab14"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a2dd433b3644c84b2e2cb93583987ab14">HFSR</a></td></tr>
+<tr class="memdesc:a2dd433b3644c84b2e2cb93583987ab14"><td class="mdescLeft">&#160;</td><td class="mdescRight">HardFault status: says whether a fault escalated into a hard fault.  <br /></td></tr>
 <tr class="memitem:a92399022d67291e7d99f47d6bcd05253" id="r_a92399022d67291e7d99f47d6bcd05253"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a92399022d67291e7d99f47d6bcd05253">DFSR</a></td></tr>
+<tr class="memdesc:a92399022d67291e7d99f47d6bcd05253"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debug fault status.  <br /></td></tr>
 <tr class="memitem:ac15df790f1832dac9a4476a4e74e872a" id="r_ac15df790f1832dac9a4476a4e74e872a"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ac15df790f1832dac9a4476a4e74e872a">MMAR</a></td></tr>
+<tr class="memdesc:ac15df790f1832dac9a4476a4e74e872a"><td class="mdescLeft">&#160;</td><td class="mdescRight">MemManage fault address: the address that faulted.  <br /></td></tr>
 <tr class="memitem:aa52bc6ae0c43bc356bb3a8cb4076bd2a" id="r_aa52bc6ae0c43bc356bb3a8cb4076bd2a"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#aa52bc6ae0c43bc356bb3a8cb4076bd2a">BFAR</a></td></tr>
+<tr class="memdesc:aa52bc6ae0c43bc356bb3a8cb4076bd2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">BusFault address: the address that faulted.  <br /></td></tr>
 <tr class="memitem:a04fcc308d4be14f2d3f99c9ee1b4e19e" id="r_a04fcc308d4be14f2d3f99c9ee1b4e19e"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a04fcc308d4be14f2d3f99c9ee1b4e19e">AFSR</a></td></tr>
+<tr class="memdesc:a04fcc308d4be14f2d3f99c9ee1b4e19e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auxiliary fault status (implementation defined).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00249">249</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<div class="textblock"><p>SCB (system control block) register layout. </p>
+<p>The driver uses this for <span class="tt"><a class="el" href="SCB__interface_8h.html#a93f514700ccf00d08dbdcff7f1224eb2" title="System initialization called from startup file.">SystemInit()</a></span>, for relocating the vector table via VTOR, and for the fault status registers. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00305">305</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
-<a id="a04fcc308d4be14f2d3f99c9ee1b4e19e" name="a04fcc308d4be14f2d3f99c9ee1b4e19e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04fcc308d4be14f2d3f99c9ee1b4e19e">&#9670;&#160;</a></span>AFSR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t SCB_RegDef_t::AFSR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00269">269</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a84f257690573cbdd3825a13e2d556d36" name="a84f257690573cbdd3825a13e2d556d36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84f257690573cbdd3825a13e2d556d36">&#9670;&#160;</a></span>AIRCR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t SCB_RegDef_t::AIRCR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00253">253</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="aa52bc6ae0c43bc356bb3a8cb4076bd2a" name="aa52bc6ae0c43bc356bb3a8cb4076bd2a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa52bc6ae0c43bc356bb3a8cb4076bd2a">&#9670;&#160;</a></span>BFAR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t SCB_RegDef_t::BFAR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00268">268</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="aa6bd70604025c94d0c410af655c8ca08" name="aa6bd70604025c94d0c410af655c8ca08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa6bd70604025c94d0c410af655c8ca08">&#9670;&#160;</a></span>BFSR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t SCB_RegDef_t::BFSR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00263">263</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a3b8dd2e8a72ca23c55a9b5314c48b10f" name="a3b8dd2e8a72ca23c55a9b5314c48b10f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b8dd2e8a72ca23c55a9b5314c48b10f">&#9670;&#160;</a></span>CCR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t SCB_RegDef_t::CCR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00255">255</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="aee0b2efe13f500e035097e2ac2bfc943" name="aee0b2efe13f500e035097e2ac2bfc943"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee0b2efe13f500e035097e2ac2bfc943">&#9670;&#160;</a></span>CFSR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t SCB_RegDef_t::CFSR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00262">262</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
 <a id="a527f8df82a9967a8c656a65847b38701" name="a527f8df82a9967a8c656a65847b38701"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a527f8df82a9967a8c656a65847b38701">&#9670;&#160;</a></span>CPUID</h2>
 
@@ -229,39 +156,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00250">250</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>CPU identification: core type and revision (read-only). </p>
 
-</div>
-</div>
-<a id="a92399022d67291e7d99f47d6bcd05253" name="a92399022d67291e7d99f47d6bcd05253"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92399022d67291e7d99f47d6bcd05253">&#9670;&#160;</a></span>DFSR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t SCB_RegDef_t::DFSR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00266">266</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a2dd433b3644c84b2e2cb93583987ab14" name="a2dd433b3644c84b2e2cb93583987ab14"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2dd433b3644c84b2e2cb93583987ab14">&#9670;&#160;</a></span>HFSR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t SCB_RegDef_t::HFSR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00265">265</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00306">306</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
@@ -277,119 +174,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00251">251</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Interrupt control and state: pending PendSV/SysTick, the active vector number. </p>
 
-</div>
-</div>
-<a id="ac15df790f1832dac9a4476a4e74e872a" name="ac15df790f1832dac9a4476a4e74e872a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac15df790f1832dac9a4476a4e74e872a">&#9670;&#160;</a></span>MMAR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t SCB_RegDef_t::MMAR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00267">267</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="abe2e96f513798c546cfce1f4e4840b3b" name="abe2e96f513798c546cfce1f4e4840b3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe2e96f513798c546cfce1f4e4840b3b">&#9670;&#160;</a></span>SCR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t SCB_RegDef_t::SCR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00254">254</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a13e5bd54e1a6fc0983995c5f30747c9e" name="a13e5bd54e1a6fc0983995c5f30747c9e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13e5bd54e1a6fc0983995c5f30747c9e">&#9670;&#160;</a></span>SHCSR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t SCB_RegDef_t::SHCSR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00261">261</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="ac94fc587c48a38d33ac14fbc25881a49" name="ac94fc587c48a38d33ac14fbc25881a49"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac94fc587c48a38d33ac14fbc25881a49">&#9670;&#160;</a></span>SHPR1</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t SCB_RegDef_t::SHPR1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00256">256</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a4a5b408b8daaf3ce38c127534f792965" name="a4a5b408b8daaf3ce38c127534f792965"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a5b408b8daaf3ce38c127534f792965">&#9670;&#160;</a></span>SHPR2</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t SCB_RegDef_t::SHPR2</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00258">258</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a1a698dc819471fb8b4c0bdaab212f91a" name="a1a698dc819471fb8b4c0bdaab212f91a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a698dc819471fb8b4c0bdaab212f91a">&#9670;&#160;</a></span>SHPR3</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t SCB_RegDef_t::SHPR3</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00259">259</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
-
-</div>
-</div>
-<a id="a59c7337e4de9098071434820417aa841" name="a59c7337e4de9098071434820417aa841"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59c7337e4de9098071434820417aa841">&#9670;&#160;</a></span>UFSR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t SCB_RegDef_t::UFSR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00264">264</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00307">307</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
@@ -405,13 +192,284 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html#l00252">252</a> of file <a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+<p>Vector table offset: where the vector table lives in memory. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00308">308</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>Inc/Drivers/LIB/<a class="el" href="Drivers_2LIB_2STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
-<li>Inc/System/<a class="el" href="System_2STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
+<a id="a84f257690573cbdd3825a13e2d556d36" name="a84f257690573cbdd3825a13e2d556d36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84f257690573cbdd3825a13e2d556d36">&#9670;&#160;</a></span>AIRCR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SCB_RegDef_t::AIRCR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Application interrupt and reset control: priority grouping and the software-reset request. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00309">309</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="abe2e96f513798c546cfce1f4e4840b3b" name="abe2e96f513798c546cfce1f4e4840b3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe2e96f513798c546cfce1f4e4840b3b">&#9670;&#160;</a></span>SCR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SCB_RegDef_t::SCR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>System control: sleep-on-exit, deep sleep, send-on-pend. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00310">310</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a3b8dd2e8a72ca23c55a9b5314c48b10f" name="a3b8dd2e8a72ca23c55a9b5314c48b10f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b8dd2e8a72ca23c55a9b5314c48b10f">&#9670;&#160;</a></span>CCR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SCB_RegDef_t::CCR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configuration and control: unaligned-access and divide-by-zero trapping. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00311">311</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="ac94fc587c48a38d33ac14fbc25881a49" name="ac94fc587c48a38d33ac14fbc25881a49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac94fc587c48a38d33ac14fbc25881a49">&#9670;&#160;</a></span>SHPR1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SCB_RegDef_t::SHPR1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>System handler priority: MemManage, BusFault, UsageFault. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00312">312</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a4a5b408b8daaf3ce38c127534f792965" name="a4a5b408b8daaf3ce38c127534f792965"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a5b408b8daaf3ce38c127534f792965">&#9670;&#160;</a></span>SHPR2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SCB_RegDef_t::SHPR2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>System handler priority: SVCall. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00313">313</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a1a698dc819471fb8b4c0bdaab212f91a" name="a1a698dc819471fb8b4c0bdaab212f91a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a698dc819471fb8b4c0bdaab212f91a">&#9670;&#160;</a></span>SHPR3</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SCB_RegDef_t::SHPR3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>System handler priority: PendSV and SysTick (FreeRTOS lowers both of these). </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00314">314</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a13e5bd54e1a6fc0983995c5f30747c9e" name="a13e5bd54e1a6fc0983995c5f30747c9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13e5bd54e1a6fc0983995c5f30747c9e">&#9670;&#160;</a></span>SHCSR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SCB_RegDef_t::SHCSR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>System handler control and state: enables for the configurable faults. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00315">315</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="aee0b2efe13f500e035097e2ac2bfc943" name="aee0b2efe13f500e035097e2ac2bfc943"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee0b2efe13f500e035097e2ac2bfc943">&#9670;&#160;</a></span>CFSR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t SCB_RegDef_t::CFSR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configurable fault status: the MemManage byte. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00316">316</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="aa6bd70604025c94d0c410af655c8ca08" name="aa6bd70604025c94d0c410af655c8ca08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6bd70604025c94d0c410af655c8ca08">&#9670;&#160;</a></span>BFSR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t SCB_RegDef_t::BFSR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>BusFault status. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00317">317</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a59c7337e4de9098071434820417aa841" name="a59c7337e4de9098071434820417aa841"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59c7337e4de9098071434820417aa841">&#9670;&#160;</a></span>UFSR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t SCB_RegDef_t::UFSR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>UsageFault status. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00318">318</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a2dd433b3644c84b2e2cb93583987ab14" name="a2dd433b3644c84b2e2cb93583987ab14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dd433b3644c84b2e2cb93583987ab14">&#9670;&#160;</a></span>HFSR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SCB_RegDef_t::HFSR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>HardFault status: says whether a fault escalated into a hard fault. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00319">319</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a92399022d67291e7d99f47d6bcd05253" name="a92399022d67291e7d99f47d6bcd05253"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92399022d67291e7d99f47d6bcd05253">&#9670;&#160;</a></span>DFSR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SCB_RegDef_t::DFSR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Debug fault status. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00320">320</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="ac15df790f1832dac9a4476a4e74e872a" name="ac15df790f1832dac9a4476a4e74e872a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac15df790f1832dac9a4476a4e74e872a">&#9670;&#160;</a></span>MMAR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SCB_RegDef_t::MMAR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>MemManage fault address: the address that faulted. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00321">321</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="aa52bc6ae0c43bc356bb3a8cb4076bd2a" name="aa52bc6ae0c43bc356bb3a8cb4076bd2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa52bc6ae0c43bc356bb3a8cb4076bd2a">&#9670;&#160;</a></span>BFAR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SCB_RegDef_t::BFAR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>BusFault address: the address that faulted. </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00322">322</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<a id="a04fcc308d4be14f2d3f99c9ee1b4e19e" name="a04fcc308d4be14f2d3f99c9ee1b4e19e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04fcc308d4be14f2d3f99c9ee1b4e19e">&#9670;&#160;</a></span>AFSR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SCB_RegDef_t::AFSR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Auxiliary fault status (implementation defined). </p>
+
+<p class="definition">Definition at line <a class="el" href="STM32F446xx_8h_source.html#l00323">323</a> of file <a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>V2V-STM32/Inc/Drivers/LIB/<a class="el" href="STM32F446xx_8h_source.html">STM32F446xx.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

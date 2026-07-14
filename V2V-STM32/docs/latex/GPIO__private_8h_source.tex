@@ -1,40 +1,33 @@
 \doxysection{GPIO\+\_\+private.\+h}
-\hypertarget{GPIO__private_8h_source}{}\label{GPIO__private_8h_source}\index{Inc/Drivers/MCAL/GPIO/GPIO\_private.h@{Inc/Drivers/MCAL/GPIO/GPIO\_private.h}}
+\hypertarget{GPIO__private_8h_source}{}\label{GPIO__private_8h_source}\index{V2V-\/STM32/Inc/Drivers/MCAL/GPIO/GPIO\_private.h@{V2V-\/STM32/Inc/Drivers/MCAL/GPIO/GPIO\_private.h}}
 \doxymbox{\hyperlink{GPIO__private_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00001}00001\ }
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00013}00013\ }
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00014}00014\ \textcolor{preprocessor}{\#ifndef\ GPIO\_PRIVATE\_H\_}}
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00015}00015\ \textcolor{preprocessor}{\#define\ GPIO\_PRIVATE\_H\_}}
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00010}00010\ \textcolor{preprocessor}{\#ifndef\ GPIO\_PRIVATE\_H\_}}
+\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00011}00011\ \textcolor{preprocessor}{\#define\ GPIO\_PRIVATE\_H\_}}
+\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00012}00012\ }
 \DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00017}\doxymbox{\hyperlink{GPIO__private_8h_a6bc306171da085f4c7df2c66d2ff8e47}{00017}}\ \textcolor{preprocessor}{\#define\ UNUSED(X)\ (void)X}}
 \DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00018}00018\ }
 \DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00019}00019\ \textcolor{comment}{/**************************\ GPIO\ PORT\ COUNT\ **************************/}}
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00020}\doxymbox{\hyperlink{GPIO__private_8h_af5eb82977ded49e09b93e0c7ae9468d6}{00020}}\ \textcolor{preprocessor}{\#define\ GPIO\_PORT\_COUNT\ 8u}}
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00021}00021\ }
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00022}00022\ \textcolor{comment}{/**************************\ GPIO\ MODER\ MASK\ **************************/}}
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00023}\doxymbox{\hyperlink{GPIO__private_8h_a073c1c5759ae93e5061e15d918cf64ea}{00023}}\ \textcolor{preprocessor}{\#define\ MODER\_MASK\ \ \ \ \ \ 0b11}}
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00024}\doxymbox{\hyperlink{GPIO__private_8h_a9060af697df78ae159398c80dc57ff8b}{00024}}\ \textcolor{preprocessor}{\#define\ MODER\_PIN\_ACCESS\ 2u}}
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00025}00025\ }
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00026}00026\ \textcolor{comment}{/**************************\ GPIO\ OTYPER\ MASK\ **************************/}}
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00027}\doxymbox{\hyperlink{GPIO__private_8h_ab6465dfb457e6e7c804ebfd3055c4809}{00027}}\ \textcolor{preprocessor}{\#define\ OTYPER\_MASK\ \ \ \ \ 0b1}}
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00028}00028\ }
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00029}00029\ \textcolor{comment}{/**************************\ GPIO\ OSPEEDR\ MASK\ **************************/}}
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00030}\doxymbox{\hyperlink{GPIO__private_8h_a3f33bde762c78aa352f600fe57e84fa4}{00030}}\ \textcolor{preprocessor}{\#define\ OSPEEDR\_MASK\ \ \ \ 0b11}}
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00031}\doxymbox{\hyperlink{GPIO__private_8h_a0653286a56bbfe5046275ced5b72040a}{00031}}\ \textcolor{preprocessor}{\#define\ OSPEEDR\_PIN\_ACCESS\ 2u}}
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00032}00032\ }
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00033}00033\ \textcolor{comment}{/**************************\ GPIO\ PUPDR\ MASK\ **************************/}}
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00034}\doxymbox{\hyperlink{GPIO__private_8h_a771a50444ad61c6e431a02de68917ee6}{00034}}\ \textcolor{preprocessor}{\#define\ PUPDR\_MASK\ \ \ \ \ \ 0b11}}
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00035}\doxymbox{\hyperlink{GPIO__private_8h_ac3d30765538e3fbc94b86381641b3339}{00035}}\ \textcolor{preprocessor}{\#define\ PUPDR\_PIN\_ACCESS\ \ \ 2u}}
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00036}00036\ }
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00037}00037\ \textcolor{comment}{/*\ 4\ bits\ for\ Alternate\ Function\ Configuration\ */}}
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00038}\doxymbox{\hyperlink{GPIO__private_8h_a8c26368296d48d30d91727655bea5e33}{00038}}\ \textcolor{preprocessor}{\#define\ AFR\_MASK\ \ \ \ \ \ \ \ \ \ 0xF}}
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00039}\doxymbox{\hyperlink{GPIO__private_8h_a6b6187cb1deecfc1a0db2a22abe2b703}{00039}}\ \textcolor{preprocessor}{\#define\ AFR\_PIN\_ACCESS\ \ \ \ 4u}}
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00040}\doxymbox{\hyperlink{GPIO__private_8h_a18f47516510d6c9be7d826bc69df2560}{00040}}\ \textcolor{preprocessor}{\#define\ AFR\_PIN\_SHIFT\ \ \ \ \ 8u}}
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00041}00041\ }
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00042}00042\ \textcolor{comment}{/*\ Number\ of\ pins\ per\ port\ */}}
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00043}\doxymbox{\hyperlink{GPIO__private_8h_a226e7ff497e286c3391041c1dc2f2bc2}{00043}}\ \textcolor{preprocessor}{\#define\ GPIO\_PIN\_COUNT\ 16u}}
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00044}00044\ }
-\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00045}00045\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ GPIO\_PRIVATE\_H\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00020}\doxymbox{\hyperlink{GPIO__private_8h_af5eb82977ded49e09b93e0c7ae9468d6}{00020}}\ \textcolor{preprocessor}{\#define\ GPIO\_PORT\_COUNT\ 8u\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00021}00021\ \textcolor{comment}{/**************************\ GPIO\ MODER\ MASK\ **************************/}}
+\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00022}\doxymbox{\hyperlink{GPIO__private_8h_a073c1c5759ae93e5061e15d918cf64ea}{00022}}\ \textcolor{preprocessor}{\#define\ MODER\_MASK\ \ \ \ \ \ 0b11\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00023}\doxymbox{\hyperlink{GPIO__private_8h_a9060af697df78ae159398c80dc57ff8b}{00023}}\ \textcolor{preprocessor}{\#define\ MODER\_PIN\_ACCESS\ 2u\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00024}00024\ \textcolor{comment}{/**************************\ GPIO\ OTYPER\ MASK\ **************************/}}
+\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00025}\doxymbox{\hyperlink{GPIO__private_8h_ab6465dfb457e6e7c804ebfd3055c4809}{00025}}\ \textcolor{preprocessor}{\#define\ OTYPER\_MASK\ \ \ \ \ 0b1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00026}00026\ \textcolor{comment}{/**************************\ GPIO\ OSPEEDR\ MASK\ **************************/}}
+\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00027}\doxymbox{\hyperlink{GPIO__private_8h_a3f33bde762c78aa352f600fe57e84fa4}{00027}}\ \textcolor{preprocessor}{\#define\ OSPEEDR\_MASK\ \ \ \ 0b11\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00028}\doxymbox{\hyperlink{GPIO__private_8h_a0653286a56bbfe5046275ced5b72040a}{00028}}\ \textcolor{preprocessor}{\#define\ OSPEEDR\_PIN\_ACCESS\ 2u\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00029}00029\ \textcolor{comment}{/**************************\ GPIO\ PUPDR\ MASK\ **************************/}}
+\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00030}\doxymbox{\hyperlink{GPIO__private_8h_a771a50444ad61c6e431a02de68917ee6}{00030}}\ \textcolor{preprocessor}{\#define\ PUPDR\_MASK\ \ \ \ \ \ 0b11\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00031}\doxymbox{\hyperlink{GPIO__private_8h_ac3d30765538e3fbc94b86381641b3339}{00031}}\ \textcolor{preprocessor}{\#define\ PUPDR\_PIN\_ACCESS\ \ \ 2u\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00032}00032\ \textcolor{comment}{/*\ 4\ bits\ for\ Alternate\ Function\ Configuration\ */}}
+\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00033}\doxymbox{\hyperlink{GPIO__private_8h_a8c26368296d48d30d91727655bea5e33}{00033}}\ \textcolor{preprocessor}{\#define\ AFR\_MASK\ \ \ \ \ \ \ \ \ \ 0xF\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00034}\doxymbox{\hyperlink{GPIO__private_8h_a6b6187cb1deecfc1a0db2a22abe2b703}{00034}}\ \textcolor{preprocessor}{\#define\ AFR\_PIN\_ACCESS\ \ \ \ 4u\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00035}\doxymbox{\hyperlink{GPIO__private_8h_a18f47516510d6c9be7d826bc69df2560}{00035}}\ \textcolor{preprocessor}{\#define\ AFR\_PIN\_SHIFT\ \ \ \ \ 8u\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00036}00036\ \textcolor{comment}{/*\ Number\ of\ pins\ per\ port\ */}}
+\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00037}\doxymbox{\hyperlink{GPIO__private_8h_a226e7ff497e286c3391041c1dc2f2bc2}{00037}}\ \textcolor{preprocessor}{\#define\ GPIO\_PIN\_COUNT\ 16u\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{GPIO__private_8h_source_l00038}00038\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ GPIO\_PRIVATE\_H\_\ */}\textcolor{preprocessor}{}}
 
 \end{DoxyCode}

@@ -1,9 +1,5 @@
 var searchData=
 [
-  ['dependencies_0',['⚙️ Hardware Dependencies',['../md_README.html#autotoc_md19',1,'']]],
-  ['determinism_1',['🔐 Safety &amp;amp; Determinism',['../md_README.html#autotoc_md21',1,'']]],
-  ['directory_20structure_2',['📁 Directory Structure',['../md_README.html#autotoc_md8',1,'']]],
-  ['dnpw_20—_20forward_20collision_20do_20not_20pass_20warning_3',['🔹 FCW / DNPW — Forward Collision + Do-Not-Pass Warning',['../md_README.html#autotoc_md11',1,'']]],
-  ['do_20not_20pass_20warning_4',['🔹 FCW / DNPW — Forward Collision + Do-Not-Pass Warning',['../md_README.html#autotoc_md11',1,'']]],
-  ['dsrc_20—_20the_20transport_20underneath_20all_20five_5',['DSRC — the transport underneath all five',['../md_README.html#autotoc_md15',1,'']]]
+  ['4_20—_20ultrasonics_20block_20×6_20—_20the_20most_20important_20one_0',['STAGE 4 — ULTRASONICS BLOCK (×6) — the most important one',['../md_V2V-STM32_2docs_2PCB__BUILD__STAGES.html#autotoc_md49',1,'']]],
+  ['4_20open_20the_20serial_20monitor_1',['4. Open the Serial Monitor',['../dir_59e7f8d29184d0656f3182488763fc33.html#autotoc_md92',1,'']]]
 ];

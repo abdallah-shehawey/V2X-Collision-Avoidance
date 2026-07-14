@@ -1,0 +1,9 @@
+\chapter{Deprecated List }
+\hypertarget{deprecated}{}\label{deprecated}\index{Deprecated List@{Deprecated List}}
+
+\begin{DoxyRefList}
+\item[{\parbox[t]{\linewidth}{Struct \doxylink{structRPi__Packet__t}{RPi\+\_\+\+Packet\+\_\+t} }}]\hfill \\
+\label{deprecated__deprecated000001}%
+\Hypertarget{deprecated__deprecated000001}%
+Nothing sends this any more. {\ttfamily RPi\+\_\+\+Comm\+\_\+\+Task} streams an ASCII CSV line instead, because this packed layout contains {\ttfamily 0x00} bytes and those were being lost on the UART link, which silently truncated whole runs.
+\end{DoxyRefList}

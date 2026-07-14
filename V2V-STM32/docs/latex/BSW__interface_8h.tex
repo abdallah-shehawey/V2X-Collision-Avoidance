@@ -1,5 +1,10 @@
-\doxysection{Inc/\+\+Application/\+\+BSW/\+\+BSW\+\_\+interface.h File Reference}
-\hypertarget{BSW__interface_8h}{}\label{BSW__interface_8h}\index{Inc/Application/BSW/BSW\_interface.h@{Inc/Application/BSW/BSW\_interface.h}}
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Application/\+\+BSW/\+\+BSW\+\_\+interface.h File Reference}
+\hypertarget{BSW__interface_8h}{}\label{BSW__interface_8h}\index{V2V-\/STM32/Inc/Application/BSW/BSW\_interface.h@{V2V-\/STM32/Inc/Application/BSW/BSW\_interface.h}}
+
+
+Public API of the BSW driver — Blind Spot Warning.  
+
+
 {\ttfamily \+\#include $<$stdint.\+h$>$}\newline
 {\ttfamily \+\#include "{}../\+\+DSRC/\+\+DSRC.\+h"{}}\newline
 {\ttfamily \+\#include "{}../\+\+Safety\+Engine/\+\+Safety\+Engine\+\_\+interface.\+h"{}}\newline
@@ -27,42 +32,62 @@ void \doxymbox{\hyperlink{BSW__interface_8h_a9f03e569a421d0df764a8e87d671eea4}{B
 uint8\+\_\+t \doxymbox{\hyperlink{BSW__interface_8h_ad2e4d7ccf9588f4cdeecfd471430ec7c}{BSW\+\_\+u8\+Get\+Flag}} (void)
 \begin{DoxyCompactList}\small\item\em Get current BSW flag to broadcast over DSRC (sender\textquotesingle{}s own front side(s)). \end{DoxyCompactList}\item 
 uint8\+\_\+t \doxymbox{\hyperlink{BSW__interface_8h_ac814a5d4310e3e00b8700df5af59858d}{BSW\+\_\+u8\+Get\+Blind\+Spot}} (void)
-\begin{DoxyCompactList}\small\item\em Get the receiver-\/side blind-\/spot result for THIS car (which side has a vehicle in the blind spot). The LED/\+buzzer is driven elsewhere by the caller — this module only computes the result. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Get the receiver-\/side blind-\/spot result for THIS car (which side has a vehicle in the blind spot). \end{DoxyCompactList}\item 
 uint8\+\_\+t \doxymbox{\hyperlink{BSW__interface_8h_a78f44c9528e62f99efcefaa8d779a6a2}{BSW\+\_\+u8\+Get\+Severity}} (void)
 \begin{DoxyCompactList}\small\item\em Get the receiver-\/side blind-\/spot SEVERITY for THIS car (worst side), graded by how close the car behind us is. \end{DoxyCompactList}\item 
 uint8\+\_\+t \doxymbox{\hyperlink{BSW__interface_8h_adf8eecd88222e0b29db5aaffe7af235d}{BSW\+\_\+u8\+Get\+Sides\+Severity}} (void)
 \begin{DoxyCompactList}\small\item\em Get the receiver-\/side blind-\/spot severity PER SIDE, packed so the Raspberry Pi can tell LEFT from RIGHT (BSW\+\_\+u8\+Get\+Severity only gives the worst of the two and loses the side). \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{BSW__interface_8h_ae07233e2631a1dc55b95b7933e9b9801}{BSW\+\_\+void\+Begin\+Cycle}} (float front\+\_\+left, float front\+\_\+right, float rear\+\_\+left, float rear\+\_\+right)
 \begin{DoxyCompactList}\small\item\em Begin a new processing cycle — latch side distances, reset accumulators. \end{DoxyCompactList}\item 
-void \doxymbox{\hyperlink{BSW__interface_8h_a92af4dc1c402accc0ef30daa8d798e00}{BSW\+\_\+void\+Process\+Neighbor}} (const \doxymbox{\hyperlink{DSRC_8h_ac818f2e1224a1e513913a85019953e14}{Neighbor}} \texorpdfstring{$\ast$}{*}n)
+void \doxymbox{\hyperlink{BSW__interface_8h_a92af4dc1c402accc0ef30daa8d798e00}{BSW\+\_\+void\+Process\+Neighbor}} (const \doxymbox{\hyperlink{structNeighbor}{Neighbor}} \texorpdfstring{$\ast$}{*}n)
 \begin{DoxyCompactList}\small\item\em Process one DSRC neighbor for BSW (receiver role). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Public API of the BSW driver — Blind Spot Warning. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{BSW__interface_8h_source}{BSW\+\_\+interface.\+h}}.
+
 
 
 \label{doc-func-members}
 \Hypertarget{BSW__interface_8h_doc-func-members}
 \doxysubsection{Function Documentation}
-\Hypertarget{BSW__interface_8h_ac814a5d4310e3e00b8700df5af59858d}\index{BSW\_interface.h@{BSW\_interface.h}!BSW\_u8GetBlindSpot@{BSW\_u8GetBlindSpot}}
-\index{BSW\_u8GetBlindSpot@{BSW\_u8GetBlindSpot}!BSW\_interface.h@{BSW\_interface.h}}
-\doxysubsubsection{\texorpdfstring{BSW\_u8GetBlindSpot()}{BSW\_u8GetBlindSpot()}}
-{\footnotesize\ttfamily \label{BSW__interface_8h_ac814a5d4310e3e00b8700df5af59858d} 
-uint8\+\_\+t BSW\+\_\+u8\+Get\+Blind\+Spot (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+\Hypertarget{BSW__interface_8h_a9f03e569a421d0df764a8e87d671eea4}\index{BSW\_interface.h@{BSW\_interface.h}!BSW\_voidInit@{BSW\_voidInit}}
+\index{BSW\_voidInit@{BSW\_voidInit}!BSW\_interface.h@{BSW\_interface.h}}
+\doxysubsubsection{\texorpdfstring{BSW\_voidInit()}{BSW\_voidInit()}}
+{\footnotesize\ttfamily \label{BSW__interface_8h_a9f03e569a421d0df764a8e87d671eea4} 
+void BSW\+\_\+void\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
 
 
 
-Get the receiver-\/side blind-\/spot result for THIS car (which side has a vehicle in the blind spot). The LED/\+buzzer is driven elsewhere by the caller — this module only computes the result. 
-
-\begin{DoxyReturn}{Returns}
-bit0 = LEFT, bit1 = RIGHT (0=none, 1=LEFT, 2=RIGHT, 3=both)
-\end{DoxyReturn}
-Get the receiver-\/side blind-\/spot result for THIS car (which side has a vehicle in the blind spot). The LED/\+buzzer is driven elsewhere by the caller — this module only computes the result.
-
-\begin{DoxyReturn}{Returns}
-bit0 = LEFT, bit1 = RIGHT (0=none, 1=LEFT, 2=RIGHT, 3=both) 
-\end{DoxyReturn}
+Initialize the BSW module. 
 
 
-Definition at line \doxymbox{\hyperlink{BSW__program_8c_source_l00133}{133}} of file \doxymbox{\hyperlink{BSW__program_8c_source}{BSW\+\_\+program.\+c}}.
 
+Definition at line \doxymbox{\hyperlink{BSW__program_8c_source_l00056}{56}} of file \doxymbox{\hyperlink{BSW__program_8c_source}{BSW\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{BSW__program_8c_source_l00036}{BSW\+\_\+\+Alert\+Left}}, \doxymbox{\hyperlink{BSW__program_8c_source_l00038}{BSW\+\_\+\+Alert\+Right}}, \doxymbox{\hyperlink{BSW__private_8h_source_l00016}{BSW\+\_\+\+FLAG\+\_\+\+NONE}}, and \doxymbox{\hyperlink{BSW__program_8c_source_l00021}{BSW\+\_\+\+Sender\+Flag}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00033}{Safety\+Engine\+\_\+void\+Init()}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{BSW__interface_8h_a9f03e569a421d0df764a8e87d671eea4_icgraph}
+\end{center}
+\end{figure}
 \Hypertarget{BSW__interface_8h_ad2e4d7ccf9588f4cdeecfd471430ec7c}\index{BSW\_interface.h@{BSW\_interface.h}!BSW\_u8GetFlag@{BSW\_u8GetFlag}}
 \index{BSW\_u8GetFlag@{BSW\_u8GetFlag}!BSW\_interface.h@{BSW\_interface.h}}
 \doxysubsubsection{\texorpdfstring{BSW\_u8GetFlag()}{BSW\_u8GetFlag()}}
@@ -74,16 +99,19 @@ uint8\+\_\+t BSW\+\_\+u8\+Get\+Flag (\begin{DoxyParamCaption}\item[{void}]{}{}\e
 Get current BSW flag to broadcast over DSRC (sender\textquotesingle{}s own front side(s)). 
 
 \begin{DoxyReturn}{Returns}
-bit0 = LEFT, bit1 = RIGHT (0=none, 1=LEFT, 2=RIGHT, 3=both)
-\end{DoxyReturn}
-Get current BSW flag to broadcast over DSRC (sender\textquotesingle{}s own front side(s)).
-
-\begin{DoxyReturn}{Returns}
 bit0 = LEFT, bit1 = RIGHT (0=none, 1=LEFT, 2=RIGHT, 3=both) 
 \end{DoxyReturn}
 
 
-Definition at line \doxymbox{\hyperlink{BSW__program_8c_source_l00121}{121}} of file \doxymbox{\hyperlink{BSW__program_8c_source}{BSW\+\_\+program.\+c}}.
+Definition at line \doxymbox{\hyperlink{BSW__program_8c_source_l00131}{131}} of file \doxymbox{\hyperlink{BSW__program_8c_source}{BSW\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{BSW__program_8c_source_l00021}{BSW\+\_\+\+Sender\+Flag}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00387}{v\+Task\+\_\+\+ESP\+\_\+\+Comm()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
@@ -93,6 +121,27 @@ Here is the caller graph for this function:\+
 \includegraphics[width=350pt]{BSW__interface_8h_ad2e4d7ccf9588f4cdeecfd471430ec7c_icgraph}
 \end{center}
 \end{figure}
+\Hypertarget{BSW__interface_8h_ac814a5d4310e3e00b8700df5af59858d}\index{BSW\_interface.h@{BSW\_interface.h}!BSW\_u8GetBlindSpot@{BSW\_u8GetBlindSpot}}
+\index{BSW\_u8GetBlindSpot@{BSW\_u8GetBlindSpot}!BSW\_interface.h@{BSW\_interface.h}}
+\doxysubsubsection{\texorpdfstring{BSW\_u8GetBlindSpot()}{BSW\_u8GetBlindSpot()}}
+{\footnotesize\ttfamily \label{BSW__interface_8h_ac814a5d4310e3e00b8700df5af59858d} 
+uint8\+\_\+t BSW\+\_\+u8\+Get\+Blind\+Spot (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Get the receiver-\/side blind-\/spot result for THIS car (which side has a vehicle in the blind spot). 
+
+The LED/\+buzzer is driven elsewhere by the caller — this module only computes the result. \begin{DoxyReturn}{Returns}
+bit0 = LEFT, bit1 = RIGHT (0=none, 1=LEFT, 2=RIGHT, 3=both) 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{BSW__program_8c_source_l00143}{143}} of file \doxymbox{\hyperlink{BSW__program_8c_source}{BSW\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{BSW__program_8c_source_l00036}{BSW\+\_\+\+Alert\+Left}}, and \doxymbox{\hyperlink{BSW__program_8c_source_l00038}{BSW\+\_\+\+Alert\+Right}}.
+
 \Hypertarget{BSW__interface_8h_a78f44c9528e62f99efcefaa8d779a6a2}\index{BSW\_interface.h@{BSW\_interface.h}!BSW\_u8GetSeverity@{BSW\_u8GetSeverity}}
 \index{BSW\_u8GetSeverity@{BSW\_u8GetSeverity}!BSW\_interface.h@{BSW\_interface.h}}
 \doxysubsubsection{\texorpdfstring{BSW\_u8GetSeverity()}{BSW\_u8GetSeverity()}}
@@ -104,16 +153,19 @@ uint8\+\_\+t BSW\+\_\+u8\+Get\+Severity (\begin{DoxyParamCaption}\item[{void}]{}
 Get the receiver-\/side blind-\/spot SEVERITY for THIS car (worst side), graded by how close the car behind us is. 
 
 \begin{DoxyReturn}{Returns}
-0 = safe, 1 = warning (\texorpdfstring{$<$}{<} BSW\+\_\+\+SIDE\+\_\+\+THRESHOLD), 2 = critical (\texorpdfstring{$<$}{<} BSW\+\_\+\+SIDE\+\_\+\+CRITICAL)
-\end{DoxyReturn}
-Get the receiver-\/side blind-\/spot SEVERITY for THIS car (worst side), graded by how close the car behind us is.
-
-\begin{DoxyReturn}{Returns}
 0 = safe, 1 = warning (\texorpdfstring{$<$}{<} BSW\+\_\+\+SIDE\+\_\+\+THRESHOLD), 2 = critical (\texorpdfstring{$<$}{<} BSW\+\_\+\+SIDE\+\_\+\+CRITICAL) 
 \end{DoxyReturn}
 
 
-Definition at line \doxymbox{\hyperlink{BSW__program_8c_source_l00143}{143}} of file \doxymbox{\hyperlink{BSW__program_8c_source}{BSW\+\_\+program.\+c}}.
+Definition at line \doxymbox{\hyperlink{BSW__program_8c_source_l00153}{153}} of file \doxymbox{\hyperlink{BSW__program_8c_source}{BSW\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{BSW__program_8c_source_l00036}{BSW\+\_\+\+Alert\+Left}}, and \doxymbox{\hyperlink{BSW__program_8c_source_l00038}{BSW\+\_\+\+Alert\+Right}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
@@ -134,16 +186,19 @@ uint8\+\_\+t BSW\+\_\+u8\+Get\+Sides\+Severity (\begin{DoxyParamCaption}\item[{v
 Get the receiver-\/side blind-\/spot severity PER SIDE, packed so the Raspberry Pi can tell LEFT from RIGHT (BSW\+\_\+u8\+Get\+Severity only gives the worst of the two and loses the side). 
 
 \begin{DoxyReturn}{Returns}
-byte = (left\+\_\+severity \& 0x3) \texorpdfstring{$\vert$}{|} ((right\+\_\+severity \& 0x3) \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2) bits 1:\+0 = LEFT severity (0/\+1/\+2), bits 3:\+2 = RIGHT severity (0/\+1/\+2)
-\end{DoxyReturn}
-Get the receiver-\/side blind-\/spot severity PER SIDE, packed so the Raspberry Pi can tell LEFT from RIGHT (BSW\+\_\+u8\+Get\+Severity only gives the worst of the two and loses the side).
-
-\begin{DoxyReturn}{Returns}
-(BSW\+\_\+\+Alert\+Left \& 0x3) \texorpdfstring{$\vert$}{|} ((BSW\+\_\+\+Alert\+Right \& 0x3) \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2) bits 1:\+0 = LEFT severity (0/\+1/\+2), bits 3:\+2 = RIGHT severity (0/\+1/\+2) 
+byte = (left\+\_\+severity \& 0x3) \texorpdfstring{$\vert$}{|} ((right\+\_\+severity \& 0x3) \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2) bits 1:\+0 = LEFT severity (0/\+1/\+2), bits 3:\+2 = RIGHT severity (0/\+1/\+2) 
 \end{DoxyReturn}
 
 
-Definition at line \doxymbox{\hyperlink{BSW__program_8c_source_l00155}{155}} of file \doxymbox{\hyperlink{BSW__program_8c_source}{BSW\+\_\+program.\+c}}.
+Definition at line \doxymbox{\hyperlink{BSW__program_8c_source_l00165}{165}} of file \doxymbox{\hyperlink{BSW__program_8c_source}{BSW\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{BSW__program_8c_source_l00036}{BSW\+\_\+\+Alert\+Left}}, and \doxymbox{\hyperlink{BSW__program_8c_source_l00038}{BSW\+\_\+\+Alert\+Right}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00466}{v\+Task\+\_\+\+RPi\+\_\+\+Comm()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
@@ -173,19 +228,20 @@ Sender role uses the FRONT-\/side sensors; receiver role uses the REAR-\/side se
 \hline
 {\em rear\+\_\+left} & Rear-\/left ultrasonic distance (cm) \\
 \hline
-{\em rear\+\_\+right} & Rear-\/right ultrasonic distance (cm)\\
+{\em rear\+\_\+right} & Rear-\/right ultrasonic distance (cm) \\
 \hline
 \end{DoxyParams}
-Begin a new processing cycle — latch side distances, reset accumulators.
 
 
-\begin{DoxyItemize}
-\item Latch the four side distances.
-\item Sender role:\+ build our bsw\+\_\+flag from the front-\/side sensors. Each side is an independent bit, so a vehicle on both sides sets BSW\+\_\+\+FLAG\+\_\+\+BOTH.
-\item Reset the receiver-\/side alert accumulators. 
-\end{DoxyItemize}
+Definition at line \doxymbox{\hyperlink{BSW__program_8c_source_l00075}{75}} of file \doxymbox{\hyperlink{BSW__program_8c_source}{BSW\+\_\+program.\+c}}.
 
-Definition at line \doxymbox{\hyperlink{BSW__program_8c_source_l00065}{65}} of file \doxymbox{\hyperlink{BSW__program_8c_source}{BSW\+\_\+program.\+c}}.
+
+
+References \doxymbox{\hyperlink{BSW__program_8c_source_l00036}{BSW\+\_\+\+Alert\+Left}}, \doxymbox{\hyperlink{BSW__program_8c_source_l00038}{BSW\+\_\+\+Alert\+Right}}, \doxymbox{\hyperlink{BSW__private_8h_source_l00017}{BSW\+\_\+\+FLAG\+\_\+\+LEFT}}, \doxymbox{\hyperlink{BSW__private_8h_source_l00016}{BSW\+\_\+\+FLAG\+\_\+\+NONE}}, \doxymbox{\hyperlink{BSW__private_8h_source_l00018}{BSW\+\_\+\+FLAG\+\_\+\+RIGHT}}, \doxymbox{\hyperlink{BSW__program_8c_source_l00025}{BSW\+\_\+\+Front\+Left}}, \doxymbox{\hyperlink{BSW__program_8c_source_l00027}{BSW\+\_\+\+Front\+Right}}, \doxymbox{\hyperlink{BSW__program_8c_source_l00029}{BSW\+\_\+\+Rear\+Left}}, \doxymbox{\hyperlink{BSW__program_8c_source_l00031}{BSW\+\_\+\+Rear\+Right}}, \doxymbox{\hyperlink{BSW__program_8c_source_l00021}{BSW\+\_\+\+Sender\+Flag}}, and \doxymbox{\hyperlink{BSW__config_8h_source_l00030}{BSW\+\_\+\+SIDE\+\_\+\+THRESHOLD}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
@@ -195,33 +251,11 @@ Here is the caller graph for this function:\+
 \includegraphics[width=350pt]{BSW__interface_8h_ae07233e2631a1dc55b95b7933e9b9801_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{BSW__interface_8h_a9f03e569a421d0df764a8e87d671eea4}\index{BSW\_interface.h@{BSW\_interface.h}!BSW\_voidInit@{BSW\_voidInit}}
-\index{BSW\_voidInit@{BSW\_voidInit}!BSW\_interface.h@{BSW\_interface.h}}
-\doxysubsubsection{\texorpdfstring{BSW\_voidInit()}{BSW\_voidInit()}}
-{\footnotesize\ttfamily \label{BSW__interface_8h_a9f03e569a421d0df764a8e87d671eea4} 
-void BSW\+\_\+void\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
-
-
-
-Initialize the BSW module. 
-
-
-
-Definition at line \doxymbox{\hyperlink{BSW__program_8c_source_l00046}{46}} of file \doxymbox{\hyperlink{BSW__program_8c_source}{BSW\+\_\+program.\+c}}.
-
-Here is the caller graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{BSW__interface_8h_a9f03e569a421d0df764a8e87d671eea4_icgraph}
-\end{center}
-\end{figure}
 \Hypertarget{BSW__interface_8h_a92af4dc1c402accc0ef30daa8d798e00}\index{BSW\_interface.h@{BSW\_interface.h}!BSW\_voidProcessNeighbor@{BSW\_voidProcessNeighbor}}
 \index{BSW\_voidProcessNeighbor@{BSW\_voidProcessNeighbor}!BSW\_interface.h@{BSW\_interface.h}}
 \doxysubsubsection{\texorpdfstring{BSW\_voidProcessNeighbor()}{BSW\_voidProcessNeighbor()}}
 {\footnotesize\ttfamily \label{BSW__interface_8h_a92af4dc1c402accc0ef30daa8d798e00} 
-void BSW\+\_\+void\+Process\+Neighbor (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{DSRC_8h_ac818f2e1224a1e513913a85019953e14}{Neighbor}} \texorpdfstring{$\ast$}{*}}]{n}{}\end{DoxyParamCaption})}
+void BSW\+\_\+void\+Process\+Neighbor (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structNeighbor}{Neighbor}} \texorpdfstring{$\ast$}{*}}]{n}{}\end{DoxyParamCaption})}
 
 
 
@@ -231,13 +265,29 @@ For each side bit the neighbor broadcasts, check our mirrored rear sensor to see
 
 
 \begin{DoxyParams}{Parameters}
-{\em n} & Pointer to neighbor data\\
+{\em n} & Pointer to neighbor data \\
 \hline
 \end{DoxyParams}
-A neighbor broadcasts the front side(s) on which it sees a car. That car sits behind the neighbor on the mirrored side, so each side bit maps to our opposite rear sensor:\+ sender LEFT (its front-\/left) -\/\texorpdfstring{$>$}{>} check our REAR-\/\+RIGHT sender RIGHT (its front-\/right) -\/\texorpdfstring{$>$}{>} check our REAR-\/\+LEFT The bits are tested independently, so BSW\+\_\+\+FLAG\+\_\+\+BOTH runs both checks. 
 
-Definition at line \doxymbox{\hyperlink{BSW__program_8c_source_l00099}{99}} of file \doxymbox{\hyperlink{BSW__program_8c_source}{BSW\+\_\+program.\+c}}.
 
+Definition at line \doxymbox{\hyperlink{BSW__program_8c_source_l00109}{109}} of file \doxymbox{\hyperlink{BSW__program_8c_source}{BSW\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{BSW__program_8c_source_l00036}{BSW\+\_\+\+Alert\+Left}}, \doxymbox{\hyperlink{BSW__program_8c_source_l00038}{BSW\+\_\+\+Alert\+Right}}, \doxymbox{\hyperlink{DSRC_8h_source_l00123}{Neighbor::\+bsw\+\_\+flag}}, \doxymbox{\hyperlink{BSW__private_8h_source_l00017}{BSW\+\_\+\+FLAG\+\_\+\+LEFT}}, \doxymbox{\hyperlink{BSW__private_8h_source_l00018}{BSW\+\_\+\+FLAG\+\_\+\+RIGHT}}, \doxymbox{\hyperlink{BSW__program_8c_source_l00029}{BSW\+\_\+\+Rear\+Left}}, \doxymbox{\hyperlink{BSW__program_8c_source_l00031}{BSW\+\_\+\+Rear\+Right}}, and \doxymbox{\hyperlink{BSW__program_8c_source_l00048}{BSW\+\_\+u8\+Dist\+To\+Severity()}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{BSW__interface_8h_a92af4dc1c402accc0ef30daa8d798e00_cgraph}
+\end{center}
+\end{figure}
 Here is the caller graph for this function:\+
 \nopagebreak
 \begin{figure}[H]

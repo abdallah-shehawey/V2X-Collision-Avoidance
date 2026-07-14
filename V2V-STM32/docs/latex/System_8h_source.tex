@@ -1,216 +1,92 @@
 \doxysection{System.\+h}
-\hypertarget{System_8h_source}{}\label{System_8h_source}\index{Inc/System/System.h@{Inc/System/System.h}}
+\hypertarget{System_8h_source}{}\label{System_8h_source}\index{V2V-\/STM32/Inc/System/System.h@{V2V-\/STM32/Inc/System/System.h}}
 \doxymbox{\hyperlink{System_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00001}\doxymbox{\hyperlink{System_8h_ab898071398b359603a35c202e9c65f3b}{00001}}\ }
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00009}00009\ }
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00010}00010\ \textcolor{preprocessor}{\#ifndef\ SYSTEM\_H}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00011}00011\ \textcolor{preprocessor}{\#define\ SYSTEM\_H}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00012}00012\ }
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00014}00014\ }
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00015}00015\ \textcolor{comment}{/*}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00016}00016\ \textcolor{comment}{\ *\ ========================================================================================}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00017}00017\ \textcolor{comment}{\ *\ 🚗\ V2X\ HARDWARE\ WIRING\ MAPPING}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00018}00018\ \textcolor{comment}{\ *\ ========================================================================================}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00019}00019\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00020}00020\ \textcolor{comment}{\ *\ 1.\ ULTRASONIC\ SENSORS\ (3\ Front\ /\ 3\ Back)}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00021}00021\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00022}00022\ \textcolor{comment}{\ *\ |\ ID\ |\ Location\ \ \ \ \ \ \ |\ Echo\ Pin\ |\ Trig\ Pin\ |\ Timer\ Channel\ |\ Note\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00023}00023\ \textcolor{comment}{\ *\ |-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00024}00024\ \textcolor{comment}{\ *\ |\ S1\ |\ FRONT\ LEFT\ \ \ \ \ |\ PA15\ \ \ \ \ |\ PB0\ \ \ \ \ \ |\ TIM2\_CH1\ \ \ \ \ \ |\ UART-\/Friendly\ (Free\ PA0)\ |}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00025}00025\ \textcolor{comment}{\ *\ |\ S2\ |\ FRONT\ CENTER\ \ \ |\ PB3\ \ \ \ \ \ |\ PB1\ \ \ \ \ \ |\ TIM2\_CH2\ \ \ \ \ \ |\ UART-\/Friendly\ (Free\ PA1)\ |}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00026}00026\ \textcolor{comment}{\ *\ |\ S3\ |\ FRONT\ RIGHT\ \ \ \ |\ PB4\ \ \ \ \ \ |\ PB2\ \ \ \ \ \ |\ TIM3\_CH1\ \ \ \ \ \ |\ UART-\/Friendly\ (Free\ PA2)\ |}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00027}00027\ \textcolor{comment}{\ *\ |\ S4\ |\ BACK\ \ LEFT\ \ \ \ \ |\ PB5\ \ \ \ \ \ |\ PB12\ \ \ \ \ |\ TIM3\_CH2\ \ \ \ \ \ |\ UART-\/Friendly\ (Free\ PA3)\ |}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00028}00028\ \textcolor{comment}{\ *\ |\ S5\ |\ BACK\ \ CENTER\ \ \ |\ PC8\ \ \ \ \ \ |\ PB13\ \ \ \ \ |\ TIM3\_CH3\ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00029}00029\ \textcolor{comment}{\ *\ |\ S6\ |\ BACK\ \ RIGHT\ \ \ \ |\ PC9\ \ \ \ \ \ |\ PB14\ \ \ \ \ |\ TIM3\_CH4\ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00030}00030\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00031}00031\ \textcolor{comment}{\ *\ 2.\ MOTION\ SENSOR\ (MPU9250)}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00032}00032\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00033}00033\ \textcolor{comment}{\ *\ |\ Sensor\ Type\ |\ SPI\ Signals\ \ \ \ \ \ \ \ \ \ \ |\ Pins\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ Mode\ /\ AF\ |}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00034}00034\ \textcolor{comment}{\ *\ |-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00035}00035\ \textcolor{comment}{\ *\ |\ IMU\ (9-\/Axis)|\ SCK,\ MISO(ADO),\ MOSI(SDA)\ \ \ \ \ \ \ |\ PA5,\ PA6,\ PA7\ \ \ \ \ \ \ |\ SPI1\ -\/\ AF5|}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00036}00036\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00037}00037\ \textcolor{comment}{\ *\ 3.\ FEEDBACK\ SYSTEM}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00038}00038\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00039}00039\ \textcolor{comment}{\ *\ |\ Component\ |\ Pin\ |\ Port\ \ |\ Description\ \ \ \ \ \ |}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00040}00040\ \textcolor{comment}{\ *\ |-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00041}00041\ \textcolor{comment}{\ *\ |\ LED\ 1\ \ \ \ \ |\ PC0\ |\ PORTC\ |\ Status\ Color\ 1\ \ \ |\ Front\ Right}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00042}00042\ \textcolor{comment}{\ *\ |\ LED\ 2\ \ \ \ \ |\ PC1\ |\ PORTC\ |\ Status\ Color\ 2\ \ \ |\ Front\ Left}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00043}00043\ \textcolor{comment}{\ *\ |\ LED\ 3\ \ \ \ \ |\ PC2\ |\ PORTC\ |\ Status\ Color\ 3\ \ \ |\ Back\ Right}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00044}00044\ \textcolor{comment}{\ *\ |\ LED\ 4\ \ \ \ \ |\ PC3\ |\ PORTC\ |\ Status\ Color\ 4\ \ \ |\ Back\ Left}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00045}00045\ \textcolor{comment}{\ *\ |\ LED\ 5\ \ \ \ \ |\ PC7\ |\ PORTC\ |\ Interior\ Driver\ Alert\ (dashboard)\ |}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00046}00046\ \textcolor{comment}{\ *\ |\ BUZZER\ \ \ \ |\ PC4\ |\ PORTC\ |\ Warning\ Sound\ \ \ \ |}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00047}00047\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00048}00048\ \textcolor{comment}{\ *\ NOTE:\ There\ is\ NO\ motor\ driver\ on\ the\ STM32\ —\ the\ Raspberry\ Pi\ drives\ the}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00049}00049\ \textcolor{comment}{\ *\ \ \ \ \ \ \ motors\ using\ the\ telemetry\ this\ firmware\ sends.\ No\ motor\ pins\ are\ used.}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00050}00050\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00051}00051\ \textcolor{comment}{\ *\ 4.\ COMMUNICATION\ INTERFACES\ (UARTs)}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00052}00052\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00053}00053\ \textcolor{comment}{\ *\ |\ Interface\ |\ Pin\ Mapping\ \ \ \ \ \ \ \ \ \ |\ Status\ \ |\ Description\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00054}00054\ \textcolor{comment}{\ *\ |-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00055}00055\ \textcolor{comment}{\ *\ |\ USART1\ \ \ \ |\ PA9(TX),\ PA10(RX)\ \ \ \ |\ IN\ USE\ \ |\ ESP-\/NOW\ (V2X\ Comm)\ \ \ \ \ \ \ \ \ \ |}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00056}00056\ \textcolor{comment}{\ *\ |\ USART2\ \ \ \ |\ PA2(TX),\ PA3(RX)\ \ \ \ \ |\ IN\ USE\ \ |\ Raspberry\ Pi\ telemetry\ (USB\ VCP)\ |}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00057}00057\ \textcolor{comment}{\ *\ |\ UART4\ \ \ \ \ |\ PA0(TX),\ PA1(RX)\ \ \ \ \ |\ FREE\ ✅\ |\ (was\ RPi;\ now\ on\ USART2)\ \ \ \ |}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00058}00058\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00059}00059\ \textcolor{comment}{\ *\ ========================================================================================}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00060}00060\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00061}00061\ }
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00062}00062\ \textcolor{comment}{/*}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00063}00063\ \textcolor{comment}{\ *\ ========================================================================================}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00064}00064\ \textcolor{comment}{\ *\ 🧠\ RTOS\ TASKS\ ARCHITECTURE\ \&\ PRIORITIES\ (configMAX\_PRIORITIES\ =\ 5)}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00065}00065\ \textcolor{comment}{\ *\ ========================================================================================}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00066}00066\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00067}00067\ \textcolor{comment}{\ *\ |\ Task\ Name\ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ Priority\ |\ Stack\ (+base)\ |\ Freq\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ Description\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00068}00068\ \textcolor{comment}{\ *\ |-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00069}00069\ \textcolor{comment}{\ *\ |\ [1]\ vTask\_SafetyEngine\ |\ 4\ (MAX)\ \ |\ +256\ \ \ \ \ \ \ \ \ \ |\ \string~50\ ms\ \ \ \ \ \ \ \ \ \ \ \ \ |\ Single-\/pass\ ADAS\ brain\ (FCW/EEBL/BSW/DNPW/IMA)|}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00070}00070\ \textcolor{comment}{\ *\ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ +\ feedback\ aggregation\ →\ command\ channel\ \ \ \ \ \ |}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00071}00071\ \textcolor{comment}{\ *\ |\ [1]\ vTask\_ESP\_Comm\ \ \ \ \ |\ 4\ (MAX)\ \ |\ +128\ \ \ \ \ \ \ \ \ \ |\ \string~10ms\ RX/100ms\ TX\ \ |\ ESP-\/NOW\ V2X\ communication\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00072}00072\ \textcolor{comment}{\ *\ |\ [2]\ vTask\_Sensors\ \ \ \ \ \ |\ 3\ \ \ \ \ \ \ \ |\ +256\ \ \ \ \ \ \ \ \ \ |\ \string~25-\/82\ ms\ adaptive\ |\ All\ 6\ US\ (interrupt,\ 2m\ cap)\ +\ MPU9250\ \ \ \ \ \ \ \ \ |}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00073}00073\ \textcolor{comment}{\ *\ |\ [3]\ vTask\_Feedback\ \ \ \ \ |\ 2\ \ \ \ \ \ \ \ |\ +128\ \ \ \ \ \ \ \ \ \ |\ \string~25\ ms\ \ \ \ \ \ \ \ \ \ \ \ \ |\ Alert\ manager\ (LEDs\ +\ Buzzer;\ motors\ on\ RPi)\ \ |}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00074}00074\ \textcolor{comment}{\ *\ |\ [4]\ vTask\_RPi\_Comm\ \ \ \ \ |\ 1\ (LOW)\ \ |\ +100\ \ \ \ \ \ \ \ \ \ |\ \string~100\ ms\ \ \ \ \ \ \ \ \ \ \ \ |\ Raspberry\ Pi\ telemetry\ TX\ (status\ +\ sensors)\ \ |}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00075}00075\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00076}00076\ \textcolor{comment}{\ *\ NOTE:\ Priority\ 4\ is\ the\ highest\ user\ priority.\ Priority\ 0\ is\ the\ FreeRTOS\ Idle\ task.}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00077}00077\ \textcolor{comment}{\ *\ \ \ \ \ \ \ configMAX\_SYSCALL\_INTERRUPT\_PRIORITY\ =\ 5\ \ →\ NVIC\_USART1\ must\ be\ set\ to\ ≥\ 6.}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00078}00078\ \textcolor{comment}{\ *\ \ \ \ \ \ \ vTask\_Sensors\ reads\ all\ 6\ US\ per\ cycle\ (interrupt-\/driven:\ the\ task\ SLEEPS}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00079}00079\ \textcolor{comment}{\ *\ \ \ \ \ \ \ during\ each\ echo,\ CPU\ free)\ +\ MPU,\ then\ a\ 10ms\ gap.\ Scan\ is\ adaptive:}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00080}00080\ \textcolor{comment}{\ *\ \ \ \ \ \ \ near\ objects\ →\ \string~25ms,\ all\ out-\/of-\/range\ →\ \string~72ms\ (2m\ cap).\ Reads\ are}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00081}00081\ \textcolor{comment}{\ *\ \ \ \ \ \ \ sequential\ →\ no\ acoustic\ cross-\/talk.\ Priority\ 3\ (producer)\ sits\ below\ the}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00082}00082\ \textcolor{comment}{\ *\ \ \ \ \ \ \ priority-\/4\ ADAS/comm\ tasks\ but\ above\ the\ priority-\/2\ Feedback\ consumer.}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00083}00083\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00084}00084\ \textcolor{comment}{\ *\ \ \ \ \ \ \ ADAS\ architecture\ =\ SINGLE-\/PASS,\ with\ a\ clean\ Brain/Muscle\ split:}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00085}00085\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ •\ vTask\_SafetyEngine\ (Brain,\ detection-\/only):\ runs\ all\ modules\ over\ the}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00086}00086\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ neighbor\ table\ in\ ONE\ pass;\ each\ module\ reports\ its\ risk\ level.\ Then\ it}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00087}00087\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ publishes\ G\_u16SystemFlags\ (2\ bits/module:\ 00\ safe\ /\ 01\ warning\ /\ 10\ crit).}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00088}00088\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ It\ makes\ NO\ actuator\ decision.\ Holds\ both\ mutexes\ (NeighborTable\ →\ Data).}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00089}00089\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ •\ vTask\_Feedback\ (Muscle):\ reads\ G\_u16SystemFlags;\ if\ 0\ →\ everything\ off.}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00090}00090\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ Any\ alert\ →\ interior\ LED\ +\ buzzer\ ON.\ Additionally:\ FCW\ CRITICAL\ →\ front}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00091}00091\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ LEDs,\ EEBL\ CRITICAL\ →\ rear\ LEDs.\ All\ other\ states\ add\ no\ external\ LED.}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00092}00092\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ NO\ motor\ control\ —\ the\ Raspberry\ Pi\ drives\ the\ motors\ from\ the\ telemetry.}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00093}00093\ \textcolor{comment}{\ *\ \ \ \ \ \ \ Lock\ usage:\ ESP\_Comm\ takes\ the\ two\ mutexes\ separately,\ Sensors\ \&\ Feedback\ take}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00094}00094\ \textcolor{comment}{\ *\ \ \ \ \ \ \ Data\ only\ →\ deadlock-\/free.}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00095}00095\ \textcolor{comment}{\ *\ ========================================================================================}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00096}00096\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00097}00097\ }
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00098}00098\ \textcolor{comment}{/*\ Unified\ Sensor\ State\ Structure\ */}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00099}\doxymbox{\hyperlink{structHostVehicleState__t}{00099}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00100}00100\ \{}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00101}\doxymbox{\hyperlink{structHostVehicleState__t_a9f56bbdb2cab29267dbf08e8701f4e01}{00101}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_a9f56bbdb2cab29267dbf08e8701f4e01}{FrontLeftUS}};}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00102}\doxymbox{\hyperlink{structHostVehicleState__t_ae4b8720527d5bed97dff0c8fb7b1463d}{00102}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_ae4b8720527d5bed97dff0c8fb7b1463d}{FrontCenterUS}};}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00103}\doxymbox{\hyperlink{structHostVehicleState__t_ae2395ee925d80eb9e8310bef5a987d48}{00103}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_ae2395ee925d80eb9e8310bef5a987d48}{FrontRightUS}};}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00104}\doxymbox{\hyperlink{structHostVehicleState__t_a0ca909d0541f217f15b40d7dc098d0f0}{00104}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_a0ca909d0541f217f15b40d7dc098d0f0}{BackLeftUS}};}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00105}\doxymbox{\hyperlink{structHostVehicleState__t_aaa86a237fbf13e3fc368fff0331fb7d4}{00105}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_aaa86a237fbf13e3fc368fff0331fb7d4}{BackCenterUS}};}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00106}\doxymbox{\hyperlink{structHostVehicleState__t_a0ef2f623a5e80b6cf31539e22d0d3438}{00106}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_a0ef2f623a5e80b6cf31539e22d0d3438}{BackRightUS}};}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00107}00107\ }
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00108}\doxymbox{\hyperlink{structHostVehicleState__t_a84e0032012bf423fa2aecee96d0bb087}{00108}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_a84e0032012bf423fa2aecee96d0bb087}{Speed}};}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00109}\doxymbox{\hyperlink{structHostVehicleState__t_ada46c15632a98c76c391b5e47fbb9e23}{00109}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_ada46c15632a98c76c391b5e47fbb9e23}{Heading}};}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00110}\doxymbox{\hyperlink{structHostVehicleState__t_a8b62f1a68450ac021c80ed3817fd1c73}{00110}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_a8b62f1a68450ac021c80ed3817fd1c73}{Pitch}};}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00111}\doxymbox{\hyperlink{structHostVehicleState__t_a4ca0f1cf1933fe428d433b731eca21f1}{00111}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_a4ca0f1cf1933fe428d433b731eca21f1}{Roll}};}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00112}\doxymbox{\hyperlink{structHostVehicleState__t_ae831f3492cdbd61099dad0e1ed23b2f4}{00112}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_ae831f3492cdbd61099dad0e1ed23b2f4}{PosX}};}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00113}\doxymbox{\hyperlink{structHostVehicleState__t_ab75a44ea2cca9fe814fc6cb54211237d}{00113}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_ab75a44ea2cca9fe814fc6cb54211237d}{PosY}};}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00114}\doxymbox{\hyperlink{structHostVehicleState__t_a15ddee0efe3d4d5eabeb0a57089f15ba}{00114}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_a15ddee0efe3d4d5eabeb0a57089f15ba}{PosZ}};}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00115}00115\ \}\ \doxymbox{\hyperlink{structHostVehicleState__t}{HostVehicleState\_t}};}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00116}00116\ }
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00117}00117\ \textcolor{comment}{/*\ ════════════════════════════════════════════════════════════════════════}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00118}00118\ \textcolor{comment}{\ *\ \ G\_u16SystemFlags\ —\ system\ status\ word\ (2\ bits\ per\ ADAS\ module)}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00119}00119\ \textcolor{comment}{\ *\ ════════════════════════════════════════════════════════════════════════}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00120}00120\ \textcolor{comment}{\ *\ \ SafetyEngine\ writes\ it;\ vTask\_Feedback\ and\ vTask\_RPi\_Comm\ read\ it.}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00121}00121\ \textcolor{comment}{\ *\ \ Each\ module\ occupies\ 2\ bits:}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00122}00122\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ 0b00\ =\ SAFE\ \ \ \ \ \ (no\ hazard)}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00123}00123\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ 0b01\ =\ WARNING\ \ \ (caution\ —\ slow\ down)}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00124}00124\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ 0b10\ =\ CRITICAL\ \ (danger\ —\ stop)}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00125}00125\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00126}00126\ \textcolor{comment}{\ *\ \ Bit\ layout\ (uint16\_t):}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00127}00127\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ bits\ \ 1:0\ \ →\ FCW\ \ \ (Forward\ Collision\ Warning)}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00128}00128\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ bits\ \ 3:2\ \ →\ EEBL\ \ (Emergency\ Electronic\ Brake\ Light)}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00129}00129\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ bits\ \ 5:4\ \ →\ BSW\ \ \ (Blind\ Spot\ Warning)\ \ \ \ \ \ \ \ [WARNING\ only]}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00130}00130\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ bits\ \ 7:6\ \ →\ DNPW\ \ (Do\ Not\ Pass\ Warning)}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00131}00131\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ bits\ \ 9:8\ \ →\ IMA\ \ \ (Intersection\ Movement\ Assist)}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00132}00132\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ bits\ 15:10\ →\ reserved\ (0)}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00133}00133\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00134}00134\ \textcolor{comment}{\ *\ \ 0x0000\ =\ everything\ safe.}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00135}00135\ \textcolor{comment}{\ *\ \ Extract\ one\ module:\ \ status\ =\ (G\_u16SystemFlags\ >>\ SYS\_xxx\_POS)\ \&\ SYS\_MASK}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00136}00136\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00137}00137\ \textcolor{comment}{\ *\ \ Worked\ examples\ (binary\ grouped\ as\ IMA|DNPW|BSW|EEBL|FCW):}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00138}00138\ \textcolor{comment}{\ *\ \ \ \ \ 0x0001\ \ 00\ 00\ 00\ 00\ 01\ \ →\ FCW\ \ WARNING}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00139}00139\ \textcolor{comment}{\ *\ \ \ \ \ 0x0002\ \ 00\ 00\ 00\ 00\ 10\ \ →\ FCW\ \ CRITICAL}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00140}00140\ \textcolor{comment}{\ *\ \ \ \ \ 0x0004\ \ 00\ 00\ 00\ 01\ 00\ \ →\ EEBL\ WARNING}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00141}00141\ \textcolor{comment}{\ *\ \ \ \ \ 0x0010\ \ 00\ 00\ 01\ 00\ 00\ \ →\ BSW\ \ WARNING}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00142}00142\ \textcolor{comment}{\ *\ \ \ \ \ 0x0040\ \ 00\ 01\ 00\ 00\ 00\ \ →\ DNPW\ WARNING}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00143}00143\ \textcolor{comment}{\ *\ \ \ \ \ 0x0100\ \ 01\ 00\ 00\ 00\ 00\ \ →\ IMA\ \ WARNING}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00144}00144\ \textcolor{comment}{\ *\ \ \ \ \ 0x0006\ \ 00\ 00\ 00\ 01\ 10\ \ →\ FCW\ CRITICAL\ +\ EEBL\ WARNING}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00145}00145\ \textcolor{comment}{\ *\ \ \ \ \ 0x0101\ \ 01\ 00\ 00\ 00\ 01\ \ →\ FCW\ WARNING\ \ +\ IMA\ WARNING}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00146}00146\ \textcolor{comment}{\ *\ ════════════════════════════════════════════════════════════════════════\ */}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00147}\doxymbox{\hyperlink{System_8h_a167de614bc64dfddcd8a7677b6fecda0}{00147}}\ \textcolor{preprocessor}{\#define\ SYS\_SAFE\ 0x0u}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00148}\doxymbox{\hyperlink{System_8h_ad8f58f6c26f6d5da69980ba995e38c78}{00148}}\ \textcolor{preprocessor}{\#define\ SYS\_WARNING\ 0x1u}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00149}\doxymbox{\hyperlink{System_8h_a717d9a716e77febf5c57b5c7231802c8}{00149}}\ \textcolor{preprocessor}{\#define\ SYS\_CRITICAL\ 0x2u}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00150}\doxymbox{\hyperlink{System_8h_a1096a3bcb1d33bab56e2746735bef164}{00150}}\ \textcolor{preprocessor}{\#define\ SYS\_MASK\ 0x3u\ }\textcolor{comment}{/*\ 2-\/bit\ field\ mask\ */}\textcolor{preprocessor}{}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00151}00151\ }
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00152}\doxymbox{\hyperlink{System_8h_a6abc7e388887578e3028a403f99ab155}{00152}}\ \textcolor{preprocessor}{\#define\ SYS\_FCW\_POS\ 0u}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00153}\doxymbox{\hyperlink{System_8h_a1c2a65c70adf45dcfed9a27b20f13082}{00153}}\ \textcolor{preprocessor}{\#define\ SYS\_EEBL\_POS\ 2u}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00154}\doxymbox{\hyperlink{System_8h_a04414e3adf55b811ccb5b68914f10f2f}{00154}}\ \textcolor{preprocessor}{\#define\ SYS\_BSW\_POS\ 4u}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00155}\doxymbox{\hyperlink{System_8h_ac52b1dbb5be5438fcd6fba16dd939688}{00155}}\ \textcolor{preprocessor}{\#define\ SYS\_DNPW\_POS\ 6u}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00156}\doxymbox{\hyperlink{System_8h_a42dbde5a9405e8b4ea3cab2049a4c97d}{00156}}\ \textcolor{preprocessor}{\#define\ SYS\_IMA\_POS\ 8u}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00157}00157\ }
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00158}00158\ \textcolor{comment}{/*\ status\ (0/1/2)\ of\ one\ module\ from\ the\ packed\ word\ */}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00159}\doxymbox{\hyperlink{System_8h_a7f3e28353c0f0f1ce0787d44563ca389}{00159}}\ \textcolor{preprocessor}{\#define\ SYS\_GET(flags,\ pos)\ (((flags)\ >>\ (pos))\ \&\ SYS\_MASK)}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00160}00160\ }
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00161}00161\ \textcolor{comment}{/*\ ──\ RPi\ telemetry\ ──}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00162}00162\ \textcolor{comment}{\ *\ Sent\ every\ 100ms\ by\ vTask\_RPi\_Comm\ as\ an\ ASCII,\ '\(\backslash\)n'-\/delimited\ CSV\ line\ (the}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00163}00163\ \textcolor{comment}{\ *\ old\ binary\ 0xAA..0x55\ packet\ was\ dropped\ because\ its\ zero-\/bytes\ were\ lost\ on}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00164}00164\ \textcolor{comment}{\ *\ the\ UART\ link).\ The\ RPi\ parser\ (server.py\ PACKET\_FIELDS)\ must\ match\ this}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00165}00165\ \textcolor{comment}{\ *\ column\ order\ EXACTLY\ —\ change\ one\ side,\ change\ the\ other.}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00166}00166\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00167}00167\ \textcolor{comment}{\ *\ \ \ T,speed,heading,pitch,roll,FL,FC,FR,BL,BC,BR,flags,bsw\_sides\(\backslash\)n}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00168}00168\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00169}00169\ \textcolor{comment}{\ *\ \ \ \ \ speed\ \ \ \ \ \ \ \ \ \ \ \ \ \ cm/s}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00170}00170\ \textcolor{comment}{\ *\ \ \ \ \ heading\ \ \ \ \ \ \ \ \ \ \ \ degrees\ 0-\/360}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00171}00171\ \textcolor{comment}{\ *\ \ \ \ \ pitch,\ roll\ \ \ \ \ \ \ \ degrees}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00172}00172\ \textcolor{comment}{\ *\ \ \ \ \ FL..BR\ \ \ \ \ \ \ \ \ \ \ \ \ 6\ ultrasonic\ distances\ [cm]}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00173}00173\ \textcolor{comment}{\ *\ \ \ \ \ flags\ \ \ \ \ \ \ \ \ \ \ \ \ \ G\_u16SystemFlags:\ 2\ bits/module\ (00\ safe/01\ warn/10\ crit)}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00174}00174\ \textcolor{comment}{\ *\ \ \ \ \ bsw\_sides\ \ \ \ \ \ \ \ \ \ per-\/side\ BSW\ severity:\ bits\ 1:0\ LEFT,\ bits\ 3:2\ RIGHT}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00175}00175\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (lets\ the\ RPi\ report\ left\ /\ right\ /\ both\ —\ the}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00176}00176\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ aggregated\ BSW\ severity\ is\ already\ inside\ \`{}flags`)}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00177}00177\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00178}00178\ \textcolor{comment}{\ *\ The\ struct\ below\ is\ the\ legacy\ binary\ layout,\ kept\ for\ reference\ only.\ */}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00179}00179\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{DSRC_8h_ab898071398b359603a35c202e9c65f3b}{\_\_attribute\_\_}}((packed))}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00180}00180\ \{}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00181}00181\ \ \ uint8\_t\ start;\ \ \ \ \ \ \textcolor{comment}{/*\ 0xAA\ */}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00182}00182\ \ \ uint16\_t\ sys\_flags;\ \textcolor{comment}{/*\ G\_u16SystemFlags:\ 2\ bits/module\ (00/01/10)\ */}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00183}00183\ \ \ \textcolor{keywordtype}{float}\ speed;\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ cm/s\ */}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00184}00184\ \ \ \textcolor{keywordtype}{float}\ heading;\ \ \ \ \ \ \textcolor{comment}{/*\ degrees\ 0-\/360\ */}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00185}00185\ \ \ \textcolor{keywordtype}{float}\ front\_left;\ \ \ \textcolor{comment}{/*\ ultrasonic\ distance\ [cm]\ */}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00186}00186\ \ \ \textcolor{keywordtype}{float}\ front\_center;}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00187}00187\ \ \ \textcolor{keywordtype}{float}\ front\_right;}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00188}00188\ \ \ \textcolor{keywordtype}{float}\ back\_left;}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00189}00189\ \ \ \textcolor{keywordtype}{float}\ back\_center;}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00190}00190\ \ \ \textcolor{keywordtype}{float}\ back\_right;}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00191}00191\ \ \ uint8\_t\ end;\ \textcolor{comment}{/*\ 0x55\ */}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00192}\doxymbox{\hyperlink{System_8h_a49cc648a30989079385c3b1cbf224789}{00192}}\ \}\ \doxymbox{\hyperlink{System_8h_a49cc648a30989079385c3b1cbf224789}{RPi\_Packet\_t}};}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00193}00193\ }
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00194}00194\ \textcolor{comment}{/*\ Global\ variables\ for\ centralized\ management\ */}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00195}00195\ }
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00196}00196\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ uint16\_t\ \doxymbox{\hyperlink{System_8h_a9e78367aa5b758af972838362c2b0eab}{G\_u16SystemFlags}};\ \textcolor{comment}{/*\ 2\ bits/module;\ 0\ =\ all\ safe\ */}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00197}00197\ }
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00198}00198\ \textcolor{comment}{/*\ Unified\ Host\ Vehicle\ State\ */}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00199}00199\ \textcolor{keyword}{extern}\ \doxymbox{\hyperlink{structHostVehicleState__t}{HostVehicleState\_t}}\ \doxymbox{\hyperlink{System_8h_ac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}};}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00200}00200\ }
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00201}00201\ \textcolor{comment}{/*\ Distance\ to\ nearest\ intersection\ (cm),\ 0\ =\ not\ near.\ Read\ by\ IMA\ and\ broadcast}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00202}00202\ \textcolor{comment}{\ *\ over\ DSRC.\ Set\ by\ whatever\ provides\ intersection\ geometry\ (map/RPi).\ */}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00203}00203\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{System_8h_a10d54e2c66effa6800db6f78aaec485c}{Host\_DistToIntersection}};}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00204}00204\ }
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00205}00205\ \textcolor{comment}{/*\ Hardware\ objects\ —\ defined\ in\ System.c,\ used\ across\ tasks\ */}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00206}00206\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{LED__interface_8h}{../Drivers/HAL/LED/LED\_interface.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00207}\doxymbox{\hyperlink{System_8h_abfc8237214cfd1267c607aaff66a96da}{00207}}\ \textcolor{keyword}{extern}\ \doxymbox{\hyperlink{structLED__Config__t}{LED\_Config\_t}}\ \doxymbox{\hyperlink{System_8h_af1fb4a43ba68d1fdc94fd35a7d901cd4}{FrontR\_LED}},\ \doxymbox{\hyperlink{System_8h_a2ab79e3f6235026ef8d29a9446511f48}{FrontL\_LED}},\ \doxymbox{\hyperlink{System_8h_ae41df9dd37d7c4d27b829fd46cd1e5e3}{BackR\_LED}},\ \doxymbox{\hyperlink{System_8h_abfc8237214cfd1267c607aaff66a96da}{BackL\_LED}},\ \doxymbox{\hyperlink{System_8h_aa7037844a95faca4f50aae714fe5048a}{Interior\_LED}};}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00082}00082\ \textcolor{preprocessor}{\#ifndef\ SYSTEM\_H}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00083}00083\ \textcolor{preprocessor}{\#define\ SYSTEM\_H}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00085}00085\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00102}\doxymbox{\hyperlink{structHostVehicleState__t}{00102}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00103}00103\ \{}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00104}\doxymbox{\hyperlink{structHostVehicleState__t_a9f56bbdb2cab29267dbf08e8701f4e01}{00104}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_a9f56bbdb2cab29267dbf08e8701f4e01}{FrontLeftUS}};\ \ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00105}\doxymbox{\hyperlink{structHostVehicleState__t_ae4b8720527d5bed97dff0c8fb7b1463d}{00105}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_ae4b8720527d5bed97dff0c8fb7b1463d}{FrontCenterUS}};\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00106}\doxymbox{\hyperlink{structHostVehicleState__t_ae2395ee925d80eb9e8310bef5a987d48}{00106}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_ae2395ee925d80eb9e8310bef5a987d48}{FrontRightUS}};\ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00107}\doxymbox{\hyperlink{structHostVehicleState__t_a0ca909d0541f217f15b40d7dc098d0f0}{00107}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_a0ca909d0541f217f15b40d7dc098d0f0}{BackLeftUS}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00108}\doxymbox{\hyperlink{structHostVehicleState__t_aaa86a237fbf13e3fc368fff0331fb7d4}{00108}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_aaa86a237fbf13e3fc368fff0331fb7d4}{BackCenterUS}};\ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00109}\doxymbox{\hyperlink{structHostVehicleState__t_a0ef2f623a5e80b6cf31539e22d0d3438}{00109}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_a0ef2f623a5e80b6cf31539e22d0d3438}{BackRightUS}};\ \ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00111}\doxymbox{\hyperlink{structHostVehicleState__t_a84e0032012bf423fa2aecee96d0bb087}{00111}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_a84e0032012bf423fa2aecee96d0bb087}{Speed}};\ \ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00112}\doxymbox{\hyperlink{structHostVehicleState__t_ada46c15632a98c76c391b5e47fbb9e23}{00112}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_ada46c15632a98c76c391b5e47fbb9e23}{Heading}};\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00113}\doxymbox{\hyperlink{structHostVehicleState__t_a8b62f1a68450ac021c80ed3817fd1c73}{00113}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_a8b62f1a68450ac021c80ed3817fd1c73}{Pitch}};\ \ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00114}\doxymbox{\hyperlink{structHostVehicleState__t_a4ca0f1cf1933fe428d433b731eca21f1}{00114}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_a4ca0f1cf1933fe428d433b731eca21f1}{Roll}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00115}\doxymbox{\hyperlink{structHostVehicleState__t_ae831f3492cdbd61099dad0e1ed23b2f4}{00115}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_ae831f3492cdbd61099dad0e1ed23b2f4}{PosX}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00116}\doxymbox{\hyperlink{structHostVehicleState__t_ab75a44ea2cca9fe814fc6cb54211237d}{00116}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_ab75a44ea2cca9fe814fc6cb54211237d}{PosY}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00117}\doxymbox{\hyperlink{structHostVehicleState__t_a15ddee0efe3d4d5eabeb0a57089f15ba}{00117}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structHostVehicleState__t_a15ddee0efe3d4d5eabeb0a57089f15ba}{PosZ}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00118}00118\ \}\ \doxymbox{\hyperlink{structHostVehicleState__t}{HostVehicleState\_t}};}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00146}\doxymbox{\hyperlink{group__system_ga167de614bc64dfddcd8a7677b6fecda0}{00146}}\ \textcolor{preprocessor}{\#define\ SYS\_SAFE\ \ \ \ \ 0x0u\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00147}\doxymbox{\hyperlink{group__system_gad8f58f6c26f6d5da69980ba995e38c78}{00147}}\ \textcolor{preprocessor}{\#define\ SYS\_WARNING\ \ 0x1u\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00148}\doxymbox{\hyperlink{group__system_ga717d9a716e77febf5c57b5c7231802c8}{00148}}\ \textcolor{preprocessor}{\#define\ SYS\_CRITICAL\ 0x2u\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00149}\doxymbox{\hyperlink{group__system_ga1096a3bcb1d33bab56e2746735bef164}{00149}}\ \textcolor{preprocessor}{\#define\ SYS\_MASK\ \ \ \ \ 0x3u\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00151}\doxymbox{\hyperlink{group__system_ga6abc7e388887578e3028a403f99ab155}{00151}}\ \textcolor{preprocessor}{\#define\ SYS\_FCW\_POS\ \ 0u\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00152}\doxymbox{\hyperlink{group__system_ga1c2a65c70adf45dcfed9a27b20f13082}{00152}}\ \textcolor{preprocessor}{\#define\ SYS\_EEBL\_POS\ 2u\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00153}\doxymbox{\hyperlink{group__system_ga04414e3adf55b811ccb5b68914f10f2f}{00153}}\ \textcolor{preprocessor}{\#define\ SYS\_BSW\_POS\ \ 4u\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00154}\doxymbox{\hyperlink{group__system_gac52b1dbb5be5438fcd6fba16dd939688}{00154}}\ \textcolor{preprocessor}{\#define\ SYS\_DNPW\_POS\ 6u\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00155}\doxymbox{\hyperlink{group__system_ga42dbde5a9405e8b4ea3cab2049a4c97d}{00155}}\ \textcolor{preprocessor}{\#define\ SYS\_IMA\_POS\ \ 8u\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00156}00156\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00163}\doxymbox{\hyperlink{group__system_ga7f3e28353c0f0f1ce0787d44563ca389}{00163}}\ \textcolor{preprocessor}{\#define\ SYS\_GET(flags,\ pos)\ (((flags)\ >>\ (pos))\ \&\ SYS\_MASK)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00194}\doxymbox{\hyperlink{structRPi__Packet__t}{00194}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\_\_attribute\_\_((packed))}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00195}00195\ \{}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00196}\doxymbox{\hyperlink{structRPi__Packet__t_aeaa9458317dfdd181c24849b736f72d3}{00196}}\ \ \ uint8\_t\ \doxymbox{\hyperlink{structRPi__Packet__t_aeaa9458317dfdd181c24849b736f72d3}{start}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00197}\doxymbox{\hyperlink{structRPi__Packet__t_a205ab0969a6d33d43802b088811a969e}{00197}}\ \ \ uint16\_t\ \doxymbox{\hyperlink{structRPi__Packet__t_a205ab0969a6d33d43802b088811a969e}{sys\_flags}};\ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00198}\doxymbox{\hyperlink{structRPi__Packet__t_ab729ad2fe55d2b13eb0179f4c9c4a554}{00198}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structRPi__Packet__t_ab729ad2fe55d2b13eb0179f4c9c4a554}{speed}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00199}\doxymbox{\hyperlink{structRPi__Packet__t_af4606477e64e54a1fc56be698ae2f89f}{00199}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structRPi__Packet__t_af4606477e64e54a1fc56be698ae2f89f}{heading}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00200}\doxymbox{\hyperlink{structRPi__Packet__t_afe2d947b3db6ac6ef2a73a5b62453675}{00200}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structRPi__Packet__t_afe2d947b3db6ac6ef2a73a5b62453675}{front\_left}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00201}\doxymbox{\hyperlink{structRPi__Packet__t_acfcfb9503609082dd678a6c58670f822}{00201}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structRPi__Packet__t_acfcfb9503609082dd678a6c58670f822}{front\_center}};\ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00202}\doxymbox{\hyperlink{structRPi__Packet__t_acff2f39cfc4d7cb463a41a1aef08099d}{00202}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structRPi__Packet__t_acff2f39cfc4d7cb463a41a1aef08099d}{front\_right}};\ \ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00203}\doxymbox{\hyperlink{structRPi__Packet__t_a230d2ce5482996f40b5c09c2a433aa5b}{00203}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structRPi__Packet__t_a230d2ce5482996f40b5c09c2a433aa5b}{back\_left}};\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00204}\doxymbox{\hyperlink{structRPi__Packet__t_a9b9b52d7f70960c3576a0385acb1ba12}{00204}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structRPi__Packet__t_a9b9b52d7f70960c3576a0385acb1ba12}{back\_center}};\ \ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00205}\doxymbox{\hyperlink{structRPi__Packet__t_ab70064a49397573a0e995523712b1830}{00205}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structRPi__Packet__t_ab70064a49397573a0e995523712b1830}{back\_right}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00206}\doxymbox{\hyperlink{structRPi__Packet__t_a70990c28a423ece6104ae9be9d3fd201}{00206}}\ \ \ uint8\_t\ \doxymbox{\hyperlink{structRPi__Packet__t_a70990c28a423ece6104ae9be9d3fd201}{end}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00207}00207\ \}\ \doxymbox{\hyperlink{structRPi__Packet__t}{RPi\_Packet\_t}};}
 \DoxyCodeLine{\Hypertarget{System_8h_source_l00208}00208\ }
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00209}00209\ \textcolor{comment}{/*\ Function\ Prototypes\ */}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00210}\doxymbox{\hyperlink{System_8h_a90b9ebedff8635727698afd2fa84b90a}{00210}}\ \textcolor{preprocessor}{\#define\ DWT\_CTRL\ *((volatile\ uint32\_t\ *)0xE0001000)}}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00211}00211\ }
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00212}00212\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{System_8h_ac3f6c7e9a568f4528304150a6f59736b}{SEGGER\_setup}}(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00213}00213\ }
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00214}00214\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{System_8h_ae436954cd2bde6634ab271317d2494a7}{System\_setup}}(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00215}00215\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{System_8h_a9f28a641641de8e783815ab1fa92549f}{RTOS\_setup}}(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00216}00216\ }
-\DoxyCodeLine{\Hypertarget{System_8h_source_l00217}00217\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SYSTEM\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00209}00209\ \textcolor{comment}{/*============================================================================*/}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00210}00210\ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SHARED\ STATE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00211}00211\ \textcolor{comment}{/*============================================================================*/}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00212}00212\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00219}00219\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ uint16\_t\ \doxymbox{\hyperlink{group__system_ga9e78367aa5b758af972838362c2b0eab}{G\_u16SystemFlags}};}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00220}00220\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00227}00227\ \textcolor{keyword}{extern}\ \doxymbox{\hyperlink{structHostVehicleState__t}{HostVehicleState\_t}}\ \doxymbox{\hyperlink{group__system_gac3116f56a230ebdd81cadd527921464c}{G\_stHostVehicleState}};}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00228}00228\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00236}00236\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{group__system_ga10d54e2c66effa6800db6f78aaec485c}{Host\_DistToIntersection}};}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00237}00237\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00238}00238\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{LED__interface_8h}{../Drivers/HAL/LED/LED\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00239}00239\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00248}00248\ \textcolor{keyword}{extern}\ \doxymbox{\hyperlink{structLED__Config__t}{LED\_Config\_t}}\ \doxymbox{\hyperlink{group__system_gaf1fb4a43ba68d1fdc94fd35a7d901cd4}{FrontR\_LED}};\ \ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00249}00249\ \textcolor{keyword}{extern}\ \doxymbox{\hyperlink{structLED__Config__t}{LED\_Config\_t}}\ \doxymbox{\hyperlink{group__system_ga2ab79e3f6235026ef8d29a9446511f48}{FrontL\_LED}};\ \ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00250}00250\ \textcolor{keyword}{extern}\ \doxymbox{\hyperlink{structLED__Config__t}{LED\_Config\_t}}\ \doxymbox{\hyperlink{group__system_gae41df9dd37d7c4d27b829fd46cd1e5e3}{BackR\_LED}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00251}00251\ \textcolor{keyword}{extern}\ \doxymbox{\hyperlink{structLED__Config__t}{LED\_Config\_t}}\ \doxymbox{\hyperlink{group__system_gabfc8237214cfd1267c607aaff66a96da}{BackL\_LED}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00252}00252\ \textcolor{keyword}{extern}\ \doxymbox{\hyperlink{structLED__Config__t}{LED\_Config\_t}}\ \doxymbox{\hyperlink{group__system_gaa7037844a95faca4f50aae714fe5048a}{Interior\_LED}};\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00254}00254\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00255}00255\ \textcolor{comment}{/*============================================================================*/}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00256}00256\ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SETUP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00257}00257\ \textcolor{comment}{/*============================================================================*/}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00258}00258\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00265}\doxymbox{\hyperlink{group__system_ga90b9ebedff8635727698afd2fa84b90a}{00265}}\ \textcolor{preprocessor}{\#define\ DWT\_CTRL\ *((volatile\ uint32\_t\ *)0xE0001000)}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00266}00266\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00271}00271\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__system_gac3f6c7e9a568f4528304150a6f59736b}{SEGGER\_setup}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00272}00272\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00280}00280\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__system_gae436954cd2bde6634ab271317d2494a7}{System\_setup}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00281}00281\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00288}00288\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__system_ga9f28a641641de8e783815ab1fa92549f}{RTOS\_setup}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00289}00289\ \ \textcolor{comment}{/*\ end\ of\ system\ */}}
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00291}00291\ }
+\DoxyCodeLine{\Hypertarget{System_8h_source_l00292}00292\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SYSTEM\_H\ */}\textcolor{preprocessor}{}}
 
 \end{DoxyCode}

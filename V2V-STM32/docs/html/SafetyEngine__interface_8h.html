@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V2X Collision Avoidance System: Inc/Application/SafetyEngine/SafetyEngine_interface.h File Reference</title>
+<title>V2V Collision Avoidance Firmware: V2V-STM32/Inc/Application/SafetyEngine/SafetyEngine_interface.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,9 +27,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">V2X Collision Avoidance System<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">V2V Collision Avoidance Firmware<span id="projectnumber">&#160;v1.0</span>
    </div>
-   <div id="projectbrief">Vehicle-to-Vehicle (V2V) Collision Avoidance System based on STM32F446RE</div>
+   <div id="projectbrief">Bare-metal STM32F446RE firmware for the V2X vehicle-to-vehicle collision-avoidance node (DSRC + BSW / EEBL / FCW / DNPW / IMA)</div>
   </td>
  </tr>
  </tbody>
@@ -90,596 +90,96 @@ $(function(){initNavTree('SafetyEngine__interface_8h.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">SafetyEngine_interface.h File Reference</div></div>
+  <div class="headertitle"><div class="title">SafetyEngine_interface.h File Reference<div class="ingroups"><a class="el" href="group__app.html">Application</a> &raquo; <a class="el" href="group__app__safetyengine.html">SafetyEngine</a></div></div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="SafetyEngine__interface_8h__dep__incl.png" border="0" usemap="#aInc_2Application_2SafetyEngine_2SafetyEngine__interface_8hdep" loading="lazy" alt=""/></div>
-<map name="aInc_2Application_2SafetyEngine_2SafetyEngine__interface_8hdep" id="aInc_2Application_2SafetyEngine_2SafetyEngine__interface_8hdep">
-<area shape="rect" title=" " alt="" coords="537,5,744,50"/>
-<area shape="rect" href="BSW__interface_8h.html" title=" " alt="" coords="80,98,231,143"/>
-<area shape="poly" title=" " alt="" coords="521,50,243,101,232,103,231,98,242,95,523,45"/>
-<area shape="rect" href="BSW__program_8c.html" title=" " alt="" coords="5,191,154,218"/>
-<area shape="poly" title=" " alt="" coords="519,35,383,46,236,59,113,77,72,88,51,100,45,110,42,121,46,145,58,169,72,190,66,190,53,172,41,147,37,120,40,108,47,96,70,83,112,72,235,54,383,41,524,34"/>
-<area shape="rect" href="SafetyEngine__program_8c.html" title=" " alt="" coords="249,191,454,218"/>
-<area shape="poly" title=" " alt="" coords="519,36,388,47,246,60,129,78,90,89,69,100,57,121,59,139,74,154,99,166,169,185,252,197,246,198,168,190,97,171,71,158,55,141,52,120,66,96,88,84,128,73,246,55,388,41,524,34"/>
-<area shape="rect" href="main_8c.html" title=": Main program body" alt="" coords="478,191,567,218"/>
-<area shape="poly" title=" " alt="" coords="666,61,676,82,682,103,683,124,675,144,658,159,631,172,568,194,567,189,629,167,655,154,671,141,678,123,677,104,671,83,663,66"/>
-<area shape="rect" href="EEBL__interface_8h.html" title=" " alt="" coords="507,98,660,143"/>
-<area shape="poly" title=" " alt="" coords="621,61,599,100,595,96,617,64"/>
-<area shape="rect" href="EEBL__program_8c.html" title=" " alt="" coords="811,191,961,218"/>
-<area shape="poly" title=" " alt="" coords="760,41,857,63,896,78,920,96,927,108,929,121,924,147,913,172,898,192,896,188,908,169,919,146,924,121,922,110,916,100,893,83,855,68,760,47"/>
-<area shape="rect" href="FCW__DNPW__interface_8h.html" title=" " alt="" coords="255,98,483,143"/>
-<area shape="poly" title=" " alt="" coords="564,55,435,100,433,95,559,56"/>
-<area shape="rect" href="FCW__DNPW__program_8c.html" title=" " alt="" coords="591,191,787,218"/>
-<area shape="poly" title=" " alt="" coords="760,45,843,66,875,80,896,96,906,115,904,132,894,147,878,159,832,179,778,193,777,187,830,174,875,155,891,143,899,130,900,116,892,100,873,84,841,71,760,50"/>
-<area shape="rect" href="IMA__interface_8h.html" title=" " alt="" coords="736,98,882,143"/>
-<area shape="poly" title=" " alt="" coords="695,55,772,98,766,97,694,60"/>
-<area shape="rect" href="IMA__program_8c.html" title=" " alt="" coords="985,191,1128,218"/>
-<area shape="poly" title=" " alt="" coords="760,39,852,60,898,76,942,96,976,117,1006,143,1049,191,1044,189,1002,147,972,121,940,100,896,81,850,65,760,45"/>
-<area shape="poly" title=" " alt="" coords="128,153,93,192,90,188,123,155"/>
-<area shape="poly" title=" " alt="" coords="222,146,323,190,317,191,221,152"/>
-<area shape="poly" title=" " alt="" coords="247,141,467,188,480,193,474,193,466,193,246,146"/>
-<area shape="poly" title=" " alt="" coords="510,148,389,193,388,188,505,149"/>
-<area shape="poly" title=" " alt="" coords="561,154,533,192,531,188,556,156"/>
-<area shape="poly" title=" " alt="" coords="676,144,840,190,835,190,675,149"/>
-<area shape="poly" title=" " alt="" coords="363,156,356,192,352,188,359,160"/>
-<area shape="poly" title=" " alt="" coords="424,148,500,190,495,190,422,153"/>
-<area shape="poly" title=" " alt="" coords="469,144,640,190,635,190,468,150"/>
-<area shape="poly" title=" " alt="" coords="723,137,426,193,425,187,718,137"/>
-<area shape="poly" title=" " alt="" coords="723,147,568,193,567,188,718,147"/>
-<area shape="poly" title=" " alt="" coords="889,145,1020,190,1014,190,888,151"/>
-</map>
+
+<p>Public API of the SafetyEngine driver — the shared risk model and per-cycle ADAS orchestration.  
+<a href="#details">More...</a></p>
+<div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="SafetyEngine__interface_8h__dep__incl.svg" width="100%" height="493"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="SafetyEngine__interface_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:aca40a05ff74dcd2687ba7101bbdab282" id="r_aca40a05ff74dcd2687ba7101bbdab282"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aca40a05ff74dcd2687ba7101bbdab282">HEADING_SAME_THRESHOLD</a>&#160;&#160;&#160;(40.0f)</td></tr>
-<tr class="memitem:a518549e49262479055bfda4ccb97c795" id="r_a518549e49262479055bfda4ccb97c795"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a518549e49262479055bfda4ccb97c795">HEADING_OPPOSITE_THRESHOLD</a>&#160;&#160;&#160;(40.0f)</td></tr>
-<tr class="memitem:add0385cb7855bf3c89030696bb436e59" id="r_add0385cb7855bf3c89030696bb436e59"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#add0385cb7855bf3c89030696bb436e59">HEADING_CROSS_THRESHOLD</a>&#160;&#160;&#160;(40.0f)</td></tr>
-<tr class="memitem:af9df724bcbcf5549ecc67e598fc3dde4" id="r_af9df724bcbcf5549ecc67e598fc3dde4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#af9df724bcbcf5549ecc67e598fc3dde4">SAFE_DIST_PER_MS</a>&#160;&#160;&#160;(40.0f)    /* cm of safe gap per 1 m/s (prototype) */</td></tr>
-<tr class="memitem:ae17b0ade1e41ab06c55995e9afee25ff" id="r_ae17b0ade1e41ab06c55995e9afee25ff"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ae17b0ade1e41ab06c55995e9afee25ff">MIN_SAFE_DISTANCE</a>&#160;&#160;&#160;(30.0f)    /* floor: SAFE zone  &gt;= 30 cm           */</td></tr>
-<tr class="memitem:a68fd7ab4074cc7e0c9e280582926f40b" id="r_a68fd7ab4074cc7e0c9e280582926f40b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a68fd7ab4074cc7e0c9e280582926f40b">CRITICAL_RATIO</a>&#160;&#160;&#160;(0.667f)   /* CRITICAL below ~67% -&gt; crit = 20 cm   */</td></tr>
+<tr id="define-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">Direction classification thresholds</div></td></tr>
+<tr><td colspan="2" class="ititle"><div class="groupText"><p>How far two vehicles' headings may differ and still count as travelling the same way, opposite ways, or across each other [degrees].</p>
+<dl class="section note"><dt>Note</dt><dd>These were widened from 30° to 40° deliberately. Each car reports the heading <em>its own</em> magnetometer measured, and two magnetometers rarely agree to better than a few tens of degrees. A tight threshold therefore kept classifying genuinely same-direction pairs as <a class="el" href="group__app__safetyengine.html#gga2e9ec086ba61b35cfc2439306cdfdd70a595694ddc9fc69be39448c7aebc29492" title="DIR_UNKNOWN">DIR_UNKNOWN</a>, which silently switched every cooperative module off. </dd></dl>
+</div></td></tr>
+<tr class="memitem:gaca40a05ff74dcd2687ba7101bbdab282" id="r_gaca40a05ff74dcd2687ba7101bbdab282"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__app__safetyengine.html#gaca40a05ff74dcd2687ba7101bbdab282">HEADING_SAME_THRESHOLD</a></td></tr>
+<tr class="memdesc:gaca40a05ff74dcd2687ba7101bbdab282"><td class="mdescLeft">&#160;</td><td class="mdescRight">Headings within this of each other → <a class="el" href="group__app__safetyengine.html#gga2e9ec086ba61b35cfc2439306cdfdd70abfd39f0e5351141b388b18956a84a61e" title="DIR_SAME">DIR_SAME</a>.  <br /></td></tr>
+<tr class="memitem:ga518549e49262479055bfda4ccb97c795" id="r_ga518549e49262479055bfda4ccb97c795"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__app__safetyengine.html#ga518549e49262479055bfda4ccb97c795">HEADING_OPPOSITE_THRESHOLD</a></td></tr>
+<tr class="memdesc:ga518549e49262479055bfda4ccb97c795"><td class="mdescLeft">&#160;</td><td class="mdescRight">Headings within this of 180° apart → <a class="el" href="group__app__safetyengine.html#gga2e9ec086ba61b35cfc2439306cdfdd70a30837161ea401603ea11e12bf7e910d7" title="DIR_OPPOSITE">DIR_OPPOSITE</a>.  <br /></td></tr>
+<tr class="memitem:gadd0385cb7855bf3c89030696bb436e59" id="r_gadd0385cb7855bf3c89030696bb436e59"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__app__safetyengine.html#gadd0385cb7855bf3c89030696bb436e59">HEADING_CROSS_THRESHOLD</a></td></tr>
+<tr class="memdesc:gadd0385cb7855bf3c89030696bb436e59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Headings within this of 90° apart → <a class="el" href="group__app__safetyengine.html#gga2e9ec086ba61b35cfc2439306cdfdd70ac6ff9aad4173c225b2c38b1f945b9726" title="DIR_CROSSING">DIR_CROSSING</a>.  <br /></td></tr>
+<tr id="define-members-1" class="groupHeader"><td colspan="2"><div class="groupHeader">Shared safe-distance model</div></td></tr>
+<tr><td colspan="2" class="ititle"><div class="groupText"><p>The one place the firmware decides how much room is "enough".</p>
+<p>Both distance-based modules — local FCW and EEBL — use it, so a change here moves both, and the two can never drift out of agreement.</p>
+<p>The gap scales with speed, because stopping distance does:</p>
+<pre class="fragment">*   safe_cm     = max(Host_Speed[m/s] * SAFE_DIST_PER_MS, MIN_SAFE_DISTANCE)
+*   critical_cm = safe_cm * CRITICAL_RATIO
+* </pre><dl class="section note"><dt>Note</dt><dd>The constants are sized for the <b>prototype</b>, not a real car: a small vehicle whose top speed is around 0.5 m/s, operating in corridors where obstacles sit tens of centimetres away. At that scale the speed term is small and <a class="el" href="group__app__safetyengine.html#gae17b0ade1e41ab06c55995e9afee25ff" title="MIN_SAFE_DISTANCE">MIN_SAFE_DISTANCE</a> is what actually governs — it is the dominant floor, not a rarely-hit corner case. </dd></dl>
+</div></td></tr>
+<tr class="memitem:gaf9df724bcbcf5549ecc67e598fc3dde4" id="r_gaf9df724bcbcf5549ecc67e598fc3dde4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__app__safetyengine.html#gaf9df724bcbcf5549ecc67e598fc3dde4">SAFE_DIST_PER_MS</a></td></tr>
+<tr class="memdesc:gaf9df724bcbcf5549ecc67e598fc3dde4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Centimetres of safe gap per 1 m/s of speed.  <br /></td></tr>
+<tr class="memitem:gae17b0ade1e41ab06c55995e9afee25ff" id="r_gae17b0ade1e41ab06c55995e9afee25ff"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__app__safetyengine.html#gae17b0ade1e41ab06c55995e9afee25ff">MIN_SAFE_DISTANCE</a></td></tr>
+<tr class="memdesc:gae17b0ade1e41ab06c55995e9afee25ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Floor on the safe gap [cm], whatever the speed.  <br /></td></tr>
+<tr class="memitem:ga68fd7ab4074cc7e0c9e280582926f40b" id="r_ga68fd7ab4074cc7e0c9e280582926f40b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group__app__safetyengine.html#ga68fd7ab4074cc7e0c9e280582926f40b">CRITICAL_RATIO</a></td></tr>
+<tr class="memdesc:ga68fd7ab4074cc7e0c9e280582926f40b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fraction of the safe gap below which the risk is critical.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a2e9ec086ba61b35cfc2439306cdfdd70" id="r_a2e9ec086ba61b35cfc2439306cdfdd70"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#a2e9ec086ba61b35cfc2439306cdfdd70">Direction_t</a> { <a class="el" href="#a2e9ec086ba61b35cfc2439306cdfdd70abfd39f0e5351141b388b18956a84a61e">DIR_SAME</a>
-, <a class="el" href="#a2e9ec086ba61b35cfc2439306cdfdd70a30837161ea401603ea11e12bf7e910d7">DIR_OPPOSITE</a>
-, <a class="el" href="#a2e9ec086ba61b35cfc2439306cdfdd70ac6ff9aad4173c225b2c38b1f945b9726">DIR_CROSSING</a>
-, <a class="el" href="#a2e9ec086ba61b35cfc2439306cdfdd70a595694ddc9fc69be39448c7aebc29492">DIR_UNKNOWN</a>
+<tr class="memitem:ga2e9ec086ba61b35cfc2439306cdfdd70" id="r_ga2e9ec086ba61b35cfc2439306cdfdd70"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="group__app__safetyengine.html#ga2e9ec086ba61b35cfc2439306cdfdd70">Direction_t</a> { <a class="el" href="group__app__safetyengine.html#gga2e9ec086ba61b35cfc2439306cdfdd70abfd39f0e5351141b388b18956a84a61e">DIR_SAME</a>
+, <a class="el" href="group__app__safetyengine.html#gga2e9ec086ba61b35cfc2439306cdfdd70a30837161ea401603ea11e12bf7e910d7">DIR_OPPOSITE</a>
+, <a class="el" href="group__app__safetyengine.html#gga2e9ec086ba61b35cfc2439306cdfdd70ac6ff9aad4173c225b2c38b1f945b9726">DIR_CROSSING</a>
+, <a class="el" href="group__app__safetyengine.html#gga2e9ec086ba61b35cfc2439306cdfdd70a595694ddc9fc69be39448c7aebc29492">DIR_UNKNOWN</a>
  }</td></tr>
-<tr class="memitem:aa870174b113e13762b47e719bf3efa88" id="r_aa870174b113e13762b47e719bf3efa88"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#aa870174b113e13762b47e719bf3efa88">RiskLevel_t</a> { <a class="el" href="#aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c">RISK_SAFE</a> = 0
-, <a class="el" href="#aa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82">RISK_WARNING</a>
-, <a class="el" href="#aa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492">RISK_CRITICAL</a>
+<tr class="memdesc:ga2e9ec086ba61b35cfc2439306cdfdd70"><td class="mdescLeft">&#160;</td><td class="mdescRight">How a neighbor is moving relative to us — the first question every cooperative module asks.  <a href="group__app__safetyengine.html#ga2e9ec086ba61b35cfc2439306cdfdd70">More...</a><br /></td></tr>
+<tr class="memitem:gaa870174b113e13762b47e719bf3efa88" id="r_gaa870174b113e13762b47e719bf3efa88"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="group__app__safetyengine.html#gaa870174b113e13762b47e719bf3efa88">RiskLevel_t</a> { <a class="el" href="group__app__safetyengine.html#ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c">RISK_SAFE</a>
+, <a class="el" href="group__app__safetyengine.html#ggaa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82">RISK_WARNING</a>
+, <a class="el" href="group__app__safetyengine.html#ggaa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492">RISK_CRITICAL</a>
  }</td></tr>
+<tr class="memdesc:gaa870174b113e13762b47e719bf3efa88"><td class="mdescLeft">&#160;</td><td class="mdescRight">The graded verdict every ADAS module returns.  <a href="group__app__safetyengine.html#gaa870174b113e13762b47e719bf3efa88">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad87fdbbd1376c4cebfa69a906cfbe556" id="r_ad87fdbbd1376c4cebfa69a906cfbe556"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad87fdbbd1376c4cebfa69a906cfbe556">SafetyEngine_voidInit</a> (void)</td></tr>
-<tr class="memdesc:ad87fdbbd1376c4cebfa69a906cfbe556"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize all safety modules (FCW/DNPW, EEBL, BSW, IMA).  <br /></td></tr>
-<tr class="memitem:a7b6c12632534a82b4357a73306667157" id="r_a7b6c12632534a82b4357a73306667157"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7b6c12632534a82b4357a73306667157">SafetyEngine_voidUpdate</a> (void)</td></tr>
-<tr class="memdesc:a7b6c12632534a82b4357a73306667157"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single-pass update over the DSRC neighbor table. Runs all safety modules in ONE pass and aggregates the result into the G_u16SystemFlags status word (2 bits/module) for vTask_Feedback and vTask_RPi_Comm to consume.  <br /></td></tr>
-<tr class="memitem:ab7dae45d16fd67e39cae94350eb6d0f7" id="r_ab7dae45d16fd67e39cae94350eb6d0f7"><td class="memItemLeft"><a class="el" href="#a2e9ec086ba61b35cfc2439306cdfdd70">Direction_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab7dae45d16fd67e39cae94350eb6d0f7">SafetyEngine_DetectDirection</a> (float my_heading, float other_heading)</td></tr>
-<tr class="memdesc:ab7dae45d16fd67e39cae94350eb6d0f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detect direction relationship between two vehicles.  <br /></td></tr>
-<tr class="memitem:a7e73033d8b868fa66e2090ca79150677" id="r_a7e73033d8b868fa66e2090ca79150677"><td class="memItemLeft"><a class="el" href="#aa870174b113e13762b47e719bf3efa88">RiskLevel_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7e73033d8b868fa66e2090ca79150677">SafetyEngine_EvaluateRisk</a> (float value, float warning_thr, float critical_thr)</td></tr>
-<tr class="memdesc:a7e73033d8b868fa66e2090ca79150677"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate risk from a "lower value = higher risk" metric. Used by IMA for time-gap/delay thresholds.  <br /></td></tr>
-<tr class="memitem:aff42a93f5f7c50d14d779e142010ae71" id="r_aff42a93f5f7c50d14d779e142010ae71"><td class="memItemLeft"><a class="el" href="#aa870174b113e13762b47e719bf3efa88">RiskLevel_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#aff42a93f5f7c50d14d779e142010ae71">SafetyEngine_AssessDistanceRisk</a> (float host_speed, float distance, float dist_per_ms, float min_dist, float crit_ratio)</td></tr>
-<tr class="memdesc:aff42a93f5f7c50d14d779e142010ae71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assess collision risk from host speed and a measured distance.  <br /></td></tr>
+<tr class="memitem:gad87fdbbd1376c4cebfa69a906cfbe556" id="r_gad87fdbbd1376c4cebfa69a906cfbe556"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__app__safetyengine.html#gad87fdbbd1376c4cebfa69a906cfbe556">SafetyEngine_voidInit</a> (void)</td></tr>
+<tr class="memdesc:gad87fdbbd1376c4cebfa69a906cfbe556"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise all five ADAS modules (FCW/DNPW, EEBL, BSW, IMA).  <br /></td></tr>
+<tr class="memitem:ga7b6c12632534a82b4357a73306667157" id="r_ga7b6c12632534a82b4357a73306667157"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__app__safetyengine.html#ga7b6c12632534a82b4357a73306667157">SafetyEngine_voidUpdate</a> (void)</td></tr>
+<tr class="memdesc:ga7b6c12632534a82b4357a73306667157"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run one full ADAS cycle: every module, over every neighbor, in one pass.  <br /></td></tr>
+<tr class="memitem:gab7dae45d16fd67e39cae94350eb6d0f7" id="r_gab7dae45d16fd67e39cae94350eb6d0f7"><td class="memItemLeft"><a class="el" href="group__app__safetyengine.html#ga2e9ec086ba61b35cfc2439306cdfdd70">Direction_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__app__safetyengine.html#gab7dae45d16fd67e39cae94350eb6d0f7">SafetyEngine_DetectDirection</a> (float my_heading, float other_heading)</td></tr>
+<tr class="memdesc:gab7dae45d16fd67e39cae94350eb6d0f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detect direction relationship between two vehicles.  <br /></td></tr>
+<tr class="memitem:ga7e73033d8b868fa66e2090ca79150677" id="r_ga7e73033d8b868fa66e2090ca79150677"><td class="memItemLeft"><a class="el" href="group__app__safetyengine.html#gaa870174b113e13762b47e719bf3efa88">RiskLevel_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__app__safetyengine.html#ga7e73033d8b868fa66e2090ca79150677">SafetyEngine_EvaluateRisk</a> (float value, float warning_thr, float critical_thr)</td></tr>
+<tr class="memdesc:ga7e73033d8b868fa66e2090ca79150677"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate risk from a "lower value = higher risk" metric.  <br /></td></tr>
+<tr class="memitem:gaff42a93f5f7c50d14d779e142010ae71" id="r_gaff42a93f5f7c50d14d779e142010ae71"><td class="memItemLeft"><a class="el" href="group__app__safetyengine.html#gaa870174b113e13762b47e719bf3efa88">RiskLevel_t</a>&#160;</td><td class="memItemRight"><a class="el" href="group__app__safetyengine.html#gaff42a93f5f7c50d14d779e142010ae71">SafetyEngine_AssessDistanceRisk</a> (float host_speed, float distance, float dist_per_ms, float min_dist, float crit_ratio)</td></tr>
+<tr class="memdesc:gaff42a93f5f7c50d14d779e142010ae71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assess collision risk from host speed and a measured distance.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a16174df02da93c0fc96432a4bc1de57b" id="r_a16174df02da93c0fc96432a4bc1de57b"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a16174df02da93c0fc96432a4bc1de57b">Host_Speed</a></td></tr>
-<tr class="memitem:afb1ff5cedbd39f1a8b81a25a7dcdb171" id="r_afb1ff5cedbd39f1a8b81a25a7dcdb171"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#afb1ff5cedbd39f1a8b81a25a7dcdb171">Host_Heading</a></td></tr>
-<tr class="memitem:a2d869610528b06238c15ab8fb160304f" id="r_a2d869610528b06238c15ab8fb160304f"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a2d869610528b06238c15ab8fb160304f">SafetyEngine_SafeDist</a></td></tr>
-<tr class="memitem:a414ebc77c31778b0d2f7371abdbd2d19" id="r_a414ebc77c31778b0d2f7371abdbd2d19"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a414ebc77c31778b0d2f7371abdbd2d19">SafetyEngine_CriticalDist</a></td></tr>
+<tr id="var-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">Host vehicle state for the current cycle</div></td></tr>
+<tr><td colspan="2" class="ititle"><div class="groupText"><p><a class="el" href="group__app__safetyengine.html#ga7b6c12632534a82b4357a73306667157" title="SafetyEngine_voidUpdate">SafetyEngine_voidUpdate</a> latches these from <a class="el" href="group__system.html#gac3116f56a230ebdd81cadd527921464c" title="G_stHostVehicleState">G_stHostVehicleState</a> once at the top of each 50 ms cycle, and the modules then read them as they walk the neighbor table.</p>
+<p>Latching once is what guarantees every module in a given cycle reasons about the <em>same</em> vehicle state, even though the sensors keep updating. </p>
+</div></td></tr>
+<tr class="memitem:ga16174df02da93c0fc96432a4bc1de57b" id="r_ga16174df02da93c0fc96432a4bc1de57b"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="group__app__safetyengine.html#ga16174df02da93c0fc96432a4bc1de57b">Host_Speed</a></td></tr>
+<tr class="memdesc:ga16174df02da93c0fc96432a4bc1de57b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This vehicle's speed for this cycle [m/s].  <br /></td></tr>
+<tr class="memitem:gafb1ff5cedbd39f1a8b81a25a7dcdb171" id="r_gafb1ff5cedbd39f1a8b81a25a7dcdb171"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="group__app__safetyengine.html#gafb1ff5cedbd39f1a8b81a25a7dcdb171">Host_Heading</a></td></tr>
+<tr class="memdesc:gafb1ff5cedbd39f1a8b81a25a7dcdb171"><td class="mdescLeft">&#160;</td><td class="mdescRight">This vehicle's heading for this cycle [degrees], 0..360.  <br /></td></tr>
+<tr class="memitem:ga2d869610528b06238c15ab8fb160304f" id="r_ga2d869610528b06238c15ab8fb160304f"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="group__app__safetyengine.html#ga2d869610528b06238c15ab8fb160304f">SafetyEngine_SafeDist</a></td></tr>
+<tr class="memdesc:ga2d869610528b06238c15ab8fb160304f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The safe gap for this cycle [cm], from the model above.  <br /></td></tr>
+<tr class="memitem:ga414ebc77c31778b0d2f7371abdbd2d19" id="r_ga414ebc77c31778b0d2f7371abdbd2d19"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="group__app__safetyengine.html#ga414ebc77c31778b0d2f7371abdbd2d19">SafetyEngine_CriticalDist</a></td></tr>
+<tr class="memdesc:ga414ebc77c31778b0d2f7371abdbd2d19"><td class="mdescLeft">&#160;</td><td class="mdescRight">The critical gap for this cycle [cm].  <br /></td></tr>
 </table>
-<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="a68fd7ab4074cc7e0c9e280582926f40b" name="a68fd7ab4074cc7e0c9e280582926f40b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a68fd7ab4074cc7e0c9e280582926f40b">&#9670;&#160;</a></span>CRITICAL_RATIO</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Public API of the SafetyEngine driver — the shared risk model and per-cycle ADAS orchestration. </p>
+<dl class="section author"><dt>Author</dt><dd>Abdallah Abdelmoemen Shehawey  </dd></dl>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CRITICAL_RATIO&#160;&#160;&#160;(0.667f)   /* CRITICAL below ~67% -&gt; crit = 20 cm   */</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="SafetyEngine__interface_8h_source.html#l00042">42</a> of file <a class="el" href="SafetyEngine__interface_8h_source.html">SafetyEngine_interface.h</a>.</p>
-
-</div>
-</div>
-<a id="add0385cb7855bf3c89030696bb436e59" name="add0385cb7855bf3c89030696bb436e59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add0385cb7855bf3c89030696bb436e59">&#9670;&#160;</a></span>HEADING_CROSS_THRESHOLD</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define HEADING_CROSS_THRESHOLD&#160;&#160;&#160;(40.0f)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="SafetyEngine__interface_8h_source.html#l00011">11</a> of file <a class="el" href="SafetyEngine__interface_8h_source.html">SafetyEngine_interface.h</a>.</p>
-
-</div>
-</div>
-<a id="a518549e49262479055bfda4ccb97c795" name="a518549e49262479055bfda4ccb97c795"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a518549e49262479055bfda4ccb97c795">&#9670;&#160;</a></span>HEADING_OPPOSITE_THRESHOLD</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define HEADING_OPPOSITE_THRESHOLD&#160;&#160;&#160;(40.0f)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="SafetyEngine__interface_8h_source.html#l00010">10</a> of file <a class="el" href="SafetyEngine__interface_8h_source.html">SafetyEngine_interface.h</a>.</p>
-
-</div>
-</div>
-<a id="aca40a05ff74dcd2687ba7101bbdab282" name="aca40a05ff74dcd2687ba7101bbdab282"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca40a05ff74dcd2687ba7101bbdab282">&#9670;&#160;</a></span>HEADING_SAME_THRESHOLD</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define HEADING_SAME_THRESHOLD&#160;&#160;&#160;(40.0f)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="SafetyEngine__interface_8h_source.html#l00009">9</a> of file <a class="el" href="SafetyEngine__interface_8h_source.html">SafetyEngine_interface.h</a>.</p>
-
-</div>
-</div>
-<a id="ae17b0ade1e41ab06c55995e9afee25ff" name="ae17b0ade1e41ab06c55995e9afee25ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae17b0ade1e41ab06c55995e9afee25ff">&#9670;&#160;</a></span>MIN_SAFE_DISTANCE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MIN_SAFE_DISTANCE&#160;&#160;&#160;(30.0f)    /* floor: SAFE zone  &gt;= 30 cm           */</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="SafetyEngine__interface_8h_source.html#l00041">41</a> of file <a class="el" href="SafetyEngine__interface_8h_source.html">SafetyEngine_interface.h</a>.</p>
-
-</div>
-</div>
-<a id="af9df724bcbcf5549ecc67e598fc3dde4" name="af9df724bcbcf5549ecc67e598fc3dde4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9df724bcbcf5549ecc67e598fc3dde4">&#9670;&#160;</a></span>SAFE_DIST_PER_MS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SAFE_DIST_PER_MS&#160;&#160;&#160;(40.0f)    /* cm of safe gap per 1 m/s (prototype) */</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="SafetyEngine__interface_8h_source.html#l00040">40</a> of file <a class="el" href="SafetyEngine__interface_8h_source.html">SafetyEngine_interface.h</a>.</p>
-
-</div>
-</div>
-<a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
-<a id="a2e9ec086ba61b35cfc2439306cdfdd70" name="a2e9ec086ba61b35cfc2439306cdfdd70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e9ec086ba61b35cfc2439306cdfdd70">&#9670;&#160;</a></span>Direction_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="#a2e9ec086ba61b35cfc2439306cdfdd70">Direction_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a2e9ec086ba61b35cfc2439306cdfdd70abfd39f0e5351141b388b18956a84a61e" name="a2e9ec086ba61b35cfc2439306cdfdd70abfd39f0e5351141b388b18956a84a61e"></a>DIR_SAME&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a2e9ec086ba61b35cfc2439306cdfdd70a30837161ea401603ea11e12bf7e910d7" name="a2e9ec086ba61b35cfc2439306cdfdd70a30837161ea401603ea11e12bf7e910d7"></a>DIR_OPPOSITE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a2e9ec086ba61b35cfc2439306cdfdd70ac6ff9aad4173c225b2c38b1f945b9726" name="a2e9ec086ba61b35cfc2439306cdfdd70ac6ff9aad4173c225b2c38b1f945b9726"></a>DIR_CROSSING&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a2e9ec086ba61b35cfc2439306cdfdd70a595694ddc9fc69be39448c7aebc29492" name="a2e9ec086ba61b35cfc2439306cdfdd70a595694ddc9fc69be39448c7aebc29492"></a>DIR_UNKNOWN&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="SafetyEngine__interface_8h_source.html#l00013">13</a> of file <a class="el" href="SafetyEngine__interface_8h_source.html">SafetyEngine_interface.h</a>.</p>
-
-</div>
-</div>
-<a id="aa870174b113e13762b47e719bf3efa88" name="aa870174b113e13762b47e719bf3efa88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa870174b113e13762b47e719bf3efa88">&#9670;&#160;</a></span>RiskLevel_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="#aa870174b113e13762b47e719bf3efa88">RiskLevel_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c" name="aa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c"></a>RISK_SAFE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82" name="aa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82"></a>RISK_WARNING&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492" name="aa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492"></a>RISK_CRITICAL&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="SafetyEngine__interface_8h_source.html#l00022">22</a> of file <a class="el" href="SafetyEngine__interface_8h_source.html">SafetyEngine_interface.h</a>.</p>
-
-</div>
-</div>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="aff42a93f5f7c50d14d779e142010ae71" name="aff42a93f5f7c50d14d779e142010ae71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff42a93f5f7c50d14d779e142010ae71">&#9670;&#160;</a></span>SafetyEngine_AssessDistanceRisk()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="#aa870174b113e13762b47e719bf3efa88">RiskLevel_t</a> SafetyEngine_AssessDistanceRisk </td>
-          <td>(</td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>host_speed</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>distance</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>dist_per_ms</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>min_dist</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>crit_ratio</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Assess collision risk from host speed and a measured distance. </p>
-<p>safe_dist_cm = host_speed(m/s) * dist_per_ms (floored at min_dist) distance &gt;= safe_dist -&gt; RISK_SAFE crit*safe &lt;= distance &lt; safe_dist -&gt; RISK_WARNING distance &lt; crit*safe -&gt; RISK_CRITICAL</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">host_speed</td><td>Host vehicle speed (m/s, from MPU) </td></tr>
-    <tr><td class="paramname">distance</td><td>Measured distance to the object (cm, from ultrasonic) </td></tr>
-    <tr><td class="paramname">dist_per_ms</td><td>cm of safe gap per 1 m/s of host speed (module-tuned) </td></tr>
-    <tr><td class="paramname">min_dist</td><td>Minimum safe-distance floor (cm) </td></tr>
-    <tr><td class="paramname">crit_ratio</td><td>Fraction of safe distance below which risk is CRITICAL </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>RISK_SAFE, RISK_WARNING, or RISK_CRITICAL </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="SafetyEngine__program_8c_source.html#l00195">195</a> of file <a class="el" href="SafetyEngine__program_8c_source.html">SafetyEngine_program.c</a>.</p>
-
-</div>
-</div>
-<a id="ab7dae45d16fd67e39cae94350eb6d0f7" name="ab7dae45d16fd67e39cae94350eb6d0f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7dae45d16fd67e39cae94350eb6d0f7">&#9670;&#160;</a></span>SafetyEngine_DetectDirection()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="#a2e9ec086ba61b35cfc2439306cdfdd70">Direction_t</a> SafetyEngine_DetectDirection </td>
-          <td>(</td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>my_heading</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>other_heading</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Detect direction relationship between two vehicles. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">my_heading</td><td>Host vehicle heading (0-360) </td></tr>
-    <tr><td class="paramname">other_heading</td><td>Neighbor vehicle heading (0-360) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>DIR_SAME, DIR_OPPOSITE, DIR_CROSSING, or DIR_UNKNOWN </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="SafetyEngine__program_8c_source.html#l00146">146</a> of file <a class="el" href="SafetyEngine__program_8c_source.html">SafetyEngine_program.c</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="SafetyEngine__interface_8h_ab7dae45d16fd67e39cae94350eb6d0f7_icgraph.png" border="0" usemap="#aSafetyEngine__interface_8h_ab7dae45d16fd67e39cae94350eb6d0f7_icgraph" loading="lazy" alt=""/></div>
-<map name="aSafetyEngine__interface_8h_ab7dae45d16fd67e39cae94350eb6d0f7_icgraph" id="aSafetyEngine__interface_8h_ab7dae45d16fd67e39cae94350eb6d0f7_icgraph">
-<area shape="rect" title="Detect direction relationship between two vehicles." alt="" coords="544,5,761,33"/>
-<area shape="rect" href="SafetyEngine__program_8c.html#a7b6c12632534a82b4357a73306667157" title="Single&#45;pass update over the DSRC neighbor table. Runs all safety modules in ONE pass and aggregates t..." alt="" coords="307,5,496,33"/>
-<area shape="poly" title=" " alt="" coords="526,19,497,22,497,17,531,19"/>
-<area shape="rect" href="main_8c.html#a1fa00ec0e4cf92155fcaa535be5ab3a1" title="Single&#45;pass ADAS brain." alt="" coords="108,5,259,33"/>
-<area shape="poly" title=" " alt="" coords="289,19,260,22,259,17,294,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,94,18"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a7e73033d8b868fa66e2090ca79150677" name="a7e73033d8b868fa66e2090ca79150677"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e73033d8b868fa66e2090ca79150677">&#9670;&#160;</a></span>SafetyEngine_EvaluateRisk()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="#aa870174b113e13762b47e719bf3efa88">RiskLevel_t</a> SafetyEngine_EvaluateRisk </td>
-          <td>(</td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>value</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>warning_thr</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>critical_thr</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Evaluate risk from a "lower value = higher risk" metric. Used by IMA for time-gap/delay thresholds. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">value</td><td>Metric to evaluate (e.g. delay/time-gap in seconds) </td></tr>
-    <tr><td class="paramname">warning_thr</td><td>Threshold for warning level </td></tr>
-    <tr><td class="paramname">critical_thr</td><td>Threshold for critical level </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>RISK_SAFE, RISK_WARNING, or RISK_CRITICAL </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="SafetyEngine__program_8c_source.html#l00173">173</a> of file <a class="el" href="SafetyEngine__program_8c_source.html">SafetyEngine_program.c</a>.</p>
-
-</div>
-</div>
-<a id="ad87fdbbd1376c4cebfa69a906cfbe556" name="ad87fdbbd1376c4cebfa69a906cfbe556"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad87fdbbd1376c4cebfa69a906cfbe556">&#9670;&#160;</a></span>SafetyEngine_voidInit()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void SafetyEngine_voidInit </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Initialize all safety modules (FCW/DNPW, EEBL, BSW, IMA). </p>
-
-<p class="definition">Definition at line <a class="el" href="SafetyEngine__program_8c_source.html#l00033">33</a> of file <a class="el" href="SafetyEngine__program_8c_source.html">SafetyEngine_program.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="SafetyEngine__interface_8h_ad87fdbbd1376c4cebfa69a906cfbe556_cgraph.png" border="0" usemap="#aSafetyEngine__interface_8h_ad87fdbbd1376c4cebfa69a906cfbe556_cgraph" loading="lazy" alt=""/></div>
-<map name="aSafetyEngine__interface_8h_ad87fdbbd1376c4cebfa69a906cfbe556_cgraph" id="aSafetyEngine__interface_8h_ad87fdbbd1376c4cebfa69a906cfbe556_cgraph">
-<area shape="rect" title="Initialize all safety modules (FCW/DNPW, EEBL, BSW, IMA)." alt="" coords="5,84,169,112"/>
-<area shape="rect" href="BSW__program_8c.html#a9f03e569a421d0df764a8e87d671eea4" title="Initialize the BSW module." alt="" coords="241,5,348,33"/>
-<area shape="poly" title=" " alt="" coords="121,81,216,43,239,37,234,40,218,48,124,86"/>
-<area shape="rect" href="EEBL__program_8c.html#aa259a5e3167ee1735a31092312d7fd94" title="Initialize the EEBL module." alt="" coords="240,57,349,85"/>
-<area shape="poly" title=" " alt="" coords="169,85,227,79,222,81,170,90"/>
-<area shape="rect" href="FCW__DNPW__program_8c.html#a3e8b7f3192f0f7284e9b4b5811019225" title="Initialize the FCW/DNPW module." alt="" coords="217,109,372,137"/>
-<area shape="poly" title=" " alt="" coords="169,105,204,111,199,112,169,111"/>
-<area shape="rect" href="IMA__program_8c.html#abd5d231970401e78bd9552c40742d1e9" title="Initialize the IMA module." alt="" coords="243,161,346,189"/>
-<area shape="poly" title=" " alt="" coords="124,110,218,146,239,156,234,156,216,151,123,115"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="SafetyEngine__interface_8h_ad87fdbbd1376c4cebfa69a906cfbe556_icgraph.png" border="0" usemap="#aSafetyEngine__interface_8h_ad87fdbbd1376c4cebfa69a906cfbe556_icgraph" loading="lazy" alt=""/></div>
-<map name="aSafetyEngine__interface_8h_ad87fdbbd1376c4cebfa69a906cfbe556_icgraph" id="aSafetyEngine__interface_8h_ad87fdbbd1376c4cebfa69a906cfbe556_icgraph">
-<area shape="rect" title="Initialize all safety modules (FCW/DNPW, EEBL, BSW, IMA)." alt="" coords="108,5,271,33"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="90,20,60,22,60,17,95,18"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a7b6c12632534a82b4357a73306667157" name="a7b6c12632534a82b4357a73306667157"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b6c12632534a82b4357a73306667157">&#9670;&#160;</a></span>SafetyEngine_voidUpdate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void SafetyEngine_voidUpdate </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Single-pass update over the DSRC neighbor table. Runs all safety modules in ONE pass and aggregates the result into the G_u16SystemFlags status word (2 bits/module) for vTask_Feedback and vTask_RPi_Comm to consume. </p>
-
-<p class="definition">Definition at line <a class="el" href="SafetyEngine__program_8c_source.html#l00049">49</a> of file <a class="el" href="SafetyEngine__program_8c_source.html">SafetyEngine_program.c</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="SafetyEngine__interface_8h_a7b6c12632534a82b4357a73306667157_cgraph.png" border="0" usemap="#aSafetyEngine__interface_8h_a7b6c12632534a82b4357a73306667157_cgraph" loading="lazy" alt=""/></div>
-<map name="aSafetyEngine__interface_8h_a7b6c12632534a82b4357a73306667157_cgraph" id="aSafetyEngine__interface_8h_a7b6c12632534a82b4357a73306667157_cgraph">
-<area shape="rect" title="Single&#45;pass update over the DSRC neighbor table. Runs all safety modules in ONE pass and aggregates t..." alt="" coords="5,448,195,476"/>
-<area shape="rect" href="BSW__program_8c.html#a78f44c9528e62f99efcefaa8d779a6a2" title="Get the receiver&#45;side blind&#45;spot SEVERITY for THIS car (worst side), graded by how close the car behi..." alt="" coords="288,5,440,33"/>
-<area shape="poly" title=" " alt="" coords="99,447,104,375,111,323,123,266,141,206,165,147,198,91,241,44,275,26,272,30,244,48,203,95,170,149,146,208,128,267,116,324,109,376,104,448"/>
-<area shape="rect" href="BSW__program_8c.html#ae07233e2631a1dc55b95b7933e9b9801" title="Begin a new processing cycle — latch side distances, reset accumulators." alt="" coords="284,57,444,85"/>
-<area shape="poly" title=" " alt="" coords="100,447,108,383,129,288,147,236,171,184,202,137,241,96,271,80,268,84,244,100,207,140,176,187,152,238,134,289,113,384,105,448"/>
-<area shape="rect" href="BSW__program_8c.html#a92af4dc1c402accc0ef30daa8d798e00" title="Process one DSRC neighbor for BSW (receiver role)." alt="" coords="266,109,462,137"/>
-<area shape="poly" title=" " alt="" coords="101,447,112,391,136,310,154,266,178,222,206,182,241,148,254,141,251,145,244,152,210,186,182,225,159,268,141,311,117,392,106,448"/>
-<area shape="rect" href="FCW__DNPW__program_8c.html#a0c6c9a2cd9113721e4d3fa8221ffaef9" title="Do&#45;Not&#45;Pass flag (candidate but the oncoming car is in another lane). Graded: WARNING by default,..." alt="" coords="304,161,424,189"/>
-<area shape="poly" title=" " alt="" coords="102,447,116,399,143,332,161,296,184,260,210,228,241,200,263,187,290,179,287,183,266,192,244,204,214,231,188,263,166,298,147,334,121,401,107,449"/>
-<area shape="rect" href="DSRC_8c.html#a15d8d8dc4459f83b2aa2519119d037d0" title=" " alt="" coords="301,213,426,241"/>
-<area shape="poly" title=" " alt="" coords="104,447,121,407,150,354,190,298,214,273,241,252,263,240,288,233,285,237,265,245,244,256,218,277,194,302,155,357,126,409,109,448"/>
-<area shape="rect" href="DSRC_8c.html#a76299bf71b1e2dc13baac26c6c4228c4" title=" " alt="" coords="303,265,424,293"/>
-<area shape="poly" title=" " alt="" coords="108,446,158,377,196,337,241,303,290,286,286,290,244,308,200,341,162,380,112,449"/>
-<area shape="rect" href="EEBL__program_8c.html#afaabdbd7129e3944f1edaa8119941c89" title="Get current EEBL risk level. The LED/buzzer is driven by the caller." alt="" coords="300,317,428,345"/>
-<area shape="poly" title=" " alt="" coords="114,446,168,401,203,376,242,355,287,342,283,345,244,360,206,381,171,405,118,449"/>
-<area shape="rect" href="EEBL__program_8c.html#ad9b9306a8560417cdc9a5d6ec08eff93" title="Begin a new processing cycle — check braking gate, reset accumulator." alt="" coords="283,369,444,397"/>
-<area shape="poly" title=" " alt="" coords="135,445,242,407,278,399,274,403,243,412,138,450"/>
-<area shape="rect" href="EEBL__program_8c.html#aa57120c568a45e9aae5c81b8fbf6f1b0" title="Process one SAME&#45;direction DSRC neighbor for EEBL. The SafetyEngine only dispatches same&#45;direction ne..." alt="" coords="265,421,462,449"/>
-<area shape="poly" title=" " alt="" coords="194,450,252,445,247,448,197,454"/>
-<area shape="rect" href="FCW__DNPW__program_8c.html#add7c6969ea4668acaa5a1684c9d2b8a6" title="Begin a cycle: latch the front distances and reset the signals. The SafetyEngine sets the cycle safe/..." alt="" coords="260,473,468,501"/>
-<area shape="poly" title=" " alt="" coords="194,469,247,474,242,477,196,473"/>
-<area shape="rect" href="FCW__DNPW__program_8c.html#ae4036f8bfcac20167bbb36b1c2b168e9" title="Feed one opposite&#45;direction neighbor (records it and its head&#45;on flag)." alt="" coords="243,525,485,570"/>
-<area shape="poly" title=" " alt="" coords="139,474,244,510,269,519,264,521,242,515,140,479"/>
-<area shape="rect" href="FCW__DNPW__program_8c.html#a39ed4f5fd853ab1d88dcfc504f67b057" title="Feed one same&#45;direction neighbor (confirms a vehicle is ahead)." alt="" coords="253,594,474,639"/>
-<area shape="poly" title=" " alt="" coords="114,474,169,526,205,555,244,580,257,587,252,588,241,584,202,559,165,530,115,479"/>
-<area shape="rect" href="FCW__DNPW__program_8c.html#a724d10fbe6405476d140c3f113e787de" title="Forward&#45;collision flag (vehicle ahead, same lane). Local only." alt="" coords="293,663,435,690"/>
-<area shape="poly" title=" " alt="" coords="107,473,128,511,157,558,196,608,219,630,244,649,280,666,275,667,241,653,215,634,192,611,152,562,123,513,108,479"/>
-<area shape="rect" href="FCW__DNPW__program_8c.html#a0eb1ff382b2898d1d05b62fdeaf96eee" title="Confirmed head&#45;on collision (our candidate and the oncoming car&#39;s)." alt="" coords="265,715,463,742"/>
-<area shape="poly" title=" " alt="" coords="105,473,123,519,150,581,190,646,215,675,244,700,254,707,249,708,241,704,212,678,186,649,145,583,118,521,105,479"/>
-<area shape="rect" href="IMA__program_8c.html#a18f54786f683ab3016989275ccf9e95a" title="Get current IMA flag (for DSRC flag broadcast)." alt="" coords="304,767,424,794"/>
-<area shape="poly" title=" " alt="" coords="104,473,118,528,143,604,162,644,184,684,212,721,244,752,265,764,291,774,286,775,263,769,241,756,208,724,180,687,157,647,138,606,113,530,104,479"/>
-<area shape="rect" href="IMA__program_8c.html#a17e1c415924f5123666b1c7436f57a94" title="Begin a new processing cycle — reset accumulators No sensor parameters needed; IMA reads Host_Speed f..." alt="" coords="287,819,441,846"/>
-<area shape="poly" title=" " alt="" coords="103,474,114,537,137,626,155,675,178,722,208,766,244,804,275,822,269,823,241,808,204,769,174,725,150,677,132,628,109,538,102,479"/>
-<area shape="rect" href="IMA__program_8c.html#a748c4abb479229cffa75659e88bd9751" title="Process one CROSSING&#45;direction DSRC neighbor for IMA. The SafetyEngine only dispatches crossing&#45;direc..." alt="" coords="269,871,459,898"/>
-<area shape="poly" title=" " alt="" coords="102,473,110,545,130,648,148,704,172,760,204,812,244,856,257,867,252,866,241,860,200,815,168,762,143,706,125,649,105,545,101,479"/>
-<area shape="rect" href="SafetyEngine__program_8c.html#ab7dae45d16fd67e39cae94350eb6d0f7" title="Detect direction relationship between two vehicles." alt="" coords="256,923,472,950"/>
-<area shape="poly" title=" " alt="" coords="101,473,107,553,113,608,124,670,141,734,166,798,200,857,245,908,250,915,245,914,241,912,196,860,162,800,136,736,119,671,108,609,102,553,101,479"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="SafetyEngine__interface_8h_a7b6c12632534a82b4357a73306667157_icgraph.png" border="0" usemap="#aSafetyEngine__interface_8h_a7b6c12632534a82b4357a73306667157_icgraph" loading="lazy" alt=""/></div>
-<map name="aSafetyEngine__interface_8h_a7b6c12632534a82b4357a73306667157_icgraph" id="aSafetyEngine__interface_8h_a7b6c12632534a82b4357a73306667157_icgraph">
-<area shape="rect" title="Single&#45;pass update over the DSRC neighbor table. Runs all safety modules in ONE pass and aggregates t..." alt="" coords="307,5,496,33"/>
-<area shape="rect" href="main_8c.html#a1fa00ec0e4cf92155fcaa535be5ab3a1" title="Single&#45;pass ADAS brain." alt="" coords="108,5,259,33"/>
-<area shape="poly" title=" " alt="" coords="289,19,260,22,259,17,294,19"/>
-<area shape="rect" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,60,33"/>
-<area shape="poly" title=" " alt="" coords="89,20,60,22,60,17,94,18"/>
-</map>
-</div>
-
-</div>
-</div>
-<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
-<a id="afb1ff5cedbd39f1a8b81a25a7dcdb171" name="afb1ff5cedbd39f1a8b81a25a7dcdb171"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb1ff5cedbd39f1a8b81a25a7dcdb171">&#9670;&#160;</a></span>Host_Heading</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float Host_Heading</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="SafetyEngine__program_8c_source.html#l00025">25</a> of file <a class="el" href="SafetyEngine__program_8c_source.html">SafetyEngine_program.c</a>.</p>
-
-</div>
-</div>
-<a id="a16174df02da93c0fc96432a4bc1de57b" name="a16174df02da93c0fc96432a4bc1de57b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16174df02da93c0fc96432a4bc1de57b">&#9670;&#160;</a></span>Host_Speed</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float Host_Speed</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>===========================================================================** &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; <a class="el" href="SafetyEngine__program_8c.html">SafetyEngine_program.c</a> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;** ** Author : Abdallah Abdelmoemen Shehawey ** Layer : APP ** CPU : Cortex-M4 ** MCU : NUCLEO-F446RE ** SW : V2X Safety Engine (Single-Pass) ** ** ===========================================================================** </p>
-
-<p class="definition">Definition at line <a class="el" href="SafetyEngine__program_8c_source.html#l00024">24</a> of file <a class="el" href="SafetyEngine__program_8c_source.html">SafetyEngine_program.c</a>.</p>
-
-</div>
-</div>
-<a id="a414ebc77c31778b0d2f7371abdbd2d19" name="a414ebc77c31778b0d2f7371abdbd2d19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a414ebc77c31778b0d2f7371abdbd2d19">&#9670;&#160;</a></span>SafetyEngine_CriticalDist</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float SafetyEngine_CriticalDist</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="SafetyEngine__program_8c_source.html#l00030">30</a> of file <a class="el" href="SafetyEngine__program_8c_source.html">SafetyEngine_program.c</a>.</p>
-
-</div>
-</div>
-<a id="a2d869610528b06238c15ab8fb160304f" name="a2d869610528b06238c15ab8fb160304f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2d869610528b06238c15ab8fb160304f">&#9670;&#160;</a></span>SafetyEngine_SafeDist</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float SafetyEngine_SafeDist</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="SafetyEngine__program_8c_source.html#l00029">29</a> of file <a class="el" href="SafetyEngine__program_8c_source.html">SafetyEngine_program.c</a>.</p>
-
-</div>
-</div>
-</div><!-- contents -->
+<p class="definition">Definition in file <a class="el" href="SafetyEngine__interface_8h_source.html">SafetyEngine_interface.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>
@@ -692,7 +192,7 @@ Here is the caller graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_f93dfce691d792349f1c14ede440e2e6.html">Inc</a></li><li class="navelem"><a href="dir_39944c0e13724f9c5fdb666d288b390a.html">Application</a></li><li class="navelem"><a href="dir_d2dd187e80299a2bc6fe3c96f6227a4f.html">SafetyEngine</a></li><li class="navelem"><a href="SafetyEngine__interface_8h.html">SafetyEngine_interface.h</a></li>
+    <li class="navelem"><b>V2V-STM32</b></li><li class="navelem"><b>Inc</b></li><li class="navelem"><b>Application</b></li><li class="navelem"><b>SafetyEngine</b></li><li class="navelem"><a href="SafetyEngine__interface_8h.html">SafetyEngine_interface.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

@@ -2,55 +2,42 @@
 \hypertarget{structEXTI__RegDef__t}{}\label{structEXTI__RegDef__t}\index{EXTI\_RegDef\_t@{EXTI\_RegDef\_t}}
 
 
-{\ttfamily \+\#include $<$STM32\+F446xx.\+h$>$}
+EXTI (external interrupt/\+event controller) register layout.  
+
+
+
+
+{\ttfamily \+\#include $<$Drivers/\+\+LIB/\+\+STM32\+F446xx.\+h$>$}
 
 \doxysubsubsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
 uint32\+\_\+t \doxymbox{\hyperlink{structEXTI__RegDef__t_a52f1f2cc57a95d314f5548828ebb5b49}{IMR}}
-\item 
+\begin{DoxyCompactList}\small\item\em Interrupt mask:\+ 1 = this line may raise an interrupt. \end{DoxyCompactList}\item 
 uint32\+\_\+t \doxymbox{\hyperlink{structEXTI__RegDef__t_adecaee8de5bbade513d871374f0d135b}{EMR}}
-\item 
+\begin{DoxyCompactList}\small\item\em Event mask:\+ 1 = this line may raise an event (no ISR). \end{DoxyCompactList}\item 
 uint32\+\_\+t \doxymbox{\hyperlink{structEXTI__RegDef__t_ada23a33e1f03a78a99a545c106d52666}{RTSR}}
-\item 
+\begin{DoxyCompactList}\small\item\em Rising trigger select:\+ 1 = trigger on the rising edge. \end{DoxyCompactList}\item 
 uint32\+\_\+t \doxymbox{\hyperlink{structEXTI__RegDef__t_a5864335570202ab9be74e760ceadb734}{FTSR}}
-\item 
+\begin{DoxyCompactList}\small\item\em Falling trigger select:\+ 1 = trigger on the falling edge. \end{DoxyCompactList}\item 
 uint32\+\_\+t \doxymbox{\hyperlink{structEXTI__RegDef__t_a495f9c6c179b66917b4f552be80720e2}{SWIER}}
-\item 
+\begin{DoxyCompactList}\small\item\em Software interrupt event:\+ writing a 1 raises the line from software. \end{DoxyCompactList}\item 
 uint32\+\_\+t \doxymbox{\hyperlink{structEXTI__RegDef__t_a90d2eb815b6f13e98ee2d08f0a064acf}{PR}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Pending:\+ reads 1 when the line fired. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
+EXTI (external interrupt/\+event controller) register layout. 
 
+Every register holds one bit per EXTI line (0..22). The six HC-\/\+SR04 echo pins are configured here for both-\/edge triggering:\+ the rising edge starts the echo timing, the falling edge ends it. 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00291}{291}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00356}{356}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
 
 
 
 \label{doc-variable-members}
 \Hypertarget{structEXTI__RegDef__t_doc-variable-members}
 \doxysubsection{Field Documentation}
-\Hypertarget{structEXTI__RegDef__t_adecaee8de5bbade513d871374f0d135b}\index{EXTI\_RegDef\_t@{EXTI\_RegDef\_t}!EMR@{EMR}}
-\index{EMR@{EMR}!EXTI\_RegDef\_t@{EXTI\_RegDef\_t}}
-\doxysubsubsection{\texorpdfstring{EMR}{EMR}}
-{\footnotesize\ttfamily \label{structEXTI__RegDef__t_adecaee8de5bbade513d871374f0d135b} 
-uint32\+\_\+t EXTI\+\_\+\+Reg\+Def\+\_\+t::\+\+EMR}
-
-
-
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00293}{293}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
-
-\Hypertarget{structEXTI__RegDef__t_a5864335570202ab9be74e760ceadb734}\index{EXTI\_RegDef\_t@{EXTI\_RegDef\_t}!FTSR@{FTSR}}
-\index{FTSR@{FTSR}!EXTI\_RegDef\_t@{EXTI\_RegDef\_t}}
-\doxysubsubsection{\texorpdfstring{FTSR}{FTSR}}
-{\footnotesize\ttfamily \label{structEXTI__RegDef__t_a5864335570202ab9be74e760ceadb734} 
-uint32\+\_\+t EXTI\+\_\+\+Reg\+Def\+\_\+t::\+\+FTSR}
-
-
-
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00295}{295}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
-
 \Hypertarget{structEXTI__RegDef__t_a52f1f2cc57a95d314f5548828ebb5b49}\index{EXTI\_RegDef\_t@{EXTI\_RegDef\_t}!IMR@{IMR}}
 \index{IMR@{IMR}!EXTI\_RegDef\_t@{EXTI\_RegDef\_t}}
 \doxysubsubsection{\texorpdfstring{IMR}{IMR}}
@@ -59,17 +46,25 @@ uint32\+\_\+t EXTI\+\_\+\+Reg\+Def\+\_\+t::\+\+IMR}
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00292}{292}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
-
-\Hypertarget{structEXTI__RegDef__t_a90d2eb815b6f13e98ee2d08f0a064acf}\index{EXTI\_RegDef\_t@{EXTI\_RegDef\_t}!PR@{PR}}
-\index{PR@{PR}!EXTI\_RegDef\_t@{EXTI\_RegDef\_t}}
-\doxysubsubsection{\texorpdfstring{PR}{PR}}
-{\footnotesize\ttfamily \label{structEXTI__RegDef__t_a90d2eb815b6f13e98ee2d08f0a064acf} 
-uint32\+\_\+t EXTI\+\_\+\+Reg\+Def\+\_\+t::\+\+PR}
+Interrupt mask:\+ 1 = this line may raise an interrupt. 
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00297}{297}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00357}{357}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structEXTI__RegDef__t_adecaee8de5bbade513d871374f0d135b}\index{EXTI\_RegDef\_t@{EXTI\_RegDef\_t}!EMR@{EMR}}
+\index{EMR@{EMR}!EXTI\_RegDef\_t@{EXTI\_RegDef\_t}}
+\doxysubsubsection{\texorpdfstring{EMR}{EMR}}
+{\footnotesize\ttfamily \label{structEXTI__RegDef__t_adecaee8de5bbade513d871374f0d135b} 
+uint32\+\_\+t EXTI\+\_\+\+Reg\+Def\+\_\+t::\+\+EMR}
+
+
+
+Event mask:\+ 1 = this line may raise an event (no ISR). 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00358}{358}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
 
 \Hypertarget{structEXTI__RegDef__t_ada23a33e1f03a78a99a545c106d52666}\index{EXTI\_RegDef\_t@{EXTI\_RegDef\_t}!RTSR@{RTSR}}
 \index{RTSR@{RTSR}!EXTI\_RegDef\_t@{EXTI\_RegDef\_t}}
@@ -79,7 +74,25 @@ uint32\+\_\+t EXTI\+\_\+\+Reg\+Def\+\_\+t::\+\+RTSR}
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00294}{294}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Rising trigger select:\+ 1 = trigger on the rising edge. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00359}{359}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structEXTI__RegDef__t_a5864335570202ab9be74e760ceadb734}\index{EXTI\_RegDef\_t@{EXTI\_RegDef\_t}!FTSR@{FTSR}}
+\index{FTSR@{FTSR}!EXTI\_RegDef\_t@{EXTI\_RegDef\_t}}
+\doxysubsubsection{\texorpdfstring{FTSR}{FTSR}}
+{\footnotesize\ttfamily \label{structEXTI__RegDef__t_a5864335570202ab9be74e760ceadb734} 
+uint32\+\_\+t EXTI\+\_\+\+Reg\+Def\+\_\+t::\+\+FTSR}
+
+
+
+Falling trigger select:\+ 1 = trigger on the falling edge. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00360}{360}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
 
 \Hypertarget{structEXTI__RegDef__t_a495f9c6c179b66917b4f552be80720e2}\index{EXTI\_RegDef\_t@{EXTI\_RegDef\_t}!SWIER@{SWIER}}
 \index{SWIER@{SWIER}!EXTI\_RegDef\_t@{EXTI\_RegDef\_t}}
@@ -89,11 +102,28 @@ uint32\+\_\+t EXTI\+\_\+\+Reg\+Def\+\_\+t::\+\+SWIER}
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00296}{296}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Software interrupt event:\+ writing a 1 raises the line from software. 
 
 
 
-The documentation for this struct was generated from the following files:\+\begin{DoxyCompactItemize}
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00361}{361}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structEXTI__RegDef__t_a90d2eb815b6f13e98ee2d08f0a064acf}\index{EXTI\_RegDef\_t@{EXTI\_RegDef\_t}!PR@{PR}}
+\index{PR@{PR}!EXTI\_RegDef\_t@{EXTI\_RegDef\_t}}
+\doxysubsubsection{\texorpdfstring{PR}{PR}}
+{\footnotesize\ttfamily \label{structEXTI__RegDef__t_a90d2eb815b6f13e98ee2d08f0a064acf} 
+uint32\+\_\+t EXTI\+\_\+\+Reg\+Def\+\_\+t::\+\+PR}
+
+
+
+Pending:\+ reads 1 when the line fired. 
+
+Cleared by writing a 1 back — not a 0. 
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00362}{362}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
 \item 
-Inc/\+\+Drivers/\+\+LIB/\+\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h}{STM32\+F446xx.\+h}}\item 
-Inc/\+\+System/\+\doxymbox{\hyperlink{System_2STM32F446xx_8h}{STM32\+F446xx.\+h}}\end{DoxyCompactItemize}
+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+LIB/\+\doxymbox{\hyperlink{STM32F446xx_8h}{STM32\+F446xx.\+h}}\end{DoxyCompactItemize}

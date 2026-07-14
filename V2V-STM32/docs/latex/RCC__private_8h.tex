@@ -1,26 +1,43 @@
-\doxysection{Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+private.h File Reference}
-\hypertarget{RCC__private_8h}{}\label{RCC__private_8h}\index{Inc/Drivers/MCAL/RCC/RCC\_private.h@{Inc/Drivers/MCAL/RCC/RCC\_private.h}}
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+private.h File Reference}
+\hypertarget{RCC__private_8h}{}\label{RCC__private_8h}\index{V2V-\/STM32/Inc/Drivers/MCAL/RCC/RCC\_private.h@{V2V-\/STM32/Inc/Drivers/MCAL/RCC/RCC\_private.h}}
+
+
+Register bit positions and internals of the RCC driver — not a public header.  
+
+
 This graph shows which files directly or indirectly include this file:\+
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=203pt]{RCC__private_8h__dep__incl}
+\includegraphics[width=248pt]{RCC__private_8h__dep__incl}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\+\#define \doxymbox{\hyperlink{RCC__private_8h_a43b33b72bb100bc3f43c4ccfa0da5e1b}{RCC\+\_\+\+MPLL\+\_\+\+DIV\+\_\+\+MASK}}~0\+X3F
-\item 
-\+\#define \doxymbox{\hyperlink{RCC__private_8h_a9fc70219da462d4ea6e442f67ccbb500}{RCC\+\_\+\+NPLL\+\_\+\+MULT\+\_\+\+MASK}}~0\+X1\+FF
-\item 
-\+\#define \doxymbox{\hyperlink{RCC__private_8h_a991ffc2843311a8006557e2e0bee2171}{RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+\+MASK}}~0\+X3
-\item 
-\+\#define \doxymbox{\hyperlink{RCC__private_8h_a1549d0577a2af5b6a0e7960eb838ed28}{RCC\+\_\+\+SYS\+\_\+\+CLK\+\_\+\+MASK}}~0\+X3
-\item 
-\+\#define \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\+\_\+u32\+TIMEOUT}}~10000\+UL
-\end{DoxyCompactItemize}
+\+\#define \doxymbox{\hyperlink{RCC__private_8h_a43b33b72bb100bc3f43c4ccfa0da5e1b}{RCC\+\_\+\+MPLL\+\_\+\+DIV\+\_\+\+MASK}}
+\begin{DoxyCompactList}\small\item\em Mask of the PLL M (input divider) field in {\ttfamily PLLCFGR}. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{RCC__private_8h_a9fc70219da462d4ea6e442f67ccbb500}{RCC\+\_\+\+NPLL\+\_\+\+MULT\+\_\+\+MASK}}
+\begin{DoxyCompactList}\small\item\em Mask of the PLL N (VCO multiplier) field in {\ttfamily PLLCFGR}. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{RCC__private_8h_a991ffc2843311a8006557e2e0bee2171}{RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+\+MASK}}
+\begin{DoxyCompactList}\small\item\em Mask of the PLL P (output divider) field in {\ttfamily PLLCFGR}. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{RCC__private_8h_a1549d0577a2af5b6a0e7960eb838ed28}{RCC\+\_\+\+SYS\+\_\+\+CLK\+\_\+\+MASK}}
+\begin{DoxyCompactList}\small\item\em Mask of the system-\/clock-\/switch field in {\ttfamily CFGR}. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}{RCC\+\_\+u32\+TIMEOUT}}
+\begin{DoxyCompactList}\small\item\em Busy-\/wait bound, in loop iterations, for a clock\textquotesingle{}s "{}ready"{} flag. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Register bit positions and internals of the RCC driver — not a public header. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{RCC__private_8h_source}{RCC\+\_\+private.\+h}}.
+
 
 
 \label{doc-define-members}
@@ -30,49 +47,89 @@ This graph shows which files directly or indirectly include this file:\+
 \index{RCC\_MPLL\_DIV\_MASK@{RCC\_MPLL\_DIV\_MASK}!RCC\_private.h@{RCC\_private.h}}
 \doxysubsubsection{\texorpdfstring{RCC\_MPLL\_DIV\_MASK}{RCC\_MPLL\_DIV\_MASK}}
 {\footnotesize\ttfamily \label{RCC__private_8h_a43b33b72bb100bc3f43c4ccfa0da5e1b} 
-\+\#define RCC\+\_\+\+MPLL\+\_\+\+DIV\+\_\+\+MASK~0\+X3F}
+\+\#define RCC\+\_\+\+MPLL\+\_\+\+DIV\+\_\+\+MASK}
 
-===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} \doxylink{RCC__private_8h}{RCC\+\_\+private.\+h} \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Author :\+ Abdallah Abdelmoemen Shehawey \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} Layer :\+ MCAL \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} CPU :\+ Cortex-\/\+M4 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} MCU :\+ NUCLEO-\/\+F446\+RE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SWC :\+ RCC \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} ===========================================================================\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} 
 
-Definition at line \doxymbox{\hyperlink{RCC__private_8h_source_l00017}{17}} of file \doxymbox{\hyperlink{RCC__private_8h_source}{RCC\+\_\+private.\+h}}.
+
+Mask of the PLL M (input divider) field in {\ttfamily PLLCFGR}. 
+
+
+
+Definition at line \doxymbox{\hyperlink{RCC__private_8h_source_l00013}{13}} of file \doxymbox{\hyperlink{RCC__private_8h_source}{RCC\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{RCC__program_8c_source_l00250}{RCC\+\_\+enum\+PLLConfig()}}.
 
 \Hypertarget{RCC__private_8h_a9fc70219da462d4ea6e442f67ccbb500}\index{RCC\_private.h@{RCC\_private.h}!RCC\_NPLL\_MULT\_MASK@{RCC\_NPLL\_MULT\_MASK}}
 \index{RCC\_NPLL\_MULT\_MASK@{RCC\_NPLL\_MULT\_MASK}!RCC\_private.h@{RCC\_private.h}}
 \doxysubsubsection{\texorpdfstring{RCC\_NPLL\_MULT\_MASK}{RCC\_NPLL\_MULT\_MASK}}
 {\footnotesize\ttfamily \label{RCC__private_8h_a9fc70219da462d4ea6e442f67ccbb500} 
-\+\#define RCC\+\_\+\+NPLL\+\_\+\+MULT\+\_\+\+MASK~0\+X1\+FF}
+\+\#define RCC\+\_\+\+NPLL\+\_\+\+MULT\+\_\+\+MASK}
 
 
 
-Definition at line \doxymbox{\hyperlink{RCC__private_8h_source_l00018}{18}} of file \doxymbox{\hyperlink{RCC__private_8h_source}{RCC\+\_\+private.\+h}}.
+Mask of the PLL N (VCO multiplier) field in {\ttfamily PLLCFGR}. 
+
+
+
+Definition at line \doxymbox{\hyperlink{RCC__private_8h_source_l00014}{14}} of file \doxymbox{\hyperlink{RCC__private_8h_source}{RCC\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{RCC__program_8c_source_l00250}{RCC\+\_\+enum\+PLLConfig()}}.
 
 \Hypertarget{RCC__private_8h_a991ffc2843311a8006557e2e0bee2171}\index{RCC\_private.h@{RCC\_private.h}!RCC\_PPLL\_DIV\_MASK@{RCC\_PPLL\_DIV\_MASK}}
 \index{RCC\_PPLL\_DIV\_MASK@{RCC\_PPLL\_DIV\_MASK}!RCC\_private.h@{RCC\_private.h}}
 \doxysubsubsection{\texorpdfstring{RCC\_PPLL\_DIV\_MASK}{RCC\_PPLL\_DIV\_MASK}}
 {\footnotesize\ttfamily \label{RCC__private_8h_a991ffc2843311a8006557e2e0bee2171} 
-\+\#define RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+\+MASK~0\+X3}
+\+\#define RCC\+\_\+\+PPLL\+\_\+\+DIV\+\_\+\+MASK}
 
 
 
-Definition at line \doxymbox{\hyperlink{RCC__private_8h_source_l00019}{19}} of file \doxymbox{\hyperlink{RCC__private_8h_source}{RCC\+\_\+private.\+h}}.
+Mask of the PLL P (output divider) field in {\ttfamily PLLCFGR}. 
+
+
+
+Definition at line \doxymbox{\hyperlink{RCC__private_8h_source_l00015}{15}} of file \doxymbox{\hyperlink{RCC__private_8h_source}{RCC\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{RCC__program_8c_source_l00250}{RCC\+\_\+enum\+PLLConfig()}}.
 
 \Hypertarget{RCC__private_8h_a1549d0577a2af5b6a0e7960eb838ed28}\index{RCC\_private.h@{RCC\_private.h}!RCC\_SYS\_CLK\_MASK@{RCC\_SYS\_CLK\_MASK}}
 \index{RCC\_SYS\_CLK\_MASK@{RCC\_SYS\_CLK\_MASK}!RCC\_private.h@{RCC\_private.h}}
 \doxysubsubsection{\texorpdfstring{RCC\_SYS\_CLK\_MASK}{RCC\_SYS\_CLK\_MASK}}
 {\footnotesize\ttfamily \label{RCC__private_8h_a1549d0577a2af5b6a0e7960eb838ed28} 
-\+\#define RCC\+\_\+\+SYS\+\_\+\+CLK\+\_\+\+MASK~0\+X3}
+\+\#define RCC\+\_\+\+SYS\+\_\+\+CLK\+\_\+\+MASK}
 
 
 
-Definition at line \doxymbox{\hyperlink{RCC__private_8h_source_l00020}{20}} of file \doxymbox{\hyperlink{RCC__private_8h_source}{RCC\+\_\+private.\+h}}.
+Mask of the system-\/clock-\/switch field in {\ttfamily CFGR}. 
+
+
+
+Definition at line \doxymbox{\hyperlink{RCC__private_8h_source_l00016}{16}} of file \doxymbox{\hyperlink{RCC__private_8h_source}{RCC\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{RCC__program_8c_source_l00185}{RCC\+\_\+enum\+Set\+Sys\+Clk()}}.
 
 \Hypertarget{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c}\index{RCC\_private.h@{RCC\_private.h}!RCC\_u32TIMEOUT@{RCC\_u32TIMEOUT}}
 \index{RCC\_u32TIMEOUT@{RCC\_u32TIMEOUT}!RCC\_private.h@{RCC\_private.h}}
 \doxysubsubsection{\texorpdfstring{RCC\_u32TIMEOUT}{RCC\_u32TIMEOUT}}
 {\footnotesize\ttfamily \label{RCC__private_8h_a97d72aa3d3462687b8715699bcf6248c} 
-\+\#define RCC\+\_\+u32\+TIMEOUT~10000\+UL}
+\+\#define RCC\+\_\+u32\+TIMEOUT}
 
 
 
-Definition at line \doxymbox{\hyperlink{RCC__private_8h_source_l00022}{22}} of file \doxymbox{\hyperlink{RCC__private_8h_source}{RCC\+\_\+private.\+h}}.
+Busy-\/wait bound, in loop iterations, for a clock\textquotesingle{}s "{}ready"{} flag. 
+
+Prevents an absent crystal from hanging the boot forever. 
+
+Definition at line \doxymbox{\hyperlink{RCC__private_8h_source_l00017}{17}} of file \doxymbox{\hyperlink{RCC__private_8h_source}{RCC\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{RCC__program_8c_source_l00048}{RCC\+\_\+enum\+Set\+Clk\+Sts()}}.
 

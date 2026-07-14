@@ -1,22 +1,5 @@
 var searchData=
 [
-  ['safetyengine_5fcriticaldist_0',['SafetyEngine_CriticalDist',['../SafetyEngine__interface_8h.html#a414ebc77c31778b0d2f7371abdbd2d19',1,'SafetyEngine_CriticalDist:&#160;SafetyEngine_program.c'],['../SafetyEngine__program_8c.html#a414ebc77c31778b0d2f7371abdbd2d19',1,'SafetyEngine_CriticalDist:&#160;SafetyEngine_program.c']]],
-  ['safetyengine_5fsafedist_1',['SafetyEngine_SafeDist',['../SafetyEngine__interface_8h.html#a2d869610528b06238c15ab8fb160304f',1,'SafetyEngine_SafeDist:&#160;SafetyEngine_program.c'],['../SafetyEngine__program_8c.html#a2d869610528b06238c15ab8fb160304f',1,'SafetyEngine_SafeDist:&#160;SafetyEngine_program.c']]],
-  ['scr_2',['SCR',['../structSCB__RegDef__t.html#abe2e96f513798c546cfce1f4e4840b3b',1,'SCB_RegDef_t']]],
-  ['selection_3',['Selection',['../structTIM__ICConfig__t.html#a44a08382a7d2718cc44a6799ad9a8393',1,'TIM_ICConfig_t']]],
-  ['shcsr_4',['SHCSR',['../structSCB__RegDef__t.html#a13e5bd54e1a6fc0983995c5f30747c9e',1,'SCB_RegDef_t']]],
-  ['shpr1_5',['SHPR1',['../structSCB__RegDef__t.html#ac94fc587c48a38d33ac14fbc25881a49',1,'SCB_RegDef_t']]],
-  ['shpr2_6',['SHPR2',['../structSCB__RegDef__t.html#a4a5b408b8daaf3ce38c127534f792965',1,'SCB_RegDef_t']]],
-  ['shpr3_7',['SHPR3',['../structSCB__RegDef__t.html#a1a698dc819471fb8b4c0bdaab212f91a',1,'SCB_RegDef_t']]],
-  ['smcr_8',['SMCR',['../structTIM__TypeDef.html#ae7b9de08df06d01dc22a4fb65ddc76cc',1,'TIM_TypeDef']]],
-  ['spe_9',['SPE',['../structSPI__Config__t.html#a40158d2ab4973bd7305cc09188e3a75d',1,'SPI_Config_t']]],
-  ['speed_10',['Speed',['../structGPIO__PinConfig__t.html#a36b8f605779ef1be01909dd91eea4e8b',1,'GPIO_PinConfig_t::Speed'],['../structGPIO__8PinsConfig__t.html#a3d75ac7403998824ea73f35c0eb7874d',1,'GPIO_8PinsConfig_t::Speed'],['../structGPIO__4PinsConfig__t.html#a10b4c8780f700c7b512ded000d0589de',1,'GPIO_4PinsConfig_t::Speed'],['../structGPIO__LowNibbleConfig__t.html#a156636c1deda77d16a8f34080ca187e2',1,'GPIO_LowNibbleConfig_t::Speed'],['../structGPIO__HighNibbleConfig__t.html#a1593cbe6b8a7e5859c687918e1dcf45b',1,'GPIO_HighNibbleConfig_t::Speed'],['../structGPIO__ByteConfig__t.html#a60cd80a7cdea8f3d7265093a8cdfb15d',1,'GPIO_ByteConfig_t::Speed'],['../structGPIO__HalfPortConfig__t.html#a73b8a310cd643882bd678a9e07971309',1,'GPIO_HalfPortConfig_t::Speed'],['../structGPIO__PortConfig__t.html#a5a7992fc6bbd35a6169815f83845b47b',1,'GPIO_PortConfig_t::Speed'],['../structHostVehicleState__t.html#a84e0032012bf423fa2aecee96d0bb087',1,'HostVehicleState_t::Speed']]],
-  ['sr_11',['SR',['../structSPI__RegDef__t.html#a4024f8b3b2956d3b0da456db820ff4bd',1,'SPI_RegDef_t::SR'],['../structUSART__RegDef__t.html#a0d7d2a31ed6dbff8e396f7b439a16b08',1,'USART_RegDef_t::SR'],['../structTIM__TypeDef.html#ad4c239c905a84b69f7bc24d1cf63512e',1,'TIM_TypeDef::SR'],['../structIWDG__RegDef__t.html#a2fc54da78e15238279372f2c48f52e8d',1,'IWDG_RegDef_t::SR']]],
-  ['sscgr_12',['SSCGR',['../structRCC__RegDef__t.html#a0addf6bf7447e8de71be463cbaa317f9',1,'RCC_RegDef_t']]],
-  ['startpin_13',['StartPin',['../structGPIO__8PinsConfig__t.html#af8ada7e75d350749365e04a11734fc05',1,'GPIO_8PinsConfig_t::StartPin'],['../structGPIO__4PinsConfig__t.html#aec6315aeb2923dcb34a45a6c255e22aa',1,'GPIO_4PinsConfig_t::StartPin'],['../structGPIO__LowNibbleConfig__t.html#a6f54c6a71c3892e935888d2f6d28c309',1,'GPIO_LowNibbleConfig_t::StartPin'],['../structGPIO__HighNibbleConfig__t.html#a72cf132afdd987b05dc0b6bb97fe4e89',1,'GPIO_HighNibbleConfig_t::StartPin'],['../structGPIO__ByteConfig__t.html#a16f6667894cd274cfac4dca7870bf01e',1,'GPIO_ByteConfig_t::StartPin'],['../structGPIO__HalfPortConfig__t.html#afeca9662cb6f9215e72880077f8df0fc',1,'GPIO_HalfPortConfig_t::StartPin'],['../structGPIO__PortConfig__t.html#a0137eb748b05e68b0c554727618e17b9',1,'GPIO_PortConfig_t::StartPin']]],
-  ['stir_14',['STIR',['../structNVIC__RegDef__t.html#ae5d28eb51c43c333293dbf312fbaede9',1,'NVIC_RegDef_t']]],
-  ['stopbits_15',['StopBits',['../structUSART__Config__t.html#a475626d82d69c98459c7798f9bd729c7',1,'USART_Config_t::StopBits'],['../structUSART__Handle__t.html#a1ae2c8c6693a2a60291c3248164f7717',1,'USART_Handle_t::StopBits']]],
-  ['stream_16',['Stream',['../structDMA__REGDEF__t.html#acd824b519f64179d8449695e26409594',1,'DMA_REGDEF_t']]],
-  ['swier_17',['SWIER',['../structEXTI__RegDef__t.html#a495f9c6c179b66917b4f552be80720e2',1,'EXTI_RegDef_t']]],
-  ['systemcoreclock_18',['SystemCoreClock',['../System_8c.html#aa3cd3e43291e81e795d642b79b6088e6',1,'System.c']]]
+  ['queue_5fhead_0',['queue_head',['../DSRC_8c.html#a1a5bdba5ad46709632528c6d50d23f21',1,'DSRC.c']]],
+  ['queue_5ftail_1',['queue_tail',['../DSRC_8c.html#aace80fbfca2f194e2e4a47e3c42cf890',1,'DSRC.c']]]
 ];

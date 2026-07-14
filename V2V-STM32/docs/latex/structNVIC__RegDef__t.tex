@@ -2,168 +2,223 @@
 \hypertarget{structNVIC__RegDef__t}{}\label{structNVIC__RegDef__t}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}}
 
 
-{\ttfamily \+\#include $<$STM32\+F446xx.\+h$>$}
+NVIC register layout (Cortex-\/\+M4 interrupt controller).  
+
+
+
+
+{\ttfamily \+\#include $<$Drivers/\+\+LIB/\+\+STM32\+F446xx.\+h$>$}
 
 \doxysubsubsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
-volatile uint32\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_a9840c321f40a0aabb4320226b6ae40a3}{ISER}} \+[8]\+
-\item 
-volatile uint32\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_a9ec4b03eea5c2d1e9b3d43aa50c5349d}{RESERVED1}} \+[24]\+
-\item 
-volatile uint32\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_a4e45b39ff3cf819eba410a22021da245}{ICER}} \+[8]\+
-\item 
-volatile uint32\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_a1c5eb15a2079331f45faad53383ece34}{RESERVED2}} \+[24]\+
-\item 
-volatile uint32\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_ae5ee26efd9e78b0c7c443bcfb26f4ea4}{ISPR}} \+[8]\+
-\item 
-volatile uint32\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_ae58f447d9ab602b59dfcb196e4ced492}{RESERVED3}} \+[24]\+
-\item 
-volatile uint32\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_aae54255e121b6cd99f0f5d902b7c3d74}{ICPR}} \+[8]\+
-\item 
-volatile uint32\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_ae7bcfdb802cd40145b8f80ae00f1722d}{RESERVED4}} \+[24]\+
-\item 
-volatile uint32\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_ac8297f941a65008972a5f61cf61235c3}{IABR}} \+[8]\+
-\item 
-volatile uint32\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_acaf9158282150e747937816cc8b588af}{RESERVED5}} \+[56]\+
-\item 
-volatile uint8\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_aaaf9d287c167cf93b518c160495bd581}{IPR}} \+[240]\+
-\item 
-volatile uint32\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_a9272c031a5560830b426f98a4788362c}{RESERVED6}} \+[580]\+
-\item 
+volatile uint32\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_ac00a34631cedcc431ca68e634410bac3}{ISER}} \+[8]\+
+\begin{DoxyCompactList}\small\item\em Set-\/enable:\+ writing a 1 enables that IRQ. \end{DoxyCompactList}\item 
+volatile uint32\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_ae629efce9ceca844dc80bb2a6c721681}{RESERVED1}} \+[24]\+
+\begin{DoxyCompactList}\small\item\em Padding — keeps ICER at its hardware offset. \end{DoxyCompactList}\item 
+volatile uint32\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_a9277c2bfdae8353c09f1f696e7f00462}{ICER}} \+[8]\+
+\begin{DoxyCompactList}\small\item\em Clear-\/enable:\+ writing a 1 disables that IRQ. \end{DoxyCompactList}\item 
+volatile uint32\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_aadecb61dd511ed3119b31a087e1d3288}{RESERVED2}} \+[24]\+
+\begin{DoxyCompactList}\small\item\em Padding — keeps ISPR at its hardware offset. \end{DoxyCompactList}\item 
+volatile uint32\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_add8b1c3105369c0842f5f9923740b632}{ISPR}} \+[8]\+
+\begin{DoxyCompactList}\small\item\em Set-\/pending:\+ writing a 1 forces that IRQ pending. \end{DoxyCompactList}\item 
+volatile uint32\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_afdc4fa880390121169740bb3211db10d}{RESERVED3}} \+[24]\+
+\begin{DoxyCompactList}\small\item\em Padding — keeps ICPR at its hardware offset. \end{DoxyCompactList}\item 
+volatile uint32\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_add0d559fb755dc4375545ff3f5919f10}{ICPR}} \+[8]\+
+\begin{DoxyCompactList}\small\item\em Clear-\/pending:\+ writing a 1 drops a pending IRQ. \end{DoxyCompactList}\item 
+volatile uint32\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_a2e251fae000cf45c4d116493a1e7a69c}{RESERVED4}} \+[24]\+
+\begin{DoxyCompactList}\small\item\em Padding — keeps IABR at its hardware offset. \end{DoxyCompactList}\item 
+volatile uint32\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_ae0350e505f697df1c5d5516f9dc434c3}{IABR}} \+[8]\+
+\begin{DoxyCompactList}\small\item\em Active-\/bit (read-\/only):\+ 1 while that IRQ\textquotesingle{}s handler is running. \end{DoxyCompactList}\item 
+volatile uint32\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_a4d4eac6d68bbdec6667f8b8f3d56235a}{RESERVED5}} \+[56]\+
+\begin{DoxyCompactList}\small\item\em Padding — keeps IPR at its hardware offset. \end{DoxyCompactList}\item 
+volatile uint8\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_a1b46b5eaaec7f70f80c2beed65877ec1}{IPR}} \+[240]\+
+\begin{DoxyCompactList}\small\item\em Priority:\+ one byte per IRQ (only the upper 4 bits are implemented). \end{DoxyCompactList}\item 
+volatile uint32\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_ade1d536b6d8e052b625de2ec85f4b4b6}{RESERVED6}} \+[580]\+
+\begin{DoxyCompactList}\small\item\em Padding — keeps STIR at its hardware offset. \end{DoxyCompactList}\item 
 volatile uint32\+\_\+t \doxymbox{\hyperlink{structNVIC__RegDef__t_ae5d28eb51c43c333293dbf312fbaede9}{STIR}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Software trigger:\+ writing an IRQ number raises it from software. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
+NVIC register layout (Cortex-\/\+M4 interrupt controller). 
 
+Each of the array registers holds one bit per interrupt, so IRQ number {\ttfamily n} lives in bit {\ttfamily n \% 32} of word {\ttfamily n /\+ 32} — which is exactly the arithmetic the MCAL NVIC driver does. 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00211}{211}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00280}{280}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
 
 
 
 \label{doc-variable-members}
 \Hypertarget{structNVIC__RegDef__t_doc-variable-members}
 \doxysubsection{Field Documentation}
-\Hypertarget{structNVIC__RegDef__t_ac8297f941a65008972a5f61cf61235c3}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!IABR@{IABR}}
-\index{IABR@{IABR}!NVIC\_RegDef\_t@{NVIC\_RegDef\_t}}
-\doxysubsubsection{\texorpdfstring{IABR}{IABR}}
-{\footnotesize\ttfamily \label{structNVIC__RegDef__t_ac8297f941a65008972a5f61cf61235c3} 
-volatile uint32\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+IABR}
-
-
-
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00220}{220}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
-
-\Hypertarget{structNVIC__RegDef__t_a4e45b39ff3cf819eba410a22021da245}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!ICER@{ICER}}
-\index{ICER@{ICER}!NVIC\_RegDef\_t@{NVIC\_RegDef\_t}}
-\doxysubsubsection{\texorpdfstring{ICER}{ICER}}
-{\footnotesize\ttfamily \label{structNVIC__RegDef__t_a4e45b39ff3cf819eba410a22021da245} 
-volatile uint32\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+ICER}
-
-
-
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00214}{214}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
-
-\Hypertarget{structNVIC__RegDef__t_aae54255e121b6cd99f0f5d902b7c3d74}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!ICPR@{ICPR}}
-\index{ICPR@{ICPR}!NVIC\_RegDef\_t@{NVIC\_RegDef\_t}}
-\doxysubsubsection{\texorpdfstring{ICPR}{ICPR}}
-{\footnotesize\ttfamily \label{structNVIC__RegDef__t_aae54255e121b6cd99f0f5d902b7c3d74} 
-volatile uint32\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+ICPR}
-
-
-
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00218}{218}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
-
-\Hypertarget{structNVIC__RegDef__t_aaaf9d287c167cf93b518c160495bd581}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!IPR@{IPR}}
-\index{IPR@{IPR}!NVIC\_RegDef\_t@{NVIC\_RegDef\_t}}
-\doxysubsubsection{\texorpdfstring{IPR}{IPR}}
-{\footnotesize\ttfamily \label{structNVIC__RegDef__t_aaaf9d287c167cf93b518c160495bd581} 
-volatile uint8\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+IPR}
-
-
-
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00222}{222}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
-
-\Hypertarget{structNVIC__RegDef__t_a9840c321f40a0aabb4320226b6ae40a3}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!ISER@{ISER}}
+\Hypertarget{structNVIC__RegDef__t_ac00a34631cedcc431ca68e634410bac3}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!ISER@{ISER}}
 \index{ISER@{ISER}!NVIC\_RegDef\_t@{NVIC\_RegDef\_t}}
 \doxysubsubsection{\texorpdfstring{ISER}{ISER}}
-{\footnotesize\ttfamily \label{structNVIC__RegDef__t_a9840c321f40a0aabb4320226b6ae40a3} 
-volatile uint32\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+ISER}
+{\footnotesize\ttfamily \label{structNVIC__RegDef__t_ac00a34631cedcc431ca68e634410bac3} 
+volatile uint32\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+ISER\+[8]\+}
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00212}{212}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
-
-\Hypertarget{structNVIC__RegDef__t_ae5ee26efd9e78b0c7c443bcfb26f4ea4}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!ISPR@{ISPR}}
-\index{ISPR@{ISPR}!NVIC\_RegDef\_t@{NVIC\_RegDef\_t}}
-\doxysubsubsection{\texorpdfstring{ISPR}{ISPR}}
-{\footnotesize\ttfamily \label{structNVIC__RegDef__t_ae5ee26efd9e78b0c7c443bcfb26f4ea4} 
-volatile uint32\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+ISPR}
+Set-\/enable:\+ writing a 1 enables that IRQ. 
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00216}{216}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00281}{281}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
 
-\Hypertarget{structNVIC__RegDef__t_a9ec4b03eea5c2d1e9b3d43aa50c5349d}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!RESERVED1@{RESERVED1}}
+\Hypertarget{structNVIC__RegDef__t_ae629efce9ceca844dc80bb2a6c721681}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!RESERVED1@{RESERVED1}}
 \index{RESERVED1@{RESERVED1}!NVIC\_RegDef\_t@{NVIC\_RegDef\_t}}
 \doxysubsubsection{\texorpdfstring{RESERVED1}{RESERVED1}}
-{\footnotesize\ttfamily \label{structNVIC__RegDef__t_a9ec4b03eea5c2d1e9b3d43aa50c5349d} 
-volatile uint32\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+RESERVED1}
+{\footnotesize\ttfamily \label{structNVIC__RegDef__t_ae629efce9ceca844dc80bb2a6c721681} 
+volatile uint32\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+RESERVED1\+[24]\+}
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00213}{213}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Padding — keeps ICER at its hardware offset. 
 
-\Hypertarget{structNVIC__RegDef__t_a1c5eb15a2079331f45faad53383ece34}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!RESERVED2@{RESERVED2}}
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00282}{282}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structNVIC__RegDef__t_a9277c2bfdae8353c09f1f696e7f00462}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!ICER@{ICER}}
+\index{ICER@{ICER}!NVIC\_RegDef\_t@{NVIC\_RegDef\_t}}
+\doxysubsubsection{\texorpdfstring{ICER}{ICER}}
+{\footnotesize\ttfamily \label{structNVIC__RegDef__t_a9277c2bfdae8353c09f1f696e7f00462} 
+volatile uint32\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+ICER\+[8]\+}
+
+
+
+Clear-\/enable:\+ writing a 1 disables that IRQ. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00283}{283}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structNVIC__RegDef__t_aadecb61dd511ed3119b31a087e1d3288}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!RESERVED2@{RESERVED2}}
 \index{RESERVED2@{RESERVED2}!NVIC\_RegDef\_t@{NVIC\_RegDef\_t}}
 \doxysubsubsection{\texorpdfstring{RESERVED2}{RESERVED2}}
-{\footnotesize\ttfamily \label{structNVIC__RegDef__t_a1c5eb15a2079331f45faad53383ece34} 
-volatile uint32\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+RESERVED2}
+{\footnotesize\ttfamily \label{structNVIC__RegDef__t_aadecb61dd511ed3119b31a087e1d3288} 
+volatile uint32\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+RESERVED2\+[24]\+}
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00215}{215}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Padding — keeps ISPR at its hardware offset. 
 
-\Hypertarget{structNVIC__RegDef__t_ae58f447d9ab602b59dfcb196e4ced492}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!RESERVED3@{RESERVED3}}
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00284}{284}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structNVIC__RegDef__t_add8b1c3105369c0842f5f9923740b632}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!ISPR@{ISPR}}
+\index{ISPR@{ISPR}!NVIC\_RegDef\_t@{NVIC\_RegDef\_t}}
+\doxysubsubsection{\texorpdfstring{ISPR}{ISPR}}
+{\footnotesize\ttfamily \label{structNVIC__RegDef__t_add8b1c3105369c0842f5f9923740b632} 
+volatile uint32\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+ISPR\+[8]\+}
+
+
+
+Set-\/pending:\+ writing a 1 forces that IRQ pending. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00285}{285}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structNVIC__RegDef__t_afdc4fa880390121169740bb3211db10d}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!RESERVED3@{RESERVED3}}
 \index{RESERVED3@{RESERVED3}!NVIC\_RegDef\_t@{NVIC\_RegDef\_t}}
 \doxysubsubsection{\texorpdfstring{RESERVED3}{RESERVED3}}
-{\footnotesize\ttfamily \label{structNVIC__RegDef__t_ae58f447d9ab602b59dfcb196e4ced492} 
-volatile uint32\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+RESERVED3}
+{\footnotesize\ttfamily \label{structNVIC__RegDef__t_afdc4fa880390121169740bb3211db10d} 
+volatile uint32\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+RESERVED3\+[24]\+}
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00217}{217}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Padding — keeps ICPR at its hardware offset. 
 
-\Hypertarget{structNVIC__RegDef__t_ae7bcfdb802cd40145b8f80ae00f1722d}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!RESERVED4@{RESERVED4}}
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00286}{286}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structNVIC__RegDef__t_add0d559fb755dc4375545ff3f5919f10}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!ICPR@{ICPR}}
+\index{ICPR@{ICPR}!NVIC\_RegDef\_t@{NVIC\_RegDef\_t}}
+\doxysubsubsection{\texorpdfstring{ICPR}{ICPR}}
+{\footnotesize\ttfamily \label{structNVIC__RegDef__t_add0d559fb755dc4375545ff3f5919f10} 
+volatile uint32\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+ICPR\+[8]\+}
+
+
+
+Clear-\/pending:\+ writing a 1 drops a pending IRQ. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00287}{287}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structNVIC__RegDef__t_a2e251fae000cf45c4d116493a1e7a69c}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!RESERVED4@{RESERVED4}}
 \index{RESERVED4@{RESERVED4}!NVIC\_RegDef\_t@{NVIC\_RegDef\_t}}
 \doxysubsubsection{\texorpdfstring{RESERVED4}{RESERVED4}}
-{\footnotesize\ttfamily \label{structNVIC__RegDef__t_ae7bcfdb802cd40145b8f80ae00f1722d} 
-volatile uint32\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+RESERVED4}
+{\footnotesize\ttfamily \label{structNVIC__RegDef__t_a2e251fae000cf45c4d116493a1e7a69c} 
+volatile uint32\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+RESERVED4\+[24]\+}
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00219}{219}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Padding — keeps IABR at its hardware offset. 
 
-\Hypertarget{structNVIC__RegDef__t_acaf9158282150e747937816cc8b588af}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!RESERVED5@{RESERVED5}}
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00288}{288}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structNVIC__RegDef__t_ae0350e505f697df1c5d5516f9dc434c3}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!IABR@{IABR}}
+\index{IABR@{IABR}!NVIC\_RegDef\_t@{NVIC\_RegDef\_t}}
+\doxysubsubsection{\texorpdfstring{IABR}{IABR}}
+{\footnotesize\ttfamily \label{structNVIC__RegDef__t_ae0350e505f697df1c5d5516f9dc434c3} 
+volatile uint32\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+IABR\+[8]\+}
+
+
+
+Active-\/bit (read-\/only):\+ 1 while that IRQ\textquotesingle{}s handler is running. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00289}{289}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structNVIC__RegDef__t_a4d4eac6d68bbdec6667f8b8f3d56235a}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!RESERVED5@{RESERVED5}}
 \index{RESERVED5@{RESERVED5}!NVIC\_RegDef\_t@{NVIC\_RegDef\_t}}
 \doxysubsubsection{\texorpdfstring{RESERVED5}{RESERVED5}}
-{\footnotesize\ttfamily \label{structNVIC__RegDef__t_acaf9158282150e747937816cc8b588af} 
-volatile uint32\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+RESERVED5}
+{\footnotesize\ttfamily \label{structNVIC__RegDef__t_a4d4eac6d68bbdec6667f8b8f3d56235a} 
+volatile uint32\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+RESERVED5\+[56]\+}
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00221}{221}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Padding — keeps IPR at its hardware offset. 
 
-\Hypertarget{structNVIC__RegDef__t_a9272c031a5560830b426f98a4788362c}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!RESERVED6@{RESERVED6}}
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00290}{290}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structNVIC__RegDef__t_a1b46b5eaaec7f70f80c2beed65877ec1}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!IPR@{IPR}}
+\index{IPR@{IPR}!NVIC\_RegDef\_t@{NVIC\_RegDef\_t}}
+\doxysubsubsection{\texorpdfstring{IPR}{IPR}}
+{\footnotesize\ttfamily \label{structNVIC__RegDef__t_a1b46b5eaaec7f70f80c2beed65877ec1} 
+volatile uint8\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+IPR\+[240]\+}
+
+
+
+Priority:\+ one byte per IRQ (only the upper 4 bits are implemented). 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00291}{291}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structNVIC__RegDef__t_ade1d536b6d8e052b625de2ec85f4b4b6}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!RESERVED6@{RESERVED6}}
 \index{RESERVED6@{RESERVED6}!NVIC\_RegDef\_t@{NVIC\_RegDef\_t}}
 \doxysubsubsection{\texorpdfstring{RESERVED6}{RESERVED6}}
-{\footnotesize\ttfamily \label{structNVIC__RegDef__t_a9272c031a5560830b426f98a4788362c} 
-volatile uint32\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+RESERVED6}
+{\footnotesize\ttfamily \label{structNVIC__RegDef__t_ade1d536b6d8e052b625de2ec85f4b4b6} 
+volatile uint32\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+RESERVED6\+[580]\+}
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00223}{223}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Padding — keeps STIR at its hardware offset. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00292}{292}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
 
 \Hypertarget{structNVIC__RegDef__t_ae5d28eb51c43c333293dbf312fbaede9}\index{NVIC\_RegDef\_t@{NVIC\_RegDef\_t}!STIR@{STIR}}
 \index{STIR@{STIR}!NVIC\_RegDef\_t@{NVIC\_RegDef\_t}}
@@ -173,11 +228,14 @@ volatile uint32\+\_\+t NVIC\+\_\+\+Reg\+Def\+\_\+t::\+\+STIR}
 
 
 
-Definition at line \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source_l00224}{224}} of file \doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+Software trigger:\+ writing an IRQ number raises it from software. 
 
 
 
-The documentation for this struct was generated from the following files:\+\begin{DoxyCompactItemize}
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00293}{293}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
 \item 
-Inc/\+\+Drivers/\+\+LIB/\+\doxymbox{\hyperlink{Drivers_2LIB_2STM32F446xx_8h}{STM32\+F446xx.\+h}}\item 
-Inc/\+\+System/\+\doxymbox{\hyperlink{System_2STM32F446xx_8h}{STM32\+F446xx.\+h}}\end{DoxyCompactItemize}
+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+LIB/\+\doxymbox{\hyperlink{STM32F446xx_8h}{STM32\+F446xx.\+h}}\end{DoxyCompactItemize}

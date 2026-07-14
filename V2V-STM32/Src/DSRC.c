@@ -1,8 +1,21 @@
 /**
  ******************************************************************************
- * @file           : DSRC.c
- * @author         : Abdallah Shehawey
- * @brief          : DSRC module implementation
+ * @file    DSRC.c
+ * @author  Abdallah Shehawey
+ * @brief   Neighbor table, frame parser and transmitter for the V2V link.
+ * @ingroup app_dsrc
+ *
+ * @details
+ * Three pieces live here:
+ *
+ * 1. a **byte-at-a-time frame parser** (@ref DSRC_RxCallback), written as an
+ *    explicit state machine so a garbled or half-received frame can never leave
+ *    the parser stuck — it simply falls back to @ref WAIT_START;
+ * 2. a small **queue** of successfully parsed frames, which decouples parsing
+ *    from the table update;
+ * 3. the **neighbor table** itself, one row per vehicle heard from recently.
+ *
+ * See @ref dsrc_frame in DSRC.h for the frame layout.
  ******************************************************************************
  **/
 
@@ -11,35 +24,63 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
-// ====== External USART handle from system ======
+/** @brief USART1 — the link to the ESP32 radio bridge. Defined in `System.c`. */
 extern USART_Handle_t USART_1;
 
-// ====== Neighbor Table ======
+/** @brief The neighbor table: one row per vehicle heard from recently. */
 static Neighbor neighbor_table[MAX_NEIGHBORS];
+
+/** @brief How many rows of @ref neighbor_table are in use. */
 static uint8_t neighbor_count = 0;
 
-// ====== Queue ======
-static Neighbor rx_queue[QUEUE_SIZE];
-static volatile uint8_t queue_head = 0;
-static volatile uint8_t queue_tail = 0;
+/**
+ * @name Parsed-frame queue
+ *
+ * A single-producer / single-consumer ring buffer sitting between the parser and
+ * @ref DSRC_Update. It is deliberately allowed to *drop* a frame when full rather
+ * than block or overwrite: losing one 100 ms broadcast is harmless, since the
+ * sender repeats it, whereas stalling the parser would back up the UART.
+ * @{
+ */
+static Neighbor rx_queue[QUEUE_SIZE];      /**< The queued frames. */
+static volatile uint8_t queue_head = 0;    /**< Read index — advanced by @ref queue_pop. */
+static volatile uint8_t queue_tail = 0;    /**< Write index — advanced by @ref queue_push. */
+/** @} */
 
-// ====== State Machine ======
+/**
+ * @brief States of the receive state machine, in the order a good frame walks them.
+ */
 typedef enum
 {
-  WAIT_START,
-  READ_DATA,
-  READ_CHECKSUM,
-  READ_END
+  WAIT_START,    /**< Discarding bytes until @ref START_BYTE shows up. */
+  READ_DATA,     /**< Collecting the `sizeof(Neighbor)` payload bytes. */
+  READ_CHECKSUM, /**< Reading the checksum byte and comparing it with the running XOR. */
+  READ_END       /**< Expecting @ref END_BYTE; only now is the frame accepted. */
 } ParseState;
 
+/** @brief Where the frame parser currently is. */
 static ParseState parse_state = WAIT_START;
+
+/** @brief Payload bytes collected so far during @ref READ_DATA. */
 static uint8_t rx_buf[sizeof(Neighbor)];
+
+/** @brief How many payload bytes @ref rx_buf currently holds. */
 static uint8_t rx_idx = 0;
+
+/** @brief Checksum byte received, held until the frame is validated. */
 static uint8_t rx_checksum = 0;
 
-// ============================================================
-// Private - Checksum
-// ============================================================
+/**
+ * @brief XOR checksum over a byte range — the same one the ESP32 computes.
+ * @param[in] data First byte to fold in.
+ * @param     len  Number of bytes.
+ * @return The XOR of all @p len bytes.
+ *
+ * @note An XOR is weak as error detection goes: it catches any single-bit error
+ *       and any odd number of flipped bits, but two bits flipped in the same
+ *       column cancel out. It is what the ESP32 side computes, so the two must
+ *       match.
+ */
 static uint8_t calc_checksum(uint8_t *data, uint8_t len)
 {
   uint8_t sum = 0;
@@ -53,6 +94,13 @@ static uint8_t calc_checksum(uint8_t *data, uint8_t len)
 // ============================================================
 // Private - Queue
 // ============================================================
+
+/**
+ * @brief Append a parsed frame to @ref rx_queue.
+ * @param[in] n The frame to enqueue.
+ * @note If the queue is full the frame is **dropped silently**. That is the
+ *       intended behaviour — see the note on the queue itself.
+ */
 static void queue_push(Neighbor *n)
 {
   uint8_t next = (queue_tail + 1) % QUEUE_SIZE;
@@ -63,6 +111,12 @@ static void queue_push(Neighbor *n)
   }
 }
 
+/**
+ * @brief Take the oldest frame out of @ref rx_queue.
+ * @param[out] out Receives the frame; untouched when the queue is empty.
+ * @retval 1 A frame was dequeued into @p out.
+ * @retval 0 The queue was empty.
+ */
 static uint8_t queue_pop(Neighbor *out)
 {
   if (queue_head == queue_tail)
@@ -80,6 +134,20 @@ static uint8_t queue_pop(Neighbor *out)
 // ============================================================
 // Private - Neighbor Table
 // ============================================================
+/**
+ * @brief Fold one received frame into the neighbor table.
+ *
+ * A sender already in the table overwrites its own row; a new sender takes the
+ * next free slot. Once the table holds @ref MAX_NEIGHBORS vehicles, further new
+ * senders are ignored.
+ *
+ * @param[in] msg The frame to merge in.
+ *
+ * @note The row is stamped with the **local** FreeRTOS tick, not the sender's
+ *       `last_update`. The sender's timestamp comes from its own clock, which has
+ *       no fixed relationship to ours, so it cannot be compared against anything
+ *       here — @ref DSRC_RemoveStale would either purge everyone or no one.
+ */
 static void update_neighbor(const Neighbor *msg)
 {
   /* Stamp with LOCAL FreeRTOS tick so DSRC_RemoveStale compares apples to apples.

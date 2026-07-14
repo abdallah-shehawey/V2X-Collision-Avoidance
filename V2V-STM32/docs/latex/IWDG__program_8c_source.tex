@@ -1,59 +1,53 @@
 \doxysection{IWDG\+\_\+program.\+c}
-\hypertarget{IWDG__program_8c_source}{}\label{IWDG__program_8c_source}\index{Src/IWDG\_program.c@{Src/IWDG\_program.c}}
+\hypertarget{IWDG__program_8c_source}{}\label{IWDG__program_8c_source}\index{V2V-\/STM32/Src/IWDG\_program.c@{V2V-\/STM32/Src/IWDG\_program.c}}
 \doxymbox{\hyperlink{IWDG__program_8c}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00001}00001\ }
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00013}00013\ }
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{IWDG__interface_8h}{../Inc/Drivers/MCAL/IWDG/IWDG\_interface.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00016}00016\ }
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00017}00017\ \textcolor{comment}{/*\ IWDG\ register\ block\ —\ APB1\ @\ 0x40003000,\ clocked\ by\ the\ LSI\ (\string~32\ kHz).\ */}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00018}\doxymbox{\hyperlink{structIWDG__RegDef__t}{00018}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00019}00019\ \{}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00020}\doxymbox{\hyperlink{structIWDG__RegDef__t_a5570985723cddb8ac076b566bb0f9585}{00020}}\ \ \ \ \ \textcolor{keyword}{volatile}\ uint32\_t\ \doxymbox{\hyperlink{structIWDG__RegDef__t_a5570985723cddb8ac076b566bb0f9585}{KR}};\ \ \ \ \textcolor{comment}{/*\ Key\ register\ \ \ \ \ \ (0x00)\ */}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00021}\doxymbox{\hyperlink{structIWDG__RegDef__t_a88d7d44a8bbed9d21a0fa1b01d3033da}{00021}}\ \ \ \ \ \textcolor{keyword}{volatile}\ uint32\_t\ \doxymbox{\hyperlink{structIWDG__RegDef__t_a88d7d44a8bbed9d21a0fa1b01d3033da}{PR}};\ \ \ \ \textcolor{comment}{/*\ Prescaler\ register(0x04)\ */}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00022}\doxymbox{\hyperlink{structIWDG__RegDef__t_a3abcbb874bcffb4481131681a48a679f}{00022}}\ \ \ \ \ \textcolor{keyword}{volatile}\ uint32\_t\ \doxymbox{\hyperlink{structIWDG__RegDef__t_a3abcbb874bcffb4481131681a48a679f}{RLR}};\ \ \ \textcolor{comment}{/*\ Reload\ register\ \ \ (0x08)\ */}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00023}\doxymbox{\hyperlink{structIWDG__RegDef__t_a2fc54da78e15238279372f2c48f52e8d}{00023}}\ \ \ \ \ \textcolor{keyword}{volatile}\ uint32\_t\ \doxymbox{\hyperlink{structIWDG__RegDef__t_a2fc54da78e15238279372f2c48f52e8d}{SR}};\ \ \ \ \textcolor{comment}{/*\ Status\ register\ \ \ (0x0C)\ */}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00024}\doxymbox{\hyperlink{structIWDG__RegDef__t_ad1baad23cdb6f363390bad4c5b119f46}{00024}}\ \ \ \ \ \textcolor{keyword}{volatile}\ uint32\_t\ \doxymbox{\hyperlink{structIWDG__RegDef__t_ad1baad23cdb6f363390bad4c5b119f46}{WINR}};\ \ \textcolor{comment}{/*\ Window\ register\ \ \ (0x10)\ */}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00025}00025\ \}\ \doxymbox{\hyperlink{structIWDG__RegDef__t}{IWDG\_RegDef\_t}};}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00026}00026\ }
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00027}\doxymbox{\hyperlink{IWDG__program_8c_a6663d7a6f91860b36a2ecef982441d1a}{00027}}\ \textcolor{preprocessor}{\#define\ MIWDG\ \ ((IWDG\_RegDef\_t\ *)0x40003000UL)}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00028}00028\ }
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00029}00029\ \textcolor{comment}{/*\ Key-\/register\ commands\ */}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00030}\doxymbox{\hyperlink{IWDG__program_8c_a493295d56bb62752982234755612386f}{00030}}\ \textcolor{preprocessor}{\#define\ IWDG\_KEY\_ENABLE\ \ \ \ 0x5555u\ \ \ }\textcolor{comment}{/*\ unlock\ write\ access\ to\ PR/RLR\ */}\textcolor{preprocessor}{}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00031}\doxymbox{\hyperlink{IWDG__program_8c_aeb6bc86716057c4f3069e9544575ab84}{00031}}\ \textcolor{preprocessor}{\#define\ IWDG\_KEY\_REFRESH\ \ \ 0xAAAAu\ \ \ }\textcolor{comment}{/*\ reload\ the\ down-\/counter\ \ \ \ \ \ \ */}\textcolor{preprocessor}{}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00032}\doxymbox{\hyperlink{IWDG__program_8c_ad68ae97e506cc924ebc9d1f470aa16f8}{00032}}\ \textcolor{preprocessor}{\#define\ IWDG\_KEY\_START\ \ \ \ \ 0xCCCCu\ \ \ }\textcolor{comment}{/*\ start\ IWDG\ (auto-\/enables\ LSI)\ */}\textcolor{preprocessor}{}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00033}00033\ }
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00034}00034\ \textcolor{comment}{/*\ Prescaler\ /64\ →\ counter\ clock\ ≈\ 32\ kHz\ /\ 64\ =\ 500\ Hz\ →\ one\ RLR\ count\ ≈\ 2\ ms.}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00035}00035\ \textcolor{comment}{\ *\ 12-\/bit\ reload\ (max\ 4095)\ ⇒\ max\ timeout\ ≈\ 8.19\ s.\ */}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00036}\doxymbox{\hyperlink{IWDG__program_8c_aa62a819aba5aa37bec14ad12ed5c3726}{00036}}\ \textcolor{preprocessor}{\#define\ IWDG\_PR\_DIV64\ \ \ \ \ \ 0x4u}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00037}\doxymbox{\hyperlink{IWDG__program_8c_a53a2d1ef90f17e50a14b730f7927fe92}{00037}}\ \textcolor{preprocessor}{\#define\ IWDG\_TICK\_MS\ \ \ \ \ \ \ 2u}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00038}\doxymbox{\hyperlink{IWDG__program_8c_a82bec72240c652b91baec941eeb8fd0e}{00038}}\ \textcolor{preprocessor}{\#define\ IWDG\_RLR\_MAX\ \ \ \ \ \ \ 0x0FFFu}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00039}00039\ }
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00040}00040\ \textcolor{comment}{/*\ DBGMCU\ APB1\ freeze:\ stop\ the\ IWDG\ counter\ while\ the\ core\ is\ halted\ in\ debug,}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00041}00041\ \textcolor{comment}{\ *\ so\ breakpoints\ /\ single-\/stepping\ don't\ fire\ spurious\ watchdog\ resets.\ */}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00042}\doxymbox{\hyperlink{IWDG__program_8c_a3e13d101d0743f47b52061f8d61abdc0}{00042}}\ \textcolor{preprocessor}{\#define\ DBGMCU\_APB1\_FZ\ \ \ \ \ (*(volatile\ uint32\_t\ *)0xE0042008UL)}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00043}\doxymbox{\hyperlink{IWDG__program_8c_ab297494df8c5a9e53e2590570df76010}{00043}}\ \textcolor{preprocessor}{\#define\ DBG\_IWDG\_STOP\ \ \ \ \ \ (1u\ <<\ 12)}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00044}00044\ }
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00045}\doxymbox{\hyperlink{IWDG__interface_8h_aaa08e67683aa75f91aabc14cb9c1253d}{00045}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{IWDG__program_8c_aaa08e67683aa75f91aabc14cb9c1253d}{IWDG\_voidInit}}(uint16\_t\ timeout\_ms)}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00046}00046\ \{}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00047}00047\ \ \ \ \ uint32\_t\ reload\ =\ (uint32\_t)timeout\_ms\ /\ \doxymbox{\hyperlink{IWDG__program_8c_a53a2d1ef90f17e50a14b730f7927fe92}{IWDG\_TICK\_MS}};}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00048}00048\ \ \ \ \ \textcolor{keywordflow}{if}\ (reload\ ==\ 0u)\ \ \ \ \ \ \ \ \ \ \ \ reload\ =\ 1u;}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00049}00049\ \ \ \ \ \textcolor{keywordflow}{if}\ (reload\ >\ \doxymbox{\hyperlink{IWDG__program_8c_a82bec72240c652b91baec941eeb8fd0e}{IWDG\_RLR\_MAX}})\ \ \ reload\ =\ \doxymbox{\hyperlink{IWDG__program_8c_a82bec72240c652b91baec941eeb8fd0e}{IWDG\_RLR\_MAX}};}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00050}00050\ }
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00051}00051\ \ \ \ \ \textcolor{comment}{/*\ Keep\ the\ dog\ asleep\ while\ a\ debugger\ has\ the\ core\ halted.\ */}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00052}00052\ \ \ \ \ \doxymbox{\hyperlink{IWDG__program_8c_a3e13d101d0743f47b52061f8d61abdc0}{DBGMCU\_APB1\_FZ}}\ |=\ \doxymbox{\hyperlink{IWDG__program_8c_ab297494df8c5a9e53e2590570df76010}{DBG\_IWDG\_STOP}};}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00053}00053\ }
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00054}00054\ \ \ \ \ \doxymbox{\hyperlink{IWDG__program_8c_a6663d7a6f91860b36a2ecef982441d1a}{MIWDG}}-\/>KR\ \ =\ \doxymbox{\hyperlink{IWDG__program_8c_a493295d56bb62752982234755612386f}{IWDG\_KEY\_ENABLE}};\ \ \ \ \textcolor{comment}{/*\ unlock\ PR/RLR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00055}00055\ \ \ \ \ \doxymbox{\hyperlink{IWDG__program_8c_a6663d7a6f91860b36a2ecef982441d1a}{MIWDG}}-\/>PR\ \ =\ \doxymbox{\hyperlink{IWDG__program_8c_aa62a819aba5aa37bec14ad12ed5c3726}{IWDG\_PR\_DIV64}};\ \ \ \ \ \ \textcolor{comment}{/*\ /64\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00056}00056\ \ \ \ \ \doxymbox{\hyperlink{IWDG__program_8c_a6663d7a6f91860b36a2ecef982441d1a}{MIWDG}}-\/>RLR\ =\ reload;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ timeout\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00057}00057\ \ \ \ \ \doxymbox{\hyperlink{IWDG__program_8c_a6663d7a6f91860b36a2ecef982441d1a}{MIWDG}}-\/>KR\ \ =\ \doxymbox{\hyperlink{IWDG__program_8c_aeb6bc86716057c4f3069e9544575ab84}{IWDG\_KEY\_REFRESH}};\ \ \ \textcolor{comment}{/*\ load\ RLR\ into\ the\ counter\ \ \ \ */}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00058}00058\ \ \ \ \ \doxymbox{\hyperlink{IWDG__program_8c_a6663d7a6f91860b36a2ecef982441d1a}{MIWDG}}-\/>KR\ \ =\ \doxymbox{\hyperlink{IWDG__program_8c_ad68ae97e506cc924ebc9d1f470aa16f8}{IWDG\_KEY\_START}};\ \ \ \ \ \textcolor{comment}{/*\ start\ (LSI\ turns\ on\ in\ HW)\ \ \ */}}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00059}00059\ \}}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{IWDG__interface_8h}{../Inc/Drivers/MCAL/IWDG/IWDG\_interface.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00026}\doxymbox{\hyperlink{structIWDG__RegDef__t}{00026}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00027}00027\ \{}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00028}\doxymbox{\hyperlink{structIWDG__RegDef__t_a5570985723cddb8ac076b566bb0f9585}{00028}}\ \ \ \ \ \textcolor{keyword}{volatile}\ uint32\_t\ \doxymbox{\hyperlink{structIWDG__RegDef__t_a5570985723cddb8ac076b566bb0f9585}{KR}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00029}\doxymbox{\hyperlink{structIWDG__RegDef__t_a88d7d44a8bbed9d21a0fa1b01d3033da}{00029}}\ \ \ \ \ \textcolor{keyword}{volatile}\ uint32\_t\ \doxymbox{\hyperlink{structIWDG__RegDef__t_a88d7d44a8bbed9d21a0fa1b01d3033da}{PR}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00030}\doxymbox{\hyperlink{structIWDG__RegDef__t_a3abcbb874bcffb4481131681a48a679f}{00030}}\ \ \ \ \ \textcolor{keyword}{volatile}\ uint32\_t\ \doxymbox{\hyperlink{structIWDG__RegDef__t_a3abcbb874bcffb4481131681a48a679f}{RLR}};\ \ \ }
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00031}\doxymbox{\hyperlink{structIWDG__RegDef__t_a2fc54da78e15238279372f2c48f52e8d}{00031}}\ \ \ \ \ \textcolor{keyword}{volatile}\ uint32\_t\ \doxymbox{\hyperlink{structIWDG__RegDef__t_a2fc54da78e15238279372f2c48f52e8d}{SR}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00032}\doxymbox{\hyperlink{structIWDG__RegDef__t_ad1baad23cdb6f363390bad4c5b119f46}{00032}}\ \ \ \ \ \textcolor{keyword}{volatile}\ uint32\_t\ \doxymbox{\hyperlink{structIWDG__RegDef__t_ad1baad23cdb6f363390bad4c5b119f46}{WINR}};\ \ }
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00033}00033\ \}\ \doxymbox{\hyperlink{structIWDG__RegDef__t}{IWDG\_RegDef\_t}};}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00036}\doxymbox{\hyperlink{IWDG__program_8c_a6663d7a6f91860b36a2ecef982441d1a}{00036}}\ \textcolor{preprocessor}{\#define\ MIWDG\ \ ((IWDG\_RegDef\_t\ *)0x40003000UL)}}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00044}\doxymbox{\hyperlink{IWDG__program_8c_a493295d56bb62752982234755612386f}{00044}}\ \textcolor{preprocessor}{\#define\ IWDG\_KEY\_ENABLE\ \ \ \ 0x5555u\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00045}\doxymbox{\hyperlink{IWDG__program_8c_aeb6bc86716057c4f3069e9544575ab84}{00045}}\ \textcolor{preprocessor}{\#define\ IWDG\_KEY\_REFRESH\ \ \ 0xAAAAu\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00046}\doxymbox{\hyperlink{IWDG__program_8c_ad68ae97e506cc924ebc9d1f470aa16f8}{00046}}\ \textcolor{preprocessor}{\#define\ IWDG\_KEY\_START\ \ \ \ \ 0xCCCCu\ }\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00056}\doxymbox{\hyperlink{IWDG__program_8c_aa62a819aba5aa37bec14ad12ed5c3726}{00056}}\ \textcolor{preprocessor}{\#define\ IWDG\_PR\_DIV64\ \ \ \ \ \ 0x4u\ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00057}\doxymbox{\hyperlink{IWDG__program_8c_a53a2d1ef90f17e50a14b730f7927fe92}{00057}}\ \textcolor{preprocessor}{\#define\ IWDG\_TICK\_MS\ \ \ \ \ \ \ 2u\ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00058}\doxymbox{\hyperlink{IWDG__program_8c_a82bec72240c652b91baec941eeb8fd0e}{00058}}\ \textcolor{preprocessor}{\#define\ IWDG\_RLR\_MAX\ \ \ \ \ \ \ 0x0FFFu\ }\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
 \DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00060}00060\ }
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00061}\doxymbox{\hyperlink{IWDG__interface_8h_afdf15cddaf966d918224d78b50c4b6d5}{00061}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{IWDG__program_8c_afdf15cddaf966d918224d78b50c4b6d5}{IWDG\_voidRefresh}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00062}00062\ \{}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00063}00063\ \ \ \ \ \doxymbox{\hyperlink{IWDG__program_8c_a6663d7a6f91860b36a2ecef982441d1a}{MIWDG}}-\/>KR\ =\ \doxymbox{\hyperlink{IWDG__program_8c_aeb6bc86716057c4f3069e9544575ab84}{IWDG\_KEY\_REFRESH}};}
-\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00064}00064\ \}}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00069}\doxymbox{\hyperlink{IWDG__program_8c_a3e13d101d0743f47b52061f8d61abdc0}{00069}}\ \textcolor{preprocessor}{\#define\ DBGMCU\_APB1\_FZ\ \ \ \ \ (*(volatile\ uint32\_t\ *)0xE0042008UL)\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00070}\doxymbox{\hyperlink{IWDG__program_8c_ab297494df8c5a9e53e2590570df76010}{00070}}\ \textcolor{preprocessor}{\#define\ DBG\_IWDG\_STOP\ \ \ \ \ \ (1u\ <<\ 12)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00073}\doxymbox{\hyperlink{IWDG__interface_8h_aaa08e67683aa75f91aabc14cb9c1253d}{00073}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{IWDG__program_8c_aaa08e67683aa75f91aabc14cb9c1253d}{IWDG\_voidInit}}(uint16\_t\ timeout\_ms)}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00074}00074\ \{}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00075}00075\ \ \ \ \ uint32\_t\ reload\ =\ (uint32\_t)timeout\_ms\ /\ \doxymbox{\hyperlink{IWDG__program_8c_a53a2d1ef90f17e50a14b730f7927fe92}{IWDG\_TICK\_MS}};}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00076}00076\ \ \ \ \ \textcolor{keywordflow}{if}\ (reload\ ==\ 0u)\ \ \ \ \ \ \ \ \ \ \ \ reload\ =\ 1u;}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00077}00077\ \ \ \ \ \textcolor{keywordflow}{if}\ (reload\ >\ \doxymbox{\hyperlink{IWDG__program_8c_a82bec72240c652b91baec941eeb8fd0e}{IWDG\_RLR\_MAX}})\ \ \ reload\ =\ \doxymbox{\hyperlink{IWDG__program_8c_a82bec72240c652b91baec941eeb8fd0e}{IWDG\_RLR\_MAX}};}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00079}00079\ \ \ \ \ \textcolor{comment}{/*\ Keep\ the\ dog\ asleep\ while\ a\ debugger\ has\ the\ core\ halted.\ */}}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00080}00080\ \ \ \ \ \doxymbox{\hyperlink{IWDG__program_8c_a3e13d101d0743f47b52061f8d61abdc0}{DBGMCU\_APB1\_FZ}}\ |=\ \doxymbox{\hyperlink{IWDG__program_8c_ab297494df8c5a9e53e2590570df76010}{DBG\_IWDG\_STOP}};}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00082}00082\ \ \ \ \ \doxymbox{\hyperlink{IWDG__program_8c_a6663d7a6f91860b36a2ecef982441d1a}{MIWDG}}-\/>KR\ \ =\ \doxymbox{\hyperlink{IWDG__program_8c_a493295d56bb62752982234755612386f}{IWDG\_KEY\_ENABLE}};\ \ \ \ \textcolor{comment}{/*\ unlock\ PR/RLR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00083}00083\ \ \ \ \ \doxymbox{\hyperlink{IWDG__program_8c_a6663d7a6f91860b36a2ecef982441d1a}{MIWDG}}-\/>PR\ \ =\ \doxymbox{\hyperlink{IWDG__program_8c_aa62a819aba5aa37bec14ad12ed5c3726}{IWDG\_PR\_DIV64}};\ \ \ \ \ \ \textcolor{comment}{/*\ /64\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00084}00084\ \ \ \ \ \doxymbox{\hyperlink{IWDG__program_8c_a6663d7a6f91860b36a2ecef982441d1a}{MIWDG}}-\/>RLR\ =\ reload;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ timeout\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00085}00085\ \ \ \ \ \doxymbox{\hyperlink{IWDG__program_8c_a6663d7a6f91860b36a2ecef982441d1a}{MIWDG}}-\/>KR\ \ =\ \doxymbox{\hyperlink{IWDG__program_8c_aeb6bc86716057c4f3069e9544575ab84}{IWDG\_KEY\_REFRESH}};\ \ \ \textcolor{comment}{/*\ load\ RLR\ into\ the\ counter\ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00086}00086\ \ \ \ \ \doxymbox{\hyperlink{IWDG__program_8c_a6663d7a6f91860b36a2ecef982441d1a}{MIWDG}}-\/>KR\ \ =\ \doxymbox{\hyperlink{IWDG__program_8c_ad68ae97e506cc924ebc9d1f470aa16f8}{IWDG\_KEY\_START}};\ \ \ \ \ \textcolor{comment}{/*\ start\ (LSI\ turns\ on\ in\ HW)\ \ \ */}}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00087}00087\ \}}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00089}\doxymbox{\hyperlink{IWDG__interface_8h_afdf15cddaf966d918224d78b50c4b6d5}{00089}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{IWDG__program_8c_afdf15cddaf966d918224d78b50c4b6d5}{IWDG\_voidRefresh}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00090}00090\ \{}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00091}00091\ \ \ \ \ \doxymbox{\hyperlink{IWDG__program_8c_a6663d7a6f91860b36a2ecef982441d1a}{MIWDG}}-\/>KR\ =\ \doxymbox{\hyperlink{IWDG__program_8c_aeb6bc86716057c4f3069e9544575ab84}{IWDG\_KEY\_REFRESH}};}
+\DoxyCodeLine{\Hypertarget{IWDG__program_8c_source_l00092}00092\ \}}
 
 \end{DoxyCode}

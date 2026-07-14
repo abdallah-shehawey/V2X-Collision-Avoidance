@@ -1,19 +1,17 @@
 /**
-**===========================================================================**
-**<<<<<<<<<<<<<<<<<<<<<<<<<<    BUZ_program.c   >>>>>>>>>>>>>>>>>>>>>>>>>>**
-**                                                                           **
-**                  Author : Abdallah Abdelmoemen Shehawey                   **
-**                  Layer  : HAL                                            **
-**                  SWC    : BUZZER                                         **
-**                                                                           **
-**===========================================================================**
-*/
+ ******************************************************************************
+ * @file    BUZ_program.c
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Implementation of the BUZZ driver — the piezo buzzer.
+ * @ingroup hal_buzz
+ ******************************************************************************
+ */
 
 #include "../Inc/Drivers/HAL/BUZZ/BUZ_interface.h"
 #include "../Inc/Drivers/HAL/BUZZ/BUZ_private.h"
 #include "../Inc/Drivers/HAL/BUZZ/BUZ_config.h"
 
-/**
+/*
  * @brief Initialize the buzzer pin
  */
 ErrorState_t BUZ_Init(const BUZ_Config_t *BUZ_Configuration)
@@ -49,7 +47,7 @@ ErrorState_t BUZ_Init(const BUZ_Config_t *BUZ_Configuration)
   return Local_ErrorState;
 }
 
-/**
+/*
  * @brief Turn on the buzzer
  */
 ErrorState_t BUZ_On(const BUZ_Config_t *BUZ_Configuration)
@@ -69,7 +67,7 @@ ErrorState_t BUZ_On(const BUZ_Config_t *BUZ_Configuration)
   return Local_ErrorState;
 }
 
-/**
+/*
  * @brief Turn off the buzzer
  */
 ErrorState_t BUZ_Off(const BUZ_Config_t *BUZ_Configuration)
@@ -90,7 +88,7 @@ ErrorState_t BUZ_Off(const BUZ_Config_t *BUZ_Configuration)
   return Local_ErrorState;
 }
 
-/**
+/*
  * @brief Toggle the buzzer state
  */
 ErrorState_t BUZ_Toggle(const BUZ_Config_t *BUZ_Configuration)

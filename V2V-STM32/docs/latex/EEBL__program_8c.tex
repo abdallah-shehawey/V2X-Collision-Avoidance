@@ -1,5 +1,10 @@
-\doxysection{Src/\+\+EEBL\+\_\+program.c File Reference}
-\hypertarget{EEBL__program_8c}{}\label{EEBL__program_8c}\index{Src/EEBL\_program.c@{Src/EEBL\_program.c}}
+\doxysection{V2\+V-\/\+STM32/\+\+Src/\+\+EEBL\+\_\+program.c File Reference}
+\hypertarget{EEBL__program_8c}{}\label{EEBL__program_8c}\index{V2V-\/STM32/Src/EEBL\_program.c@{V2V-\/STM32/Src/EEBL\_program.c}}
+
+
+Implementation of the EEBL driver — Electronic Emergency Brake Light.  
+
+
 {\ttfamily \+\#include "{}../\+\+Inc/\+\+Application/\+\+EEBL/\+\+EEBL\+\_\+interface.\+h"{}}\newline
 {\ttfamily \+\#include "{}../\+\+Inc/\+\+Application/\+\+EEBL/\+\+EEBL\+\_\+config.\+h"{}}\newline
 {\ttfamily \+\#include "{}../\+\+Inc/\+\+Application/\+\+EEBL/\+\+EEBL\+\_\+private.\+h"{}}\newline
@@ -20,65 +25,37 @@ Include dependency graph for EEBL\+\_\+program.\+c:\+
 void \doxymbox{\hyperlink{EEBL__program_8c_aa259a5e3167ee1735a31092312d7fd94}{EEBL\+\_\+void\+Init}} (void)
 \begin{DoxyCompactList}\small\item\em Initialize the EEBL module. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{EEBL__program_8c_ad9b9306a8560417cdc9a5d6ec08eff93}{EEBL\+\_\+void\+Begin\+Cycle}} (void)
-\begin{DoxyCompactList}\small\item\em Start a new cycle:\+ set the sudden-\/braking gate and reset the result. While not braking, Process\+Neighbor skips every neighbor. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Begin a new processing cycle — check braking gate, reset accumulator. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{EEBL__program_8c_aa57120c568a45e9aae5c81b8fbf6f1b0}{EEBL\+\_\+void\+Process\+Neighbor}} (float rear\+\_\+distance)
-\begin{DoxyCompactList}\small\item\em Evaluate one same-\/direction neighbor against the rear gap. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Process one SAME-\/direction DSRC neighbor for EEBL. \end{DoxyCompactList}\item 
 uint8\+\_\+t \doxymbox{\hyperlink{EEBL__program_8c_afaabdbd7129e3944f1edaa8119941c89}{EEBL\+\_\+u8\+Get\+Flag}} (void)
-\begin{DoxyCompactList}\small\item\em Get current EEBL risk level (LED/\+buzzer handled by the caller). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Get current EEBL risk level. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static float \doxymbox{\hyperlink{EEBL__program_8c_a0652de7240f7f76ce324700c38579040}{EEBL\+\_\+\+Prev\+Speed}}
+\begin{DoxyCompactList}\small\item\em The neighbor\textquotesingle{}s speed last cycle \+[m/\+s]\+. \end{DoxyCompactList}\item 
+static uint8\+\_\+t \doxymbox{\hyperlink{EEBL__program_8c_ace09641028ae50b3a0e8dd2ff8dbd38a}{EEBL\+\_\+\+Braking\+Detected}}
+\begin{DoxyCompactList}\small\item\em Gate:\+ did a neighbor ahead brake hard enough this cycle to exceed \doxylink{EEBL__config_8h_aba76f3ff4e32fd399d378c281b86fb31}{EEBL\+\_\+\+DECEL\+\_\+\+THRESHOLD}? \end{DoxyCompactList}\item 
+static \doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} \doxymbox{\hyperlink{EEBL__program_8c_ab13704a2cc012c74c95d7563b4e80b90}{EEBL\+\_\+\+Worst\+Level}}
+\begin{DoxyCompactList}\small\item\em Result:\+ the worst risk seen across every neighbor this cycle. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of the EEBL driver — Electronic Emergency Brake Light. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{EEBL__program_8c_source}{EEBL\+\_\+program.\+c}}.
+
 
 
 \label{doc-func-members}
 \Hypertarget{EEBL__program_8c_doc-func-members}
 \doxysubsection{Function Documentation}
-\Hypertarget{EEBL__program_8c_afaabdbd7129e3944f1edaa8119941c89}\index{EEBL\_program.c@{EEBL\_program.c}!EEBL\_u8GetFlag@{EEBL\_u8GetFlag}}
-\index{EEBL\_u8GetFlag@{EEBL\_u8GetFlag}!EEBL\_program.c@{EEBL\_program.c}}
-\doxysubsubsection{\texorpdfstring{EEBL\_u8GetFlag()}{EEBL\_u8GetFlag()}}
-{\footnotesize\ttfamily \label{EEBL__program_8c_afaabdbd7129e3944f1edaa8119941c89} 
-uint8\+\_\+t EEBL\+\_\+u8\+Get\+Flag (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
-
-
-
-Get current EEBL risk level (LED/\+buzzer handled by the caller). 
-
-Get current EEBL risk level. The LED/\+buzzer is driven by the caller.
-
-\begin{DoxyReturn}{Returns}
-0=Safe, 1=Warning, 2=Critical 
-\end{DoxyReturn}
-
-
-Definition at line \doxymbox{\hyperlink{EEBL__program_8c_source_l00088}{88}} of file \doxymbox{\hyperlink{EEBL__program_8c_source}{EEBL\+\_\+program.\+c}}.
-
-Here is the caller graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{EEBL__program_8c_afaabdbd7129e3944f1edaa8119941c89_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{EEBL__program_8c_ad9b9306a8560417cdc9a5d6ec08eff93}\index{EEBL\_program.c@{EEBL\_program.c}!EEBL\_voidBeginCycle@{EEBL\_voidBeginCycle}}
-\index{EEBL\_voidBeginCycle@{EEBL\_voidBeginCycle}!EEBL\_program.c@{EEBL\_program.c}}
-\doxysubsubsection{\texorpdfstring{EEBL\_voidBeginCycle()}{EEBL\_voidBeginCycle()}}
-{\footnotesize\ttfamily \label{EEBL__program_8c_ad9b9306a8560417cdc9a5d6ec08eff93} 
-void EEBL\+\_\+void\+Begin\+Cycle (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
-
-
-
-Start a new cycle:\+ set the sudden-\/braking gate and reset the result. While not braking, Process\+Neighbor skips every neighbor. 
-
-Begin a new processing cycle — check braking gate, reset accumulator. 
-
-Definition at line \doxymbox{\hyperlink{EEBL__program_8c_source_l00042}{42}} of file \doxymbox{\hyperlink{EEBL__program_8c_source}{EEBL\+\_\+program.\+c}}.
-
-Here is the caller graph for this function:\+
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{EEBL__program_8c_ad9b9306a8560417cdc9a5d6ec08eff93_icgraph}
-\end{center}
-\end{figure}
 \Hypertarget{EEBL__program_8c_aa259a5e3167ee1735a31092312d7fd94}\index{EEBL\_program.c@{EEBL\_program.c}!EEBL\_voidInit@{EEBL\_voidInit}}
 \index{EEBL\_voidInit@{EEBL\_voidInit}!EEBL\_program.c@{EEBL\_program.c}}
 \doxysubsubsection{\texorpdfstring{EEBL\_voidInit()}{EEBL\_voidInit()}}
@@ -91,7 +68,15 @@ Initialize the EEBL module.
 
 
 
-Definition at line \doxymbox{\hyperlink{EEBL__program_8c_source_l00027}{27}} of file \doxymbox{\hyperlink{EEBL__program_8c_source}{EEBL\+\_\+program.\+c}}.
+Definition at line \doxymbox{\hyperlink{EEBL__program_8c_source_l00026}{26}} of file \doxymbox{\hyperlink{EEBL__program_8c_source}{EEBL\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{EEBL__program_8c_source_l00021}{EEBL\+\_\+\+Braking\+Detected}}, \doxymbox{\hyperlink{EEBL__program_8c_source_l00019}{EEBL\+\_\+\+Prev\+Speed}}, \doxymbox{\hyperlink{EEBL__program_8c_source_l00023}{EEBL\+\_\+\+Worst\+Level}}, and \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00060}{RISK\+\_\+\+SAFE}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00033}{Safety\+Engine\+\_\+void\+Init()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
@@ -99,6 +84,36 @@ Here is the caller graph for this function:\+
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{EEBL__program_8c_aa259a5e3167ee1735a31092312d7fd94_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{EEBL__program_8c_ad9b9306a8560417cdc9a5d6ec08eff93}\index{EEBL\_program.c@{EEBL\_program.c}!EEBL\_voidBeginCycle@{EEBL\_voidBeginCycle}}
+\index{EEBL\_voidBeginCycle@{EEBL\_voidBeginCycle}!EEBL\_program.c@{EEBL\_program.c}}
+\doxysubsubsection{\texorpdfstring{EEBL\_voidBeginCycle()}{EEBL\_voidBeginCycle()}}
+{\footnotesize\ttfamily \label{EEBL__program_8c_ad9b9306a8560417cdc9a5d6ec08eff93} 
+void EEBL\+\_\+void\+Begin\+Cycle (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Begin a new processing cycle — check braking gate, reset accumulator. 
+
+
+
+Definition at line \doxymbox{\hyperlink{EEBL__program_8c_source_l00041}{41}} of file \doxymbox{\hyperlink{EEBL__program_8c_source}{EEBL\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{EEBL__program_8c_source_l00021}{EEBL\+\_\+\+Braking\+Detected}}, \doxymbox{\hyperlink{EEBL__config_8h_source_l00034}{EEBL\+\_\+\+DECEL\+\_\+\+THRESHOLD}}, \doxymbox{\hyperlink{EEBL__program_8c_source_l00019}{EEBL\+\_\+\+Prev\+Speed}}, \doxymbox{\hyperlink{EEBL__program_8c_source_l00023}{EEBL\+\_\+\+Worst\+Level}}, \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00021}{Host\+\_\+\+Speed}}, and \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00060}{RISK\+\_\+\+SAFE}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{EEBL__program_8c_ad9b9306a8560417cdc9a5d6ec08eff93_icgraph}
 \end{center}
 \end{figure}
 \Hypertarget{EEBL__program_8c_aa57120c568a45e9aae5c81b8fbf6f1b0}\index{EEBL\_program.c@{EEBL\_program.c}!EEBL\_voidProcessNeighbor@{EEBL\_voidProcessNeighbor}}
@@ -109,20 +124,24 @@ void EEBL\+\_\+void\+Process\+Neighbor (\begin{DoxyParamCaption}\item[{float}]{r
 
 
 
-Evaluate one same-\/direction neighbor against the rear gap. 
+Process one SAME-\/direction DSRC neighbor for EEBL. 
 
-Process one SAME-\/direction DSRC neighbor for EEBL. The Safety\+Engine only dispatches same-\/direction neighbors here.
-
-Risk depends on the host\textquotesingle{}s own speed (the cycle safe/\+critical gaps), not on relative speed:\+ a sudden brake with a vehicle close behind raises a warning. Keeps the worst severity across the cycle.
-
-
+The Safety\+Engine only dispatches same-\/direction neighbors here. 
 \begin{DoxyParams}{Parameters}
 {\em rear\+\_\+distance} & Rear ultrasonic distance (cm) \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line \doxymbox{\hyperlink{EEBL__program_8c_source_l00061}{61}} of file \doxymbox{\hyperlink{EEBL__program_8c_source}{EEBL\+\_\+program.\+c}}.
+Definition at line \doxymbox{\hyperlink{EEBL__program_8c_source_l00060}{60}} of file \doxymbox{\hyperlink{EEBL__program_8c_source}{EEBL\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{EEBL__program_8c_source_l00021}{EEBL\+\_\+\+Braking\+Detected}}, \doxymbox{\hyperlink{EEBL__program_8c_source_l00023}{EEBL\+\_\+\+Worst\+Level}}, \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00062}{RISK\+\_\+\+CRITICAL}}, \doxymbox{\hyperlink{SafetyEngine__interface_8h_source_l00061}{RISK\+\_\+\+WARNING}}, \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00030}{Safety\+Engine\+\_\+\+Critical\+Dist}}, and \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00028}{Safety\+Engine\+\_\+\+Safe\+Dist}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
 
 Here is the caller graph for this function:\+
 \nopagebreak
@@ -132,3 +151,95 @@ Here is the caller graph for this function:\+
 \includegraphics[width=350pt]{EEBL__program_8c_aa57120c568a45e9aae5c81b8fbf6f1b0_icgraph}
 \end{center}
 \end{figure}
+\Hypertarget{EEBL__program_8c_afaabdbd7129e3944f1edaa8119941c89}\index{EEBL\_program.c@{EEBL\_program.c}!EEBL\_u8GetFlag@{EEBL\_u8GetFlag}}
+\index{EEBL\_u8GetFlag@{EEBL\_u8GetFlag}!EEBL\_program.c@{EEBL\_program.c}}
+\doxysubsubsection{\texorpdfstring{EEBL\_u8GetFlag()}{EEBL\_u8GetFlag()}}
+{\footnotesize\ttfamily \label{EEBL__program_8c_afaabdbd7129e3944f1edaa8119941c89} 
+uint8\+\_\+t EEBL\+\_\+u8\+Get\+Flag (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Get current EEBL risk level. 
+
+The LED/\+buzzer is driven by the caller. \begin{DoxyReturn}{Returns}
+0=Safe, 1=Warning, 2=Critical 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{EEBL__program_8c_source_l00087}{87}} of file \doxymbox{\hyperlink{EEBL__program_8c_source}{EEBL\+\_\+program.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{EEBL__program_8c_source_l00023}{EEBL\+\_\+\+Worst\+Level}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{EEBL__program_8c_afaabdbd7129e3944f1edaa8119941c89_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-var-members}
+\Hypertarget{EEBL__program_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{EEBL__program_8c_a0652de7240f7f76ce324700c38579040}\index{EEBL\_program.c@{EEBL\_program.c}!EEBL\_PrevSpeed@{EEBL\_PrevSpeed}}
+\index{EEBL\_PrevSpeed@{EEBL\_PrevSpeed}!EEBL\_program.c@{EEBL\_program.c}}
+\doxysubsubsection{\texorpdfstring{EEBL\_PrevSpeed}{EEBL\_PrevSpeed}}
+{\footnotesize\ttfamily \label{EEBL__program_8c_a0652de7240f7f76ce324700c38579040} 
+float EEBL\+\_\+\+Prev\+Speed\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The neighbor\textquotesingle{}s speed last cycle \+[m/\+s]\+. 
+
+Braking is detected as the {\itshape drop} from this to the current value. 
+
+Definition at line \doxymbox{\hyperlink{EEBL__program_8c_source_l00019}{19}} of file \doxymbox{\hyperlink{EEBL__program_8c_source}{EEBL\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{EEBL__program_8c_source_l00041}{EEBL\+\_\+void\+Begin\+Cycle()}}, and \doxymbox{\hyperlink{EEBL__program_8c_source_l00026}{EEBL\+\_\+void\+Init()}}.
+
+\Hypertarget{EEBL__program_8c_ace09641028ae50b3a0e8dd2ff8dbd38a}\index{EEBL\_program.c@{EEBL\_program.c}!EEBL\_BrakingDetected@{EEBL\_BrakingDetected}}
+\index{EEBL\_BrakingDetected@{EEBL\_BrakingDetected}!EEBL\_program.c@{EEBL\_program.c}}
+\doxysubsubsection{\texorpdfstring{EEBL\_BrakingDetected}{EEBL\_BrakingDetected}}
+{\footnotesize\ttfamily \label{EEBL__program_8c_ace09641028ae50b3a0e8dd2ff8dbd38a} 
+uint8\+\_\+t EEBL\+\_\+\+Braking\+Detected\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Gate:\+ did a neighbor ahead brake hard enough this cycle to exceed \doxylink{EEBL__config_8h_aba76f3ff4e32fd399d378c281b86fb31}{EEBL\+\_\+\+DECEL\+\_\+\+THRESHOLD}? 
+
+
+
+Definition at line \doxymbox{\hyperlink{EEBL__program_8c_source_l00021}{21}} of file \doxymbox{\hyperlink{EEBL__program_8c_source}{EEBL\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{EEBL__program_8c_source_l00041}{EEBL\+\_\+void\+Begin\+Cycle()}}, \doxymbox{\hyperlink{EEBL__program_8c_source_l00026}{EEBL\+\_\+void\+Init()}}, and \doxymbox{\hyperlink{EEBL__program_8c_source_l00060}{EEBL\+\_\+void\+Process\+Neighbor()}}.
+
+\Hypertarget{EEBL__program_8c_ab13704a2cc012c74c95d7563b4e80b90}\index{EEBL\_program.c@{EEBL\_program.c}!EEBL\_WorstLevel@{EEBL\_WorstLevel}}
+\index{EEBL\_WorstLevel@{EEBL\_WorstLevel}!EEBL\_program.c@{EEBL\_program.c}}
+\doxysubsubsection{\texorpdfstring{EEBL\_WorstLevel}{EEBL\_WorstLevel}}
+{\footnotesize\ttfamily \label{EEBL__program_8c_ab13704a2cc012c74c95d7563b4e80b90} 
+\doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} EEBL\+\_\+\+Worst\+Level\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Result:\+ the worst risk seen across every neighbor this cycle. 
+
+
+
+Definition at line \doxymbox{\hyperlink{EEBL__program_8c_source_l00023}{23}} of file \doxymbox{\hyperlink{EEBL__program_8c_source}{EEBL\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{EEBL__program_8c_source_l00087}{EEBL\+\_\+u8\+Get\+Flag()}}, \doxymbox{\hyperlink{EEBL__program_8c_source_l00041}{EEBL\+\_\+void\+Begin\+Cycle()}}, \doxymbox{\hyperlink{EEBL__program_8c_source_l00026}{EEBL\+\_\+void\+Init()}}, and \doxymbox{\hyperlink{EEBL__program_8c_source_l00060}{EEBL\+\_\+void\+Process\+Neighbor()}}.
+

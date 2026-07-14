@@ -1,14 +1,10 @@
 /**
- **===========================================================================**
- **<<<<<<<<<<<<<<<<<<<<<<<<<<    EXTI_program.c    >>>>>>>>>>>>>>>>>>>>>>>>>>>>**
- **                                                                           **
- **                  Author : Abdallah Abdelmoemen Shehawey                   **
- **                  Layer  : MCAL                                            **
- **                  CPU    : Cortex-M4                                       **
- **                  MCU    : NUCLEO-F446RE                                   **
- **                  SWC    : EXTI                                            **
- **                                                                           **
- **===========================================================================**
+ ******************************************************************************
+ * @file    EXTI_program.c
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Implementation of the EXTI driver — the external interrupt controller.
+ * @ingroup mcal_exti
+ ******************************************************************************
  */
 
 #include <stdint.h>
@@ -20,30 +16,27 @@
 #include "../Inc/Drivers/MCAL/EXTI/EXTI_private.h"
 
 /**
- * @EXTI_CallBack array:
- * @brief: Array to store callback functions for each EXTI line
- * @details: Static array of function pointers to store callback functions
- *           for EXTI lines 0-15
- * @param: None
- * @return: None
+ * @brief One callback slot per EXTI line, 0..15; NULL means "nothing registered".
+ *
+ * The IRQ handlers below all funnel into this table. That is what lets six
+ * ultrasonic sensors share the EXTI hardware without knowing about each other.
  */
 static void (*EXTI_CallBack[16])(void) = {NULL};
 
 /*=================================================================================================================*/
-/**
- * @EXTI_vLineInit function:
- * @brief: Initialize EXTI line with configuration
- * @details: Configures EXTI line based on provided configuration structure
+/*
+ * @brief Initialize EXTI line with configuration
+ * @details Configures EXTI line based on provided configuration structure
  *           - Validates configuration parameters
  *           - Sets trigger source
  *           - Configures interrupt enable/disable state
  *           - Stores callback function
- * @param: Copy_pEXTI_LineConfig - Pointer to EXTI configuration structure
- * @return: ErrorState_t - Error state of the operation
+ * @param Copy_pEXTI_LineConfig - Pointer to EXTI configuration structure
+ * @return ErrorState_t - Error state of the operation
  *          OK - Operation successful
  *          NULL_POINTER - Invalid configuration pointer or callback
  *          NOK - Invalid EXTI line number
- * @note: Must be called after SYSCFG configuration
+ * @note Must be called after SYSCFG configuration
  */
 ErrorState_t EXTI_vLineInit(const EXTI_LineConfig_t *Copy_pEXTI_LineConfig)
 {
@@ -93,12 +86,11 @@ ErrorState_t EXTI_vLineInit(const EXTI_LineConfig_t *Copy_pEXTI_LineConfig)
   return Local_u8ErrorState;
 }
 /*=================================================================================================================*/
-/**
- * @EXTI_vEnableInterrupt function:
- * @brief: Enable EXTI interrupt
- * @details: Enables the specified EXTI line interrupt by setting IMR bit
- * @param: Copy_pEXTI_LineConfig - Pointer to EXTI configuration structure
- * @return: ErrorState_t - Error state of the operation
+/*
+ * @brief Enable EXTI interrupt
+ * @details Enables the specified EXTI line interrupt by setting IMR bit
+ * @param Copy_pEXTI_LineConfig - Pointer to EXTI configuration structure
+ * @return ErrorState_t - Error state of the operation
  *          OK - Operation successful
  *          NULL_POINTER - Invalid configuration pointer
  */
@@ -117,13 +109,12 @@ ErrorState_t EXTI_vEnableInterrupt(const EXTI_LineConfig_t *Copy_pEXTI_LineConfi
 }
 
 /*=================================================================================================================*/
-/**
- * @EXTI_vSetTrigSrc function:
- * @brief: Set EXTI trigger source
- * @details: Configures how the EXTI line is triggered by setting/clearing RTSR and FTSR bits
- * @param: Copy_pEXTI_LineConfig - Pointer to EXTI configuration structure
+/*
+ * @brief Set EXTI trigger source
+ * @details Configures how the EXTI line is triggered by setting/clearing RTSR and FTSR bits
+ * @param Copy_pEXTI_LineConfig - Pointer to EXTI configuration structure
  *         Copy_u8Trigger - New trigger source configuration
- * @return: ErrorState_t - Error state of the operation
+ * @return ErrorState_t - Error state of the operation
  *          OK - Operation successful
  *          NULL_POINTER - Invalid configuration pointer
  *          OUT_OF_RANGE - Invalid trigger source
@@ -163,12 +154,11 @@ ErrorState_t EXTI_vSetTrigSrc(const EXTI_LineConfig_t *Copy_pEXTI_LineConfig, EX
 }
 
 /*=================================================================================================================*/
-/**
- * @EXTI_vDisableInterrupt function:
- * @brief: Disable EXTI interrupt
- * @details: Disables the specified EXTI line interrupt by clearing IMR bit
- * @param: Copy_pEXTI_LineConfig - Pointer to EXTI configuration structure
- * @return: ErrorState_t - Error state of the operation
+/*
+ * @brief Disable EXTI interrupt
+ * @details Disables the specified EXTI line interrupt by clearing IMR bit
+ * @param Copy_pEXTI_LineConfig - Pointer to EXTI configuration structure
+ * @return ErrorState_t - Error state of the operation
  *          OK - Operation successful
  *          NULL_POINTER - Invalid configuration pointer
  */
@@ -188,11 +178,10 @@ ErrorState_t EXTI_vDisableInterrupt(const EXTI_LineConfig_t *Copy_pEXTI_LineConf
 
 /*=================================================================================================================*/
 /**
- * @EXTI_vSwIntEvent function:
- * @brief: Generate software interrupt event
- * @details: Generates a software interrupt by writing to SWIER register
- * @param: Copy_pEXTI_LineConfig - Pointer to EXTI configuration structure
- * @return: ErrorState_t - Error state of the operation
+ * @brief Generate software interrupt event
+ * @details Generates a software interrupt by writing to SWIER register
+ * @param Copy_pEXTI_LineConfig - Pointer to EXTI configuration structure
+ * @return ErrorState_t - Error state of the operation
  *          OK - Operation successful
  *          NULL_POINTER - Invalid configuration pointer
  */
@@ -211,12 +200,11 @@ ErrorState_t EXTI_vSwIntEvent(const EXTI_LineConfig_t *Copy_pEXTI_LineConfig)
 }
 
 /*=================================================================================================================*/
-/**
- * @EXTI_vClearPendFlag function:
- * @brief: Clear EXTI pending flag
- * @details: Clears the pending flag for the specified EXTI line by writing to PR register
- * @param: Copy_u8Line - EXTI line number
- * @return: void
+/*
+ * @brief Clear EXTI pending flag
+ * @details Clears the pending flag for the specified EXTI line by writing to PR register
+ * @param Copy_u8Line - EXTI line number
+ * @return void
  */
 void EXTI_vClearPendFlag(EXTI_Line_t Copy_u8Line)
 {
@@ -224,12 +212,11 @@ void EXTI_vClearPendFlag(EXTI_Line_t Copy_u8Line)
 }
 
 /*=================================================================================================================*/
-/**
- * @EXTI_u8ReadPendFlag function:
- * @brief: Read EXTI pending flag status
- * @details: Reads the status of the pending flag for specified EXTI line from PR register
- * @param: Copy_u8Line - EXTI line number
- * @return: uint8_t - Status of the pending flag (0: not pending, 1: pending)
+/*
+ * @brief Read EXTI pending flag status
+ * @details Reads the status of the pending flag for specified EXTI line from PR register
+ * @param Copy_u8Line - EXTI line number
+ * @return uint8_t - Status of the pending flag (0: not pending, 1: pending)
  */
 uint8_t EXTI_u8ReadPendFlag(EXTI_Line_t Copy_u8Line)
 {
@@ -240,6 +227,12 @@ uint8_t EXTI_u8ReadPendFlag(EXTI_Line_t Copy_u8Line)
 
 /* ISR --> Implementation */
 
+/**
+ * @brief Interrupt handler for EXTI line 0.
+ *
+ * Clears the pending flag and calls whatever callback was registered for the line.
+ * @note Named to match the vector table in `startup_stm32f446retx.s`.
+ */
 void EXTI0_IRQHandler(void)
 {
   if (EXTI_CallBack[EXTI_LINE0] != NULL)
@@ -251,6 +244,12 @@ void EXTI0_IRQHandler(void)
 
 /*___________________________________________________________________________________________________________________*/
 
+/**
+ * @brief Interrupt handler for EXTI line 1.
+ *
+ * Clears the pending flag and calls whatever callback was registered for the line.
+ * @note Named to match the vector table in `startup_stm32f446retx.s`.
+ */
 void EXTI1_IRQHandler(void)
 {
   if (EXTI_CallBack[EXTI_LINE1] != NULL)
@@ -262,6 +261,12 @@ void EXTI1_IRQHandler(void)
 
 /*___________________________________________________________________________________________________________________*/
 
+/**
+ * @brief Interrupt handler for EXTI line 2.
+ *
+ * Clears the pending flag and calls whatever callback was registered for the line.
+ * @note Named to match the vector table in `startup_stm32f446retx.s`.
+ */
 void EXTI2_IRQHandler(void)
 {
   if (EXTI_CallBack[EXTI_LINE2] != NULL)
@@ -273,6 +278,12 @@ void EXTI2_IRQHandler(void)
 
 /*___________________________________________________________________________________________________________________*/
 
+/**
+ * @brief Interrupt handler for EXTI line 3.
+ *
+ * Clears the pending flag and calls whatever callback was registered for the line.
+ * @note Named to match the vector table in `startup_stm32f446retx.s`.
+ */
 void EXTI3_IRQHandler(void)
 {
   if (EXTI_CallBack[EXTI_LINE3] != NULL)
@@ -284,6 +295,12 @@ void EXTI3_IRQHandler(void)
 
 /*___________________________________________________________________________________________________________________*/
 
+/**
+ * @brief Interrupt handler for EXTI line 4.
+ *
+ * Clears the pending flag and calls whatever callback was registered for the line.
+ * @note Named to match the vector table in `startup_stm32f446retx.s`.
+ */
 void EXTI4_IRQHandler(void)
 {
   if (EXTI_CallBack[EXTI_LINE4] != NULL)
@@ -295,6 +312,12 @@ void EXTI4_IRQHandler(void)
 
 /*___________________________________________________________________________________________________________________*/
 
+/**
+ * @brief Interrupt handler for EXTI lines 5..9.
+ *
+ * Clears the pending flag and calls whatever callback was registered for the line. Several lines share this vector, so the handler reads the pending register to find out which one actually fired.
+ * @note Named to match the vector table in `startup_stm32f446retx.s`.
+ */
 void EXTI9_5_IRQHandler(void)
 {
   if (EXTI_CallBack[EXTI_LINE5] != NULL || EXTI_CallBack[EXTI_LINE6] != NULL || EXTI_CallBack[EXTI_LINE7] != NULL || EXTI_CallBack[EXTI_LINE8] != NULL || EXTI_CallBack[EXTI_LINE9] != NULL)
@@ -329,6 +352,12 @@ void EXTI9_5_IRQHandler(void)
 
 /*___________________________________________________________________________________________________________________*/
 
+/**
+ * @brief Interrupt handler for EXTI lines 10..15.
+ *
+ * Clears the pending flag and calls whatever callback was registered for the line. Several lines share this vector, so the handler reads the pending register to find out which one actually fired.
+ * @note Named to match the vector table in `startup_stm32f446retx.s`.
+ */
 void EXTI15_10_IRQHandler(void)
 {
   if (EXTI_CallBack[EXTI_LINE10] != NULL || EXTI_CallBack[EXTI_LINE11] != NULL || EXTI_CallBack[EXTI_LINE12] != NULL || EXTI_CallBack[EXTI_LINE13] != NULL || EXTI_CallBack[EXTI_LINE14] != NULL || EXTI_CallBack[EXTI_LINE15] != NULL)
