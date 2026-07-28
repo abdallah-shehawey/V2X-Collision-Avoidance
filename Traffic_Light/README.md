@@ -73,7 +73,35 @@ first means preemption still works correctly despite the mismatch, but the
 mismatch itself is still worth fixing by picking one real ID and using it
 everywhere.
 
+## Conflict Resolution Module (multiple lanes)
+
+A single lane's local preemption (above) isn't safe on its own once more than
+one lane exists at an intersection — two lanes can't both be granted GREEN at
+the same time. `Intelligent_Gateway.py` arbitrates this:
+
+- `LANES = ["A", "B"]` and `CONFLICT_MAP = {"A": "B", "B": "A"}` model one
+  intersection with two perpendicular lanes (extend both to add more).
+- Every ambulance detection tagged with a `lane_id` registers/refreshes that
+  lane's emergency request (distance + last-seen time). Requests older than
+  `EMERGENCY_REQUEST_TIMEOUT` (5s) expire automatically.
+- **Policy: closest reported distance wins.** Whichever lane has the nearest
+  active request is sent `GREEN_CORRIDOR` (which triggers that lane's own
+  local preemption, above); every lane conflicting with it is sent
+  `HOLD_RED` — freezing it at RED (not just letting it happen to be red)
+  until released.
+- If the winner changes (a closer request appears on a different lane), the
+  previous winner is immediately re-evaluated: it gets `HOLD_RED` and the new
+  winner gets `GREEN_CORRIDOR`.
+- Once no lane has an active request, every held lane gets `RELEASE` and
+  resumes its own normal RED→YELLOW→GREEN→YELLOW cycle.
+
+Commands are only re-sent when the decision actually changes (not every
+tick), and a background thread (`conflict_resolution_watchdog`) re-evaluates
+once a second so expiry/release doesn't depend on a new detection arriving.
+
 ## Run
+
+Single lane (original behavior, `LANE_ID` defaults to `"A"`):
 
 ```bash
 python3 Traffic_light_GUI.py    # RSU state machine + GUI
@@ -81,5 +109,15 @@ python3 distance.py             # camera/plate pipeline (needs a video FILE, not
 python3 Intelligent_Gateway.py  # merges both, publishes the processed packet
 ```
 
-Each is a standalone process — start the gateway last so it has both feeds to
-subscribe to.
+Two perpendicular lanes (Conflict Resolution Module active):
+
+```bash
+LANE_ID=A python3 Traffic_light_GUI.py
+LANE_ID=B python3 Traffic_light_GUI.py
+LANE_ID=A python3 distance.py   # or: python3 distance.py A
+LANE_ID=B python3 distance.py   # (needs its own video file - a second lane's camera feed)
+python3 Intelligent_Gateway.py  # start last - subscribes to every lane's feeds
+```
+
+Each is a standalone process — start the gateway last so it has all lanes'
+feeds to subscribe to.
