@@ -66,25 +66,36 @@ def cleanup_registry():
     Background worker thread that continually flushes stale vehicle records.
     Removes vehicles from the local tracking registry if unseen for > 5 seconds
     to optimize system memory and maintain data fresh accuracy.
+
+    Note: this only ever acquires one lock at a time (registry_lock, then
+    separately state_lock). process_and_publish() always acquires them in
+    the order state_lock -> registry_lock; nesting them here in the reverse
+    order would be an ABBA deadlock waiting to happen against that thread.
     """
     global camera_ambulance
     while True:
         time.sleep(2)
         current_time = int(time.time())
+        ambulance_removed = False
+
         with registry_lock:
             to_delete = []
             for pid, data in vehicle_registry.items():
                 if current_time - data.get("last_seen", 0) > 5:
                     to_delete.append(pid)
-            
+
             for pid in to_delete:
                 print(f"🧹 Clearing stale vehicle data: {pid}")
+                # Match on the is_ambulance flag (set by the camera feed itself),
+                # not just the ID string, since the gateway's AMBULANCE_ID
+                # constant can differ from the one the camera scripts use.
+                if vehicle_registry[pid].get("is_ambulance") or pid == AMBULANCE_ID:
+                    ambulance_removed = True
                 vehicle_registry.pop(pid, None)
-                if pid == AMBULANCE_ID:
-                    with state_lock:
-                        camera_ambulance = False
-        
-        if not vehicle_registry:
+
+            registry_now_empty = not vehicle_registry
+
+        if ambulance_removed or registry_now_empty:
             with state_lock:
                 camera_ambulance = False
 
@@ -169,18 +180,23 @@ def process_and_publish():
         # Handle active priority preemption logging and alerting
         if is_emergency:
             emergency_plate = None
+            emergency_distance = None
             with registry_lock:
                 if AMBULANCE_ID in vehicle_registry:
                     emergency_plate = AMBULANCE_ID
+                    emergency_distance = vehicle_registry[AMBULANCE_ID].get("distance_m")
                 else:
                     for pid, data in vehicle_registry.items():
                         if data.get("is_ambulance"):
                             emergency_plate = pid
+                            emergency_distance = data.get("distance_m")
                             break
 
-            if closest and closest.get("distance_m") is not None:
-                dist_val = closest["distance_m"]
-                output["warning"] = f"🚨 AMBULANCE APPROACHING [{emergency_plate or AMBULANCE_ID}] at {dist_val}m! NORMAL CARS MUST STOP! 🚨"
+            # Report the ambulance's own distance, not the closest vehicle's
+            # (which may be an unrelated nearer car) - `closest` above is only
+            # the nearest vehicle overall, not necessarily the ambulance.
+            if emergency_distance is not None:
+                output["warning"] = f"🚨 AMBULANCE APPROACHING [{emergency_plate or AMBULANCE_ID}] at {emergency_distance}m! NORMAL CARS MUST STOP! 🚨"
             else:
                 output["warning"] = f"🚨 AMBULANCE APPROACHING [{emergency_plate or AMBULANCE_ID}]! NORMAL CARS MUST STOP! 🚨"
 
@@ -237,7 +253,10 @@ def on_message(client, userdata, msg):
 
         # Handle binary legacy classification feeds
         elif msg.topic == CAMERA_TOPIC:
-            if "Ambulance verified" in payload_str or "ambulance" in payload_str.lower():
+            # Only trust the explicit positive marker - a loose "ambulance" in
+            # payload_str.lower() substring check would also match messages
+            # like "No ambulance detected", falsely latching the emergency state.
+            if "ambulance verified" in payload_str.lower():
                 with state_lock:
                     camera_confirmed = True
                 print(f"📸 [Gateway AI-Log] Legacy Camera confirmed Ambulance!")

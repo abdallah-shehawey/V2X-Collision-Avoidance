@@ -8,6 +8,7 @@ Description: Roadside Unit (RSU) Traffic Light Simulator with an optimized, scal
 """
 
 import json
+import time
 import tkinter as tk
 from tkinter import font as tkfont
 import paho.mqtt.client as mqtt
@@ -16,11 +17,12 @@ import ssl
 # ============================================================
 # 🌐 MQTT SERVER CONFIGURATION
 # ============================================================
-BROKER         = "2b6738facfbf40f1a86ba770618ae8a6.s1.eu.hivemq.cloud"
-PORT           = 8883
-USERNAME       = "v2n_admin"
-PASSWORD       = "V2n@2026!"
-TRAFFIC_TOPIC  = "v2n/traffic/light/state"
+BROKER                 = "2b6738facfbf40f1a86ba770618ae8a6.s1.eu.hivemq.cloud"
+PORT                   = 8883
+USERNAME               = "v2n_admin"
+PASSWORD               = "V2n@2026!"
+TRAFFIC_TOPIC          = "v2n/traffic/light/state"
+CAMERA_DETECTION_TOPIC = "v2n/camera/vehicle_data"   # published by distance.py (AI camera feed)
 
 # ============================================================
 # ⏱️ STATE DURATIONS (In Seconds)
@@ -28,6 +30,15 @@ TRAFFIC_TOPIC  = "v2n/traffic/light/state"
 GREEN_DURATION  = 15
 YELLOW_DURATION = 3
 RED_DURATION    = 12
+
+# ============================================================
+# 🚑 AMBULANCE PREEMPTION TUNING
+# ============================================================
+AMBULANCE_ID               = "REX"  # fallback match if is_ambulance flag is missing
+AMBULANCE_PRESENCE_TIMEOUT = 5      # seconds a detection stays "valid" without a fresh update
+GREEN_EXTENSION_THRESHOLD  = 3      # only extend GREEN when this many seconds (or fewer) remain
+GREEN_EXTENSION_SECONDS    = 5      # how much extra GREEN time is granted per extension
+MAX_GREEN_EXTENSIONS       = 3      # safety cap so a stuck detection can't hold GREEN forever
 
 # ============================================================
 # ⚙️ V2X NUMERIC TRANSITION CODES
@@ -105,6 +116,11 @@ class TrafficLightGUI:
         self.sim_index = 0
         self.sim_after_id = None
 
+        # Ambulance (AI camera) preemption state
+        self.ambulance_present = False
+        self.last_ambulance_seen = 0.0
+        self.green_extensions_used = 0
+
         # Network client parameters
         self.mqtt_client = None
         self.mqtt_connected = False
@@ -132,6 +148,9 @@ class TrafficLightGUI:
 
         self.conn_label = tk.Label(self.root, text="🔄 Connecting to MQTT Server...", font=sub_font, bg=BG_DARK, fg="#ff9f0a")
         self.conn_label.pack(pady=(0, 10))
+
+        self.ambulance_label = tk.Label(self.root, text="", font=sub_font, bg=BG_DARK, fg=RED_ON)
+        self.ambulance_label.pack(pady=(0, 5))
 
         # Core Graphics Housing Canvas
         w, h, d, top, gap = self.CANVAS_W, self.CANVAS_H, self.DIAMETER, self.TOP_PAD, self.GAP
@@ -176,6 +195,7 @@ class TrafficLightGUI:
         self.mqtt_client.tls_set(cert_reqs=ssl.CERT_REQUIRED)
         self.mqtt_client.on_connect = self._on_mqtt_connect
         self.mqtt_client.on_disconnect = self._on_mqtt_disconnect
+        self.mqtt_client.on_message = self._on_camera_message
 
         try:
             self.mqtt_client.connect(BROKER, PORT, 60)
@@ -190,7 +210,10 @@ class TrafficLightGUI:
         if reason_code == 0:
             self.mqtt_connected = True
             self.set_connection_status(True)
-            self._publish_state()        
+            client.subscribe(CAMERA_DETECTION_TOPIC)
+            # _publish_state() touches Tkinter widgets; this callback runs on
+            # paho's network thread, so it must be bounced to the main thread.
+            self.root.after(0, self._publish_state)
         else:
             self.mqtt_connected = False
             self.set_connection_status(False, f"⚠️ Auth Failed (code {reason_code})")
@@ -201,6 +224,84 @@ class TrafficLightGUI:
         """
         self.mqtt_connected = False
         self.set_connection_status(False, "⚠️ Disconnected - Retrying...")
+
+    def _on_camera_message(self, client, userdata, msg):
+        """
+        Callback fired on the MQTT network thread whenever the AI camera (distance.py)
+        reports a detected vehicle. Hands ambulance detections off to the Tkinter
+        main thread via root.after, since Tk is not thread-safe.
+        """
+        if msg.topic != CAMERA_DETECTION_TOPIC:
+            return
+        try:
+            data = json.loads(msg.payload.decode().strip())
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            return
+
+        plate_id = str(data.get("plate_id", "")).strip()
+        is_ambulance = bool(data.get("is_ambulance", False)) or (plate_id == AMBULANCE_ID)
+        if is_ambulance:
+            self.root.after(0, self._on_ambulance_detected)
+
+    def _on_ambulance_detected(self):
+        """
+        Marks the ambulance as currently present and re-evaluates the light state.
+        """
+        self.ambulance_present = True
+        self.last_ambulance_seen = time.time()
+        self.ambulance_label.config(text="🚑 Ambulance detected - preemption active")
+        self._check_ambulance_preemption()
+
+    def _check_ambulance_preemption(self):
+        """
+        Reacts to a present ambulance based on the light's current state:
+        - RED: skip ahead to YELLOW so the sequence reaches GREEN early.
+        - GREEN: extend the remaining time if it's about to run out.
+        - YELLOW: left alone, it is already mid-transition.
+        """
+        if not self.ambulance_present:
+            return
+        if self.state == "RED":
+            self._preempt_red_to_green()
+        elif self.state == "GREEN":
+            self._maybe_extend_green()
+
+    def _preempt_red_to_green(self):
+        """
+        Interrupts a RED phase and jumps straight to the YELLOW step that leads
+        into GREEN, letting the ambulance through without skipping the
+        RED -> YELLOW -> GREEN safety sequence.
+        """
+        print("🚨 [Ambulance Preemption] RED -> forcing YELLOW then GREEN early")
+        self._cancel_scheduled_tick()
+        self.sim_index = self._find_yellow_before_green_index()
+        self._run_sim_step()
+
+    def _find_yellow_before_green_index(self):
+        """
+        Locates the YELLOW step in SIM_SEQUENCE that is immediately followed by GREEN.
+        """
+        count = len(self.SIM_SEQUENCE)
+        for i, (step_state, _) in enumerate(self.SIM_SEQUENCE):
+            if step_state == "YELLOW" and self.SIM_SEQUENCE[(i + 1) % count][0] == "GREEN":
+                return i
+        return self.sim_index
+
+    def _maybe_extend_green(self):
+        """
+        Grants extra GREEN time when the ambulance is still near as the light is
+        about to change, capped by MAX_GREEN_EXTENSIONS so a stuck detection
+        cannot hold GREEN forever.
+        """
+        if self.remaining_time > GREEN_EXTENSION_THRESHOLD:
+            return
+        if self.green_extensions_used >= MAX_GREEN_EXTENSIONS:
+            print(f"⚠️ [Ambulance Preemption] Already extended GREEN {MAX_GREEN_EXTENSIONS}x - letting it change on schedule")
+            return
+        self.green_extensions_used += 1
+        self.remaining_time += GREEN_EXTENSION_SECONDS
+        print(f"🚨 [Ambulance Preemption] Ambulance still near with GREEN ending soon -> extending by {GREEN_EXTENSION_SECONDS}s (now {self.remaining_time}s left)")
+        self._apply_update(self.state, self.remaining_time)
 
     def _get_next_state(self):
         """
@@ -305,32 +406,70 @@ class TrafficLightGUI:
         """
         self.simulation_active = False
         self.sim_btn.config(text="▶  Start Simulation", bg="#34c759")
+        self._cancel_scheduled_tick()
+
+    def _cancel_scheduled_tick(self):
+        """
+        Cancels any pending after() callback so a preemption jump can't race
+        against an already-scheduled tick.
+        """
         if self.sim_after_id:
             self.root.after_cancel(self.sim_after_id)
             self.sim_after_id = None
 
     def _run_sim_step(self):
         """
-        Fetches sequence metrics for the current step index and applies updates.
+        Fetches sequence metrics for the current step index and hands off to
+        the tick loop, which performs the single apply_update/publish for
+        this step (avoids double-publishing the same state at phase start).
         """
         if not self.simulation_active:
             return
         state, duration = self.SIM_SEQUENCE[self.sim_index % len(self.SIM_SEQUENCE)]
-        self._apply_update(state, duration)
-        self._sim_tick(duration)
+        if state == "GREEN":
+            self.green_extensions_used = 0
+        self.state = (state or "RED").upper()
+        self.remaining_time = duration
+        self._sim_tick()
 
-    def _sim_tick(self, remaining):
+    def _sim_tick(self):
         """
         Handles second-by-second countdown ticking before moving to the next state.
+        Reads/writes self.remaining_time directly (rather than a closure-local
+        value) so ambulance preemption can extend it mid-countdown.
         """
         if not self.simulation_active:
             return
-        self._apply_update(self.state, remaining)
-        if remaining <= 0:
+
+        if self.ambulance_present and (time.time() - self.last_ambulance_seen) > AMBULANCE_PRESENCE_TIMEOUT:
+            self.ambulance_present = False
+            self.ambulance_label.config(text="")
+
+        self._apply_update(self.state, self.remaining_time)
+
+        state_before_check = self.state
+        self._check_ambulance_preemption()
+        if self.state != state_before_check:
+            # A RED->GREEN preemption jump already re-entered _run_sim_step()
+            # and scheduled its own callback; don't schedule a second one here.
+            return
+
+        if self.remaining_time <= 0:
             self.sim_index += 1
-            self.root.after(700, self._run_sim_step)
+            # Same 1000ms cadence as the per-second ticks below, so every
+            # phase (including the final "0" second) holds for exactly one
+            # second and phases don't drift out of sync with their configured
+            # durations.
+            self.sim_after_id = self.root.after(1000, self._run_sim_step)
         else:
-            self.root.after(1000, lambda: self._sim_tick(remaining - 1))
+            self.sim_after_id = self.root.after(1000, self._decrement_tick)
+
+    def _decrement_tick(self):
+        """
+        Advances the countdown by one second, then re-enters the tick loop.
+        """
+        self.remaining_time -= 1
+        self._sim_tick()
 
     def _on_close(self):
         """

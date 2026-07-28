@@ -28,15 +28,30 @@ CAMERA_DETECTION_TOPIC = "v2n/camera/vehicle_data"
 
 AMBULANCE_ID = "T4RR"
 
+def _on_mqtt_connect(client, userdata, flags, reason_code, properties=None):
+    if reason_code == 0:
+        print("Successfully connected to MQTT Broker!")
+    else:
+        print(f"MQTT authentication/connection rejected by broker (reason code: {reason_code})")
+
+
+def _on_mqtt_disconnect(client, userdata, flags, reason_code=None, properties=None):
+    print(f"MQTT disconnected (reason code: {reason_code})")
+
+
 mqtt_client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 mqtt_client.username_pw_set(USERNAME, PASSWORD)
 mqtt_client.tls_set(cert_reqs=ssl.CERT_REQUIRED)
+mqtt_client.on_connect = _on_mqtt_connect
+mqtt_client.on_disconnect = _on_mqtt_disconnect
 
 try:
     print("Connecting to HiveMQ Cloud Server...")
+    # connect() only raises on network-level failures (unreachable host, etc).
+    # Auth failures are reported asynchronously via on_connect's reason_code,
+    # so the actual "connected" confirmation is printed there, not here.
     mqtt_client.connect(BROKER, PORT, 60)
     mqtt_client.loop_start()
-    print("Successfully connected to MQTT Broker!")
 except Exception as e:
     print(f"MQTT Connection Failed: {e}")
 
