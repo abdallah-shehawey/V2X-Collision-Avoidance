@@ -66,24 +66,38 @@ RADAR_MARGIN = 10
 # ============================================================
 # 2. IPC Hub
 # ============================================================
-_ipc        = IPCNode("v2p_camera")
-_tl_lock    = threading.Lock()
-_CAR_TL_STR = "RED"
-_PED_TL_STR = "DONT_WALK"
+_ipc          = IPCNode("v2p_camera")
+_tl_lock      = threading.Lock()
+_CAR_TL_STR   = "RED"
+_PED_TL_STR   = "DONT_WALK"
+_IS_EMERGENCY = False
 
 _TL_FLAG_TO_STR = {0: "RED", 1: "GREEN", 2: "RED"}
 _TL_STR_TO_PED  = {"GREEN": "WALK", "RED": "DONT_WALK"}
 
+# When an ambulance/emergency vehicle is active on the network (per
+# Intelligent_Gateway.py's is_emergency, forwarded through Car_client.py's
+# v2n_frame), detect every frame instead of every skip_frames-th one, so a
+# vehicle approaching the crosswalk is picked up as fast as possible.
+EMERGENCY_SKIP_FRAMES = 1
+
 
 def _on_v2n_frame(topic, data, sender):
-    global _CAR_TL_STR, _PED_TL_STR
-    flag    = int(data.get("traffic_flag", 2))
-    car_str = _TL_FLAG_TO_STR.get(flag, "RED")
-    ped_str = _TL_STR_TO_PED.get(car_str, "DONT_WALK")
+    global _CAR_TL_STR, _PED_TL_STR, _IS_EMERGENCY
+    flag         = int(data.get("traffic_flag", 2))
+    car_str      = _TL_FLAG_TO_STR.get(flag, "RED")
+    ped_str      = _TL_STR_TO_PED.get(car_str, "DONT_WALK")
+    is_emergency = bool(data.get("is_emergency", False))
     with _tl_lock:
-        _CAR_TL_STR = car_str
-        _PED_TL_STR = ped_str
-    print(f"[V2P] traffic update <- {sender}: car={car_str} ped={ped_str}")
+        _CAR_TL_STR   = car_str
+        _PED_TL_STR   = ped_str
+        was_emergency = _IS_EMERGENCY
+        _IS_EMERGENCY = is_emergency
+    print(f"[V2P] traffic update <- {sender}: car={car_str} ped={ped_str} emergency={is_emergency}")
+    if is_emergency and not was_emergency:
+        print("[V2P] 🚨 Emergency vehicle alert received -> raising detection rate")
+    elif was_emergency and not is_emergency:
+        print("[V2P] Emergency cleared -> back to normal detection rate")
 
 
 def _connect_hub():
@@ -95,11 +109,12 @@ def _connect_hub():
         print("[V2P] WARNING: IPC hub unreachable — traffic state stays RED.")
 
 
-def _publish_v2p_frame(ped_flag, pos_flag, lead_car_flag=0):
+def _publish_v2p_frame(ped_flag, pos_flag, lead_car_flag=0, emergency_active=False):
     _ipc.publish("v2p_frame", {
         "pedestrian_flag":        ped_flag,
         "position_flag":          pos_flag,
         "lead_car_collision_flag": lead_car_flag,
+        "emergency_active":       emergency_active,
     })
 
 
@@ -131,6 +146,9 @@ class CentroidTracker:
         self.objects.pop(obj_id, None)
         self.objects_bbox.pop(obj_id, None)
         self.disappeared.pop(obj_id, None)
+        # next_id never gets reused, so without this the history defaultdict
+        # grows by one deque per object ever seen for the lifetime of the process.
+        self.history.pop(obj_id, None)
 
     def compute_iou(self, boxA, boxB):
         xA = max(boxA[0], boxB[0]); yA = max(boxA[1], boxB[1])
@@ -154,9 +172,17 @@ class CentroidTracker:
             input_centroids.append((int((x1+x2)/2), int((y1+y2)/2)))
             input_bboxes.append((x1, y1, x2, y2))
 
+        # Tracks which input rect (by index) ended up as which object ID, built
+        # up as we go, so the final result doesn't need to re-derive the
+        # association by centroid equality (fragile: two boxes can round to
+        # the same integer centroid and silently overwrite each other).
+        col_to_objid = {}
+
         if len(self.objects) == 0:
             for i, (cx, cy) in enumerate(input_centroids):
+                obj_id = self.next_id
                 self.register(cx, cy, input_bboxes[i])
+                col_to_objid[i] = obj_id
         else:
             obj_ids    = list(self.objects.keys())
             obj_cents  = list(self.objects.values())
@@ -186,10 +212,13 @@ class CentroidTracker:
                 self.history[obj_id].append((cx, cy))
                 used_rows.add(row)
                 used_cols.add(col)
+                col_to_objid[col] = obj_id
 
             for col in range(len(input_centroids)):
                 if col not in used_cols:
+                    obj_id = self.next_id
                     self.register(*input_centroids[col], input_bboxes[col])
+                    col_to_objid[col] = obj_id
 
             for row in range(len(obj_cents)):
                 if row not in used_rows:
@@ -199,12 +228,12 @@ class CentroidTracker:
                         self.deregister(obj_id)
 
         result = {}
-        for i, (x1, y1, x2, y2, class_id) in enumerate(rects):
-            cx, cy = int((x1+x2)/2), int((y1+y2)/2)
-            for obj_id, (ox, oy) in self.objects.items():
-                if ox == cx and oy == cy:
-                    result[obj_id] = (cx, cy, x1, y1, x2, y2, class_id)
-                    break
+        for col, (x1, y1, x2, y2, class_id) in enumerate(rects):
+            obj_id = col_to_objid.get(col)
+            if obj_id is None:
+                continue
+            cx, cy = input_centroids[col]
+            result[obj_id] = (cx, cy, x1, y1, x2, y2, class_id)
         return result
 
 
@@ -335,6 +364,29 @@ def draw_radar(frame, objects):
 
 
 # ============================================================
+# 7b. Letterbox Preprocessing
+# ============================================================
+def letterbox(img, size=640, color=(114, 114, 114)):
+    """
+    Resize preserving aspect ratio and pad to a square canvas, the way
+    Ultralytics YOLO models are trained/exported to expect. A naive
+    cv2.resize(img, (size, size)) on a non-square frame (this camera is
+    640x480) stretches the image and measurably degrades detection quality,
+    since the network never saw distorted objects during training.
+    Returns (canvas, scale_ratio, pad_left, pad_top) - the last three are
+    needed to map detected boxes back to original frame coordinates.
+    """
+    h, w = img.shape[:2]
+    r = size / max(h, w)
+    nh, nw = int(round(h * r)), int(round(w * r))
+    resized = cv2.resize(img, (nw, nh))
+    canvas = np.full((size, size, 3), color, dtype=np.uint8)
+    top, left = (size - nh) // 2, (size - nw) // 2
+    canvas[top:top + nh, left:left + nw] = resized
+    return canvas, r, left, top
+
+
+# ============================================================
 # 8. Camera & Model Init (FIXED)
 # ============================================================
 print("\nOpening camera...")
@@ -404,10 +456,13 @@ try:
         with _tl_lock:
             CAR_TRAFFIC_LIGHT = _CAR_TL_STR
             PED_TRAFFIC_LIGHT = _PED_TL_STR
+            EMERGENCY_ACTIVE  = _IS_EMERGENCY
+
+        effective_skip_frames = EMERGENCY_SKIP_FRAMES if EMERGENCY_ACTIVE else skip_frames
 
         # ── Inference ─────────────────────────────────────────────
-        if frame_count % skip_frames == 0:
-            blob = cv2.resize(rgb_frame, (MODEL_INPUT_SIZE, MODEL_INPUT_SIZE))
+        if frame_count % effective_skip_frames == 0:
+            blob, lb_r, lb_left, lb_top = letterbox(rgb_frame, MODEL_INPUT_SIZE)
             blob = blob.astype(np.float32) / 255.0
             blob = blob.transpose(2, 0, 1)[np.newaxis, ...]
 
@@ -415,8 +470,6 @@ try:
             preds   = np.squeeze(outputs[0]).T
 
             raw_boxes, raw_scores, raw_classes = [], [], []
-            scale_x = FRAME_W / MODEL_INPUT_SIZE
-            scale_y = FRAME_H / MODEL_INPUT_SIZE
 
             for p in preds:
                 cs    = p[4:]
@@ -424,8 +477,10 @@ try:
                 score = float(cs[cid])
                 if score > CONF_THRESH and cid in TARGET_CLASSES:
                     cx, cy, wb, hb = p[0:4]
-                    x1 = int((cx-wb/2)*scale_x); y1 = int((cy-hb/2)*scale_y)
-                    x2 = int((cx+wb/2)*scale_x); y2 = int((cy+hb/2)*scale_y)
+                    # Undo the letterbox padding/scale to map back to the
+                    # original (un-padded, un-stretched) frame coordinates.
+                    x1 = int((cx - wb/2 - lb_left) / lb_r); y1 = int((cy - hb/2 - lb_top) / lb_r)
+                    x2 = int((cx + wb/2 - lb_left) / lb_r); y2 = int((cy + hb/2 - lb_top) / lb_r)
                     raw_boxes.append([x1, y1, x2-x1, y2-y1])
                     raw_scores.append(score)
                     raw_classes.append(cid)
@@ -550,7 +605,7 @@ try:
                 tc = tuple(int(c*a) for c in color)
                 cv2.line(frame, pts_h[k-1], pts_h[k], tc, 1)
 
-        _publish_v2p_frame(frame_ped_flag, frame_pos_flag, frame_lead_flag)
+        _publish_v2p_frame(frame_ped_flag, frame_pos_flag, frame_lead_flag, EMERGENCY_ACTIVE)
         if frame_moto_flag != _prev_moto_flag:
             _publish_motorcycle_alert(frame_moto_flag)
             _prev_moto_flag = frame_moto_flag
@@ -560,6 +615,11 @@ try:
                     cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,200,200), 1)
 
         frame = draw_radar(frame, last_objects)
+
+        if EMERGENCY_ACTIVE:
+            cv2.rectangle(frame, (0, 0), (FRAME_W, 24), (0, 0, 200), -1)
+            cv2.putText(frame, "EMERGENCY VEHICLE APPROACHING - CLEAR PATH", (8, 17),
+                        cv2.FONT_HERSHEY_DUPLEX, 0.5, (255, 255, 255), 1)
 
         warnings_list = [(t,c) for (_,t,c) in sorted(warnings_dict.values(), key=lambda x:-x[0])]
         if warnings_list:

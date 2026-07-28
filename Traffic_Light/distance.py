@@ -8,6 +8,7 @@ import easyocr
 import re
 import csv
 import os
+import sys
 import json
 import time
 import ssl
@@ -16,6 +17,13 @@ import paho.mqtt.client as mqtt
 print("="*60)
 print("VEHICLE LICENSE PLATE READER - DISTANCE FIXED + PAUSE ON AMBULANCE")
 print("="*60)
+
+# ============================================================
+# LANE IDENTITY (matches the Traffic_light_GUI.py instance this camera
+# watches, so Intelligent_Gateway.py's Conflict Resolution Module knows
+# which lane an approaching ambulance is actually in)
+# ============================================================
+LANE_ID = os.environ.get("LANE_ID") or (sys.argv[1] if len(sys.argv) > 1 else "A")
 
 # ============================================================
 # MQTT SERVER CONFIGURATION (HiveMQ Cloud)
@@ -97,17 +105,27 @@ pause_mode = False
 pause_frames_remaining = 0
 SPEED_ASSUMED = 5.0
 
+# While paused, YOLO/OCR stop running entirely, so nothing would otherwise be
+# republished. Traffic_light_GUI.py's own AMBULANCE_PRESENCE_TIMEOUT is 5s, but
+# a pause can last up to 20s - without this, the light (or the gateway) would
+# conclude the ambulance left mid-pause even though it's still approaching.
+AMBULANCE_REPUBLISH_INTERVAL = 2.0
+last_ambulance_payload = None
+last_republish_time = 0.0
+
 print(f"\nProcessing video: {video_name}")
 print(f"Ambulance ID: {AMBULANCE_ID} (Temporary camera pause when detected)")
 print("Distance is now calculated from actual plate width, not car width.")
 print("Press Ctrl+C to stop.\n")
 
 running = True
+has_looped = False
 try:
     while running:
         ret, frame = cap.read()
         if not ret:
             print("\nVideo ended. Restarting loop...")
+            has_looped = True
             cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
             ret, frame = cap.read()
             if not ret:
@@ -120,7 +138,13 @@ try:
         # ============================================================
         if pause_mode:
             pause_frames_remaining -= 1
-            out.write(frame)
+            if not has_looped:
+                out.write(frame)
+            if (last_ambulance_payload is not None
+                    and time.time() - last_republish_time >= AMBULANCE_REPUBLISH_INTERVAL):
+                last_ambulance_payload["timestamp"] = int(time.time())
+                mqtt_client.publish(CAMERA_DETECTION_TOPIC, json.dumps(last_ambulance_payload))
+                last_republish_time = time.time()
             if pause_frames_remaining <= 0:
                 pause_mode = False
                 print("Camera resumed.")
@@ -133,7 +157,10 @@ try:
             results = car_detector(frame, verbose=False)
 
             for box in results[0].boxes:
-                if int(box.cls[0]) == 2 and float(box.conf[0]) > 0.5:
+                # COCO classes: 2=car, 5=bus, 7=truck - real ambulances are
+                # often box/van-bodied and get classified as bus/truck, not
+                # "car"; restricting to class 2 alone can miss them entirely.
+                if int(box.cls[0]) in (2, 5, 7) and float(box.conf[0]) > 0.5:
                     x1, y1, x2, y2 = map(int, box.xyxy[0])
                     car_width = x2 - x1
 
@@ -170,16 +197,22 @@ try:
                                     if distance is None:
                                         continue
 
-                                    confidence = min(95, 60 + len(cleaned) * 5)
+                                    # Real EasyOCR confidence (0-1) was already unpacked
+                                    # above as `conf` - use it directly instead of a
+                                    # fabricated string-length formula.
+                                    confidence = round(conf * 100, 1)
                                     distance_text = f"{distance:.2f}m"
                                     is_ambulance = (cleaned == AMBULANCE_ID)
+                                    detection_time = int(time.time())
 
                                     # Record first occurrence only
                                     if cleaned not in detected_plates:
                                         detected_plates[cleaned] = {
                                             'frame': frame_count,
                                             'confidence': confidence,
-                                            'distance': distance
+                                            'distance': distance,
+                                            'timestamp': detection_time,
+                                            'is_ambulance': is_ambulance
                                         }
                                         status_icon = "🚑 AMBULANCE" if is_ambulance else "🚗 CAR"
                                         print(f"{status_icon} DETECTED: {cleaned} | Distance: {distance_text} (Plate Width: {plate_width_px}px)")
@@ -191,7 +224,8 @@ try:
                                         "plate_id": cleaned,
                                         "distance_m": round(distance, 2),
                                         "is_ambulance": is_ambulance,
-                                        "timestamp": int(time.time())
+                                        "timestamp": detection_time,
+                                        "lane_id": LANE_ID
                                     }
                                     mqtt_client.publish(CAMERA_DETECTION_TOPIC, json.dumps(payload))
 
@@ -206,6 +240,8 @@ try:
                                         pause_frames = int(pause_seconds * fps)
                                         pause_mode = True
                                         pause_frames_remaining = pause_frames
+                                        last_ambulance_payload = dict(payload)
+                                        last_republish_time = time.time()
                                         print(f"Ambulance at {distance_text} -> Pausing for {pause_seconds:.1f}s ({pause_frames} frames)")
 
                                     # ============================================================
@@ -217,7 +253,8 @@ try:
                                     cv2.putText(frame, f"Dist: {distance_text}", (x1 + 5, y1 - 35), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
                                     break
 
-        out.write(frame)
+        if not has_looped:
+            out.write(frame)
 
 except KeyboardInterrupt:
     print("\nStopped by user.")
@@ -238,9 +275,12 @@ finally:
     csv_path = 'plate_detections_with_distance.csv'
     with open(csv_path, 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
-        writer.writerow(['Plate', 'Frame', 'Confidence (%)', 'Distance (m)'])
+        writer.writerow(['Plate', 'Frame', 'Confidence (%)', 'Distance (m)', 'Detection Time', 'Emergency Status'])
         for plate, info in detected_plates.items():
-            writer.writerow([plate, info['frame'], f"{info['confidence']:.0f}", f"{info['distance']:.2f}"])
+            detection_time_str = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(info['timestamp']))
+            emergency_status = 'AMBULANCE' if info['is_ambulance'] else 'NORMAL'
+            writer.writerow([plate, info['frame'], f"{info['confidence']:.1f}", f"{info['distance']:.2f}",
+                              detection_time_str, emergency_status])
 
     print(f"\nResults saved to: {os.path.abspath(csv_path)}")
     print("Done!")

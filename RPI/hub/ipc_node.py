@@ -70,6 +70,17 @@ class IPCNode:
         # Multiple callbacks per topic are supported.
         self._callbacks: dict[str, list] = {}
 
+        # Guards writes to the socket: sendall() is not atomic across threads,
+        # so any node that ever calls publish()/subscribe() from more than one
+        # thread (e.g. a callback thread alongside the main thread) can
+        # otherwise interleave partial frames on the wire.
+        self._send_lock = threading.Lock()
+
+        # Bytes read past the first frame during the synchronous _recv_one()
+        # calls (connect/subscribe acks), carried over so _recv_loop() doesn't
+        # silently lose a message that arrived in the same recv() chunk.
+        self._leftover = b""
+
     # ──────────────────────────────────────────────────────────────────────
     def connect(self, retries: int = 8) -> bool:
         """
@@ -170,6 +181,42 @@ class IPCNode:
     # Internal helpers
     # ──────────────────────────────────────────────────────────────────────
 
+    def _dispatch_lines(self, buf: str) -> str:
+        """
+        Parses and dispatches every complete newline-terminated JSON frame
+        currently in *buf*, returning whatever incomplete tail remains.
+        Shared by _recv_loop() and the leftover bytes _recv_one() may have
+        already read past the handshake ack, so neither path can silently
+        drop a frame that arrived in the same read as the previous one.
+        """
+        while "\n" in buf:
+            line, buf = buf.split("\n", 1)
+            line = line.strip()
+            if not line:
+                continue
+
+            frame = json.loads(line)
+
+            # Delivered pub/sub message from the hub.
+            if "topic" in frame:
+                topic  = frame["topic"]
+                data   = frame["data"]
+                sender = frame.get("from", "unknown")
+
+                for cb in self._callbacks.get(topic, []):
+                    try:
+                        cb(topic, data, sender)
+                    except Exception as exc:
+                        print(
+                            f"[{self.name}] callback error "
+                            f"on topic '{topic}': {exc}"
+                        )
+
+            # Ack or error from the hub (publish confirmation, etc.)
+            elif not frame.get("ok") and "error" in frame:
+                print(f"[{self.name}] hub error: {frame['error']}")
+        return buf
+
     def _recv_loop(self) -> None:
         """
         Background receive loop.
@@ -178,7 +225,13 @@ class IPCNode:
         from the stream, and dispatches them to registered callbacks.
         Exits cleanly when the hub closes the connection.
         """
-        buf = ""
+        # Anything _recv_one() already read past the connect/subscribe ack's
+        # newline belongs to this stream too - dispatch it before blocking
+        # on the next recv(), instead of discarding it.
+        buf = self._leftover.decode("utf-8", errors="ignore")
+        self._leftover = b""
+        buf = self._dispatch_lines(buf)
+
         while True:
             try:
                 # sys_recv(): block in kernel until data is available
@@ -188,33 +241,7 @@ class IPCNode:
                     break
 
                 buf += raw.decode("utf-8")
-
-                while "\n" in buf:
-                    line, buf = buf.split("\n", 1)
-                    line = line.strip()
-                    if not line:
-                        continue
-
-                    frame = json.loads(line)
-
-                    # Delivered pub/sub message from the hub.
-                    if "topic" in frame:
-                        topic  = frame["topic"]
-                        data   = frame["data"]
-                        sender = frame.get("from", "unknown")
-
-                        for cb in self._callbacks.get(topic, []):
-                            try:
-                                cb(topic, data, sender)
-                            except Exception as exc:
-                                print(
-                                    f"[{self.name}] callback error "
-                                    f"on topic '{topic}': {exc}"
-                                )
-
-                    # Ack or error from the hub (publish confirmation, etc.)
-                    elif not frame.get("ok") and "error" in frame:
-                        print(f"[{self.name}] hub error: {frame['error']}")
+                buf = self._dispatch_lines(buf)
 
             except (ConnectionResetError, OSError):
                 break
@@ -224,24 +251,33 @@ class IPCNode:
         Serialize *obj* and write it as a newline-terminated frame.
 
         sendall() -> sys_send() loop — all bytes are guaranteed to reach
-        the kernel buffer.
+        the kernel buffer. Guarded by _send_lock since sendall() is not
+        atomic across concurrent threads on the same socket.
         """
-        self.sock.sendall((json.dumps(obj) + "\n").encode("utf-8"))
+        data = (json.dumps(obj) + "\n").encode("utf-8")
+        with self._send_lock:
+            self.sock.sendall(data)
 
     def _recv_one(self, timeout: float = 3.0) -> dict | None:
         """
         Read exactly one JSON frame synchronously (used during connect
-        and subscribe to wait for the ack before continuing).
+        and subscribe to wait for the ack before continuing). Any bytes
+        read past the first frame's newline are stashed in self._leftover
+        instead of discarded, since a fast-arriving pub/sub message can
+        share a recv() chunk with the ack.
         """
         self.sock.settimeout(timeout)
         try:
-            buf = b""
+            buf = self._leftover
+            self._leftover = b""
             while b"\n" not in buf:
                 chunk = self.sock.recv(512)
                 if not chunk:
                     return None
                 buf += chunk
             self.sock.settimeout(None)
-            return json.loads(buf.split(b"\n")[0])
+            line, rest = buf.split(b"\n", 1)
+            self._leftover = rest
+            return json.loads(line)
         except (socket.timeout, json.JSONDecodeError):
             return None

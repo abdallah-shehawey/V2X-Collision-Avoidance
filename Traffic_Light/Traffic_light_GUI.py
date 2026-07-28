@@ -8,11 +8,21 @@ Description: Roadside Unit (RSU) Traffic Light Simulator with an optimized, scal
 """
 
 import json
+import os
+import sys
 import time
 import tkinter as tk
 from tkinter import font as tkfont
 import paho.mqtt.client as mqtt
 import ssl
+
+# ============================================================
+# 🚗 LANE IDENTITY (multi-lane / Conflict Resolution support)
+# ============================================================
+# Run a second perpendicular lane with:  LANE_ID=B python3 Traffic_light_GUI.py
+# (or:  python3 Traffic_light_GUI.py B). Defaults to "A" so a single-instance
+# run behaves exactly as before.
+LANE_ID = os.environ.get("LANE_ID") or (sys.argv[1] if len(sys.argv) > 1 else "A")
 
 # ============================================================
 # 🌐 MQTT SERVER CONFIGURATION
@@ -21,8 +31,9 @@ BROKER                 = "2b6738facfbf40f1a86ba770618ae8a6.s1.eu.hivemq.cloud"
 PORT                   = 8883
 USERNAME               = "v2n_admin"
 PASSWORD               = "V2n@2026!"
-TRAFFIC_TOPIC          = "v2n/traffic/light/state"
+TRAFFIC_TOPIC          = f"v2n/traffic/light/state/{LANE_ID}"
 CAMERA_DETECTION_TOPIC = "v2n/camera/vehicle_data"   # published by distance.py (AI camera feed)
+COMMAND_TOPIC          = f"v2n/traffic/light/command/{LANE_ID}"  # from Intelligent_Gateway.py's Conflict Resolution Module
 
 # ============================================================
 # ⏱️ STATE DURATIONS (In Seconds)
@@ -100,8 +111,8 @@ class TrafficLightGUI:
 
     def __init__(self, root: tk.Tk):
         self.root = root
-        self.root.title("Traffic Light Controller - V2X")
-        
+        self.root.title(f"Traffic Light Controller - V2X (Lane {LANE_ID})")
+
         self.root.geometry("380x780")
         self.root.minsize(360, 720)
         self.root.configure(bg=BG_DARK)
@@ -120,6 +131,11 @@ class TrafficLightGUI:
         self.ambulance_present = False
         self.last_ambulance_seen = 0.0
         self.green_extensions_used = 0
+
+        # Cross-lane Conflict Resolution state: True while Intelligent_Gateway.py
+        # has commanded this lane to hold RED so a conflicting lane can run its
+        # own emergency Green Corridor. Takes priority over normal cycling.
+        self.held_by_gateway = False
 
         # Network client parameters
         self.mqtt_client = None
@@ -195,7 +211,7 @@ class TrafficLightGUI:
         self.mqtt_client.tls_set(cert_reqs=ssl.CERT_REQUIRED)
         self.mqtt_client.on_connect = self._on_mqtt_connect
         self.mqtt_client.on_disconnect = self._on_mqtt_disconnect
-        self.mqtt_client.on_message = self._on_camera_message
+        self.mqtt_client.on_message = self._on_message
 
         try:
             self.mqtt_client.connect(BROKER, PORT, 60)
@@ -211,6 +227,7 @@ class TrafficLightGUI:
             self.mqtt_connected = True
             self.set_connection_status(True)
             client.subscribe(CAMERA_DETECTION_TOPIC)
+            client.subscribe(COMMAND_TOPIC)
             # _publish_state() touches Tkinter widgets; this callback runs on
             # paho's network thread, so it must be bounced to the main thread.
             self.root.after(0, self._publish_state)
@@ -225,14 +242,23 @@ class TrafficLightGUI:
         self.mqtt_connected = False
         self.set_connection_status(False, "⚠️ Disconnected - Retrying...")
 
-    def _on_camera_message(self, client, userdata, msg):
+    def _on_message(self, client, userdata, msg):
         """
-        Callback fired on the MQTT network thread whenever the AI camera (distance.py)
+        Single MQTT callback dispatching by topic - paho only allows one
+        on_message handler per client, so this fans out to the camera-detection
+        and gateway-command handlers.
+        """
+        if msg.topic == CAMERA_DETECTION_TOPIC:
+            self._handle_camera_message(msg)
+        elif msg.topic == COMMAND_TOPIC:
+            self._handle_command_message(msg)
+
+    def _handle_camera_message(self, msg):
+        """
+        Fired on the MQTT network thread whenever the AI camera (distance.py)
         reports a detected vehicle. Hands ambulance detections off to the Tkinter
         main thread via root.after, since Tk is not thread-safe.
         """
-        if msg.topic != CAMERA_DETECTION_TOPIC:
-            return
         try:
             data = json.loads(msg.payload.decode().strip())
         except (json.JSONDecodeError, UnicodeDecodeError):
@@ -251,6 +277,54 @@ class TrafficLightGUI:
         self.last_ambulance_seen = time.time()
         self.ambulance_label.config(text="🚑 Ambulance detected - preemption active")
         self._check_ambulance_preemption()
+
+    def _handle_command_message(self, msg):
+        """
+        Fired on the MQTT network thread when Intelligent_Gateway.py's Conflict
+        Resolution Module sends this lane a HOLD_RED / GREEN_CORRIDOR / RELEASE
+        command (used when another, conflicting lane has an active emergency
+        request). Bounced to the main thread like all other MQTT callbacks here.
+        """
+        try:
+            data = json.loads(msg.payload.decode().strip())
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            return
+        command = data.get("command")
+        if command in ("HOLD_RED", "GREEN_CORRIDOR", "RELEASE"):
+            self.root.after(0, self._apply_gateway_command, command)
+
+    def _apply_gateway_command(self, command):
+        """
+        Applies a Conflict Resolution command from the gateway. GREEN_CORRIDOR
+        reuses the exact same local ambulance-preemption path as a direct camera
+        detection, since "let this lane through now" is the same action either way.
+        """
+        if command == "HOLD_RED":
+            print(f"🚦⛔ [Gateway:{LANE_ID}] HOLD_RED - a conflicting lane has priority")
+            self.held_by_gateway = True
+            self._cancel_scheduled_tick()
+            self.state = "RED"
+            self._sim_tick()
+        elif command == "GREEN_CORRIDOR":
+            print(f"🚦🚨 [Gateway:{LANE_ID}] GREEN_CORRIDOR granted")
+            was_held = self.held_by_gateway
+            self.held_by_gateway = False
+            self.ambulance_present = True
+            self.last_ambulance_seen = time.time()
+            if was_held:
+                # Was frozen at RED for a conflicting lane - re-enter the tick
+                # loop now instead of waiting for the hold loop's next 1s
+                # firing, so the grant takes effect immediately.
+                self._cancel_scheduled_tick()
+                self._sim_tick()
+            else:
+                self._check_ambulance_preemption()
+        elif command == "RELEASE":
+            if self.held_by_gateway:
+                print(f"🚦✅ [Gateway:{LANE_ID}] RELEASE - resuming normal cycling")
+                self.held_by_gateway = False
+                self._cancel_scheduled_tick()
+                self._run_sim_step()
 
     def _check_ambulance_preemption(self):
         """
@@ -439,6 +513,14 @@ class TrafficLightGUI:
         value) so ambulance preemption can extend it mid-countdown.
         """
         if not self.simulation_active:
+            return
+
+        if self.held_by_gateway:
+            # A conflicting lane currently has Green Corridor priority - sit at
+            # RED and keep publishing (so downstream consumers see fresh data)
+            # without advancing the sequence, until a RELEASE command arrives.
+            self._apply_update("RED", self.remaining_time)
+            self.sim_after_id = self.root.after(1000, self._sim_tick)
             return
 
         if self.ambulance_present and (time.time() - self.last_ambulance_seen) > AMBULANCE_PRESENCE_TIMEOUT:

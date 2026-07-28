@@ -28,6 +28,9 @@ data.json fields written (matching the dashboard spec in the screenshots)
     "pedestrian":          int  — 0=safe, 1=standing near, 2=crossing(warning)
     "position":            int  — 0=no one, 1=RIGHT, 2=LEFT
     "motorcycleCollision":  int  — 0=no risk, 1=collision risk
+    "emergencyActive":      bool — an ambulance/emergency vehicle is active
+                                   on the network right now (forwarded from
+                                   Car_client.py's is_emergency via v2n_frame)
 }
 "ai": {
     "leadCarCollision":     int  — 0=normal, 1=WARNING (stopped wrong,
@@ -179,17 +182,25 @@ def _on_v2p_frame(topic: str, payload: dict, sender: str) -> None:
         1 = WARNING — lead car stopped wrong (light says GO), moderate
             distance
         2 = DANGER  — lead car stopped wrong, too close (real risk)
+
+    emergency_active:
+        bool — passed straight through from V2P.py, which itself only
+        mirrors Car_client.py's is_emergency (see v2n_frame above); kept on
+        the v2p_frame payload too so the dashboard can show it even if the
+        v2n_frame update is momentarily stale.
     """
     try:
-        pedestrian_flag = int(payload.get("pedestrian_flag", 0))
-        raw_pos         = payload.get("position_flag", 0)      # 0, 1, or 2
-        position        = _map_position(raw_pos)
-        lead_car_flag   = int(payload.get("lead_car_collision_flag", 0))
+        pedestrian_flag  = int(payload.get("pedestrian_flag", 0))
+        raw_pos          = payload.get("position_flag", 0)      # 0, 1, or 2
+        position         = _map_position(raw_pos)
+        lead_car_flag    = int(payload.get("lead_car_collision_flag", 0))
+        emergency_active = bool(payload.get("emergency_active", False))
 
         def mutate(data: dict) -> None:
             v2p = data.setdefault("v2p", {})
-            v2p["pedestrian"] = pedestrian_flag
-            v2p["position"]   = position
+            v2p["pedestrian"]      = pedestrian_flag
+            v2p["position"]        = position
+            v2p["emergencyActive"] = emergency_active
             # leadCarCollision lives in the "ai" section — the dashboard and
             # /adas read ai.leadCarCollision first, so writing it under v2p
             # would be masked by the ai default.
@@ -198,7 +209,8 @@ def _on_v2p_frame(topic: str, payload: dict, sender: str) -> None:
         _update_data(mutate)
         print(
             f"[{NODE_NAME}] v2p ← {sender} | "
-            f"ped={pedestrian_flag} pos={position} leadCar={lead_car_flag}"
+            f"ped={pedestrian_flag} pos={position} leadCar={lead_car_flag} "
+            f"emergency={emergency_active}"
         )
 
     except Exception as exc:
