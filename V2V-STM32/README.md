@@ -195,7 +195,7 @@ loses which side triggered. This feeds `RPI/DashBoard/` — see
 - Raspberry Pi on UART2 (telemetry + control)
 - LEDs (front L/R, rear L/R, interior) + buzzer
 
-See [`docs/PCB_BUILD_STAGES.md`](docs/PCB_BUILD_STAGES.md) for the carrier-board build (power, MCU, sensors, comms blocks), and [`docs/FOTA.md`](docs/FOTA.md) for the planned Firmware-Over-The-Air update design (bootloader, A/B flash slots, Raspberry Pi ⇄ STM32 protocol, cloud delivery via Firebase) — not yet implemented.
+See [`docs/PCB_BUILD_STAGES.md`](docs/PCB_BUILD_STAGES.md) for the carrier-board build (power, MCU, sensors, comms blocks), and [`docs/FOTA.md`](docs/FOTA.md) for Firmware-Over-The-Air updates (bootloader, A/B flash slots, Raspberry Pi ⇄ STM32 protocol) — the bootloader itself is implemented and bench-testable, see [`Bootloader/README.md`](Bootloader/README.md); cloud delivery via Firebase (Raspberry Pi side) is still design-only.
 
 ---
 

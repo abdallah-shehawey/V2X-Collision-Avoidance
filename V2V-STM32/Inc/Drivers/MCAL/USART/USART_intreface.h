@@ -245,5 +245,25 @@ ErrorState_t USART_enumTransmitString(USART_Config_t *ChannelConfig, uint8_t *TX
  */
 uint8_t USART_ReceiveByteDirect(USART_Channel_t Channel);
 /*==================================================================================================*/
+/**
+ * @brief Non-blocking check: has a byte arrived (`SR.RXNE`)?
+ *
+ * Reads the flag only — never touches `DR`, so it cannot itself clear RXNE or
+ * consume the byte. Pair it with @ref USART_ReceiveByteDirect: check this
+ * first, and only call that once it reports a byte is actually waiting.
+ *
+ * Added for the FOTA bootloader (`V2V-STM32/Bootloader/`), which runs no
+ * interrupts at all and needs to poll a UART for an incoming byte while also
+ * tracking its own timeout — something @ref USART_enumReceive cannot do,
+ * since it blocks internally for its own fixed busy-wait bound. Safe to use
+ * anywhere else in the firmware too; it is a pure flag read with no side
+ * effects on driver state.
+ *
+ * @param Channel USART channel to check.
+ * @retval 1 A received byte is waiting in `DR`.
+ * @retval 0 Nothing waiting (or @p Channel was out of range).
+ */
+uint8_t USART_u8IsRxNotEmpty(USART_Channel_t Channel);
+/*==================================================================================================*/
 
 #endif /* _USART_INTERFACE_H_ */

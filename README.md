@@ -194,7 +194,7 @@ Every RPI process is decoupled through a small custom **pub/sub IPC hub** over a
 - Cloud analytics dashboard
 - Large-scale multi-vehicle simulation
 - Enhanced security (the current MQTT/IPC links are not hardened for production)
-- **FOTA (Firmware Over-The-Air updates)** for the STM32 safety core — design doc: [V2V-STM32/docs/FOTA.md](V2V-STM32/docs/FOTA.md) (bootloader + A/B flash slots, Raspberry Pi ⇄ STM32 update protocol, Firebase-based cloud delivery; not yet implemented)
+- **FOTA (Firmware Over-The-Air updates)** for the STM32 safety core — bootloader + A/B flash slots + UART update protocol are implemented and bench-testable ([V2V-STM32/Bootloader/README.md](V2V-STM32/Bootloader/README.md)); Firebase-based cloud delivery via the Raspberry Pi is still design-only ([V2V-STM32/docs/FOTA.md](V2V-STM32/docs/FOTA.md))
 
 ---
 

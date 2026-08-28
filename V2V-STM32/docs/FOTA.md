@@ -2,15 +2,20 @@
 
 ## Design & Roadmap for the STM32 Safety Core
 
-> **Status: design document, not yet implemented.** Nothing in this file
-> exists in the firmware today — no bootloader, no flash driver, no update
-> protocol. This is the plan the team implements *against*, stage by stage
-> (see [§11 Staged Roadmap](#-11-staged-roadmap)).
+> **Status: Stages 1-4 implemented.** The bootloader, the FLASH/CRC32
+> drivers, the A/B metadata scheme and the UART wire protocol are real,
+> buildable code today — see [`../Bootloader/`](../Bootloader/README.md) for
+> the bootloader itself and exactly how to build/flash/bench-test it. Stages
+> 5-6 (the Raspberry Pi agent + Firebase, and the DashBoard UI hook) are
+> still design-only, described below in [§8](#-8-cloud-distribution--how-the-update-reaches-the-raspberry-pi)/[§9](#-9-raspberry-pi-side--rpifota).
+> This document itself is now a mix of "how it actually works" (Stages 1-4)
+> and "how it's planned to work" (Stages 5-6) — the
+> [Staged Roadmap](#-11-staged-roadmap) table says which is which.
 
-> 🗣️ **بالعربي بسرعة:** الملف ده مش كود شغال — ده تصميم كامل (roadmap)
-> لإزاي هنضيف خاصية تحديث الفيرموير عن بعد (FOTA) لمتحكم الـ STM32 بتاع
-> عربيتنا، من غير ما نحتاج نفك اللوحة ونوصلها بـ ST-Link كل مرة. هننفذه
-> على مراحل، كل مرحلة قابلة للاختبار لوحدها قبل ما ننتقل للي بعدها.
+> 🗣️ **بالعربي بسرعة:** المراحل من 1 لـ 4 (البووتلودر، الـ drivers،
+> نظام A/B، بروتوكول الـ UART) بقت كود شغال فعليًا — مش تصميم بس. جرّبه من
+> [`../Bootloader/README.md`](../Bootloader/README.md). المراحل 5 و6 (خدمة
+> الراسبيري باي + Firebase، وواجهة الداشبورد) لسه تصميم بس، هننفذها بعدين.
 
 ---
 
@@ -105,6 +110,14 @@ back — automatically, no Raspberry Pi or human involvement required.
 
 ## 🗺️ 3. Flash Partitioning
 
+> ✅ **Implemented** — these exact addresses are `#define`d in
+> [`FOTA_Metadata_interface.h`](../Inc/Application/FOTA/FOTA_Metadata_interface.h),
+> and the bootloader/app linker scripts
+> ([`Bootloader/Bootloader_FLASH.ld`](../Bootloader/Bootloader_FLASH.ld),
+> [`STM32F446RETX_FLASH_SlotA.ld`](../STM32F446RETX_FLASH_SlotA.ld),
+> [`STM32F446RETX_FLASH_SlotB.ld`](../STM32F446RETX_FLASH_SlotB.ld)) place
+> each region exactly here.
+
 512 KB, sector-by-sector (STM32F446RE sector map, confirmed against
 [`STM32F446RETX_FLASH.ld`](../STM32F446RETX_FLASH.ld)):
 
@@ -184,6 +197,12 @@ sector, write it back as record 0.
 
 ## 📦 4. The Firmware Package Format (`.fpkg`)
 
+> ✅ **Implemented** — the header struct is
+> [`FOTA_PackageHeader_t`](../Inc/Application/FOTA/FOTA_Protocol_interface.h),
+> and [`fota_packager.py`](../Bootloader/tools/fota_packager.py) builds real
+> `.fpkg` files from it today (Firebase Storage is still Stage 5/design-only
+> — see §8 — but the file format it will eventually host is already real).
+
 One concrete container format, shipped end-to-end unchanged from Firebase
 Storage → Raspberry Pi disk → stripped by the bootloader into the
 metadata sector. It is **never** linked into the app image itself — the
@@ -260,17 +279,15 @@ if __name__ == "__main__":
 
 ## 🔌 5. Wire Protocol — Raspberry Pi ⇄ STM32 Bootloader
 
-> ⚠️ **Open decision — confirm before wiring anything.** The project has
-> two conflicting pin plans for the Raspberry Pi UART link:
-> [`Inc/System/System.h`](../Inc/System/System.h) (current firmware) says
-> **USART2 (PA2/PA3)** is the RPi link and UART4 (PA0/PA1) is free, while
-> [`docs/PCB_BUILD_STAGES.md`](PCB_BUILD_STAGES.md) (the newer carrier-PCB
-> design, Stage 8/9) wires the RPi to **UART4 (PA0/PA1)** and reserves
-> USART2/PA2-PA3 for the ST-Link virtual COM port (debug only). **This must
-> be confirmed against whichever board you're actually testing on before
-> any FOTA wiring decision is final.** Everything below refers to "the RPi
-> UART" generically for that reason — substitute whichever one is real on
-> your bench.
+> ✅ **Resolved: UART4 (PA0/PA1).** The original draft of this document
+> flagged a discrepancy between `Inc/System/System.h`'s comment (says
+> USART2/PA2-PA3) and `docs/PCB_BUILD_STAGES.md` (says UART4/PA0-PA1).
+> Checking the *actual running code* settles it: `../Src/System.c` wires
+> `RPi_UART` to `USART_CHANNEL4` on PA0(TX)/PA1(RX) — matching the
+> carrier-PCB plan, not the stale header comment. **This is what the
+> bootloader and `Bootloader/tools/fota_bench_test.py` both use.** The
+> `System.h` comment is simply out of date and worth a one-line fix
+> separately; USART2 is not initialised anywhere in the firmware today.
 
 ### Frame layout
 
@@ -292,18 +309,27 @@ FreeRTOS needed in the bootloader at all (see [§12](#-12-risks--gotchas)).
 
 ### Opcodes
 
+ACK and NAK are always **separate opcode values** (never "one opcode,
+ACK-or-NAK inferred from the payload") — the exact values are defined once,
+in [`FOTA_Protocol_interface.h`](../Inc/Application/FOTA/FOTA_Protocol_interface.h),
+and mirrored by hand in [`fota_bench_test.py`](../Bootloader/tools/fota_bench_test.py):
+
 | Opcode | Name | Direction | Payload | Meaning |
 |---|---|---|---|---|
-| `0x01` | `HELLO` | Pi → STM32 | — | "Are you the bootloader and listening?" |
-| `0x02` | `HELLO_ACK` | STM32 → Pi | `active_slot(1B), build_no(4B)` | Bootloader confirms + reports current state |
-| `0x10` | `START_UPDATE` | Pi → STM32 | the 20-byte `.fpkg` header | Announces the incoming image |
-| `0x11` | `START_ACK` / `START_NAK` | STM32 → Pi | `reason(1B)` on NAK | Accepts (erases target slot) or rejects (wrong `board_id`, too big for the slot, etc.) |
-| `0x20` | `DATA_CHUNK` | Pi → STM32 | `seq(2B), data(≤256B)` | One chunk of the payload |
-| `0x21` | `CHUNK_ACK` / `CHUNK_NAK` | STM32 → Pi | `seq(2B)` | Confirms or requests resend of that sequence number |
-| `0x30` | `END_UPDATE` | Pi → STM32 | — | "That was the last chunk." |
-| `0x31` | `END_ACK` / `END_NAK` | STM32 → Pi | — | Whole-image CRC32 verified against the header, pass/fail |
-| `0x40` | `COMMIT` | Pi → STM32 | — | Only sent after an explicit `END_ACK` — "make it permanent" |
-| `0x41` | `COMMIT_ACK` | STM32 → Pi | — | Metadata updated (`active_slot` flipped, `boot_pending=1`); STM32 resets right after |
+| `0x01` | `HELLO` | Pi/PC → STM32 | — | "Are you the bootloader and listening?" |
+| `0x02` | `HELLO_ACK` | STM32 → Pi/PC | `active_slot(1B), build_no(4B)` | Bootloader confirms + reports current state |
+| `0x10` | `START_UPDATE` | Pi/PC → STM32 | the 20-byte `.fpkg` header | Announces the incoming image |
+| `0x11` | `START_ACK` | STM32 → Pi/PC | — | Header accepted, target slot erased, ready for chunks |
+| `0x12` | `START_NAK` | STM32 → Pi/PC | `reason(1B)` | Rejected — bad magic, wrong `board_id`, too big for the slot, or erase failed |
+| `0x20` | `DATA_CHUNK` | Pi/PC → STM32 | `seq(2B), data(≤256B)` | One chunk of the payload |
+| `0x21` | `CHUNK_ACK` | STM32 → Pi/PC | `seq(2B)` | Chunk written — echoes the accepted sequence number |
+| `0x22` | `CHUNK_NAK` | STM32 → Pi/PC | `seq(2B)` | Rejected — echoes the sequence number the sender should (re)send next |
+| `0x30` | `END_UPDATE` | Pi/PC → STM32 | — | "That was the last chunk." |
+| `0x31` | `END_ACK` | STM32 → Pi/PC | — | Whole-image CRC32 verified against the header — `COMMIT` may now be sent |
+| `0x32` | `END_NAK` | STM32 → Pi/PC | — | Length or CRC32 mismatch — session aborted, `COMMIT` will be refused |
+| `0x40` | `COMMIT` | Pi/PC → STM32 | — | Only accepted after `END_ACK` — "make it permanent" |
+| `0x41` | `COMMIT_ACK` | STM32 → Pi/PC | — | Metadata updated (`active_slot` flipped, `boot_pending=1`); STM32 resets right after |
+| `0x42` | `COMMIT_NAK` | STM32 → Pi/PC | — | `COMMIT` sent without a preceding `END_ACK`, or the metadata write itself failed |
 
 `CRC verify` and `commit` are **two separate steps on purpose** — the
 bootloader never boots a slot it hasn't been explicitly told to commit,
@@ -314,11 +340,11 @@ until the Pi comes back and finishes the handshake.
 ### Sequence
 
 ```text
-Pi                                   STM32 bootloader
+Pi/PC                                STM32 bootloader
 │──── HELLO ─────────────────────────►│
 │◄──── HELLO_ACK (slot, build) ───────│
-│──── START_UPDATE (fpkg header) ────►│  (bootloader erases target slot,
-│◄──── START_ACK ──────────────────── │   kicking IWDG between sectors)
+│──── START_UPDATE (fpkg header) ────►│  (bootloader erases every sector
+│◄──── START_ACK ──────────────────── │   of the target slot, in order)
 │──── DATA_CHUNK #0 ──────────────────►│
 │◄──── CHUNK_ACK #0 ───────────────────│
 │──── DATA_CHUNK #1 ──────────────────►│
@@ -363,6 +389,18 @@ Pi                                   STM32 bootloader
 ---
 
 ## 🛠️ 6. New STM32 Driver Code Needed
+
+> ✅ **Implemented.** Everything below exists as real code now:
+> [`Inc/Drivers/MCAL/FLASH/`](../Inc/Drivers/MCAL/FLASH/) +
+> [`Src/FLASH_program.c`](../Src/FLASH_program.c),
+> [`Inc/Application/FOTA/FOTA_CRC32_interface.h`](../Inc/Application/FOTA/FOTA_CRC32_interface.h) +
+> [`Src/FOTA_CRC32_program.c`](../Src/FOTA_CRC32_program.c), and
+> `SCB_vSetVectorTable()` added to the existing
+> [`SCB_interface.h`](../Inc/Drivers/MCAL/SCB/SCB_interface.h) /
+> [`SCB_program.c`](../Src/SCB_program.c) (which also gained
+> `SCB_vSystemReset()` — needed for `FOTA_RequestUpdate()`, see §9, and not
+> originally called out in this section's first draft). The pseudocode below
+> is now historical design intent; read the real headers for the exact API.
 
 Following the existing MCAL layering
 (`_interface.h` / `_private.h` / `_config.h` / `_program.c`, see the
@@ -445,6 +483,16 @@ silently absent.
 ---
 
 ## 📐 7. Linker Script Changes
+
+> ✅ **Implemented** — all three linker scripts described here exist:
+> [`Bootloader/Bootloader_FLASH.ld`](../Bootloader/Bootloader_FLASH.ld),
+> [`STM32F446RETX_FLASH_SlotA.ld`](../STM32F446RETX_FLASH_SlotA.ld),
+> [`STM32F446RETX_FLASH_SlotB.ld`](../STM32F446RETX_FLASH_SlotB.ld). The two
+> Slot scripts are **not** wired into the existing STM32CubeIDE
+> Debug/Release build configurations — your everyday app build is
+> untouched. See [`Bootloader/README.md`](../Bootloader/README.md) for the
+> exact steps to add the new `SlotA`/`SlotB` build configurations when
+> you're ready to test the full flow.
 
 ### New bootloader linker script — `Bootloader_FLASH.ld`
 
@@ -694,17 +742,20 @@ RPI/systemd/v2x-fota.service
 Build and validate incrementally — each stage should be fully working and
 bench-tested before the next one starts.
 
-| Stage | Scope | Key risk | Rough effort |
-|---|---|---|---|
-| **1** | FLASH + software CRC32 drivers, standalone bench test: erase a **scratch** sector the running app never uses, program a known pattern, read back, CRC-check. No bootloader yet. | First-time unlock/erase/program register sequence — test only against scratch sectors while learning, so a mistake can't brick the board. | 2–3 days |
-| **2** | Minimal 2-stage bootloader that unconditionally jumps to a fixed app address. No A/B, no CRC gate, no metadata yet — pure proof that the VTOR/MSP/PC jump mechanics work. | Conceptually the trickiest stage despite its tiny code size — everything downstream depends on it. Highest-value stage to get right early. | 2–4 days |
-| **3** | UART chunked-receive-and-flash, no Raspberry Pi involved yet — driven by a PC Python script over USB-UART (bench convenience — can use whichever UART is confirmed free right now, even if it isn't the final one). | First real erase-during-operation timing measurements; protocol state-machine correctness. | 4–6 days |
-| **4** | A/B slots + metadata log + rollback + watchdog-tied `FOTA_MarkBootOK()`. | Most subtle correctness logic. **Budget real bench time for deliberate fault injection** — pull power / hit reset mid-transfer, mid-erase, mid-commit — and confirm no brick every time, not just the happy path. | 4–7 days |
-| **5** | `RPI/FOTA/` agent: Firebase project setup (bucket, Firestore doc, service account) + systemd service + hub integration + UART port-sharing handshake with `server.py`. | Firebase setup can be built and tested completely independently of any STM32 work. Mostly Python plumbing — every pattern needed already exists in the repo to copy from (`ipc_node.py`, `dashboard_bridge.py`, `systemd/*.service`). | 3–5 days |
-| **6** | DashBoard UI hook: progress bar, state text, "Check for updates"/"Install" buttons. | Small, additive. | 1–2 days |
+| Stage | Status | Scope | Key risk | Rough effort |
+|---|---|---|---|---|
+| **1** | ✅ Done | FLASH + software CRC32 drivers ([`FLASH_program.c`](../Src/FLASH_program.c), [`FOTA_CRC32_program.c`](../Src/FOTA_CRC32_program.c)) — unlock/erase/program with bounded busy-wait timeouts, zlib-compatible CRC32. | First-time unlock/erase/program register sequence. | 2–3 days |
+| **2** | ✅ Done | Bootloader jump mechanics: VTOR relocation (`SCB_vSetVectorTable`), MSP set, branch to the app's `Reset_Handler` — [`Bootloader_JumpToApp`](../Bootloader/Src/Bootloader_main.c). | Conceptually the trickiest stage despite its tiny code size. | 2–4 days |
+| **3** | ✅ Done | UART chunked-receive-and-flash, driven by a PC Python script over USB-UART — no Raspberry Pi involved yet. See [`Bootloader/README.md`](../Bootloader/README.md) for how to actually run this. | Protocol state-machine correctness; verified against the driver's own bounded timeouts (see §12's IWDG note). | 4–6 days |
+| **4** | ✅ Done | A/B slots + metadata append log + rollback + `FOTA_MarkBootOK()` (wired into `vTask_Watchdog` in `../Src/main.c`). | Most subtle correctness logic — **the fault-injection bench tests in `Bootloader/README.md` still need to actually be run on real hardware**, this is code-reviewed but not yet hardware-validated. | 4–7 days |
+| **5** | ⬜ Design only | `RPI/FOTA/` agent: Firebase project setup (bucket, Firestore doc, service account) + systemd service + hub integration + UART port-sharing handshake with `server.py`. | Firebase setup can be built and tested completely independently of any STM32 work. Mostly Python plumbing — every pattern needed already exists in the repo to copy from (`ipc_node.py`, `dashboard_bridge.py`, `systemd/*.service`). | 3–5 days |
+| **6** | ⬜ Design only | DashBoard UI hook: progress bar, state text, "Check for updates"/"Install" buttons. | Small, additive. | 1–2 days |
 
 Rough total: **3–4 focused weeks** for a small team already familiar with
-this codebase.
+this codebase. Stages 1-4 are implemented; what's left before hardware
+sign-off is running the fault-injection checks in
+[`Bootloader/README.md`](../Bootloader/README.md#-verifying-the-safety-mechanisms-actually-work)
+for real, then Stages 5-6.
 
 > 🗣️ **بالعربي:** الجدول ده بيقسم الشغل لـ 6 مراحل، كل واحدة تُبنى
 > وتُختبر لوحدها الأول: (1) اختبار الفلاش على منطقة فاضية، (2) بووتلودر
@@ -724,21 +775,27 @@ this codebase.
   making the bootloader self-updating is a materially harder problem
   (you can brick your own updater) with no real payoff here.
 
-- **Watchdog vs. multi-sector erase — use real numbers.** The app's
-  *configured* IWDG timeout today is **2000 ms** (`WDG_TIMEOUT_MS` in
-  [`main.c`](../Src/main.c)), not the peripheral's theoretical 8.19 s
-  ceiling — this figure is irrelevant to the bootloader anyway, since the
-  bootloader runs *before* the app (re)arms IWDG and can call
-  `IWDG_voidInit()` with its own longer value for its own lifetime (the
-  driver's unlock/PR/RLR sequence can be re-run later by the app to
-  shorten it back). Erasing Slot A means up to 3 sector-erase calls back
-  to back (sectors 3, 4, 5); **verify actual worst-case erase time per
-  sector against the STM32F446 datasheet's flash timing table** rather
-  than trust an approximate figure. Structural fix regardless of the
-  exact number: **kick the watchdog after every individual sector erase**,
-  not once before the whole multi-sector loop — this turns a
-  multi-second aggregate operation into a series of individually-bounded,
-  always-safe sub-operations.
+- **Revised during implementation: the bootloader never touches the IWDG at
+  all — not even during erase.** The original draft of this section said to
+  start the IWDG for the bootloader's own lifetime and kick it between
+  sector erases. Building the real thing surfaced a concrete conflict with
+  that plan: `System_setup()` in [`../Src/System.c`](../Src/System.c) runs
+  an MPU magnetometer calibration sequence that blocks for **roughly 12
+  seconds**, and only *after* that does `main()` call `IWDG_voidInit()` for
+  the first time — meaning the application itself already runs with the
+  IWDG completely off for ~12s on every ordinary cold boot, well past the
+  peripheral's ~8.19s hardware maximum timeout. Since the IWDG cannot be
+  stopped once started, any timeout the bootloader armed would still be
+  ticking when it handed off — and would false-trip the MCU mid-calibration
+  on *every single boot*, bootloader or not. The actual fix implemented in
+  [`Bootloader_main.c`](../Bootloader/Src/Bootloader_main.c): the bootloader
+  **never calls `IWDG_voidInit` at all**. This makes a bootloader-mediated
+  boot behave identically to an ordinary power-on reset from the
+  application's point of view — nothing new, nothing worse. A stuck flash
+  erase/program is instead bounded by the FLASH driver's own busy-wait
+  timeout (`FLASH_enumWaitBusy` / `FLASH_u32BUSY_TIMEOUT` in
+  `FLASH_private.h`), the same "stuck-hardware escape, not a real deadline"
+  pattern the USART driver already uses for `USART_u32TIMEOUT`.
 
 - **The bootloader should not run FreeRTOS.** Bare superloop/polled, no
   RTOS. Its job (wait briefly, do a blocking UART transfer, jump) has no
@@ -758,10 +815,10 @@ this codebase.
   naturally quiescent during an update and comes back up normally as part
   of the new app's own `System_setup()` after a successful boot.
 
-- **The USART2-vs-UART4 pin-plan discrepancy is a hard blocker**, repeated
-  here deliberately — confirm which document matches the board you're
-  actually testing FOTA on before wiring anything (see the callout at the
-  top of [§5](#-5-wire-protocol--raspberry-pi--stm32-bootloader)).
+- **The USART2-vs-UART4 pin-plan question is resolved** (see the callout at
+  the top of [§5](#-5-wire-protocol--raspberry-pi--stm32-bootloader)) — the
+  bootloader and bench tooling both use UART4/PA0-PA1, matching what
+  `System.c` actually configures today.
 
 - **Firebase service-account key handling.** Same credential-leak class as
   the project's existing MQTT-password issue (`AI_TECHNICAL_AUDIT.md`) —
@@ -776,36 +833,47 @@ this codebase.
 
 > 🗣️ **بالعربي:** أهم نقط الخطر: (1) البووتلودر نفسه معندوش نسخة
 > احتياطية — لو اتبوظ محتاجين نوصل بـ ST-Link يدويًا (مقبول لمشروع
-> تخرج بييجي معاه وصول فيزيائي دايمًا)، (2) لازم نطفي/نشعل الـ watchdog
-> بعد كل عملية مسح sector لوحدها مش بعد كل العمليات مرة واحدة، (3)
-> البووتلودر ميستخدمش FreeRTOS ولا أي مقاطعات (interrupts) خالص عشان
-> نقلل نقاط الفشل، (4) لازم تتأكدوا فعليًا من الـ UART الصح قبل ما توصلوا
-> أي حاجة، (5) مفتاح Firebase لازم يتخزن بشكل آمن زي أي باسورد تاني في
-> المشروع.
+> تخرج بييجي معاه وصول فيزيائي دايمًا)، (2) البووتلودر **مبيلمسش الـ
+> watchdog خالص** — عشان لو شغلناه هيتعارض مع تأخيرة الـ 12 ثانية بتاعت
+> معايرة الـ IMU الموجودة بالفعل في كود التطبيق (اكتشفناها أثناء التنفيذ
+> الفعلي)، فعملية المسح بتتحمي بمهلة زمنية جوه driver الفلاش نفسه بدل
+> كده، (3) البووتلودر ميستخدمش FreeRTOS ولا أي مقاطعات (interrupts) خالص
+> عشان نقلل نقاط الفشل، (4) الـ UART الصح اتأكد إنه UART4 (PA0/PA1) من
+> الكود الفعلي (`System.c`)، (5) مفتاح Firebase لازم يتخزن بشكل آمن زي أي
+> باسورد تاني في المشروع.
 
 ---
 
-## 📁 Where This Fits in the Repo (once implemented)
+## 📁 Where This Fits in the Repo
+
+Stages 1-4 (✅ real code today):
 
 ```text
 V2V-STM32/
-├── Bootloader/                    # NEW — separate CubeIDE project or build target
-│   ├── Src/Bootloader_main.c
+├── Bootloader/                              # standalone Makefile build — see its README.md
+│   ├── Src/Bootloader_main.c                # the whole bootloader
 │   ├── Bootloader_FLASH.ld
-│   └── ...
-├── Inc/Drivers/MCAL/FLASH/        # NEW — FLASH driver (§6)
-├── Src/FLASH_program.c            # NEW
-├── Inc/Drivers/LIB/CRC32.h        # NEW — software CRC32 utility (§6)
-├── Src/CRC32.c                    # NEW
-├── STM32F446RETX_FLASH_SlotA.ld   # NEW — replaces the single .ld (§7)
-├── STM32F446RETX_FLASH_SlotB.ld   # NEW
+│   ├── Makefile
+│   ├── tools/fota_packager.py               # raw .bin -> .fpkg
+│   ├── tools/fota_bench_test.py             # PC-side protocol test client
+│   └── README.md                            # build/flash/test, step by step
+├── Inc/Drivers/MCAL/FLASH/                  # FLASH driver (§6)
+├── Src/FLASH_program.c
+├── Inc/Application/FOTA/
+│   ├── FOTA_CRC32_interface.h               # software CRC32 (§6)
+│   ├── FOTA_Metadata_interface.h            # A/B metadata + layout constants (§3)
+│   └── FOTA_Protocol_interface.h            # wire-format contract (§4/§5)
+├── Src/FOTA_CRC32_program.c
+├── Src/FOTA_Metadata_program.c
+├── STM32F446RETX_FLASH_SlotA.ld             # application linker script, Slot A (§7)
+├── STM32F446RETX_FLASH_SlotB.ld             # application linker script, Slot B (§7)
 └── docs/
-    └── FOTA.md                    # this file
+    └── FOTA.md                              # this file
 
 RPI/
-└── FOTA/                          # NEW (§9)
-    ├── fota_agent.py
-    ├── fota_packager.py
+└── FOTA/                          # ⬜ Stage 5, design only — see §9
+    ├── fota_agent.py              # will drive the same wire protocol
+    │                              # fota_bench_test.py already exercises
     └── README.md
 ```
 

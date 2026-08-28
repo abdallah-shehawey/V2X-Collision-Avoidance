@@ -53,6 +53,7 @@
 #include "../Inc/Application/DSRC/DSRC.h"
 #include "../Inc/Application/SafetyEngine/SafetyEngine_interface.h"
 #include "../Inc/Drivers/MCAL/IWDG/IWDG_interface.h"
+#include "../Inc/Application/FOTA/FOTA_Metadata_interface.h"
 
 /**
  * @name Board objects
@@ -151,6 +152,16 @@ int main(void)
   /* 1. Hardware Initialization */
   System_setup();
   SEGGER_setup();
+
+  /* Load the FOTA update-metadata record (which slot is active, whether this
+   * boot is still unconfirmed) before anything else runs. vTask_Watchdog
+   * below is what actually confirms the boot, once every task's heartbeat
+   * has advanced at least once — see FOTA_MarkBootOK(). This firmware never
+   * requests an update itself yet (that is Stage 5 of the FOTA roadmap,
+   * see ../docs/FOTA.md §11); this call is what lets the bootloader's
+   * automatic rollback work at all once that does exist, and is otherwise a
+   * no-op read on a board that has never been through an update. */
+  FOTA_Metadata_voidInit();
 
   /* Create Queues & Mutexes */
   G_xESP_RX_Queue = xQueueCreate(256, sizeof(uint8_t)); // 256 element queue (byte)
@@ -554,7 +565,16 @@ void vTask_Watchdog(void *pvParameters)
     /* Kick the dog only while EVERY monitored task is still advancing.
      * If any stalled, deliberately skip the refresh → IWDG resets the MCU. */
     if (all_alive)
+    {
       IWDG_voidRefresh();
+
+      /* Every task alive at least once is the same liveness signal FOTA uses
+       * to decide "this boot is good" — see FOTA_MarkBootOK()'s own doc
+       * comment for why this is a separate call rather than folded into the
+       * watchdog logic above. Cheap to call every cycle: it is a no-op after
+       * the first time it finds nothing pending. */
+      FOTA_MarkBootOK();
+    }
   }
 }
 

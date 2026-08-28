@@ -71,6 +71,16 @@
 
 #define DMA1_BASEADDR 0X40026000UL /**< DMA controller 1 (declared for completeness; the firmware does not use DMA). */
 #define DMA2_BASEADDR 0X40026400UL /**< DMA controller 2 (declared for completeness; the firmware does not use DMA). */
+
+/**
+ * @brief Base address of the FLASH *interface* registers (unlock/erase/program control).
+ * @note  Not to be confused with @ref FLASH_BASEADDR, which is where flash
+ *        *memory* (code, the vector table) is mapped. This is the small control
+ *        peripheral the FLASH MCAL driver writes to in order to erase/program
+ *        that memory — two completely different address ranges that happen to
+ *        share the name "flash".
+ */
+#define FLASH_R_BASEADDR 0x40023C00UL
 /** @} */
 
 /**
@@ -242,6 +252,28 @@ typedef struct {
 
 /** @brief Typed pointer to the RCC peripheral. */
 #define MRCC ((RCC_RegDef_t *)RCC_BASEADDR)
+
+/**
+ * @brief FLASH interface register layout — the control peripheral the FLASH
+ *        MCAL driver uses to unlock, erase and program the on-chip flash
+ *        (@ref FOTA relies on this for writing a new application image into
+ *        the inactive A/B slot).
+ * @note  `KEYR`/`OPTKEYR` are write-only unlock sequences, not readable state;
+ *        `SR`/`CR` are the two registers every erase/program operation
+ *        actually drives.
+ */
+typedef struct {
+  volatile uint32_t ACR;     /**< Access control: latency (wait states), prefetch/cache enables. */
+  volatile uint32_t KEYR;    /**< Key: write the two-value unlock sequence here to clear `CR.LOCK`. */
+  volatile uint32_t OPTKEYR; /**< Option-byte key (unused — this driver never touches option bytes). */
+  volatile uint32_t SR;      /**< Status: `BSY` (operation in progress) and the write/program error flags. */
+  volatile uint32_t CR;      /**< Control: `PG`/`SER`/`SNB`/`PSIZE`/`STRT`/`LOCK` — see FLASH_private.h. */
+  volatile uint32_t OPTCR;   /**< Option control (unused). */
+  volatile uint32_t OPTCR1;  /**< Option control 1 (unused). */
+} FLASH_RegDef_t;
+
+/** @brief Typed pointer to the FLASH interface peripheral. */
+#define MFLASH ((FLASH_RegDef_t *)FLASH_R_BASEADDR)
 
 /**
  * @brief SPI register layout (identical for SPI1..SPI4).

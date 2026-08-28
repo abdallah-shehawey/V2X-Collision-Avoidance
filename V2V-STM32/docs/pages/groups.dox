@@ -11,11 +11,11 @@
  * only depend on symbols in its own layer or a layer below it.
  *
  * @verbatim
- *   Application  (SafetyEngine, DSRC, FCW/DNPW, EEBL, BSW, IMA)
+ *   Application  (SafetyEngine, DSRC, FCW/DNPW, EEBL, BSW, IMA, FOTA)
  *        |
  *       HAL      (LED, BUZZ, US, MPU9250)
  *        |
- *      MCAL      (RCC, GPIO, NVIC, SCB, SYSCFG, SYSTICK, EXTI, SPI, TIM, USART, IWDG)
+ *      MCAL      (RCC, GPIO, NVIC, SCB, SYSCFG, SYSTICK, EXTI, SPI, TIM, USART, IWDG, FLASH)
  *        |
  *       LIB      (ErrTypes, STD_MACROS, STM32F446xx register map)
  *        |
@@ -143,6 +143,12 @@
  * @ingroup mcal
  * @brief Independent watchdog: hardware-resets the MCU if a task stalls.
  */
+/**
+ * @defgroup mcal_flash FLASH
+ * @ingroup mcal
+ * @brief On-chip flash unlock/erase/program — what the FOTA bootloader uses
+ *        to write a new application image into the inactive A/B slot.
+ */
 
 /*==============================================================================
  *                               HAL SUB-MODULES
@@ -202,4 +208,11 @@
  * @defgroup app_ima IMA
  * @ingroup app
  * @brief Intersection Movement Assist: crossing-direction conflict at a junction.
+ */
+/**
+ * @defgroup app_fota FOTA
+ * @ingroup app
+ * @brief Firmware-over-the-air: the A/B slot metadata log, the shared CRC32
+ *        utility, and the wire-protocol contract used by the bootloader
+ *        (`../../Bootloader/`) — see `../../docs/FOTA.md` for the full design.
  */

@@ -399,6 +399,18 @@ uint8_t USART_ReceiveByteDirect(USART_Channel_t Channel)
     (void)Local_u32Status;
     return (uint8_t)(USART_Channel[Channel]->DR);
 }
+/*==================================================================================================*/
+uint8_t USART_u8IsRxNotEmpty(USART_Channel_t Channel)
+{
+  uint8_t Local_u8Result = 0U;
+
+  if (Channel < USART_CHANNEL_COUNT)
+  {
+    Local_u8Result = (uint8_t)((USART_Channel[Channel]->SR & (1U << SR_RXNE)) >> SR_RXNE);
+  }
+
+  return Local_u8Result;
+}
 
 /*==================================================================================================*/
 /**
