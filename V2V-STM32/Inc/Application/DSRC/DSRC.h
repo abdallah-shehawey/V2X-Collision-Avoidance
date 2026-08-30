@@ -98,9 +98,9 @@
  */
 typedef struct __attribute__((packed))
 {
-  uint8_t vehicle_id;   /**< Who sent this — see @ref VEHICLE_ID. */
-  float speed;          /**< The sender's ground speed [cm/s]. */
-  float heading;        /**< The sender's compass heading [degrees], 0..360. */
+  uint8_t  vehicle_id;  /**< Who sent this — see @ref VEHICLE_ID. */
+  float    speed;       /**< The sender's ground speed [cm/s]. */
+  float    heading;     /**< The sender's compass heading [degrees], 0..360. */
   uint32_t last_update; /**< Local tick at which this row was last refreshed; drives the @ref NEIGHBOR_TIMEOUT purge. */
 
   /**
@@ -122,8 +122,8 @@ typedef struct __attribute__((packed))
    */
   uint8_t bsw_flag;
 
-  float distance_to_intersection; /**< The sender's distance to the nearest intersection [cm]; 0 means it is not near one. */
-  uint8_t ima_flag;               /**< The sender's own IMA verdict: 0 = safe, 1 = warning, 2 = critical. */
+  float   distance_to_intersection; /**< The sender's distance to the nearest intersection [cm]; 0 means it is not near one. */
+  uint8_t ima_flag;                 /**< The sender's own IMA verdict: 0 = safe, 1 = warning, 2 = critical. */
 } Neighbor;
 
 /*============================================================================*/

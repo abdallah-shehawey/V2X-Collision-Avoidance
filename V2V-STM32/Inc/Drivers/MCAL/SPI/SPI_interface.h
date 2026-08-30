@@ -9,17 +9,16 @@
 #ifndef _SPI_INTERFACE_H_
 #define _SPI_INTERFACE_H_
 
-
 #include "stdint.h"
 #include "../../LIB/ErrTypes.h"
 
 /** @brief Which SPI peripheral a call applies to. */
 typedef enum
 {
-  SPI_CHANNEL1,                   /**< SPI1 — the MPU9250 IMU link. */
-  SPI_CHANNEL2,                   /**< SPI2. */
-  SPI_CHANNEL3,                   /**< SPI3. */
-  SPI_CHANNEL4,                   /**< SPI4. */
+  SPI_CHANNEL1, /**< SPI1 — the MPU9250 IMU link. */
+  SPI_CHANNEL2, /**< SPI2. */
+  SPI_CHANNEL3, /**< SPI3. */
+  SPI_CHANNEL4, /**< SPI4. */
 } SPI_Channel_t;
 
 /**
@@ -62,42 +61,42 @@ typedef enum
  */
 typedef enum
 {
-  SPI_BAUDRATEPRESCALER_2,        /**< SCK = f_PCLK / 2 — the fastest available. */
-  SPI_BAUDRATEPRESCALER_4,        /**< SCK = f_PCLK / 4. */
-  SPI_BAUDRATEPRESCALER_8,        /**< SCK = f_PCLK / 8. */
-  SPI_BAUDRATEPRESCALER_16,       /**< SCK = f_PCLK / 16. */
-  SPI_BAUDRATEPRESCALER_32,       /**< SCK = f_PCLK / 32. */
-  SPI_BAUDRATEPRESCALER_64,       /**< SCK = f_PCLK / 64. */
-  SPI_BAUDRATEPRESCALER_128,      /**< SCK = f_PCLK / 128. */
-  SPI_BAUDRATEPRESCALER_256,      /**< SCK = f_PCLK / 256 — the slowest available. */
+  SPI_BAUDRATEPRESCALER_2,   /**< SCK = f_PCLK / 2 — the fastest available. */
+  SPI_BAUDRATEPRESCALER_4,   /**< SCK = f_PCLK / 4. */
+  SPI_BAUDRATEPRESCALER_8,   /**< SCK = f_PCLK / 8. */
+  SPI_BAUDRATEPRESCALER_16,  /**< SCK = f_PCLK / 16. */
+  SPI_BAUDRATEPRESCALER_32,  /**< SCK = f_PCLK / 32. */
+  SPI_BAUDRATEPRESCALER_64,  /**< SCK = f_PCLK / 64. */
+  SPI_BAUDRATEPRESCALER_128, /**< SCK = f_PCLK / 128. */
+  SPI_BAUDRATEPRESCALER_256, /**< SCK = f_PCLK / 256 — the slowest available. */
 } SPI_BAUDRATEPRESCALER_t;
 
 /** @brief SPI peripheral enable. */
 typedef enum
 {
-  SPI_SPE_DIS,                    /**< Peripheral off. */
-  SPI_SPE_EN,                     /**< Peripheral on. Nothing is transferred until this is set. */
+  SPI_SPE_DIS, /**< Peripheral off. */
+  SPI_SPE_EN,  /**< Peripheral on. Nothing is transferred until this is set. */
 } SPI_SPE_t;
 
 /** @brief Bit order within each frame. */
 typedef enum
 {
-  SPI_MSBFIRST,                   /**< Most-significant bit first — what the MPU9250 expects. */
-  SPI_LSBFIRST,                   /**< Least-significant bit first. */
+  SPI_MSBFIRST, /**< Most-significant bit first — what the MPU9250 expects. */
+  SPI_LSBFIRST, /**< Least-significant bit first. */
 } SPI_BFIRST_t;
 
 /** @brief Whether the slave-select line is managed by hardware or by software. */
 typedef enum
 {
-  SPI_NSS_HARDWARE,               /**< Slave-select is driven by the peripheral itself. */
-  SPI_NSS_SOFTWARE,               /**< Slave-select is an ordinary GPIO the driver toggles. This is what the IMU link uses. */
+  SPI_NSS_HARDWARE, /**< Slave-select is driven by the peripheral itself. */
+  SPI_NSS_SOFTWARE, /**< Slave-select is an ordinary GPIO the driver toggles. This is what the IMU link uses. */
 } SPI_NSS_MAN_t;
 
 /** @brief The internal slave-select level, when NSS is software-managed. */
 typedef enum
 {
-  SPI_NSSI_SELECT,                /**< Internal slave-select forced low ("selected"). */
-  SPI_NSSI_NOT_SELECT,            /**< Internal slave-select forced high. A master with software NSS must set this, or it detects a bus conflict and disables itself. */
+  SPI_NSSI_SELECT,     /**< Internal slave-select forced low ("selected"). */
+  SPI_NSSI_NOT_SELECT, /**< Internal slave-select forced high. A master with software NSS must set this, or it detects a bus conflict and disables itself. */
 } SPI_NSSI_MODE_t;
 
 /** @brief Whether the peripheral transmits as well as receives. */
@@ -110,36 +109,36 @@ typedef enum
 /** @brief Frame size. */
 typedef enum
 {
-  SPI_DFF_8BIT,                   /**< 8-bit frames — what the IMU link uses. */
-  SPI_DFF_16BIT,                  /**< 16-bit frames. */
+  SPI_DFF_8BIT,  /**< 8-bit frames — what the IMU link uses. */
+  SPI_DFF_16BIT, /**< 16-bit frames. */
 } SPI_DFF_t;
 
 /** @brief Whether the next word transmitted is the CRC rather than data. */
 typedef enum
 {
-  SPI_CRCNEXT_DISABLE,            /**< Send the next data word normally. */
-  SPI_CRCNEXT_ENABLE,             /**< Send the computed CRC in place of the next data word. */
+  SPI_CRCNEXT_DISABLE, /**< Send the next data word normally. */
+  SPI_CRCNEXT_ENABLE,  /**< Send the computed CRC in place of the next data word. */
 } SPI_CRCNEXT_t;
 
 /** @brief Hardware CRC calculation enable. */
 typedef enum
 {
-  SPI_CRCDIS,                     /**< Hardware CRC off. */
-  SPI_CRCEN,                      /**< Hardware CRC on. */
+  SPI_CRCDIS, /**< Hardware CRC off. */
+  SPI_CRCEN,  /**< Hardware CRC on. */
 } SPI_CRCEN_t;
 
 /** @brief Full-duplex (two data lines) or half-duplex (one). */
 typedef enum
 {
-  SPI_UNIDIMODE,                  /**< Full duplex: separate MOSI and MISO lines. */
-  SPI_BIDIMODE,                   /**< Half duplex: a single bidirectional data line. */
+  SPI_UNIDIMODE, /**< Full duplex: separate MOSI and MISO lines. */
+  SPI_BIDIMODE,  /**< Half duplex: a single bidirectional data line. */
 } SPI_DIMODE_t;
 
 /** @brief In half-duplex mode, the direction of the single data line. */
 typedef enum
 {
-  SPI_OUTPUT_DIS,                 /**< In bidirectional mode, the single line is an input (receive). */
-  SPI_OUTPUT_EN,                  /**< In bidirectional mode, the single line is an output (transmit). */
+  SPI_OUTPUT_DIS, /**< In bidirectional mode, the single line is an input (receive). */
+  SPI_OUTPUT_EN,  /**< In bidirectional mode, the single line is an output (transmit). */
 } SPI_BIDIOE_t;
 
 /**
@@ -155,21 +154,21 @@ typedef enum
  */
 typedef struct
 {
-  SPI_Channel_t Channel;                    /**< Which SPI peripheral (SPI1..SPI4). */
-  SPI_CPHA_t CPHA;                          /**< Clock phase: which clock edge samples the data. */
-  SPI_CPOL_t CPOL;                          /**< Clock polarity: the idle level of SCK. */
-  SPI_Mode_t Mode;                          /**< Master or slave. */
-  SPI_BAUDRATEPRESCALER_t BaudRatePrescaler;/**< Divides the APB clock down to SCK. */
-  SPI_SPE_t SPE;                            /**< SPI enable — the peripheral does nothing until this is set. */
-  SPI_BFIRST_t BFIRST;                      /**< Bit order: MSB or LSB first. */
-  SPI_NSS_MAN_t NSS_MAN;                    /**< Whether slave-select is driven by software or by hardware. */
-  SPI_NSSI_MODE_t NSSI_MODE;                /**< The software slave-select level, when NSS is software-managed. */
-  SPI_RXONLY_t RXONLY;                      /**< Receive-only mode (half-duplex listen). */
-  SPI_DFF_t DFF;                            /**< Frame size: 8 or 16 bits. */
-  SPI_CRCEN_t CRC_MODE;                     /**< Hardware CRC calculation on/off. */
-  SPI_CRCNEXT_t CRCNEXT;                    /**< Transmit the CRC instead of the next data word. */
-  SPI_DIMODE_t DIMODE;                      /**< Full-duplex, or one-line bidirectional. */
-  SPI_BIDIOE_t BIDIOE;                      /**< In bidirectional mode, whether the single line is an output. */
+  SPI_Channel_t           Channel;           /**< Which SPI peripheral (SPI1..SPI4). */
+  SPI_CPHA_t              CPHA;              /**< Clock phase: which clock edge samples the data. */
+  SPI_CPOL_t              CPOL;              /**< Clock polarity: the idle level of SCK. */
+  SPI_Mode_t              Mode;              /**< Master or slave. */
+  SPI_BAUDRATEPRESCALER_t BaudRatePrescaler; /**< Divides the APB clock down to SCK. */
+  SPI_SPE_t               SPE;               /**< SPI enable — the peripheral does nothing until this is set. */
+  SPI_BFIRST_t            BFIRST;            /**< Bit order: MSB or LSB first. */
+  SPI_NSS_MAN_t           NSS_MAN;           /**< Whether slave-select is driven by software or by hardware. */
+  SPI_NSSI_MODE_t         NSSI_MODE;         /**< The software slave-select level, when NSS is software-managed. */
+  SPI_RXONLY_t            RXONLY;            /**< Receive-only mode (half-duplex listen). */
+  SPI_DFF_t               DFF;               /**< Frame size: 8 or 16 bits. */
+  SPI_CRCEN_t             CRC_MODE;          /**< Hardware CRC calculation on/off. */
+  SPI_CRCNEXT_t           CRCNEXT;           /**< Transmit the CRC instead of the next data word. */
+  SPI_DIMODE_t            DIMODE;            /**< Full-duplex, or one-line bidirectional. */
+  SPI_BIDIOE_t            BIDIOE;            /**< In bidirectional mode, whether the single line is an output. */
 } SPI_Config_t;
 
 //SPI_Config_t SPI1 =
@@ -261,6 +260,5 @@ ErrorState_t SPI_enumTransmit(SPI_Config_t *ChannelConfig, uint16_t TX_Data);
  * SPI_enumReceive(&MySPI, &data);
  */
 ErrorState_t SPI_enumReceive(SPI_Config_t *ChannelConfig, uint16_t *RX_Data);
-
 
 #endif /* _SPI_INTERFACE_H_ */

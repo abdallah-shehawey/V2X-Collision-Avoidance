@@ -16,15 +16,15 @@
 
 /* ============ Module State (cycle accumulators) ============ */
 /** @brief Gate: is at least one neighbor crossing our path this cycle (@ref DIR_CROSSING)? */
-static uint8_t     IMA_CrossingDetected = 0;
+static uint8_t IMA_CrossingDetected = 0;
 /** @brief Result: the worst intersection risk across every crossing neighbor this cycle. */
-static RiskLevel_t IMA_WorstRisk        = RISK_SAFE;
+static RiskLevel_t IMA_WorstRisk = RISK_SAFE;
 
 /* ============ Init ============ */
 void IMA_voidInit(void)
 {
   IMA_CrossingDetected = 0;
-  IMA_WorstRisk        = RISK_SAFE;
+  IMA_WorstRisk = RISK_SAFE;
 }
 
 /* ============================================================ */
@@ -38,7 +38,7 @@ void IMA_voidInit(void)
 void IMA_voidBeginCycle(void)
 {
   IMA_CrossingDetected = 0;
-  IMA_WorstRisk        = RISK_SAFE;
+  IMA_WorstRisk = RISK_SAFE;
 }
 
 /*
@@ -60,8 +60,8 @@ void IMA_voidProcessNeighbor(const Neighbor *n)
   /* Severity from the priority rule: the slower vehicle yields (CRITICAL), the
    * faster/equal one has right of way and passes first (WARNING). Either way an
    * alert fires so both drivers know an IMA case is in play. */
-  RiskLevel_t risk = (Host_Speed < n->speed) ? RISK_CRITICAL  /* host slower → yield */
-                                             : RISK_WARNING;  /* host faster/equal → right of way */
+  RiskLevel_t risk = (Host_Speed < n->speed) ? RISK_CRITICAL /* host slower → yield */
+                                             : RISK_WARNING; /* host faster/equal → right of way */
 
   if (risk > IMA_WorstRisk)
   {

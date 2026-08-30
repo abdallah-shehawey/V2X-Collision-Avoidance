@@ -7,7 +7,6 @@
  ******************************************************************************
  */
 
-
 #include "../Inc/Drivers/LIB/ErrTypes.h"
 
 #include "../Inc/Drivers/MCAL/GPIO/GPIO_interface.h"
@@ -29,15 +28,14 @@ ErrorState_t LED_Init(LED_Config_t *LED_Configuration)
 
   if (LED_Configuration != NULL)
   {
-    GPIO_PinConfig_t Pin_Config =
-        {
-            .Port = LED_Configuration->PortName,
-            .PinNum = LED_Configuration->PinNumber,
-            .Mode = GPIO_OUTPUT,
-            .Otype = GPIO_PUSH_PULL,
-            .Speed = GPIO_MEDIUM_SPEED,
-            .PullType = GPIO_NO_PULL
-        };
+    GPIO_PinConfig_t Pin_Config = {
+      .Port = LED_Configuration->PortName,
+      .PinNum = LED_Configuration->PinNumber,
+      .Mode = GPIO_OUTPUT,
+      .Otype = GPIO_PUSH_PULL,
+      .Speed = GPIO_MEDIUM_SPEED,
+      .PullType = GPIO_NO_PULL
+    };
 
     Local_ErrorState = GPIO_enumPinInit(&Pin_Config);
   }

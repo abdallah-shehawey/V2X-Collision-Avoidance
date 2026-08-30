@@ -1,0 +1,69 @@
+# C style for this project.
+#
+# The reference is Cytron-MDDS10/PIC18F45K22/APP_Layer/main.c: 2-space indent,
+# Allman braces, aligned declarations, and include groups kept in the order the
+# author wrote them (they are layered MCAL -> HAL -> APP, not alphabetical).
+#
+# Format a file with:  clang-format -i <file>
+
+Language: Cpp
+BasedOnStyle: Microsoft
+
+IndentWidth: 2
+TabWidth: 2
+UseTab: Never
+ContinuationIndentWidth: 2
+
+# 0 = never re-wrap on length. Register tables and pin maps are laid out by
+# hand, one logical row per line; a column limit would reflow them into noise.
+ColumnLimit: 0
+
+# Include order is deliberate (layer by layer). Never sort it.
+SortIncludes: Never
+
+AlignConsecutiveDeclarations: Consecutive
+AlignConsecutiveMacros: Consecutive
+AlignConsecutiveAssignments: false
+AlignTrailingComments: true
+AlignAfterOpenBracket: Align
+AlignEscapedNewlines: Left
+AlignOperands: Align
+
+PointerAlignment: Right
+DerivePointerAlignment: false
+
+# { a, b } - spaces inside braced initialisers, matching the pin tables.
+Cpp11BracedListStyle: false
+
+# case FOO: bar(); break;  stays on one line - the register-write switches
+# read as a table that way.
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AllowShortBlocksOnASingleLine: Never
+
+IndentCaseLabels: false
+SpaceBeforeParens: ControlStatements
+SpacesInParentheses: false
+SpacesBeforeTrailingComments: 1
+KeepEmptyLinesAtTheStartOfBlocks: false
+MaxEmptyLinesToKeep: 1
+ReflowComments: false
+InsertNewlineAtEOF: true
+
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterFunction: true
+  AfterClass: true
+  AfterStruct: true
+  AfterUnion: true
+  AfterEnum: true
+  AfterControlStatement: Always
+  AfterNamespace: true
+  AfterExternBlock: true
+  BeforeElse: true
+  BeforeWhile: false
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+  SplitEmptyNamespace: true

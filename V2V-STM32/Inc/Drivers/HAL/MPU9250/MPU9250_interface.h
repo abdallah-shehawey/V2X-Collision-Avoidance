@@ -16,27 +16,29 @@
  * @brief Structure to hold processed 9-axis sensor data and temperature.
  * @details Data is converted from raw bits to physical units (g, dps, uT, Celsius).
  */
-typedef struct {
-    float AccelX;      /**< Acceleration in X-axis [g] */
-    float AccelY;      /**< Acceleration in Y-axis [g] */
-    float AccelZ;      /**< Acceleration in Z-axis [g] */
-    float GyroX;       /**< Angular velocity in X-axis [dps] */
-    float GyroY;       /**< Angular velocity in Y-axis [dps] */
-    float GyroZ;       /**< Angular velocity in Z-axis [dps] */
-    float MagX;        /**< Magnetic field in X-axis [uT] */
-    float MagY;        /**< Magnetic field in Y-axis [uT] */
-    float MagZ;        /**< Magnetic field in Z-axis [uT] */
-    float Temperature; /**< Chip temperature [Celsius] */
+typedef struct
+{
+  float AccelX;      /**< Acceleration in X-axis [g] */
+  float AccelY;      /**< Acceleration in Y-axis [g] */
+  float AccelZ;      /**< Acceleration in Z-axis [g] */
+  float GyroX;       /**< Angular velocity in X-axis [dps] */
+  float GyroY;       /**< Angular velocity in Y-axis [dps] */
+  float GyroZ;       /**< Angular velocity in Z-axis [dps] */
+  float MagX;        /**< Magnetic field in X-axis [uT] */
+  float MagY;        /**< Magnetic field in Y-axis [uT] */
+  float MagZ;        /**< Magnetic field in Z-axis [uT] */
+  float Temperature; /**< Chip temperature [Celsius] */
 } MPU9250_Data_t;
 
 /**
  * @struct MPU9250_Position_t
  * @brief Structure to hold 3D spatial coordinates.
  */
-typedef struct {
-    float X; /**< Current X position [meters] */
-    float Y; /**< Current Y position [meters] */
-    float Z; /**< Current Z position [meters] */
+typedef struct
+{
+  float X; /**< Current X position [meters] */
+  float Y; /**< Current Y position [meters] */
+  float Z; /**< Current Z position [meters] */
 } MPU9250_Position_t;
 
 /**

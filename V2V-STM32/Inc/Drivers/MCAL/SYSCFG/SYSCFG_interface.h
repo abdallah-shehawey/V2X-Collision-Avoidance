@@ -20,22 +20,22 @@
  */
 typedef enum
 {
-  SYSCFG_EXTI0,           /**< Route EXTI line 0 to pin 0 of the chosen port. */
-  SYSCFG_EXTI1,           /**< Route EXTI line 1 to pin 1 of the chosen port. */
-  SYSCFG_EXTI2,           /**< Route EXTI line 2 to pin 2 of the chosen port. */
-  SYSCFG_EXTI3,           /**< Route EXTI line 3 to pin 3 of the chosen port. */
-  SYSCFG_EXTI4,           /**< Route EXTI line 4 to pin 4 of the chosen port. */
-  SYSCFG_EXTI5,           /**< Route EXTI line 5 to pin 5 of the chosen port. */
-  SYSCFG_EXTI6,           /**< Route EXTI line 6 to pin 6 of the chosen port. */
-  SYSCFG_EXTI7,           /**< Route EXTI line 7 to pin 7 of the chosen port. */
-  SYSCFG_EXTI8,           /**< Route EXTI line 8 to pin 8 of the chosen port. */
-  SYSCFG_EXTI9,           /**< Route EXTI line 9 to pin 9 of the chosen port. */
-  SYSCFG_EXTI10,          /**< Route EXTI line 10 to pin 10 of the chosen port. */
-  SYSCFG_EXTI11,          /**< Route EXTI line 11 to pin 11 of the chosen port. */
-  SYSCFG_EXTI12,          /**< Route EXTI line 12 to pin 12 of the chosen port. */
-  SYSCFG_EXTI13,          /**< Route EXTI line 13 to pin 13 of the chosen port. */
-  SYSCFG_EXTI14,          /**< Route EXTI line 14 to pin 14 of the chosen port. */
-  SYSCFG_EXTI15,          /**< Route EXTI line 15 to pin 15 of the chosen port. */
+  SYSCFG_EXTI0,  /**< Route EXTI line 0 to pin 0 of the chosen port. */
+  SYSCFG_EXTI1,  /**< Route EXTI line 1 to pin 1 of the chosen port. */
+  SYSCFG_EXTI2,  /**< Route EXTI line 2 to pin 2 of the chosen port. */
+  SYSCFG_EXTI3,  /**< Route EXTI line 3 to pin 3 of the chosen port. */
+  SYSCFG_EXTI4,  /**< Route EXTI line 4 to pin 4 of the chosen port. */
+  SYSCFG_EXTI5,  /**< Route EXTI line 5 to pin 5 of the chosen port. */
+  SYSCFG_EXTI6,  /**< Route EXTI line 6 to pin 6 of the chosen port. */
+  SYSCFG_EXTI7,  /**< Route EXTI line 7 to pin 7 of the chosen port. */
+  SYSCFG_EXTI8,  /**< Route EXTI line 8 to pin 8 of the chosen port. */
+  SYSCFG_EXTI9,  /**< Route EXTI line 9 to pin 9 of the chosen port. */
+  SYSCFG_EXTI10, /**< Route EXTI line 10 to pin 10 of the chosen port. */
+  SYSCFG_EXTI11, /**< Route EXTI line 11 to pin 11 of the chosen port. */
+  SYSCFG_EXTI12, /**< Route EXTI line 12 to pin 12 of the chosen port. */
+  SYSCFG_EXTI13, /**< Route EXTI line 13 to pin 13 of the chosen port. */
+  SYSCFG_EXTI14, /**< Route EXTI line 14 to pin 14 of the chosen port. */
+  SYSCFG_EXTI15, /**< Route EXTI line 15 to pin 15 of the chosen port. */
 } SYSCFG_EXTI_t;
 
 /**

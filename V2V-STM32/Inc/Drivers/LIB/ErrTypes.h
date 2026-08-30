@@ -39,11 +39,11 @@
  */
 typedef enum
 {
-  OK = 0,        /**< The call completed successfully. */
-  NOK,           /**< The call failed, or an argument was out of range. */
-  NULL_POINTER,  /**< A required pointer argument was NULL. */
-  BUSY_STATE,    /**< The peripheral was still busy with a previous transfer. */
-  TIMEOUT_STATE  /**< The peripheral did not respond within the allowed time. */
+  OK = 0,       /**< The call completed successfully. */
+  NOK,          /**< The call failed, or an argument was out of range. */
+  NULL_POINTER, /**< A required pointer argument was NULL. */
+  BUSY_STATE,   /**< The peripheral was still busy with a previous transfer. */
+  TIMEOUT_STATE /**< The peripheral did not respond within the allowed time. */
 } ErrorState_t;
 
 /** @} */ /* end of lib */

@@ -21,7 +21,7 @@
  * The IRQ handlers below all funnel into this table. That is what lets six
  * ultrasonic sensors share the EXTI hardware without knowing about each other.
  */
-static void (*EXTI_CallBack[16])(void) = {NULL};
+static void (*EXTI_CallBack[16])(void) = { NULL };
 
 /*=================================================================================================================*/
 /*

@@ -175,13 +175,25 @@ void FCW_DNPW_voidProcessOppositeDirection(const Neighbor *n)
 /* ============ Public Getters (return the ready results) ============ */
 
 /** @brief Forward collision, same lane. @return 0=Safe, 1=Warning, 2=Critical */
-uint8_t FCW_GetFrontFlag(void) { return (uint8_t)FCW_DNPW_FrontFlag; }
+uint8_t FCW_GetFrontFlag(void)
+{
+  return (uint8_t)FCW_DNPW_FrontFlag;
+}
 
 /** @brief Head-on candidate, broadcast over DSRC. @return 0/1 */
-uint8_t FCW_GetHeadonFlag(void) { return FCW_DNPW_HeadonFlag; }
+uint8_t FCW_GetHeadonFlag(void)
+{
+  return FCW_DNPW_HeadonFlag;
+}
 
 /** @brief Confirmed head-on collision. @return 0=Safe, else severity (1/2) */
-uint8_t FCW_GetHeadonConfirmed(void) { return FCW_DNPW_HeadonConfirmed; }
+uint8_t FCW_GetHeadonConfirmed(void)
+{
+  return FCW_DNPW_HeadonConfirmed;
+}
 
 /** @brief Do-not-pass (oncoming in another lane). @return 0=Safe, 1=Warning, 2=Critical */
-uint8_t DNPW_GetFlag(void) { return (uint8_t)FCW_DNPW_DnpwFlag; }
+uint8_t DNPW_GetFlag(void)
+{
+  return (uint8_t)FCW_DNPW_DnpwFlag;
+}

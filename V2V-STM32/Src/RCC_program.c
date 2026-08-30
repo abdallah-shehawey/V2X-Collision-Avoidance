@@ -48,7 +48,7 @@ static uint8_t RCC_u8State = IDLE;
 ErrorState_t RCC_enumSetClkSts(uint8_t Copy_u8CLK, uint8_t Copy_u8Status)
 {
   ErrorState_t Local_u8ErrorState = OK;
-  uint32_t Local_u32TimeoutCounter = 0;
+  uint32_t     Local_u32TimeoutCounter = 0;
 
   if (RCC_u8State == IDLE)
   {
@@ -73,7 +73,6 @@ ErrorState_t RCC_enumSetClkSts(uint8_t Copy_u8CLK, uint8_t Copy_u8Status)
       }
       else if (Copy_u8Status == RCC_CLK_OFF)
       {
-
         CLR_BIT(MRCC->CR, 0);
         while (READ_BIT(MRCC->CR, 1) == 1 && Local_u32TimeoutCounter != RCC_u32TIMEOUT)
         {

@@ -13,14 +13,14 @@
 #include "../../LIB/ErrTypes.h"
 #include <stdint.h>
 
-
 /************************** Bus Definitions **************************/
 /**
  * @brief Microcontroller bus selection
  * - AHB1, AHB2, AHB3 - Advanced High-performance Bus
  *         APB1, APB2 - Advanced Peripheral Bus
  */
-typedef enum {
+typedef enum
+{
   RCC_AHB1, /**< Advanced High-performance Bus 1 */
   RCC_AHB2, /**< Advanced High-performance Bus 2 */
   RCC_AHB3, /**< Advanced High-performance Bus 3 */
@@ -33,7 +33,8 @@ typedef enum {
  * @details Contains GPIO ports A-H, CRC, Backup SRAM,
  *          DMA1/2, USB OTG HS and ULPI
  */
-typedef enum {
+typedef enum
+{
   RCC_GPIOAEN,          /**< GPIO Port A Enable */
   RCC_GPIOBEN,          /**< GPIO Port B Enable */
   RCC_GPIOCEN,          /**< GPIO Port C Enable */
@@ -54,7 +55,8 @@ typedef enum {
  * @brief Peripherals connected to AHB2 bus
  * @details Contains DCMI and USB OTG FS
  */
-typedef enum {
+typedef enum
+{
   RCC_DCMIEN = 0,  /**< Digital Camera Interface Enable */
   RCC_OTGFSEN = 7, /**< USB OTG FS Enable */
 } RCC_AHB2_BUS_t;
@@ -63,7 +65,8 @@ typedef enum {
  * @brief Peripherals connected to AHB3 bus
  * @details Contains FMC and QSPI
  */
-typedef enum {
+typedef enum
+{
   RCC_FMCEN = 0,  /**< Flexible Memory Controller Enable */
   RCC_QSPIEN = 1, /**< Quad SPI Enable */
 } RCC_AHB3_BUS_t;
@@ -73,7 +76,8 @@ typedef enum {
  * @details Contains timers, USART1/6, ADCs, SDIO,
  *          SPI1/4, SYSCFG, and SAI1/2
  */
-typedef enum {
+typedef enum
+{
   RCC_TIM1EN = 0,  /**< Timer 1 Enable */
   RCC_TIM8EN,      /**< Timer 8 Enable */
   RCC_USART1 = 4,  /**< USART1 Enable */
@@ -97,7 +101,8 @@ typedef enum {
  * @details Contains timers, watchdog, SPI2/3, USART2-5,
  *          I2C, CAN, CEC, PWR and DAC
  */
-typedef enum {
+typedef enum
+{
   RCC_TIM2EN,      /**< Timer 2 Enable */
   RCC_TIM3EN,      /**< Timer 3 Enable */
   RCC_TIM4EN,      /**< Timer 4 Enable */
@@ -130,7 +135,8 @@ typedef enum {
  * @brief AHB bus clock division factors
  * @details Defines division ratios from 1 to 512
  */
-typedef enum {
+typedef enum
+{
   RCC_AHB_NOT_DIV = 7, /**< No Division */
   RCC_AHB_DIV_2,       /**< Divide by 2 */
   RCC_AHB_DIV_4,       /**< Divide by 4 */
@@ -146,7 +152,8 @@ typedef enum {
  * @brief APB bus clock division factors
  * @details Defines division ratios from 1 to 16
  */
-typedef enum {
+typedef enum
+{
   RCC_APB_NOT_DIV = 3, /**< No Division */
   RCC_APB_DIV_2,       /**< Divide by 2 */
   RCC_APB_DIV_4,       /**< Divide by 4 */
@@ -158,21 +165,22 @@ typedef enum {
  * @brief Main PLL division factors
  * @details Defines minimum and maximum division values
  */
-#define RCC_MPLL_DIV_2 2   /**< Minimum PLL division */
+#define RCC_MPLL_DIV_2  2  /**< Minimum PLL division */
 #define RCC_MPLL_DIV_63 63 /**< Maximum PLL division */
 
 /**
  * @brief NPLL multiplication factors
  * @details Defines minimum and maximum multiplication values
  */
-#define RCC_NPLL_CLK_MULT_50 50   /**< Minimum PLL multiplication */
+#define RCC_NPLL_CLK_MULT_50  50  /**< Minimum PLL multiplication */
 #define RCC_NPLL_CLK_MULT_432 432 /**< Maximum PLL multiplication */
 
 /**
  * @brief PLLP clock division factors
  * @details Defines even division ratios from 2 to 8
  */
-typedef enum {
+typedef enum
+{
   RCC_PPLL_DIV_2, /**< Divide by 2 */
   RCC_PPLL_DIV_4, /**< Divide by 4 */
   RCC_PPLL_DIV_6, /**< Divide by 6 */
@@ -183,7 +191,8 @@ typedef enum {
  * @brief PLL clock source selection
  * @details Selects between HSI and HSE as PLL input
  */
-typedef enum {
+typedef enum
+{
   RCC_PLL_HSI, /**< High Speed Internal Clock Source */
   RCC_PLL_HSE, /**< High Speed External Clock Source */
 } RCC_PLL_CLK_SRC_t;
@@ -197,8 +206,9 @@ typedef enum {
  *         PLLR_CLK - PLL R output Clock
  *         PLL_CLK - Phase Locked Loop Clock
  */
-typedef enum {
-  RCC_HSI_CLK, /**< High Speed Internal Clock (16 MHz RC oscillator) */
+typedef enum
+{
+  RCC_HSI_CLK,  /**< High Speed Internal Clock (16 MHz RC oscillator) */
   RCC_HSE_CLK,  /**< High-speed external clock: a 4–26 MHz crystal or ceramic resonator. */
   RCC_PLLP_CLK, /**< Main PLL P output Clock */
   RCC_PLLR_CLK, /**< Main PLL R output Clock */
@@ -212,7 +222,8 @@ typedef enum {
  * - CLK_ON - Enable selected clock
  *         CLK_OFF - Disable selected clock
  */
-typedef enum {
+typedef enum
+{
   RCC_CLK_ON, /**< Enable the selected clock */
   RCC_CLK_OFF /**< Disable the selected clock */
 } RCC_CLK_EN_t;
@@ -224,7 +235,8 @@ typedef enum {
  * - PER_ON - Enable selected peripheral
  *         PER_OFF - Disable selected peripheral
  */
-typedef enum {
+typedef enum
+{
   RCC_PER_ON, /**< Enable the selected peripheral */
   RCC_PER_OFF /**< Disable the selected peripheral */
 } RCC_PER_EN_t;
@@ -251,11 +263,12 @@ typedef enum {
  *          locks or locks at a frequency the flash cannot be read at, and the
  *          symptom is a board that appears dead at reset.
  */
-typedef struct {
-  RCC_PLL_CLK_SRC_t PLLSource; /**< Where the PLL takes its input from: the internal HSI or the external HSE. */
-  uint8_t PLLM_Div;            /**< Input divider, 2..63. Brings the source down to the 1–2 MHz the PLL wants. */
-  uint8_t PLLN_Mult;           /**< VCO multiplier, 50..432. The result must stay within 100–432 MHz. */
-  RCC_PPLL_CLK_DIV_t PLLP_Div; /**< Output divider — 2, 4, 6 or 8 — giving the final system clock (≤ 180 MHz). */
+typedef struct
+{
+  RCC_PLL_CLK_SRC_t  PLLSource; /**< Where the PLL takes its input from: the internal HSI or the external HSE. */
+  uint8_t            PLLM_Div;  /**< Input divider, 2..63. Brings the source down to the 1–2 MHz the PLL wants. */
+  uint8_t            PLLN_Mult; /**< VCO multiplier, 50..432. The result must stay within 100–432 MHz. */
+  RCC_PPLL_CLK_DIV_t PLLP_Div;  /**< Output divider — 2, 4, 6 or 8 — giving the final system clock (≤ 180 MHz). */
 } RCC_PLLConfig_t;
 
 /************************** Function Prototypes **************************/

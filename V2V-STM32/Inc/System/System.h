@@ -193,17 +193,17 @@ typedef struct
  */
 typedef struct __attribute__((packed))
 {
-  uint8_t start;       /**< Start-of-frame marker, always 0xAA. */
-  uint16_t sys_flags;  /**< A copy of @ref G_u16SystemFlags. */
-  float speed;         /**< Ground speed [cm/s]. */
-  float heading;       /**< Compass heading [degrees], 0..360. */
-  float front_left;    /**< Front-left ultrasonic distance [cm]. */
-  float front_center;  /**< Front-centre ultrasonic distance [cm]. */
-  float front_right;   /**< Front-right ultrasonic distance [cm]. */
-  float back_left;     /**< Rear-left ultrasonic distance [cm]. */
-  float back_center;   /**< Rear-centre ultrasonic distance [cm]. */
-  float back_right;    /**< Rear-right ultrasonic distance [cm]. */
-  uint8_t end;         /**< End-of-frame marker, always 0x55. */
+  uint8_t  start;        /**< Start-of-frame marker, always 0xAA. */
+  uint16_t sys_flags;    /**< A copy of @ref G_u16SystemFlags. */
+  float    speed;        /**< Ground speed [cm/s]. */
+  float    heading;      /**< Compass heading [degrees], 0..360. */
+  float    front_left;   /**< Front-left ultrasonic distance [cm]. */
+  float    front_center; /**< Front-centre ultrasonic distance [cm]. */
+  float    front_right;  /**< Front-right ultrasonic distance [cm]. */
+  float    back_left;    /**< Rear-left ultrasonic distance [cm]. */
+  float    back_center;  /**< Rear-centre ultrasonic distance [cm]. */
+  float    back_right;   /**< Rear-right ultrasonic distance [cm]. */
+  uint8_t  end;          /**< End-of-frame marker, always 0x55. */
 } RPi_Packet_t;
 
 /*============================================================================*/

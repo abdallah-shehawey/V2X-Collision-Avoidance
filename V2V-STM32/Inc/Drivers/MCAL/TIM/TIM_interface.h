@@ -22,15 +22,15 @@
  */
 typedef enum
 {
-    TIM_TIMER2 = 0, /**< General-purpose, 32-bit counter. Times the front-left and front-centre echoes. IRQ: TIM2. */
-    TIM_TIMER3,     /**< General-purpose, 16-bit. Times the front-right and all three rear echoes. IRQ: TIM3. */
-    TIM_TIMER4,     /**< General-purpose, 16-bit. IRQ: TIM4. */
-    TIM_TIMER5,     /**< General-purpose, 32-bit. IRQ: TIM5. */
-    TIM_TIMER1, /**< Advanced-Control Timer — Full PWM/IC support. IRQ: TIM1_UP_TIM10 */
-    TIM_TIMER8, /**< Advanced-Control Timer — Full PWM/IC support. IRQ: TIM8_UP_TIM13 */
-    TIM_TIMER6, /**< Basic Timer — Delay/Interrupt ONLY. No PWM/IC support */
-    TIM_TIMER7, /**< Basic Timer — Delay/Interrupt ONLY. No PWM/IC support */
-    TIM_TIMER_COUNT /**< Number of supported timers */
+  TIM_TIMER2 = 0, /**< General-purpose, 32-bit counter. Times the front-left and front-centre echoes. IRQ: TIM2. */
+  TIM_TIMER3,     /**< General-purpose, 16-bit. Times the front-right and all three rear echoes. IRQ: TIM3. */
+  TIM_TIMER4,     /**< General-purpose, 16-bit. IRQ: TIM4. */
+  TIM_TIMER5,     /**< General-purpose, 32-bit. IRQ: TIM5. */
+  TIM_TIMER1,     /**< Advanced-Control Timer — Full PWM/IC support. IRQ: TIM1_UP_TIM10 */
+  TIM_TIMER8,     /**< Advanced-Control Timer — Full PWM/IC support. IRQ: TIM8_UP_TIM13 */
+  TIM_TIMER6,     /**< Basic Timer — Delay/Interrupt ONLY. No PWM/IC support */
+  TIM_TIMER7,     /**< Basic Timer — Delay/Interrupt ONLY. No PWM/IC support */
+  TIM_TIMER_COUNT /**< Number of supported timers */
 } TIM_Num_t;
 
 /**
@@ -39,8 +39,8 @@ typedef enum
  */
 typedef enum
 {
-    TIM_COUNTERMODE_UP = 0, /**< Count up from 0 to the auto-reload value, then wrap to 0. */
-    TIM_COUNTERMODE_DOWN    /**< Count down from the auto-reload value to 0, then reload. */
+  TIM_COUNTERMODE_UP = 0, /**< Count up from 0 to the auto-reload value, then wrap to 0. */
+  TIM_COUNTERMODE_DOWN    /**< Count down from the auto-reload value to 0, then reload. */
 } TIM_CounterMode_t;
 
 /**
@@ -49,10 +49,10 @@ typedef enum
  */
 typedef enum
 {
-    TIM_CHANNEL1 = 0, /**< Capture/compare channel 1. */
-    TIM_CHANNEL2,     /**< Capture/compare channel 2. */
-    TIM_CHANNEL3,     /**< Capture/compare channel 3. */
-    TIM_CHANNEL4      /**< Capture/compare channel 4. */
+  TIM_CHANNEL1 = 0, /**< Capture/compare channel 1. */
+  TIM_CHANNEL2,     /**< Capture/compare channel 2. */
+  TIM_CHANNEL3,     /**< Capture/compare channel 3. */
+  TIM_CHANNEL4      /**< Capture/compare channel 4. */
 } TIM_Channel_t;
 
 /**
@@ -61,8 +61,8 @@ typedef enum
  */
 typedef enum
 {
-    TIM_PWM_MODE1 = 6, /**< Output active as long as CNT < CCRx */
-    TIM_PWM_MODE2 = 7  /**< Output active as long as CNT > CCRx */
+  TIM_PWM_MODE1 = 6, /**< Output active as long as CNT < CCRx */
+  TIM_PWM_MODE2 = 7  /**< Output active as long as CNT > CCRx */
 } TIM_PWMMode_t;
 
 /**
@@ -71,8 +71,8 @@ typedef enum
  */
 typedef enum
 {
-    TIM_POLARITY_HIGH = 0, /**< Active high: as an output, the pin is high during the duty cycle; as a capture input, the rising edge triggers. */
-    TIM_POLARITY_LOW       /**< Active low: the inverse of the above. */
+  TIM_POLARITY_HIGH = 0, /**< Active high: as an output, the pin is high during the duty cycle; as a capture input, the rising edge triggers. */
+  TIM_POLARITY_LOW       /**< Active low: the inverse of the above. */
 } TIM_Polarity_t;
 
 /**
@@ -81,10 +81,10 @@ typedef enum
  */
 typedef struct
 {
-    TIM_Num_t Timer;            /**< Timer Instance */
-    uint16_t Prescaler;         /**< Clock Prescaler (0-65535) */
-    uint32_t AutoReloadValue;   /**< Auto-Reload Value (Period) */
-    TIM_CounterMode_t Mode;     /**< Counter Mode (Up/Down) */
+  TIM_Num_t         Timer;           /**< Timer Instance */
+  uint16_t          Prescaler;       /**< Clock Prescaler (0-65535) */
+  uint32_t          AutoReloadValue; /**< Auto-Reload Value (Period) */
+  TIM_CounterMode_t Mode;            /**< Counter Mode (Up/Down) */
 } TIM_Config_t;
 
 /**
@@ -93,13 +93,13 @@ typedef struct
  */
 typedef struct
 {
-    TIM_Num_t Timer;            /**< Timer Instance */
-    TIM_Channel_t Channel;      /**< PWM Channel */
-    TIM_PWMMode_t Mode;         /**< PWM Mode */
-    uint32_t DutyCycle;         /**< Initial Duty Cycle (Compare Value) */
-    uint32_t Period;            /**< PWM Period (Auto-Reload Value) */
-    uint16_t Prescaler;         /**< Clock Prescaler */
-    TIM_Polarity_t Polarity;    /**< Output Polarity */
+  TIM_Num_t      Timer;     /**< Timer Instance */
+  TIM_Channel_t  Channel;   /**< PWM Channel */
+  TIM_PWMMode_t  Mode;      /**< PWM Mode */
+  uint32_t       DutyCycle; /**< Initial Duty Cycle (Compare Value) */
+  uint32_t       Period;    /**< PWM Period (Auto-Reload Value) */
+  uint16_t       Prescaler; /**< Clock Prescaler */
+  TIM_Polarity_t Polarity;  /**< Output Polarity */
 } TIM_PWMConfig_t;
 
 /**
@@ -108,9 +108,9 @@ typedef struct
  */
 typedef enum
 {
-    TIM_IC_SELECTION_DIRECT_TI = 1,   /**< CCx channel is configured as input, ICx is mapped on TIx */
-    TIM_IC_SELECTION_INDIRECT_TI = 2, /**< CCx channel is configured as input, ICx is mapped on TIy */
-    TIM_IC_SELECTION_TRC = 3          /**< CCx channel is configured as input, ICx is mapped on TRC */
+  TIM_IC_SELECTION_DIRECT_TI = 1,   /**< CCx channel is configured as input, ICx is mapped on TIx */
+  TIM_IC_SELECTION_INDIRECT_TI = 2, /**< CCx channel is configured as input, ICx is mapped on TIy */
+  TIM_IC_SELECTION_TRC = 3          /**< CCx channel is configured as input, ICx is mapped on TRC */
 } TIM_IC_Selection_t;
 
 /**
@@ -119,10 +119,10 @@ typedef enum
  */
 typedef enum
 {
-    TIM_IC_PSC_DIV1 = 0, /**< Capture performed each time an edge is detected on the capture input */
-    TIM_IC_PSC_DIV2 = 1, /**< Capture performed every 2 events */
-    TIM_IC_PSC_DIV4 = 2, /**< Capture performed every 4 events */
-    TIM_IC_PSC_DIV8 = 3  /**< Capture performed every 8 events */
+  TIM_IC_PSC_DIV1 = 0, /**< Capture performed each time an edge is detected on the capture input */
+  TIM_IC_PSC_DIV2 = 1, /**< Capture performed every 2 events */
+  TIM_IC_PSC_DIV4 = 2, /**< Capture performed every 4 events */
+  TIM_IC_PSC_DIV8 = 3  /**< Capture performed every 8 events */
 } TIM_IC_Prescaler_t;
 
 /**
@@ -131,12 +131,12 @@ typedef enum
  */
 typedef struct
 {
-    TIM_Num_t Timer;               /**< Timer Instance */
-    TIM_Channel_t Channel;         /**< Input Capture Channel */
-    TIM_IC_Selection_t Selection;  /**< Input Capture Selection */
-    TIM_IC_Prescaler_t Prescaler;  /**< Input Capture Prescaler */
-    TIM_Polarity_t Polarity;       /**< Input Capture Polarity (Edge) */
-    uint16_t Filter;               /**< Input Capture Filter (0x0 to 0xF) */
+  TIM_Num_t          Timer;     /**< Timer Instance */
+  TIM_Channel_t      Channel;   /**< Input Capture Channel */
+  TIM_IC_Selection_t Selection; /**< Input Capture Selection */
+  TIM_IC_Prescaler_t Prescaler; /**< Input Capture Prescaler */
+  TIM_Polarity_t     Polarity;  /**< Input Capture Polarity (Edge) */
+  uint16_t           Filter;    /**< Input Capture Filter (0x0 to 0xF) */
 } TIM_ICConfig_t;
 
 /**************************************         Function Prototypes
@@ -226,7 +226,6 @@ ErrorState_t TIM_u32GetCounterValue(TIM_Num_t Copy_eTimer, uint32_t *pu32Value);
  * TIM_vSetICPolarity(TIM_TIMER2, TIM_CHANNEL1, TIM_POLARITY_LOW);
  */
 ErrorState_t TIM_vSetICPolarity(TIM_Num_t Copy_eTimer, TIM_Channel_t Copy_eChannel, TIM_Polarity_t Copy_ePolarity);
-
 
 /**
  * @brief   Set the Compare Value (Duty Cycle) for a specific channel.

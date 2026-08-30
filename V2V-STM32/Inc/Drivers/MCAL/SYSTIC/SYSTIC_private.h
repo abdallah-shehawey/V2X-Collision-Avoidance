@@ -15,10 +15,10 @@
  * @brief Bit positions in the SysTick Control and Status Register (STK_CTRL)
  * @{
  */
-#define SYSTIC_CTRL_ENABLE     (0U)    /**< Counter Enable bit - Enables the counter */
-#define SYSTIC_CTRL_TICKINT    (1U)    /**< Exception Enable bit - Enables SysTick exception request */
-#define SYSTIC_CTRL_CLKSOURCE  (2U)    /**< Clock Source bit - Selects the clock source (AHB or AHB/8) */
-#define SYSTIC_CTRL_COUNTFLAG  (16U)   /**< Count Flag bit - Indicates counter has counted to 0 since last read */
+#define SYSTIC_CTRL_ENABLE    (0U)  /**< Counter Enable bit - Enables the counter */
+#define SYSTIC_CTRL_TICKINT   (1U)  /**< Exception Enable bit - Enables SysTick exception request */
+#define SYSTIC_CTRL_CLKSOURCE (2U)  /**< Clock Source bit - Selects the clock source (AHB or AHB/8) */
+#define SYSTIC_CTRL_COUNTFLAG (16U) /**< Count Flag bit - Indicates counter has counted to 0 since last read */
 /** @} */
 
 /**
@@ -32,13 +32,13 @@
  * @brief Clock source selection values for SysTick timer
  * @note These values are written to CLKSOURCE bit in STK_CTRL
  */
-#define CLK_SOURCE_AHB      (1U)      /**< Use processor clock (AHB) directly */
+#define CLK_SOURCE_AHB      (1U) /**< Use processor clock (AHB) directly */
 #define CLK_SOURCE_AHB_DIV8 (0U) /**< Use processor clock divided by 8 */
 
 /**
  * @brief Generic enable/disable definitions
  */
-#define ENABLE  (1U)  /**< Enable a feature */
+#define ENABLE  (1U) /**< Enable a feature */
 #define DISABLE (0U) /**< Disable a feature */
 /** @} */
 

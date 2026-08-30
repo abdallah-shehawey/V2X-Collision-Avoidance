@@ -41,7 +41,8 @@
 /*============================================================================*/
 
 /** @brief GPIO port selector. The value is the index into the driver's port table. */
-typedef enum {
+typedef enum
+{
   GPIO_PORTA = 0, /**< Port A. */
   GPIO_PORTB,     /**< Port B. */
   GPIO_PORTC,     /**< Port C. */
@@ -53,7 +54,8 @@ typedef enum {
 } GPIO_Port_t;
 
 /** @brief Pin selector within a port. The value is the bit position in the port registers. */
-typedef enum {
+typedef enum
+{
   GPIO_PIN0 = 0, /**< Pin 0. */
   GPIO_PIN1,     /**< Pin 1. */
   GPIO_PIN2,     /**< Pin 2. */
@@ -73,7 +75,8 @@ typedef enum {
 } GPIO_Pin_t;
 
 /** @brief Pin mode — the 2-bit field written into `MODER`. */
-typedef enum {
+typedef enum
+{
   GPIO_INPUT = 0, /**< Digital input; the pin is read through `IDR`. */
   GPIO_OUTPUT,    /**< Digital output; the pin is driven from `ODR`/`BSRR`. */
   GPIO_ALTFN,     /**< Alternate function; a peripheral (USART, SPI, TIM) owns the pin. */
@@ -81,13 +84,15 @@ typedef enum {
 } GPIO_Mode_t;
 
 /** @brief Output driver type — the 1-bit field written into `OTYPER`. */
-typedef enum {
+typedef enum
+{
   GPIO_PUSH_PULL = 0, /**< Push-pull: the pin actively drives both high and low. */
   GPIO_OPEN_DRAIN     /**< Open-drain: the pin only pulls low, and floats otherwise. */
 } GPIO_OutputType_t;
 
 /** @brief Which half of a byte a nibble operation applies to. */
-typedef enum {
+typedef enum
+{
   GPIO_LOW_NIBBLE, /**< Pins 0..3. */
   GPIO_HIGH_NIBBLE /**< Pins 4..7. */
 } GPIO_NibbleType_t;
@@ -97,7 +102,8 @@ typedef enum {
  * @note  A faster edge means more EMI. Use the slowest speed the signal allows;
  *        the LEDs and the buzzer are perfectly happy at @ref GPIO_LOW_SPEED.
  */
-typedef enum {
+typedef enum
+{
   GPIO_LOW_SPEED = 0,  /**< Low speed. */
   GPIO_MEDIUM_SPEED,   /**< Medium speed. */
   GPIO_HIGH_SPEED,     /**< High speed. */
@@ -105,7 +111,8 @@ typedef enum {
 } GPIO_OutputSpeed_t;
 
 /** @brief Internal pull resistor — the 2-bit field written into `PUPDR`. */
-typedef enum {
+typedef enum
+{
   GPIO_NO_PULL = 0, /**< Floating: no internal pull resistor. */
   GPIO_PULL_UP,     /**< Internal pull-up to VDD. */
   GPIO_PULL_DOWN    /**< Internal pull-down to VSS. */
@@ -117,7 +124,8 @@ typedef enum {
  *        alternate-function table, not by this driver. On this board the ones
  *        that matter are AF5 (SPI1, the IMU) and AF7 (USART1/USART2).
  */
-typedef enum {
+typedef enum
+{
   GPIO_AF0 = 0, /**< AF0  — system (MCO, SWD, JTAG). */
   GPIO_AF1,     /**< AF1  — TIM1/TIM2. */
   GPIO_AF2,     /**< AF2  — TIM3/TIM4/TIM5. */
@@ -137,7 +145,8 @@ typedef enum {
 } GPIO_AlternateFunction_t;
 
 /** @brief Logic level of a pin. */
-typedef enum {
+typedef enum
+{
   GPIO_PIN_LOW = 0, /**< Logic 0 / 0 V. */
   GPIO_PIN_HIGH     /**< Logic 1 / VDD. */
 } GPIO_PinValue_t;
@@ -149,18 +158,20 @@ typedef enum {
  * @ref GPIO_ALTFN; `AlternateFunction` only matters when `Mode` is
  * @ref GPIO_ALTFN. The unused members are still written, harmlessly.
  */
-typedef struct {
-  GPIO_Port_t Port;                           /**< Which port the pin belongs to. */
-  GPIO_Pin_t PinNum;                          /**< Which pin within that port. */
-  GPIO_Mode_t Mode;                           /**< Input, output, alternate function or analog. */
-  GPIO_OutputType_t Otype;                    /**< Push-pull or open-drain (output modes only). */
-  GPIO_OutputSpeed_t Speed;                   /**< Slew rate (output modes only). */
-  GPIO_PullUpDown_t PullType;                 /**< Internal pull resistor. */
+typedef struct
+{
+  GPIO_Port_t              Port;              /**< Which port the pin belongs to. */
+  GPIO_Pin_t               PinNum;            /**< Which pin within that port. */
+  GPIO_Mode_t              Mode;              /**< Input, output, alternate function or analog. */
+  GPIO_OutputType_t        Otype;             /**< Push-pull or open-drain (output modes only). */
+  GPIO_OutputSpeed_t       Speed;             /**< Slew rate (output modes only). */
+  GPIO_PullUpDown_t        PullType;          /**< Internal pull resistor. */
   GPIO_AlternateFunction_t AlternateFunction; /**< AF number (alternate-function mode only). */
 } GPIO_PinConfig_t;
 
 /** @brief Which half of a port a half-port operation applies to. */
-typedef enum {
+typedef enum
+{
   PORT_FIRST_HALF = 0, /**< Pins 0..7. */
   PORT_SECOND_HALF     /**< Pins 8..15. */
 } GPIO_PortHalf_t;
@@ -170,13 +181,14 @@ typedef enum {
  *
  * All eight pins get the same mode, output type, speed and pull.
  */
-typedef struct {
-  GPIO_Port_t Port;           /**< Which port. */
-  GPIO_Pin_t StartPin;        /**< First of the 8 pins; must be @ref GPIO_PIN8 or below so the run fits in the port. */
-  GPIO_Mode_t Mode;           /**< Mode applied to all 8 pins. */
-  GPIO_OutputType_t Otype;    /**< Output type applied to all 8 pins. */
-  GPIO_OutputSpeed_t Speed;   /**< Output speed applied to all 8 pins. */
-  GPIO_PullUpDown_t PullType; /**< Pull configuration applied to all 8 pins. */
+typedef struct
+{
+  GPIO_Port_t        Port;     /**< Which port. */
+  GPIO_Pin_t         StartPin; /**< First of the 8 pins; must be @ref GPIO_PIN8 or below so the run fits in the port. */
+  GPIO_Mode_t        Mode;     /**< Mode applied to all 8 pins. */
+  GPIO_OutputType_t  Otype;    /**< Output type applied to all 8 pins. */
+  GPIO_OutputSpeed_t Speed;    /**< Output speed applied to all 8 pins. */
+  GPIO_PullUpDown_t  PullType; /**< Pull configuration applied to all 8 pins. */
 } GPIO_8PinsConfig_t;
 
 /**
@@ -184,63 +196,69 @@ typedef struct {
  *
  * All four pins get the same mode, output type, speed and pull.
  */
-typedef struct {
-  GPIO_Port_t Port;           /**< Which port. */
-  GPIO_Pin_t StartPin;        /**< First of the 4 pins; must be @ref GPIO_PIN12 or below so the run fits in the port. */
-  GPIO_Mode_t Mode;           /**< Mode applied to all 4 pins. */
-  GPIO_OutputType_t Otype;    /**< Output type applied to all 4 pins. */
-  GPIO_OutputSpeed_t Speed;   /**< Output speed applied to all 4 pins. */
-  GPIO_PullUpDown_t PullType; /**< Pull configuration applied to all 4 pins. */
+typedef struct
+{
+  GPIO_Port_t        Port;     /**< Which port. */
+  GPIO_Pin_t         StartPin; /**< First of the 4 pins; must be @ref GPIO_PIN12 or below so the run fits in the port. */
+  GPIO_Mode_t        Mode;     /**< Mode applied to all 4 pins. */
+  GPIO_OutputType_t  Otype;    /**< Output type applied to all 4 pins. */
+  GPIO_OutputSpeed_t Speed;    /**< Output speed applied to all 4 pins. */
+  GPIO_PullUpDown_t  PullType; /**< Pull configuration applied to all 4 pins. */
 } GPIO_4PinsConfig_t;
 
 /** @brief Configuration of pins 0..3 of a port, as passed to @ref GPIO_enumLowNibbleInit. */
-typedef struct {
-  GPIO_Port_t Port;           /**< Which port. */
-  GPIO_Pin_t StartPin;        /**< Must be @ref GPIO_PIN0 — the low nibble starts at pin 0 by definition. */
-  GPIO_Mode_t Mode;           /**< Mode applied to pins 0..3. */
-  GPIO_OutputType_t Otype;    /**< Output type applied to pins 0..3. */
-  GPIO_OutputSpeed_t Speed;   /**< Output speed applied to pins 0..3. */
-  GPIO_PullUpDown_t PullType; /**< Pull configuration applied to pins 0..3. */
+typedef struct
+{
+  GPIO_Port_t        Port;     /**< Which port. */
+  GPIO_Pin_t         StartPin; /**< Must be @ref GPIO_PIN0 — the low nibble starts at pin 0 by definition. */
+  GPIO_Mode_t        Mode;     /**< Mode applied to pins 0..3. */
+  GPIO_OutputType_t  Otype;    /**< Output type applied to pins 0..3. */
+  GPIO_OutputSpeed_t Speed;    /**< Output speed applied to pins 0..3. */
+  GPIO_PullUpDown_t  PullType; /**< Pull configuration applied to pins 0..3. */
 } GPIO_LowNibbleConfig_t;
 
 /** @brief Configuration of pins 4..7 of a port, as passed to @ref GPIO_enumHighNibbleInit. */
-typedef struct {
-  GPIO_Port_t Port;           /**< Which port. */
-  GPIO_Pin_t StartPin;        /**< Must be @ref GPIO_PIN4 — the high nibble starts at pin 4 by definition. */
-  GPIO_Mode_t Mode;           /**< Mode applied to pins 4..7. */
-  GPIO_OutputType_t Otype;    /**< Output type applied to pins 4..7. */
-  GPIO_OutputSpeed_t Speed;   /**< Output speed applied to pins 4..7. */
-  GPIO_PullUpDown_t PullType; /**< Pull configuration applied to pins 4..7. */
+typedef struct
+{
+  GPIO_Port_t        Port;     /**< Which port. */
+  GPIO_Pin_t         StartPin; /**< Must be @ref GPIO_PIN4 — the high nibble starts at pin 4 by definition. */
+  GPIO_Mode_t        Mode;     /**< Mode applied to pins 4..7. */
+  GPIO_OutputType_t  Otype;    /**< Output type applied to pins 4..7. */
+  GPIO_OutputSpeed_t Speed;    /**< Output speed applied to pins 4..7. */
+  GPIO_PullUpDown_t  PullType; /**< Pull configuration applied to pins 4..7. */
 } GPIO_HighNibbleConfig_t;
 
 /** @brief Configuration of pins 0..7 of a port, as passed to @ref GPIO_enumByteInit. */
-typedef struct {
-  GPIO_Port_t Port;           /**< Which port. */
-  GPIO_Pin_t StartPin;        /**< Must be @ref GPIO_PIN0 — the low byte starts at pin 0 by definition. */
-  GPIO_Mode_t Mode;           /**< Mode applied to pins 0..7. */
-  GPIO_OutputType_t Otype;    /**< Output type applied to pins 0..7. */
-  GPIO_OutputSpeed_t Speed;   /**< Output speed applied to pins 0..7. */
-  GPIO_PullUpDown_t PullType; /**< Pull configuration applied to pins 0..7. */
+typedef struct
+{
+  GPIO_Port_t        Port;     /**< Which port. */
+  GPIO_Pin_t         StartPin; /**< Must be @ref GPIO_PIN0 — the low byte starts at pin 0 by definition. */
+  GPIO_Mode_t        Mode;     /**< Mode applied to pins 0..7. */
+  GPIO_OutputType_t  Otype;    /**< Output type applied to pins 0..7. */
+  GPIO_OutputSpeed_t Speed;    /**< Output speed applied to pins 0..7. */
+  GPIO_PullUpDown_t  PullType; /**< Pull configuration applied to pins 0..7. */
 } GPIO_ByteConfig_t;
 
 /** @brief Configuration of half a port, as passed to @ref GPIO_enumHalfPortInit. */
-typedef struct {
-  GPIO_Port_t Port;           /**< Which port. */
-  GPIO_Pin_t StartPin;        /**< Must be @ref GPIO_PIN0. */
-  GPIO_Mode_t Mode;           /**< Mode applied to the half port. */
-  GPIO_OutputType_t Otype;    /**< Output type applied to the half port. */
-  GPIO_OutputSpeed_t Speed;   /**< Output speed applied to the half port. */
-  GPIO_PullUpDown_t PullType; /**< Pull configuration applied to the half port. */
+typedef struct
+{
+  GPIO_Port_t        Port;     /**< Which port. */
+  GPIO_Pin_t         StartPin; /**< Must be @ref GPIO_PIN0. */
+  GPIO_Mode_t        Mode;     /**< Mode applied to the half port. */
+  GPIO_OutputType_t  Otype;    /**< Output type applied to the half port. */
+  GPIO_OutputSpeed_t Speed;    /**< Output speed applied to the half port. */
+  GPIO_PullUpDown_t  PullType; /**< Pull configuration applied to the half port. */
 } GPIO_HalfPortConfig_t;
 
 /** @brief Configuration of all 16 pins of a port, as passed to @ref GPIO_enumPortInit. */
-typedef struct {
-  GPIO_Port_t Port;           /**< Which port. */
-  GPIO_Pin_t StartPin;        /**< Must be @ref GPIO_PIN0 — a whole-port init always starts at pin 0. */
-  GPIO_Mode_t Mode;           /**< Mode applied to all 16 pins. */
-  GPIO_OutputType_t Otype;    /**< Output type applied to all 16 pins. */
-  GPIO_OutputSpeed_t Speed;   /**< Output speed applied to all 16 pins. */
-  GPIO_PullUpDown_t PullType; /**< Pull configuration applied to all 16 pins. */
+typedef struct
+{
+  GPIO_Port_t        Port;     /**< Which port. */
+  GPIO_Pin_t         StartPin; /**< Must be @ref GPIO_PIN0 — a whole-port init always starts at pin 0. */
+  GPIO_Mode_t        Mode;     /**< Mode applied to all 16 pins. */
+  GPIO_OutputType_t  Otype;    /**< Output type applied to all 16 pins. */
+  GPIO_OutputSpeed_t Speed;    /**< Output speed applied to all 16 pins. */
+  GPIO_PullUpDown_t  PullType; /**< Pull configuration applied to all 16 pins. */
 } GPIO_PortConfig_t;
 
 /*============================================================================*/
@@ -419,7 +437,7 @@ ErrorState_t GPIO_enumWrite4PinsVal(GPIO_Port_t Port, GPIO_Pin_t StartPin,
  * @endcode
  */
 ErrorState_t GPIO_enumWriteLowNibbleVal(GPIO_Port_t port, uint8_t Copy_u8Val,
-                                     GPIO_PinValue_t PinsVal);
+                                        GPIO_PinValue_t PinsVal);
 
 /**
  * @brief Set or clear a chosen subset of pins 4..7, atomically.
@@ -434,7 +452,7 @@ ErrorState_t GPIO_enumWriteLowNibbleVal(GPIO_Port_t port, uint8_t Copy_u8Val,
  * @retval NOK @p PinsVal was out of range.
  */
 ErrorState_t GPIO_enumWriteHighNibbleVal(GPIO_Port_t port, uint8_t Copy_u8Val,
-                                      GPIO_PinValue_t PinsVal);
+                                         GPIO_PinValue_t PinsVal);
 
 /**
  * @brief Set or clear a chosen subset of pins 0..7, atomically.
@@ -448,7 +466,7 @@ ErrorState_t GPIO_enumWriteHighNibbleVal(GPIO_Port_t port, uint8_t Copy_u8Val,
  * @retval NOK @p PinsVal was out of range.
  */
 ErrorState_t GPIO_enumWriteByteVal(GPIO_Port_t port, uint8_t Copy_u8Val,
-                                GPIO_PinValue_t PinsVal);
+                                   GPIO_PinValue_t PinsVal);
 
 /**
  * @brief Set or clear a chosen subset of all 16 pins, atomically.
@@ -462,7 +480,7 @@ ErrorState_t GPIO_enumWriteByteVal(GPIO_Port_t port, uint8_t Copy_u8Val,
  * @retval NOK @p PinsVal was out of range.
  */
 ErrorState_t GPIO_enumWriteHalfWordVal(GPIO_Port_t port, uint16_t Copy_u16Val,
-                                    GPIO_PinValue_t PinsVal);
+                                       GPIO_PinValue_t PinsVal);
 
 /**
  * @brief Set or clear a chosen subset of all 16 pins, atomically.
@@ -477,7 +495,7 @@ ErrorState_t GPIO_enumWriteHalfWordVal(GPIO_Port_t port, uint16_t Copy_u16Val,
  * @retval NOK @p PinsVal was out of range.
  */
 ErrorState_t GPIO_enumWritePortVal(GPIO_Port_t port, uint16_t Copy_u16Val,
-                                GPIO_PinValue_t PinsVal);
+                                   GPIO_PinValue_t PinsVal);
 
 /*============================================================================*/
 /*                              MULTI-PIN READS                               */
@@ -526,7 +544,7 @@ ErrorState_t GPIO_enumReadLowNibbleVal(GPIO_Port_t port, uint8_t *LowNibbleVal);
  * @retval NOK          @p port was out of range.
  */
 ErrorState_t GPIO_enumReadHighNibbleVal(GPIO_Port_t port,
-                                        uint8_t *HighNibbleVal);
+                                        uint8_t    *HighNibbleVal);
 
 /**
  * @brief Read pins 0..7 of a port as a byte.

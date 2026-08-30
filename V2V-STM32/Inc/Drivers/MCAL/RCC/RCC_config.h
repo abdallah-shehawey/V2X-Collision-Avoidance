@@ -10,5 +10,4 @@
 #ifndef MCAL_RCC_CONFIG_H_
 #define MCAL_RCC_CONFIG_H_
 
-
 #endif /* MCAL_RCC_CONFIG_H_ */

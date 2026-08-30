@@ -13,55 +13,54 @@
 #include "../../LIB/ErrTypes.h"
 #include <stdint.h>
 
-
 /** @brief Which USART peripheral a call applies to. */
 typedef enum
 {
-  USART_CHANNEL1,                 /**< USART1 — the ESP32 V2V link. */
-  USART_CHANNEL2,                 /**< USART2 — the Raspberry Pi telemetry link. */
-  USART_CHANNEL3,                 /**< USART3. */
-  USART_CHANNEL4,                 /**< UART4. */
-  USART_CHANNEL5,                 /**< UART5. */
-  USART_CHANNEL6,                 /**< USART6. */
+  USART_CHANNEL1, /**< USART1 — the ESP32 V2V link. */
+  USART_CHANNEL2, /**< USART2 — the Raspberry Pi telemetry link. */
+  USART_CHANNEL3, /**< USART3. */
+  USART_CHANNEL4, /**< UART4. */
+  USART_CHANNEL5, /**< UART5. */
+  USART_CHANNEL6, /**< USART6. */
 } USART_Channel_t;
 
 /** @brief Data bits per frame. */
 typedef enum
 {
-  USART_WORDLENGTH_8B,            /**< 8 data bits per frame — the usual choice. */
-  USART_WORDLENGTH_9B,            /**< 9 data bits per frame; the 9th is normally the parity bit. */
+  USART_WORDLENGTH_8B, /**< 8 data bits per frame — the usual choice. */
+  USART_WORDLENGTH_9B, /**< 9 data bits per frame; the 9th is normally the parity bit. */
 } USART_WordLength_t;
 
 /** @brief Stop bits appended to each frame. Both ends must agree. */
 typedef enum
 {
-  USART_STOPBITS_0_5,             /**< Half a stop bit (smartcard mode). */
-  USART_STOPBITS_1,               /**< One stop bit — the usual choice. */
-  USART_STOPBITS_1_5,             /**< One and a half stop bits (smartcard mode). */
-  USART_STOPBITS_2,               /**< Two stop bits; gives a slow receiver more time to keep up. */
+  USART_STOPBITS_0_5, /**< Half a stop bit (smartcard mode). */
+  USART_STOPBITS_1,   /**< One stop bit — the usual choice. */
+  USART_STOPBITS_1_5, /**< One and a half stop bits (smartcard mode). */
+  USART_STOPBITS_2,   /**< Two stop bits; gives a slow receiver more time to keep up. */
 } USART_StopBits_t;
 
 /** @brief Parity checking. */
 typedef enum
 {
-  USART_PARITY_NONE,              /**< No parity bit. Both links here run without parity. */
-  USART_PARITY_ODD,               /**< Odd parity. */
-  USART_PARITY_EVEN,              /**< Even parity. */
+  USART_PARITY_NONE, /**< No parity bit. Both links here run without parity. */
+  USART_PARITY_ODD,  /**< Odd parity. */
+  USART_PARITY_EVEN, /**< Even parity. */
 } USART_Parity_t;
 
 /** @brief Which direction(s) of the peripheral to switch on. */
 typedef enum
 {
-  USART_MODE_TX_RX,               /**< Transmitter and receiver both enabled. */
-  USART_MODE_TX,                  /**< Transmit only. */
-  USART_MODE_RX,                  /**< Receive only. */
+  USART_MODE_TX_RX, /**< Transmitter and receiver both enabled. */
+  USART_MODE_TX,    /**< Transmit only. */
+  USART_MODE_RX,    /**< Receive only. */
 } USART_Mode_t;
 
 /** @brief Generic enable/disable for a USART feature. */
 typedef enum
 {
-  USART_DIS,                      /**< Peripheral disabled. */
-  USART_EN                        /**< Peripheral enabled. */
+  USART_DIS, /**< Peripheral disabled. */
+  USART_EN   /**< Peripheral enabled. */
 } USART_State_t;
 
 /**
@@ -73,17 +72,17 @@ typedef enum
  */
 typedef enum
 {
-  USART_OVERSAMPLING_16,          /**< Sample each bit 16 times — more tolerant of noise and clock error. */
-  USART_OVERSAMPLING_8            /**< Sample each bit 8 times — allows twice the baud rate, with less margin. */
-}USART_OverSampling_t;
+  USART_OVERSAMPLING_16, /**< Sample each bit 16 times — more tolerant of noise and clock error. */
+  USART_OVERSAMPLING_8   /**< Sample each bit 8 times — allows twice the baud rate, with less margin. */
+} USART_OverSampling_t;
 
 /** @brief RTS/CTS hardware flow control. */
 typedef enum
 {
-  UART_HWCONTROL_NONE,            /**< No flow control. This is what both links use. */
-  UART_HWCONTROL_RTS,             /**< Request-to-send only. */
-  UART_HWCONTROL_CTS,             /**< Clear-to-send only. */
-  UART_HWCONTROL_RTS_CTS,         /**< Both RTS and CTS. */
+  UART_HWCONTROL_NONE,    /**< No flow control. This is what both links use. */
+  UART_HWCONTROL_RTS,     /**< Request-to-send only. */
+  UART_HWCONTROL_CTS,     /**< Clear-to-send only. */
+  UART_HWCONTROL_RTS_CTS, /**< Both RTS and CTS. */
 } USART_HardwareFlowControl_t;
 
 /**
@@ -96,50 +95,50 @@ typedef enum
  */
 typedef struct
 {
-  USART_Channel_t Channel;                           /**< Which USART peripheral (USART1..6). */
-  uint32_t BaudRate;                                 /**< Baud rate in bits per second, e.g. 115200. */
-  USART_WordLength_t WordLength;                     /**< 8 or 9 data bits per frame. */
-  USART_StopBits_t StopBits;                         /**< Number of stop bits. */
-  USART_Parity_t Parity;                             /**< Parity: none, even or odd. */
-  USART_Mode_t Mode;                                 /**< Enable the transmitter, the receiver, or both. */
-  USART_HardwareFlowControl_t HardwareFlowControl;   /**< RTS/CTS flow control; none on this board. */
-  USART_OverSampling_t OverSampling;                 /**< 8x or 16x oversampling. 16x is more noise-tolerant; 8x allows higher baud rates. */
+  USART_Channel_t             Channel;             /**< Which USART peripheral (USART1..6). */
+  uint32_t                    BaudRate;            /**< Baud rate in bits per second, e.g. 115200. */
+  USART_WordLength_t          WordLength;          /**< 8 or 9 data bits per frame. */
+  USART_StopBits_t            StopBits;            /**< Number of stop bits. */
+  USART_Parity_t              Parity;              /**< Parity: none, even or odd. */
+  USART_Mode_t                Mode;                /**< Enable the transmitter, the receiver, or both. */
+  USART_HardwareFlowControl_t HardwareFlowControl; /**< RTS/CTS flow control; none on this board. */
+  USART_OverSampling_t        OverSampling;        /**< 8x or 16x oversampling. 16x is more noise-tolerant; 8x allows higher baud rates. */
 } USART_Config_t;
 
 /** @brief "Byte received" interrupt enable. */
 typedef enum
 {
-  USART_RXNEIE_DIS,               /**< No interrupt when a byte arrives. */
-  USART_RXNEIE_EN                 /**< Interrupt when a byte arrives — what the ESP32 link runs on. */
+  USART_RXNEIE_DIS, /**< No interrupt when a byte arrives. */
+  USART_RXNEIE_EN   /**< Interrupt when a byte arrives — what the ESP32 link runs on. */
 } USART_RXNEIE_t;
 
 /** @brief "Transmission complete" interrupt enable. */
 typedef enum
 {
-  USART_TCIE_DIS,                 /**< No transmission-complete interrupt. */
-  USART_TCIE_EN                   /**< Interrupt once the last bit has actually left the shift register. */
+  USART_TCIE_DIS, /**< No transmission-complete interrupt. */
+  USART_TCIE_EN   /**< Interrupt once the last bit has actually left the shift register. */
 } USART_TCIE_t;
 
 /** @brief "Transmit register empty" interrupt enable. */
 typedef enum
 {
-  USART_TXEIE_DIS,                /**< No transmit-empty interrupt. */
-  USART_TXEIE_EN                  /**< Interrupt as soon as the data register can take the next byte. */
+  USART_TXEIE_DIS, /**< No transmit-empty interrupt. */
+  USART_TXEIE_EN   /**< Interrupt as soon as the data register can take the next byte. */
 } USART_TXEIE_t;
 
 /** @brief "Line went idle" interrupt enable. */
 typedef enum
 {
-  USART_IDLEIE_DIS,               /**< No idle-line interrupt. */
-  USART_IDLEIE_EN                 /**< Interrupt when the line has been idle for a full frame — useful for framing variable-length messages. */
+  USART_IDLEIE_DIS, /**< No idle-line interrupt. */
+  USART_IDLEIE_EN   /**< Interrupt when the line has been idle for a full frame — useful for framing variable-length messages. */
 } USART_IDLEIE_t;
 
 /** @brief "Parity error" interrupt enable. */
 typedef enum
 {
-  USART_PEIE_DIS,                 /**< No parity-error interrupt. */
-  USART_PEIE_EN                   /**< Interrupt on a parity error. */
-}USART_PEIE_t;
+  USART_PEIE_DIS, /**< No parity-error interrupt. */
+  USART_PEIE_EN   /**< Interrupt on a parity error. */
+} USART_PEIE_t;
 
 /**
  * @brief A USART used in **interrupt-driven** mode: line settings plus the ISR hookup.
@@ -156,19 +155,19 @@ typedef enum
  */
 typedef struct
 {
-  USART_Channel_t Channel;                         /**< Which USART peripheral (USART1..6). */
-  uint32_t BaudRate;                               /**< Baud rate in bits per second. */
-  USART_WordLength_t WordLength;                   /**< 8 or 9 data bits per frame. */
-  USART_StopBits_t StopBits;                       /**< Number of stop bits. */
-  USART_Parity_t Parity;                           /**< Parity: none, even or odd. */
-  USART_Mode_t Mode;                               /**< Enable the transmitter, the receiver, or both. */
+  USART_Channel_t             Channel;             /**< Which USART peripheral (USART1..6). */
+  uint32_t                    BaudRate;            /**< Baud rate in bits per second. */
+  USART_WordLength_t          WordLength;          /**< 8 or 9 data bits per frame. */
+  USART_StopBits_t            StopBits;            /**< Number of stop bits. */
+  USART_Parity_t              Parity;              /**< Parity: none, even or odd. */
+  USART_Mode_t                Mode;                /**< Enable the transmitter, the receiver, or both. */
   USART_HardwareFlowControl_t HardwareFlowControl; /**< RTS/CTS flow control; none on this board. */
-  USART_OverSampling_t OverSampling;               /**< 8x or 16x oversampling. */
-  USART_RXNEIE_t RXNEIE;                           /**< Interrupt when a byte has been received. This is the one the ESP32 link needs. */
-  USART_TCIE_t TCIE;                               /**< Interrupt when a transmission has fully completed. */
-  USART_TXEIE_t TXEIE;                             /**< Interrupt when the transmit register is free for the next byte. */
-  USART_IDLEIE_t IDLEIE;                           /**< Interrupt when the line has gone idle. */
-  USART_PEIE_t PEIE;                               /**< Interrupt on a parity error. */
+  USART_OverSampling_t        OverSampling;        /**< 8x or 16x oversampling. */
+  USART_RXNEIE_t              RXNEIE;              /**< Interrupt when a byte has been received. This is the one the ESP32 link needs. */
+  USART_TCIE_t                TCIE;                /**< Interrupt when a transmission has fully completed. */
+  USART_TXEIE_t               TXEIE;               /**< Interrupt when the transmit register is free for the next byte. */
+  USART_IDLEIE_t              IDLEIE;              /**< Interrupt when the line has gone idle. */
+  USART_PEIE_t                PEIE;                /**< Interrupt on a parity error. */
   void (*pfnCallback)(void);                       /**< Called from the USART ISR — see the note above. */
 } USART_Handle_t;
 /*==================================================================================================*/

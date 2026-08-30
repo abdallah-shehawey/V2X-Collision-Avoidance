@@ -127,7 +127,8 @@
  * Used by the MCAL SYSTICK driver for the microsecond/millisecond delays that
  * the ultrasonic trigger pulses depend on.
  */
-typedef struct {
+typedef struct
+{
   volatile uint32_t CTRL;  /**< Control and status: enable, tick interrupt, clock source, COUNTFLAG. */
   volatile uint32_t LOAD;  /**< Reload value loaded into VAL each time the counter reaches zero. */
   volatile uint32_t VAL;   /**< Current counter value; writing any value clears it and COUNTFLAG. */
@@ -140,7 +141,8 @@ typedef struct {
 /**
  * @brief GPIO port register layout (identical for every port A..H).
  */
-typedef struct {
+typedef struct
+{
   volatile uint32_t MODER;   /**< Mode: 2 bits per pin — input / output / alternate function / analog. */
   volatile uint32_t OTYPER;  /**< Output type: 1 bit per pin — push-pull or open-drain. */
   volatile uint32_t OSPEEDR; /**< Output speed: 2 bits per pin — low / medium / fast / high. */
@@ -171,7 +173,8 @@ typedef struct {
  * @note  Declared for completeness — the firmware drives every peripheral by
  *        interrupt, not by DMA, so no driver uses this.
  */
-typedef struct {
+typedef struct
+{
   uint32_t CR;   /**< Stream configuration: channel, direction, priority, enable. */
   uint32_t NDTR; /**< Number of data items still to transfer. */
   uint32_t PAR;  /**< Peripheral address the stream reads from or writes to. */
@@ -184,12 +187,13 @@ typedef struct {
  * @brief DMA controller register layout: the shared registers plus 8 streams.
  * @note  Declared for completeness — see @ref DMA_STREAM_REGDEF_t.
  */
-typedef struct {
-  uint32_t LISR;                   /**< Interrupt status for streams 0..3. */
-  uint32_t HISR;                   /**< Interrupt status for streams 4..7. */
-  uint32_t LIFCR;                  /**< Interrupt flag clear for streams 0..3. */
-  uint32_t HIFCR;                  /**< Interrupt flag clear for streams 4..7. */
-  DMA_STREAM_REGDEF_t Stream[8];   /**< The 8 per-stream register blocks. */
+typedef struct
+{
+  uint32_t            LISR;      /**< Interrupt status for streams 0..3. */
+  uint32_t            HISR;      /**< Interrupt status for streams 4..7. */
+  uint32_t            LIFCR;     /**< Interrupt flag clear for streams 0..3. */
+  uint32_t            HIFCR;     /**< Interrupt flag clear for streams 4..7. */
+  DMA_STREAM_REGDEF_t Stream[8]; /**< The 8 per-stream register blocks. */
 } DMA_REGDEF_t;
 
 #define MDMA1 ((DMA_REGDEF_t *)DMA1_BASEADDR) /**< Typed pointer to DMA controller 1. */
@@ -203,41 +207,42 @@ typedef struct {
  * clock is not enabled here reads back as all zeroes and silently ignores writes,
  * which is the single most common bring-up bug in a bare-metal driver.
  */
-typedef struct {
-  volatile uint32_t CR;             /**< Clock control: HSI/HSE/PLL enable and their "ready" flags. */
-  volatile uint32_t PLLCFGR;        /**< PLL configuration: the M, N, P, Q dividers and the PLL source. */
-  volatile uint32_t CFGR;           /**< Clock configuration: system clock switch, AHB/APB1/APB2 prescalers. */
-  volatile uint32_t CIR;            /**< Clock interrupt: ready-interrupt enables and flags. */
-  volatile uint32_t AHP1RSTR;       /**< AHB1 peripheral reset. */
-  volatile uint32_t AHP2RSTR;       /**< AHB2 peripheral reset. */
-  volatile uint32_t AHP3RSTR;       /**< AHB3 peripheral reset. */
-  volatile uint32_t RESERVED1[1];   /**< Padding — keeps APB1RSTR at its hardware offset. */
-  volatile uint32_t APB1RSTR;       /**< APB1 peripheral reset. */
-  volatile uint32_t APB2RSTR;       /**< APB2 peripheral reset. */
-  volatile uint32_t RESERVED2[2];   /**< Padding — keeps AHP1ENR at its hardware offset. */
-  volatile uint32_t AHP1ENR;        /**< AHB1 peripheral clock enable (the GPIO ports live here). */
-  volatile uint32_t AHP2ENR;        /**< AHB2 peripheral clock enable. */
-  volatile uint32_t AHP3ENR;        /**< AHB3 peripheral clock enable. */
-  volatile uint32_t RESERVED3[1];   /**< Padding — keeps APB1ENR at its hardware offset. */
-  volatile uint32_t APB1ENR;        /**< APB1 peripheral clock enable (USART2, SPI2/3, TIM2..7). */
-  volatile uint32_t APB2ENR;        /**< APB2 peripheral clock enable (USART1/6, SPI1/4, SYSCFG, TIM1/8..11). */
-  volatile uint32_t RESERVED4[2];   /**< Padding — keeps AHB1LPENR at its hardware offset. */
-  volatile uint32_t AHB1LPENR;      /**< AHB1 clock enable while in low-power (sleep) mode. */
-  volatile uint32_t AHP2LPENR;      /**< AHB2 clock enable while in low-power mode. */
-  volatile uint32_t AHP3LPENR;      /**< AHB3 clock enable while in low-power mode. */
-  volatile uint32_t RESERVED5[1];   /**< Padding — keeps APB1LPENR at its hardware offset. */
-  volatile uint32_t APB1LPENR;      /**< APB1 clock enable while in low-power mode. */
-  volatile uint32_t APB2LPENR;      /**< APB2 clock enable while in low-power mode. */
-  volatile uint32_t RESERVED6[2];   /**< Padding — keeps BDCR at its hardware offset. */
-  volatile uint32_t BDCR;           /**< Backup domain control: LSE oscillator and RTC clock source. */
-  volatile uint32_t CSR;            /**< Clock control and status: LSI, and the reset-cause flags (including the IWDG reset flag). */
-  volatile uint32_t RESERVED7[2];   /**< Padding — keeps SSCGR at its hardware offset. */
-  volatile uint32_t SSCGR;          /**< Spread-spectrum clock generation (EMI reduction). */
-  volatile uint32_t PLLI2SCFGR;     /**< PLLI2S configuration. */
-  volatile uint32_t PLLSAICFGR;     /**< PLLSAI configuration. */
-  volatile uint32_t DCKCFGR;        /**< Dedicated clock configuration. */
-  volatile uint32_t CKGATENR;       /**< Clock gating enable. */
-  volatile uint32_t DCKCFGR2;       /**< Dedicated clock configuration 2. */
+typedef struct
+{
+  volatile uint32_t CR;           /**< Clock control: HSI/HSE/PLL enable and their "ready" flags. */
+  volatile uint32_t PLLCFGR;      /**< PLL configuration: the M, N, P, Q dividers and the PLL source. */
+  volatile uint32_t CFGR;         /**< Clock configuration: system clock switch, AHB/APB1/APB2 prescalers. */
+  volatile uint32_t CIR;          /**< Clock interrupt: ready-interrupt enables and flags. */
+  volatile uint32_t AHP1RSTR;     /**< AHB1 peripheral reset. */
+  volatile uint32_t AHP2RSTR;     /**< AHB2 peripheral reset. */
+  volatile uint32_t AHP3RSTR;     /**< AHB3 peripheral reset. */
+  volatile uint32_t RESERVED1[1]; /**< Padding — keeps APB1RSTR at its hardware offset. */
+  volatile uint32_t APB1RSTR;     /**< APB1 peripheral reset. */
+  volatile uint32_t APB2RSTR;     /**< APB2 peripheral reset. */
+  volatile uint32_t RESERVED2[2]; /**< Padding — keeps AHP1ENR at its hardware offset. */
+  volatile uint32_t AHP1ENR;      /**< AHB1 peripheral clock enable (the GPIO ports live here). */
+  volatile uint32_t AHP2ENR;      /**< AHB2 peripheral clock enable. */
+  volatile uint32_t AHP3ENR;      /**< AHB3 peripheral clock enable. */
+  volatile uint32_t RESERVED3[1]; /**< Padding — keeps APB1ENR at its hardware offset. */
+  volatile uint32_t APB1ENR;      /**< APB1 peripheral clock enable (USART2, SPI2/3, TIM2..7). */
+  volatile uint32_t APB2ENR;      /**< APB2 peripheral clock enable (USART1/6, SPI1/4, SYSCFG, TIM1/8..11). */
+  volatile uint32_t RESERVED4[2]; /**< Padding — keeps AHB1LPENR at its hardware offset. */
+  volatile uint32_t AHB1LPENR;    /**< AHB1 clock enable while in low-power (sleep) mode. */
+  volatile uint32_t AHP2LPENR;    /**< AHB2 clock enable while in low-power mode. */
+  volatile uint32_t AHP3LPENR;    /**< AHB3 clock enable while in low-power mode. */
+  volatile uint32_t RESERVED5[1]; /**< Padding — keeps APB1LPENR at its hardware offset. */
+  volatile uint32_t APB1LPENR;    /**< APB1 clock enable while in low-power mode. */
+  volatile uint32_t APB2LPENR;    /**< APB2 clock enable while in low-power mode. */
+  volatile uint32_t RESERVED6[2]; /**< Padding — keeps BDCR at its hardware offset. */
+  volatile uint32_t BDCR;         /**< Backup domain control: LSE oscillator and RTC clock source. */
+  volatile uint32_t CSR;          /**< Clock control and status: LSI, and the reset-cause flags (including the IWDG reset flag). */
+  volatile uint32_t RESERVED7[2]; /**< Padding — keeps SSCGR at its hardware offset. */
+  volatile uint32_t SSCGR;        /**< Spread-spectrum clock generation (EMI reduction). */
+  volatile uint32_t PLLI2SCFGR;   /**< PLLI2S configuration. */
+  volatile uint32_t PLLSAICFGR;   /**< PLLSAI configuration. */
+  volatile uint32_t DCKCFGR;      /**< Dedicated clock configuration. */
+  volatile uint32_t CKGATENR;     /**< Clock gating enable. */
+  volatile uint32_t DCKCFGR2;     /**< Dedicated clock configuration 2. */
 } RCC_RegDef_t;
 
 /** @brief Typed pointer to the RCC peripheral. */
@@ -248,7 +253,8 @@ typedef struct {
  *
  * Only SPI1 is used, as the master link to the MPU9250 IMU.
  */
-typedef struct {
+typedef struct
+{
   volatile uint32_t CR1;     /**< Control 1: master/slave, clock polarity and phase, baud prescaler, SPI enable. */
   volatile uint32_t CR2;     /**< Control 2: interrupt enables, DMA enables, slave-select output. */
   volatile uint32_t SR;      /**< Status: TXE, RXNE, BSY and the error flags. */
@@ -277,20 +283,21 @@ typedef struct {
  * lives in bit `n % 32` of word `n / 32` — which is exactly the arithmetic the
  * MCAL NVIC driver does.
  */
-typedef struct {
-  volatile uint32_t ISER[8];       /**< Set-enable: writing a 1 enables that IRQ. */
-  volatile uint32_t RESERVED1[24]; /**< Padding — keeps ICER at its hardware offset. */
-  volatile uint32_t ICER[8];       /**< Clear-enable: writing a 1 disables that IRQ. */
-  volatile uint32_t RESERVED2[24]; /**< Padding — keeps ISPR at its hardware offset. */
-  volatile uint32_t ISPR[8];       /**< Set-pending: writing a 1 forces that IRQ pending. */
-  volatile uint32_t RESERVED3[24]; /**< Padding — keeps ICPR at its hardware offset. */
-  volatile uint32_t ICPR[8];       /**< Clear-pending: writing a 1 drops a pending IRQ. */
-  volatile uint32_t RESERVED4[24]; /**< Padding — keeps IABR at its hardware offset. */
-  volatile uint32_t IABR[8];       /**< Active-bit (read-only): 1 while that IRQ's handler is running. */
-  volatile uint32_t RESERVED5[56]; /**< Padding — keeps IPR at its hardware offset. */
-  volatile uint8_t  IPR[240];      /**< Priority: one byte per IRQ (only the upper 4 bits are implemented). */
-  volatile uint32_t RESERVED6[580];/**< Padding — keeps STIR at its hardware offset. */
-  volatile uint32_t STIR;          /**< Software trigger: writing an IRQ number raises it from software. */
+typedef struct
+{
+  volatile uint32_t ISER[8];        /**< Set-enable: writing a 1 enables that IRQ. */
+  volatile uint32_t RESERVED1[24];  /**< Padding — keeps ICER at its hardware offset. */
+  volatile uint32_t ICER[8];        /**< Clear-enable: writing a 1 disables that IRQ. */
+  volatile uint32_t RESERVED2[24];  /**< Padding — keeps ISPR at its hardware offset. */
+  volatile uint32_t ISPR[8];        /**< Set-pending: writing a 1 forces that IRQ pending. */
+  volatile uint32_t RESERVED3[24];  /**< Padding — keeps ICPR at its hardware offset. */
+  volatile uint32_t ICPR[8];        /**< Clear-pending: writing a 1 drops a pending IRQ. */
+  volatile uint32_t RESERVED4[24];  /**< Padding — keeps IABR at its hardware offset. */
+  volatile uint32_t IABR[8];        /**< Active-bit (read-only): 1 while that IRQ's handler is running. */
+  volatile uint32_t RESERVED5[56];  /**< Padding — keeps IPR at its hardware offset. */
+  volatile uint8_t  IPR[240];       /**< Priority: one byte per IRQ (only the upper 4 bits are implemented). */
+  volatile uint32_t RESERVED6[580]; /**< Padding — keeps STIR at its hardware offset. */
+  volatile uint32_t STIR;           /**< Software trigger: writing an IRQ number raises it from software. */
 } NVIC_RegDef_t;
 
 /** @brief Typed pointer to the NVIC. */
@@ -302,7 +309,8 @@ typedef struct {
  * The driver uses this for `SystemInit()`, for relocating the vector table via
  * VTOR, and for the fault status registers.
  */
-typedef struct {
+typedef struct
+{
   uint32_t CPUID; /**< CPU identification: core type and revision (read-only). */
   uint32_t ICSR;  /**< Interrupt control and state: pending PendSV/SysTick, the active vector number. */
   uint32_t VTOR;  /**< Vector table offset: where the vector table lives in memory. */
@@ -333,7 +341,8 @@ typedef struct {
  * EXTI line N. Without it, every EXTI line would default to port A, and the six
  * ultrasonic echo interrupts would never fire.
  */
-typedef struct {
+typedef struct
+{
   uint32_t MEMRMP;       /**< Memory remap: what is mapped at address 0x00000000. */
   uint32_t PMC;          /**< Peripheral mode configuration. */
   uint32_t EXTICR[4];    /**< EXTI port routing: 4 bits per EXTI line, 4 lines per word. */
@@ -353,7 +362,8 @@ typedef struct {
  * are configured here for both-edge triggering: the rising edge starts the
  * echo timing, the falling edge ends it.
  */
-typedef struct {
+typedef struct
+{
   uint32_t IMR;   /**< Interrupt mask: 1 = this line may raise an interrupt. */
   uint32_t EMR;   /**< Event mask: 1 = this line may raise an event (no ISR). */
   uint32_t RTSR;  /**< Rising trigger select: 1 = trigger on the rising edge. */
@@ -371,7 +381,8 @@ typedef struct {
  * USART1 carries the DSRC frames to and from the ESP32 radio bridge; USART2
  * carries the ASCII telemetry line to the Raspberry Pi.
  */
-typedef struct {
+typedef struct
+{
   uint32_t SR;   /**< Status: TXE, TC, RXNE, IDLE and the error flags (parity, framing, noise, overrun). */
   uint32_t DR;   /**< Data: writing transmits a byte, reading takes the received one and clears RXNE. */
   uint32_t BRR;  /**< Baud rate: the mantissa/fraction divider applied to the peripheral clock. */
@@ -400,7 +411,8 @@ typedef struct {
  * members they lack read as zero. The firmware uses the timers as the time base
  * for the ultrasonic echo measurement and for PWM.
  */
-typedef struct {
+typedef struct
+{
   volatile uint32_t CR1;   /**< Control 1: counter enable, direction, auto-reload preload. */
   volatile uint32_t CR2;   /**< Control 2: master mode selection. */
   volatile uint32_t SMCR;  /**< Slave mode control: trigger source and slave mode (reset/gated/trigger). */

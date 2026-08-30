@@ -19,5 +19,4 @@
 
 #define SCB_MAX_PRIORITY_GROUPING 7 /**< Largest valid priority-group value; higher means fewer preemption levels. */
 
-
 #endif /* SCB_PRIVATE_H_ */

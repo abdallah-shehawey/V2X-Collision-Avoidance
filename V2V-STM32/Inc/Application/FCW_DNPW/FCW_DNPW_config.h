@@ -32,8 +32,8 @@
  * ahead". FCW warns earlier (farther) than the oncoming/overtaking case, so it
  * has the wider gate; DNPW + head-on share the nearer gate.
  * Prototype scale: small car in a corridor. */
-#define FCW_FRONT_THRESHOLD        (80.0f)  /**< FCW front gate: warn earlier */
-#define DNPW_FRONT_THRESHOLD       (40.0f)  /**< DNPW + head-on front gate: nearer */
+#define FCW_FRONT_THRESHOLD  (80.0f) /**< FCW front gate: warn earlier */
+#define DNPW_FRONT_THRESHOLD (40.0f) /**< DNPW + head-on front gate: nearer */
 
 /**
  * @brief Front-left reading below which a Do-Not-Pass warning escalates to critical [cm].
@@ -43,6 +43,6 @@
  * while DNPW is already firing means the overtake is actively unsafe, not merely
  * inadvisable.
  */
-#define DNPW_FRONT_LEFT_CRITICAL  (40.0f)
+#define DNPW_FRONT_LEFT_CRITICAL (40.0f)
 
 #endif

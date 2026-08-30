@@ -22,18 +22,18 @@ static uint8_t BSW_SenderFlag = BSW_FLAG_NONE;
 
 /* Cycle distances (latched in BeginCycle) */
 /** @brief Front-left distance latched at the top of this cycle [cm] — used in the *sender* role. */
-static float BSW_FrontLeft  = 0.0f;
+static float BSW_FrontLeft = 0.0f;
 /** @brief Front-right distance latched at the top of this cycle [cm] — used in the *sender* role. */
 static float BSW_FrontRight = 0.0f;
 /** @brief Rear-left distance latched at the top of this cycle [cm] — used in the *receiver* role. */
-static float BSW_RearLeft   = 0.0f;
+static float BSW_RearLeft = 0.0f;
 /** @brief Rear-right distance latched at the top of this cycle [cm] — used in the *receiver* role. */
-static float BSW_RearRight  = 0.0f;
+static float BSW_RearRight = 0.0f;
 
 /* Receiver-side alert severity per side (set during ProcessNeighbor):
  * 0 = safe, 1 = warning (< BSW_SIDE_THRESHOLD), 2 = critical (< BSW_SIDE_CRITICAL). */
 /** @brief Result: severity of the blind-spot alert on our LEFT (0 safe, 1 warning, 2 critical). */
-static uint8_t BSW_AlertLeft  = 0;
+static uint8_t BSW_AlertLeft = 0;
 /** @brief Result: severity of the blind-spot alert on our RIGHT (0 safe, 1 warning, 2 critical). */
 static uint8_t BSW_AlertRight = 0;
 
@@ -47,16 +47,18 @@ static uint8_t BSW_AlertRight = 0;
  */
 static uint8_t BSW_u8DistToSeverity(float dist)
 {
-  if (dist <= 0.0f || dist >= BSW_SIDE_THRESHOLD) return 0;  /* clear / out of band */
-  if (dist < BSW_SIDE_CRITICAL)                   return 2;  /* critical            */
-  return 1;                                                  /* warning             */
+  if (dist <= 0.0f || dist >= BSW_SIDE_THRESHOLD)
+    return 0; /* clear / out of band */
+  if (dist < BSW_SIDE_CRITICAL)
+    return 2; /* critical            */
+  return 1;   /* warning             */
 }
 
 /* ============ Init ============ */
 void BSW_voidInit(void)
 {
   BSW_SenderFlag = BSW_FLAG_NONE;
-  BSW_AlertLeft  = 0;
+  BSW_AlertLeft = 0;
   BSW_AlertRight = 0;
 }
 
@@ -74,10 +76,10 @@ void BSW_voidInit(void)
  */
 void BSW_voidBeginCycle(float front_left, float front_right, float rear_left, float rear_right)
 {
-  BSW_FrontLeft  = front_left;
+  BSW_FrontLeft = front_left;
   BSW_FrontRight = front_right;
-  BSW_RearLeft   = rear_left;
-  BSW_RearRight  = rear_right;
+  BSW_RearLeft = rear_left;
+  BSW_RearRight = rear_right;
 
   /* ---- Sender: front-side detection, one bit per side (no priority) ---- */
   BSW_SenderFlag = BSW_FLAG_NONE;
@@ -92,7 +94,7 @@ void BSW_voidBeginCycle(float front_left, float front_right, float rear_left, fl
   }
 
   /* ---- Receiver: reset per-side alert accumulators ---- */
-  BSW_AlertLeft  = 0;
+  BSW_AlertLeft = 0;
   BSW_AlertRight = 0;
 }
 
@@ -113,12 +115,14 @@ void BSW_voidProcessNeighbor(const Neighbor *n)
   if (n->bsw_flag & BSW_FLAG_LEFT)
   {
     uint8_t sev = BSW_u8DistToSeverity(BSW_RearRight);
-    if (sev > BSW_AlertRight) BSW_AlertRight = sev;
+    if (sev > BSW_AlertRight)
+      BSW_AlertRight = sev;
   }
   if (n->bsw_flag & BSW_FLAG_RIGHT)
   {
     uint8_t sev = BSW_u8DistToSeverity(BSW_RearLeft);
-    if (sev > BSW_AlertLeft) BSW_AlertLeft = sev;
+    if (sev > BSW_AlertLeft)
+      BSW_AlertLeft = sev;
   }
 }
 

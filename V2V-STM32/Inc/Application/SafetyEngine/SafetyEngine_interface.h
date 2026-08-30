@@ -83,9 +83,9 @@ typedef enum
  *       dominant floor, not a rarely-hit corner case.
  * @{
  */
-#define SAFE_DIST_PER_MS   (40.0f)  /**< Centimetres of safe gap per 1 m/s of speed. */
-#define MIN_SAFE_DISTANCE  (30.0f)  /**< Floor on the safe gap [cm], whatever the speed. */
-#define CRITICAL_RATIO     (0.667f) /**< Fraction of the safe gap below which the risk is critical. */
+#define SAFE_DIST_PER_MS  (40.0f)  /**< Centimetres of safe gap per 1 m/s of speed. */
+#define MIN_SAFE_DISTANCE (30.0f)  /**< Floor on the safe gap [cm], whatever the speed. */
+#define CRITICAL_RATIO    (0.667f) /**< Fraction of the safe gap below which the risk is critical. */
 /** @} */
 
 /**

@@ -16,18 +16,18 @@
 
 /* ============ Module State ============ */
 /** @brief The neighbor's speed last cycle [m/s]. Braking is detected as the *drop* from this to the current value. */
-static float       EEBL_PrevSpeed       = 0.0f;
+static float EEBL_PrevSpeed = 0.0f;
 /** @brief Gate: did a neighbor ahead brake hard enough this cycle to exceed @ref EEBL_DECEL_THRESHOLD? */
-static uint8_t     EEBL_BrakingDetected = 0;
+static uint8_t EEBL_BrakingDetected = 0;
 /** @brief Result: the worst risk seen across every neighbor this cycle. */
-static RiskLevel_t EEBL_WorstLevel      = RISK_SAFE;
+static RiskLevel_t EEBL_WorstLevel = RISK_SAFE;
 
 /* ============ Init ============ */
 void EEBL_voidInit(void)
 {
-  EEBL_PrevSpeed       = 0.0f;
+  EEBL_PrevSpeed = 0.0f;
   EEBL_BrakingDetected = 0;
-  EEBL_WorstLevel      = RISK_SAFE;
+  EEBL_WorstLevel = RISK_SAFE;
 }
 
 /* ============================================================ */
@@ -44,7 +44,7 @@ void EEBL_voidBeginCycle(void)
   float decel = Host_Speed - EEBL_PrevSpeed;
   EEBL_BrakingDetected = (decel <= EEBL_DECEL_THRESHOLD) ? 1U : 0U;
 
-  EEBL_PrevSpeed  = Host_Speed;
+  EEBL_PrevSpeed = Host_Speed;
   EEBL_WorstLevel = RISK_SAFE;
 }
 

@@ -37,7 +37,7 @@
  *          critical; making this the larger of the two collapses the warning band
  *          to nothing and the module would only ever report critical or safe.
  */
-#define BSW_SIDE_CRITICAL  (40.0f)
+#define BSW_SIDE_CRITICAL (40.0f)
 
 /* Alerts (LED/buzzer) are handled outside this module — it only computes the
  * sender flag and the receiver-side blind-spot result, exposed via

@@ -42,9 +42,9 @@ static uint8_t neighbor_count = 0;
  * sender repeats it, whereas stalling the parser would back up the UART.
  * @{
  */
-static Neighbor rx_queue[QUEUE_SIZE];      /**< The queued frames. */
-static volatile uint8_t queue_head = 0;    /**< Read index — advanced by @ref queue_pop. */
-static volatile uint8_t queue_tail = 0;    /**< Write index — advanced by @ref queue_push. */
+static Neighbor         rx_queue[QUEUE_SIZE]; /**< The queued frames. */
+static volatile uint8_t queue_head = 0;       /**< Read index — advanced by @ref queue_pop. */
+static volatile uint8_t queue_tail = 0;       /**< Write index — advanced by @ref queue_push. */
 /** @} */
 
 /**
@@ -175,7 +175,7 @@ static void update_neighbor(const Neighbor *msg)
   }
 
   // table full → replace oldest
-  uint8_t oldest_i = 0;
+  uint8_t  oldest_i = 0;
   uint32_t oldest_time = neighbor_table[0].last_update;
   for (uint8_t i = 1; i < neighbor_count; i++)
   {
@@ -207,13 +207,13 @@ void DSRC_SendNeighbor(Neighbor *n)
   memcpy(raw, n, sizeof(Neighbor));
   uint8_t chk = calc_checksum(raw, sizeof(Neighbor));
 
-  USART_enumTransmit((USART_Config_t*)&USART_1, START_BYTE);
+  USART_enumTransmit((USART_Config_t *)&USART_1, START_BYTE);
   for (uint8_t i = 0; i < sizeof(Neighbor); i++)
   {
-    USART_enumTransmit((USART_Config_t*)&USART_1, raw[i]);
+    USART_enumTransmit((USART_Config_t *)&USART_1, raw[i]);
   }
-  USART_enumTransmit((USART_Config_t*)&USART_1, chk);
-  USART_enumTransmit((USART_Config_t*)&USART_1, END_BYTE);
+  USART_enumTransmit((USART_Config_t *)&USART_1, chk);
+  USART_enumTransmit((USART_Config_t *)&USART_1, END_BYTE);
 }
 
 // call this in main loop to process received packets

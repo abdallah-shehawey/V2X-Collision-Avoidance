@@ -12,7 +12,6 @@
 
 #include "../Inc/Drivers/LIB/ErrTypes.h"
 
-
 #include "../Inc/Drivers/MCAL/USART/USART_config.h"
 #include "../Inc/Drivers/MCAL/USART/USART_intreface.h"
 #include "../Inc/Drivers/MCAL/USART/USART_private.h"
@@ -21,11 +20,11 @@
  * @brief Maps a @ref USART_Channel_t onto the peripheral's register block.
  * @note Order must match @ref USART_Channel_t — the enum indexes straight into it.
  */
-static USART_RegDef_t *USART_Channel[USART_CHANNEL_COUNT] = {MUSART1, MUSART2, MUSART3, MUSART4, MUSART5, MUSART6};
+static USART_RegDef_t *USART_Channel[USART_CHANNEL_COUNT] = { MUSART1, MUSART2, MUSART3, MUSART4, MUSART5, MUSART6 };
 /** @brief Per-port reentrancy guard: @ref IDLE or @ref BUSY. Per-port, so traffic on USART1 never blocks USART2. */
-static uint8_t USART_u8State[USART_CHANNEL_COUNT] = {IDLE};
+static uint8_t USART_u8State[USART_CHANNEL_COUNT] = { IDLE };
 /** @brief Per-port ISR callback, registered by @ref USART_InitIT; NULL means none. */
-static void (*USART_CallBack[USART_CHANNEL_COUNT])(void) = {NULL};
+static void (*USART_CallBack[USART_CHANNEL_COUNT])(void) = { NULL };
 /*==================================================================================================*/
 /*
  * @brief Initialize the USART peripheral with the provided configuration.
@@ -48,7 +47,7 @@ ErrorState_t USART_Init(USART_Config_t *ChannelConfig)
   }
   else
   {
-    if(ChannelConfig->Channel > USART_CHANNEL_COUNT)
+    if (ChannelConfig->Channel > USART_CHANNEL_COUNT)
     {
       Local_u8ErrorState = NOK;
     }
@@ -88,7 +87,7 @@ ErrorState_t USART_Init(USART_Config_t *ChannelConfig)
       }
 
       /* Configure Word Length */
-      USART_Channel[ChannelConfig->Channel]->CR1 |= (ChannelConfig->WordLength & 0X1) << CR1_WL ;
+      USART_Channel[ChannelConfig->Channel]->CR1 |= (ChannelConfig->WordLength & 0X1) << CR1_WL;
       /* Configure Stop Bits */
       USART_Channel[ChannelConfig->Channel]->CR2 |= (ChannelConfig->StopBits & 0X3) << CR2_SB;
       /* Configure Parity */
@@ -145,7 +144,7 @@ ErrorState_t USART_InitIT(USART_Handle_t *ChannelHandle)
   }
   else
   {
-    if(ChannelHandle->Channel > USART_CHANNEL_COUNT)
+    if (ChannelHandle->Channel > USART_CHANNEL_COUNT)
     {
       Local_u8ErrorState = NOK;
     }
@@ -185,7 +184,7 @@ ErrorState_t USART_InitIT(USART_Handle_t *ChannelHandle)
       }
 
       /* Configure Word Length */
-      USART_Channel[ChannelHandle->Channel]->CR1 |= (ChannelHandle->WordLength & 0X1) << CR1_WL ;
+      USART_Channel[ChannelHandle->Channel]->CR1 |= (ChannelHandle->WordLength & 0X1) << CR1_WL;
       /* Configure Stop Bits */
       USART_Channel[ChannelHandle->Channel]->CR2 |= (ChannelHandle->StopBits & 0X3) << CR2_SB;
       /* Configure Parity */
@@ -216,21 +215,19 @@ ErrorState_t USART_InitIT(USART_Handle_t *ChannelHandle)
     }
 
     /* Configure Interrupts */
-    USART_Channel[ChannelHandle->Channel]->CR1 |= (ChannelHandle->RXNEIE  & 0X1) << CR1_RXNEIE;
-    USART_Channel[ChannelHandle->Channel]->CR1 |= (ChannelHandle->TCIE   & 0X1) << CR1_TCIE;
-    USART_Channel[ChannelHandle->Channel]->CR1 |= (ChannelHandle->TXEIE  & 0X1) << CR1_TXEIE;
+    USART_Channel[ChannelHandle->Channel]->CR1 |= (ChannelHandle->RXNEIE & 0X1) << CR1_RXNEIE;
+    USART_Channel[ChannelHandle->Channel]->CR1 |= (ChannelHandle->TCIE & 0X1) << CR1_TCIE;
+    USART_Channel[ChannelHandle->Channel]->CR1 |= (ChannelHandle->TXEIE & 0X1) << CR1_TXEIE;
     USART_Channel[ChannelHandle->Channel]->CR1 |= (ChannelHandle->IDLEIE & 0X1) << CR1_IDLEIE;
-    USART_Channel[ChannelHandle->Channel]->CR1 |= (ChannelHandle->PEIE   & 0X1) << CR1_PEIE;
+    USART_Channel[ChannelHandle->Channel]->CR1 |= (ChannelHandle->PEIE & 0X1) << CR1_PEIE;
 
     /* Store Callback Function */
     USART_CallBack[ChannelHandle->Channel] = ChannelHandle->pfnCallback;
 
     /* Enable USART */
     USART_Channel[ChannelHandle->Channel]->CR1 |= (1 << 13);
-
   }
   return Local_u8ErrorState;
-
 }
 /*==================================================================================================*/
 /*
@@ -309,7 +306,7 @@ ErrorState_t USART_enumTransmit(USART_Config_t *ChannelConfig, uint8_t TX_Data)
 ErrorState_t USART_enumTransmitString(USART_Config_t *ChannelConfig, uint8_t *TX_Data)
 {
   ErrorState_t Local_u8ErrorState = OK;
-  uint32_t Local_u32Index = 0;
+  uint32_t     Local_u32Index = 0;
 
   if (ChannelConfig->Channel > USART_CHANNEL_COUNT || TX_Data == NULL)
   {
@@ -319,7 +316,7 @@ ErrorState_t USART_enumTransmitString(USART_Config_t *ChannelConfig, uint8_t *TX
   {
     if (USART_u8State[ChannelConfig->Channel] == IDLE)
     {
-      while(TX_Data[Local_u32Index] != '\0')
+      while (TX_Data[Local_u32Index] != '\0')
       {
         Local_u8ErrorState = USART_enumTransmit(ChannelConfig, TX_Data[Local_u32Index]);
         Local_u32Index++;
@@ -350,7 +347,6 @@ ErrorState_t USART_enumTransmitString(USART_Config_t *ChannelConfig, uint8_t *TX
  */
 ErrorState_t USART_enumReceive(USART_Config_t *ChannelConfig, uint8_t *RX_Data)
 {
-
   ErrorState_t Local_u8ErrorState = OK;
   ErrorState_t Local_u32TimeoutCounter = 0;
 
@@ -364,7 +360,7 @@ ErrorState_t USART_enumReceive(USART_Config_t *ChannelConfig, uint8_t *RX_Data)
     {
       USART_u8State[ChannelConfig->Channel] = BUSY;
 
-      while((USART_Channel[ChannelConfig->Channel]->SR & (1 << SR_RXNE)) >> SR_RXNE == 0 && Local_u32TimeoutCounter != USART_u32TIMEOUT)
+      while ((USART_Channel[ChannelConfig->Channel]->SR & (1 << SR_RXNE)) >> SR_RXNE == 0 && Local_u32TimeoutCounter != USART_u32TIMEOUT)
       {
         Local_u32TimeoutCounter++;
       }
@@ -391,13 +387,13 @@ ErrorState_t USART_enumReceive(USART_Config_t *ChannelConfig, uint8_t *RX_Data)
 
 uint8_t USART_ReceiveByteDirect(USART_Channel_t Channel)
 {
-    /* Read SR THEN DR: this exact sequence also clears the ORE (overrun) flag.
+  /* Read SR THEN DR: this exact sequence also clears the ORE (overrun) flag.
      * Reading DR alone would leave a set ORE asserting the RXNE interrupt line
      * forever → an ISR storm that starves every task. Reading SR first makes
      * the overrun self-clearing on the next received byte. */
-    volatile uint32_t Local_u32Status = USART_Channel[Channel]->SR;
-    (void)Local_u32Status;
-    return (uint8_t)(USART_Channel[Channel]->DR);
+  volatile uint32_t Local_u32Status = USART_Channel[Channel]->SR;
+  (void)Local_u32Status;
+  return (uint8_t)(USART_Channel[Channel]->DR);
 }
 
 /*==================================================================================================*/

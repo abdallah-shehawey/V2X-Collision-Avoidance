@@ -27,7 +27,7 @@
  * @brief Maps a @ref TIM_Num_t onto its register block.
  * @note Order must match @ref TIM_Num_t — the enum indexes straight into it.
  */
-static TIM_TypeDef *US_TIM_Array[TIM_TIMER_COUNT] = {TIM2, TIM3, TIM4, TIM5, TIM1, TIM8, TIM6, TIM7};
+static TIM_TypeDef *US_TIM_Array[TIM_TIMER_COUNT] = { TIM2, TIM3, TIM4, TIM5, TIM1, TIM8, TIM6, TIM7 };
 
 /* ===================== Interrupt-driven measurement state ===================== */
 /**
@@ -40,9 +40,9 @@ static TIM_TypeDef *US_TIM_Array[TIM_TIMER_COUNT] = {TIM2, TIM3, TIM4, TIM5, TIM
  */
 typedef enum
 {
-    US_PHASE_RISING = 0, /**< Waiting for the rising edge — the echo has not started yet. */
-    US_PHASE_FALLING,    /**< Rising edge seen and timestamped; waiting for the falling edge. */
-    US_PHASE_DONE        /**< Both edges seen; the distance is ready. */
+  US_PHASE_RISING = 0, /**< Waiting for the rising edge — the echo has not started yet. */
+  US_PHASE_FALLING,    /**< Rising edge seen and timestamped; waiting for the falling edge. */
+  US_PHASE_DONE        /**< Both edges seen; the distance is ready. */
 } US_Phase_t;
 
 /**
@@ -58,13 +58,13 @@ typedef enum
  */
 static volatile struct
 {
-    TIM_Num_t timer;   /**< Timer doing the capture for the active sensor. */
-    uint8_t channel;   /**< Its capture/compare channel, 0..3. */
-    uint32_t maxval;   /**< The timer's wrap value (0xFFFF or 0xFFFFFFFF), needed to unwrap a counter that rolled over mid-echo. */
-    uint32_t t1;       /**< Counter value captured on the rising edge. */
-    US_Phase_t phase;  /**< Which edge we are waiting for. */
-    uint8_t valid;     /**< 1 if a real echo was timed; 0 if it was out of range or garbage. */
-    uint16_t dist_cm;  /**< The result [cm]; meaningful only once `phase == US_PHASE_DONE` and `valid` is 1. */
+  TIM_Num_t  timer;   /**< Timer doing the capture for the active sensor. */
+  uint8_t    channel; /**< Its capture/compare channel, 0..3. */
+  uint32_t   maxval;  /**< The timer's wrap value (0xFFFF or 0xFFFFFFFF), needed to unwrap a counter that rolled over mid-echo. */
+  uint32_t   t1;      /**< Counter value captured on the rising edge. */
+  US_Phase_t phase;   /**< Which edge we are waiting for. */
+  uint8_t    valid;   /**< 1 if a real echo was timed; 0 if it was out of range or garbage. */
+  uint16_t   dist_cm; /**< The result [cm]; meaningful only once `phase == US_PHASE_DONE` and `valid` is 1. */
 } US_Active;
 
 /**
@@ -86,8 +86,8 @@ static SemaphoreHandle_t US_xDoneSem = NULL;
  *
  * @param[in] pxSensor The sensor to trigger.
  */
-static void US_vSendTrigger(const US_Config_t *pxSensor);
-static void US_CC_Handler(TIM_Num_t Copy_eTimer, uint8_t Copy_u8Channel, uint32_t Copy_u32Capture);
+static void    US_vSendTrigger(const US_Config_t *pxSensor);
+static void    US_CC_Handler(TIM_Num_t Copy_eTimer, uint8_t Copy_u8Channel, uint32_t Copy_u32Capture);
 static uint8_t US_u8NvicIrqForTimer(TIM_Num_t Copy_eTimer);
 
 /**************************************         Private Functions
@@ -95,14 +95,14 @@ static uint8_t US_u8NvicIrqForTimer(TIM_Num_t Copy_eTimer);
 
 static void US_vSendTrigger(const US_Config_t *pxSensor)
 {
-    /* Settle LOW for a clean edge, then a 10us HIGH pulse (HC-SR04 datasheet). */
-    GPIO_enumWritePinVal(pxSensor->TrigPort, pxSensor->TrigPin, GPIO_PIN_LOW);
-    TIM_vDelayUs(TIM_TIMER6, US_TRIG_SETTLE_US);
+  /* Settle LOW for a clean edge, then a 10us HIGH pulse (HC-SR04 datasheet). */
+  GPIO_enumWritePinVal(pxSensor->TrigPort, pxSensor->TrigPin, GPIO_PIN_LOW);
+  TIM_vDelayUs(TIM_TIMER6, US_TRIG_SETTLE_US);
 
-    GPIO_enumWritePinVal(pxSensor->TrigPort, pxSensor->TrigPin, GPIO_PIN_HIGH);
-    TIM_vDelayUs(TIM_TIMER6, US_TRIG_PULSE_US);
+  GPIO_enumWritePinVal(pxSensor->TrigPort, pxSensor->TrigPin, GPIO_PIN_HIGH);
+  TIM_vDelayUs(TIM_TIMER6, US_TRIG_PULSE_US);
 
-    GPIO_enumWritePinVal(pxSensor->TrigPort, pxSensor->TrigPin, GPIO_PIN_LOW);
+  GPIO_enumWritePinVal(pxSensor->TrigPort, pxSensor->TrigPin, GPIO_PIN_LOW);
 }
 
 /**
@@ -112,19 +112,19 @@ static void US_vSendTrigger(const US_Config_t *pxSensor)
  */
 static uint8_t US_u8NvicIrqForTimer(TIM_Num_t Copy_eTimer)
 {
-    switch (Copy_eTimer)
-    {
-    case TIM_TIMER2:
-        return NVIC_TIM2;
-    case TIM_TIMER3:
-        return NVIC_TIM3;
-    case TIM_TIMER4:
-        return NVIC_TIM4;
-    case TIM_TIMER5:
-        return NVIC_TIM5;
-    default:
-        return 0xFFu; /* unsupported for IC interrupt */
-    }
+  switch (Copy_eTimer)
+  {
+  case TIM_TIMER2:
+    return NVIC_TIM2;
+  case TIM_TIMER3:
+    return NVIC_TIM3;
+  case TIM_TIMER4:
+    return NVIC_TIM4;
+  case TIM_TIMER5:
+    return NVIC_TIM5;
+  default:
+    return 0xFFu; /* unsupported for IC interrupt */
+  }
 }
 
 /**
@@ -144,50 +144,50 @@ static uint8_t US_u8NvicIrqForTimer(TIM_Num_t Copy_eTimer)
  */
 static void US_CC_Handler(TIM_Num_t Copy_eTimer, uint8_t Copy_u8Channel, uint32_t Copy_u32Capture)
 {
-    /* Ignore captures that don't belong to the active measurement */
-    if (Copy_eTimer != US_Active.timer || Copy_u8Channel != US_Active.channel)
-    {
-        return;
-    }
+  /* Ignore captures that don't belong to the active measurement */
+  if (Copy_eTimer != US_Active.timer || Copy_u8Channel != US_Active.channel)
+  {
+    return;
+  }
 
-    if (US_Active.phase == US_PHASE_RISING)
-    {
-        US_Active.t1 = Copy_u32Capture;
-        US_Active.phase = US_PHASE_FALLING;
-        /* Now look for the falling edge on the same channel */
-        TIM_vSetICPolarity(Copy_eTimer, (TIM_Channel_t)Copy_u8Channel, TIM_POLARITY_LOW);
-    }
-    else if (US_Active.phase == US_PHASE_FALLING)
-    {
-        uint32_t high = (Copy_u32Capture >= US_Active.t1)
-                            ? (Copy_u32Capture - US_Active.t1)
-                            : ((US_Active.maxval - US_Active.t1) + Copy_u32Capture + 1u);
+  if (US_Active.phase == US_PHASE_RISING)
+  {
+    US_Active.t1 = Copy_u32Capture;
+    US_Active.phase = US_PHASE_FALLING;
+    /* Now look for the falling edge on the same channel */
+    TIM_vSetICPolarity(Copy_eTimer, (TIM_Channel_t)Copy_u8Channel, TIM_POLARITY_LOW);
+  }
+  else if (US_Active.phase == US_PHASE_FALLING)
+  {
+    uint32_t high = (Copy_u32Capture >= US_Active.t1)
+                      ? (Copy_u32Capture - US_Active.t1)
+                      : ((US_Active.maxval - US_Active.t1) + Copy_u32Capture + 1u);
 
-        /* Decode µs → cm. An echo longer than the sensor's useful range means
+    /* Decode µs → cm. An echo longer than the sensor's useful range means
          * "no object within range": report it as OUT-OF-RANGE (valid = 0) instead
          * of silently clamping a bogus long/wrapped pulse to a fake 400cm reading
          * — clamping is what made a lost echo masquerade as a solid 400cm fix and
          * made the reading flap between a real distance and 400. */
-        uint32_t dist = high / US_SOUND_SPEED_FACTOR;
-        if (dist == 0u || dist > US_MAX_RANGE_CM)
-        {
-            US_Active.valid = 0u;            /* out of range / spurious */
-            US_Active.dist_cm = US_MAX_RANGE_CM;
-        }
-        else
-        {
-            US_Active.valid = 1u;            /* a real, in-range echo */
-            US_Active.dist_cm = (uint16_t)dist;
-        }
-        US_Active.phase = US_PHASE_DONE;
-
-        /* Done — silence this channel and wake the task */
-        TIM_vDisableCCInterrupt(Copy_eTimer, (TIM_Channel_t)Copy_u8Channel);
-
-        BaseType_t xHPW = pdFALSE;
-        xSemaphoreGiveFromISR(US_xDoneSem, &xHPW);
-        portYIELD_FROM_ISR(xHPW);
+    uint32_t dist = high / US_SOUND_SPEED_FACTOR;
+    if (dist == 0u || dist > US_MAX_RANGE_CM)
+    {
+      US_Active.valid = 0u; /* out of range / spurious */
+      US_Active.dist_cm = US_MAX_RANGE_CM;
     }
+    else
+    {
+      US_Active.valid = 1u; /* a real, in-range echo */
+      US_Active.dist_cm = (uint16_t)dist;
+    }
+    US_Active.phase = US_PHASE_DONE;
+
+    /* Done — silence this channel and wake the task */
+    TIM_vDisableCCInterrupt(Copy_eTimer, (TIM_Channel_t)Copy_u8Channel);
+
+    BaseType_t xHPW = pdFALSE;
+    xSemaphoreGiveFromISR(US_xDoneSem, &xHPW);
+    portYIELD_FROM_ISR(xHPW);
+  }
 }
 
 /*************************************         Public Functions
@@ -195,77 +195,79 @@ static void US_CC_Handler(TIM_Num_t Copy_eTimer, uint8_t Copy_u8Channel, uint32_
 
 ErrorState_t US_vInit(const US_Config_t *pxSensor)
 {
-    if (pxSensor == NULL)
-        return NULL_POINTER;
-    if (pxSensor->Timer >= TIM_TIMER6)
-        return NOK; /* basic timers have no IC */
+  if (pxSensor == NULL)
+    return NULL_POINTER;
+  if (pxSensor->Timer >= TIM_TIMER6)
+    return NOK; /* basic timers have no IC */
 
-    /* 1. Initialize GPIO Pins */
-    GPIO_PinConfig_t TrigCfg = {
-        .Port = pxSensor->TrigPort, .PinNum = pxSensor->TrigPin, .Mode = GPIO_OUTPUT, .Otype = GPIO_PUSH_PULL, .Speed = GPIO_MEDIUM_SPEED, .PullType = GPIO_NO_PULL};
-    GPIO_enumPinInit(&TrigCfg);
+  /* 1. Initialize GPIO Pins */
+  GPIO_PinConfig_t TrigCfg = {
+    .Port = pxSensor->TrigPort, .PinNum = pxSensor->TrigPin, .Mode = GPIO_OUTPUT, .Otype = GPIO_PUSH_PULL, .Speed = GPIO_MEDIUM_SPEED, .PullType = GPIO_NO_PULL
+  };
+  GPIO_enumPinInit(&TrigCfg);
 
-    GPIO_PinConfig_t EchoCfg = {
-        .Port = pxSensor->EchoPort, .PinNum = pxSensor->EchoPin, .Mode = GPIO_ALTFN, .Otype = GPIO_PUSH_PULL, .Speed = GPIO_VERY_HIGH_SPEED, .PullType = GPIO_NO_PULL};
+  GPIO_PinConfig_t EchoCfg = {
+    .Port = pxSensor->EchoPort, .PinNum = pxSensor->EchoPin, .Mode = GPIO_ALTFN, .Otype = GPIO_PUSH_PULL, .Speed = GPIO_VERY_HIGH_SPEED, .PullType = GPIO_NO_PULL
+  };
 
-    if (pxSensor->Timer == TIM_TIMER1 || pxSensor->Timer == TIM_TIMER2)
-        EchoCfg.AlternateFunction = GPIO_AF1;
-    else if (pxSensor->Timer >= TIM_TIMER3 && pxSensor->Timer <= TIM_TIMER5)
-        EchoCfg.AlternateFunction = GPIO_AF2;
-    else if (pxSensor->Timer == TIM_TIMER8)
-        EchoCfg.AlternateFunction = GPIO_AF3;
-    else
-        return NOK;
-    GPIO_enumPinInit(&EchoCfg);
+  if (pxSensor->Timer == TIM_TIMER1 || pxSensor->Timer == TIM_TIMER2)
+    EchoCfg.AlternateFunction = GPIO_AF1;
+  else if (pxSensor->Timer >= TIM_TIMER3 && pxSensor->Timer <= TIM_TIMER5)
+    EchoCfg.AlternateFunction = GPIO_AF2;
+  else if (pxSensor->Timer == TIM_TIMER8)
+    EchoCfg.AlternateFunction = GPIO_AF3;
+  else
+    return NOK;
+  GPIO_enumPinInit(&EchoCfg);
 
-    /* 2. Configure Timer Prescaler for 1us resolution (only if not already running) */
-    TIM_TypeDef *TIMx = US_TIM_Array[pxSensor->Timer];
+  /* 2. Configure Timer Prescaler for 1us resolution (only if not already running) */
+  TIM_TypeDef *TIMx = US_TIM_Array[pxSensor->Timer];
 
-    if (!(TIMx->CR1 & TIM_CR1_CEN))
+  if (!(TIMx->CR1 & TIM_CR1_CEN))
+  {
+    uint32_t SystemBusClock = US_SYS_CLK_HZ;
+    uint16_t Local_u16PSC = (uint16_t)((SystemBusClock / 1000000U) - 1U);
+
+    TIMx->CR1 = 0;
+    TIMx->PSC = Local_u16PSC;
+    TIMx->ARR = (pxSensor->Timer == TIM_TIMER2 || pxSensor->Timer == TIM_TIMER5) ? 0xFFFFFFFF : 0xFFFF;
+
+    if (pxSensor->Timer == TIM_TIMER1 || pxSensor->Timer == TIM_TIMER8)
     {
-        uint32_t SystemBusClock = US_SYS_CLK_HZ;
-        uint16_t Local_u16PSC = (uint16_t)((SystemBusClock / 1000000U) - 1U);
-
-        TIMx->CR1 = 0;
-        TIMx->PSC = Local_u16PSC;
-        TIMx->ARR = (pxSensor->Timer == TIM_TIMER2 || pxSensor->Timer == TIM_TIMER5) ? 0xFFFFFFFF : 0xFFFF;
-
-        if (pxSensor->Timer == TIM_TIMER1 || pxSensor->Timer == TIM_TIMER8)
-        {
-            SET_BIT(TIMx->BDTR, 15); /* MOE: Main Output Enable */
-        }
-
-        SET_BIT(TIMx->EGR, 0); /* Force update */
-        TIMx->SR = 0;
+      SET_BIT(TIMx->BDTR, 15); /* MOE: Main Output Enable */
     }
 
-    /* 3. Configure ICU Channel (rising edge, capture enabled; CC interrupt stays OFF) */
-    TIM_ICConfig_t IC_Cfg = {
-        .Timer = pxSensor->Timer, .Channel = pxSensor->Channel, .Selection = TIM_IC_SELECTION_DIRECT_TI, .Prescaler = TIM_IC_PSC_DIV1, .Polarity = TIM_POLARITY_HIGH, .Filter = 0xF /* max digital filter: reject glitches that fake an early rising edge → bogus 400cm */
-    };
-    TIM_vIC_Init(&IC_Cfg);
+    SET_BIT(TIMx->EGR, 0); /* Force update */
+    TIMx->SR = 0;
+  }
 
-    /* 4. Start Timer only if not running */
-    if (!(TIMx->CR1 & TIM_CR1_CEN))
-    {
-        TIM_vStart(pxSensor->Timer);
-    }
+  /* 3. Configure ICU Channel (rising edge, capture enabled; CC interrupt stays OFF) */
+  TIM_ICConfig_t IC_Cfg = {
+    .Timer = pxSensor->Timer, .Channel = pxSensor->Channel, .Selection = TIM_IC_SELECTION_DIRECT_TI, .Prescaler = TIM_IC_PSC_DIV1, .Polarity = TIM_POLARITY_HIGH, .Filter = 0xF /* max digital filter: reject glitches that fake an early rising edge → bogus 400cm */
+  };
+  TIM_vIC_Init(&IC_Cfg);
 
-    /* 5. Interrupt infrastructure (idempotent across sensors) */
-    if (US_xDoneSem == NULL)
-    {
-        US_xDoneSem = xSemaphoreCreateBinary(); /* safe to create before scheduler */
-    }
-    TIM_vSetCCCallback(pxSensor->Timer, US_CC_Handler);
+  /* 4. Start Timer only if not running */
+  if (!(TIMx->CR1 & TIM_CR1_CEN))
+  {
+    TIM_vStart(pxSensor->Timer);
+  }
 
-    uint8_t Local_u8Irq = US_u8NvicIrqForTimer(pxSensor->Timer);
-    if (Local_u8Irq != 0xFFu)
-    {
-        NVIC_vSetPriority(Local_u8Irq, 6); /* FreeRTOS-safe (>= configMAX_SYSCALL_INTERRUPT_PRIORITY) */
-        NVIC_vEnableIRQ(Local_u8Irq);
-    }
+  /* 5. Interrupt infrastructure (idempotent across sensors) */
+  if (US_xDoneSem == NULL)
+  {
+    US_xDoneSem = xSemaphoreCreateBinary(); /* safe to create before scheduler */
+  }
+  TIM_vSetCCCallback(pxSensor->Timer, US_CC_Handler);
 
-    return OK;
+  uint8_t Local_u8Irq = US_u8NvicIrqForTimer(pxSensor->Timer);
+  if (Local_u8Irq != 0xFFu)
+  {
+    NVIC_vSetPriority(Local_u8Irq, 6); /* FreeRTOS-safe (>= configMAX_SYSCALL_INTERRUPT_PRIORITY) */
+    NVIC_vEnableIRQ(Local_u8Irq);
+  }
+
+  return OK;
 }
 
 /*
@@ -277,51 +279,51 @@ ErrorState_t US_vInit(const US_Config_t *pxSensor)
  */
 ErrorState_t US_u16ReadDistance_cm(const US_Config_t *pxSensor, uint16_t *pu16Dist_cm)
 {
-    if (pxSensor == NULL || pu16Dist_cm == NULL)
-        return NULL_POINTER;
-    if (US_xDoneSem == NULL)
-        return NOK; /* US_vInit not done */
+  if (pxSensor == NULL || pu16Dist_cm == NULL)
+    return NULL_POINTER;
+  if (US_xDoneSem == NULL)
+    return NOK; /* US_vInit not done */
 
-    TIM_TypeDef *TIMx = US_TIM_Array[pxSensor->Timer];
-    uint8_t ch = (uint8_t)pxSensor->Channel;
+  TIM_TypeDef *TIMx = US_TIM_Array[pxSensor->Timer];
+  uint8_t      ch = (uint8_t)pxSensor->Channel;
 
-    /* Drain any stale completion signal left by a previous (late) measurement */
-    (void)xSemaphoreTake(US_xDoneSem, 0);
+  /* Drain any stale completion signal left by a previous (late) measurement */
+  (void)xSemaphoreTake(US_xDoneSem, 0);
 
-    /* Prepare the active-measurement context */
-    US_Active.timer = pxSensor->Timer;
-    US_Active.channel = ch;
-    US_Active.maxval = (pxSensor->Timer == TIM_TIMER2 || pxSensor->Timer == TIM_TIMER5) ? 0xFFFFFFFFu : 0xFFFFu;
-    US_Active.phase = US_PHASE_RISING;
-    US_Active.valid = 0u;
+  /* Prepare the active-measurement context */
+  US_Active.timer = pxSensor->Timer;
+  US_Active.channel = ch;
+  US_Active.maxval = (pxSensor->Timer == TIM_TIMER2 || pxSensor->Timer == TIM_TIMER5) ? 0xFFFFFFFFu : 0xFFFFu;
+  US_Active.phase = US_PHASE_RISING;
+  US_Active.valid = 0u;
 
-    /* Arm rising edge → clear ONLY this channel's stale capture flag → enable CC IRQ.
+  /* Arm rising edge → clear ONLY this channel's stale capture flag → enable CC IRQ.
      * TIM SR flags are "rc_w0": writing 0 clears, writing 1 leaves untouched. So to
      * clear just CCxIF we write all-ones EXCEPT that bit (~mask). The old code wrote
      * ~(1<<(ch+1)) which is the same intent, but built the bit from a raw shift; use
      * the named CCxIF position and a clear comment so it can't be misread as "write
      * the whole register". */
-    TIM_vSetICPolarity(pxSensor->Timer, pxSensor->Channel, TIM_POLARITY_HIGH);
-    TIMx->SR = ~(1UL << (TIM_SR_CC1IF + ch)); /* clear this channel's CCxIF only */
-    TIM_vEnableCCInterrupt(pxSensor->Timer, pxSensor->Channel);
+  TIM_vSetICPolarity(pxSensor->Timer, pxSensor->Channel, TIM_POLARITY_HIGH);
+  TIMx->SR = ~(1UL << (TIM_SR_CC1IF + ch)); /* clear this channel's CCxIF only */
+  TIM_vEnableCCInterrupt(pxSensor->Timer, pxSensor->Channel);
 
-    /* Fire the trigger pulse */
-    US_vSendTrigger(pxSensor);
+  /* Fire the trigger pulse */
+  US_vSendTrigger(pxSensor);
 
-    /* Sleep until the ISR delivers both edges, or until the echo window expires */
-    if (xSemaphoreTake(US_xDoneSem, pdMS_TO_TICKS(US_TASK_TIMEOUT_MS)) == pdTRUE && US_Active.phase == US_PHASE_DONE)
-    {
-        /* An out-of-range / spurious echo (valid==0) is reported like "no object"
+  /* Sleep until the ISR delivers both edges, or until the echo window expires */
+  if (xSemaphoreTake(US_xDoneSem, pdMS_TO_TICKS(US_TASK_TIMEOUT_MS)) == pdTRUE && US_Active.phase == US_PHASE_DONE)
+  {
+    /* An out-of-range / spurious echo (valid==0) is reported like "no object"
          * so the caller's default (400 / clear) kicks in, instead of returning a
          * fake solid 400cm reading that flaps against the real distance. */
-        if (!US_Active.valid)
-            return TIMEOUT_STATE;
+    if (!US_Active.valid)
+      return TIMEOUT_STATE;
 
-        *pu16Dist_cm = US_Active.dist_cm;
-        return OK;
-    }
+    *pu16Dist_cm = US_Active.dist_cm;
+    return OK;
+  }
 
-    /* Timeout: no echo (out of range / no object) — disarm and report */
-    TIM_vDisableCCInterrupt(pxSensor->Timer, pxSensor->Channel);
-    return TIMEOUT_STATE;
+  /* Timeout: no echo (out of range / no object) — disarm and report */
+  TIM_vDisableCCInterrupt(pxSensor->Timer, pxSensor->Channel);
+  return TIMEOUT_STATE;
 }

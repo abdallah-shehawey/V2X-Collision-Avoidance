@@ -13,7 +13,6 @@
 #include "../../MCAL/GPIO/GPIO_interface.h"
 #include "../../../Drivers/LIB/ErrTypes.h"
 
-
 /**
  * @brief Which pin level makes the buzzer sound — i.e. which way round it is wired.
  */
@@ -28,8 +27,8 @@ typedef enum
  */
 typedef struct
 {
-  GPIO_Port_t Port; /**< GPIO Port (PORTA to PORTH) */
-  GPIO_Pin_t Pin;   /**< GPIO Pin (PIN0 to PIN15) */
+  GPIO_Port_t       Port;        /**< GPIO Port (PORTA to PORTH) */
+  GPIO_Pin_t        Pin;         /**< GPIO Pin (PIN0 to PIN15) */
   BUZ_ActiveState_t ActiveState; /**< ACTIVE_HIGH or ACTIVE_LOW */
 } BUZ_Config_t;
 

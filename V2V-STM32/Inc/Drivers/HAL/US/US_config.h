@@ -17,21 +17,21 @@
  * Default: 16MHz (HSI)
  * Change this if you are using a different clock (e.g. 180000000UL for 180MHz PLL)
  */
-#define US_SYS_CLK_HZ    16000000UL            /**< System clock the echo timing is derived from [Hz]. If this is wrong, every distance is scaled by the same factor. */
+#define US_SYS_CLK_HZ 16000000UL /**< System clock the echo timing is derived from [Hz]. If this is wrong, every distance is scaled by the same factor. */
 /*_______________________________________________________________________________*/
 /*
  * Settle time before the trigger (microseconds)
  * TRIG is driven LOW for this long before the HIGH pulse to guarantee a clean
  * edge (no glitch from a previous measurement).
  */
-#define US_TRIG_SETTLE_US   2U                 /**< How long TRIG is held low before the pulse [us], to guarantee a clean edge with no glitch left over from the previous measurement. */
+#define US_TRIG_SETTLE_US 2U /**< How long TRIG is held low before the pulse [us], to guarantee a clean edge with no glitch left over from the previous measurement. */
 /*_______________________________________________________________________________*/
 /*
  * Trigger Pulse Duration (microseconds)
  * HC-SR04 requires a minimum 10us HIGH pulse on TRIG pin (datasheet).
  * Do NOT lower this below 10us.
  */
-#define US_TRIG_PULSE_US    10U                /**< Width of the TRIG pulse [us]. The HC-SR04 datasheet requires **at least** 10 us — do not lower this. */
+#define US_TRIG_PULSE_US 10U /**< Width of the TRIG pulse [us]. The HC-SR04 datasheet requires **at least** 10 us — do not lower this. */
 /*_______________________________________________________________________________*/
 /*
  * Maximum range (centimeters).
@@ -41,14 +41,14 @@
  *   - it clamps the decoded distance in the IC ISR, and
  *   - it derives the task-level echo timeout below.
  */
-#define US_MAX_RANGE_CM     400U               /**< Range ceiling [cm]. The single source of truth for "out of range": it clamps the distance in the capture ISR *and* derives the task-level echo timeout. An echo decoding past it is reported as a timeout (object lost), not as a huge distance. */
+#define US_MAX_RANGE_CM 400U /**< Range ceiling [cm]. The single source of truth for "out of range": it clamps the distance in the capture ISR *and* derives the task-level echo timeout. An echo decoding past it is reported as a timeout (object lost), not as a huge distance. */
 /*_______________________________________________________________________________*/
 /*
  * Sound Speed Factor
  * Distance (cm) = Echo_pulse_us / 58
  * (Speed of sound ~343 m/s => ~58 us/cm round-trip)
  */
-#define US_SOUND_SPEED_FACTOR    58U           /**< Microseconds of echo per centimetre of distance. Sound travels ~343 m/s, and the pulse makes a round trip, so distance_cm = echo_us / 58. */
+#define US_SOUND_SPEED_FACTOR 58U /**< Microseconds of echo per centimetre of distance. Sound travels ~343 m/s, and the pulse makes a round trip, so distance_cm = echo_us / 58. */
 /*_______________________________________________________________________________*/
 /*
  * Task-level Echo Timeout (milliseconds) — interrupt-driven driver.
@@ -66,8 +66,8 @@
  * ceiling automatically gives the echo the extra flight time it now needs. Worst
  * case, with all six sensors out of range, a full scan takes about 6 x 25 = 150 ms.
  */
-#define US_TASK_TIMEOUT_MS  \
-    ((((US_MAX_RANGE_CM * US_SOUND_SPEED_FACTOR) + 999U) / 1000U) + 1U)
+#define US_TASK_TIMEOUT_MS \
+  ((((US_MAX_RANGE_CM * US_SOUND_SPEED_FACTOR) + 999U) / 1000U) + 1U)
 
 /*_______________________________________________________________________________*/
 /*

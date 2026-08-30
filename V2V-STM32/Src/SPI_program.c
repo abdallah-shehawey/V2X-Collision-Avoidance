@@ -18,10 +18,9 @@
  * @brief Maps a @ref SPI_Channel_t onto the peripheral's register block.
  * @note Order must match @ref SPI_Channel_t — the enum indexes straight into it.
  */
-static SPI_RegDef_t *SPI_Channel[SPI_CHANNEL_COUNT] = {MSPI1, MSPI2, MSPI3, MSPI4};
+static SPI_RegDef_t *SPI_Channel[SPI_CHANNEL_COUNT] = { MSPI1, MSPI2, MSPI3, MSPI4 };
 /** @brief Reentrancy guard: @ref IDLE or @ref BUSY. A second caller entering while a transfer is in flight is rejected with @ref BUSY_STATE rather than corrupting it. */
 static uint8_t SPI_u8State = IDLE;
-
 
 /*
  * @brief Initialize the SPI peripheral with the provided configuration.
@@ -46,7 +45,7 @@ ErrorState_t SPI_enumInit(SPI_Config_t *ChannelConfig)
   else
   {
     // Validate channel number
-    if(ChannelConfig->Channel > SPI_CHANNEL_COUNT)
+    if (ChannelConfig->Channel > SPI_CHANNEL_COUNT)
     {
       Local_u8ErrorState = NOK;
     }
@@ -111,7 +110,7 @@ ErrorState_t SPI_enumInit(SPI_Config_t *ChannelConfig)
 ErrorState_t SPI_enumTrancieve(SPI_Config_t *ChannelConfig, uint16_t TX_Data, uint16_t *RX_Data)
 {
   ErrorState_t Local_u8ErrorState = OK;
-  uint32_t Local_u32TimeoutCounter = 0;
+  uint32_t     Local_u32TimeoutCounter = 0;
 
   // Check for NULL pointers
   if (ChannelConfig == NULL || RX_Data == NULL)
@@ -131,11 +130,11 @@ ErrorState_t SPI_enumTrancieve(SPI_Config_t *ChannelConfig, uint16_t TX_Data, ui
       if (SPI_u8State == IDLE)
       {
         SPI_u8State = BUSY;
-        while((SPI_Channel[ChannelConfig->Channel]->SR & (1 << SR_TXE)) >> SR_TXE == 0 && (Local_u32TimeoutCounter != SPI_u32TIMEOUT))
+        while ((SPI_Channel[ChannelConfig->Channel]->SR & (1 << SR_TXE)) >> SR_TXE == 0 && (Local_u32TimeoutCounter != SPI_u32TIMEOUT))
         {
           Local_u32TimeoutCounter++;
         }
-        
+
         // Check if timeout occurred
         if (Local_u32TimeoutCounter == SPI_u32TIMEOUT)
         {
@@ -146,14 +145,14 @@ ErrorState_t SPI_enumTrancieve(SPI_Config_t *ChannelConfig, uint16_t TX_Data, ui
           // Transmit data
           SPI_Channel[ChannelConfig->Channel]->DR = TX_Data;
         }
-        
+
         // Reset timeout counter
         Local_u32TimeoutCounter = 0;
-        while((SPI_Channel[ChannelConfig->Channel]->SR & (1 << SR_RXNE)) >> SR_RXNE == 0 && (Local_u32TimeoutCounter != SPI_u32TIMEOUT))
+        while ((SPI_Channel[ChannelConfig->Channel]->SR & (1 << SR_RXNE)) >> SR_RXNE == 0 && (Local_u32TimeoutCounter != SPI_u32TIMEOUT))
         {
           Local_u32TimeoutCounter++;
         }
-        
+
         // Check if timeout occurred
         if (Local_u32TimeoutCounter == SPI_u32TIMEOUT)
         {
@@ -164,7 +163,7 @@ ErrorState_t SPI_enumTrancieve(SPI_Config_t *ChannelConfig, uint16_t TX_Data, ui
           // Read received data
           *RX_Data = SPI_Channel[ChannelConfig->Channel]->DR;
         }
-        
+
         // Mark SPI as idle
         SPI_u8State = IDLE;
       }
@@ -172,7 +171,6 @@ ErrorState_t SPI_enumTrancieve(SPI_Config_t *ChannelConfig, uint16_t TX_Data, ui
   }
   return Local_u8ErrorState;
 }
-
 
 /*
  * @brief Transmit data through SPI interface
@@ -189,7 +187,7 @@ ErrorState_t SPI_enumTrancieve(SPI_Config_t *ChannelConfig, uint16_t TX_Data, ui
 ErrorState_t SPI_enumTransmit(SPI_Config_t *ChannelConfig, uint16_t TX_Data)
 {
   ErrorState_t Local_u8ErrorState = OK;
-  uint32_t Local_u32TimeoutCounter = 0;
+  uint32_t     Local_u32TimeoutCounter = 0;
 
   // Check for NULL pointer
   if (ChannelConfig == NULL)
@@ -209,11 +207,11 @@ ErrorState_t SPI_enumTransmit(SPI_Config_t *ChannelConfig, uint16_t TX_Data)
       if (SPI_u8State == IDLE)
       {
         SPI_u8State = BUSY;
-        while((SPI_Channel[ChannelConfig->Channel]->SR & (1 << SR_TXE)) >> SR_TXE == 0 && (Local_u32TimeoutCounter != SPI_u32TIMEOUT))
+        while ((SPI_Channel[ChannelConfig->Channel]->SR & (1 << SR_TXE)) >> SR_TXE == 0 && (Local_u32TimeoutCounter != SPI_u32TIMEOUT))
         {
           Local_u32TimeoutCounter++;
         }
-        
+
         // Check if timeout occurred
         if (Local_u32TimeoutCounter == SPI_u32TIMEOUT)
         {
@@ -224,7 +222,7 @@ ErrorState_t SPI_enumTransmit(SPI_Config_t *ChannelConfig, uint16_t TX_Data)
           // Transmit data
           SPI_Channel[ChannelConfig->Channel]->DR = TX_Data;
         }
-        
+
         // Mark SPI as idle
         SPI_u8State = IDLE;
       }
@@ -232,7 +230,6 @@ ErrorState_t SPI_enumTransmit(SPI_Config_t *ChannelConfig, uint16_t TX_Data)
   }
   return Local_u8ErrorState;
 }
-
 
 /*
  * @brief Receive data through SPI interface
@@ -249,7 +246,7 @@ ErrorState_t SPI_enumTransmit(SPI_Config_t *ChannelConfig, uint16_t TX_Data)
 ErrorState_t SPI_enumReceive(SPI_Config_t *ChannelConfig, uint16_t *RX_Data)
 {
   ErrorState_t Local_u8ErrorState = OK;
-  uint32_t Local_u32TimeoutCounter = 0;
+  uint32_t     Local_u32TimeoutCounter = 0;
 
   // Check for NULL pointers
   if (ChannelConfig == NULL || RX_Data == NULL)
@@ -269,11 +266,11 @@ ErrorState_t SPI_enumReceive(SPI_Config_t *ChannelConfig, uint16_t *RX_Data)
       if (SPI_u8State == IDLE)
       {
         SPI_u8State = BUSY;
-        while((SPI_Channel[ChannelConfig->Channel]->SR & (1 << SR_RXNE)) >> SR_RXNE == 0 && (Local_u32TimeoutCounter != SPI_u32TIMEOUT))
+        while ((SPI_Channel[ChannelConfig->Channel]->SR & (1 << SR_RXNE)) >> SR_RXNE == 0 && (Local_u32TimeoutCounter != SPI_u32TIMEOUT))
         {
           Local_u32TimeoutCounter++;
         }
-        
+
         // Check if timeout occurred
         if (Local_u32TimeoutCounter == SPI_u32TIMEOUT)
         {
@@ -284,7 +281,7 @@ ErrorState_t SPI_enumReceive(SPI_Config_t *ChannelConfig, uint16_t *RX_Data)
           // Read received data
           *RX_Data = SPI_Channel[ChannelConfig->Channel]->DR;
         }
-        
+
         // Mark SPI as idle
         SPI_u8State = IDLE;
       }

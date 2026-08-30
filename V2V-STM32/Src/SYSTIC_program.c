@@ -108,7 +108,8 @@ static void SYSTIC_vEnable(void)
  */
 static void SYSTIC_vWait(void)
 {
-  while ((MSYSTIC->CTRL & (1u << SYSTIC_CTRL_COUNTFLAG)) == 0);
+  while ((MSYSTIC->CTRL & (1u << SYSTIC_CTRL_COUNTFLAG)) == 0)
+    ;
 }
 
 /*=================================================================================================================*/
@@ -278,13 +279,13 @@ void SYSTIC_vDelayUs(uint32_t Copy_u32UsTime)
  * @warning For very short delays (<10µs), the actual delay may be longer
  *          than requested due to function call overhead
  */
-ErrorState_t SYSTIC_enumGetElapsedTickSingleShot(uint32_t * Copy_pu32Tick)
+ErrorState_t SYSTIC_enumGetElapsedTickSingleShot(uint32_t *Copy_pu32Tick)
 {
-      /* Calculate tick time based on clock source */
+  /* Calculate tick time based on clock source */
 #if SYSTIC_CLKSOURCE == CLK_SOURCE_AHB_DIV8
-double Local_f32TickTimeInUs = 1.0 / (SYSTEM_CLOCK_IN_MHZ / 8.0);
+  double Local_f32TickTimeInUs = 1.0 / (SYSTEM_CLOCK_IN_MHZ / 8.0);
 #elif SYSTIC_CLKSOURCE == CLK_SOURCE_AHB
-double Local_f32TickTimeInUs = 1.0 / SYSTEM_CLOCK_IN_MHZ;
+  double Local_f32TickTimeInUs = 1.0 / SYSTEM_CLOCK_IN_MHZ;
 #endif
   /* Local variables
    * - Local_u32Tick: Stores the current tick count
@@ -318,13 +319,13 @@ double Local_f32TickTimeInUs = 1.0 / SYSTEM_CLOCK_IN_MHZ;
  *          3. Uses polling method to wait for completion
  *
  */
-ErrorState_t SYSTIC_enumRemainingTickSingleShot(uint32_t * Copy_pu32Tick)
+ErrorState_t SYSTIC_enumRemainingTickSingleShot(uint32_t *Copy_pu32Tick)
 {
-    /* Calculate tick time based on clock source */
+  /* Calculate tick time based on clock source */
 #if SYSTIC_CLKSOURCE == CLK_SOURCE_AHB_DIV8
-double Local_f32TickTimeInUs = 1.0 / (SYSTEM_CLOCK_IN_MHZ / 8.0);
+  double Local_f32TickTimeInUs = 1.0 / (SYSTEM_CLOCK_IN_MHZ / 8.0);
 #elif SYSTIC_CLKSOURCE == CLK_SOURCE_AHB
-double Local_f32TickTimeInUs = 1.0 / SYSTEM_CLOCK_IN_MHZ;
+  double Local_f32TickTimeInUs = 1.0 / SYSTEM_CLOCK_IN_MHZ;
 #endif
 
   ErrorState_t Local_enumErrorState = OK;
@@ -362,7 +363,7 @@ double Local_f32TickTimeInUs = 1.0 / SYSTEM_CLOCK_IN_MHZ;
  * @warning For very short delays (<10µs), the actual delay may be longer
  *          than requested due to function call overhead
  */
-ErrorState_t SYSTIC_enumCallback(void(*Copy_pvCallBack)(void), uint32_t Copy_u32Tick)
+ErrorState_t SYSTIC_enumCallback(void (*Copy_pvCallBack)(void), uint32_t Copy_u32Tick)
 {
   /* Configure clock source and set callback function
    * - This function sets up the SysTick timer for continuous operation
@@ -417,7 +418,7 @@ ErrorState_t SYSTIC_enumCallback(void(*Copy_pvCallBack)(void), uint32_t Copy_u32
  * @warning For very short delays (<10µs), the actual delay may be longer
  *          than requested due to function call overhead
  */
-ErrorState_t SYSTIC_enumCallbackSingleShot(void(*Copy_pvCallBack)(void), uint32_t Copy_u32Tick)
+ErrorState_t SYSTIC_enumCallbackSingleShot(void (*Copy_pvCallBack)(void), uint32_t Copy_u32Tick)
 {
   ErrorState_t Local_enumErrorState = OK;
 

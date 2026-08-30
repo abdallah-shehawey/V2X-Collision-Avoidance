@@ -13,7 +13,6 @@
 #include "../../MCAL/GPIO/GPIO_interface.h"
 #include "../../LIB/ErrTypes.h"
 
-
 /**
  * @brief Which pin level lights the LED — i.e. which way round it is wired.
  */
@@ -33,8 +32,8 @@ typedef enum
  */
 typedef struct
 {
-  GPIO_Port_t PortName;          /**< Port the LED is on. */
-  GPIO_Pin_t PinNumber;          /**< Pin the LED is on. */
+  GPIO_Port_t       PortName;    /**< Port the LED is on. */
+  GPIO_Pin_t        PinNumber;   /**< Pin the LED is on. */
   LED_ActiveState_t ActiveState; /**< Whether the LED lights on a high or a low level. */
 } LED_Config_t;
 

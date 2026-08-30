@@ -18,14 +18,14 @@
 /* Host state latched once per cycle from G_stHostVehicleState, read by the
  * distance-based modules during their neighbor pass (declared in the interface). */
 /** @brief This vehicle's speed for the current cycle [m/s]. Latched once per cycle — see @ref SafetyEngine_voidUpdate. */
-float Host_Speed   = 0.0f;
+float Host_Speed = 0.0f;
 /** @brief This vehicle's heading for the current cycle [degrees]. Latched once per cycle. */
 float Host_Heading = 0.0f;
 
 /* Speed-dependent safe/critical gaps (cm) for the current cycle, shared by the
  * distance-based modules (Local FCW, EEBL). See SafetyEngine_interface.h. */
 /** @brief The safe gap for the current cycle [cm], from the shared speed-dependent model. */
-float SafetyEngine_SafeDist     = 0.0f;
+float SafetyEngine_SafeDist = 0.0f;
 /** @brief The critical gap for the current cycle [cm]. */
 float SafetyEngine_CriticalDist = 0.0f;
 
@@ -49,19 +49,19 @@ void SafetyEngine_voidInit(void)
 void SafetyEngine_voidUpdate(void)
 {
   Neighbor *table = DSRC_GetTable();
-  uint8_t count   = DSRC_GetCount();
+  uint8_t   count = DSRC_GetCount();
 
   /* Latch host state. Speed is stored as cm/s in G_stHostVehicleState; the
    * distance-based model and module thresholds work in m/s, so convert once. */
-  Host_Speed   = G_stHostVehicleState.Speed * 0.01f; /* cm/s -> m/s */
+  Host_Speed = G_stHostVehicleState.Speed * 0.01f; /* cm/s -> m/s */
   Host_Heading = G_stHostVehicleState.Heading;
 
-  float front_dist  = G_stHostVehicleState.FrontCenterUS;
-  float rear_dist   = G_stHostVehicleState.BackCenterUS;
-  float front_left  = G_stHostVehicleState.FrontLeftUS;
+  float front_dist = G_stHostVehicleState.FrontCenterUS;
+  float rear_dist = G_stHostVehicleState.BackCenterUS;
+  float front_left = G_stHostVehicleState.FrontLeftUS;
   float front_right = G_stHostVehicleState.FrontRightUS;
-  float rear_left   = G_stHostVehicleState.BackLeftUS;
-  float rear_right  = G_stHostVehicleState.BackRightUS;
+  float rear_left = G_stHostVehicleState.BackLeftUS;
+  float rear_right = G_stHostVehicleState.BackRightUS;
 
   /* Speed-dependent safe/critical gaps for this cycle, floored at the minimum. */
   SafetyEngine_SafeDist = Host_Speed * SAFE_DIST_PER_MS;
@@ -105,18 +105,18 @@ void SafetyEngine_voidUpdate(void)
    *    2 bits per module (00 safe / 01 warning / 10 critical); RiskLevel maps
    *    directly. FCW = worst of the local front collision and a confirmed
    *    head-on; BSW is distance-graded (WARNING < 30cm, CRITICAL < 20cm). */
-  uint8_t fcw_front  = FCW_GetFrontFlag();        /* 0/1/2 */
-  uint8_t fcw_headon = FCW_GetHeadonConfirmed();  /* 0/1/2 */
-  uint8_t fcw  = (fcw_headon > fcw_front) ? fcw_headon : fcw_front;
-  uint8_t dnpw = DNPW_GetFlag();                  /* 0=safe/1=warning/2=critical (front-right escalates) */
-  uint8_t bsw  = BSW_u8GetSeverity();             /* 0=safe/1=warning/2=critical */
+  uint8_t fcw_front = FCW_GetFrontFlag();        /* 0/1/2 */
+  uint8_t fcw_headon = FCW_GetHeadonConfirmed(); /* 0/1/2 */
+  uint8_t fcw = (fcw_headon > fcw_front) ? fcw_headon : fcw_front;
+  uint8_t dnpw = DNPW_GetFlag();     /* 0=safe/1=warning/2=critical (front-right escalates) */
+  uint8_t bsw = BSW_u8GetSeverity(); /* 0=safe/1=warning/2=critical */
 
   uint16_t flags = 0;
-  flags |= ((uint16_t)(fcw                & SYS_MASK)) << SYS_FCW_POS;
-  flags |= ((uint16_t)(EEBL_u8GetFlag()   & SYS_MASK)) << SYS_EEBL_POS;
-  flags |= ((uint16_t)(bsw                & SYS_MASK)) << SYS_BSW_POS;
-  flags |= ((uint16_t)(dnpw               & SYS_MASK)) << SYS_DNPW_POS;
-  flags |= ((uint16_t)(IMA_u8GetFlag()    & SYS_MASK)) << SYS_IMA_POS;
+  flags |= ((uint16_t)(fcw & SYS_MASK)) << SYS_FCW_POS;
+  flags |= ((uint16_t)(EEBL_u8GetFlag() & SYS_MASK)) << SYS_EEBL_POS;
+  flags |= ((uint16_t)(bsw & SYS_MASK)) << SYS_BSW_POS;
+  flags |= ((uint16_t)(dnpw & SYS_MASK)) << SYS_DNPW_POS;
+  flags |= ((uint16_t)(IMA_u8GetFlag() & SYS_MASK)) << SYS_IMA_POS;
 
   /* Publish the full 16-bit word (must be uint16: IMA lives at bit 8). */
   G_u16SystemFlags = flags;

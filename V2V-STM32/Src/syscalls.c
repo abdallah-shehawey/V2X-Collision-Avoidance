@@ -45,22 +45,20 @@
 #include <sys/time.h>
 #include <sys/times.h>
 
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 //					Implementation of printf like feature using ARM Cortex M3/M4/ ITM functionality
 //					This function will not work for ARM Cortex M0/M0+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
 //Debug Exception and Monitor Control Register base address
 /** @brief Debug Exception and Monitor Control Register — bit 24 (TRCENA) gates all trace, including the ITM. */
-#define DEMCR        			*((volatile uint32_t*) 0xE000EDFCU )
+#define DEMCR *((volatile uint32_t *)0xE000EDFCU)
 
 /* ITM register addresses */
 /** @brief ITM stimulus port 0: writing a byte here emits it on the SWO pin. Bit 0 reads back as "FIFO ready". */
-#define ITM_STIMULUS_PORT0   	*((volatile uint32_t*) 0xE0000000 )
+#define ITM_STIMULUS_PORT0 *((volatile uint32_t *)0xE0000000)
 /** @brief ITM Trace Enable: one bit per stimulus port; port 0 must be enabled before a write is accepted. */
-#define ITM_TRACE_EN          	*((volatile uint32_t*) 0xE0000E00 )
+#define ITM_TRACE_EN *((volatile uint32_t *)0xE0000E00)
 
 /**
  * @brief Emit one character on the ITM stimulus port (the SWO trace pin).
@@ -71,20 +69,19 @@
  */
 void ITM_SendChar(uint8_t ch)
 {
+  //Enable TRCENA
+  DEMCR |= (1 << 24);
 
-	//Enable TRCENA
-	DEMCR |= ( 1 << 24);
+  //enable stimulus port 0
+  ITM_TRACE_EN |= (1 << 0);
 
-	//enable stimulus port 0
-	ITM_TRACE_EN |= ( 1 << 0);
+  // read FIFO status in bit [0]:
+  while (!(ITM_STIMULUS_PORT0 & 1))
+    ;
 
-	// read FIFO status in bit [0]:
-	while(!(ITM_STIMULUS_PORT0 & 1));
-
-	//Write to ITM stimulus port0
-	ITM_STIMULUS_PORT0 = ch;
+  //Write to ITM stimulus port0
+  ITM_STIMULUS_PORT0 = ch;
 }
-
 
 /* Variables */
 
@@ -107,7 +104,6 @@ char *__env[1] = { 0 };
 
 /** @brief The process environment Newlib hands to `getenv`; always empty here. */
 char **environ = __env;
-
 
 /* Functions */
 /** @brief Semihosting hook Newlib may call; nothing to do without a debug monitor. */
@@ -144,10 +140,12 @@ int _kill(int pid, int sig)
  * @note Does not return — there is nowhere to exit *to*, so it hangs in a loop.
  *       In practice the watchdog then resets the MCU.
  */
-void _exit (int status)
+void _exit(int status)
 {
   _kill(status, -1);
-  while (1) {}    /* Make sure we hang here */
+  while (1)
+  {
+  } /* Make sure we hang here */
 }
 
 /**
@@ -184,7 +182,7 @@ __attribute__((weak)) int _write(int file, char *ptr, int len)
 
   for (DataIdx = 0; DataIdx < len; DataIdx++)
   {
-	  ITM_SendChar(*ptr++);
+    ITM_SendChar(*ptr++);
   }
   return len;
 }
@@ -199,7 +197,6 @@ int _close(int file)
   (void)file;
   return -1;
 }
-
 
 /**
  * @brief Report the type of an open file descriptor.

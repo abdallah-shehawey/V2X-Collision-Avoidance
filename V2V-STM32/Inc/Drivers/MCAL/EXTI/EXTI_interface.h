@@ -22,10 +22,10 @@
  */
 typedef enum
 {
-  EXTI_NO_TRIGGER,                /**< Line configured but never fires. */
-  EXTI_RISING_EDGE,               /**< Fire on a low-to-high transition. */
-  EXTI_FALLING_EDGE,              /**< Fire on a high-to-low transition. */
-  EXTI_RISING_FALLING_EDGE        /**< Fire on **both** edges — what each ultrasonic echo pin uses, so one interrupt starts the timing and the next ends it. */
+  EXTI_NO_TRIGGER,         /**< Line configured but never fires. */
+  EXTI_RISING_EDGE,        /**< Fire on a low-to-high transition. */
+  EXTI_FALLING_EDGE,       /**< Fire on a high-to-low transition. */
+  EXTI_RISING_FALLING_EDGE /**< Fire on **both** edges — what each ultrasonic echo pin uses, so one interrupt starts the timing and the next ends it. */
 } EXTI_TriggerSrc_t;
 
 /**
@@ -36,8 +36,8 @@ typedef enum
  */
 typedef enum
 {
-  EXTI_DIS,                       /**< Line masked: it will not raise an interrupt. */
-  EXTI_EN                         /**< Line unmasked. */
+  EXTI_DIS, /**< Line masked: it will not raise an interrupt. */
+  EXTI_EN   /**< Line unmasked. */
 } EXTI_Enable_t;
 
 /**
@@ -47,22 +47,22 @@ typedef enum
  */
 typedef enum
 {
-  EXTI_LINE0 = 0,                 /**< EXTI line 0 — pin 0 of whichever port SYSCFG has routed to it. */
-  EXTI_LINE1,                     /**< EXTI line 1 — pin 1 of whichever port SYSCFG has routed to it. */
-  EXTI_LINE2,                     /**< EXTI line 2 — pin 2 of whichever port SYSCFG has routed to it. */
-  EXTI_LINE3,                     /**< EXTI line 3 — pin 3 of whichever port SYSCFG has routed to it. */
-  EXTI_LINE4,                     /**< EXTI line 4 — pin 4 of whichever port SYSCFG has routed to it. */
-  EXTI_LINE5,                     /**< EXTI line 5 — pin 5 of whichever port SYSCFG has routed to it. */
-  EXTI_LINE6,                     /**< EXTI line 6 — pin 6 of whichever port SYSCFG has routed to it. */
-  EXTI_LINE7,                     /**< EXTI line 7 — pin 7 of whichever port SYSCFG has routed to it. */
-  EXTI_LINE8,                     /**< EXTI line 8 — pin 8 of whichever port SYSCFG has routed to it. */
-  EXTI_LINE9,                     /**< EXTI line 9 — pin 9 of whichever port SYSCFG has routed to it. */
-  EXTI_LINE10,                    /**< EXTI line 10 — pin 10 of whichever port SYSCFG has routed to it. */
-  EXTI_LINE11,                    /**< EXTI line 11 — pin 11 of whichever port SYSCFG has routed to it. */
-  EXTI_LINE12,                    /**< EXTI line 12 — pin 12 of whichever port SYSCFG has routed to it. */
-  EXTI_LINE13,                    /**< EXTI line 13 — pin 13 of whichever port SYSCFG has routed to it. */
-  EXTI_LINE14,                    /**< EXTI line 14 — pin 14 of whichever port SYSCFG has routed to it. */
-  EXTI_LINE15                     /**< EXTI line 15 — pin 15 of whichever port SYSCFG has routed to it. */
+  EXTI_LINE0 = 0, /**< EXTI line 0 — pin 0 of whichever port SYSCFG has routed to it. */
+  EXTI_LINE1,     /**< EXTI line 1 — pin 1 of whichever port SYSCFG has routed to it. */
+  EXTI_LINE2,     /**< EXTI line 2 — pin 2 of whichever port SYSCFG has routed to it. */
+  EXTI_LINE3,     /**< EXTI line 3 — pin 3 of whichever port SYSCFG has routed to it. */
+  EXTI_LINE4,     /**< EXTI line 4 — pin 4 of whichever port SYSCFG has routed to it. */
+  EXTI_LINE5,     /**< EXTI line 5 — pin 5 of whichever port SYSCFG has routed to it. */
+  EXTI_LINE6,     /**< EXTI line 6 — pin 6 of whichever port SYSCFG has routed to it. */
+  EXTI_LINE7,     /**< EXTI line 7 — pin 7 of whichever port SYSCFG has routed to it. */
+  EXTI_LINE8,     /**< EXTI line 8 — pin 8 of whichever port SYSCFG has routed to it. */
+  EXTI_LINE9,     /**< EXTI line 9 — pin 9 of whichever port SYSCFG has routed to it. */
+  EXTI_LINE10,    /**< EXTI line 10 — pin 10 of whichever port SYSCFG has routed to it. */
+  EXTI_LINE11,    /**< EXTI line 11 — pin 11 of whichever port SYSCFG has routed to it. */
+  EXTI_LINE12,    /**< EXTI line 12 — pin 12 of whichever port SYSCFG has routed to it. */
+  EXTI_LINE13,    /**< EXTI line 13 — pin 13 of whichever port SYSCFG has routed to it. */
+  EXTI_LINE14,    /**< EXTI line 14 — pin 14 of whichever port SYSCFG has routed to it. */
+  EXTI_LINE15     /**< EXTI line 15 — pin 15 of whichever port SYSCFG has routed to it. */
 } EXTI_Line_t;
 
 /**
@@ -79,9 +79,9 @@ typedef enum
  */
 typedef struct
 {
-  EXTI_Line_t Line;              /**< Which EXTI line, 0..15. */
+  EXTI_Line_t       Line;        /**< Which EXTI line, 0..15. */
   EXTI_TriggerSrc_t TrigSrc;     /**< Which edge fires it: rising, falling, or both. */
-  EXTI_Enable_t Enable;          /**< Whether the line is unmasked at init. */
+  EXTI_Enable_t     Enable;      /**< Whether the line is unmasked at init. */
   void (*Copy_pvCallBack)(void); /**< Called from the EXTI ISR when the line fires. Must be ISR-safe: short, non-blocking, `...FromISR` API only. */
 } EXTI_LineConfig_t;
 

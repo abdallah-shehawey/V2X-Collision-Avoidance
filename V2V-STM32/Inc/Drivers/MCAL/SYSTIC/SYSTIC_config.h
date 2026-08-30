@@ -35,7 +35,7 @@
  *          disagrees with what RCC actually produces, every SysTick delay is off by
  *          the same ratio.
  */
-#define SYSTEM_CLOCK_IN_HZ  (SYSTEM_CLOCK_IN_KHZ * 1000U)
+#define SYSTEM_CLOCK_IN_HZ (SYSTEM_CLOCK_IN_KHZ * 1000U)
 /** @} */
 
 /**

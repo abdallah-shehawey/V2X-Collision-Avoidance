@@ -11,9 +11,9 @@
 #define US_INTERFACE_H_
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
-
 
 #include "../../LIB/STD_MACROS.h"
 #include "../../LIB/ErrTypes.h"
@@ -21,10 +21,10 @@ extern "C" {
 
 #include "../../MCAL/GPIO/GPIO_interface.h"
 #include "../../MCAL/TIM/TIM_interface.h"
-/**************************************         Data Types
+  /**************************************         Data Types
  * ******************************************/
 
-/**
+  /**
  * @struct US_Config_t
  * @brief  Configuration structure for a single Ultrasonic sensor instance.
  *
@@ -42,20 +42,20 @@ extern "C" {
  *       .EchoPin  = GPIO_PIN1
  *   };
  */
-typedef struct
-{
-  TIM_Num_t      Timer;     /**< Timer instance (TIM_TIMER1..TIM_TIMER8) */
-  TIM_Channel_t  Channel;   /**< Timer Channel: TIM_CHANNEL1..TIM_CHANNEL4 */
-  GPIO_Port_t    TrigPort;  /**< GPIO Port of TRIG pin */
-  GPIO_Pin_t     TrigPin;   /**< GPIO Pin  of TRIG pin */
-  GPIO_Port_t    EchoPort;  /**< GPIO Port of ECHO pin (Must match Timer AF) */
-  GPIO_Pin_t     EchoPin;   /**< GPIO Pin  of ECHO pin (Must match Timer AF) */
-} US_Config_t;
+  typedef struct
+  {
+    TIM_Num_t     Timer;    /**< Timer instance (TIM_TIMER1..TIM_TIMER8) */
+    TIM_Channel_t Channel;  /**< Timer Channel: TIM_CHANNEL1..TIM_CHANNEL4 */
+    GPIO_Port_t   TrigPort; /**< GPIO Port of TRIG pin */
+    GPIO_Pin_t    TrigPin;  /**< GPIO Pin  of TRIG pin */
+    GPIO_Port_t   EchoPort; /**< GPIO Port of ECHO pin (Must match Timer AF) */
+    GPIO_Pin_t    EchoPin;  /**< GPIO Pin  of ECHO pin (Must match Timer AF) */
+  } US_Config_t;
 
-/**************************************         Function Prototypes
+  /**************************************         Function Prototypes
  * ******************************************/
 
-/**
+  /**
  * @brief   Initialize GPIO pins and Timer for the given ultrasonic sensor.
  * @param   pxSensor Pointer to sensor configuration structure.
  * @return  ErrorState_t: OK if successful, NULL_POINTER / NOK on error.
@@ -69,9 +69,9 @@ typedef struct
  *   US_Config_t sensor = {TIM_TIMER2, GPIO_PORTA, GPIO_PIN0, GPIO_PORTA, GPIO_PIN1};
  *   US_vInit(&sensor);
  */
-ErrorState_t US_vInit(const US_Config_t *pxSensor);
+  ErrorState_t US_vInit(const US_Config_t *pxSensor);
 
-/**
+  /**
  * @brief   Trigger sensor and measure distance in centimeters (blocking).
  * @param   pxSensor Pointer to sensor configuration structure.
  * @param   pu16Dist_cm Pointer to store the measured distance (cm).
@@ -94,7 +94,7 @@ ErrorState_t US_vInit(const US_Config_t *pxSensor);
  *       // use dist
  *   }
  */
-ErrorState_t US_u16ReadDistance_cm(const US_Config_t *pxSensor, uint16_t *pu16Dist_cm);
+  ErrorState_t US_u16ReadDistance_cm(const US_Config_t *pxSensor, uint16_t *pu16Dist_cm);
 
 #ifdef __cplusplus
 }
