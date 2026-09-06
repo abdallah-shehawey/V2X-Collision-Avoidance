@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Generate compile_commands.json for the ESP32 sketches, with the real board flags.
+Generate compile_commands.json for this repo: the ESP32 sketches and the STM32
+firmware, each with the flags its own toolchain is given.
 
 Why this exists
 ---------------
@@ -30,13 +31,21 @@ outside it is the shim built by ~/.local/bin/refresh-intellisense-shims.py,
 wired into C_Cpp.default.includePath - that one resolves names but knows nothing
 about which board is selected.
 
+The STM32 half needs none of that. `V2V-STM32/Debug/` is generated and
+gitignored, so there is no build to read flags out of and they are written out
+here instead - the Cortex-M4F machine flags, the part defines, and every
+directory an include can be written against.
+
 Usage
 -----
-    python3 tools/gen_arduino_compile_commands.py            # all esp32/ sketches
-    python3 tools/gen_arduino_compile_commands.py --check    # verify, then write
+    python3 tools/gen_arduino_compile_commands.py               # sketches + firmware
+    python3 tools/gen_arduino_compile_commands.py --check       # verify, then write
+    python3 tools/gen_arduino_compile_commands.py --stm32-only  # firmware only, seconds
     python3 tools/gen_arduino_compile_commands.py --fqbn esp32:esp32:esp32
 
-Re-run after changing board, adding a sketch, or upgrading the core.
+Re-run after changing board, adding a sketch or a source file, or upgrading the
+core. `--stm32-only` is the fast path while working on the firmware: it keeps
+the sketch entries already in the output and rebuilds just the firmware ones.
 """
 
 from __future__ import annotations
@@ -51,6 +60,8 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 SKETCH_ROOT = REPO / "esp32"
+STM32_ROOT = REPO / "V2V-STM32"
+ARM_GCC = "/usr/bin/arm-none-eabi-gcc"
 
 # ESP32-S3 Dev Module - the board esp32/README.md builds and uploads to.
 DEFAULT_FQBN = "esp32:esp32:esp32s3"
@@ -154,18 +165,23 @@ def entry_for(sketch: Path, fqbn: str) -> dict | None:
 
 
 def check(entries: list[dict]) -> int:
-    """Compile each sketch with the flags we are about to hand VS Code.
+    """Compile each translation unit with the flags we are about to hand VS Code.
 
     A raw .ino is not valid C++ on its own - Arduino injects the function
     prototypes that let setup() call something defined further down - so only
     unresolved includes are treated as failures here. That is the one thing the
     database is responsible for.
+
+    An .ino has to be forced to C++ because gcc does not know the extension; a
+    .c must NOT be, or every firmware source gets compiled as C++ and fails on
+    things that are perfectly good C.
     """
     failures = 0
     for entry in entries:
         args = entry["arguments"]
+        language = [] if entry["file"].endswith(".c") else ["-x", "c++"]
         result = subprocess.run(
-            [args[0], "-fsyntax-only", "-x", "c++", *args[1:]],
+            [args[0], "-fsyntax-only", *language, *args[1:]],
             capture_output=True, text=True, cwd=entry["directory"],
         )
         missing = [line for line in result.stderr.splitlines() if "No such file" in line]
@@ -181,31 +197,109 @@ def check(entries: list[dict]) -> int:
     return failures
 
 
+def stm32_include_dirs() -> list[str]:
+    """Every directory a quoted include in this firmware can be written against.
+
+    Two include styles live side by side here: bare names resolved by the
+    directory the header sits in (`FreeRTOS.h`, `SEGGER_RTT.h`) and partial
+    paths resolved by a parent of it (`System/System.h` in Src/main.c). Taking
+    only the directories that directly contain a .h covers the first and misses
+    the second - `Inc/` holds nothing but subdirectories, so it never appeared
+    and `System/System.h` came up unresolved. Walking each hit up to the
+    firmware root adds `Inc/`, `Inc/Drivers/` and the rest, which costs nothing
+    (they hold no headers of their own to shadow anything) and makes every
+    partial path resolvable.
+    """
+    found: set[Path] = set()
+    for header in STM32_ROOT.rglob("*.h"):
+        directory = header.parent
+        while directory != STM32_ROOT.parent:
+            found.add(directory)
+            directory = directory.parent
+    return sorted(str(path) for path in found)
+
+
+def stm32_entries() -> list[dict]:
+    """Add per-file flags for the STM32F446 FreeRTOS firmware.
+
+    There is no build directory to read real flags out of - `Debug/` is
+    gitignored and generated - so these mirror what the STM32CubeIDE build
+    passes: the Cortex-M4F machine flags and the part defines.
+    """
+    if not STM32_ROOT.is_dir():
+        return []
+
+    include_dirs = stm32_include_dirs()
+    flags = [
+        "-std=gnu11",
+        "-mcpu=cortex-m4",
+        "-mthumb",
+        "-mfpu=fpv4-sp-d16",
+        "-mfloat-abi=hard",
+        "-DDEBUG",
+        "-DSTM32",
+        "-DSTM32F4",
+        "-DSTM32F446RETx",
+        "-DNUCLEO_F446RE",
+        "-O0",
+        "-Wall",
+    ]
+    flags += [f"-I{path}" for path in include_dirs]
+
+    entries = []
+    for source in sorted(STM32_ROOT.rglob("*.c")):
+        entries.append({
+            "directory": str(STM32_ROOT),
+            "file": str(source),
+            "arguments": [ARM_GCC, *flags, "-c", str(source)],
+        })
+    return entries
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--fqbn", default=DEFAULT_FQBN)
     parser.add_argument("--check", action="store_true")
+    parser.add_argument(
+        "--stm32-only", action="store_true",
+        help="rebuild only the firmware entries, reusing the sketch entries "
+             "already in the output file (no arduino-cli, no sketch build)",
+    )
     parser.add_argument("-o", "--output", default=str(REPO / "compile_commands.json"))
     args = parser.parse_args()
 
-    if not shutil.which("arduino-cli"):
-        print("arduino-cli not on PATH", file=sys.stderr)
-        return 1
+    output = Path(args.output)
 
-    found = sketches()
-    if not found:
-        print(f"no sketches under {SKETCH_ROOT}", file=sys.stderr)
-        return 1
+    if args.stm32_only:
+        previous = json.loads(output.read_text()) if output.is_file() else []
+        # Keep everything that is not ours to rebuild - matched on location, not
+        # on extension, so a .c that ever ends up in a sketch is not mistaken
+        # for firmware and dropped.
+        entries = [e for e in previous if not e["file"].startswith(f"{STM32_ROOT}/")]
+    else:
+        if not shutil.which("arduino-cli"):
+            print("arduino-cli not on PATH", file=sys.stderr)
+            return 1
 
-    entries = [e for e in (entry_for(s, args.fqbn) for s in found) if e]
-    if len(entries) != len(found):
-        return 1
+        found = sketches()
+        if not found:
+            print(f"no sketches under {SKETCH_ROOT}", file=sys.stderr)
+            return 1
 
+        entries = [e for e in (entry_for(s, args.fqbn) for s in found) if e]
+        if len(entries) != len(found):
+            return 1
+
+    entries += stm32_entries()
+
+    # After the merge, never before: the firmware is half the database and its
+    # include paths are guessed here rather than read out of a build, so it is
+    # the half most likely to go stale.
     if args.check and check(entries):
         return 1
 
-    Path(args.output).write_text(json.dumps(entries, indent=2) + "\n")
-    print(f"wrote {args.output} ({len(entries)} sketches, fqbn {args.fqbn})")
+    output.write_text(json.dumps(entries, indent=2) + "\n")
+    print(f"wrote {output} ({len(entries)} translation units, fqbn {args.fqbn})")
     return 0
 
 
