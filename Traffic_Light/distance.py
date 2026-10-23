@@ -1,231 +1,202 @@
+# -*- coding: utf-8 -*-
+"""
+distance.py — V2X Camera Node (Raspberry Pi ready)
+===================================================
+Reads a video file (or webcam), detects cars with YOLOv8, reads the plate
+with EasyOCR, estimates distance from the plate width, and publishes
+{plate_id, distance_m, is_ambulance, timestamp} to the Intelligent Gateway
+over MQTT.
 
-"""distance_after_edit.py - Clean version with no -1, no Unknown, all English"""
+Usage:
+    python3 distance.py                 # uses VIDEO_FILE next to this script
+    python3 distance.py my_video.mp4    # explicit file (relative or absolute)
+    python3 distance.py 0               # webcam index 0
 
+Changes vs the old version:
+  * Video path is relative to this script (no Colab path, no input()).
+  * AMBULANCE_ID unified with the gateway ("REX").
+  * No video writing / no CSV (less load on the Pi).
+  * While paused for an ambulance, a heartbeat is re-published every second,
+    otherwise the gateway's 5-second stale cleanup would clear the emergency.
+"""
 
 import cv2
 from ultralytics import YOLO
 import easyocr
 import re
-import csv
 import os
+import sys
 import json
 import time
 import ssl
 import paho.mqtt.client as mqtt
 
-print("="*60)
-print("VEHICLE LICENSE PLATE READER - DISTANCE FIXED + PAUSE ON AMBULANCE")
-print("="*60)
+# ============================================================
+# CONFIG
+# ============================================================
+HERE       = os.path.dirname(os.path.abspath(__file__))
+VIDEO_FILE = "idv.mp4"            # put the video next to this script
 
-# ============================================================
-# MQTT SERVER CONFIGURATION (HiveMQ Cloud)
-# ============================================================
 BROKER   = "2b6738facfbf40f1a86ba770618ae8a6.s1.eu.hivemq.cloud"
 PORT     = 8883
 USERNAME = "v2n_admin"
 PASSWORD = "V2n@2026!"
 CAMERA_DETECTION_TOPIC = "v2n/camera/vehicle_data"
 
-AMBULANCE_ID = "T4RR"
+AMBULANCE_ID = "REX"              # MUST match AMBULANCE_ID in Intelligent_Gateway.py (upper-case)
 
+FOCAL_LENGTH      = 700           # px, calibrate for your camera
+KNOWN_PLATE_WIDTH = 0.45          # m
+MIN_CAR_WIDTH     = 150           # px, ignore far/small cars
+PROCESS_EVERY_N   = 10            # run detection every N frames
+SPEED_ASSUMED     = 5.0           # m/s, used for the ambulance pause time
+HEARTBEAT_SEC     = 1.0
+
+# ============================================================
+# VIDEO SOURCE
+# ============================================================
+if len(sys.argv) > 1:
+    src = sys.argv[1]
+    source = int(src) if src.isdigit() else (src if os.path.isabs(src) else os.path.join(HERE, src))
+else:
+    source = os.path.join(HERE, VIDEO_FILE)
+
+if isinstance(source, str) and not os.path.exists(source):
+    print(f"Video not found: {source}")
+    sys.exit(1)
+
+cap = cv2.VideoCapture(source)
+if not cap.isOpened():
+    print(f"Cannot open video source: {source}")
+    sys.exit(1)
+
+fps = int(cap.get(cv2.CAP_PROP_FPS)) or 30
+
+# ============================================================
+# MQTT
+# ============================================================
 mqtt_client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 mqtt_client.username_pw_set(USERNAME, PASSWORD)
 mqtt_client.tls_set(cert_reqs=ssl.CERT_REQUIRED)
 
 try:
-    print("Connecting to HiveMQ Cloud Server...")
+    print("Connecting to HiveMQ Cloud...")
     mqtt_client.connect(BROKER, PORT, 60)
     mqtt_client.loop_start()
-    print("Successfully connected to MQTT Broker!")
+    time.sleep(1)
+    print("MQTT connected.")
 except Exception as e:
-    print(f"MQTT Connection Failed: {e}")
+    print(f"MQTT connection failed: {e}")
+    sys.exit(1)
+
+
+def publish(plate_id, distance, is_ambulance):
+    payload = {
+        "plate_id":     plate_id,
+        "distance_m":   round(float(distance), 2),
+        "is_ambulance": bool(is_ambulance),
+        "timestamp":    int(time.time()),
+    }
+    mqtt_client.publish(CAMERA_DETECTION_TOPIC, json.dumps(payload))
 
 # ============================================================
-# VIDEO & MODEL CONFIGURATION
+# MODELS
 # ============================================================
-video_name = "/content/WhatsApp Video 2026-06-18 at 7.35.56 PM.mp4"
-if not os.path.exists(video_name):
-    video_name = input("Enter your video file name: ").strip()
-    if not os.path.exists(video_name):
-        exit()
+print("Loading YOLO + EasyOCR (first run downloads models)...")
+car_detector = YOLO("yolov8n.pt")
+reader = easyocr.Reader(["en"], gpu=False, verbose=False)
 
-cap = cv2.VideoCapture(video_name)
-fps = int(cap.get(cv2.CAP_PROP_FPS)) if cap.get(cv2.CAP_PROP_FPS) > 0 else 30
-width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-output_path = 'processed_output.mp4'
-out = cv2.VideoWriter(output_path, cv2.VideoWriter_fourcc(*'mp4v'), fps, (width, height))
+def calculate_distance(plate_width_px):
+    if plate_width_px and plate_width_px > 0:
+        return (KNOWN_PLATE_WIDTH * FOCAL_LENGTH) / plate_width_px
+    return None
 
-car_detector = YOLO('yolov8n.pt')
-reader = easyocr.Reader(['en'], gpu=False, verbose=False)
-
-frame_count = 0
+# ============================================================
+# MAIN LOOP
+# ============================================================
 detected_plates = {}
-MIN_CAR_WIDTH = 150
+frame_count = 0
 
-# ============================================================
-# DISTANCE CALIBRATION (Plate width, not car width)
-# ============================================================
-FOCAL_LENGTH = 700
-KNOWN_PLATE_WIDTH = 0.45
-
-def calculate_distance(plate_width_px, focal_length=FOCAL_LENGTH, known_width=KNOWN_PLATE_WIDTH):
-    if plate_width_px > 0:
-        return (known_width * focal_length) / plate_width_px
-    return None  # <-- Returns None instead of -1 or inf
-
-# ============================================================
-# PAUSE CONTROL FOR AMBULANCE
-# ============================================================
-pause_mode = False
-pause_frames_remaining = 0
-SPEED_ASSUMED = 5.0
-
-print(f"\nProcessing video: {video_name}")
-print(f"Ambulance ID: {AMBULANCE_ID} (Temporary camera pause when detected)")
-print("Distance is now calculated from actual plate width, not car width.")
+print(f"\nSource: {source}")
+print(f"Ambulance ID: {AMBULANCE_ID}")
 print("Press Ctrl+C to stop.\n")
 
-running = True
 try:
-    while running:
+    while True:
         ret, frame = cap.read()
         if not ret:
-            print("\nVideo ended. Restarting loop...")
-            cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
-            ret, frame = cap.read()
-            if not ret:
+            if isinstance(source, int):
+                print("Webcam read failed.")
                 break
-
-        frame_count += 1
-
-        # ============================================================
-        # PAUSE MODE: Skip processing
-        # ============================================================
-        if pause_mode:
-            pause_frames_remaining -= 1
-            out.write(frame)
-            if pause_frames_remaining <= 0:
-                pause_mode = False
-                print("Camera resumed.")
+            cap.set(cv2.CAP_PROP_POS_FRAMES, 0)   # loop the video file
             continue
 
-        # ============================================================
-        # PROCESS EVERY 10 FRAMES
-        # ============================================================
-        if frame_count % 10 == 0:
-            results = car_detector(frame, verbose=False)
+        frame_count += 1
+        if frame_count % PROCESS_EVERY_N != 0:
+            continue
 
-            for box in results[0].boxes:
-                if int(box.cls[0]) == 2 and float(box.conf[0]) > 0.5:
-                    x1, y1, x2, y2 = map(int, box.xyxy[0])
-                    car_width = x2 - x1
+        results = car_detector(frame, verbose=False)
 
-                    if car_width > MIN_CAR_WIDTH:
-                        # Crop plate region (lower 30% of the car)
-                        plate_y1 = int(y2 - (y2 - y1) * 0.3)
-                        plate_region = frame[plate_y1:y2, x1:x2]
+        for box in results[0].boxes:
+            if int(box.cls[0]) != 2 or float(box.conf[0]) <= 0.5:
+                continue
 
-                        if plate_region.size > 0:
-                            gray = cv2.cvtColor(plate_region, cv2.COLOR_BGR2GRAY)
-                            gray = cv2.equalizeHist(gray)
-                            _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+            x1, y1, x2, y2 = map(int, box.xyxy[0])
+            if (x2 - x1) <= MIN_CAR_WIDTH:
+                continue
 
-                            # Read text with bounding boxes (detail=1)
-                            ocr_results = reader.readtext(thresh, detail=1, paragraph=False)
+            # plate area = lower 30% of the car box
+            plate_y1 = int(y2 - (y2 - y1) * 0.3)
+            plate_region = frame[plate_y1:y2, x1:x2]
+            if plate_region.size == 0:
+                continue
 
-                            for (bbox, text, conf) in ocr_results:
-                                cleaned = re.sub(r'[^A-Z0-9]', '', text.upper().replace(' ', ''))
-                                if len(cleaned) >= 4:
-                                    # Extract actual plate width in pixels from bbox coordinates
-                                    x_coords = [point[0] for point in bbox]
-                                    plate_width_px = max(x_coords) - min(x_coords)
+            gray = cv2.cvtColor(plate_region, cv2.COLOR_BGR2GRAY)
+            gray = cv2.equalizeHist(gray)
+            _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
-                                    # Skip if plate is too small (likely false reading)
-                                    if plate_width_px < 10:
-                                        continue
+            for (bbox, text, conf) in reader.readtext(thresh, detail=1, paragraph=False):
+                cleaned = re.sub(r"[^A-Z0-9]", "", text.upper().replace(" ", ""))
+                if len(cleaned) < 4:
+                    continue
 
-                                    # Calculate distance - returns None if invalid
-                                    distance = calculate_distance(plate_width_px)
-                                    
-                                    # ============================================================
-                                    # ✅ SKIP if distance is invalid (no -1, no Unknown)
-                                    # ============================================================
-                                    if distance is None:
-                                        continue
+                x_coords = [p[0] for p in bbox]
+                plate_width_px = max(x_coords) - min(x_coords)
+                if plate_width_px < 10:
+                    continue
 
-                                    confidence = min(95, 60 + len(cleaned) * 5)
-                                    distance_text = f"{distance:.2f}m"
-                                    is_ambulance = (cleaned == AMBULANCE_ID)
+                distance = calculate_distance(plate_width_px)
+                if distance is None:
+                    continue
 
-                                    # Record first occurrence only
-                                    if cleaned not in detected_plates:
-                                        detected_plates[cleaned] = {
-                                            'frame': frame_count,
-                                            'confidence': confidence,
-                                            'distance': distance
-                                        }
-                                        status_icon = "🚑 AMBULANCE" if is_ambulance else "🚗 CAR"
-                                        print(f"{status_icon} DETECTED: {cleaned} | Distance: {distance_text} (Plate Width: {plate_width_px}px)")
+                is_ambulance = (cleaned == AMBULANCE_ID)
 
-                                    # ============================================================
-                                    # SEND MQTT PAYLOAD
-                                    # ============================================================
-                                    payload = {
-                                        "plate_id": cleaned,
-                                        "distance_m": round(distance, 2),
-                                        "is_ambulance": is_ambulance,
-                                        "timestamp": int(time.time())
-                                    }
-                                    mqtt_client.publish(CAMERA_DETECTION_TOPIC, json.dumps(payload))
+                if cleaned not in detected_plates:
+                    icon = "AMBULANCE" if is_ambulance else "CAR"
+                    print(f"[{icon}] {cleaned} | {distance:.2f} m (plate {plate_width_px:.0f}px)")
+                detected_plates[cleaned] = {"frame": frame_count, "distance": distance}
 
-                                    if frame_count % 30 == 0:
-                                        print(f"Published -> {cleaned} at {distance_text}")
+                publish(cleaned, distance, is_ambulance)
 
-                                    # ============================================================
-                                    # PAUSE CAMERA IF AMBULANCE
-                                    # ============================================================
-                                    if is_ambulance:
-                                        pause_seconds = max(2.0, min(20.0, distance / SPEED_ASSUMED))
-                                        pause_frames = int(pause_seconds * fps)
-                                        pause_mode = True
-                                        pause_frames_remaining = pause_frames
-                                        print(f"Ambulance at {distance_text} -> Pausing for {pause_seconds:.1f}s ({pause_frames} frames)")
-
-                                    # ============================================================
-                                    # DRAW ON VIDEO
-                                    # ============================================================
-                                    rect_color = (0, 0, 255) if is_ambulance else (0, 255, 0)
-                                    cv2.rectangle(frame, (x1, y1), (x2, y2), rect_color, 3)
-                                    cv2.putText(frame, f"{'AMBULANCE' if is_ambulance else 'Car'}: {cleaned}", (x1 + 5, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2)
-                                    cv2.putText(frame, f"Dist: {distance_text}", (x1 + 5, y1 - 35), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
-                                    break
-
-        out.write(frame)
+                # ── Ambulance: hold (time-based) and keep the heartbeat alive ──
+                if is_ambulance:
+                    pause_s = max(2.0, min(20.0, distance / SPEED_ASSUMED))
+                    print(f"Ambulance at {distance:.1f} m -> hold {pause_s:.1f}s")
+                    t_end = time.time() + pause_s
+                    while time.time() < t_end:
+                        publish(cleaned, distance, True)
+                        time.sleep(HEARTBEAT_SEC)
+                    print("Resumed.")
+                break   # one plate per car
 
 except KeyboardInterrupt:
     print("\nStopped by user.")
 
 finally:
     cap.release()
-    out.release()
-    cv2.destroyAllWindows()
     mqtt_client.loop_stop()
     mqtt_client.disconnect()
-
-    print("\n" + "="*60)
-    print("FINAL RESULTS")
-    print("="*60)
+    print("\nSummary:")
     for plate, info in detected_plates.items():
-        print(f"    {'🚑' if plate == AMBULANCE_ID else '🚗'} {plate} - Frame {info['frame']} - Distance: {info['distance']:.2f}m")
-
-    csv_path = 'plate_detections_with_distance.csv'
-    with open(csv_path, 'w', newline='', encoding='utf-8') as f:
-        writer = csv.writer(f)
-        writer.writerow(['Plate', 'Frame', 'Confidence (%)', 'Distance (m)'])
-        for plate, info in detected_plates.items():
-            writer.writerow([plate, info['frame'], f"{info['confidence']:.0f}", f"{info['distance']:.2f}"])
-
-    print(f"\nResults saved to: {os.path.abspath(csv_path)}")
-    print("Done!")
+        print(f"  {plate}  frame {info['frame']}  {info['distance']:.2f} m")
