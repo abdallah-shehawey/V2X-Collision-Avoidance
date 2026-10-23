@@ -1,0 +1,97 @@
+\doxysection{SYSTIC\+\_\+\+Reg\+Def\+\_\+t Struct Reference}
+\hypertarget{structSYSTIC__RegDef__t}{}\label{structSYSTIC__RegDef__t}\index{SYSTIC\_RegDef\_t@{SYSTIC\_RegDef\_t}}
+
+
+Sys\+Tick register layout (Cortex-\/\+M4 core timer).  
+
+
+
+
+{\ttfamily \+\#include $<$Drivers/\+\+LIB/\+\+STM32\+F446xx.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+volatile uint32\+\_\+t \doxymbox{\hyperlink{structSYSTIC__RegDef__t_a13737a8c99772e2e9330219b5bfc53fb}{CTRL}}
+\begin{DoxyCompactList}\small\item\em Control and status:\+ enable, tick interrupt, clock source, COUNTFLAG. \end{DoxyCompactList}\item 
+volatile uint32\+\_\+t \doxymbox{\hyperlink{structSYSTIC__RegDef__t_a157c72c817316587b65517604bd2fb0f}{LOAD}}
+\begin{DoxyCompactList}\small\item\em Reload value loaded into VAL each time the counter reaches zero. \end{DoxyCompactList}\item 
+volatile uint32\+\_\+t \doxymbox{\hyperlink{structSYSTIC__RegDef__t_addaeb69c7a1c2f721053f664fd432299}{VAL}}
+\begin{DoxyCompactList}\small\item\em Current counter value; writing any value clears it and COUNTFLAG. \end{DoxyCompactList}\item 
+volatile uint32\+\_\+t \doxymbox{\hyperlink{structSYSTIC__RegDef__t_a8e6d876ced3be02f85a28a8f5d48ad17}{CALIB}}
+\begin{DoxyCompactList}\small\item\em Calibration value (read-\/only, factory programmed). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Sys\+Tick register layout (Cortex-\/\+M4 core timer). 
+
+Used by the MCAL SYSTICK driver for the microsecond/\+millisecond delays that the ultrasonic trigger pulses depend on. 
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00130}{130}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{structSYSTIC__RegDef__t_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structSYSTIC__RegDef__t_a13737a8c99772e2e9330219b5bfc53fb}\index{SYSTIC\_RegDef\_t@{SYSTIC\_RegDef\_t}!CTRL@{CTRL}}
+\index{CTRL@{CTRL}!SYSTIC\_RegDef\_t@{SYSTIC\_RegDef\_t}}
+\doxysubsubsection{\texorpdfstring{CTRL}{CTRL}}
+{\footnotesize\ttfamily \label{structSYSTIC__RegDef__t_a13737a8c99772e2e9330219b5bfc53fb} 
+volatile uint32\+\_\+t SYSTIC\+\_\+\+Reg\+Def\+\_\+t::\+\+CTRL}
+
+
+
+Control and status:\+ enable, tick interrupt, clock source, COUNTFLAG. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00131}{131}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structSYSTIC__RegDef__t_a157c72c817316587b65517604bd2fb0f}\index{SYSTIC\_RegDef\_t@{SYSTIC\_RegDef\_t}!LOAD@{LOAD}}
+\index{LOAD@{LOAD}!SYSTIC\_RegDef\_t@{SYSTIC\_RegDef\_t}}
+\doxysubsubsection{\texorpdfstring{LOAD}{LOAD}}
+{\footnotesize\ttfamily \label{structSYSTIC__RegDef__t_a157c72c817316587b65517604bd2fb0f} 
+volatile uint32\+\_\+t SYSTIC\+\_\+\+Reg\+Def\+\_\+t::\+\+LOAD}
+
+
+
+Reload value loaded into VAL each time the counter reaches zero. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00132}{132}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structSYSTIC__RegDef__t_addaeb69c7a1c2f721053f664fd432299}\index{SYSTIC\_RegDef\_t@{SYSTIC\_RegDef\_t}!VAL@{VAL}}
+\index{VAL@{VAL}!SYSTIC\_RegDef\_t@{SYSTIC\_RegDef\_t}}
+\doxysubsubsection{\texorpdfstring{VAL}{VAL}}
+{\footnotesize\ttfamily \label{structSYSTIC__RegDef__t_addaeb69c7a1c2f721053f664fd432299} 
+volatile uint32\+\_\+t SYSTIC\+\_\+\+Reg\+Def\+\_\+t::\+\+VAL}
+
+
+
+Current counter value; writing any value clears it and COUNTFLAG. 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00133}{133}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+\Hypertarget{structSYSTIC__RegDef__t_a8e6d876ced3be02f85a28a8f5d48ad17}\index{SYSTIC\_RegDef\_t@{SYSTIC\_RegDef\_t}!CALIB@{CALIB}}
+\index{CALIB@{CALIB}!SYSTIC\_RegDef\_t@{SYSTIC\_RegDef\_t}}
+\doxysubsubsection{\texorpdfstring{CALIB}{CALIB}}
+{\footnotesize\ttfamily \label{structSYSTIC__RegDef__t_a8e6d876ced3be02f85a28a8f5d48ad17} 
+volatile uint32\+\_\+t SYSTIC\+\_\+\+Reg\+Def\+\_\+t::\+\+CALIB}
+
+
+
+Calibration value (read-\/only, factory programmed). 
+
+
+
+Definition at line \doxymbox{\hyperlink{STM32F446xx_8h_source_l00134}{134}} of file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+LIB/\+\doxymbox{\hyperlink{STM32F446xx_8h}{STM32\+F446xx.\+h}}\end{DoxyCompactItemize}

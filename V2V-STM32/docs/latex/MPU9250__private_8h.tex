@@ -1,0 +1,222 @@
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+HAL/\+\+MPU9250/\+\+MPU9250\+\_\+private.h File Reference}
+\hypertarget{MPU9250__private_8h}{}\label{MPU9250__private_8h}\index{V2V-\/STM32/Inc/Drivers/HAL/MPU9250/MPU9250\_private.h@{V2V-\/STM32/Inc/Drivers/HAL/MPU9250/MPU9250\_private.h}}
+
+
+MPU9250 register map, bit values and scale factors — driver-\/internal.  
+
+
+This graph shows which files directly or indirectly include this file:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{MPU9250__private_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{Indent}\textbf{ Self-\/test registers}\par
+{\em Factory self-\/test values, used to check the part against its trim values.
+
+The driver does not run a self-\/test, so these are declared but unused. }\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gafbca39272b9691b037268612593d36ea}{SELF\+\_\+\+TEST\+\_\+\+X\+\_\+\+GYRO}}
+\begin{DoxyCompactList}\small\item\em Gyroscope X-\/axis self-\/test output. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga4589b391b79cd75e09d08c4465ff95d6}{SELF\+\_\+\+TEST\+\_\+\+Y\+\_\+\+GYRO}}
+\begin{DoxyCompactList}\small\item\em Gyroscope Y-\/axis self-\/test output. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga7d36169280ef7d539e6535693fa54663}{SELF\+\_\+\+TEST\+\_\+\+Z\+\_\+\+GYRO}}
+\begin{DoxyCompactList}\small\item\em Gyroscope Z-\/axis self-\/test output. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga514afe64ef4e94fd792f0e01e66cf682}{SELF\+\_\+\+TEST\+\_\+\+X\+\_\+\+ACCEL}}
+\begin{DoxyCompactList}\small\item\em Accelerometer X-\/axis self-\/test output. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga9dba24f56a63a23b71ece8ebafbe46e1}{SELF\+\_\+\+TEST\+\_\+\+Y\+\_\+\+ACCEL}}
+\begin{DoxyCompactList}\small\item\em Accelerometer Y-\/axis self-\/test output. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga89faa3ca314423fc7876d1df8c62f848}{SELF\+\_\+\+TEST\+\_\+\+Z\+\_\+\+ACCEL}}
+\begin{DoxyCompactList}\small\item\em Accelerometer Z-\/axis self-\/test output. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Gyroscope offset registers}\par
+{\em A signed 16-\/bit bias subtracted from each gyro axis in hardware. }\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga2dff8273af3bfe1bb8d2565df1f1444d}{XG\+\_\+\+OFFSET\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Gyroscope X-\/axis offset, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga0e3a6dea62584e862fe3c9132268618d}{XG\+\_\+\+OFFSET\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Gyroscope X-\/axis offset, low byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gaa7f7aa074a4b54f24a17e375d1a27104}{YG\+\_\+\+OFFSET\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Gyroscope Y-\/axis offset, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gaf3d02481e1360d65052560bb6434437d}{YG\+\_\+\+OFFSET\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Gyroscope Y-\/axis offset, low byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga542c8677b03c7426f0446b211994d0b8}{ZG\+\_\+\+OFFSET\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Gyroscope Z-\/axis offset, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga8fc858d1bdf91b2ef0ec26050766d7dd}{ZG\+\_\+\+OFFSET\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Gyroscope Z-\/axis offset, low byte. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Configuration registers}\par
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga7119c37e38b6736096ea1565459043ba}{SMPLRT\+\_\+\+DIV}}
+\begin{DoxyCompactList}\small\item\em Sample-\/rate divider:\+ output rate = internal rate /\+ (1 + this). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga76ea3cf49247a07c54b3db005a3c7f57}{CONFIG}}
+\begin{DoxyCompactList}\small\item\em Low-\/pass filter bandwidth and FIFO overflow behaviour. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gac57e8c3192c859321b447c07089f20f0}{GYRO\+\_\+\+CONFIG}}
+\begin{DoxyCompactList}\small\item\em Gyroscope full-\/scale range (±250/\+500/\+1000/\+2000 °/\+s) and self-\/test enables. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gab7336e26f8947086e41a375f1e1e74d4}{ACCEL\+\_\+\+CONFIG}}
+\begin{DoxyCompactList}\small\item\em Accelerometer full-\/scale range (±2/\+4/\+8/\+16 g) and self-\/test enables. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gaecbf5cd71bd0e677bf19d2e855323794}{ACCEL\+\_\+\+CONFIG2}}
+\begin{DoxyCompactList}\small\item\em Accelerometer low-\/pass filter bandwidth. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga4a2dc75c2a0588814cb466b0db1bca8b}{LP\+\_\+\+ACCEL\+\_\+\+ODR}}
+\begin{DoxyCompactList}\small\item\em Output data rate while in low-\/power accelerometer mode. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga81d6e49ec67e620570d1662f170b0900}{WOM\+\_\+\+THR}}
+\begin{DoxyCompactList}\small\item\em Wake-\/on-\/motion threshold. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga53954ec7f9dc790f00548da08ccd5ed6}{FIFO\+\_\+\+EN}}
+\begin{DoxyCompactList}\small\item\em Which sensors are written into the FIFO (the driver polls instead, so this stays 0). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Internal I2C master registers}\par
+{\em These drive the MPU6500\textquotesingle{}s own I2C master, which is the {\itshape only} path to the AK8963 magnetometer — see \doxysectlink{MPU9250__private_8h_mpu_layout}{How the two chips fit together}{1}. }\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga24bc05247067ad9f0479f5a6d49c6412}{I2\+C\+\_\+\+MST\+\_\+\+CTRL}}
+\begin{DoxyCompactList}\small\item\em I2C master clock speed and multi-\/master settings. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga614db921c27f375c632960a7f34999a4}{I2\+C\+\_\+\+SLV0\+\_\+\+ADDR}}
+\begin{DoxyCompactList}\small\item\em Slave 0:\+ the I2C address to talk to, plus the read/\+write bit. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga0553d56ecccd0fc8008505e712a9b075}{I2\+C\+\_\+\+SLV0\+\_\+\+REG}}
+\begin{DoxyCompactList}\small\item\em Slave 0:\+ which register inside that slave to access. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gad6fb6553534b0b9e9715db3e5a04ebca}{I2\+C\+\_\+\+SLV0\+\_\+\+CTRL}}
+\begin{DoxyCompactList}\small\item\em Slave 0:\+ enable, and how many bytes to transfer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gadeef906221a363d4489cf0a51d7f03b6}{I2\+C\+\_\+\+SLV1\+\_\+\+ADDR}}
+\begin{DoxyCompactList}\small\item\em Slave 1:\+ I2C address plus the read/\+write bit. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga33d12ea757eeb8ef10aa501f6c68ba3d}{I2\+C\+\_\+\+SLV1\+\_\+\+REG}}
+\begin{DoxyCompactList}\small\item\em Slave 1:\+ register inside that slave. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga6857f4e255988b5aae9d570dec2a06c8}{I2\+C\+\_\+\+SLV1\+\_\+\+CTRL}}
+\begin{DoxyCompactList}\small\item\em Slave 1:\+ enable and transfer length. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga2f0f1237e987597a4405b9deeefeb6f5}{I2\+C\+\_\+\+SLV0\+\_\+\+DO}}
+\begin{DoxyCompactList}\small\item\em Slave 0:\+ the byte to write, when slave 0 is set up as a write. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gaa6580b929fcb8b3e29fe45b73180d2bd}{EXT\+\_\+\+SENS\+\_\+\+DATA\+\_\+00}}
+\begin{DoxyCompactList}\small\item\em First of the 24 bytes where the I2C master parks whatever it fetched — this is where the compass reading lands. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga8498e646190e00d95ddd95af4d6a093a}{I2\+C\+\_\+\+MST\+\_\+\+STATUS}}
+\begin{DoxyCompactList}\small\item\em I2C master status:\+ transfer done, and the per-\/slave NACK flags. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Interrupt registers}\par
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gab00fdfba66092d2d869031629c092dad}{INT\+\_\+\+PIN\+\_\+\+CFG}}
+\begin{DoxyCompactList}\small\item\em INT pin behaviour:\+ polarity, latching, and the I2C bypass enable. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gabf7a56466fd6203663685a04448c9185}{INT\+\_\+\+ENABLE}}
+\begin{DoxyCompactList}\small\item\em Which conditions raise the INT pin (data-\/ready, FIFO overflow, wake-\/on-\/motion). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga62cba161837810295654c3cc2de959a6}{INT\+\_\+\+STATUS}}
+\begin{DoxyCompactList}\small\item\em Which condition actually fired; reading it clears the flags. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Sensor data registers}\par
+{\em Big-\/endian:\+ a reading is {\ttfamily (H \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 8) \texorpdfstring{$\vert$}{|} L}, and the pair must be read as one burst so the two halves come from the same sample. }\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga94b93aa4aabbe7caec7884ddb46b531b}{ACCEL\+\_\+\+XOUT\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Accelerometer X, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga47679c25e1689ee0401959e33e05a761}{ACCEL\+\_\+\+XOUT\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Accelerometer X, low byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga26d680f52fbdaa0623d16292e9c40d4c}{ACCEL\+\_\+\+YOUT\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Accelerometer Y, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gad7a92304bd1dd3755068380b51319a93}{ACCEL\+\_\+\+YOUT\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Accelerometer Y, low byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga44d84761605d984a0de060640f4c57da}{ACCEL\+\_\+\+ZOUT\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Accelerometer Z, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga36e02bfb24518b6c425d9c3411c8d720}{ACCEL\+\_\+\+ZOUT\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Accelerometer Z, low byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gae8c4c28fe604535a3a57d0536c6e8175}{TEMP\+\_\+\+OUT\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Die temperature, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga7fe4a13198c0b3d8cf09802e7247fd2c}{TEMP\+\_\+\+OUT\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Die temperature, low byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga0016198ccf5ca2b7f41d7a23e6554373}{GYRO\+\_\+\+XOUT\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Gyroscope X, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gaf07374691962c7531539cfcd36aa1c4b}{GYRO\+\_\+\+XOUT\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Gyroscope X, low byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga0970193c5ba295a66f057c017663adf1}{GYRO\+\_\+\+YOUT\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Gyroscope Y, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gaf2403ccc9042c6a869278a7c211a396d}{GYRO\+\_\+\+YOUT\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Gyroscope Y, low byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gac0fcd61ece1f100c02494fc94f0b0dad}{GYRO\+\_\+\+ZOUT\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Gyroscope Z, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga5466aa6a32d0b17e834ef9792e7f415d}{GYRO\+\_\+\+ZOUT\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Gyroscope Z, low byte. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ AK8963 magnetometer registers}\par
+{\em Reached only through the internal I2C master — see \doxysectlink{MPU9250__private_8h_mpu_layout}{How the two chips fit together}{1}.
+
+Unlike the MPU6500 registers above, the AK8963\textquotesingle{}s data registers are {\bfseries{little-\/endian}}:\+ the {\ttfamily \+\_\+L} byte comes first. }\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga1e6b15b0945c167f55f5e2cfd2c60d5a}{AK8963\+\_\+\+ADDR}}
+\begin{DoxyCompactList}\small\item\em The AK8963\textquotesingle{}s address on the MPU6500\textquotesingle{}s internal I2C bus. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga3826ec24a009126367fedb2422d092b1}{AK8963\+\_\+\+WHO\+\_\+\+AM\+\_\+I}}
+\begin{DoxyCompactList}\small\item\em Device ID; reads back 0x48 on a healthy part. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga0037cda572379e26ecad5030c64aaf10}{AK8963\+\_\+\+ST1}}
+\begin{DoxyCompactList}\small\item\em Status 1:\+ bit 0 is DRDY, "{}a fresh sample is ready"{}. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga35260c212eacc1f2808af33bdc55c8fa}{AK8963\+\_\+\+XOUT\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Magnetometer X, low byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gacd2458bce11a9ed1710ae816050c2d13}{AK8963\+\_\+\+XOUT\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Magnetometer X, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gaf7eff9c50ed2700781b4161699829e69}{AK8963\+\_\+\+YOUT\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Magnetometer Y, low byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga2c78e17f8f5d96c2d6f82b81358bde6c}{AK8963\+\_\+\+YOUT\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Magnetometer Y, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gad3625cb250d1202b43b44a4d2b0a6c2e}{AK8963\+\_\+\+ZOUT\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Magnetometer Z, low byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga8e0a7c22a104aa2fb77a01518d0aaa74}{AK8963\+\_\+\+ZOUT\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Magnetometer Z, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gad740f9c857e0ffc7c474f9b9cb2e7d6b}{AK8963\+\_\+\+ST2}}
+\begin{DoxyCompactList}\small\item\em Status 2:\+ overflow flag. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga9049064347064927059f71ea3843f986}{AK8963\+\_\+\+CNTL}}
+\begin{DoxyCompactList}\small\item\em Control 1:\+ operating mode (power-\/down, single measurement, continuous) and output bit width. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga66032b6572950d4fb7044420a6beeee2}{AK8963\+\_\+\+ASAX}}
+\begin{DoxyCompactList}\small\item\em Factory sensitivity-\/adjustment value, X axis. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga02f4a8ec6ef7533b43b75c839ca2547d}{AK8963\+\_\+\+ASAY}}
+\begin{DoxyCompactList}\small\item\em Factory sensitivity-\/adjustment value, Y axis. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gad7807198e6ed02af5748886428078868}{AK8963\+\_\+\+ASAZ}}
+\begin{DoxyCompactList}\small\item\em Factory sensitivity-\/adjustment value, Z axis. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Power and identity registers}\par
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gabd9eebb35aad7616fe0414952e2d477d}{USER\+\_\+\+CTRL}}
+\begin{DoxyCompactList}\small\item\em Enables the FIFO and the internal I2C master, and disables the I2C slave interface. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga96169eb207e721c1546cea9ffd8a35e4}{PWR\+\_\+\+MGMT\+\_\+1}}
+\begin{DoxyCompactList}\small\item\em Power management 1:\+ device reset, sleep, and the clock source. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga23cfbcfd19dc88eb631309970f138e65}{PWR\+\_\+\+MGMT\+\_\+2}}
+\begin{DoxyCompactList}\small\item\em Power management 2:\+ per-\/axis standby for the accelerometer and gyroscope. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga9fcb9e460d175bfc7ab4d80bf788b43a}{WHO\+\_\+\+AM\+\_\+I}}
+\begin{DoxyCompactList}\small\item\em Device ID; reads back 0x71 on a genuine MPU9250. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Register bit values}\par
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga9349ad443a8bbd5be084ea1d6925cdc7}{PWR\+\_\+\+RESET}}
+\begin{DoxyCompactList}\small\item\em \doxylink{group__hal__mpu9250_ga96169eb207e721c1546cea9ffd8a35e4}{PWR\+\_\+\+MGMT\+\_\+1} — trigger a full device reset. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga37c31deb5f9bfb1a36fb54d5769e93f1}{CLOCK\+\_\+\+SEL\+\_\+\+PLL}}
+\begin{DoxyCompactList}\small\item\em \doxylink{group__hal__mpu9250_ga96169eb207e721c1546cea9ffd8a35e4}{PWR\+\_\+\+MGMT\+\_\+1} — use the gyro-\/referenced PLL, which is far more stable than the internal oscillator. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga6638690f11487686a5ad203aff444ae2}{I2\+C\+\_\+\+IF\+\_\+\+DIS}}
+\begin{DoxyCompactList}\small\item\em \doxylink{group__hal__mpu9250_gabd9eebb35aad7616fe0414952e2d477d}{USER\+\_\+\+CTRL} — disable the I2C slave interface, so the part is SPI-\/only. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gacb5b7cc1d39ba9199cef1d5c676db667}{I2\+C\+\_\+\+MST\+\_\+\+EN}}
+\begin{DoxyCompactList}\small\item\em \doxylink{group__hal__mpu9250_gabd9eebb35aad7616fe0414952e2d477d}{USER\+\_\+\+CTRL} — enable the internal I2C master, without which the magnetometer is unreachable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Scale factors}\par
+{\em Raw counts to physical units, for the ranges this driver configures. }\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga3022d5e5387dfbf2ed4b80a587b08ca2}{ACCEL\+\_\+\+SENS\+\_\+2G}}
+\begin{DoxyCompactList}\small\item\em LSB per g at the ±2 g range:\+ acceleration \+[g]\+ = raw /\+ this. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga763555a07ac8afb9614649becdee67d5}{GYRO\+\_\+\+SENS\+\_\+250}}
+\begin{DoxyCompactList}\small\item\em LSB per °/\+s at the ±250 °/\+s range:\+ rate \+[°/\+s]\+ = raw /\+ this. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+
+
+\doxysubsection{Detailed Description}
+MPU9250 register map, bit values and scale factors — driver-\/internal. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Saleh 
+\end{DoxyAuthor}
+Register addresses from the Inven\+Sense MPU-\/9250 register map (RM-\/\+MPU-\/9250\+A-\/00) and the AK8963 datasheet. Nothing here is part of the driver\textquotesingle{}s public API; include \doxylink{MPU9250__interface_8h}{MPU9250\+\_\+interface.\+h} instead.\hypertarget{MPU9250__private_8h_mpu_layout}{}\doxysubsection{\texorpdfstring{How the two chips fit together}{How the two chips fit together}}\label{MPU9250__private_8h_mpu_layout}
+An MPU9250 is really {\itshape two} dies in one package:\+ the MPU6500 (accelerometer + gyroscope), which the STM32 talks to directly over SPI, and a separate AK8963 magnetometer, which hangs off the MPU6500\textquotesingle{}s own {\bfseries{internal I2C master}} and is not reachable over SPI at all.
+
+So reading the compass is a two-\/step dance:\+ the driver programs the I2C master registers (\doxylink{group__hal__mpu9250_ga614db921c27f375c632960a7f34999a4}{I2\+C\+\_\+\+SLV0\+\_\+\+ADDR}, \doxylink{group__hal__mpu9250_ga0553d56ecccd0fc8008505e712a9b075}{I2\+C\+\_\+\+SLV0\+\_\+\+REG}, \doxylink{group__hal__mpu9250_gad6fb6553534b0b9e9715db3e5a04ebca}{I2\+C\+\_\+\+SLV0\+\_\+\+CTRL}) to tell the MPU6500 "{}go fetch these bytes from the AK8963 for me"{}, and the result then appears in the \doxylink{group__hal__mpu9250_gaa6580b929fcb8b3e29fe45b73180d2bd}{EXT\+\_\+\+SENS\+\_\+\+DATA\+\_\+00} block, which {\itshape is} readable over SPI.
+
+\begin{DoxyNote}{Note}
+Multi-\/byte sensor values are big-\/endian:\+ the {\ttfamily \+\_\+H} register holds the high byte and {\ttfamily \+\_\+L} the low byte, so a reading is {\ttfamily (H \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 8) \texorpdfstring{$\vert$}{|} L}. The AK8963 is the exception — it is little-\/endian, {\ttfamily \+\_\+L} first. 
+\end{DoxyNote}
+
+
+Definition in file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+

@@ -1,0 +1,30 @@
+\doxysection{V2\+V-\/\+STM32/\+docs/\+pages/\+groups.dox File Reference}
+\hypertarget{groups_8dox}{}\label{groups_8dox}\index{V2V-\/STM32/docs/pages/groups.dox@{V2V-\/STM32/docs/pages/groups.dox}}
+
+
+Doxygen module tree for the V2\+V-\/\+STM32 firmware.  
+
+
+
+
+\doxysubsection{Detailed Description}
+Doxygen module tree for the V2\+V-\/\+STM32 firmware. 
+
+This file declares the module (group) hierarchy only. It contains no code — every source file attaches its symbols to one of the groups below with {\ttfamily @addtogroup \texorpdfstring{$<$}{<}id\texorpdfstring{$>$}{>}} /\+ {\ttfamily @\{} ... {\ttfamily @\}}, which is what gives the generated manual its "{}\+Modules"{} tree instead of a flat list of files.
+
+The hierarchy mirrors the layered architecture of the firmware:\+ a symbol may only depend on symbols in its own layer or a layer below it.
+
+\begin{DoxyVerb}*   Application  (SafetyEngine, DSRC, FCW/DNPW, EEBL, BSW, IMA)
+*        |
+*       HAL      (LED, BUZZ, US, MPU9250)
+*        |
+*      MCAL      (RCC, GPIO, NVIC, SCB, SYSCFG, SYSTICK, EXTI, SPI, TIM, USART, IWDG)
+*        |
+*       LIB      (ErrTypes, STD_MACROS, STM32F446xx register map)
+*        |
+*    Hardware    (STM32F446RE, Cortex-M4)
+* \end{DoxyVerb}
+ 
+
+Definition in file \doxymbox{\hyperlink{groups_8dox_source}{groups.\+dox}}.
+

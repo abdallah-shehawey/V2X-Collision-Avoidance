@@ -1,0 +1,64 @@
+\doxysection{DSRC.\+h}
+\hypertarget{DSRC_8h_source}{}\label{DSRC_8h_source}\index{V2V-\/STM32/Inc/Application/DSRC/DSRC.h@{V2V-\/STM32/Inc/Application/DSRC/DSRC.h}}
+\doxymbox{\hyperlink{DSRC_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00049}00049\ \textcolor{preprocessor}{\#ifndef\ DSRC\_H}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00050}00050\ \textcolor{preprocessor}{\#define\ DSRC\_H}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00052}00052\ \textcolor{preprocessor}{\#include\ <math.h>}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00053}00053\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00054}00054\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00066}\doxymbox{\hyperlink{group__app__dsrc_ga2b1d39159e4114f433745f15a201c93c}{00066}}\ \textcolor{preprocessor}{\#define\ MAX\_NEIGHBORS\ 20}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00069}\doxymbox{\hyperlink{group__app__dsrc_ga545233ea05ce2ada1c14377954bb8931}{00069}}\ \textcolor{preprocessor}{\#define\ NEIGHBOR\_TIMEOUT\ 2000}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00076}\doxymbox{\hyperlink{group__app__dsrc_ga9dd026e05b86378bf84c82c84dd193bf}{00076}}\ \textcolor{preprocessor}{\#define\ VEHICLE\_ID\ 2}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00078}\doxymbox{\hyperlink{group__app__dsrc_ga30d2043ca397843e08c43ade3aaee5b2}{00078}}\ \textcolor{preprocessor}{\#define\ START\_BYTE\ 0xAA\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00079}\doxymbox{\hyperlink{group__app__dsrc_ga5126c1e2dc63cec63fc73710e48a9b5d}{00079}}\ \textcolor{preprocessor}{\#define\ END\_BYTE\ \ \ 0x55\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00082}\doxymbox{\hyperlink{group__app__dsrc_gaebdc7d8ca8e25ed8efc90bb88ef7ef5b}{00082}}\ \textcolor{preprocessor}{\#define\ PACKET\_SIZE\ (1\ +\ sizeof(Neighbor)\ +\ 1\ +\ 1)}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00085}\doxymbox{\hyperlink{group__app__dsrc_ga142810068f1b99cd93d3fc9f0e160e02}{00085}}\ \textcolor{preprocessor}{\#define\ QUEUE\_SIZE\ 10}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00099}\doxymbox{\hyperlink{structNeighbor}{00099}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\_\_attribute\_\_((packed))}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00100}00100\ \{}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00101}\doxymbox{\hyperlink{structNeighbor_a2b27a4aea905edae73642bd1bde4c493}{00101}}\ \ \ uint8\_t\ \doxymbox{\hyperlink{structNeighbor_a2b27a4aea905edae73642bd1bde4c493}{vehicle\_id}};\ \ \ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00102}\doxymbox{\hyperlink{structNeighbor_a69c6cf461fb3746631e7019c5fede46d}{00102}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structNeighbor_a69c6cf461fb3746631e7019c5fede46d}{speed}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00103}\doxymbox{\hyperlink{structNeighbor_a57db4512eb3b17f86ddd99e3ddefb044}{00103}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structNeighbor_a57db4512eb3b17f86ddd99e3ddefb044}{heading}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00104}\doxymbox{\hyperlink{structNeighbor_a7c32d6720b5ad190d930779546c5b6d1}{00104}}\ \ \ uint32\_t\ \doxymbox{\hyperlink{structNeighbor_a7c32d6720b5ad190d930779546c5b6d1}{last\_update}};\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00114}\doxymbox{\hyperlink{structNeighbor_a96546ab95ad4529f151b6bd6d0dbf25b}{00114}}\ \ \ uint8\_t\ \doxymbox{\hyperlink{structNeighbor_a96546ab95ad4529f151b6bd6d0dbf25b}{fcw\_headon\_flag}};}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00123}\doxymbox{\hyperlink{structNeighbor_aa2535a67b414f4eff3cedf85c024b4b0}{00123}}\ \ \ uint8\_t\ \doxymbox{\hyperlink{structNeighbor_aa2535a67b414f4eff3cedf85c024b4b0}{bsw\_flag}};}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00125}\doxymbox{\hyperlink{structNeighbor_aee8e719ef21191d25258b8a1e8bc0bee}{00125}}\ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{structNeighbor_aee8e719ef21191d25258b8a1e8bc0bee}{distance\_to\_intersection}};\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00126}\doxymbox{\hyperlink{structNeighbor_aee915eb99e07799c1daad9c0ea8460ea}{00126}}\ \ \ uint8\_t\ \doxymbox{\hyperlink{structNeighbor_aee915eb99e07799c1daad9c0ea8460ea}{ima\_flag}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00127}00127\ \}\ \doxymbox{\hyperlink{structNeighbor}{Neighbor}};}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00129}00129\ \textcolor{comment}{/*============================================================================*/}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00130}00130\ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PUBLIC\ API\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00131}00131\ \textcolor{comment}{/*============================================================================*/}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00134}00134\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__app__dsrc_gadad268979d4c4038075346292651c8af}{DSRC\_Init}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00145}00145\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__app__dsrc_gaded740c50de5ea4cf786939e10ace2d9}{DSRC\_SendNeighbor}}(\doxymbox{\hyperlink{structNeighbor}{Neighbor}}\ *n);}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00153}00153\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__app__dsrc_gac40e63c7c7041cacb1f60a1d4d710abb}{DSRC\_Update}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00165}00165\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__app__dsrc_gaa38784384016c34bf5e63add1930104b}{DSRC\_RemoveStale}}(uint32\_t\ current\_time);}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00166}00166\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00171}00171\ uint8\_t\ \doxymbox{\hyperlink{group__app__dsrc_ga15d8d8dc4459f83b2aa2519119d037d0}{DSRC\_GetCount}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00172}00172\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00184}00184\ \doxymbox{\hyperlink{structNeighbor}{Neighbor}}\ *\doxymbox{\hyperlink{group__app__dsrc_ga76299bf71b1e2dc13baac26c6c4228c4}{DSRC\_GetTable}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00196}00196\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__app__dsrc_ga8f2c7037352677729c777df880fefd1b}{DSRC\_RxCallback}}(uint8\_t\ \textcolor{keywordtype}{byte});}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00197}00197\ \ \textcolor{comment}{/*\ end\ of\ app\_dsrc\ */}}
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{DSRC_8h_source_l00200}00200\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ DSRC\_H}}
+
+\end{DoxyCode}

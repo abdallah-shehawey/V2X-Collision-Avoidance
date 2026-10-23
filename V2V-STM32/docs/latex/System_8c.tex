@@ -1,0 +1,291 @@
+\doxysection{V2\+V-\/\+STM32/\+\+Src/\+\+System.c File Reference}
+\hypertarget{System_8c}{}\label{System_8c}\index{V2V-\/STM32/Src/System.c@{V2V-\/STM32/Src/System.c}}
+
+
+System initialization and RTOS setup.  
+
+
+{\ttfamily \+\#include "{}System/\+\+System.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+RCC/\+\+RCC\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+GPIO/\+\+GPIO\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+HAL/\+\+BUZZ/\+\+BUZ\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+HAL/\+\+US/\+\+US\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+HAL/\+\+LED/\+\+LED\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+HAL/\+\+MPU9250/\+\+MPU9250\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+USART/\+\+USART\+\_\+intreface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+NVIC/\+\+NVIC\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Drivers/\+\+MCAL/\+\+TIM/\+\+TIM\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Application/\+\+DSRC/\+\+DSRC.\+h"{}}\newline
+{\ttfamily \+\#include "{}Free\+RTOS.\+h"{}}\newline
+{\ttfamily \+\#include "{}SEGGER\+\_\+\+SYSVIEW.\+h"{}}\newline
+{\ttfamily \+\#include "{}task.\+h"{}}\newline
+Include dependency graph for System.\+c:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{System_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{System_8c_a88b12403f1d9bc8cff413fbbde56e15d}{v\+ESP\+\_\+\+UART\+\_\+\+RX\+\_\+\+Callback}} (void)
+\begin{DoxyCompactList}\small\item\em USART1 receive ISR callback:\+ push one byte onto \doxylink{main_8c_a2c251aeac2c84008a206658c306be262}{G\+\_\+x\+ESP\+\_\+\+RX\+\_\+\+Queue}. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{System_8c_a97fd430f36f8b065226e2bff9bad1de5}{v\+Application\+Idle\+Hook}} (void)
+\begin{DoxyCompactList}\small\item\em Free\+RTOS idle hook:\+ called whenever no task is ready to run. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{System_8c_a54b14b665d04a631991869b21065bf90}{v\+Application\+Stack\+Overflow\+Hook}} (Task\+Handle\+\_\+t x\+Task, char \texorpdfstring{$\ast$}{*}pc\+Task\+Name)
+\begin{DoxyCompactList}\small\item\em Free\+RTOS stack-\/overflow hook:\+ a task ran off the end of its stack. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{System_8c_ab7e5c95cf72a3f819bc4462a7fb62ca3}{v\+Application\+Malloc\+Failed\+Hook}} (void)
+\begin{DoxyCompactList}\small\item\em Free\+RTOS malloc-\/failed hook:\+ the heap could not satisfy an allocation. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group__system_gae436954cd2bde6634ab271317d2494a7}{System\+\_\+setup}} (void)
+\begin{DoxyCompactList}\small\item\em Bring up the board:\+ clock tree, then every MCAL and HAL peripheral. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group__system_gac3f6c7e9a568f4528304150a6f59736b}{SEGGER\+\_\+setup}} (void)
+\begin{DoxyCompactList}\small\item\em Start SEGGER System\+View tracing (enables the DWT cycle counter first). \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group__system_ga9f28a641641de8e783815ab1fa92549f}{RTOS\+\_\+setup}} (void)
+\begin{DoxyCompactList}\small\item\em Create the mutexes and the six Free\+RTOS tasks, then start the scheduler. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{System_8c_aa3cd3e43291e81e795d642b79b6088e6}{System\+Core\+Clock}}
+\begin{DoxyCompactList}\small\item\em The system clock frequency \+[Hz]\+. \end{DoxyCompactList}\item 
+volatile uint16\+\_\+t \doxymbox{\hyperlink{group__system_ga9e78367aa5b758af972838362c2b0eab}{G\+\_\+u16\+System\+Flags}}
+\begin{DoxyCompactList}\small\item\em The packed ADAS status word — see \doxylink{group__system_ga7f3e28353c0f0f1ce0787d44563ca389}{SYS\+\_\+\+GET} for how to read it. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structHostVehicleState__t}{Host\+Vehicle\+State\+\_\+t}} \doxymbox{\hyperlink{group__system_gac3116f56a230ebdd81cadd527921464c}{G\+\_\+st\+Host\+Vehicle\+State}}
+\begin{DoxyCompactList}\small\item\em The shared sensor picture of this vehicle. \end{DoxyCompactList}\item 
+float \doxymbox{\hyperlink{group__system_ga10d54e2c66effa6800db6f78aaec485c}{Host\+\_\+\+Dist\+To\+Intersection}}
+\begin{DoxyCompactList}\small\item\em Distance to the nearest intersection \+[cm]\+; 0 means "{}not near one"{}. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{System_8c_a4f097a0ea23201e71704715ba21668a1}{V2\+X\+\_\+\+Buzzer}}
+\begin{DoxyCompactList}\small\item\em The piezo buzzer (PC4). \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{group__system_gaf1fb4a43ba68d1fdc94fd35a7d901cd4}{Front\+R\+\_\+\+LED}}
+\begin{DoxyCompactList}\small\item\em Front-\/right LED (PC0) — lit on an FCW-\/critical. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{group__system_ga2ab79e3f6235026ef8d29a9446511f48}{Front\+L\+\_\+\+LED}}
+\begin{DoxyCompactList}\small\item\em Front-\/left LED (PC1) — lit on an FCW-\/critical. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{group__system_gae41df9dd37d7c4d27b829fd46cd1e5e3}{Back\+R\+\_\+\+LED}}
+\begin{DoxyCompactList}\small\item\em Rear-\/right LED (PC2) — lit on an EEBL-\/critical. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{group__system_gabfc8237214cfd1267c607aaff66a96da}{Back\+L\+\_\+\+LED}}
+\begin{DoxyCompactList}\small\item\em Rear-\/left LED (PC3) — lit on an EEBL-\/critical. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{group__system_gaa7037844a95faca4f50aae714fe5048a}{Interior\+\_\+\+LED}}
+\begin{DoxyCompactList}\small\item\em Interior/\+dashboard LED (PC7) — lit on any alert. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{System_8c_aed057ac0b23c05f6b02ef3bfed8bfa27}{Front\+US}} \+[3]\+
+\begin{DoxyCompactList}\small\item\em Front ultrasonics, in the order left, centre, right. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{System_8c_a2b0e497a0b4ecc48b5dd5fef9623d4f3}{Back\+US}} \+[3]\+
+\begin{DoxyCompactList}\small\item\em Rear ultrasonics, in the order left, centre, right. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structUSART__Handle__t}{USART\+\_\+\+Handle\+\_\+t}} \doxymbox{\hyperlink{System_8c_a6380af5ae8a47d62dd6de27b01504cd2}{USART\+\_\+1}}
+\begin{DoxyCompactList}\small\item\em USART1 — the link to the ESP32 radio bridge. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{System_8c_a305c18e4f4654cb56286827ae4d3883b}{RPi\+\_\+\+UART}}
+\begin{DoxyCompactList}\small\item\em USART2 — the Raspberry Pi telemetry link. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+System initialization and RTOS setup. 
+
+\begin{DoxyAuthor}{Author}
+:\+ Abdallah Saleh  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{System_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{System_8c_a88b12403f1d9bc8cff413fbbde56e15d}\index{System.c@{System.c}!vESP\_UART\_RX\_Callback@{vESP\_UART\_RX\_Callback}}
+\index{vESP\_UART\_RX\_Callback@{vESP\_UART\_RX\_Callback}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{vESP\_UART\_RX\_Callback()}{vESP\_UART\_RX\_Callback()}}
+{\footnotesize\ttfamily \label{System_8c_a88b12403f1d9bc8cff413fbbde56e15d} 
+void v\+ESP\+\_\+\+UART\+\_\+\+RX\+\_\+\+Callback (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+USART1 receive ISR callback:\+ push one byte onto \doxylink{main_8c_a2c251aeac2c84008a206658c306be262}{G\+\_\+x\+ESP\+\_\+\+RX\+\_\+\+Queue}. 
+
+Called from interrupt context for every byte the ESP32 sends. It does the minimum possible — read the byte, enqueue it — and leaves all DSRC framing and parsing to \doxylink{main_8c_a8e83024643794f31ab8139cbdb1de5dd}{v\+Task\+\_\+\+ESP\+\_\+\+Comm}, which can afford to block on a mutex.
+
+The byte is read straight out of the USART data register rather than through the driver\textquotesingle{}s blocking receive, because polling the busy flag here would deadlock against a transmission already in progress.
+
+\begin{DoxyWarning}{Warning}
+Runs in interrupt context, so it may only use the {\ttfamily ...From\+ISR} Free\+RTOS API. That in turn requires USART1\textquotesingle{}s NVIC priority to be numerically {\bfseries{at or above}} {\ttfamily config\+MAX\+\_\+\+SYSCALL\+\_\+\+INTERRUPT\+\_\+\+PRIORITY} (5) — see the warning on \doxysectlink{System_8h_sys_tasks}{Task set}{1}. 
+\end{DoxyWarning}
+
+
+Definition at line \doxymbox{\hyperlink{main_8c_source_l00580}{580}} of file \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{main_8c_source_l00079}{G\+\_\+x\+ESP\+\_\+\+RX\+\_\+\+Queue}}, \doxymbox{\hyperlink{USART__intreface_8h_source_l00020}{USART\+\_\+\+CHANNEL1}}, and \doxymbox{\hyperlink{USART__program_8c_source_l00392}{USART\+\_\+\+Receive\+Byte\+Direct()}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{System_8c_a88b12403f1d9bc8cff413fbbde56e15d_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{System_8c_a97fd430f36f8b065226e2bff9bad1de5}\index{System.c@{System.c}!vApplicationIdleHook@{vApplicationIdleHook}}
+\index{vApplicationIdleHook@{vApplicationIdleHook}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{vApplicationIdleHook()}{vApplicationIdleHook()}}
+{\footnotesize\ttfamily \label{System_8c_a97fd430f36f8b065226e2bff9bad1de5} 
+void v\+Application\+Idle\+Hook (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Free\+RTOS idle hook:\+ called whenever no task is ready to run. 
+
+Deliberately empty. 
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00088}{88}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+\Hypertarget{System_8c_a54b14b665d04a631991869b21065bf90}\index{System.c@{System.c}!vApplicationStackOverflowHook@{vApplicationStackOverflowHook}}
+\index{vApplicationStackOverflowHook@{vApplicationStackOverflowHook}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{vApplicationStackOverflowHook()}{vApplicationStackOverflowHook()}}
+{\footnotesize\ttfamily \label{System_8c_a54b14b665d04a631991869b21065bf90} 
+void v\+Application\+Stack\+Overflow\+Hook (\begin{DoxyParamCaption}\item[{Task\+Handle\+\_\+t}]{x\+Task}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{pc\+Task\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Free\+RTOS stack-\/overflow hook:\+ a task ran off the end of its stack. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x\+Task} & Handle of the offending task. \\
+\hline
+{\em pc\+Task\+Name} & Its name, which is the useful part when this fires under a debugger.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Halts with interrupts disabled rather than trying to recover. There is no recovering:\+ the task\textquotesingle{}s stack has already overwritten whatever sat below it, so memory is corrupt and continuing would just hide the cause. Stopping here also stops the watchdog being kicked, so the MCU resets — which is the safe outcome in a vehicle. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00105}{105}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+\Hypertarget{System_8c_ab7e5c95cf72a3f819bc4462a7fb62ca3}\index{System.c@{System.c}!vApplicationMallocFailedHook@{vApplicationMallocFailedHook}}
+\index{vApplicationMallocFailedHook@{vApplicationMallocFailedHook}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{vApplicationMallocFailedHook()}{vApplicationMallocFailedHook()}}
+{\footnotesize\ttfamily \label{System_8c_ab7e5c95cf72a3f819bc4462a7fb62ca3} 
+void v\+Application\+Malloc\+Failed\+Hook (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Free\+RTOS malloc-\/failed hook:\+ the heap could not satisfy an allocation. 
+
+\begin{DoxyNote}{Note}
+Halts, for the same reason as \doxylink{System_8c_a54b14b665d04a631991869b21065bf90}{v\+Application\+Stack\+Overflow\+Hook}. All allocation here happens at startup, so a failure means the heap was mis-\/sized — a build-\/time bug, not a runtime condition to ride out. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00122}{122}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+
+
+\label{doc-var-members}
+\Hypertarget{System_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{System_8c_aa3cd3e43291e81e795d642b79b6088e6}\index{System.c@{System.c}!SystemCoreClock@{SystemCoreClock}}
+\index{SystemCoreClock@{SystemCoreClock}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{SystemCoreClock}{SystemCoreClock}}
+{\footnotesize\ttfamily \label{System_8c_aa3cd3e43291e81e795d642b79b6088e6} 
+uint32\+\_\+t System\+Core\+Clock}
+
+
+
+The system clock frequency \+[Hz]\+. 
+
+Free\+RTOS and the delay routines read this; it must match what RCC was actually configured to produce. 
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00029}{29}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+\Hypertarget{System_8c_a4f097a0ea23201e71704715ba21668a1}\index{System.c@{System.c}!V2X\_Buzzer@{V2X\_Buzzer}}
+\index{V2X\_Buzzer@{V2X\_Buzzer}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{V2X\_Buzzer}{V2X\_Buzzer}}
+{\footnotesize\ttfamily \label{System_8c_a4f097a0ea23201e71704715ba21668a1} 
+\doxymbox{\hyperlink{structBUZ__Config__t}{BUZ\+\_\+\+Config\+\_\+t}} V2\+X\+\_\+\+Buzzer}
+
+
+
+The piezo buzzer (PC4). 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00049}{49}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}, and \doxymbox{\hyperlink{main_8c_source_l00334}{v\+Task\+\_\+\+Feedback()}}.
+
+\Hypertarget{System_8c_aed057ac0b23c05f6b02ef3bfed8bfa27}\index{System.c@{System.c}!FrontUS@{FrontUS}}
+\index{FrontUS@{FrontUS}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{FrontUS}{FrontUS}}
+{\footnotesize\ttfamily \label{System_8c_aed057ac0b23c05f6b02ef3bfed8bfa27} 
+\doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} Front\+US\+[3]\+}
+
+
+
+Front ultrasonics, in the order left, centre, right. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00056}{56}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}, and \doxymbox{\hyperlink{main_8c_source_l00247}{v\+Task\+\_\+\+Sensors()}}.
+
+\Hypertarget{System_8c_a2b0e497a0b4ecc48b5dd5fef9623d4f3}\index{System.c@{System.c}!BackUS@{BackUS}}
+\index{BackUS@{BackUS}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{BackUS}{BackUS}}
+{\footnotesize\ttfamily \label{System_8c_a2b0e497a0b4ecc48b5dd5fef9623d4f3} 
+\doxymbox{\hyperlink{structUS__Config__t}{US\+\_\+\+Config\+\_\+t}} Back\+US\+[3]\+}
+
+
+
+Rear ultrasonics, in the order left, centre, right. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00057}{57}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}, and \doxymbox{\hyperlink{main_8c_source_l00247}{v\+Task\+\_\+\+Sensors()}}.
+
+\Hypertarget{System_8c_a6380af5ae8a47d62dd6de27b01504cd2}\index{System.c@{System.c}!USART\_1@{USART\_1}}
+\index{USART\_1@{USART\_1}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{USART\_1}{USART\_1}}
+{\footnotesize\ttfamily \label{System_8c_a6380af5ae8a47d62dd6de27b01504cd2} 
+\doxymbox{\hyperlink{structUSART__Handle__t}{USART\+\_\+\+Handle\+\_\+t}} USART\+\_\+1}
+
+
+
+USART1 — the link to the ESP32 radio bridge. 
+
+Defined in {\ttfamily \doxylink{System_8c}{System.\+c}}. 
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00062}{62}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{DSRC_8c_source_l00204}{DSRC\+\_\+\+Send\+Neighbor()}}, and \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}.
+
+\Hypertarget{System_8c_a305c18e4f4654cb56286827ae4d3883b}\index{System.c@{System.c}!RPi\_UART@{RPi\_UART}}
+\index{RPi\_UART@{RPi\_UART}!System.c@{System.c}}
+\doxysubsubsection{\texorpdfstring{RPi\_UART}{RPi\_UART}}
+{\footnotesize\ttfamily \label{System_8c_a305c18e4f4654cb56286827ae4d3883b} 
+\doxymbox{\hyperlink{structUSART__Config__t}{USART\+\_\+\+Config\+\_\+t}} RPi\+\_\+\+UART}
+
+
+
+USART2 — the Raspberry Pi telemetry link. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00074}{74}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}, and \doxymbox{\hyperlink{main_8c_source_l00466}{v\+Task\+\_\+\+RPi\+\_\+\+Comm()}}.
+

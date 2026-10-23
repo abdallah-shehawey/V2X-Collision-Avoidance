@@ -1,14 +1,10 @@
 /**
- **===========================================================================**
- **<<<<<<<<<<<<<<<<<<<<<<<<<<    IWDG_interface.h    >>>>>>>>>>>>>>>>>>>>>>>>>>**
- **                                                                           **
- **                  Author : Abdallah Saleh                                  **
- **                  Layer  : MCAL                                            **
- **                  CPU    : Cortex-M4                                       **
- **                  MCU    : NUCLEO-F446RE                                   **
- **                  SWC    : IWDG (Independent Watchdog)                     **
- **                                                                           **
- **===========================================================================**
+ ******************************************************************************
+ * @file    IWDG_interface.h
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Public API of the IWDG driver — the independent watchdog.
+ * @ingroup mcal_iwdg
+ ******************************************************************************
  */
 
 #ifndef IWDG_INTERFACE_H_

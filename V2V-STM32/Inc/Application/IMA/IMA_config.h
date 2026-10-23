@@ -1,3 +1,12 @@
+/**
+ ******************************************************************************
+ * @file    IMA_config.h
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Compile-time configuration for the IMA driver — Intersection Movement Assist.
+ * @ingroup app_ima
+ ******************************************************************************
+ */
+
 #ifndef IMA_CONFIG_H
 #define IMA_CONFIG_H
 

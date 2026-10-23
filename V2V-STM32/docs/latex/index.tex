@@ -1,0 +1,178 @@
+\chapter{🔧 V2\+V-\/\+STM32 — Real-\/\+Time Safety Core }
+\hypertarget{index}{}\label{index}\index{🔧 V2V-\/STM32 — Real-\/Time Safety Core@{🔧 V2V-\/STM32 — Real-\/Time Safety Core}}
+\label{index_md_V2V-STM32_2README}%
+\Hypertarget{index_md_V2V-STM32_2README}%
+\hypertarget{index_autotoc_md1}{}\doxysection{\texorpdfstring{🚗 V2V Safety-\/\+Critical Core}{🚗 V2V Safety-\/\+Critical Core}}\label{index_autotoc_md1}
+This directory contains the {\bfseries{real-\/time safety-\/critical implementation}} of the V2X Collision Avoidance System.
+
+It runs on {\bfseries{STM32\+F446\+RE}} and is responsible for executing all V2V collision avoidance algorithms with deterministic timing using {\bfseries{Free\+RTOS}}, talking to the ESP32 (V2V radio) over UART1 and to the Raspberry Pi (telemetry + remote control) over UART2.
+
+\DoxyHorRuler{0}
+\hypertarget{index_autotoc_md3}{}\doxysection{\texorpdfstring{🎯 Purpose of this Layer}{🎯 Purpose of this Layer}}\label{index_autotoc_md3}
+This layer handles:\+
+
+
+\begin{DoxyItemize}
+\item Real-\/time sensor acquisition (6× ultrasonic + MPU9250 IMU)
+\item Cooperative collision detection (FCW, DNPW, EEBL, BSW, IMA) over DSRC
+\item Alert generation (LEDs, buzzer)
+\item V2V message broadcast/\+receive via the ESP32 bridge (ESP-\/\+NOW)
+\item Telemetry streaming to the Raspberry Pi
+\item Hardware-\/level driver control (all MCAL/\+\+HAL written from scratch — no HAL library)
+\item Independent hardware watchdog (IWDG) with per-\/task liveness checks
+\end{DoxyItemize}
+
+This layer is designed to be:\+
+
+
+\begin{DoxyItemize}
+\item Deterministic
+\item Modular
+\item Safety-\/focused
+\item Self-\/recovering (a hung task triggers a hardware reset instead of hanging forever)
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{index_autotoc_md5}{}\doxysection{\texorpdfstring{🧠 Architecture Overview}{🧠 Architecture Overview}}\label{index_autotoc_md5}
+The firmware follows a layered embedded architecture:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Application\ Layer\ (SafetyEngine\ +\ FCW/DNPW,\ EEBL,\ BSW,\ IMA\ +\ DSRC)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ↓}
+\DoxyCodeLine{HAL\ (LED,\ Buzzer,\ Ultrasonic,\ MPU9250)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ↓}
+\DoxyCodeLine{MCAL\ (RCC,\ GPIO,\ NVIC,\ SCB,\ SYSCFG,\ SYSTICK,\ EXTI,\ SPI,\ TIM,\ USART,\ IWDG)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ↓}
+\DoxyCodeLine{Hardware\ (STM32F446RE)}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md6}{}\doxysubsection{\texorpdfstring{Free\+RTOS task pipeline}{Free\+RTOS task pipeline}}\label{index_autotoc_md6}
+{\ttfamily \doxylink{main_8c}{main.\+c}} creates six tasks; the ADAS decision and V2X TX/\+\+RX run at the highest priority, sensing at medium, and actuation/\+telemetry/\+monitoring below that. Every monitored task bumps its own heartbeat slot each loop; the watchdog task only kicks the hardware IWDG when {\bfseries{all}} slots are still advancing — a stalled task (hard fault, infinite loop, ISR storm) stops the kicks and the MCU hardware-\/resets.
+
+
+\begin{DoxyTable}{4}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Task  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Priority  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Period  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Role  \\
+{\ttfamily Safety\+Engine\+\_\+\+Task}  &4 (highest)  &50 ms  &Single-\/pass ADAS brain:\+ locks both mutexes, runs {\ttfamily \doxylink{group__app__safetyengine_ga7b6c12632534a82b4357a73306667157}{Safety\+Engine\+\_\+void\+Update()}} over the whole DSRC neighbor table, aggregates every module\textquotesingle{}s result into the {\ttfamily \doxylink{group__system_ga9e78367aa5b758af972838362c2b0eab}{G\+\_\+u16\+System\+Flags}} status word (2 bits/\+module)  \\
+{\ttfamily ESP\+\_\+\+Comm\+\_\+\+Task}  &4  &event-\/driven RX + 100 ms TX  &Drains UART1 bytes into the DSRC parser, maintains the neighbor table (flush + purge stale), and broadcasts this vehicle\textquotesingle{}s {\ttfamily \doxylink{structNeighbor}{Neighbor}} frame every 100 ms  \\
+{\ttfamily Sensors\+\_\+\+Task}  &3  &adaptive (\texorpdfstring{$\sim$}{\string~}15–150 ms)  &Reads all 6 ultrasonics (interrupt-\/driven, sleeps during echo flight) + the MPU9250 (speed/\+heading/\+pitch/\+roll/\+position), publishes into {\ttfamily \doxylink{group__system_gac3116f56a230ebdd81cadd527921464c}{G\+\_\+st\+Host\+Vehicle\+State}}  \\
+{\ttfamily Feedback\+\_\+\+Task}  &2  &25 ms  &The "{}muscle"{}:\+ renders {\ttfamily \doxylink{group__system_ga9e78367aa5b758af972838362c2b0eab}{G\+\_\+u16\+System\+Flags}} onto LEDs + buzzer. Makes no decisions of its own — front LEDs on FCW-\/critical, rear LEDs on EEBL-\/critical, interior LED + buzzer on any alert  \\
+{\ttfamily RPi\+\_\+\+Comm\+\_\+\+Task}  &1  &100 ms  &Streams a {\ttfamily \textbackslash{}n}-\/terminated ASCII CSV telemetry line over UART2 to the Raspberry Pi (speed, heading, pitch/\+roll, 6× ultrasonic, ADAS flags, BSW per-\/side severity)  \\
+{\ttfamily Watchdog\+\_\+\+Task}  &1 (lowest)  &300 ms check  &Liveness monitor; kicks the IWDG (2 s hardware timeout) only if every task\textquotesingle{}s heartbeat advanced since the last check  \\
+\end{DoxyTable}
+
+
+Lock order is always {\bfseries{Neighbor\+Table → Data}} and is never taken nested from more than one place, so no deadlock is possible between tasks.
+
+\DoxyHorRuler{0}
+\hypertarget{index_autotoc_md8}{}\doxysection{\texorpdfstring{📁 Directory Structure}{📁 Directory Structure}}\label{index_autotoc_md8}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{V2V-\/STM32/}
+\DoxyCodeLine{├──\ Inc/}
+\DoxyCodeLine{│\ \ \ ├──\ Application/}
+\DoxyCodeLine{│\ \ \ │\ \ \ ├──\ SafetyEngine/\ \ \ \#\ Shared\ risk\ model,\ direction\ detection,\ module\ orchestration}
+\DoxyCodeLine{│\ \ \ │\ \ \ ├──\ DSRC/\ \ \ \ \ \ \ \ \ \ \ \#\ Neighbor\ table\ +\ wire\ protocol\ (shared\ with\ esp32/)}
+\DoxyCodeLine{│\ \ \ │\ \ \ ├──\ FCW\_DNPW/\ \ \ \ \ \ \ \#\ Forward\ Collision\ Warning\ +\ Do-\/Not-\/Pass\ Warning\ (one\ module)}
+\DoxyCodeLine{│\ \ \ │\ \ \ ├──\ EEBL/\ \ \ \ \ \ \ \ \ \ \ \#\ Electronic\ Emergency\ Brake\ Light}
+\DoxyCodeLine{│\ \ \ │\ \ \ ├──\ BSW/\ \ \ \ \ \ \ \ \ \ \ \ \#\ Blind\ Spot\ Warning}
+\DoxyCodeLine{│\ \ \ │\ \ \ └──\ IMA/\ \ \ \ \ \ \ \ \ \ \ \ \#\ Intersection\ Movement\ Assist}
+\DoxyCodeLine{│\ \ \ │}
+\DoxyCodeLine{│\ \ \ ├──\ Drivers/}
+\DoxyCodeLine{│\ \ \ │\ \ \ ├──\ MCAL/\ \ \ \ \ \ \ \ \ \ \ \#\ RCC,\ GPIO,\ NVIC,\ SCB,\ SYSCFG,\ SYSTICK,\ EXTI,\ SPI,\ TIM,\ USART,\ IWDG}
+\DoxyCodeLine{│\ \ \ │\ \ \ ├──\ HAL/\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ LED,\ BUZZ,\ US\ (ultrasonic),\ MPU9250}
+\DoxyCodeLine{│\ \ \ │\ \ \ └──\ LIB/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ ErrTypes,\ STD\_MACROS,\ register\ maps}
+\DoxyCodeLine{│\ \ \ │}
+\DoxyCodeLine{│\ \ \ └──\ System/}
+\DoxyCodeLine{│\ \ \ \ \ \ \ └──\ System.h\ \ \ \ \ \ \ \ \#\ System-\/wide\ configuration}
+\DoxyCodeLine{│}
+\DoxyCodeLine{├──\ Src/}
+\DoxyCodeLine{│\ \ \ ├──\ main.c\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ FreeRTOS\ tasks,\ ISR\ callbacks,\ watchdog\ heartbeats}
+\DoxyCodeLine{│\ \ \ ├──\ System.c}
+\DoxyCodeLine{│\ \ \ ├──\ SafetyEngine\_program.c\ \ \#\ Direction\ detection\ +\ risk\ model\ +\ per-\/cycle\ orchestration}
+\DoxyCodeLine{│\ \ \ ├──\ DSRC.c\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Neighbor\ table,\ UART\ framing,\ stale\ purge}
+\DoxyCodeLine{│\ \ \ ├──\ FCW\_DNPW\_program.c}
+\DoxyCodeLine{│\ \ \ ├──\ EEBL\_program.c}
+\DoxyCodeLine{│\ \ \ ├──\ BSW\_program.c}
+\DoxyCodeLine{│\ \ \ ├──\ IMA\_program.c}
+\DoxyCodeLine{│\ \ \ ├──\ RCC\_program.c\ /\ GPIO\_prog.c\ /\ NVIC\_program.c\ /\ SCB\_program.c}
+\DoxyCodeLine{│\ \ \ ├──\ SYSCFG\_program.c\ /\ SYSTIC\_program.c\ /\ TIM\_program.c}
+\DoxyCodeLine{│\ \ \ ├──\ EXTI\_program.c\ /\ SPI\_program.c\ /\ USART\_program.c\ /\ IWDG\_program.c}
+\DoxyCodeLine{│\ \ \ ├──\ MPU9250\_program.c\ /\ US\_prog.c\ /\ LED\_prog.c\ /\ BUZ\_program.c}
+\DoxyCodeLine{│\ \ \ └──\ syscalls.c}
+\DoxyCodeLine{│}
+\DoxyCodeLine{├──\ Startup/}
+\DoxyCodeLine{│\ \ \ └──\ startup\_stm32f446retx.s}
+\DoxyCodeLine{│}
+\DoxyCodeLine{├──\ STM32F446RETX\_FLASH.ld}
+\DoxyCodeLine{├──\ STM32F446RETX\_RAM.ld}
+\DoxyCodeLine{│}
+\DoxyCodeLine{├──\ docs/}
+\DoxyCodeLine{│\ \ \ └──\ PCB\_BUILD\_STAGES.md\ \ \ \#\ Altium\ carrier-\/board\ build\ guide,\ stage\ by\ stage}
+\DoxyCodeLine{│}
+\DoxyCodeLine{├──\ ThirdParty/}
+\DoxyCodeLine{│\ \ \ ├──\ License/}
+\DoxyCodeLine{│\ \ \ └──\ Source/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ FreeRTOS\ kernel\ (tasks,\ queue,\ timers,\ event\_groups,\ ...)}
+\DoxyCodeLine{│}
+\DoxyCodeLine{└──\ Debug/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Auto-\/generated\ build\ output\ (STM32CubeIDE\ /\ make)}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{index_autotoc_md10}{}\doxysection{\texorpdfstring{🚘 Implemented V2V Subsystems}{🚘 Implemented V2V Subsystems}}\label{index_autotoc_md10}
+All five modules share the same {\ttfamily Safety\+Engine} risk model ({\ttfamily \doxylink{group__app__safetyengine_gaff42a93f5f7c50d14d779e142010ae71}{Safety\+Engine\+\_\+\+Assess\+Distance\+Risk}}, {\ttfamily \doxylink{group__app__safetyengine_ga7e73033d8b868fa66e2090ca79150677}{Safety\+Engine\+\_\+\+Evaluate\+Risk}}, {\ttfamily \doxylink{group__app__safetyengine_gab7dae45d16fd67e39cae94350eb6d0f7}{Safety\+Engine\+\_\+\+Detect\+Direction}}) and consume the DSRC neighbor table each 50 ms cycle. Each returns a graded {\bfseries{0=Safe /\+ 1=Warning /\+ 2=Critical}} flag.\hypertarget{index_autotoc_md11}{}\doxysubsection{\texorpdfstring{🔹 FCW /\+ DNPW — Forward Collision + Do-\/\+Not-\/\+Pass Warning}{🔹 FCW /\+ DNPW — Forward Collision + Do-\/\+Not-\/\+Pass Warning}}\label{index_autotoc_md11}
+One combined module. {\ttfamily \doxylink{FCW__DNPW__interface_8h_a724d10fbe6405476d140c3f113e787de}{FCW\+\_\+\+Get\+Front\+Flag()}} covers a same-\/lane vehicle ahead (local, ultrasonic-\/only). For an oncoming vehicle, it distinguishes a {\bfseries{head-\/on candidate}} (broadcast cooperatively as {\ttfamily fcw\+\_\+headon\+\_\+flag} so the other car can confirm) from a {\bfseries{Do-\/\+Not-\/\+Pass}} case (oncoming car in another lane — graded critical when the front-\/right sensor also reads a car alongside on the overtaking side).\hypertarget{index_autotoc_md12}{}\doxysubsection{\texorpdfstring{🔹 EEBL — Electronic Emergency Brake Light}{🔹 EEBL — Electronic Emergency Brake Light}}\label{index_autotoc_md12}
+Detects a same-\/direction vehicle ahead braking hard and grades the risk from the rear ultrasonic distance via the shared speed-\/dependent safe-\/distance model.\hypertarget{index_autotoc_md13}{}\doxysubsection{\texorpdfstring{🔹 BSW — Blind Spot Warning}{🔹 BSW — Blind Spot Warning}}\label{index_autotoc_md13}
+Dual role per cycle:\+ broadcasts {\itshape this} car\textquotesingle{}s own front-\/side occupancy ({\ttfamily bit0=LEFT, bit1=RIGHT}) for others to use, and separately computes whether {\itshape this} car has a neighbor in its own rear blind spot — with per-\/side severity so the Raspberry Pi can tell left from right.\hypertarget{index_autotoc_md14}{}\doxysubsection{\texorpdfstring{🔹 IMA — Intersection Movement Assist}{🔹 IMA — Intersection Movement Assist}}\label{index_autotoc_md14}
+Processes crossing-\/direction neighbors only, comparing distance-\/to-\/intersection and speed to flag a likely intersection collision.\hypertarget{index_autotoc_md15}{}\doxysubsection{\texorpdfstring{DSRC — the transport underneath all five}{DSRC — the transport underneath all five}}\label{index_autotoc_md15}
+{\ttfamily \doxylink{DSRC_8c}{DSRC.\+c}} maintains the neighbor table (up to {\ttfamily \doxylink{group__app__dsrc_ga2b1d39159e4114f433745f15a201c93c}{MAX\+\_\+\+NEIGHBORS}}, purged after {\ttfamily \doxylink{group__app__dsrc_ga545233ea05ce2ada1c14377954bb8931}{NEIGHBOR\+\_\+\+TIMEOUT}} of silence) and frames/\+parses the packed {\ttfamily \doxylink{structNeighbor}{Neighbor}} struct over UART1 ({\ttfamily \doxylink{group__app__dsrc_ga30d2043ca397843e08c43ade3aaee5b2}{START\+\_\+\+BYTE} … \doxylink{group__app__dsrc_ga5126c1e2dc63cec63fc73710e48a9b5d}{END\+\_\+\+BYTE}}, checksummed). The {\bfseries{same struct layout}} is mirrored byte-\/for-\/byte in the ESP32 sketches ({\ttfamily esp32/\+master}, {\ttfamily esp32/\+sniffer}) — see \doxylink{dir_59e7f8d29184d0656f3182488763fc33}{{\ttfamily ../\+esp32/\+\+README.md}}. Any field reorder on one side must be mirrored on the other.
+
+\begin{quote}
+There is no separate "{}\+SDW"{} (Safe Distance Warning) module — the shared safe/\+critical distance model in {\ttfamily Safety\+Engine} (used by FCW and EEBL) covers that role. \end{quote}
+
+
+\DoxyHorRuler{0}
+\hypertarget{index_autotoc_md17}{}\doxysection{\texorpdfstring{📡 Telemetry to the Raspberry Pi}{📡 Telemetry to the Raspberry Pi}}\label{index_autotoc_md17}
+{\ttfamily RPi\+\_\+\+Comm\+\_\+\+Task} streams one ASCII CSV line every 100 ms over UART2:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{T,speed,heading,pitch,roll,FL,FC,FR,BL,BC,BR,flags,bsw\_sides\(\backslash\)n}
+
+\end{DoxyCode}
+
+
+ASCII (not the binary {\ttfamily \doxylink{structNeighbor}{Neighbor}} struct) was chosen because it contains no {\ttfamily 0x00} bytes, which was previously causing dropped runs over the UART link. {\ttfamily flags} is the 16-\/bit ADAS status word (2 bits per module); {\ttfamily bsw\+\_\+sides} packs left/\+right blind-\/spot severity separately since the aggregated flag alone loses which side triggered. This feeds {\ttfamily RPI/\+\+Dash\+Board/\+} — see \doxylink{dir_55122db787629eaf0bcbfbf6ffd453bc}{{\ttfamily ../\+\+RPI/\+\+Dash\+Board/\+\+README.md}}.
+
+\DoxyHorRuler{0}
+\hypertarget{index_autotoc_md19}{}\doxysection{\texorpdfstring{⚙️ Hardware Dependencies}{⚙️ Hardware Dependencies}}\label{index_autotoc_md19}
+
+\begin{DoxyItemize}
+\item STM32\+F446\+RE (Nucleo)
+\item MPU9250 IMU (SPI)
+\item 6× HC-\/\+SR04 ultrasonic sensors (interrupt-\/driven, front-\/left/\+center/\+right + rear-\/left/\+center/\+right)
+\item ESP32-\/\+S3 on UART1 (V2V radio bridge)
+\item Raspberry Pi on UART2 (telemetry + control)
+\item LEDs (front L/\+R, rear L/\+R, interior) + buzzer
+\end{DoxyItemize}
+
+See \doxysectlink{md_V2V-STM32_2docs_2PCB__BUILD__STAGES}{{\ttfamily docs/\+\+PCB\+\_\+\+BUILD\+\_\+\+STAGES.md}}{0} for the carrier-\/board build (power, MCU, sensors, comms blocks).
+
+\DoxyHorRuler{0}
+\hypertarget{index_autotoc_md21}{}\doxysection{\texorpdfstring{🔐 Safety \& Determinism}{🔐 Safety \& Determinism}}\label{index_autotoc_md21}
+
+\begin{DoxyItemize}
+\item Interrupt-\/driven ultrasonic sensing (task sleeps during echo flight, no busy-\/wait)
+\item Fixed lock order (Neighbor\+Table → Data) — deadlock-\/free by construction
+\item Independent hardware watchdog (IWDG) gated on {\bfseries{every}} task\textquotesingle{}s liveness, not just one
+\item All timing-\/critical work happens inside {\ttfamily Safety\+Engine\+\_\+\+Task} (priority 4, 50 ms cycle)
+\item Feedback task never makes decisions — it only renders what Safety\+Engine already computed
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{index_autotoc_md23}{}\doxysection{\texorpdfstring{🏁 Summary}{🏁 Summary}}\label{index_autotoc_md23}
+This layer is the {\bfseries{core safety engine}} of the V2X project:\+ a from-\/scratch MCAL/\+\+HAL stack, a cooperative DSRC neighbor protocol shared with the ESP32 radio bridge, five ADAS modules built on one shared risk model, and a self-\/monitoring Free\+RTOS pipeline that hardware-\/resets itself if anything stalls.
+
+\DoxyHorRuler{0}
+ 

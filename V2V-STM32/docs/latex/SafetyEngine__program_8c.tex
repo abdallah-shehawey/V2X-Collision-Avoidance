@@ -1,0 +1,104 @@
+\doxysection{V2\+V-\/\+STM32/\+\+Src/\+\+Safety\+Engine\+\_\+program.c File Reference}
+\hypertarget{SafetyEngine__program_8c}{}\label{SafetyEngine__program_8c}\index{V2V-\/STM32/Src/SafetyEngine\_program.c@{V2V-\/STM32/Src/SafetyEngine\_program.c}}
+
+
+Implementation of the Safety\+Engine driver — the shared risk model and per-\/cycle ADAS orchestration.  
+
+
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Application/\+\+Safety\+Engine/\+\+Safety\+Engine\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Application/\+\+FCW\+\_\+\+DNPW/\+\+FCW\+\_\+\+DNPW\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Application/\+\+EEBL/\+\+EEBL\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Application/\+\+BSW/\+\+BSW\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Application/\+\+IMA/\+\+IMA\+\_\+interface.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+Application/\+\+DSRC/\+\+DSRC.\+h"{}}\newline
+{\ttfamily \+\#include "{}../\+\+Inc/\+\+System/\+\+System.\+h"{}}\newline
+Include dependency graph for Safety\+Engine\+\_\+program.\+c:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{SafetyEngine__program_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{group__app__safetyengine_gad87fdbbd1376c4cebfa69a906cfbe556}{Safety\+Engine\+\_\+void\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initialise all five ADAS modules (FCW/\+\+DNPW, EEBL, BSW, IMA). \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group__app__safetyengine_ga7b6c12632534a82b4357a73306667157}{Safety\+Engine\+\_\+void\+Update}} (void)
+\begin{DoxyCompactList}\small\item\em Run one full ADAS cycle:\+ every module, over every neighbor, in one pass. \end{DoxyCompactList}\item 
+static float \doxymbox{\hyperlink{SafetyEngine__program_8c_af39a8a1c83fbcdc20e64b3af9174cf1d}{Calc\+Heading\+Diff}} (float h1, float h2)
+\begin{DoxyCompactList}\small\item\em Absolute difference between two headings, normalised to 0..180 degrees. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__app__safetyengine_ga2e9ec086ba61b35cfc2439306cdfdd70}{Direction\+\_\+t}} \doxymbox{\hyperlink{group__app__safetyengine_gab7dae45d16fd67e39cae94350eb6d0f7}{Safety\+Engine\+\_\+\+Detect\+Direction}} (float my\+\_\+heading, float other\+\_\+heading)
+\begin{DoxyCompactList}\small\item\em Detect direction relationship between two vehicles. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} \doxymbox{\hyperlink{group__app__safetyengine_ga7e73033d8b868fa66e2090ca79150677}{Safety\+Engine\+\_\+\+Evaluate\+Risk}} (float value, float warning\+\_\+thr, float critical\+\_\+thr)
+\begin{DoxyCompactList}\small\item\em Evaluate risk from a "{}lower value = higher risk"{} metric. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} \doxymbox{\hyperlink{group__app__safetyengine_gaff42a93f5f7c50d14d779e142010ae71}{Safety\+Engine\+\_\+\+Assess\+Distance\+Risk}} (float host\+\_\+speed, float distance, float dist\+\_\+per\+\_\+ms, float min\+\_\+dist, float crit\+\_\+ratio)
+\begin{DoxyCompactList}\small\item\em Assess collision risk from host speed and a measured distance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+float \doxymbox{\hyperlink{group__app__safetyengine_ga16174df02da93c0fc96432a4bc1de57b}{Host\+\_\+\+Speed}}
+\begin{DoxyCompactList}\small\item\em This vehicle\textquotesingle{}s speed for the current cycle \+[m/\+s]\+. \end{DoxyCompactList}\item 
+float \doxymbox{\hyperlink{group__app__safetyengine_gafb1ff5cedbd39f1a8b81a25a7dcdb171}{Host\+\_\+\+Heading}}
+\begin{DoxyCompactList}\small\item\em This vehicle\textquotesingle{}s heading for the current cycle \+[degrees]\+. \end{DoxyCompactList}\item 
+float \doxymbox{\hyperlink{group__app__safetyengine_ga2d869610528b06238c15ab8fb160304f}{Safety\+Engine\+\_\+\+Safe\+Dist}}
+\begin{DoxyCompactList}\small\item\em The safe gap for the current cycle \+[cm]\+, from the shared speed-\/dependent model. \end{DoxyCompactList}\item 
+float \doxymbox{\hyperlink{group__app__safetyengine_ga414ebc77c31778b0d2f7371abdbd2d19}{Safety\+Engine\+\_\+\+Critical\+Dist}}
+\begin{DoxyCompactList}\small\item\em The critical gap for the current cycle \+[cm]\+. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of the Safety\+Engine driver — the shared risk model and per-\/cycle ADAS orchestration. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{SafetyEngine__program_8c_source}{Safety\+Engine\+\_\+program.\+c}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{SafetyEngine__program_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{SafetyEngine__program_8c_af39a8a1c83fbcdc20e64b3af9174cf1d}\index{SafetyEngine\_program.c@{SafetyEngine\_program.c}!CalcHeadingDiff@{CalcHeadingDiff}}
+\index{CalcHeadingDiff@{CalcHeadingDiff}!SafetyEngine\_program.c@{SafetyEngine\_program.c}}
+\doxysubsubsection{\texorpdfstring{CalcHeadingDiff()}{CalcHeadingDiff()}}
+{\footnotesize\ttfamily \label{SafetyEngine__program_8c_af39a8a1c83fbcdc20e64b3af9174cf1d} 
+float Calc\+Heading\+Diff (\begin{DoxyParamCaption}\item[{float}]{h1}{, }\item[{float}]{h2}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Absolute difference between two headings, normalised to 0..180 degrees. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em h1} & First heading \+[degrees]\+, 0..360. \\
+\hline
+{\em h2} & Second heading \+[degrees]\+, 0..360. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The angle between them \+[degrees]\+, 0..180.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Headings are circular, so the naive {\ttfamily \texorpdfstring{$\vert$}{|}h1 -\/ h2\texorpdfstring{$\vert$}{|}} is wrong:\+ 350° and 10° are 20° apart, not 340°. Normalising here is what stops two cars that are plainly travelling the same way being classified as \doxylink{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70a30837161ea401603ea11e12bf7e910d7}{DIR\+\_\+\+OPPOSITE} whenever they happen to be pointing near north. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00139}{139}} of file \doxymbox{\hyperlink{SafetyEngine__program_8c_source}{Safety\+Engine\+\_\+program.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00155}{Safety\+Engine\+\_\+\+Detect\+Direction()}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{SafetyEngine__program_8c_af39a8a1c83fbcdc20e64b3af9174cf1d_icgraph}
+\end{center}
+\end{figure}

@@ -1,0 +1,100 @@
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Application/\+\+DSRC/\+\+DSRC.h File Reference}
+\hypertarget{DSRC_8h}{}\label{DSRC_8h}\index{V2V-\/STM32/Inc/Application/DSRC/DSRC.h@{V2V-\/STM32/Inc/Application/DSRC/DSRC.h}}
+
+
+The V2V transport:\+ the neighbor table and the over-\/the-\/air frame format shared with the ESP32 radio bridge.  
+
+
+{\ttfamily \+\#include $<$math.\+h$>$}\newline
+{\ttfamily \+\#include $<$stdint.\+h$>$}\newline
+{\ttfamily \+\#include $<$string.\+h$>$}\newline
+Include dependency graph for DSRC.\+h:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=273pt]{DSRC_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{DSRC_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structNeighbor}{Neighbor}}
+\begin{DoxyCompactList}\small\item\em One vehicle\textquotesingle{}s broadcast state — this is the wire format itself. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{Indent}\textbf{ Protocol configuration}\par
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__app__dsrc_ga2b1d39159e4114f433745f15a201c93c}{MAX\+\_\+\+NEIGHBORS}}
+\begin{DoxyCompactList}\small\item\em Maximum number of vehicles tracked at once; further senders are ignored until a slot frees up. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__app__dsrc_ga545233ea05ce2ada1c14377954bb8931}{NEIGHBOR\+\_\+\+TIMEOUT}}
+\begin{DoxyCompactList}\small\item\em How long a neighbor may stay silent before it is purged from the table \+[ms]\+. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__app__dsrc_ga9dd026e05b86378bf84c82c84dd193bf}{VEHICLE\+\_\+\+ID}}
+\begin{DoxyCompactList}\small\item\em This vehicle\textquotesingle{}s own identity on the air. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__app__dsrc_ga30d2043ca397843e08c43ade3aaee5b2}{START\+\_\+\+BYTE}}
+\begin{DoxyCompactList}\small\item\em First byte of every frame — see \doxysectlink{DSRC_8h_dsrc_frame}{Frame layout}{1}. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__app__dsrc_ga5126c1e2dc63cec63fc73710e48a9b5d}{END\+\_\+\+BYTE}}
+\begin{DoxyCompactList}\small\item\em Last byte of every frame. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__app__dsrc_gaebdc7d8ca8e25ed8efc90bb88ef7ef5b}{PACKET\+\_\+\+SIZE}}
+\begin{DoxyCompactList}\small\item\em Total frame length:\+ start byte + payload + checksum + end byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__app__dsrc_ga142810068f1b99cd93d3fc9f0e160e02}{QUEUE\+\_\+\+SIZE}}
+\begin{DoxyCompactList}\small\item\em Depth of the parser\textquotesingle{}s internal byte queue. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{group__app__dsrc_gadad268979d4c4038075346292651c8af}{DSRC\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Clear the neighbor table and reset the frame parser. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group__app__dsrc_gaded740c50de5ea4cf786939e10ace2d9}{DSRC\+\_\+\+Send\+Neighbor}} (\doxymbox{\hyperlink{structNeighbor}{Neighbor}} \texorpdfstring{$\ast$}{*}n)
+\begin{DoxyCompactList}\small\item\em Frame and transmit one \doxylink{structNeighbor}{Neighbor} over UART1 to the ESP32 bridge. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group__app__dsrc_gac40e63c7c7041cacb1f60a1d4d710abb}{DSRC\+\_\+\+Update}} (void)
+\begin{DoxyCompactList}\small\item\em Drain the parser\textquotesingle{}s byte queue and fold any complete frames into the table. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group__app__dsrc_gaa38784384016c34bf5e63add1930104b}{DSRC\+\_\+\+Remove\+Stale}} (uint32\+\_\+t current\+\_\+time)
+\begin{DoxyCompactList}\small\item\em Drop every neighbor that has been silent for \doxylink{group__app__dsrc_ga545233ea05ce2ada1c14377954bb8931}{NEIGHBOR\+\_\+\+TIMEOUT}. \end{DoxyCompactList}\item 
+uint8\+\_\+t \doxymbox{\hyperlink{group__app__dsrc_ga15d8d8dc4459f83b2aa2519119d037d0}{DSRC\+\_\+\+Get\+Count}} (void)
+\begin{DoxyCompactList}\small\item\em How many neighbors are currently in the table. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structNeighbor}{Neighbor}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__app__dsrc_ga76299bf71b1e2dc13baac26c6c4228c4}{DSRC\+\_\+\+Get\+Table}} (void)
+\begin{DoxyCompactList}\small\item\em Borrow the neighbor table itself. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group__app__dsrc_ga8f2c7037352677729c777df880fefd1b}{DSRC\+\_\+\+Rx\+Callback}} (uint8\+\_\+t byte)
+\begin{DoxyCompactList}\small\item\em Feed one received byte into the frame parser. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The V2V transport:\+ the neighbor table and the over-\/the-\/air frame format shared with the ESP32 radio bridge. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Shehawey 
+\end{DoxyAuthor}
+DSRC is the layer every ADAS module sits on. It answers one question — {\itshape which other vehicles are near me right now, and what are they doing} — and keeps the answer in a table of at most \doxylink{group__app__dsrc_ga2b1d39159e4114f433745f15a201c93c}{MAX\+\_\+\+NEIGHBORS} entries, one per vehicle heard from recently.\hypertarget{DSRC_8h_dsrc_flow}{}\doxysubsection{\texorpdfstring{The path a message takes}{The path a message takes}}\label{DSRC_8h_dsrc_flow}
+The STM32 has no radio of its own. An ESP32 bridges the air interface:\+
+
+\begin{DoxyVerb}*   other car --ESP-NOW--> our ESP32 --UART1--> STM32   (receive)
+*   STM32 --UART1--> our ESP32 --ESP-NOW--> other cars  (transmit)
+* \end{DoxyVerb}
+
+
+On the way in, USART1\textquotesingle{}s ISR only enqueues raw bytes; \doxylink{group__app__dsrc_ga8f2c7037352677729c777df880fefd1b}{DSRC\+\_\+\+Rx\+Callback} is then driven from {\ttfamily \doxylink{main_8c_a8e83024643794f31ab8139cbdb1de5dd}{v\+Task\+\_\+\+ESP\+\_\+\+Comm}} in task context, one byte at a time, and reassembles frames. On the way out, \doxylink{group__app__dsrc_gaded740c50de5ea4cf786939e10ace2d9}{DSRC\+\_\+\+Send\+Neighbor} frames this vehicle\textquotesingle{}s own \doxylink{structNeighbor}{Neighbor} struct and hands it to the ESP32 every 100 ms.\hypertarget{DSRC_8h_dsrc_frame}{}\doxysubsection{\texorpdfstring{Frame layout}{Frame layout}}\label{DSRC_8h_dsrc_frame}
+\begin{DoxyVerb}*   +------------+---------------------------+----------+----------+
+*   | START_BYTE |   Neighbor (21 bytes)     | checksum | END_BYTE |
+*   |    0xAA    |        packed             |  1 byte  |   0x55   |
+*   +------------+---------------------------+----------+----------+
+* \end{DoxyVerb}
+
+
+A frame is only accepted if the start byte, the checksum and the end byte all agree, so a truncated or corrupted frame is dropped rather than acted on.
+
+\begin{DoxyWarning}{Warning}
+The \doxylink{structNeighbor}{Neighbor} layout is a {\bfseries{wire format}}, mirrored byte for byte in the ESP32 sketches ({\ttfamily esp32/\+master}, {\ttfamily esp32/\+sniffer}). Reordering, resizing or inserting a field on one side and not the other silently misaligns every field after it — the link keeps working and the data becomes nonsense. Change both sides together, always. 
+\end{DoxyWarning}
+
+
+Definition in file \doxymbox{\hyperlink{DSRC_8h_source}{DSRC.\+h}}.
+

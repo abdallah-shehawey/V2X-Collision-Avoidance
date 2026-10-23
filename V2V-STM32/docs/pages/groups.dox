@@ -1,0 +1,205 @@
+/**
+ * @file    groups.dox
+ * @brief   Doxygen module tree for the V2V-STM32 firmware.
+ *
+ * This file declares the module (group) hierarchy only. It contains no code —
+ * every source file attaches its symbols to one of the groups below with
+ * `@addtogroup <id>` / `@{` ... `@}`, which is what gives the generated manual
+ * its "Modules" tree instead of a flat list of files.
+ *
+ * The hierarchy mirrors the layered architecture of the firmware: a symbol may
+ * only depend on symbols in its own layer or a layer below it.
+ *
+ * @verbatim
+ *   Application  (SafetyEngine, DSRC, FCW/DNPW, EEBL, BSW, IMA)
+ *        |
+ *       HAL      (LED, BUZZ, US, MPU9250)
+ *        |
+ *      MCAL      (RCC, GPIO, NVIC, SCB, SYSCFG, SYSTICK, EXTI, SPI, TIM, USART, IWDG)
+ *        |
+ *       LIB      (ErrTypes, STD_MACROS, STM32F446xx register map)
+ *        |
+ *    Hardware    (STM32F446RE, Cortex-M4)
+ * @endverbatim
+ */
+
+/*==============================================================================
+ *                                  LAYERS
+ *============================================================================*/
+
+/**
+ * @defgroup system System
+ * @brief Startup, system-wide configuration and the shared vehicle state.
+ *
+ * The System layer owns everything that is global to the firmware rather than
+ * to one driver: the FreeRTOS task set in `main.c`, the pin/peripheral map and
+ * the tuning constants in `System.h`, the shared @ref HostVehicleState_t and
+ * ADAS status word, and the newlib stubs in `syscalls.c`.
+ */
+
+/**
+ * @defgroup lib LIB
+ * @brief Foundation layer: error codes, bit-manipulation macros, register map.
+ *
+ * Pure declarations with no executable code and no dependencies. Everything in
+ * the firmware is allowed to include this layer.
+ */
+
+/**
+ * @defgroup mcal MCAL
+ * @brief Microcontroller Abstraction Layer — drivers written directly against
+ *        the STM32F446RE registers.
+ *
+ * No vendor HAL/LL library is used anywhere in this project: every peripheral
+ * driver below writes the peripheral's registers itself, through the register
+ * map in @ref lib. An MCAL driver knows about the MCU but nothing about the
+ * board, so it never refers to a specific LED, sensor or vehicle concept.
+ *
+ * Each driver follows the same three-file convention:
+ * - `<NAME>_interface.h` — the public API, the enums and the config structs
+ * - `<NAME>_config.h`    — compile-time tuning knobs for this build
+ * - `<NAME>_private.h`   — register bit positions and internal helpers
+ */
+
+/**
+ * @defgroup hal HAL
+ * @brief Hardware Abstraction Layer — board-level devices built on top of MCAL.
+ *
+ * A HAL driver knows what is physically wired to the board (an LED on a given
+ * pin, an HC-SR04 on a trigger/echo pair, an MPU9250 on SPI1) but knows nothing
+ * about collision avoidance. It exposes the device in the device's own terms
+ * (`LED_enumOn`, `US_f32GetDistance`, `MPU9250_voidGetHeading`) and leaves all
+ * policy to the Application layer.
+ */
+
+/**
+ * @defgroup app Application
+ * @brief The ADAS brain: the DSRC transport, the shared risk model, and the
+ *        five cooperative collision-avoidance modules.
+ *
+ * Every module in this layer is driven from @ref SafetyEngine_voidUpdate once
+ * per 50 ms cycle, consumes the same DSRC neighbor table, and returns the same
+ * graded result: 0 = safe, 1 = warning, 2 = critical. No module in this layer
+ * touches a GPIO or a UART directly — it computes a flag, and `Feedback_Task`
+ * renders it.
+ */
+
+/*==============================================================================
+ *                              MCAL SUB-MODULES
+ *============================================================================*/
+
+/**
+ * @defgroup mcal_rcc RCC
+ * @ingroup mcal
+ * @brief Reset and clock control: clock tree setup and per-peripheral clock gating.
+ */
+/**
+ * @defgroup mcal_gpio GPIO
+ * @ingroup mcal
+ * @brief General-purpose I/O: pin mode, speed, pull, alternate function, read/write.
+ */
+/**
+ * @defgroup mcal_nvic NVIC
+ * @ingroup mcal
+ * @brief Nested vectored interrupt controller: enable/disable, priority grouping.
+ */
+/**
+ * @defgroup mcal_scb SCB
+ * @ingroup mcal
+ * @brief System control block: `SystemInit`, vector table relocation, software reset.
+ */
+/**
+ * @defgroup mcal_syscfg SYSCFG
+ * @ingroup mcal
+ * @brief System configuration controller: routes a GPIO port to an EXTI line.
+ */
+/**
+ * @defgroup mcal_systic SYSTICK
+ * @ingroup mcal
+ * @brief 24-bit system timer used for the blocking/asynchronous delays.
+ */
+/**
+ * @defgroup mcal_exti EXTI
+ * @ingroup mcal
+ * @brief External interrupt/event controller: edge-triggered pin interrupts.
+ */
+/**
+ * @defgroup mcal_spi SPI
+ * @ingroup mcal
+ * @brief Serial peripheral interface — the MPU9250 link.
+ */
+/**
+ * @defgroup mcal_tim TIM
+ * @ingroup mcal
+ * @brief General-purpose timers: input capture, PWM, time base.
+ */
+/**
+ * @defgroup mcal_usart USART
+ * @ingroup mcal
+ * @brief Asynchronous serial: UART1 to the ESP32, UART2 to the Raspberry Pi.
+ */
+/**
+ * @defgroup mcal_iwdg IWDG
+ * @ingroup mcal
+ * @brief Independent watchdog: hardware-resets the MCU if a task stalls.
+ */
+
+/*==============================================================================
+ *                               HAL SUB-MODULES
+ *============================================================================*/
+
+/**
+ * @defgroup hal_led LED
+ * @ingroup hal
+ * @brief Discrete indicator LEDs (front L/R, rear L/R, interior).
+ */
+/**
+ * @defgroup hal_buzz BUZZ
+ * @ingroup hal
+ * @brief Piezo buzzer used for the audible alert.
+ */
+/**
+ * @defgroup hal_us US
+ * @ingroup hal
+ * @brief HC-SR04 ultrasonic ranging, interrupt-driven (6 sensors).
+ */
+/**
+ * @defgroup hal_mpu9250 MPU9250
+ * @ingroup hal
+ * @brief 9-axis IMU over SPI: speed, heading, pitch/roll, dead-reckoned position.
+ */
+
+/*==============================================================================
+ *                           APPLICATION SUB-MODULES
+ *============================================================================*/
+
+/**
+ * @defgroup app_safetyengine SafetyEngine
+ * @ingroup app
+ * @brief Shared risk model, direction detection, and per-cycle orchestration of all five ADAS modules.
+ */
+/**
+ * @defgroup app_dsrc DSRC
+ * @ingroup app
+ * @brief Neighbor table and the wire protocol shared byte-for-byte with the ESP32 radio bridge.
+ */
+/**
+ * @defgroup app_fcw_dnpw FCW_DNPW
+ * @ingroup app
+ * @brief Forward Collision Warning and Do-Not-Pass Warning (one combined module).
+ */
+/**
+ * @defgroup app_eebl EEBL
+ * @ingroup app
+ * @brief Electronic Emergency Brake Light: a vehicle ahead is braking hard.
+ */
+/**
+ * @defgroup app_bsw BSW
+ * @ingroup app
+ * @brief Blind Spot Warning, with per-side severity.
+ */
+/**
+ * @defgroup app_ima IMA
+ * @ingroup app
+ * @brief Intersection Movement Assist: crossing-direction conflict at a junction.
+ */

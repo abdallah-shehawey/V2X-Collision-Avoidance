@@ -1,14 +1,10 @@
 /**
- **===========================================================================**
- **<<<<<<<<<<<<<<<<<<<<<<<<<<    NVIC_private.h    >>>>>>>>>>>>>>>>>>>>>>>>>>>>**
- **                                                                           **
- **                  Author : Abdallah Abdelmoemen Shehawey                   **
- **                  Layer  : MCAL                                            **
- **                  CPU    : Cortex-M4                                       **
- **                  MCU    : NUCLEO-F446RE                                   **
- **                  SWC    : NVIC                                            **
- **                                                                           **
- **===========================================================================**
+ ******************************************************************************
+ * @file    NVIC_private.h
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Register bit positions and internals of the NVIC driver — not a public header.
+ * @ingroup mcal_nvic
+ ******************************************************************************
  */
 #ifndef NVIC_PRIVATE_H_
 #define NVIC_PRIVATE_H_

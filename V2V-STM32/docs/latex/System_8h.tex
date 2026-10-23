@@ -1,0 +1,198 @@
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+System/\+\+System.h File Reference}
+\hypertarget{System_8h}{}\label{System_8h}\index{V2V-\/STM32/Inc/System/System.h@{V2V-\/STM32/Inc/System/System.h}}
+
+
+System-\/wide contract:\+ the board wiring map, the shared vehicle state, the packed ADAS status word, and the telemetry format.  
+
+
+{\ttfamily \+\#include $<$stdint.\+h$>$}\newline
+{\ttfamily \+\#include "{}../\+\+Drivers/\+\+HAL/\+\+LED/\+\+LED\+\_\+interface.\+h"{}}\newline
+Include dependency graph for System.\+h:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=305pt]{System_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{System_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structHostVehicleState__t}{Host\+Vehicle\+State\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Everything the sensors know about {\itshape this} vehicle, in one place. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structRPi__Packet__t}{RPi\+\_\+\+Packet\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Legacy binary telemetry packet — {\bfseries{kept for reference only}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__system_ga90b9ebedff8635727698afd2fa84b90a}{DWT\+\_\+\+CTRL}}
+\begin{DoxyCompactList}\small\item\em Cortex-\/\+M4 Data Watchpoint and Trace control register. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{Indent}\textbf{ ADAS status word (G\+\_\+u16\+System\+Flags)}\par
+{\em \doxylink{group__system_ga9e78367aa5b758af972838362c2b0eab}{G\+\_\+u16\+System\+Flags} packs the result of all five ADAS modules into one 16-\/bit word, two bits per module.
+
+{\ttfamily Safety\+Engine\+\_\+\+Task} is its only writer; {\ttfamily Feedback\+\_\+\+Task} and {\ttfamily RPi\+\_\+\+Comm\+\_\+\+Task} are its readers.
+
+Each 2-\/bit field holds \doxylink{group__system_ga167de614bc64dfddcd8a7677b6fecda0}{SYS\+\_\+\+SAFE}, \doxylink{group__system_gad8f58f6c26f6d5da69980ba995e38c78}{SYS\+\_\+\+WARNING} or \doxylink{group__system_ga717d9a716e77febf5c57b5c7231802c8}{SYS\+\_\+\+CRITICAL}. The layout is:\+
+
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Bits  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Module  \\
+1:\+0  &FCW — Forward Collision Warning  \\
+3:\+2  &EEBL — Emergency Electronic Brake Light  \\
+5:\+4  &BSW — Blind Spot Warning (warning level only)  \\
+7:\+6  &DNPW — Do Not Pass Warning  \\
+9:\+8  &IMA — Intersection Movement Assist  \\
+15:\+10  &reserved, always 0  \\
+\end{DoxyTable}
+
+
+So {\ttfamily 0x0000} means everything is safe, {\ttfamily 0x0002} is "{}\+FCW critical"{}, and {\ttfamily 0x0006} is "{}\+FCW critical \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}and\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} EEBL warning"{} at the same time.
+
+Read one module\textquotesingle{}s status with \doxylink{group__system_ga7f3e28353c0f0f1ce0787d44563ca389}{SYS\+\_\+\+GET}, e.\+g. {\ttfamily \doxylink{group__system_ga7f3e28353c0f0f1ce0787d44563ca389}{SYS\+\_\+\+GET(\+G\+\_\+u16\+System\+Flags, SYS\+\_\+\+FCW\+\_\+\+POS)}}. }\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__system_ga167de614bc64dfddcd8a7677b6fecda0}{SYS\+\_\+\+SAFE}}
+\begin{DoxyCompactList}\small\item\em No hazard from this module. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__system_gad8f58f6c26f6d5da69980ba995e38c78}{SYS\+\_\+\+WARNING}}
+\begin{DoxyCompactList}\small\item\em Caution — the driver should slow down. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__system_ga717d9a716e77febf5c57b5c7231802c8}{SYS\+\_\+\+CRITICAL}}
+\begin{DoxyCompactList}\small\item\em Danger — the driver should stop. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__system_ga1096a3bcb1d33bab56e2746735bef164}{SYS\+\_\+\+MASK}}
+\begin{DoxyCompactList}\small\item\em Mask of one 2-\/bit module field. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__system_ga6abc7e388887578e3028a403f99ab155}{SYS\+\_\+\+FCW\+\_\+\+POS}}
+\begin{DoxyCompactList}\small\item\em Bit position of the FCW field. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__system_ga1c2a65c70adf45dcfed9a27b20f13082}{SYS\+\_\+\+EEBL\+\_\+\+POS}}
+\begin{DoxyCompactList}\small\item\em Bit position of the EEBL field. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__system_ga04414e3adf55b811ccb5b68914f10f2f}{SYS\+\_\+\+BSW\+\_\+\+POS}}
+\begin{DoxyCompactList}\small\item\em Bit position of the BSW field. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__system_gac52b1dbb5be5438fcd6fba16dd939688}{SYS\+\_\+\+DNPW\+\_\+\+POS}}
+\begin{DoxyCompactList}\small\item\em Bit position of the DNPW field. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__system_ga42dbde5a9405e8b4ea3cab2049a4c97d}{SYS\+\_\+\+IMA\+\_\+\+POS}}
+\begin{DoxyCompactList}\small\item\em Bit position of the IMA field. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__system_ga7f3e28353c0f0f1ce0787d44563ca389}{SYS\+\_\+\+GET}}(flags,  pos)
+\begin{DoxyCompactList}\small\item\em Extract one module\textquotesingle{}s 2-\/bit status from the packed word. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{group__system_gac3f6c7e9a568f4528304150a6f59736b}{SEGGER\+\_\+setup}} (void)
+\begin{DoxyCompactList}\small\item\em Start SEGGER System\+View tracing (enables the DWT cycle counter first). \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group__system_gae436954cd2bde6634ab271317d2494a7}{System\+\_\+setup}} (void)
+\begin{DoxyCompactList}\small\item\em Bring up the board:\+ clock tree, then every MCAL and HAL peripheral. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group__system_ga9f28a641641de8e783815ab1fa92549f}{RTOS\+\_\+setup}} (void)
+\begin{DoxyCompactList}\small\item\em Create the mutexes and the six Free\+RTOS tasks, then start the scheduler. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+volatile uint16\+\_\+t \doxymbox{\hyperlink{group__system_ga9e78367aa5b758af972838362c2b0eab}{G\+\_\+u16\+System\+Flags}}
+\begin{DoxyCompactList}\small\item\em The packed ADAS status word — see \doxylink{group__system_ga7f3e28353c0f0f1ce0787d44563ca389}{SYS\+\_\+\+GET} for how to read it. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structHostVehicleState__t}{Host\+Vehicle\+State\+\_\+t}} \doxymbox{\hyperlink{group__system_gac3116f56a230ebdd81cadd527921464c}{G\+\_\+st\+Host\+Vehicle\+State}}
+\begin{DoxyCompactList}\small\item\em The shared sensor picture of this vehicle. \end{DoxyCompactList}\item 
+float \doxymbox{\hyperlink{group__system_ga10d54e2c66effa6800db6f78aaec485c}{Host\+\_\+\+Dist\+To\+Intersection}}
+\begin{DoxyCompactList}\small\item\em Distance to the nearest intersection \+[cm]\+; 0 means "{}not near one"{}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{Indent}\textbf{ Indicator LEDs}\par
+{\em The five LEDs, defined in {\ttfamily \doxylink{System_8c}{System.\+c}} and shared across tasks.
+
+{\ttfamily Feedback\+\_\+\+Task} is the only task that drives them:\+ the interior LED on any alert, the front pair on an FCW-\/critical, the rear pair on an EEBL-\/critical. }\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{group__system_gaf1fb4a43ba68d1fdc94fd35a7d901cd4}{Front\+R\+\_\+\+LED}}
+\begin{DoxyCompactList}\small\item\em Front-\/right LED (PC0) — lit on an FCW-\/critical. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{group__system_ga2ab79e3f6235026ef8d29a9446511f48}{Front\+L\+\_\+\+LED}}
+\begin{DoxyCompactList}\small\item\em Front-\/left LED (PC1) — lit on an FCW-\/critical. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{group__system_gae41df9dd37d7c4d27b829fd46cd1e5e3}{Back\+R\+\_\+\+LED}}
+\begin{DoxyCompactList}\small\item\em Rear-\/right LED (PC2) — lit on an EEBL-\/critical. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{group__system_gabfc8237214cfd1267c607aaff66a96da}{Back\+L\+\_\+\+LED}}
+\begin{DoxyCompactList}\small\item\em Rear-\/left LED (PC3) — lit on an EEBL-\/critical. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{group__system_gaa7037844a95faca4f50aae714fe5048a}{Interior\+\_\+\+LED}}
+\begin{DoxyCompactList}\small\item\em Interior/\+dashboard LED (PC7) — lit on any alert. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+
+
+\doxysubsection{Detailed Description}
+System-\/wide contract:\+ the board wiring map, the shared vehicle state, the packed ADAS status word, and the telemetry format. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Saleh 
+\end{DoxyAuthor}
+Everything in this header is shared between tasks, so it is also where the concurrency rules live. Three globals cross task boundaries:\+
+
+
+\begin{DoxyItemize}
+\item \doxylink{group__system_gac3116f56a230ebdd81cadd527921464c}{G\+\_\+st\+Host\+Vehicle\+State} — written by {\ttfamily Sensors\+\_\+\+Task}, read by everyone else.
+\item \doxylink{group__system_ga9e78367aa5b758af972838362c2b0eab}{G\+\_\+u16\+System\+Flags} — written by {\ttfamily Safety\+Engine\+\_\+\+Task}, read by {\ttfamily Feedback\+\_\+\+Task} and {\ttfamily RPi\+\_\+\+Comm\+\_\+\+Task}.
+\item \doxylink{group__system_ga10d54e2c66effa6800db6f78aaec485c}{Host\+\_\+\+Dist\+To\+Intersection} — written by whatever supplies intersection geometry, read by IMA.
+\end{DoxyItemize}
+
+Both mutexes are always taken in the order {\bfseries{Neighbor\+Table → Data}}, and never nested from more than one place, which is what makes the task set deadlock-\/free by construction.\hypertarget{System_8h_sys_wiring}{}\doxysubsection{\texorpdfstring{Board wiring map}{Board wiring map}}\label{System_8h_sys_wiring}
+{\bfseries{Ultrasonic sensors — 3 front, 3 rear.}} Echo pins are EXTI inputs; trigger pins are plain outputs. The echo pins were chosen to leave PA0..PA3 free for the UARTs.
+
+
+\begin{DoxyTable}{5}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}ID  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Location  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Echo  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Trigger  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Timer channel  \\
+S1  &Front left  &PA15  &PB0  &TIM2\+\_\+\+CH1  \\
+S2  &Front centre  &PB3  &PB1  &TIM2\+\_\+\+CH2  \\
+S3  &Front right  &PB4  &PB2  &TIM3\+\_\+\+CH1  \\
+S4  &Rear left  &PB5  &PB12  &TIM3\+\_\+\+CH2  \\
+S5  &Rear centre  &PC8  &PB13  &TIM3\+\_\+\+CH3  \\
+S6  &Rear right  &PC9  &PB14  &TIM3\+\_\+\+CH4  \\
+\end{DoxyTable}
+
+
+{\bfseries{MPU9250 IMU}} — SPI1 on PA5 (SCK), PA6 (MISO/\+\+ADO), PA7 (MOSI/\+\+SDA), AF5.
+
+{\bfseries{Feedback devices}} — all on port C:\+
+
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Device  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Pin  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Role  \\
+LED 1  &PC0  &Front right  \\
+LED 2  &PC1  &Front left  \\
+LED 3  &PC2  &Rear right  \\
+LED 4  &PC3  &Rear left  \\
+LED 5  &PC7  &Interior /\+ dashboard driver alert  \\
+Buzzer  &PC4  &Audible warning  \\
+\end{DoxyTable}
+
+
+{\bfseries{Serial links:\+}}
+
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Port  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Pins  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Use  \\
+USART1  &PA9 TX, PA10 RX  &ESP32 radio bridge (ESP-\/\+NOW /\+ V2V)  \\
+USART2  &PA2 TX, PA3 RX  &Raspberry Pi telemetry  \\
+UART4  &PA0 TX, PA1 RX  &free (previously the Raspberry Pi link)  \\
+\end{DoxyTable}
+
+
+\begin{DoxyNote}{Note}
+There is {\bfseries{no motor driver on the STM32}}. The Raspberry Pi drives the motors from the telemetry this firmware sends, so no pin here is a motor pin.
+\end{DoxyNote}
+\hypertarget{System_8h_sys_tasks}{}\doxysubsection{\texorpdfstring{Task set}{Task set}}\label{System_8h_sys_tasks}
+{\ttfamily config\+MAX\+\_\+\+PRIORITIES} is 5, so priority 4 is the highest available to a task and priority 0 belongs to the Free\+RTOS idle task.
+
+
+\begin{DoxyTable}{4}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Task  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Priority  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Period  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Role  \\
+{\ttfamily \doxylink{main_8c_a1fa00ec0e4cf92155fcaa535be5ab3a1}{v\+Task\+\_\+\+Safety\+Engine}}  &4  &50 ms  &The {\bfseries{brain}}:\+ runs every ADAS module over the neighbor table in one pass and publishes \doxylink{group__system_ga9e78367aa5b758af972838362c2b0eab}{G\+\_\+u16\+System\+Flags}. Decides nothing about actuators. Holds both mutexes.  \\
+{\ttfamily \doxylink{main_8c_a8e83024643794f31ab8139cbdb1de5dd}{v\+Task\+\_\+\+ESP\+\_\+\+Comm}}  &4  &RX \texorpdfstring{$\sim$}{\string~}10 ms /\+ TX 100 ms  &V2V traffic over USART1. Takes the two mutexes separately.  \\
+{\ttfamily \doxylink{main_8c_a6124e00be85460e2af1224524c6c2278}{v\+Task\+\_\+\+Sensors}}  &3  &\texorpdfstring{$\sim$}{\string~}25–82 ms, adaptive  &Reads all 6 ultrasonics (interrupt-\/driven — the task {\itshape sleeps} during each echo) and the IMU. Sequential reads, so no acoustic cross-\/talk.  \\
+{\ttfamily \doxylink{main_8c_a96452f43e9871212929e6e6a969bec13}{v\+Task\+\_\+\+Feedback}}  &2  &25 ms  &The {\bfseries{muscle}}:\+ renders \doxylink{group__system_ga9e78367aa5b758af972838362c2b0eab}{G\+\_\+u16\+System\+Flags} onto the LEDs and buzzer.  \\
+{\ttfamily \doxylink{main_8c_a0d8bacb322388f8284803eeccc5612c0}{v\+Task\+\_\+\+RPi\+\_\+\+Comm}}  &1  &100 ms  &Streams the telemetry line to the Raspberry Pi.  \\
+\end{DoxyTable}
+
+
+\begin{DoxyWarning}{Warning}
+{\ttfamily config\+MAX\+\_\+\+SYSCALL\+\_\+\+INTERRUPT\+\_\+\+PRIORITY} is 5, so any interrupt that calls a Free\+RTOS {\ttfamily ...From\+ISR} API — USART1 included — must be given an NVIC priority number of {\bfseries{6 or higher}} (i.\+e. a {\itshape lower} urgency). 
+\end{DoxyWarning}
+
+
+Definition in file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+

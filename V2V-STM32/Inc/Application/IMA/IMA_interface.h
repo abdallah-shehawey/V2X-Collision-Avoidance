@@ -1,3 +1,12 @@
+/**
+ ******************************************************************************
+ * @file    IMA_interface.h
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Public API of the IMA driver — Intersection Movement Assist.
+ * @ingroup app_ima
+ ******************************************************************************
+ */
+
 #ifndef IMA_INTERFACE_H
 #define IMA_INTERFACE_H
 

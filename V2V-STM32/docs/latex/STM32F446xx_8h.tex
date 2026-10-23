@@ -1,0 +1,288 @@
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Drivers/\+\+LIB/\+\+STM32\+F446xx.h File Reference}
+\hypertarget{STM32F446xx_8h}{}\label{STM32F446xx_8h}\index{V2V-\/STM32/Inc/Drivers/LIB/STM32F446xx.h@{V2V-\/STM32/Inc/Drivers/LIB/STM32F446xx.h}}
+
+
+STM32\+F446\+RE register map:\+ peripheral base addresses, register layout structs, and the typed pointers the MCAL drivers write to.  
+
+
+{\ttfamily \+\#include $<$stdint.\+h$>$}\newline
+Include dependency graph for STM32\+F446xx.\+h:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=207pt]{STM32F446xx_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{STM32F446xx_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structSYSTIC__RegDef__t}{SYSTIC\+\_\+\+Reg\+Def\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Sys\+Tick register layout (Cortex-\/\+M4 core timer). \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structGPIO__REGDEF__t}{GPIO\+\_\+\+REGDEF\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em GPIO port register layout (identical for every port A..H). \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structDMA__STREAM__REGDEF__t}{DMA\+\_\+\+STREAM\+\_\+\+REGDEF\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Register layout of a single DMA stream. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structDMA__REGDEF__t}{DMA\+\_\+\+REGDEF\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em DMA controller register layout:\+ the shared registers plus 8 streams. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structRCC__RegDef__t}{RCC\+\_\+\+Reg\+Def\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em RCC (reset and clock control) register layout. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structSPI__RegDef__t}{SPI\+\_\+\+Reg\+Def\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em SPI register layout (identical for SPI1..SPI4). \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structNVIC__RegDef__t}{NVIC\+\_\+\+Reg\+Def\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em NVIC register layout (Cortex-\/\+M4 interrupt controller). \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structSCB__RegDef__t}{SCB\+\_\+\+Reg\+Def\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em SCB (system control block) register layout. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structSYSCFG__RegDef__t}{SYSCFG\+\_\+\+Reg\+Def\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em SYSCFG (system configuration controller) register layout. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structEXTI__RegDef__t}{EXTI\+\_\+\+Reg\+Def\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em EXTI (external interrupt/\+event controller) register layout. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structUSART__RegDef__t}{USART\+\_\+\+Reg\+Def\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em USART register layout (identical for USART1..6). \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structTIM__TypeDef}{TIM\+\_\+\+Type\+Def}}
+\begin{DoxyCompactList}\small\item\em Timer register layout, in the superset form used by TIM1/\+\+TIM8. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga355cddce57cd0f3773dc66f0486aeb07}{MSYSTIC}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to the Sys\+Tick peripheral. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga979d8bdf1fee96914aa697664b3cc1ce}{MDMA1}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to DMA controller 1. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga23dba18604da608d963a7d0d2f2e07a8}{MDMA2}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to DMA controller 2. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga1bd0266cfb469d6bb73c955c59b956dc}{MRCC}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to the RCC peripheral. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga5592a87b609cf093eb988459b69071ce}{MNVIC}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to the NVIC. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gad64f4ba7787546fc107c2c2993554e91}{MSCB}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to the SCB. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga531c08f5a73855527d044114a066fbb4}{MSYSCFG}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to the SYSCFG peripheral. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gade59853bea97901ef8816f8d8623cdf2}{MEXTI}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to the EXTI peripheral. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{Indent}\textbf{ Memory base addresses}\par
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gaf6863e7094aca292453684fa2af16686}{FLASH\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em Start of on-\/chip Flash (512 KB), where the vector table and code live. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gacce5bcdd78719c9f4a53cfc4ca0f6f42}{SRAM\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em Start of SRAM1 (128 KB):\+ the stack, the heap and all Free\+RTOS objects. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga548ca9ecc4b62f701800110d155a05dc}{ROM\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em Start of system memory, the factory ROM bootloader. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Cortex-\/\+M4 core peripheral base addresses}\par
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga01d5d6d14e5ddc3602597f71315ef112}{NVIC\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em Nested vectored interrupt controller. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gafd26e1e406073dbe90566bacb7f55cd9}{SCB\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em System control block. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga3afdbef526b79ce12092b3d70f232328}{SYSTIC\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em Sys\+Tick 24-\/bit system timer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ AHB1 peripheral base addresses}\par
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga3e615727451fa1abc89e436a7158d4aa}{GPIOA\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em GPIO port A. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga583cafe206b45c6e3507b0493b96bdf0}{GPIOB\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em GPIO port B. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga05e89040a5ad3c3e5f5bbd62b434512b}{GPIOC\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em GPIO port C. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga807336d6c75feb8d0e943d618b5eaf26}{GPIOD\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em GPIO port D. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gac248e8d8a7113113481c2abb31d7660a}{GPIOE\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em GPIO port E. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga5f0323ec1e9720a76beebf3081bad9dc}{GPIOF\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em GPIO port F. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga90f006630c69a7540d8b0b1c0073f3d2}{GPIOG\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em GPIO port G. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga63f9598aea50d8c995a9037578bb0907}{GPIOH\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em GPIO port H. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga89610f202a9f78bcc85f76c5ba52d009}{RCC\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em Reset and clock control. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga489420976747e7bcf241e2a9bb6cd138}{DMA1\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em DMA controller 1 (declared for completeness; the firmware does not use DMA). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gac3883cd723aa62055a055104bb3f6890}{DMA2\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em DMA controller 2 (declared for completeness; the firmware does not use DMA). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ APB1 peripheral base addresses}\par
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga9e2d543dd90e725020d1f4b2ae3a0cdc}{USART2\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em USART2 — the Raspberry Pi telemetry link. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga44b4b63dcc1dedbd81fc2679c1d6c357}{USART3\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em USART3. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga98f7a7a89ed0a98037caa7bd82d027e7}{USART4\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em UART4. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga0fe016bdc6241abe115bb3a5b6f01c29}{USART5\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em UART5. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga52fc929735639d70b44dea7885bb01ff}{SPI2\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em SPI2. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gada16cf23d6a91088c447de485b616ed8}{SPI3\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em SPI3. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ APB2 peripheral base addresses}\par
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gad389e516cff9dd84a9b04685b391b8fe}{SYSCFG\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em System configuration controller (EXTI port routing). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga9ce143f4fc043361dc774d877c672f0d}{EXTI\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em External interrupt/\+event controller. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga4ccf21b5f54c80b031bff13956af2018}{USART1\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em USART1 — the ESP32 V2V radio link. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga849c1342a2b7b4126c4a3b638c903c29}{USART6\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em USART6. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga64992f19fed3a459eb91f519c06b3427}{SPI1\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em SPI1 — the MPU9250 IMU link. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga8370319e63d6c3a62ce4f0539ebe2b68}{SPI4\+\_\+\+BASEADDR}}
+\begin{DoxyCompactList}\small\item\em SPI4. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Timer peripheral base addresses}\par
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gaf8aa324ca5011b8173ab16585ed7324a}{TIM1\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM1:\+ advanced-\/control timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga00d0fe6ad532ab32f0f81cafca8d3aa5}{TIM2\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM2:\+ 32-\/bit general-\/purpose timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gaf0c34a518f87e1e505cd2332e989564a}{TIM3\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM3:\+ general-\/purpose timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga56e2d44b0002f316527b8913866a370d}{TIM4\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM4:\+ general-\/purpose timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga3e1671477190d065ba7c944558336d7e}{TIM5\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM5:\+ 32-\/bit general-\/purpose timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga8268ec947929f192559f28c6bf7d1eac}{TIM6\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM6:\+ basic timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga0ebf54364c6a2be6eb19ded6b18b6387}{TIM7\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM7:\+ basic timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga5b72f698b7a048a6f9fcfe2efe5bc1db}{TIM8\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM8:\+ advanced-\/control timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga92ae902be7902560939223dd765ece08}{TIM9\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM9:\+ general-\/purpose timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga3eff32f3801db31fb4b61d5618cad54a}{TIM10\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM10:\+ general-\/purpose timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga3a4a06bb84c703084f0509e105ffaf1d}{TIM11\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM11:\+ general-\/purpose timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga33dea32fadbaecea161c2ef7927992fd}{TIM12\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM12:\+ general-\/purpose timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gad20f79948e9359125a40bbf6ed063590}{TIM13\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM13:\+ general-\/purpose timer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga862855347d6e1d92730dfe17ee8e90b8}{TIM14\+\_\+\+BASE}}
+\begin{DoxyCompactList}\small\item\em TIM14:\+ general-\/purpose timer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ GPIO port pointers}\par
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gaf6850b06a42624be83a68462a7be5e12}{MGPIOA}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to GPIO port A. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gabe05d406fedc633b59c450f2a33b2daf}{MGPIOB}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to GPIO port B. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga86afa157c87ffee58eadc07c173acd3d}{MGPIOC}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to GPIO port C. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gaa8e1edc7576e162af0842453dcca1f83}{MGPIOD}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to GPIO port D. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gac06cc433a06b25055ff908e11cf37d44}{MGPIOE}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to GPIO port E. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga012e799ad11bc8bc642b351d1f38653e}{MGPIOF}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to GPIO port F. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gad803338b64ed6061cf02a3690ceccd3e}{MGPIOG}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to GPIO port G. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga8bd94bebe51f97e4e077768972e16324}{MGPIOH}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to GPIO port H. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ SPI peripheral pointers}\par
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gaef26793e8da8ae0f978071e519b95a98}{MSPI1}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to SPI1 — the MPU9250 link. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga3a0b50a712a207cfe1591e042e354b40}{MSPI2}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to SPI2. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga5176ad296ec37851a317895e592225c8}{MSPI3}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to SPI3. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gaba6db3bf8d7ccd3f31795fcff7bd17a1}{MSPI4}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to SPI4. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ USART peripheral pointers}\par
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gaedcc55b2b529aaf2b86136929704f0ea}{MUSART1}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to USART1 — the ESP32 V2V link. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga018e2195978a9cc353c790033d1c7a0a}{MUSART2}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to USART2 — the Raspberry Pi telemetry link. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gabe2a71d95cee15a1aa29fd73426458dc}{MUSART3}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to USART3. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gaaef3695b9d2a750bc616b20ba7d93dc9}{MUSART4}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to UART4. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gae3fa87ee6d44f18319fad998888b6cbb}{MUSART5}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to UART5. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga258613d2640e98dc10dd39944e6d87a5}{MUSART6}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to USART6. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Timer peripheral pointers}\par
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga2e87451fea8dc9380056d3cfc5ed81fb}{TIM1}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM1. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga3cfac9f2e43673f790f8668d48b4b92b}{TIM2}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM2. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga61ee4c391385607d7af432b63905fcc9}{TIM3}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM3. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga91a09bad8bdc7a1cb3d85cf49c94c8ec}{TIM4}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM4. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga5125ff6a23a2ed66e2e19bd196128c14}{TIM5}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM5. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gac7b4ed55f9201b498b38c962cca97314}{TIM6}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM6. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga49267c49946fd61db6af8b49bcf16394}{TIM7}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM7. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga9a3660400b17735e91331f256095810e}{TIM8}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM8. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gaf52b4b4c36110a0addfa98059f54a50e}{TIM9}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM9. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga46b2ad3f5f506f0f8df0d2ec3e767267}{TIM10}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM10. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_gacfd11ef966c7165f57e2cebe0abc71ad}{TIM11}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM11. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga2397f8a0f8e7aa10cf8e8c049e431e53}{TIM12}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM12. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga5a959a833074d59bf6cc7fb437c65b18}{TIM13}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM13. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__lib_ga2dd30f46fad69dd73e1d8941a43daffe}{TIM14}}
+\begin{DoxyCompactList}\small\item\em Typed pointer to TIM14. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+
+
+\doxysubsection{Detailed Description}
+STM32\+F446\+RE register map:\+ peripheral base addresses, register layout structs, and the typed pointers the MCAL drivers write to. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey 
+\end{DoxyAuthor}
+This is the hand-\/written replacement for ST\textquotesingle{}s CMSIS device header — the project deliberately uses no vendor HAL/\+\+LL code, so this file is the single point where a C symbol is bound to a physical peripheral address.
+
+Each peripheral is described in two steps:\+
+\begin{DoxyEnumerate}
+\item a {\ttfamily \texorpdfstring{$<$}{<}PERIPH\texorpdfstring{$>$}{>}\+\_\+\+BASEADDR} constant, taken from the memory map in RM0390;
+\item a {\ttfamily \texorpdfstring{$<$}{<}PERIPH\texorpdfstring{$>$}{>}\+\_\+\+Reg\+Def\+\_\+t} struct whose members are laid out in register order, so member offsets match hardware offsets exactly.
+\end{DoxyEnumerate}
+
+The {\ttfamily M\texorpdfstring{$<$}{<}PERIPH\texorpdfstring{$>$}{>}} macros then cast the base address to that struct, which is how every driver reaches the hardware, e.\+g. {\ttfamily MGPIOA-\/\texorpdfstring{$>$}{>}ODR \texorpdfstring{$\vert$}{|}= (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 5);}.
+
+\begin{DoxyWarning}{Warning}
+Member order and the {\ttfamily RESERVED} padding arrays are load-\/bearing:\+ they are what makes each member land on its real hardware offset. Never reorder a member or drop a padding field. 
+\end{DoxyWarning}
+\begin{DoxyNote}{Note}
+Register bit {\itshape positions} do not live here — each driver keeps its own bit definitions in its {\ttfamily \texorpdfstring{$<$}{<}NAME\texorpdfstring{$>$}{>}\+\_\+private.\+h}. 
+\end{DoxyNote}
+
+
+Definition in file \doxymbox{\hyperlink{STM32F446xx_8h_source}{STM32\+F446xx.\+h}}.
+

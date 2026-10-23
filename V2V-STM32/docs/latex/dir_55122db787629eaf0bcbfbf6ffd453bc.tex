@@ -1,0 +1,80 @@
+\doxysection{RPI/\+\+Dash\+Board Directory Reference}
+\hypertarget{dir_55122db787629eaf0bcbfbf6ffd453bc}{}\label{dir_55122db787629eaf0bcbfbf6ffd453bc}\index{RPI/DashBoard Directory Reference@{RPI/DashBoard Directory Reference}}
+Directory dependency graph for Dash\+Board:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=182pt]{dir_55122db787629eaf0bcbfbf6ffd453bc_dep}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_55122db787629eaf0bcbfbf6ffd453bc_autotoc_md94}{}\doxysubsection{\texorpdfstring{V2X Dashboard (Web)}{V2X Dashboard (Web)}}\label{dir_55122db787629eaf0bcbfbf6ffd453bc_autotoc_md94}
+A web interface for the vehicle. Open it from any device on the same network — no car screen required.
+
+{\bfseries{Shows only real project data:\+}}
+
+
+\begin{DoxyItemize}
+\item {\bfseries{ADAS safety warnings}} — EEBL, FCW, BSW, DNPW, IMA (Safe /\+ Warning /\+ Critical)
+\item {\bfseries{V2N · V2P · AI smart systems}} — traffic light (GO/\+\+STOP), pedestrian detection (nearby /\+ crossing + side), motorcycle collision risk, and the AI camera\textquotesingle{}s lead-\/car watch (warning /\+ danger)
+\item {\bfseries{Speed + heading + attitude}} — from the MPU9250 (speedometer, compass, pitch/\+roll)
+\item {\bfseries{Engine temperature + weather}} — stat tiles on the left
+\item {\bfseries{6 ultrasonic sensors}} — top-\/down car view; each sensor shows live distance and lights up green → yellow → red as an obstacle gets closer
+\item {\bfseries{Live motion}} — the road scrolls in proportion to speed (stops when parked)
+\item {\bfseries{Event log + overall risk level}} — auto-\/generated from state changes
+\end{DoxyItemize}\hypertarget{dir_55122db787629eaf0bcbfbf6ffd453bc_autotoc_md95}{}\doxysubsection{\texorpdfstring{How it works}{How it works}}\label{dir_55122db787629eaf0bcbfbf6ffd453bc_autotoc_md95}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{data.json\ \ -\/-\/>\ \ web\ dashboard\ (index.html)}
+\DoxyCodeLine{(one\ file,\ \ \ \ \ \ \ (polls\ the\ file\ every}
+\DoxyCodeLine{\ all\ values)\ \ \ \ \ \ \string~1s\ and\ displays\ it)}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyItemize}
+\item {\bfseries{{\ttfamily data.\+json}}} — the single source of truth. Every value on screen lives here.
+\item {\bfseries{{\ttfamily server.\+py}}} — only {\itshape serves} the files. It never changes any value.
+\item The front-\/end ({\ttfamily index.\+html}, {\ttfamily css/\+}, {\ttfamily js/\+}) only {\itshape reads} {\ttfamily data.\+json}.
+\end{DoxyItemize}\hypertarget{dir_55122db787629eaf0bcbfbf6ffd453bc_autotoc_md96}{}\doxysubsection{\texorpdfstring{Run}{Run}}\label{dir_55122db787629eaf0bcbfbf6ffd453bc_autotoc_md96}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cd\ DashBoard}
+\DoxyCodeLine{python3\ server.py}
+
+\end{DoxyCode}
+
+
+Then open the printed URL (e.\+g. {\ttfamily \href{http://localhost:8000}{\texttt{http:\+/\+/\+localhost:\+8000}}}), or the {\ttfamily network} URL from your phone /\+ another laptop on the same Wi-\/\+Fi.\hypertarget{dir_55122db787629eaf0bcbfbf6ffd453bc_autotoc_md97}{}\doxysubsection{\texorpdfstring{Test mode (now):\+ change values by hand}{Test mode (now):\+ change values by hand}}\label{dir_55122db787629eaf0bcbfbf6ffd453bc_autotoc_md97}
+The dashboard reads {\ttfamily data.\+json} live. To check it works:\+
+
+
+\begin{DoxyEnumerate}
+\item Open {\ttfamily data.\+json} in any editor.
+\item Change a value and {\bfseries{save}}:\+
+\begin{DoxyItemize}
+\item {\ttfamily drive.\+speed\+Kmh} → moves the speedometer {\bfseries{and}} the road-\/scroll speed
+\item {\ttfamily drive.\+heading} (0–360) → turns the compass
+\item {\ttfamily drive.\+pitch} /\+ {\ttfamily drive.\+roll} → tilts the attitude indicator
+\item {\ttfamily drive.\+vehicle\+TempC} → engine-\/temp tile (turns amber ≥95, red ≥105)
+\item {\ttfamily weather.\+condition} /\+ {\ttfamily tempC} /\+ {\ttfamily humidity} → weather tile
+\item {\ttfamily ultrasonic.\texorpdfstring{$\ast$}{*}} distances in {\bfseries{cm}} — {\ttfamily front, front\+Left, front\+Right, rear, rear\+Left, rear\+Right} (≥120 = clear, 50–120 = near/\+yellow, \texorpdfstring{$<$}{<}50 = close/\+red)
+\item \`{}adas.\texorpdfstring{$\ast$}{*}\`{} warnings use \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}0 = Safe, 1 = Warning, 2 = Critical\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}
+\end{DoxyItemize}
+\item The page updates within \texorpdfstring{$\sim$}{\string~}1 second. No refresh needed.
+\end{DoxyEnumerate}\hypertarget{dir_55122db787629eaf0bcbfbf6ffd453bc_autotoc_md98}{}\doxysubsection{\texorpdfstring{Auto mode (later):\+ real UART}{Auto mode (later):\+ real UART}}\label{dir_55122db787629eaf0bcbfbf6ffd453bc_autotoc_md98}
+When the STM is connected, a small reader parses the serial frame and writes the \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}same\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \`{}data.json\`{}. The dashboard does not change at all. A ready-\/to-\/fill skeleton (\`{}uart\+\_\+reader\`{}) is at the bottom of \`{}server.py\`{}.\hypertarget{dir_55122db787629eaf0bcbfbf6ffd453bc_autotoc_md99}{}\doxysubsection{\texorpdfstring{Files}{Files}}\label{dir_55122db787629eaf0bcbfbf6ffd453bc_autotoc_md99}
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}File  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Purpose  \\
+{\ttfamily data.\+json}  &All vehicle values (edit by hand now, UART writes it later)  \\
+{\ttfamily server.\+py}  &Static web server (+ UART reader skeleton for later)  \\
+{\ttfamily index.\+html}  &Dashboard layout  \\
+{\ttfamily css/\+style.\+css}  &Dark theme styling  \\
+{\ttfamily js/\+app.\+js}  &Reads {\ttfamily data.\+json} and renders  \\
+{\ttfamily Logo/\+}  &Sponsor /\+ partner logos  \\
+\end{DoxyTable}

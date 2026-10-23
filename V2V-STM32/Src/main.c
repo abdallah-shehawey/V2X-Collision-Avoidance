@@ -1,8 +1,31 @@
 /**
  ******************************************************************************
- * @file           : main.c
- * @author         : Abdallah Saleh
- * @brief          : Main program body
+ * @file    main.c
+ * @author  Abdallah Saleh
+ * @brief   Entry point, the six FreeRTOS tasks, and the watchdog liveness net.
+ * @ingroup system
+ *
+ * @details
+ * `main()` brings the board up (@ref System_setup), then hands control to the
+ * scheduler (@ref RTOS_setup). Everything after that happens in one of six tasks;
+ * see @ref sys_tasks for their priorities and periods.
+ *
+ * The tasks are deliberately split **brain / muscle**: @ref vTask_SafetyEngine
+ * decides, and nothing else does. It writes its verdict into @ref G_u16SystemFlags,
+ * and @ref vTask_Feedback simply renders that word onto the LEDs and buzzer
+ * without re-deriving anything.
+ *
+ * @section main_wdg The watchdog net
+ *
+ * Every monitored task bumps its own slot in @ref G_au32Heartbeat on each loop.
+ * @ref vTask_Watchdog refreshes the hardware IWDG **only while every slot is
+ * still advancing**. If any single task stalls — hard fault, stack overflow,
+ * infinite loop, ISR storm, or simple starvation — its slot freezes, the refresh
+ * stops, and the IWDG hardware-resets the MCU after @ref WDG_TIMEOUT_MS.
+ *
+ * This is why the check is per-task rather than a single "I'm alive" flag: a
+ * watchdog kicked from one healthy task would happily keep the MCU running with
+ * a dead ADAS task.
  ******************************************************************************
  **/
 
@@ -15,7 +38,6 @@
 #include "task.h"
 #include "queue.h"
 #include "semphr.h"
-
 
 #include "../Inc/Drivers/HAL/BUZZ/BUZ_interface.h"
 #include "../Inc/Drivers/MCAL/TIM/TIM_interface.h"
@@ -31,30 +53,71 @@
 #include "../Inc/Application/SafetyEngine/SafetyEngine_interface.h"
 #include "../Inc/Drivers/MCAL/IWDG/IWDG_interface.h"
 
-extern BUZ_Config_t      V2X_Buzzer;
-extern USART_Config_t    RPi_UART;
-extern US_Config_t FrontUS[3];
-extern US_Config_t BackUS[3];
-/* LEDs: FrontR=PC0, FrontL=PC1, BackR=PC2, BackL=PC3, Interior(driver)=PC7 */
-extern LED_Config_t FrontR_LED, FrontL_LED, BackR_LED, BackL_LED, Interior_LED;
+/**
+ * @name Board objects
+ * Defined in `System.c`; declared here because the tasks below drive them.
+ * @{
+ */
+extern BUZ_Config_t   V2X_Buzzer;   /**< The piezo buzzer (PC4). */
+extern USART_Config_t RPi_UART;     /**< USART2 — the Raspberry Pi telemetry link. */
+extern US_Config_t    FrontUS[3];   /**< Front ultrasonics, in the order left, centre, right. */
+extern US_Config_t    BackUS[3];    /**< Rear ultrasonics, in the order left, centre, right. */
+extern LED_Config_t   FrontR_LED;   /**< Front-right LED (PC0). */
+extern LED_Config_t   FrontL_LED;   /**< Front-left LED (PC1). */
+extern LED_Config_t   BackR_LED;    /**< Rear-right LED (PC2). */
+extern LED_Config_t   BackL_LED;    /**< Rear-left LED (PC3). */
+extern LED_Config_t   Interior_LED; /**< Interior/dashboard LED (PC7). */
+/** @} */
 
+/**
+ * @brief Bytes received on USART1, handed from the RX ISR to @ref vTask_ESP_Comm.
+ *
+ * The ISR only enqueues; all DSRC parsing happens in task context, so the ISR
+ * stays short and the parser can take mutexes.
+ */
+QueueHandle_t G_xESP_RX_Queue;
 
-QueueHandle_t G_xESP_RX_Queue;        // queue for ESP32 communication
-SemaphoreHandle_t G_xDataMutex;           // for data protection (G_stHostVehicleState and G_u16SystemFlags)
-SemaphoreHandle_t G_xNeighborTableMutex;  // for neighbor table protection (neighbor_table)
+/** @brief Guards @ref G_stHostVehicleState and @ref G_u16SystemFlags. */
+SemaphoreHandle_t G_xDataMutex;
 
+/**
+ * @brief Guards the DSRC neighbor table.
+ * @warning When both mutexes are needed they are always taken
+ *          **NeighborTable → Data**, never the other way round. That fixed order
+ *          is what makes the task set deadlock-free.
+ */
+SemaphoreHandle_t G_xNeighborTableMutex;
 
-/* ================== Watchdog heartbeats ==================
- * Each monitored task bumps its own slot every loop. vTask_Watchdog refreshes
- * the IWDG ONLY while EVERY slot keeps advancing; if any task stalls (hard
- * fault, stack-overflow halt, infinite loop, ISR storm, or starvation) its slot
- * freezes → the refresh stops → the IWDG hardware-resets the MCU. */
-enum { HB_SAFETY = 0, HB_SENSORS, HB_ESP, HB_FEEDBACK, HB_RPI, HB_COUNT };
-volatile uint32_t G_au32Heartbeat[HB_COUNT] = {0};
+/**
+ * @brief One heartbeat slot per monitored task — see @ref main_wdg.
+ */
+enum
+{
+  HB_SAFETY = 0, /**< Slot bumped by @ref vTask_SafetyEngine. */
+  HB_SENSORS,    /**< Slot bumped by @ref vTask_Sensors. */
+  HB_ESP,        /**< Slot bumped by @ref vTask_ESP_Comm. */
+  HB_FEEDBACK,   /**< Slot bumped by @ref vTask_Feedback. */
+  HB_RPI,        /**< Slot bumped by @ref vTask_RPi_Comm. */
+  HB_COUNT       /**< Number of monitored tasks; not a slot itself. */
+};
 
-#define WDG_TIMEOUT_MS        2000U   /* IWDG hardware reset timeout (LSI-backed) */
-#define WDG_CHECK_PERIOD_MS    300U   /* how often the monitor verifies + kicks   */
+/**
+ * @brief The heartbeat counters, one per entry of the enum above.
+ *
+ * Each task increments its own slot and no other, so no locking is needed:
+ * there is exactly one writer per slot, and the watchdog only ever reads.
+ */
+volatile uint32_t G_au32Heartbeat[HB_COUNT] = { 0 };
 
+/**
+ * @brief How long the IWDG will wait before resetting the MCU [ms].
+ * @note  Clocked from the LSI, which is only accurate to about ±50%, so this is
+ *        a generous multiple of @ref WDG_CHECK_PERIOD_MS rather than a tight bound.
+ */
+#define WDG_TIMEOUT_MS 2000U
+
+/** @brief How often @ref vTask_Watchdog checks the heartbeats and kicks the IWDG [ms]. */
+#define WDG_CHECK_PERIOD_MS 300U
 
 /* ================== Task Prototypes ================== */
 void vTask_SafetyEngine(void *pvParameters);
@@ -68,7 +131,18 @@ void vTask_RPi_Comm(void *pvParameters);
 /* Reliability */
 void vTask_Watchdog(void *pvParameters);
 
-
+/**
+ * @brief Firmware entry point: bring up the board, create the tasks, start the OS.
+ *
+ * The order here matters. The ADAS modules are initialised *before* any task can
+ * run, and the IWDG is started **last**, immediately before the scheduler: from
+ * the moment @ref IWDG_voidInit returns, something must kick the watchdog within
+ * @ref WDG_TIMEOUT_MS or the MCU resets — so it must not be armed while there is
+ * still setup work left to do.
+ *
+ * @return Never returns. If the scheduler ever fails to start, the function traps
+ *         in an infinite loop and the watchdog resets the MCU.
+ */
 int main(void)
 {
   /*for segger*/
@@ -79,8 +153,8 @@ int main(void)
 
   /* Create Queues & Mutexes */
   G_xESP_RX_Queue = xQueueCreate(256, sizeof(uint8_t)); // 256 element queue (byte)
-  G_xDataMutex = xSemaphoreCreateMutex();                 // for data protection (G_stHostVehicleState and G_u16SystemFlags)
-  G_xNeighborTableMutex = xSemaphoreCreateMutex();        // for neighbor table protection (neighbor_table)
+  G_xDataMutex = xSemaphoreCreateMutex();               // for data protection (G_stHostVehicleState and G_u16SystemFlags)
+  G_xNeighborTableMutex = xSemaphoreCreateMutex();      // for neighbor table protection (neighbor_table)
 
   /* Initialize all ADAS modules (FCW/EEBL/BSW/DNPW/IMA) before scheduling */
   SafetyEngine_voidInit();
@@ -88,14 +162,14 @@ int main(void)
   /* 2. OS Tasks Creation - Pipeline Architecture */
   /* --- High Priority: single-pass ADAS brain + V2X communication --- */
   xTaskCreate(vTask_SafetyEngine, "SafetyEngine_Task", configMINIMAL_STACK_SIZE + 256, NULL, 4, NULL);
-  xTaskCreate(vTask_ESP_Comm,     "ESP_Comm_Task",     configMINIMAL_STACK_SIZE + 128, NULL, 4, NULL);
+  xTaskCreate(vTask_ESP_Comm, "ESP_Comm_Task", configMINIMAL_STACK_SIZE + 128, NULL, 4, NULL);
   /* --- Medium Priority: Data Acquisition (priority 3 — US blocking preempted by priority 4) --- */
-  xTaskCreate(vTask_Sensors,      "Sensors_Task",      configMINIMAL_STACK_SIZE + 256, NULL, 3, NULL);
+  xTaskCreate(vTask_Sensors, "Sensors_Task", configMINIMAL_STACK_SIZE + 256, NULL, 3, NULL);
   /* --- Low Priority: Actuator Execution & UI/RPi --- */
-  xTaskCreate(vTask_Feedback,     "Feedback_Task",     configMINIMAL_STACK_SIZE + 128, NULL, 2, NULL);
-  xTaskCreate(vTask_RPi_Comm,     "RPi_Comm_Task",     configMINIMAL_STACK_SIZE + 256, NULL, 1, NULL);
+  xTaskCreate(vTask_Feedback, "Feedback_Task", configMINIMAL_STACK_SIZE + 128, NULL, 2, NULL);
+  xTaskCreate(vTask_RPi_Comm, "RPi_Comm_Task", configMINIMAL_STACK_SIZE + 256, NULL, 1, NULL);
   /* --- Lowest Priority: liveness monitor → kicks the IWDG (must run last) --- */
-  xTaskCreate(vTask_Watchdog,     "Watchdog_Task",     configMINIMAL_STACK_SIZE,       NULL, 1, NULL);
+  xTaskCreate(vTask_Watchdog, "Watchdog_Task", configMINIMAL_STACK_SIZE, NULL, 1, NULL);
 
   /* Start the independent watchdog LAST, just before the scheduler. From here
    * the IWDG must be kicked within WDG_TIMEOUT_MS or the MCU hardware-resets. */
@@ -105,8 +179,8 @@ int main(void)
   RTOS_setup();
 
   /* 4. Should never be reached unless scheduler fails */
-  for (;;);
-
+  for (;;)
+    ;
 }
 
 /* ================== Task Implementations ================== */
@@ -121,17 +195,19 @@ int main(void)
  *
  * Lock order: NeighborTable → Data. vTask_ESP_Comm takes them separately
  * (never nested) and vTask_Sensors takes Data only → no deadlock possible.
+ * @param pvParameters Unused. FreeRTOS hands the task the argument given to
+ *                     `xTaskCreate`, which is NULL for every task here.
  */
 void vTask_SafetyEngine(void *pvParameters)
 {
   TickType_t xLastWakeTime = xTaskGetTickCount();
 
-  for(;;)
+  for (;;)
   {
     G_au32Heartbeat[HB_SAFETY]++;
 
     xSemaphoreTake(G_xNeighborTableMutex, portMAX_DELAY);
-    xSemaphoreTake(G_xDataMutex,          portMAX_DELAY);
+    xSemaphoreTake(G_xDataMutex, portMAX_DELAY);
 
     SafetyEngine_voidUpdate();
 
@@ -142,10 +218,15 @@ void vTask_SafetyEngine(void *pvParameters)
   }
 }
 
-/* Small rest after each full scan: gives lower-priority tasks guaranteed CPU
- * and sets the minimum spacing between scans. The scan itself is adaptive —
- * its length follows echo flight time (near objects → faster refresh). */
-#define SENSORS_CYCLE_GAP_MS  10U
+/**
+ * @brief Rest inserted after each full 6-sensor scan [ms].
+ *
+ * Two jobs: it guarantees the lower-priority tasks some CPU, and it sets the
+ * minimum spacing between scans. The scan itself has no fixed length — it is
+ * adaptive, because each reading takes as long as its echo takes to come back,
+ * so near objects produce a naturally faster refresh than distant ones.
+ */
+#define SENSORS_CYCLE_GAP_MS 10U
 
 /**
  * @brief Reads ALL 6 ultrasonics + MPU9250 every cycle, then a small gap.
@@ -159,19 +240,21 @@ void vTask_SafetyEngine(void *pvParameters)
  *
  * All values are computed into locals first, then published in ONE short mutex
  * section. Speed stored as cm/s so ADAS TTC (distance_cm / speed_cm_s) = seconds.
+ * @param pvParameters Unused. FreeRTOS hands the task the argument given to
+ *                     `xTaskCreate`, which is NULL for every task here.
  */
 void vTask_Sensors(void *pvParameters)
 {
-  static float             local_speed_ms = 0.0f;
-  static MPU9250_Position_t local_pos     = {0};
-  MPU9250_Data_t  mpu_data               = {0};
+  static float              local_speed_ms = 0.0f;
+  static MPU9250_Position_t local_pos = { 0 };
+  MPU9250_Data_t            mpu_data = { 0 };
 
   /* Interleaved order: each pair is geographically distant (front↔back same side)
    * → no two adjacent reads share an acoustic path → cross-talk eliminated. */
   const US_Config_t *sensors[6] = {
-      &FrontUS[0], &BackUS[0],   /* Left:   front then back  */
-      &FrontUS[1], &BackUS[1],   /* Center: front then back  */
-      &FrontUS[2], &BackUS[2]    /* Right:  front then back  */
+    &FrontUS[0], &BackUS[0], /* Left:   front then back  */
+    &FrontUS[1], &BackUS[1], /* Center: front then back  */
+    &FrontUS[2], &BackUS[2]  /* Right:  front then back  */
   };
 
   /* Timestamp of the PREVIOUS MPU sample. dt is measured right around the MPU
@@ -180,7 +263,7 @@ void vTask_Sensors(void *pvParameters)
    * in between. This keeps the attitude/heading/speed/position integration exact. */
   TickType_t xPrevMpuTick = xTaskGetTickCount();
 
-  for(;;)
+  for (;;)
   {
     G_au32Heartbeat[HB_SENSORS]++;
 
@@ -189,15 +272,16 @@ void vTask_Sensors(void *pvParameters)
     uint16_t raw;
     for (uint8_t i = 0; i < 6; i++)
     {
-      us[i] = 400.0f;   /* default = out of range / clear (no echo within 4m) */
+      us[i] = 400.0f; /* default = out of range / clear (no echo within 4m) */
       if (US_u16ReadDistance_cm(sensors[i], &raw) == OK)
         us[i] = (float)raw;
     }
 
     /* ── dt = interval since the previous MPU sample (measured at the read) ── */
     TickType_t xNow = xTaskGetTickCount();
-    float dt = (float)(xNow - xPrevMpuTick) * 0.001f;  /* ms → seconds */
-    if (dt <= 0.0f) dt = 0.010f;                        /* guard: first run */
+    float      dt = (float)(xNow - xPrevMpuTick) * 0.001f; /* ms → seconds */
+    if (dt <= 0.0f)
+      dt = 0.010f; /* guard: first run */
     xPrevMpuTick = xNow;
 
     /* ── MPU9250: read and process into locals ── */
@@ -211,19 +295,19 @@ void vTask_Sensors(void *pvParameters)
 
     /* ── Publish everything in ONE short mutex section ── */
     xSemaphoreTake(G_xDataMutex, portMAX_DELAY);
-    G_stHostVehicleState.FrontLeftUS   = us[0];
-    G_stHostVehicleState.BackLeftUS    = us[1];
+    G_stHostVehicleState.FrontLeftUS = us[0];
+    G_stHostVehicleState.BackLeftUS = us[1];
     G_stHostVehicleState.FrontCenterUS = us[2];
-    G_stHostVehicleState.BackCenterUS  = us[3];
-    G_stHostVehicleState.FrontRightUS  = us[4];
-    G_stHostVehicleState.BackRightUS   = us[5];
-    G_stHostVehicleState.Speed   = local_speed_ms * 100.0f;  /* m/s → cm/s */
+    G_stHostVehicleState.BackCenterUS = us[3];
+    G_stHostVehicleState.FrontRightUS = us[4];
+    G_stHostVehicleState.BackRightUS = us[5];
+    G_stHostVehicleState.Speed = local_speed_ms * 100.0f; /* m/s → cm/s */
     G_stHostVehicleState.Heading = heading;
-    G_stHostVehicleState.Pitch   = pitch;
-    G_stHostVehicleState.Roll    = roll;
-    G_stHostVehicleState.PosX    = local_pos.X;
-    G_stHostVehicleState.PosY    = local_pos.Y;
-    G_stHostVehicleState.PosZ    = local_pos.Z;
+    G_stHostVehicleState.Pitch = pitch;
+    G_stHostVehicleState.Roll = roll;
+    G_stHostVehicleState.PosX = local_pos.X;
+    G_stHostVehicleState.PosY = local_pos.Y;
+    G_stHostVehicleState.PosZ = local_pos.Z;
     xSemaphoreGive(G_xDataMutex);
 
     /* ── Small adaptive gap (other tasks get CPU; sets min scan spacing) ── */
@@ -244,10 +328,12 @@ void vTask_Sensors(void *pvParameters)
  *   • EEBL == CRITICAL            → additionally the REAR  LEDs.
  *   • everything else (BSW/DNPW/IMA, or FCW/EEBL at WARNING) adds no extra LED —
  *     the interior LED + buzzer is their full response.
+ * @param pvParameters Unused. FreeRTOS hands the task the argument given to
+ *                     `xTaskCreate`, which is NULL for every task here.
  */
 void vTask_Feedback(void *pvParameters)
 {
-  for(;;)
+  for (;;)
   {
     G_au32Heartbeat[HB_FEEDBACK]++;
 
@@ -272,21 +358,32 @@ void vTask_Feedback(void *pvParameters)
 
       /* FCW CRITICAL → front LEDs (imminent forward collision). */
       if (SYS_GET(flags, SYS_FCW_POS) == SYS_CRITICAL)
-      { LED_TurnOn(&FrontR_LED);  LED_TurnOn(&FrontL_LED);  }
+      {
+        LED_TurnOn(&FrontR_LED);
+        LED_TurnOn(&FrontL_LED);
+      }
       else
-      { LED_TurnOff(&FrontR_LED); LED_TurnOff(&FrontL_LED); }
+      {
+        LED_TurnOff(&FrontR_LED);
+        LED_TurnOff(&FrontL_LED);
+      }
 
       /* EEBL CRITICAL → rear LEDs (hard braking → warn the car behind). */
       if (SYS_GET(flags, SYS_EEBL_POS) == SYS_CRITICAL)
-      { LED_TurnOn(&BackR_LED);  LED_TurnOn(&BackL_LED);  }
+      {
+        LED_TurnOn(&BackR_LED);
+        LED_TurnOn(&BackL_LED);
+      }
       else
-      { LED_TurnOff(&BackR_LED); LED_TurnOff(&BackL_LED); }
+      {
+        LED_TurnOff(&BackR_LED);
+        LED_TurnOff(&BackL_LED);
+      }
     }
 
     vTaskDelay(pdMS_TO_TICKS(25));
   }
 }
-
 
 /**
  * @brief Handles both RX and TX communication with ESP (V2X Network) using DSRC foundation.
@@ -295,17 +392,19 @@ void vTask_Feedback(void *pvParameters)
  *          into DSRC state machine, then flushes assembled packets into neighbor table.
  * TX path  (periodic 100ms): builds a Neighbor from current host state + ADAS flags
  *          and broadcasts via DSRC_SendNeighbor.
+ * @param pvParameters Unused. FreeRTOS hands the task the argument given to
+ *                     `xTaskCreate`, which is NULL for every task here.
  */
 void vTask_ESP_Comm(void *pvParameters)
 {
   TickType_t xLastTXTime = xTaskGetTickCount();
 
-  for(;;)
+  for (;;)
   {
     G_au32Heartbeat[HB_ESP]++;
 
     /* ── RX: event-driven byte processing ───────────────────────── */
-    uint8_t byte; //  Buffer to hold received byte from ESP32
+    uint8_t byte;                                                           //  Buffer to hold received byte from ESP32
     if (xQueueReceive(G_xESP_RX_Queue, &byte, pdMS_TO_TICKS(10)) == pdTRUE) // Waits for 10ms for a byte to be received
     {
       DSRC_RxCallback(byte); // Calls the callback function to process the received byte
@@ -332,7 +431,7 @@ void vTask_ESP_Comm(void *pvParameters)
     {
       xLastTXTime = xTaskGetTickCount();
 
-      Neighbor my_data = {0};
+      Neighbor my_data = { 0 };
       my_data.vehicle_id = VEHICLE_ID;
       /* last_update is intentionally left 0: the receiver overwrites it with its
        * OWN local FreeRTOS tick in update_neighbor() (a sender's clock is
@@ -348,11 +447,11 @@ void vTask_ESP_Comm(void *pvParameters)
        *   ima_flag        : intersection movement assist (0/1/2)
        *   distance_to_intersection : for the neighbors' IMA geometry */
       xSemaphoreTake(G_xDataMutex, portMAX_DELAY);
-      my_data.speed                    = G_stHostVehicleState.Speed;
-      my_data.heading                  = G_stHostVehicleState.Heading;
-      my_data.fcw_headon_flag          = FCW_GetHeadonFlag();
-      my_data.bsw_flag                 = BSW_u8GetFlag();
-      my_data.ima_flag                 = IMA_u8GetFlag();
+      my_data.speed = G_stHostVehicleState.Speed;
+      my_data.heading = G_stHostVehicleState.Heading;
+      my_data.fcw_headon_flag = FCW_GetHeadonFlag();
+      my_data.bsw_flag = BSW_u8GetFlag();
+      my_data.ima_flag = IMA_u8GetFlag();
       my_data.distance_to_intersection = Host_DistToIntersection;
       xSemaphoreGive(G_xDataMutex);
 
@@ -361,7 +460,19 @@ void vTask_ESP_Comm(void *pvParameters)
   }
 }
 
-
+/**
+ * @brief Streams one ASCII CSV telemetry line to the Raspberry Pi every 100 ms.
+ *
+ * The line format and its column order are specified on @ref RPi_Packet_t — the
+ * Raspberry Pi parser must agree with it field for field.
+ *
+ * ASCII is used rather than the packed binary struct because the binary layout
+ * contains `0x00` bytes, and those were being dropped on the UART link, which
+ * silently truncated entire runs.
+ *
+ * @param pvParameters Unused. FreeRTOS hands the task the argument given to
+ *                     `xTaskCreate`, which is NULL for every task here.
+ */
 void vTask_RPi_Comm(void *pvParameters)
 {
   TickType_t xLastWakeTime = xTaskGetTickCount();
@@ -372,9 +483,9 @@ void vTask_RPi_Comm(void *pvParameters)
   {
     G_au32Heartbeat[HB_RPI]++;
 
-    float spd, hdg, pit, rol, fl, fc, fr, bl, bc, br;
+    float    spd, hdg, pit, rol, fl, fc, fr, bl, bc, br;
     uint16_t flags;
-    uint8_t bsw_sides;
+    uint8_t  bsw_sides;
 
     /* Read shared state under mutex. The BSW per-side severity is computed from
      * statics that vTask_SafetyEngine writes while holding G_xDataMutex, so read
@@ -384,12 +495,12 @@ void vTask_RPi_Comm(void *pvParameters)
     hdg = G_stHostVehicleState.Heading;
     pit = G_stHostVehicleState.Pitch;
     rol = G_stHostVehicleState.Roll;
-    fl  = G_stHostVehicleState.FrontLeftUS;
-    fc  = G_stHostVehicleState.FrontCenterUS;
-    fr  = G_stHostVehicleState.FrontRightUS;
-    bl  = G_stHostVehicleState.BackLeftUS;
-    bc  = G_stHostVehicleState.BackCenterUS;
-    br  = G_stHostVehicleState.BackRightUS;
+    fl = G_stHostVehicleState.FrontLeftUS;
+    fc = G_stHostVehicleState.FrontCenterUS;
+    fr = G_stHostVehicleState.FrontRightUS;
+    bl = G_stHostVehicleState.BackLeftUS;
+    bc = G_stHostVehicleState.BackCenterUS;
+    br = G_stHostVehicleState.BackRightUS;
     bsw_sides = BSW_u8GetSidesSeverity();
     xSemaphoreGive(G_xDataMutex);
 
@@ -414,7 +525,6 @@ void vTask_RPi_Comm(void *pvParameters)
   }
 }
 
-
 /**
  * @brief Liveness monitor + watchdog kicker (lowest priority).
  *
@@ -427,6 +537,8 @@ void vTask_RPi_Comm(void *pvParameters)
  *
  * Runs at the LOWEST user priority so that CPU starvation by ANY other task
  * also stops the kicks. The task is self-covering: if IT hangs, no kicks → reset.
+ * @param pvParameters Unused. FreeRTOS hands the task the argument given to
+ *                     `xTaskCreate`, which is NULL for every task here.
  */
 void vTask_Watchdog(void *pvParameters)
 {
@@ -434,7 +546,7 @@ void vTask_Watchdog(void *pvParameters)
   for (uint8_t i = 0; i < HB_COUNT; i++)
     snapshot[i] = G_au32Heartbeat[i];
 
-  IWDG_voidRefresh();   /* initial kick so the window starts clean */
+  IWDG_voidRefresh(); /* initial kick so the window starts clean */
 
   TickType_t xLastWake = xTaskGetTickCount();
   for (;;)
@@ -444,7 +556,8 @@ void vTask_Watchdog(void *pvParameters)
     uint8_t all_alive = 1;
     for (uint8_t i = 0; i < HB_COUNT; i++)
     {
-      if (G_au32Heartbeat[i] == snapshot[i]) all_alive = 0;  /* this task stalled */
+      if (G_au32Heartbeat[i] == snapshot[i])
+        all_alive = 0; /* this task stalled */
       snapshot[i] = G_au32Heartbeat[i];
     }
 
@@ -455,16 +568,32 @@ void vTask_Watchdog(void *pvParameters)
   }
 }
 
-
 /* ================== ISR callbacks ================== */
+
+/**
+ * @brief USART1 receive ISR callback: push one byte onto @ref G_xESP_RX_Queue.
+ *
+ * Called from interrupt context for every byte the ESP32 sends. It does the
+ * minimum possible — read the byte, enqueue it — and leaves all DSRC framing and
+ * parsing to @ref vTask_ESP_Comm, which can afford to block on a mutex.
+ *
+ * The byte is read straight out of the USART data register rather than through
+ * the driver's blocking receive, because polling the busy flag here would
+ * deadlock against a transmission already in progress.
+ *
+ * @warning Runs in interrupt context, so it may only use the `...FromISR` FreeRTOS
+ *          API. That in turn requires USART1's NVIC priority to be numerically
+ *          **at or above** `configMAX_SYSCALL_INTERRUPT_PRIORITY` (5) — see the
+ *          warning on @ref sys_tasks.
+ */
 void vESP_UART_RX_Callback(void)
 {
-    /* Read exact byte directly from hardware Data Register (DR).
+  /* Read exact byte directly from hardware Data Register (DR).
      * This avoids any software busy-flag deadlocks when TX is transmitting simultaneously!
      */
-    uint8_t rxData = USART_ReceiveByteDirect(USART_CHANNEL1); /* ESP/DSRC on USART1 */
+  uint8_t rxData = USART_ReceiveByteDirect(USART_CHANNEL1); /* ESP/DSRC on USART1 */
 
-    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-    xQueueSendFromISR(G_xESP_RX_Queue, &rxData, &xHigherPriorityTaskWoken);
-    portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+  BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+  xQueueSendFromISR(G_xESP_RX_Queue, &rxData, &xHigherPriorityTaskWoken);
+  portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }

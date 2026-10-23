@@ -1,0 +1,1483 @@
+\doxysubsection{MPU9250 }
+\hypertarget{group__hal__mpu9250}{}\label{group__hal__mpu9250}\index{MPU9250@{MPU9250}}
+
+
+9-\/axis IMU over SPI:\+ speed, heading, pitch/\+roll, dead-\/reckoned position.  
+
+
+Collaboration diagram for MPU9250:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{group__hal__mpu9250}
+\end{center}
+\end{figure}
+\doxysubsubsubsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file \doxymbox{\hyperlink{MPU9250__config_8h}{MPU9250\+\_\+config.\+h}}
+\begin{DoxyCompactList}\small\item\em Compile-\/time tuning for the MPU9250 driver:\+ wiring, ranges, and the two filters whose constants actually change how the car behaves. \end{DoxyCompactList}\item 
+file \doxymbox{\hyperlink{MPU9250__private_8h}{MPU9250\+\_\+private.\+h}}
+\begin{DoxyCompactList}\small\item\em MPU9250 register map, bit values and scale factors — driver-\/internal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Wiring}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gab37fb1e677db2f2d4a411c7fa5471582}{MPU9250\+\_\+\+SPI\+\_\+\+CHANNEL}}
+\begin{DoxyCompactList}\small\item\em The SPI peripheral the IMU hangs off. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gae9a84707f27c348f8b3be6afebe3e81e}{MPU9250\+\_\+\+CS\+\_\+\+PORT}}
+\begin{DoxyCompactList}\small\item\em Port of the chip-\/select line. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gacda4019666ca12c31828d1d9500d95a2}{MPU9250\+\_\+\+CS\+\_\+\+PIN}}
+\begin{DoxyCompactList}\small\item\em Pin of the chip-\/select line. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gab47f5236c3e559be3208494c14372364}{MPU9250\+\_\+\+DELAY\+\_\+\+TIMER}}
+\begin{DoxyCompactList}\small\item\em Timer used for the driver\textquotesingle{}s microsecond delays. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Full-\/scale ranges}
+A narrower range gives finer resolution but saturates sooner.
+
+A road vehicle never pulls multiple g or spins at hundreds of degrees per second, so the narrowest range of each is the right trade. \begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gafe68799dd7a046597c1128b2412765c0}{MPU9250\+\_\+\+ACCEL\+\_\+\+FS}}
+\begin{DoxyCompactList}\small\item\em Accelerometer range:\+ 0 = ±2 g, 1 = ±4 g, 2 = ±8 g, 3 = ±16 g. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga1e563d08f7338494561b5ad5ec2de5ac}{MPU9250\+\_\+\+GYRO\+\_\+\+FS}}
+\begin{DoxyCompactList}\small\item\em Gyroscope range:\+ 0 = ±250 °/\+s, 1 = ±500, 2 = ±1000, 3 = ±2000. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Magnetometer hard-\/iron calibration}
+"{}\+Hard iron"{} is the constant magnetic offset the car itself adds — the motors, the battery, the steel chassis.
+
+It shifts the whole field reading off centre, so an uncalibrated compass reads a heading that is simply wrong, and wrong by a different amount in every direction.
+
+The fix is to turn the car through a full circle at boot and watch the field trace out a ring; the centre of that ring {\itshape is} the offset. That is what these three constants govern. \begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gaef19ab7bc44d9f0a0539f8f2d93c6120}{MPU9250\+\_\+\+MAGCAL\+\_\+\+DURATION\+\_\+\+MS}}
+\begin{DoxyCompactList}\small\item\em Length of the boot-\/time calibration window \+[ms]\+. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gadf1960101390d5c997e7669062fbde93}{MPU9250\+\_\+\+MAGCAL\+\_\+\+SAMPLE\+\_\+\+MS}}
+\begin{DoxyCompactList}\small\item\em How often the magnetometer is sampled inside the calibration window \+[ms]\+. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gac368b845d39d5d5dfafd34fbc1747410}{MPU9250\+\_\+\+MAG\+\_\+\+MIN\+\_\+\+SPAN}}
+\begin{DoxyCompactList}\small\item\em Minimum field span required on {\bfseries{both}} axes before a calibration is accepted. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Heading fusion (complementary filter)}
+Neither sensor can give the heading alone.
+
+The gyroscope is smooth and immune to magnetic noise but {\bfseries{drifts}} without bound; the magnetometer has no drift but is noisy and is thrown off by the motors. So the driver integrates the gyro for the short term and lets the magnetometer slowly pull it back to the truth. \begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga48e78568f16e0c878d4c677585afcd00}{MPU9250\+\_\+\+HEADING\+\_\+\+ALPHA}}
+\begin{DoxyCompactList}\small\item\em Weight given to the gyroscope on each update, 0..1. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga003047f11f906d55b43a4922e61ab551}{MPU9250\+\_\+\+GYROZ\+\_\+\+SIGN}}
+\begin{DoxyCompactList}\small\item\em Sign of the gyroscope\textquotesingle{}s contribution to the fused heading:\+ +1.\+0f or -\/1.\+0f. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Self-\/test registers}
+Factory self-\/test values, used to check the part against its trim values.
+
+The driver does not run a self-\/test, so these are declared but unused. \begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gafbca39272b9691b037268612593d36ea}{SELF\+\_\+\+TEST\+\_\+\+X\+\_\+\+GYRO}}
+\begin{DoxyCompactList}\small\item\em Gyroscope X-\/axis self-\/test output. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga4589b391b79cd75e09d08c4465ff95d6}{SELF\+\_\+\+TEST\+\_\+\+Y\+\_\+\+GYRO}}
+\begin{DoxyCompactList}\small\item\em Gyroscope Y-\/axis self-\/test output. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga7d36169280ef7d539e6535693fa54663}{SELF\+\_\+\+TEST\+\_\+\+Z\+\_\+\+GYRO}}
+\begin{DoxyCompactList}\small\item\em Gyroscope Z-\/axis self-\/test output. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga514afe64ef4e94fd792f0e01e66cf682}{SELF\+\_\+\+TEST\+\_\+\+X\+\_\+\+ACCEL}}
+\begin{DoxyCompactList}\small\item\em Accelerometer X-\/axis self-\/test output. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga9dba24f56a63a23b71ece8ebafbe46e1}{SELF\+\_\+\+TEST\+\_\+\+Y\+\_\+\+ACCEL}}
+\begin{DoxyCompactList}\small\item\em Accelerometer Y-\/axis self-\/test output. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga89faa3ca314423fc7876d1df8c62f848}{SELF\+\_\+\+TEST\+\_\+\+Z\+\_\+\+ACCEL}}
+\begin{DoxyCompactList}\small\item\em Accelerometer Z-\/axis self-\/test output. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Gyroscope offset registers}
+A signed 16-\/bit bias subtracted from each gyro axis in hardware. \begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga2dff8273af3bfe1bb8d2565df1f1444d}{XG\+\_\+\+OFFSET\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Gyroscope X-\/axis offset, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga0e3a6dea62584e862fe3c9132268618d}{XG\+\_\+\+OFFSET\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Gyroscope X-\/axis offset, low byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gaa7f7aa074a4b54f24a17e375d1a27104}{YG\+\_\+\+OFFSET\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Gyroscope Y-\/axis offset, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gaf3d02481e1360d65052560bb6434437d}{YG\+\_\+\+OFFSET\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Gyroscope Y-\/axis offset, low byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga542c8677b03c7426f0446b211994d0b8}{ZG\+\_\+\+OFFSET\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Gyroscope Z-\/axis offset, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga8fc858d1bdf91b2ef0ec26050766d7dd}{ZG\+\_\+\+OFFSET\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Gyroscope Z-\/axis offset, low byte. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Configuration registers}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga7119c37e38b6736096ea1565459043ba}{SMPLRT\+\_\+\+DIV}}
+\begin{DoxyCompactList}\small\item\em Sample-\/rate divider:\+ output rate = internal rate /\+ (1 + this). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga76ea3cf49247a07c54b3db005a3c7f57}{CONFIG}}
+\begin{DoxyCompactList}\small\item\em Low-\/pass filter bandwidth and FIFO overflow behaviour. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gac57e8c3192c859321b447c07089f20f0}{GYRO\+\_\+\+CONFIG}}
+\begin{DoxyCompactList}\small\item\em Gyroscope full-\/scale range (±250/\+500/\+1000/\+2000 °/\+s) and self-\/test enables. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gab7336e26f8947086e41a375f1e1e74d4}{ACCEL\+\_\+\+CONFIG}}
+\begin{DoxyCompactList}\small\item\em Accelerometer full-\/scale range (±2/\+4/\+8/\+16 g) and self-\/test enables. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gaecbf5cd71bd0e677bf19d2e855323794}{ACCEL\+\_\+\+CONFIG2}}
+\begin{DoxyCompactList}\small\item\em Accelerometer low-\/pass filter bandwidth. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga4a2dc75c2a0588814cb466b0db1bca8b}{LP\+\_\+\+ACCEL\+\_\+\+ODR}}
+\begin{DoxyCompactList}\small\item\em Output data rate while in low-\/power accelerometer mode. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga81d6e49ec67e620570d1662f170b0900}{WOM\+\_\+\+THR}}
+\begin{DoxyCompactList}\small\item\em Wake-\/on-\/motion threshold. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga53954ec7f9dc790f00548da08ccd5ed6}{FIFO\+\_\+\+EN}}
+\begin{DoxyCompactList}\small\item\em Which sensors are written into the FIFO (the driver polls instead, so this stays 0). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Internal I2C master registers}
+These drive the MPU6500\textquotesingle{}s own I2C master, which is the {\itshape only} path to the AK8963 magnetometer — see \doxysectlink{MPU9250__private_8h_mpu_layout}{How the two chips fit together}{1}. \begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga24bc05247067ad9f0479f5a6d49c6412}{I2\+C\+\_\+\+MST\+\_\+\+CTRL}}
+\begin{DoxyCompactList}\small\item\em I2C master clock speed and multi-\/master settings. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga614db921c27f375c632960a7f34999a4}{I2\+C\+\_\+\+SLV0\+\_\+\+ADDR}}
+\begin{DoxyCompactList}\small\item\em Slave 0:\+ the I2C address to talk to, plus the read/\+write bit. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga0553d56ecccd0fc8008505e712a9b075}{I2\+C\+\_\+\+SLV0\+\_\+\+REG}}
+\begin{DoxyCompactList}\small\item\em Slave 0:\+ which register inside that slave to access. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gad6fb6553534b0b9e9715db3e5a04ebca}{I2\+C\+\_\+\+SLV0\+\_\+\+CTRL}}
+\begin{DoxyCompactList}\small\item\em Slave 0:\+ enable, and how many bytes to transfer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gadeef906221a363d4489cf0a51d7f03b6}{I2\+C\+\_\+\+SLV1\+\_\+\+ADDR}}
+\begin{DoxyCompactList}\small\item\em Slave 1:\+ I2C address plus the read/\+write bit. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga33d12ea757eeb8ef10aa501f6c68ba3d}{I2\+C\+\_\+\+SLV1\+\_\+\+REG}}
+\begin{DoxyCompactList}\small\item\em Slave 1:\+ register inside that slave. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga6857f4e255988b5aae9d570dec2a06c8}{I2\+C\+\_\+\+SLV1\+\_\+\+CTRL}}
+\begin{DoxyCompactList}\small\item\em Slave 1:\+ enable and transfer length. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga2f0f1237e987597a4405b9deeefeb6f5}{I2\+C\+\_\+\+SLV0\+\_\+\+DO}}
+\begin{DoxyCompactList}\small\item\em Slave 0:\+ the byte to write, when slave 0 is set up as a write. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gaa6580b929fcb8b3e29fe45b73180d2bd}{EXT\+\_\+\+SENS\+\_\+\+DATA\+\_\+00}}
+\begin{DoxyCompactList}\small\item\em First of the 24 bytes where the I2C master parks whatever it fetched — this is where the compass reading lands. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga8498e646190e00d95ddd95af4d6a093a}{I2\+C\+\_\+\+MST\+\_\+\+STATUS}}
+\begin{DoxyCompactList}\small\item\em I2C master status:\+ transfer done, and the per-\/slave NACK flags. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Interrupt registers}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gab00fdfba66092d2d869031629c092dad}{INT\+\_\+\+PIN\+\_\+\+CFG}}
+\begin{DoxyCompactList}\small\item\em INT pin behaviour:\+ polarity, latching, and the I2C bypass enable. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gabf7a56466fd6203663685a04448c9185}{INT\+\_\+\+ENABLE}}
+\begin{DoxyCompactList}\small\item\em Which conditions raise the INT pin (data-\/ready, FIFO overflow, wake-\/on-\/motion). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga62cba161837810295654c3cc2de959a6}{INT\+\_\+\+STATUS}}
+\begin{DoxyCompactList}\small\item\em Which condition actually fired; reading it clears the flags. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Sensor data registers}
+Big-\/endian:\+ a reading is {\ttfamily (H \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 8) \texorpdfstring{$\vert$}{|} L}, and the pair must be read as one burst so the two halves come from the same sample. \begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga94b93aa4aabbe7caec7884ddb46b531b}{ACCEL\+\_\+\+XOUT\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Accelerometer X, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga47679c25e1689ee0401959e33e05a761}{ACCEL\+\_\+\+XOUT\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Accelerometer X, low byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga26d680f52fbdaa0623d16292e9c40d4c}{ACCEL\+\_\+\+YOUT\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Accelerometer Y, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gad7a92304bd1dd3755068380b51319a93}{ACCEL\+\_\+\+YOUT\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Accelerometer Y, low byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga44d84761605d984a0de060640f4c57da}{ACCEL\+\_\+\+ZOUT\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Accelerometer Z, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga36e02bfb24518b6c425d9c3411c8d720}{ACCEL\+\_\+\+ZOUT\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Accelerometer Z, low byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gae8c4c28fe604535a3a57d0536c6e8175}{TEMP\+\_\+\+OUT\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Die temperature, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga7fe4a13198c0b3d8cf09802e7247fd2c}{TEMP\+\_\+\+OUT\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Die temperature, low byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga0016198ccf5ca2b7f41d7a23e6554373}{GYRO\+\_\+\+XOUT\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Gyroscope X, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gaf07374691962c7531539cfcd36aa1c4b}{GYRO\+\_\+\+XOUT\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Gyroscope X, low byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga0970193c5ba295a66f057c017663adf1}{GYRO\+\_\+\+YOUT\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Gyroscope Y, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gaf2403ccc9042c6a869278a7c211a396d}{GYRO\+\_\+\+YOUT\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Gyroscope Y, low byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gac0fcd61ece1f100c02494fc94f0b0dad}{GYRO\+\_\+\+ZOUT\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Gyroscope Z, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga5466aa6a32d0b17e834ef9792e7f415d}{GYRO\+\_\+\+ZOUT\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Gyroscope Z, low byte. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{AK8963 magnetometer registers}
+Reached only through the internal I2C master — see \doxysectlink{MPU9250__private_8h_mpu_layout}{How the two chips fit together}{1}.
+
+Unlike the MPU6500 registers above, the AK8963\textquotesingle{}s data registers are {\bfseries{little-\/endian}}:\+ the {\ttfamily \+\_\+L} byte comes first. \begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga1e6b15b0945c167f55f5e2cfd2c60d5a}{AK8963\+\_\+\+ADDR}}
+\begin{DoxyCompactList}\small\item\em The AK8963\textquotesingle{}s address on the MPU6500\textquotesingle{}s internal I2C bus. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga3826ec24a009126367fedb2422d092b1}{AK8963\+\_\+\+WHO\+\_\+\+AM\+\_\+I}}
+\begin{DoxyCompactList}\small\item\em Device ID; reads back 0x48 on a healthy part. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga0037cda572379e26ecad5030c64aaf10}{AK8963\+\_\+\+ST1}}
+\begin{DoxyCompactList}\small\item\em Status 1:\+ bit 0 is DRDY, "{}a fresh sample is ready"{}. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga35260c212eacc1f2808af33bdc55c8fa}{AK8963\+\_\+\+XOUT\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Magnetometer X, low byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gacd2458bce11a9ed1710ae816050c2d13}{AK8963\+\_\+\+XOUT\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Magnetometer X, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gaf7eff9c50ed2700781b4161699829e69}{AK8963\+\_\+\+YOUT\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Magnetometer Y, low byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga2c78e17f8f5d96c2d6f82b81358bde6c}{AK8963\+\_\+\+YOUT\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Magnetometer Y, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gad3625cb250d1202b43b44a4d2b0a6c2e}{AK8963\+\_\+\+ZOUT\+\_\+L}}
+\begin{DoxyCompactList}\small\item\em Magnetometer Z, low byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga8e0a7c22a104aa2fb77a01518d0aaa74}{AK8963\+\_\+\+ZOUT\+\_\+H}}
+\begin{DoxyCompactList}\small\item\em Magnetometer Z, high byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gad740f9c857e0ffc7c474f9b9cb2e7d6b}{AK8963\+\_\+\+ST2}}
+\begin{DoxyCompactList}\small\item\em Status 2:\+ overflow flag. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga9049064347064927059f71ea3843f986}{AK8963\+\_\+\+CNTL}}
+\begin{DoxyCompactList}\small\item\em Control 1:\+ operating mode (power-\/down, single measurement, continuous) and output bit width. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga66032b6572950d4fb7044420a6beeee2}{AK8963\+\_\+\+ASAX}}
+\begin{DoxyCompactList}\small\item\em Factory sensitivity-\/adjustment value, X axis. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga02f4a8ec6ef7533b43b75c839ca2547d}{AK8963\+\_\+\+ASAY}}
+\begin{DoxyCompactList}\small\item\em Factory sensitivity-\/adjustment value, Y axis. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gad7807198e6ed02af5748886428078868}{AK8963\+\_\+\+ASAZ}}
+\begin{DoxyCompactList}\small\item\em Factory sensitivity-\/adjustment value, Z axis. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Power and identity registers}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gabd9eebb35aad7616fe0414952e2d477d}{USER\+\_\+\+CTRL}}
+\begin{DoxyCompactList}\small\item\em Enables the FIFO and the internal I2C master, and disables the I2C slave interface. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga96169eb207e721c1546cea9ffd8a35e4}{PWR\+\_\+\+MGMT\+\_\+1}}
+\begin{DoxyCompactList}\small\item\em Power management 1:\+ device reset, sleep, and the clock source. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga23cfbcfd19dc88eb631309970f138e65}{PWR\+\_\+\+MGMT\+\_\+2}}
+\begin{DoxyCompactList}\small\item\em Power management 2:\+ per-\/axis standby for the accelerometer and gyroscope. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga9fcb9e460d175bfc7ab4d80bf788b43a}{WHO\+\_\+\+AM\+\_\+I}}
+\begin{DoxyCompactList}\small\item\em Device ID; reads back 0x71 on a genuine MPU9250. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Register bit values}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga9349ad443a8bbd5be084ea1d6925cdc7}{PWR\+\_\+\+RESET}}
+\begin{DoxyCompactList}\small\item\em \doxylink{group__hal__mpu9250_ga96169eb207e721c1546cea9ffd8a35e4}{PWR\+\_\+\+MGMT\+\_\+1} — trigger a full device reset. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga37c31deb5f9bfb1a36fb54d5769e93f1}{CLOCK\+\_\+\+SEL\+\_\+\+PLL}}
+\begin{DoxyCompactList}\small\item\em \doxylink{group__hal__mpu9250_ga96169eb207e721c1546cea9ffd8a35e4}{PWR\+\_\+\+MGMT\+\_\+1} — use the gyro-\/referenced PLL, which is far more stable than the internal oscillator. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga6638690f11487686a5ad203aff444ae2}{I2\+C\+\_\+\+IF\+\_\+\+DIS}}
+\begin{DoxyCompactList}\small\item\em \doxylink{group__hal__mpu9250_gabd9eebb35aad7616fe0414952e2d477d}{USER\+\_\+\+CTRL} — disable the I2C slave interface, so the part is SPI-\/only. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_gacb5b7cc1d39ba9199cef1d5c676db667}{I2\+C\+\_\+\+MST\+\_\+\+EN}}
+\begin{DoxyCompactList}\small\item\em \doxylink{group__hal__mpu9250_gabd9eebb35aad7616fe0414952e2d477d}{USER\+\_\+\+CTRL} — enable the internal I2C master, without which the magnetometer is unreachable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Scale factors}
+Raw counts to physical units, for the ranges this driver configures. \begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga3022d5e5387dfbf2ed4b80a587b08ca2}{ACCEL\+\_\+\+SENS\+\_\+2G}}
+\begin{DoxyCompactList}\small\item\em LSB per g at the ±2 g range:\+ acceleration \+[g]\+ = raw /\+ this. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__hal__mpu9250_ga763555a07ac8afb9614649becdee67d5}{GYRO\+\_\+\+SENS\+\_\+250}}
+\begin{DoxyCompactList}\small\item\em LSB per °/\+s at the ±250 °/\+s range:\+ rate \+[°/\+s]\+ = raw /\+ this. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+9-\/axis IMU over SPI:\+ speed, heading, pitch/\+roll, dead-\/reckoned position. 
+
+
+
+\label{doc-define-members}
+\Hypertarget{group__hal__mpu9250_doc-define-members}
+\doxysubsubsection{Macro Definition Documentation}
+\Hypertarget{group__hal__mpu9250_gab37fb1e677db2f2d4a411c7fa5471582}\index{MPU9250@{MPU9250}!MPU9250\_SPI\_CHANNEL@{MPU9250\_SPI\_CHANNEL}}
+\index{MPU9250\_SPI\_CHANNEL@{MPU9250\_SPI\_CHANNEL}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{MPU9250\_SPI\_CHANNEL}{MPU9250\_SPI\_CHANNEL}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gab37fb1e677db2f2d4a411c7fa5471582} 
+\+\#define MPU9250\+\_\+\+SPI\+\_\+\+CHANNEL}
+
+
+
+The SPI peripheral the IMU hangs off. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__config_8h_source_l00024}{24}} of file \doxymbox{\hyperlink{MPU9250__config_8h_source}{MPU9250\+\_\+config.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_gae9a84707f27c348f8b3be6afebe3e81e}\index{MPU9250@{MPU9250}!MPU9250\_CS\_PORT@{MPU9250\_CS\_PORT}}
+\index{MPU9250\_CS\_PORT@{MPU9250\_CS\_PORT}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{MPU9250\_CS\_PORT}{MPU9250\_CS\_PORT}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gae9a84707f27c348f8b3be6afebe3e81e} 
+\+\#define MPU9250\+\_\+\+CS\+\_\+\+PORT}
+
+
+
+Port of the chip-\/select line. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__config_8h_source_l00027}{27}} of file \doxymbox{\hyperlink{MPU9250__config_8h_source}{MPU9250\+\_\+config.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{MPU9250__program_8c_source_l00156}{MPU9250\+\_\+enum\+Init()}}, \doxymbox{\hyperlink{MPU9250__program_8c_source_l00057}{MPU9250\+\_\+v\+Deselect()}}, and \doxymbox{\hyperlink{MPU9250__program_8c_source_l00055}{MPU9250\+\_\+v\+Select()}}.
+
+\Hypertarget{group__hal__mpu9250_gacda4019666ca12c31828d1d9500d95a2}\index{MPU9250@{MPU9250}!MPU9250\_CS\_PIN@{MPU9250\_CS\_PIN}}
+\index{MPU9250\_CS\_PIN@{MPU9250\_CS\_PIN}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{MPU9250\_CS\_PIN}{MPU9250\_CS\_PIN}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gacda4019666ca12c31828d1d9500d95a2} 
+\+\#define MPU9250\+\_\+\+CS\+\_\+\+PIN}
+
+
+
+Pin of the chip-\/select line. 
+
+Driven low for the whole of each transfer. 
+
+Definition at line \doxymbox{\hyperlink{MPU9250__config_8h_source_l00030}{30}} of file \doxymbox{\hyperlink{MPU9250__config_8h_source}{MPU9250\+\_\+config.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{MPU9250__program_8c_source_l00156}{MPU9250\+\_\+enum\+Init()}}, \doxymbox{\hyperlink{MPU9250__program_8c_source_l00057}{MPU9250\+\_\+v\+Deselect()}}, and \doxymbox{\hyperlink{MPU9250__program_8c_source_l00055}{MPU9250\+\_\+v\+Select()}}.
+
+\Hypertarget{group__hal__mpu9250_gab47f5236c3e559be3208494c14372364}\index{MPU9250@{MPU9250}!MPU9250\_DELAY\_TIMER@{MPU9250\_DELAY\_TIMER}}
+\index{MPU9250\_DELAY\_TIMER@{MPU9250\_DELAY\_TIMER}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{MPU9250\_DELAY\_TIMER}{MPU9250\_DELAY\_TIMER}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gab47f5236c3e559be3208494c14372364} 
+\+\#define MPU9250\+\_\+\+DELAY\+\_\+\+TIMER}
+
+
+
+Timer used for the driver\textquotesingle{}s microsecond delays. 
+
+\begin{DoxyNote}{Note}
+A basic timer (TIM6 or TIM7) is the right choice — it has no output pins to waste, and nothing else in the firmware needs one. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__config_8h_source_l00037}{37}} of file \doxymbox{\hyperlink{MPU9250__config_8h_source}{MPU9250\+\_\+config.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{MPU9250__program_8c_source_l00222}{MPU9250\+\_\+enum\+Calibrate\+Mag()}}, \doxymbox{\hyperlink{MPU9250__program_8c_source_l00156}{MPU9250\+\_\+enum\+Init()}}, \doxymbox{\hyperlink{MPU9250__program_8c_source_l00096}{MPU9250\+\_\+u8\+Read\+Mag\+Reg()}}, and \doxymbox{\hyperlink{MPU9250__program_8c_source_l00110}{MPU9250\+\_\+v\+Init\+Mag()}}.
+
+\Hypertarget{group__hal__mpu9250_gafe68799dd7a046597c1128b2412765c0}\index{MPU9250@{MPU9250}!MPU9250\_ACCEL\_FS@{MPU9250\_ACCEL\_FS}}
+\index{MPU9250\_ACCEL\_FS@{MPU9250\_ACCEL\_FS}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{MPU9250\_ACCEL\_FS}{MPU9250\_ACCEL\_FS}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gafe68799dd7a046597c1128b2412765c0} 
+\+\#define MPU9250\+\_\+\+ACCEL\+\_\+\+FS}
+
+
+
+Accelerometer range:\+ 0 = ±2 g, 1 = ±4 g, 2 = ±8 g, 3 = ±16 g. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__config_8h_source_l00049}{49}} of file \doxymbox{\hyperlink{MPU9250__config_8h_source}{MPU9250\+\_\+config.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga1e563d08f7338494561b5ad5ec2de5ac}\index{MPU9250@{MPU9250}!MPU9250\_GYRO\_FS@{MPU9250\_GYRO\_FS}}
+\index{MPU9250\_GYRO\_FS@{MPU9250\_GYRO\_FS}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{MPU9250\_GYRO\_FS}{MPU9250\_GYRO\_FS}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga1e563d08f7338494561b5ad5ec2de5ac} 
+\+\#define MPU9250\+\_\+\+GYRO\+\_\+\+FS}
+
+
+
+Gyroscope range:\+ 0 = ±250 °/\+s, 1 = ±500, 2 = ±1000, 3 = ±2000. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__config_8h_source_l00052}{52}} of file \doxymbox{\hyperlink{MPU9250__config_8h_source}{MPU9250\+\_\+config.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_gaef19ab7bc44d9f0a0539f8f2d93c6120}\index{MPU9250@{MPU9250}!MPU9250\_MAGCAL\_DURATION\_MS@{MPU9250\_MAGCAL\_DURATION\_MS}}
+\index{MPU9250\_MAGCAL\_DURATION\_MS@{MPU9250\_MAGCAL\_DURATION\_MS}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{MPU9250\_MAGCAL\_DURATION\_MS}{MPU9250\_MAGCAL\_DURATION\_MS}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gaef19ab7bc44d9f0a0539f8f2d93c6120} 
+\+\#define MPU9250\+\_\+\+MAGCAL\+\_\+\+DURATION\+\_\+\+MS}
+
+
+
+Length of the boot-\/time calibration window \+[ms]\+. 
+
+\begin{DoxyNote}{Note}
+Rotate the car through a full 360° — one or two slow turns — while this runs. Shorten it for bench testing where the compass does not matter. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__config_8h_source_l00073}{73}} of file \doxymbox{\hyperlink{MPU9250__config_8h_source}{MPU9250\+\_\+config.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{MPU9250__program_8c_source_l00222}{MPU9250\+\_\+enum\+Calibrate\+Mag()}}.
+
+\Hypertarget{group__hal__mpu9250_gadf1960101390d5c997e7669062fbde93}\index{MPU9250@{MPU9250}!MPU9250\_MAGCAL\_SAMPLE\_MS@{MPU9250\_MAGCAL\_SAMPLE\_MS}}
+\index{MPU9250\_MAGCAL\_SAMPLE\_MS@{MPU9250\_MAGCAL\_SAMPLE\_MS}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{MPU9250\_MAGCAL\_SAMPLE\_MS}{MPU9250\_MAGCAL\_SAMPLE\_MS}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gadf1960101390d5c997e7669062fbde93} 
+\+\#define MPU9250\+\_\+\+MAGCAL\+\_\+\+SAMPLE\+\_\+\+MS}
+
+
+
+How often the magnetometer is sampled inside the calibration window \+[ms]\+. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__config_8h_source_l00076}{76}} of file \doxymbox{\hyperlink{MPU9250__config_8h_source}{MPU9250\+\_\+config.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{MPU9250__program_8c_source_l00222}{MPU9250\+\_\+enum\+Calibrate\+Mag()}}.
+
+\Hypertarget{group__hal__mpu9250_gac368b845d39d5d5dfafd34fbc1747410}\index{MPU9250@{MPU9250}!MPU9250\_MAG\_MIN\_SPAN@{MPU9250\_MAG\_MIN\_SPAN}}
+\index{MPU9250\_MAG\_MIN\_SPAN@{MPU9250\_MAG\_MIN\_SPAN}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{MPU9250\_MAG\_MIN\_SPAN}{MPU9250\_MAG\_MIN\_SPAN}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gac368b845d39d5d5dfafd34fbc1747410} 
+\+\#define MPU9250\+\_\+\+MAG\+\_\+\+MIN\+\_\+\+SPAN}
+
+
+
+Minimum field span required on {\bfseries{both}} axes before a calibration is accepted. 
+
+This is the guard against a calibration that was never actually performed. If the car sat still, the field barely moved, the "{}ring"{} is a dot, and its centre is meaningless — so a span below this rejects the calibration outright and leaves the previous offsets in place, rather than freezing in a garbage one. 
+
+Definition at line \doxymbox{\hyperlink{MPU9250__config_8h_source_l00086}{86}} of file \doxymbox{\hyperlink{MPU9250__config_8h_source}{MPU9250\+\_\+config.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{MPU9250__program_8c_source_l00222}{MPU9250\+\_\+enum\+Calibrate\+Mag()}}.
+
+\Hypertarget{group__hal__mpu9250_ga48e78568f16e0c878d4c677585afcd00}\index{MPU9250@{MPU9250}!MPU9250\_HEADING\_ALPHA@{MPU9250\_HEADING\_ALPHA}}
+\index{MPU9250\_HEADING\_ALPHA@{MPU9250\_HEADING\_ALPHA}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{MPU9250\_HEADING\_ALPHA}{MPU9250\_HEADING\_ALPHA}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga48e78568f16e0c878d4c677585afcd00} 
+\+\#define MPU9250\+\_\+\+HEADING\+\_\+\+ALPHA}
+
+
+
+Weight given to the gyroscope on each update, 0..1. 
+
+The time constant works out at roughly {\ttfamily dt·α/\+(1−α)}, so at a 50 ms update and α = 0.\+98 the magnetometer takes about 2.\+5 s to pull the heading in.
+
+Raise it for a smoother heading that shrugs off motor noise but corrects drift more slowly; lower it to trust the compass more and the gyro less. 
+
+Definition at line \doxymbox{\hyperlink{MPU9250__config_8h_source_l00107}{107}} of file \doxymbox{\hyperlink{MPU9250__config_8h_source}{MPU9250\+\_\+config.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{MPU9250__program_8c_source_l00252}{MPU9250\+\_\+enum\+Get\+Heading()}}.
+
+\Hypertarget{group__hal__mpu9250_ga003047f11f906d55b43a4922e61ab551}\index{MPU9250@{MPU9250}!MPU9250\_GYROZ\_SIGN@{MPU9250\_GYROZ\_SIGN}}
+\index{MPU9250\_GYROZ\_SIGN@{MPU9250\_GYROZ\_SIGN}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{MPU9250\_GYROZ\_SIGN}{MPU9250\_GYROZ\_SIGN}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga003047f11f906d55b43a4922e61ab551} 
+\+\#define MPU9250\+\_\+\+GYROZ\+\_\+\+SIGN}
+
+
+
+Sign of the gyroscope\textquotesingle{}s contribution to the fused heading:\+ +1.\+0f or -\/1.\+0f. 
+
+The gyro\textquotesingle{}s yaw-\/rate sign must increase in the {\itshape same} direction the magnetometer heading increases. If it does not, the two sensors pull against each other and the filter never settles.
+
+\begin{DoxyNote}{Note}
+To test:\+ rotate the car steadily one way and watch the fused heading. If it tracks the raw magnetometer heading, this is right. If it {\itshape diverges} from it, flip this to {\ttfamily (-\/1.\+0f)}. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__config_8h_source_l00120}{120}} of file \doxymbox{\hyperlink{MPU9250__config_8h_source}{MPU9250\+\_\+config.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{MPU9250__program_8c_source_l00252}{MPU9250\+\_\+enum\+Get\+Heading()}}.
+
+\Hypertarget{group__hal__mpu9250_gafbca39272b9691b037268612593d36ea}\index{MPU9250@{MPU9250}!SELF\_TEST\_X\_GYRO@{SELF\_TEST\_X\_GYRO}}
+\index{SELF\_TEST\_X\_GYRO@{SELF\_TEST\_X\_GYRO}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{SELF\_TEST\_X\_GYRO}{SELF\_TEST\_X\_GYRO}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gafbca39272b9691b037268612593d36ea} 
+\+\#define SELF\+\_\+\+TEST\+\_\+\+X\+\_\+\+GYRO}
+
+
+
+Gyroscope X-\/axis self-\/test output. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00045}{45}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga4589b391b79cd75e09d08c4465ff95d6}\index{MPU9250@{MPU9250}!SELF\_TEST\_Y\_GYRO@{SELF\_TEST\_Y\_GYRO}}
+\index{SELF\_TEST\_Y\_GYRO@{SELF\_TEST\_Y\_GYRO}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{SELF\_TEST\_Y\_GYRO}{SELF\_TEST\_Y\_GYRO}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga4589b391b79cd75e09d08c4465ff95d6} 
+\+\#define SELF\+\_\+\+TEST\+\_\+\+Y\+\_\+\+GYRO}
+
+
+
+Gyroscope Y-\/axis self-\/test output. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00046}{46}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga7d36169280ef7d539e6535693fa54663}\index{MPU9250@{MPU9250}!SELF\_TEST\_Z\_GYRO@{SELF\_TEST\_Z\_GYRO}}
+\index{SELF\_TEST\_Z\_GYRO@{SELF\_TEST\_Z\_GYRO}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{SELF\_TEST\_Z\_GYRO}{SELF\_TEST\_Z\_GYRO}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga7d36169280ef7d539e6535693fa54663} 
+\+\#define SELF\+\_\+\+TEST\+\_\+\+Z\+\_\+\+GYRO}
+
+
+
+Gyroscope Z-\/axis self-\/test output. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00047}{47}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga514afe64ef4e94fd792f0e01e66cf682}\index{MPU9250@{MPU9250}!SELF\_TEST\_X\_ACCEL@{SELF\_TEST\_X\_ACCEL}}
+\index{SELF\_TEST\_X\_ACCEL@{SELF\_TEST\_X\_ACCEL}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{SELF\_TEST\_X\_ACCEL}{SELF\_TEST\_X\_ACCEL}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga514afe64ef4e94fd792f0e01e66cf682} 
+\+\#define SELF\+\_\+\+TEST\+\_\+\+X\+\_\+\+ACCEL}
+
+
+
+Accelerometer X-\/axis self-\/test output. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00048}{48}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga9dba24f56a63a23b71ece8ebafbe46e1}\index{MPU9250@{MPU9250}!SELF\_TEST\_Y\_ACCEL@{SELF\_TEST\_Y\_ACCEL}}
+\index{SELF\_TEST\_Y\_ACCEL@{SELF\_TEST\_Y\_ACCEL}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{SELF\_TEST\_Y\_ACCEL}{SELF\_TEST\_Y\_ACCEL}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga9dba24f56a63a23b71ece8ebafbe46e1} 
+\+\#define SELF\+\_\+\+TEST\+\_\+\+Y\+\_\+\+ACCEL}
+
+
+
+Accelerometer Y-\/axis self-\/test output. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00049}{49}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga89faa3ca314423fc7876d1df8c62f848}\index{MPU9250@{MPU9250}!SELF\_TEST\_Z\_ACCEL@{SELF\_TEST\_Z\_ACCEL}}
+\index{SELF\_TEST\_Z\_ACCEL@{SELF\_TEST\_Z\_ACCEL}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{SELF\_TEST\_Z\_ACCEL}{SELF\_TEST\_Z\_ACCEL}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga89faa3ca314423fc7876d1df8c62f848} 
+\+\#define SELF\+\_\+\+TEST\+\_\+\+Z\+\_\+\+ACCEL}
+
+
+
+Accelerometer Z-\/axis self-\/test output. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00050}{50}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga2dff8273af3bfe1bb8d2565df1f1444d}\index{MPU9250@{MPU9250}!XG\_OFFSET\_H@{XG\_OFFSET\_H}}
+\index{XG\_OFFSET\_H@{XG\_OFFSET\_H}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{XG\_OFFSET\_H}{XG\_OFFSET\_H}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga2dff8273af3bfe1bb8d2565df1f1444d} 
+\+\#define XG\+\_\+\+OFFSET\+\_\+H}
+
+
+
+Gyroscope X-\/axis offset, high byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00058}{58}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga0e3a6dea62584e862fe3c9132268618d}\index{MPU9250@{MPU9250}!XG\_OFFSET\_L@{XG\_OFFSET\_L}}
+\index{XG\_OFFSET\_L@{XG\_OFFSET\_L}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{XG\_OFFSET\_L}{XG\_OFFSET\_L}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga0e3a6dea62584e862fe3c9132268618d} 
+\+\#define XG\+\_\+\+OFFSET\+\_\+L}
+
+
+
+Gyroscope X-\/axis offset, low byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00059}{59}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_gaa7f7aa074a4b54f24a17e375d1a27104}\index{MPU9250@{MPU9250}!YG\_OFFSET\_H@{YG\_OFFSET\_H}}
+\index{YG\_OFFSET\_H@{YG\_OFFSET\_H}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{YG\_OFFSET\_H}{YG\_OFFSET\_H}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gaa7f7aa074a4b54f24a17e375d1a27104} 
+\+\#define YG\+\_\+\+OFFSET\+\_\+H}
+
+
+
+Gyroscope Y-\/axis offset, high byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00060}{60}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_gaf3d02481e1360d65052560bb6434437d}\index{MPU9250@{MPU9250}!YG\_OFFSET\_L@{YG\_OFFSET\_L}}
+\index{YG\_OFFSET\_L@{YG\_OFFSET\_L}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{YG\_OFFSET\_L}{YG\_OFFSET\_L}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gaf3d02481e1360d65052560bb6434437d} 
+\+\#define YG\+\_\+\+OFFSET\+\_\+L}
+
+
+
+Gyroscope Y-\/axis offset, low byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00061}{61}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga542c8677b03c7426f0446b211994d0b8}\index{MPU9250@{MPU9250}!ZG\_OFFSET\_H@{ZG\_OFFSET\_H}}
+\index{ZG\_OFFSET\_H@{ZG\_OFFSET\_H}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{ZG\_OFFSET\_H}{ZG\_OFFSET\_H}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga542c8677b03c7426f0446b211994d0b8} 
+\+\#define ZG\+\_\+\+OFFSET\+\_\+H}
+
+
+
+Gyroscope Z-\/axis offset, high byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00062}{62}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga8fc858d1bdf91b2ef0ec26050766d7dd}\index{MPU9250@{MPU9250}!ZG\_OFFSET\_L@{ZG\_OFFSET\_L}}
+\index{ZG\_OFFSET\_L@{ZG\_OFFSET\_L}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{ZG\_OFFSET\_L}{ZG\_OFFSET\_L}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga8fc858d1bdf91b2ef0ec26050766d7dd} 
+\+\#define ZG\+\_\+\+OFFSET\+\_\+L}
+
+
+
+Gyroscope Z-\/axis offset, low byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00063}{63}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga7119c37e38b6736096ea1565459043ba}\index{MPU9250@{MPU9250}!SMPLRT\_DIV@{SMPLRT\_DIV}}
+\index{SMPLRT\_DIV@{SMPLRT\_DIV}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{SMPLRT\_DIV}{SMPLRT\_DIV}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga7119c37e38b6736096ea1565459043ba} 
+\+\#define SMPLRT\+\_\+\+DIV}
+
+
+
+Sample-\/rate divider:\+ output rate = internal rate /\+ (1 + this). 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00070}{70}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga76ea3cf49247a07c54b3db005a3c7f57}\index{MPU9250@{MPU9250}!CONFIG@{CONFIG}}
+\index{CONFIG@{CONFIG}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{CONFIG}{CONFIG}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga76ea3cf49247a07c54b3db005a3c7f57} 
+\+\#define CONFIG}
+
+
+
+Low-\/pass filter bandwidth and FIFO overflow behaviour. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00071}{71}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_gac57e8c3192c859321b447c07089f20f0}\index{MPU9250@{MPU9250}!GYRO\_CONFIG@{GYRO\_CONFIG}}
+\index{GYRO\_CONFIG@{GYRO\_CONFIG}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{GYRO\_CONFIG}{GYRO\_CONFIG}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gac57e8c3192c859321b447c07089f20f0} 
+\+\#define GYRO\+\_\+\+CONFIG}
+
+
+
+Gyroscope full-\/scale range (±250/\+500/\+1000/\+2000 °/\+s) and self-\/test enables. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00072}{72}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_gab7336e26f8947086e41a375f1e1e74d4}\index{MPU9250@{MPU9250}!ACCEL\_CONFIG@{ACCEL\_CONFIG}}
+\index{ACCEL\_CONFIG@{ACCEL\_CONFIG}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{ACCEL\_CONFIG}{ACCEL\_CONFIG}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gab7336e26f8947086e41a375f1e1e74d4} 
+\+\#define ACCEL\+\_\+\+CONFIG}
+
+
+
+Accelerometer full-\/scale range (±2/\+4/\+8/\+16 g) and self-\/test enables. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00073}{73}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_gaecbf5cd71bd0e677bf19d2e855323794}\index{MPU9250@{MPU9250}!ACCEL\_CONFIG2@{ACCEL\_CONFIG2}}
+\index{ACCEL\_CONFIG2@{ACCEL\_CONFIG2}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{ACCEL\_CONFIG2}{ACCEL\_CONFIG2}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gaecbf5cd71bd0e677bf19d2e855323794} 
+\+\#define ACCEL\+\_\+\+CONFIG2}
+
+
+
+Accelerometer low-\/pass filter bandwidth. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00074}{74}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga4a2dc75c2a0588814cb466b0db1bca8b}\index{MPU9250@{MPU9250}!LP\_ACCEL\_ODR@{LP\_ACCEL\_ODR}}
+\index{LP\_ACCEL\_ODR@{LP\_ACCEL\_ODR}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{LP\_ACCEL\_ODR}{LP\_ACCEL\_ODR}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga4a2dc75c2a0588814cb466b0db1bca8b} 
+\+\#define LP\+\_\+\+ACCEL\+\_\+\+ODR}
+
+
+
+Output data rate while in low-\/power accelerometer mode. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00075}{75}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga81d6e49ec67e620570d1662f170b0900}\index{MPU9250@{MPU9250}!WOM\_THR@{WOM\_THR}}
+\index{WOM\_THR@{WOM\_THR}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{WOM\_THR}{WOM\_THR}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga81d6e49ec67e620570d1662f170b0900} 
+\+\#define WOM\+\_\+\+THR}
+
+
+
+Wake-\/on-\/motion threshold. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00076}{76}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga53954ec7f9dc790f00548da08ccd5ed6}\index{MPU9250@{MPU9250}!FIFO\_EN@{FIFO\_EN}}
+\index{FIFO\_EN@{FIFO\_EN}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{FIFO\_EN}{FIFO\_EN}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga53954ec7f9dc790f00548da08ccd5ed6} 
+\+\#define FIFO\+\_\+\+EN}
+
+
+
+Which sensors are written into the FIFO (the driver polls instead, so this stays 0). 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00077}{77}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga24bc05247067ad9f0479f5a6d49c6412}\index{MPU9250@{MPU9250}!I2C\_MST\_CTRL@{I2C\_MST\_CTRL}}
+\index{I2C\_MST\_CTRL@{I2C\_MST\_CTRL}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{I2C\_MST\_CTRL}{I2C\_MST\_CTRL}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga24bc05247067ad9f0479f5a6d49c6412} 
+\+\#define I2\+C\+\_\+\+MST\+\_\+\+CTRL}
+
+
+
+I2C master clock speed and multi-\/master settings. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00087}{87}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga614db921c27f375c632960a7f34999a4}\index{MPU9250@{MPU9250}!I2C\_SLV0\_ADDR@{I2C\_SLV0\_ADDR}}
+\index{I2C\_SLV0\_ADDR@{I2C\_SLV0\_ADDR}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{I2C\_SLV0\_ADDR}{I2C\_SLV0\_ADDR}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga614db921c27f375c632960a7f34999a4} 
+\+\#define I2\+C\+\_\+\+SLV0\+\_\+\+ADDR}
+
+
+
+Slave 0:\+ the I2C address to talk to, plus the read/\+write bit. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00088}{88}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{MPU9250__program_8c_source_l00096}{MPU9250\+\_\+u8\+Read\+Mag\+Reg()}}, and \doxymbox{\hyperlink{MPU9250__program_8c_source_l00110}{MPU9250\+\_\+v\+Init\+Mag()}}.
+
+\Hypertarget{group__hal__mpu9250_ga0553d56ecccd0fc8008505e712a9b075}\index{MPU9250@{MPU9250}!I2C\_SLV0\_REG@{I2C\_SLV0\_REG}}
+\index{I2C\_SLV0\_REG@{I2C\_SLV0\_REG}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{I2C\_SLV0\_REG}{I2C\_SLV0\_REG}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga0553d56ecccd0fc8008505e712a9b075} 
+\+\#define I2\+C\+\_\+\+SLV0\+\_\+\+REG}
+
+
+
+Slave 0:\+ which register inside that slave to access. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00089}{89}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{MPU9250__program_8c_source_l00096}{MPU9250\+\_\+u8\+Read\+Mag\+Reg()}}, and \doxymbox{\hyperlink{MPU9250__program_8c_source_l00110}{MPU9250\+\_\+v\+Init\+Mag()}}.
+
+\Hypertarget{group__hal__mpu9250_gad6fb6553534b0b9e9715db3e5a04ebca}\index{MPU9250@{MPU9250}!I2C\_SLV0\_CTRL@{I2C\_SLV0\_CTRL}}
+\index{I2C\_SLV0\_CTRL@{I2C\_SLV0\_CTRL}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{I2C\_SLV0\_CTRL}{I2C\_SLV0\_CTRL}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gad6fb6553534b0b9e9715db3e5a04ebca} 
+\+\#define I2\+C\+\_\+\+SLV0\+\_\+\+CTRL}
+
+
+
+Slave 0:\+ enable, and how many bytes to transfer. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00090}{90}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{MPU9250__program_8c_source_l00096}{MPU9250\+\_\+u8\+Read\+Mag\+Reg()}}, and \doxymbox{\hyperlink{MPU9250__program_8c_source_l00110}{MPU9250\+\_\+v\+Init\+Mag()}}.
+
+\Hypertarget{group__hal__mpu9250_gadeef906221a363d4489cf0a51d7f03b6}\index{MPU9250@{MPU9250}!I2C\_SLV1\_ADDR@{I2C\_SLV1\_ADDR}}
+\index{I2C\_SLV1\_ADDR@{I2C\_SLV1\_ADDR}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{I2C\_SLV1\_ADDR}{I2C\_SLV1\_ADDR}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gadeef906221a363d4489cf0a51d7f03b6} 
+\+\#define I2\+C\+\_\+\+SLV1\+\_\+\+ADDR}
+
+
+
+Slave 1:\+ I2C address plus the read/\+write bit. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00091}{91}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga33d12ea757eeb8ef10aa501f6c68ba3d}\index{MPU9250@{MPU9250}!I2C\_SLV1\_REG@{I2C\_SLV1\_REG}}
+\index{I2C\_SLV1\_REG@{I2C\_SLV1\_REG}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{I2C\_SLV1\_REG}{I2C\_SLV1\_REG}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga33d12ea757eeb8ef10aa501f6c68ba3d} 
+\+\#define I2\+C\+\_\+\+SLV1\+\_\+\+REG}
+
+
+
+Slave 1:\+ register inside that slave. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00092}{92}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga6857f4e255988b5aae9d570dec2a06c8}\index{MPU9250@{MPU9250}!I2C\_SLV1\_CTRL@{I2C\_SLV1\_CTRL}}
+\index{I2C\_SLV1\_CTRL@{I2C\_SLV1\_CTRL}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{I2C\_SLV1\_CTRL}{I2C\_SLV1\_CTRL}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga6857f4e255988b5aae9d570dec2a06c8} 
+\+\#define I2\+C\+\_\+\+SLV1\+\_\+\+CTRL}
+
+
+
+Slave 1:\+ enable and transfer length. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00093}{93}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga2f0f1237e987597a4405b9deeefeb6f5}\index{MPU9250@{MPU9250}!I2C\_SLV0\_DO@{I2C\_SLV0\_DO}}
+\index{I2C\_SLV0\_DO@{I2C\_SLV0\_DO}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{I2C\_SLV0\_DO}{I2C\_SLV0\_DO}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga2f0f1237e987597a4405b9deeefeb6f5} 
+\+\#define I2\+C\+\_\+\+SLV0\+\_\+\+DO}
+
+
+
+Slave 0:\+ the byte to write, when slave 0 is set up as a write. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00094}{94}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{MPU9250__program_8c_source_l00110}{MPU9250\+\_\+v\+Init\+Mag()}}.
+
+\Hypertarget{group__hal__mpu9250_gaa6580b929fcb8b3e29fe45b73180d2bd}\index{MPU9250@{MPU9250}!EXT\_SENS\_DATA\_00@{EXT\_SENS\_DATA\_00}}
+\index{EXT\_SENS\_DATA\_00@{EXT\_SENS\_DATA\_00}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{EXT\_SENS\_DATA\_00}{EXT\_SENS\_DATA\_00}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gaa6580b929fcb8b3e29fe45b73180d2bd} 
+\+\#define EXT\+\_\+\+SENS\+\_\+\+DATA\+\_\+00}
+
+
+
+First of the 24 bytes where the I2C master parks whatever it fetched — this is where the compass reading lands. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00095}{95}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{MPU9250__program_8c_source_l00096}{MPU9250\+\_\+u8\+Read\+Mag\+Reg()}}.
+
+\Hypertarget{group__hal__mpu9250_ga8498e646190e00d95ddd95af4d6a093a}\index{MPU9250@{MPU9250}!I2C\_MST\_STATUS@{I2C\_MST\_STATUS}}
+\index{I2C\_MST\_STATUS@{I2C\_MST\_STATUS}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{I2C\_MST\_STATUS}{I2C\_MST\_STATUS}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga8498e646190e00d95ddd95af4d6a093a} 
+\+\#define I2\+C\+\_\+\+MST\+\_\+\+STATUS}
+
+
+
+I2C master status:\+ transfer done, and the per-\/slave NACK flags. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00096}{96}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_gab00fdfba66092d2d869031629c092dad}\index{MPU9250@{MPU9250}!INT\_PIN\_CFG@{INT\_PIN\_CFG}}
+\index{INT\_PIN\_CFG@{INT\_PIN\_CFG}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{INT\_PIN\_CFG}{INT\_PIN\_CFG}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gab00fdfba66092d2d869031629c092dad} 
+\+\#define INT\+\_\+\+PIN\+\_\+\+CFG}
+
+
+
+INT pin behaviour:\+ polarity, latching, and the I2C bypass enable. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00103}{103}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_gabf7a56466fd6203663685a04448c9185}\index{MPU9250@{MPU9250}!INT\_ENABLE@{INT\_ENABLE}}
+\index{INT\_ENABLE@{INT\_ENABLE}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{INT\_ENABLE}{INT\_ENABLE}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gabf7a56466fd6203663685a04448c9185} 
+\+\#define INT\+\_\+\+ENABLE}
+
+
+
+Which conditions raise the INT pin (data-\/ready, FIFO overflow, wake-\/on-\/motion). 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00104}{104}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga62cba161837810295654c3cc2de959a6}\index{MPU9250@{MPU9250}!INT\_STATUS@{INT\_STATUS}}
+\index{INT\_STATUS@{INT\_STATUS}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{INT\_STATUS}{INT\_STATUS}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga62cba161837810295654c3cc2de959a6} 
+\+\#define INT\+\_\+\+STATUS}
+
+
+
+Which condition actually fired; reading it clears the flags. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00105}{105}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga94b93aa4aabbe7caec7884ddb46b531b}\index{MPU9250@{MPU9250}!ACCEL\_XOUT\_H@{ACCEL\_XOUT\_H}}
+\index{ACCEL\_XOUT\_H@{ACCEL\_XOUT\_H}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{ACCEL\_XOUT\_H}{ACCEL\_XOUT\_H}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga94b93aa4aabbe7caec7884ddb46b531b} 
+\+\#define ACCEL\+\_\+\+XOUT\+\_\+H}
+
+
+
+Accelerometer X, high byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00115}{115}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga47679c25e1689ee0401959e33e05a761}\index{MPU9250@{MPU9250}!ACCEL\_XOUT\_L@{ACCEL\_XOUT\_L}}
+\index{ACCEL\_XOUT\_L@{ACCEL\_XOUT\_L}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{ACCEL\_XOUT\_L}{ACCEL\_XOUT\_L}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga47679c25e1689ee0401959e33e05a761} 
+\+\#define ACCEL\+\_\+\+XOUT\+\_\+L}
+
+
+
+Accelerometer X, low byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00116}{116}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga26d680f52fbdaa0623d16292e9c40d4c}\index{MPU9250@{MPU9250}!ACCEL\_YOUT\_H@{ACCEL\_YOUT\_H}}
+\index{ACCEL\_YOUT\_H@{ACCEL\_YOUT\_H}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{ACCEL\_YOUT\_H}{ACCEL\_YOUT\_H}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga26d680f52fbdaa0623d16292e9c40d4c} 
+\+\#define ACCEL\+\_\+\+YOUT\+\_\+H}
+
+
+
+Accelerometer Y, high byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00117}{117}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_gad7a92304bd1dd3755068380b51319a93}\index{MPU9250@{MPU9250}!ACCEL\_YOUT\_L@{ACCEL\_YOUT\_L}}
+\index{ACCEL\_YOUT\_L@{ACCEL\_YOUT\_L}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{ACCEL\_YOUT\_L}{ACCEL\_YOUT\_L}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gad7a92304bd1dd3755068380b51319a93} 
+\+\#define ACCEL\+\_\+\+YOUT\+\_\+L}
+
+
+
+Accelerometer Y, low byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00118}{118}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga44d84761605d984a0de060640f4c57da}\index{MPU9250@{MPU9250}!ACCEL\_ZOUT\_H@{ACCEL\_ZOUT\_H}}
+\index{ACCEL\_ZOUT\_H@{ACCEL\_ZOUT\_H}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{ACCEL\_ZOUT\_H}{ACCEL\_ZOUT\_H}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga44d84761605d984a0de060640f4c57da} 
+\+\#define ACCEL\+\_\+\+ZOUT\+\_\+H}
+
+
+
+Accelerometer Z, high byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00119}{119}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga36e02bfb24518b6c425d9c3411c8d720}\index{MPU9250@{MPU9250}!ACCEL\_ZOUT\_L@{ACCEL\_ZOUT\_L}}
+\index{ACCEL\_ZOUT\_L@{ACCEL\_ZOUT\_L}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{ACCEL\_ZOUT\_L}{ACCEL\_ZOUT\_L}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga36e02bfb24518b6c425d9c3411c8d720} 
+\+\#define ACCEL\+\_\+\+ZOUT\+\_\+L}
+
+
+
+Accelerometer Z, low byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00120}{120}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_gae8c4c28fe604535a3a57d0536c6e8175}\index{MPU9250@{MPU9250}!TEMP\_OUT\_H@{TEMP\_OUT\_H}}
+\index{TEMP\_OUT\_H@{TEMP\_OUT\_H}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{TEMP\_OUT\_H}{TEMP\_OUT\_H}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gae8c4c28fe604535a3a57d0536c6e8175} 
+\+\#define TEMP\+\_\+\+OUT\+\_\+H}
+
+
+
+Die temperature, high byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00121}{121}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga7fe4a13198c0b3d8cf09802e7247fd2c}\index{MPU9250@{MPU9250}!TEMP\_OUT\_L@{TEMP\_OUT\_L}}
+\index{TEMP\_OUT\_L@{TEMP\_OUT\_L}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{TEMP\_OUT\_L}{TEMP\_OUT\_L}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga7fe4a13198c0b3d8cf09802e7247fd2c} 
+\+\#define TEMP\+\_\+\+OUT\+\_\+L}
+
+
+
+Die temperature, low byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00122}{122}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga0016198ccf5ca2b7f41d7a23e6554373}\index{MPU9250@{MPU9250}!GYRO\_XOUT\_H@{GYRO\_XOUT\_H}}
+\index{GYRO\_XOUT\_H@{GYRO\_XOUT\_H}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{GYRO\_XOUT\_H}{GYRO\_XOUT\_H}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga0016198ccf5ca2b7f41d7a23e6554373} 
+\+\#define GYRO\+\_\+\+XOUT\+\_\+H}
+
+
+
+Gyroscope X, high byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00123}{123}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_gaf07374691962c7531539cfcd36aa1c4b}\index{MPU9250@{MPU9250}!GYRO\_XOUT\_L@{GYRO\_XOUT\_L}}
+\index{GYRO\_XOUT\_L@{GYRO\_XOUT\_L}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{GYRO\_XOUT\_L}{GYRO\_XOUT\_L}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gaf07374691962c7531539cfcd36aa1c4b} 
+\+\#define GYRO\+\_\+\+XOUT\+\_\+L}
+
+
+
+Gyroscope X, low byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00124}{124}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga0970193c5ba295a66f057c017663adf1}\index{MPU9250@{MPU9250}!GYRO\_YOUT\_H@{GYRO\_YOUT\_H}}
+\index{GYRO\_YOUT\_H@{GYRO\_YOUT\_H}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{GYRO\_YOUT\_H}{GYRO\_YOUT\_H}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga0970193c5ba295a66f057c017663adf1} 
+\+\#define GYRO\+\_\+\+YOUT\+\_\+H}
+
+
+
+Gyroscope Y, high byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00125}{125}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_gaf2403ccc9042c6a869278a7c211a396d}\index{MPU9250@{MPU9250}!GYRO\_YOUT\_L@{GYRO\_YOUT\_L}}
+\index{GYRO\_YOUT\_L@{GYRO\_YOUT\_L}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{GYRO\_YOUT\_L}{GYRO\_YOUT\_L}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gaf2403ccc9042c6a869278a7c211a396d} 
+\+\#define GYRO\+\_\+\+YOUT\+\_\+L}
+
+
+
+Gyroscope Y, low byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00126}{126}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_gac0fcd61ece1f100c02494fc94f0b0dad}\index{MPU9250@{MPU9250}!GYRO\_ZOUT\_H@{GYRO\_ZOUT\_H}}
+\index{GYRO\_ZOUT\_H@{GYRO\_ZOUT\_H}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{GYRO\_ZOUT\_H}{GYRO\_ZOUT\_H}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gac0fcd61ece1f100c02494fc94f0b0dad} 
+\+\#define GYRO\+\_\+\+ZOUT\+\_\+H}
+
+
+
+Gyroscope Z, high byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00127}{127}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga5466aa6a32d0b17e834ef9792e7f415d}\index{MPU9250@{MPU9250}!GYRO\_ZOUT\_L@{GYRO\_ZOUT\_L}}
+\index{GYRO\_ZOUT\_L@{GYRO\_ZOUT\_L}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{GYRO\_ZOUT\_L}{GYRO\_ZOUT\_L}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga5466aa6a32d0b17e834ef9792e7f415d} 
+\+\#define GYRO\+\_\+\+ZOUT\+\_\+L}
+
+
+
+Gyroscope Z, low byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00128}{128}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga1e6b15b0945c167f55f5e2cfd2c60d5a}\index{MPU9250@{MPU9250}!AK8963\_ADDR@{AK8963\_ADDR}}
+\index{AK8963\_ADDR@{AK8963\_ADDR}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{AK8963\_ADDR}{AK8963\_ADDR}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga1e6b15b0945c167f55f5e2cfd2c60d5a} 
+\+\#define AK8963\+\_\+\+ADDR}
+
+
+
+The AK8963\textquotesingle{}s address on the MPU6500\textquotesingle{}s internal I2C bus. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00139}{139}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{MPU9250__program_8c_source_l00096}{MPU9250\+\_\+u8\+Read\+Mag\+Reg()}}, and \doxymbox{\hyperlink{MPU9250__program_8c_source_l00110}{MPU9250\+\_\+v\+Init\+Mag()}}.
+
+\Hypertarget{group__hal__mpu9250_ga3826ec24a009126367fedb2422d092b1}\index{MPU9250@{MPU9250}!AK8963\_WHO\_AM\_I@{AK8963\_WHO\_AM\_I}}
+\index{AK8963\_WHO\_AM\_I@{AK8963\_WHO\_AM\_I}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{AK8963\_WHO\_AM\_I}{AK8963\_WHO\_AM\_I}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga3826ec24a009126367fedb2422d092b1} 
+\+\#define AK8963\+\_\+\+WHO\+\_\+\+AM\+\_\+I}
+
+
+
+Device ID; reads back 0x48 on a healthy part. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00140}{140}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga0037cda572379e26ecad5030c64aaf10}\index{MPU9250@{MPU9250}!AK8963\_ST1@{AK8963\_ST1}}
+\index{AK8963\_ST1@{AK8963\_ST1}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{AK8963\_ST1}{AK8963\_ST1}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga0037cda572379e26ecad5030c64aaf10} 
+\+\#define AK8963\+\_\+\+ST1}
+
+
+
+Status 1:\+ bit 0 is DRDY, "{}a fresh sample is ready"{}. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00141}{141}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga35260c212eacc1f2808af33bdc55c8fa}\index{MPU9250@{MPU9250}!AK8963\_XOUT\_L@{AK8963\_XOUT\_L}}
+\index{AK8963\_XOUT\_L@{AK8963\_XOUT\_L}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{AK8963\_XOUT\_L}{AK8963\_XOUT\_L}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga35260c212eacc1f2808af33bdc55c8fa} 
+\+\#define AK8963\+\_\+\+XOUT\+\_\+L}
+
+
+
+Magnetometer X, low byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00142}{142}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_gacd2458bce11a9ed1710ae816050c2d13}\index{MPU9250@{MPU9250}!AK8963\_XOUT\_H@{AK8963\_XOUT\_H}}
+\index{AK8963\_XOUT\_H@{AK8963\_XOUT\_H}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{AK8963\_XOUT\_H}{AK8963\_XOUT\_H}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gacd2458bce11a9ed1710ae816050c2d13} 
+\+\#define AK8963\+\_\+\+XOUT\+\_\+H}
+
+
+
+Magnetometer X, high byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00143}{143}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_gaf7eff9c50ed2700781b4161699829e69}\index{MPU9250@{MPU9250}!AK8963\_YOUT\_L@{AK8963\_YOUT\_L}}
+\index{AK8963\_YOUT\_L@{AK8963\_YOUT\_L}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{AK8963\_YOUT\_L}{AK8963\_YOUT\_L}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gaf7eff9c50ed2700781b4161699829e69} 
+\+\#define AK8963\+\_\+\+YOUT\+\_\+L}
+
+
+
+Magnetometer Y, low byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00144}{144}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga2c78e17f8f5d96c2d6f82b81358bde6c}\index{MPU9250@{MPU9250}!AK8963\_YOUT\_H@{AK8963\_YOUT\_H}}
+\index{AK8963\_YOUT\_H@{AK8963\_YOUT\_H}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{AK8963\_YOUT\_H}{AK8963\_YOUT\_H}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga2c78e17f8f5d96c2d6f82b81358bde6c} 
+\+\#define AK8963\+\_\+\+YOUT\+\_\+H}
+
+
+
+Magnetometer Y, high byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00145}{145}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_gad3625cb250d1202b43b44a4d2b0a6c2e}\index{MPU9250@{MPU9250}!AK8963\_ZOUT\_L@{AK8963\_ZOUT\_L}}
+\index{AK8963\_ZOUT\_L@{AK8963\_ZOUT\_L}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{AK8963\_ZOUT\_L}{AK8963\_ZOUT\_L}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gad3625cb250d1202b43b44a4d2b0a6c2e} 
+\+\#define AK8963\+\_\+\+ZOUT\+\_\+L}
+
+
+
+Magnetometer Z, low byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00146}{146}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga8e0a7c22a104aa2fb77a01518d0aaa74}\index{MPU9250@{MPU9250}!AK8963\_ZOUT\_H@{AK8963\_ZOUT\_H}}
+\index{AK8963\_ZOUT\_H@{AK8963\_ZOUT\_H}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{AK8963\_ZOUT\_H}{AK8963\_ZOUT\_H}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga8e0a7c22a104aa2fb77a01518d0aaa74} 
+\+\#define AK8963\+\_\+\+ZOUT\+\_\+H}
+
+
+
+Magnetometer Z, high byte. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00147}{147}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_gad740f9c857e0ffc7c474f9b9cb2e7d6b}\index{MPU9250@{MPU9250}!AK8963\_ST2@{AK8963\_ST2}}
+\index{AK8963\_ST2@{AK8963\_ST2}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{AK8963\_ST2}{AK8963\_ST2}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gad740f9c857e0ffc7c474f9b9cb2e7d6b} 
+\+\#define AK8963\+\_\+\+ST2}
+
+
+
+Status 2:\+ overflow flag. 
+
+Reading it {\itshape ends} the measurement — it must be read after the data, or the next sample never arrives. 
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00148}{148}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga9049064347064927059f71ea3843f986}\index{MPU9250@{MPU9250}!AK8963\_CNTL@{AK8963\_CNTL}}
+\index{AK8963\_CNTL@{AK8963\_CNTL}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{AK8963\_CNTL}{AK8963\_CNTL}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga9049064347064927059f71ea3843f986} 
+\+\#define AK8963\+\_\+\+CNTL}
+
+
+
+Control 1:\+ operating mode (power-\/down, single measurement, continuous) and output bit width. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00149}{149}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{MPU9250__program_8c_source_l00110}{MPU9250\+\_\+v\+Init\+Mag()}}.
+
+\Hypertarget{group__hal__mpu9250_ga66032b6572950d4fb7044420a6beeee2}\index{MPU9250@{MPU9250}!AK8963\_ASAX@{AK8963\_ASAX}}
+\index{AK8963\_ASAX@{AK8963\_ASAX}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{AK8963\_ASAX}{AK8963\_ASAX}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga66032b6572950d4fb7044420a6beeee2} 
+\+\#define AK8963\+\_\+\+ASAX}
+
+
+
+Factory sensitivity-\/adjustment value, X axis. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00150}{150}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{MPU9250__program_8c_source_l00110}{MPU9250\+\_\+v\+Init\+Mag()}}.
+
+\Hypertarget{group__hal__mpu9250_ga02f4a8ec6ef7533b43b75c839ca2547d}\index{MPU9250@{MPU9250}!AK8963\_ASAY@{AK8963\_ASAY}}
+\index{AK8963\_ASAY@{AK8963\_ASAY}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{AK8963\_ASAY}{AK8963\_ASAY}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga02f4a8ec6ef7533b43b75c839ca2547d} 
+\+\#define AK8963\+\_\+\+ASAY}
+
+
+
+Factory sensitivity-\/adjustment value, Y axis. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00151}{151}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{MPU9250__program_8c_source_l00110}{MPU9250\+\_\+v\+Init\+Mag()}}.
+
+\Hypertarget{group__hal__mpu9250_gad7807198e6ed02af5748886428078868}\index{MPU9250@{MPU9250}!AK8963\_ASAZ@{AK8963\_ASAZ}}
+\index{AK8963\_ASAZ@{AK8963\_ASAZ}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{AK8963\_ASAZ}{AK8963\_ASAZ}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gad7807198e6ed02af5748886428078868} 
+\+\#define AK8963\+\_\+\+ASAZ}
+
+
+
+Factory sensitivity-\/adjustment value, Z axis. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00152}{152}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{MPU9250__program_8c_source_l00110}{MPU9250\+\_\+v\+Init\+Mag()}}.
+
+\Hypertarget{group__hal__mpu9250_gabd9eebb35aad7616fe0414952e2d477d}\index{MPU9250@{MPU9250}!USER\_CTRL@{USER\_CTRL}}
+\index{USER\_CTRL@{USER\_CTRL}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{USER\_CTRL}{USER\_CTRL}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gabd9eebb35aad7616fe0414952e2d477d} 
+\+\#define USER\+\_\+\+CTRL}
+
+
+
+Enables the FIFO and the internal I2C master, and disables the I2C slave interface. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00159}{159}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga96169eb207e721c1546cea9ffd8a35e4}\index{MPU9250@{MPU9250}!PWR\_MGMT\_1@{PWR\_MGMT\_1}}
+\index{PWR\_MGMT\_1@{PWR\_MGMT\_1}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{PWR\_MGMT\_1}{PWR\_MGMT\_1}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga96169eb207e721c1546cea9ffd8a35e4} 
+\+\#define PWR\+\_\+\+MGMT\+\_\+1}
+
+
+
+Power management 1:\+ device reset, sleep, and the clock source. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00160}{160}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga23cfbcfd19dc88eb631309970f138e65}\index{MPU9250@{MPU9250}!PWR\_MGMT\_2@{PWR\_MGMT\_2}}
+\index{PWR\_MGMT\_2@{PWR\_MGMT\_2}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{PWR\_MGMT\_2}{PWR\_MGMT\_2}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga23cfbcfd19dc88eb631309970f138e65} 
+\+\#define PWR\+\_\+\+MGMT\+\_\+2}
+
+
+
+Power management 2:\+ per-\/axis standby for the accelerometer and gyroscope. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00161}{161}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga9fcb9e460d175bfc7ab4d80bf788b43a}\index{MPU9250@{MPU9250}!WHO\_AM\_I@{WHO\_AM\_I}}
+\index{WHO\_AM\_I@{WHO\_AM\_I}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{WHO\_AM\_I}{WHO\_AM\_I}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga9fcb9e460d175bfc7ab4d80bf788b43a} 
+\+\#define WHO\+\_\+\+AM\+\_\+I}
+
+
+
+Device ID; reads back 0x71 on a genuine MPU9250. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00162}{162}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga9349ad443a8bbd5be084ea1d6925cdc7}\index{MPU9250@{MPU9250}!PWR\_RESET@{PWR\_RESET}}
+\index{PWR\_RESET@{PWR\_RESET}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{PWR\_RESET}{PWR\_RESET}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga9349ad443a8bbd5be084ea1d6925cdc7} 
+\+\#define PWR\+\_\+\+RESET}
+
+
+
+\doxylink{group__hal__mpu9250_ga96169eb207e721c1546cea9ffd8a35e4}{PWR\+\_\+\+MGMT\+\_\+1} — trigger a full device reset. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00169}{169}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga37c31deb5f9bfb1a36fb54d5769e93f1}\index{MPU9250@{MPU9250}!CLOCK\_SEL\_PLL@{CLOCK\_SEL\_PLL}}
+\index{CLOCK\_SEL\_PLL@{CLOCK\_SEL\_PLL}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{CLOCK\_SEL\_PLL}{CLOCK\_SEL\_PLL}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga37c31deb5f9bfb1a36fb54d5769e93f1} 
+\+\#define CLOCK\+\_\+\+SEL\+\_\+\+PLL}
+
+
+
+\doxylink{group__hal__mpu9250_ga96169eb207e721c1546cea9ffd8a35e4}{PWR\+\_\+\+MGMT\+\_\+1} — use the gyro-\/referenced PLL, which is far more stable than the internal oscillator. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00170}{170}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga6638690f11487686a5ad203aff444ae2}\index{MPU9250@{MPU9250}!I2C\_IF\_DIS@{I2C\_IF\_DIS}}
+\index{I2C\_IF\_DIS@{I2C\_IF\_DIS}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{I2C\_IF\_DIS}{I2C\_IF\_DIS}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga6638690f11487686a5ad203aff444ae2} 
+\+\#define I2\+C\+\_\+\+IF\+\_\+\+DIS}
+
+
+
+\doxylink{group__hal__mpu9250_gabd9eebb35aad7616fe0414952e2d477d}{USER\+\_\+\+CTRL} — disable the I2C slave interface, so the part is SPI-\/only. 
+
+Required on this board. 
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00171}{171}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_gacb5b7cc1d39ba9199cef1d5c676db667}\index{MPU9250@{MPU9250}!I2C\_MST\_EN@{I2C\_MST\_EN}}
+\index{I2C\_MST\_EN@{I2C\_MST\_EN}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{I2C\_MST\_EN}{I2C\_MST\_EN}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_gacb5b7cc1d39ba9199cef1d5c676db667} 
+\+\#define I2\+C\+\_\+\+MST\+\_\+\+EN}
+
+
+
+\doxylink{group__hal__mpu9250_gabd9eebb35aad7616fe0414952e2d477d}{USER\+\_\+\+CTRL} — enable the internal I2C master, without which the magnetometer is unreachable. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00172}{172}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga3022d5e5387dfbf2ed4b80a587b08ca2}\index{MPU9250@{MPU9250}!ACCEL\_SENS\_2G@{ACCEL\_SENS\_2G}}
+\index{ACCEL\_SENS\_2G@{ACCEL\_SENS\_2G}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{ACCEL\_SENS\_2G}{ACCEL\_SENS\_2G}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga3022d5e5387dfbf2ed4b80a587b08ca2} 
+\+\#define ACCEL\+\_\+\+SENS\+\_\+2G}
+
+
+
+LSB per g at the ±2 g range:\+ acceleration \+[g]\+ = raw /\+ this. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00181}{181}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+
+\Hypertarget{group__hal__mpu9250_ga763555a07ac8afb9614649becdee67d5}\index{MPU9250@{MPU9250}!GYRO\_SENS\_250@{GYRO\_SENS\_250}}
+\index{GYRO\_SENS\_250@{GYRO\_SENS\_250}!MPU9250@{MPU9250}}
+\doxysubsubsubsection{\texorpdfstring{GYRO\_SENS\_250}{GYRO\_SENS\_250}}
+{\footnotesize\ttfamily \label{group__hal__mpu9250_ga763555a07ac8afb9614649becdee67d5} 
+\+\#define GYRO\+\_\+\+SENS\+\_\+250}
+
+
+
+LSB per °/\+s at the ±250 °/\+s range:\+ rate \+[°/\+s]\+ = raw /\+ this. 
+
+
+
+Definition at line \doxymbox{\hyperlink{MPU9250__private_8h_source_l00182}{182}} of file \doxymbox{\hyperlink{MPU9250__private_8h_source}{MPU9250\+\_\+private.\+h}}.
+

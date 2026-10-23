@@ -1,14 +1,10 @@
 /**
- **===========================================================================**
- **<<<<<<<<<<<<<<<<<<<<<<<<<   FCW_DNPW_program.c   >>>>>>>>>>>>>>>>>>>>>>>>>>>**
- **                                                                           **
- **                  Author : Abdallah Abdelmoemen Shehawey                   **
- **                  Layer  : APP                                             **
- **                  CPU    : Cortex-M4                                       **
- **                  MCU    : NUCLEO-F446RE                                   **
- **                  SW     : Cooperative FCW + DNPW                          **
- **                                                                           **
- **===========================================================================**
+ ******************************************************************************
+ * @file    FCW_DNPW_program.c
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Implementation of the FCW/DNPW driver — Forward Collision Warning and Do-Not-Pass Warning.
+ * @ingroup app_fcw_dnpw
+ ******************************************************************************
  */
 
 /*
@@ -44,16 +40,30 @@
  * Inputs (front object + severity) are latched in BeginCycle; the result flags
  * are kept up to date as neighbors arrive, so no getter recomputes anything.
  */
-static uint8_t FCW_DNPW_FcwObject = 0;                  /* object inside the FCW front gate (40 cm, wider)    */
-static uint8_t FCW_DNPW_FrontObject = 0;                /* object inside the DNPW/head-on front gate (20 cm)  */
-static uint8_t FCW_DNPW_FrontLeftNear = 0;              /* oncoming car alongside on the left (front-left gate)*/
-static RiskLevel_t FCW_DNPW_FrontSeverity = RISK_SAFE;  /* same-direction severity, latched per cycle     */
-static RiskLevel_t FCW_DNPW_HeadonSeverity = RISK_SAFE; /* head-on severity: gaps doubled for closing speed */
+/** @brief Is something inside the wider FCW front gate, @ref FCW_FRONT_THRESHOLD? (Local, ultrasonic-only.) */
+static uint8_t FCW_DNPW_FcwObject = 0;
+/** @brief Is something inside the tighter DNPW / head-on front gate, @ref DNPW_FRONT_THRESHOLD? */
+static uint8_t FCW_DNPW_FrontObject = 0;
+/** @brief Is a car alongside us on the overtaking (left) side? Escalates DNPW to critical — see @ref DNPW_FRONT_LEFT_CRITICAL. */
+static uint8_t FCW_DNPW_FrontLeftNear = 0;
+/** @brief Severity for a same-direction vehicle ahead, latched for this cycle. */
+static RiskLevel_t FCW_DNPW_FrontSeverity = RISK_SAFE;
+/**
+ * @brief Severity for a head-on encounter.
+ * @note The safe gaps are **doubled** here. Two cars approaching each other close
+ *       at the sum of their speeds, so the same physical distance buys only half
+ *       the time it would against a stationary obstacle.
+ */
+static RiskLevel_t FCW_DNPW_HeadonSeverity = RISK_SAFE;
 
-static RiskLevel_t FCW_DNPW_FrontFlag = RISK_SAFE; /* [result] forward collision, same lane (0/1/2)    */
-static uint8_t FCW_DNPW_HeadonFlag = 0;            /* [result] head-on candidate, broadcast (0/1)       */
-static uint8_t FCW_DNPW_HeadonConfirmed = 0;       /* [result] confirmed head-on severity (0/1/2)       */
-static RiskLevel_t FCW_DNPW_DnpwFlag = RISK_SAFE;  /* [result] do-not-pass severity (0/1/2)             */
+/** @brief Result: forward-collision risk in our own lane. */
+static RiskLevel_t FCW_DNPW_FrontFlag = RISK_SAFE;
+/** @brief Result: head-on candidate, broadcast to the other car as @ref Neighbor::fcw_headon_flag so it can confirm from its own side. */
+static uint8_t FCW_DNPW_HeadonFlag = 0;
+/** @brief Result: a head-on that **both** cars independently flagged — our own geometry agrees with the neighbor's broadcast @ref Neighbor::fcw_headon_flag. */
+static uint8_t FCW_DNPW_HeadonConfirmed = 0;
+/** @brief Result: do-not-pass severity — an oncoming car in another lane makes overtaking unsafe. */
+static RiskLevel_t FCW_DNPW_DnpwFlag = RISK_SAFE;
 
 /* ============ Init ============ */
 void FCW_DNPW_voidInit(void)
@@ -73,7 +83,7 @@ void FCW_DNPW_voidInit(void)
 /* ============ Per-Neighbor API (for SafetyEngine) ============ */
 /* ============================================================ */
 
-/**
+/*
  * @brief Start a new cycle: latch the front distances and reset the signals.
  * @param front_distance      Front-center ultrasonic distance (cm)
  * @param front_left_distance Front-left ultrasonic distance (cm)
@@ -117,7 +127,7 @@ void FCW_DNPW_voidBeginCycle(float front_distance, float front_left_distance)
   FCW_DNPW_DnpwFlag = RISK_SAFE;
 }
 
-/**
+/*
  * @brief A same-direction neighbor confirms the object ahead is a vehicle, so the
  *        latched front-distance severity becomes a real front-collision flag.
  *        The severity is the same for every same-direction neighbor (it depends
@@ -128,7 +138,7 @@ void FCW_DNPW_voidProcessSameDirection(void)
   FCW_DNPW_FrontFlag = FCW_DNPW_FrontSeverity;
 }
 
-/**
+/*
  * @brief An oncoming neighbor exists. With an object ahead, that makes a head-on
  *        candidate (broadcast for confirmation). Whether the oncoming car raised
  *        its own head-on flag splits the case:
@@ -165,13 +175,25 @@ void FCW_DNPW_voidProcessOppositeDirection(const Neighbor *n)
 /* ============ Public Getters (return the ready results) ============ */
 
 /** @brief Forward collision, same lane. @return 0=Safe, 1=Warning, 2=Critical */
-uint8_t FCW_GetFrontFlag(void) { return (uint8_t)FCW_DNPW_FrontFlag; }
+uint8_t FCW_GetFrontFlag(void)
+{
+  return (uint8_t)FCW_DNPW_FrontFlag;
+}
 
 /** @brief Head-on candidate, broadcast over DSRC. @return 0/1 */
-uint8_t FCW_GetHeadonFlag(void) { return FCW_DNPW_HeadonFlag; }
+uint8_t FCW_GetHeadonFlag(void)
+{
+  return FCW_DNPW_HeadonFlag;
+}
 
 /** @brief Confirmed head-on collision. @return 0=Safe, else severity (1/2) */
-uint8_t FCW_GetHeadonConfirmed(void) { return FCW_DNPW_HeadonConfirmed; }
+uint8_t FCW_GetHeadonConfirmed(void)
+{
+  return FCW_DNPW_HeadonConfirmed;
+}
 
 /** @brief Do-not-pass (oncoming in another lane). @return 0=Safe, 1=Warning, 2=Critical */
-uint8_t DNPW_GetFlag(void) { return (uint8_t)FCW_DNPW_DnpwFlag; }
+uint8_t DNPW_GetFlag(void)
+{
+  return (uint8_t)FCW_DNPW_DnpwFlag;
+}

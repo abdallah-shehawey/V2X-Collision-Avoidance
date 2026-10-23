@@ -1,0 +1,568 @@
+\doxysection{System }
+\hypertarget{group__system}{}\label{group__system}\index{System@{System}}
+
+
+Startup, system-\/wide configuration and the shared vehicle state.  
+
+
+\doxysubsubsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file \doxymbox{\hyperlink{System_8h}{System.\+h}}
+\begin{DoxyCompactList}\small\item\em System-\/wide contract:\+ the board wiring map, the shared vehicle state, the packed ADAS status word, and the telemetry format. \end{DoxyCompactList}\item 
+file \doxymbox{\hyperlink{main_8c}{main.\+c}}
+\begin{DoxyCompactList}\small\item\em Entry point, the six Free\+RTOS tasks, and the watchdog liveness net. \end{DoxyCompactList}\item 
+file \doxymbox{\hyperlink{syscalls_8c}{syscalls.\+c}}
+\begin{DoxyCompactList}\small\item\em Newlib low-\/level stubs, plus {\ttfamily printf} retargeting over the ITM. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structHostVehicleState__t}{Host\+Vehicle\+State\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Everything the sensors know about {\itshape this} vehicle, in one place. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structRPi__Packet__t}{RPi\+\_\+\+Packet\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Legacy binary telemetry packet — {\bfseries{kept for reference only}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__system_ga90b9ebedff8635727698afd2fa84b90a}{DWT\+\_\+\+CTRL}}
+\begin{DoxyCompactList}\small\item\em Cortex-\/\+M4 Data Watchpoint and Trace control register. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{group__system_gac3f6c7e9a568f4528304150a6f59736b}{SEGGER\+\_\+setup}} (void)
+\begin{DoxyCompactList}\small\item\em Start SEGGER System\+View tracing (enables the DWT cycle counter first). \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group__system_gae436954cd2bde6634ab271317d2494a7}{System\+\_\+setup}} (void)
+\begin{DoxyCompactList}\small\item\em Bring up the board:\+ clock tree, then every MCAL and HAL peripheral. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group__system_ga9f28a641641de8e783815ab1fa92549f}{RTOS\+\_\+setup}} (void)
+\begin{DoxyCompactList}\small\item\em Create the mutexes and the six Free\+RTOS tasks, then start the scheduler. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+volatile uint16\+\_\+t \doxymbox{\hyperlink{group__system_ga9e78367aa5b758af972838362c2b0eab}{G\+\_\+u16\+System\+Flags}}
+\begin{DoxyCompactList}\small\item\em The packed ADAS status word — see \doxylink{group__system_ga7f3e28353c0f0f1ce0787d44563ca389}{SYS\+\_\+\+GET} for how to read it. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structHostVehicleState__t}{Host\+Vehicle\+State\+\_\+t}} \doxymbox{\hyperlink{group__system_gac3116f56a230ebdd81cadd527921464c}{G\+\_\+st\+Host\+Vehicle\+State}}
+\begin{DoxyCompactList}\small\item\em The shared sensor picture of this vehicle. \end{DoxyCompactList}\item 
+float \doxymbox{\hyperlink{group__system_ga10d54e2c66effa6800db6f78aaec485c}{Host\+\_\+\+Dist\+To\+Intersection}}
+\begin{DoxyCompactList}\small\item\em Distance to the nearest intersection \+[cm]\+; 0 means "{}not near one"{}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Indicator LEDs}
+The five LEDs, defined in {\ttfamily \doxylink{System_8c}{System.\+c}} and shared across tasks.
+
+{\ttfamily Feedback\+\_\+\+Task} is the only task that drives them:\+ the interior LED on any alert, the front pair on an FCW-\/critical, the rear pair on an EEBL-\/critical. \begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{group__system_gaf1fb4a43ba68d1fdc94fd35a7d901cd4}{Front\+R\+\_\+\+LED}}
+\begin{DoxyCompactList}\small\item\em Front-\/right LED (PC0) — lit on an FCW-\/critical. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{group__system_ga2ab79e3f6235026ef8d29a9446511f48}{Front\+L\+\_\+\+LED}}
+\begin{DoxyCompactList}\small\item\em Front-\/left LED (PC1) — lit on an FCW-\/critical. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{group__system_gae41df9dd37d7c4d27b829fd46cd1e5e3}{Back\+R\+\_\+\+LED}}
+\begin{DoxyCompactList}\small\item\em Rear-\/right LED (PC2) — lit on an EEBL-\/critical. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{group__system_gabfc8237214cfd1267c607aaff66a96da}{Back\+L\+\_\+\+LED}}
+\begin{DoxyCompactList}\small\item\em Rear-\/left LED (PC3) — lit on an EEBL-\/critical. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} \doxymbox{\hyperlink{group__system_gaa7037844a95faca4f50aae714fe5048a}{Interior\+\_\+\+LED}}
+\begin{DoxyCompactList}\small\item\em Interior/\+dashboard LED (PC7) — lit on any alert. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{ADAS status word (G\+\_\+u16\+System\+Flags)}
+\doxylink{group__system_ga9e78367aa5b758af972838362c2b0eab}{G\+\_\+u16\+System\+Flags} packs the result of all five ADAS modules into one 16-\/bit word, two bits per module.
+
+{\ttfamily Safety\+Engine\+\_\+\+Task} is its only writer; {\ttfamily Feedback\+\_\+\+Task} and {\ttfamily RPi\+\_\+\+Comm\+\_\+\+Task} are its readers.
+
+Each 2-\/bit field holds \doxylink{group__system_ga167de614bc64dfddcd8a7677b6fecda0}{SYS\+\_\+\+SAFE}, \doxylink{group__system_gad8f58f6c26f6d5da69980ba995e38c78}{SYS\+\_\+\+WARNING} or \doxylink{group__system_ga717d9a716e77febf5c57b5c7231802c8}{SYS\+\_\+\+CRITICAL}. The layout is:\+
+
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Bits  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Module  \\
+1:\+0  &FCW — Forward Collision Warning  \\
+3:\+2  &EEBL — Emergency Electronic Brake Light  \\
+5:\+4  &BSW — Blind Spot Warning (warning level only)  \\
+7:\+6  &DNPW — Do Not Pass Warning  \\
+9:\+8  &IMA — Intersection Movement Assist  \\
+15:\+10  &reserved, always 0  \\
+\end{DoxyTable}
+
+
+So {\ttfamily 0x0000} means everything is safe, {\ttfamily 0x0002} is "{}\+FCW critical"{}, and {\ttfamily 0x0006} is "{}\+FCW critical \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}and\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} EEBL warning"{} at the same time.
+
+Read one module\textquotesingle{}s status with \doxylink{group__system_ga7f3e28353c0f0f1ce0787d44563ca389}{SYS\+\_\+\+GET}, e.\+g. {\ttfamily \doxylink{group__system_ga7f3e28353c0f0f1ce0787d44563ca389}{SYS\+\_\+\+GET(\+G\+\_\+u16\+System\+Flags, SYS\+\_\+\+FCW\+\_\+\+POS)}}. \begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__system_ga167de614bc64dfddcd8a7677b6fecda0}{SYS\+\_\+\+SAFE}}
+\begin{DoxyCompactList}\small\item\em No hazard from this module. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__system_gad8f58f6c26f6d5da69980ba995e38c78}{SYS\+\_\+\+WARNING}}
+\begin{DoxyCompactList}\small\item\em Caution — the driver should slow down. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__system_ga717d9a716e77febf5c57b5c7231802c8}{SYS\+\_\+\+CRITICAL}}
+\begin{DoxyCompactList}\small\item\em Danger — the driver should stop. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__system_ga1096a3bcb1d33bab56e2746735bef164}{SYS\+\_\+\+MASK}}
+\begin{DoxyCompactList}\small\item\em Mask of one 2-\/bit module field. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__system_ga6abc7e388887578e3028a403f99ab155}{SYS\+\_\+\+FCW\+\_\+\+POS}}
+\begin{DoxyCompactList}\small\item\em Bit position of the FCW field. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__system_ga1c2a65c70adf45dcfed9a27b20f13082}{SYS\+\_\+\+EEBL\+\_\+\+POS}}
+\begin{DoxyCompactList}\small\item\em Bit position of the EEBL field. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__system_ga04414e3adf55b811ccb5b68914f10f2f}{SYS\+\_\+\+BSW\+\_\+\+POS}}
+\begin{DoxyCompactList}\small\item\em Bit position of the BSW field. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__system_gac52b1dbb5be5438fcd6fba16dd939688}{SYS\+\_\+\+DNPW\+\_\+\+POS}}
+\begin{DoxyCompactList}\small\item\em Bit position of the DNPW field. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__system_ga42dbde5a9405e8b4ea3cab2049a4c97d}{SYS\+\_\+\+IMA\+\_\+\+POS}}
+\begin{DoxyCompactList}\small\item\em Bit position of the IMA field. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__system_ga7f3e28353c0f0f1ce0787d44563ca389}{SYS\+\_\+\+GET}}(flags,  pos)
+\begin{DoxyCompactList}\small\item\em Extract one module\textquotesingle{}s 2-\/bit status from the packed word. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Startup, system-\/wide configuration and the shared vehicle state. 
+
+The System layer owns everything that is global to the firmware rather than to one driver:\+ the Free\+RTOS task set in {\ttfamily \doxylink{main_8c}{main.\+c}}, the pin/\+peripheral map and the tuning constants in {\ttfamily \doxylink{System_8h}{System.\+h}}, the shared \doxylink{structHostVehicleState__t}{Host\+Vehicle\+State\+\_\+t} and ADAS status word, and the newlib stubs in {\ttfamily \doxylink{syscalls_8c}{syscalls.\+c}}. 
+
+\label{doc-define-members}
+\Hypertarget{group__system_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{group__system_ga167de614bc64dfddcd8a7677b6fecda0}\index{System@{System}!SYS\_SAFE@{SYS\_SAFE}}
+\index{SYS\_SAFE@{SYS\_SAFE}!System@{System}}
+\doxysubsubsection{\texorpdfstring{SYS\_SAFE}{SYS\_SAFE}}
+{\footnotesize\ttfamily \label{group__system_ga167de614bc64dfddcd8a7677b6fecda0} 
+\+\#define SYS\+\_\+\+SAFE}
+
+
+
+No hazard from this module. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8h_source_l00146}{146}} of file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+
+\Hypertarget{group__system_gad8f58f6c26f6d5da69980ba995e38c78}\index{System@{System}!SYS\_WARNING@{SYS\_WARNING}}
+\index{SYS\_WARNING@{SYS\_WARNING}!System@{System}}
+\doxysubsubsection{\texorpdfstring{SYS\_WARNING}{SYS\_WARNING}}
+{\footnotesize\ttfamily \label{group__system_gad8f58f6c26f6d5da69980ba995e38c78} 
+\+\#define SYS\+\_\+\+WARNING}
+
+
+
+Caution — the driver should slow down. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8h_source_l00147}{147}} of file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+
+\Hypertarget{group__system_ga717d9a716e77febf5c57b5c7231802c8}\index{System@{System}!SYS\_CRITICAL@{SYS\_CRITICAL}}
+\index{SYS\_CRITICAL@{SYS\_CRITICAL}!System@{System}}
+\doxysubsubsection{\texorpdfstring{SYS\_CRITICAL}{SYS\_CRITICAL}}
+{\footnotesize\ttfamily \label{group__system_ga717d9a716e77febf5c57b5c7231802c8} 
+\+\#define SYS\+\_\+\+CRITICAL}
+
+
+
+Danger — the driver should stop. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8h_source_l00148}{148}} of file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00334}{v\+Task\+\_\+\+Feedback()}}.
+
+\Hypertarget{group__system_ga1096a3bcb1d33bab56e2746735bef164}\index{System@{System}!SYS\_MASK@{SYS\_MASK}}
+\index{SYS\_MASK@{SYS\_MASK}!System@{System}}
+\doxysubsubsection{\texorpdfstring{SYS\_MASK}{SYS\_MASK}}
+{\footnotesize\ttfamily \label{group__system_ga1096a3bcb1d33bab56e2746735bef164} 
+\+\#define SYS\+\_\+\+MASK}
+
+
+
+Mask of one 2-\/bit module field. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8h_source_l00149}{149}} of file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
+
+\Hypertarget{group__system_ga6abc7e388887578e3028a403f99ab155}\index{System@{System}!SYS\_FCW\_POS@{SYS\_FCW\_POS}}
+\index{SYS\_FCW\_POS@{SYS\_FCW\_POS}!System@{System}}
+\doxysubsubsection{\texorpdfstring{SYS\_FCW\_POS}{SYS\_FCW\_POS}}
+{\footnotesize\ttfamily \label{group__system_ga6abc7e388887578e3028a403f99ab155} 
+\+\#define SYS\+\_\+\+FCW\+\_\+\+POS}
+
+
+
+Bit position of the FCW field. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8h_source_l00151}{151}} of file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}, and \doxymbox{\hyperlink{main_8c_source_l00334}{v\+Task\+\_\+\+Feedback()}}.
+
+\Hypertarget{group__system_ga1c2a65c70adf45dcfed9a27b20f13082}\index{System@{System}!SYS\_EEBL\_POS@{SYS\_EEBL\_POS}}
+\index{SYS\_EEBL\_POS@{SYS\_EEBL\_POS}!System@{System}}
+\doxysubsubsection{\texorpdfstring{SYS\_EEBL\_POS}{SYS\_EEBL\_POS}}
+{\footnotesize\ttfamily \label{group__system_ga1c2a65c70adf45dcfed9a27b20f13082} 
+\+\#define SYS\+\_\+\+EEBL\+\_\+\+POS}
+
+
+
+Bit position of the EEBL field. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8h_source_l00152}{152}} of file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}, and \doxymbox{\hyperlink{main_8c_source_l00334}{v\+Task\+\_\+\+Feedback()}}.
+
+\Hypertarget{group__system_ga04414e3adf55b811ccb5b68914f10f2f}\index{System@{System}!SYS\_BSW\_POS@{SYS\_BSW\_POS}}
+\index{SYS\_BSW\_POS@{SYS\_BSW\_POS}!System@{System}}
+\doxysubsubsection{\texorpdfstring{SYS\_BSW\_POS}{SYS\_BSW\_POS}}
+{\footnotesize\ttfamily \label{group__system_ga04414e3adf55b811ccb5b68914f10f2f} 
+\+\#define SYS\+\_\+\+BSW\+\_\+\+POS}
+
+
+
+Bit position of the BSW field. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8h_source_l00153}{153}} of file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
+
+\Hypertarget{group__system_gac52b1dbb5be5438fcd6fba16dd939688}\index{System@{System}!SYS\_DNPW\_POS@{SYS\_DNPW\_POS}}
+\index{SYS\_DNPW\_POS@{SYS\_DNPW\_POS}!System@{System}}
+\doxysubsubsection{\texorpdfstring{SYS\_DNPW\_POS}{SYS\_DNPW\_POS}}
+{\footnotesize\ttfamily \label{group__system_gac52b1dbb5be5438fcd6fba16dd939688} 
+\+\#define SYS\+\_\+\+DNPW\+\_\+\+POS}
+
+
+
+Bit position of the DNPW field. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8h_source_l00154}{154}} of file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
+
+\Hypertarget{group__system_ga42dbde5a9405e8b4ea3cab2049a4c97d}\index{System@{System}!SYS\_IMA\_POS@{SYS\_IMA\_POS}}
+\index{SYS\_IMA\_POS@{SYS\_IMA\_POS}!System@{System}}
+\doxysubsubsection{\texorpdfstring{SYS\_IMA\_POS}{SYS\_IMA\_POS}}
+{\footnotesize\ttfamily \label{group__system_ga42dbde5a9405e8b4ea3cab2049a4c97d} 
+\+\#define SYS\+\_\+\+IMA\+\_\+\+POS}
+
+
+
+Bit position of the IMA field. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8h_source_l00155}{155}} of file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}.
+
+\Hypertarget{group__system_ga7f3e28353c0f0f1ce0787d44563ca389}\index{System@{System}!SYS\_GET@{SYS\_GET}}
+\index{SYS\_GET@{SYS\_GET}!System@{System}}
+\doxysubsubsection{\texorpdfstring{SYS\_GET}{SYS\_GET}}
+{\footnotesize\ttfamily \label{group__system_ga7f3e28353c0f0f1ce0787d44563ca389} 
+\+\#define SYS\+\_\+\+GET(\begin{DoxyParamCaption}\item[{}]{flags}{, }\item[{}]{pos}{}\end{DoxyParamCaption})}
+
+
+
+Extract one module\textquotesingle{}s 2-\/bit status from the packed word. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em flags} & The status word, normally \doxylink{group__system_ga9e78367aa5b758af972838362c2b0eab}{G\+\_\+u16\+System\+Flags}. \\
+\hline
+{\em pos} & The module\textquotesingle{}s bit position, e.\+g. \doxylink{group__system_ga6abc7e388887578e3028a403f99ab155}{SYS\+\_\+\+FCW\+\_\+\+POS}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{group__system_ga167de614bc64dfddcd8a7677b6fecda0}{SYS\+\_\+\+SAFE}, \doxylink{group__system_gad8f58f6c26f6d5da69980ba995e38c78}{SYS\+\_\+\+WARNING} or \doxylink{group__system_ga717d9a716e77febf5c57b5c7231802c8}{SYS\+\_\+\+CRITICAL}. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{System_8h_source_l00163}{163}} of file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00334}{v\+Task\+\_\+\+Feedback()}}.
+
+\Hypertarget{group__system_ga90b9ebedff8635727698afd2fa84b90a}\index{System@{System}!DWT\_CTRL@{DWT\_CTRL}}
+\index{DWT\_CTRL@{DWT\_CTRL}!System@{System}}
+\doxysubsubsection{\texorpdfstring{DWT\_CTRL}{DWT\_CTRL}}
+{\footnotesize\ttfamily \label{group__system_ga90b9ebedff8635727698afd2fa84b90a} 
+\+\#define DWT\+\_\+\+CTRL}
+
+
+
+Cortex-\/\+M4 Data Watchpoint and Trace control register. 
+
+Enabling the DWT cycle counter through this register is what lets SEGGER System\+View timestamp events; nothing in the ADAS path depends on it. 
+
+Definition at line \doxymbox{\hyperlink{System_8h_source_l00265}{265}} of file \doxymbox{\hyperlink{System_8h_source}{System.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00300}{SEGGER\+\_\+setup()}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{group__system_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{group__system_gac3f6c7e9a568f4528304150a6f59736b}\index{System@{System}!SEGGER\_setup@{SEGGER\_setup}}
+\index{SEGGER\_setup@{SEGGER\_setup}!System@{System}}
+\doxysubsubsection{\texorpdfstring{SEGGER\_setup()}{SEGGER\_setup()}}
+{\footnotesize\ttfamily \label{group__system_gac3f6c7e9a568f4528304150a6f59736b} 
+void SEGGER\+\_\+setup (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Start SEGGER System\+View tracing (enables the DWT cycle counter first). 
+
+\begin{DoxyNote}{Note}
+Debug instrumentation only — the firmware runs fine without it. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00300}{300}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{System_8h_source_l00265}{DWT\+\_\+\+CTRL}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00147}{main()}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=245pt]{group__system_gac3f6c7e9a568f4528304150a6f59736b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__system_gae436954cd2bde6634ab271317d2494a7}\index{System@{System}!System\_setup@{System\_setup}}
+\index{System\_setup@{System\_setup}!System@{System}}
+\doxysubsubsection{\texorpdfstring{System\_setup()}{System\_setup()}}
+{\footnotesize\ttfamily \label{group__system_gae436954cd2bde6634ab271317d2494a7} 
+void System\+\_\+setup (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Bring up the board:\+ clock tree, then every MCAL and HAL peripheral. 
+
+Runs before the scheduler starts. Enables the peripheral clocks in RCC, configures the GPIO pins listed in \doxysectlink{System_8h_sys_wiring}{Board wiring map}{1}, and initialises the ultrasonics, the IMU, the LEDs, the buzzer, both UARTs and the watchdog. 
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00133}{133}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{System_8c_source_l00053}{Back\+L\+\_\+\+LED}}, \doxymbox{\hyperlink{System_8c_source_l00052}{Back\+R\+\_\+\+LED}}, \doxymbox{\hyperlink{System_8c_source_l00057}{Back\+US}}, \doxymbox{\hyperlink{BUZ__program_8c_source_l00017}{BUZ\+\_\+\+Init()}}, \doxymbox{\hyperlink{BUZ__program_8c_source_l00073}{BUZ\+\_\+\+Off()}}, \doxymbox{\hyperlink{BUZ__program_8c_source_l00053}{BUZ\+\_\+\+On()}}, \doxymbox{\hyperlink{DSRC_8c_source_l00195}{DSRC\+\_\+\+Init()}}, \doxymbox{\hyperlink{System_8c_source_l00051}{Front\+L\+\_\+\+LED}}, \doxymbox{\hyperlink{System_8c_source_l00050}{Front\+R\+\_\+\+LED}}, \doxymbox{\hyperlink{System_8c_source_l00056}{Front\+US}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00126}{GPIO\+\_\+\+AF5}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00128}{GPIO\+\_\+\+AF7}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00129}{GPIO\+\_\+\+AF8}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00079}{GPIO\+\_\+\+ALTFN}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00041}{GPIO\+\_\+enum\+Pin\+Init()}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00109}{GPIO\+\_\+\+NO\+\_\+\+PULL}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00057}{GPIO\+\_\+\+PIN0}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00058}{GPIO\+\_\+\+PIN1}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00067}{GPIO\+\_\+\+PIN10}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00069}{GPIO\+\_\+\+PIN12}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00070}{GPIO\+\_\+\+PIN13}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00071}{GPIO\+\_\+\+PIN14}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00072}{GPIO\+\_\+\+PIN15}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00059}{GPIO\+\_\+\+PIN2}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00060}{GPIO\+\_\+\+PIN3}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00061}{GPIO\+\_\+\+PIN4}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00062}{GPIO\+\_\+\+PIN5}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00063}{GPIO\+\_\+\+PIN6}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00064}{GPIO\+\_\+\+PIN7}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00065}{GPIO\+\_\+\+PIN8}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00066}{GPIO\+\_\+\+PIN9}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00045}{GPIO\+\_\+\+PORTA}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00046}{GPIO\+\_\+\+PORTB}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00047}{GPIO\+\_\+\+PORTC}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00085}{GPIO\+\_\+\+PUSH\+\_\+\+PULL}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00104}{GPIO\+\_\+\+VERY\+\_\+\+HIGH\+\_\+\+SPEED}}, \doxymbox{\hyperlink{System_8c_source_l00054}{Interior\+\_\+\+LED}}, \doxymbox{\hyperlink{LED__prog_8c_source_l00026}{LED\+\_\+\+Init()}}, \doxymbox{\hyperlink{LED__prog_8c_source_l00089}{LED\+\_\+\+Turn\+Off()}}, \doxymbox{\hyperlink{LED__prog_8c_source_l00059}{LED\+\_\+\+Turn\+On()}}, \doxymbox{\hyperlink{MPU9250__program_8c_source_l00222}{MPU9250\+\_\+enum\+Calibrate\+Mag()}}, \doxymbox{\hyperlink{MPU9250__program_8c_source_l00156}{MPU9250\+\_\+enum\+Init()}}, \doxymbox{\hyperlink{NVIC__interface_8h_source_l00071}{NVIC\+\_\+\+USART1}}, \doxymbox{\hyperlink{NVIC__program_8c_source_l00037}{NVIC\+\_\+v\+Enable\+IRQ()}}, \doxymbox{\hyperlink{NVIC__program_8c_source_l00141}{NVIC\+\_\+v\+Set\+Priority()}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00154}{GPIO\+\_\+\+Pin\+Config\+\_\+t::\+\+Pin\+Num}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00024}{RCC\+\_\+\+AHB1}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00027}{RCC\+\_\+\+APB1}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00028}{RCC\+\_\+\+APB2}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00509}{RCC\+\_\+enum\+ABPPer\+Sts()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00441}{RCC\+\_\+enum\+AHPPer\+Sts()}}, \doxymbox{\hyperlink{RCC__program_8c_source_l00185}{RCC\+\_\+enum\+Set\+Sys\+Clk()}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00037}{RCC\+\_\+\+GPIOAEN}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00038}{RCC\+\_\+\+GPIOBEN}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00039}{RCC\+\_\+\+GPIOCEN}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00201}{RCC\+\_\+\+HSI\+\_\+\+CLK}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00228}{RCC\+\_\+\+PER\+\_\+\+ON}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00085}{RCC\+\_\+\+SPI1\+EN}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00101}{RCC\+\_\+\+TIM2\+EN}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00102}{RCC\+\_\+\+TIM3\+EN}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00104}{RCC\+\_\+\+TIM5\+EN}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00105}{RCC\+\_\+\+TIM6\+EN}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00079}{RCC\+\_\+\+USART1}}, \doxymbox{\hyperlink{RCC__interface_8h_source_l00116}{RCC\+\_\+\+USART4\+EN}}, \doxymbox{\hyperlink{System_8c_source_l00074}{RPi\+\_\+\+UART}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00052}{TIM\+\_\+\+CHANNEL1}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00053}{TIM\+\_\+\+CHANNEL2}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00054}{TIM\+\_\+\+CHANNEL3}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00055}{TIM\+\_\+\+CHANNEL4}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00042}{TIM\+\_\+\+COUNTERMODE\+\_\+\+UP}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00025}{TIM\+\_\+\+TIMER2}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00026}{TIM\+\_\+\+TIMER3}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00028}{TIM\+\_\+\+TIMER5}}, \doxymbox{\hyperlink{TIM__interface_8h_source_l00031}{TIM\+\_\+\+TIMER6}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00442}{TIM\+\_\+v\+Delay\+Ms()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00056}{TIM\+\_\+v\+Init()}}, \doxymbox{\hyperlink{TIM__program_8c_source_l00103}{TIM\+\_\+v\+Start()}}, \doxymbox{\hyperlink{US__prog_8c_source_l00196}{US\+\_\+v\+Init()}}, \doxymbox{\hyperlink{System_8c_source_l00062}{USART\+\_\+1}}, \doxymbox{\hyperlink{USART__program_8c_source_l00041}{USART\+\_\+\+Init()}}, \doxymbox{\hyperlink{USART__program_8c_source_l00138}{USART\+\_\+\+Init\+IT()}}, and \doxymbox{\hyperlink{System_8c_source_l00049}{V2\+X\+\_\+\+Buzzer}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00147}{main()}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__system_gae436954cd2bde6634ab271317d2494a7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{group__system_gae436954cd2bde6634ab271317d2494a7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__system_ga9f28a641641de8e783815ab1fa92549f}\index{System@{System}!RTOS\_setup@{RTOS\_setup}}
+\index{RTOS\_setup@{RTOS\_setup}!System@{System}}
+\doxysubsubsection{\texorpdfstring{RTOS\_setup()}{RTOS\_setup()}}
+{\footnotesize\ttfamily \label{group__system_ga9f28a641641de8e783815ab1fa92549f} 
+void RTOS\+\_\+setup (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Create the mutexes and the six Free\+RTOS tasks, then start the scheduler. 
+
+\begin{DoxyNote}{Note}
+Does not return:\+ control passes to the scheduler. See \doxysectlink{System_8h_sys_tasks}{Task set}{1} for the priorities and periods it hands out. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00307}{307}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00147}{main()}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{group__system_ga9f28a641641de8e783815ab1fa92549f_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-var-members}
+\Hypertarget{group__system_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{group__system_ga9e78367aa5b758af972838362c2b0eab}\index{System@{System}!G\_u16SystemFlags@{G\_u16SystemFlags}}
+\index{G\_u16SystemFlags@{G\_u16SystemFlags}!System@{System}}
+\doxysubsubsection{\texorpdfstring{G\_u16SystemFlags}{G\_u16SystemFlags}}
+{\footnotesize\ttfamily \label{group__system_ga9e78367aa5b758af972838362c2b0eab} 
+volatile uint16\+\_\+t G\+\_\+u16\+System\+Flags\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+The packed ADAS status word — see \doxylink{group__system_ga7f3e28353c0f0f1ce0787d44563ca389}{SYS\+\_\+\+GET} for how to read it. 
+
+Written only by {\ttfamily Safety\+Engine\+\_\+\+Task}; read by {\ttfamily Feedback\+\_\+\+Task} and {\ttfamily RPi\+\_\+\+Comm\+\_\+\+Task}. {\ttfamily 0x0000} means every module reports safe. 
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00035}{35}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}, \doxymbox{\hyperlink{main_8c_source_l00334}{v\+Task\+\_\+\+Feedback()}}, and \doxymbox{\hyperlink{main_8c_source_l00466}{v\+Task\+\_\+\+RPi\+\_\+\+Comm()}}.
+
+\Hypertarget{group__system_gac3116f56a230ebdd81cadd527921464c}\index{System@{System}!G\_stHostVehicleState@{G\_stHostVehicleState}}
+\index{G\_stHostVehicleState@{G\_stHostVehicleState}!System@{System}}
+\doxysubsubsection{\texorpdfstring{G\_stHostVehicleState}{G\_stHostVehicleState}}
+{\footnotesize\ttfamily \label{group__system_gac3116f56a230ebdd81cadd527921464c} 
+\doxymbox{\hyperlink{structHostVehicleState__t}{Host\+Vehicle\+State\+\_\+t}} G\+\_\+st\+Host\+Vehicle\+State\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+The shared sensor picture of this vehicle. 
+
+Written by {\ttfamily Sensors\+\_\+\+Task}, read by the ADAS modules, the DSRC broadcast and the telemetry task, all under the Data mutex. 
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00036}{36}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{SafetyEngine__program_8c_source_l00049}{Safety\+Engine\+\_\+void\+Update()}}, \doxymbox{\hyperlink{main_8c_source_l00387}{v\+Task\+\_\+\+ESP\+\_\+\+Comm()}}, \doxymbox{\hyperlink{main_8c_source_l00466}{v\+Task\+\_\+\+RPi\+\_\+\+Comm()}}, and \doxymbox{\hyperlink{main_8c_source_l00247}{v\+Task\+\_\+\+Sensors()}}.
+
+\Hypertarget{group__system_ga10d54e2c66effa6800db6f78aaec485c}\index{System@{System}!Host\_DistToIntersection@{Host\_DistToIntersection}}
+\index{Host\_DistToIntersection@{Host\_DistToIntersection}!System@{System}}
+\doxysubsubsection{\texorpdfstring{Host\_DistToIntersection}{Host\_DistToIntersection}}
+{\footnotesize\ttfamily \label{group__system_ga10d54e2c66effa6800db6f78aaec485c} 
+float Host\+\_\+\+Dist\+To\+Intersection\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Distance to the nearest intersection \+[cm]\+; 0 means "{}not near one"{}. 
+
+Read by IMA and broadcast over DSRC so other cars can reason about the same junction. It is set by whatever supplies intersection geometry (the map layer on the Raspberry Pi), not by this firmware. 
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00044}{44}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00387}{v\+Task\+\_\+\+ESP\+\_\+\+Comm()}}.
+
+\Hypertarget{group__system_gaf1fb4a43ba68d1fdc94fd35a7d901cd4}\index{System@{System}!FrontR\_LED@{FrontR\_LED}}
+\index{FrontR\_LED@{FrontR\_LED}!System@{System}}
+\doxysubsubsection{\texorpdfstring{FrontR\_LED}{FrontR\_LED}}
+{\footnotesize\ttfamily \label{group__system_gaf1fb4a43ba68d1fdc94fd35a7d901cd4} 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} Front\+R\+\_\+\+LED\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Front-\/right LED (PC0) — lit on an FCW-\/critical. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00050}{50}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}, and \doxymbox{\hyperlink{main_8c_source_l00334}{v\+Task\+\_\+\+Feedback()}}.
+
+\Hypertarget{group__system_ga2ab79e3f6235026ef8d29a9446511f48}\index{System@{System}!FrontL\_LED@{FrontL\_LED}}
+\index{FrontL\_LED@{FrontL\_LED}!System@{System}}
+\doxysubsubsection{\texorpdfstring{FrontL\_LED}{FrontL\_LED}}
+{\footnotesize\ttfamily \label{group__system_ga2ab79e3f6235026ef8d29a9446511f48} 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} Front\+L\+\_\+\+LED\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Front-\/left LED (PC1) — lit on an FCW-\/critical. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00051}{51}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}, and \doxymbox{\hyperlink{main_8c_source_l00334}{v\+Task\+\_\+\+Feedback()}}.
+
+\Hypertarget{group__system_gae41df9dd37d7c4d27b829fd46cd1e5e3}\index{System@{System}!BackR\_LED@{BackR\_LED}}
+\index{BackR\_LED@{BackR\_LED}!System@{System}}
+\doxysubsubsection{\texorpdfstring{BackR\_LED}{BackR\_LED}}
+{\footnotesize\ttfamily \label{group__system_gae41df9dd37d7c4d27b829fd46cd1e5e3} 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} Back\+R\+\_\+\+LED\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Rear-\/right LED (PC2) — lit on an EEBL-\/critical. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00052}{52}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}, and \doxymbox{\hyperlink{main_8c_source_l00334}{v\+Task\+\_\+\+Feedback()}}.
+
+\Hypertarget{group__system_gabfc8237214cfd1267c607aaff66a96da}\index{System@{System}!BackL\_LED@{BackL\_LED}}
+\index{BackL\_LED@{BackL\_LED}!System@{System}}
+\doxysubsubsection{\texorpdfstring{BackL\_LED}{BackL\_LED}}
+{\footnotesize\ttfamily \label{group__system_gabfc8237214cfd1267c607aaff66a96da} 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} Back\+L\+\_\+\+LED\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Rear-\/left LED (PC3) — lit on an EEBL-\/critical. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00053}{53}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}, and \doxymbox{\hyperlink{main_8c_source_l00334}{v\+Task\+\_\+\+Feedback()}}.
+
+\Hypertarget{group__system_gaa7037844a95faca4f50aae714fe5048a}\index{System@{System}!Interior\_LED@{Interior\_LED}}
+\index{Interior\_LED@{Interior\_LED}!System@{System}}
+\doxysubsubsection{\texorpdfstring{Interior\_LED}{Interior\_LED}}
+{\footnotesize\ttfamily \label{group__system_gaa7037844a95faca4f50aae714fe5048a} 
+\doxymbox{\hyperlink{structLED__Config__t}{LED\+\_\+\+Config\+\_\+t}} Interior\+\_\+\+LED\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Interior/\+dashboard LED (PC7) — lit on any alert. 
+
+
+
+Definition at line \doxymbox{\hyperlink{System_8c_source_l00054}{54}} of file \doxymbox{\hyperlink{System_8c_source}{System.\+c}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}, and \doxymbox{\hyperlink{main_8c_source_l00334}{v\+Task\+\_\+\+Feedback()}}.
+

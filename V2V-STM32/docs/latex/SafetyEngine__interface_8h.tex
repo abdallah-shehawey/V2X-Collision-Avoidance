@@ -1,0 +1,109 @@
+\doxysection{V2\+V-\/\+STM32/\+\+Inc/\+\+Application/\+\+Safety\+Engine/\+\+Safety\+Engine\+\_\+interface.h File Reference}
+\hypertarget{SafetyEngine__interface_8h}{}\label{SafetyEngine__interface_8h}\index{V2V-\/STM32/Inc/Application/SafetyEngine/SafetyEngine\_interface.h@{V2V-\/STM32/Inc/Application/SafetyEngine/SafetyEngine\_interface.h}}
+
+
+Public API of the Safety\+Engine driver — the shared risk model and per-\/cycle ADAS orchestration.  
+
+
+This graph shows which files directly or indirectly include this file:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{SafetyEngine__interface_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{Indent}\textbf{ Direction classification thresholds}\par
+{\em How far two vehicles\textquotesingle{} headings may differ and still count as travelling the same way, opposite ways, or across each other \+[degrees]\+.
+
+\begin{DoxyNote}{Note}
+These were widened from 30° to 40° deliberately. Each car reports the heading {\itshape its own} magnetometer measured, and two magnetometers rarely agree to better than a few tens of degrees. A tight threshold therefore kept classifying genuinely same-\/direction pairs as \doxylink{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70a595694ddc9fc69be39448c7aebc29492}{DIR\+\_\+\+UNKNOWN}, which silently switched every cooperative module off. 
+\end{DoxyNote}
+}\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__app__safetyengine_gaca40a05ff74dcd2687ba7101bbdab282}{HEADING\+\_\+\+SAME\+\_\+\+THRESHOLD}}
+\begin{DoxyCompactList}\small\item\em Headings within this of each other → \doxylink{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70abfd39f0e5351141b388b18956a84a61e}{DIR\+\_\+\+SAME}. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__app__safetyengine_ga518549e49262479055bfda4ccb97c795}{HEADING\+\_\+\+OPPOSITE\+\_\+\+THRESHOLD}}
+\begin{DoxyCompactList}\small\item\em Headings within this of 180° apart → \doxylink{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70a30837161ea401603ea11e12bf7e910d7}{DIR\+\_\+\+OPPOSITE}. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__app__safetyengine_gadd0385cb7855bf3c89030696bb436e59}{HEADING\+\_\+\+CROSS\+\_\+\+THRESHOLD}}
+\begin{DoxyCompactList}\small\item\em Headings within this of 90° apart → \doxylink{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70ac6ff9aad4173c225b2c38b1f945b9726}{DIR\+\_\+\+CROSSING}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Shared safe-\/distance model}\par
+{\em The one place the firmware decides how much room is "{}enough"{}.
+
+Both distance-\/based modules — local FCW and EEBL — use it, so a change here moves both, and the two can never drift out of agreement.
+
+The gap scales with speed, because stopping distance does:\+
+
+\begin{DoxyVerb}*   safe_cm     = max(Host_Speed[m/s] * SAFE_DIST_PER_MS, MIN_SAFE_DISTANCE)
+*   critical_cm = safe_cm * CRITICAL_RATIO
+* \end{DoxyVerb}
+
+
+\begin{DoxyNote}{Note}
+The constants are sized for the {\bfseries{prototype}}, not a real car:\+ a small vehicle whose top speed is around 0.\+5 m/\+s, operating in corridors where obstacles sit tens of centimetres away. At that scale the speed term is small and \doxylink{group__app__safetyengine_gae17b0ade1e41ab06c55995e9afee25ff}{MIN\+\_\+\+SAFE\+\_\+\+DISTANCE} is what actually governs — it is the dominant floor, not a rarely-\/hit corner case. 
+\end{DoxyNote}
+}\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group__app__safetyengine_gaf9df724bcbcf5549ecc67e598fc3dde4}{SAFE\+\_\+\+DIST\+\_\+\+PER\+\_\+\+MS}}
+\begin{DoxyCompactList}\small\item\em Centimetres of safe gap per 1 m/\+s of speed. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__app__safetyengine_gae17b0ade1e41ab06c55995e9afee25ff}{MIN\+\_\+\+SAFE\+\_\+\+DISTANCE}}
+\begin{DoxyCompactList}\small\item\em Floor on the safe gap \+[cm]\+, whatever the speed. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group__app__safetyengine_ga68fd7ab4074cc7e0c9e280582926f40b}{CRITICAL\+\_\+\+RATIO}}
+\begin{DoxyCompactList}\small\item\em Fraction of the safe gap below which the risk is critical. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{group__app__safetyengine_ga2e9ec086ba61b35cfc2439306cdfdd70}{Direction\+\_\+t}} \{ \doxymbox{\hyperlink{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70abfd39f0e5351141b388b18956a84a61e}{DIR\+\_\+\+SAME}}
+, \doxymbox{\hyperlink{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70a30837161ea401603ea11e12bf7e910d7}{DIR\+\_\+\+OPPOSITE}}
+, \doxymbox{\hyperlink{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70ac6ff9aad4173c225b2c38b1f945b9726}{DIR\+\_\+\+CROSSING}}
+, \doxymbox{\hyperlink{group__app__safetyengine_gga2e9ec086ba61b35cfc2439306cdfdd70a595694ddc9fc69be39448c7aebc29492}{DIR\+\_\+\+UNKNOWN}}
+ \}
+\begin{DoxyCompactList}\small\item\em How a neighbor is moving relative to us — the first question every cooperative module asks. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} \{ \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88a60566015942dbd9a162a3f39a633d75c}{RISK\+\_\+\+SAFE}}
+, \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88aa9298b9534b97a86747965215c804b82}{RISK\+\_\+\+WARNING}}
+, \doxymbox{\hyperlink{group__app__safetyengine_ggaa870174b113e13762b47e719bf3efa88aa06ae69a65324e741b4ccc993afb7492}{RISK\+\_\+\+CRITICAL}}
+ \}
+\begin{DoxyCompactList}\small\item\em The graded verdict every ADAS module returns. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{group__app__safetyengine_gad87fdbbd1376c4cebfa69a906cfbe556}{Safety\+Engine\+\_\+void\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initialise all five ADAS modules (FCW/\+\+DNPW, EEBL, BSW, IMA). \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group__app__safetyengine_ga7b6c12632534a82b4357a73306667157}{Safety\+Engine\+\_\+void\+Update}} (void)
+\begin{DoxyCompactList}\small\item\em Run one full ADAS cycle:\+ every module, over every neighbor, in one pass. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__app__safetyengine_ga2e9ec086ba61b35cfc2439306cdfdd70}{Direction\+\_\+t}} \doxymbox{\hyperlink{group__app__safetyengine_gab7dae45d16fd67e39cae94350eb6d0f7}{Safety\+Engine\+\_\+\+Detect\+Direction}} (float my\+\_\+heading, float other\+\_\+heading)
+\begin{DoxyCompactList}\small\item\em Detect direction relationship between two vehicles. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} \doxymbox{\hyperlink{group__app__safetyengine_ga7e73033d8b868fa66e2090ca79150677}{Safety\+Engine\+\_\+\+Evaluate\+Risk}} (float value, float warning\+\_\+thr, float critical\+\_\+thr)
+\begin{DoxyCompactList}\small\item\em Evaluate risk from a "{}lower value = higher risk"{} metric. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__app__safetyengine_gaa870174b113e13762b47e719bf3efa88}{Risk\+Level\+\_\+t}} \doxymbox{\hyperlink{group__app__safetyengine_gaff42a93f5f7c50d14d779e142010ae71}{Safety\+Engine\+\_\+\+Assess\+Distance\+Risk}} (float host\+\_\+speed, float distance, float dist\+\_\+per\+\_\+ms, float min\+\_\+dist, float crit\+\_\+ratio)
+\begin{DoxyCompactList}\small\item\em Assess collision risk from host speed and a measured distance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{Indent}\textbf{ Host vehicle state for the current cycle}\par
+{\em \doxylink{group__app__safetyengine_ga7b6c12632534a82b4357a73306667157}{Safety\+Engine\+\_\+void\+Update} latches these from \doxylink{group__system_gac3116f56a230ebdd81cadd527921464c}{G\+\_\+st\+Host\+Vehicle\+State} once at the top of each 50 ms cycle, and the modules then read them as they walk the neighbor table.
+
+Latching once is what guarantees every module in a given cycle reasons about the {\itshape same} vehicle state, even though the sensors keep updating. }\begin{DoxyCompactItemize}
+\item 
+float \doxymbox{\hyperlink{group__app__safetyengine_ga16174df02da93c0fc96432a4bc1de57b}{Host\+\_\+\+Speed}}
+\begin{DoxyCompactList}\small\item\em This vehicle\textquotesingle{}s speed for this cycle \+[m/\+s]\+. \end{DoxyCompactList}\item 
+float \doxymbox{\hyperlink{group__app__safetyengine_gafb1ff5cedbd39f1a8b81a25a7dcdb171}{Host\+\_\+\+Heading}}
+\begin{DoxyCompactList}\small\item\em This vehicle\textquotesingle{}s heading for this cycle \+[degrees]\+, 0..360. \end{DoxyCompactList}\item 
+float \doxymbox{\hyperlink{group__app__safetyengine_ga2d869610528b06238c15ab8fb160304f}{Safety\+Engine\+\_\+\+Safe\+Dist}}
+\begin{DoxyCompactList}\small\item\em The safe gap for this cycle \+[cm]\+, from the model above. \end{DoxyCompactList}\item 
+float \doxymbox{\hyperlink{group__app__safetyengine_ga414ebc77c31778b0d2f7371abdbd2d19}{Safety\+Engine\+\_\+\+Critical\+Dist}}
+\begin{DoxyCompactList}\small\item\em The critical gap for this cycle \+[cm]\+. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+
+
+\doxysubsection{Detailed Description}
+Public API of the Safety\+Engine driver — the shared risk model and per-\/cycle ADAS orchestration. 
+
+\begin{DoxyAuthor}{Author}
+Abdallah Abdelmoemen Shehawey  
+\end{DoxyAuthor}
+
+
+Definition in file \doxymbox{\hyperlink{SafetyEngine__interface_8h_source}{Safety\+Engine\+\_\+interface.\+h}}.
+

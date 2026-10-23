@@ -1,0 +1,354 @@
+\chapter{V2X Car PCB — Stage-\/by-\/\+Stage Build Guide (Altium) }
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES}{}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES}\index{V2X Car PCB — Stage-\/by-\/Stage Build Guide (Altium)@{V2X Car PCB — Stage-\/by-\/Stage Build Guide (Altium)}}
+\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md25}%
+\Hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md25}%
+
+
+Carrier board. Nothing main is soldered:\+ STM32 /\+ ESP32-\/\+S3 /\+ MPU9250 plug into headers; L298N sits off-\/board wired by cable; Ultrasonics \& RPi are brought out as {\bfseries{parallel male-\/pin + female-\/header}} for flexible mounting.
+
+Build the schematic {\bfseries{one block at a time}} in the order below. Each block lists:\+ Goal · Nets · Required libraries · How to find and download them · Notes.
+
+\DoxyHorRuler{0}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md27}{}\doxysection{\texorpdfstring{Where to get Altium libraries (applies to every stage)}{Where to get Altium libraries (applies to every stage)}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md27}
+
+\begin{DoxyTable}{4}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Source  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Link  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}What you get from it  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}How  \\
+{\bfseries{Samac\+Sys /\+ Component Search Engine}}  &componentsearchengine.\+com  &Any IC /\+ module /\+ connector  &Create a free account and install the {\bfseries{Altium plugin}} → Search part → Place (symbol + footprint + 3D)  \\
+{\bfseries{Snap\+EDA}}  &snapeda.\+com  &Dev-\/boards (Nucleo /\+ ESP /\+ HC-\/\+SR04 /\+ MPU)  &Search → Download → Altium Designer format → import  \\
+{\bfseries{Ultra Librarian}}  &ultralibrarian.\+com  &Alternative source for dev-\/boards  &Search → Export → Altium  \\
+{\bfseries{Espressif official}}  &github.\+com/\+espressif (Ki\+Cad/\+\+Altium)  &ESP32-\/\+S3 devkit  &Download the Altium files, or convert  \\
+{\bfseries{Altium built-\/in}}  &Manufacturer Part Search panel  &Passives, headers, standard connectors  &Directly inside Altium  \\
+\end{DoxyTable}
+
+
+\begin{quote}
+Fastest route:\+ install the {\bfseries{Samac\+Sys Altium plugin}} (from componentsearchengine.\+com) — it lives inside Altium and pulls any part in with one click. Get the dev-\/boards from {\bfseries{Snap\+EDA}}. \end{quote}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md29}{}\doxysection{\texorpdfstring{STAGE 1 — POWER BLOCK (the foundation — start here)}{STAGE 1 — POWER BLOCK (the foundation — start here)}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md29}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md30}{}\doxysubsubsection{\texorpdfstring{Goal}{Goal}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md30}
+Distribute power safely, and keep motor noise from reaching the sensors.\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md31}{}\doxysubsubsection{\texorpdfstring{Nets}{Nets}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md31}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{VBAT\ (2S\ LiPo\ \string~7.4V)\ \ ──►\ VMOT\ \ (straight\ to\ the\ L298N\ —\ the\ motor\ domain)}
+\DoxyCodeLine{VBAT\ \ ──►\ [BUCK\ 7.4→5V]\ ──►\ +5V\ \ ──►\ Nucleo\ 5V\ ,\ HC-\/SR04\ ×6\ ,\ ESP\ 5V}
+\DoxyCodeLine{+3V3\ (from\ the\ Nucleo)\ ──►\ MPU9250}
+\DoxyCodeLine{GND\ \ ──►\ STAR\ GROUND\ (a\ single\ point\ where\ every\ ground\ meets)}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyItemize}
+\item The Raspberry Pi {\bfseries{takes no power from this board}} — only GND and UART.
+\end{DoxyItemize}\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md32}{}\doxysubsubsection{\texorpdfstring{Components}{Components}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md32}
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Component  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Qty  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Purpose  \\
+Screw terminal 2-\/pin (5.\+08 mm)  &1  &Battery input, VBAT  \\
+Buck module LM2596 (or MP1584), ≥ 2 A  &1  &7.\+4 V → 5 V  \\
+Slide switch SPDT  &1  &Main switch (optional)  \\
+Electrolytic cap 1000 µF /\+ 16 V  &1  &On VMOT (absorbs motor inrush)  \\
+Electrolytic cap 470 µF /\+ 10 V  &1  &On +5 V  \\
+Ceramic caps 100 nF + 10 µF  &several  &Decoupling  \\
+Fuse holder + 2–3 A fuse  &1  &Protection (optional)  \\
+\end{DoxyTable}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md33}{}\doxysubsubsection{\texorpdfstring{Required libraries and how to get them}{Required libraries and how to get them}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md33}
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Part  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Source  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Search term  \\
+Screw terminal 2P 5.\+08  &Samac\+Sys  &{\ttfamily screw terminal 2 5.\+08} (e.\+g. Phoenix {\ttfamily 1935161})  \\
+LM2596 module  &Altium built-\/in, or Samac\+Sys  &Place it as a {\bfseries{1×4 header}} (IN+ /\+ IN-\/ /\+ OUT+ /\+ OUT-\/) from Misc Connectors; or pull the IC {\ttfamily LM2596\+S-\/5.\+0} from Samac\+Sys  \\
+Slide switch SPDT  &Samac\+Sys  &{\ttfamily slide switch SPDT}  \\
+Caps /\+ Resistors /\+ Fuse  &Altium built-\/in  &{\ttfamily Miscellaneous Devices.\+Int\+Lib}  \\
+\end{DoxyTable}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md34}{}\doxysubsubsection{\texorpdfstring{Critical notes}{Critical notes}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md34}
+
+\begin{DoxyItemize}
+\item {\bfseries{Star ground:\+}} one single point where the battery GND, motor GND, 5 V GND, logic GND and the Raspberry Pi\textquotesingle{}s GND wire all meet. The motor\textquotesingle{}s return current goes straight back to that point and never shares a path with the sensors\textquotesingle{} ground.
+\item Keep the motor domain (VMOT + L298N) isolated in its own corner of the board.
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md36}{}\doxysection{\texorpdfstring{STAGE 2 — MCU BLOCK (Nucleo-\/\+F446\+RE)}{STAGE 2 — MCU BLOCK (Nucleo-\/\+F446\+RE)}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md36}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md37}{}\doxysubsubsection{\texorpdfstring{Goal}{Goal}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md37}
+A base of headers the Nucleo plugs into, so it can be removed.\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md38}{}\doxysubsubsection{\texorpdfstring{Nets}{Nets}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md38}
+The Nucleo brings every GPIO out on the {\bfseries{Morpho CN7 + CN10}} connectors. Place matching female headers and route the nets from there to the other blocks. (The full table is in the "{}\+PIN MAP"{} section at the end of this file.)\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md39}{}\doxysubsubsection{\texorpdfstring{Components}{Components}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md39}
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Component  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Qty  \\
+Female header 2×19 (2.\+54 mm) — Morpho  &2  \\
+(Optional) Female header for the Arduino pins  &as needed  \\
+\end{DoxyTable}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md40}{}\doxysubsubsection{\texorpdfstring{Libraries and how to get them}{Libraries and how to get them}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md40}
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Part  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Source  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Search term  \\
+Nucleo-\/\+F446\+RE footprint  &{\bfseries{Snap\+EDA}}  &{\ttfamily Nucleo-\/\+F446\+RE} or {\ttfamily Nucleo-\/64}  \\
+Alternative:\+ 2×19 header  &Altium built-\/in  &{\ttfamily Header 19X2} from Misc Connectors  \\
+\end{DoxyTable}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md41}{}\doxysubsubsection{\texorpdfstring{Notes}{Notes}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md41}
+
+\begin{DoxyItemize}
+\item {\bfseries{Confirm the Morpho pin count (2×19) against your board\textquotesingle{}s mechanical drawing}} before you commit to it.
+\item Bring SWD (PA13 /\+ PA14) and PA2 /\+ PA3 (USART2 debug) out onto a small header.
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md43}{}\doxysection{\texorpdfstring{STAGE 3 — FEEDBACK BLOCK (5 LEDs + buzzer) ⭐ start testing with this one}{STAGE 3 — FEEDBACK BLOCK (5 LEDs + buzzer) ⭐ start testing with this one}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md43}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md44}{}\doxysubsubsection{\texorpdfstring{Goal}{Goal}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md44}
+The simplest block — visual and audible outputs. Easy to confirm it works.\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md45}{}\doxysubsubsection{\texorpdfstring{Nets (→ STM32)}{Nets (→ STM32)}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md45}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{LED\_FR\ \ →\ PC0\ \ \ \ \ \ LED\_FL\ \ →\ PC1}
+\DoxyCodeLine{LED\_BR\ \ →\ PC2\ \ \ \ \ \ LED\_BL\ \ →\ PC3}
+\DoxyCodeLine{LED\_INT\ →\ PC7\ \ \ \ \ \ BUZZER\ \ →\ PC4}
+
+\end{DoxyCode}
+
+
+Each LED:\+ STM32 pin → 330 Ω → LED → GND (active-\/high). Buzzer:\+ if it draws more than 8 mA, drive it through an NPN transistor with a 1 kΩ base resistor.\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md46}{}\doxysubsubsection{\texorpdfstring{Components}{Components}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md46}
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Component  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Qty  \\
+LED (3/\+5 mm or 0805)  &5  \\
+Resistor 330 Ω  &5  \\
+Active buzzer  &1  \\
+NPN (2N2222 /\+ BC547) + 1 kΩ + diode  &1 (only if the buzzer is a strong one)  \\
+\end{DoxyTable}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md47}{}\doxysubsubsection{\texorpdfstring{Libraries and how to get them}{Libraries and how to get them}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md47}
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Part  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Source  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Search term  \\
+LED /\+ Resistor  &Altium built-\/in  &{\ttfamily Miscellaneous Devices.\+Int\+Lib}  \\
+Active buzzer  &Samac\+Sys  &{\ttfamily magnetic buzzer}, or your buzzer\textquotesingle{}s exact model  \\
+NPN transistor  &Altium /\+ Samac\+Sys  &{\ttfamily 2N2222} /\+ {\ttfamily BC547}  \\
+\end{DoxyTable}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md49}{}\doxysection{\texorpdfstring{STAGE 4 — ULTRASONICS BLOCK (×6) — the most important one}{STAGE 4 — ULTRASONICS BLOCK (×6) — the most important one}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md49}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md50}{}\doxysubsubsection{\texorpdfstring{Goal}{Goal}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md50}
+Six sensors, each with a {\bfseries{parallel pin + header}} and an optional divider.\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md51}{}\doxysubsubsection{\texorpdfstring{Nets (→ STM32)}{Nets (→ STM32)}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md51}
+
+\begin{DoxyTable}{4}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Sensor  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Position  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}TRIG  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}ECHO  \\
+US1  &Front-\/\+Left  &PB0  &PA15  \\
+US2  &Front-\/\+Center  &PB1  &PB3  \\
+US3  &Front-\/\+Right  &PB2  &PB4  \\
+US4  &Back-\/\+Left  &PB12  &PB5  \\
+US5  &Back-\/\+Center  &PB13  &PC8  \\
+US6  &Back-\/\+Right  &PB14  &PC9  \\
+\end{DoxyTable}
+
+
+{\bfseries{Dual access per sensor:\+}} the same four nets (VCC /\+ TRIG /\+ ECHO /\+ GND) go to both a {\bfseries{1×4 male header}} {\itshape and} a {\bfseries{1×4 female header}} beside it — so you can either plug the sensor straight onto the male pins, or run a cable from the female header if you need to raise or angle it.
+
+{\bfseries{Echo level (5 V → 3.\+3 V):\+}} the echo pins (PA15, PB3, PB4, PB5, PC8, PC9) are all {\bfseries{5 V-\/tolerant}} on the F446 and do work directly on the Nucleo — but on the PCB, place an {\bfseries{optional divider footprint}} anyway:\+ R1 = 1 kΩ (echo → pin) and R2 = 2 kΩ (pin → GND). Fit R1 = 0 Ω and leave R2 unpopulated if you want the direct connection.\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md52}{}\doxysubsubsection{\texorpdfstring{Components}{Components}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md52}
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Component  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Qty  \\
+HC-\/\+SR04  &6  \\
+Male header 1×4  &6  \\
+Female header 1×4  &6  \\
+Divider resistors 1k /\+ 2k (0603)  &6 pairs  \\
+100 nF cap on each sensor\textquotesingle{}s VCC  &6  \\
+\end{DoxyTable}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md53}{}\doxysubsubsection{\texorpdfstring{Libraries and how to get them}{Libraries and how to get them}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md53}
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Part  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Source  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Search term  \\
+HC-\/\+SR04  &{\bfseries{Snap\+EDA}}  &{\ttfamily HC-\/\+SR04}  \\
+Headers 1×4  &Altium built-\/in  &{\ttfamily Header 4} /\+ {\ttfamily Receptacle 4}  \\
+R /\+ C  &Altium built-\/in  &Misc Devices  \\
+\end{DoxyTable}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md54}{}\doxysubsubsection{\texorpdfstring{Notes}{Notes}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md54}
+
+\begin{DoxyItemize}
+\item Keep the echo traces short and well away from the motor traces — noise here shows up as a constant 400 cm reading.
+\item The 100 nF cap on each sensor\textquotesingle{}s VCC is what suppresses the glitches.
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md56}{}\doxysection{\texorpdfstring{STAGE 5 — IMU BLOCK (MPU9250 /\+ SPI1)}{STAGE 5 — IMU BLOCK (MPU9250 /\+ SPI1)}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md56}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md57}{}\doxysubsubsection{\texorpdfstring{Goal}{Goal}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md57}
+A header the MPU9250 plugs into — fixed, but removable.\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md58}{}\doxysubsubsection{\texorpdfstring{Nets (→ STM32)}{Nets (→ STM32)}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md58}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{MPU\_SCK\ \ →\ PA5\ \ \ \ \ \ MPU\_MOSI\ →\ PA7}
+\DoxyCodeLine{MPU\_MISO\ →\ PA6\ \ \ \ \ \ MPU\_CS\ \ \ →\ PA4}
+\DoxyCodeLine{VCC\ →\ +3V3\ \ \ \ \ \ \ \ \ \ GND\ →\ GND}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Module pin  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Net  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}STM32  \\
+SCL /\+ SCK  &MPU\+\_\+\+SCK  &PA5  \\
+SDA /\+ SDI  &MPU\+\_\+\+MOSI  &PA7  \\
+ADO /\+ SDO  &MPU\+\_\+\+MISO  &PA6  \\
+NCS  &MPU\+\_\+\+CS  &PA4  \\
+\end{DoxyTable}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md59}{}\doxysubsubsection{\texorpdfstring{Components}{Components}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md59}
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Component  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Qty  \\
+Female header 1×8  &1  \\
+Cap 100 nF + 10 µF  &1 of each  \\
+\end{DoxyTable}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md60}{}\doxysubsubsection{\texorpdfstring{Libraries and how to get them}{Libraries and how to get them}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md60}
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Part  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Source  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Search term  \\
+MPU9250 /\+ GY-\/91 module  &{\bfseries{Snap\+EDA}}  &{\ttfamily MPU9250} /\+ {\ttfamily GY-\/91}  \\
+Alternative:\+ 1×8 header  &Altium built-\/in  &{\ttfamily Header 8}  \\
+\end{DoxyTable}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md61}{}\doxysubsubsection{\texorpdfstring{Notes}{Notes}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md61}
+
+\begin{DoxyItemize}
+\item 3.\+3 V only — {\bfseries{not}} 5 V.
+\item The INT pin is optional; you can wire it to a spare GPIO for future use.
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md63}{}\doxysection{\texorpdfstring{STAGE 6 — ESP32-\/\+S3 BLOCK (V2X /\+ USART1)}{STAGE 6 — ESP32-\/\+S3 BLOCK (V2X /\+ USART1)}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md63}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md64}{}\doxysubsubsection{\texorpdfstring{Goal}{Goal}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md64}
+A header base for the ESP32-\/\+S3, plus the UART link to the STM32.\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md65}{}\doxysubsubsection{\texorpdfstring{Nets (cross-\/over!)}{Nets (cross-\/over!)}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md65}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{STM\ PA9\ \ (ESP\_TXD)\ ──►\ ESP\ RX0\ \ \ \ \ ←\ crossed}
+\DoxyCodeLine{STM\ PA10\ (ESP\_RXD)\ ◄──\ ESP\ TX0}
+\DoxyCodeLine{+5V\ →\ ESP\ 5V\ \ \ \ \ \ \ \ GND\ →\ GND}
+
+\end{DoxyCode}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md66}{}\doxysubsubsection{\texorpdfstring{Components}{Components}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md66}
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Component  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Qty  \\
+Female header matching the Dev\+Kit\+C-\/1 (≈ 2×22)  &2  \\
+Cap 100 nF  &1–2  \\
+\end{DoxyTable}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md67}{}\doxysubsubsection{\texorpdfstring{Libraries and how to get them}{Libraries and how to get them}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md67}
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Part  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Source  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Search term  \\
+ESP32-\/\+S3-\/\+Dev\+Kit\+C-\/1  &{\bfseries{Espressif official}} or {\bfseries{Snap\+EDA}}  &{\ttfamily ESP32-\/\+S3-\/\+Dev\+Kit\+C-\/1}  \\
+\end{DoxyTable}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md68}{}\doxysubsubsection{\texorpdfstring{Notes}{Notes}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md68}
+
+\begin{DoxyItemize}
+\item {\bfseries{Confirm your devkit\textquotesingle{}s pin count}} — it varies between variants.
+\item TX ↔ RX must be crossed, and a shared GND is mandatory.
+\item The baud rate must be 115200 at both ends, to match the firmware.
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md70}{}\doxysection{\texorpdfstring{STAGE 7 — MOTOR DRIVER BLOCK (L298N — a base, wired by cable)}{STAGE 7 — MOTOR DRIVER BLOCK (L298N — a base, wired by cable)}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md70}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md71}{}\doxysubsubsection{\texorpdfstring{Goal}{Goal}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md71}
+The L298N sits on a header base and is connected by cables, not soldered down.\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md72}{}\doxysubsubsection{\texorpdfstring{Nets (→ STM32)}{Nets (→ STM32)}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md72}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{MOT\_R\_EN\ \ →\ PA8\ \ \ \ \ MOT\_R\_IN1\ →\ PC5\ \ \ \ MOT\_R\_IN2\ →\ PC6}
+\DoxyCodeLine{MOT\_L\_EN\ \ →\ PA11\ \ \ \ MOT\_L\_IN3\ →\ PB10\ \ \ MOT\_L\_IN4\ →\ PB15}
+\DoxyCodeLine{VMOT\ →\ battery+\ \ \ \ \ GND\ →\ star\ ground}
+
+\end{DoxyCode}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md73}{}\doxysubsubsection{\texorpdfstring{Components}{Components}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md73}
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Component  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Qty  \\
+Male /\+ female header 1×6 (control)  &1  \\
+Screw terminals for the motor /\+ power  &as needed  \\
+Cap 1000 µF on VMOT  &1  \\
+\end{DoxyTable}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md74}{}\doxysubsubsection{\texorpdfstring{Libraries and how to get them}{Libraries and how to get them}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md74}
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Part  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Source  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Search term  \\
+L298N module  &Samac\+Sys /\+ Snap\+EDA  &{\ttfamily L298N module} (or just make a simple 1×6 header)  \\
+Screw terminals  &Samac\+Sys  &{\ttfamily screw terminal}  \\
+\end{DoxyTable}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md75}{}\doxysubsubsection{\texorpdfstring{Notes}{Notes}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md75}
+
+\begin{DoxyItemize}
+\item The motor is a noise domain — keep it far from the sensors, and return its GND to the star point.
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md77}{}\doxysection{\texorpdfstring{STAGE 8 — RASPBERRY PI 5 INTERFACE (pin + header)}{STAGE 8 — RASPBERRY PI 5 INTERFACE (pin + header)}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md77}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md78}{}\doxysubsubsection{\texorpdfstring{Goal}{Goal}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md78}
+Only three wires to the Raspberry Pi:\+ TX, RX, GND. (The Pi has its own power.)\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md79}{}\doxysubsubsection{\texorpdfstring{Nets}{Nets}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md79}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{STM\ PA0\ (RPI\_TXD)\ ──►\ RPi\ GPIO15/RXD\ (pin\ 10)\ \ \ ←\ crossed}
+\DoxyCodeLine{STM\ PA1\ (RPI\_RXD)\ ◄──\ RPi\ GPIO14/TXD\ (pin\ 8)}
+\DoxyCodeLine{GND\ ──►\ RPi\ GND\ (pin\ 6)}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyItemize}
+\item Both sides are 3.\+3 V → {\bfseries{no level shifting needed}}.
+\item Bring it out as {\bfseries{parallel male pin + female header}}, the same way as the sensors.
+\end{DoxyItemize}\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md80}{}\doxysubsubsection{\texorpdfstring{Components and libraries}{Components and libraries}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md80}
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Part  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Source  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Search term  \\
+Male + female header 1×3  &Altium built-\/in  &{\ttfamily Header 3} /\+ {\ttfamily Receptacle 3}  \\
+\end{DoxyTable}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md81}{}\doxysubsubsection{\texorpdfstring{Notes}{Notes}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md81}
+
+\begin{DoxyItemize}
+\item {\bfseries{Never}} share 5 V with the Raspberry Pi — neither give it power nor take power from it.
+\item A shared GND is mandatory, or the UART will not work.
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md83}{}\doxysection{\texorpdfstring{STAGE 9 — DEBUG /\+ MISC}{STAGE 9 — DEBUG /\+ MISC}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md83}
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Signal  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Pin  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Purpose  \\
+SWDIO /\+ SWCLK  &PA13 /\+ PA14  &Programming and debug  \\
+USART2 (VCP)  &PA2 /\+ PA3  &Serial debug  \\
+\end{DoxyTable}
+
+
+Bring these out on a small 1×4-\/to-\/1×5 header. (Altium built-\/in {\ttfamily Header}.)
+
+\DoxyHorRuler{0}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md85}{}\doxysubsection{\texorpdfstring{Suggested build order (schematic first, then layout)}{Suggested build order (schematic first, then layout)}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md85}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1.\ POWER\ \ →\ 2.\ MCU\ \ →\ 3.\ FEEDBACK\ \ →\ 4.\ ULTRASONICS}
+\DoxyCodeLine{→\ 5.\ IMU\ \ →\ 6.\ ESP\ \ →\ 7.\ MOTOR\ \ →\ 8.\ RPi\ \ →\ 9.\ DEBUG}
+
+\end{DoxyCode}
+
+
+For each stage:\+ draw the schematic block → name the nets exactly as above → annotate.
+
+Final step:\+ lay the board out along the same block boundaries — motor in one corner, sensors far away from it.
+
+\DoxyHorRuler{0}
+\hypertarget{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md87}{}\doxysubsection{\texorpdfstring{Full PIN MAP (reference — from the firmware, {\ttfamily Src/\+\+System.\+c})}{Full PIN MAP (reference — from the firmware, {\ttfamily Src/\+\+System.\+c})}}\label{md_V2V-STM32_2docs_2PCB__BUILD__STAGES_autotoc_md87}
+
+\begin{DoxyTable}{4}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Net  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}STM32  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Net  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}STM32  \\
+MPU\+\_\+\+SCK  &PA5  &US1\+\_\+\+TRIG/\+\+ECHO  &PB0 /\+ PA15  \\
+MPU\+\_\+\+MISO  &PA6  &US2\+\_\+\+TRIG/\+\+ECHO  &PB1 /\+ PB3  \\
+MPU\+\_\+\+MOSI  &PA7  &US3\+\_\+\+TRIG/\+\+ECHO  &PB2 /\+ PB4  \\
+MPU\+\_\+\+CS  &PA4  &US4\+\_\+\+TRIG/\+\+ECHO  &PB12 /\+ PB5  \\
+ESP\+\_\+\+TXD  &PA9  &US5\+\_\+\+TRIG/\+\+ECHO  &PB13 /\+ PC8  \\
+ESP\+\_\+\+RXD  &PA10  &US6\+\_\+\+TRIG/\+\+ECHO  &PB14 /\+ PC9  \\
+RPI\+\_\+\+TXD  &PA0  &LED\+\_\+\+FR/\+\+FL  &PC0 /\+ PC1  \\
+RPI\+\_\+\+RXD  &PA1  &LED\+\_\+\+BR/\+\+BL  &PC2 /\+ PC3  \\
+MOT\+\_\+\+R\+\_\+\+EN  &PA8  &LED\+\_\+\+INT  &PC7  \\
+MOT\+\_\+\+R\+\_\+\+IN1/\+\+IN2  &PC5 /\+ PC6  &BUZZER  &PC4  \\
+MOT\+\_\+\+L\+\_\+\+EN  &PA11  &MOT\+\_\+\+L\+\_\+\+IN3/\+\+IN4  &PB10 /\+ PB15  \\
+\end{DoxyTable}
+
+
+{\itshape If you change any pin in the firmware, update this table to match.} 

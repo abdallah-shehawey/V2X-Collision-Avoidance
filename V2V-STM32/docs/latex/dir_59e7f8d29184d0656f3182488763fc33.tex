@@ -1,0 +1,64 @@
+\doxysection{esp32 Directory Reference}
+\hypertarget{dir_59e7f8d29184d0656f3182488763fc33}{}\label{dir_59e7f8d29184d0656f3182488763fc33}\index{esp32 Directory Reference@{esp32 Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_59e7f8d29184d0656f3182488763fc33_autotoc_md88}{}\doxysubsection{\texorpdfstring{Arduino CLI ESP32 Workflow}{Arduino CLI ESP32 Workflow}}\label{dir_59e7f8d29184d0656f3182488763fc33_autotoc_md88}
+This guide shows how to compile, upload, and monitor ESP32 sketches using {\ttfamily arduino-\/cli}.\hypertarget{dir_59e7f8d29184d0656f3182488763fc33_autotoc_md89}{}\doxysubsection{\texorpdfstring{1. List Connected Boards}{1. List Connected Boards}}\label{dir_59e7f8d29184d0656f3182488763fc33_autotoc_md89}
+Use the following command to detect all connected boards and their ports:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{arduino-\/cli\ board\ list}
+
+\end{DoxyCode}
+
+
+Look for ports such as:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{/dev/ttyACM0}
+\DoxyCodeLine{/dev/ttyACM1}
+
+\end{DoxyCode}
+\hypertarget{dir_59e7f8d29184d0656f3182488763fc33_autotoc_md90}{}\doxysubsection{\texorpdfstring{2. Compile the Sketch}{2. Compile the Sketch}}\label{dir_59e7f8d29184d0656f3182488763fc33_autotoc_md90}
+Run the following command inside the sketch directory:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{arduino-\/cli\ compile\ -\/-\/fqbn\ esp32:esp32:esp32s3}
+
+\end{DoxyCode}
+
+
+This compiles the sketch for the {\bfseries{ESP32-\/\+S3 Dev Module}}.\hypertarget{dir_59e7f8d29184d0656f3182488763fc33_autotoc_md91}{}\doxysubsection{\texorpdfstring{3. Upload the Firmware}{3. Upload the Firmware}}\label{dir_59e7f8d29184d0656f3182488763fc33_autotoc_md91}
+Upload the compiled sketch to the ESP32:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{arduino-\/cli\ upload\ -\/p\ /dev/ttyACM0\ -\/-\/fqbn\ esp32:esp32:esp32s3}
+
+\end{DoxyCode}
+
+
+Replace {\ttfamily /\+dev/\+tty\+ACM0} with the correct port from the board list.\hypertarget{dir_59e7f8d29184d0656f3182488763fc33_autotoc_md92}{}\doxysubsection{\texorpdfstring{4. Open the Serial Monitor}{4. Open the Serial Monitor}}\label{dir_59e7f8d29184d0656f3182488763fc33_autotoc_md92}
+To view serial output from the board:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{arduino-\/cli\ monitor\ -\/p\ /dev/ttyACM0\ -\/c\ baudrate=115200}
+
+\end{DoxyCode}
+
+
+Ensure the baud rate matches the value used in the sketch (e.\+g. {\ttfamily Serial.\+begin(115200)}).\hypertarget{dir_59e7f8d29184d0656f3182488763fc33_autotoc_md93}{}\doxysubsection{\texorpdfstring{Example Workflow}{Example Workflow}}\label{dir_59e7f8d29184d0656f3182488763fc33_autotoc_md93}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{arduino-\/cli\ board\ list}
+\DoxyCodeLine{arduino-\/cli\ compile\ -\/-\/fqbn\ esp32:esp32:esp32s3}
+\DoxyCodeLine{arduino-\/cli\ upload\ -\/p\ /dev/ttyACM0\ -\/-\/fqbn\ esp32:esp32:esp32s3}
+\DoxyCodeLine{arduino-\/cli\ monitor\ -\/p\ /dev/ttyACM0\ -\/c\ baudrate=115200}
+
+\end{DoxyCode}
+ 

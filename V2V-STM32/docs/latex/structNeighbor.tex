@@ -1,0 +1,191 @@
+\doxysection{Neighbor Struct Reference}
+\hypertarget{structNeighbor}{}\label{structNeighbor}\index{Neighbor@{Neighbor}}
+
+
+One vehicle\textquotesingle{}s broadcast state — this is the wire format itself.  
+
+
+
+
+{\ttfamily \+\#include $<$Application/\+\+DSRC/\+\+DSRC.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \doxymbox{\hyperlink{structNeighbor_a2b27a4aea905edae73642bd1bde4c493}{vehicle\+\_\+id}}
+\begin{DoxyCompactList}\small\item\em Who sent this — see \doxylink{group__app__dsrc_ga9dd026e05b86378bf84c82c84dd193bf}{VEHICLE\+\_\+\+ID}. \end{DoxyCompactList}\item 
+float \doxymbox{\hyperlink{structNeighbor_a69c6cf461fb3746631e7019c5fede46d}{speed}}
+\begin{DoxyCompactList}\small\item\em The sender\textquotesingle{}s ground speed \+[cm/\+s]\+. \end{DoxyCompactList}\item 
+float \doxymbox{\hyperlink{structNeighbor_a57db4512eb3b17f86ddd99e3ddefb044}{heading}}
+\begin{DoxyCompactList}\small\item\em The sender\textquotesingle{}s compass heading \+[degrees]\+, 0..360. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{structNeighbor_a7c32d6720b5ad190d930779546c5b6d1}{last\+\_\+update}}
+\begin{DoxyCompactList}\small\item\em Local tick at which this row was last refreshed; drives the \doxylink{group__app__dsrc_ga545233ea05ce2ada1c14377954bb8931}{NEIGHBOR\+\_\+\+TIMEOUT} purge. \end{DoxyCompactList}\item 
+uint8\+\_\+t \doxymbox{\hyperlink{structNeighbor_a96546ab95ad4529f151b6bd6d0dbf25b}{fcw\+\_\+headon\+\_\+flag}}
+\begin{DoxyCompactList}\small\item\em Head-\/on candidate flag:\+ 0 = no, 1 = yes. \end{DoxyCompactList}\item 
+uint8\+\_\+t \doxymbox{\hyperlink{structNeighbor_aa2535a67b414f4eff3cedf85c024b4b0}{bsw\+\_\+flag}}
+\begin{DoxyCompactList}\small\item\em Which of the sender\textquotesingle{}s {\bfseries{front}} sides is occupied. \end{DoxyCompactList}\item 
+float \doxymbox{\hyperlink{structNeighbor_aee8e719ef21191d25258b8a1e8bc0bee}{distance\+\_\+to\+\_\+intersection}}
+\begin{DoxyCompactList}\small\item\em The sender\textquotesingle{}s distance to the nearest intersection \+[cm]\+; 0 means it is not near one. \end{DoxyCompactList}\item 
+uint8\+\_\+t \doxymbox{\hyperlink{structNeighbor_aee915eb99e07799c1daad9c0ea8460ea}{ima\+\_\+flag}}
+\begin{DoxyCompactList}\small\item\em The sender\textquotesingle{}s own IMA verdict:\+ 0 = safe, 1 = warning, 2 = critical. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+One vehicle\textquotesingle{}s broadcast state — this is the wire format itself. 
+
+Packed to exactly 21 bytes and sent as raw bytes, so the compiler must not insert padding and both sides of the link must agree on the layout. See the warning in the file header before touching any field.
+
+The struct does double duty:\+ it is both the row type of the neighbor table (what we know about {\itshape them}) and the payload this vehicle broadcasts (what we tell {\itshape them} about us). 
+
+Definition at line \doxymbox{\hyperlink{DSRC_8h_source_l00099}{99}} of file \doxymbox{\hyperlink{DSRC_8h_source}{DSRC.\+h}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{structNeighbor_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structNeighbor_a2b27a4aea905edae73642bd1bde4c493}\index{Neighbor@{Neighbor}!vehicle\_id@{vehicle\_id}}
+\index{vehicle\_id@{vehicle\_id}!Neighbor@{Neighbor}}
+\doxysubsubsection{\texorpdfstring{vehicle\_id}{vehicle\_id}}
+{\footnotesize\ttfamily \label{structNeighbor_a2b27a4aea905edae73642bd1bde4c493} 
+uint8\+\_\+t Neighbor::\+vehicle\+\_\+id}
+
+
+
+Who sent this — see \doxylink{group__app__dsrc_ga9dd026e05b86378bf84c82c84dd193bf}{VEHICLE\+\_\+\+ID}. 
+
+
+
+Definition at line \doxymbox{\hyperlink{DSRC_8h_source_l00101}{101}} of file \doxymbox{\hyperlink{DSRC_8h_source}{DSRC.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{DSRC_8c_source_l00151}{update\+\_\+neighbor()}}, and \doxymbox{\hyperlink{main_8c_source_l00387}{v\+Task\+\_\+\+ESP\+\_\+\+Comm()}}.
+
+\Hypertarget{structNeighbor_a69c6cf461fb3746631e7019c5fede46d}\index{Neighbor@{Neighbor}!speed@{speed}}
+\index{speed@{speed}!Neighbor@{Neighbor}}
+\doxysubsubsection{\texorpdfstring{speed}{speed}}
+{\footnotesize\ttfamily \label{structNeighbor_a69c6cf461fb3746631e7019c5fede46d} 
+float Neighbor::\+speed}
+
+
+
+The sender\textquotesingle{}s ground speed \+[cm/\+s]\+. 
+
+
+
+Definition at line \doxymbox{\hyperlink{DSRC_8h_source_l00102}{102}} of file \doxymbox{\hyperlink{DSRC_8h_source}{DSRC.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{IMA__program_8c_source_l00055}{IMA\+\_\+void\+Process\+Neighbor()}}, and \doxymbox{\hyperlink{main_8c_source_l00387}{v\+Task\+\_\+\+ESP\+\_\+\+Comm()}}.
+
+\Hypertarget{structNeighbor_a57db4512eb3b17f86ddd99e3ddefb044}\index{Neighbor@{Neighbor}!heading@{heading}}
+\index{heading@{heading}!Neighbor@{Neighbor}}
+\doxysubsubsection{\texorpdfstring{heading}{heading}}
+{\footnotesize\ttfamily \label{structNeighbor_a57db4512eb3b17f86ddd99e3ddefb044} 
+float Neighbor::\+heading}
+
+
+
+The sender\textquotesingle{}s compass heading \+[degrees]\+, 0..360. 
+
+
+
+Definition at line \doxymbox{\hyperlink{DSRC_8h_source_l00103}{103}} of file \doxymbox{\hyperlink{DSRC_8h_source}{DSRC.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00387}{v\+Task\+\_\+\+ESP\+\_\+\+Comm()}}.
+
+\Hypertarget{structNeighbor_a7c32d6720b5ad190d930779546c5b6d1}\index{Neighbor@{Neighbor}!last\_update@{last\_update}}
+\index{last\_update@{last\_update}!Neighbor@{Neighbor}}
+\doxysubsubsection{\texorpdfstring{last\_update}{last\_update}}
+{\footnotesize\ttfamily \label{structNeighbor_a7c32d6720b5ad190d930779546c5b6d1} 
+uint32\+\_\+t Neighbor::\+last\+\_\+update}
+
+
+
+Local tick at which this row was last refreshed; drives the \doxylink{group__app__dsrc_ga545233ea05ce2ada1c14377954bb8931}{NEIGHBOR\+\_\+\+TIMEOUT} purge. 
+
+
+
+Definition at line \doxymbox{\hyperlink{DSRC_8h_source_l00104}{104}} of file \doxymbox{\hyperlink{DSRC_8h_source}{DSRC.\+h}}.
+
+\Hypertarget{structNeighbor_a96546ab95ad4529f151b6bd6d0dbf25b}\index{Neighbor@{Neighbor}!fcw\_headon\_flag@{fcw\_headon\_flag}}
+\index{fcw\_headon\_flag@{fcw\_headon\_flag}!Neighbor@{Neighbor}}
+\doxysubsubsection{\texorpdfstring{fcw\_headon\_flag}{fcw\_headon\_flag}}
+{\footnotesize\ttfamily \label{structNeighbor_a96546ab95ad4529f151b6bd6d0dbf25b} 
+uint8\+\_\+t Neighbor::\+fcw\+\_\+headon\+\_\+flag}
+
+
+
+Head-\/on candidate flag:\+ 0 = no, 1 = yes. 
+
+Set when the sender sees a vehicle ahead {\itshape and} a neighbor coming the other way. It is broadcast rather than acted on alone, so the {\itshape other} car can confirm the same geometry from its own side — a head-\/on is the one case where a single car\textquotesingle{}s view is not enough to be sure. 
+
+Definition at line \doxymbox{\hyperlink{DSRC_8h_source_l00114}{114}} of file \doxymbox{\hyperlink{DSRC_8h_source}{DSRC.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{FCW__DNPW__program_8c_source_l00150}{FCW\+\_\+\+DNPW\+\_\+void\+Process\+Opposite\+Direction()}}, and \doxymbox{\hyperlink{main_8c_source_l00387}{v\+Task\+\_\+\+ESP\+\_\+\+Comm()}}.
+
+\Hypertarget{structNeighbor_aa2535a67b414f4eff3cedf85c024b4b0}\index{Neighbor@{Neighbor}!bsw\_flag@{bsw\_flag}}
+\index{bsw\_flag@{bsw\_flag}!Neighbor@{Neighbor}}
+\doxysubsubsection{\texorpdfstring{bsw\_flag}{bsw\_flag}}
+{\footnotesize\ttfamily \label{structNeighbor_aa2535a67b414f4eff3cedf85c024b4b0} 
+uint8\+\_\+t Neighbor::\+bsw\+\_\+flag}
+
+
+
+Which of the sender\textquotesingle{}s {\bfseries{front}} sides is occupied. 
+
+A bit mask:\+ bit 0 = LEFT, bit 1 = RIGHT. So 0 = neither, 1 = left only, 2 = right only, 3 = both. The receiver mirrors this against its own {\itshape rear} sensors to work out whether it is sitting in the sender\textquotesingle{}s blind spot. 
+
+Definition at line \doxymbox{\hyperlink{DSRC_8h_source_l00123}{123}} of file \doxymbox{\hyperlink{DSRC_8h_source}{DSRC.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{BSW__program_8c_source_l00109}{BSW\+\_\+void\+Process\+Neighbor()}}, and \doxymbox{\hyperlink{main_8c_source_l00387}{v\+Task\+\_\+\+ESP\+\_\+\+Comm()}}.
+
+\Hypertarget{structNeighbor_aee8e719ef21191d25258b8a1e8bc0bee}\index{Neighbor@{Neighbor}!distance\_to\_intersection@{distance\_to\_intersection}}
+\index{distance\_to\_intersection@{distance\_to\_intersection}!Neighbor@{Neighbor}}
+\doxysubsubsection{\texorpdfstring{distance\_to\_intersection}{distance\_to\_intersection}}
+{\footnotesize\ttfamily \label{structNeighbor_aee8e719ef21191d25258b8a1e8bc0bee} 
+float Neighbor::\+distance\+\_\+to\+\_\+intersection}
+
+
+
+The sender\textquotesingle{}s distance to the nearest intersection \+[cm]\+; 0 means it is not near one. 
+
+
+
+Definition at line \doxymbox{\hyperlink{DSRC_8h_source_l00125}{125}} of file \doxymbox{\hyperlink{DSRC_8h_source}{DSRC.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00387}{v\+Task\+\_\+\+ESP\+\_\+\+Comm()}}.
+
+\Hypertarget{structNeighbor_aee915eb99e07799c1daad9c0ea8460ea}\index{Neighbor@{Neighbor}!ima\_flag@{ima\_flag}}
+\index{ima\_flag@{ima\_flag}!Neighbor@{Neighbor}}
+\doxysubsubsection{\texorpdfstring{ima\_flag}{ima\_flag}}
+{\footnotesize\ttfamily \label{structNeighbor_aee915eb99e07799c1daad9c0ea8460ea} 
+uint8\+\_\+t Neighbor::\+ima\+\_\+flag}
+
+
+
+The sender\textquotesingle{}s own IMA verdict:\+ 0 = safe, 1 = warning, 2 = critical. 
+
+
+
+Definition at line \doxymbox{\hyperlink{DSRC_8h_source_l00126}{126}} of file \doxymbox{\hyperlink{DSRC_8h_source}{DSRC.\+h}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{main_8c_source_l00387}{v\+Task\+\_\+\+ESP\+\_\+\+Comm()}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+V2\+V-\/\+STM32/\+\+Inc/\+\+Application/\+\+DSRC/\+\doxymbox{\hyperlink{DSRC_8h}{DSRC.\+h}}\end{DoxyCompactItemize}

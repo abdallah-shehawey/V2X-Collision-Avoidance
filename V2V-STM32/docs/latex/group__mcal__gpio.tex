@@ -1,0 +1,1692 @@
+\doxysubsection{GPIO }
+\hypertarget{group__mcal__gpio}{}\label{group__mcal__gpio}\index{GPIO@{GPIO}}
+
+
+General-\/purpose I/\+O:\+ pin mode, speed, pull, alternate function, read/\+write.  
+
+
+Collaboration diagram for GPIO:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=200pt]{group__mcal__gpio}
+\end{center}
+\end{figure}
+\doxysubsubsubsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file \doxymbox{\hyperlink{GPIO__config_8h}{GPIO\+\_\+config.\+h}}
+\begin{DoxyCompactList}\small\item\em Compile-\/time configuration for the GPIO driver — the general-\/purpose I/\+O ports. \end{DoxyCompactList}\item 
+file \doxymbox{\hyperlink{GPIO__interface_8h}{GPIO\+\_\+interface.\+h}}
+\begin{DoxyCompactList}\small\item\em Public API of the GPIO driver:\+ pin/\+port configuration and I/\+O. \end{DoxyCompactList}\item 
+file \doxymbox{\hyperlink{GPIO__private_8h}{GPIO\+\_\+private.\+h}}
+\begin{DoxyCompactList}\small\item\em Register bit positions and internals of the GPIO driver — not a public header. \end{DoxyCompactList}\item 
+file \doxymbox{\hyperlink{GPIO__prog_8c}{GPIO\+\_\+prog.\+c}}
+\begin{DoxyCompactList}\small\item\em Implementation of the GPIO driver — the general-\/purpose I/\+O ports. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structGPIO__PinConfig__t}{GPIO\+\_\+\+Pin\+Config\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Full configuration of one pin, as passed to \doxylink{group__mcal__gpio_ga2a5e7c89bc6bb7103d96334a8481ea9b}{GPIO\+\_\+enum\+Pin\+Init}. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structGPIO__8PinsConfig__t}{GPIO\+\_\+8\+Pins\+Config\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Configuration of 8 consecutive pins, as passed to \doxylink{group__mcal__gpio_ga0e3f73a3160885bf15f427e9e894f2de}{GPIO\+\_\+enum\+Port8\+Pins\+Init}. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structGPIO__4PinsConfig__t}{GPIO\+\_\+4\+Pins\+Config\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Configuration of 4 consecutive pins, as passed to \doxylink{group__mcal__gpio_ga50576e5cecad40f4fa820bdacf2c270a}{GPIO\+\_\+enum\+Port4\+Pins\+Init}. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structGPIO__LowNibbleConfig__t}{GPIO\+\_\+\+Low\+Nibble\+Config\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Configuration of pins 0..3 of a port, as passed to \doxylink{group__mcal__gpio_gace91b940fa22755a89e086016721f8aa}{GPIO\+\_\+enum\+Low\+Nibble\+Init}. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structGPIO__HighNibbleConfig__t}{GPIO\+\_\+\+High\+Nibble\+Config\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Configuration of pins 4..7 of a port, as passed to \doxylink{group__mcal__gpio_gaf5bb58748b4f2cf70c674d9566b63a97}{GPIO\+\_\+enum\+High\+Nibble\+Init}. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structGPIO__ByteConfig__t}{GPIO\+\_\+\+Byte\+Config\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Configuration of pins 0..7 of a port, as passed to \doxylink{group__mcal__gpio_ga593d4ac1bc1d7198c9c3d56d05e23a07}{GPIO\+\_\+enum\+Byte\+Init}. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structGPIO__HalfPortConfig__t}{GPIO\+\_\+\+Half\+Port\+Config\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Configuration of half a port, as passed to \doxylink{group__mcal__gpio_ga47aacfc99199904d2956173186b94d7f}{GPIO\+\_\+enum\+Half\+Port\+Init}. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{structGPIO__PortConfig__t}{GPIO\+\_\+\+Port\+Config\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Configuration of all 16 pins of a port, as passed to \doxylink{group__mcal__gpio_ga2c01501f7ac9ed6dc2c172776c9203fa}{GPIO\+\_\+enum\+Port\+Init}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} \{ \newline
+\doxymbox{\hyperlink{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24a0d36b47f173bbc4bdced28d8a54fe4ac}{GPIO\+\_\+\+PORTA}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24a258a8ca8e34cedcfba339d2463ae0c2a}{GPIO\+\_\+\+PORTB}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24a3266325667899f8d82c0624c493fda51}{GPIO\+\_\+\+PORTC}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24a4db7e328496cabe7a12e3879f7be8e39}{GPIO\+\_\+\+PORTD}}
+, \newline
+\doxymbox{\hyperlink{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24ae00a95999282684e3c5d713937bc74e3}{GPIO\+\_\+\+PORTE}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24a5dc105023eaf57bc980a4372ae35b94f}{GPIO\+\_\+\+PORTF}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24add0f532a6de2309badc195f0c3445461}{GPIO\+\_\+\+PORTG}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24a637ffefd47a9b23a71e91070289107d5}{GPIO\+\_\+\+PORTH}}
+ \}
+\begin{DoxyCompactList}\small\item\em GPIO port selector. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} \{ \newline
+\doxymbox{\hyperlink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14adb75bcba02ec80bb4a9773718438047d}{GPIO\+\_\+\+PIN0}}
+, \doxymbox{\hyperlink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14aa829aa9e491c03d6a8227d518b7fc8eb}{GPIO\+\_\+\+PIN1}}
+, \doxymbox{\hyperlink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a57cb1d6a79365503d4134ae99f5251f7}{GPIO\+\_\+\+PIN2}}
+, \doxymbox{\hyperlink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14aff3e33054e363ddc891e9397e2b2f6d0}{GPIO\+\_\+\+PIN3}}
+, \newline
+\doxymbox{\hyperlink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a088dbea6be5692ef5375d1710404ad46}{GPIO\+\_\+\+PIN4}}
+, \doxymbox{\hyperlink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14ab3360105a3459dae07b5018c48ae30af}{GPIO\+\_\+\+PIN5}}
+, \doxymbox{\hyperlink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a870953062f7dbc2a62c12e8cd5098202}{GPIO\+\_\+\+PIN6}}
+, \doxymbox{\hyperlink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a0e9e1e2434aae274eb04b81c09fe1318}{GPIO\+\_\+\+PIN7}}
+, \newline
+\doxymbox{\hyperlink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a451abbd2d09eb906813528a1ceccdd03}{GPIO\+\_\+\+PIN8}}
+, \doxymbox{\hyperlink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a9291e04714ca677327b6127613118479}{GPIO\+\_\+\+PIN9}}
+, \doxymbox{\hyperlink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14aa580d85c9461cac143b5833b833136d9}{GPIO\+\_\+\+PIN10}}
+, \doxymbox{\hyperlink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14ae075539bfaca840c120f221d6a49d387}{GPIO\+\_\+\+PIN11}}
+, \newline
+\doxymbox{\hyperlink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14ae54732352207a6d40be8d329384af84d}{GPIO\+\_\+\+PIN12}}
+, \doxymbox{\hyperlink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14ad2bef71fe3398625395bad5506ac7a52}{GPIO\+\_\+\+PIN13}}
+, \doxymbox{\hyperlink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a3277e5ef8a20fd1372dbddf7ad7c1a17}{GPIO\+\_\+\+PIN14}}
+, \doxymbox{\hyperlink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a50c973b5b9de3dad1fd24d662238ca67}{GPIO\+\_\+\+PIN15}}
+ \}
+\begin{DoxyCompactList}\small\item\em Pin selector within a port. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{group__mcal__gpio_gafb8ae0eef9d79d2066ab67bbf12d9f26}{GPIO\+\_\+\+Mode\+\_\+t}} \{ \doxymbox{\hyperlink{group__mcal__gpio_ggafb8ae0eef9d79d2066ab67bbf12d9f26aa1ea38ffc304a6c32480a65b5fec7302}{GPIO\+\_\+\+INPUT}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggafb8ae0eef9d79d2066ab67bbf12d9f26aa248e73c1faee9c6f072fd91569cf516}{GPIO\+\_\+\+OUTPUT}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggafb8ae0eef9d79d2066ab67bbf12d9f26afce5a104125420d39288661fe5b1d695}{GPIO\+\_\+\+ALTFN}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggafb8ae0eef9d79d2066ab67bbf12d9f26ae8bd62cf000e751ffdce5a9de1c0dcc0}{GPIO\+\_\+\+ANALOG}}
+ \}
+\begin{DoxyCompactList}\small\item\em Pin mode — the 2-\/bit field written into {\ttfamily MODER}. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{group__mcal__gpio_ga6470c88cd80e5ef53ac53602e73207f0}{GPIO\+\_\+\+Output\+Type\+\_\+t}} \{ \doxymbox{\hyperlink{group__mcal__gpio_gga6470c88cd80e5ef53ac53602e73207f0a2ede6e0f1b50e67e840a93701323c775}{GPIO\+\_\+\+PUSH\+\_\+\+PULL}}
+, \doxymbox{\hyperlink{group__mcal__gpio_gga6470c88cd80e5ef53ac53602e73207f0a5b0c623028002305892a4558ef0a6222}{GPIO\+\_\+\+OPEN\+\_\+\+DRAIN}}
+ \}
+\begin{DoxyCompactList}\small\item\em Output driver type — the 1-\/bit field written into {\ttfamily OTYPER}. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{group__mcal__gpio_ga6d1105e456335fcdc96b3d600c821c9b}{GPIO\+\_\+\+Nibble\+Type\+\_\+t}} \{ \doxymbox{\hyperlink{group__mcal__gpio_gga6d1105e456335fcdc96b3d600c821c9ba34e08cc87834add55cd2aec05fa5cf78}{GPIO\+\_\+\+LOW\+\_\+\+NIBBLE}}
+, \doxymbox{\hyperlink{group__mcal__gpio_gga6d1105e456335fcdc96b3d600c821c9ba6ceb8c56cc69d3e6f032c0b9e2568b67}{GPIO\+\_\+\+HIGH\+\_\+\+NIBBLE}}
+ \}
+\begin{DoxyCompactList}\small\item\em Which half of a byte a nibble operation applies to. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{group__mcal__gpio_gad0390106f85689de1897dd9543754e71}{GPIO\+\_\+\+Output\+Speed\+\_\+t}} \{ \doxymbox{\hyperlink{group__mcal__gpio_ggad0390106f85689de1897dd9543754e71adad1d99afc424c9903c2116308da5778}{GPIO\+\_\+\+LOW\+\_\+\+SPEED}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggad0390106f85689de1897dd9543754e71a83efc1b373fff74ccc8ff155acb523bb}{GPIO\+\_\+\+MEDIUM\+\_\+\+SPEED}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggad0390106f85689de1897dd9543754e71adb3d95caeba959c63a9709ca19a9cd04}{GPIO\+\_\+\+HIGH\+\_\+\+SPEED}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggad0390106f85689de1897dd9543754e71af7087f6e3a0ec17c4e20a95a42e694f1}{GPIO\+\_\+\+VERY\+\_\+\+HIGH\+\_\+\+SPEED}}
+ \}
+\begin{DoxyCompactList}\small\item\em Output slew rate — the 2-\/bit field written into {\ttfamily OSPEEDR}. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{group__mcal__gpio_gaf3291f1e475675bffc656c9f0c4c7399}{GPIO\+\_\+\+Pull\+Up\+Down\+\_\+t}} \{ \doxymbox{\hyperlink{group__mcal__gpio_ggaf3291f1e475675bffc656c9f0c4c7399aa528b4821b033fe90e0b186ada74fa10}{GPIO\+\_\+\+NO\+\_\+\+PULL}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggaf3291f1e475675bffc656c9f0c4c7399ae7d1b2a9078939dd744dd9a7cd61d9df}{GPIO\+\_\+\+PULL\+\_\+\+UP}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggaf3291f1e475675bffc656c9f0c4c7399a93970a9b4ab92816371682f4e537a8e2}{GPIO\+\_\+\+PULL\+\_\+\+DOWN}}
+ \}
+\begin{DoxyCompactList}\small\item\em Internal pull resistor — the 2-\/bit field written into {\ttfamily PUPDR}. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{group__mcal__gpio_gad4b5b539106097ea7ee4b71e93a45bdd}{GPIO\+\_\+\+Alternate\+Function\+\_\+t}} \{ \newline
+\doxymbox{\hyperlink{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda87ca1e0df0502682e4a49533809ddcbc}{GPIO\+\_\+\+AF0}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda0ef8189f5ce80052d8c80cde9ea8a4ef}{GPIO\+\_\+\+AF1}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda115d1f06f5d9bb1d760ffc38b2d8c7d3}{GPIO\+\_\+\+AF2}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda6ee7ecdedade2eea2ba6459bd8f794f2}{GPIO\+\_\+\+AF3}}
+, \newline
+\doxymbox{\hyperlink{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda34f938f8d7f13c07233e265a2a9134ca}{GPIO\+\_\+\+AF4}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda22966ec392207510a9861fe3c26cfeab}{GPIO\+\_\+\+AF5}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda4d0453c14e75bca3327ee60f9e3fb00f}{GPIO\+\_\+\+AF6}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bddab9977fcdc662307e4df15ab3435d5087}{GPIO\+\_\+\+AF7}}
+, \newline
+\doxymbox{\hyperlink{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda38152bf620eb4ed1debc6c2351ad3db0}{GPIO\+\_\+\+AF8}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda5e721ad608ffd1e0530bc3d266a877d5}{GPIO\+\_\+\+AF9}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda502b67e92ad83116b3067b02862c39a9}{GPIO\+\_\+\+AF10}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bddad955dd2b1f56ee5176621b076b82c6f1}{GPIO\+\_\+\+AF11}}
+, \newline
+\doxymbox{\hyperlink{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bddaab0d7792752ef7856d12b1919241f29c}{GPIO\+\_\+\+AF12}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bddac990d86e2a6c957d4bf2d72772b55ec4}{GPIO\+\_\+\+AF13}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda661b593043b2fbe70e380b0b227ddbb4}{GPIO\+\_\+\+AF14}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda23f57b0577422fa3d049deb151493e0c}{GPIO\+\_\+\+AF15}}
+ \}
+\begin{DoxyCompactList}\small\item\em Alternate-\/function number — the 4-\/bit field written into {\ttfamily AFR\+[]\+}. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{group__mcal__gpio_ga39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}} \{ \doxymbox{\hyperlink{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8a15615df0be390aa56563c157ddb5454e}{GPIO\+\_\+\+PIN\+\_\+\+LOW}}
+, \doxymbox{\hyperlink{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8acef36245ca64f0574b6a3381d607ee23}{GPIO\+\_\+\+PIN\+\_\+\+HIGH}}
+ \}
+\begin{DoxyCompactList}\small\item\em Logic level of a pin. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{group__mcal__gpio_gad4ea6c990a6034958a26738897bed6a8}{GPIO\+\_\+\+Port\+Half\+\_\+t}} \{ \doxymbox{\hyperlink{group__mcal__gpio_ggad4ea6c990a6034958a26738897bed6a8a1ed6a1ac32c251080a3c03f986557b88}{PORT\+\_\+\+FIRST\+\_\+\+HALF}}
+, \doxymbox{\hyperlink{group__mcal__gpio_ggad4ea6c990a6034958a26738897bed6a8add2bcec24206230b1e7ad954888aeb17}{PORT\+\_\+\+SECOND\+\_\+\+HALF}}
+ \}
+\begin{DoxyCompactList}\small\item\em Which half of a port a half-\/port operation applies to. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_ga2a5e7c89bc6bb7103d96334a8481ea9b}{GPIO\+\_\+enum\+Pin\+Init}} (const \doxymbox{\hyperlink{structGPIO__PinConfig__t}{GPIO\+\_\+\+Pin\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Pin\+Config)
+\begin{DoxyCompactList}\small\item\em Configure a single pin:\+ mode, output type, speed, pull and AF. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_gace91b940fa22755a89e086016721f8aa}{GPIO\+\_\+enum\+Low\+Nibble\+Init}} (\doxymbox{\hyperlink{structGPIO__LowNibbleConfig__t}{GPIO\+\_\+\+Low\+Nibble\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Low\+Nibble\+Config)
+\begin{DoxyCompactList}\small\item\em Configure pins 0..3 of a port identically, in one call. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_gaf5bb58748b4f2cf70c674d9566b63a97}{GPIO\+\_\+enum\+High\+Nibble\+Init}} (\doxymbox{\hyperlink{structGPIO__HighNibbleConfig__t}{GPIO\+\_\+\+High\+Nibble\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}High\+Nibble\+Config)
+\begin{DoxyCompactList}\small\item\em Configure pins 4..7 of a port identically, in one call. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_ga593d4ac1bc1d7198c9c3d56d05e23a07}{GPIO\+\_\+enum\+Byte\+Init}} (\doxymbox{\hyperlink{structGPIO__ByteConfig__t}{GPIO\+\_\+\+Byte\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Byte\+Config)
+\begin{DoxyCompactList}\small\item\em Configure pins 0..7 of a port identically, in one call. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_ga47aacfc99199904d2956173186b94d7f}{GPIO\+\_\+enum\+Half\+Port\+Init}} (\doxymbox{\hyperlink{structGPIO__HalfPortConfig__t}{GPIO\+\_\+\+Half\+Port\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Half\+Port\+Config)
+\begin{DoxyCompactList}\small\item\em Configure half a port identically, in one call. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_ga2c01501f7ac9ed6dc2c172776c9203fa}{GPIO\+\_\+enum\+Port\+Init}} (\doxymbox{\hyperlink{structGPIO__PortConfig__t}{GPIO\+\_\+\+Port\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}Port\+Config)
+\begin{DoxyCompactList}\small\item\em Configure all 16 pins of a port identically, in one call. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_ga0e3f73a3160885bf15f427e9e894f2de}{GPIO\+\_\+enum\+Port8\+Pins\+Init}} (\doxymbox{\hyperlink{structGPIO__8PinsConfig__t}{GPIO\+\_\+8\+Pins\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}GPIO\+\_\+8\+Pins\+Config)
+\begin{DoxyCompactList}\small\item\em Configure 8 consecutive pins starting at an arbitrary pin. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_ga50576e5cecad40f4fa820bdacf2c270a}{GPIO\+\_\+enum\+Port4\+Pins\+Init}} (\doxymbox{\hyperlink{structGPIO__4PinsConfig__t}{GPIO\+\_\+4\+Pins\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}GPIO\+\_\+4\+Pins\+Config)
+\begin{DoxyCompactList}\small\item\em Configure 4 consecutive pins starting at an arbitrary pin. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_gab8efebd278bcf731012c238a3f69fb5c}{GPIO\+\_\+enum\+Write\+Pin\+Val}} (\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} Port, \doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} Pin\+Num, \doxymbox{\hyperlink{group__mcal__gpio_ga39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}} Pin\+Val)
+\begin{DoxyCompactList}\small\item\em Drive one output pin high or low. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_ga3f0a533051c125627062a50e8a38fded}{GPIO\+\_\+enum\+Read\+Pin\+Val}} (\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} Port, \doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} Pin\+Num, \doxymbox{\hyperlink{group__mcal__gpio_ga39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}} \texorpdfstring{$\ast$}{*}Pin\+Val)
+\begin{DoxyCompactList}\small\item\em Read the level currently present on one pin. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_gaacd1fe5ce0d15fd5040c41745409ca20}{GPIO\+\_\+enum\+Tog\+Pin\+Val}} (\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} Port, \doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} Pin\+Num)
+\begin{DoxyCompactList}\small\item\em Invert the current output level of one pin. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_ga87a110f35c3bd9d61a84e5dee20df70d}{GPIO\+\_\+enum\+Write8\+Pins\+Val}} (\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} Port, \doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} Start\+Pin, uint8\+\_\+t Value)
+\begin{DoxyCompactList}\small\item\em Write an 8-\/bit value onto 8 consecutive output pins. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_ga5df6200f9c0d12a785ab2086f7e441ff}{GPIO\+\_\+enum\+Write4\+Pins\+Val}} (\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} Port, \doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} Start\+Pin, uint8\+\_\+t Value)
+\begin{DoxyCompactList}\small\item\em Write a 4-\/bit value onto 4 consecutive output pins. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_gaceac4c116796951c90c5ec500e6eb602}{GPIO\+\_\+enum\+Write\+Low\+Nibble\+Val}} (\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} port, uint8\+\_\+t Copy\+\_\+u8\+Val, \doxymbox{\hyperlink{group__mcal__gpio_ga39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}} Pins\+Val)
+\begin{DoxyCompactList}\small\item\em Set or clear a chosen subset of pins 0..3, atomically. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_gab099300bf9c8765081d9e1d79f8325cb}{GPIO\+\_\+enum\+Write\+High\+Nibble\+Val}} (\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} port, uint8\+\_\+t Copy\+\_\+u8\+Val, \doxymbox{\hyperlink{group__mcal__gpio_ga39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}} Pins\+Val)
+\begin{DoxyCompactList}\small\item\em Set or clear a chosen subset of pins 4..7, atomically. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_gab7a2804415a4ada1da55f247f7d251aa}{GPIO\+\_\+enum\+Write\+Byte\+Val}} (\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} port, uint8\+\_\+t Copy\+\_\+u8\+Val, \doxymbox{\hyperlink{group__mcal__gpio_ga39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}} Pins\+Val)
+\begin{DoxyCompactList}\small\item\em Set or clear a chosen subset of pins 0..7, atomically. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_ga3e3bfad526b91ab38ea3fdb971d015a7}{GPIO\+\_\+enum\+Write\+Half\+Word\+Val}} (\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} port, uint16\+\_\+t Copy\+\_\+u16\+Val, \doxymbox{\hyperlink{group__mcal__gpio_ga39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}} Pins\+Val)
+\begin{DoxyCompactList}\small\item\em Set or clear a chosen subset of all 16 pins, atomically. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_gaad5061927697c0d2f8f99c6aa146c605}{GPIO\+\_\+enum\+Write\+Port\+Val}} (\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} port, uint16\+\_\+t Copy\+\_\+u16\+Val, \doxymbox{\hyperlink{group__mcal__gpio_ga39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}} Pins\+Val)
+\begin{DoxyCompactList}\small\item\em Set or clear a chosen subset of all 16 pins, atomically. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_ga4456597da20f47afdce69e0a87b6ef21}{GPIO\+\_\+enum\+Read4\+Pins\+Val}} (\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} Port, \doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} Start\+Pin, uint8\+\_\+t \texorpdfstring{$\ast$}{*}Pins\+Value)
+\begin{DoxyCompactList}\small\item\em Read 4 consecutive pins as a 4-\/bit value. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_gab9623ca12f3b7738af049c3bbb858359}{GPIO\+\_\+enum\+Read8\+Pins\+Val}} (\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} Port, \doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}} Start\+Pin, uint8\+\_\+t \texorpdfstring{$\ast$}{*}Pins\+Value)
+\begin{DoxyCompactList}\small\item\em Read 8 consecutive pins as an 8-\/bit value. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_gaa9ab64bad7421597169c43d8bd3e16e3}{GPIO\+\_\+enum\+Read\+Low\+Nibble\+Val}} (\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} port, uint8\+\_\+t \texorpdfstring{$\ast$}{*}Low\+Nibble\+Val)
+\begin{DoxyCompactList}\small\item\em Read pins 0..3 of a port as a nibble. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_gab0614709e608d60a6da511e6382c5448}{GPIO\+\_\+enum\+Read\+High\+Nibble\+Val}} (\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} port, uint8\+\_\+t \texorpdfstring{$\ast$}{*}High\+Nibble\+Val)
+\begin{DoxyCompactList}\small\item\em Read pins 4..7 of a port as a nibble. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_ga1a62e3dea2ba83b5492640e9f8f88bcf}{GPIO\+\_\+enum\+Read\+Byte\+Val}} (\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} port, uint8\+\_\+t \texorpdfstring{$\ast$}{*}Byte\+Val)
+\begin{DoxyCompactList}\small\item\em Read pins 0..7 of a port as a byte. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_gadccafed2049928790efb22602bfcef67}{GPIO\+\_\+enum\+Read\+Half\+Port\+Val}} (\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} port, uint16\+\_\+t \texorpdfstring{$\ast$}{*}Half\+Port\+Val)
+\begin{DoxyCompactList}\small\item\em Read all 16 pins of a port as a half word. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} \doxymbox{\hyperlink{group__mcal__gpio_ga518fc2c707c44cdc8a356ba08d27f4a6}{GPIO\+\_\+enum\+Read\+Port\+Val}} (\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}} port, uint32\+\_\+t \texorpdfstring{$\ast$}{*}Port\+Val)
+\begin{DoxyCompactList}\small\item\em Read the whole {\ttfamily IDR} register of a port. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+General-\/purpose I/\+O:\+ pin mode, speed, pull, alternate function, read/\+write. 
+
+
+
+\label{doc-enum-members}
+\Hypertarget{group__mcal__gpio_doc-enum-members}
+\doxysubsubsection{Enumeration Type Documentation}
+\Hypertarget{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}\index{GPIO@{GPIO}!GPIO\_Port\_t@{GPIO\_Port\_t}}
+\index{GPIO\_Port\_t@{GPIO\_Port\_t}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_Port\_t}{GPIO\_Port\_t}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24} 
+enum \doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}
+
+
+
+GPIO port selector. 
+
+The value is the index into the driver\textquotesingle{}s port table. \begin{DoxyEnumFields}[3]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PORTA@{GPIO\_PORTA}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PORTA@{GPIO\_PORTA}}
+}\Hypertarget{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24a0d36b47f173bbc4bdced28d8a54fe4ac}\label{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24a0d36b47f173bbc4bdced28d8a54fe4ac} 
+GPIO\+\_\+\+PORTA&0&Port A. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PORTB@{GPIO\_PORTB}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PORTB@{GPIO\_PORTB}}
+}\Hypertarget{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24a258a8ca8e34cedcfba339d2463ae0c2a}\label{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24a258a8ca8e34cedcfba339d2463ae0c2a} 
+GPIO\+\_\+\+PORTB&&Port B. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PORTC@{GPIO\_PORTC}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PORTC@{GPIO\_PORTC}}
+}\Hypertarget{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24a3266325667899f8d82c0624c493fda51}\label{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24a3266325667899f8d82c0624c493fda51} 
+GPIO\+\_\+\+PORTC&&Port C. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PORTD@{GPIO\_PORTD}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PORTD@{GPIO\_PORTD}}
+}\Hypertarget{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24a4db7e328496cabe7a12e3879f7be8e39}\label{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24a4db7e328496cabe7a12e3879f7be8e39} 
+GPIO\+\_\+\+PORTD&&Port D. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PORTE@{GPIO\_PORTE}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PORTE@{GPIO\_PORTE}}
+}\Hypertarget{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24ae00a95999282684e3c5d713937bc74e3}\label{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24ae00a95999282684e3c5d713937bc74e3} 
+GPIO\+\_\+\+PORTE&&Port E. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PORTF@{GPIO\_PORTF}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PORTF@{GPIO\_PORTF}}
+}\Hypertarget{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24a5dc105023eaf57bc980a4372ae35b94f}\label{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24a5dc105023eaf57bc980a4372ae35b94f} 
+GPIO\+\_\+\+PORTF&&Port F. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PORTG@{GPIO\_PORTG}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PORTG@{GPIO\_PORTG}}
+}\Hypertarget{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24add0f532a6de2309badc195f0c3445461}\label{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24add0f532a6de2309badc195f0c3445461} 
+GPIO\+\_\+\+PORTG&&Port G. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PORTH@{GPIO\_PORTH}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PORTH@{GPIO\_PORTH}}
+}\Hypertarget{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24a637ffefd47a9b23a71e91070289107d5}\label{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24a637ffefd47a9b23a71e91070289107d5} 
+GPIO\+\_\+\+PORTH&&Port H. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00044}{44}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+\Hypertarget{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}\index{GPIO@{GPIO}!GPIO\_Pin\_t@{GPIO\_Pin\_t}}
+\index{GPIO\_Pin\_t@{GPIO\_Pin\_t}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_Pin\_t}{GPIO\_Pin\_t}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14} 
+enum \doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}}}
+
+
+
+Pin selector within a port. 
+
+The value is the bit position in the port registers. \begin{DoxyEnumFields}[3]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PIN0@{GPIO\_PIN0}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PIN0@{GPIO\_PIN0}}
+}\Hypertarget{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14adb75bcba02ec80bb4a9773718438047d}\label{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14adb75bcba02ec80bb4a9773718438047d} 
+GPIO\+\_\+\+PIN0&0&Pin 0. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PIN1@{GPIO\_PIN1}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PIN1@{GPIO\_PIN1}}
+}\Hypertarget{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14aa829aa9e491c03d6a8227d518b7fc8eb}\label{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14aa829aa9e491c03d6a8227d518b7fc8eb} 
+GPIO\+\_\+\+PIN1&&Pin 1. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PIN2@{GPIO\_PIN2}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PIN2@{GPIO\_PIN2}}
+}\Hypertarget{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a57cb1d6a79365503d4134ae99f5251f7}\label{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a57cb1d6a79365503d4134ae99f5251f7} 
+GPIO\+\_\+\+PIN2&&Pin 2. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PIN3@{GPIO\_PIN3}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PIN3@{GPIO\_PIN3}}
+}\Hypertarget{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14aff3e33054e363ddc891e9397e2b2f6d0}\label{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14aff3e33054e363ddc891e9397e2b2f6d0} 
+GPIO\+\_\+\+PIN3&&Pin 3. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PIN4@{GPIO\_PIN4}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PIN4@{GPIO\_PIN4}}
+}\Hypertarget{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a088dbea6be5692ef5375d1710404ad46}\label{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a088dbea6be5692ef5375d1710404ad46} 
+GPIO\+\_\+\+PIN4&&Pin 4. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PIN5@{GPIO\_PIN5}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PIN5@{GPIO\_PIN5}}
+}\Hypertarget{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14ab3360105a3459dae07b5018c48ae30af}\label{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14ab3360105a3459dae07b5018c48ae30af} 
+GPIO\+\_\+\+PIN5&&Pin 5. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PIN6@{GPIO\_PIN6}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PIN6@{GPIO\_PIN6}}
+}\Hypertarget{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a870953062f7dbc2a62c12e8cd5098202}\label{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a870953062f7dbc2a62c12e8cd5098202} 
+GPIO\+\_\+\+PIN6&&Pin 6. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PIN7@{GPIO\_PIN7}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PIN7@{GPIO\_PIN7}}
+}\Hypertarget{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a0e9e1e2434aae274eb04b81c09fe1318}\label{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a0e9e1e2434aae274eb04b81c09fe1318} 
+GPIO\+\_\+\+PIN7&&Pin 7. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PIN8@{GPIO\_PIN8}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PIN8@{GPIO\_PIN8}}
+}\Hypertarget{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a451abbd2d09eb906813528a1ceccdd03}\label{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a451abbd2d09eb906813528a1ceccdd03} 
+GPIO\+\_\+\+PIN8&&Pin 8. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PIN9@{GPIO\_PIN9}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PIN9@{GPIO\_PIN9}}
+}\Hypertarget{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a9291e04714ca677327b6127613118479}\label{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a9291e04714ca677327b6127613118479} 
+GPIO\+\_\+\+PIN9&&Pin 9. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PIN10@{GPIO\_PIN10}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PIN10@{GPIO\_PIN10}}
+}\Hypertarget{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14aa580d85c9461cac143b5833b833136d9}\label{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14aa580d85c9461cac143b5833b833136d9} 
+GPIO\+\_\+\+PIN10&&Pin 10. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PIN11@{GPIO\_PIN11}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PIN11@{GPIO\_PIN11}}
+}\Hypertarget{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14ae075539bfaca840c120f221d6a49d387}\label{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14ae075539bfaca840c120f221d6a49d387} 
+GPIO\+\_\+\+PIN11&&Pin 11. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PIN12@{GPIO\_PIN12}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PIN12@{GPIO\_PIN12}}
+}\Hypertarget{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14ae54732352207a6d40be8d329384af84d}\label{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14ae54732352207a6d40be8d329384af84d} 
+GPIO\+\_\+\+PIN12&&Pin 12. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PIN13@{GPIO\_PIN13}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PIN13@{GPIO\_PIN13}}
+}\Hypertarget{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14ad2bef71fe3398625395bad5506ac7a52}\label{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14ad2bef71fe3398625395bad5506ac7a52} 
+GPIO\+\_\+\+PIN13&&Pin 13. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PIN14@{GPIO\_PIN14}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PIN14@{GPIO\_PIN14}}
+}\Hypertarget{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a3277e5ef8a20fd1372dbddf7ad7c1a17}\label{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a3277e5ef8a20fd1372dbddf7ad7c1a17} 
+GPIO\+\_\+\+PIN14&&Pin 14. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PIN15@{GPIO\_PIN15}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PIN15@{GPIO\_PIN15}}
+}\Hypertarget{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a50c973b5b9de3dad1fd24d662238ca67}\label{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a50c973b5b9de3dad1fd24d662238ca67} 
+GPIO\+\_\+\+PIN15&&Pin 15. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00056}{56}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+\Hypertarget{group__mcal__gpio_gafb8ae0eef9d79d2066ab67bbf12d9f26}\index{GPIO@{GPIO}!GPIO\_Mode\_t@{GPIO\_Mode\_t}}
+\index{GPIO\_Mode\_t@{GPIO\_Mode\_t}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_Mode\_t}{GPIO\_Mode\_t}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_gafb8ae0eef9d79d2066ab67bbf12d9f26} 
+enum \doxymbox{\hyperlink{group__mcal__gpio_gafb8ae0eef9d79d2066ab67bbf12d9f26}{GPIO\+\_\+\+Mode\+\_\+t}}}
+
+
+
+Pin mode — the 2-\/bit field written into {\ttfamily MODER}. 
+
+\begin{DoxyEnumFields}[3]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_INPUT@{GPIO\_INPUT}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_INPUT@{GPIO\_INPUT}}
+}\Hypertarget{group__mcal__gpio_ggafb8ae0eef9d79d2066ab67bbf12d9f26aa1ea38ffc304a6c32480a65b5fec7302}\label{group__mcal__gpio_ggafb8ae0eef9d79d2066ab67bbf12d9f26aa1ea38ffc304a6c32480a65b5fec7302} 
+GPIO\+\_\+\+INPUT&0&Digital input; the pin is read through {\ttfamily IDR}. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_OUTPUT@{GPIO\_OUTPUT}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_OUTPUT@{GPIO\_OUTPUT}}
+}\Hypertarget{group__mcal__gpio_ggafb8ae0eef9d79d2066ab67bbf12d9f26aa248e73c1faee9c6f072fd91569cf516}\label{group__mcal__gpio_ggafb8ae0eef9d79d2066ab67bbf12d9f26aa248e73c1faee9c6f072fd91569cf516} 
+GPIO\+\_\+\+OUTPUT&&Digital output; the pin is driven from {\ttfamily ODR}/\+{\ttfamily BSRR}. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_ALTFN@{GPIO\_ALTFN}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_ALTFN@{GPIO\_ALTFN}}
+}\Hypertarget{group__mcal__gpio_ggafb8ae0eef9d79d2066ab67bbf12d9f26afce5a104125420d39288661fe5b1d695}\label{group__mcal__gpio_ggafb8ae0eef9d79d2066ab67bbf12d9f26afce5a104125420d39288661fe5b1d695} 
+GPIO\+\_\+\+ALTFN&&Alternate function; a peripheral (USART, SPI, TIM) owns the pin. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_ANALOG@{GPIO\_ANALOG}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_ANALOG@{GPIO\_ANALOG}}
+}\Hypertarget{group__mcal__gpio_ggafb8ae0eef9d79d2066ab67bbf12d9f26ae8bd62cf000e751ffdce5a9de1c0dcc0}\label{group__mcal__gpio_ggafb8ae0eef9d79d2066ab67bbf12d9f26ae8bd62cf000e751ffdce5a9de1c0dcc0} 
+GPIO\+\_\+\+ANALOG&&Analog; the digital input buffer is disconnected. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00076}{76}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+\Hypertarget{group__mcal__gpio_ga6470c88cd80e5ef53ac53602e73207f0}\index{GPIO@{GPIO}!GPIO\_OutputType\_t@{GPIO\_OutputType\_t}}
+\index{GPIO\_OutputType\_t@{GPIO\_OutputType\_t}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_OutputType\_t}{GPIO\_OutputType\_t}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_ga6470c88cd80e5ef53ac53602e73207f0} 
+enum \doxymbox{\hyperlink{group__mcal__gpio_ga6470c88cd80e5ef53ac53602e73207f0}{GPIO\+\_\+\+Output\+Type\+\_\+t}}}
+
+
+
+Output driver type — the 1-\/bit field written into {\ttfamily OTYPER}. 
+
+\begin{DoxyEnumFields}[3]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PUSH\_PULL@{GPIO\_PUSH\_PULL}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PUSH\_PULL@{GPIO\_PUSH\_PULL}}
+}\Hypertarget{group__mcal__gpio_gga6470c88cd80e5ef53ac53602e73207f0a2ede6e0f1b50e67e840a93701323c775}\label{group__mcal__gpio_gga6470c88cd80e5ef53ac53602e73207f0a2ede6e0f1b50e67e840a93701323c775} 
+GPIO\+\_\+\+PUSH\+\_\+\+PULL&0&Push-\/pull:\+ the pin actively drives both high and low. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_OPEN\_DRAIN@{GPIO\_OPEN\_DRAIN}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_OPEN\_DRAIN@{GPIO\_OPEN\_DRAIN}}
+}\Hypertarget{group__mcal__gpio_gga6470c88cd80e5ef53ac53602e73207f0a5b0c623028002305892a4558ef0a6222}\label{group__mcal__gpio_gga6470c88cd80e5ef53ac53602e73207f0a5b0c623028002305892a4558ef0a6222} 
+GPIO\+\_\+\+OPEN\+\_\+\+DRAIN&&Open-\/drain:\+ the pin only pulls low, and floats otherwise. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00084}{84}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+\Hypertarget{group__mcal__gpio_ga6d1105e456335fcdc96b3d600c821c9b}\index{GPIO@{GPIO}!GPIO\_NibbleType\_t@{GPIO\_NibbleType\_t}}
+\index{GPIO\_NibbleType\_t@{GPIO\_NibbleType\_t}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_NibbleType\_t}{GPIO\_NibbleType\_t}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_ga6d1105e456335fcdc96b3d600c821c9b} 
+enum \doxymbox{\hyperlink{group__mcal__gpio_ga6d1105e456335fcdc96b3d600c821c9b}{GPIO\+\_\+\+Nibble\+Type\+\_\+t}}}
+
+
+
+Which half of a byte a nibble operation applies to. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_LOW\_NIBBLE@{GPIO\_LOW\_NIBBLE}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_LOW\_NIBBLE@{GPIO\_LOW\_NIBBLE}}
+}\Hypertarget{group__mcal__gpio_gga6d1105e456335fcdc96b3d600c821c9ba34e08cc87834add55cd2aec05fa5cf78}\label{group__mcal__gpio_gga6d1105e456335fcdc96b3d600c821c9ba34e08cc87834add55cd2aec05fa5cf78} 
+GPIO\+\_\+\+LOW\+\_\+\+NIBBLE&Pins 0..3. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_HIGH\_NIBBLE@{GPIO\_HIGH\_NIBBLE}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_HIGH\_NIBBLE@{GPIO\_HIGH\_NIBBLE}}
+}\Hypertarget{group__mcal__gpio_gga6d1105e456335fcdc96b3d600c821c9ba6ceb8c56cc69d3e6f032c0b9e2568b67}\label{group__mcal__gpio_gga6d1105e456335fcdc96b3d600c821c9ba6ceb8c56cc69d3e6f032c0b9e2568b67} 
+GPIO\+\_\+\+HIGH\+\_\+\+NIBBLE&Pins 4..7. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00090}{90}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+\Hypertarget{group__mcal__gpio_gad0390106f85689de1897dd9543754e71}\index{GPIO@{GPIO}!GPIO\_OutputSpeed\_t@{GPIO\_OutputSpeed\_t}}
+\index{GPIO\_OutputSpeed\_t@{GPIO\_OutputSpeed\_t}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_OutputSpeed\_t}{GPIO\_OutputSpeed\_t}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_gad0390106f85689de1897dd9543754e71} 
+enum \doxymbox{\hyperlink{group__mcal__gpio_gad0390106f85689de1897dd9543754e71}{GPIO\+\_\+\+Output\+Speed\+\_\+t}}}
+
+
+
+Output slew rate — the 2-\/bit field written into {\ttfamily OSPEEDR}. 
+
+\begin{DoxyNote}{Note}
+A faster edge means more EMI. Use the slowest speed the signal allows; the LEDs and the buzzer are perfectly happy at \doxylink{group__mcal__gpio_ggad0390106f85689de1897dd9543754e71adad1d99afc424c9903c2116308da5778}{GPIO\+\_\+\+LOW\+\_\+\+SPEED}. 
+\end{DoxyNote}
+\begin{DoxyEnumFields}[3]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_LOW\_SPEED@{GPIO\_LOW\_SPEED}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_LOW\_SPEED@{GPIO\_LOW\_SPEED}}
+}\Hypertarget{group__mcal__gpio_ggad0390106f85689de1897dd9543754e71adad1d99afc424c9903c2116308da5778}\label{group__mcal__gpio_ggad0390106f85689de1897dd9543754e71adad1d99afc424c9903c2116308da5778} 
+GPIO\+\_\+\+LOW\+\_\+\+SPEED&0&Low speed. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_MEDIUM\_SPEED@{GPIO\_MEDIUM\_SPEED}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_MEDIUM\_SPEED@{GPIO\_MEDIUM\_SPEED}}
+}\Hypertarget{group__mcal__gpio_ggad0390106f85689de1897dd9543754e71a83efc1b373fff74ccc8ff155acb523bb}\label{group__mcal__gpio_ggad0390106f85689de1897dd9543754e71a83efc1b373fff74ccc8ff155acb523bb} 
+GPIO\+\_\+\+MEDIUM\+\_\+\+SPEED&&Medium speed. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_HIGH\_SPEED@{GPIO\_HIGH\_SPEED}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_HIGH\_SPEED@{GPIO\_HIGH\_SPEED}}
+}\Hypertarget{group__mcal__gpio_ggad0390106f85689de1897dd9543754e71adb3d95caeba959c63a9709ca19a9cd04}\label{group__mcal__gpio_ggad0390106f85689de1897dd9543754e71adb3d95caeba959c63a9709ca19a9cd04} 
+GPIO\+\_\+\+HIGH\+\_\+\+SPEED&&High speed. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_VERY\_HIGH\_SPEED@{GPIO\_VERY\_HIGH\_SPEED}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_VERY\_HIGH\_SPEED@{GPIO\_VERY\_HIGH\_SPEED}}
+}\Hypertarget{group__mcal__gpio_ggad0390106f85689de1897dd9543754e71af7087f6e3a0ec17c4e20a95a42e694f1}\label{group__mcal__gpio_ggad0390106f85689de1897dd9543754e71af7087f6e3a0ec17c4e20a95a42e694f1} 
+GPIO\+\_\+\+VERY\+\_\+\+HIGH\+\_\+\+SPEED&&Very high speed. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00100}{100}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+\Hypertarget{group__mcal__gpio_gaf3291f1e475675bffc656c9f0c4c7399}\index{GPIO@{GPIO}!GPIO\_PullUpDown\_t@{GPIO\_PullUpDown\_t}}
+\index{GPIO\_PullUpDown\_t@{GPIO\_PullUpDown\_t}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_PullUpDown\_t}{GPIO\_PullUpDown\_t}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_gaf3291f1e475675bffc656c9f0c4c7399} 
+enum \doxymbox{\hyperlink{group__mcal__gpio_gaf3291f1e475675bffc656c9f0c4c7399}{GPIO\+\_\+\+Pull\+Up\+Down\+\_\+t}}}
+
+
+
+Internal pull resistor — the 2-\/bit field written into {\ttfamily PUPDR}. 
+
+\begin{DoxyEnumFields}[3]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_NO\_PULL@{GPIO\_NO\_PULL}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_NO\_PULL@{GPIO\_NO\_PULL}}
+}\Hypertarget{group__mcal__gpio_ggaf3291f1e475675bffc656c9f0c4c7399aa528b4821b033fe90e0b186ada74fa10}\label{group__mcal__gpio_ggaf3291f1e475675bffc656c9f0c4c7399aa528b4821b033fe90e0b186ada74fa10} 
+GPIO\+\_\+\+NO\+\_\+\+PULL&0&Floating:\+ no internal pull resistor. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PULL\_UP@{GPIO\_PULL\_UP}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PULL\_UP@{GPIO\_PULL\_UP}}
+}\Hypertarget{group__mcal__gpio_ggaf3291f1e475675bffc656c9f0c4c7399ae7d1b2a9078939dd744dd9a7cd61d9df}\label{group__mcal__gpio_ggaf3291f1e475675bffc656c9f0c4c7399ae7d1b2a9078939dd744dd9a7cd61d9df} 
+GPIO\+\_\+\+PULL\+\_\+\+UP&&Internal pull-\/up to VDD. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PULL\_DOWN@{GPIO\_PULL\_DOWN}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PULL\_DOWN@{GPIO\_PULL\_DOWN}}
+}\Hypertarget{group__mcal__gpio_ggaf3291f1e475675bffc656c9f0c4c7399a93970a9b4ab92816371682f4e537a8e2}\label{group__mcal__gpio_ggaf3291f1e475675bffc656c9f0c4c7399a93970a9b4ab92816371682f4e537a8e2} 
+GPIO\+\_\+\+PULL\+\_\+\+DOWN&&Internal pull-\/down to VSS. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00108}{108}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+\Hypertarget{group__mcal__gpio_gad4b5b539106097ea7ee4b71e93a45bdd}\index{GPIO@{GPIO}!GPIO\_AlternateFunction\_t@{GPIO\_AlternateFunction\_t}}
+\index{GPIO\_AlternateFunction\_t@{GPIO\_AlternateFunction\_t}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_AlternateFunction\_t}{GPIO\_AlternateFunction\_t}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_gad4b5b539106097ea7ee4b71e93a45bdd} 
+enum \doxymbox{\hyperlink{group__mcal__gpio_gad4b5b539106097ea7ee4b71e93a45bdd}{GPIO\+\_\+\+Alternate\+Function\+\_\+t}}}
+
+
+
+Alternate-\/function number — the 4-\/bit field written into {\ttfamily AFR\+[]\+}. 
+
+\begin{DoxyNote}{Note}
+Which AF number maps to which peripheral is fixed by the datasheet\textquotesingle{}s alternate-\/function table, not by this driver. On this board the ones that matter are AF5 (SPI1, the IMU) and AF7 (USART1/\+\+USART2). 
+\end{DoxyNote}
+\begin{DoxyEnumFields}[3]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_AF0@{GPIO\_AF0}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_AF0@{GPIO\_AF0}}
+}\Hypertarget{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda87ca1e0df0502682e4a49533809ddcbc}\label{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda87ca1e0df0502682e4a49533809ddcbc} 
+GPIO\+\_\+\+AF0&0&AF0 — system (MCO, SWD, JTAG). \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_AF1@{GPIO\_AF1}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_AF1@{GPIO\_AF1}}
+}\Hypertarget{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda0ef8189f5ce80052d8c80cde9ea8a4ef}\label{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda0ef8189f5ce80052d8c80cde9ea8a4ef} 
+GPIO\+\_\+\+AF1&&AF1 — TIM1/\+\+TIM2. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_AF2@{GPIO\_AF2}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_AF2@{GPIO\_AF2}}
+}\Hypertarget{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda115d1f06f5d9bb1d760ffc38b2d8c7d3}\label{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda115d1f06f5d9bb1d760ffc38b2d8c7d3} 
+GPIO\+\_\+\+AF2&&AF2 — TIM3/\+\+TIM4/\+\+TIM5. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_AF3@{GPIO\_AF3}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_AF3@{GPIO\_AF3}}
+}\Hypertarget{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda6ee7ecdedade2eea2ba6459bd8f794f2}\label{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda6ee7ecdedade2eea2ba6459bd8f794f2} 
+GPIO\+\_\+\+AF3&&AF3 — TIM8..TIM11. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_AF4@{GPIO\_AF4}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_AF4@{GPIO\_AF4}}
+}\Hypertarget{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda34f938f8d7f13c07233e265a2a9134ca}\label{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda34f938f8d7f13c07233e265a2a9134ca} 
+GPIO\+\_\+\+AF4&&AF4 — I2\+C1..I2\+C3. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_AF5@{GPIO\_AF5}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_AF5@{GPIO\_AF5}}
+}\Hypertarget{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda22966ec392207510a9861fe3c26cfeab}\label{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda22966ec392207510a9861fe3c26cfeab} 
+GPIO\+\_\+\+AF5&&AF5 — SPI1/\+\+SPI2/\+\+SPI4 (the MPU9250 link). \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_AF6@{GPIO\_AF6}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_AF6@{GPIO\_AF6}}
+}\Hypertarget{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda4d0453c14e75bca3327ee60f9e3fb00f}\label{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda4d0453c14e75bca3327ee60f9e3fb00f} 
+GPIO\+\_\+\+AF6&&AF6 — SPI3. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_AF7@{GPIO\_AF7}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_AF7@{GPIO\_AF7}}
+}\Hypertarget{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bddab9977fcdc662307e4df15ab3435d5087}\label{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bddab9977fcdc662307e4df15ab3435d5087} 
+GPIO\+\_\+\+AF7&&AF7 — USART1/\+\+USART2/\+\+USART3 (the ESP32 and Raspberry Pi links). \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_AF8@{GPIO\_AF8}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_AF8@{GPIO\_AF8}}
+}\Hypertarget{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda38152bf620eb4ed1debc6c2351ad3db0}\label{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda38152bf620eb4ed1debc6c2351ad3db0} 
+GPIO\+\_\+\+AF8&&AF8 — UART4..UART6. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_AF9@{GPIO\_AF9}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_AF9@{GPIO\_AF9}}
+}\Hypertarget{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda5e721ad608ffd1e0530bc3d266a877d5}\label{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda5e721ad608ffd1e0530bc3d266a877d5} 
+GPIO\+\_\+\+AF9&&AF9 — CAN1/\+\+CAN2, TIM12..TIM14. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_AF10@{GPIO\_AF10}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_AF10@{GPIO\_AF10}}
+}\Hypertarget{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda502b67e92ad83116b3067b02862c39a9}\label{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda502b67e92ad83116b3067b02862c39a9} 
+GPIO\+\_\+\+AF10&&AF10 — USB OTG. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_AF11@{GPIO\_AF11}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_AF11@{GPIO\_AF11}}
+}\Hypertarget{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bddad955dd2b1f56ee5176621b076b82c6f1}\label{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bddad955dd2b1f56ee5176621b076b82c6f1} 
+GPIO\+\_\+\+AF11&&AF11 — reserved on this part. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_AF12@{GPIO\_AF12}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_AF12@{GPIO\_AF12}}
+}\Hypertarget{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bddaab0d7792752ef7856d12b1919241f29c}\label{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bddaab0d7792752ef7856d12b1919241f29c} 
+GPIO\+\_\+\+AF12&&AF12 — SDIO, FMC. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_AF13@{GPIO\_AF13}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_AF13@{GPIO\_AF13}}
+}\Hypertarget{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bddac990d86e2a6c957d4bf2d72772b55ec4}\label{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bddac990d86e2a6c957d4bf2d72772b55ec4} 
+GPIO\+\_\+\+AF13&&AF13 — DCMI. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_AF14@{GPIO\_AF14}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_AF14@{GPIO\_AF14}}
+}\Hypertarget{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda661b593043b2fbe70e380b0b227ddbb4}\label{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda661b593043b2fbe70e380b0b227ddbb4} 
+GPIO\+\_\+\+AF14&&AF14 — reserved on this part. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_AF15@{GPIO\_AF15}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_AF15@{GPIO\_AF15}}
+}\Hypertarget{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda23f57b0577422fa3d049deb151493e0c}\label{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda23f57b0577422fa3d049deb151493e0c} 
+GPIO\+\_\+\+AF15&&AF15 — EVENTOUT. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00120}{120}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+\Hypertarget{group__mcal__gpio_ga39c3ed4d8322ee2c517bd0d8e064e4f8}\index{GPIO@{GPIO}!GPIO\_PinValue\_t@{GPIO\_PinValue\_t}}
+\index{GPIO\_PinValue\_t@{GPIO\_PinValue\_t}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_PinValue\_t}{GPIO\_PinValue\_t}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_ga39c3ed4d8322ee2c517bd0d8e064e4f8} 
+enum \doxymbox{\hyperlink{group__mcal__gpio_ga39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}}}
+
+
+
+Logic level of a pin. 
+
+\begin{DoxyEnumFields}[3]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PIN\_LOW@{GPIO\_PIN\_LOW}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PIN\_LOW@{GPIO\_PIN\_LOW}}
+}\Hypertarget{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8a15615df0be390aa56563c157ddb5454e}\label{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8a15615df0be390aa56563c157ddb5454e} 
+GPIO\+\_\+\+PIN\+\_\+\+LOW&0&Logic 0 /\+ 0 V. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GPIO\_PIN\_HIGH@{GPIO\_PIN\_HIGH}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!GPIO\_PIN\_HIGH@{GPIO\_PIN\_HIGH}}
+}\Hypertarget{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8acef36245ca64f0574b6a3381d607ee23}\label{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8acef36245ca64f0574b6a3381d607ee23} 
+GPIO\+\_\+\+PIN\+\_\+\+HIGH&&Logic 1 /\+ VDD. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00140}{140}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+\Hypertarget{group__mcal__gpio_gad4ea6c990a6034958a26738897bed6a8}\index{GPIO@{GPIO}!GPIO\_PortHalf\_t@{GPIO\_PortHalf\_t}}
+\index{GPIO\_PortHalf\_t@{GPIO\_PortHalf\_t}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_PortHalf\_t}{GPIO\_PortHalf\_t}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_gad4ea6c990a6034958a26738897bed6a8} 
+enum \doxymbox{\hyperlink{group__mcal__gpio_gad4ea6c990a6034958a26738897bed6a8}{GPIO\+\_\+\+Port\+Half\+\_\+t}}}
+
+
+
+Which half of a port a half-\/port operation applies to. 
+
+\begin{DoxyEnumFields}[3]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PORT\_FIRST\_HALF@{PORT\_FIRST\_HALF}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!PORT\_FIRST\_HALF@{PORT\_FIRST\_HALF}}
+}\Hypertarget{group__mcal__gpio_ggad4ea6c990a6034958a26738897bed6a8a1ed6a1ac32c251080a3c03f986557b88}\label{group__mcal__gpio_ggad4ea6c990a6034958a26738897bed6a8a1ed6a1ac32c251080a3c03f986557b88} 
+PORT\+\_\+\+FIRST\+\_\+\+HALF&0&Pins 0..7. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PORT\_SECOND\_HALF@{PORT\_SECOND\_HALF}!GPIO@{GPIO}}
+\index{GPIO@{GPIO}!PORT\_SECOND\_HALF@{PORT\_SECOND\_HALF}}
+}\Hypertarget{group__mcal__gpio_ggad4ea6c990a6034958a26738897bed6a8add2bcec24206230b1e7ad954888aeb17}\label{group__mcal__gpio_ggad4ea6c990a6034958a26738897bed6a8add2bcec24206230b1e7ad954888aeb17} 
+PORT\+\_\+\+SECOND\+\_\+\+HALF&&Pins 8..15. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__interface_8h_source_l00163}{163}} of file \doxymbox{\hyperlink{GPIO__interface_8h_source}{GPIO\+\_\+interface.\+h}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{group__mcal__gpio_doc-func-members}
+\doxysubsubsection{Function Documentation}
+\Hypertarget{group__mcal__gpio_ga2a5e7c89bc6bb7103d96334a8481ea9b}\index{GPIO@{GPIO}!GPIO\_enumPinInit@{GPIO\_enumPinInit}}
+\index{GPIO\_enumPinInit@{GPIO\_enumPinInit}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumPinInit()}{GPIO\_enumPinInit()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_ga2a5e7c89bc6bb7103d96334a8481ea9b} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Pin\+Init (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structGPIO__PinConfig__t}{GPIO\+\_\+\+Pin\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Pin\+Config}{}\end{DoxyParamCaption})}
+
+
+
+Configure a single pin:\+ mode, output type, speed, pull and AF. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Pin\+Config} & Fully populated pin configuration. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The pin was configured. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily Pin\+Config} was NULL. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & A field of {\ttfamily Pin\+Config} was out of range.\\
+\hline
+\end{DoxyRetVals}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\doxymbox{\hyperlink{structGPIO__PinConfig__t}{GPIO\_PinConfig\_t}}\ led\ =\ \{\doxymbox{\hyperlink{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24a0d36b47f173bbc4bdced28d8a54fe4ac}{GPIO\_PORTA}},\ \doxymbox{\hyperlink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14ab3360105a3459dae07b5018c48ae30af}{GPIO\_PIN5}},\ \doxymbox{\hyperlink{group__mcal__gpio_ggafb8ae0eef9d79d2066ab67bbf12d9f26aa248e73c1faee9c6f072fd91569cf516}{GPIO\_OUTPUT}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__mcal__gpio_gga6470c88cd80e5ef53ac53602e73207f0a2ede6e0f1b50e67e840a93701323c775}{GPIO\_PUSH\_PULL}},\ \doxymbox{\hyperlink{group__mcal__gpio_ggad0390106f85689de1897dd9543754e71a83efc1b373fff74ccc8ff155acb523bb}{GPIO\_MEDIUM\_SPEED}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__mcal__gpio_ggaf3291f1e475675bffc656c9f0c4c7399aa528b4821b033fe90e0b186ada74fa10}{GPIO\_NO\_PULL}},\ \doxymbox{\hyperlink{group__mcal__gpio_ggad4b5b539106097ea7ee4b71e93a45bdda87ca1e0df0502682e4a49533809ddcbc}{GPIO\_AF0}}\};}
+\DoxyCodeLine{\doxymbox{\hyperlink{group__mcal__gpio_ga2a5e7c89bc6bb7103d96334a8481ea9b}{GPIO\_enumPinInit}}(\&led);}
+
+\end{DoxyCode}
+ 
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00041}{41}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__private_8h_source_l00033}{AFR\+\_\+\+MASK}}, \doxymbox{\hyperlink{GPIO__private_8h_source_l00034}{AFR\+\_\+\+PIN\+\_\+\+ACCESS}}, \doxymbox{\hyperlink{GPIO__private_8h_source_l00035}{AFR\+\_\+\+PIN\+\_\+\+SHIFT}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00159}{GPIO\+\_\+\+Pin\+Config\+\_\+t::\+\+Alternate\+Function}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00136}{GPIO\+\_\+\+AF15}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00079}{GPIO\+\_\+\+ALTFN}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00080}{GPIO\+\_\+\+ANALOG}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00086}{GPIO\+\_\+\+OPEN\+\_\+\+DRAIN}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00078}{GPIO\+\_\+\+OUTPUT}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00072}{GPIO\+\_\+\+PIN15}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00026}{GPIO\+\_\+\+Port}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00052}{GPIO\+\_\+\+PORTH}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00111}{GPIO\+\_\+\+PULL\+\_\+\+DOWN}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00104}{GPIO\+\_\+\+VERY\+\_\+\+HIGH\+\_\+\+SPEED}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00155}{GPIO\+\_\+\+Pin\+Config\+\_\+t::\+\+Mode}}, \doxymbox{\hyperlink{GPIO__private_8h_source_l00022}{MODER\+\_\+\+MASK}}, \doxymbox{\hyperlink{GPIO__private_8h_source_l00023}{MODER\+\_\+\+PIN\+\_\+\+ACCESS}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{GPIO__private_8h_source_l00027}{OSPEEDR\+\_\+\+MASK}}, \doxymbox{\hyperlink{GPIO__private_8h_source_l00028}{OSPEEDR\+\_\+\+PIN\+\_\+\+ACCESS}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00156}{GPIO\+\_\+\+Pin\+Config\+\_\+t::\+\+Otype}}, \doxymbox{\hyperlink{GPIO__private_8h_source_l00025}{OTYPER\+\_\+\+MASK}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00154}{GPIO\+\_\+\+Pin\+Config\+\_\+t::\+\+Pin\+Num}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00153}{GPIO\+\_\+\+Pin\+Config\+\_\+t::\+\+Port}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00158}{GPIO\+\_\+\+Pin\+Config\+\_\+t::\+\+Pull\+Type}}, \doxymbox{\hyperlink{GPIO__private_8h_source_l00030}{PUPDR\+\_\+\+MASK}}, \doxymbox{\hyperlink{GPIO__private_8h_source_l00031}{PUPDR\+\_\+\+PIN\+\_\+\+ACCESS}}, and \doxymbox{\hyperlink{GPIO__interface_8h_source_l00157}{GPIO\+\_\+\+Pin\+Config\+\_\+t::\+\+Speed}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{BUZ__program_8c_source_l00017}{BUZ\+\_\+\+Init()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00187}{GPIO\+\_\+enum\+Byte\+Init()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00230}{GPIO\+\_\+enum\+Half\+Port\+Init()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00144}{GPIO\+\_\+enum\+High\+Nibble\+Init()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00101}{GPIO\+\_\+enum\+Low\+Nibble\+Init()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00376}{GPIO\+\_\+enum\+Port4\+Pins\+Init()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00323}{GPIO\+\_\+enum\+Port8\+Pins\+Init()}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00273}{GPIO\+\_\+enum\+Port\+Init()}}, \doxymbox{\hyperlink{LED__prog_8c_source_l00026}{LED\+\_\+\+Init()}}, \doxymbox{\hyperlink{MPU9250__program_8c_source_l00156}{MPU9250\+\_\+enum\+Init()}}, \doxymbox{\hyperlink{System_8c_source_l00133}{System\+\_\+setup()}}, and \doxymbox{\hyperlink{US__prog_8c_source_l00196}{US\+\_\+v\+Init()}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__mcal__gpio_ga2a5e7c89bc6bb7103d96334a8481ea9b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__mcal__gpio_gace91b940fa22755a89e086016721f8aa}\index{GPIO@{GPIO}!GPIO\_enumLowNibbleInit@{GPIO\_enumLowNibbleInit}}
+\index{GPIO\_enumLowNibbleInit@{GPIO\_enumLowNibbleInit}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumLowNibbleInit()}{GPIO\_enumLowNibbleInit()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_gace91b940fa22755a89e086016721f8aa} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Low\+Nibble\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structGPIO__LowNibbleConfig__t}{GPIO\+\_\+\+Low\+Nibble\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Low\+Nibble\+Config}{}\end{DoxyParamCaption})}
+
+
+
+Configure pins 0..3 of a port identically, in one call. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Low\+Nibble\+Config} & Configuration to apply to the low nibble. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The four pins were configured. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily Low\+Nibble\+Config} was NULL. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & A field of {\ttfamily Low\+Nibble\+Config} was out of range. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00101}{101}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__prog_8c_source_l00041}{GPIO\+\_\+enum\+Pin\+Init()}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00086}{GPIO\+\_\+\+OPEN\+\_\+\+DRAIN}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00078}{GPIO\+\_\+\+OUTPUT}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00057}{GPIO\+\_\+\+PIN0}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00072}{GPIO\+\_\+\+PIN15}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00060}{GPIO\+\_\+\+PIN3}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00052}{GPIO\+\_\+\+PORTH}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00111}{GPIO\+\_\+\+PULL\+\_\+\+DOWN}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00104}{GPIO\+\_\+\+VERY\+\_\+\+HIGH\+\_\+\+SPEED}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00200}{GPIO\+\_\+\+Low\+Nibble\+Config\+\_\+t::\+\+Mode}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00201}{GPIO\+\_\+\+Low\+Nibble\+Config\+\_\+t::\+\+Otype}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00198}{GPIO\+\_\+\+Low\+Nibble\+Config\+\_\+t::\+\+Port}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00203}{GPIO\+\_\+\+Low\+Nibble\+Config\+\_\+t::\+\+Pull\+Type}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00202}{GPIO\+\_\+\+Low\+Nibble\+Config\+\_\+t::\+\+Speed}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00199}{GPIO\+\_\+\+Low\+Nibble\+Config\+\_\+t::\+\+Start\+Pin}}, and \doxymbox{\hyperlink{GPIO__private_8h_source_l00017}{UNUSED}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__mcal__gpio_gace91b940fa22755a89e086016721f8aa_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__mcal__gpio_gaf5bb58748b4f2cf70c674d9566b63a97}\index{GPIO@{GPIO}!GPIO\_enumHighNibbleInit@{GPIO\_enumHighNibbleInit}}
+\index{GPIO\_enumHighNibbleInit@{GPIO\_enumHighNibbleInit}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumHighNibbleInit()}{GPIO\_enumHighNibbleInit()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_gaf5bb58748b4f2cf70c674d9566b63a97} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+High\+Nibble\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structGPIO__HighNibbleConfig__t}{GPIO\+\_\+\+High\+Nibble\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{High\+Nibble\+Config}{}\end{DoxyParamCaption})}
+
+
+
+Configure pins 4..7 of a port identically, in one call. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em High\+Nibble\+Config} & Configuration to apply to the high nibble. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The four pins were configured. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily High\+Nibble\+Config} was NULL. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & A field of {\ttfamily High\+Nibble\+Config} was out of range. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00144}{144}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__prog_8c_source_l00041}{GPIO\+\_\+enum\+Pin\+Init()}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00086}{GPIO\+\_\+\+OPEN\+\_\+\+DRAIN}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00078}{GPIO\+\_\+\+OUTPUT}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00072}{GPIO\+\_\+\+PIN15}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00061}{GPIO\+\_\+\+PIN4}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00064}{GPIO\+\_\+\+PIN7}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00052}{GPIO\+\_\+\+PORTH}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00111}{GPIO\+\_\+\+PULL\+\_\+\+DOWN}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00104}{GPIO\+\_\+\+VERY\+\_\+\+HIGH\+\_\+\+SPEED}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00210}{GPIO\+\_\+\+High\+Nibble\+Config\+\_\+t::\+\+Mode}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00211}{GPIO\+\_\+\+High\+Nibble\+Config\+\_\+t::\+\+Otype}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00208}{GPIO\+\_\+\+High\+Nibble\+Config\+\_\+t::\+\+Port}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00213}{GPIO\+\_\+\+High\+Nibble\+Config\+\_\+t::\+\+Pull\+Type}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00212}{GPIO\+\_\+\+High\+Nibble\+Config\+\_\+t::\+\+Speed}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00209}{GPIO\+\_\+\+High\+Nibble\+Config\+\_\+t::\+\+Start\+Pin}}, and \doxymbox{\hyperlink{GPIO__private_8h_source_l00017}{UNUSED}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__mcal__gpio_gaf5bb58748b4f2cf70c674d9566b63a97_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__mcal__gpio_ga593d4ac1bc1d7198c9c3d56d05e23a07}\index{GPIO@{GPIO}!GPIO\_enumByteInit@{GPIO\_enumByteInit}}
+\index{GPIO\_enumByteInit@{GPIO\_enumByteInit}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumByteInit()}{GPIO\_enumByteInit()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_ga593d4ac1bc1d7198c9c3d56d05e23a07} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Byte\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structGPIO__ByteConfig__t}{GPIO\+\_\+\+Byte\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Byte\+Config}{}\end{DoxyParamCaption})}
+
+
+
+Configure pins 0..7 of a port identically, in one call. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Byte\+Config} & Configuration to apply to the low byte. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The eight pins were configured. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily Byte\+Config} was NULL. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & A field of {\ttfamily Byte\+Config} was out of range. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00187}{187}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__prog_8c_source_l00041}{GPIO\+\_\+enum\+Pin\+Init()}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00086}{GPIO\+\_\+\+OPEN\+\_\+\+DRAIN}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00078}{GPIO\+\_\+\+OUTPUT}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00057}{GPIO\+\_\+\+PIN0}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00072}{GPIO\+\_\+\+PIN15}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00064}{GPIO\+\_\+\+PIN7}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00052}{GPIO\+\_\+\+PORTH}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00111}{GPIO\+\_\+\+PULL\+\_\+\+DOWN}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00104}{GPIO\+\_\+\+VERY\+\_\+\+HIGH\+\_\+\+SPEED}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00220}{GPIO\+\_\+\+Byte\+Config\+\_\+t::\+\+Mode}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00221}{GPIO\+\_\+\+Byte\+Config\+\_\+t::\+\+Otype}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00218}{GPIO\+\_\+\+Byte\+Config\+\_\+t::\+\+Port}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00223}{GPIO\+\_\+\+Byte\+Config\+\_\+t::\+\+Pull\+Type}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00222}{GPIO\+\_\+\+Byte\+Config\+\_\+t::\+\+Speed}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00219}{GPIO\+\_\+\+Byte\+Config\+\_\+t::\+\+Start\+Pin}}, and \doxymbox{\hyperlink{GPIO__private_8h_source_l00017}{UNUSED}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=331pt]{group__mcal__gpio_ga593d4ac1bc1d7198c9c3d56d05e23a07_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__mcal__gpio_ga47aacfc99199904d2956173186b94d7f}\index{GPIO@{GPIO}!GPIO\_enumHalfPortInit@{GPIO\_enumHalfPortInit}}
+\index{GPIO\_enumHalfPortInit@{GPIO\_enumHalfPortInit}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumHalfPortInit()}{GPIO\_enumHalfPortInit()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_ga47aacfc99199904d2956173186b94d7f} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Half\+Port\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structGPIO__HalfPortConfig__t}{GPIO\+\_\+\+Half\+Port\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Half\+Port\+Config}{}\end{DoxyParamCaption})}
+
+
+
+Configure half a port identically, in one call. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Half\+Port\+Config} & Configuration to apply to the half port. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The pins were configured. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily Half\+Port\+Config} was NULL. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & A field of {\ttfamily Half\+Port\+Config} was out of range. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00230}{230}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__prog_8c_source_l00041}{GPIO\+\_\+enum\+Pin\+Init()}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00086}{GPIO\+\_\+\+OPEN\+\_\+\+DRAIN}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00078}{GPIO\+\_\+\+OUTPUT}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00057}{GPIO\+\_\+\+PIN0}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00072}{GPIO\+\_\+\+PIN15}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00064}{GPIO\+\_\+\+PIN7}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00052}{GPIO\+\_\+\+PORTH}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00111}{GPIO\+\_\+\+PULL\+\_\+\+DOWN}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00104}{GPIO\+\_\+\+VERY\+\_\+\+HIGH\+\_\+\+SPEED}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00230}{GPIO\+\_\+\+Half\+Port\+Config\+\_\+t::\+\+Mode}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00231}{GPIO\+\_\+\+Half\+Port\+Config\+\_\+t::\+\+Otype}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00228}{GPIO\+\_\+\+Half\+Port\+Config\+\_\+t::\+\+Port}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00233}{GPIO\+\_\+\+Half\+Port\+Config\+\_\+t::\+\+Pull\+Type}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00232}{GPIO\+\_\+\+Half\+Port\+Config\+\_\+t::\+\+Speed}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00229}{GPIO\+\_\+\+Half\+Port\+Config\+\_\+t::\+\+Start\+Pin}}, and \doxymbox{\hyperlink{GPIO__private_8h_source_l00017}{UNUSED}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{group__mcal__gpio_ga47aacfc99199904d2956173186b94d7f_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__mcal__gpio_ga2c01501f7ac9ed6dc2c172776c9203fa}\index{GPIO@{GPIO}!GPIO\_enumPortInit@{GPIO\_enumPortInit}}
+\index{GPIO\_enumPortInit@{GPIO\_enumPortInit}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumPortInit()}{GPIO\_enumPortInit()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_ga2c01501f7ac9ed6dc2c172776c9203fa} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Port\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structGPIO__PortConfig__t}{GPIO\+\_\+\+Port\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Port\+Config}{}\end{DoxyParamCaption})}
+
+
+
+Configure all 16 pins of a port identically, in one call. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Port\+Config} & Configuration to apply to the whole port. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The sixteen pins were configured. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily Port\+Config} was NULL. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & A field of {\ttfamily Port\+Config} was out of range. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00273}{273}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__prog_8c_source_l00041}{GPIO\+\_\+enum\+Pin\+Init()}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00086}{GPIO\+\_\+\+OPEN\+\_\+\+DRAIN}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00078}{GPIO\+\_\+\+OUTPUT}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00057}{GPIO\+\_\+\+PIN0}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00072}{GPIO\+\_\+\+PIN15}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00052}{GPIO\+\_\+\+PORTH}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00111}{GPIO\+\_\+\+PULL\+\_\+\+DOWN}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00104}{GPIO\+\_\+\+VERY\+\_\+\+HIGH\+\_\+\+SPEED}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00240}{GPIO\+\_\+\+Port\+Config\+\_\+t::\+\+Mode}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00241}{GPIO\+\_\+\+Port\+Config\+\_\+t::\+\+Otype}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00238}{GPIO\+\_\+\+Port\+Config\+\_\+t::\+\+Port}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00243}{GPIO\+\_\+\+Port\+Config\+\_\+t::\+\+Pull\+Type}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00242}{GPIO\+\_\+\+Port\+Config\+\_\+t::\+\+Speed}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00239}{GPIO\+\_\+\+Port\+Config\+\_\+t::\+\+Start\+Pin}}, and \doxymbox{\hyperlink{GPIO__private_8h_source_l00017}{UNUSED}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{group__mcal__gpio_ga2c01501f7ac9ed6dc2c172776c9203fa_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__mcal__gpio_ga0e3f73a3160885bf15f427e9e894f2de}\index{GPIO@{GPIO}!GPIO\_enumPort8PinsInit@{GPIO\_enumPort8PinsInit}}
+\index{GPIO\_enumPort8PinsInit@{GPIO\_enumPort8PinsInit}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumPort8PinsInit()}{GPIO\_enumPort8PinsInit()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_ga0e3f73a3160885bf15f427e9e894f2de} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Port8\+Pins\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structGPIO__8PinsConfig__t}{GPIO\+\_\+8\+Pins\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{GPIO\+\_\+8\+Pins\+Config}{}\end{DoxyParamCaption})}
+
+
+
+Configure 8 consecutive pins starting at an arbitrary pin. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em GPIO\+\_\+8\+Pins\+Config} & Configuration, including the first pin of the run. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The eight pins were configured. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily GPIO\+\_\+8\+Pins\+Config} was NULL. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & A field was out of range, or the run would not fit in the port. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00323}{323}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__prog_8c_source_l00041}{GPIO\+\_\+enum\+Pin\+Init()}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00086}{GPIO\+\_\+\+OPEN\+\_\+\+DRAIN}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00078}{GPIO\+\_\+\+OUTPUT}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00072}{GPIO\+\_\+\+PIN15}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00052}{GPIO\+\_\+\+PORTH}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00111}{GPIO\+\_\+\+PULL\+\_\+\+DOWN}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00104}{GPIO\+\_\+\+VERY\+\_\+\+HIGH\+\_\+\+SPEED}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00176}{GPIO\+\_\+8\+Pins\+Config\+\_\+t::\+\+Mode}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00177}{GPIO\+\_\+8\+Pins\+Config\+\_\+t::\+\+Otype}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00174}{GPIO\+\_\+8\+Pins\+Config\+\_\+t::\+\+Port}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00179}{GPIO\+\_\+8\+Pins\+Config\+\_\+t::\+\+Pull\+Type}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00178}{GPIO\+\_\+8\+Pins\+Config\+\_\+t::\+\+Speed}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00175}{GPIO\+\_\+8\+Pins\+Config\+\_\+t::\+\+Start\+Pin}}, and \doxymbox{\hyperlink{GPIO__private_8h_source_l00017}{UNUSED}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__mcal__gpio_ga0e3f73a3160885bf15f427e9e894f2de_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__mcal__gpio_ga50576e5cecad40f4fa820bdacf2c270a}\index{GPIO@{GPIO}!GPIO\_enumPort4PinsInit@{GPIO\_enumPort4PinsInit}}
+\index{GPIO\_enumPort4PinsInit@{GPIO\_enumPort4PinsInit}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumPort4PinsInit()}{GPIO\_enumPort4PinsInit()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_ga50576e5cecad40f4fa820bdacf2c270a} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Port4\+Pins\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structGPIO__4PinsConfig__t}{GPIO\+\_\+4\+Pins\+Config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{GPIO\+\_\+4\+Pins\+Config}{}\end{DoxyParamCaption})}
+
+
+
+Configure 4 consecutive pins starting at an arbitrary pin. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em GPIO\+\_\+4\+Pins\+Config} & Configuration, including the first pin of the run. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The four pins were configured. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily GPIO\+\_\+4\+Pins\+Config} was NULL. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & A field was out of range, or the run would not fit in the port. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00376}{376}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__prog_8c_source_l00041}{GPIO\+\_\+enum\+Pin\+Init()}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00086}{GPIO\+\_\+\+OPEN\+\_\+\+DRAIN}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00078}{GPIO\+\_\+\+OUTPUT}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00072}{GPIO\+\_\+\+PIN15}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00052}{GPIO\+\_\+\+PORTH}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00111}{GPIO\+\_\+\+PULL\+\_\+\+DOWN}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00104}{GPIO\+\_\+\+VERY\+\_\+\+HIGH\+\_\+\+SPEED}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00190}{GPIO\+\_\+4\+Pins\+Config\+\_\+t::\+\+Mode}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00191}{GPIO\+\_\+4\+Pins\+Config\+\_\+t::\+\+Otype}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00188}{GPIO\+\_\+4\+Pins\+Config\+\_\+t::\+\+Port}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00193}{GPIO\+\_\+4\+Pins\+Config\+\_\+t::\+\+Pull\+Type}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00192}{GPIO\+\_\+4\+Pins\+Config\+\_\+t::\+\+Speed}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00189}{GPIO\+\_\+4\+Pins\+Config\+\_\+t::\+\+Start\+Pin}}, and \doxymbox{\hyperlink{GPIO__private_8h_source_l00017}{UNUSED}}.
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__mcal__gpio_ga50576e5cecad40f4fa820bdacf2c270a_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__mcal__gpio_gab8efebd278bcf731012c238a3f69fb5c}\index{GPIO@{GPIO}!GPIO\_enumWritePinVal@{GPIO\_enumWritePinVal}}
+\index{GPIO\_enumWritePinVal@{GPIO\_enumWritePinVal}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumWritePinVal()}{GPIO\_enumWritePinVal()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_gab8efebd278bcf731012c238a3f69fb5c} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Write\+Pin\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{Port}{, }\item[{\doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}}}]{Pin\+Num}{, }\item[{\doxymbox{\hyperlink{group__mcal__gpio_ga39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}}}]{Pin\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Drive one output pin high or low. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Port} & Which port. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Pin\+Num} & Which pin. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Pin\+Val} & \doxylink{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8acef36245ca64f0574b6a3381d607ee23}{GPIO\+\_\+\+PIN\+\_\+\+HIGH} or \doxylink{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8a15615df0be390aa56563c157ddb5454e}{GPIO\+\_\+\+PIN\+\_\+\+LOW}. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The pin was driven. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & {\ttfamily Port}, {\ttfamily Pin\+Num} or {\ttfamily Pin\+Val} was out of range.\\
+\hline
+\end{DoxyRetVals}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\doxymbox{\hyperlink{group__mcal__gpio_gab8efebd278bcf731012c238a3f69fb5c}{GPIO\_enumWritePinVal}}(\doxymbox{\hyperlink{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24a0d36b47f173bbc4bdced28d8a54fe4ac}{GPIO\_PORTA}},\ \doxymbox{\hyperlink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14ab3360105a3459dae07b5018c48ae30af}{GPIO\_PIN5}},\ \doxymbox{\hyperlink{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8acef36245ca64f0574b6a3381d607ee23}{GPIO\_PIN\_HIGH}});}
+
+\end{DoxyCode}
+ 
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00475}{475}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__interface_8h_source_l00072}{GPIO\+\_\+\+PIN15}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00142}{GPIO\+\_\+\+PIN\+\_\+\+HIGH}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00141}{GPIO\+\_\+\+PIN\+\_\+\+LOW}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00026}{GPIO\+\_\+\+Port}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00052}{GPIO\+\_\+\+PORTH}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{BUZ__program_8c_source_l00073}{BUZ\+\_\+\+Off()}}, \doxymbox{\hyperlink{BUZ__program_8c_source_l00053}{BUZ\+\_\+\+On()}}, \doxymbox{\hyperlink{LED__prog_8c_source_l00089}{LED\+\_\+\+Turn\+Off()}}, \doxymbox{\hyperlink{LED__prog_8c_source_l00059}{LED\+\_\+\+Turn\+On()}}, \doxymbox{\hyperlink{MPU9250__program_8c_source_l00057}{MPU9250\+\_\+v\+Deselect()}}, \doxymbox{\hyperlink{MPU9250__program_8c_source_l00055}{MPU9250\+\_\+v\+Select()}}, and \doxymbox{\hyperlink{US__prog_8c_source_l00096}{US\+\_\+v\+Send\+Trigger()}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__mcal__gpio_gab8efebd278bcf731012c238a3f69fb5c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__mcal__gpio_ga3f0a533051c125627062a50e8a38fded}\index{GPIO@{GPIO}!GPIO\_enumReadPinVal@{GPIO\_enumReadPinVal}}
+\index{GPIO\_enumReadPinVal@{GPIO\_enumReadPinVal}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumReadPinVal()}{GPIO\_enumReadPinVal()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_ga3f0a533051c125627062a50e8a38fded} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Read\+Pin\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{Port}{, }\item[{\doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}}}]{Pin\+Num}{, }\item[{\doxymbox{\hyperlink{group__mcal__gpio_ga39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{Pin\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Read the level currently present on one pin. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Port} & Which port. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Pin\+Num} & Which pin. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em Pin\+Val} & Receives \doxylink{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8acef36245ca64f0574b6a3381d607ee23}{GPIO\+\_\+\+PIN\+\_\+\+HIGH} or \doxylink{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8a15615df0be390aa56563c157ddb5454e}{GPIO\+\_\+\+PIN\+\_\+\+LOW}. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The level was read into {\ttfamily Pin\+Val}. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily Pin\+Val} was NULL. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & {\ttfamily Port} or {\ttfamily Pin\+Num} was out of range.\\
+\hline
+\end{DoxyRetVals}
+\begin{DoxyNote}{Note}
+Reads {\ttfamily IDR}, so this reports the level {\itshape on the pin} — for an output pin that is being loaded down, that may differ from what was written. 
+\end{DoxyNote}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00513}{513}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__interface_8h_source_l00072}{GPIO\+\_\+\+PIN15}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00142}{GPIO\+\_\+\+PIN\+\_\+\+HIGH}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00141}{GPIO\+\_\+\+PIN\+\_\+\+LOW}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00026}{GPIO\+\_\+\+Port}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00052}{GPIO\+\_\+\+PORTH}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}.
+
+\Hypertarget{group__mcal__gpio_gaacd1fe5ce0d15fd5040c41745409ca20}\index{GPIO@{GPIO}!GPIO\_enumTogPinVal@{GPIO\_enumTogPinVal}}
+\index{GPIO\_enumTogPinVal@{GPIO\_enumTogPinVal}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumTogPinVal()}{GPIO\_enumTogPinVal()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_gaacd1fe5ce0d15fd5040c41745409ca20} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Tog\+Pin\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{Port}{, }\item[{\doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}}}]{Pin\+Num}{}\end{DoxyParamCaption})}
+
+
+
+Invert the current output level of one pin. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Port} & Which port. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Pin\+Num} & Which pin. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The pin was toggled. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & {\ttfamily Port} or {\ttfamily Pin\+Num} was out of range. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00543}{543}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__interface_8h_source_l00057}{GPIO\+\_\+\+PIN0}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00072}{GPIO\+\_\+\+PIN15}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00026}{GPIO\+\_\+\+Port}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00045}{GPIO\+\_\+\+PORTA}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00052}{GPIO\+\_\+\+PORTH}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}.
+
+
+
+Referenced by \doxymbox{\hyperlink{BUZ__program_8c_source_l00094}{BUZ\+\_\+\+Toggle()}}, and \doxymbox{\hyperlink{LED__prog_8c_source_l00119}{LED\+\_\+\+Toggle()}}.
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=309pt]{group__mcal__gpio_gaacd1fe5ce0d15fd5040c41745409ca20_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__mcal__gpio_ga87a110f35c3bd9d61a84e5dee20df70d}\index{GPIO@{GPIO}!GPIO\_enumWrite8PinsVal@{GPIO\_enumWrite8PinsVal}}
+\index{GPIO\_enumWrite8PinsVal@{GPIO\_enumWrite8PinsVal}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumWrite8PinsVal()}{GPIO\_enumWrite8PinsVal()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_ga87a110f35c3bd9d61a84e5dee20df70d} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Write8\+Pins\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{Port}{, }\item[{\doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}}}]{Start\+Pin}{, }\item[{uint8\+\_\+t}]{Value}{}\end{DoxyParamCaption})}
+
+
+
+Write an 8-\/bit value onto 8 consecutive output pins. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Port} & Which port. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Start\+Pin} & First pin of the run; must be \doxylink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a451abbd2d09eb906813528a1ceccdd03}{GPIO\+\_\+\+PIN8} or below. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Value} & The value to place on the pins, 0x00..0x\+FF. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The value was written. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & {\ttfamily Port} or {\ttfamily Start\+Pin} was out of range.\\
+\hline
+\end{DoxyRetVals}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\doxymbox{\hyperlink{group__mcal__gpio_ga87a110f35c3bd9d61a84e5dee20df70d}{GPIO\_enumWrite8PinsVal}}(\doxymbox{\hyperlink{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24a0d36b47f173bbc4bdced28d8a54fe4ac}{GPIO\_PORTA}},\ \doxymbox{\hyperlink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14adb75bcba02ec80bb4a9773718438047d}{GPIO\_PIN0}},\ 0xFF);}
+
+\end{DoxyCode}
+ 
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00451}{451}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__interface_8h_source_l00065}{GPIO\+\_\+\+PIN8}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00026}{GPIO\+\_\+\+Port}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00052}{GPIO\+\_\+\+PORTH}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}.
+
+\Hypertarget{group__mcal__gpio_ga5df6200f9c0d12a785ab2086f7e441ff}\index{GPIO@{GPIO}!GPIO\_enumWrite4PinsVal@{GPIO\_enumWrite4PinsVal}}
+\index{GPIO\_enumWrite4PinsVal@{GPIO\_enumWrite4PinsVal}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumWrite4PinsVal()}{GPIO\_enumWrite4PinsVal()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_ga5df6200f9c0d12a785ab2086f7e441ff} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Write4\+Pins\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{Port}{, }\item[{\doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}}}]{Start\+Pin}{, }\item[{uint8\+\_\+t}]{Value}{}\end{DoxyParamCaption})}
+
+
+
+Write a 4-\/bit value onto 4 consecutive output pins. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Port} & Which port. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Start\+Pin} & First pin of the run; must be \doxylink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14ae54732352207a6d40be8d329384af84d}{GPIO\+\_\+\+PIN12} or below. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Value} & The value to place on the pins, 0x0..0xF (upper nibble ignored). \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The value was written. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & {\ttfamily Port} or {\ttfamily Start\+Pin} was out of range. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00425}{425}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__interface_8h_source_l00072}{GPIO\+\_\+\+PIN15}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00026}{GPIO\+\_\+\+Port}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00052}{GPIO\+\_\+\+PORTH}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}.
+
+\Hypertarget{group__mcal__gpio_gaceac4c116796951c90c5ec500e6eb602}\index{GPIO@{GPIO}!GPIO\_enumWriteLowNibbleVal@{GPIO\_enumWriteLowNibbleVal}}
+\index{GPIO\_enumWriteLowNibbleVal@{GPIO\_enumWriteLowNibbleVal}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumWriteLowNibbleVal()}{GPIO\_enumWriteLowNibbleVal()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_gaceac4c116796951c90c5ec500e6eb602} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Write\+Low\+Nibble\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{port}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Val}{, }\item[{\doxymbox{\hyperlink{group__mcal__gpio_ga39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}}}]{Pins\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Set or clear a chosen subset of pins 0..3, atomically. 
+
+{\ttfamily Copy\+\_\+u8\+Val} is a {\bfseries{bit mask}}, not a value:\+ bit {\itshape n} selects pin {\itshape n}. Every selected pin is then driven to {\ttfamily Pins\+Val}. The write goes through {\ttfamily BSRR}, so the untouched pins of the port are not disturbed and no read-\/modify-\/write race with an ISR is possible.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em port} & Which port. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Copy\+\_\+u8\+Val} & Mask of the pins to act on; only bits 0..3 are honoured. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Pins\+Val} & \doxylink{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8acef36245ca64f0574b6a3381d607ee23}{GPIO\+\_\+\+PIN\+\_\+\+HIGH} to set the selected pins, \doxylink{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8a15615df0be390aa56563c157ddb5454e}{GPIO\+\_\+\+PIN\+\_\+\+LOW} to clear them. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The selected pins were driven. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & {\ttfamily Pins\+Val} was out of range.\\
+\hline
+\end{DoxyRetVals}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Drive\ pins\ 0\ and\ 2\ of\ port\ A\ high,\ leaving\ pins\ 1\ and\ 3\ untouched.}}
+\DoxyCodeLine{\doxymbox{\hyperlink{group__mcal__gpio_gaceac4c116796951c90c5ec500e6eb602}{GPIO\_enumWriteLowNibbleVal}}(\doxymbox{\hyperlink{group__mcal__gpio_ggabbc5bc638e4c5bb9b75558412fd47e24a0d36b47f173bbc4bdced28d8a54fe4ac}{GPIO\_PORTA}},\ 0x05,\ \doxymbox{\hyperlink{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8acef36245ca64f0574b6a3381d607ee23}{GPIO\_PIN\_HIGH}});}
+
+\end{DoxyCode}
+ 
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00625}{625}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__interface_8h_source_l00142}{GPIO\+\_\+\+PIN\+\_\+\+HIGH}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00141}{GPIO\+\_\+\+PIN\+\_\+\+LOW}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00026}{GPIO\+\_\+\+Port}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}.
+
+\Hypertarget{group__mcal__gpio_gab099300bf9c8765081d9e1d79f8325cb}\index{GPIO@{GPIO}!GPIO\_enumWriteHighNibbleVal@{GPIO\_enumWriteHighNibbleVal}}
+\index{GPIO\_enumWriteHighNibbleVal@{GPIO\_enumWriteHighNibbleVal}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumWriteHighNibbleVal()}{GPIO\_enumWriteHighNibbleVal()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_gab099300bf9c8765081d9e1d79f8325cb} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Write\+High\+Nibble\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{port}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Val}{, }\item[{\doxymbox{\hyperlink{group__mcal__gpio_ga39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}}}]{Pins\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Set or clear a chosen subset of pins 4..7, atomically. 
+
+As \doxylink{group__mcal__gpio_gaceac4c116796951c90c5ec500e6eb602}{GPIO\+\_\+enum\+Write\+Low\+Nibble\+Val}, but for the high nibble:\+ {\ttfamily Copy\+\_\+u8\+Val} is a mask in which bit {\itshape n} selects pin {\itshape n}, and only bits 4..7 are honoured.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em port} & Which port. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Copy\+\_\+u8\+Val} & Mask of the pins to act on; only bits 4..7 are honoured. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Pins\+Val} & \doxylink{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8acef36245ca64f0574b6a3381d607ee23}{GPIO\+\_\+\+PIN\+\_\+\+HIGH} to set the selected pins, \doxylink{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8a15615df0be390aa56563c157ddb5454e}{GPIO\+\_\+\+PIN\+\_\+\+LOW} to clear them. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The selected pins were driven. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & {\ttfamily Pins\+Val} was out of range. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00659}{659}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__interface_8h_source_l00142}{GPIO\+\_\+\+PIN\+\_\+\+HIGH}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00141}{GPIO\+\_\+\+PIN\+\_\+\+LOW}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00026}{GPIO\+\_\+\+Port}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}.
+
+\Hypertarget{group__mcal__gpio_gab7a2804415a4ada1da55f247f7d251aa}\index{GPIO@{GPIO}!GPIO\_enumWriteByteVal@{GPIO\_enumWriteByteVal}}
+\index{GPIO\_enumWriteByteVal@{GPIO\_enumWriteByteVal}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumWriteByteVal()}{GPIO\_enumWriteByteVal()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_gab7a2804415a4ada1da55f247f7d251aa} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Write\+Byte\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{port}{, }\item[{uint8\+\_\+t}]{Copy\+\_\+u8\+Val}{, }\item[{\doxymbox{\hyperlink{group__mcal__gpio_ga39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}}}]{Pins\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Set or clear a chosen subset of pins 0..7, atomically. 
+
+As \doxylink{group__mcal__gpio_gaceac4c116796951c90c5ec500e6eb602}{GPIO\+\_\+enum\+Write\+Low\+Nibble\+Val}, but the mask covers the whole low byte.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em port} & Which port. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Copy\+\_\+u8\+Val} & Mask of the pins to act on, bits 0..7. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Pins\+Val} & \doxylink{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8acef36245ca64f0574b6a3381d607ee23}{GPIO\+\_\+\+PIN\+\_\+\+HIGH} to set the selected pins, \doxylink{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8a15615df0be390aa56563c157ddb5454e}{GPIO\+\_\+\+PIN\+\_\+\+LOW} to clear them. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The selected pins were driven. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & {\ttfamily Pins\+Val} was out of range. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00693}{693}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__interface_8h_source_l00142}{GPIO\+\_\+\+PIN\+\_\+\+HIGH}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00141}{GPIO\+\_\+\+PIN\+\_\+\+LOW}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00026}{GPIO\+\_\+\+Port}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}.
+
+\Hypertarget{group__mcal__gpio_ga3e3bfad526b91ab38ea3fdb971d015a7}\index{GPIO@{GPIO}!GPIO\_enumWriteHalfWordVal@{GPIO\_enumWriteHalfWordVal}}
+\index{GPIO\_enumWriteHalfWordVal@{GPIO\_enumWriteHalfWordVal}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumWriteHalfWordVal()}{GPIO\_enumWriteHalfWordVal()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_ga3e3bfad526b91ab38ea3fdb971d015a7} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Write\+Half\+Word\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{port}{, }\item[{uint16\+\_\+t}]{Copy\+\_\+u16\+Val}{, }\item[{\doxymbox{\hyperlink{group__mcal__gpio_ga39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}}}]{Pins\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Set or clear a chosen subset of all 16 pins, atomically. 
+
+As \doxylink{group__mcal__gpio_gaceac4c116796951c90c5ec500e6eb602}{GPIO\+\_\+enum\+Write\+Low\+Nibble\+Val}, but the mask covers all 16 pins.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em port} & Which port. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Copy\+\_\+u16\+Val} & Mask of the pins to act on, bits 0..15. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Pins\+Val} & \doxylink{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8acef36245ca64f0574b6a3381d607ee23}{GPIO\+\_\+\+PIN\+\_\+\+HIGH} to set the selected pins, \doxylink{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8a15615df0be390aa56563c157ddb5454e}{GPIO\+\_\+\+PIN\+\_\+\+LOW} to clear them. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The selected pins were driven. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & {\ttfamily Pins\+Val} was out of range. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00727}{727}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__interface_8h_source_l00142}{GPIO\+\_\+\+PIN\+\_\+\+HIGH}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00141}{GPIO\+\_\+\+PIN\+\_\+\+LOW}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00026}{GPIO\+\_\+\+Port}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}.
+
+\Hypertarget{group__mcal__gpio_gaad5061927697c0d2f8f99c6aa146c605}\index{GPIO@{GPIO}!GPIO\_enumWritePortVal@{GPIO\_enumWritePortVal}}
+\index{GPIO\_enumWritePortVal@{GPIO\_enumWritePortVal}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumWritePortVal()}{GPIO\_enumWritePortVal()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_gaad5061927697c0d2f8f99c6aa146c605} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Write\+Port\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{port}{, }\item[{uint16\+\_\+t}]{Copy\+\_\+u16\+Val}{, }\item[{\doxymbox{\hyperlink{group__mcal__gpio_ga39c3ed4d8322ee2c517bd0d8e064e4f8}{GPIO\+\_\+\+Pin\+Value\+\_\+t}}}]{Pins\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Set or clear a chosen subset of all 16 pins, atomically. 
+
+Identical in behaviour to \doxylink{group__mcal__gpio_ga3e3bfad526b91ab38ea3fdb971d015a7}{GPIO\+\_\+enum\+Write\+Half\+Word\+Val} — a port on this MCU is 16 pins wide, so a "{}port"{} write and a "{}half word"{} write cover the same bits.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em port} & Which port. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Copy\+\_\+u16\+Val} & Mask of the pins to act on, bits 0..15. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Pins\+Val} & \doxylink{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8acef36245ca64f0574b6a3381d607ee23}{GPIO\+\_\+\+PIN\+\_\+\+HIGH} to set the selected pins, \doxylink{group__mcal__gpio_gga39c3ed4d8322ee2c517bd0d8e064e4f8a15615df0be390aa56563c157ddb5454e}{GPIO\+\_\+\+PIN\+\_\+\+LOW} to clear them. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The selected pins were driven. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & {\ttfamily Pins\+Val} was out of range. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00761}{761}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__interface_8h_source_l00142}{GPIO\+\_\+\+PIN\+\_\+\+HIGH}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00141}{GPIO\+\_\+\+PIN\+\_\+\+LOW}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00026}{GPIO\+\_\+\+Port}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}.
+
+\Hypertarget{group__mcal__gpio_ga4456597da20f47afdce69e0a87b6ef21}\index{GPIO@{GPIO}!GPIO\_enumRead4PinsVal@{GPIO\_enumRead4PinsVal}}
+\index{GPIO\_enumRead4PinsVal@{GPIO\_enumRead4PinsVal}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumRead4PinsVal()}{GPIO\_enumRead4PinsVal()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_ga4456597da20f47afdce69e0a87b6ef21} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Read4\+Pins\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{Port}{, }\item[{\doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}}}]{Start\+Pin}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{Pins\+Value}{}\end{DoxyParamCaption})}
+
+
+
+Read 4 consecutive pins as a 4-\/bit value. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Port} & Which port. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Start\+Pin} & First pin of the run; must be \doxylink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14ae54732352207a6d40be8d329384af84d}{GPIO\+\_\+\+PIN12} or below. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em Pins\+Value} & Receives the 4-\/bit value, right-\/aligned in the byte. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The value was read. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily Pins\+Value} was NULL. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & {\ttfamily Port} or {\ttfamily Start\+Pin} was out of range. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00567}{567}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__interface_8h_source_l00072}{GPIO\+\_\+\+PIN15}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00026}{GPIO\+\_\+\+Port}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00052}{GPIO\+\_\+\+PORTH}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}.
+
+\Hypertarget{group__mcal__gpio_gab9623ca12f3b7738af049c3bbb858359}\index{GPIO@{GPIO}!GPIO\_enumRead8PinsVal@{GPIO\_enumRead8PinsVal}}
+\index{GPIO\_enumRead8PinsVal@{GPIO\_enumRead8PinsVal}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumRead8PinsVal()}{GPIO\_enumRead8PinsVal()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_gab9623ca12f3b7738af049c3bbb858359} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Read8\+Pins\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{Port}{, }\item[{\doxymbox{\hyperlink{group__mcal__gpio_ga5fbd1b6f232b4bf0b9ca60ea2d01da14}{GPIO\+\_\+\+Pin\+\_\+t}}}]{Start\+Pin}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{Pins\+Value}{}\end{DoxyParamCaption})}
+
+
+
+Read 8 consecutive pins as an 8-\/bit value. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Port} & Which port. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Start\+Pin} & First pin of the run; must be \doxylink{group__mcal__gpio_gga5fbd1b6f232b4bf0b9ca60ea2d01da14a451abbd2d09eb906813528a1ceccdd03}{GPIO\+\_\+\+PIN8} or below. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em Pins\+Value} & Receives the 8-\/bit value, right-\/aligned. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The value was read. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily Pins\+Value} was NULL. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & {\ttfamily Port} or {\ttfamily Start\+Pin} was out of range. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00597}{597}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__interface_8h_source_l00072}{GPIO\+\_\+\+PIN15}}, \doxymbox{\hyperlink{GPIO__prog_8c_source_l00026}{GPIO\+\_\+\+Port}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00052}{GPIO\+\_\+\+PORTH}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}.
+
+\Hypertarget{group__mcal__gpio_gaa9ab64bad7421597169c43d8bd3e16e3}\index{GPIO@{GPIO}!GPIO\_enumReadLowNibbleVal@{GPIO\_enumReadLowNibbleVal}}
+\index{GPIO\_enumReadLowNibbleVal@{GPIO\_enumReadLowNibbleVal}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumReadLowNibbleVal()}{GPIO\_enumReadLowNibbleVal()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_gaa9ab64bad7421597169c43d8bd3e16e3} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Read\+Low\+Nibble\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{port}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{Low\+Nibble\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Read pins 0..3 of a port as a nibble. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em port} & Which port. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em Low\+Nibble\+Val} & Receives the value of pins 0..3, right-\/aligned. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The value was read. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily Low\+Nibble\+Val} was NULL. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & {\ttfamily port} was out of range. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00795}{795}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__prog_8c_source_l00026}{GPIO\+\_\+\+Port}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00052}{GPIO\+\_\+\+PORTH}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}.
+
+\Hypertarget{group__mcal__gpio_gab0614709e608d60a6da511e6382c5448}\index{GPIO@{GPIO}!GPIO\_enumReadHighNibbleVal@{GPIO\_enumReadHighNibbleVal}}
+\index{GPIO\_enumReadHighNibbleVal@{GPIO\_enumReadHighNibbleVal}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumReadHighNibbleVal()}{GPIO\_enumReadHighNibbleVal()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_gab0614709e608d60a6da511e6382c5448} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Read\+High\+Nibble\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{port}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{High\+Nibble\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Read pins 4..7 of a port as a nibble. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em port} & Which port. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em High\+Nibble\+Val} & Receives the value of pins 4..7, right-\/aligned. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The value was read. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily High\+Nibble\+Val} was NULL. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & {\ttfamily port} was out of range. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00822}{822}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__prog_8c_source_l00026}{GPIO\+\_\+\+Port}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00052}{GPIO\+\_\+\+PORTH}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}.
+
+\Hypertarget{group__mcal__gpio_ga1a62e3dea2ba83b5492640e9f8f88bcf}\index{GPIO@{GPIO}!GPIO\_enumReadByteVal@{GPIO\_enumReadByteVal}}
+\index{GPIO\_enumReadByteVal@{GPIO\_enumReadByteVal}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumReadByteVal()}{GPIO\_enumReadByteVal()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_ga1a62e3dea2ba83b5492640e9f8f88bcf} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Read\+Byte\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{port}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{Byte\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Read pins 0..7 of a port as a byte. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em port} & Which port. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em Byte\+Val} & Receives the value of pins 0..7. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The value was read. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily Byte\+Val} was NULL. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & {\ttfamily port} was out of range. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00849}{849}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__prog_8c_source_l00026}{GPIO\+\_\+\+Port}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00052}{GPIO\+\_\+\+PORTH}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}.
+
+\Hypertarget{group__mcal__gpio_gadccafed2049928790efb22602bfcef67}\index{GPIO@{GPIO}!GPIO\_enumReadHalfPortVal@{GPIO\_enumReadHalfPortVal}}
+\index{GPIO\_enumReadHalfPortVal@{GPIO\_enumReadHalfPortVal}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumReadHalfPortVal()}{GPIO\_enumReadHalfPortVal()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_gadccafed2049928790efb22602bfcef67} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Read\+Half\+Port\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{port}{, }\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{Half\+Port\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Read all 16 pins of a port as a half word. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em port} & Which port. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em Half\+Port\+Val} & Receives the value of pins 0..15. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The value was read. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily Half\+Port\+Val} was NULL. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & {\ttfamily port} was out of range. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00876}{876}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__prog_8c_source_l00026}{GPIO\+\_\+\+Port}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00052}{GPIO\+\_\+\+PORTH}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}.
+
+\Hypertarget{group__mcal__gpio_ga518fc2c707c44cdc8a356ba08d27f4a6}\index{GPIO@{GPIO}!GPIO\_enumReadPortVal@{GPIO\_enumReadPortVal}}
+\index{GPIO\_enumReadPortVal@{GPIO\_enumReadPortVal}!GPIO@{GPIO}}
+\doxysubsubsubsection{\texorpdfstring{GPIO\_enumReadPortVal()}{GPIO\_enumReadPortVal()}}
+{\footnotesize\ttfamily \label{group__mcal__gpio_ga518fc2c707c44cdc8a356ba08d27f4a6} 
+\doxymbox{\hyperlink{group__lib_ga74f58890b599c641e4382ff49c4a3e81}{Error\+State\+\_\+t}} GPIO\+\_\+enum\+Read\+Port\+Val (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__mcal__gpio_gabbc5bc638e4c5bb9b75558412fd47e24}{GPIO\+\_\+\+Port\+\_\+t}}}]{port}{, }\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{Port\+Val}{}\end{DoxyParamCaption})}
+
+
+
+Read the whole {\ttfamily IDR} register of a port. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em port} & Which port. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em Port\+Val} & Receives {\ttfamily IDR}; only bits 0..15 carry pin levels. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a2bc49ec37d6a5715dd23e85f1ff5bb59}{OK}} & The value was read. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81a4fb873dc451927ef6a70af3a1e7f08bd}{NULL\+\_\+\+POINTER}} & {\ttfamily Port\+Val} was NULL. \\
+\hline
+{\em \doxylink{group__lib_gga74f58890b599c641e4382ff49c4a3e81ab057804c04435b55514a8babf5434ef6}{NOK}} & {\ttfamily port} was out of range. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \doxymbox{\hyperlink{GPIO__prog_8c_source_l00903}{903}} of file \doxymbox{\hyperlink{GPIO__prog_8c_source}{GPIO\+\_\+prog.\+c}}.
+
+
+
+References \doxymbox{\hyperlink{GPIO__prog_8c_source_l00026}{GPIO\+\_\+\+Port}}, \doxymbox{\hyperlink{GPIO__interface_8h_source_l00052}{GPIO\+\_\+\+PORTH}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00043}{NOK}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00024}{NULL}}, \doxymbox{\hyperlink{ErrTypes_8h_source_l00044}{NULL\+\_\+\+POINTER}}, and \doxymbox{\hyperlink{ErrTypes_8h_source_l00042}{OK}}.
+

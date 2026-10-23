@@ -1,14 +1,10 @@
 /**
- **===========================================================================**
- **<<<<<<<<<<<<<<<<<<<<<<<<<<    SCB_program.c    >>>>>>>>>>>>>>>>>>>>>>>>>>>>**
- **                                                                           **
- **                  Author : Abdallah Abdelmoemen Shehawey                   **
- **                  Layer  : MCAL                                            **
- **                  CPU    : Cortex-M4                                       **
- **                  MCU    : NUCLEO-F446RE                                   **
- **                  SWC    : SCB                                             **
- **                                                                           **
- **===========================================================================**
+ ******************************************************************************
+ * @file    SCB_program.c
+ * @author  Abdallah Abdelmoemen Shehawey
+ * @brief   Implementation of the SCB driver — the system control block.
+ * @ingroup mcal_scb
+ ******************************************************************************
  */
 #include <stdint.h>
 
@@ -36,11 +32,11 @@ ErrorState_t SCB_vSetPriorityGrouping(uint8_t Copy_u8PriorityGrouping)
 
 void SystemInit(void)
 {
-    /* Enable FPU (Full access to CP10 and CP11) */
-    /* Access Control Register (CPACR) address: 0xE000ED88 */
-    volatile uint32_t *Local_p32CPACR = (uint32_t *)0xE000ED88;
-    *Local_p32CPACR |= ((3UL << 10*2) | (3UL << 11*2));
-    
-    /* Optional: Force NVIC State reset to avoid unpredictable behavior after reset */
-    /* Handled by startup usually, but extra safety */
+  /* Enable FPU (Full access to CP10 and CP11) */
+  /* Access Control Register (CPACR) address: 0xE000ED88 */
+  volatile uint32_t *Local_p32CPACR = (uint32_t *)0xE000ED88;
+  *Local_p32CPACR |= ((3UL << 10 * 2) | (3UL << 11 * 2));
+
+  /* Optional: Force NVIC State reset to avoid unpredictable behavior after reset */
+  /* Handled by startup usually, but extra safety */
 }
