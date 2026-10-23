@@ -47,7 +47,10 @@ AMBULANCE_ID = "REX"              # MUST match AMBULANCE_ID in Intelligent_Gatew
 
 FOCAL_LENGTH      = 700           # px, calibrate for your camera
 KNOWN_PLATE_WIDTH = 0.45          # m
-MIN_CAR_WIDTH     = 150           # px, ignore far/small cars
+MIN_CAR_WIDTH     = 80            # px, ignore far/small cars
+CAR_REAL_WIDTH_M  = 1.8           # m, used when the plate can't be read
+CAR_FOCAL_PX      = 650           # px, fallback focal length
+MAX_FALLBACK_DIST = 100           # m
 PROCESS_EVERY_N   = 10            # run detection every N frames
 SPEED_ASSUMED     = 5.0           # m/s, used for the ambulance pause time
 HEARTBEAT_SEC     = 1.0
@@ -137,6 +140,7 @@ try:
             continue
 
         results = car_detector(frame, verbose=False)
+        print(f"[frame {frame_count}] boxes detected: {len(results[0].boxes)}")
 
         for box in results[0].boxes:
             if int(box.cls[0]) != 2 or float(box.conf[0]) <= 0.5:
@@ -156,6 +160,7 @@ try:
             gray = cv2.equalizeHist(gray)
             _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
+            published = False
             for (bbox, text, conf) in reader.readtext(thresh, detail=1, paragraph=False):
                 cleaned = re.sub(r"[^A-Z0-9]", "", text.upper().replace(" ", ""))
                 if len(cleaned) < 4:
@@ -178,6 +183,7 @@ try:
                 detected_plates[cleaned] = {"frame": frame_count, "distance": distance}
 
                 publish(cleaned, distance, is_ambulance)
+                published = True
 
                 # ── Ambulance: hold (time-based) and keep the heartbeat alive ──
                 if is_ambulance:
@@ -189,6 +195,13 @@ try:
                         time.sleep(HEARTBEAT_SEC)
                     print("Resumed.")
                 break   # one plate per car
+
+            # ── Fallback: plate unreadable -> distance from CAR width ──
+            if not published:
+                car_dist = (CAR_REAL_WIDTH_M * CAR_FOCAL_PX) / (x2 - x1)
+                if car_dist <= MAX_FALLBACK_DIST:
+                    publish("???", car_dist, False)
+                    print(f"[CAR] plate unreadable | {car_dist:.1f} m (from car width)")
 
 except KeyboardInterrupt:
     print("\nStopped by user.")

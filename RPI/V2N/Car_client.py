@@ -61,10 +61,15 @@ ipc = IPCNode("car_display")
 # ============================================================
 # Shared state
 # ============================================================
-DEFAULT_SPEED_KMH = 120.0     # test value until the STM32 speed arrives (set 0.0 for real use)
+# ── TEST MODE ────────────────────────────────────────────────
+# True  -> if the camera sends no distance / STM32 speed is 0, use the values below.
+# False -> real data only (set this when everything is connected).
+USE_TEST_VALUES = True
+TEST_DISTANCE_M = 20.0
+TEST_SPEED_KMH  = 30.0
 
 _state_lock      = threading.Lock()
-_speed_kmh       = DEFAULT_SPEED_KMH
+_speed_kmh       = TEST_SPEED_KMH if USE_TEST_VALUES else 0.0
 _distance_m      = None
 _remaining_time  = 0
 _light_state     = "RED"
@@ -140,7 +145,10 @@ def _compute_traffic_flag(state, is_emergency, crossing_flag):
 def _on_vehicle_speed(topic, data, sender):
     global _speed_kmh
     with _state_lock:
-        _speed_kmh = _safe_float(data.get("speed_kmh")) or 0.0
+        real = _safe_float(data.get("speed_kmh")) or 0.0
+        if USE_TEST_VALUES and real < 1.0:
+            real = TEST_SPEED_KMH
+        _speed_kmh = real
     _publish_v2n_frame()
 
 
@@ -210,7 +218,8 @@ def on_message(client, userdata, msg):
             _warning         = data.get("warning", "Normal Traffic")
             _density         = _safe_int(data.get("density"), 0)
             _nearby_count    = _safe_int(data.get("nearby_count"), 0)
-            _distance_m      = dist_m
+            _distance_m      = dist_m if dist_m is not None else (
+                                   TEST_DISTANCE_M if USE_TEST_VALUES else None)
             _closest_vehicle = {"plate_id": plate_id, "distance_m": dist_m}
 
         _publish_v2n_frame()
